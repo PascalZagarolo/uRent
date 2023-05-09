@@ -1,6 +1,5 @@
 'use client'
 
-import { Alert } from "@/components/ui/alert";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,7 +11,7 @@ import { businessAddress } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 import axios from "axios";
-import { CheckIcon, ImageIcon, MapPinIcon, PencilLineIcon, TrashIcon, X } from "lucide-react";
+import { CheckIcon, ImageIcon, MapPinIcon, TrashIcon, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -30,7 +29,6 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
     thisStandort,
     ownProfile
 }) => {
-
     const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
         try {
             setIsLoading(true);
@@ -56,7 +54,7 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
     const [isPrimary, setIsPrimary] = useState(thisStandort?.isPrimary);
 
     const [shownImage, setShownImage] = useState<string>(thisStandort?.image);
-
+    
     const [deleteImage, setDeleteImage] = useState(false);
 
     const router = useRouter();
@@ -65,8 +63,6 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
         getRootProps,
         getInputProps,
         isDragActive,
-        isDragAccept,
-        isDragReject,
     } = useDropzone({ onDrop, maxFiles: 1 });
 
 

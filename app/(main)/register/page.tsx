@@ -1,13 +1,24 @@
+import CredForm from "../_components/login-form";
+
 const RegisterPage = () => {
-    return ( 
+    return (
         <div>
             <main>
-                <h3>
-                    Registrieren
-                </h3>
+                <div className='flex justify-center items-center'>
+                    <h3 className='font-semibold text-2xl py-8'>
+                        Konto erstellen
+                    </h3>
+                </div>
+
+                <div className='flex justify-center items-center'>
+                    <CredForm 
+                    registration={true}
+                    />
+                </div>
+
             </main>
         </div>
-     );
+    )
 }
  
 export default RegisterPage;

@@ -41,7 +41,7 @@ const CredForm: React.FC<CredFormProps> = ({
                     <Lock className="h-4 w-4 mr-2"/>
                     Passwort
                 </label>
-                <Input placeholder="test@test.com"
+                <Input placeholder="Passwort"
                 className="mt-2"
                 type="password"/>
             </div>

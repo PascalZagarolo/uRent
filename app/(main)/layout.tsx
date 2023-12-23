@@ -5,12 +5,17 @@ const LoginLayout = (
 ) => {
     return ( 
         <div className="w-full h-full">
-            <h3>
-                <img src="https://www.dropbox.com/scl/fi/wahybxd3r4csu5vbhtzli/u-rent_wei.PNG?rlkey=s3nd48yxcvli0kd41ftbuusa5&dl=0" alt="logo"/>
-            </h3>
+            <div>
+                <h3 className="font-semibold text-4xl flex justify-center mt-8">
+                    <p className="text-blue-800">u</p> Rent
+                </h3>
+            </div>
+            <div className="mt-8">
             {
                 children
             }
+            </div>
+            
         </div>
      );
 }

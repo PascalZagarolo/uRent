@@ -6,6 +6,8 @@ import { Github, GithubIcon, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import SignInGithub from "./sign-in-github";
 import SignInWithGithub from "./sign-in-github";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 interface CredFormProps {
     registration?: boolean;
@@ -14,8 +16,19 @@ interface CredFormProps {
 const CredForm: React.FC<CredFormProps> = ({
     registration
 }) => {
+
+    const [email, setEmail] = useState<null | string>(null);
+
+    async function SignInWithEmail() {
+        const signInResult = await signIn("email", {
+            email: email,
+            callbackUrl: `${window.location.origin}`
+        })
+    }
+
     return (
         <div>
+            <form action={SignInWithEmail}>
             {
                 registration && (
                     <div className=" mb-2">
@@ -24,9 +37,10 @@ const CredForm: React.FC<CredFormProps> = ({
                             E-Mail Addresse
                         </label>
                         <Input placeholder="test@test.com"
+                        onChange={(e) => setEmail(e.target.value)}
                         name="email"
                         type="email"
-                            className="mt-2" />
+                        className="mt-2" />
                     </div>
                 )
             }
@@ -77,7 +91,7 @@ const CredForm: React.FC<CredFormProps> = ({
                 <SignInWithGithub/>
                 
             </div>
-
+            </form>
         </div>
     );
 }

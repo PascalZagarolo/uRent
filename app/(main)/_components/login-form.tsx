@@ -2,8 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Lock, Mail, User } from "lucide-react";
+import { Github, GithubIcon, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
+import SignInGithub from "./sign-in-github";
+import SignInWithGithub from "./sign-in-github";
 
 interface CredFormProps {
     registration?: boolean;
@@ -22,6 +24,8 @@ const CredForm: React.FC<CredFormProps> = ({
                             E-Mail Addresse
                         </label>
                         <Input placeholder="test@test.com"
+                        name="email"
+                        type="email"
                             className="mt-2" />
                     </div>
                 )
@@ -35,6 +39,8 @@ const CredForm: React.FC<CredFormProps> = ({
                     Nutzername
                 </label>
                 <Input placeholder="test@test.com"
+                name="username"
+                type="username"
                     className="mt-2" />
             </div>
 
@@ -45,8 +51,12 @@ const CredForm: React.FC<CredFormProps> = ({
                 </label>
                 <Input placeholder="Passwort"
                     className="mt-2"
-                    type="password" />
+                    type="password"
+                    name="password"
+                    
+                    />
             </div>
+            
             <div>
                 {!registration ? (
                     <Link href="/register" className="text-xs font-semibold text-blue-800/50">
@@ -63,6 +73,10 @@ const CredForm: React.FC<CredFormProps> = ({
                     registration ? "Registrieren" : "Einloggen"
                 }
             </Button>
+            <div className="mt-2 flex justify-center">
+                <SignInWithGithub/>
+                
+            </div>
 
         </div>
     );

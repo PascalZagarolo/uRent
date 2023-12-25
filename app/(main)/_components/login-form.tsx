@@ -63,7 +63,7 @@ const CredForm: React.FC<CredFormProps> = ({
                         neu hier? Registriere einen neuen Account
                     </Link>
                 ) : (
-                    <Link href="/" className="text-xs font-semibold text-blue-800/50">
+                    <Link href="/login" className="text-xs font-semibold text-blue-800/50">
                         oder mit einem bestehendem Konto anmelden
                     </Link>
                 )}

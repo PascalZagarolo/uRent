@@ -8,6 +8,7 @@ import SignInGithub from "./sign-in-github";
 import SignInWithGithub from "./sign-in-github";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { toast } from "@/components/ui/use-toast";
 
 interface CredFormProps {
     registration?: boolean;
@@ -22,9 +23,24 @@ const CredForm: React.FC<CredFormProps> = ({
     async function SignInWithEmail() {
         const signInResult = await signIn("email", {
             email: email,
-            callbackUrl: `${window.location.origin}`
+            callbackUrl: `${window.location.origin}`,
+            redirect: false
         })
+
+        if(!signInResult?.ok) {
+            return toast({
+                title: "Etwas ist schief gelaufen",
+                description: "Bitte versuche es erneut",
+                variant: "destructive"
+            })
+        } else {
+            return toast({
+                title: "E-Mail gesendet",
+                description: "Bitte überprüfe dein Postfach"
+            })
+        }
     }
+
 
     return (
         <div>

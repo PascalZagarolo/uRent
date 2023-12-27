@@ -15,11 +15,12 @@ const LocationPerimeter = () => {
     ]
 
     return (
-        <div className='w-[300px]'>
+        <div className='w-[300px] flex justify-start'>
             <Select options={options}
         defaultValue={options[0]} 
         className='flex justify-start mt-2  w-full ml-8 position: fixed'
         />
+        
         </div> 
         
      );

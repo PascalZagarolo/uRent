@@ -1,33 +1,19 @@
-import bcrypt from 'bcrypt'
-import { NextResponse } from 'next/server'
+import bcrypt from "bcrypt";
+
+import prisma from '@/app/utils/db'
+import { NextResponse } from "next/server";
 
 export async function POST(
-    request: Request,
+  request: Request
 ) {
-    try {
-        const body = await request.json()
-    const { email,
-            name,
-            password } = body
-
-        if(!email || !name || !password) {
-            return new NextResponse("Fehlende Daten" , { status : 400 })
+  
+    const user = await prisma.user.create({
+        data : {
+            name : "Name",
+            email: "test@test.com",
+            hashedPassword : await bcrypt.hash("password", 10)
         }
+    })
 
-        const hashedPassword = await bcrypt.hash(password, 12);
-
-        const user = await prisma?.user.create({
-            data : {
-                email : email,
-                name : name,
-                hashedPassword : hashedPassword
-            }
-        })
-
-        return NextResponse.json(user)
-    } catch(error) {
-        console.log(error);
-        return NextResponse.json("Interner Server Error" , { status : 500 })
-    }
-    
+  return NextResponse.json(user);
 }

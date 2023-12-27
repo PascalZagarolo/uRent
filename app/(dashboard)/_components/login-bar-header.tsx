@@ -8,7 +8,7 @@ const LoginBarHeader = () => {
         <div className="flex justify-start ml-20 items-center mt-4">
             <Button variant="ghost" size="sm" className="outline outline-offset-1 outline-1 mr-4" asChild>
                 <Link href="/login">
-                    Einloggen
+                    Anmelden
                 </Link>
             </Button>
             <p> oder </p>

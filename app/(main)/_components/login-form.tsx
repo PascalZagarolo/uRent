@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
+import axios from 'axios'
 
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -75,7 +76,11 @@ const CredForm: React.FC<CredFormProps> = ({
       });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log("---")
+        console.log(data)
+
+        if(variant === 'REGISTER') {
+          axios.post('/api/register')
+        }
     }
 
 

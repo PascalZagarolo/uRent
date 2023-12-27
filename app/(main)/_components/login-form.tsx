@@ -13,14 +13,12 @@ import Github from "next-auth/providers/github";
 import { GithubIcon } from "lucide-react";
 import Input from "@/components/input";
 
-interface CredFormProps {
-    registration?: boolean;
-}
 
 
 
-const CredForm: React.FC<CredFormProps> = ({
-    registration
+
+const CredForm = ({
+    
 }) => {
 
     type Variant = "LOGIN" | "REGISTER";
@@ -32,26 +30,7 @@ const CredForm: React.FC<CredFormProps> = ({
     const [email, setEmail] = useState<null | string>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    async function SignInWithEmail() {
-        const signInResult = await signIn("email", {
-            email: email,
-            callbackUrl: `${window.location.origin}`,
-            redirect: false
-        })
-
-        if(!signInResult?.ok) {
-            return toast({
-                title: "Etwas ist schief gelaufen",
-                description: "Bitte versuche es erneut",
-                variant: "destructive"
-            })
-        } else {
-            return toast({
-                title: "E-Mail gesendet",
-                description: "Bitte überprüfe dein Postfach"
-            })
-        }
-    }
+    
 
     const toggleVariant = useCallback(() => {
         if(variant === 'LOGIN') {
@@ -75,13 +54,14 @@ const CredForm: React.FC<CredFormProps> = ({
         }
       });
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data)
+      const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        setIsLoading(true);
 
         if(variant === 'REGISTER') {
-          axios.post('/api/register')
+          axios.post('/api/register', data)
         }
-    }
+        
+      }
 
 
     return (

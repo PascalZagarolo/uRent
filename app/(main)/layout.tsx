@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import Image from "next/image";
-import { authOptions } from "../utils/auth";
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -8,7 +8,7 @@ const LoginLayout = async (
     { children }: { children: React.ReactNode }
 ) => {
 
-    const session = await getServerSession(authOptions)
+   
 
     return (
         <div className="w-full h-full">

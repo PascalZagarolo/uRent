@@ -12,7 +12,7 @@ const RegisterPage = () => {
 
                 <div className='flex justify-center items-center'>
                     <CredForm 
-                    registration={true}
+                    
                     />
                 </div>
 

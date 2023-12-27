@@ -1,24 +1,35 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Github, GithubIcon, Lock, Mail, User } from "lucide-react";
-import Link from "next/link";
-import SignInGithub from "./sign-in-github";
-import SignInWithGithub from "./sign-in-github";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+
+
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useCallback, useState } from "react";
+import { signIn, } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import Github from "next-auth/providers/github";
+import { GithubIcon } from "lucide-react";
+import Input from "@/components/input";
 
 interface CredFormProps {
     registration?: boolean;
 }
 
+
+
 const CredForm: React.FC<CredFormProps> = ({
     registration
 }) => {
 
+    type Variant = "LOGIN" | "REGISTER";
+
+   
+    const router = useRouter();
+    const [variant, setVariant] = useState<Variant>('LOGIN');
+
     const [email, setEmail] = useState<null | string>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     async function SignInWithEmail() {
         const signInResult = await signIn("email", {
@@ -41,74 +52,133 @@ const CredForm: React.FC<CredFormProps> = ({
         }
     }
 
+    const toggleVariant = useCallback(() => {
+        if(variant === 'LOGIN') {
+            setVariant('REGISTER')
+        } else if (variant === 'REGISTER') {
+            setVariant('LOGIN')
+        }
+    }, [variant])
+
+    const {
+        register,
+        handleSubmit,
+        formState: {
+          errors,
+        }
+      } = useForm<FieldValues>({
+        defaultValues: {
+          name: '',
+          email: '',
+          password: ''
+        }
+      });
+
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        console.log("---")
+    }
+
 
     return (
-        <div>
-            <form action={SignInWithEmail}>
-            {
-                registration && (
-                    <div className=" mb-2">
-                        <label className="text-sm font-semibold flex items-center">
-                            <Mail className="h-4 w-4 mr-2" />
-                            E-Mail Addresse
-                        </label>
-                        <Input placeholder="test@test.com"
-                        onChange={(e) => setEmail(e.target.value)}
-                        name="email"
-                        type="email"
-                        className="mt-2" />
-                    </div>
-                )
-            }
-
-
-            <div className="mt-4 mb-2">
-
-                <label className="text-sm font-semibold flex items-center">
-                    <User className="h-4 w-4 mr-2" />
-                    Nutzername
-                </label>
-                <Input placeholder="test@test.com"
-                name="username"
-                type="username"
-                    className="mt-2" />
-            </div>
-
-            <div className="mt-4 mb-2">
-                <label className="text-sm font-semibold flex items-center">
-                    <Lock className="h-4 w-4 mr-2" />
-                    Passwort
-                </label>
-                <Input placeholder="Passwort"
-                    className="mt-2"
-                    type="password"
-                    name="password"
-                    
-                    />
-            </div>
-            
-            <div>
-                {!registration ? (
-                    <Link href="/register" className="text-xs font-semibold text-blue-800/50">
-                        neu hier? Registriere einen neuen Account
-                    </Link>
-                ) : (
-                    <Link href="/login" className="text-xs font-semibold text-blue-800/50">
-                        oder mit einem bestehendem Konto anmelden
-                    </Link>
-                )}
-            </div>
-            <Button className="mt-4 bg-blue-800">
-                {
-                    registration ? "Registrieren" : "Einloggen"
-                }
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div 
+        className="
+        bg-white
+          px-4
+          py-8
+          shadow
+          sm:rounded-lg
+          sm:px-10
+        "
+      >
+        <form 
+          className="space-y-6" 
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          {variant === 'REGISTER' && (
+            <Input
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              id="name" 
+              label="Nutzername"
+            />
+          )}
+          <Input 
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+            id="email" 
+            label="Email" 
+            type="email"
+          />
+          <Input 
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+            id="password" 
+            label="Passwort" 
+            type="password"
+          />
+          <div>
+            <Button disabled={isLoading}  type="submit" className="bg-blue-800 hover:bg-blue-800/50">
+              {variant === 'LOGIN' ? 'Einloggen' : 'Registrieren'}
             </Button>
-            <div className="mt-2 flex justify-center">
-                <SignInWithGithub/>
-                
+          </div>
+        </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div 
+              className="
+                absolute 
+                inset-0 
+                flex 
+                items-center
+              "
+            >
+              <div className="w-full border-t border-gray-300" />
             </div>
-            </form>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-white px-2 text-gray-500">
+                sonstige Anmeldemöglichkeiten
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-6 flex gap-2 justify-center">
+            <Button variant="ghost">
+                <GithubIcon/>
+            </Button>
+            
+          </div>
         </div>
+        <div 
+          className="
+            flex 
+            gap-2 
+            justify-center 
+            text-sm 
+            mt-6 
+            px-2 
+            text-gray-500
+          "
+        >
+          <div>
+            {variant === 'LOGIN' ? 'Neu auf uRent?' : 'Ich besitze schon einen Account'} 
+          </div>
+          <div 
+            onClick={toggleVariant} 
+            className="underline cursor-pointer"
+          >
+            {variant === 'LOGIN' ? 'Erstelle einen Account' : 'Einloggen'}
+          </div>
+        </div>
+      </div>
+    </div>
     );
 }
 

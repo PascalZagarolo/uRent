@@ -20,7 +20,7 @@ export async function POST(
             data : {
                 email : email,
                 name : name,
-                hashedPassword
+                hashedPassword : hashedPassword
             }
         })
 

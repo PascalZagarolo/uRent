@@ -4,6 +4,7 @@ import React from "react";
 
 import HeaderLogo from "./_components/header-logo";
 import Header from "./_components/header";
+import getCurrentUser from "../actions/getCurrentUser";
 
 const DashboardLayout = async (
     { children } : { children : React.ReactNode }
@@ -14,10 +15,12 @@ const DashboardLayout = async (
     return ( 
         <div>
              <div className="w-full">
-                <HeaderLogo/>
-                
+                <HeaderLogo
+                    
+                />
                 <Header/>
              </div>
+             
             <div>
                 {children}
             </div>

@@ -6,95 +6,103 @@ import axios from 'axios'
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useCallback, useState } from "react";
-import { signIn, } from "next-auth/react";
+import { signIn, useSession, } from "next-auth/react";
 
 import { useRouter } from "next/navigation";
 import Github from "next-auth/providers/github";
 import { GithubIcon } from "lucide-react";
 import Input from "@/components/input";
 import toast from "react-hot-toast";
+import { getServerSession } from "next-auth";
 
 
 
 
 
 const CredForm = ({
-    
+
 }) => {
 
-    type Variant = "LOGIN" | "REGISTER";
+  const session = useSession();
 
-   
-    const router = useRouter();
-    const [variant, setVariant] = useState<Variant>('LOGIN');
+  type Variant = "LOGIN" | "REGISTER";
 
-    const [email, setEmail] = useState<null | string>(null);
-    const [isLoading, setIsLoading] = useState(false);
+  
 
-    
 
-    const toggleVariant = useCallback(() => {
-        if(variant === 'LOGIN') {
-            setVariant('REGISTER')
-        } else if (variant === 'REGISTER') {
-            setVariant('LOGIN')
-        }
-    }, [variant])
+  const router = useRouter();
+  const [variant, setVariant] = useState<Variant>('LOGIN');
 
-    const {
-        register,
-        handleSubmit,
-        formState: {
-          errors,
-        }
-      } = useForm<FieldValues>({
-        defaultValues: {
-          name: '',
-          email: '',
-          password: ''
-        }
-      });
+  const [email, setEmail] = useState<null | string>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-      const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsLoading(true);
+  if(session) {
+    router.push('/')
+  }
 
-        if(variant === 'REGISTER') {
-          try {
-            axios.post('/api/register', data);
-            toast.success("Erfolgreich registriert");
-          } catch {
-            console.log("Fehler beim registrieren");
-            toast.error("Fehler beim registrieren");
-          } finally {
-             setIsLoading(false);
-          }
-        } else if (variant === 'LOGIN') {
-          try {
-            signIn('credentials', {
-              ...data,
-              redirect : false
-            }).then((callback) => {
-              if(callback?.error) {
-                toast.error("Falsche Anmeldedaten");
-              }
+  const toggleVariant = useCallback(() => {
+    if (variant === 'LOGIN') {
+      setVariant('REGISTER')
+    } else if (variant === 'REGISTER') {
+      setVariant('LOGIN')
+    }
+  }, [variant])
 
-              if(callback?.ok  && !callback?.error){
-                toast.success("Erfolgreich angemeldet");
-              }
-            }). finally (() => {
-              setIsLoading(false);
-            })
-          } catch {
-            console.log("Fehler beim anmelden")
-          }
-        }
-        
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      errors,
+    }
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: ''
+    }
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+
+    if (variant === 'REGISTER') {
+      try {
+        axios.post('/api/register', data);
+        toast.success("Erfolgreich registriert");
+      } catch {
+        console.log("Fehler beim registrieren");
+        toast.error("Fehler beim registrieren");
+      } finally {
+        signIn('credentials' , data)
+        setIsLoading(false);
       }
+    } else if (variant === 'LOGIN') {
+      try {
+        signIn('credentials', {
+          ...data,
+          redirect: false
+        }).then((callback) => {
+          if (callback?.error) {
+            toast.error("Falsche Anmeldedaten");
+          }
+
+          if (callback?.ok && !callback?.error) {
+            toast.success("Erfolgreich angemeldet");
+          }
+        }).finally(() => {
+          setIsLoading(false);
+        })
+      } catch {
+        console.log("Fehler beim anmelden")
+      }
+    }
+
+  }
 
 
-    return (
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div 
+  return (
+    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div
         className="
         bg-white
           px-4
@@ -104,8 +112,8 @@ const CredForm = ({
           sm:px-10
         "
       >
-        <form 
-          className="space-y-6" 
+        <form
+          className="space-y-6"
           onSubmit={handleSubmit(onSubmit)}
         >
           {variant === 'REGISTER' && (
@@ -114,30 +122,30 @@ const CredForm = ({
               register={register}
               errors={errors}
               required
-              id="name" 
+              id="name"
               label="Nutzername"
             />
           )}
-          <Input 
+          <Input
             disabled={isLoading}
             register={register}
             errors={errors}
             required
-            id="email" 
-            label="Email" 
+            id="email"
+            label="Email"
             type="email"
           />
-          <Input 
+          <Input
             disabled={isLoading}
             register={register}
             errors={errors}
             required
-            id="password" 
-            label="Passwort" 
+            id="password"
+            label="Passwort"
             type="password"
           />
           <div>
-            <Button disabled={isLoading}  type="submit" className="bg-blue-800 hover:bg-blue-800/50">
+            <Button disabled={isLoading} type="submit" className="bg-blue-800 hover:bg-blue-800/50">
               {variant === 'LOGIN' ? 'Einloggen' : 'Registrieren'}
             </Button>
           </div>
@@ -145,7 +153,7 @@ const CredForm = ({
 
         <div className="mt-6">
           <div className="relative">
-            <div 
+            <div
               className="
                 absolute 
                 inset-0 
@@ -164,12 +172,12 @@ const CredForm = ({
 
           <div className="mt-6 flex gap-2 justify-center">
             <Button variant="ghost">
-                <GithubIcon/>
+              <GithubIcon />
             </Button>
-            
+
           </div>
         </div>
-        <div 
+        <div
           className="
             flex 
             gap-2 
@@ -181,10 +189,10 @@ const CredForm = ({
           "
         >
           <div>
-            {variant === 'LOGIN' ? 'Neu auf uRent?' : 'Ich besitze schon einen Account'} 
+            {variant === 'LOGIN' ? 'Neu auf uRent?' : 'Ich besitze schon einen Account'}
           </div>
-          <div 
-            onClick={toggleVariant} 
+          <div
+            onClick={toggleVariant}
             className="underline cursor-pointer"
           >
             {variant === 'LOGIN' ? 'Erstelle einen Account' : 'Einloggen'}
@@ -192,7 +200,7 @@ const CredForm = ({
         </div>
       </div>
     </div>
-    );
+  );
 }
 
 export default CredForm;

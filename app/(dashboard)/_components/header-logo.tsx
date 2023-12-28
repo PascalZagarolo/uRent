@@ -3,8 +3,22 @@
 import { Button } from "@/components/ui/button";
 import LoginBarHeader from "./login-bar-header";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import LoggedInBarHeader from "./logged-in-header";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import { User } from "@prisma/client";
 
-const Header = () => {
+interface HeaderProps {
+    loggedInUser : User
+}
+
+const Header: React.FC<HeaderProps> =  ({
+    loggedInUser
+}) => {
+
+    const session = useSession();
+
+    
     return ( 
         <div className="flex justify-center  w-full items-center">
             <Button variant="ghost">
@@ -16,7 +30,18 @@ const Header = () => {
             </Button>
             
             <div className="items-center">
-                <LoginBarHeader/>
+                {
+                    !session ? (
+                        <LoginBarHeader/>
+                    ) : (
+                        <div>
+                           <LoggedInBarHeader
+                           loggedInUser = {loggedInUser!}
+                           />
+                        </div>
+                    )
+                }
+                
             </div>
         </div>
      );

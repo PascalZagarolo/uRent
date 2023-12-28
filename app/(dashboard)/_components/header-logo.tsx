@@ -9,14 +9,18 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import { User } from "@prisma/client";
 
 interface HeaderProps {
-    loggedInUser : User
+    currentUser : User;
 }
 
 const Header: React.FC<HeaderProps> =  ({
-    loggedInUser
+    currentUser
 }) => {
 
     const session = useSession();
+
+    const onClick = () => {
+        console.log(currentUser)
+    }
 
     
     return ( 
@@ -24,19 +28,22 @@ const Header: React.FC<HeaderProps> =  ({
             <Button variant="ghost">
                 <Link href="/">
                 <h3 className="text-4xl flex justify-center mt-4 font-semibold"> 
-                <p className="text-blue-800 font-bold">u</p> Rent
+                <p className="text-blue-800 font-bold">u</p> Rent {currentUser?.name}
             </h3>
                 </Link>
             </Button>
             
             <div className="items-center">
+                <Button onClick={onClick}>
+                    KLICK
+                </Button>
                 {
                     !session ? (
                         <LoginBarHeader/>
                     ) : (
                         <div>
                            <LoggedInBarHeader
-                           loggedInUser = {loggedInUser!}
+                           
                            />
                         </div>
                     )

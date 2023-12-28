@@ -1,10 +1,11 @@
 import bcrypt from "bcrypt"
-import NextAuth, { AuthOptions } from "next-auth"
+import NextAuth, { AuthOptions, getServerSession } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { db } from "@/app/utils/db"
+import { NextResponse } from "next/server"
 
 
 
@@ -60,6 +61,20 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 }
 
+
+export async function GET(request: Request) {
+  const session = await getServerSession(authOptions);
+  
+  if (!session) {
+  return new NextResponse(JSON.stringify({ error: "unauthorized" }), {
+  status: 401,
+  });
+  }
+  
+  return NextResponse.json({ authenticated: !!session });
+  }
+
+
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export { handler as POST };

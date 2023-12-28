@@ -4,40 +4,25 @@ import bcrypt from "bcrypt";
 
 import { NextResponse } from "next/server";
 
-
 export async function POST(
   request: Request
-
 ) {
-  try {
+  const body = await request.json();
+  const {
+    email,
+    name,
+    password
+  } = body;
 
-    const body = await request.json();
-    const {
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  const user = await db.user.create({
+    data: {
       email,
       name,
-      password
-    } = body;
-
-    if (!email || !name || !password) {
-      return new NextResponse('Missing info', { status: 400 });
+      hashedPassword
     }
+  });
 
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const user = await db.user.create({
-      data: {
-        email,
-        name,
-        hashedPassword : hashedPassword
-      }
-    });
-
-    return NextResponse.json(user)
-
-  } catch (error) {
-    console.log("Etwas ist schief gelaufen beim registrieren");
-    return new NextResponse("Interner Server Error", { status: 500 })
-  }
-
-
-};
+  return NextResponse.json(user);
+}

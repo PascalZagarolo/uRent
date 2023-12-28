@@ -14,13 +14,13 @@ export async function POST(
     password
   } = body;
 
-  const hashedPassword = await bcrypt.hash(password, 12);
+  const hashedPassword: string = await bcrypt.hash(password, 12);
 
   const user = await db.user.create({
     data: {
       email,
       name,
-      hashedPassword
+      hashedPassword 
     }
   });
 

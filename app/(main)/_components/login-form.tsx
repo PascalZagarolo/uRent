@@ -7,11 +7,12 @@ import axios from 'axios'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useCallback, useState } from "react";
 import { signIn, } from "next-auth/react";
-import { toast } from "@/components/ui/use-toast";
+
 import { useRouter } from "next/navigation";
 import Github from "next-auth/providers/github";
 import { GithubIcon } from "lucide-react";
 import Input from "@/components/input";
+import toast from "react-hot-toast";
 
 
 
@@ -58,7 +59,34 @@ const CredForm = ({
         setIsLoading(true);
 
         if(variant === 'REGISTER') {
-          axios.post('/api/register', data)
+          try {
+            axios.post('/api/register', data);
+            toast.success("Erfolgreich registriert");
+          } catch {
+            console.log("Fehler beim registrieren");
+            toast.error("Fehler beim registrieren");
+          } finally {
+             setIsLoading(false);
+          }
+        } else if (variant === 'LOGIN') {
+          try {
+            signIn('credentials', {
+              ...data,
+              redirect : false
+            }).then((callback) => {
+              if(callback?.error) {
+                toast.error("Falsche Anmeldedaten");
+              }
+
+              if(callback?.ok  && !callback?.error){
+                toast.success("Erfolgreich angemeldet");
+              }
+            }). finally (() => {
+              setIsLoading(false);
+            })
+          } catch {
+            console.log("Fehler beim anmelden")
+          }
         }
         
       }

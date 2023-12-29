@@ -36,7 +36,7 @@ import { NextResponse } from "next/server"
             }
           });
   
-          if (!user || !user?.hashedPassword) {
+          if (!user || !user?.hashedPassword!) {
             throw new Error('Invalid credentials');
           }
   

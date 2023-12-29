@@ -36,13 +36,13 @@ import { NextResponse } from "next/server"
             }
           });
   
-          if (!user || !user?.hashedPassword!) {
+          if (!user || !user?.password!) {
             throw new Error('Invalid credentials');
           }
   
           const isCorrectPassword = await bcrypt.compare(
             credentials.password,
-            user.hashedPassword
+            user.password
           );
   
           if (!isCorrectPassword) {

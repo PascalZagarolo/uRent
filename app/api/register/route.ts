@@ -1,5 +1,6 @@
 import { db } from "@/app/utils/db";
 import bcrypt from "bcrypt";
+import { StaticImageData } from "next/image";
 
 
 import { NextResponse } from "next/server";
@@ -18,9 +19,9 @@ export async function POST(
 
   const user = await db.user.create({
     data: {
-      email,
-      name,
-      hashedPassword 
+      email : email as string,
+      name : name as string,
+      hashedPassword : hashedPassword as string, 
     }
   });
 

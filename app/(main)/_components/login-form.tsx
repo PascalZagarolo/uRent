@@ -36,9 +36,7 @@ const CredForm = ({
   const [email, setEmail] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  if(session) {
-    router.push('/')
-  }
+  
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {

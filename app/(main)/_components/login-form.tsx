@@ -5,15 +5,15 @@ import axios from 'axios'
 
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { signIn, useSession, } from "next-auth/react";
 
 import { useRouter } from "next/navigation";
-import Github from "next-auth/providers/github";
+
 import { GithubIcon } from "lucide-react";
 import Input from "@/components/input";
 import toast from "react-hot-toast";
-import { getServerSession } from "next-auth";
+
 
 
 
@@ -27,16 +27,17 @@ const CredForm = ({
 
   type Variant = "LOGIN" | "REGISTER";
 
-  
-
-
   const router = useRouter();
   const [variant, setVariant] = useState<Variant>('LOGIN');
 
-  const [email, setEmail] = useState<null | string>(null);
+  
   const [isLoading, setIsLoading] = useState(false);
 
-  
+  useEffect(() => {
+    if (session.status === 'authenticated') {
+      router.push('/')
+    }
+  }, [session?.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {
@@ -45,6 +46,9 @@ const CredForm = ({
       setVariant('LOGIN')
     }
   }, [variant])
+
+  
+  
 
   const {
     register,
@@ -60,41 +64,47 @@ const CredForm = ({
     }
   });
 
+
+ 
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-
+  
     if (variant === 'REGISTER') {
-      try {
-        axios.post('/api/register', data);
-        toast.success("Erfolgreich registriert");
-      } catch {
-        console.log("Fehler beim registrieren");
-        toast.error("Fehler beim registrieren");
-      } finally {
-        signIn('credentials' , data)
-        setIsLoading(false);
-      }
-    } else if (variant === 'LOGIN') {
-      try {
-        signIn('credentials', {
-          ...data,
-          redirect: false
-        }).then((callback) => {
-          if (callback?.error) {
-            toast.error("Falsche Anmeldedaten");
-          }
+      axios.post('/api/register', data)
+      .then(() => signIn('credentials', {
+        ...data,
+        redirect: false,
+      }))
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error('Ungültige Anmeldedaten!');
+        }
 
-          if (callback?.ok && !callback?.error) {
-            toast.success("Erfolgreich angemeldet");
-          }
-        }).finally(() => {
-          setIsLoading(false);
-        })
-      } catch {
-        console.log("Fehler beim anmelden")
-      }
+        if (callback?.ok) {
+          router.push('/')
+        }
+      })
+      .catch(() => toast.error('Etwas ist schief gelaufen'))
+      .finally(() => setIsLoading(false))
     }
 
+    if (variant === 'LOGIN') {
+      signIn('credentials', {
+        ...data,
+        redirect: false
+      })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error('Invalid credentials!');
+        }
+
+        if (callback?.ok) {
+          router.push('/')
+        }
+      })
+      .finally(() => setIsLoading(false))
+    }
   }
 
 
@@ -197,6 +207,7 @@ const CredForm = ({
           </div>
         </div>
       </div>
+      
     </div>
   );
 }

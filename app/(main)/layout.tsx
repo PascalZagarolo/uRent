@@ -1,8 +1,5 @@
-import { getServerSession } from "next-auth";
-import Image from "next/image";
-
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import getCurrentUser from "../actions/getCurrentUser";
 
 const LoginLayout = async (
     { children }: { children: React.ReactNode }
@@ -19,6 +16,7 @@ const LoginLayout = async (
                         <Link href="/" className="flex ">
                             <p className="text-blue-800">u</p> Rent
                         </Link>
+                       
                     
                 </h3>
 

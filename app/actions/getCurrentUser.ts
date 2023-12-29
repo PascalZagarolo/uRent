@@ -1,24 +1,26 @@
 
-import { useSession } from "next-auth/react";
+
 import { db } from "../utils/db";
 import getSession from "./getSession";
-import { getServerSession } from "next-auth";
+
 
 const getCurrentUser = async () => {
   try {
     
-    const session = await getServerSession();
+    const session = await getSession();
 
     const currentUser = await db.user.findUnique({
       where: {
-        email: session?.user?.email as string
+        email: session?.user?.email
       }
     });
 
-    
+    if (!currentUser) {
+      return null;
+    }
 
     return currentUser;
-  } catch (error: any) {
+  } catch (error) {
     return null;
   }
 };

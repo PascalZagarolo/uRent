@@ -3,7 +3,7 @@ import getCurrentUser from "../actions/getCurrentUser";
 
 const Main = async () => {
     
-    const loggedUser = await getCurrentUser();
+    
     return ( 
         <div>
             Hallo!!

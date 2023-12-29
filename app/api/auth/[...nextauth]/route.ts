@@ -8,7 +8,7 @@ import { db } from "@/app/utils/db"
 
 
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db),
   providers: [
     GithubProvider({

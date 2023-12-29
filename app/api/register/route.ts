@@ -15,7 +15,7 @@ export async function POST(
     password
   } = body;
 
-  const hashedPassword: string = await bcrypt.hash(password, 12);
+  const hashedPassword = await bcrypt.hash(password, 12);
 
   const user = await db.user.create({
     data: {

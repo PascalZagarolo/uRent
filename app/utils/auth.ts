@@ -8,7 +8,7 @@ import { db } from "@/app/utils/db"
 import { NextResponse } from "next/server"
 
 
-export const authOptions: AuthOptions = {
+  export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(db),
     providers: [
       GithubProvider({

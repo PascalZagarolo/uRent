@@ -36,13 +36,13 @@ const authOptions: AuthOptions = {
           }
         });
 
-        if (!user || !user?.encryptedPassword) {
+        if (!user || !user?.password) {
           throw new Error('Invalid credentials');
         }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.encryptedPassword
+          user.password
         );
 
         if (!isCorrectPassword) {

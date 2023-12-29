@@ -21,7 +21,7 @@ export async function POST(
     data: {
       email : email as string,
       name : name as string,
-      hashedPassword : "djifopsdfs", 
+      hashedPassword : hashedPassword, 
     }
   });
 

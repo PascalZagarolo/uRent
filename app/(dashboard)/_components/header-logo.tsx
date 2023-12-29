@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import LoggedInBarHeader from "./logged-in-header";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { User } from "@prisma/client";
+import { getServerSession } from "next-auth";
 
 interface HeaderProps {
     currentUser : User;
@@ -16,11 +17,9 @@ const Header: React.FC<HeaderProps> =  ({
     currentUser
 }) => {
 
-    const session = useSession();
+    const { data : session, status } = useSession();
 
-    const onClick = () => {
-        console.log(currentUser)
-    }
+    
 
     
     return ( 
@@ -28,17 +27,15 @@ const Header: React.FC<HeaderProps> =  ({
             <Button variant="ghost">
                 <Link href="/">
                 <h3 className="text-4xl flex justify-center mt-4 font-semibold"> 
-                <p className="text-blue-800 font-bold">u</p> Rent {currentUser?.name}
+                <p className="text-blue-800 font-bold">u</p> Rent 
             </h3>
                 </Link>
             </Button>
             
             <div className="items-center">
-                <Button onClick={onClick}>
-                    KLICK
-                </Button>
+                
                 {
-                    !session ? (
+                    status === 'unauthenticated' ? (
                         <LoginBarHeader/>
                     ) : (
                         <div>

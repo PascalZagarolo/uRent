@@ -2,6 +2,7 @@ import Logo from "@/app/profile/[profileId]/_components/u-rent-logo";
 import CreationHeader from "../_components/creation-header";
 import InseratBodyLeft from "../_components/inserat-body-left";
 import { db } from "@/app/utils/db";
+import InseratBodyRight from "../_components/input-fields/inserat-body-right";
 
 const InseratCreation = async ({
     params
@@ -23,13 +24,15 @@ const InseratCreation = async ({
                 <CreationHeader />
             </div>
             <div className="grid grid-cols-2 gap-4 mt-8">
-                <div className="col-span-1 bg-gray-300">
+                <div className="col-span-1 ">
                     <InseratBodyLeft
                     inserat = {inserat}
                     />
                 </div>
-                <div className="col-span-1 bg-gray-300">
-                    dasda
+                <div className="col-span-1 ">
+                    <InseratBodyRight
+                    inserat={inserat}
+                    />
                 </div>
             </div>
 

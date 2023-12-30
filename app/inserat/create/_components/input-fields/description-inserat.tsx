@@ -43,7 +43,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
 
 
     return ( 
-        <div className="w-full">
+        <div className="w-full ">
             <h1 className="text-xl flex justify-start ml-8 font-semibold">
                 Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
@@ -85,7 +85,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                     </div>
                     
                 ): (
-                    <div>
+                    <div className="outline outline-offset-8 outline-2 mr-16">
 
                         {inserat.description ? (
                             <p className="font-semibold text-blue-800 mt-4"> {inserat.description} </p>

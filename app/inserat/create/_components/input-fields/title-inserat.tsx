@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
 import { PenIcon } from "lucide-react";
-import { title } from "process";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -43,7 +43,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
     return ( 
         <div>
-            <h1 className="text-xl flex justify-start ml-8 font-semibold">
+            <h1 className="text-xl flex justify-start ml-8 font-semibold mt-2">
                 Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
 
@@ -67,7 +67,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                     <Input
                                     {...field}
                                     className=" w-80"
-                                    value={inserat.title || ""}
+                                    
                                     />
                                 </FormControl>
                                 <FormMessage/>
@@ -87,7 +87,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                     
                 ): (
                     <div>
-                        <p className="font-semibold text-blue-800 mt-4"> {inserat.title} </p>
+                        <p className="font-semibold text-gray-900/70 mt-4 outline outline-offset-8 outline-2 mr-8"> {inserat.title} </p>
                     </div>
                 )}
             

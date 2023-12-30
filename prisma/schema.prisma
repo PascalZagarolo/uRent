@@ -66,10 +66,12 @@ model Inserat {
 
   title String
 
-  description String @db.Text
-  price Float
+  description String? @db.Text
+  price Float?
 
-  category String
+  isPublished Boolean @default(false)
+
+  category String?
 
   image String[]
 

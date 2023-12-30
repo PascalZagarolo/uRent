@@ -1,9 +1,16 @@
-import { useSession } from "next-auth/react";
+
 import LocationBar from "./location-bar";
 import SearchItem from "./search-item";
 import Inserat from "./add-inserat";
+import { User } from "@prisma/client";
 
-const Header = async () => {
+interface HeaderProps {
+    currentUser : User;
+}
+
+const Header: React.FC<HeaderProps> = async ({
+    currentUser
+}) => {
 
 
     return (
@@ -12,7 +19,9 @@ const Header = async () => {
             <div className="flex justify-center items-center">
 
                 <div className="mr-32 items-center">
-                    <Inserat />
+                    <Inserat 
+                    currentUser={currentUser}
+                    />
                 </div>
 
                 <div className="flex justify-center">

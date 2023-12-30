@@ -1,9 +1,18 @@
+import { Inserat } from "@prisma/client";
 import TitleInserat from "./input-fields/title-inserat";
 
-const InseratBodyLeft = () => {
+interface InseratBodyLeftProps {
+    inserat : Inserat;
+}
+
+const InseratBodyLeft: React.FC<InseratBodyLeftProps> = ({
+    inserat
+}) => {
     return ( 
         <div>
-            <TitleInserat/>
+            <TitleInserat
+            inserat={inserat}
+            />
         </div>
      );
 }

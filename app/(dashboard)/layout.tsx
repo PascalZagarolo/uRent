@@ -18,7 +18,9 @@ const DashboardLayout = async (
                 <HeaderLogo
                 currentUser={currentUser}
                 />
-                <Header/>
+                <Header
+                currentUser = { currentUser}
+                />
              </div>
              
             <div>

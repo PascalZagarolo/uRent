@@ -50,6 +50,7 @@ model User {
   
   accounts      Account[]
   sessions      Session[]
+  inserate      Inserat[]
 }
 
 model VerificationToken {
@@ -58,4 +59,30 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Inserat {
+  id String @id @default(uuid())
+
+  title String
+
+  description String @db.Text
+  price Float
+
+  category String
+
+  image String[]
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+enum Category {
+  PKW
+  LKW
+  Landwirtschaft
+  Baumaschinen
+  Anhaenger
+  Wohnmobile
 }

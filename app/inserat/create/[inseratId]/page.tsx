@@ -1,6 +1,6 @@
 import Logo from "@/app/profile/[profileId]/_components/u-rent-logo";
-import CreationHeader from "./_components/creation-header";
-import InseratBodyLeft from "./_components/inserat-body-left";
+import CreationHeader from "../_components/creation-header";
+import InseratBodyLeft from "../_components/inserat-body-left";
 
 const InseratCreation = () => {
     return (

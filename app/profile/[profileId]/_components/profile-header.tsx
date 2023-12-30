@@ -3,6 +3,7 @@ import Logo from "./u-rent-logo";
 import Avatar from "./avatar";
 import LocationProfile from "./location-rating";
 import RatingProfile from "./rating-profile";
+import UploadProfilePic from "./upload-profile-pic";
 
 interface ProfileHeaderProps {
     currentUser: User;
@@ -36,10 +37,15 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <div>
             <p className="flex justify-center text-sm text-gray-800/50"> Mitglied seit : {convertDateTimeToString(currentUser.createdAt)}</p>
             <div className="flex justify-center mt-8">
-                <Avatar/>
+                <Avatar
+                imageUrl={currentUser.image}
+                />
                
             </div>
-            <p className="flex justify-center text-sm font-bold text-gray-800/80 mt-2"> Profilbild bearbeiten </p>
+            <div className="flex justify-center">
+            <UploadProfilePic/>
+            </div>
+            
             </div>
 
             <div className="mt-4">

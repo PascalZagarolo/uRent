@@ -11,7 +11,8 @@ const nextConfig = {
     images : {
         domains : [
             "www.dropbox.com",
-            "previews.dropbox.com"
+            "previews.dropbox.com",
+            "res.cloudinary.com"
         ]
     }
 

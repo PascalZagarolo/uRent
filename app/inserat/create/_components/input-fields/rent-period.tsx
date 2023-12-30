@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarClockIcon, CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -41,7 +41,9 @@ const RentPeriod = () => {
     return (
         <div className="w-full flex-col justify-center">
             <h3 className="font-bold text-xl flex justify-center">
+                <CalendarClockIcon className="mr-2"/>
                 Mietdauer
+                
             </h3>
             <Separator
                 className="w-16 mr-auto h-[1.5px] bg-black"

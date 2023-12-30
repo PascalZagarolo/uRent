@@ -4,13 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Inserat } from "@prisma/client";
 import { PenIcon } from "lucide-react";
 import { title } from "process";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const TitleInserat = () => {
+interface TitleInseratProps {
+    inserat : Inserat;
+}
+
+const TitleInserat: React.FC<TitleInseratProps> = ({
+    inserat
+}) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [currentTitle, setCurrentTitle] = useState("");
@@ -24,7 +31,7 @@ const TitleInserat = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-            title : ""
+            title : inserat.title || ""
         }
     })
 
@@ -52,6 +59,7 @@ const TitleInserat = () => {
                                     <Input
                                     {...field}
                                     className=" w-80"
+                                    value={inserat.title || ""}
                                     />
                                 </FormControl>
                                 <FormMessage/>

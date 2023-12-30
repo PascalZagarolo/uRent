@@ -1,8 +1,18 @@
 import Logo from "@/app/profile/[profileId]/_components/u-rent-logo";
 import CreationHeader from "../_components/creation-header";
 import InseratBodyLeft from "../_components/inserat-body-left";
+import { db } from "@/app/utils/db";
 
-const InseratCreation = () => {
+const InseratCreation = async ({
+    params
+} : { params : { inseratId : string }}) => {
+
+    const inserat = await db.inserat.findUnique({
+        where : {
+            id : params.inseratId
+        }
+    })
+
     return (
         <div>
             <div className="mt-8 flex justify-center">
@@ -14,7 +24,9 @@ const InseratCreation = () => {
             </div>
             <div className="grid grid-cols-2 gap-4 mt-8">
                 <div className="col-span-1 bg-gray-300">
-                    <InseratBodyLeft/>
+                    <InseratBodyLeft
+                    inserat = {inserat}
+                    />
                 </div>
                 <div className="col-span-1 bg-gray-300">
                     dasda

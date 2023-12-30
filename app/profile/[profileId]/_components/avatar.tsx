@@ -1,11 +1,18 @@
 import Image from "next/image";
 
-const Avatar = () => {
+
+interface AvatarProps {
+    imageUrl? : string
+}
+
+const Avatar: React.FC<AvatarProps> = ({
+    imageUrl
+}) => {
     return ( 
         <div>
             <Image
             className="flex justify-center rounded-full"
-            src="/placeholder-person.jpg"
+            src={imageUrl || "/placeholder-person.jpg"} 
             height="120"
             width="120"
             alt="profilepic"

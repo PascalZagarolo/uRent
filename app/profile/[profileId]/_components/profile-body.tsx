@@ -1,3 +1,4 @@
+import ProfilAnzeigen from "./profil-anzeigen";
 import ProfileDescription from "./profile-description";
 import ProfileStatsLayout from "./profile-stats-layout";
 
@@ -18,6 +19,9 @@ const ProfileBody: React.FC<ProfileBodyProps> = ({
             </div>
             <div className="mt-8">
             <ProfileStatsLayout/>
+            </div>
+            <div className="flex justify-center">
+            <ProfilAnzeigen/>
             </div>
             
         </div>

@@ -2,6 +2,7 @@ import { Inserat } from "@prisma/client";
 import TitleInserat from "./input-fields/title-inserat";
 import DescriptionInserat from "./input-fields/description-inserat";
 import RentPeriod from "./input-fields/rent-period";
+import SelectCategoryInserat from "./input-fields/select-category";
 
 
 interface InseratBodyLeftProps {
@@ -21,9 +22,15 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = ({
                 inserat={inserat}
                 />
             </div>
-            <div className="mt-16 flex justify-center">
-                
+            <div className="ml-8 mr-8">
+                <div >
+                    <h3 className="flex justify-center text-xl mt-16 font-semibold">Spezifikationen deines Fahrzeugs</h3>
+                </div>
+                <SelectCategoryInserat/>
             </div>
+            
+                
+            
         </div>
      );
 }

@@ -6,10 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
+import axios from "axios";
 import { PenIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface TitleInseratProps {
@@ -21,7 +24,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const [currentTitle, setCurrentTitle] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = z.object({
         title : z.string().min(3, {
@@ -36,8 +39,26 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
         }
     })
 
+    const router = useRouter();
+
     const onClick = () => {
         setIsEditing(isEditing => !isEditing);
+    }
+
+    const onSubmit = (values : z.infer<typeof formSchema>) => {
+        try {
+            setIsLoading(true);
+            axios.patch(`/api/inserat/${inserat.id}`, values);
+            toast.success("Titel erfolgreich gespeichert");
+            setTimeout(() => {
+                router.refresh();
+            }, 1000);
+        } catch { 
+            toast.error("Fehler beim Speichern des Titels");
+        } finally {
+            setIsEditing(false);
+            setIsLoading(false);
+        }
     }
 
 
@@ -57,7 +78,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
-                    <form className="flex">
+                    <form className="flex" onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
                         control={form.control}
                         name="title"
@@ -76,7 +97,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                         
                         />
                         <div>
-                            <Button variant="ghost" className="ml-4">
+                            <Button variant="ghost" className="ml-4" type="submit">
                                 Titel speichern
                             </Button>
                         </div>
@@ -87,7 +108,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                     
                 ): (
                     <div>
-                        <p className="font-semibold text-gray-900/70 mt-4 outline outline-offset-8 outline-2 mr-8"> {inserat.title} </p>
+                        <p className="font-semibold text-gray-900/70 mt-4  mr-8"> {inserat.title} </p>
                     </div>
                 )}
             

@@ -7,10 +7,13 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
+import axios from "axios";
 import { PenIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { title } from "process";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface DescriptionInseratProps {
@@ -22,7 +25,11 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const [currentTitle, setCurrentTitle] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+
+    
 
     const formSchema = z.object({
         description : z.string().min(3, {
@@ -41,6 +48,21 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
         setIsEditing(isEditing => !isEditing);
     }
 
+    const onSubmit = (values : z.infer<typeof formSchema>) => {
+        try {
+            setIsLoading(true);
+            axios.patch(`/api/inserat/${inserat.id}`, values)
+            toast.success("Beschreibung erfolgreich gespeichert")
+            setTimeout(() => {
+                router.refresh();
+            }, 1000)
+        } catch {
+            toast.error("Fehler beim Speichern der Beschreibung")
+        } finally {
+            setIsLoading(false);
+            setIsEditing(false);
+        }
+    }
 
     return ( 
         <div className="w-full ">
@@ -56,7 +78,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
-                    <form className="flex">
+                    <form className="flex" onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
                         control={form.control}
                         name="description"
@@ -66,7 +88,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                                     <Textarea
                                     {...field}
                                     className=" w-[500px]"
-                                    value={inserat.description || ""}
+                                    
                                     />
                                 </FormControl>
                                 <FormMessage/>
@@ -75,7 +97,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                         
                         />
                         <div>
-                            <Button variant="ghost" className="ml-4">
+                            <Button variant="ghost" className="ml-4" type="submit">
                                 Beschreibung speichern
                             </Button>
                         </div>
@@ -85,7 +107,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                     </div>
                     
                 ): (
-                    <div className="outline outline-offset-8 outline-2 mr-16">
+                    <div className=" mr-16">
 
                         {inserat.description ? (
                             <p className="font-semibold text-blue-800 mt-4"> {inserat.description} </p>

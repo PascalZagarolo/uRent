@@ -75,6 +75,9 @@ model Inserat {
 
   image String[]
 
+  pkwId String?
+  pkw PKW? @relation(fields: [pkwId], references: [id], onDelete: Cascade)
+
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -96,9 +99,10 @@ model PKW {
   model String
 
   baujahr Int
-  km Int
-  leistung Int
+  km Int?
+  leistung Int?
 
   sitze Int
 
+  inserat Inserat[]
 }

@@ -15,7 +15,7 @@ const InseratBodyRight: React.FC<InseratBodyRightProps> = ({
             <div>
                 <InseratImageUpload />
             </div>
-            <div className="mt-16 flex justify-center">
+            <div className="mt-32 flex justify-center">
                 <RentPeriod
                 />
             </div>

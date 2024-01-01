@@ -21,7 +21,9 @@ const InseratCreation = async ({
             </div>
 
             <div className="flex justify-center mt-8">
-                <CreationHeader />
+                <CreationHeader 
+                inserat={inserat}
+                />
             </div>
             <div className="grid grid-cols-2 gap-4 mt-8">
                 <div className="col-span-1 ">

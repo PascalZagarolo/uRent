@@ -67,13 +67,11 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
             <h1 className="text-xl flex justify-start ml-8 font-semibold mt-2">
                 Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
-
             <div>
                 <Separator
                 className="mt-2 w-8 bg-black ml-8"
                 />
             </div>
-            
             <div className="ml-8 mt-2 w-80">
                 {isEditing ? (
                     <div className="flex"> 
@@ -94,7 +92,6 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                 <FormMessage/>
                             </FormItem>
                         )}
-                        
                         />
                         <div>
                             <Button variant="ghost" className="ml-4" type="submit">
@@ -103,20 +100,16 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                         </div>
                     </form>
                 </Form>
-
-                    </div>
-                    
+                    </div>  
                 ): (
                     <div>
                         <p className="font-semibold text-gray-900/70 mt-4  mr-8"> {inserat.title} </p>
                     </div>
                 )}
-            
             </div>
             <Separator
                 className="mt-2 w-8 bg-black ml-auto mr-16"
                 />
-            
         </div>
      );
 }

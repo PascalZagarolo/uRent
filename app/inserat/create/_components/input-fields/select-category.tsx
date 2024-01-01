@@ -1,62 +1,71 @@
 'use client';
 
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarFront } from "lucide-react";
-import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CarFront, Link } from "lucide-react";
+
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const SelectCategoryInserat = () => {
 
-    type Categories = {
-        pkw : string;
-        lkw : string;
-        land : string;
-        bau : string;
-        trailor : string;
-        caravan : string
-    }
-
-    const initialValues : Categories = {
-        pkw : "pkw",
-        lkw : "lkw",
-        land : "land",
-        bau : "bau",
-        trailor : "trailor",
-        caravan : "caravan"
-    }
+    
 
     
 
-    const [category, setCategory] = useState<Categories | string>(initialValues);
+    const formSchema = z.object({
+      category : z.string({
+        required_error: "Bitte wähle eine Kategorie aus"
+      })
+    })
 
-    useEffect(() => {
+   
+      const form = useForm<z.infer<typeof formSchema>>({
+        resolver : zodResolver(formSchema)
+      })
+   
 
-    }, [category])
-
+    const onSubmit = (values : z.infer<typeof formSchema>) => {
+      console.log(values)
+    }
+    
     return (
         <div className="ml-4 mt-8 flex items-center">
-            <CarFront className="mr-4"/>
-            <Select>
-                <SelectTrigger className="w-[50%]">
-                    <SelectValue className="font-bold" placeholder="Wähle deine Fahrzeugkategorie" />
-                </SelectTrigger>
+            <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Fahrzeugklasse</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />
+                  </SelectTrigger>
+                </FormControl>
                 <SelectContent>
-                    
-                        <SelectLabel className="font-bold">Fahrzeugkategorien</SelectLabel>
-                        <SelectItem value="pkw">PKW</SelectItem>
-                        <SelectItem value="lkw">LKW</SelectItem>
-                        <SelectItem value="land">Landwirtschaft</SelectItem>
-                        <SelectItem value="bau">Baumaschinen</SelectItem>
-                        <SelectItem value="trailor" >Anhänger</SelectItem>
-                        <SelectItem value="caravan">Wohnmobil</SelectItem>
-                    
+                  <SelectItem value="pkw">PKW</SelectItem>
+                  <SelectItem value="lkw">LKW</SelectItem>
+                  <SelectItem value="land">Landwirtschaft</SelectItem>
+                  <SelectItem value="bau">Baumaschinen</SelectItem>
+                  <SelectItem value="trailor">Anhänger</SelectItem>
+                  <SelectItem value="caravan">Wohnwagen</SelectItem>
                 </SelectContent>
-            </Select>
-            
-            {category === "pkw" && (
-                <div>
-                    PKW ausgesucht :D
-                </div>
-            )}
+              </Select>
+              <FormDescription>
+               
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="bg-blue-800">Kategorie auswählen</Button>
+      </form>
+    </Form>
         </div>
     );
 }

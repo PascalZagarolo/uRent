@@ -88,3 +88,17 @@ enum Category {
   Anhaenger
   Wohnmobile
 }
+
+model PKW {
+  id String @id @default(uuid())
+
+  marke String
+  model String
+
+  baujahr Int
+  km Int
+  leistung Int
+
+  sitze Int
+
+}

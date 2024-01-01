@@ -75,8 +75,10 @@ model Inserat {
 
   image String[]
 
-  pkwId String?
-  pkw PKW? @relation(fields: [pkwId], references: [id], onDelete: Cascade)
+  location String?
+  
+  attributeId String?
+  attribute Attributes? @relation(fields: [attributeId], references: [id], onDelete: Cascade)
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -92,17 +94,21 @@ enum Category {
   Wohnmobile
 }
 
-model PKW {
+
+model Attributes {
   id String @id @default(uuid())
 
-  marke String
-  model String
+  marke String?
+  model String?
+  farbe String?
 
-  baujahr Int
-  km Int?
+  erstzulassung DateTime?
+  kilometer Int?
   leistung Int?
 
-  sitze Int
 
   inserat Inserat[]
+
 }
+
+

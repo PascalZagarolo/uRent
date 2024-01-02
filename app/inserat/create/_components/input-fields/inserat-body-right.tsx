@@ -2,19 +2,27 @@ import { Inserat } from "@prisma/client";
 
 import RentPeriod from "./rent-period";
 import InseratImageUpload from "./inserat-image-upload";
+import { db } from "@/app/utils/db";
 
 interface InseratBodyRightProps {
     inserat: Inserat;
 }
 
-const InseratBodyRight: React.FC<InseratBodyRightProps> = ({
+const InseratBodyRight: React.FC<InseratBodyRightProps> = async ({
     inserat
 }) => {
+
+    const images = await db.image.findMany({
+        where : {
+            inseratId : inserat.id
+        }
+    })
+
     return (
         <div>
             <div>
                 <InseratImageUpload
-                inserat={inserat}
+                images={images}
                 />
             </div>
             <div className="mt-32 flex justify-center">

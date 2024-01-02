@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
 import axios from "axios";
-import { PenIcon } from "lucide-react";
+import { AlignCenter, PenIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
@@ -65,7 +65,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
     return ( 
         <div>
             <h1 className="text-xl flex justify-start ml-8 font-semibold mt-2">
-                Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
+                <AlignCenter className="mr-4"/>Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             <div>
                 <Separator

@@ -19,25 +19,25 @@ const DashboardPage = async ({
 
     return (
         <div>
-
-            <h1 className="mt-4 flex justify-center text-3xl font-semibold items-center">
+            <h1 className=" flex justify-center text-5xl font-semibold items-center">
                 <TrendingUp className="text-emerald-600 mr-4 h-8 w-8" /> Dashboard
             </h1>
-            <h2 className="text-lg flex justify-center text-gray-800/80 font-bold"> von
-                <p className="ml-2 font-bold text-black"> {findUser.name.toUpperCase()}</p>
+            <h2 className="text-base flex justify-center text-gray-800/50 font-bold"> von
+                <p className="ml-2 font-bold  text-blue-800"> {findUser.name.toUpperCase()}</p>
             </h2>
 
 
-            <div className="mt-16">
-                <div className="grid grid-cols-2 grid-rows-2 gap-4">
-                    <div className="bg-blue-200">dd</div>
-                    <div className="">
-                        <Drafts/>
-                    </div>
-                    <div className="bg-yellow-200">dd</div>
-                    <div className="bg-red-200">dd</div>
+            <div className="mt-16 flex">
+                <div className="w-1/2">
+            
                 </div>
-
+                <div className="w-1/2">
+                    <h1 className="text-lg mb-2 font-bold justify-center flex">
+                        Entwürfe
+                    </h1>
+                    <Drafts/>
+                <div/>
+            </div>
             </div>
         </div>
     );

@@ -1,5 +1,6 @@
 import { Banknote, Construction, Signpost } from "lucide-react";
 import Logo from "../profile/[profileId]/_components/u-rent-logo";
+import UrentDashboardLogo from "./[userId]/_components/urent-dashboard-logo";
 
 const DashboardLayout = (
      {children}  : { children : React.ReactNode}
@@ -10,8 +11,7 @@ const DashboardLayout = (
             <div className="w-64 bg-blue-800/80">
                 <div className="flex items-center justify-center mt-8">
                     <span className="text-white text-2xl font-semibold">
-                        <h3 className="flex items-center rounded-md bg-white text-black w-[160px] h-[80px] justify-center border border-black ">
-                            <p className="font-bold text-blue-800">u</p>Rent</h3>
+                        <UrentDashboardLogo/>
                     </span>
                 </div>
                 <nav className="mt-10">
@@ -27,7 +27,7 @@ const DashboardLayout = (
             </div>
 
             
-            <div className="flex-1 p-10">
+            <div className="flex-1 p-10 bg-white">
                 {children}
             </div>
         </div>

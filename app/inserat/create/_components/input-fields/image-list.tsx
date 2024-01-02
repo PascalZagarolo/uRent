@@ -88,9 +88,7 @@ const ImageList: React.FC<ImageListProps> = ({
                                         >
                                             {image.url}
                                         </div>
-                                        <div className="ml-auto pr-2 flex items-center gap-x-2">
-                                            Gratis!!
-                                        </div>
+                                        
                                         <Pencil
                                         className="h-4 w-4 hover:opacity-75"
                                         onClick={() => onEdit(image.id)}

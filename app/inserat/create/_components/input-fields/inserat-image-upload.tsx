@@ -19,23 +19,35 @@ interface InseratImageUploadProps {
 }
 
 const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
-
-
     images
 }) => {
 
     const params = useParams();
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleImageUpload = (result : any) => {
+    const handleImageUpload = (result: any) => {
         try {
             setIsLoading(true)
-            axios.post(`/api/inserat/${params.profileId}/image`, {
-                image : result?.info?.secure_url
+            axios.post(`/api/inserat/${params.inseratId}/image`, {
+                image: result?.info?.secure_url
             })
-            toast.success("Profilbild erfolgreich hochgeladen")
+            toast.success("Bild erfolgreich hochgeladen")
         } catch {
             toast.error("Fehler beim Upload")
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const onReorder = async (updateData : { id : string; position : number}[]) => {
+        try {
+            setIsLoading(true)
+            await axios.put(`/api/inserat/${params.inseratId}/image/reorder`, {
+                list : updateData
+            } )
+            toast.success("Reorder erfolgreich")
+        } catch {
+            toast.error("Fehler beim Reorder")
         } finally {
             setIsLoading(false)
         }
@@ -46,27 +58,30 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             <h3 className="flex justify-center font-semibold text-xl items-center">
                 <ImageIcon className="mr-2 " />
                 Fotos und Anhänge
-
-
                 <CldUploadButton
                     onUpload={handleImageUpload}
                     uploadPreset="oblbw2xl"
                     options={{ maxFiles: 1 }}
                 >
-                    
-                        <PlusCircleIcon className="ml-4 h-4 w-4" />
-                    
+                    <PlusCircleIcon className="ml-4 h-4 w-4" />
                 </CldUploadButton>
-
-                
             </h3>
+            {
 
-            <p className="text-gray-800/50 font-semibold text-sm italic flex justify-center mt-2"> Noch keine Anhänge oder Fotos hinzugefügt... </p>
-            <ImageList
-                onEdit={() => { }}
-                onReorder={() => { }}
-                items={images || []}
-            />
+                images.length > 0 ? (
+                    <div className="mt-8">
+                        <ImageList
+                            onEdit={() => { }}
+                            onReorder={onReorder}
+                            items={images || []}
+                        />
+                    </div>
+                ) : (
+                    <p className="text-gray-800/50 font-semibold text-sm italic flex justify-center mt-2"> Noch keine Anhänge oder Fotos hinzugefügt... </p>
+                )
+            }
+
+
 
         </div>
     );

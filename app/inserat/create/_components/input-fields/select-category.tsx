@@ -11,9 +11,6 @@ import { z } from "zod";
 
 const SelectCategoryInserat = () => {
 
-    
-
-    
 
     const formSchema = z.object({
       category : z.string({
@@ -34,7 +31,7 @@ const SelectCategoryInserat = () => {
     return (
         <div className="ml-4 mt-8 flex items-center">
             <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[50%] space-y-6">
         <FormField
           control={form.control}
           name="category"

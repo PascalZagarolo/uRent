@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { CldUploadButton } from "next-cloudinary";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+
 
 
 interface InseratImageUploadProps {
@@ -23,7 +24,8 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
 }) => {
 
     const params = useParams();
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const handleImageUpload = (result: any) => {
         try {
@@ -45,7 +47,8 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             await axios.put(`/api/inserat/${params.inseratId}/image/reorder`, {
                 list : updateData
             } )
-            toast.success("Reorder erfolgreich")
+            toast.success("Reorder erfolgreich");
+            router.refresh()
         } catch {
             toast.error("Fehler beim Reorder")
         } finally {

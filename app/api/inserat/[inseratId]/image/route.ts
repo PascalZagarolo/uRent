@@ -17,7 +17,7 @@ export async function POST(
             }
         })
 
-        const position = inserat.image.length + 1;
+        const position = inserat.image.length;
 
         const image = await db.image.create({
             data : {

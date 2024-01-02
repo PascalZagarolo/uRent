@@ -73,7 +73,7 @@ model Inserat {
 
   category String?
 
-  image String[]
+  image Image[]
 
   location String?
   
@@ -92,6 +92,18 @@ enum Category {
   Baumaschinen
   Anhaenger
   Wohnmobile
+}
+
+model Image {
+  id String @id @default(uuid())
+
+  url String
+  position Int
+
+  inseratId String?
+  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  @@unique([position, inseratId])
 }
 
 

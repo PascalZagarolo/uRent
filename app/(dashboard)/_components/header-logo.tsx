@@ -8,6 +8,8 @@ import LoggedInBarHeader from "./logged-in-header";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { User } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import DashboardLayout from "../layout";
+import DashboardLink from "./dashboard-link";
 
 interface HeaderProps {
     currentUser : User;
@@ -40,10 +42,15 @@ const Header: React.FC<HeaderProps> =  ({
                         
                         />
                     ) : (
-                        <div>
+                        <div className="flex items-center">
                            <LoggedInBarHeader
                            currentUser = { currentUser }
                            />
+                           <div className="mt-4">
+                                <DashboardLink
+                                currentUser = {currentUser}
+                                />
+                            </div>
                         </div>
                     )
                 }

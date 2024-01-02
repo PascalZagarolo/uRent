@@ -103,7 +103,7 @@ model Image {
   inseratId String?
   inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
 
-  @@unique([position, inseratId])
+  
 }
 
 

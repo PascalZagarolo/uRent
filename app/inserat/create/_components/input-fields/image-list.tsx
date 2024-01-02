@@ -12,7 +12,8 @@ import {
 } from "@hello-pangea/dnd"
 
 import { cn } from "@/lib/utils"
-import { Grid } from "lucide-react";
+import { Grid, Pencil } from "lucide-react";
+
 
 interface ImageListProps {
     onEdit : (id : string) => void;
@@ -37,17 +38,41 @@ const ImageList: React.FC<ImageListProps> = ({
 
     })
 
+    const onDragEnd = (result : DropResult) => {
+        if(!result.destination) {
+            return
+        }
+
+        const items = Array.from(chapters);
+        const [reorderedItems] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItems);
+
+        const startIndex = Math.min(result.source.index, result.destination.index);
+        const endIndex = Math.max(result.source.index, result.destination.index);
+
+        const updatedChapters = items.slice(startIndex, endIndex + 1);
+        
+        setChapters(items)
+
+        const bulkUpdatedData = updatedChapters.map((chapter) => ({
+            id: chapter.id,
+            position: items.findIndex((item) => item.id === chapter.id)
+        }));
+
+        onReorder(bulkUpdatedData);
+    }
+
     if(!isMounted) {
         return null;
     }
 
     return ( 
-        <DragDropContext onDragEnd={() => {}}>
+        <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="image">
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {chapters.map((chapter,index) => (
-                            <Draggable key={chapter.id} draggableId={chapter.id} index={index}>
+                        {chapters.map((image,index) => (
+                            <Draggable key={image.id} draggableId={image.id} index={index}>
                                 {(provided) => (
                                     <div
                                     className={cn(
@@ -61,15 +86,21 @@ const ImageList: React.FC<ImageListProps> = ({
                                         className={cn("px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 rounded-l-md transition")}
                                         {...provided.dragHandleProps}
                                         >
-                                            <Grid/>
+                                            {image.url}
                                         </div>
                                         <div className="ml-auto pr-2 flex items-center gap-x-2">
                                             Gratis!!
                                         </div>
+                                        <Pencil
+                                        className="h-4 w-4 hover:opacity-75"
+                                        onClick={() => onEdit(image.id)}
+                                        
+                                        />
                                     </div>
                                 )}
                             </Draggable>
                         ))}
+                        {provided.placeholder}
                     </div>
                 )}
             </Droppable>

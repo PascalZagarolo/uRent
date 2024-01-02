@@ -7,7 +7,7 @@ export async function POST(
 ) {
     try {
 
-        const data = await req.json()
+        const values = await req.json()
 
         const inserat = await db.inserat.findUnique({
             where : {
@@ -21,9 +21,10 @@ export async function POST(
 
         const image = await db.image.create({
             data : {
-                url : data.url,
+                
                 position : position,
-                inseratId : params.inseratId
+                inseratId : params.inseratId,
+                url : values.image
             }
         })
 

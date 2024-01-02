@@ -69,6 +69,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                     <PlusCircleIcon className="ml-4 h-4 w-4" />
                 </CldUploadButton>
             </h3>
+            <p className="flex text-sm justify-center text-gray-900/50 font-semibold"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
 
                 images.length > 0 ? (

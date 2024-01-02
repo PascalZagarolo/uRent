@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
 import axios from "axios";
-import { PenIcon } from "lucide-react";
+import { AppWindow, PenIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { title } from "process";
 import { useState } from "react";
@@ -67,7 +67,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
     return ( 
         <div className="w-full ">
             <h1 className="text-xl flex justify-start ml-8 font-semibold">
-                Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
+               <AppWindow className="mr-4"/> Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             <div>
                 <Separator

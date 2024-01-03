@@ -4,6 +4,7 @@ import DescriptionInserat from "./input-fields/description-inserat";
 import RentPeriod from "./input-fields/rent-period";
 import SelectCategoryInserat from "./input-fields/select-category";
 import { Car } from "lucide-react";
+import RentPrice from "./input-fields/rent-price";
 
 
 interface InseratBodyLeftProps {
@@ -26,10 +27,13 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = ({
             <div className="ml-8 mr-8">
                 <div >
                     <h3 className="flex justify-center text-xl mt-16 font-semibold"><Car className="mr-4 h-6 w-6"/>
-                    Spezifikationen deines Fahrzeugs
+                    Spezifikationen deiner Anzeige
                     </h3>
                 </div>
                 <SelectCategoryInserat/>
+            </div>
+            <div>
+                <RentPrice/>
             </div>
             
                 

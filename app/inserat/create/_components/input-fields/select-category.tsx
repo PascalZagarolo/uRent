@@ -29,9 +29,9 @@ const SelectCategoryInserat = () => {
     }
     
     return (
-        <div className="ml-4 mt-8 flex items-center">
+        <div className=" mt-4 flex items-center">
             <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[50%] space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[50%]">
         <FormField
           control={form.control}
           name="category"

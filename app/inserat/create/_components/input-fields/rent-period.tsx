@@ -49,7 +49,7 @@ const RentPeriod = () => {
                 className="w-16 mr-auto h-[1.5px] bg-black"
             />
             <div className="flex justify-center">
-                <div className="mt-4">
+                <div className="">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
                             <h1 className="font-semibold text-base mb-2">

@@ -74,7 +74,7 @@ model Inserat {
   begin DateTime?
   end DateTime?
 
-  category String?
+  category Category?
 
   image Image[]
 
@@ -91,10 +91,10 @@ model Inserat {
 enum Category {
   PKW
   LKW
-  Landwirtschaft
-  Baumaschinen
-  Anhaenger
-  Wohnmobile
+  LAND
+  BAU
+  CARAVAN
+  TRAILOR
 }
 
 model Image {

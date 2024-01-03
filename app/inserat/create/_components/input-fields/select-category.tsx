@@ -5,6 +5,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CarFront, Link } from "lucide-react";
+import { useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,6 +19,8 @@ const SelectCategoryInserat = () => {
       })
     })
 
+    const [isLoading, setIsLoading] = useState(false);
+
    
       const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema)
@@ -25,7 +28,7 @@ const SelectCategoryInserat = () => {
    
 
     const onSubmit = (values : z.infer<typeof formSchema>) => {
-      console.log(values)
+      console.log(values);
     }
     
     return (
@@ -45,12 +48,12 @@ const SelectCategoryInserat = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="pkw">PKW</SelectItem>
-                  <SelectItem value="lkw">LKW</SelectItem>
-                  <SelectItem value="land">Landwirtschaft</SelectItem>
-                  <SelectItem value="bau">Baumaschinen</SelectItem>
-                  <SelectItem value="trailor">Anhänger</SelectItem>
-                  <SelectItem value="caravan">Wohnwagen</SelectItem>
+                  <SelectItem value="PKW">PKW</SelectItem>
+                  <SelectItem value="LKW">LKW</SelectItem>
+                  <SelectItem value="LAND">Landwirtschaft</SelectItem>
+                  <SelectItem value="BAU">Baumaschinen</SelectItem>
+                  <SelectItem value="TRAILOR">Anhänger</SelectItem>
+                  <SelectItem value="CARAVAN">Wohnwagen</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>

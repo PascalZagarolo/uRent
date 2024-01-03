@@ -30,7 +30,9 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = ({
                     Spezifikationen deiner Anzeige
                     </h3>
                 </div>
-                <SelectCategoryInserat/>
+                <SelectCategoryInserat
+                inserat={inserat}
+                />
             </div>
             <div>
                 <RentPrice/>

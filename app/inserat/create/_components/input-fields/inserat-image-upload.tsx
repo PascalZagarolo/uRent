@@ -57,7 +57,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
     }
 
     return (
-        <div className="mt-2">
+        <div className="">
             <h3 className="flex justify-center font-semibold text-xl items-center">
                 <ImageIcon className="mr-2 " />
                 Fotos und Anhänge

@@ -32,8 +32,8 @@ const Header: React.FC<HeaderProps> = ({
         <div className=" bg-[#303655] h-[90px] border border-black">
             <div className="flex justify-between">
                 <h3 className="flex justify-start items-center py-6 ml-8 text-3xl font-semibold text-white">
-                    - <Truck className="ml-1 mr-2"/>
-                    <p className="text-blue-400/50 font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</p>Rent
+                    <p className="text-sm">---</p> <Truck className="ml-1 mr-2"/>
+                    <p className="text-white font-font-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</p>Rent
                 </h3>
                 
                 <div className="flex">

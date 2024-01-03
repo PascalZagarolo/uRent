@@ -25,7 +25,7 @@ const InseratBodyRight: React.FC<InseratBodyRightProps> = async ({
                 images={images}
                 />
             </div>
-            <div className="mt-24 flex justify-center">
+            <div className="mt-8 flex justify-center">
                 <RentPeriod
                 />
             </div>

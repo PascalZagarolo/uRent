@@ -71,6 +71,9 @@ model Inserat {
 
   isPublished Boolean @default(false)
 
+  begin DateTime?
+  end DateTime?
+
   category String?
 
   image Image[]

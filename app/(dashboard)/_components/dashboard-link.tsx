@@ -21,8 +21,8 @@ const DashboardLink: React.FC<DashboardLinkProps> = ({
         router.push(`/dashboard/${currentUser.id}`)
     }
     return ( 
-        <div>
-            <Button  variant="ghost" className="outline outline-offset-1 outline-1" onClick={onClick} >
+        <div className="mt-2">
+            <Button  variant="ghost" className="outline outline-offset-1 outline-1 bg-white" onClick={onClick} >
                     <BarChart3/>
             </Button>
         </div>

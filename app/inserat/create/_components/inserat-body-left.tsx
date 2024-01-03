@@ -35,7 +35,9 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = ({
                 />
             </div>
             <div>
-                <RentPrice/>
+                <RentPrice
+                inserat={inserat}
+                />
             </div>
             
                 

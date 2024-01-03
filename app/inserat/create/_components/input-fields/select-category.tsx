@@ -4,13 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Inserat } from "@prisma/client";
+import axios from "axios";
 import { CarFront, Link } from "lucide-react";
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
-const SelectCategoryInserat = () => {
+interface SelectCategoryInseratProps {
+  inserat : Inserat;
+}
+
+const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
+  inserat
+}) => {
 
 
     const formSchema = z.object({
@@ -28,7 +37,15 @@ const SelectCategoryInserat = () => {
    
 
     const onSubmit = (values : z.infer<typeof formSchema>) => {
-      console.log(values);
+      try {
+        setIsLoading(true);
+        axios.patch(`/api/inserat/${inserat.id}`, values);
+        toast.success("Kategorie erfolgreich gespeichert");
+      } catch {
+        toast.error("Fehler beim Speichern der Kategorie");
+      } finally {
+        setIsLoading(false);
+      }
     }
     
     return (

@@ -27,6 +27,7 @@ const InseratBodyRight: React.FC<InseratBodyRightProps> = async ({
             </div>
             <div className="mt-8 flex justify-center">
                 <RentPeriod
+                inserat={inserat}
                 />
             </div>
         </div>

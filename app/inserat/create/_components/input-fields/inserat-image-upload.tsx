@@ -49,7 +49,10 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 list : updateData
             } )
             toast.success("Reorder erfolgreich");
-            router.refresh()
+            setTimeout(() => {
+                router.refresh();
+            
+            }, 1000)
         } catch {
             toast.error("Fehler beim Reorder")
         } finally {
@@ -75,7 +78,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                     />
                 </div>
             </h3>
-            <p className="flex text-sm justify-center text-gray-900/50 font-semibold"> Halte um die Reihenfolge der Fotos zu ändern </p>
+            <p className="flex text-sm justify-start text-gray-900/50 font-semibold"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
 
                 images.length > 0 ? (
@@ -88,11 +91,9 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                         />
                     </div>
                 ) : (
-                    <p className="text-gray-800/50 font-semibold text-sm italic flex justify-center mt-2"> Noch keine Anhänge oder Fotos hinzugefügt... </p>
+                    <p className="text-gray-800/50 font-semibold text-sm italic flex justify-center mt-8 "> Noch keine Anhänge oder Fotos hinzugefügt... </p>
                 )
             }
-
-
 
         </div>
     );

@@ -12,8 +12,8 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
     inserat
 }) => {
     
-    const images = await db.image.findMany({
-        where :{
+    const images = await db.images.findMany({
+        where : {
             inseratId : inserat.id
         }
     })

@@ -3,7 +3,7 @@
 
 
 import { Dialog, DialogContent, DialogHeader, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
-import { Image } from "@prisma/client";
+import { Images } from "@prisma/client";
 
 import { ImageIcon, Trash2Icon } from "lucide-react";
 import ImageList from "./image-list";
@@ -11,7 +11,7 @@ import ImageListForm from "./image-list-form";
 
 
 interface DeleteImageFormProps {
-    images : Image[];
+    images : Images[];
 }
 
 const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
@@ -37,13 +37,20 @@ const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
                         </DialogTitle>
                         
                     </DialogHeader>
-                    <div>
+                    {images.length === 0 ? (
+                        <div>
+                            <p className="text-gray-800/50 font-bold"> Noch keine Bilder hinzugefügt </p>
+                        </div>
+                    ) : (
+                        <div>
                         {images.map((image) => (
                             <ImageListForm
                             image={image}
                             />
                         ))}
                     </div>
+                    )}
+                    
                 </DialogContent>
             </Dialog>
         </div>

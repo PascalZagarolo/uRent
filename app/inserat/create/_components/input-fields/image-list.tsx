@@ -1,6 +1,6 @@
 'use client';
 
-import { Image } from "@prisma/client";
+import { Image, Inserat } from "@prisma/client";
 
 import { useEffect, useState } from "react";
 
@@ -12,23 +12,28 @@ import {
 } from "@hello-pangea/dnd"
 
 import { cn } from "@/lib/utils"
-import { Grid, Pencil } from "lucide-react";
+import { Grid, Pencil, Trash2Icon } from "lucide-react";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 
 interface ImageListProps {
     onEdit : (id : string) => void;
     onReorder : (updateData : { id : string, position : number }[]) => void;
     items : Image[];
+    
 }
 
 const ImageList: React.FC<ImageListProps> = ({
     onEdit,
     onReorder,
-    items
+    items,
+    
 }) => {
 
     const [isMounted, setIsMounted] = useState(false);
     const [chapters, setChapters] = useState(items);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setIsMounted(true);
@@ -62,8 +67,14 @@ const ImageList: React.FC<ImageListProps> = ({
         onReorder(bulkUpdatedData);
     }
 
+    
+
     if(!isMounted) {
         return null;
+    }
+
+    const onDelete = (imageId : string) => {
+        console.log(imageId); 
     }
 
     return ( 
@@ -89,11 +100,7 @@ const ImageList: React.FC<ImageListProps> = ({
                                             {image.url}
                                         </div>
                                         
-                                        <Pencil
-                                        className="h-4 w-4 hover:opacity-75"
-                                        onClick={() => onEdit(image.id)}
                                         
-                                        />
                                     </div>
                                 )}
                             </Draggable>

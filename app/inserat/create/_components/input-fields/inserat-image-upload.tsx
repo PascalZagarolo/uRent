@@ -1,7 +1,7 @@
 'use client'
 
 
-import { ImageIcon, PlusCircleIcon } from "lucide-react";
+import { ImageIcon, PlusCircleIcon, Trash2Icon } from "lucide-react";
 
 import { Image } from "@prisma/client";
 import ImageList from "./image-list";
@@ -11,6 +11,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import DeleteImageForm from "./delete-image-form";
 
 
 
@@ -68,6 +69,11 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 >
                     <PlusCircleIcon className="ml-4 h-4 w-4" />
                 </CldUploadButton>
+                <div className="ml-auto">
+                    <DeleteImageForm 
+                    images = { images }
+                    />
+                </div>
             </h3>
             <p className="flex text-sm justify-center text-gray-900/50 font-semibold"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
@@ -78,6 +84,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                             onEdit={() => { }}
                             onReorder={onReorder}
                             items={images || []}
+                            
                         />
                     </div>
                 ) : (

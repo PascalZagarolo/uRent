@@ -1,6 +1,6 @@
 import { db } from "@/app/utils/db";
 import SwitchThroughAdverts from "./switch-through-adverts";
-import { User } from "@prisma/client";
+import { Images, Inserat, User } from "@prisma/client";
 
 interface ProfileFooterProps {
     user : User
@@ -10,17 +10,24 @@ const ProfileFooter: React.FC<ProfileFooterProps> = async ({
     user
 }) => {
 
-    const inserateArray = await db.inserat.findMany({
+    type InseratHandOver = Inserat & { images : Images[] }
+
+    const inserateArray= await db.inserat.findMany({
         where : {
             userId : user.id,
             isPublished : true
         }, include : {
             images : true
+                
+            
         }
     })
 
+    
+
     return ( 
         <div className="flex justify-center">
+           
             <div className="mt-8">
             <SwitchThroughAdverts
             inserate = { inserateArray }

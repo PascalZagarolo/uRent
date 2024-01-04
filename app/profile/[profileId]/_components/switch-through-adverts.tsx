@@ -5,9 +5,10 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Images, Inserat, User } from "@prisma/client";
 import InseratRender from "./inserat-render";
 
+type inseratWithImages = Inserat & { images : Images[] }
 
 interface SwitchThroughAdvertsProps {
-  inserate : Inserat[]
+  inserate : Inserat[] & { images : Images[] }[]
 }
 
 const SwitchThroughAdverts: React.FC<SwitchThroughAdvertsProps> = ({
@@ -22,7 +23,7 @@ const SwitchThroughAdverts: React.FC<SwitchThroughAdvertsProps> = ({
     >
       <CarouselContent>
         
-        {inserate.map((inserat, index) => (
+        {inserate.map((inserat : inseratWithImages , index) => (
           <CarouselItem key={index} className="">
             <div className="p-1">
               <Card>

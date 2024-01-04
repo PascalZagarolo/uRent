@@ -2,6 +2,7 @@ import { db } from "@/app/utils/db";
 import ProfileHeader from "./_components/profile-header";
 import ProfileBody from "./_components/profile-body";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import ProfileFooter from "./_components/profile-footer";
 
 const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 
@@ -26,6 +27,10 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             
             <ProfileBody
             ownProfile = { ownProfile }
+            />
+
+            <ProfileFooter
+            user = { user}
             />
         </div>
      );

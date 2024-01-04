@@ -2,6 +2,7 @@ import { db } from "@/app/utils/db";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Inserat } from "@prisma/client";
+import PublishInserat from "./publish-inserat";
 
 interface CreationHeaderProps {
     inserat : Inserat;
@@ -17,7 +18,7 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
         }
     })
 
-    const isPublishable = (inserat.title && inserat.description && inserat.price && inserat.category && images.length > 0) ? true : false;
+    const isPublishable = (inserat.title && inserat.description && inserat.price && inserat.category && inserat.begin && inserat.end && images.length > 0) ? true : false;
 
     return ( 
         <div className="w-full">
@@ -31,15 +32,10 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
                 {isPublishable ? ("zur veröffentlichung bereit") : ("noch nicht zur veröffentlichung bereit")}
             </p>
             <div className="flex justify-end mr-4">
-                {!inserat.isPublished ? (
-                    <Button variant="ghost" size="sm" disabled={!isPublishable}>
-                        Anzeige veröffentlichen
-                    </Button>
-                ) : (
-                    <Button variant="ghost" size="sm">
-                        Anzeige privat schalten
-                    </Button>
-                )}
+                <PublishInserat
+                isPublishable={isPublishable}
+                inserat={inserat}
+                />
             </div>
         </div>
      );

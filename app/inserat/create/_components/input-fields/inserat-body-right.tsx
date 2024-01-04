@@ -12,7 +12,7 @@ const InseratBodyRight: React.FC<InseratBodyRightProps> = async ({
     inserat
 }) => {
 
-    const images = await db.image.findMany({
+    const images = await db.images.findMany({
         where : {
             inseratId : inserat.id
         }

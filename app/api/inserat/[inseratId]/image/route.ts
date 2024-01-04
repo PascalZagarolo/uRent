@@ -13,13 +13,13 @@ export async function POST(
             where : {
                 id : params.inseratId
             }, include : {
-                image : true
+                images : true
             }
         })
 
-        const position = inserat.image.length;
+        const position = inserat.images.length;
 
-        const image = await db.image.create({
+        const image = await db.images.create({
             data : {
                 
                 position : position,

@@ -3,7 +3,7 @@
 
 import { ImageIcon, PlusCircleIcon, Trash2Icon } from "lucide-react";
 
-import { Image } from "@prisma/client";
+import { Images } from "@prisma/client";
 import ImageList from "./image-list";
 import { Button } from "@/components/ui/button";
 import { CldUploadButton } from "next-cloudinary";
@@ -16,7 +16,7 @@ import DeleteImageForm from "./delete-image-form";
 
 
 interface InseratImageUploadProps {
-    images: Image[];
+    images: Images[];
 
 }
 

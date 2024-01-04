@@ -10,7 +10,7 @@ export async function PUT(
         const { list } = await req.json();
 
         for (let item of list) {
-            await db.image.update({
+            await db.images.update({
                 where :{
                     id : item.id
                 }, data :{

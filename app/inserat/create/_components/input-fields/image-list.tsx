@@ -1,6 +1,6 @@
 'use client';
 
-import { Image, Inserat } from "@prisma/client";
+import { Images, Inserat } from "@prisma/client";
 
 import { useEffect, useState } from "react";
 
@@ -20,7 +20,7 @@ import axios from "axios";
 interface ImageListProps {
     onEdit : (id : string) => void;
     onReorder : (updateData : { id : string, position : number }[]) => void;
-    items : Image[];
+    items : Images[];
     
 }
 

@@ -7,14 +7,25 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Inserat } from "@prisma/client";
+import axios from "axios";
 
 import { format } from "date-fns";
 import { CalendarClockIcon, CalendarIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
-const RentPeriod = () => {
+interface RentPeriodProps {
+    inserat : Inserat
+}
 
+const RentPeriod: React.FC<RentPeriodProps> = ({
+    inserat
+}) => {
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = z.object({
         begin: z.date({
@@ -34,7 +45,15 @@ const RentPeriod = () => {
     })
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+        try {   
+            setIsLoading(true);
+            axios.patch(`/api/inserat/${inserat.id}`, values);
+            toast.success("Datum erfolgreich festgelegt");
+        } catch {
+            toast.error("Etwas ist schief gelaufen...")
+        } finally {
+            setIsLoading(false);
+        }
     }
 
 
@@ -134,7 +153,7 @@ const RentPeriod = () => {
                                                         selected={field.value}
                                                         onSelect={field.onChange}
                                                         disabled={(date) =>
-                                                            date > new Date() || date < new Date("1900-01-01")
+                                                            date < new Date() || date < new Date("1900-01-01")
                                                         }
                                                         initialFocus
                                                     />

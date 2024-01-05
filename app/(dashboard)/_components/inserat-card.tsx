@@ -19,9 +19,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
       };
 
     return (
-        <div className="w-[400px] h-[320px]  border-black border-2 rounded-md">
+        <div className="w-[400px] h-[320px]  border-black rounded-md">
             <h3 className="flex justify-stretch font-semibold mt-1 ml-2 text-lg">
-                <CarFront className="" /> <p className="flex ml-4"> {inserat.title} </p>
+                <CarFront className="" /> <p className="flex ml-4 font-bold text-[#434b70] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]"> {inserat.title} </p>
                 <div className="ml-auto items-center flex mr-4">
                 <p className="font-bold text-gray-800/50 italic text-xs">23.10.23</p>
                 <p className="ml-4"><Star className="hover:text-yellow-800/20"/></p>
@@ -37,13 +37,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 height={200}
                 width={300}
                 alt = "Car-Vorschau"
-                className="rounded-md border border-black"
+                className="rounded-md border mb-2 border-black"
                 />
             </div>
 
             <div className="ml-2 mt-2">
                 <Separator
-                className="ml-2 w-8 bg-black"
+                className=" mt-2 w-16 bg-black"
                 />
                 <div className="flex mt-2">
                     <p className="text-gray-900/80 font-bold mr-4 flex">
@@ -52,7 +52,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <p className="font-semibold text-[#434b70]">
                         {formatDate(inserat.begin)}
                     </p>
-                    <p className="font-bold text-blue-800 mr-2 ml-2">
+                    <p className="font-bold text-black-800 mr-2 ml-2">
                         -
                     </p>
                     <p className="font-bold text-[#434b70]">

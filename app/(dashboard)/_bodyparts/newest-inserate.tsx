@@ -1,0 +1,36 @@
+import { db } from "@/app/utils/db";
+import InseratCard from "../_components/inserat-card";
+import { CalendarCheck, GanttChart } from "lucide-react";
+
+const NewestInserate = async () => {
+
+    const inserate = await db.inserat.findMany({
+        where : {
+            isPublished : true
+        }, include : {
+            images : true,
+            user : true
+        }
+    })
+
+    return ( 
+        <div>
+            <div className="flex">
+                <GanttChart className="mr-2"/>
+                <h3 className="mt-8 font-bold text-xl ml-8 flex">
+                    <CalendarCheck className="mr-2"/> 
+                Neueste Anzeigen
+                </h3>
+            </div>
+            <div className="flex ml-16 mt-8">
+                { inserate.map((inserat) => (
+                    <InseratCard
+                     inserat = {inserat}
+                    />
+                ))}
+            </div>
+        </div>
+     );
+}
+ 
+export default NewestInserate;

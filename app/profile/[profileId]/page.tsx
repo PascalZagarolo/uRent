@@ -27,6 +27,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             
             <ProfileBody
             ownProfile = { ownProfile }
+            user = { user }
             />
 
             <ProfileFooter

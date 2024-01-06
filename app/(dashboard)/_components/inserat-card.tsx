@@ -1,8 +1,12 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Images, Inserat, User } from "@prisma/client";
 import { Banknote, CalendarCheck2, CarFront, LocateFixedIcon, MapPinIcon, Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface InseratCardProps {
     inserat: Inserat & { images : Images[], user : User }
@@ -17,6 +21,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
         const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
         return `${day}.${month}`;
       };
+
+      const router = useRouter();
 
     return (
         <div className="w-[400px] h-[320px]  border-black rounded-md">
@@ -60,7 +66,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </p>
                 </div>
 
-                <div className="font-semibold text-gray-900 flex mt-1 items-center ">
+                <div className="font-semibold text-gray-900 flex mt-2 items-center">
                     <p className="mr-2 flex font-bold">
                         <Banknote
                         className="mr-2"/>
@@ -72,7 +78,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </div>
                 </div>
             </div>
-            <div className="mt-8">
+            <div className="mt-4">
 
             <div className="rounded-md bg-[#6e7ab3]">
                 <div className="flex mt-4 items-center border border-black rounded-md ">
@@ -83,9 +89,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     width={40}
                     alt="User-Bild"
                     />
+                    <Link href={`/profile/${inserat.userId}`}>
                     <p className="ml-4 font-semibold text-gray-900">
                         {inserat.user.name}
                     </p>
+                    </Link>
+                    
                     <div className="ml-auto mr-2">
                         <Button className="bg-[#505881]  border border-white  font-semibold">
                             Besichtigen

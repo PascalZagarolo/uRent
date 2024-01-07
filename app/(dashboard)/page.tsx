@@ -7,7 +7,7 @@ const Main = async () => {
     
     
     return ( 
-        <div>
+        <div className="">
             <div className="">
                 <CategoryDashboard/>
             </div>

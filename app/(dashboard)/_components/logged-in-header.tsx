@@ -28,7 +28,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     Willkommen zurück
                     <p className="ml-1 font-bold  text-gray-100 mr-4">{currentUser.name.toUpperCase()}</p>
                 </p>
-            <Button variant="ghost"  className="outline outline-offset-1 outline-1 mr-4 bg-white" onClick={onClick}>
+            <Button variant="ghost"  className="outline outline-offset-1 outline-1 mr-4 bg-[#2e3552]" onClick={onClick}>
                 <UserIcon className="text-black"/>
             </Button>
         </div>

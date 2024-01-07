@@ -61,7 +61,7 @@ const Inserat: React.FC<InseratProps> = ({
             <Dialog >
                 <DialogTrigger>
                     
-                    <Button variant="ghost" className="bg-white items-center mt-2 flex">
+                    <Button variant="ghost" className="bg-[#292f48] border border-black items-center mt-2 flex text-gray-300">
                         <PlusIcon className="w-4 h-4 mr-2" /> Neue Anzeige
                     </Button>
                 </DialogTrigger>

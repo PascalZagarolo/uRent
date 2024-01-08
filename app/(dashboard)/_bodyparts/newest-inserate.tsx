@@ -19,6 +19,12 @@ const NewestInserate = async ({
         }
     })
 
+    const favedInserate = await db.favourite.findMany({
+        where : {
+            id : currentUser.id
+        }
+    })
+
     return ( 
         <div>
             <div className="flex">
@@ -33,6 +39,7 @@ const NewestInserate = async ({
                     <InseratCard
                      inserat = {inserat}
                      profileId={currentUser.id}
+                     isFaved = {favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
                     />
                 ))}
             </div>

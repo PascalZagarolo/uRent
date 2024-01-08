@@ -7,24 +7,21 @@ export async function PATCH(
 ) {
     try {
 
-        const inseratId  = await req.json();
-
         
-        if(!inseratId) {
-            return new NextResponse("Keine InseratId angegeben", { status : 400 })
-        }
         
-
-        const patchedFavourites = await db.favourites.create({
+        const newFavourite = await db.favourite.create({
             data : {
-                userId : params.profileId,
-                inseratId : inseratId
+                userId : "dfijspdfk",
+                inseratId : "dfsfdsfs",
+
             }
         })
+        
+       
 
         
 
-        return NextResponse.json(patchedFavourites);
+        return NextResponse.json(newFavourite);
 
         
 

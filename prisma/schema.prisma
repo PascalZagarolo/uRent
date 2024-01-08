@@ -51,7 +51,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   inserate      Inserat[]
-  favourites Favourites[]
+  favourites Favourite[]
 }
 
 model VerificationToken {
@@ -84,7 +84,7 @@ model Inserat {
   attributeId String?
   attribute Attributes? @relation(fields: [attributeId], references: [id], onDelete: Cascade)
 
-  favourites Favourites[]
+  favourites Favourite[]
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -129,7 +129,7 @@ model Attributes {
 
 }
 
-model Favourites {
+model Favourite {
   id String @id @default(uuid())
 
   inseratId String

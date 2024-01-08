@@ -2,21 +2,26 @@
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
 import { Banknote, CalendarCheck2, CarFront, LocateFixedIcon, MapPinIcon, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface InseratCardProps {
     inserat: Inserat & { images : Images[], user : User },
-    profileId : string
+    profileId : string,
+    isFaved : boolean
 }
 
 const InseratCard: React.FC<InseratCardProps> = ({
     inserat,
-    profileId
+    profileId,
+    isFaved
 }) => {
 
     const formatDate = (inputDate: Date): string => {
@@ -26,12 +31,18 @@ const InseratCard: React.FC<InseratCardProps> = ({
       };
 
       const router = useRouter();
+      const [isLoading, setIsLoading] = useState(false);
+      
 
       const onFav = () => {
         try {
-            axios.patch(`/api/${profileId}/favourites`, {inseratId : inserat.id})
+            setIsLoading(true);
+            axios.patch(`/api/profile/${profileId}/favourites`, {inseratId : inserat.id})
+            toast.success("Anzeige erfolgreich favorisiert");
         } catch {
-
+            toast.error("Fehler beim Favorisieren der Anzeige")
+        } finally{
+            setIsLoading(false);
         }
       }
 
@@ -42,8 +53,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="ml-auto items-center flex mr-4">
                 <p className="font-bold text-gray-800/50 italic text-xs">23.10.23</p>
                 <p className="ml-4">
-                    <Button variant="ghost">
-                    <Star className="hover:text-yellow-800/20"/>
+                    <Button variant="ghost" onClick={onFav}>
+                    <Star className={cn(isFaved ? "text-yellow-300" : "text-black")}/>
                     </Button>
                     </p>
                 </div>  

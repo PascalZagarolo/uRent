@@ -124,7 +124,6 @@ model Attributes {
   kilometer Int?
   leistung Int?
 
-
   inserat Inserat[]
 
 }
@@ -132,13 +131,13 @@ model Attributes {
 model Favourite {
   id String @id @default(uuid())
 
-  inseratId String
-  inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+  inseratId String?
+  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
 
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String?
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
- 
+ @@unique([inseratId, userId])
   
 }
 

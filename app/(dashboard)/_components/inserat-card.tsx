@@ -38,7 +38,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
         try {
             setIsLoading(true);
             axios.patch(`/api/profile/${profileId}/favourites`, {inseratId : inserat.id})
-            toast.success("Anzeige erfolgreich favorisiert");
+            
+            setTimeout(() => {
+                router.refresh();
+            },1000)
         } catch {
             toast.error("Fehler beim Favorisieren der Anzeige")
         } finally{

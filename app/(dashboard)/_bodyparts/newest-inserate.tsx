@@ -21,12 +21,13 @@ const NewestInserate = async ({
 
     const favedInserate = await db.favourite.findMany({
         where : {
-            id : currentUser.id
+            userId : currentUser.id
         }
     })
 
     return ( 
         <div>
+            
             <div className="flex">
                 <GanttChart className="mr-2"/>
                 <h3 className="mt-8 font-bold text-xl ml-8 flex">

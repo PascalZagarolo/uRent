@@ -1,8 +1,14 @@
 import { db } from "@/app/utils/db";
 import InseratCard from "../_components/inserat-card";
 import { CalendarCheck, GanttChart } from "lucide-react";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
-const NewestInserate = async () => {
+
+
+const NewestInserate = async ({
+    
+}) => {
+    const currentUser = await getCurrentUser();
 
     const inserate = await db.inserat.findMany({
         where : {
@@ -26,6 +32,7 @@ const NewestInserate = async () => {
                 { inserate.map((inserat) => (
                     <InseratCard
                      inserat = {inserat}
+                     profileId={currentUser.id}
                     />
                 ))}
             </div>

@@ -3,17 +3,20 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Images, Inserat, User } from "@prisma/client";
+import axios from "axios";
 import { Banknote, CalendarCheck2, CarFront, LocateFixedIcon, MapPinIcon, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface InseratCardProps {
-    inserat: Inserat & { images : Images[], user : User }
+    inserat: Inserat & { images : Images[], user : User },
+    profileId : string
 }
 
 const InseratCard: React.FC<InseratCardProps> = ({
-    inserat
+    inserat,
+    profileId
 }) => {
 
     const formatDate = (inputDate: Date): string => {
@@ -24,13 +27,25 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
       const router = useRouter();
 
+      const onFav = () => {
+        try {
+            axios.patch(`/api/${profileId}/favourites`, {inseratId : inserat.id})
+        } catch {
+
+        }
+      }
+
     return (
         <div className="w-[400px] h-[320px]  border-black rounded-md">
             <h3 className="flex justify-stretch font-semibold mt-1 ml-2 text-lg">
                 <CarFront className="" /> <p className="flex ml-4 font-bold text-[#434b70] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]"> {inserat.title} </p>
                 <div className="ml-auto items-center flex mr-4">
                 <p className="font-bold text-gray-800/50 italic text-xs">23.10.23</p>
-                <p className="ml-4"><Star className="hover:text-yellow-800/20"/></p>
+                <p className="ml-4">
+                    <Button variant="ghost">
+                    <Star className="hover:text-yellow-800/20"/>
+                    </Button>
+                    </p>
                 </div>  
                 
             </h3>

@@ -2,6 +2,8 @@ import LogOutButton from "@/components/logout-button";
 import getCurrentUser from "../actions/getCurrentUser";
 import NewestInserate from "./_bodyparts/newest-inserate";
 import CategoryDashboard from "./_components/category-dashboard";
+import RelevanteInserate from "./_bodyparts/relevant-inserate";
+
 
 const Main = async () => {
     
@@ -12,7 +14,12 @@ const Main = async () => {
                 <CategoryDashboard/>
             </div>
             <div>
-            <NewestInserate/>
+            <NewestInserate
+            
+            />
+            <div className="mt-16">
+                <RelevanteInserate/>
+            </div>
             </div>
             
         </div>

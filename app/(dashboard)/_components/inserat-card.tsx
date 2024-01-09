@@ -41,7 +41,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
             
             setTimeout(() => {
                 router.refresh();
-            },1000)
+            },500)
         } catch {
             toast.error("Fehler beim Favorisieren der Anzeige")
         } finally{
@@ -64,9 +64,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 
             </h3>
             <Separator
-            className="w-8 bg-black rounded-lg ml-2 mt-2"
+            className="w-8 bg-black rounded-lg ml-2 "
             />
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center ">
                 <Image
                 src={inserat.images[0].url}
                 height={200}

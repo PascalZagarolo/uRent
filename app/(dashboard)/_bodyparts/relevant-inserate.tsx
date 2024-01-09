@@ -1,14 +1,13 @@
-import { db } from "@/app/utils/db";
-import InseratCard from "../_components/inserat-card";
-import { CalendarCheck, GanttChart } from "lucide-react";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import { db } from "@/app/utils/db";
+import { TrendingUp } from "lucide-react";
+import InseratCard from "../_components/inserat-card";
 
 
 
-const NewestInserate = async ({
-    
-}) => {
-    const currentUser = await getCurrentUser();
+const RelevanteInserate = async () => {
+
+    const currentUser = await getCurrentUser()
 
     const inserate = await db.inserat.findMany({
         where : {
@@ -27,12 +26,10 @@ const NewestInserate = async ({
 
     return ( 
         <div>
-            
-            <div className="flex">
-                <GanttChart className="mr-2"/>
-                <h3 className="mt-4 font-bold text-xl ml-8 flex">
-                    <CalendarCheck className="mr-2"/> 
-                Neueste Anzeigen
+            <div>
+            <h3 className="mt-8 font-bold text-xl ml-8 flex">
+                    <TrendingUp className="mr-2"/> 
+                Relevante Anzeigen
                 </h3>
             </div>
             <div className="flex ml-16 mt-4">
@@ -48,4 +45,4 @@ const NewestInserate = async ({
      );
 }
  
-export default NewestInserate;
+export default RelevanteInserate;

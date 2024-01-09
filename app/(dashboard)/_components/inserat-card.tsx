@@ -49,9 +49,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
         }
       }
 
+      const onRedirect = () => {
+        router.push(`/inserat/${inserat.id}`)
+      }
+
     return (
         <div className="w-[400px] h-[320px]  border-black rounded-md">
-            <h3 className="flex justify-stretch font-semibold mt-1 ml-2 text-lg">
+            <h3 className="flex justify-stretch font-semibold mt-1 ml-2 text-lg hover:cursor-pointer" onClick={onRedirect}>
                 <CarFront className="" /> <p className="flex ml-4 font-bold text-[#434b70] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]"> {inserat.title} </p>
                 <div className="ml-auto items-center flex mr-4">
                 <p className="font-bold text-gray-800/50 italic text-xs">23.10.23</p>
@@ -72,7 +76,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 height={200}
                 width={300}
                 alt = "Car-Vorschau"
-                className="rounded-md border mb-2 border-black"
+                className="rounded-md border mb-2 border-black hover:cursor-pointer"
+                onClick={onRedirect}
                 />
             </div>
 

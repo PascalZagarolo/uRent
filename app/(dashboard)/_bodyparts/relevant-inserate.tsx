@@ -32,7 +32,7 @@ const RelevanteInserate = async () => {
                 Relevante Anzeigen
                 </h3>
             </div>
-            <div className="flex ml-16 mt-4">
+            <div className="flex ml-16 mt-2">
                 { inserate.map((inserat) => (
                     <InseratCard
                      inserat = {inserat}

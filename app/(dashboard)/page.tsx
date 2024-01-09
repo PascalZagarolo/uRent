@@ -17,7 +17,7 @@ const Main = async () => {
             <NewestInserate
             
             />
-            <div className="mt-16">
+            <div className="mt-20">
                 <RelevanteInserate/>
             </div>
             </div>

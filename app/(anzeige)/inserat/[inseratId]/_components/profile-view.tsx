@@ -1,21 +1,30 @@
+'use client';
+
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Inserat, User } from "@prisma/client";
 import { AlignCenter, CarIcon, User2 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProfileViewProps {
     user: User;
     inseratArray : Inserat[];
+    inseratOwner : User;
 }
 
 const ProfileView: React.FC<ProfileViewProps> = ({
     user,
-    inseratArray
+    inseratArray,
+    inseratOwner
 }) => {
+
+    const router = useRouter();
+
     return (
-        <div className="px-4 py-4 bg-gradient-to-b from-[#5a6389] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md mt-8 ">
+        <div className="px-4 py-4 bg-gradient-to-b from-[#5a6389] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md  ">
             <div className="flex items-center  text-gray-100">
                 <Image
                     src={user.image}
@@ -67,7 +76,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
 
             <div className="mt-4">
-                <Button className = "w-full flex bg-[#1f222f] border border-black12">
+                <Button className = "w-full flex bg-[#1f222f] border border-black12" onClick={() => {router.push(`/profile/${inseratOwner.id}`)}}>
                   <User2 className="w-6 h-6 mr-2"/>  Zum Profil
                 </Button>
             </div>

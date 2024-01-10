@@ -61,7 +61,7 @@ const InseratAnzeige = async ({
                         </div>
 
 
-                        <div className="mt-2 bg-[#393e56] rounded-md p-2 border border-black">
+                        <div className="mt-2 bg-[#393e56] rounded-md p-2 border border-black w-[600px] flex justify-center">
                             <InseratImageCarousel
                                 images={images}
                             />
@@ -83,7 +83,7 @@ const InseratAnzeige = async ({
                             <div className="mt-2">
                                 <p className="flex text-xl font-bold"><AlignLeft className="mr-2"/> Beschreibung der Anzeige</p>
                             </div>
-                                <div className="mt-2 font-semibold text-gray-800/80">
+                                <div className="mt-2 font-semibold text-gray-800/80 w-[480px]">
                                     {inserat.description}
                                 </div>
                         </div>

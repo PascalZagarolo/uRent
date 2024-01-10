@@ -13,7 +13,7 @@ const DashboardLayout = async (
    const currentUser = await getCurrentUser();
 
     return ( 
-        <div>
+        <div className="bg-[#404040]/10 h-screen">
              <div className="w-full">
                 <HeaderLogo
                 currentUser={currentUser}
@@ -21,7 +21,7 @@ const DashboardLayout = async (
                 
              </div>
              
-            <div className="h-full">
+            <div className="h-full ">
                 {children}
             </div>
         </div>

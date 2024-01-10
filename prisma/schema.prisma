@@ -82,8 +82,7 @@ model Inserat {
 
   location String?
   
-  attributeId String?
-  attribute Attributes? @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -92,6 +91,8 @@ model Inserat {
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+ 
 
 }
 
@@ -128,7 +129,7 @@ model Attributes {
   kilometer Int?
   leistung Int?
 
-  inserat Inserat[]
+  
 
 }
 

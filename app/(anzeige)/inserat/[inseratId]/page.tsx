@@ -35,6 +35,12 @@ const InseratAnzeige = async ({
         }
     })
 
+    const inseratOwner = await db.user.findUnique({
+        where : {
+            id : inserat.userId
+        }
+    })
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-24">
             <div className=" p-4">
@@ -74,7 +80,7 @@ const InseratAnzeige = async ({
                             
                         </div>
                         <div>
-                            <div>
+                            <div className="mt-2">
                                 <p className="flex text-xl font-bold"><AlignLeft className="mr-2"/> Beschreibung der Anzeige</p>
                             </div>
                                 <div className="mt-2 font-semibold text-gray-800/80">
@@ -91,12 +97,15 @@ const InseratAnzeige = async ({
 
             <div className=" p-4 mt-24">
                 <div>
-                    <InseratOptions />
+                    <InseratOptions 
+                    user = {user}
+                    />
                 </div>
                 <div className="mt-16">
                     <ProfileView
                         user={user}
                         inseratArray = {inseratArray}
+                        inseratOwner = {inseratOwner}
                     />
                 </div>
 

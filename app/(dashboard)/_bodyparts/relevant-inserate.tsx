@@ -1,48 +1,60 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { db } from "@/app/utils/db";
-import { TrendingUp } from "lucide-react";
+import { AlignCenter, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
+import { Images, Inserat, User } from "@prisma/client";
 
+interface RelevanteInserateProps {
+    inserateArray: Inserat[] & { images: Images[]; user: User }[]
+}
 
-
-const RelevanteInserate = async () => {
+const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
+    inserateArray
+}) => {
 
     const currentUser = await getCurrentUser()
 
     const inserate = await db.inserat.findMany({
-        where : {
-            isPublished : true
-        }, include : {
-            images : true,
-            user : true
+        where: {
+            isPublished: true
+        }, include: {
+            images: true,
+            user: true
         }
     })
 
     const favedInserate = await db.favourite.findMany({
-        where : {
-            userId : currentUser.id
+        where: {
+            userId: currentUser.id
         }
     })
 
-    return ( 
+    return (
         <div>
             <div>
-            <h3 className="mt-8 font-bold text-xl ml-8 flex">
-                    <TrendingUp className="mr-2"/> 
-                Relevante Anzeigen
+                <div className="ml-4">
+                    <AlignCenter/>
+                </div>
+                <h3 className="ml-8 mt-2 font-bold text-2xl">
+                    Relevante Inserate
                 </h3>
             </div>
-            <div className="flex ml-16 mt-2">
-                { inserate.map((inserat) => (
+        <div className="flex flex-wrap justify-between">
+            
+            {inserateArray.map((inserat) => (
+                <div className="w-full md:w-1/3 p-4 mb-4 flex-grow">
                     <InseratCard
-                     inserat = {inserat}
-                     profileId={currentUser.id}
-                     isFaved = {favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
+                        inserat={inserat}
+                        profileId={currentUser.id}
+                        isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
+                        style={{ alignSelf: 'flex-end' }}
                     />
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
-     );
+        </div>
+
+    );
 }
- 
+
 export default RelevanteInserate;

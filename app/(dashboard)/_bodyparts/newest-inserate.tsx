@@ -2,22 +2,21 @@ import { db } from "@/app/utils/db";
 import InseratCard from "../_components/inserat-card";
 import { CalendarCheck, GanttChart } from "lucide-react";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import { Images, Inserat, User } from "@prisma/client";
 
 
 
-const NewestInserate = async ({
-    
+
+interface NewestInserateProps {
+    inserateArray : Inserat[] & { images : Images[]; user : User }[]
+}
+
+const NewestInserate: React.FC<NewestInserateProps> = async ({
+    inserateArray
 }) => {
     const currentUser = await getCurrentUser();
 
-    const inserate = await db.inserat.findMany({
-        where : {
-            isPublished : true
-        }, include : {
-            images : true,
-            user : true
-        }
-    })
+    
 
     const favedInserate = await db.favourite.findMany({
         where : {
@@ -36,9 +35,9 @@ const NewestInserate = async ({
                 </h3>
             </div>
             <div className="flex ml-16 mt-2">
-                { inserate.map((inserat) => (
+                {inserateArray.map((inserat) => (
                     <InseratCard
-                     inserat = {inserat}
+                     inserat={inserat}
                      profileId={currentUser.id}
                      isFaved = {favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
                     />

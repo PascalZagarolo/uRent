@@ -18,18 +18,7 @@ const Header: React.FC<HeaderProps> = async ({
 
             <div className="flex justify-center items-center">
 
-                <div className="mr-32 items-center">
-                    <Inserat 
-                    currentUser={currentUser}
-                    />
-                </div>
-
-                <div className="flex justify-center">
-                    <SearchItem />
-                </div>
-                <div className="flex justify-center">
-                    <LocationBar />
-                </div>
+                
             </div>
 
         </div>

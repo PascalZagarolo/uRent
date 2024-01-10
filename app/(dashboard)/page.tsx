@@ -4,23 +4,39 @@ import NewestInserate from "./_bodyparts/newest-inserate";
 import CategoryDashboard from "./_components/category-dashboard";
 import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import { useSearchParams } from "next/navigation";
+import { getInserate } from "@/actions/getInserate";
+import { Images, Inserat } from "@prisma/client";
 
 
-const Main = async () => {
-    
-   
+type InserateWithImages = Inserat & {
+    images : Images[]
+}
+
+interface MainPageProps {
+    searchParams : {
+        title : string
+    }
+}
+
+const Main = async ({
+    searchParams
+} : MainPageProps) => {  
+
+    const currentUser = await getCurrentUser();
+    const inserate = await getInserate({title : searchParams.title});
     
     return ( 
         <div className="">
+            
             <div className="">
                 <CategoryDashboard/>
             </div>
             <div>
-            <NewestInserate
             
-            />
-            <div className="mt-20">
-                <RelevanteInserate/>
+            <div className="items-center flex">
+                <RelevanteInserate
+                inserateArray = {inserate}
+                />
             </div>
             </div>
             

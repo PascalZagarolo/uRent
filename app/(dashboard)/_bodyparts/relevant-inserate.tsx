@@ -30,7 +30,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     })
 
     return (
-        <div>
+        <div >
             <div>
                 <div className="ml-4">
                     <AlignCenter/>
@@ -39,10 +39,17 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     Relevante Inserate
                 </h3>
             </div>
-        <div className="flex flex-wrap justify-between">
-            
-            {inserateArray.map((inserat) => (
+        {inserateArray.length < 1 ? (
+            <div className="flex justify-center w-screen mt-48">
+            <h3 className="ml-8 font-bold text-3xl text-gray-800/50 italic flex justify-center items-center">
+                Keine passenden Angebote gefunden :/
+            </h3>
+        </div>
+        ) : (
+            <div className="flex flex-wrap justify-between">
+                {inserateArray.map((inserat) => (
                 <div className="w-full md:w-1/3 p-4 mb-4 flex-grow">
+                    
                     <InseratCard
                         inserat={inserat}
                         profileId={currentUser.id}
@@ -51,7 +58,12 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     />
                 </div>
             ))}
+            
         </div>
+        )}
+        
+
+
         </div>
 
     );

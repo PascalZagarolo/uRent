@@ -21,7 +21,7 @@ const DashboardLayout = async (
                 
              </div>
              
-            <div className="h-full ">
+            <div >
                 {children}
             </div>
         </div>

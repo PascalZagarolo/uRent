@@ -79,6 +79,7 @@ model Inserat {
   category Category?
 
   images Images[]
+  purchased Purchase[]
 
   location String?
   
@@ -144,6 +145,29 @@ model Favourite {
 
  @@unique([inseratId, userId])
   
+}
+
+model Purchase {
+  id String @id @default (uuid())
+  userId String
+
+  inseratId String
+  inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([inseratId, userId])
+  @@index([userId])
+}
+
+model StripeCustomer {
+  id String @id @default(uuid())
+  userId String @unique
+  stripeCustomerId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 

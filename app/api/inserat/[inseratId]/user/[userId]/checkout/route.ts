@@ -1,4 +1,5 @@
 import { db } from "@/app/utils/db";
+import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -44,10 +45,45 @@ export async function POST(
                         name : inserat.title,
                         description : inserat.description!,
                     },
-                    unit_amount: Math.round(inserat.price * 100),
+                    unit_amount: Math.round(inserat.price! * 100),
                 }
             }
-        ]
+        ];
+
+        let stripeCustomer = await db.stripeCustomer.findUnique({
+            where : {
+                userId : params.userId
+            }, select : {
+                stripeCustomerId : true
+            }
+        })
+
+        if(!stripeCustomer) {
+            const customer = await stripe.customers.create({
+                email : user.email,
+            });
+
+            stripeCustomer = await db.stripeCustomer.create({
+                data : {
+                    userId : params.userId,
+                    stripeCustomerId : customer.id  
+                }
+            })
+        }
+
+        const session = await stripe.checkout.sessions.create({
+            customer : stripeCustomer.stripeCustomerId,
+            line_items,
+            mode: 'payment',
+            success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}/user/${params.userId}?success=1`,
+            cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}/user/${params.userId}?canceled=1`,
+            metadata : {
+                inseratId : params.inseratId,
+                userId : params.userId
+            }
+        });
+
+        return NextResponse.json({ url : session.url})
 
     } catch(error) {
         console.log("Fehler beim Checkout");

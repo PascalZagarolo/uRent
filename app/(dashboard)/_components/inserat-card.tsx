@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
-import { Banknote, CalendarCheck2, CarFront, LocateFixedIcon, MapPinIcon, Star } from "lucide-react";
+import { Banknote, CalendarCheck2, CarFront, Check, LocateFixedIcon, MapPinIcon, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,13 +15,15 @@ import toast from "react-hot-toast";
 interface InseratCardProps {
     inserat : Inserat & { images : Images[]; user : User };
     profileId : string,
-    isFaved : boolean
+    isFaved : boolean,
+    owned : boolean
 }
 
 const InseratCard: React.FC<InseratCardProps> = ({
     inserat,
     profileId,
-    isFaved
+    isFaved,
+    owned
 }) => {
 
     const formatDate = (inputDate: Date): string => {
@@ -103,12 +105,30 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
 
                 <div className="font-semibold text-gray-900 flex mt-2 items-center">
-                    <p className="mr-2 flex font-bold">
+                    
+                    {owned ? (
+                        <p className="mr-2 flex font-bold">
+                        <Check
+                        className="mr-2 text-emerald-600"/>
+                        Im Besitz 
+                    </p>
+                    ) : (
+                        <div className="flex">
+
+                        <p className="mr-2 flex font-bold">
                         <Banknote
                         className="mr-2"/>
                         Preis : 
                     </p>
                     {inserat.price} €
+                    </div>
+                    )}
+
+                    
+
+
+
+                    
                     <div className="ml-auto mr-4 flex items-center">
                         <MapPinIcon className="text-rose-600 mr-2"/> Mömer <p className="text-gray-800/50 text-xs ml-2">(187 Km)</p>
                     </div>

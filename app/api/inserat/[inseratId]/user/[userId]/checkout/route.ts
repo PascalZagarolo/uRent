@@ -54,7 +54,7 @@ export async function POST(
             where : {
                 userId : params.userId
             }, select : {
-                stripeCustomerId : true
+                stripeCustomerId : true  
             }
         })
 
@@ -75,8 +75,8 @@ export async function POST(
             customer : stripeCustomer.stripeCustomerId,
             line_items,
             mode: 'payment',
-            success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}/user/${params.userId}?success=1`,
-            cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}/user/${params.userId}?canceled=1`,
+            success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}?success=1`,
+            cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}?canceled=1`,
             metadata : {
                 inseratId : params.inseratId,
                 userId : params.userId

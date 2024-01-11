@@ -16,7 +16,11 @@ const NewestInserate: React.FC<NewestInserateProps> = async ({
 }) => {
     const currentUser = await getCurrentUser();
 
-    
+    const purchases = await db.purchase.findMany({
+        where : {
+            userId : currentUser.id
+        }
+    })
 
     const favedInserate = await db.favourite.findMany({
         where : {
@@ -40,6 +44,7 @@ const NewestInserate: React.FC<NewestInserateProps> = async ({
                      inserat={inserat}
                      profileId={currentUser.id}
                      isFaved = {favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
+                     owned = {purchases.some((purchase) => purchase.inseratId === inserat.id)}
                     />
                 ))}
             </div>

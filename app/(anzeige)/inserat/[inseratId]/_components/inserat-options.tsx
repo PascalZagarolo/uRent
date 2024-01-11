@@ -36,6 +36,20 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         }
     }
 
+    const onPurchase = async () => {
+        try {
+            setIsLoading(true);
+
+            const response = await axios.post(`/api/inserat/${params.inseratId}/user/${user.id}/checkout`);
+
+            window.location.assign(response.data.url)
+        } catch {
+            toast.error("Fehler beim Buchen der Anzeige")
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     
 
     return (
@@ -44,7 +58,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             
 
             <div className="mt-4">
-                <Button className="bg-emerald-600 border-2 border-black w-[240px]">
+                <Button className="bg-emerald-600 border-2 border-black w-[240px]" onClick={onPurchase}>
                     <Banknote className="h-4 w-4 mr-2"/> Buchen
                 </Button>
             </div>

@@ -14,7 +14,8 @@ type InserateWithImages = Inserat & {
 
 interface MainPageProps {
     searchParams : {
-        title : string
+        title : string,
+        category: string
     }
 }
 

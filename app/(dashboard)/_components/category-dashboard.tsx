@@ -1,6 +1,35 @@
+'use client'
+
+import { useDebounce } from "@/hooks/use-debounce";
 import { CarFront, Caravan, TowerControl, Tractor, Truck } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import qs from "query-string";
 
 const CategoryDashboard = () => {
+
+    const [value, setValue] = useState("");
+
+    const debouncedValue = useDebounce(value);
+
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const currentTitle = searchParams.get("title");
+
+
+    useEffect(() => {
+        const url = qs.stringifyUrl({
+            url: pathname,
+            query: {
+                title: debouncedValue
+            }
+        }, { skipEmptyString: true, skipNull: true })
+
+        router.push(url)
+    }, [debouncedValue, router, pathname])
+
     return (
         <div>
             <div className="flex justify-around mt-4 mb-2">

@@ -45,9 +45,9 @@ const Header: React.FC<HeaderProps> = ({
                     <div className="flex items-center">
                         <div className="mr-32 items-center">
                             
-                            <Inserat
+                        <Inserat
                                 currentUser={currentUser}
-                            />
+                            />  
                         </div>
 
                         <div className="flex justify-center">

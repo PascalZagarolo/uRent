@@ -4,12 +4,14 @@ import { AlignLeft, CarFront, MapPin } from "lucide-react";
 import Active from "./_components/active-badge";
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 
 const InseratAnzeige = async ({
     params
 }: { params: { inseratId: string } }) => {
 
+    const currentUser = await getCurrentUser();
 
     const images = await db.images.findMany({
         where: {
@@ -41,6 +43,18 @@ const InseratAnzeige = async ({
         }
     })
 
+    const purchases = await db.purchase.findUnique({
+        where : {
+            inseratId_userId : {
+                inseratId : inserat.id,
+                userId : currentUser.id
+            
+            }
+        }
+    })
+
+    const isPurchased = purchases ? true : false;
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-24">
             <div className=" p-4">
@@ -62,18 +76,18 @@ const InseratAnzeige = async ({
 
 
                         <div className="mt-2 bg-[#393e56] rounded-md p-2 border border-black w-[600px] flex justify-center">
-                            <InseratImageCarousel
+                        <InseratImageCarousel
                                 images={images}
                             />
                         </div>
                         <div>
                             <div className="flex justify-end items-center">
                             <div className="flex mr-auto items-center">
-                                <p className="flex font-bold italic text-sm items-center"> <MapPin className="text-rose-600 "/> Mömer </p>
+                                <div className="flex font-bold italic text-sm items-center"> <MapPin className="text-rose-600 "/> Mömer </div>
                                 </div>
-                                <p className="justify-end flex mt-2 text-2xl font-bold">
+                                <div className="justify-end flex mt-2 text-2xl font-bold">
                                     {inserat.price} <p className="text-sm mr-1">00 €</p>
-                                </p>
+                                </div>
                                 
                                 
                             </div>
@@ -99,6 +113,7 @@ const InseratAnzeige = async ({
                 <div>
                     <InseratOptions 
                     user = {user}
+                    isPurchased = {isPurchased}
                     />
                 </div>
                 <div className="mt-16">
@@ -106,6 +121,7 @@ const InseratAnzeige = async ({
                         user={user}
                         inseratArray = {inseratArray}
                         inseratOwner = {inseratOwner}
+                        
                     />
                 </div>
 

@@ -59,11 +59,11 @@ const Inserat: React.FC<InseratProps> = ({
         <div>
             
             <Dialog >
-                <DialogTrigger>
+                <DialogTrigger className="bg-[#292f48] border border-black  mt-2 flex text-gray-300 p-2 rounded-md text-sm items-center font-semibold">
                     
-                    <Button variant="ghost" className="bg-[#292f48] border border-black items-center mt-2 flex text-gray-300">
+                    
                         <PlusIcon className="w-4 h-4 mr-2" /> Neue Anzeige
-                    </Button>
+                    
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>

@@ -14,12 +14,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 
     const currentUser = await getCurrentUser()
 
-    const inserate = await db.inserat.findMany({
-        where: {
-            isPublished: true
-        }, include: {
-            images: true,
-            user: true
+    const purchases = await db.purchase.findMany({
+        where : {
+            userId : currentUser.id
         }
     })
 
@@ -54,6 +51,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                         inserat={inserat}
                         profileId={currentUser.id}
                         isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
+                        owned = {purchases.some((purchase) => purchase.inseratId === inserat.id)}
                         style={{ alignSelf: 'flex-end' }}
                     />
                 </div>

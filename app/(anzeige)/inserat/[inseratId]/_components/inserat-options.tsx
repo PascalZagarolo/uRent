@@ -3,17 +3,19 @@
 import { Button } from "@/components/ui/button";
 import { User } from "@prisma/client";
 import axios from "axios";
-import { Banknote, Mail, Share, Star } from "lucide-react";
+import { Banknote, Check, Mail, Share, Star } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface InseratOptionsProps {
     user : User;
+    isPurchased : boolean
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
-    user
+    user,
+    isPurchased
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -56,12 +58,20 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         <div>
 
             
-
-            <div className="mt-4">
+            {isPurchased ? (
+                <div className="mt-4">
+                <Button className="bg-emerald-600 border-2 border-black w-[240px]" disabled>
+                    <Check className="h-4 w-4 mr-2"/> Bereits gebucht
+                </Button>
+            </div>
+            ) : (
+                <div className="mt-4">
                 <Button className="bg-emerald-600 border-2 border-black w-[240px]" onClick={onPurchase}>
                     <Banknote className="h-4 w-4 mr-2"/> Buchen
                 </Button>
             </div>
+            )}
+            
 
             <div className="mt-4">
                 <Button className="bg-[#464c69] w-[240px] border-2 border-black" onClick={onStar}>

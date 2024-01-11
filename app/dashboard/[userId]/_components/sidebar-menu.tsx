@@ -24,7 +24,7 @@ const SideBarMenu = () => {
 
 
     return ( 
-        <div >
+        <div>
             <div>
                 <h3 className="flex  font-bold text-base ml-12">
                     Menü

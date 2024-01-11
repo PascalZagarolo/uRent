@@ -32,7 +32,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 <div className="ml-4">
                     <AlignCenter/>
                 </div>
-                <h3 className="ml-8 mt-2 font-bold text-2xl">
+                <h3 className="ml-8  font-bold text-2xl">
                     Relevante Inserate
                 </h3>
             </div>
@@ -45,14 +45,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         ) : (
             <div className="flex flex-wrap justify-between">
                 {inserateArray.map((inserat) => (
-                <div className="w-full md:w-1/3 p-4 mb-4 flex-grow">
+                <div className="w-full md:w-1/4  p-4 mb-4 flex-grow gap-y-4">
                     
                     <InseratCard
                         inserat={inserat}
                         profileId={currentUser.id}
                         isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
                         owned = {purchases.some((purchase) => purchase.inseratId === inserat.id)}
-                        style={{ alignSelf: 'flex-end' }}
+                        
                     />
                 </div>
             ))}

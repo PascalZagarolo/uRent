@@ -1,8 +1,8 @@
 'use client'
 
-import { Card, CardContent } from "@/components/ui/card";
+
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import type { Images } from "@prisma/client";
+import  { Images } from "@prisma/client";
 
 import Image from "next/image";
 

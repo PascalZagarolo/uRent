@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import SwitchThroughAdverts from "./switch-through-adverts";
 import { Images, Inserat, User } from "@prisma/client";
 

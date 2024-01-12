@@ -2,7 +2,7 @@ import { TrendingUp } from "lucide-react";
 import Logo from "../../profile/[profileId]/_components/u-rent-logo";
 import DashboardLayout from '../../(dashboard)/layout';
 import { User } from "@prisma/client";
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import Drafts from "./_components/drafts-user";
 
 

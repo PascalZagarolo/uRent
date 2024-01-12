@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Inserat } from "@prisma/client";

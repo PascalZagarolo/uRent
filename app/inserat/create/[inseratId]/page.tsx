@@ -1,7 +1,7 @@
 import Logo from "@/app/profile/[profileId]/_components/u-rent-logo";
 import CreationHeader from "../_components/creation-header";
 import InseratBodyLeft from "../_components/inserat-body-left";
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import InseratBodyRight from "../_components/input-fields/inserat-body-right";
 
 const InseratCreation = async ({

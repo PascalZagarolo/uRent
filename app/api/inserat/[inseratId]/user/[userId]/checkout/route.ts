@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";

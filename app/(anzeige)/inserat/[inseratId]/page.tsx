@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import InseratImageCarousel from "./_components/inserat-image";
 import { AlignLeft, CarFront, MapPin } from "lucide-react";
 import Active from "./_components/active-badge";

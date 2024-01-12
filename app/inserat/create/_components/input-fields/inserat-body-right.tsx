@@ -2,7 +2,7 @@ import { Inserat } from "@prisma/client";
 
 import RentPeriod from "./rent-period";
 import InseratImageUpload from "./inserat-image-upload";
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 
 interface InseratBodyRightProps {
     inserat: Inserat;

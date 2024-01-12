@@ -14,14 +14,14 @@ const DashboardLayout = async (
 
     return ( 
         <div className="bg-[#404040]/10 h-full">
-             <div className="w-full">
+             <div className="">
              <HeaderLogo
                 currentUser={currentUser}
                 />
                 
              </div>
              
-            <div >
+            <div className="h-screen flex-1" >
                 {children}
             </div>
         </div>

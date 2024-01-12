@@ -30,17 +30,17 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     const inserateArray = await getInserate({title : title});
 
     return (
-        <div>
-            <div className="">
+        <div className="flex-1">
+            <div className="h-full">
                 <div className="ml-4">
                     <AlignCenter />
                 </div>
-                <h3 className="ml-8  font-bold text-2xl">
+                <h3 className="ml-8  font-bold text-2xl h-full">
                     Relevante Inserate
                 </h3>
             </div>
             {inserateArray.length < 1 ? (
-                <div className="flex justify-center w-screen mt-48">
+                <div className="flex justify-center   overflow-y-hidden mt-48 ">
                     <h3 className="ml-8 font-bold text-3xl text-gray-800/50 italic flex justify-center items-center">
                         Keine passenden Angebote gefunden :/
                     </h3>

@@ -24,7 +24,7 @@ const Main = async ({
 } : MainPageProps) => {  
 
     const currentUser = await getCurrentUser();
-    const inserate = await getInserate({title : searchParams.title});
+    
     
     return ( 
         <div className="">
@@ -36,7 +36,7 @@ const Main = async ({
             
             <div className="items-center flex">
                 <RelevanteInserate
-                inserateArray = {inserate}
+                title = {searchParams.title}
                 />
             </div>
             </div>

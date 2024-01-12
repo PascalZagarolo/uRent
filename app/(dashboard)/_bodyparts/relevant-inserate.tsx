@@ -3,13 +3,14 @@ import { db } from "@/app/utils/db";
 import { AlignCenter, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
 import { Images, Inserat, User } from "@prisma/client";
+import { getInserate } from "@/actions/getInserate";
 
 interface RelevanteInserateProps {
-    inserateArray: Inserat[] & { images: Images[]; user: User }[]
+    title : string
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
-    inserateArray
+    title
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -26,8 +27,10 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         }
     })
 
+    const inserateArray = await getInserate({title : title});
+
     return (
-        <div >
+        <div>
             <div className="">
                 <div className="ml-4">
                     <AlignCenter />

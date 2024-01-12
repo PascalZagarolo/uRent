@@ -4,7 +4,7 @@ import NewestInserate from "./_bodyparts/newest-inserate";
 import CategoryDashboard from "./_components/category-dashboard";
 import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import { useSearchParams } from "next/navigation";
-import { getInserate } from "@/actions/getInserate";
+import { getInserate } from "@/app/actions/getInserate";
 import { Images, Inserat } from "@prisma/client";
 
 

@@ -45,7 +45,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
             ) : (
                 <div className="flex flex-wrap justify-between mr-8 ml-8">
                     {inserateArray.map((inserat) => (
-                        <div className="w-full md:w-1/4  p-4 mb-4 flex-grow  ">
+                        <div className="w-full md:w-1/4  p-4 mb-4 flex-grow" key={inserat.id}>
 
                             <InseratCard
                                 key={inserat.id}

@@ -1,6 +1,6 @@
 
-import { Images, Inserat, User } from "@prisma/client";
-import db from "../utils/db";
+import db from "@/app/utils/db";
+import { Images, Inserat, User } from "@/node_modules/@prisma/client";
 
 
 type InserateWithImages = Inserat & {

@@ -5,7 +5,7 @@ import LoginBarHeader from "./login-bar-header";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import LoggedInBarHeader from "./logged-in-header";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 import { User } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import DashboardLayout from "../layout";

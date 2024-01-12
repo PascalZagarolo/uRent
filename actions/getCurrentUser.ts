@@ -1,6 +1,6 @@
 
 
-import { db } from "../utils/db";
+import { db } from "../app/utils/db";
 import getSession from "./getSession";
 
 

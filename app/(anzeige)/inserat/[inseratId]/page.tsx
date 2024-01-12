@@ -4,7 +4,7 @@ import { AlignLeft, CarFront, MapPin } from "lucide-react";
 import Active from "./_components/active-badge";
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 
 const InseratAnzeige = async ({

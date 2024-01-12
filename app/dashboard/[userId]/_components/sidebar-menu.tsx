@@ -1,7 +1,7 @@
 'use client'
 
 import { Banknote, BarChart4, Construction, LucideIcon } from "lucide-react";
-import { Icon } from "next/dist/lib/metadata/types/metadata-types";
+
 import DashboardOptions from "./dashboard-options";
 import { useParams } from "next/navigation";
 
@@ -22,6 +22,8 @@ const SideBarMenu = () => {
 
     }
 
+    const userId = params.userId;
+
 
     return ( 
         <div>
@@ -31,14 +33,14 @@ const SideBarMenu = () => {
                 </h3>
             </div>
             <div className="mt-8">
-                {menuOptions.map((option) => (
+                {menuOptions.map((option, index) => (
                    
                    <DashboardOptions
-                   key={Object.keys(option)}
-                   label={Object.keys(option)}
+                   key={option.toString()}
+                   label={Object.keys(option)![0]}
                    icon = {menuMap[Object.keys(option)[0]]}
                    link = {Object.values(option)[0]}
-                   userId = {params.userId}
+                   userId = {userId[0]}
                    />
                    
                   

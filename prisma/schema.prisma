@@ -75,6 +75,8 @@ model Inserat {
 
   isPublished Boolean @default(false)
 
+  alreadyOwned Boolean @default(false)
+
   begin DateTime?
   end DateTime?
 

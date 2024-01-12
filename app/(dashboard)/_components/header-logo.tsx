@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({
                             
                         <Inserat
                                 currentUser={currentUser}
-                            />  
+                            />
                         </div>
 
                         <div className="flex justify-center">

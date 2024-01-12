@@ -1,5 +1,3 @@
-
-
 import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@/node_modules/@prisma/client";
 

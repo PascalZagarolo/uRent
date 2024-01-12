@@ -1,9 +1,9 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/app/utils/db";
 import { AlignCenter, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
 import { Images, Inserat, User } from "@prisma/client";
-import { getInserate } from "@/app/actions/getInserate";
+import { getInserate } from "@/actions/getInserate";
 
 interface RelevanteInserateProps {
     title : string

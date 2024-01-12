@@ -4,7 +4,7 @@ import React from "react";
 
 import HeaderLogo from "./_components/header-logo";
 import Header from "./_components/header";
-import getCurrentUser from "../actions/getCurrentUser";
+import getCurrentUser from "../../actions/getCurrentUser";
 
 const DashboardLayout = async (
     { children } : { children : React.ReactNode }

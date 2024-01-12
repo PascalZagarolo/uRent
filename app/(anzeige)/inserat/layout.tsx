@@ -1,5 +1,5 @@
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const InseratLayout = async ({
     children

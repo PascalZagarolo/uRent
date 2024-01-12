@@ -1,5 +1,5 @@
 import { db } from "@/app/utils/db"
-import {  Inserat, User, Images, } from "@prisma/client";
+import type {  Inserat, User, Images, } from "@prisma/client";
 
 type InserateWithImages = Inserat & {
     images : Images[];

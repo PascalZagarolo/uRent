@@ -45,6 +45,7 @@ const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
                         <div>
                         {images.map((image) => (
                             <ImageListForm
+                            key={image.id}
                             image={image}
                             />
                         ))}

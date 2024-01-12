@@ -15,8 +15,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     const currentUser = await getCurrentUser()
 
     const purchases = await db.purchase.findMany({
-        where : {
-            userId : currentUser.id
+        where: {
+            userId: currentUser.id
         }
     })
 
@@ -28,38 +28,39 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 
     return (
         <div >
-            <div>
+            <div className="">
                 <div className="ml-4">
-                    <AlignCenter/>
+                    <AlignCenter />
                 </div>
                 <h3 className="ml-8  font-bold text-2xl">
                     Relevante Inserate
                 </h3>
             </div>
-        {inserateArray.length < 1 ? (
-            <div className="flex justify-center w-screen mt-48">
-            <h3 className="ml-8 font-bold text-3xl text-gray-800/50 italic flex justify-center items-center">
-                Keine passenden Angebote gefunden :/
-            </h3>
-        </div>
-        ) : (
-            <div className="flex flex-wrap justify-between">
-                {inserateArray.map((inserat) => (
-                <div className="w-full md:w-1/4  p-4 mb-4 flex-grow gap-y-4">
-                    
-                    <InseratCard
-                        inserat={inserat}
-                        profileId={currentUser.id}
-                        isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
-                        owned = {purchases.some((purchase) => purchase.inseratId === inserat.id)}
-                        
-                    />
+            {inserateArray.length < 1 ? (
+                <div className="flex justify-center w-screen mt-48">
+                    <h3 className="ml-8 font-bold text-3xl text-gray-800/50 italic flex justify-center items-center">
+                        Keine passenden Angebote gefunden :/
+                    </h3>
                 </div>
-            ))}
-            
-        </div>
-        )}
-        
+            ) : (
+                <div className="flex flex-wrap justify-between mr-8 ml-8">
+                    {inserateArray.map((inserat) => (
+                        <div className="w-full md:w-1/4  p-4 mb-4 flex-grow  ">
+
+                            <InseratCard
+                                key={inserat.id}
+                                inserat={inserat}
+                                profileId={currentUser.id}
+                                isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
+                                owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
+
+                            />
+                        </div>
+                    ))}
+
+                </div>
+            )}
+
 
 
         </div>

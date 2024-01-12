@@ -1,5 +1,5 @@
 import { db } from "@/app/utils/db"
-import {  Images, Inserat, User } from "@prisma/client"
+import {  Inserat, User, Images, } from "@prisma/client";
 
 type InserateWithImages = Inserat & {
     images : Images[];
@@ -7,13 +7,11 @@ type InserateWithImages = Inserat & {
     
 }
 
-type GetInserate = {
-    
+type GetInserate = {   
     title? : string
 }
 
 export const getInserate = async ({
-    
     title
 } : GetInserate ): Promise<InserateWithImages[]> => {
     try {

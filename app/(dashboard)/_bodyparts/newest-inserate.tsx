@@ -1,4 +1,4 @@
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import InseratCard from "../_components/inserat-card";
 import { CalendarCheck, GanttChart } from "lucide-react";
 import getCurrentUser from "@/actions/getCurrentUser";

@@ -2,7 +2,7 @@ import { User } from "@prisma/client";
 import ProfilAnzeigen from "./profil-anzeigen";
 import ProfileDescription from "./profile-description";
 import ProfileStatsLayout from "./profile-stats-layout";
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 
 interface ProfileBodyProps {
     ownProfile : boolean

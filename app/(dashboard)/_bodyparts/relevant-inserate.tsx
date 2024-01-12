@@ -1,5 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/app/utils/db";
+import { db } from "@/utils/db";
 import { AlignCenter, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
 import { Images, Inserat, User } from "@prisma/client";

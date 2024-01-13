@@ -6,6 +6,7 @@ import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import { useSearchParams } from "next/navigation";
 import { getInserate } from "@/actions/getInserate";
 import { Images, Inserat } from "@prisma/client";
+import MainPageSidebar from "./_components/main-page-sidebar";
 
 
 type InserateWithImages = Inserat & {
@@ -27,20 +28,16 @@ const Main = async ({
     
     
     return ( 
-        <div className="">
-            
-            <div className="hidden sm:block">
-                <CategoryDashboard/>
+        <div className="w-full flex">
+            <div className="">
+                <MainPageSidebar/>
             </div>
-            <div>
             
-            <div className="items-center flex justify-center">
-                <RelevanteInserate
+            <div className="mt-4 ">
+            <RelevanteInserate
                 title = {searchParams.title}
                 />
             </div>
-            </div>
-            
         </div>
      );
 }

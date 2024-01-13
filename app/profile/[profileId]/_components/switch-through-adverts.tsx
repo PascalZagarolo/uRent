@@ -21,18 +21,16 @@ const SwitchThroughAdverts: React.FC<SwitchThroughAdvertsProps> = ({
       }}
       className=""
     >
-      <CarouselContent>
+      <CarouselContent className="w-[400px] flex justify-center">
         
         {inserate.map((inserat : inseratWithImages , index) => (
-          <CarouselItem key={index} className="">
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6 h-[250px] w-[250px]">
+          <CarouselItem key={index} className="flex justify-center ">
+            <div className="">
+              
                   <InseratRender
                   inserat = {inserat}
                   />
-                </CardContent>
-              </Card>
+               
             </div>
           </CarouselItem>
         ))}

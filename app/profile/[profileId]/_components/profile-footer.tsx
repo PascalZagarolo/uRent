@@ -28,7 +28,7 @@ const ProfileFooter: React.FC<ProfileFooterProps> = async ({
     return ( 
         <div className="flex justify-center">
            
-            <div className="mt-8">
+            <div className="mt-8 flex justify-center">
             <SwitchThroughAdverts
             inserate = { inserateArray }
             />

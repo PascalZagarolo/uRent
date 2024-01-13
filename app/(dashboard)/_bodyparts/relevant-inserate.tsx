@@ -30,7 +30,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     const inserateArray = await getInserate({title : title});
 
     return (
-        <div className="sm:flex-1">
+        <div className="">
+            
             <div className="h-full flex sm:block sm:mt-0 mt-4">
                 <div className="ml-4">
                     <AlignCenter />

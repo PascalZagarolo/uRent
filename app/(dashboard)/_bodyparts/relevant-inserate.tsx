@@ -30,8 +30,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     const inserateArray = await getInserate({title : title});
 
     return (
-        <div className="flex-1">
-            <div className="h-full">
+        <div className="sm:flex-1">
+            <div className="h-full flex sm:block sm:mt-0 mt-4">
                 <div className="ml-4">
                     <AlignCenter />
                 </div>
@@ -40,15 +40,15 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 </h3>
             </div>
             {inserateArray.length < 1 ? (
-                <div className="flex justify-center   overflow-y-hidden mt-48 ">
+                <div className="flex justify-center  overflow-y-hidden mt-48 ">
                     <h3 className="ml-8 font-bold text-3xl text-gray-800/50 italic flex justify-center items-center">
                         Keine passenden Angebote gefunden :/
                     </h3>
                 </div>
             ) : (
-                <div className="flex flex-wrap justify-between mr-8 ml-8">
+                <div className="flex flex-wrap justify-between sm:mr-8 sm:ml-8">
                     {inserateArray.map((inserat) => (
-                        <div className="w-full md:w-1/4  p-4 mb-4 flex-grow" key={inserat.id}>
+                        <div className="w-full md:w-1/4 sm:ml-0  sm:mt-0 mt-4 sm:p-4 mb-4 flex-grow" key={inserat.id}>
 
                             <InseratCard
                                 key={inserat.id}

@@ -1,5 +1,6 @@
 import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@prisma/client";
+import type { Category } from "@prisma/client";
 
 
 
@@ -10,11 +11,13 @@ type InserateWithImages = Inserat & {
 }
 
 type GetInserate = {   
-    title? : string
+    title? : string;
+    category? : Category;
 }
 
 export const getInserate = async ({
-    title
+    title,
+    category
 } : GetInserate ): Promise<InserateWithImages[]> => {
     try {
         const inserate = await db.inserat.findMany({
@@ -22,7 +25,8 @@ export const getInserate = async ({
                 isPublished : true,
                 title : {
                     contains : title
-                }
+                },
+                category : category
             }, include : {
                 images : true,
                 user: true

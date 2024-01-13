@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { getInserate } from "@/actions/getInserate";
 import { Images, Inserat } from "@prisma/client";
 import MainPageSidebar from "./_components/main-page-sidebar";
+import type { Category } from "@prisma/client";
 
 
 type InserateWithImages = Inserat & {
@@ -16,7 +17,7 @@ type InserateWithImages = Inserat & {
 interface MainPageProps {
     searchParams : {
         title : string,
-        category: string
+        category: Category
     }
 }
 
@@ -36,6 +37,7 @@ const Main = async ({
             <div className="mt-4 ">
             <RelevanteInserate
                 title = {searchParams.title}
+                category = {searchParams.category}
                 />
             </div>
         </div>

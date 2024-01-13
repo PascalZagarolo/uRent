@@ -4,13 +4,16 @@ import { AlignCenter, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
 import { Images, Inserat, User } from "@prisma/client";
 import { getInserate } from "@/actions/getInserate";
+import type { Category } from "@prisma/client";
 
 interface RelevanteInserateProps {
-    title : string
+    title : string;
+    category: Category
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
-    title
+    title,
+    category
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -27,7 +30,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         }
     })
 
-    const inserateArray = await getInserate({title : title});
+    const inserateArray = await getInserate({title : title, category : category});
 
     return (
         <div className="">

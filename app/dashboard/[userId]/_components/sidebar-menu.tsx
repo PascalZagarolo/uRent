@@ -4,6 +4,7 @@ import { Banknote, BarChart4, Construction, LucideIcon } from "lucide-react";
 
 import DashboardOptions from "./dashboard-options";
 import { useParams } from "next/navigation";
+import { isGeneratorObject } from "util/types";
 
 const SideBarMenu = () => {
 
@@ -22,7 +23,8 @@ const SideBarMenu = () => {
 
     }
 
-    const userId = params.userId;
+    // @ts-ignore
+    const userId: string = params.userId;
 
 
     return ( 
@@ -33,14 +35,14 @@ const SideBarMenu = () => {
                 </h3>
             </div>
             <div className="mt-8">
-                {menuOptions.map((option, index) => (
+                {menuOptions.map((option) => (
                    
                    <DashboardOptions
                    key={option.toString()}
                    label={Object.keys(option)![0]}
                    icon = {menuMap[Object.keys(option)[0]]}
                    link = {Object.values(option)[0]}
-                   userId = {userId[0]}
+                   userId = {userId}
                    />
                    
                   

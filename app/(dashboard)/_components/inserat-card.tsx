@@ -110,44 +110,43 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         <div>
                             {owned ? (
                                 <p className="mr-2 flex font-bold">
-                                <Check
-                                    className="mr-2 text-emerald-600" />
-                                Im Besitz
-                            </p>
-                            ): (
+                                    <Check
+                                        className="mr-2 text-emerald-600" />
+                                    Im Besitz
+                                </p>
+                            ) : (
                                 <p className="mr-2 flex font-bold">
-                                <X
-                                    className="mr-2 text-rose-600" />
-                                Bereits vergriffen
-                            </p>
-                                )}
+                                    <X
+                                        className="mr-2 text-rose-600" />
+                                    Bereits vergriffen
+                                </p>
+                            )}
                         </div>
 
                     ) : (
                         <div className="flex">
-
-{owned ? (
+                            {owned ? (
                                 <p className="mr-2 flex font-bold">
-                                <Check
-                                    className="mr-2 text-emerald-600" />
-                                Im Besitz
-                            </p>
-                            ): (
+                                    <Check
+                                        className="mr-2 text-emerald-600" />
+                                    Im Besitz
+                                </p>
+                            ) : (
                                 <div>
-                                <p className="mr-2 flex font-bold">
-                            <Banknote
-                                className="mr-2" />
-                            Preis :
-                        </p>
-                        {inserat.price} €
+                                    <p className="mr-2 flex font-bold">
+                                        <Banknote
+                                            className="mr-2" />
+                                        Preis :
+                                    </p>
+                                    {inserat.price} €
+                                </div>
+                            )}
                         </div>
-                                )}
-                    </div>
                     )}
 
 
-                            
-                    
+
+
 
 
 

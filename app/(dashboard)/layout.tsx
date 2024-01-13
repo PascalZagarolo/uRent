@@ -14,7 +14,7 @@ const DashboardLayout = async (
 
     return ( 
         <div className="bg-[#404040]/10 h-full">
-             <div className="">
+             <div className="hidden sm:block">
              <HeaderLogo
                 currentUser={currentUser}
                 />

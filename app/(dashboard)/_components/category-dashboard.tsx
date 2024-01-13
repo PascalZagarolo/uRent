@@ -34,7 +34,7 @@ const CategoryDashboard = () => {
         <div>
             <div className="flex justify-around mt-4 mb-2">
 
-                <div className="justify-center rounded-lg bg-white px-6 py-1 border-2 border-[#2f334e]">
+                <div className="justify-center rounded-lg bg-white px-2 sm:px-6 py-1 border-2 border-[#2f334e]">
                     <CarFront
                         className="h-10 w-10"
                     />

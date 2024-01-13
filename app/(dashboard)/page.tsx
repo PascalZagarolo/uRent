@@ -29,12 +29,12 @@ const Main = async ({
     return ( 
         <div className="">
             
-            <div className="">
+            <div className="hidden sm:block">
                 <CategoryDashboard/>
             </div>
             <div>
             
-            <div className="items-center flex">
+            <div className="items-center flex justify-center">
                 <RelevanteInserate
                 title = {searchParams.title}
                 />

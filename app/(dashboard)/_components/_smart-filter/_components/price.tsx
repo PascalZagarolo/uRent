@@ -2,6 +2,7 @@
 
 
 import * as React from "react"
+import qs from "query-string"
 
 import {
     Select,
@@ -13,8 +14,34 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Banknote } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 
 const PriceFormFilter = () => {
+
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const currentTitle = searchParams.get("title");
+    const category = searchParams.get("category");
+
+
+    const onClick = (startPrice : number , endPrice : number) => {
+        const url = qs.stringifyUrl({
+            url: pathname,
+            query: {
+                title: currentTitle,
+                category: category,
+                startPrice : startPrice,
+                endPrice : endPrice || 100000
+            }
+        }, { skipNull: true, skipEmptyString: true });
+
+        router.push(url)
+    }
+
+
+
     return (
         <div>
             <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2 border-black p-2">
@@ -29,10 +56,10 @@ const PriceFormFilter = () => {
                         <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45]">
                             <SelectValue className="font-bold" placeholder="Start" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent >
                             <SelectGroup>
                                 <SelectLabel>Startpreis</SelectLabel>
-                                <SelectItem value="0" className="font-bold">0 €</SelectItem>
+                                <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
                                 <SelectItem value="75" className="font-bold">75 €</SelectItem>
                                 <SelectItem value="100" className="font-bold">100 €</SelectItem>

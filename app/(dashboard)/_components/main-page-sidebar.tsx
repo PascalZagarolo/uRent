@@ -103,7 +103,7 @@ const MainPageSideBar = () => {
                         <p className="p-4 rounded-md bg-white border-2 border-[#212539] w-[185px] flex justify-center hover:cursor-pointer" onClick={() => { onClick("CARAVAN") }}>
                             <CaravanIcon className="" />
                         </p>
-                        <p className=" justify-center text-gray-100 text-xs font-semibold mt-1">
+                        <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
                             Wohnmobile & Anhänger
                         </p>
                     </div>

@@ -32,6 +32,9 @@ const PriceFormFilter = () => {
 
     const [currentStart, setCurrentStart] = React.useState(null);
     const [currentEnd, setCurrentEnd] = React.useState(null);
+
+    const startPrice = searchParams.get("start");
+    const endPrice = searchParams.get("end");
     
 
 
@@ -105,13 +108,14 @@ const PriceFormFilter = () => {
                     <h3 className="text-sm  text-gray-300  mb-1">
                         Von :
                     </h3>
-                    <Select onValueChange={(e) => onClick(e, currentEnd)}>
+                    <Select onValueChange={(e) => onClick(e, currentEnd)} value={startPrice || "0"} defaultValue="Start">
                         <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45]">
                             <SelectValue className="font-bold" placeholder="Start" />
                         </SelectTrigger>
                         <SelectContent >
                             <SelectGroup>
                                 <SelectLabel>Startpreis</SelectLabel>
+                                
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
                                 <SelectItem value="75" className="font-bold">75 €</SelectItem>
@@ -123,7 +127,7 @@ const PriceFormFilter = () => {
                                 <SelectItem value="300" className="font-bold">300 €</SelectItem>
                                 <SelectItem value="400" className="font-bold">400 €</SelectItem>
                                 <SelectItem value="500" className="font-bold">500 €</SelectItem>
-                                <SelectItem value="max" className="font-bold"> &lt; 500 €</SelectItem>
+                                
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -132,13 +136,13 @@ const PriceFormFilter = () => {
                     <h3 className="text-sm  text-gray-300 mb-1">
                         Bis :
                     </h3>
-                    <Select onValueChange={(e) => onClick(currentStart, e)} >
+                    <Select onValueChange={(e) => onClick(currentStart, e)} value={endPrice || "max"} >
                         <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45]">
-                            <SelectValue className="font-bold" placeholder="Start"/>
+                            <SelectValue className="font-bold" placeholder="Ende"/>
                         </SelectTrigger>
                         <SelectContent >
                             <SelectGroup>
-                                <SelectLabel>Startpreis</SelectLabel>
+                                <SelectLabel>Endpreis</SelectLabel>
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
                                 <SelectItem value="75" className="font-bold">75 €</SelectItem>
@@ -159,7 +163,7 @@ const PriceFormFilter = () => {
                 
             </div>
             <div className="mt-4 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={onPriceReset}>
+                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={onPriceReset} disabled={!currentStart && !currentEnd}>
                         Filter zurücksetzen
                     </Button>
                 </div>

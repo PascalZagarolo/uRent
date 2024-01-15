@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({
 
 
     return (
-        <div className=" bg-[#303655] h-[90px] border border-black">
+        <div className="bg-[#2c314d] h-[90px] border border-black">
             <div className="flex justify-between">
                 <h3 className="flex justify-start items-center py-6 ml-8 text-3xl font-semibold text-white hover:cursor-pointer" onClick={() => {
                     router.push('/')

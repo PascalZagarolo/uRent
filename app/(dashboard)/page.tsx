@@ -47,11 +47,11 @@ const Main = async ({
     })
     
     return ( 
-        <div className="flex">
+        <div className="flex  h-full">
   <div className="h-full fixed">
     <MainPageSidebar treffer={inserate.length} />
   </div>
-  <div className="sm:ml-72 mt-4 sm:block ml-4">
+  <div className="sm:ml-72 mt-4 sm:block ml-4 h-full  ">
     <RelevanteInserate title={searchParams.title} category={searchParams.category} />
   </div>
 </div>

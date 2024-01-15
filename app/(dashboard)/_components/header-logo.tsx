@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({
 
 
     return (
-        <div className="bg-[#1f2332] h-[90px] border border-black">
+        <div className="bg-[#1f2332] h-[90px] border border-black flex-shrink-1">
             <div className="flex justify-between">
                 <h3 className="flex justify-start items-center py-6 ml-8 text-3xl font-semibold text-white hover:cursor-pointer" onClick={() => {
                     router.push('/')
@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
                 
                 <div className="flex">
                     <div className="flex items-center">
-                        <div className="mr-32 items-center">
+                        <div className="md:mr-16 items-center sm:mr-8">
                             
                         <Inserat
                                 currentUser={currentUser}

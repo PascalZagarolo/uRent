@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
-import { AlignCenter, TrendingUp, } from "lucide-react";
+import { AlignCenter, Search, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
 import { Images, Inserat, User } from "@prisma/client";
 import { getInserate } from "@/actions/getInserate";
@@ -33,9 +33,10 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     const inserateArray = await getInserate({title : title, category : category});
 
     return (
-        <div className="">
+        <div className="h-full">
             
-            <div className="h-full flex sm:block sm:mt-0 mt-4">
+            {!title ? (
+                <div className="h-full flex sm:block sm:mt-0 mt-4">
                 <div className="ml-4">
                     <AlignCenter />
                 </div>
@@ -43,9 +44,19 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     Relevante Inserate
                 </h3>
             </div>
+            ) : (
+                <div className="h-full flex sm:block sm:mt-0 mt-4">
+                <div className="ml-4">
+                    <Search />
+                </div>
+                <h3 className="ml-8  font-bold text-2xl h-full flex">
+                    <p className="mr-2">( {inserateArray.length} )</p> Suchergebnisse
+                </h3>
+            </div>
+            )}
             {inserateArray.length < 1 ? (
-                <div className="flex justify-center  overflow-y-hidden mt-48 ">
-                    <h3 className="ml-8 font-bold text-3xl text-gray-800/50 italic flex justify-center items-center">
+                <div className="flex justify-center rounded-md overflow-y-hidden mt-48 ">
+                    <h3 className="ml-8 font-bold mb-16  text-3xl text-gray-800/50 italic flex justify-center items-center">
                         Keine passenden Angebote gefunden :/
                     </h3>
                 </div>

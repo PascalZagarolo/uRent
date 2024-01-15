@@ -54,6 +54,23 @@ const PriceFormFilter = () => {
         router.push(url)
     }
 
+    const onPriceReset = () => {
+        setCurrentStart(null);
+        setCurrentEnd(null);
+
+        const url = qs.stringifyUrl({
+            url: pathname,
+            query: {
+                title: currentTitle,
+                category: category,
+                
+                
+            }
+        }, { skipNull: true, skipEmptyString: true });
+
+        router.push(url)
+    }
+
     const formSchema = z.object({
         start: z.string().optional(),
         end: z.string().optional()
@@ -139,7 +156,13 @@ const PriceFormFilter = () => {
                     </Select>
                         
                 </div>
+                
             </div>
+            <div className="mt-4 flex justify-center  ">
+                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={onPriceReset}>
+                        Filter zurücksetzen
+                    </Button>
+                </div>
         </div>
     );
 }

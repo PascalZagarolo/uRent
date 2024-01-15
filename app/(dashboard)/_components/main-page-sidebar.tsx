@@ -45,11 +45,11 @@ const MainPageSideBar = () => {
 
     return (
         <div className="h-screen w-[280px] hidden sm:block bg-[#2b2f48] border border-black ">
-            <h3 className="text-bold text-2xl mt-4 flex justify-center text-gray-100 items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h3 className="text-bold text-2xl p-2 rounded-md mt-4 flex justify-center text-gray-100 items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] bg-[#1b1e2c]">
                 <AlignCenter className="mr-4" /> Suchfilter <X className="h-4 w-4 mb-2 ml-2 hover:cursor-pointer" onClick={onReset}/>
             </h3>
             <div className="mt-4 ">
-                <h3 className="text-gray-100 font-semibold border-2 rounded-md border-black p-2 flex justify-center ml-2 mr-2">
+                <h3 className="text-gray-100 font-semibold border-2 rounded-md border-black p-2 flex justify-center ml-2 mr-2 bg-[#1f2332]">
                     Fahrzeugkategorie 
                 </h3>
 

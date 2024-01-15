@@ -97,7 +97,7 @@ const PriceFormFilter = () => {
 
     return (
         <div>
-            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2 border-black p-2">
+            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2 border-black bg-[#1f2332] p-2">
                 <Banknote className="mr-4" /> Preis
             </h3>
             <div className="flex gap-x-4 mt-4">

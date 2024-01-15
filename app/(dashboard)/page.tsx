@@ -8,6 +8,7 @@ import { getInserate } from "@/actions/getInserate";
 import { Images, Inserat } from "@prisma/client";
 import MainPageSidebar from "./_components/main-page-sidebar";
 import type { Category } from "@prisma/client";
+import { db } from "@/utils/db";
 
 
 type InserateWithImages = Inserat & {
@@ -17,7 +18,9 @@ type InserateWithImages = Inserat & {
 interface MainPageProps {
     searchParams : {
         title : string,
-        category: Category
+        category: Category,
+        start: number,
+        end: number
     }
 }
 
@@ -26,12 +29,29 @@ const Main = async ({
 } : MainPageProps) => {  
 
     const currentUser = await getCurrentUser();
+
+    const start = Number(searchParams.start)
+    const end = Number(searchParams.end)
     
+
+    const inserate = await db.inserat.findMany({
+        where : {
+            category : searchParams.category,
+            title : {
+                contains : searchParams.title
+            },
+            isPublished : true,
+            
+        },
+        
+    })
     
     return ( 
         <div className="w-full flex">
             <div className="">
-                <MainPageSidebar/>
+                <MainPageSidebar
+                treffer={inserate.length}
+                />
             </div>
             
             <div className="mt-4 ">

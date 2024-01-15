@@ -1,14 +1,21 @@
 'use client';
 
-import { AlignCenter, CarFront, CaravanIcon, ConstructionIcon, TractorIcon, Truck, X } from "lucide-react";
+import { AlignCenter, CarFront, CaravanIcon, ConstructionIcon, Contact, Glasses, SearchIcon, TractorIcon, Truck, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
 import qs from "query-string";
 import { useEffect, useState } from "react";
 import PKW from "./_smart-filter/pkw";
+import { Button } from "@/components/ui/button";
 
-const MainPageSideBar = () => {
+interface MainPageSideBarProps {
+    treffer: number;
+ }
+
+const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
+    treffer
+}) => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const currentCategory = searchParams.get("category");
@@ -111,6 +118,14 @@ const MainPageSideBar = () => {
                 </div>
                 <div>
                     <PKW/>
+                </div>
+                <div className="text-xs flex justify-center mt-2 text-gray-100 underline">
+                  <Contact className="mr-2 h-4 w-4"/>  kein passendes Angebot dabei ?
+                </div>
+                <div className="flex justify-center mt-2 rounded-md">
+                    <Button className="bg-[#ed580dec] w-full h-[100px] m ml-2 mr-2 border-2 border-[#000000] flex justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                        <SearchIcon className="h-5 w-5 mr-2"/> <p className="font-bold mr-1 ">{treffer}</p> Ergebnisse
+                    </Button>
                 </div>
             </div>
         </div>

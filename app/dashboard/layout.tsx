@@ -16,7 +16,7 @@ const DashboardLayout = (
                             uRent
                         </h3>
                     </div>
-                    <div className="mt-16">
+                    <div className="mt-16 h-full">
                         <SidebarMenu/>
                     </div>
                 </div>

@@ -47,20 +47,15 @@ const Main = async ({
     })
     
     return ( 
-        <div className="w-full flex">
-            <div className="">
-                <MainPageSidebar
-                treffer={inserate.length}
-                />
-            </div>
-            
-            <div className="mt-4 ">
-            <RelevanteInserate
-                title = {searchParams.title}
-                category = {searchParams.category}
-                />
-            </div>
-        </div>
+        <div className="flex">
+  <div className="h-full fixed">
+    <MainPageSidebar treffer={inserate.length} />
+  </div>
+  <div className="sm:ml-72 mt-4 sm:block ml-4">
+    <RelevanteInserate title={searchParams.title} category={searchParams.category} />
+  </div>
+</div>
+
      );
 }
  

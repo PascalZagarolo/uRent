@@ -59,7 +59,7 @@ const Inserat: React.FC<InseratProps> = ({
         <div>
             
             <Dialog >
-                <DialogTrigger className="bg-[#292f48] border border-black  mt-2 flex text-gray-300 p-2 rounded-md text-sm items-center font-semibold">
+                <DialogTrigger className="bg-[#12141f] border border-black  mt-2 flex text-gray-300 p-3 rounded-md text-sm items-center font-semibold">
                     
                     
                         <PlusIcon className="w-4 h-4 mr-2" /> Neue Anzeige
@@ -100,7 +100,7 @@ const Inserat: React.FC<InseratProps> = ({
                                 <p><Separator className="ml-auto w-8 bg-black mt-4" /></p>
                                 <div className="flex ml-auto">
 
-                                    <Button className="bg-blue-800 mt-4 flex" type="submit">
+                                    <Button className="bg-[#202336] border-2 border-black mt-4 flex" type="submit">
                                         Anzeige erstellen
                                     </Button>
                                 </div>

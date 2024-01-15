@@ -103,7 +103,7 @@ const PriceFormFilter = () => {
             <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2 border-black bg-[#1f2332] p-2">
                 <Banknote className="mr-4" /> Preis
             </h3>
-            <div className="flex gap-x-4 mt-4">
+            <div className="flex gap-x-4 mt-2">
                 <div >
                     <h3 className="text-sm  text-gray-300  mb-1">
                         Von :
@@ -162,7 +162,7 @@ const PriceFormFilter = () => {
                 </div>
                 
             </div>
-            <div className="mt-4 flex justify-center  ">
+            <div className="mt-2 flex justify-center  ">
                     <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={onPriceReset} disabled={!currentStart && !currentEnd}>
                         Filter zurücksetzen
                     </Button>

@@ -1,4 +1,4 @@
-import { Banknote, Construction, Signpost, Truck } from "lucide-react";
+import { Banknote, BarChartHorizontal, Construction, Signpost, Truck } from "lucide-react";
 import Logo from "../profile/[profileId]/_components/u-rent-logo";
 import UrentDashboardLogo from "./[userId]/_components/urent-dashboard-logo";
 import SidebarMenu from "./[userId]/_components/sidebar-menu";
@@ -18,8 +18,8 @@ const DashboardLayout = (
                             <p className="text-[#eaebf0] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)]">Rent</p>
                         </h3>
                     </div>
-                    <p className="flex justify-center text-xl font-medium drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-200">
-                        Dashboard
+                    <p className="flex justify-center text-xl font-medium drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-200 bg-[#181b26] p-4">
+                       <BarChartHorizontal className="mr-2"/> Dashboard
                     </p>
                     <div className="mt-16 h-full ">
                         <SidebarMenu />

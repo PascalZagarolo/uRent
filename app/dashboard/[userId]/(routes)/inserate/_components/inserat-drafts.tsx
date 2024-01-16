@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
 
-import { Banknote, CalendarCheck2, CarFront, Check, LocateFixedIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, X } from "lucide-react";
+import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, LocateFixedIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -62,11 +62,17 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
     return (
         <div className="w-1/6 rounded-md border-2 border-[#000000] h-[320px] bg-[#24293b] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
         flex-shrink: 1">
-            <div>
-                <h3 className="text-base justify-center text-gray-100 flex mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
+            <h3>
+                <AlignCenter className="h-4 w-4"/>
+            </h3>
+            <div className="bg-[#171a26] p-1  w-full mb-1 rounded-md border border-black items-center">
+                <h3 className="items-center  text-base font-semibold justify-center text-gray-100 flex mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] mb-1">
                     
                     {inserat.title}</h3>
             </div>
+            <h3 className="text-xs text-gray-100">
+                zuletzt aktualisiert am : {formatDate(inserat.updatedAt)}
+            </h3>
             <div className="flex-shrink: 1 flex mt-1">
                 <div className="flex ml-auto w-full mr-4 ">
                     <Badge className={cn("border-2 border-black bg-sky-600")}>
@@ -81,7 +87,7 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
 
             </div>
            
-                <div className="flex justify-center items-center mt-2" >
+                <div className="flex justify-center items-center  h-[200px]" >
                     <Image
                         width={200}
                         height={200}
@@ -92,7 +98,9 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
                 </div>
             
             
-            
+            <div className="flex justify-start text-gray-100 items-center">
+                <Clock1 className="h-4 w-4 mr-2"/>erstellt am : {formatDate(inserat.createdAt)}
+            </div>
 
             <div className="flex w-full justify-center mt-auto">
                 

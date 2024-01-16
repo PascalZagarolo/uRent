@@ -14,6 +14,8 @@ const InserateOverview = async ({
         include : {
             images : true,
             user: true
+        }, orderBy : {
+            createdAt : "desc"
         }
     })
 
@@ -30,7 +32,7 @@ const InserateOverview = async ({
             </div>
             <div>
                 <div>
-
+                    
                 </div>
                 <div className="gap-x-2 flex justify-between mt-8">
                     {drafts.map((draft) => (

@@ -19,8 +19,9 @@ interface MainPageProps {
     searchParams : {
         title : string,
         category: Category,
-        start: number,
-        end: number
+        start: string,
+        end: string,
+        filter : string
     }
 }
 
@@ -33,6 +34,7 @@ const Main = async ({
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)
     
+    
 
     const inserate = await db.inserat.findMany({
         where : {
@@ -42,17 +44,20 @@ const Main = async ({
             },
             isPublished : true,
             
-        },
+        }, orderBy : {
+            price : "asc"
+        }
         
     })
     
     return ( 
-        <div className="flex  h-full">
+        <div className="flex h-full">
   <div className="h-full fixed">
     <MainPageSidebar treffer={inserate.length} />
   </div>
-  <div className="sm:ml-72 mt-4 sm:block ml-4 h-full  ">
-    <RelevanteInserate title={searchParams.title} category={searchParams.category} />
+  <div className="sm:ml-72 mt-4 sm:block ml-4 h-full">
+    <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
+     start={searchParams.start} end={searchParams.end} />
   </div>
 </div>
 

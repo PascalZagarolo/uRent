@@ -5,15 +5,22 @@ import InseratCard from "../_components/inserat-card";
 import { Images, Inserat, User } from "@prisma/client";
 import { getInserate } from "@/actions/getInserate";
 import type { Category } from "@prisma/client";
+import OrderBy from "../_components/_smart-filter/order-by";
 
 interface RelevanteInserateProps {
-    title : string;
-    category: Category
+    title: string;
+    category: Category;
+    filter : string;
+    start : string;
+    end : string
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     title,
-    category
+    category,
+    filter,
+    start,
+    end
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -30,30 +37,39 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         }
     })
 
-    const inserateArray = await getInserate({title : title, category : category});
+    const inserateArray = await getInserate({ title: title, 
+        category: category, 
+        filter : filter,
+        start : Number(start),
+        end : Number(end)
+    });
 
     return (
         <div className="h-full">
-            
+
             {!title ? (
                 <div className="h-full flex sm:block sm:mt-0 mt-4">
-                <div className="ml-4">
-                    <AlignCenter />
+                    <div className="ml-4">
+                        <AlignCenter />
+                    </div>
+                    <h3 className="ml-8 flex font-bold text-2xl h-full">
+                        Relevante Inserate
+                        <div className="ml-auto mr-8">
+                           <OrderBy/>
+                        </div>
+                    </h3>
                 </div>
-                <h3 className="ml-8  font-bold text-2xl h-full">
-                    Relevante Inserate
-                </h3>
-            </div>
             ) : (
                 <div className="h-full flex sm:block sm:mt-0 mt-4">
-                <div className="ml-4">
-                    <Search />
+                    <div className="ml-4">
+                        <Search />
+                    </div>
+                    <h3 className="ml-8  font-bold text-2xl h-full flex">
+                        <p className="mr-2">( {inserateArray.length} )</p> Suchergebnisse
+                    </h3>
                 </div>
-                <h3 className="ml-8  font-bold text-2xl h-full flex">
-                    <p className="mr-2">( {inserateArray.length} )</p> Suchergebnisse
-                </h3>
-            </div>
             )}
+
             {inserateArray.length < 1 ? (
                 <div className="flex justify-center rounded-md overflow-y-hidden mt-48 ">
                     <h3 className="ml-8 font-bold mb-16  text-3xl text-gray-800/50 italic flex justify-center items-center">

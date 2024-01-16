@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from "@/lib/utils";
 import { ArrowRight, LucideIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -39,12 +40,8 @@ const DashboardOptions: React.FC<DashboardOptionsProps> = ({
     }
 
     return ( 
-        <div className="mt-6 flex ml-4 hover:cursor-pointer" onClick={onPush}>
-            { isActive && (
-                <ArrowRight
-                className="h-4 w-4 text-[#44448e]"
-                />
-            )}
+        <div className={cn("mt-6 flex ml-2 mr-1 hover:cursor-pointer rounded-md p-2 py-3", isActive ? "border-2 border-[#ed580dec]" : "")} onClick={onPush}>
+            
             <div className="flex ml-4 justify-center">
                 <p>
                     <Icon size={24} />

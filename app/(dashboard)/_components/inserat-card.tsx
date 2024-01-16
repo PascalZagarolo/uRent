@@ -132,7 +132,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     Im Besitz
                                 </p>
                             ) : (
-                                <div>
+                                <div className="flex">
                                     <p className="mr-2 flex font-bold">
                                         <Banknote
                                             className="mr-2" />

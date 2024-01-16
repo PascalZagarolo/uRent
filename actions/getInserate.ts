@@ -13,11 +13,17 @@ type InserateWithImages = Inserat & {
 type GetInserate = {   
     title? : string;
     category? : Category;
+    filter? : string;
+    start? : number;
+    end? : number;
 }
 
 export const getInserate = async ({
     title,
-    category
+    category,
+    filter,
+    start,
+    end
 } : GetInserate ): Promise<InserateWithImages[]> => {
     try {
         const inserate = await db.inserat.findMany({
@@ -26,10 +32,13 @@ export const getInserate = async ({
                 title : {
                     contains : title
                 },
-                category : category
+                category : category,
+                
             }, include : {
                 images : true,
                 user: true
+            }, orderBy : {
+                price : filter === "asc" ? "asc" : "desc"
             }
         })
 

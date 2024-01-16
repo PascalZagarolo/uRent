@@ -45,7 +45,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     });
 
     return (
-        <div className="h-full">
+        <div className="">
 
             {!title ? (
                 <div className="h-full flex sm:block sm:mt-0 mt-4">
@@ -71,7 +71,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
             )}
 
             {inserateArray.length < 1 ? (
-                <div className="flex justify-center rounded-md overflow-y-hidden mt-48 ">
+                <div className="flex justify-center rounded-md height: 100% overflow-hidden mt-48 ">
                     <h3 className="ml-8 font-bold mb-16  text-3xl text-gray-800/50 italic flex justify-center items-center">
                         Keine passenden Angebote gefunden :/
                     </h3>

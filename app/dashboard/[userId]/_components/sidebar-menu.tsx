@@ -28,13 +28,13 @@ const SideBarMenu = () => {
 
 
     return ( 
-        <div>
+        <div className="h-full text-gray-100">
             <div>
                 <h3 className="flex  font-bold text-base ml-12">
                     Menü
                 </h3>
             </div>
-            <div className="mt-8">
+            <div className="mt-4">
                 {menuOptions.map((option) => (
                    
                    <DashboardOptions

@@ -25,7 +25,7 @@ const DashboardLayout = (
                         <SidebarMenu />
                     </div>
                 </div>
-                <div className="flex-1 p-8">
+                <div className="flex-1 p-8 ">
 
                 {children}
 

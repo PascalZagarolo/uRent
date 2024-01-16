@@ -34,7 +34,7 @@ const DashboardOptions: React.FC<DashboardOptionsProps> = ({
             )
         } else {
             router.push(
-                `/dashboard/${userId[0]}/${link}`
+                `/dashboard/${userId}/${link}`
             )
         }
     }

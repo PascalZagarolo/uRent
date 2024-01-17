@@ -83,22 +83,21 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     </h3>
                 </div>
             ) : (
-                <div className="flex flex-wrap justify-between sm:mr-8 sm:ml-8">
-                    {inserateArray.map((inserat) => (
+                <div className="flex flex-wrap justify-start sm:mr-8 sm:ml-8">
+                    {inserateArray.map((inserat, index) => (
                         <div className="w-full md:w-1/3 2xl:w-1/4 sm:ml-0  sm:mt-0 mt-4 sm:p-4 mb-4 flex-grow" key={inserat.id}>
-
-<InseratCard
+                            <InseratCard
                                 key={inserat.id}
                                 inserat={inserat}
                                 profileId={currentUser.id}
                                 isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
                                 owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
-
                             />
+                            {(index + 1) % 4 === 0 && <div className="w-full sm:w-1/12" />} {/* Add an empty div to create a new row after every 4 cards */}
                         </div>
                     ))}
-
                 </div>
+
             )}
 
 

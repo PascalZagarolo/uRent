@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({
                         </div>
                     </div>
                     {
-                        status === 'unauthenticated' ? (
+                        status === 'unauthenticated' || !currentUser ? (
                             <LoginBarHeader
 
                             />

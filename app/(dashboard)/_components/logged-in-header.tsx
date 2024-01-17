@@ -26,7 +26,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         <div className="flex justify-start  items-center mt-2">
             <div className="flex font-semibold mr-4 text-sm text-gray-200 items-center">
             🎉 Willkommen zurück
-                    <p className="ml-1 font-bold  text-gray-100 mr-2">{currentUser.name.toUpperCase()}</p> 🎉
+                    <p className="ml-1 font-bold  text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
                 </div>
             <Button variant="ghost"  className="outline outline-offset-1 outline-1 mr-4 bg-[#2e3552]" onClick={onClick}>
                 <UserIcon className="text-black"/>

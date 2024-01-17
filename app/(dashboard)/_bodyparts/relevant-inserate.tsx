@@ -6,13 +6,14 @@ import { Images, Inserat, User } from "@prisma/client";
 import { getInserate } from "@/actions/getInserate";
 import type { Category } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
+import { getSession } from "next-auth/react";
 
 interface RelevanteInserateProps {
     title: string;
     category: Category;
-    filter : string;
-    start : string;
-    end : string
+    filter: string;
+    start: string;
+    end: string
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
@@ -24,6 +25,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 }) => {
 
     const currentUser = await getCurrentUser()
+
+
+
 
     const purchases = await db.purchase.findMany({
         where: {
@@ -37,11 +41,13 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         }
     })
 
-    const inserateArray = await getInserate({ title: title, 
-        category: category, 
-        filter : filter,
-        start : Number(start),
-        end : Number(end)
+
+    const inserateArray = await getInserate({
+        title: title,
+        category: category,
+        filter: filter,
+        start: Number(start),
+        end: Number(end)
     });
 
     return (
@@ -55,7 +61,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     <h3 className="ml-8 flex font-bold text-2xl h-full">
                         Relevante Inserate
                         <div className="ml-auto mr-8">
-                           <OrderBy/>
+                            <OrderBy />
                         </div>
                     </h3>
                 </div>
@@ -81,7 +87,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     {inserateArray.map((inserat) => (
                         <div className="w-full md:w-1/3 2xl:w-1/4 sm:ml-0  sm:mt-0 mt-4 sm:p-4 mb-4 flex-grow" key={inserat.id}>
 
-                            <InseratCard
+<InseratCard
                                 key={inserat.id}
                                 inserat={inserat}
                                 profileId={currentUser.id}

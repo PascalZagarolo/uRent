@@ -40,7 +40,7 @@ const DashboardOptions: React.FC<DashboardOptionsProps> = ({
     }
 
     return ( 
-        <div className={cn("mt-6 flex   hover:cursor-pointer rounded-md p-2 py-3 bg-[#171a25]", 
+        <div className={cn("mt-6 flex   hover:cursor-pointer rounded-md p-2 py-3 bg-[#0e1017]", 
         isActive ? "border-2 border-[#ed580dec]" : "border-2 border-[#000000ec]")} onClick={onPush}>
             
             <div className="flex ml-4 justify-center">

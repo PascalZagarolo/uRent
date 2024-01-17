@@ -104,7 +104,7 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
 
             <div className="flex w-full justify-center mt-auto">
                 
-                <Button className="w-full bg-[#ed580dec] flex justify-center"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
+                <Button className="w-full bg-[#ed580dec] hover:bg-[#ed580dec]/60 flex justify-center"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
                     <Settings className="w-4 h-4 mr-2" /> Anzeige verwalten
                 </Button>
             </div>

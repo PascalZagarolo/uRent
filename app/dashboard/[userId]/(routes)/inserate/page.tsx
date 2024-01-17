@@ -38,7 +38,7 @@ const InserateOverview = async ({
     return ( 
         <div className=" ">
             <div>
-                <h3 className="text-2xl font-bold flex justify-center mt-4 p-4 border border-black rounded-lg bg-[#12151e] text-gray-100">
+                <h3 className="text-2xl font-bold flex justify-center mt-4 p-4 border border-black rounded-lg bg-[#1b1f2c] text-gray-100">
                    <PencilRuler className="w-6 h-6 mr-2" /> Meine Veröffentlichungen ( {drafts.length} )
                 </h3>
             </div>
@@ -53,7 +53,7 @@ const InserateOverview = async ({
                     ))}
                 </div>
                 <div className="mt-16">
-                <h3 className="text-2xl font-bold flex justify-center border border-black rounded-lg bg-[#12151e] text-gray-100 p-4">
+                <h3 className="text-2xl font-bold flex justify-center border border-black rounded-lg bg-[#1b1f2c] text-gray-100 p-4">
                    <PencilRuler className="w-6 h-6 mr-2" /> Meine Entwürfe ( {drafts.length} )
                 </h3>
             </div>

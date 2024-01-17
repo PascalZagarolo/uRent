@@ -65,7 +65,7 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
         <div className=" w-1/6 rounded-lg ">
             <div className="h-[40px] flex bg-[#12141d] rounded-md">
                 <div className="w-full">
-                <Button className=" bg-[#ed580dec] w-full flex justify-center text-xs rounded-md"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
+                <Button className=" bg-[#ed580dec] hover:bg-[#ed580dec]/60 w-full flex justify-center text-xs rounded-md"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
                     <Settings className="w-4 h-4 mr-2" /> Inserat verwalten 
                 </Button>
                 </div>
@@ -123,7 +123,7 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
             
         </div>
         <div className="flex w-full justify-center mt-auto  mb-2 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
-                <Button className=" bg-emerald-700 w-full border-2 border-emerald-900">
+                <Button className=" bg-emerald-700 hover:bg-emerald-700/60  w-full border-2 border-emerald-900">
                    <EuroIcon className="h-4 w-4 mr-2"/> Werbeoption ansehen
                     </Button> 
             </div>

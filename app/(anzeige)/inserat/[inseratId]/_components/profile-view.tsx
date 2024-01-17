@@ -27,7 +27,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
         <div className="px-4 py-4 bg-gradient-to-b from-[#5a6389] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md  ">
             <div className="flex items-center  text-gray-100">
                 <Image
-                    src={user.image}
+                    src={user.image ||  "/placeholder-person.jpg"}
                     width={40}
                     height={40}
                     className="rounded-full  "

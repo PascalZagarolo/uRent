@@ -50,11 +50,14 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   
+  messages Messages[]
   accounts      Account[]
   sessions      Session[]
   inserate      Inserat[]
   favourites Favourite[]
+  conversations Conversation[]
 }
 
 model VerificationToken {
@@ -170,6 +173,36 @@ model StripeCustomer {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Conversation {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  name String?
+  isGroup Boolean? @default(false)
+
+  messages Messages[]
+
+  userIds String[]
+  users User[]
+}
+
+model Messages {
+  id String @id @default(uuid())
+
+  content String? @db.Text
+  image String?
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  senderId String
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  
+
+  conversationId String
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 }
 
 

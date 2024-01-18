@@ -114,6 +114,7 @@ const InseratAnzeige = async ({
                     <InseratOptions 
                     user = {user}
                     isPurchased = {isPurchased}
+                    ownUser = {currentUser}
                     />
                 </div>
                 <div className="mt-16">

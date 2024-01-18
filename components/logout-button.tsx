@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 
 const LogOutButton = () => {
     return ( 
-        <Button className="bg-blue-800" onClick={() => signOut({ callbackUrl : `${window.location.origin}/login`})}>
+        <Button className="bg-white" variant="ghost" onClick={() => signOut({ callbackUrl : `${window.location.origin}/login`})}>
             Abmelden
         </Button>
      );

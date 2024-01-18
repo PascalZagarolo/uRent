@@ -32,7 +32,7 @@ const Favourites : React.FC<FavouritesProps> = ({
 
         <div className="mt-4 mr-32">
             <div className="flex justify-end">
-                <Button className="flex justify-end bg-rose-600 border-2 border-rose-900">
+                <Button className="flex justify-end bg-rose-600 hover:bg-rose-500 border-2 border-rose-900">
                 <Trash2Icon className="h-4 w-4 mr-2"/>   Als Favourit entfernen 
                 </Button>
             </div>

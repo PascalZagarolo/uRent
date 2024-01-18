@@ -16,10 +16,11 @@ const ChatComponent: React.FC<ChatComponentProps> = async ({
     
 
     return ( 
-        <div className="overflow-y-hidden h-screen">
+        <div className="overflow-y-auto h-screen">
             <div>
             {messages.map((message) => (
                 <ChatMessageRender
+                key={message.id}
                 messages={message}
                 isOwn={message.senderId === currentUser.id}
                 

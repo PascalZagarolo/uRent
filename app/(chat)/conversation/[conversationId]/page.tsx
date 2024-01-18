@@ -39,7 +39,7 @@ const ConversationPage = async ({
     
 
     return (
-        <div className="overflow-y-hidden overflow-hidden h-screen bg-[#404040]/10">
+        <div className="overflow-y-hidden  h-screen bg-[#404040]/10">
             <div className="w-full h-[120px] overflow-y-hidden bg-[#2a304b] border-2 border-[#23283d] flex items-center">
                 <ChatLogo/>
                 <h3 className="flex justify-center w-full text-[#eaebf0] text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
@@ -50,7 +50,7 @@ const ConversationPage = async ({
             <ChatSideBar
             
             />
-            <div className="w-full overflow-y-scroll overflow-x-hidden">
+            <div className="w-full overflow-y-auto ">
             <ChatComponent
                 messages={messages}
                 currentUser={currentUser}

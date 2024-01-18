@@ -35,6 +35,7 @@ const ChatSideBar = async () => {
                 <div>
                     {startedConversations.map((conversation: ConversationWithUsers) => (
                         <StartedChats
+                        key={conversation.id}
                         conversation={conversation}
                         currentUser = {currentUser}
                         />

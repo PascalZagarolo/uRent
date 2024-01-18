@@ -15,12 +15,17 @@ export async function POST(
             }
         })
 
+        
+
         if (!existingConversation) {
             const newConversation = await db.conversation.create({
                 data : {
-                    userIds : [params.ownId , params.otherId]
+                    userIds : [params.ownId , params.otherId],
+                    
                 }
             })
+
+            
             return NextResponse.json(newConversation)
         } else if (existingConversation) {
             return NextResponse.json(existingConversation)

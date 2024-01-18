@@ -186,7 +186,7 @@ model Conversation {
 
   userIds String[]
   users User[]
-}
+  }
 
 model Messages {
   id String @id @default(uuid())
@@ -204,5 +204,7 @@ model Messages {
   conversationId String
   conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 }
+
+
 
 

@@ -43,6 +43,7 @@ const ChatInput = () => {
             console.log("Fehler beim Kommentar absenden")
         } finally {
             setIsLoading(false);
+            form.reset();
         }
     }
 

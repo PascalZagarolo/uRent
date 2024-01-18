@@ -16,7 +16,7 @@ const ChatComponent: React.FC<ChatComponentProps> = async ({
     
 
     return ( 
-        <div className="overflow-y-auto h-screen">
+        <div className="overflow-y-auto h-screen no-scrollbar" >
             <div>
             {messages.map((message) => (
                 <ChatMessageRender

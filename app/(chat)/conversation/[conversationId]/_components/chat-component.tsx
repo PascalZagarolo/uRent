@@ -17,7 +17,10 @@ const ChatComponent: React.FC<ChatComponentProps> = async ({
 
     return ( 
         <div className="overflow-y-auto h-screen no-scrollbar" >
-            <div>
+            <div className="h-full">
+            <h3 className="flex justify-center text-gray-900/30 p-4 font-semibold">
+                Chat gestartet am {messages[0].createdAt.toLocaleDateString()}
+            </h3>
             {messages.map((message) => (
                 <ChatMessageRender
                 key={message.id}
@@ -27,8 +30,9 @@ const ChatComponent: React.FC<ChatComponentProps> = async ({
                 />
             
             ))}
+           
             </div>
-            <div className="h-screen text-gray-100 flex justify-center">
+            <div className="h-screen text-gray-100 flex justify-center w-full bottom-0   ">
                <ChatInput/>
             </div>
         </div>

@@ -48,8 +48,8 @@ const ChatInput = () => {
     }
 
     return (
-        <div className="absolute bottom-0 flex justify-center  ">
-            <div className="flex bg-white  p-4 rounded-lg">
+        <div className="absolute bottom-0 flex justify-center bg-white  ">
+            <div className="flex bg-white   p-4 rounded-lg">
             <div className="mr-2">
                 <Button className="bg-white border-2 border-gray-400 hover:bg-gray-100">
                     <ImageIcon className="text-black" />

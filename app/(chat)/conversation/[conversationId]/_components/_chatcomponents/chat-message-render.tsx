@@ -33,8 +33,8 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                         </div>
 
                     </div>
-                    <p className="text-right mr-1 text-sm mt-1 text-gray-900/60 font-semibold">
-                        {formatEuropeanTime(messages.createdAt)}
+                    <p className="text-right mr-1 text-xs mt-1 text-gray-900/60 font-semibold">
+                        {formatEuropeanTime(messages.createdAt)} Uhr
                     </p>
                 </div>
                 

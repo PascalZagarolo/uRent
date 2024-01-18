@@ -48,15 +48,16 @@ const ChatInput = () => {
     }
 
     return (
-        <div className="absolute bottom-0 flex justify-center">
-            <div className="mr-1">
+        <div className="absolute bottom-0 flex justify-center  ">
+            <div className="flex bg-white  p-4 rounded-lg">
+            <div className="mr-2">
                 <Button className="bg-white border-2 border-gray-400 hover:bg-gray-100">
                     <ImageIcon className="text-black" />
                 </Button>
             </div>
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="flex  ">
 
                     <FormField
                         control={form.control}
@@ -64,7 +65,7 @@ const ChatInput = () => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Input className="mt-auto mb-4 border-2 text-black border-gray-300 w-[480px]"
+                                    <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 w-[680px]"
                                         placeholder="Schreibe eine Nachricht..."
                                         {...field}
                                     />
@@ -80,6 +81,7 @@ const ChatInput = () => {
                     </div>
                 </form>
             </Form>
+            </div>
 
 
         </div>

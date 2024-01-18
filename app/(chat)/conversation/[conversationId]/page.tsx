@@ -1,6 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 import ConversationProfileBar from "./_components/conversation-profile-bar";
+import ChatComponent from "./_components/chat-component";
 
 const ConversationPage = async ({
     params
@@ -26,13 +27,18 @@ const ConversationPage = async ({
     
 
     return (
-        <div className="overflow-y-hidden h-screen">
+        <div className="overflow-y-hidden h-screen bg-[#404040]/10 ">
             <div className="w-full h-[120px] overflow-hidden bg-gray-200">
-                s
+                
+            </div>
+           <div className="h-screen flex">
+            <div className="w-full">
+                <ChatComponent/>
             </div>
            <ConversationProfileBar
            otherUser={otherUserDetails}
            />
+           </div>
         </div>
     );
 }

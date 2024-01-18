@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import {  MailCheck, PhoneCall, User2, UserCheck, UserCircle } from "lucide-react";
+import {  ImageIcon, MailCheck, PhoneCall, User2, UserCheck, UserCircle } from "lucide-react";
 import { User } from "@prisma/client";
 import Image from "next/image";
 
@@ -61,7 +61,15 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
                         </Button>                        
                     </div>
                 </div>
+                <div>
+                <div className="ml-4 mt-4">
+                    <div className="font-semibold flex">
+                       <ImageIcon className="mr-4"/> Anhänge und Links
+                    </div>
+                </div>
             </div>
+            </div>
+            
         </div>
      );
 }

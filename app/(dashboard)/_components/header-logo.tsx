@@ -15,6 +15,7 @@ import SearchItem from "./search-item";
 import LocationBar from "./location-bar";
 import { Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
+import LogOutButton from "@/components/logout-button";
 
 interface HeaderProps {
     currentUser: User;
@@ -70,6 +71,11 @@ const Header: React.FC<HeaderProps> = ({
                                 <DashboardLink
                                     currentUser={currentUser}
                                 />
+                                <div className="mt-2 ml-8">
+                                <LogOutButton />
+                                </div>
+                                    
+                                
 
                             </div>
                         )

@@ -24,7 +24,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
 
     return (
-        <div className={cn(isOwn ? "mr-2" : "ml-2 ")}>
+        <div className={cn("", isOwn ? "mr-2" : "ml-2 ")}>
             <div className={cn("rounded-lg flex p-2 w-1/2", isOwn ? " mr-8 ml-auto" : " mr-auto")}>
                 <div className={cn("min-w-[50px]", isOwn ? "ml-auto" : "mr-auto")}>
                     <div className={cn("p-4 rounded-lg mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] border-2 flex border-gray-500",

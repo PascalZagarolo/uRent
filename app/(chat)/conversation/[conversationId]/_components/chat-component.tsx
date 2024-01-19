@@ -17,7 +17,7 @@ const ChatComponent: React.FC<ChatComponentProps> = async ({
 
     return ( 
         <div className="overflow-y-auto h-screen no-scrollbar" >
-            <div className="h-full">
+            <div className="h-full ">
             <h3 className="flex justify-center text-gray-900/30 p-4 font-semibold">
                 Chat gestartet am {messages[0].createdAt.toLocaleDateString()}
             </h3>

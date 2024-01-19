@@ -1,4 +1,6 @@
+import { db } from "@/utils/db";
 import { Conversation, User } from "@prisma/client";
+import RenderedChats from "./rendered-chats";
 
 type ConversationWithUsers = Conversation & { users: User[] };
 
@@ -8,19 +10,24 @@ interface StartedChatsProps{
 }
 
 
-const StartedChats: React.FC<StartedChatsProps> = ({
+const StartedChats: React.FC<StartedChatsProps> = async ({
     conversation,
     currentUser
 }) => {
 
-    
+    const image = await db.user.findUnique({
+        where :{
+            id : conversation.userIds[0]
+        }
+    })
     
 
     return ( 
-        <div>
-            <div>
-                
-            </div>
+        <div className="flex justify-center">
+            <RenderedChats
+            user = {image}
+            conversationId={conversation.id}
+            />
         </div>
      );
 }

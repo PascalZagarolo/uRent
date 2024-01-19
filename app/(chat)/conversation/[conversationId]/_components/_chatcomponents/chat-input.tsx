@@ -10,6 +10,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import UploadImage from "../upload-image";
 
 const ChatInput = () => {
 
@@ -50,11 +51,7 @@ const ChatInput = () => {
     return (
         <div className="absolute bottom-0 flex justify-center bg-white  ">
             <div className="flex bg-white   p-4 rounded-lg">
-            <div className="mr-2">
-                <Button className="bg-white border-2 border-gray-400 hover:bg-gray-100">
-                    <ImageIcon className="text-black" />
-                </Button>
-            </div>
+            <UploadImage/>
 
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex  ">

@@ -1,4 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
+import { pusherServer } from "@/lib/pusher";
 import { db } from "@/utils/db";
 import { NextResponse } from "next/server";
 
@@ -19,6 +20,8 @@ export async function POST(
                 image : image
             }
         })
+
+        await pusherServer.trigger(params.conversationId, 'messages:new', imageMessage);
 
         return NextResponse.json(imageMessage);
 

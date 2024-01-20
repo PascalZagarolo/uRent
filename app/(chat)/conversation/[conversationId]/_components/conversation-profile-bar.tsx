@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { ImageIcon, MailCheck, PhoneCall, User2, UserCheck, UserCircle } from "lucide-react";
+import { ImageIcon, MailCheck, PhoneCall, PlusCircle, PlusSquare, User2, UserCheck, UserCircle } from "lucide-react";
 import { User, Messages } from "@prisma/client";
 import Image from "next/image";
 import AttachmentRender from "./attachment-render";
@@ -27,7 +27,7 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
 
     return (
         <div className="flex justify-end overflow-y-hidden h-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] ">
-            <div className=" bg-white w-[360px] border-2 border-black">
+            <div className=" bg-white w-[420px] border-2 border-black">
                 <div className="">
                     <h3 className="flex justify-center mt-2 p-2 border-2 border-black ml-2 mr-2 rounded-md font-bold text-xl">
                         <User2 className="mr-2" />  {otherUser.name}
@@ -69,13 +69,33 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
                         <div className="font-semibold flex">
                             <ImageIcon className="mr-4" /> Anhänge und Links ({attachments.length})
                         </div>
-                        <div className="grid grid-cols-3 gap-3 mr-2 mt-2">
+                        <div className="grid grid-cols-3 gap-2 mr-2 mt-4  ">
                             
-                            {attachments.map((attachment) => (
-                                <AttachmentRender
-                                key={attachment.id}
-                                messageWithImage={attachment}
-                                />
+                            {attachments.slice(0,9).map((attachment, index) => (
+                                <div>
+                                    { index === 8 ? (
+                                        <div className="bg-gray-300 flex justify-center items-center h-[75px] w-[75px] border-2 border-black rounded-md"
+                                        key={attachment.id}
+                                        >
+                                            <div>
+                                            <div className="flex justify-center">
+                                            <PlusSquare className="flex justify-center items-center"/>
+                                            
+                                            </div>
+                                            <p className="text-xs mt-1 text-gray-900/90 font-bold">
+                                                {attachments.length - 9} weitere..
+                                            </p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        
+                                            <AttachmentRender
+                                        key={attachment.id}
+                                        messageWithImage={attachment}
+                                        />
+                                        
+                                    )}
+                                </div>
                             
                             ))}
                         </div>

@@ -62,7 +62,8 @@ const ConversationPage = async ({
             <ChatSideBar
             
             />
-            <div className="w-full overflow-y-auto ">
+            <div className="w-full">
+                
             <ChatComponent
                 messages={messages}
                 currentUser={currentUser}

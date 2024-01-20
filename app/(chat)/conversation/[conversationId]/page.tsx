@@ -37,6 +37,15 @@ const ConversationPage = async ({
     },
     
    })
+
+   const attachments = await db.messages.findMany({
+    where : {
+        conversationId : params.conversationId,
+        image : {
+            not : null
+        }
+    }
+   })
     
 
     return (
@@ -57,8 +66,10 @@ const ConversationPage = async ({
                 currentUser={currentUser}
                 />
             </div>
+           
            <ConversationProfileBar
            otherUser={otherUserDetails}
+           attachments = { attachments }
            />
            </div>
         </div>

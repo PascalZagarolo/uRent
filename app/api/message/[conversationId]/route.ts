@@ -1,6 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 import { NextResponse } from "next/server";
+import { pusherServer } from "@/lib/pusher";
 
 export async function POST(
     req : Request,
@@ -13,15 +14,18 @@ export async function POST(
         const values = await req.json();
 
 
-        const message = await db.messages.create({
+        const newMessage = await db.messages.create({
             data : {
                 conversationId: params.conversationId,
                 ...values,
-                senderId : currentUser.id
+                senderId : currentUser.id,
+                
             }
-        })
+        });
 
-        return NextResponse.json(message)
+        await pusherServer.trigger(params.conversationId, 'messages:new', newMessage);
+
+        return NextResponse.json(newMessage)
 
     } catch (error) {
         console.log("Fehler beim erstellen einer Nachricht" , error);

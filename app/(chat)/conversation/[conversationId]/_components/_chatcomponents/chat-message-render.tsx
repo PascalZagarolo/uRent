@@ -1,7 +1,10 @@
+'use client'
+
 import { cn } from "@/lib/utils";
 import { Messages, User } from "@prisma/client";
-import Image from "next/image";
+
 import ChatImageRender from "./chat-image-render";
+import { format } from "date-fns";
 
 interface ChatMessageRenderProps {
     messages: Messages;
@@ -15,12 +18,11 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
 }) => {
 
-    const formatEuropeanTime = (inputDate: Date): string => {
-        const hours = String(inputDate.getHours()).padStart(2, '0');
-        const minutes = String(inputDate.getMinutes()).padStart(2, '0');
+     const formatEuropeanTime = (inputDate: Date): string => {
+        const date = format(new Date(inputDate), "HH:mm");
 
-        return `${hours}:${minutes}`;
-    };
+        return date;
+    }; 
 
 
     return (

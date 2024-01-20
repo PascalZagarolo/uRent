@@ -46,7 +46,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             pusherClient.unsubscribe(conversationId);
             pusherClient.unbind('messages:new', messageHandler);
         }
-    }, [conversationId])
+    }, )
     
 
     return ( 
@@ -56,7 +56,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
                 Chat gestartet am {messages[0].createdAt.toLocaleDateString()} 
             </h3>
             <div className="no-scrollbar h-full overflow-y-hidden">
-            {messages.map((message) => (
+            {pMessages.map((message) => (
                 <ChatMessageRender
                 key={message.id}
                 messages={message}

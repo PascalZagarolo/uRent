@@ -44,6 +44,8 @@ const ConversationPage = async ({
         image : {
             not : null
         }
+    }, orderBy : {
+        createdAt : "desc"
     }
    })
     

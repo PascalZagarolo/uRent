@@ -72,7 +72,7 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
                         <div className="grid grid-cols-3 gap-2 mr-2 mt-4  ">
                             
                             {attachments.slice(0,9).map((attachment, index) => (
-                                <div>
+                                <div key={attachment.id}>
                                     { index === 8 ? (
                                         <div className="bg-gray-300 flex justify-center items-center h-[75px] w-[75px] border-2 border-black rounded-md"
                                         key={attachment.id}

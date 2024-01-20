@@ -7,7 +7,7 @@ import { Messages, User, Conversation } from '@prisma/client';
 import { useEffect, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { useParams } from "next/navigation";
-import { find } from "lodash";
+import { find, set } from "lodash";
 
 interface ChatComponentProps {
     messages : Messages[] 
@@ -40,11 +40,31 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             bottomRef?.current?.scrollIntoView({ behavior: "smooth" });
         }
 
+        const deleteMessage = (message : Messages) => {
+            setMessages((current) => {
+                
+                const index = current.findIndex((m) => m.id === message.id);
+            
+                if (index !== -1) {
+                  
+                  const updatedMessages = [...current.slice(0, index), ...current.slice(index + 1)];
+                  return updatedMessages;
+                }
+        
+                
+                return current;
+              });
+
+            bottomRef?.current?.scrollIntoView({ behavior: "smooth" });
+        }
+
         pusherClient.bind('messages:new', messageHandler);
+        pusherClient.bind('messages:delete', deleteMessage);
 
         return () => {
             pusherClient.unsubscribe(conversationId);
             pusherClient.unbind('messages:new', messageHandler);
+            pusherClient.unbind('messages:delete', deleteMessage);
         }
     }, )
     

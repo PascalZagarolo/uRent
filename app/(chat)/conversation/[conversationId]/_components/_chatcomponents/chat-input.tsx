@@ -37,9 +37,7 @@ const ChatInput = () => {
         try {
             setIsLoading(true);
             axios.post(`/api/message/${params.conversationId}`, values);
-            setTimeout(() => {
-                router.refresh()
-            }, 1000)
+            
         } catch {
             console.log("Fehler beim Kommentar absenden")
         } finally {

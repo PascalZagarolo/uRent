@@ -1,8 +1,8 @@
 import { db } from "@/utils/db";
-import { Conversation, User } from "@prisma/client";
+import { Conversation, User, Messages } from "@prisma/client";
 import RenderedChats from "./rendered-chats";
 
-type ConversationWithUsers = Conversation & { users: User[] };
+type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
 
 interface StartedChatsProps{
     conversation : ConversationWithUsers,
@@ -20,6 +20,11 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
             id : conversation.userIds[0]
         }
     })
+
+    const lastMessage = conversation.messages[conversation.messages.length - 1];
+
+    let content = lastMessage.content ? lastMessage.content : "Hat ein Bild gesendet"
+
     
 
     return ( 
@@ -27,6 +32,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
             <RenderedChats
             user = {image}
             conversationId={conversation.id}
+            lastMessage = {content}
             />
         </div>
      );

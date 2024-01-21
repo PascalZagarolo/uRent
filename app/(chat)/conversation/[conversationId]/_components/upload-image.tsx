@@ -38,15 +38,15 @@ const UploadImage = ({
     }
 
     return ( 
-        <div>
+        <div className="rounded-md ">
             <CldUploadButton
             onUpload={handleImageUpload}
             uploadPreset="oblbw2xl"
             options={{ maxFiles : 1}}
             >
-            <div className="mr-2">
+            <div className="mr-2 bg-white p-2 rounded-md items-center">
                 
-                    <ImageIcon className="text-black" />
+                    <ImageIcon className="text-black  h-6 w-6" />
                 
             </div>
             </CldUploadButton>

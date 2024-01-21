@@ -36,9 +36,9 @@ const DeleteMessage: React.FC<DeleteMessageProps> = ({
     return (
         <div>
             <Dialog>
-                <DialogTrigger>
+                <DialogTrigger className="ml-auto flex">
                     <div className="hover: cursor-pointer">
-                        <TrashIcon />
+                        <TrashIcon className="w-4 h-4 text-right " />
                     </div>
                 </DialogTrigger>
                 <DialogContent>

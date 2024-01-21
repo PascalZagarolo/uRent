@@ -26,7 +26,7 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
 
 
     return (
-        <div className="flex justify-end overflow-y-hidden h-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] ">
+        <div className="sm:flex justify-end overflow-y-hidden h-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hidden ">
             <div className=" bg-white w-[420px] border-2 border-black">
                 <div className="">
                     <h3 className="flex justify-center mt-2 p-2 border-2 border-black ml-2 mr-2 rounded-md font-bold text-xl">

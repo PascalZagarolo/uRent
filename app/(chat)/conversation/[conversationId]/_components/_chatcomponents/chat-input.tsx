@@ -47,8 +47,8 @@ const ChatInput = () => {
     }
 
     return (
-        <div className="absolute bottom-0 flex justify-center bg-white  ">
-            <div className="flex bg-white   p-4 rounded-lg">
+        <div className="absolute bottom-0 flex justify-center sm:bg-white items-center  ">
+            <div className="flex sm:bg-white  sm:p-4 rounded-lg">
             <UploadImage/>
 
             <Form {...form}>
@@ -60,7 +60,7 @@ const ChatInput = () => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 w-[680px]"
+                                    <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 md:w-[340px] lg:w-[680px]"
                                         placeholder="Schreibe eine Nachricht..."
                                         {...field}
                                     />

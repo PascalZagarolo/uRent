@@ -8,12 +8,14 @@ import { useParams, useRouter } from "next/navigation";
 
 interface RenderedChatsProps {
     user : User,
-    conversationId : string
+    conversationId : string,
+    lastMessage : string
 }
 
 const RenderedChats: React.FC<RenderedChatsProps> = ({
     user,
-    conversationId
+    conversationId,
+    lastMessage
 }) => {
 
     const params = useParams();
@@ -35,7 +37,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
             </div>
             <div>
                 <p className="text-gray-200 text-sm overflow-x-hidden ml-2 font-medium w-[120px] h-[20px] truncate ">
-                    letzte nachricht ahsdoauijs
+                    {lastMessage}
                 </p>
             </div>
             <div className="flex justify-center ml-auto mr-4">

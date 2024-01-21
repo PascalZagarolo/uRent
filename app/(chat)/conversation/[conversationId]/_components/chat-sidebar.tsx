@@ -3,9 +3,9 @@ import { db } from "@/utils/db";
 import { MessageCircleDashedIcon } from "lucide-react";
 import StartedChats from "./started-chats";
 
-import { Conversation, User } from "@prisma/client";
+import { Conversation, User, Messages } from "@prisma/client";
 
-type ConversationWithUsers = Conversation & { users: User[] };
+type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
 
 const ChatSideBar = async () => {
 
@@ -18,7 +18,12 @@ const ChatSideBar = async () => {
             }
         }, include : {
             users : true,
+            messages : {
+                orderBy : {
+                    createdAt : "asc"
+                }
             
+            }
         }
     })
 
@@ -29,7 +34,7 @@ const ChatSideBar = async () => {
         <div className=" bg-white w-[420px] border-2 border-black">
                 <div>
                     <h3 className="flex justify-center p-4 text-lg font-semibold">
-                       <MessageCircleDashedIcon className="mr-2"/> Gestartete Konversationen
+                       <MessageCircleDashedIcon className="mr-2"/> Gestartete Konversationen 
                     </h3>
                 </div>
                 <div>

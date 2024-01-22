@@ -8,7 +8,7 @@ import type { Category } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 import { getSession } from "next-auth/react";
 
-interface RelevanteInserateProps {
+interface RelevanteInserateMobileProps {
     title: string;
     category: Category;
     filter: string;
@@ -16,7 +16,7 @@ interface RelevanteInserateProps {
     end: string
 }
 
-const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
+const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
     title,
     category,
     filter,
@@ -107,4 +107,4 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     );
 }
 
-export default RelevanteInserate;
+export default RelevanteInserateMobile;

@@ -33,11 +33,7 @@ const SearchItem = () => {
     return (
         <div className="flex items-center justify-start position: static ">
 
-            <div className="px-2 py-2  rounded-md border border-black  bg-[#191d2e] hover: cursor-pointer" >
-            <Search
-                className=" text-white h-6 w-6"
-            />
-            </div>
+            
             
 
             <Input
@@ -46,7 +42,11 @@ const SearchItem = () => {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
             />
-
+            <div className="px-2 py-2  rounded-md border-2 border-black  bg-[#191d2e] hover: cursor-pointer" >
+            <Search
+                className=" text-white h-6 w-6"
+            />
+            </div>
         </div>
     );
 }

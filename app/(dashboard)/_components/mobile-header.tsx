@@ -9,7 +9,7 @@ const MobileHeader = () => {
     const router = useRouter();
 
     return ( 
-        <div className="bg-[#1f2332] h-[80px] border-2 border-black">
+        <div className="bg-[#1f2332] h-[100px] border-2 border-black p-2">
             <div className="flex items-center">
             <h3 className="flex justify-start items-center py-6 ml-4 text-3xl font-semibold text-white hover:cursor-pointer" onClick={() => {
                     router.push('/')

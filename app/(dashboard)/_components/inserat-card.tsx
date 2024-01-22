@@ -59,13 +59,15 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className="w-[400px] h-[380px]  rounded-md  items-center   bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-            <h3 className={cn("flex  font-semibold mt-1 ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} onClick={onRedirect}>
+            <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} onClick={onRedirect}>
                 <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <CarFront className=" text-gray-100 h-6 w-6 " /> 
                 </div>
-                <p className=" ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-[250px] h-[40px]
+                <div className="px-2 py-1 mt-1 rounded-md  ">
+                <div className=" ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-[250px] h-[40px]
                  
-                "> {inserat.title} </p>
+                 "> {inserat.title} </div>
+                </div>
                 <div className="ml-auto items-center flex mr-4">
                     
                     <p className="ml-4">
@@ -77,7 +79,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
             </h3>
             
-            <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-auto w-full">
+            <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-full">
                 <div className="flex mr-auto ml-2">
                 <div className="mr-4 w-[80px]">
                     <div>
@@ -109,9 +111,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 
             </div>
 
-            <div className="ml-2 mt-2">
+            <div className="ml-2 ">
                 
-                <div className="flex mt-2 bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                <div className="flex  bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  Zeitraum :
                     </p>

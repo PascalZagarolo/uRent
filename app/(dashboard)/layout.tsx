@@ -5,6 +5,7 @@ import React from "react";
 import HeaderLogo from "./_components/header-logo";
 import Header from "./_components/header";
 import getCurrentUser from "../../actions/getCurrentUser";
+import MobileHeader from "./_components/mobile-header";
 
 const DashboardLayout = async (
     { children } : { children : React.ReactNode }
@@ -18,6 +19,9 @@ const DashboardLayout = async (
              <HeaderLogo
                 currentUser={currentUser}
                 />
+             </div>
+             <div className="sm:hidden">
+                <MobileHeader/>
              </div>
              
              <div className="h-full">

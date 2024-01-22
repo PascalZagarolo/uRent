@@ -9,6 +9,7 @@ import { Images, Inserat } from "@prisma/client";
 import MainPageSidebar from "./_components/main-page-sidebar";
 import type { Category } from "@prisma/client";
 import { db } from "@/utils/db";
+import RelevanteInserateMobile from "./_bodyparts/relevante-inserate-mobile";
 
 
 type InserateWithImages = Inserat & {
@@ -51,13 +52,17 @@ const Main = async ({
     })
     
     return ( 
-        <div className="flex h-full">
+        <div className="flex sm:h-full h-screen">
   <div className="h-full fixed">
     <MainPageSidebar treffer={inserate.length} />
   </div>
-  <div className="sm:ml-72 mt-4 sm:block ml-4 h-screen overflow-y-auto  sm:h-full">
+  <div className="sm:ml-72 mt-4 sm:block ml-4 hidden  sm:h-full">
     <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
      start={searchParams.start} end={searchParams.end} />
+  </div>
+  <div className="mt-2 ml-4 overflow-y-auto sm:hidden">
+        <RelevanteInserateMobile title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
+     start={searchParams.start} end={searchParams.end}/>
   </div>
 </div>
 

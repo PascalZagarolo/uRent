@@ -30,7 +30,7 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
         <div className="sm:flex justify-end overflow-y-hidden h-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] hidden ">
             <div className="bg-[#090909]/05 w-[420px] border-2 border-black ">
                 <div className="text-gray-100">
-                    <h3 className="flex justify-center mt-2 p-2 border-2 border-black ml-2 mr-2 rounded-md font-bold text-xl bg-[#181c2c]">
+                    <h3 className="flex justify-center mt-2 p-2 border-2 border-black ml-2 mr-2 rounded-md font-bold text-xl bg-[#181c2c] border-white">
                         <User2 className="mr-2" />  {otherUser.name}
                     </h3>
                 </div>
@@ -75,7 +75,7 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
                             {attachments.slice(0, 9).map((attachment, index) => (
                                 <div key={attachment.id}>
                                     {index === 8 ? (
-                                        <div className="bg-gray-300 flex justify-center items-center h-[75px] w-[75px] border-2 border-black rounded-md"
+                                        <div className="bg-gray-100 flex justify-center items-center h-[75px] w-[75px] border-2 border-black rounded-md"
                                             key={attachment.id}
                                         >
                                             <div>
@@ -101,7 +101,7 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
                             ))}
                         </div>
                     </div>
-                    <div className="mt-2">
+                    <div className="mt-2 ml-2 mr-2">
                         <ChatSettings/>
                     </div>
                 </div>

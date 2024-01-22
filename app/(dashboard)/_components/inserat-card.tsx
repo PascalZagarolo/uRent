@@ -1,5 +1,6 @@
 'use client'
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -57,9 +58,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
     }
 
     return (
-        <div className="w-[400px] h-[360px]  rounded-md  items-center  bg-[#ffffff] border-2 border-white mb-8 ">
+        <div className="w-[400px] h-[380px]  rounded-md  items-center   bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h3 className={cn("flex justify-stretch font-semibold mt-1 ml-2 text-lg hover:cursor-pointer h-[40px] items-center", inserat.title.length > 15 ? "text-sm" : "text-lg")} onClick={onRedirect}>
-                <CarFront className="ml-2   h-6 w-6" /> <p className="flex ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] "> {inserat.title} </p>
+                <div className="bg-[#1f2332] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                <CarFront className=" text-gray-100 h-6 w-6 " /> 
+                </div>
+                <p className="flex ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] "> {inserat.title} </p>
                 <div className="ml-auto items-center flex mr-4">
                     <p className="font-bold text-gray-800/50 italic text-xs">{formatDate(inserat.createdAt)}</p>
                     <p className="ml-4">
@@ -70,37 +74,41 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
 
             </h3>
-            <div className="mt-2">
-                <Separator
-                    className="w-8 bg-black rounded-lg ml-2 "
+            
+            <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-auto">
+                <div>
+                <img
+                src={inserat.images[0].url}
+                width={260}
+                height={260}
+                className="rounded-md border-2 border-gray-400"
                 />
-            </div>
-            <div className="flex justify-center h-[200px] items-center ">
-                <Image
-                    src={inserat.images[0].url}
-                    height={160}
-                    width={320}
-                    alt="Car-Vorschau"
-                    className="rounded-md border mb-2 border-black hover:cursor-pointer items-center"
-                    onClick={onRedirect}
-                />
+                <div>
+                   <Badge className="bg-[#ed580dec] text-gray-100 font-bold rounded-md border-2 border-gray-400 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                   
+                   >
+
+                          {inserat.images.length} Bilder
+                </Badge>
+                </div>
+                </div>
+                
+                
             </div>
 
             <div className="ml-2 mt-2">
-                <Separator
-                    className=" mt-2 w-16 bg-black"
-                />
-                <div className="flex mt-2">
-                    <p className="text-gray-900/80 font-bold mr-4 flex">
+                
+                <div className="flex mt-2 bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  Zeitraum :
                     </p>
-                    <p className="font-semibold text-[#434b70]">
+                    <p className="font-semibold text-gray-200">
                         {formatDate(inserat.begin)}
                     </p>
                     <p className="font-bold text-black-800 mr-2 ml-2">
                         -
                     </p>
-                    <p className="font-bold text-[#434b70]">
+                    <p className="font-bold text-gray-200">
                         {formatDate(inserat.end)}
                     </p>
                 </div>
@@ -132,10 +140,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     Im Besitz
                                 </p>
                             ) : (
-                                <div className="flex">
+                                <div className="flex bg-emerald-600 p-2 rounded-md border-black border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-800">
                                     <p className="mr-2 flex font-bold">
                                         <Banknote
-                                            className="mr-2" />
+                                            className="mr-2 bg-gray-100 p-0.5 rounded-md border-gray-300 border-2" />
                                         Preis :
                                     </p>
                                     {inserat.price} €
@@ -153,36 +161,37 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-                    <div className="ml-auto mr-4 flex items-center">
-                        <MapPinIcon className="text-rose-600 mr-2" /> Mömer <p className="text-gray-800/50 text-xs ml-2">(187 Km)</p>
+                    <div className="ml-auto mr-4 flex items-center bg-[#181c28] border-2 border-gray-300 p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                        <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 rounded-md border-gray-300 border-2" /> Mömer <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
                     </div>
                 </div>
-            </div>
-            <div className="mt-4">
+                <div className="w-full mt-2">
 
-            <div className="rounded-md bg-[#404668] position:absolute ">
-                    <div className="flex mt-4 items-center border border-black rounded-md">
-                    <Image
-                            className="rounded-full ml-2 mt-2 mb-2 border border-[#141621] "
-                            src={inserat.user?.image || "/placeholder-person.jpg"}
-                            height={40}
-                            width={40}
-                            alt="User-Bild"
-                        />
-                        <Link href={`/profile/${inserat.userId}`}>
-                            <p className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)]">
-                                {inserat.user?.name}
-                            </p>
-                        </Link>
+                    <div className="rounded-md bg-[#1b1e2d] border-2 border-gray-100 position:absolute mr-2">
+                        <div className="flex  items-center border border-black rounded-md">
+                            <Image
+                                className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 "
+                                src={inserat.user?.image || "/placeholder-person.jpg"}
+                                height={40}
+                                width={40}
+                                alt="User-Bild"
+                            />
+                            <Link href={`/profile/${inserat.userId}`}>
+                                <p className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)]">
+                                    {inserat.user?.name}
+                                </p>
+                            </Link>
 
-                        <div className="ml-auto mr-2">
-                            <Button className="bg-[#222637]  border border-white  font-semibold">
-                                Besichtigen
-                            </Button>
+                            <div className="ml-auto mr-2">
+                                <Button className="bg-[#222637]  border border-white  font-semibold">
+                                    Besichtigen
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
 
 

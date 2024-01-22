@@ -56,7 +56,7 @@ const Main = async ({
   <div className="h-full fixed">
     <MainPageSidebar treffer={inserate.length} />
   </div>
-  <div className="sm:ml-72 mt-4 sm:block ml-4 hidden  sm:h-full">
+  <div className="sm:ml-72 mt-4 sm:block ml-4 hidden  sm:h-full w-full mr-2">
     <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
      start={searchParams.start} end={searchParams.end} />
   </div>

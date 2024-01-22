@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
-import { AlignCenter, Search, TrendingUp, } from "lucide-react";
+import { AlignCenter, Search, SearchCode, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
 import { Images, Inserat, User } from "@prisma/client";
 import { getInserate } from "@/actions/getInserate";
@@ -51,28 +51,37 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     });
 
     return (
-        <div className="">
+        <div className="w-full">
 
             {!title ? (
-                <div className="h-full flex sm:block sm:mt-0 mt-4">
-                    <div className="ml-4">
+                <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 p-4 text-gray-100 bg-[#181b27]">
+                    <div className="ml-4 flex w-full items-center">
+                        <div className="p-2 border-2 border-white rounded-lg">
                         <AlignCenter />
-                    </div>
-                    <h3 className="ml-8 flex font-bold text-2xl h-full">
-                        Relevante Inserate
-                        <div className="ml-auto mr-4 sm:mr-8">
-                            <OrderBy />
                         </div>
-                    </h3>
+                        <h3 className="ml-8 flex font-bold text-2xl h-full w-full">
+                            Relevante Inserate
+                            <div className="flex ml-auto mr-4 sm:mr-8 text-black">
+                                <OrderBy />
+                            </div>
+                        </h3>
+                    </div>
+
                 </div>
             ) : (
-                <div className="h-full flex sm:block sm:mt-0 mt-4">
-                    <div className="ml-4">
-                        <Search />
+                <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 p-4 text-gray-100 bg-[#181b27]">
+                    <div className="ml-4 flex w-full items-center">
+                        <div className="p-2 border-2 border-white rounded-lg">
+                        <SearchCode />
+                        </div>
+                        <h3 className="ml-8 flex font-bold text-2xl h-full w-full">
+                            ({inserateArray.length}) Suchergebnisse
+                            <div className="flex ml-auto mr-4 sm:mr-8 text-black">
+                                <OrderBy />
+                            </div>
+                        </h3>
                     </div>
-                    <h3 className="ml-8  font-bold text-2xl h-full flex">
-                        <p className="mr-2">( {inserateArray.length} )</p> Suchergebnisse
-                    </h3>
+
                 </div>
             )}
 
@@ -83,9 +92,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     </h3>
                 </div>
             ) : (
-                <div className="flex flex-wrap justify-start sm:mr-8 sm:ml-8 overflow-y-auto h-full ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ">
                     {inserateArray.map((inserat, index) => (
-                        <div className="w-full md:w-1/3 2xl:w-1/4 sm:ml-0  sm:mt-0 mt-4 sm:p-4 mb-4 sm:flex-grow   " key={inserat.id}>
+                        <div className="w-full sm:w-1/2 md:w-1/4 p-4" key={inserat.id}>
                             <InseratCard
                                 key={inserat.id}
                                 inserat={inserat}
@@ -93,10 +102,10 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                                 isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
                                 owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
                             />
-                            {(index + 1) % 4 === 0 && <div className="w-full sm:w-1/12" />} {/* Add an empty div to create a new row after every 4 cards */}
                         </div>
                     ))}
                 </div>
+
 
             )}
 

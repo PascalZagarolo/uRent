@@ -44,8 +44,8 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                             isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-500 text-gray-100 mr-auto")}>
                             {messages.image ? (
                                 <ChatImageRender
-                                    imageLink={messages.image}
-                                />
+                                imageLink={messages.image}
+                            />
                             ) : (
                                 <div className="flex justify-center">
                                     {messages.content}

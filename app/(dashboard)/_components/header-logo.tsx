@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({
                             />
                         </div>
 
-                        <div className="flex justify-center">
+                        <div className="flex justify-center mt-2">
                             <SearchItem />
                         </div>
                         <div className="flex justify-center">

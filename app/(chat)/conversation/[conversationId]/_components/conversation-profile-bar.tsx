@@ -6,6 +6,7 @@ import { User, Messages } from "@prisma/client";
 import Image from "next/image";
 import AttachmentRender from "./attachment-render";
 import ChatSettings from "./chat-settings";
+import useActiveList from "@/hooks/useActiveList";
 
 interface ConversationProfileBarProps {
     otherUser: User;
@@ -16,6 +17,10 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
     otherUser,
     attachments
 }) => {
+
+
+    const { members } = useActiveList();
+    const isActive = members.indexOf(otherUser.email!) !== -1; 
 
     const formatDate = (inputDate: Date): string => {
         const day = ('0' + inputDate.getDate()).slice(-2);
@@ -30,9 +35,20 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
         <div className="sm:flex justify-end overflow-y-hidden h-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] hidden ">
             <div className="bg-[#090909]/05 w-[420px] border-2 border-black ">
                 <div className="text-gray-100">
-                    <h3 className="flex justify-center mt-2 p-2 border-2 border-black ml-2 mr-2 rounded-md font-bold text-xl bg-[#181c2c] border-white">
+                    <h3 className="flex justify-center mt-2 p-2 border-2 border-black  ml-2 mr-2 rounded-md font-bold text-xl bg-[#181c2c] ">
                         <User2 className="mr-2" />  {otherUser.name}
                     </h3>
+                </div>
+                <div className="flex justify-center">
+                    {isActive ? ( 
+                        <div>
+                            <p className="font-bold text-emerald-600"> Online </p>
+                        </div>
+                    ) : ( 
+                        <div>
+                            <p className="font-bold text-gray-600/50"> Offline </p>
+                        </div>
+                    )}
                 </div>
                 <div className=" flex justify-center mt-8">
                     <Image

@@ -13,12 +13,12 @@ const ChatImageRender: React.FC<ChatImageRenderProps> = ({
             <DialogTrigger>
                 <div className="">
                     <img
-                        className="max-w-[200px] max-h-[200px]"
+                        className=""
                         src={imageLink}
                     />
                 </div>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="">
                 <div>
                     <img
                         className="width: auto;

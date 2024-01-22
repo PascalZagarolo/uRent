@@ -6,6 +6,7 @@ import { User, Messages } from "@prisma/client";
 import Image from "next/image";
 import AttachmentRender from "./attachment-render";
 import AttachmentRenderMobile from "./attachment-render-mobile";
+import ChatSettings from "./chat-settings";
 
 interface MobileProfileSidebarProps {
     user : User;
@@ -33,7 +34,7 @@ const MobileProfileSidebar: React.FC<MobileProfileSidebarProps> = ({
                             <AlignJustify className="h-8 w-8"/>
                 </div>
             </SheetTrigger>
-            <SheetContent className="w-3/5 border-2 border-gray-400">
+            <SheetContent className="w-3/5 border-2 border-gray-400 ">
                 <SheetHeader>
                     <div className="text-2xl p-4 mr-2 ml-2 rounded-md border-black border-2 bg-[#161a28] text-gray-100">
                         {user.name}
@@ -44,7 +45,7 @@ const MobileProfileSidebar: React.FC<MobileProfileSidebarProps> = ({
                     alt="profile picture"
                     height={120}
                     width={120}
-                    className="rounded-full border-2 border-gray-300"
+                    className="rounded-full border-2 border-gray-300 mt-4 mb-2"
                     />
                     </div>
                     <div className="font-semibold text-sm text-gray-900/80">
@@ -82,7 +83,11 @@ const MobileProfileSidebar: React.FC<MobileProfileSidebarProps> = ({
                                 </div>
                             
                             ))}
+                            
                             </div>
+                            <div className="mt-8">
+                        <ChatSettings/>
+                    </div>
             </SheetContent>
         </Sheet>
      );

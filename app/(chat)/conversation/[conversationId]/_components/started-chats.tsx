@@ -16,7 +16,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
 }) => {
 
     const image = await db.user.findUnique({
-        where :{
+        where : {
             id : conversation.userIds[0]
         }
     })
@@ -28,7 +28,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
     
 
     return ( 
-        <div className="flex justify-center">
+        <div className="flex justify-center p-1">
             <RenderedChats
             user = {image}
             conversationId={conversation.id}

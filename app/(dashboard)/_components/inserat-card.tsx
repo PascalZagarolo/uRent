@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
-import { Banknote, CalendarCheck2, CarFront, Check, LocateFixedIcon, MapPinIcon, Star, X } from "lucide-react";
+import { Banknote, CalendarCheck2, CarFront, Check, CheckCheckIcon, EyeIcon, LocateFixedIcon, MapPinIcon, Star, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -59,13 +59,14 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className="w-[400px] h-[380px]  rounded-md  items-center   bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-            <h3 className={cn("flex justify-stretch font-semibold mt-1 ml-2 text-lg hover:cursor-pointer h-[40px] items-center", inserat.title.length > 15 ? "text-sm" : "text-lg")} onClick={onRedirect}>
-                <div className="bg-[#1f2332] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h3 className={cn("flex justify-stretch font-semibold mt-1 ml-2 text-lg hover:cursor-pointer  items-center border-2 border-black rounded-md mr-2",)} onClick={onRedirect}>
+                <div className="bg-sky-900 p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <CarFront className=" text-gray-100 h-6 w-6 " /> 
                 </div>
-                <p className="flex ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] "> {inserat.title} </p>
+                <p className="flex ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate text-sm w-[250px] h-[20px]
+                "> {inserat.title} </p>
                 <div className="ml-auto items-center flex mr-4">
-                    <p className="font-bold text-gray-800/50 italic text-xs">{formatDate(inserat.createdAt)}</p>
+                    
                     <p className="ml-4">
                         <Button variant="ghost" onClick={onFav}>
                             <Star className={cn(isFaved ? "text-yellow-300" : "text-black")} />
@@ -75,22 +76,33 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
             </h3>
             
-            <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-auto">
-                <div>
+            <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-auto w-full">
+                <div className="flex mr-auto ml-2">
+                <div className="mr-4 w-[80px]">
+                    <div>
+                        <Badge className="bg-[#2c3246] border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                            4-Sitzer
+                        </Badge>
+                    </div>
+                    <div className="mt-2">
+                        <Badge className="bg-[#242a39] flex border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                            <EyeIcon className="w-4 h-4 mr-1"/> 202 
+                        </Badge>
+                    </div>
+                    <div className="mt-2">
+                        <Badge className="bg-emerald-600 border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                            <CheckCheckIcon className="w-4 h-4"/> vorhanden
+                        </Badge>
+                    </div>
+                </div>
                 <img
                 src={inserat.images[0].url}
                 width={260}
                 height={260}
                 className="rounded-md border-2 border-gray-400"
                 />
-                <div>
-                   <Badge className="bg-[#ed580dec] text-gray-100 font-bold rounded-md border-2 border-gray-400 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
-                   
-                   >
-
-                          {inserat.images.length} Bilder
-                </Badge>
-                </div>
+                
+                
                 </div>
                 
                 
@@ -140,10 +152,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     Im Besitz
                                 </p>
                             ) : (
-                                <div className="flex bg-emerald-600 p-2 rounded-md border-black border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-800">
+                                <div className="flex bg-emerald-600 p-2 rounded-md border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200">
                                     <p className="mr-2 flex font-bold">
                                         <Banknote
-                                            className="mr-2 bg-gray-100 p-0.5 rounded-md border-gray-300 border-2" />
+                                            className="mr-2 bg-gray-100 p-0.5 rounded-md border-gray-300 border-2 text-gray-900" />
                                         Preis :
                                     </p>
                                     {inserat.price} €

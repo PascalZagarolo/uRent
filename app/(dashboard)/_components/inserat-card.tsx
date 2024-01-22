@@ -59,11 +59,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className="w-[400px] h-[380px]  rounded-md  items-center   bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-            <h3 className={cn("flex justify-stretch font-semibold mt-1 ml-2 text-lg hover:cursor-pointer  items-center border-2 border-black rounded-md mr-2",)} onClick={onRedirect}>
-                <div className="bg-sky-900 p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h3 className={cn("flex  font-semibold mt-1 ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} onClick={onRedirect}>
+                <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <CarFront className=" text-gray-100 h-6 w-6 " /> 
                 </div>
-                <p className="flex ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate text-sm w-[250px] h-[20px]
+                <p className=" ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-[250px] h-[40px]
+                 
                 "> {inserat.title} </p>
                 <div className="ml-auto items-center flex mr-4">
                     

@@ -20,7 +20,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
 }) => {
 
     const params = useParams();
-    const conversationId = params.conversationId.toString();
+    const conversationId = params!.conversationId.toString();
     const bottomRef = useRef<HTMLDivElement>(null);
     const [pMessages, setMessages] = useState(messages);
 
@@ -73,7 +73,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         <div className="no-scrollbar  overflow-y-auto h-screen" >
             <div className="">
             <h3 className="flex justify-center text-gray-900/30 p-4 font-semibold">
-                Chat gestartet am {messages[0].createdAt.toLocaleDateString()} 
+            Chat gestartet am {messages[0].createdAt.toLocaleDateString()} 
             </h3>
             <div className="no-scrollbar h-full overflow-y-hidden">
             {pMessages.map((message) => (

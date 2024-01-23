@@ -6,6 +6,8 @@ import { User, Messages } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import MobileProfileSidebar from "./mobile-profile-sidebar";
+import useActiveList from "@/hooks/useActiveList";
+import { cn } from "@/lib/utils";
 
 interface MobileHeaderChatProps {
     otherUser : User;
@@ -17,6 +19,10 @@ const MobileHeaderChat: React.FC<MobileHeaderChatProps> = ({
     attachments
 }) => {
 
+    const { members } = useActiveList();
+
+    const isActive = members.indexOf(otherUser.email!) !== -1;
+
     const router = useRouter();
 
     return (
@@ -25,9 +31,19 @@ const MobileHeaderChat: React.FC<MobileHeaderChatProps> = ({
                 <ArrowLeft/>
             </div>
             <h3 className="flex justify-center w-full text-[#eaebf0] text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] items-center">
-                 <p className="flex justify-center ml-auto">
+                 <div className=" justify-center ml-auto items-center">
+                 <p className=" text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] truncate">
                  {otherUser.name} 
                 </p>
+                    <div className={cn("text-sm", isActive ? "text-emerald-600" : "text-gray-600/50")}>
+                        {isActive ? (
+                            "Online"
+                        ) : (
+                            "offline"
+                        )}
+                    </div>
+                 </div>
+                <div>
                 <Image 
                 className="ml-4 rounded-full border-2 border-[#323956]"
                 src={otherUser.image || "/placeholder-person.jpg"}
@@ -35,11 +51,14 @@ const MobileHeaderChat: React.FC<MobileHeaderChatProps> = ({
                 height={50}
                 alt="profile picture"
                 />
+                </div>
                 <MobileProfileSidebar
                 user = {otherUser}
                 attachments = {attachments}
                 />
+                
             </h3>
+            
         </div>
     );
 }

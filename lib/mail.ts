@@ -1,3 +1,4 @@
+import EmailResendTemplate from "@/templates/email";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -12,6 +13,6 @@ export const sendVerificationEmail = async (
         from: "onboarding@resend.dev",
         to: email,
         subject: "Bestätige deine uRent-Anmeldung",
-        html:`<p> Klick  <a href="${confirmLink}"> hier </a> um deinen Account zu verifizieren </p>`
+        html:`<p> Klick  <a href="${confirmLink}"> hier </a> um deinen Account zu verifizieren </p>`,
     });
 }

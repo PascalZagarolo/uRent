@@ -23,7 +23,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
 
     const lastMessage = conversation.messages[conversation.messages.length - 1];
 
-    let content = lastMessage.content ? lastMessage.content : "Hat ein Bild gesendet"
+    let content = lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet"
 
     
 

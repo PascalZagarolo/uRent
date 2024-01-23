@@ -21,6 +21,12 @@ const ConversationPage = async ({
         }
     })
 
+    const justConversation = await db.conversation.findUnique({
+        where : {
+            id : params.conversationId
+        }
+    })
+
     const messages = await db.messages.findMany({
         where : {
             conversationId : params.conversationId
@@ -72,6 +78,8 @@ const ConversationPage = async ({
             <ChatComponent
                 messages={messages}
                 currentUser={currentUser}
+                
+                conversation = {justConversation}
                 />
             </div>
            

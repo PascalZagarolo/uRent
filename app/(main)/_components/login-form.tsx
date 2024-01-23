@@ -33,11 +33,13 @@ const CredForm = ({
   
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (session.status === 'authenticated') {
+  console.log(session)
+
+  /* useEffect(() => {
+     if (session.status === 'authenticated' ) {
       router.push('/')
     }
-  }, [session?.status, router]);
+  }, [session?.status, router]); */
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {

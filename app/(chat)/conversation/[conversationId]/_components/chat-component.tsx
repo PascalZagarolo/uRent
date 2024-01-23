@@ -8,16 +8,24 @@ import { useEffect, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { useParams } from "next/navigation";
 import { find, set } from "lodash";
+import { format } from "date-fns";
 
 interface ChatComponentProps {
     messages : Messages[] 
-    currentUser : User
+    currentUser : User;
+    conversation : Conversation;
 }
 
 const ChatComponent: React.FC<ChatComponentProps> =  ({
     messages,
-    currentUser
+    currentUser,
+    conversation
 }) => {
+
+    const formateDate = (date : Date) => {
+        const chatBegin = format(new Date(date), "yyyy-MM-dd");
+        return chatBegin;
+    }
 
     const params = useParams();
     const conversationId = params!.conversationId.toString();
@@ -73,7 +81,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         <div className="no-scrollbar  overflow-y-auto h-screen" >
             <div className="">
             <h3 className="flex justify-center text-gray-900/30 p-4 font-semibold">
-            Chat gestartet am {messages[0].createdAt.toLocaleDateString()} 
+            Chat gestartet am {formateDate(conversation.createdAt)}
             </h3>
             <div className="no-scrollbar h-full overflow-y-hidden">
             {pMessages.map((message) => (

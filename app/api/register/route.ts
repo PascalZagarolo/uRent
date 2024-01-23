@@ -1,3 +1,5 @@
+import { sendVerificationEmail } from "@/lib/mail";
+import { generateVerificationToken } from "@/lib/tokens";
 import { db } from "@/utils/db";
 import bcrypt from "bcrypt";
 
@@ -25,6 +27,12 @@ export async function POST(
       
     }
   });
+
+  const verificationToken = await generateVerificationToken(email);
+  await sendVerificationEmail(
+    verificationToken.email,
+    verificationToken.token
+  )
 
   return NextResponse.json(user);
 }

@@ -31,13 +31,13 @@ const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
 
     const purchases = await db.purchase.findMany({
         where: {
-            userId: currentUser.id
+            userId: currentUser?.id 
         }
     })
 
     const favedInserate = await db.favourite.findMany({
         where: {
-            userId: currentUser.id
+            userId: currentUser?.id
         }
     })
 
@@ -89,7 +89,7 @@ const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
                             <InseratCard
                                 key={inserat.id}
                                 inserat={inserat}
-                                profileId={currentUser.id}
+                                profileId={currentUser?.id}
                                 isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
                                 owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
                             />

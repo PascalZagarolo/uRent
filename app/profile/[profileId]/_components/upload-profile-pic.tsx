@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { CldUploadButton } from 'next-cloudinary';
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { UploadCloudIcon } from "lucide-react";
 
 const UploadProfilePic = () => {
 
@@ -28,13 +29,13 @@ const UploadProfilePic = () => {
     }
 
     return ( 
-        <div>
+        <div className="p-4 rounded-md bg-white flex justify-center border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <CldUploadButton
             onUpload={handleImageUpload}
             uploadPreset="oblbw2xl"
             options={{ maxFiles : 1}}
             >
-            <p className="flex justify-center text-sm font-bold text-gray-800/80 mt-2"> Profilbild bearbeiten </p>
+            <p className="flex justify-center text-sm font-bold text-gray-900/90  "> <UploadCloudIcon className="mr-2"/> Profilbild bearbeiten </p>
             </CldUploadButton>
         </div>
      );

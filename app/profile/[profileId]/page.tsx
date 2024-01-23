@@ -19,20 +19,15 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
     
 
     return ( 
-        <div>
+        <div className="">
             <ProfileHeader 
             currentUser={user}
             />
 
             
-            <ProfileBody
-            ownProfile = { ownProfile }
-            user = { user }
-            />
+            
 
-            <ProfileFooter
-            user = { user}
-            />
+            
         </div>
      );
 }

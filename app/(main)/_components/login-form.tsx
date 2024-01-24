@@ -120,6 +120,9 @@ const CredForm = ({
           shadow
           sm:rounded-lg
           sm:px-10
+          border-gray-200
+          border-2
+          drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
         "
       >
         <form
@@ -134,6 +137,7 @@ const CredForm = ({
               required
               id="name"
               label="Nutzername"
+              
             />
           )}
           <Input
@@ -155,7 +159,7 @@ const CredForm = ({
             type="password"
           />
           <div>
-            <Button disabled={isLoading} type="submit" className="bg-blue-800 hover:bg-blue-800/50">
+            <Button disabled={isLoading} type="submit" className="bg-[#1f2332] hover:bg-[#25293a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
               {variant === 'LOGIN' ? 'Einloggen' : 'Registrieren'}
             </Button>
           </div>

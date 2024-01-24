@@ -58,15 +58,13 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
 
     return (
-        <div className="w-full flex-col justify-center">
+        <div className="w-full flex-col justify-center  bg-white p-8 max-w-max rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h3 className="font-bold text-xl flex justify-center">
                 <CalendarClockIcon className="mr-2"/>
                 Mietdauer
                 
             </h3>
-            <Separator
-                className="w-16 mr-auto h-[1.5px] bg-black"
-            />
+            
             <div className="flex justify-center">
                 <div className="">
                     <Form {...form}>
@@ -106,7 +104,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         selected={field.value}
                                                         onSelect={field.onChange}
                                                         disabled={(date) =>
-                                                            date > new Date() || date < new Date("1900-01-01")
+                                                            date < new Date() || date < new Date("1900-01-01")
                                                         }
                                                         initialFocus
                                                     />
@@ -173,9 +171,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                 </div>
             </div>
 
-            <Separator
-                className="w-16 ml-auto h-[1.5px] bg-black mt-8"
-            />                                 
+                                           
         </div >
     );
 }

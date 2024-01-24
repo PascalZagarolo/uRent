@@ -82,7 +82,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             {
 
                 images.length > 0 ? (
-                    <div className="mt-8">
+                    <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md">
                         <ImageList
                             onEdit={() => { }}
                             onReorder={onReorder}
@@ -91,7 +91,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                         />
                     </div>
                 ) : (
-                    <p className="text-gray-800/50 font-semibold text-sm italic flex justify-center mt-8 "> Noch keine Anhänge oder Fotos hinzugefügt... </p>
+                    <p className="text-gray-800/50 font-semibold text-sm italic flex justify-center mt-16 "> Noch keine Anhänge oder Fotos hinzugefügt... </p>
                 )
             }
 

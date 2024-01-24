@@ -63,16 +63,14 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
 
     return ( 
-        <div>
-            <h1 className="text-xl flex justify-start ml-8 font-semibold mt-2">
-                <AlignCenter className="mr-4"/>Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
+        <div className="mr-32 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  ml-8  rounded-md">
+            <h1 className="text-xl flex justify-start p-4 font-semibold mt-2 bg-[#222f70] text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] border-gray-300 border-2">
+                <AlignCenter className="mr-4 "/>Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             <div>
-                <Separator
-                className="mt-2 w-8 bg-black ml-8"
-                />
+                
             </div>
-            <div className="ml-8 mt-2 w-80">
+            <div className=" mr-16 mt-4 p-4 bg-white rounded-md border border-gray-200">
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
@@ -94,7 +92,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                         )}
                         />
                         <div>
-                            <Button variant="ghost" className="ml-4" type="submit">
+                            <Button variant="ghost" className="ml-4 bg-gray-200" type="submit">
                                 Titel speichern
                             </Button>
                         </div>
@@ -102,14 +100,12 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                 </Form>
                     </div>  
                 ): (
-                    <div>
-                        <p className="font-semibold text-gray-900/70 mt-4  mr-8"> {inserat.title} </p>
+                    <div className="">
+                        <p className="font-semibold text-gray-900/70   mr-8"> {inserat.title} </p>
                     </div>
                 )}
             </div>
-            <Separator
-                className="mt-2 w-8 bg-black ml-auto mr-16"
-                />
+           
         </div>
      );
 }

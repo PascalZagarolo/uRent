@@ -1,8 +1,9 @@
-import Logo from "@/app/profile/[profileId]/_components/u-rent-logo";
+
 import CreationHeader from "../_components/creation-header";
 import InseratBodyLeft from "../_components/inserat-body-left";
 import { db } from "@/utils/db";
 import InseratBodyRight from "../_components/input-fields/inserat-body-right";
+import CreationHeaderLogo from "../_components/creation-logo";
 
 const InseratCreation = async ({
     params
@@ -15,9 +16,9 @@ const InseratCreation = async ({
     })
 
     return (
-        <div>
-            <div className="mt-8 flex justify-center">
-                <Logo />
+        <div className="bg-[#404040]/10 h-screen overflow-hidden">
+            <div className="flex justify-center">
+                <CreationHeaderLogo/>
             </div>
 
             <div className="flex justify-center mt-8">

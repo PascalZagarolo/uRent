@@ -50,7 +50,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     }
 
     return ( 
-        <div>
+        <div className="mr-4">
             {!inserat.isPublished   ? (
             <Button variant="ghost" size="sm" disabled={!isPublishable} onClick={onPublish}>
                 Anzeige veröffentlichen

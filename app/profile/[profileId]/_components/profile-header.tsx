@@ -36,7 +36,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <div>
             <p className="flex font-bold text-sm text-gray-900/60"> Offline</p>
             <div className="mt-8 text-xl font-semibold ml-2 flex">
-            <BookUser /> Profildetails
+            <BookUser /> Profildetailsa
             </div>
             <div className="flex">
             

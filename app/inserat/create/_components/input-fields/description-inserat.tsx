@@ -65,12 +65,12 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
     }
 
     return ( 
-        <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  ">
-            <h1 className="text-xl flex justify-start ml-8 font-semibold bg-[#222f70] mr-16 p-4 text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] border-gray-300 border-2 ">
+        <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ">
+            <h1 className="text-xl flex justify-start ml-8 font-semibold  mr-16 p-4 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ">
                <AppWindow className="mr-4"/> Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             
-            <div className="ml-8 mt-2 bg-white border border-gray-300 p-4 mr-32 rounded-md">
+            <div className="ml-4  mt-2 bg-white border border-gray-300 p-4 mr-48 rounded-md h-[120px]">
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
@@ -93,7 +93,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                         
                         />
                         <div>
-                            <Button variant="ghost" className="ml-4" type="submit">
+                            <Button variant="ghost" className="ml-4 bg-gray-200" type="submit">
                                 Beschreibung speichern
                             </Button>
                         </div>
@@ -103,10 +103,10 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                     </div>
                     
                 ): (
-                    <div className=" mr-16">
+                    <div className="   ">
 
                         {inserat.description ? (
-                            <p className="font-semibold text-gray-900 "> {inserat.description} </p>
+                            <p className="font-semibold text-gray-900 flex-1 truncate   "> {inserat.description} </p>
                         ) : (
                             <p className="font-semibold text-gray-900/50 italic text-sm "> Noch keine Beschreibung hinzugefügt </p>
                         )}

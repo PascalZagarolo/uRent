@@ -61,7 +61,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fahrzeugklasse</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} defaultValue={"PKW"}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />

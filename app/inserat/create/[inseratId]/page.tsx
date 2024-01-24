@@ -16,17 +16,17 @@ const InseratCreation = async ({
     })
 
     return (
-        <div className="bg-[#404040]/10 h-screen overflow-hidden">
+        <div className="bg-[#404040]/10 h-screen overflow-y-scroll ">
             <div className="flex justify-center">
                 <CreationHeaderLogo/>
             </div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center ">
                 <CreationHeader 
                 inserat={inserat}
                 />
             </div>
-            <div className="grid grid-cols-2 gap-4 mt-8">
+            <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="col-span-1 ">
                     <InseratBodyLeft
                     inserat = {inserat}

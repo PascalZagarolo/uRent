@@ -22,6 +22,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
         <div className="">
             <ProfileHeader 
             currentUser={user}
+            user = {user}
             />
 
             

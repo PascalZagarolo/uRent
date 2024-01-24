@@ -5,14 +5,19 @@ import LocationProfile from "./location-rating";
 import RatingProfile from "./rating-profile";
 import UploadProfilePic from "./upload-profile-pic";
 import { AlignCenterIcon, BookUser, UserCircle2 } from "lucide-react";
+import { Alert, AlertTitle } from "@/components/ui/alert";
+import NotVerifiedYet from "./not-verified-yet";
+import { use } from "react";
 
 interface ProfileHeaderProps {
     currentUser: User;
+    user : User;
 }
 
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({
-    currentUser
+    currentUser,
+    user
 }) => {
 
     const convertDateTimeToString = (dateTime: Date): string => {
@@ -25,7 +30,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
 
     return (
         <div className="ml-16">
-            
+            <div color="mt-4">
+            <NotVerifiedYet
+            email={user.email}
+            />
+            </div>
             
             <div className="flex  mt-4 p-8 rounded-md border-2 border-gray-300 w-1/2 bg-[#10121a] text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <h3 className="text-4xl font-semibold flex justify-start items-center">
@@ -36,7 +45,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             <div>
             <p className="flex font-bold text-sm text-gray-900/60"> Offline</p>
             <div className="mt-8 text-xl font-semibold ml-2 flex">
-            <BookUser /> Profildetailsa
+            <BookUser /> Profildetails
             </div>
             <div className="flex">
             

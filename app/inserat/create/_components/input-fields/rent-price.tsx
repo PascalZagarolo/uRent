@@ -54,7 +54,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
     const { isSubmitting , isValid } = form.formState
 
     return (
-        <div className="ml-8 mt-8">
+        <div className="ml-4 mt-4">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FormLabel className="flex justify-start items-center">

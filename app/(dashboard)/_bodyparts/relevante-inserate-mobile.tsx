@@ -51,7 +51,7 @@ const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
     });
 
     return (
-        <div className="">
+        <div className="w-fit">
 
             {!title ? (
                 <div className="h-full flex sm:block sm:mt-0 mt-4">

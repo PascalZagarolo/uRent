@@ -85,7 +85,7 @@ const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
             ) : (
                 <div className="flex flex-wrap justify-start sm:mr-8 sm:ml-8 overflow-y-auto h-full ">
                     {inserateArray.map((inserat, index) => (
-                        <div className="w-full md:w-1/3 2xl:w-1/4 sm:ml-0  sm:mt-0 mt-4 sm:p-4 mb-4 sm:flex-grow   " key={inserat.id}>
+                        <div className="w-full md:w-1/3 2xl:w-1/3 sm:ml-0  sm:mt-0 mt-4 sm:p-4 mb-4 sm:flex-grow   " key={inserat.id}>
                             <InseratCard
                                 key={inserat.id}
                                 inserat={inserat}

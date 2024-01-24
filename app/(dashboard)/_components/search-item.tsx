@@ -42,7 +42,7 @@ const SearchItem = () => {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
             />
-            <div className="px-2 py-2  rounded-md border-2 border-black  bg-[#191d2e] hover: cursor-pointer" >
+            <div className="px-2 py-2  rounded-md border-2 border-black  bg-[#191d2e] hover: cursor-pointer hidden xl:flex" >
             <Search
                 className=" text-white h-6 w-6"
             />

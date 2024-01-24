@@ -67,15 +67,15 @@ const Inserat: React.FC<InseratProps> = ({
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>
+                        <DialogTitle className="text-xl  text-gray-900 mr-8 ml-2 p-2 rounded-md border-gray-400 border-2">
                             Neue Anzeige erstellen
-                            <p><Separator className="w-8 bg-black mt-2" /></p>
+                            
                         </DialogTitle>
 
                     </DialogHeader>
                     <div>
                         <div className="flex justify-center">
-                            <h3 className="mt-8  text-lg font-semibold">Gebe deiner Anzeige einen Titel</h3>
+                            <h3 className="mt-8  text-lg font-semibold flex items-center gap-x-"> <Separator className="w-16 bg-gray-700 mr-4"/> Gebe deiner Anzeige einen Titel <Separator className="w-16 bg-gray-700 ml-4"/> </h3>
 
 
                         </div>
@@ -100,7 +100,7 @@ const Inserat: React.FC<InseratProps> = ({
                                 <p><Separator className="ml-auto w-8 bg-black mt-4" /></p>
                                 <div className="flex ml-auto">
 
-                                    <Button className="bg-[#202336] border-2 border-black mt-4 flex" type="submit">
+                                    <Button className="bg-[#202336] border-2 border-gray-300 mt-4 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" type="submit">
                                         Anzeige erstellen
                                     </Button>
                                 </div>

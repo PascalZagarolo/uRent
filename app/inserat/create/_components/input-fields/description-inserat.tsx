@@ -65,16 +65,12 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
     }
 
     return ( 
-        <div className="w-full ">
-            <h1 className="text-xl flex justify-start ml-8 font-semibold">
+        <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  ">
+            <h1 className="text-xl flex justify-start ml-8 font-semibold bg-[#222f70] mr-16 p-4 text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] border-gray-300 border-2 ">
                <AppWindow className="mr-4"/> Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
-            <div>
-                <Separator
-                className="mt-2 w-8 bg-black ml-8"
-                />
-            </div>
-            <div className="ml-8 mt-2">
+            
+            <div className="ml-8 mt-2 bg-white border border-gray-300 p-4 mr-32 rounded-md">
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
@@ -110,9 +106,9 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                     <div className=" mr-16">
 
                         {inserat.description ? (
-                            <p className="font-semibold text-blue-800 mt-4"> {inserat.description} </p>
+                            <p className="font-semibold text-gray-900 "> {inserat.description} </p>
                         ) : (
-                            <p className="font-semibold text-gray-900/50 italic text-sm mt-4"> Noch keine Beschreibung hinzugefügt </p>
+                            <p className="font-semibold text-gray-900/50 italic text-sm "> Noch keine Beschreibung hinzugefügt </p>
                         )}
                         
                     </div>
@@ -120,9 +116,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
             
             </div>
             
-            <Separator
-                className="mt-2 w-8 bg-black ml-auto mr-16"
-                />
+            
         </div>
      );
 }

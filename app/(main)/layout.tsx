@@ -9,12 +9,12 @@ const LoginLayout = async (
 
     return (
         <div className="w-full h-full">
-            <div>
+            <div className="">
 
-                <h3 className="font-semibold text-4xl flex justify-center mt-8">
+                <h3 className="font-semibold text-5xl flex justify-center mt-8 rounded-md ">
                     
-                        <Link href="/" className="flex ">
-                            <p className="text-blue-800">u</p> Rent
+                        <Link href="/" className="flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] ">
+                            <p className="text-[#414c78]">u</p> Rent
                         </Link>
                        
                     

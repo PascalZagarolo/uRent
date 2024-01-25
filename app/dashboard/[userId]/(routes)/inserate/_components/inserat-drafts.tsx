@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
 
-import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, LocateFixedIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, X } from "lucide-react";
+import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, LocateFixedIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -59,56 +59,58 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
         router.push(`/inserat/${inserat.id}`)
     }
 
+    const isPublishable = (inserat.title && inserat.description && inserat.price && inserat.category && inserat.begin && inserat.end && inserat.images.length > 0) ? true : false;
+
     return (
-        <div className="w-1/6 rounded-md border-2 border-[#000000] h-[320px] bg-[#24293b] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
-        flex-shrink: 1">
-            <h3>
-                <AlignCenter className="h-4 w-4"/>
-            </h3>
-            <div className="bg-[#171a26] p-1  w-full mb-1 rounded-md border border-black items-center">
-                <h3 className="items-center  text-base font-semibold justify-center text-gray-100 flex mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] mb-1">
-                    
-                    {inserat.title}</h3>
-            </div>
-            <h3 className="text-xs text-gray-100">
-                zuletzt aktualisiert am : {formatDate(inserat.updatedAt)}
-            </h3>
-            <div className="flex-shrink: 1 flex mt-1">
-                <div className="flex ml-auto w-full mr-4 ">
-                    <Badge className={cn("border-2 border-black bg-sky-600")}>
-                        {inserat.category}
-                    </Badge>
-                </div>
-                <div className="flex ml-auto w-full ">
-                    <Badge className={cn("border border-black", inserat.isPublished ? "bg-emerald-600" : "bg-sky-400")}>
-                        {inserat.isPublished ? "Veröffentlicht" : "Entwurf"}
-                    </Badge>
-                </div>
 
-            </div>
-           
-                <div className="flex justify-center items-center  h-[200px]" >
-                    <Image
-                        width={200}
-                        height={200}
-                        src={inserat.images[0].url}
-                        className="rounded-md border-2 border-gray-200 mt-2 "
-                        alt="Car-Vorschau"
-                    />
-                </div>
-            
-            
-            <div className="flex justify-start text-gray-100 items-center">
-                <Clock1 className="h-4 w-4 mr-2"/>erstellt am : {formatDate(inserat.createdAt)}
-            </div>
 
-            <div className="flex w-full justify-center mt-auto">
+
+        <div className=" rounded-md border-2 border-gray-300 h-[360px] mt-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] p-4">
+            <div className="">
+                <h3 className="flex justify-start font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] text-lg">
+                    <p>
+                        <CarFront className="mr-2" />
+                    </p>
+                    {inserat.title}
+                    <p className="ml-auto font-medium italic text-sm text-gray-900/50">
+                        {formatDate(inserat.createdAt)}
+                    </p>
+                </h3>
+            </div>
+            <div className="flex">
+                <Badge className={cn("text-white text-xs mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] border-gray-300 border-2", isPublishable ? "bg-emerald-600" : "bg-blue-800")}>
+                    {isPublishable ? ("zur veröffentlichung bereit") : ("noch nicht zur veröffentlichung bereit")}
+                </Badge>
                 
-                <Button className="w-full bg-[#ed580dec] hover:bg-[#ed580dec]/60 flex justify-center"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
-                    <Settings className="w-4 h-4 mr-2" /> Anzeige verwalten
-                </Button>
+            </div>
+            <div className="h-[180px] mr-2 ml-2 border-2 mt-2">
+                {inserat.images.length > 0 ? (
+                    <img
+                        src={inserat.images[0].url}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        alt="Inserat Image"
+                    />
+                ) : (
+                    <div className="bg-gray-200   h-full flex justify-center items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
+                        <p className="text-gray-700 font-semibold italic">Keine Bilder vorhanden</p>
+                    </div>
+                )}
+            </div>
+            <div className="w-full mt-3 ">
+                    <div className="">
+                    <Button className="bg-white border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-3/4 text-gray-900 text-sm hover:bg-gray-200">
+                        <Settings className="w-4 h-4 mr-2 text-gray-800" /> Inserat verwalten
+                    </Button>
+                    <Button className="bg-rose-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-1/4 hover:bg-rose-500">
+                        <Trash2 className="w-4 h-4" />
+                    </Button>
+                    </div>
             </div>
         </div>
+
+
+
+
 
 
     );

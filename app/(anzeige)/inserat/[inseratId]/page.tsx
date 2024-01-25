@@ -56,32 +56,37 @@ const InseratAnzeige = async ({
     const isPurchased = purchases ? true : false;
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-24 h-full ">
             <div className=" p-4">
                 <div className="flex justify-end">
-                    <div className="mt-4">
-                        <div className="flex items-center justify-end">
+                    <div className="mt-4 bg-[#262939] text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border border-gray-300">
+                        <div className="flex items-center justify-end truncate ">
                             {inserat.category === "PKW" && (
-                                <CarFront className="" />
+                                <div className="bg-[#1d1f2b] px-8 rounded-lg p-4">
+                                    <CarFront className="" />
+                                </div>
+                                
                             )}
-                            <p className="text-2xl ml-4 font-bold text-[#000000] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"> {inserat.title} </p>
-                            <div className="flex justify-end ml-4">
+                            <p className="text-2xl ml-4 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
+                            bg-[#1d1f2b] px-8 rounded-lg p-4 w-[400px] truncate flex justify-center border
+                             border-gray-300"> {inserat.title}   </p>
+                            <div className="flex justify-end ml-4 bg-[#1d1f2b] px-8 rounded-lg p-4">
                                 <Active />
                             </div>
                         </div>
-                        <div className="flex items-center gap-x-2">
-                            <p className="text-sm text-gray-800/90 font-bold italic">erstellt am :</p>
+                        <div className="flex items-center gap-x-2 mt-1">
+                            <p className="text-sm text-gray-200 font-semibold italic">erstellt am :</p>
                             <p className="font-semibold text-sm">01.01.24</p>
                         </div>
 
 
-                        <div className="mt-2 bg-[#393e56] rounded-md p-2 border border-black w-[600px] flex justify-center">
+                        <div className="mt-4 rounded-md     flex justify-center text-gray-900">
                         <InseratImageCarousel
                                 images={images}
                             />
                         </div>
                         <div>
-                            <div className="flex justify-end items-center">
+                            <div className="flex justify-end items-center bg-gray-100/100 mt-8 p-2 text-gray-900 rounded-md border-gray-800 border-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
                             <div className="flex mr-auto items-center">
                                 <div className="flex font-bold italic text-sm items-center"> <MapPin className="text-rose-600 "/> Mömer </div>
                                 </div>
@@ -93,11 +98,14 @@ const InseratAnzeige = async ({
                             </div>
                             
                         </div>
-                        <div>
-                            <div className="mt-2">
+                        <div className="">
+
+                        </div>
+                        <div className="mt-2">
+                            <div className="">
                                 <p className="flex text-xl font-bold"><AlignLeft className="mr-2"/> Beschreibung der Anzeige</p>
                             </div>
-                                <div className="mt-2 font-semibold text-gray-800/80 w-[480px]">
+                                <div className="mt-2  text-gray-200/90 w-[480px] overflow-y-auto">
                                     {inserat.description}
                                 </div>
                         </div>

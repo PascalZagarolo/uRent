@@ -32,7 +32,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const router = useRouter();
 
     return (
-        <div className="px-4 py-4 bg-gradient-to-b from-[#5a6389] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md  ">
+        <div className="px-4 py-4 bg-gradient-to-b from-[#586392] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md  ">
             <div className="flex items-center  text-gray-100">
             <Image
                     src={user.image ||  "/placeholder-person.jpg"}

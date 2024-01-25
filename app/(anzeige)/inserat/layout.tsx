@@ -8,7 +8,7 @@ const InseratLayout = async ({
     const currentUser = await getCurrentUser();
 
     return (
-        <div className="w-full">
+        <div className="w-full bg-[#404040]/10 h-screen">
             <HeaderLogo
                 currentUser={currentUser}
             />

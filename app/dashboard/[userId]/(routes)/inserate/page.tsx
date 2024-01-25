@@ -39,7 +39,7 @@ const InserateOverview = async ({
         <div className=" ">
             <div>
                 <h3 className="text-2xl font-bold flex justify-center mt-4 p-4 border border-black rounded-lg bg-[#1b1f2c] text-gray-100">
-                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Veröffentlichungen ( {drafts.length} )
+                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Veröffentlichungen ( {publicInserate.length} )
                 </h3>
             </div>
             <div>
@@ -57,7 +57,7 @@ const InserateOverview = async ({
                    <PencilRuler className="w-6 h-6 mr-2" /> Meine Entwürfe ( {drafts.length} )
                 </h3>
             </div>
-                <div className="gap-x-2 flex justify-between mt-4">
+                <div className="grid grid-cols-5 gap-4">
                     {drafts.map((draft) => (
                         <InseratDrafts
                         key={draft.id}

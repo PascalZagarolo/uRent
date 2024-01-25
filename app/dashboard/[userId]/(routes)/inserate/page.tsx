@@ -43,15 +43,25 @@ const InserateOverview = async ({
                 </h3>
             </div>
             <div>
-                <div className="flex gap-x-2 justify-between mt-4">
-                {publicInserate.map((draft) => (
+                {publicInserate.length > 0 ? (
+                    <div className="flex gap-x-2 justify-between mt-4">
+                        {publicInserate.map((draft) => (
                         <InseratPublic
                         key={draft.id}
                         profileId={params.userId}
                         inserat={draft}
                         />
                     ))}
-                </div>
+                    </div>
+                    
+                ) : (
+                    <div>
+                        <h3 className="text-lg italic font-bold flex justify-center  p-4   rounded-lg  text-gray-900/50">
+                            Du hast noch keine Anzeigen veröffentlicht
+                        </h3>
+                    </div>
+                )}
+                
                 <div className="mt-16">
                 <h3 className="text-2xl font-bold flex justify-center border border-black rounded-lg bg-[#1b1f2c] text-gray-100 p-4">
                    <PencilRuler className="w-6 h-6 mr-2" /> Meine Entwürfe ( {drafts.length} )

@@ -110,7 +110,7 @@ const InseratAnzeige = async ({
 
 
             <div className=" p-4 mt-24">
-                <div>
+            <div>
                     <InseratOptions 
                     user = {user}
                     isPurchased = {isPurchased}

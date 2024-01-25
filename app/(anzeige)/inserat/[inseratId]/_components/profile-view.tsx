@@ -5,9 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Inserat, User } from "@prisma/client";
+import axios from "axios";
 import { AlignCenter, CarIcon, User2 } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface ProfileViewProps {
     user: User;
@@ -21,12 +23,18 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     inseratOwner
 }) => {
 
+    const params = useParams();
+
+    useEffect(() => {
+        axios.patch(`/api/inserat/${params.inseratId}/view`);
+    })
+
     const router = useRouter();
 
     return (
         <div className="px-4 py-4 bg-gradient-to-b from-[#5a6389] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md  ">
             <div className="flex items-center  text-gray-100">
-                <Image
+            <Image
                     src={user.image ||  "/placeholder-person.jpg"}
                     width={40}
                     height={40}
@@ -34,7 +42,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     alt="User-Bild"
                 />
                 <div className="font-semibold ml-2 flex items-center">
-                    <p className="font-black text-xl text-[#262a3c]">{user.name.charAt(0).toUpperCase()}</p>{user.name.slice(1)}
+                    <p className="font-black text-xl text-[#262a3c]">{user.name.charAt(0).toUpperCase()}</p><div>{user.name.slice(1)}</div>
                     
                 </div>
                 <div className="flex ml-auto">
@@ -45,7 +53,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
             <div>
                 <div className="mt-1">
-                    <p><Badge className="bg-[#2d3144]"> Gewerblicher Händler </Badge></p>
+                <div><Badge className="bg-[#2d3144]"> Gewerblicher Händler </Badge></div>
                 </div>
             </div>
             <div>

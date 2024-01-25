@@ -89,7 +89,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </div>
                     <div className="mt-2">
                         <Badge className="bg-[#242a39] flex border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                            <EyeIcon className="w-4 h-4 mr-1"/> 202 
+                            <EyeIcon className="w-4 h-4 mr-1"/> {inserat.views}
                         </Badge>
                     </div>
                     <div className="mt-2">

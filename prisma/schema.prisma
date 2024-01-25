@@ -87,6 +87,8 @@ model Inserat {
 
   category Category?
 
+  views Int @default(0)
+
   images Images[]
   purchased Purchase[]
 

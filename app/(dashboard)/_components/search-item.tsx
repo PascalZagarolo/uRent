@@ -31,7 +31,7 @@ const SearchItem = () => {
     }, [debouncedValue, router, pathname])
 
     return (
-        <div className="flex items-center justify-start position: static ">
+        <div className="flex items-center justify-start position: static mr-16 ">
 
             
             

@@ -5,6 +5,7 @@ import Active from "./_components/active-badge";
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
 import getCurrentUser from "@/actions/getCurrentUser";
+import InseratDescription from "./_components/inserat-description";
 
 
 const InseratAnzeige = async ({
@@ -53,6 +54,8 @@ const InseratAnzeige = async ({
         }
     })
 
+   
+
     const isPurchased = purchases ? true : false;
 
     return (
@@ -67,7 +70,7 @@ const InseratAnzeige = async ({
                                 </div>
                                 
                             )}
-                            <p className="text-2xl ml-4 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
+                            <p className="text-xl ml-4 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
                             bg-[#1d1f2b] px-8 rounded-lg p-4 w-[400px] truncate flex justify-center border
                              border-gray-300"> {inserat.title}   </p>
                             <div className="flex justify-end ml-4 bg-[#1d1f2b] px-8 rounded-lg p-4">
@@ -105,9 +108,9 @@ const InseratAnzeige = async ({
                             <div className="">
                                 <p className="flex text-xl font-bold"><AlignLeft className="mr-2"/> Beschreibung der Anzeige</p>
                             </div>
-                                <div className="mt-2  text-gray-200/90 w-[480px] overflow-y-auto">
-                                    {inserat.description}
-                                </div>
+                                <InseratDescription
+                                    inserat = {inserat}
+                                />
                         </div>
                     </div>
 

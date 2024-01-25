@@ -98,7 +98,7 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
             </div>
             <div className="w-full mt-3 ">
                     <div className="">
-                    <Button className="bg-white border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-3/4 text-gray-900 text-sm hover:bg-gray-200">
+                    <Button className="bg-white border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-3/4 text-gray-900 text-sm hover:bg-gray-200" onClick={() => {router.push(`/inserat/create/${inserat.id}`)}}>
                         <Settings className="w-4 h-4 mr-2 text-gray-800" /> Inserat verwalten
                     </Button>
                     <Button className="bg-rose-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-1/4 hover:bg-rose-500">

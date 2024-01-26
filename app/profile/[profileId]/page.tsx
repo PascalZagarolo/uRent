@@ -28,7 +28,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             />
             </div>
 
-            <div>
+            <div className="w-1/2">
             <RightSideProfile/>
             </div>
             

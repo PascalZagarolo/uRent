@@ -8,6 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { User } from "@prisma/client";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { PencilIcon } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { set } from "lodash";
 
 
 interface ProfileDescriptionProps { 
@@ -22,6 +29,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = z.object({
         description: z.string().min(1, {
@@ -38,37 +46,85 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
 
     const { isSubmitting, isValid } = form.formState;
 
+    const onEdit = () => {
+        setIsEditing(isEditing => !isEditing)
+    }
 
+    const onChange = (values : z.infer<typeof formSchema>) => {
+        try {
+            setIsLoading(true);
+            axios.patch(`/api/profile/${user.id}`, values);
+            toast.success("Beschreibung erfolgreich geändert");
+        } catch {
+            toast.error("Fehler beim Ändern der Beschreibung")
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
-        <div className="flex mt-2">
+        <div className="mt-2">
 
-                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-900 mr-16 rounded-md w-1/2">
+                    <div className="mt-1   p-8  bg-white border-2 border-gray-200 mr-16 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                         <div className="w-1/2 flex items-center">
                         <Separator
                          className="w-16 mr-8 bg-gray-700"
                         />
-                        <p className="text-gray-900 font-semibold">
+                        <p className="text-gray-900 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
                             Beschreibung
                         </p>
                         <Separator
                          className="w-full ml-8 bg-gray-700"
                         />
+                        <Button className="ml-16 flex bg-gray-200" variant="ghost" onClick={onEdit}>
+                            <PencilIcon className=""/>
+                        </Button>
                         </div>
-                        <div className="">
+                        <div className="mt-4">
+                        {isEditing ? (
+                             <Form {...form}>
+                             <form onSubmit={form.handleSubmit(onChange)}>
+                                 <FormField
+                                     control={form.control}
+                                     name="description"
+                                     render={({ field }) => (
+                                         <FormItem>
+                                             <FormControl>
+                                                 <Textarea
+                                                     {...field}
+                                                 />
+                                             </FormControl>
+                                             <FormMessage/>
+                                         </FormItem>
+                                     )}
+             
+                                 />
+                                 <div>
+                                     <Button className="bg-gray-300 border-2 hover:bg-gray-100 mt-2" size="sm" type="submit">
+                                         Beschreibung ändern
+                                     </Button>
+                                 </div>
+                             </form>
+                         </Form>
+                        ) : (
+                            <div className="mt-2">
                             
-                           {user.description ? (
+                        {user.description ? (
                             <div>
                                 {user.description}
                             </div>
                            ) : (
-                            <div>
-                                Dieser Nutzer hat noch nichts über sich geteilt.
+                            <div className="mt-4 font-semibold text-gray-900/50 italic">
+                                Du hast noch nichts über dich geteilt...
                             </div>
                            )}
                            
                         </div>
+                        )}
+                        </div>
+                        
                     </div>
+                    
                 </div>
     );
 }

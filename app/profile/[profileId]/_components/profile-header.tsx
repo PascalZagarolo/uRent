@@ -41,7 +41,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 </div>
             )}
 
-            <div className="flex   p-8 rounded-md border-2 border-gray-300 w-1/2 bg-[#10121a] text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <div className="flex   p-8 rounded-md border-2 border-gray-300  bg-[#10121a] text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <h3 className="text-4xl font-semibold flex justify-start items-center">
                     <p className="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  text-[#475aa7] text-5xl">P</p> rofilübersicht
                 </h3>
@@ -49,12 +49,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             </div>
             <div>
                 <p className="flex font-bold text-sm text-gray-900/60"> Offline</p>
-                <div className="mt-8 text-xl font-semibold ml-2 flex">
-                    <BookUser /> Profildetails
+                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                    <BookUser className="mr-1" /> Profildetails
                 </div>
                 <div className="flex">
 
-                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-900 mr-16 rounded-md w-1/2">
+                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-200 mr-16 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
                         <div className="">
                             <div className="bg-[#10121a] text-gray-100 p-2  rounded-lg border-2 border-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -79,10 +79,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                     </div>
 
                 </div>
-                <div className="mt-8 text-xl font-semibold ml-2 flex">
-                    <UserCircle2 /> Über mich
+                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                    <UserCircle2 className="mr-1" /> Über mich
                 </div>
-                <ProfileDescription ownProfile={true}/>
+                <ProfileDescription ownProfile={true}
+                user = {user}
+                />
 
 
             </div>

@@ -8,6 +8,9 @@ import { AlignCenterIcon, BookUser, UserCircle2 } from "lucide-react";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import NotVerifiedYet from "./not-verified-yet";
 import { use } from "react";
+import { Separator } from "@/components/ui/separator";
+import ProfileDescription from "./profile-description";
+
 
 interface ProfileHeaderProps {
     currentUser: User;
@@ -79,30 +82,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 <div className="mt-8 text-xl font-semibold ml-2 flex">
                     <UserCircle2 /> Über mich
                 </div>
-                <div className="flex ">
-
-                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-900 mr-16 rounded-md w-1/2">
-
-                        <div className="">
-                            <div className="bg-[#10121a] text-gray-100 p-2  rounded-lg border-2 border-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                                <p className="font-bold text-lg  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] flex justify-center">
-                                    {currentUser.name.charAt(0).toUpperCase() || ""}{currentUser.name.slice(1)}
-                                </p>
-                            </div>
-                            <div className="flex mt-4">
-                                <Avatar
-                                    imageUrl={currentUser.image}
-                                />
-                                <div className="items-center ml-8">
-                                    <UploadProfilePic />
-                                    <div className="text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] mt-2 flex">
-                                        <UserCircle2 className="mr-1" /> Mitglied seit : {convertDateTimeToString(currentUser.createdAt)}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ProfileDescription ownProfile={true}/>
 
 
             </div>

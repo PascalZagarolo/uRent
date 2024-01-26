@@ -4,18 +4,21 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import { useState } from "react";
-import { Pencil } from "lucide-react";
+import { User } from "@prisma/client";
+import { Separator } from "@/components/ui/separator";
+
 
 interface ProfileDescriptionProps { 
     ownProfile : boolean;
+    user : User;
 }
 
 
 const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
-    ownProfile
+    ownProfile,
+    user
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
@@ -38,43 +41,35 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
 
 
     return (
-        <div>
+        <div className="flex mt-2">
 
-            {isEditing ? (
-                <Form {...form}>
-                <form>
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-
-                    />
-                    <div>
-                        <Button className="bg-blue-800" size="sm" mt->
-                            Beschreibung ändern
-                        </Button>
+                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-900 mr-16 rounded-md w-1/2">
+                        <div className="w-1/2 flex items-center">
+                        <Separator
+                         className="w-16 mr-8 bg-gray-700"
+                        />
+                        <p className="text-gray-900 font-semibold">
+                            Beschreibung
+                        </p>
+                        <Separator
+                         className="w-full ml-8 bg-gray-700"
+                        />
+                        </div>
+                        <div className="">
+                            
+                           {user.description ? (
+                            <div>
+                                {user.description}
+                            </div>
+                           ) : (
+                            <div>
+                                Dieser Nutzer hat noch nichts über sich geteilt.
+                            </div>
+                           )}
+                           
+                        </div>
                     </div>
-                </form>
-            </Form>
-            ) : 
-            <div className="flex">
-                <p className="text-sm font-semibold text-gray-800/50 italic">Noch keine Beschreibung hinzugefügt</p>
-                {ownProfile && (
-                    <Pencil className="h-4 w-4 ml-2 hidden"/>
-                )}
-            </div>    
-            }
-            
-        </div>
+                </div>
     );
 }
 

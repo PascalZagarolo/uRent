@@ -29,6 +29,7 @@
     "cloudinary": "^1.41.1",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.6",
+    "embla-carousel-autoplay": "^8.0.0-rc21",
     "embla-carousel-react": "^8.0.0-rc18",
     "lodash": "^4.17.21",
     "lucide-react": "^0.300.0",

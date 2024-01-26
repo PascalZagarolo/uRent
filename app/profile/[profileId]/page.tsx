@@ -17,19 +17,30 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 
     const ownProfile = currentUser.id === user.id ? true : false;
 
+    const inserate = await db.inserat.findMany({
+        where : {
+            id : params.profileId,
+            isPublished : true
+        }, include : {
+            images : true
+        }
+    })
+
     
 
     return ( 
         <div className="min-h-screen bg-[#404040]/10 flex">
-            <div className="w-1/2">
+            <div className="w-1/2 mr-8">
             <ProfileHeader 
             currentUser={user}
             user = {user}
             />
             </div>
 
-            <div className="w-1/2">
-            <RightSideProfile/>
+            <div className="w-1/2 ml-8 mr-16">
+            <RightSideProfile
+            inserate = {inserate}
+            />
             </div>
             
 

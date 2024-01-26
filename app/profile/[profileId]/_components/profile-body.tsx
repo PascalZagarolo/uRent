@@ -24,6 +24,7 @@ const ProfileBody: React.FC<ProfileBodyProps> = async ({
             <div className="justify-center flex">
                 <ProfileDescription
                 ownProfile={ownProfile}
+                user={user}
                 />
                 
             </div>

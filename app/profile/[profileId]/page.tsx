@@ -3,7 +3,7 @@ import ProfileHeader from "./_components/profile-header";
 import ProfileBody from "./_components/profile-body";
 import getCurrentUser from "@/actions/getCurrentUser";
 import ProfileFooter from "./_components/profile-footer";
-import RightSideProfile from "./right-side";
+import RightSideProfile from "./_components/right-side";
 
 const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 

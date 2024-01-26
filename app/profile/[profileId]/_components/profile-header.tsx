@@ -4,12 +4,13 @@ import Avatar from "./avatar";
 import LocationProfile from "./location-rating";
 import RatingProfile from "./rating-profile";
 import UploadProfilePic from "./upload-profile-pic";
-import { AlignCenterIcon, BookUser, UserCircle2 } from "lucide-react";
+import { AlignCenterIcon, BookUser, Contact, Contact2, UserCircle2 } from "lucide-react";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import NotVerifiedYet from "./not-verified-yet";
 import { use } from "react";
 import { Separator } from "@/components/ui/separator";
 import ProfileDescription from "./profile-description";
+import ContactOptions from "./contact-options";
 
 
 interface ProfileHeaderProps {
@@ -54,7 +55,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 </div>
                 <div className="flex">
 
-                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-200 mr-16 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-200  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
                         <div className="">
                             <div className="bg-[#10121a] text-gray-100 p-2  rounded-lg border-2 border-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -78,15 +79,34 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
 
                     </div>
 
+                    <div className=" mt-1 w-1/2  p-8  bg-white border-2 border-gray-400 mr-16 border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+
+                            <div className="w-full ">
+                                <p className="flex justify-center font-semibold items-center text-lg">
+                                    Du hast ein Gewerbe ?
+                                </p>
+                            </div>
+                            <div className="mt-16">
+                                <a href="/..." className="underline flex justify-center"> Hier dein Gewerbe registrieren </a>
+                            </div>
+                           
+
+                    </div>
+
                 </div>
                 <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
                     <UserCircle2 className="mr-1" /> Über mich
                 </div>
                 <ProfileDescription ownProfile={true}
-                user = {user}
+                    user={user}
                 />
 
-
+                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                    <Contact className="mr-1" /> Kontakt
+                </div>
+                <div>
+                    <ContactOptions/>
+                </div>
             </div>
 
 

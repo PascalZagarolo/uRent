@@ -3,6 +3,7 @@ import ProfileHeader from "./_components/profile-header";
 import ProfileBody from "./_components/profile-body";
 import getCurrentUser from "@/actions/getCurrentUser";
 import ProfileFooter from "./_components/profile-footer";
+import RightSideProfile from "./right-side";
 
 const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 
@@ -19,13 +20,17 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
     
 
     return ( 
-        <div className="min-h-screen bg-[#404040]/10">
+        <div className="min-h-screen bg-[#404040]/10 flex">
+            <div className="w-1/2">
             <ProfileHeader 
             currentUser={user}
             user = {user}
             />
+            </div>
 
-            
+            <div>
+            <RightSideProfile/>
+            </div>
             
 
             

@@ -16,7 +16,7 @@ const InseratCreation = async ({
     })
 
     return (
-        <div className="bg-[#404040]/10 h-screen overflow-y-scroll ">
+        <div className="bg-[#404040]/10 h-full overflow-y-scroll ">
             <div className="flex justify-center">
                 <CreationHeaderLogo/>
             </div>

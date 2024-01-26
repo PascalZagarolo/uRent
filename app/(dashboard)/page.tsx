@@ -52,11 +52,11 @@ const Main = async ({
     })
     
     return ( 
-        <div className="flex sm:h-screen   no-scrollbar ">
-  <div className="h-screen fixed flex flex-col">
+        <div className="flex sm:h-full sm:overflow-y-hidden no-scrollbar ">
+  <div className="absolute overflow-hidden  ">
     <MainPageSidebar treffer={inserate.length} />
   </div>
-  <div className="sm:ml-72 mt-4  ml-4 hidden sm:block  sm:overflow-y-auto  no-scrollbar sm:scroll-py-10 sm:h-full w-full mr-2">
+  <div className="sm:ml-72   ml-4 hidden sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar   w-full mr-2">
     <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
      start={searchParams.start} end={searchParams.end} />
   </div>

@@ -14,7 +14,7 @@ const DashboardLayout = async (
    const currentUser = await getCurrentUser();
 
     return ( 
-        <div className="bg-[#404040]/10 h-screen ">
+        <div className="bg-[#404040]/10 h-full ">
              <div className="hidden sm:block">
              <HeaderLogo
                 currentUser={currentUser}
@@ -24,8 +24,8 @@ const DashboardLayout = async (
                 <MobileHeader/>
              </div>
              
-             <div className="h-screen">
-                {children}
+             <div className="overflow-hidden h-full">
+             {children}
             </div>
         </div>
      );

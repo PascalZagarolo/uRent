@@ -19,7 +19,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
     
 
     return ( 
-        <div className="">
+        <div className="min-h-screen bg-[#404040]/10">
             <ProfileHeader 
             currentUser={user}
             user = {user}

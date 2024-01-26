@@ -14,7 +14,7 @@ const DashboardLayout = async (
    const currentUser = await getCurrentUser();
 
     return ( 
-        <div className="bg-[#404040]/10 h-full ">
+        <div className="bg-[#404040]/10 min-h-screen no-scrollbar ">
              <div className="hidden sm:block">
              <HeaderLogo
                 currentUser={currentUser}

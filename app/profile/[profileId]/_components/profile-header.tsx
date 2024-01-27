@@ -97,9 +97,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
                     <UserCircle2 className="mr-1" /> Über mich
                 </div>
+                <div>
                 <ProfileDescription ownProfile={true}
                     user={user}
                 />
+                </div>
 
                 <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
                     <Contact className="mr-1" /> Kontakt

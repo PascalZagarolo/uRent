@@ -19,7 +19,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 
     const inserate = await db.inserat.findMany({
         where : {
-            id : params.profileId,
+            userId : params.profileId,
             isPublished : true
         }, include : {
             images : true

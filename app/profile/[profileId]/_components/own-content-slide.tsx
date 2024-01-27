@@ -13,13 +13,14 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel"
+import { CarFront } from "lucide-react"
 
 interface OwnContentSlideProps {
-    inserat : Inserat[] & { images : Images[]}[];
+  inserat: Inserat[] & { images: Images[] }[];
 }
 
 const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
-    inserat
+  inserat
 }) => {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
@@ -42,35 +43,55 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
     <div className="">
       {inserat.length > 0 ? (
         <div>
-        <Carousel setApi={setApi} className="w-full max-w-xs" plugins={[
-          Autoplay({
-            delay: 5000,
-          }),
-        ]}>
-          <CarouselContent>
-            {inserat.map((inserat, index) => (
-              <CarouselItem key={index}>
-              <Card className="bg-white p-4 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] w-[200px] h-[400px]">
-                <CardContent className="flex aspect-square items-center justify-center p-6 ">
-                <span className="text-4xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-        <div className="py-2 text-center text-sm text-muted-foreground">
-          Slide {current} of {count}
-        </div>
+          <Carousel setApi={setApi} className=" " plugins={[
+            Autoplay({
+              delay: 5000,
+            }),
+          ]}>
+            <CarouselContent>
+              {inserat.map((inserat, index) => (
+                <CarouselItem key={index} className="w-[360px] h-[360px]">
+                  <Card className="bg-white p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] ">
+                    <CardContent className="aspect-square flex items-center justify-center">
+                      <div>
+                        <div className="flex items-center mb-4">
+                          <div className="p-2 border-black border rounded-md">
+                            <CarFront className="" />
+                          </div>
+                          <h3 className="font-semibold text-lg  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] p-2">
+                            {inserat.title}
+                          </h3>
+                        </div>
+                        <div className="h-[200px] w-[300px] flex items-center border-2 border-gray-300 rounded-md">
+                          <img
+                            //@ts-ignore 
+                            src={inserat.images[0].url}
+                            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            {inserat.length > 1 && (
+              <>
+                <CarouselPrevious />
+                <CarouselNext />
+              </>
+            )}
+          </Carousel>
+          <div className="py-2 text-center text-sm text-muted-foreground">
+            Inserat {current} von {count}
+          </div>
         </div>
       ) : (
         <p>
-            Noch keine Inserate vorhanden
-            
+          Noch keine Inserate vorhanden
+
         </p>
-        
+
       )}
     </div>
   )

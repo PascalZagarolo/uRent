@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { set } from "lodash";
+import { cn } from "@/lib/utils";
 
 
 interface ProfileDescriptionProps { 
@@ -44,6 +45,8 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
         }
     })
 
+    const [isUnfolded, setIsUnfolded] = useState(false);
+
     const { isSubmitting, isValid } = form.formState;
 
     const onEdit = () => {
@@ -65,8 +68,8 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-2">
 
-                    <div className="mt-1   p-8  bg-white border-2 border-gray-200 mr-16 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                        <div className="w-1/2 flex items-center">
+                    <div className="mt-1  p-8  bg-white border-2 border-gray-200 mr-16 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-full">
+                        <div className=" flex items-center">
                         <Separator
                          className="w-16 mr-8 bg-gray-700"
                         />
@@ -74,7 +77,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                             Beschreibung
                         </p>
                         <Separator
-                         className="w-full ml-8 bg-gray-700"
+                         className="w-1/2 ml-8 bg-gray-700"
                         />
                         <Button className="ml-16 flex bg-gray-200" variant="ghost" onClick={onEdit}>
                             <PencilIcon className=""/>
@@ -107,11 +110,18 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                              </form>
                          </Form>
                         ) : (
-                            <div className="mt-2">
+                            <div className="mt-2 ">
                             
                         {user.description ? (
+                            
+
                             <div>
+                                <div className={cn("", isUnfolded ? "" : "h-[80px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
                                 {user.description}
+                            </div>
+                            <Button className="mt-4 w-full bg-gray-200 border-2 border-gray-300" variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
+                                Mehr anzeigen
+                            </Button>
                             </div>
                            ) : (
                             <div className="mt-4 font-semibold text-gray-900/50 italic">

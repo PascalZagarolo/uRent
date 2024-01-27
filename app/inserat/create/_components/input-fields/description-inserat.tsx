@@ -70,7 +70,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                <AppWindow className="mr-4"/> Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             
-            <div className="ml-4  mt-2 bg-white border border-gray-300 p-4 mr-48 rounded-md h-[120px]">
+            <div className="ml-4  mt-2 bg-white border border-gray-300 p-4 mr-32 rounded-md h-[120px]">
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
@@ -93,7 +93,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                         
                         />
                         <div>
-                            <Button variant="ghost" className="ml-4 bg-gray-200" type="submit">
+                            <Button variant="ghost" className="ml-4 bg-gray-200 text-sm border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]" type="submit">
                                 Beschreibung speichern
                             </Button>
                         </div>

@@ -48,11 +48,11 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
               delay: 5000,
             }),
           ]}>
-            <CarouselContent>
+            <CarouselContent className="w-[360px] h-[360px]">
               {inserat.map((inserat, index) => (
-                <CarouselItem key={index} className="w-[360px] h-[360px]">
-                  <Card className="bg-white p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] ">
-                    <CardContent className="aspect-square flex items-center justify-center">
+                <CarouselItem key={index} className="">
+                  <Card className="bg-white p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ">
+                  <CardContent className="aspect-square flex items-center justify-center ">
                       <div>
                         <div className="flex items-center mb-4">
                           <div className="p-2 border-black border rounded-md">

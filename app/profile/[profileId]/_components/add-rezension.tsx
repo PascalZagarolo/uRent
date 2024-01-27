@@ -1,31 +1,55 @@
-'use client'
+'use client';
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { Car, CarFront } from "lucide-react";
+import { Car } from "lucide-react";
 import React from "react";
-
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
+import axios from "axios";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 const AddRezension = () => {
+    const [rating, setRating] = useState<number | null>(null);
+    const [comment, setComment] = useState("");
 
-    const [isNumber, setIsNumber] = React.useState<number | null>(null);
+    const params = useParams();
 
-    const stars = document.querySelectorAll(".stars i");
-    // Loop through the "stars" NodeList
-    stars.forEach((star, index1) => {
-        // Add an event listener that runs a function when the "click" event is triggered
-        star.addEventListener("click", () => {
-            // Loop through the "stars" NodeList Again
-            stars.forEach((star, index2) => {
-                // Add the "active" class to the clicked star and any stars with a lower index
-                // and remove the "active" class from any stars with a higher index
-                index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
-                setIsNumber(index1 + 1);
-            });
-        });
-    });
+    const formSchema = z.object({
+        content : z.string().min(1, {
+            message : "Beschreibung ist zu kurz"
+        })
+    })
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver : zodResolver(formSchema),
+        defaultValues : {
+            content : ""
+        }
+    })
+
+    const handleStarClick = (index: number) => {
+        setRating(index);
+    };
+
+    const onSubmit = (values : z.infer<typeof formSchema>) => {
+        try {
+            if(!rating) {
+                toast.error("Du musst eine Bewertung abgeben");
+                return null;
+            }
+            axios.post(`/api/${params.profileId}` , {content : values.content, rating : rating})
+        } catch {
+            toast.error("Es ist ein Fehler aufgetreten");
+        }
+    };
+
+    const { isSubmitting, isValid } = form.formState;
 
     return (
         <div className="mt-2 w-full">
@@ -40,7 +64,9 @@ const AddRezension = () => {
                         <DialogTitle>
                             Rezension verfassen
                         </DialogTitle>
-                        <p className="text-gray-900/50 text-xs"> teile deine Erfahrung mit diesem Mieter, um anderen Nutzern Anhalt zu geben.</p>
+                        <p className="text-gray-900/50 text-xs">
+                            Teile deine Erfahrung mit diesem Mieter, um anderen Nutzern Anhalt zu geben.
+                        </p>
                     </DialogHeader>
 
                     <div>
@@ -49,56 +75,63 @@ const AddRezension = () => {
                         </h3>
 
                         <div className="stars flex gap-x-2">
-                            <i className="fa-solid fa-star"><Car className="w-8 h-8" /></i>
-                            <i className="fa-solid fa-star"><Car className="w-8 h-8" /></i>
-                            <i className="fa-solid fa-star"><Car className="w-8 h-8" /></i>
-                            <i className="fa-solid fa-star"><Car className="w-8 h-8" /></i>
-                            <i className="fa-solid fa-star"><Car className="w-8 h-8" /></i>
+                            {[1, 2, 3, 4, 5].map((index) => (
+                                <i
+                                    key={index}
+                                    className={`fa-solid fa-star ${rating && index <= rating ? "active" : ""}`}
+                                    onClick={() => handleStarClick(index)}
+                                >
+                                    <Car className="w-8 h-8" />
+                                </i>
+                            ))}
                         </div>
-                        <div>
-                            {isNumber === 1 && (
-                                <p className="flex justify-center text-lg font-semibold mt-2 text-rose-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"> Schrecklich </p>
-                            )}
-
-                            {isNumber === 2 && (
-                                <p className="flex justify-center text-lg font-semibold mt-2 text-yellow-400 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"> Naja </p>
-                            )}
-
-                            {isNumber === 3 && (
-                                <p className="flex justify-center text-lg font-semibold mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"> Okay </p>
-                            )}
-
-                            {isNumber === 4 && (
-                                <p className="flex justify-center text-lg font-semibold mt-2 text-green-400 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"> Gut </p>
-                            )}
-
-                            {isNumber === 5 && (
-                                <p className="flex justify-center text-lg font-semibold mt-2 text-orange-400 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"> Fantastisch </p>
-                            )}
-
-                            
-
-
-                        </div>
+                        {rating && (
+                            <p className={`flex justify-center text-lg font-semibold mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]`}>
+                                {rating === 1 && "Schrecklich"}
+                                {rating === 2 && "Naja"}
+                                {rating === 3 && "Okay"}
+                                {rating === 4 && "Gut"}
+                                {rating === 5 && "Fantastisch"}
+                            </p>
+                        )}
                     </div>
-
 
                     <div>
-                        <p className="text-gray-900 font-semibold text-xs">hinterlasse eine Bemerkung</p>
+                        <p className="text-gray-900 font-semibold text-xs">Hinterlasse eine Bemerkung</p>
                     </div>
 
-                    <Textarea className="bg-gray-200" />
+                    <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+                        <FormField 
+                        control = {form.control}
+                        name="content"
+                        render = {({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Textarea
+                                    disabled={isSubmitting}
+                                    placeholder="Erzähle etwas über dich und deine Persönlichkeit ... "
+                                    {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <div className="flex items-center gap-x-2">
+                            <Button disabled={!isValid || isSubmitting}  
+                            className="bg-gray-800 border-gray-200 border drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" type="submit">
+                                Beschreibung speichern
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
 
-                    <div className="mt-2 ml-auto flex w-full">
-                        <Button className="bg-gray-800 border-gray-200 border drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                            Absenden
-                        </Button>
-                    </div>
-
+                    
                 </DialogContent>
             </Dialog>
         </div>
     );
-}
+};
 
 export default AddRezension;

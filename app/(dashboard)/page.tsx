@@ -22,7 +22,8 @@ interface MainPageProps {
         category: Category,
         start: string,
         end: string,
-        filter : string
+        filter : string,
+        page : number,
     }
 }
 
@@ -58,11 +59,11 @@ const Main = async ({
   </div>
   <div className="sm:ml-72   ml-4 hidden sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar   w-full mr-2">
     <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
-     start={searchParams.start} end={searchParams.end} />
+     start={searchParams.start} end={searchParams.end} page={searchParams.page} />
   </div>
   <div className="mt-2 ml-4 overflow-y-auto sm:hidden">
         <RelevanteInserateMobile title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
-     start={searchParams.start} end={searchParams.end}/>
+     start={searchParams.start} end={searchParams.end} page={searchParams.page}/>
   </div>
 </div>
 

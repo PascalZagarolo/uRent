@@ -16,6 +16,7 @@ type GetInserate = {
     filter? : string;
     start? : number;
     end? : number;
+    page? : number;
 }
 
 export const getInserate = async ({
@@ -23,9 +24,12 @@ export const getInserate = async ({
     category,
     filter,
     start,
-    end
+    end,
+    page
 } : GetInserate ): Promise<InserateWithImages[]> => {
     try {
+
+        
 
         if(filter === "relevance") {
             const inserate = await db.inserat.findMany({
@@ -43,13 +47,19 @@ export const getInserate = async ({
                     views : "desc"
                 }
             })
-            return inserate;
+
+            if(page) {
+                return inserate.splice((page - 1) * 8, (page * 8) + 8)
+            }
+
+            return inserate.splice(0, 8);
         } else {
             const inserate = await db.inserat.findMany({
                 where : {
                     isPublished : true,
                     title : {
-                        contains : title
+                        contains : title,
+                        mode: 'insensitive'
                     },
                     category : category,
                     
@@ -60,7 +70,12 @@ export const getInserate = async ({
                     price : filter === "asc" ? "asc" : "desc"
                 }
             })
-            return inserate;
+
+            if(page) {
+                return inserate.splice((page - 1) * 8, (page * 8) + 8)
+            }
+
+            return inserate.splice(0, 8);
         }
 
         

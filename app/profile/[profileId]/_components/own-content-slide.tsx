@@ -49,7 +49,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
         ]}>
           <CarouselContent>
             {inserat.map((inserat, index) => (
-              <CarouselItem>
+              <CarouselItem key={index}>
               <Card className="bg-white p-4 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] w-[200px] h-[400px]">
                 <CardContent className="flex aspect-square items-center justify-center p-6 ">
                 <span className="text-4xl font-semibold">{index + 1}</span>

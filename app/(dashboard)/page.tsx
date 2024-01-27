@@ -46,7 +46,7 @@ const Main = async ({
             isPublished : true,
             
         }, orderBy : {
-            price : "asc"
+            views : "desc"
         }
         
     })

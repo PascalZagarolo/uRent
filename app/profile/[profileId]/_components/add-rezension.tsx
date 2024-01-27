@@ -9,7 +9,7 @@ import { Car } from "lucide-react";
 
 const AddRezension = () => {
     return (
-        <div className=" mt-2">
+        <div className="mt-2 w-full">
             <Dialog>
                 <DialogTrigger className="w-full" asChild>
                     <Button className="w-full" variant="ghost">

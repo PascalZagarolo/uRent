@@ -51,7 +51,10 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
                     </PaginationItem>
                 )}
                 {Array.from({ length: pages }).map((_, index) => (
-                    <Button className="bg-gray-100 text-gray-900 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-300" onClick={() => {onChange(index+1)}}>
+                    <Button className="bg-gray-100 text-gray-900 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-300" 
+                    onClick={() => {onChange(index+1)}}
+                    key={index}
+                    >
                         {index + 1} 
                     </Button>
                 ))}

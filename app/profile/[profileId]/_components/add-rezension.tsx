@@ -21,7 +21,7 @@ const AddRezension = () => {
                         <DialogTitle>
                             Rezension verfassen
                         </DialogTitle>
-                        <p className="text-gray-900/50 text-xs"> teile deine Erfahrung mit diesem Mieter, um anderen Nutzern zu Anhalt zu geben.</p>
+                        <p className="text-gray-900/50 text-xs"> teile deine Erfahrung mit diesem Mieter, um anderen Nutzern Anhalt zu geben.</p>
                     </DialogHeader>
                    
                         <div>

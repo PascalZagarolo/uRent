@@ -13,7 +13,8 @@ interface RelevanteInserateMobileProps {
     category: Category;
     filter: string;
     start: string;
-    end: string
+    end: string;
+    page: number;
 }
 
 const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
@@ -21,7 +22,8 @@ const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
     category,
     filter,
     start,
-    end
+    end,
+    page
 }) => {
 
     const currentUser = await getCurrentUser()

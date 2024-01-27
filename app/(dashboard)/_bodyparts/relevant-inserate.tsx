@@ -7,13 +7,15 @@ import { getInserate } from "@/actions/getInserate";
 import type { Category } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 import { getSession } from "next-auth/react";
+import PaginationComponent from "@/components/pagination-component";
 
 interface RelevanteInserateProps {
     title: string;
     category: Category;
     filter: string;
     start: string;
-    end: string
+    end: string;
+    page : number;
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
@@ -21,7 +23,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     category,
     filter,
     start,
-    end
+    end,
+    page
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -47,7 +50,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         category: category,
         filter: filter,
         start: Number(start),
-        end: Number(end)
+        end: Number(end),
+        page : Number(page)
     });
 
     return (
@@ -61,8 +65,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                         </div>
                         <h3 className="ml-8 flex font-bold text-2xl h-full w-full">
                             Relevante Inserate
+                            
                             <div className="flex ml-auto mr-4 sm:mr-8 text-black">
                                 <OrderBy />
+                                <div className="ml-8">
+                                <PaginationComponent
+                                amount={inserateArray.length}
+                                />
+                            </div>
                             </div>
                         </h3>
                     </div>

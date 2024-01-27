@@ -26,23 +26,45 @@ export const getInserate = async ({
     end
 } : GetInserate ): Promise<InserateWithImages[]> => {
     try {
-        const inserate = await db.inserat.findMany({
-            where : {
-                isPublished : true,
-                title : {
-                    contains : title
-                },
-                category : category,
-                
-            }, include : {
-                images : true,
-                user: true
-            }, orderBy : {
-                price : filter === "asc" ? "asc" : "desc"
-            }
-        })
 
-        return inserate;
+        if(filter === "relevance") {
+            const inserate = await db.inserat.findMany({
+                where : {
+                    isPublished : true,
+                    title : {
+                        contains : title
+                    },
+                    category : category,
+                    
+                }, include : {
+                    images : true,
+                    user: true
+                }, orderBy : {
+                    views : "desc"
+                }
+            })
+            return inserate;
+        } else {
+            const inserate = await db.inserat.findMany({
+                where : {
+                    isPublished : true,
+                    title : {
+                        contains : title
+                    },
+                    category : category,
+                    
+                }, include : {
+                    images : true,
+                    user: true
+                }, orderBy : {
+                    price : filter === "asc" ? "asc" : "desc"
+                }
+            })
+            return inserate;
+        }
+
+        
+        
         
     } catch {
         console.log("Fehler beim erhalten der Inserate");

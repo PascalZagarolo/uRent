@@ -27,7 +27,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
 
     return (
         <div className="">
-            <h3 className=" flex justify-center p-8 text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] items-center bg-white rounded-md mt-5">
+            <h3 className=" flex justify-center p-8 text-3xl font-bold  items-center bg-white rounded-md mt-5 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <Milestone className="mr-2" /> Meine Inhalte
             </h3>
             <div className="flex justify-center mt-8">
@@ -35,7 +35,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
                     inserate={inserate}
                 />
             </div>
-            <h3 className="flex justify-center font-semibold text-2xl items-center">
+            <h3 className="flex justify-center font-semibold text-2xl items-center mt-8">
                 <Separator className="w-1/3 bg-gray-500 mr-8 " /> Rezensionen <Separator className="w-1/3 bg-gray-500 ml-8 " />
             </h3>
 

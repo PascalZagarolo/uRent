@@ -65,6 +65,7 @@ model User {
   inserate      Inserat[]
   favourites Favourite[]
   conversations Conversation[]
+  contactOptions ContactOptions[]
 }
 
 model VerificationToken {
@@ -230,6 +231,28 @@ model Rezension {
 
   @@unique([receiverId, senderId])
   @@index([receiverId])
+}
+
+model ContactOptions {
+  id String @id @default(uuid())
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  email Boolean @default(false)
+  emailAddress String?
+
+  website Boolean @default(false)
+  websiteAddress String?
+
+  phone Boolean @default(false)
+  phoneNumber String?
+
+  address Boolean @default(false)
+  addressString String?
+
+
+
 }
 
 

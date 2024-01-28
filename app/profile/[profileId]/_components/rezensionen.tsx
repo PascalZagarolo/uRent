@@ -1,6 +1,13 @@
 import { CarIcon } from "lucide-react";
+import { Rezension } from "@prisma/client";
 
-const Rezensionen = () => {
+interface RezensionenRenderProps {
+    rezension : Rezension
+}
+
+const RezensionenRender: React.FC<RezensionenRenderProps> = ({
+    rezension
+}) => {
     return ( 
         <div className="bg-white w-full rounded-md p-4 border-gray-100 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.28)]">
             <div className="flex items-center">
@@ -11,18 +18,18 @@ const Rezensionen = () => {
                     className="rounded-full border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"
                 />
             </div>
-            <div className="ml-4">
+            <div className="ml-4 font-semibold">
                 name
             </div>
-            <div className="ml-auto flex">
-                3/5 <CarIcon className="ml-2 text-blue-800"/>
+            <div className="ml-auto flex font-bold">
+                {rezension.rating}/5 <CarIcon className="ml-2 text-blue-800"/>
             </div>
             </div>
             <div className="mt-2 truncate  text-gray-800 ">
-                extrem schlecht dfijopsdjifjispdjipfojpiosddopjgkfsopkdfsdü
+                {rezension.content}
             </div>
         </div>
      );
 }
  
-export default Rezensionen;
+export default RezensionenRender;

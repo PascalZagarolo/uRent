@@ -70,7 +70,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
             <Dialog>
                 {canComment ? (
                     <DialogTrigger className="w-full" asChild>
-                    <Button className="w-full" variant="ghost">
+                    <Button className="w-full border-gray-200 border bg-gray-200" variant="ghost">
                         Rezension verfassen
                     </Button>
                 </DialogTrigger>

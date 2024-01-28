@@ -13,12 +13,25 @@ import toast from "react-hot-toast";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { User } from '@prisma/client';
 
-const AddRezension = () => {
+
+interface AddRezensionProps {
+    currentUser : User
+}
+
+const AddRezension: React.FC<AddRezensionProps> = ({
+    currentUser
+}) => {
+
+
     const [rating, setRating] = useState<number | null>(null);
     const [comment, setComment] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const params = useParams();
+
+    const canComment = currentUser.id === params.profileId ? false : true;
 
     const formSchema = z.object({
         content : z.string().min(1, {
@@ -39,13 +52,17 @@ const AddRezension = () => {
 
     const onSubmit = (values : z.infer<typeof formSchema>) => {
         try {
+            setIsLoading(true);
             if(!rating) {
                 toast.error("Du musst eine Bewertung abgeben");
                 return null;
             }
-            axios.post(`/api/${params.profileId}` , {content : values.content, rating : rating})
+            axios.post(`/api/rezension/${params.profileId}` , {content : values.content, rating : rating})
         } catch {
             toast.error("Es ist ein Fehler aufgetreten");
+        } finally {
+            setIsLoading(false);
+            form.reset();
         }
     };
 
@@ -54,11 +71,15 @@ const AddRezension = () => {
     return (
         <div className="mt-2 w-full">
             <Dialog>
-                <DialogTrigger className="w-full" asChild>
+                {canComment ? (
+                    <DialogTrigger className="w-full" asChild>
                     <Button className="w-full" variant="ghost">
                         Rezension verfassen
                     </Button>
                 </DialogTrigger>
+                ) : (
+                    <p className="text-gray-800/50 font-semibold flex justify-center"> Du kannst keinen Kommentar abgeben</p>
+                )}
                 <DialogContent className="w-[800px]">
                     <DialogHeader>
                         <DialogTitle>
@@ -119,10 +140,12 @@ const AddRezension = () => {
                         )}
                         />
                         <div className="flex items-center gap-x-2">
+                            <DialogTrigger asChild>
                             <Button disabled={!isValid || isSubmitting}  
                             className="bg-gray-800 border-gray-200 border drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" type="submit">
                                 Beschreibung speichern
                             </Button>
+                            </DialogTrigger>
                         </div>
                     </form>
                 </Form>

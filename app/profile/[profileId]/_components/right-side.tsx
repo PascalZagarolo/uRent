@@ -5,14 +5,19 @@ import { Inserat, Images } from "@prisma/client";
 import Rezensionen from "./rezensionen";
 import { Separator } from "@/components/ui/separator";
 import AddRezension from "./add-rezension";
+import getCurrentUser from "@/actions/getCurrentUser";
+import MoreReviews from "./more-reviews";
 
 interface RightSideProfileProps {
     inserate : Inserat[] & { images : Images[] }[]
 }
 
-const RightSideProfile: React.FC<RightSideProfileProps> = ({
+const RightSideProfile: React.FC<RightSideProfileProps> = async ({
     inserate
 }) => {
+
+    const currentUser = await getCurrentUser();
+
     return ( 
         <div className="">
             <h3 className=" flex justify-center p-4 text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] items-center">
@@ -27,14 +32,20 @@ const RightSideProfile: React.FC<RightSideProfileProps> = ({
                <Separator className="w-1/3 bg-gray-500 mr-8 "/> Rezensionen <Separator className="w-1/3 bg-gray-500 ml-8 "/>
             </h3>
             <div className="flex ml-auto">
-                <AddRezension/>
+                <AddRezension
+                currentUser={currentUser}
+                />
             </div>
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="mt-8 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]">
                 <Rezensionen/>
                 <Rezensionen/>
                 <Rezensionen/>
                 <Rezensionen/>
+                
             </div>
+            <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                <MoreReviews/>
+                </div>
         </div>
      );
 }

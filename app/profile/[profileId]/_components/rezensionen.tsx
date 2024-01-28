@@ -18,7 +18,7 @@ const Rezensionen = () => {
                 3/5 <CarIcon className="ml-2 text-blue-800"/>
             </div>
             </div>
-            <div className="mt-2 truncate drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] text-gray-600">
+            <div className="mt-2 truncate  text-gray-800 ">
                 extrem schlecht dfijopsdjifjispdjipfojpiosddopjgkfsopkdfsdü
             </div>
         </div>

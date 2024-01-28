@@ -16,12 +16,14 @@ import ContactOptions from "./contact-options";
 interface ProfileHeaderProps {
     currentUser: User;
     user: User;
+    ownProfile: boolean;
 }
 
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({
     currentUser,
-    user
+    user,
+    ownProfile
 }) => {
 
     const convertDateTimeToString = (dateTime: Date): string => {
@@ -64,7 +66,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                                 </p>
                             </div>
                             <div className="flex mt-4">
-                                <Avatar
+                            <Avatar
                                     imageUrl={currentUser.image}
                                 />
                                 <div className="items-center ml-8">
@@ -94,7 +96,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                     </div>
 
                 </div>
-                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
                     <UserCircle2 className="mr-1" /> Über mich
                 </div>
                 <div>
@@ -103,7 +105,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 />
                 </div>
 
-                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
                     <Contact className="mr-1" /> Kontakt
                 </div>
                 <div>

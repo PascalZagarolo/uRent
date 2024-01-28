@@ -81,7 +81,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
 
                     </div>
 
-                    <div className=" mt-1 w-1/2  p-8  bg-white border-2 border-gray-400 mr-16 border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <div className="ml-8 mt-1 w-1/2  p-8  bg-white border-2 border-gray-400  border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
                             <div className="w-full ">
                                 <p className="flex justify-center font-semibold items-center text-lg">

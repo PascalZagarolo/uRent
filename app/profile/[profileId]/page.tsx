@@ -4,6 +4,7 @@ import ProfileBody from "./_components/profile-body";
 import getCurrentUser from "@/actions/getCurrentUser";
 import ProfileFooter from "./_components/profile-footer";
 import RightSideProfile from "./_components/right-side";
+import { use } from 'react';
 
 const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 
@@ -26,6 +27,14 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
         }
     })
 
+    const rezensionen = await db.rezension.findMany({
+        where : {
+            receiverId : params.profileId
+        }, include : {
+            sender : true
+        }
+    })
+
     
 
     return ( 
@@ -41,6 +50,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             <div className="w-1/2 ml-8 mr-16">
             <RightSideProfile
             inserate = {inserate}
+            rezensionen  = {rezensionen}
             />
             </div>
             

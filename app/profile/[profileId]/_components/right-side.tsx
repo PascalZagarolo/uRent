@@ -41,28 +41,32 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
 
             <div className=" mt-4 text-xl font-semibold">
                 <div>
-                <div>
+                    <div>
                         <AddRezension
-                        currentUser={currentUser}
+                            currentUser={currentUser}
                         />
                     </div>
-                    <div className="flex justify-center items-center mt-4">
-                        <p className="flex">
-                            {averageRating} <Car className="ml-4" />
-                        </p>
-                        
-                    </div>
-                    
+                    {rezensionen.length !== 0 && (
+                        <>
+                            <div className="flex justify-center items-center mt-4">
+                                <p className="flex">
+                                    {averageRating} <Car className="ml-4" />
+                                </p>
 
-                    <p className="text-xs text-gray-900/50 flex justify-center"> in {rezensionen.length} Bewertungen</p>
-                    <div>
-                        <p>
+                            </div>
 
-                        </p>
-                    </div>
+
+                            <p className="text-xs text-gray-900/50 flex justify-center"> in {rezensionen.length} Bewertungen</p>
+                        </>
+
+
+                    )}
+
+
                 </div>
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]">
+            {rezensionen.length !== 0 ? (
+                <div className="mt-4 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]">
                 {rezensionen.map((rezension) => (
                     <RezensionenRender
                         rezension={rezension}
@@ -71,6 +75,11 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
 
 
             </div>
+            ) : (
+                <div className="mt-4 flex justify-center text-gray-900/50 font-semibold italic">
+                    Noch keine Rezensionen vorhanden
+                </div>
+            )}
             {rezensionen.length > 4 && (
                 <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     <MoreReviews />

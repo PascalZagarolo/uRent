@@ -13,14 +13,16 @@ import { useEffect } from "react";
 
 interface ProfileViewProps {
     user: User;
-    inseratArray : Inserat[];
-    inseratOwner : User;
+    inseratArray: Inserat[];
+    inseratOwner: User;
+    averageRating: number,
 }
 
 const ProfileView: React.FC<ProfileViewProps> = ({
     user,
     inseratArray,
-    inseratOwner
+    inseratOwner,
+    averageRating
 }) => {
 
     const params = useParams();
@@ -34,8 +36,8 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     return (
         <div className="px-4 py-4 bg-gradient-to-b from-[#586392] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md  ">
             <div className="flex items-center  text-gray-100">
-            <Image
-                    src={user.image ||  "/placeholder-person.jpg"}
+                <Image
+                    src={user.image || "/placeholder-person.jpg"}
                     width={40}
                     height={40}
                     className="rounded-full  "
@@ -43,17 +45,17 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 />
                 <div className="font-semibold ml-2 flex items-center">
                     <p className="font-black text-xl text-[#262a3c]">{user.name.charAt(0).toUpperCase()}</p><div>{user.name.slice(1)}</div>
-                    
+
                 </div>
                 <div className="flex ml-auto">
-                        <Button variant="ghost" size="sm" className="ml-auto">
-                            Folgen
+                    <Button variant="ghost" size="sm" className="ml-auto">
+                        Folgen
                     </Button>
                 </div>
             </div>
             <div>
                 <div className="mt-1">
-                <div><Badge className="bg-[#2d3144]"> Gewerblicher Händler </Badge></div>
+                    <div><Badge className="bg-[#2d3144]"> Gewerblicher Händler </Badge></div>
                 </div>
             </div>
             <div>
@@ -64,28 +66,24 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
             </div>
             <div className="flex gap-x-1 mt-4">
-                
+
                 <div>
                     <p className="font-bold mr-2 text-[#1d1f2c]">
                         Zufriedenheit :
                     </p>
                 </div>
                 <div className="flex">
-                <CarIcon />
-                <CarIcon />
-                <CarIcon />
-                <CarIcon />
-                <CarIcon className="opacity-20" />
+                    <p className="font-semibold"> {averageRating} / 5 </p> <CarIcon className="ml-2" />
                 </div>
-                
+
             </div>
             <div className="mt-2 flex text-[#1d1f2c] font-bold ">
-            offene Anzeigen <p className="ml-2">({inseratArray.length})</p> 
+                offene Anzeigen <p className="ml-2">({inseratArray.length})</p>
             </div>
 
             <div className="mt-4">
-                <Button className = "w-full flex bg-[#1f222f] border border-black12" onClick={() => {router.push(`/profile/${inseratOwner.id}`)}}>
-                  <User2 className="w-6 h-6 mr-2"/>  Zum Profil
+                <Button className="w-full flex bg-[#1f222f] border border-black12" onClick={() => { router.push(`/profile/${inseratOwner.id}`) }}>
+                    <User2 className="w-6 h-6 mr-2" />  Zum Profil
                 </Button>
             </div>
         </div>

@@ -54,6 +54,12 @@ const InseratAnzeige = async ({
         }
     })
 
+    const rezensionen = await db.rezension.findMany({
+        where : {
+            receiverId : user.id
+        }
+    })
+
    
 
     const isPurchased = purchases ? true : false;
@@ -133,7 +139,7 @@ const InseratAnzeige = async ({
                         user={user}
                         inseratArray = {inseratArray}
                         inseratOwner = {inseratOwner}
-                        
+                        averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                     />
                 </div>
 

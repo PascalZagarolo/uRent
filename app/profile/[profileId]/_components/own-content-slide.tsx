@@ -14,6 +14,8 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { CarFront } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Badge } from "@/components/ui/badge"
 
 interface OwnContentSlideProps {
   inserat: Inserat[] & { images: Images[] }[];
@@ -39,6 +41,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
     })
   }, [api])
 
+  const router = useRouter();
   return (
     <div className="">
       {inserat.length > 0 ? (
@@ -51,7 +54,9 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
             <CarouselContent className="w-[360px] h-[360px]">
               {inserat.map((inserat, index) => (
                 <CarouselItem key={index} className="">
-                  <Card className="bg-white p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ">
+                  <Card className="bg-white p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] hover:cursor-pointer" onClick={() => {
+                    router.push(`/inserat/${inserat.id}`)
+                  }}>
                   <CardContent className="aspect-square flex items-center justify-center ">
                       <div>
                         <div className="flex items-center mb-4">
@@ -68,6 +73,11 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                             src={inserat.images[0].url}
                             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                           />
+                        </div>
+                        <div>
+                          <Badge className="bg-emerald-600 border border-black">
+                            Verfügbar
+                          </Badge>
                         </div>
                       </div>
                     </CardContent>

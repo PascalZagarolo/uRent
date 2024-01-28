@@ -92,7 +92,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
               </>
             )}
           </Carousel>
-          <div className="py-2 text-center text-sm text-muted-foreground">
+          <div className=" text-center text-sm text-muted-foreground">
             Inserat {current} von {count}
           </div>
         </div>

@@ -52,7 +52,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
 
     const onSubmit = (values : z.infer<typeof formSchema>) => {
         try {
-            setIsLoading(true);
+            
             if(!rating) {
                 toast.error("Du musst eine Bewertung abgeben");
                 return null;
@@ -60,10 +60,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
             axios.post(`/api/rezension/${params.profileId}` , {content : values.content, rating : rating})
         } catch {
             toast.error("Es ist ein Fehler aufgetreten");
-        } finally {
-            setIsLoading(false);
-            form.reset();
-        }
+        } 
     };
 
     const { isSubmitting, isValid } = form.formState;

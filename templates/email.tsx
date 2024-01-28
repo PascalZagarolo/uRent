@@ -1,13 +1,15 @@
-interface EmailResendProps {
-    token : string;
+import * as React from 'react';
+import { Html } from '@react-email/html';
+import { Button } from '@react-email/button';
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
 }
 
-const Email = () => {
-    return ( 
-        <div>
-            <h3 className="text-lg font-semibold"> Willkommen bei <p className="ml-1 mr-1 font-bold">uRent</p></h3>
-        </div>
-     );
-}
- 
 export default Email;

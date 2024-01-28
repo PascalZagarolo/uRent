@@ -107,7 +107,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
                             <p className={`flex justify-center text-lg font-semibold mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]`}>
                                 {rating === 1 && "Schrecklich"}
                                 {rating === 2 && "Naja"}
-                                {rating === 3 && "Okay"}
+                                {rating === 3 && "In Ordnung"}
                                 {rating === 4 && "Gut"}
                                 {rating === 5 && "Fantastisch"}
                             </p>
@@ -128,7 +128,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
                                 <FormControl>
                                     <Textarea
                                     disabled={isSubmitting}
-                                    placeholder="Erzähle etwas über dich und deine Persönlichkeit ... "
+                                    placeholder="Erzähle etwas über deine Erfahrung mit diesem Mieter"
                                     {...field}
                                     />
                                 </FormControl>

@@ -34,11 +34,11 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         "Mit freundlichen Grüßen,\n\n" +
         "[Dein Name]\n" +
         "[Deine Kontaktdaten]"
-      );
-    
-      const handleTextChange = (event) => {
+    );
+
+    const handleTextChange = (event) => {
         setText(event.target.value);
-      };
+    };
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -121,8 +121,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <div className="text-lg font-bold flex"> 
-                              <Lightbulb className="mr-2"/>  Händler sofort kontaktieren
+                            <div className="text-lg font-bold flex">
+                                <Lightbulb className="mr-2" />  Händler sofort kontaktieren
                             </div>
                         </DialogHeader>
                         <div>
@@ -132,25 +132,27 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                             />
                         </div>
                         <div>
-                            
+
                             <div>
                                 <RadioGroup className="flex gap-x-4 items-center" defaultValue="messenger">
-                                <RadioGroupItem value="messenger" id="messenger"/>
-                                
-                                <Label className="flex "> <Send className="w-4 h-4 mr-2 items-center"/> Direktnachricht </Label>
+                                    <RadioGroupItem value="messenger" id="messenger" />
 
-                                <RadioGroupItem value="email" id="email"/>
-                                
-                                <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center"/> E-Mail</Label>
-                                
+                                    <Label className="flex "> <Send className="w-4 h-4 mr-2 items-center" /> Direktnachricht </Label>
+
+                                    <RadioGroupItem value="email" id="email" />
+
+                                    <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center" /> E-Mail</Label>
+
                                 </RadioGroup>
-                                
+
                             </div>
                         </div>
                         <div className="ml-auto">
-                            <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                                Senden
-                            </Button>
+                            <DialogTrigger>
+                                <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                    Senden
+                                </Button>
+                            </DialogTrigger>
                         </div>
                     </DialogContent>
                 </Dialog>

@@ -6,6 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { values } from "lodash";
 import { ContactIcon, Globe2, Home, Locate, LocateFixed, MailCheck, MailOpenIcon, Map, MapPin, Navigation, PlugZap, Settings2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,7 +23,7 @@ const AddContactOption = () => {
         email: emailEnabled ? z.string().email().min(1, {
             message: "Email zu kurz"
         }) : z.string().optional(),
-        website: emailEnabled ? z.string().email().min(1, {
+        website: emailEnabled ? z.string().min(1, {
             message: "Email zu kurz"
         }) : z.string().optional(),
         city: z.string().optional(),
@@ -44,6 +45,13 @@ const AddContactOption = () => {
         }
     })
 
+    const onSubmit = (values : z.infer<typeof formSchema>) => {
+
+        const address = values.street + " " + values.houseNumber + ", " + values.plz + " " + values.city;
+
+        console.log(values);
+    }
+
     const { isValid , isSubmitting } = form.formState;
 
     return (
@@ -58,13 +66,13 @@ const AddContactOption = () => {
             <DialogContent>
                 <DialogHeader>
                     <div className="flex">
-                        <ContactIcon className="mr-2" /> <p className="text-lg font-semibold"> Kontaktmöglichkeiten verwalten </p>
+                        <ContactIcon className="mr-2" /> <p className="text-xl font-semibold"> Kontaktmöglichkeiten verwalten </p>
                     </div>
                 </DialogHeader>
                 <Form {...form}>
-                    <form>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
                         <div className="flex items-center font-semibold"> <Globe2 className="mr-2" />  Website
-                            <Switch className="ml-auto" onClick={() => setWebsiteEnabled(!websiteEnabled)} /> </div>
+                            <Switch className="ml-auto" onClick={() => {setWebsiteEnabled(!websiteEnabled); form.resetField("website")}} /> </div>
                         {websiteEnabled && (
                             <FormField
                                 control={form.control}
@@ -83,7 +91,7 @@ const AddContactOption = () => {
                         )}
 
                         <div className="flex items-center font-semibold mt-4"> <MailOpenIcon className="mr-2" />  Email
-                            <Switch className="ml-auto" onClick={() => setEmailEnabled(!emailEnabled)} /> </div>
+                            <Switch className="ml-auto" onClick={() => {setEmailEnabled(!emailEnabled); form.resetField("email") }} /> </div>
                         {emailEnabled && (
                             <FormField
                                 control={form.control}
@@ -186,7 +194,7 @@ const AddContactOption = () => {
                         </div>
                         )}
                         
-                            <Button className="mt-4 w-full" variant="ghost" disabled={!isValid || isSubmitting}> Speichern </Button>
+                            <Button className="mt-4 w-full bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" variant="ghost" disabled={!isValid || isSubmitting}> Speichern </Button>
                         
 
 

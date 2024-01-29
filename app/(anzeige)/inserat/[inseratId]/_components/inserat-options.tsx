@@ -1,13 +1,16 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { User } from "@prisma/client";
-import { DialogTrigger } from "@radix-ui/react-dialog";
+
+
 import axios from "axios";
 import { set } from "date-fns";
-import { Banknote, Check, Mail, Share, Star, ThumbsUp } from "lucide-react";
+import { Banknote, Check, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -23,6 +26,19 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     isPurchased,
     ownUser
 }) => {
+
+    const [text, setText] = useState(
+        "Betreff: Anfrage bezüglich Mietwagen\n\n" +
+        "Sehr geehrte Damen und Herren,\n\n" +
+        "Nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug. Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.\n\n" +
+        "Mit freundlichen Grüßen,\n\n" +
+        "[Dein Name]\n" +
+        "[Deine Kontaktdaten]"
+      );
+    
+      const handleTextChange = (event) => {
+        setText(event.target.value);
+      };
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -105,24 +121,36 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <div>
-
+                            <div className="text-lg font-bold flex"> 
+                              <Lightbulb className="mr-2"/>  Händler sofort kontaktieren
                             </div>
                         </DialogHeader>
                         <div>
                             <Textarea className="h-[400px] border border-gray-300 bg-gray-200"
-                                placeholder="
-                            Betreff: Anfrage bezüglich Mietwagen
-
-                            Sehr geehrte Damen und Herren,
-
-                            nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug. Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.
-
-                            Mit freundlichen Grüßen,
-
-                            [Dein Name]
-                            [Deine Kontaktdaten]"
+                                value={text}
+                                onChange={handleTextChange}
                             />
+                        </div>
+                        <div>
+                            
+                            <div>
+                                <RadioGroup className="flex gap-x-4 items-center" defaultValue="messenger">
+                                <RadioGroupItem value="messenger" id="messenger"/>
+                                
+                                <Label className="flex "> <Send className="w-4 h-4 mr-2 items-center"/> Direktnachricht </Label>
+
+                                <RadioGroupItem value="email" id="email"/>
+                                
+                                <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center"/> E-Mail</Label>
+                                
+                                </RadioGroup>
+                                
+                            </div>
+                        </div>
+                        <div className="ml-auto">
+                            <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                Senden
+                            </Button>
                         </div>
                     </DialogContent>
                 </Dialog>

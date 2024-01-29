@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Globe2Icon, MailCheckIcon, MapPin, Settings2 } from "lucide-react";
+import AddContactOption from "./add-contact-option";
 
 const ContactOptions = () => {
     return (
@@ -25,11 +26,7 @@ const ContactOptions = () => {
                 </div>
                 
             </div>
-            <div className="mt-2">
-                <Button className="bg-gray-200 w-full" variant="ghost">
-                    <Settings2 className="mr-2" /> Kontaktmöglichkeiten hinzufügen
-                </Button>
-            </div>
+            <AddContactOption />
             <div className="flex-row flex">
 
             </div>

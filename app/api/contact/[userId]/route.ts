@@ -1,24 +1,49 @@
 import { db } from "@/utils/db";
 import { NextResponse } from "next/server";
 
-export async function POST(
+export async function PATCH(
     req : Request,
     { params } : { params : { userId : string}}
 ) {
     try {
 
-        const values = await req.json();
+        const { values , address } = await req.json();
 
 
-        const patchedOptions = await db.contactOptions.update({
+        const findOptions = await db.contactOptions.findFirst({
             where : {
-                id : params.userId
-            }, data : {
-                ...values
+                userId : params.userId
             }
         })
 
-        return NextResponse.json(patchedOptions);
+        if(!findOptions) { 
+            const patchedOptions = await db.contactOptions.create({
+                 data : {
+                    userId : params.userId,
+                    emailAddress : values.email,
+                    addressString : address,
+                    websiteAddress : values.website,
+                    
+                }
+            })
+            return NextResponse.json(patchedOptions);
+        } else {
+            const patchedOptions = await db.contactOptions.update({
+                where :{
+                    userId : params.userId,
+                },
+                data : {
+                  
+                   emailAddress : values.email,
+                   addressString : address,
+                   websiteAddress : values.website,
+                   
+               }
+           })
+           return NextResponse.json(patchedOptions);
+        }
+
+        
         
 
 

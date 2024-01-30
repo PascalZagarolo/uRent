@@ -241,21 +241,21 @@ model Rezension {
 }
 
 model ContactOptions {
-  id String @id @default(uuid())
+ 
 
-  userId String
+  userId String @id @unique
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  email Boolean @default(false)
+  email Boolean? @default(false)
   emailAddress String?
 
-  website Boolean @default(false)
+  website Boolean? @default(false)
   websiteAddress String?
 
-  phone Boolean @default(false)
+  phone Boolean? @default(false)
   phoneNumber String?
 
-  address Boolean @default(false)
+  address Boolean? @default(false)
   addressString String?
 
 

@@ -46,10 +46,11 @@ export async function POST(
 
             const createMessage = await db.messages.create({
                 data : {
-                    conversationId : existingConversation.id,
+                    conversationId : createdConversation.id,
                     senderId : currentUser.id,
                     content : text,
-                    isInterest : true
+                    isInterest : true,
+                    inseratId : inserat.id
                 }
             })
 
@@ -60,7 +61,8 @@ export async function POST(
                     conversationId : existingConversation.id,
                     senderId : currentUser.id,
                     content : text,
-                    isInterest : true
+                    isInterest : true,
+                    inseratId : inserat.id
                 }
             })
 

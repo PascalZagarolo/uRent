@@ -206,6 +206,8 @@ model Messages {
   image String?
   createdAt DateTime @default(now())
 
+  isInterest Boolean @default(false)
+
   updatedAt DateTime @updatedAt
 
   senderId String

@@ -53,7 +53,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                             />
                         )}
                         <div className={cn("p-4 rounded-lg mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] border-2 flex border-gray-500",
-                            isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-500 text-gray-100 mr-auto", 
+                            isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-500 text-gray-100 mr-auto",
                             messages.isInterest && "bg-gray-100 text-gray-900 border-emerald-600")}>
                             {messages.image ? (
                                 <ChatImageRender
@@ -64,13 +64,13 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                     {messages.isInterest && (
                                         <div className="mb-4">
                                             <div className="flex items-center">
-                                            <Forward />
-                                            <p className="ml-2 font-semibold text-xs text-gray-900/50">Interesse bezüglich...</p>
+                                                <Forward />
+                                                <p className="ml-2 font-semibold text-xs text-gray-900/50">Interesse bezüglich...</p>
                                             </div>
                                             <div className="p-4 border border-gray-200 bg-white rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:cursor-pointer"
-                                            onClick={
-                                                () => { router.push(`/inserat/${messages.inseratId}`) }
-                                            }
+                                                onClick={
+                                                    () => { router.push(`/inserat/${messages.inseratId}`) }
+                                                }
                                             >
                                                 <div>
                                                     <div className="flex">
@@ -78,10 +78,12 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                         <div className="rounded-md w-[200px] h-[100px]">
                                                             <img
                                                                 src={messages.inserat.images[0].url}
-                                                                className="w-full h-full object-cover rounded-md"
+                                                                className=" object-cover rounded-md"
                                                                 alt="..."
+                                                                style={{ imageRendering: "auto" }}
                                                             />
                                                         </div>
+
                                                         <div className="ml-4 font-semibold ">
                                                             {messages.inserat.title}
                                                             <Badge className="flex ml-auto drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -91,10 +93,10 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                                 {messages.inserat.price} €
                                                             </Badge>
                                                         </div>
-                                                        <div className="rounded-md bg-gray-100 border border-gray-500 flex ml-auto w-[280px] 
-                                                         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2   max-h-[100px]">
-                                                        <p className=""> {messages.inserat.description}   </p>
+                                                        <div className="rounded-md bg-gray-100 border border-gray-500 flex ml-auto w-[280px] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2 max-h-[100px] overflow-hidden">
+                                                            <p className="overflow-hidden text-overflow-ellipsis">{messages.inserat.description}</p>
                                                         </div>
+
 
                                                     </div>
 

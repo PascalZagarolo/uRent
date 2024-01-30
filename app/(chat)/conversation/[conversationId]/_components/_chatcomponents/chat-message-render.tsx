@@ -62,7 +62,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                             ) : (
                                 <div>
                                     {messages.isInterest && (
-                                        <div className="mb-4">
+                                        <div className="mb-4 hidden lg:block">
                                             <div className="flex items-center">
                                                 <Forward />
                                                 <p className="ml-2 font-semibold text-xs text-gray-900/50">Interesse bezüglich...</p>
@@ -75,7 +75,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                 <div>
                                                     <div className="flex">
 
-                                                        <div className="rounded-md w-[200px] h-[100px]">
+                                                        <div className="rounded-md 2xl:w-1/2">
                                                             <img
                                                                 src={messages.inserat.images[0].url}
                                                                 className=" object-cover rounded-md"
@@ -84,16 +84,17 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                             />
                                                         </div>
 
-                                                        <div className="ml-4 font-semibold ">
+                                                        <div className="ml-4 font-semibold truncate w-[160px] mr-4">
                                                             {messages.inserat.title}
-                                                            <Badge className="flex ml-auto drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                                            <Badge className="2xl:flex ml-auto drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center hidden">
                                                                 {formatEuropeanTimeDay(messages.inserat.createdAt)}
                                                             </Badge>
-                                                            <Badge className="flex ml-auto mt-2 bg-emerald-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                                            <Badge className="flex ml-auto mt-2 bg-emerald-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center">
                                                                 {messages.inserat.price} €
                                                             </Badge>
                                                         </div>
-                                                        <div className="rounded-md bg-gray-100 border border-gray-500 flex ml-auto w-[280px] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2 max-h-[100px] overflow-hidden">
+                                                        <div className="rounded-md bg-gray-100 border border-gray-500  ml-auto w-1/2 
+                                                        drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2 max-h-[100px] overflow-hidden hidden 2xl:flex">
                                                             <p className="overflow-hidden text-overflow-ellipsis">{messages.inserat.description}</p>
                                                         </div>
 

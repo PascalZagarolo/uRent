@@ -3,15 +3,17 @@
 import { db } from "@/utils/db";
 import ChatInput from "./_chatcomponents/chat-input";
 import ChatMessageRender from "./_chatcomponents/chat-message-render";
-import { Messages, User, Conversation } from '@prisma/client';
+import { Messages, User, Conversation, Inserat, Images } from '@prisma/client';
 import { useEffect, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { useParams } from "next/navigation";
 import { find, set } from "lodash";
 import { format } from "date-fns";
 
+type MessageWithInserat = Messages & { inserat : Inserat & { images : Images } }
+
 interface ChatComponentProps {
-    messages : Messages[] 
+    messages : MessageWithInserat[]
     currentUser : User;
     conversation : Conversation;
 }
@@ -36,7 +38,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         pusherClient.subscribe(conversationId);
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 
-        const messageHandler = (message : Messages) => {
+        const messageHandler = (message) => {
             setMessages((current) => {
                 if(find(current, {id : message.id})) {
                     current
@@ -84,14 +86,14 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             Chat gestartet am {formateDate(conversation.createdAt)}
             </h3>
             <div className="no-scrollbar h-full overflow-y-hidden">
-            {pMessages.map((message) => (
+            {pMessages.map((message : MessageWithInserat) => (
                 <ChatMessageRender
                 key={message.id}
                 messages={message}
                 isOwn={message.senderId === currentUser.id}
                 
                 />
-            
+                
             ))}
             </div>
            

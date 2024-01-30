@@ -1,15 +1,19 @@
 'use client'
 
 import { cn } from "@/lib/utils";
-import { Messages, User } from "@prisma/client";
+import { Messages, User, Inserat, Images } from "@prisma/client";
 
 import ChatImageRender from "./chat-image-render";
 import { format } from "date-fns";
-import { Trash, TrashIcon } from "lucide-react";
+import { Forward, Share, Trash, TrashIcon } from "lucide-react";
 import DeleteMessage from "./delete-message";
+import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+
+type MessageWithInserat = Messages & { inserat: Inserat & { images: Images } }
 
 interface ChatMessageRenderProps {
-    messages: Messages;
+    messages: MessageWithInserat;
     isOwn: boolean;
 
 }
@@ -20,8 +24,16 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
 }) => {
 
+    const router = useRouter();
+
     const formatEuropeanTime = (inputDate: Date): string => {
         const date = format(new Date(inputDate), "HH:mm");
+
+        return date;
+    };
+
+    const formatEuropeanTimeDay = (inputDate: Date): string => {
+        const date = format(new Date(inputDate), "dd.MM.yy");
 
         return date;
     };
@@ -37,18 +49,65 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                     <div className={cn("min-w-[50px]", isOwn ? "ml-auto" : "mr-auto")}>
                         {isOwn && (
                             <DeleteMessage
-                            messageId = {messages.id}
+                                messageId={messages.id}
                             />
                         )}
                         <div className={cn("p-4 rounded-lg mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] border-2 flex border-gray-500",
-                            isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-500 text-gray-100 mr-auto")}>
+                            isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-500 text-gray-100 mr-auto", 
+                            messages.isInterest && "bg-gray-100 text-gray-900 border-emerald-600")}>
                             {messages.image ? (
                                 <ChatImageRender
-                                imageLink={messages.image}
-                            />
+                                    imageLink={messages.image}
+                                />
                             ) : (
-                                <div className="flex justify-center">
-                                    {messages.content}
+                                <div>
+                                    {messages.isInterest && (
+                                        <div className="mb-4">
+                                            <div className="flex items-center">
+                                            <Forward />
+                                            <p className="ml-2 font-semibold text-xs text-gray-900/50">Interesse bezüglich...</p>
+                                            </div>
+                                            <div className="p-4 border border-gray-200 bg-white rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:cursor-pointer"
+                                            onClick={
+                                                () => { router.push(`/inserat/${messages.inseratId}`) }
+                                            }
+                                            >
+                                                <div>
+                                                    <div className="flex">
+
+                                                        <div className="rounded-md w-[200px] h-[100px]">
+                                                            <img
+                                                                src={messages.inserat.images[0].url}
+                                                                className="w-full h-full object-cover rounded-md"
+                                                                alt="..."
+                                                            />
+                                                        </div>
+                                                        <div className="ml-4 font-semibold ">
+                                                            {messages.inserat.title}
+                                                            <Badge className="flex ml-auto drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                                                {formatEuropeanTimeDay(messages.inserat.createdAt)}
+                                                            </Badge>
+                                                            <Badge className="flex ml-auto mt-2 bg-emerald-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                                                {messages.inserat.price} €
+                                                            </Badge>
+                                                        </div>
+                                                        <div className="rounded-md bg-gray-100 border border-gray-500 flex ml-auto w-[280px] 
+                                                         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2   max-h-[100px]">
+                                                        <p className=""> cooles auto cooles auto cooles auto cooles auto cooles auto cooles auto cooles   </p>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="flex justify-center">
+
+                                        {messages.content}
+
+                                    </div>
                                 </div>
                             )}
 

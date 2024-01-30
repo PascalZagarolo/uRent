@@ -70,6 +70,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
                 {rezensionen.map((rezension) => (
                     <RezensionenRender
                         rezension={rezension}
+                        key={rezension.id}
                     />
                 ))}
 

@@ -44,7 +44,16 @@ export async function POST(
                 }
             })
 
-            return NextResponse.json({createdConversation , text})
+            const createMessage = await db.messages.create({
+                data : {
+                    conversationId : existingConversation.id,
+                    senderId : currentUser.id,
+                    content : text,
+                    isInterest : true
+                }
+            })
+
+            return NextResponse.json({createdConversation , createMessage})
         } else {
             const createMessage = await db.messages.create({
                 data : {

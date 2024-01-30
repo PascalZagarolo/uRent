@@ -93,7 +93,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                         </div>
                                                         <div className="rounded-md bg-gray-100 border border-gray-500 flex ml-auto w-[280px] 
                                                          drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2   max-h-[100px]">
-                                                        <p className=""> cooles auto cooles auto cooles auto cooles auto cooles auto cooles auto cooles   </p>
+                                                        <p className=""> {messages.inserat.description}   </p>
                                                         </div>
 
                                                     </div>

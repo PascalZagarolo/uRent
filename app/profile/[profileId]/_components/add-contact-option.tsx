@@ -6,14 +6,19 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { values } from "lodash";
 import { ContactIcon, Globe2, Home, Locate, LocateFixed, MailCheck, MailOpenIcon, Map, MapPin, Navigation, PlugZap, Settings2 } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 
 const AddContactOption = () => {
+
+    const params = useParams();
 
     const [emailEnabled, setEmailEnabled] = useState(false);
     const [websiteEnabled, setWebsiteEnabled] = useState(false);
@@ -49,7 +54,11 @@ const AddContactOption = () => {
 
         const address = values.street + " " + values.houseNumber + ", " + values.plz + " " + values.city;
 
-        console.log(values);
+        try {
+            axios.patch(`/api/contact/${params.profileId}`, { values, address : address})
+        } catch {
+            toast.error("Fehler beim Speichern")
+        }
     }
 
     const { isValid , isSubmitting } = form.formState;

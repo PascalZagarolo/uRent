@@ -32,7 +32,11 @@ const ConversationPage = async ({
             conversationId : params.conversationId
         }, include : {
             sender : true,
-            
+            inserat : {
+                include : {
+                    images : true
+                }
+            }
         }
     })
 
@@ -76,6 +80,7 @@ const ConversationPage = async ({
             <div className="w-full">
                 
             <ChatComponent
+            //@ts-ignore
                 messages={messages}
                 currentUser={currentUser}
                 

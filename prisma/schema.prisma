@@ -96,6 +96,8 @@ model Inserat {
 
   views Int @default(0)
 
+  message Messages[]
+
   images Images[]
   purchased Purchase[]
 
@@ -209,6 +211,9 @@ model Messages {
   isInterest Boolean @default(false)
 
   updatedAt DateTime @updatedAt
+
+  inseratId String?
+  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
 
   senderId String
   sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)

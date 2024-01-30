@@ -88,6 +88,18 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         }
     }
 
+    const onInterest = () => {
+        try {
+            setIsLoading(true);
+            axios.post(`/api/interest/${params.inseratId}`, { text: text });
+        } catch {
+            toast.error("Etwas ist schief gelaufen");
+        } finally {
+            setIsLoading(false);
+
+        }
+    }
+
 
 
 
@@ -112,12 +124,12 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             */
 
                 <Dialog>
-                    <DialogTrigger>
-                        <div className="mt-4">
+                    <DialogTrigger className="mt-4" asChild>
+                        
                             <Button className="bg-emerald-600 border-2 border-black w-[240px]">
                                 <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
                             </Button>
-                        </div>
+                        
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
@@ -149,7 +161,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                         </div>
                         <div className="ml-auto">
                             <DialogTrigger>
-                                <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" onClick={onInterest} disabled={!text}>
                                     Senden
                                 </Button>
                             </DialogTrigger>

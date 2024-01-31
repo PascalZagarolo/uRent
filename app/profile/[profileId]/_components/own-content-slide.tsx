@@ -16,6 +16,7 @@ import {
 import { CarFront } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
+import { format } from "date-fns"
 
 interface OwnContentSlideProps {
   inserat: Inserat[] & { images: Images[] }[];
@@ -27,6 +28,11 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
+
+  const formatDate = (date : Date) => {
+     const returnedDate = format(new Date(date), "dd.MM");
+     return returnedDate;
+  }
 
   React.useEffect(() => {
     if (!api) {
@@ -63,7 +69,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                           <div className="p-2 border-black border rounded-md">
                             <CarFront className="" />
                           </div>
-                          <h3 className="font-semibold text-lg  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] p-2">
+                          <h3 className="font-semibold text-medium ml-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] p-2 ">
                             {inserat.title}
                           </h3>
                         </div>
@@ -74,10 +80,17 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                           />
                         </div>
-                        <div>
+                        <div className="flex mt-1">
                           <Badge className="bg-emerald-600 border border-black">
                             Verfügbar
                           </Badge>
+                          
+                          <div>
+                          <p className="flex font-semibold ml-8 italic text-gray-900/70 text-sm"> {formatDate(inserat.begin)} - {formatDate(inserat.end)}</p>
+                          </div>
+                          <div className="flex ml-auto font-bold text-md">
+                          {inserat.price}  <p className="text-xs mr-1">00</p> €
+                          </div>
                         </div>
                       </div>
                     </CardContent>

@@ -1,3 +1,5 @@
+'use server'
+
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
 import { NextResponse } from "next/server";
@@ -19,7 +21,7 @@ export async function POST(
             verificationToken.token
         )
         
-            return new NextResponse("Success", { status: 200 })
+            return new NextResponse("Email sent", { status: 200 });
 
     } catch(error) {
          console.log(error);

@@ -221,8 +221,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                             </div>
                         </DialogHeader>
                         <div>
-                            <p>
-                                Soziale Netzwerke :
+                            <p className="font-semibold italic flex">
+                               <Share className="mr-2"/> Soziale Netzwerke :
                             </p>
                             <div className="flex gap-x-4 items-center mt-4 justify-evenly ">
                                 <FacebookShareButton
@@ -259,8 +259,9 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                             </div>
                             <div className="mt-2 flex">
                                 <Input
-                                    className="rounded-none border border-gray-300 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                                    className="rounded-none border border-gray-300 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:underline hover:cursor-pointer"
                                     value={currentUrl}
+                                    onClick={() => { copyToClipboard(currentUrl) }}
                                 />
                                 <CopyIcon className="w-4 h-4 ml-2 hover:cursor-pointer" onClick={() => { copyToClipboard(currentUrl) }} />
 

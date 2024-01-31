@@ -10,6 +10,7 @@ import MoreReviews from "./more-reviews";
 import RezensionenRender from "./rezensionen";
 
 
+
 interface RightSideProfileProps {
     inserate: Inserat[] & { images: Images[] }[];
     rezensionen: Rezension[] & { sender: User }[];
@@ -61,10 +62,10 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
 
 
                     )}
-
-
-                </div>
+                    
+                                        </div>
             </div>
+            
             {rezensionen.length !== 0 ? (
                 <div className="mt-4 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]">
                 {rezensionen.map((rezension) => (

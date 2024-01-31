@@ -42,15 +42,18 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
         }
     })
 
+    const isOwnProfile = ownProfile || user.emailVerified ? true : false;
+
     return (
         <div className="ml-16">
-            {!user.confirmedMail && ownProfile && (
+            
                 <div className="mt-4">
                     <NotVerifiedYet
                         email={user.email}
+                        isOwnProfile={isOwnProfile}
                     />
                 </div>
-            )}
+          
 
             <div className="flex   p-8 rounded-md border-2 border-gray-300  bg-[#10121a] text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <h3 className="text-4xl font-semibold flex justify-start items-center">

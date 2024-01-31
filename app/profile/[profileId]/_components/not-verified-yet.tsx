@@ -9,11 +9,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface NotVerifiedYetProps {
-    email : string
+    email : string;
+    isOwnProfile : boolean;
 }
 
 const NotVerifiedYet: React.FC<NotVerifiedYetProps> = ({
     email,
+    isOwnProfile
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +31,9 @@ const NotVerifiedYet: React.FC<NotVerifiedYetProps> = ({
     }
 
     return (
-        <Alert className="mt-2 mr-16 bg-yellow-100">
+        <>
+        {isOwnProfile && (
+            <Alert className="mt-2 mr-16 bg-yellow-100">
             <AlertTitle className="flex">
                 <AlertCircleIcon /> <p className="ml-2"> Dein Account wurde noch nicht bestätigt</p>
             </AlertTitle>
@@ -41,6 +45,8 @@ const NotVerifiedYet: React.FC<NotVerifiedYetProps> = ({
                 </div>
             </AlertDescription>
         </Alert>
+        )}
+        </>
     );
 }
 

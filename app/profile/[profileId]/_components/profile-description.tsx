@@ -79,9 +79,11 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                         <Separator
                          className="w-1/2 ml-8 bg-gray-700"
                         />
-                        <Button className="ml-16 flex bg-gray-200" variant="ghost" onClick={onEdit}>
+                        {ownProfile && (
+                            <Button className="ml-16 flex bg-gray-200" variant="ghost" onClick={onEdit}>
                             <PencilIcon className="h-4 w-4"/>
                         </Button>
+                        )}
                         </div>
                         <div className="mt-4">
                         {isEditing ? (

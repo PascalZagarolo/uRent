@@ -5,11 +5,13 @@ import { ContactOptions }   from "@prisma/client";
 import { cn } from "@/lib/utils";
 
 interface ContactOptionsProps {
-    contacts : ContactOptions
+    contacts : ContactOptions;
+    ownProfile : boolean;
 }
 
 const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
-    contacts
+    contacts,
+    ownProfile
 }) => {
 
     const nothingAdded = !contacts?.emailAddress && !contacts?.websiteAddress && !contacts?.addressString && !contacts?.phoneNumber ? true : false;
@@ -47,7 +49,9 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
                 
                 
             </div>
-            <AddContactOption />
+            {ownProfile && (
+                <AddContactOption />
+            )}
             <div className="flex-row flex">
 
             </div>

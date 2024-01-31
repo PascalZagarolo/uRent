@@ -60,6 +60,12 @@ const InseratAnzeige = async ({
         }
     })
 
+    const contactOptions = await db.contactOptions.findUnique({
+        where : {
+            userId : currentUser.id
+        }
+    })
+
    
 
     const isPurchased = purchases ? true : false;
@@ -132,6 +138,8 @@ const InseratAnzeige = async ({
                     user = {user}
                     isPurchased = {isPurchased}
                     ownUser = {currentUser}
+                    
+                    contactOptions = {contactOptions}
                     />
                 </div>
                 <div className="mt-16">

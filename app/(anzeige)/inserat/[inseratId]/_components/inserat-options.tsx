@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { User } from "@prisma/client";
+import { User, ContactOptions } from "@prisma/client";
 
 
 import axios from "axios";
@@ -19,21 +19,32 @@ interface InseratOptionsProps {
     user: User;
     isPurchased: boolean;
     ownUser: User;
+    contactOptions : ContactOptions;
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
     user,
     isPurchased,
-    ownUser
+    ownUser,
+    contactOptions
 }) => {
+
+    const name = contactOptions.emailAddress
+    
 
     const [text, setText] = useState(
         "Betreff: Anfrage bezüglich Mietwagen\n\n" +
         "Sehr geehrte Damen und Herren,\n\n" +
         "Nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug. Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.\n\n" +
-        "Mit freundlichen Grüßen,\n\n" +
-        "[Dein Name]\n" +
-        "[Deine Kontaktdaten]"
+        "Mit freundlichen Grüßen,\n" +
+        "[Dein Name]\n\n" +
+        "Meine Kontaktdaten : \n\n" +
+        "E-Mail : " + name  + "\n" +
+        "Telefon : " + (contactOptions.phoneNumber !== null ? contactOptions.phoneNumber : "[Deine Telefonnummer]") + "\n"
+
+        
+        
+        
     );
 
     const handleTextChange = (event) => {

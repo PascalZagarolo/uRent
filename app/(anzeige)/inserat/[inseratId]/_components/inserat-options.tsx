@@ -10,10 +10,12 @@ import { EmailShareButton, FacebookMessengerIcon, FacebookMessengerShareButton, 
 
 import axios from "axios";
 import { set } from "date-fns";
-import { ArrowRight, Banknote, Check, Facebook, FacebookIcon, Forward, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp, TwitterIcon } from "lucide-react";
+import { ArrowRight, Banknote, Check, CopyIcon, Facebook, FacebookIcon, Forward, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp, TwitterIcon } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Input } from "@/components/ui/input";
+import { Toast } from "@/components/ui/toast";
 
 interface InseratOptionsProps {
     user: User;
@@ -113,6 +115,13 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         }
     }
 
+    const copyToClipboard = async (text: string) => {
+       await navigator.clipboard.writeText(text);
+       toast.success("Link in Zwischenablage kopiert")
+    };
+
+
+
 
 
 
@@ -208,35 +217,53 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     <DialogContent>
                         <DialogHeader className="flex">
                             <div className="flex text-lg font-semibold">
-                            <Forward className="mr-2 "/> Anzeige teilen
+                                <Forward className="mr-2 " /> Anzeige teilen
                             </div>
                         </DialogHeader>
                         <div>
                             <p>
-                                Soziale Netzwerke : 
+                                Soziale Netzwerke :
                             </p>
-                            <div className="flex gap-x-4 items-center mt-4 justify-evenly">
-                            <FacebookShareButton
-                            url={currentUrl}
-                            hashtag="#Urent"
-                            >
-                                <FacebookIcon size={32} className="rounded-md" />
-                                
-                            </FacebookShareButton>
-                            <TwitterShareButton
-                            title="Dieses Produkt habe ich auf Urent gefunden, Wow!"
-                            hashtags={["Urent", "#Mietwagen", "#Autovermietung", "#Inserat"]}
-                            url={currentUrl}
-                            >
-                                <TwitterIcon/>
-                            </TwitterShareButton>
-                            <EmailShareButton
-                            url={currentUrl}
-                            subject="Dieses Produkt habe ich auf Urent gefunden, Wow!"
-                            body="Hallo, ich habe dieses Produkt auf Urent gefunden und wollte es dir zeigen." 
-                            >
-                                <Mail className=" mr-2" />
-                            </EmailShareButton>
+                            <div className="flex gap-x-4 items-center mt-4 justify-evenly ">
+                                <FacebookShareButton
+                                    className=""
+                                    url={currentUrl}
+                                    hashtag="#Urent"
+                                >
+                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                                        <FacebookIcon size={32} className="w-6 h-6" />
+                                    </div>
+
+
+                                </FacebookShareButton>
+                                <TwitterShareButton
+
+                                    title="Dieses Produkt habe ich auf Urent gefunden, Wow!"
+                                    hashtags={["Urent", "#Mietwagen", "#Autovermietung", "#Inserat"]}
+                                    url={currentUrl}
+                                >
+                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                                        <TwitterIcon size={32} className="w-6 h-6" />
+                                    </div>
+                                </TwitterShareButton>
+                                <EmailShareButton
+
+                                    url={currentUrl}
+                                    subject="Dieses Produkt habe ich auf Urent gefunden, Wow!"
+                                    body="Hallo, ich habe dieses Produkt auf Urent gefunden und wollte es dir zeigen."
+                                >
+                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                                        <Mail size={32} className="w-6 h-6 " />
+                                    </div>
+                                </EmailShareButton>
+                            </div>
+                            <div className="mt-2 flex">
+                                <Input
+                                    className="rounded-none border border-gray-300 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                                    value={currentUrl}
+                                />
+                                <CopyIcon className="w-4 h-4 ml-2 hover:cursor-pointer" onClick={() => { copyToClipboard(currentUrl) }} />
+
                             </div>
                         </div>
                     </DialogContent>

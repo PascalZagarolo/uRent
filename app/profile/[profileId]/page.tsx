@@ -4,7 +4,11 @@ import ProfileBody from "./_components/profile-body";
 import getCurrentUser from "@/actions/getCurrentUser";
 import ProfileFooter from "./_components/profile-footer";
 import RightSideProfile from "./_components/right-side";
-import { use } from 'react';
+import { Rezension, User } from "@prisma/client";
+
+type RezensionWithSender = Rezension & {
+    sender: User;
+  };
 
 const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 
@@ -26,12 +30,14 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             images : true
         }
     })
-
-    const rezensionen = await db.rezension.findMany({
+    
+    
+    const rezensionen: RezensionWithSender[] = await db.rezension.findMany({
         where : {
             receiverId : params.profileId
         }, include : {
             sender : true
+                   
         }
     })
 
@@ -46,7 +52,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             ownProfile = {ownProfile}
             />
             </div>
-
+            
             <div className="w-1/2 ml-8 mr-16">
             <RightSideProfile
             inserate = {inserate}

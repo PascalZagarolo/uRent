@@ -1,8 +1,12 @@
 import { CarIcon } from "lucide-react";
-import { Rezension } from "@prisma/client";
+import { Rezension, User } from "@prisma/client";
+
+type RezensionWithSender = Rezension & {
+    sender: User;
+  };
 
 interface RezensionenRenderProps {
-    rezension : Rezension
+    rezension : RezensionWithSender
 }
 
 const RezensionenRender: React.FC<RezensionenRenderProps> = ({
@@ -19,7 +23,7 @@ const RezensionenRender: React.FC<RezensionenRenderProps> = ({
                 />
             </div>
             <div className="ml-4 font-semibold">
-                name
+                {rezension.sender.name}
             </div>
             <div className="ml-auto flex font-bold">
                 {rezension.rating}/5 <CarIcon className="ml-2 text-blue-800"/>

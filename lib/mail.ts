@@ -1,3 +1,5 @@
+'use server';
+
 import { Resend } from "resend";
 
 
@@ -9,7 +11,7 @@ export const sendVerificationEmail = async (
 ) => {
     const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
 
-    console.log(",,," + email + token)
+    console.log("sendVerificationEmail" + email + token)
 
     await resend.emails.send({
         from: "mail@u-rent-rental.de",

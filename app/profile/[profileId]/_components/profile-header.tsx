@@ -117,7 +117,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     <Contact className="mr-1" /> Kontakt
                 </div>
                 <div>
-                    <ContactOptionsRender
+                <ContactOptionsRender
                     contacts={contacts}
                     />
                 </div>

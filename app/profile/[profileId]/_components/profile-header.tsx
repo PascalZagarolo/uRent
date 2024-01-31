@@ -11,6 +11,8 @@ import { use } from "react";
 import { Separator } from "@/components/ui/separator";
 import ProfileDescription from "./profile-description";
 import ContactOptions from "./contact-options";
+import ContactOptionsRender from "./contact-options";
+import { db } from "@/utils/db";
 
 
 interface ProfileHeaderProps {
@@ -20,7 +22,7 @@ interface ProfileHeaderProps {
 }
 
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({
+const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     currentUser,
     user,
     ownProfile
@@ -33,6 +35,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
 
         return `${day}.${month}.${year}`;
     };
+
+    const contacts = await db.contactOptions.findUnique({
+        where : {
+            userId : user.id
+        }
+    })
 
     return (
         <div className="ml-16">
@@ -109,7 +117,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                     <Contact className="mr-1" /> Kontakt
                 </div>
                 <div>
-                    <ContactOptions/>
+                    <ContactOptionsRender
+                    contacts={contacts}
+                    />
                 </div>
             </div>
 

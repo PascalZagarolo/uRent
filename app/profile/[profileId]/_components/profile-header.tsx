@@ -44,7 +44,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
     return (
         <div className="ml-16">
-            {!user.confirmedMail && (
+            {!user.confirmedMail && ownProfile && (
                 <div className="mt-4">
                     <NotVerifiedYet
                         email={user.email}
@@ -78,7 +78,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                     imageUrl={currentUser.image}
                                 />
                                 <div className="items-center ml-8">
-                                    <UploadProfilePic />
+                                    {ownProfile && (
+                                        <UploadProfilePic />
+                                    )}
                                     <div className="text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] mt-2 flex">
                                         <UserCircle2 className="mr-1" /> Mitglied seit : {convertDateTimeToString(currentUser.createdAt)}
                                     </div>
@@ -88,27 +90,30 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                         </div>
 
                     </div>
+                    {ownProfile && (
+                        <div className="ml-8 mt-1 w-1/2  p-8  bg-white border-2 border-gray-400  border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
-                    <div className="ml-8 mt-1 w-1/2  p-8  bg-white border-2 border-gray-400  border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                        <div className="w-full ">
+                            <p className="flex justify-center font-semibold items-center text-lg">
+                                Du hast ein Gewerbe ?
+                            </p>
+                        </div>
+                        <div className="mt-16">
+                            <a href="/..." className="underline flex justify-center"> Hier dein Gewerbe registrieren </a>
+                        </div>
+                       
 
-                            <div className="w-full ">
-                                <p className="flex justify-center font-semibold items-center text-lg">
-                                    Du hast ein Gewerbe ?
-                                </p>
-                            </div>
-                            <div className="mt-16">
-                                <a href="/..." className="underline flex justify-center"> Hier dein Gewerbe registrieren </a>
-                            </div>
-                           
+                </div>
 
-                    </div>
-
+                    )}
+                    
                 </div>
                 <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
                     <UserCircle2 className="mr-1" /> Über mich
                 </div>
                 <div>
-                <ProfileDescription ownProfile={true}
+                <ProfileDescription 
+                ownProfile={ownProfile}
                     user={user}
                 />
                 </div>
@@ -119,6 +124,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 <div>
                 <ContactOptionsRender
                     contacts={contacts}
+                    ownProfile={ownProfile}
                     />
                 </div>
             </div>

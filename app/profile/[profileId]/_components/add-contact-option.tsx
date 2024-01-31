@@ -16,7 +16,10 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 
-const AddContactOption = () => {
+
+const AddContactOption = ({
+    
+}) => {
 
     const params = useParams();
 

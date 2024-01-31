@@ -73,7 +73,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     </p>
                 </div>
                 <div className="flex">
-                 {!isNaN(averageRating) ? <p className="font-semibold"> {averageRating} / 5  <CarIcon className="ml-2" /> </p>  : <p className="font-semibold italic text-sm text-gray-900/50">keine Bewertungen vorhanden</p>} 
+                 {!isNaN(averageRating) ? <p className="font-semibold flex"> {averageRating} / 5  <CarIcon className="ml-2" /> </p>  : <p className="font-semibold italic text-sm text-gray-900/50">keine Bewertungen vorhanden</p>} 
 
                 </div>
 

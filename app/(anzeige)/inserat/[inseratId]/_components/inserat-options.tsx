@@ -33,7 +33,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
     const currentUrl = window.location.href;
 
-    const name = contactOptions.emailAddress
+    const name = contactOptions?.emailAddress
 
 
     const [text, setText] = useState(
@@ -44,7 +44,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         "[Dein Name]\n\n" +
         "Meine Kontaktdaten : \n\n" +
         "E-Mail : " + name + "\n" +
-        "Telefon : " + (contactOptions.phoneNumber !== null ? contactOptions.phoneNumber : "[Deine Telefonnummer]") + "\n"
+        "Telefon : " + (contactOptions?.phoneNumber !== null ? contactOptions?.phoneNumber : "[Deine Telefonnummer]") + "\n"
 
 
 

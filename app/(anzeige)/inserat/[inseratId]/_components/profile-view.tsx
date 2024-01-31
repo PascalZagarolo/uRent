@@ -34,7 +34,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const router = useRouter();
 
     return (
-        <div className="px-4 py-4 bg-gradient-to-b from-[#586392] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md  ">
+        <div className="px-4 py-4 bg-gradient-to-b from-[#586392] via-[#5a6288] to-[#565e82] w-[400px] border border-black rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
             <div className="flex items-center  text-gray-100">
                 <Image
                     src={user.image || "/placeholder-person.jpg"}
@@ -73,7 +73,8 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     </p>
                 </div>
                 <div className="flex">
-                    <p className="font-semibold"> {averageRating} / 5 </p> <CarIcon className="ml-2" />
+                 {!isNaN(averageRating) ? <p className="font-semibold"> (averageRating / 5)  <CarIcon className="ml-2" /> </p>  : <p className="font-semibold italic text-sm text-gray-900/50">"keine Bewertungen vorhanden"</p>} 
+
                 </div>
 
             </div>

@@ -6,12 +6,12 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { User, ContactOptions } from "@prisma/client";
-
+import { EmailShareButton, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, TwitterShareButton } from "react-share"
 
 import axios from "axios";
 import { set } from "date-fns";
-import { Banknote, Check, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { ArrowRight, Banknote, Check, Facebook, FacebookIcon, Forward, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp, TwitterIcon } from "lucide-react";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -19,7 +19,7 @@ interface InseratOptionsProps {
     user: User;
     isPurchased: boolean;
     ownUser: User;
-    contactOptions : ContactOptions;
+    contactOptions: ContactOptions;
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
@@ -29,8 +29,10 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     contactOptions
 }) => {
 
+    const currentUrl = window.location.href;
+
     const name = contactOptions.emailAddress
-    
+
 
     const [text, setText] = useState(
         "Betreff: Anfrage bezüglich Mietwagen\n\n" +
@@ -39,12 +41,12 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         "Mit freundlichen Grüßen,\n" +
         "[Dein Name]\n\n" +
         "Meine Kontaktdaten : \n\n" +
-        "E-Mail : " + name  + "\n" +
+        "E-Mail : " + name + "\n" +
         "Telefon : " + (contactOptions.phoneNumber !== null ? contactOptions.phoneNumber : "[Deine Telefonnummer]") + "\n"
 
-        
-        
-        
+
+
+
     );
 
     const handleTextChange = (event) => {
@@ -136,11 +138,11 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
-                        
-                            <Button className="bg-emerald-600 border-2 border-black w-[240px]">
-                                <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
-                            </Button>
-                        
+
+                        <Button className="bg-emerald-600 border-2 border-black w-[240px]">
+                            <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
+                        </Button>
+
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
@@ -197,9 +199,48 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             </div>
 
             <div className="mt-4">
-                <Button className="bg-[#1f2230] w-[240px] border-2 border-black flex">
-                    <Share className="h-4 w-4 mr-2" />  Anzeige teilen
-                </Button>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button className="bg-[#1f2230] w-[240px] border-2 border-black flex">
+                            <Share className="h-4 w-4 mr-2" />  Anzeige teilen
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader className="flex">
+                            <div className="flex text-lg font-semibold">
+                            <Forward className="mr-2 "/> Anzeige teilen
+                            </div>
+                        </DialogHeader>
+                        <div>
+                            <p>
+                                Soziale Netzwerke : 
+                            </p>
+                            <div className="flex gap-x-4 items-center mt-4 justify-evenly">
+                            <FacebookShareButton
+                            url={currentUrl}
+                            hashtag="#Urent"
+                            >
+                                <FacebookIcon size={32} className="rounded-md" />
+                                
+                            </FacebookShareButton>
+                            <TwitterShareButton
+                            title="Dieses Produkt habe ich auf Urent gefunden, Wow!"
+                            hashtags={["Urent", "#Mietwagen", "#Autovermietung", "#Inserat"]}
+                            url={currentUrl}
+                            >
+                                <TwitterIcon/>
+                            </TwitterShareButton>
+                            <EmailShareButton
+                            url={currentUrl}
+                            subject="Dieses Produkt habe ich auf Urent gefunden, Wow!"
+                            body="Hallo, ich habe dieses Produkt auf Urent gefunden und wollte es dir zeigen." 
+                            >
+                                <Mail className=" mr-2" />
+                            </EmailShareButton>
+                            </div>
+                        </div>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     );

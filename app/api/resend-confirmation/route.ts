@@ -7,18 +7,22 @@ export async function POST(
     
 ) {
     try {
-
-        const {email} = await req.json();
+        const { email } = await req.json();
+        
 
         const verificationToken = await generateVerificationToken(email);
+
+        console.log(verificationToken.email, verificationToken.token)
+        
         await sendVerificationEmail(
             verificationToken.email,
             verificationToken.token
         )
         
-            return new NextResponse("Success" , {status : 200})
+            return new NextResponse("Success", { status: 200 })
 
     } catch(error) {
-        console.log(error);
+         console.log(error);
+         return new NextResponse(error, { status: 404 })
     }
 }

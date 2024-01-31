@@ -9,11 +9,13 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import MoreReviews from "./more-reviews";
 import RezensionenRender from "./rezensionen";
 
-
+type RezensionWithSender = Rezension & {
+    sender: User;
+  };
 
 interface RightSideProfileProps {
     inserate: Inserat[] & { images: Images[] }[];
-    rezensionen: Rezension[] & { sender: User }[];
+    rezensionen: RezensionWithSender[];
 
 }
 
@@ -63,12 +65,13 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
 
                     )}
                     
+                    
                                         </div>
             </div>
             
             {rezensionen.length !== 0 ? (
                 <div className="mt-4 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]">
-                {rezensionen.map((rezension) => (
+                {rezensionen.map((rezension : RezensionWithSender) => (
                     <RezensionenRender
                         rezension={rezension}
                         key={rezension.id}

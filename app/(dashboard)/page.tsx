@@ -53,12 +53,12 @@ const Main = async ({
     })
     
     return ( 
-        <div className="flex sm:h-full sm:overflow-y-hidden no-scrollbar ">
-  <div className="absolute overflow-hidden  ">
+        <div className="flex sm:h-full sm:overflow-y-auto no-scrollbar ">
+  <div className="fixed hidden 2xl:block overflow-y-auto">
     <MainPageSidebar treffer={inserate.length} />
   </div>
-  <div className="sm:ml-72   ml-4 hidden sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar   w-full mr-2">
-    <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
+  <div className="2xl:ml-72   ml-4 hidden sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar    ">
+  <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
      start={searchParams.start} end={searchParams.end} page={searchParams.page} />
   </div>
   <div className="mt-2 ml-4 overflow-y-auto sm:hidden">

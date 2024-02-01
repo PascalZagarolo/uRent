@@ -15,7 +15,7 @@ const DashboardLayout = async (
 
     return ( 
         <div className="bg-[#404040]/10 min-h-screen no-scrollbar ">
-             <div className="hidden sm:block">
+             <div className="hidden sm:block top-0  w-full  ">
              <HeaderLogo
                 currentUser={currentUser}
                 />
@@ -24,7 +24,7 @@ const DashboardLayout = async (
                 <MobileHeader/>
              </div>
              
-             <div className="overflow-hidden h-full">
+             <div className="overflow-hidden h-full ">
              {children}
             </div>
         </div>

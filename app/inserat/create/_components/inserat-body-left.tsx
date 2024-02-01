@@ -34,7 +34,7 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = ({
             </div>
             <div className="ml-4 mr-8">
                 <div >
-                    <h3 className="flex justify-center text-xl mt-8 font-semibold bg-gray-700 p-4 text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] border-gray-800 border-2"><Car className="mr-4 h-6 w-6" />
+                    <h3 className="flex justify-center text-xl mt-8 font-semibold bg-[#1f2332] p-4 text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] border-gray-800 border-2"><Car className="mr-4 h-6 w-6" />
                         Spezifikationen deiner Anzeige
                     </h3>
                 </div>

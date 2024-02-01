@@ -66,7 +66,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
 
     return ( 
         <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ">
-            <h1 className="text-xl flex justify-start ml-8 font-semibold  mr-16 p-4 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ">
+            <h1 className="text-xl flex justify-start ml-8 font-semibold  mr-16 p-4 text-gray-900   ">
                <AppWindow className="mr-4"/> Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             

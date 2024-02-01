@@ -8,6 +8,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import path from "path";
+import FilterDialog from "./filter-dialog";
 
 const SearchItem = () => {
 
@@ -33,7 +34,7 @@ const SearchItem = () => {
     return (
         <div className="flex items-center justify-start position: static mr-16 ">
 
-            
+            <FilterDialog/>
             
 
             <Input

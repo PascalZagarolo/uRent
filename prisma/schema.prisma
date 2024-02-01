@@ -88,6 +88,7 @@ model Inserat {
   isPublished Boolean @default(false)
 
   alreadyOwned Boolean @default(false)
+  isAvailable Boolean @default(true)
 
   begin DateTime?
   end DateTime?
@@ -106,8 +107,10 @@ model Inserat {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-
   favourites Favourite[]
+
+  pkwAttribute PKWAttribute?
+
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -138,20 +141,7 @@ model Images {
 }
 
 
-model Attributes {
-  id String @id @default(uuid())
 
-  marke String?
-  model String?
-  farbe String?
-
-  erstzulassung DateTime?
-  kilometer Int?
-  leistung Int?
-
-  
-
-}
 
 model Favourite {
   id String @id @default(uuid())
@@ -260,6 +250,26 @@ model ContactOptions {
   addressString String?
 
 
+
+}
+
+model PKWAttribute {
+  id String @id @default(uuid())
+
+  marke String?
+  model String?
+  farbe String?
+
+  sitze Int?
+
+  erstzulassung DateTime?
+  kilometer Int?
+  leistung Int?
+
+  inseratId String?
+  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  @@unique([inseratId])
 
 }
 

@@ -106,7 +106,7 @@ model Inserat {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  attributes PkwAttributes[]
+
   favourites Favourite[]
 
   userId String
@@ -263,23 +263,7 @@ model ContactOptions {
 
 }
 
-model PkwAttributes {
 
-  id String @id @default(uuid())
-
-  inseratId String
-  inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
-
-
-  marke String?
-  model String?
-  baujahr String?
-
-  sitze Int?
-
-  farbe String?
-
-}
 
 
 

@@ -23,7 +23,7 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
     return ( 
         <div className="w-full">
             <div className="">
-            <h3 className="text-3xl font-semibold flex justify-center rounded-md border-2 text-gray-200 border-gray-400 p-4 bg-gray-800 mr-16 ml-16
+            <h3 className="text-3xl font-semibold flex justify-center rounded-md border-2 text-gray-200 border-gray-400 p-4 bg-[#1f2332] mr-16 ml-16
             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]
             "> Anzeige bearbeiten </h3>
             { inserat.isPublished ? (

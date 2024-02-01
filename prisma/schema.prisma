@@ -106,6 +106,7 @@ model Inserat {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  attributes PkwAttributes[]
   favourites Favourite[]
 
   userId String
@@ -234,7 +235,7 @@ model Rezension {
   receiver User @relation("received" , fields: [receiverId], references: [id], onDelete: Cascade)
 
   senderId String
-  sender User @relation("sended",fields: [senderId], references: [id], onDelete: Cascade)
+  sender User @relation("sended" ,fields: [senderId], references: [id], onDelete: Cascade)
 
   @@unique([receiverId, senderId])
   @@index([receiverId])
@@ -259,6 +260,28 @@ model ContactOptions {
   addressString String?
 
 
+
+}
+
+model PkwAttributes {
+
+  id String @id @default(uuid())
+
+  inseratId String
+  inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+
+  marke String?
+  model String?
+  baujahr String?
+
+  sitze Int?
+
+  farbe String?
+
+
+
+   
 
 }
 

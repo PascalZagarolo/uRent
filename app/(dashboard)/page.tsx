@@ -10,6 +10,7 @@ import MainPageSidebar from "./_components/main-page-sidebar";
 import type { Category } from "@prisma/client";
 import { db } from "@/utils/db";
 import RelevanteInserateMobile from "./_bodyparts/relevante-inserate-mobile";
+import HeaderLogo from "./_components/header-logo";
 
 
 type InserateWithImages = Inserat & {
@@ -53,19 +54,45 @@ const Main = async ({
     })
     
     return ( 
-        <div className="flex sm:h-full sm:overflow-y-auto no-scrollbar ">
-  <div className="fixed hidden 2xl:block overflow-y-auto">
-    <MainPageSidebar treffer={inserate.length} />
+        <div className="relative sm:h-full sm:overflow-y-auto no-scrollbar">
+  {/* Fixed Header and Sidebar */}
+  <div className="fixed top-0 w-full z-50">
+    
+      <HeaderLogo currentUser={currentUser} />
+      
+      <MainPageSidebar treffer={inserate.length} />
+      
+    
   </div>
-  <div className="2xl:ml-72   ml-4 hidden sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar    ">
-  <RelevanteInserate title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
-     start={searchParams.start} end={searchParams.end} page={searchParams.page} />
-  </div>
-  <div className="mt-2 ml-4 overflow-y-auto sm:hidden">
-        <RelevanteInserateMobile title={searchParams.title} category={searchParams.category} filter={searchParams.filter}
-     start={searchParams.start} end={searchParams.end} page={searchParams.page}/>
+
+  {/* Margin for the content to avoid overlap */}
+  <div className="2xl:ml-72 sm:mt-24 ml-4 relative z-0">
+    {/* Main Content */}
+    <div className="hidden sm:block overflow-y-auto sm:overflow-hidden no-scrollbar ">
+      <RelevanteInserate
+        title={searchParams.title}
+        category={searchParams.category}
+        filter={searchParams.filter}
+        start={searchParams.start}
+        end={searchParams.end}
+        page={searchParams.page}
+      />
+    </div>
+
+    {/* Mobile Content */}
+    <div className="mt-2 ml-4 overflow-y-auto sm:hidden">
+      <RelevanteInserateMobile
+        title={searchParams.title}
+        category={searchParams.category}
+        filter={searchParams.filter}
+        start={searchParams.start}
+        end={searchParams.end}
+        page={searchParams.page}
+      />
+    </div>
   </div>
 </div>
+
 
      );
 }

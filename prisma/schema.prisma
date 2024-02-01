@@ -279,10 +279,6 @@ model PkwAttributes {
 
   farbe String?
 
-
-
-   
-
 }
 
 

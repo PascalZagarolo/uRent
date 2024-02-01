@@ -198,7 +198,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </Link>
 
                             <div className="ml-auto mr-2">
-                                <Button className="bg-[#222637]  border border-white  font-semibold">
+                                <Button className="bg-[#222637] border border-white font-semibold" onClick={() => { router.push(`/inserat/${inserat.id}`)}}>
                                     Besichtigen
                                 </Button>
                             </div>

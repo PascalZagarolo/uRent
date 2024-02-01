@@ -20,7 +20,7 @@ const InseratBodyRight: React.FC<InseratBodyRightProps> = async ({
 
     return (
         <div>
-            <div>
+            <div className="mt-4">
                 <InseratImageUpload
                 images={images}
                 />

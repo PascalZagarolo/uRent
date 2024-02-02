@@ -6,6 +6,7 @@ import InseratBodyRight from "../_components/input-fields/inserat-body-right";
 import CreationHeaderLogo from "../_components/creation-logo";
 import MoreDetails from "../_components/more-details";
 
+
 const InseratCreation = async ({
     params
 } : { params : { inseratId : string }}) => {
@@ -30,7 +31,9 @@ const InseratCreation = async ({
             <div className="grid grid-cols-2 gap-4 mb-4">
                 
                 <div className="col-span-1 ">
-                <MoreDetails/>
+                <MoreDetails
+                inserat = {inserat}
+                />
                     <InseratBodyLeft
                     inserat = {inserat}
                     />

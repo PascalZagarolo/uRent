@@ -42,7 +42,12 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
       })
    
 
-    const onSubmit = (values : z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
+
+      const values = {
+        category : currentCategory
+      }
+
       try {
         setIsLoading(true);
         axios.patch(`/api/inserat/${inserat.id}`, values);
@@ -56,6 +61,8 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
         setIsLoading(false);
       }
     }
+
+    const [currentCategory, setCurrentCategory] = useState(inserat.category);
     
     return (
         <div className=" mt-4 flex items-center">
@@ -67,7 +74,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fahrzeugklasse</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={inserat.category}>
+              <Select onValueChange={(selectedValue) => {setCurrentCategory(selectedValue)}} defaultValue={inserat.category}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />
@@ -82,14 +89,15 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
                   <SelectItem value="CARAVAN">Wohnwagen</SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription>
-               
-              </FormDescription>
+              
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-blue-800">Kategorie auswählen</Button>
+        <Button type="submit" className="bg-white mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-900 hover:bg-gray-200" 
+        disabled={currentCategory == inserat.category}>
+          Kategorie auswählen
+          </Button>
       </form>
     </Form>
         </div>

@@ -7,25 +7,23 @@ const Bookings = async ({
     params
 }: { params: { userId: string } }) => {
 
-    const purchases = await db.purchase.findMany({
-        where: {
-            userId: params.userId
-        }, include: {
-            inserat: {
-                include: {
-                    user: true,
-                    images: true
+    const favourites = await db.favourite.findMany({
+        where : {
+            userId : params.userId
+        }, include : {
+            
+            inserat : {
+                include : {
+                    user : true,
+                    images : true
                 }
-            }
-
+            },
         }
     })
 
     const today = new Date();
 
-    const currentRents = purchases.filter((purchase) => {
-        return new Date() < new Date(purchase.inserat.end);
-    });
+    
     
 
     return (
@@ -40,15 +38,15 @@ const Bookings = async ({
                         <Star className="mr-4" /> Favourisierte Anzeigen
                     </h3>
                       <div className="gap-y-2">
-                      {currentRents.map((purchase) => (
+                      {favourites.map((favourite) => (
                         <Favourites
-                        key={purchase.id}
-                        purchase={purchase}
+                        key={favourite.id}
+                        favourite={favourite}
                         />
                       ))}
                       </div>
                       <div>
-                            {currentRents.length === 0 && (
+                            {favourites.length === 0 && (
                                 <p className="flex justify-center mt-8 text-gray-400 text-xl font-semibold">
                                     Du hast noch keine Favouriten
                                 </p>
@@ -60,7 +58,7 @@ const Bookings = async ({
                         <ListOrdered className="mr-4" /> Bestellhistorie
                     </h3>
                     <div className="">
-                        {purchases.map((purchase) => (
+                        {favourites.map((purchase) => (
                             <OrderColoumns
                                 key={purchase.id}
                                 purchase={purchase}
@@ -68,7 +66,7 @@ const Bookings = async ({
                         ))}
                     </div>
                     <div>
-                            {currentRents.length === 0 && (
+                            {favourites.length === 0 && (
                                 <p className="flex justify-center mt-8 text-gray-400 text-xl font-semibold">
                                     Du hast noch keine Bestellungen
                                 </p>

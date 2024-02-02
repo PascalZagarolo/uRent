@@ -1,4 +1,5 @@
 import { Purchase, Inserat, User } from "@prisma/client";
+import { format } from "date-fns";
 
 interface OrderColoumnsProps {
     purchase : Purchase & { inserat : Inserat & { user : User} }
@@ -9,11 +10,9 @@ const OrderColoumns: React.FC<OrderColoumnsProps> = ({
 }) => {
 
     const formatDate = (inputDate: Date): string => {
-        const day = ('0' + inputDate.getDate()).slice(-2);
-        const month = ('0' + (inputDate.getMonth() + 1)).slice(-2);
-        const year = inputDate.getFullYear();
+        const returnDate =  format(new Date(2014, 1, 11), "yyyy-MM-dd")
       
-        return `${day}.${month}.${year}`;
+        return returnDate;
       };
 
       const formatPeriod = (inputDate: Date): string => {

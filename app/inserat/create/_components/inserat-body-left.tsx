@@ -44,9 +44,11 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = ({
                             inserat={inserat}
                         />
                     </div>
-                    <div>
+                    {inserat.category === "PKW" && (
+                        <div>
                         <Sitze/>
                     </div>
+                    )}
                 </div>
             </div>
             <div>

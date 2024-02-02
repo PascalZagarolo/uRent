@@ -71,6 +71,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
                                     type="number"
                                     {...field}
                                     name="price"
+                                    disabled={inserat.category? false : true}
                                 />
                                 </FormControl>
                                 <FormMessage/>

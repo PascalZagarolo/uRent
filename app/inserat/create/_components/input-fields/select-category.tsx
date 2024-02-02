@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
 import axios from "axios";
 import { CarFront, Link } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
@@ -28,6 +29,8 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
       })
     })
 
+    const router = useRouter();
+
     const [isLoading, setIsLoading] = useState(false);
 
    
@@ -44,6 +47,9 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
         setIsLoading(true);
         axios.patch(`/api/inserat/${inserat.id}`, values);
         toast.success("Kategorie erfolgreich gespeichert");
+        setTimeout(() => {
+          router.refresh();
+        }, 1000)
       } catch {
         toast.error("Fehler beim Speichern der Kategorie");
       } finally {
@@ -61,7 +67,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fahrzeugklasse</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={"PKW"}>
+              <Select onValueChange={field.onChange} defaultValue={inserat.category}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />

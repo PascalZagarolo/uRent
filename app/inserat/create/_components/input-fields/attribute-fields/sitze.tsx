@@ -41,15 +41,7 @@ const Sitze = ({
    
 
     const onSubmit = (values : z.infer<typeof formSchema>) => {
-      try {
-        setIsLoading(true);
-        axios.patch(`/api/inserat/${params.inseratId}`, values);
-        toast.success("Kategorie erfolgreich gespeichert");
-      } catch {
-        toast.error("Fehler beim Speichern der Kategorie");
-      } finally {
-        setIsLoading(false);
-      }
+      console.log(values)
     }
     
     return (
@@ -62,13 +54,13 @@ const Sitze = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Sitzplätze</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={"2"}>
+              <Select onValueChange={(selectedValue) => {console.log('Selected Value:', selectedValue)}} defaultValue={"2"}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="min-w-[200px]">
                     <SelectValue placeholder="Wähle die Menge der Sitzplätze aus" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
+                <SelectContent >
                   <SelectItem value="2">2</SelectItem>
                   <SelectItem value="3">3</SelectItem>
                   <SelectItem value="4">4</SelectItem>
@@ -84,7 +76,7 @@ const Sitze = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-blue-800">Anzahl auswählen</Button>
+        
       </form>
     </Form>
         </div>

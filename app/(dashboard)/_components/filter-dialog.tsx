@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -7,8 +9,15 @@ import { Label } from "@radix-ui/react-label";
 import { AlignLeft, DollarSignIcon, Settings, Settings2Icon } from "lucide-react";
 import PriceFormFilter from "./_smart-filter/_components/price";
 import PriceDetailForm from "./_smart-filter/_components/price-detail-filter";
+import PkwFilter from "./_filter-types/pkw-filter";
+import { useSearchParams } from "next/navigation";
 
 const FilterDialog = () => {
+
+    const searchParams = useSearchParams();
+
+    const currentCategory = searchParams.get("category");
+
     return (
         <div>
             <Dialog>
@@ -81,6 +90,9 @@ const FilterDialog = () => {
                             <Settings className="mr-1"/> Spezifikationen 
                             <Separator className="w-2/3 ml-4 bg-gray-400 h-[0.5px]"/> 
                             </p>
+                        </div>
+                        <div>
+                            { currentCategory === "PKW" && <PkwFilter/> }
                         </div>
                     </div>
 

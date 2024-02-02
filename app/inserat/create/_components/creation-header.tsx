@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Inserat } from "@prisma/client";
 import PublishInserat from "./publish-inserat";
+import { ArrowLeft } from "lucide-react";
+import BackToHomepage from "./back-to-homepage";
 
 interface CreationHeaderProps {
     inserat : Inserat;
@@ -25,7 +27,7 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
             <div className="">
             <h3 className="text-3xl font-semibold flex justify-center rounded-md border-2 text-gray-200 border-gray-400 p-4 bg-[#1f2332] mr-16 ml-16
             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]
-            "> Anzeige bearbeiten </h3>
+            "> <BackToHomepage/> <p className="mr-auto"> Anzeige bearbeiten </p> </h3>
             { inserat.isPublished ? (
                 <p className="flex justify-center text-base border-2 border-gray-200 mt-2 font-bold rounded-md ml-32
                  mr-32 p-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">  veröffentlicht </p>

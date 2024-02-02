@@ -107,12 +107,12 @@ const PriceDetailForm = () => {
                         Von :
                     </h3>
                     <Select onValueChange={(e) => onClick(e, currentEnd)} value={startPrice || "0"} defaultValue="Start" >
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45]">
+                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] focus:ring-0">
                             <SelectValue className="font-bold" placeholder="Start" />
                         </SelectTrigger>
                         <SelectContent className="" >
                             <SelectGroup>
-                                <SelectLabel>Startpreis</SelectLabel>
+                                
                                 
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
@@ -135,12 +135,12 @@ const PriceDetailForm = () => {
                         Bis :
                     </h3>
                     <Select onValueChange={(e) => onClick(currentStart, e)} value={endPrice || "max"} >
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45]">
+                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] focus:ring-0">
                             <SelectValue className="font-bold" placeholder="Ende"/>
                         </SelectTrigger>
                         <SelectContent >
                             <SelectGroup>
-                                <SelectLabel>Endpreis</SelectLabel>
+                                
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
                                 <SelectItem value="75" className="font-bold">75 €</SelectItem>

@@ -93,7 +93,7 @@ const SitzeDetailForm = () => {
                         Sitzplätze
                     </h3>
                     <Select onValueChange={(e) => onClick(e)} value={sitze || "4"} defaultValue="Start" >
-                        <SelectTrigger className="w-[120px]  rounded-lg border-[#282c45]">
+                        <SelectTrigger className="w-[120px]  rounded-lg border-[#282c45] focus:ring-0">
                             <SelectValue className="font-bold" placeholder="Start" />
                         </SelectTrigger>
                         <SelectContent className="" >

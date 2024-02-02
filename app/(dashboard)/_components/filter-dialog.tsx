@@ -6,11 +6,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@radix-ui/react-label";
 
-import { AlignLeft, DollarSignIcon, Settings, Settings2Icon } from "lucide-react";
+import { AlignLeft, DollarSignIcon, GlassesIcon, HeartHandshakeIcon, ScanSearch, Settings, Settings2Icon } from "lucide-react";
 import PriceFormFilter from "./_smart-filter/_components/price";
 import PriceDetailForm from "./_smart-filter/_components/price-detail-filter";
 import PkwFilter from "./_filter-types/pkw-filter";
 import { useSearchParams } from "next/navigation";
+import SelectCategoryDetailForm from "./_smart-filter/_components/select-category";
 
 const FilterDialog = () => {
 
@@ -35,7 +36,7 @@ const FilterDialog = () => {
                     <div>
                         <div>
                         <p className="text-medium flex font-semibold mb-2 items-center"> 
-                            <DollarSignIcon className="mr-1"/> Preis 
+                            <HeartHandshakeIcon className="mr-1"/> Preis 
                             <Separator className="w-2/3 ml-4 bg-gray-400 h-[0.5px]"/> 
                             </p>
                             <PriceDetailForm/>
@@ -46,43 +47,7 @@ const FilterDialog = () => {
                             <Separator className="w-2/3 ml-4 bg-gray-400 h-[0.5px]"/> 
                             </p>
 
-                            <RadioGroup className="flex flex-wrap text-sm">
-                                
-                                <div className="flex items-center mr-4 mb-2">
-                                    <RadioGroupItem value="all" />
-                                    <Label className="ml-1 font-semibold">Alle</Label>
-                                </div>
-
-                                <div className="flex items-center mr-4 mb-2">
-                                    <RadioGroupItem value="PKW" />
-                                    <Label className="ml-1 font-semibold">PKW</Label>
-                                </div>
-
-                                <div className="flex items-center mr-4 mb-2">
-                                    <RadioGroupItem value="LKW" />
-                                    <Label className="ml-1 font-semibold">LKW</Label>
-                                </div>
-
-                                <div className="flex items-center mr-4 mb-2">
-                                    <RadioGroupItem value="LAND" />
-                                    <Label className="ml-1 font-semibold">Land</Label>
-                                </div>
-
-                                <div className="flex items-center mr-4 mb-2">
-                                    <RadioGroupItem value="BAU" />
-                                    <Label className="ml-1 font-semibold">Bau</Label>
-                                </div>
-
-                                <div className="flex items-center mr-4 mb-2">
-                                    <RadioGroupItem value="CARAVAN" />
-                                    <Label className="ml-1 font-semibold">Wohnmobile</Label>
-                                </div>
-
-                                <div className="flex items-center mr-4 mb-2">
-                                    <RadioGroupItem value="TRAILOR" />
-                                    <Label className="ml-1 font-semibold">Anhänger</Label>
-                                </div>
-                            </RadioGroup>
+                            <SelectCategoryDetailForm/>
 
                         </div>
                         <div className="mt-4">
@@ -92,8 +57,14 @@ const FilterDialog = () => {
                             </p>
                         </div>
                         <div>
+                             {!currentCategory && <p> ... </p>}
                             { currentCategory === "PKW" && <PkwFilter/> }
                         </div>
+                        <DialogTrigger asChild>
+                            <Button className="mt-8 bg-[#282c45] text-white rounded-md p-2 w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"> 
+                            <ScanSearch className="mr-2"/> Filtern
+                            </Button>
+                        </DialogTrigger>
                     </div>
 
                 </DialogContent>

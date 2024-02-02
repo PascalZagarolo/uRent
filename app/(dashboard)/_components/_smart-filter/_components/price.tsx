@@ -137,7 +137,7 @@ const PriceFormFilter = () => {
                         Bis :
                     </h3>
                     <Select onValueChange={(e) => onClick(currentStart, e)} value={endPrice || "max"} >
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45]">
+                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] ">
                             <SelectValue className="font-bold" placeholder="Ende"/>
                         </SelectTrigger>
                         <SelectContent >

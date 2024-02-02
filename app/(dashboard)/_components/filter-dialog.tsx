@@ -27,7 +27,7 @@ const FilterDialog = () => {
                         <Settings2Icon />
                     </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="">
                     <DialogHeader>
                         <DialogHeader className="italic font-semibold text-xl mb-4">
                             Anzeigen filtern
@@ -57,7 +57,7 @@ const FilterDialog = () => {
                             </p>
                         </div>
                         <div>
-                             {!currentCategory && <p> ... </p>}
+                             {!currentCategory && <p> noch nichts.. </p>}
                             { currentCategory === "PKW" && <PkwFilter/> }
                         </div>
                         <DialogTrigger asChild>

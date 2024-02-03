@@ -3,6 +3,9 @@
 @tailwind utilities;
  
 @layer base {
+
+
+
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -99,12 +102,32 @@
 }
 
 
+.curved {
+  background: #1f2332;
+  color: #fff;
+  text-align: center;
+}
 
+.writing {
+  font-size: 16px;
+  
+  font-family: monospace;
+  border-right: 5px solid;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: 
+  typing 4s steps(32),
+    cursor .4s step-end infinite alternate;
+}
 
+@keyframes cursor {
+  50% { border-color: transparent}
+}
 
-
-
-
+@keyframes typing {
+  from { width: 0 }
+}
 
 
 

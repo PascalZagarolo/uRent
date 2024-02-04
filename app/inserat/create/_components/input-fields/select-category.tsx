@@ -37,9 +37,11 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
       const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-          category : inserat.category
+          category : inserat.category || "PKW"
         }
       })
+
+      const [currentCategory, setCurrentCategory] = useState(inserat.category || "PKW");
    
 
     const onSubmit = () => {
@@ -62,7 +64,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
       }
     }
 
-    const [currentCategory, setCurrentCategory] = useState(inserat.category);
+    
     
     return (
         <div className=" mt-4 flex items-center">
@@ -74,7 +76,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fahrzeugklasse</FormLabel>
-              <Select onValueChange={(selectedValue) => {setCurrentCategory(selectedValue)}} defaultValue={inserat.category}>
+              <Select onValueChange={(selectedValue) => {setCurrentCategory(selectedValue)}} defaultValue={inserat.category || "PKW"}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />

@@ -80,7 +80,7 @@ const Main = async ({
     </div>
 
     {/* Mobile Content */}
-    <div className="mt-2 ml-4 overflow-y-auto sm:hidden">
+    <div className="mt-2  overflow-y-auto sm:hidden">
       <RelevanteInserateMobile
         title={searchParams.title}
         category={searchParams.category}

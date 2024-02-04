@@ -15,7 +15,7 @@ const LocationPerimeter = () => {
     ]
 
     return (
-        <div className='w-[300px] flex justify-start'>
+        <div className='sm:w-[60px] 2xl:w-[200px] flex justify-start'>
              
         
         </div> 

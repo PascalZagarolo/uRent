@@ -40,21 +40,36 @@ const Sitze = ({
       })
    
 
-    const onSubmit = (values : z.infer<typeof formSchema>) => {
-      console.log(values)
+    const onSubmit = (sitze : number) => {
+
+      const values = {
+        sitze : sitze
+      }
+
+      try {
+        setIsLoading(true);
+        axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
+        toast.success("Sitzplätze erfolgreich gespeichert");
+      } catch {
+        toast.error("Fehler beim Speichern der Sitzplätze");
+        
+      } finally {
+        setIsLoading(false);
+      }
+
     }
     
     return (
         <div className=" mt-4 flex items-center">
             <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[50%]">
+      <form onSubmit={() => {}} className="w-[50%]">
         <FormField
           control={form.control}
           name="amount"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Sitzplätze</FormLabel>
-              <Select onValueChange={(selectedValue) => {console.log('Selected Value:', selectedValue)}} defaultValue={"2"}>
+              <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={"2"}>
                 <FormControl>
                   <SelectTrigger className="min-w-[200px]">
                     <SelectValue placeholder="Wähle die Menge der Sitzplätze aus" />

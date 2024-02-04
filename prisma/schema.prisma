@@ -109,7 +109,7 @@ model Inserat {
 
   favourites Favourite[]
 
-  pkwAttribute PKWAttribute?
+  pkwAttribute PkwAttribute?
 
 
   userId String
@@ -253,7 +253,7 @@ model ContactOptions {
 
 }
 
-model PKWAttribute {
+model PkwAttribute {
   id String @id @default(uuid())
 
   marke String?

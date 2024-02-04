@@ -25,6 +25,6 @@ export async function POST(
 
     } catch(error) {
          console.log(error);
-         return new NextResponse(error, { status: 404 })
+         return new NextResponse(error, { status: 500 })
     }
 }

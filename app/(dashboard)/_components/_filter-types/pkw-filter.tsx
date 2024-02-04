@@ -7,9 +7,6 @@ const PkwFilter = () => {
 
     return ( 
         <div>
-
-            
-
             <div>
             <SitzeDetailForm/>
             </div>

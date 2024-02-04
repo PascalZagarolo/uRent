@@ -27,7 +27,7 @@ const FilterDialog = () => {
                         <Settings2Icon />
                     </Button>
                 </DialogTrigger>
-                <DialogContent className="">
+                <DialogContent className="backdrop-blur-lg">
                     <DialogHeader>
                         <DialogHeader className="italic font-semibold text-xl mb-4">
                             Anzeigen filtern

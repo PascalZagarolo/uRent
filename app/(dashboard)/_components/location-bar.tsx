@@ -6,17 +6,17 @@ import LocationPerimeter from "./location-perimeter";
 
 const LocationBar = () => {
     return (
-        <div className=" xl:flex items-center justify-start position: static hidden">
+        <div className=" xl:flex items-center justify-start position: static hidden mr-4">
             <Input
                 placeholder="Ich komme aus..."
                 className="mt-2"
             />
 
             <Map
-                className="mt-2 ml-2 h-10 w-10 text-white flex items-center"
+                className="mt-2 ml-2 h-6 w-6 text-white flex items-center"
             />
 
-            <LocationPerimeter/>
+            
         </div>
     );
 }

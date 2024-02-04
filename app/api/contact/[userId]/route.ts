@@ -29,17 +29,15 @@ export async function PATCH(
             return NextResponse.json(patchedOptions);
         } else {
             const patchedOptions = await db.contactOptions.update({
-                where :{
-                    userId : params.userId,
-                },
-                data : {
-                  
-                   emailAddress : values.email,
-                   addressString : address,
-                   websiteAddress : values.website,
-                   
-               }
-           })
+                where : {
+                    userId : "params.userId"
+                }, data : {
+                    emailAddress : values.email,
+                    addressString : address,
+                    websiteAddress : values.website,
+                }
+                
+            })
            return NextResponse.json(patchedOptions);
         }
 

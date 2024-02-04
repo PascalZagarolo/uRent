@@ -30,7 +30,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
 
     return (
         <div className="">
-            <h3 className=" flex justify-center p-8 text-3xl font-bold  items-center bg-white rounded-md mt-6 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate">
+            <h3 className=" flex justify-center p-8 text-3xl font-bold  items-center bg-white rounded-md mt-6 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
                 <Milestone className="mr-2" /> Meine Inhalte
             </h3>
             <div className="flex justify-center mt-8">

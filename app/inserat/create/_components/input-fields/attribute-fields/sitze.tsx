@@ -1,12 +1,13 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
+
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat } from "@prisma/client";
+import { Inserat, PkwAttribute } from "@prisma/client";
+
 import axios from "axios";
-import { CarFront, Link } from "lucide-react";
+
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
@@ -15,16 +16,20 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 
+interface SitzeProps {
+  inserat : Inserat & { pkwAttribute : PkwAttribute }
+}
 
-const Sitze = ({
-  
+const Sitze: React.FC<SitzeProps> = ({
+  inserat
 }) => {
 
     const params = useParams();
 
+    
 
     const formSchema = z.object({
-      amount : z.number({
+      sitze : z.number({
         required_error: "Bitte wähle die Anzahl der Sitzplätze aus"
       })
     })
@@ -35,7 +40,7 @@ const Sitze = ({
       const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-          amount : 2
+          sitze : inserat.pkwAttribute?.sitze
         }
       })
    
@@ -65,13 +70,13 @@ const Sitze = ({
       <form onSubmit={() => {}} className="w-[50%]">
         <FormField
           control={form.control}
-          name="amount"
+          name="sitze"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Sitzplätze</FormLabel>
-              <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={"2"}>
+              <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={inserat.pkwAttribute?.sitze.toString()}>
                 <FormControl>
-                  <SelectTrigger className="min-w-[200px]">
+                  <SelectTrigger className="min-w-[200px]"  >
                     <SelectValue placeholder="Wähle die Menge der Sitzplätze aus" />
                   </SelectTrigger>
                 </FormControl>
@@ -94,6 +99,7 @@ const Sitze = ({
         
       </form>
     </Form>
+    
         </div>
     );
 }

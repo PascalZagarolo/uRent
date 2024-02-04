@@ -22,7 +22,7 @@ const InseratCreation = async ({
             <div className="flex justify-center">
                 <CreationHeaderLogo/>
             </div>
-
+                
             <div className="flex justify-center ">
                 <CreationHeader 
                 inserat={inserat}

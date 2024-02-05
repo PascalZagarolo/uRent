@@ -23,9 +23,9 @@ const HomePage = () => {
                                 Ey (K-K-Kingsake)
                                 Ey, Pasha, ey, ja, ey (YungGlizzy)
                                 Shababs botten, grüne Augen, braune Locken
-                                Tn's rocken, halbe Kiste, wenn wir shoppen
+                                Tns rocken, halbe Kiste, wenn wir shoppen
                                 Shababs botten, grüne Augen, braune Locken
-                                Tn's rocken, halbe Kiste, wenn wir shoppen
+                                Tns rocken, halbe Kiste, wenn wir shoppen
                             </div>
                             <div className='mt-4'>
                                 <BecomeCustomer/>

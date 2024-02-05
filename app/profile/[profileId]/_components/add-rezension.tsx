@@ -75,7 +75,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
                     </Button>
                 </DialogTrigger>
                 ) : (
-                    <p className="text-gray-800/50 font-semibold flex justify-center"> Du kannst keinen Kommentar abgeben</p>
+                    <p className="text-gray-800/50 font-semibold flex justify-center"> </p>
                 )}
                 <DialogContent className="w-[800px]">
                     <DialogHeader>

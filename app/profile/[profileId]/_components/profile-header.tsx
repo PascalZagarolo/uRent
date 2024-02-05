@@ -124,7 +124,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
                     <Contact className="mr-1" /> Kontakt
                 </div>
-                <div>
+                <div className="p-4">
                 <ContactOptionsRender
                     contacts={contacts}
                     ownProfile={ownProfile}

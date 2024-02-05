@@ -73,15 +73,15 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
                 <div className="mt-4 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]">
                 {rezensionen.map((rezension : RezensionWithSender) => (
                     <RezensionenRender
-                        rezension={rezension}
-                        key={rezension.id}
-                    />
+                    rezension={rezension}
+                    key={rezension.id}
+                />
                 ))}
 
 
             </div>
             ) : (
-                <div className="mt-4 flex justify-center text-gray-900/50 font-semibold italic">
+                <div className="mt-4 p-8 flex justify-center text-gray-900/50 font-semibold italic">
                     Noch keine Rezensionen vorhanden
                 </div>
             )}

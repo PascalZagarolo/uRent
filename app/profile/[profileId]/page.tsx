@@ -44,8 +44,8 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
     
 
     return ( 
-        <div className="min-h-screen bg-[#404040]/10 flex">
-            <div className="w-1/2 mr-8">
+        <div className="min-h-screen bg-[#404040]/10 2xl:flex">
+            <div className="2xl:w-1/2 mr-8">
             <ProfileHeader 
             currentUser={user}
             user = {user}
@@ -53,7 +53,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             />
             </div>
             
-            <div className="w-1/2 ml-8 mr-16">
+            <div className="2xl:w-1/2 ml-8 mr-16">
             <RightSideProfile
             inserate = {inserate}
             rezensionen  = {rezensionen}

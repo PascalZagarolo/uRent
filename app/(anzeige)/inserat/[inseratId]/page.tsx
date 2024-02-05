@@ -74,7 +74,7 @@ const InseratAnzeige = async ({
         <div className="2xl:grid  2xl:grid-cols-2 xl:flex justify-center  gap-12 xl:mt-24 h-max">
             <div className="h-full p-4">
                 <div className="flex xl:justify-end justify-center">
-                    <div className="mt-4 bg-[#262939] text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border border-gray-300">
+                    <div className="mt-4 bg-[#262939] text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border border-gray-300 w-full md:w-auto">
                         <div className="flex items-center justify-end truncate ">
                             {inserat.category === "PKW" && (
                                 <div className="bg-[#1d1f2b] px-8 rounded-lg p-4">
@@ -118,7 +118,7 @@ const InseratAnzeige = async ({
                         </div>
                         <div className="mt-2">
                             <div className="">
-                                <p className="flex text-xl font-bold"><AlignLeft className="mr-2"/> Beschreibung der Anzeige</p>
+                                <p className="flex text-lg sm:text-xl font-bold"><AlignLeft className="mr-2"/> Beschreibung der Anzeige</p>
                             </div>
                                 <InseratDescription
                                     inserat = {inserat}
@@ -132,8 +132,8 @@ const InseratAnzeige = async ({
             </div>
 
 
-            <div className=" p-4 xl:mt-24 flex justify-center xl:block">
-            <div className="xl:hidden">
+            <div className=" p-4 xl:mt-24 sm:flex justify-center xl:block">
+            <div className="xl:hidden flex sm:block justify-center">
                     <ProfileView
                         user={user}
                         inseratArray = {inseratArray}
@@ -141,7 +141,7 @@ const InseratAnzeige = async ({
                         averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                     />
                 </div>
-            <div className="ml-16 xl:ml-0">
+            <div className="sm:ml-16 xl:ml-0 flex sm:block justify-center">
                     <InseratOptions 
                     user = {user}
                     isPurchased = {isPurchased}

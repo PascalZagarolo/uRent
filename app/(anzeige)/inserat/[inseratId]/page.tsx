@@ -132,8 +132,16 @@ const InseratAnzeige = async ({
             </div>
 
 
-            <div className=" p-4 mt-24">
-            <div>
+            <div className=" p-4 xl:mt-24 flex justify-center xl:block">
+            <div className="xl:hidden">
+                    <ProfileView
+                        user={user}
+                        inseratArray = {inseratArray}
+                        inseratOwner = {inseratOwner}
+                        averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
+                    />
+                </div>
+            <div className="ml-16 xl:ml-0">
                     <InseratOptions 
                     user = {user}
                     isPurchased = {isPurchased}
@@ -142,7 +150,7 @@ const InseratAnzeige = async ({
                     contactOptions = {contactOptions}
                     />
                 </div>
-                <div className="mt-16">
+                <div className="hidden xl:mt-16 xl:block">
                     <ProfileView
                         user={user}
                         inseratArray = {inseratArray}

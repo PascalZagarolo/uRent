@@ -7,8 +7,9 @@ export async function PATCH(
 ) {
     try {
 
-        const { values , address } = await req.json();
+        const  values  = await req.json();
 
+        console.log(values)
 
         const findOptions = await db.contactOptions.findFirst({
             where : {
@@ -20,9 +21,9 @@ export async function PATCH(
             const patchedOptions = await db.contactOptions.create({
                  data : {
                     userId : params.userId,
-                    emailAddress : values.email,
-                    addressString : address,
-                    websiteAddress : values.website,
+                    emailAddress : values?.email || "",
+                    addressString : values?.address || "",
+                    websiteAddress : values?.website || "",
                     
                 }
             })
@@ -30,11 +31,11 @@ export async function PATCH(
         } else {
             const patchedOptions = await db.contactOptions.update({
                 where : {
-                    userId : "params.userId"
+                    userId : params.userId
                 }, data : {
-                    emailAddress : values.email,
-                    addressString : address,
-                    websiteAddress : values.website,
+                    emailAddress :  values?.email || "",
+                    addressString : values?.address || "",
+                    websiteAddress : values?.website || "",
                 }
                 
             })

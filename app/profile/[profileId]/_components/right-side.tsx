@@ -90,6 +90,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
                     <MoreReviews />
                 </div>
             )}
+            
         </div>
     );
 }

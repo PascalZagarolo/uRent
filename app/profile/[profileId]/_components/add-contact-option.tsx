@@ -53,12 +53,22 @@ const AddContactOption = ({
         }
     })
 
-    const onSubmit = (values : z.infer<typeof formSchema>) => {
+    const onSubmit = (pValues : z.infer<typeof formSchema>) => {
 
-        const address = values.street + " " + values.houseNumber + ", " + values.plz + " " + values.city;
+        const address = pValues.street + " " + pValues.houseNumber + ", " + pValues.plz + " " + pValues.city;
+
+        
+
+        const values = {
+            email : pValues.email,
+            website : pValues.website,
+            address : address
+        }
+
+        console.log(values)
 
         try {
-            axios.patch(`/api/contact/${params.profileId}`, { values, address : address})
+            axios.patch(`/api/contact/${params.profileId}`, values)
         } catch {
             toast.error("Fehler beim Speichern")
         }
@@ -84,7 +94,7 @@ const AddContactOption = ({
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
                         <div className="flex items-center font-semibold"> <Globe2 className="mr-2" />  Website
-                            <Switch className="ml-auto" onClick={() => {setWebsiteEnabled(!websiteEnabled); form.resetField("website")}} /> </div>
+                            <Switch className="ml-auto" defaultChecked={websiteEnabled} onCheckedChange={(selectedValue) => {setWebsiteEnabled(selectedValue)}} /> </div>
                         {websiteEnabled && (
                             <FormField
                                 control={form.control}
@@ -103,7 +113,7 @@ const AddContactOption = ({
                         )}
 
                         <div className="flex items-center font-semibold mt-4"> <MailOpenIcon className="mr-2" />  Email
-                            <Switch className="ml-auto" onClick={() => {setEmailEnabled(!emailEnabled); form.resetField("email") }} /> </div>
+                            <Switch className="ml-auto" defaultChecked={emailEnabled} onCheckedChange={(selectedValue) => {setEmailEnabled(selectedValue)}} /> </div>
                         {emailEnabled && (
                             <FormField
                                 control={form.control}
@@ -122,7 +132,7 @@ const AddContactOption = ({
                         )}
 
                         <div className="flex items-center font-semibold mt-4"> <MapPin className="mr-2" />  Addresse
-                            <Switch className="ml-auto" onClick={() => setAddressEnabled(!addressEnabled)} /> </div>
+                            <Switch className="ml-auto" defaultChecked={addressEnabled} onCheckedChange={(selectedValue) => {setAddressEnabled(selectedValue)}} /> </div>
                         {addressEnabled && (
                             <div className="mt-4">
                             <div>

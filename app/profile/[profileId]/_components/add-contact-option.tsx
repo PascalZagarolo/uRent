@@ -55,7 +55,7 @@ const AddContactOption = ({
 
     const onSubmit = (pValues : z.infer<typeof formSchema>) => {
 
-        const address = pValues.street + " " + pValues.houseNumber + ", " + pValues.plz + " " + pValues.city;
+        const address = addressEnabled ?  pValues.street + " " + pValues.houseNumber + ", " + pValues.plz + " " + pValues.city : null;
 
         
 

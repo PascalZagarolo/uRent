@@ -70,7 +70,7 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = async ({
                     
                 />
             </div>
-
+                        
 
         </div>
     );

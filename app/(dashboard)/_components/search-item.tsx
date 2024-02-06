@@ -32,7 +32,7 @@ const SearchItem = () => {
     }, [debouncedValue, router, pathname])
 
     return (
-        <div className="flex items-center justify-start position: static mr-16 ">
+        <div className="flex items-center justify-start position: static sm:mr-16 ">
 
             <FilterDialog/>
             

@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
@@ -56,9 +57,12 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
         }
     }
 
+    const [isDateless, setIsDateless] = useState(false);
+
 
     return (
-        <div className="w-full flex-col justify-center  bg-white p-8 max-w-max rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+        <div>
+            <div className="w-full flex-col justify-center  bg-white p-8 max-w-max rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h3 className="font-bold text-xl flex justify-center">
                 <CalendarClockIcon className="mr-2"/>
                 Mietdauer
@@ -74,6 +78,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                             </h1>
                             <div>
                                 <FormField
+                                disabled={isDateless}
                                     control={form.control}
                                     name="begin"
                                     render={({ field }) => (
@@ -88,6 +93,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                                 "w-[240px] pl-3 text-left font-normal",
                                                                 !field.value && "text-muted-foreground"
                                                             )}
+                                                            disabled={isDateless}
                                                         >
                                                             {field.value ? (
                                                                 format(field.value, "PPP")
@@ -104,7 +110,8 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         selected={field.value}
                                                         onSelect={field.onChange}
                                                         disabled={(date) =>
-                                                            date < new Date() || date < new Date("1900-01-01")
+                                                            date < new Date() || date < new Date("1900-01-01") || isDateless
+                                                            
                                                         }
                                                         initialFocus
                                                     />
@@ -131,6 +138,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                     <FormControl>
                                                         <Button
                                                             variant={"outline"}
+                                                            disabled={isDateless}
                                                             className={cn(
                                                                 "w-[240px] pl-3 text-left font-normal",
                                                                 !field.value && "text-muted-foreground"
@@ -142,6 +150,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                                 <span>Wähle einen Startpunkt</span>
                                                             )}
                                                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                        
                                                         </Button>
                                                     </FormControl>
                                                 </PopoverTrigger>
@@ -165,14 +174,27 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                     )}
                                 />
                             </div>
-                            <Button type="submit" className="bg-blue-800 w-full mt-2">Daten festlegen</Button>
+                            <Button type="submit" className="bg-blue-800 w-full mt-2" disabled={isDateless}>Daten festlegen</Button>
                         </form>
                     </Form>
                 </div>
             </div>
-
+                                                        
                                            
-        </div >
+        </div>
+        <div className="bg-white p-4 w-full mt-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
+                <div className="flex">
+                    <Switch
+                    className=""
+                    
+                    onCheckedChange={(checked) => setIsDateless(checked)}
+                    /> 
+                    <p className="ml-2 font-semibold  text-sm">
+                        Datumsunabhängig anbieten
+                    </p>
+                </div>
+        </div>
+        </div>
     );
 }
 

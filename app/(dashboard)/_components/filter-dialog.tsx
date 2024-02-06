@@ -27,8 +27,8 @@ const FilterDialog = () => {
                         <Settings2Icon />
                     </Button>
                 </DialogTrigger>
-                <DialogContent className="backdrop-blur-lg">
-                    <DialogHeader>
+                <DialogContent className="">
+                <DialogHeader>
                         <DialogHeader className="italic font-semibold text-xl mb-4">
                             Anzeigen filtern
                         </DialogHeader>
@@ -37,14 +37,14 @@ const FilterDialog = () => {
                         <div>
                         <p className="text-medium flex font-semibold mb-2 items-center"> 
                             <HeartHandshakeIcon className="mr-1"/> Preis 
-                            <Separator className="w-2/3 ml-4 bg-gray-400 h-[0.5px]"/> 
+                            <Separator className="sm:w-2/3 ml-4 bg-gray-400 h-[0.5px] w-1/3"/> 
                             </p>
                             <PriceDetailForm/>
                         </div>
                         <div className="mt-4">
                             <p className="text-medium flex font-semibold mb-2 items-center"> 
                             <AlignLeft className="mr-1"/> Kategorie 
-                            <Separator className="w-2/3 ml-4 bg-gray-400 h-[0.5px]"/> 
+                            <Separator className="sm:w-2/3 ml-4 bg-gray-400 h-[0.5px] w-1/3"/> 
                             </p>
 
                             <SelectCategoryDetailForm/>
@@ -53,7 +53,7 @@ const FilterDialog = () => {
                         <div className="mt-4">
                         <p className="text-medium flex font-semibold mb-2 items-center"> 
                             <Settings className="mr-1"/> Spezifikationen 
-                            <Separator className="w-2/3 ml-4 bg-gray-400 h-[0.5px]"/> 
+                            <Separator className="sm:w-2/3 ml-4 bg-gray-400 h-[0.5px] w-1/3"/> 
                             </p>
                         </div>
                         <div>

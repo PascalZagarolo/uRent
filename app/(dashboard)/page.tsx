@@ -66,7 +66,7 @@ const Main = async ({
   </div>
 
   {/* Margin for the content to avoid overlap */}
-  <div className="2xl:ml-72 sm:mt-24 ml-4 relative z-0">
+  <div className="2xl:ml-72 sm:mt-24 ml-4 relative sm:z-0">
     {/* Main Content */}
     <div className="hidden sm:block overflow-y-auto sm:overflow-hidden no-scrollbar ">
       <RelevanteInserate
@@ -80,7 +80,7 @@ const Main = async ({
     </div>
 
     {/* Mobile Content */}
-    <div className="mt-2  overflow-y-auto sm:hidden">
+    <div className="mt-2  overflow-y-auto sm:hidden flex items-center justify-center">
       <RelevanteInserateMobile
         title={searchParams.title}
         category={searchParams.category}

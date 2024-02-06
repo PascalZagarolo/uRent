@@ -62,6 +62,10 @@ export const getInserate = async ({
                         mode: 'insensitive'
                     },
                     category : category,
+                    price : {
+                        gte : start? start : 0,
+                        lte : end? end : 1000000,
+                    }
                     
                 }, include : {
                     images : true,

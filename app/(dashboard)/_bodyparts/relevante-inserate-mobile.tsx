@@ -7,6 +7,7 @@ import { getInserate } from "@/actions/getInserate";
 import type { Category } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 import { getSession } from "next-auth/react";
+import InseratCardMobile from "../_components/inserat-card-mobile";
 
 interface RelevanteInserateMobileProps {
     title: string;
@@ -53,16 +54,16 @@ const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
     });
 
     return (
-        <div className="w-fit">
+        <div className="">
 
-            {!title ? (
+{!title ? (
                 <div className="h-full flex sm:block sm:mt-0 mt-4">
-                    <div className="ml-4">
+                    <div className="sm:ml-4">
                         <AlignCenter />
                     </div>
-                    <h3 className="ml-8 flex font-bold text-2xl h-full">
-                        Relevante Inserate
-                        <div className="ml-auto mr-4 sm:mr-8">
+                    <h3 className=" ml-4 sm:ml-8 flex font-bold text-2xl h-full">
+                        <p className="hidden sm:block">Relevante</p> Inserate
+                        <div className="sm:ml-auto ml-10 mr-2 sm:mr-8">
                             <OrderBy />
                         </div>
                     </h3>
@@ -78,24 +79,24 @@ const RelevanteInserateMobile: React.FC<RelevanteInserateMobileProps> = async ({
                 </div>
             )}
 
-            {inserateArray.length < 1 ? (
-                <div className="flex justify-center rounded-md height: 100%  mt-48 ">
+{inserateArray.length < 1 ? (
+                <div className=" rounded-md   mt-48 ">
                     <h3 className="ml-4 mr-4 font-bold mb-16  text-3xl text-gray-800/50 italic flex justify-center items-center">
                         Keine passenden Angebote gefunden :/
                     </h3>
                 </div>
             ) : (
-                <div className="flex flex-wrap justify-start sm:mr-8 sm:ml-8 overflow-y-auto h-full ">
+                <div className="flex-wrap justify-start sm:mr-8 sm:ml-8 overflow-y-auto  h-full ">
                     {inserateArray.map((inserat, index) => (
-                        <div className="w-full md:w-1/3 2xl:w-1/3 sm:ml-0  sm:mt-0 mt-4 sm:p-4 mb-4 sm:flex-grow   " key={inserat.id}>
-                            <InseratCard
+                        <div className="mt-2" key={inserat.id}>
+                            <InseratCardMobile
                                 key={inserat.id}
                                 inserat={inserat}
                                 profileId={currentUser?.id}
                                 isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
                                 owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
                             />
-                            {(index + 1) % 4 === 0 && <div className="w-full sm:w-1/12" />} {/* Add an empty div to create a new row after every 4 cards */}
+                            
                         </div>
                     ))}
                 </div>

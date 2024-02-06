@@ -95,7 +95,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
 
                                                     e.currentTarget.value = formattedValue;
 
-                                                    setCurrentValue(formattedValue);
+                                                    setCurrentValue(Number(formattedValue));
 
                                                     field.onChange(formattedValue);
                                                 }}

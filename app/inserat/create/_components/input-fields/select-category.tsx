@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat } from "@prisma/client";
+import { Category, Inserat } from "@prisma/client";
 import axios from "axios";
 import { CarFront, Link } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
         }
       })
 
-      const [currentCategory, setCurrentCategory] = useState(inserat.category || "PKW");
+      const [currentCategory, setCurrentCategory] = useState<Category>(inserat.category || "PKW");
    
 
     const onSubmit = () => {
@@ -76,7 +76,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fahrzeugklasse</FormLabel>
-              <Select onValueChange={(selectedValue) => {setCurrentCategory(selectedValue)}} defaultValue={inserat.category || "PKW"}>
+              <Select onValueChange={(selectedValue : Category) => {setCurrentCategory(selectedValue)}} defaultValue={inserat.category || "PKW"}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />

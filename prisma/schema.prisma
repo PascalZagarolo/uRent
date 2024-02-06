@@ -93,6 +93,8 @@ model Inserat {
   begin DateTime?
   end DateTime?
 
+  annual Boolean @default(false)
+
   category Category?
 
   views Int @default(0)

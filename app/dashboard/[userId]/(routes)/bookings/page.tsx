@@ -58,10 +58,10 @@ const Bookings = async ({
                         <ListOrdered className="mr-4" /> Bestellhistorie
                     </h3>
                     <div className="">
-                        {favourites.map((purchase) => (
+                        {favourites.map((favourite) => (
                             <OrderColoumns
-                                key={purchase.id}
-                                purchase={purchase}
+                                key={favourite.id}
+                                favourite={favourite}
                             />
                         ))}
                     </div>

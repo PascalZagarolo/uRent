@@ -133,7 +133,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             {isPurchased ? (
                 <div className="mt-4">
                     <Button className="bg-emerald-600 border-2 border-black w-[240px]" disabled>
-                        <Check className="h-4 w-4 mr-2" /> Bereits gebucht
+                        <Check className="h-4 w-4 mr-2" /> Zurzeit belegt
                     </Button>
                 </div>
             ) : (

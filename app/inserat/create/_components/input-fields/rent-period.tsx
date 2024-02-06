@@ -12,6 +12,7 @@ import { Inserat } from "@prisma/client";
 import axios from "axios";
 
 import { format } from "date-fns";
+
 import { CalendarClockIcon, CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -27,6 +28,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isDateless, setIsDateless] = useState(false);
 
     const formSchema = z.object({
         begin: z.date({
@@ -57,7 +59,27 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
         }
     }
 
-    const [isDateless, setIsDateless] = useState(false);
+    const onAnnual = () => {
+        try {
+            setIsLoading(true);
+            const values = {
+                begin: null,
+                end : null,
+                annual: isDateless
+            }
+
+            console.log(values)
+
+            axios.patch(`/api/inserat/${inserat.id}`, values);
+            toast.success("Datum erfolgreich festgelegt")
+        } catch {
+            toast.error("Etwas ist schief gelaufen...")
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    
 
 
     return (
@@ -93,7 +115,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                                 "w-[240px] pl-3 text-left font-normal",
                                                                 !field.value && "text-muted-foreground"
                                                             )}
-                                                            disabled={isDateless}
+                                                            disabled={!isDateless}
                                                         >
                                                             {field.value ? (
                                                                 format(field.value, "PPP")
@@ -110,7 +132,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         selected={field.value}
                                                         onSelect={field.onChange}
                                                         disabled={(date) =>
-                                                            date < new Date() || date < new Date("1900-01-01") || isDateless
+                                                            date < new Date() || date < new Date("1900-01-01") 
                                                             
                                                         }
                                                         initialFocus
@@ -138,7 +160,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                     <FormControl>
                                                         <Button
                                                             variant={"outline"}
-                                                            disabled={isDateless}
+                                                            disabled={!isDateless}
                                                             className={cn(
                                                                 "w-[240px] pl-3 text-left font-normal",
                                                                 !field.value && "text-muted-foreground"
@@ -174,7 +196,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                     )}
                                 />
                             </div>
-                            <Button type="submit" className="bg-blue-800 w-full mt-2" disabled={isDateless}>Daten festlegen</Button>
+                            <Button type="submit" className="bg-blue-800 w-full mt-2" disabled={!isDateless}>Daten festlegen</Button>
                         </form>
                     </Form>
                 </div>
@@ -186,8 +208,10 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                 <div className="flex">
                     <Switch
                     className=""
+                    defaultChecked={!isDateless}
+                    onCheckedChange={(checked) => {setIsDateless(!checked); onAnnual();}}
                     
-                    onCheckedChange={(checked) => setIsDateless(checked)}
+                    
                     /> 
                     <p className="ml-2 font-semibold  text-sm">
                         Datumsunabhängig anbieten

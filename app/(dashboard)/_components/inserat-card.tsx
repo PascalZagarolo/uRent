@@ -117,7 +117,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  Zeitraum :
                     </p>
-                    <p className="font-semibold text-gray-200">
+                    { inserat.annual ? (
+                        <p className="font-semibold italic"> Datumsunabhängig </p>
+                    ) : (
+                        <>
+                        <p className="font-semibold text-gray-200">
                         {formatDate(inserat.begin)}
                     </p>
                     <p className="font-bold text-black-800 mr-2 ml-2">
@@ -126,6 +130,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <p className="font-bold text-gray-200">
                         {formatDate(inserat.end)}
                     </p>
+                        </>
+                    )}
                 </div>
 
                 <div className="font-semibold text-gray-900 flex mt-2 items-center">
@@ -205,12 +211,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
 
 
 
 
-        </div>
+        </div >
     );
 }
 

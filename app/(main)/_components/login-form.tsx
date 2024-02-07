@@ -8,7 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useCallback, useEffect, useState } from "react";
 import { signIn, useSession, } from "next-auth/react";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { GithubIcon } from "lucide-react";
 import Input from "@/components/input";
@@ -24,9 +24,12 @@ const CredForm = ({
 }) => {
 
 
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const onClick = (provider: "google" | "github") => {
     signIn(provider, {
-      callbackUrl: `http://localhost:3000/api/auth/callback/${provider}`
+      callbackUrl: callbackUrl || "/",
     });
   }
 
@@ -195,7 +198,7 @@ const CredForm = ({
             <Button variant="ghost">
               <GithubIcon />
             </Button>
-            <Button variant="ghost" onClick={() => {onClick("google")}}>
+            <Button variant="ghost"  className="text-lg"onClick={() => {onClick("google")}}>
               G
             </Button>
           </div>

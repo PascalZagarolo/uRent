@@ -194,13 +194,16 @@ const CredForm = ({
             </div>
           </div>
 
-          <div className="mt-6 flex gap-2 justify-center">
-            <Button variant="ghost">
+          <div className="mt-6 flex  justify-center ">
+            <div className="w-full gap-y-4">
+            <Button variant="ghost" className="w-full bg-gray-100 border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
               <GithubIcon />
             </Button>
-            <Button variant="ghost"  className="text-lg"onClick={() => {onClick("google")}}>
+            <Button variant="ghost" className="text-lg w-full mt-2 bg-gray-100 border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" 
+            onClick={() => {onClick("google")}}>
               G
             </Button>
+            </div>
           </div>
         </div>
         <div

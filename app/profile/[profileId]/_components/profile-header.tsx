@@ -48,10 +48,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
         <div className="ml-16">
             
                 <div className="mt-4">
-                    <NotVerifiedYet
+                    { isOwnProfile && !user.confirmedMail && (
+                        <NotVerifiedYet
                         email={user.email}
                         isOwnProfile={isOwnProfile}
                     />
+                    )}
                 </div>
           
 

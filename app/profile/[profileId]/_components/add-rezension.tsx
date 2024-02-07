@@ -31,7 +31,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
 
     const params = useParams();
 
-    const canComment = currentUser.id === params.profileId ? false : true;
+    const canComment = currentUser?.id === params.profileId ? false : true;
 
     const formSchema = z.object({
         content : z.string().min(1, {

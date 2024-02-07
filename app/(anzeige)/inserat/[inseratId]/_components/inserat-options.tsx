@@ -65,17 +65,21 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
     const params = useParams();
 
     const onStar = () => {
-        try {
-            setIsLoading(true);
-            axios.patch(`/api/profile/${user.id}/favourites`, { inseratId: params.inseratId })
-
-            setTimeout(() => {
-                router.refresh();
-            }, 500)
-        } catch {
-            toast.error("Fehler beim Favorisieren der Anzeige")
-        } finally {
-            setIsLoading(false);
+        if(ownUser) {
+            try {
+                setIsLoading(true);
+                axios.patch(`/api/profile/${user.id}/favourites`, { inseratId: params.inseratId })
+    
+                setTimeout(() => {
+                    router.refresh();
+                }, 500)
+            } catch {
+                toast.error("Fehler beim Favorisieren der Anzeige")
+            } finally {
+                setIsLoading(false);
+            }
+        } else {
+            router.push(`/login`)
         }
     }
 
@@ -87,7 +91,6 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                 try {
                     setIsLoading(true);
                     const conversation = axios.post(`/api/conversation/${ownUser.id}/${user.id}`).then((response) => {
-                       
                         router.push(`/conversation/${response.data.id}`)
                     })
                 } catch {
@@ -101,14 +104,18 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
     }
 
     const onInterest = () => {
-        try {
-            setIsLoading(true);
-            axios.post(`/api/interest/${params.inseratId}`, { text: text });
-        } catch {
-            toast.error("Etwas ist schief gelaufen");
-        } finally {
-            setIsLoading(false);
-
+        if(ownUser) {
+            try {
+                setIsLoading(true);
+                axios.post(`/api/interest/${params.inseratId}`, { text: text });
+            } catch {
+                toast.error("Etwas ist schief gelaufen");
+            } finally {
+                setIsLoading(false);
+    
+            }
+        } else {
+            router.push(`/login`);
         }
     }
 
@@ -124,12 +131,6 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
 
     return (
         <div className="w-full">
-
-
-
-            
-                
-
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
 

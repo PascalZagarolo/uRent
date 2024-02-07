@@ -45,7 +45,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     const isOwnProfile = ownProfile || user.emailVerified ? true : false;
 
     return (
-        <div className="ml-16">
+        <div className="ml-8">
             
                 <div className="mt-4">
                     { isOwnProfile && !user.confirmedMail && (

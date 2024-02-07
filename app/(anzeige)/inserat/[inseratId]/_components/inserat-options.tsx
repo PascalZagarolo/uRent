@@ -19,17 +19,21 @@ import { Toast } from "@/components/ui/toast";
 
 interface InseratOptionsProps {
     user: User;
-    isPurchased: boolean;
+    
     ownUser: User;
     contactOptions: ContactOptions;
 }
 
-const InseratOptions: React.FC<InseratOptionsProps> = ({
+const InseratOptions: React.FC<InseratOptionsProps> =  ({
     user,
-    isPurchased,
+    
     ownUser,
     contactOptions
 }) => {
+
+
+
+    
 
     const currentUrl = window.location.href;
 
@@ -75,32 +79,25 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         }
     }
 
-    const onPurchase = async () => {
-        try {
-            setIsLoading(true);
-
-            const response = await axios.post(`/api/inserat/${params.inseratId}/user/${user.id}/checkout`);
-
-            window.location.assign(response.data.url)
-        } catch {
-            toast.error("Fehler beim Buchen der Anzeige")
-        } finally {
-            setIsLoading(false);
-        }
-    }
+    
 
     const onConversation = () => {
-        try {
-            setIsLoading(true);
-            const conversation = axios.post(`/api/conversation/${ownUser.id}/${user.id}`).then((response) => {
-                toast.success("Konversation erfolgreich erstellt")
-                router.push(`/conversation/${response.data.id}`)
-            })
-        } catch {
-            toast.error("Fehler beim Erstellen der Konversation")
-        } finally {
-            setIsLoading(false);
-        }
+       
+            if(ownUser){
+                try {
+                    setIsLoading(true);
+                    const conversation = axios.post(`/api/conversation/${ownUser.id}/${user.id}`).then((response) => {
+                       
+                        router.push(`/conversation/${response.data.id}`)
+                    })
+                } catch {
+                    toast.error("Fehler beim Erstellen der Konversation")
+                } finally {
+                    setIsLoading(false);
+                }
+            } else {
+                router.push(`/login`)
+            }
     }
 
     const onInterest = () => {
@@ -130,20 +127,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
 
 
-            {isPurchased ? (
-                <div className="mt-4">
-                    <Button className="bg-emerald-600 border-2 border-black w-[240px]" disabled>
-                        <Check className="h-4 w-4 mr-2" /> Zurzeit belegt
-                    </Button>
-                </div>
-            ) : (
-                /*
-                <div className="mt-4">
-                <Button className="bg-emerald-600 border-2 border-black w-[240px]" onClick={onPurchase}>
-                    <Banknote className="h-4 w-4 mr-2"/> Buchen
-                </Button>
-            </div>
-            */
+            
+                
 
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
@@ -192,7 +177,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                 </Dialog>
 
 
-            )}
+            
 
 
             <div className="mt-4">

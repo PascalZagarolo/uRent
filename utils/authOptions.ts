@@ -9,7 +9,7 @@ import Google from "next-auth/providers/google"
 import Github from "next-auth/providers/github"
 
 
-export const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = { 
     adapter: PrismaAdapter(db),
     providers: [
       Google({

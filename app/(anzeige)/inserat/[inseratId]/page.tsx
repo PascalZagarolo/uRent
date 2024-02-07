@@ -44,15 +44,21 @@ const InseratAnzeige = async ({
         }
     })
 
-    const purchases = await db.purchase.findUnique({
-        where : {
-            inseratId_userId : {
-                inseratId : inserat.id,
-                userId : currentUser.id
-            
+    if (currentUser) {
+        const purchases = await db.purchase.findUnique({
+            where : {
+                inseratId_userId : {
+                    inseratId : inserat.id,
+                    userId : currentUser?.id
+                
+                }
             }
-        }
-    })
+        })
+        
+    } else {
+        const purchases = null;
+        
+    }
 
     const rezensionen = await db.rezension.findMany({
         where : {
@@ -60,15 +66,19 @@ const InseratAnzeige = async ({
         }
     })
 
-    const contactOptions = await db.contactOptions.findUnique({
-        where : {
-            userId : currentUser.id
-        }
-    })
+    let contactOptions;
+
+    if(currentUser) {
+         contactOptions = await db.contactOptions.findUnique({
+            where : {
+                userId : currentUser?.id
+            }
+        })
+    }
 
    
 
-    const isPurchased = purchases ? true : false;
+    
 
     return (
         <div className="2xl:grid  2xl:grid-cols-2 xl:flex justify-center  gap-12 xl:mt-24 h-max">
@@ -144,7 +154,7 @@ const InseratAnzeige = async ({
             <div className="sm:ml-16 xl:ml-0 flex sm:block justify-center">
                     <InseratOptions 
                     user = {user}
-                    isPurchased = {isPurchased}
+                    
                     ownUser = {currentUser}
                     
                     contactOptions = {contactOptions}

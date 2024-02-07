@@ -57,15 +57,10 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 </div>
           
 
-            <div className="flex p-8 rounded-md border-2 border-gray-300  bg-[#10121a] text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                <h3 className="text-4xl font-semibold flex justify-start items-center">
-                    <p className="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  text-[#475aa7] text-5xl">P</p> rofilübersicht
-                </h3>
-
-            </div>
+            
             <div>
-                <p className="flex font-bold text-sm text-gray-900/60"> Offline</p>
-                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                
+                <div className="text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
                     <BookUser className="mr-1" /> Profildetails
                 </div>
                 <div className="flex">

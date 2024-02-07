@@ -53,7 +53,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
             />
             </div>
             
-            <div className="2xl:w-1/2 ml-8 mr-16">
+            <div className="2xl:w-1/2 ml-8 mr-8">
             <RightSideProfile
             inserate = {inserate}
             rezensionen  = {rezensionen}

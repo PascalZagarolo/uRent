@@ -16,6 +16,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Toast } from "@/components/ui/toast";
+import Bookings from "./bookings";
 
 interface InseratOptionsProps {
     user: User;
@@ -124,14 +125,17 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
        toast.success("Link in Zwischenablage kopiert")
     };
 
-
+    const ownSite = ownUser?.id === user.id;
 
 
 
 
     return (
         <div className="w-full">
-                <Dialog>
+                {ownSite ? (
+                    <Bookings/>
+                ) : (
+                    <Dialog>
                     <DialogTrigger className="mt-4" asChild>
 
                         <Button className="bg-emerald-600 border-2 border-black sm:w-[240px] w-full">
@@ -176,12 +180,15 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                         </div>
                     </DialogContent>
                 </Dialog>
+                )}
 
 
             
 
 
-            <div className="mt-4">
+            {!ownSite && (
+                <>
+                <div className="mt-4">
                 <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full" onClick={onStar}>
                     <Star className="h-4 w-4 mr-2" />Anzeige vormerken
                 </Button>
@@ -192,6 +199,8 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                     <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
                 </Button>
             </div>
+            </>
+            )}
 
             <div className="mt-4">
                 <Dialog>

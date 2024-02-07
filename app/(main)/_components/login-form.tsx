@@ -23,6 +23,13 @@ const CredForm = ({
 
 }) => {
 
+
+  const onClick = (provider: "google" | "github") => {
+    signIn(provider, {
+      callbackUrl: `http://localhost:3000/api/auth/callback/${provider}`
+    });
+  }
+
   const session = useSession();
 
   type Variant = "LOGIN" | "REGISTER";
@@ -188,7 +195,9 @@ const CredForm = ({
             <Button variant="ghost">
               <GithubIcon />
             </Button>
-
+            <Button variant="ghost" onClick={() => {onClick("google")}}>
+              G
+            </Button>
           </div>
         </div>
         <div

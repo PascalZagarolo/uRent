@@ -103,16 +103,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 height={260}
                 className="rounded-md border-2 border-gray-400 hover:cursor-pointer"
                 onClick={onRedirect}
-                />
-                
-                
-                </div>
-                
-                
+                />       
+                </div>                     
             </div>
-
             <div className="ml-2 ">
-                
                 <div className="flex  bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  Zeitraum :
@@ -135,32 +129,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
 
                 <div className="font-semibold text-gray-900 flex mt-2 items-center">
-                    {inserat.alreadyOwned ? (
-                        <div>
-                            {owned ? (
-                                <p className="mr-2 flex font-bold">
-                                    <Check
-                                        className="mr-2 text-emerald-600" />
-                                    Im Besitz
-                                </p>
-                            ) : (
-                                <p className="mr-2 flex font-bold">
-                                    <X
-                                        className="mr-2 text-rose-600" />
-                                    Bereits vergriffen
-                                </p>
-                            )}
-                        </div>
-
-                    ) : (
                         <div className="flex">
-                            {owned ? (
-                                <p className="mr-2 flex font-bold">
-                                    <Check
-                                        className="mr-2 text-emerald-600" />
-                                    Im Besitz
-                                </p>
-                            ) : (
                                 <div className="flex bg-emerald-600 p-2 rounded-md border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200">
                                     <p className="mr-2 flex font-bold">
                                         <Banknote
@@ -169,19 +138,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     </p>
                                     {inserat.price} €
                                 </div>
-                            )}
                         </div>
-                    )}
-
-
-
-
-
-
-
-
-
-
                     <div className="ml-auto mr-4 flex items-center bg-[#181c28] border-2 border-gray-300 p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                         <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 rounded-md border-gray-300 border-2" /> Mömer <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
                     </div>

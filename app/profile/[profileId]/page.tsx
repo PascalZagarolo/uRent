@@ -20,7 +20,7 @@ const ProfilePage = async ({ params } : { params : { profileId : string }}) => {
 
     const currentUser = await getCurrentUser();
 
-    const ownProfile = currentUser.id === user.id ? true : false;
+    const ownProfile = currentUser?.id === user.id ? true : false;
 
     const inserate = await db.inserat.findMany({
         where : {

@@ -66,6 +66,7 @@ model User {
   favourites Favourite[]
   conversations Conversation[]
   contactOptions ContactOptions[]
+  bookings Booking[]
 }
 
 model VerificationToken {
@@ -103,6 +104,7 @@ model Inserat {
 
   images Images[]
   purchased Purchase[]
+  bookings Booking[]
 
   location String?
   
@@ -273,6 +275,19 @@ model PkwAttribute {
 
   @@unique([inseratId])
 
+}
+
+model Booking {
+  id String @id @default(uuid())
+
+  inseratId String
+  inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  startDate DateTime
+  endDate DateTime
 }
 
 

@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 import { z } from "zod";
 
 interface SettingsSheetProps {
@@ -31,6 +32,8 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
 
     const [currentName, setCurrentName] = useState(currentUser.name);
     const [currentEmail, setCurrentEmail] = useState(currentUser.email);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
@@ -55,6 +58,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
         }
 
         try {
+            setIsLoading(true);
             axios.patch(`/api/profile/${currentUser.id}`, values)
             toast.success("Änderungen gespeichert");
             setTimeout(() => {
@@ -63,6 +67,8 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
 
         } catch {
             toast.error("Fehler beim Speichern");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -79,6 +85,11 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <SheetContent>
+                       
+                            <ClipLoader
+                            loading={isLoading}
+                            />
+                       
                         <SheetHeader>
                             <div>
                                 <h3 className="flex font-bold text-xl">
@@ -107,7 +118,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                                        
 
                                 </div>
-                                {currentName}
+                                
                                 <div>
                                     <p className="text-sm mt-4 mb-2">
                                         E-Mail

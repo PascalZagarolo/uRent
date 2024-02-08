@@ -22,6 +22,6 @@ export async function PATCH(
 
     } catch (error) {
         console.log(error);
-        return [];
+       return NextResponse.json([], { status : 500 });
     }
 }

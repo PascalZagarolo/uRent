@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Toast } from "@/components/ui/toast";
 import Bookings from "./bookings";
 
+
 interface InseratOptionsProps {
     user: User;
     

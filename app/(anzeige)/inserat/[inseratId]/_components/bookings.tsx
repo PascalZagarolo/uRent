@@ -29,6 +29,12 @@ import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon } from "
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import SearchRent from "./search-rent";
+import { User } from "@prisma/client";
+
+interface BookingsProps {
+  user : User[];
+}
 
 
 const Bookings = () => {
@@ -162,6 +168,9 @@ const Bookings = () => {
               </FormItem>
             )}
           />
+          </div>
+          <div>
+            <SearchRent/>
           </div>
             <div>
               <span className="font-semibold text-base flex">

@@ -25,9 +25,10 @@ import {
 } from "@/components/ui/popover"
 import { toast } from "@/components/ui/use-toast"
 import { values } from "lodash"
-import { CalendarCheck2, CalendarIcon } from "lucide-react"
+import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 
 const Bookings = () => {
@@ -40,7 +41,7 @@ const Bookings = () => {
           required_error: "A date of birth is required.",
         }), end: z.date({
             required_error: "A date of birth is required.",
-          }),
+        }), content: z.string().optional()
       })
        
       const form = useForm<z.infer<typeof formSchema>>({
@@ -48,6 +49,7 @@ const Bookings = () => {
         defaultValues: {
             start: new Date(),
             end: new Date(),
+            content: ""
 
         }
     })
@@ -66,6 +68,11 @@ const Bookings = () => {
             </DialogTrigger>
             <DialogContent>
                 <div>
+                  <div>
+                    <h3 className="font-bold flex mb-8">
+                     <CalendarClockIcon className="mr-2"/> Buchungen verwalten
+                    </h3>
+                  </div>
                     <div className="flex">
                     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -156,7 +163,22 @@ const Bookings = () => {
             )}
           />
           </div>
-
+            <div>
+              <span className="font-semibold text-base flex">
+               <BookOpenCheck className="mr-2"/>  Anmerkungen:
+              </span>
+                      <FormField 
+                      control={form.control}
+                      name="content"
+                      render={({field}) => (
+                        <FormItem className="mt-2 ">
+                          <Textarea
+                          className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200 border border-gray-400"
+                        />
+                        </FormItem>
+                      )}
+                      />
+            </div>
           <Button type="submit" 
           className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200">
             Buchung hinzufügen</Button>

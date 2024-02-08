@@ -8,6 +8,7 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import InseratDescription from "./_components/inserat-description";
 
 
+
 const InseratAnzeige = async ({
     params
 }: { params: { inseratId: string } }) => {
@@ -77,6 +78,7 @@ const InseratAnzeige = async ({
     }
 
    
+   
 
     
 
@@ -140,7 +142,7 @@ const InseratAnzeige = async ({
                 </div>
 
             </div>
-
+            
 
             <div className=" p-4 xl:mt-24 sm:flex justify-center xl:block">
             <div className="xl:hidden flex sm:block justify-center">

@@ -14,7 +14,8 @@ export async function PATCH(
             where : {
                 id : params.inseratId
             }, data :   {
-                ...values
+                ...values,
+                
             }
         })
 

@@ -67,6 +67,8 @@ const SearchRent =  () => {
                 }}
                 />
             </div>
+
+            //! Global-Statemanagement mit Zustand... ausgewählter User bleibt auch beim Verlassen des Dialogs
             
             <div className="block mt-1">
                 {matchingUsers.map((user) => (

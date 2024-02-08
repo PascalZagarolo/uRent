@@ -1,19 +1,18 @@
 import { create } from "zustand";
 import EditName from './app/profile/[profileId]/_components/edit-name-component';
+import { User } from "@prisma/client";
 
 
-type searchUserStore = {
-    username : string,
-    changeName: (newName : string) => void;
+type searchUserByBookingStore = {
+    user : User,
+    changeUser: (newUser : User) => void;
 }
 
-export const useSearchUserStore = create<searchUserStore>((set) => ({
-    username : "",
-    changeName : (newName: string) => {
-        set({ username : newName })
+export const usesearchUserByBookingStore = create<searchUserByBookingStore>((set) => ({
+    user : null,
+    changeUser : (newUser: User) => {
+        set({ user : newUser })
+        console.log(newUser)
     }
 }));
 
-export const getUserByName = async (username : string) => {
-    await getUserByName(username)
-}

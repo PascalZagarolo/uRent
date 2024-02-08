@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useDebounce } from "@/hooks/use-debounce";
 import { User } from "@prisma/client";
 import { Button } from "@/components/ui/button";
+import { usesearchUserByBookingStore } from "@/store";
 
 const SearchRent =  () => {
 
@@ -19,7 +20,8 @@ const SearchRent =  () => {
 
     const debouncedValue = useDebounce(currentValue);
 
-    const [selectedUser , changeSelectedUser] = useState<User | null>(null);
+    const changeUser = usesearchUserByBookingStore((user) => user.changeUser);
+    const selectedUser = usesearchUserByBookingStore((user) => user.user);
 
     const onChange = (value) => {
         setCurrentValue(value);
@@ -68,14 +70,14 @@ const SearchRent =  () => {
                 />
             </div>
 
-            //! Global-Statemanagement mit Zustand... ausgewählter User bleibt auch beim Verlassen des Dialogs
+            
             
             <div className="block mt-1">
                 {matchingUsers.map((user) => (
                     <Button 
                     className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300" 
                     variant="ghost" 
-                    onClick={() => {changeSelectedUser(user)}}
+                    onClick={() => {changeUser(user)}}
                     key={user.id}
                     >
                         <div className="w-full  rounded-md p-2">

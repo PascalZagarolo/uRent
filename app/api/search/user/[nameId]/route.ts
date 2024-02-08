@@ -7,7 +7,7 @@ export async function PATCH(
 ) {
     try {
 
-       console.log(params.nameId)
+       
 
        const users = await db.user.findMany({
         where : {
@@ -18,7 +18,7 @@ export async function PATCH(
         }
        })
 
-        return NextResponse.json(users, { status : 200})
+        return NextResponse.json(users)
 
     } catch (error) {
         console.log(error);

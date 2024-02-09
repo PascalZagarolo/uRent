@@ -33,6 +33,8 @@ import SearchRent from "./search-rent";
 import { User } from "@prisma/client";
 import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
+import { useParams } from "next/navigation";
+import axios from "axios";
 
 interface BookingsProps {
   user: User[];
@@ -43,7 +45,10 @@ const Bookings = () => {
 
   const [currentStart, setCurrentStart] = useState(new Date());
   const [currentEnd, setCurrentEnd] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(false)
   const selectedUser = usesearchUserByBookingStore((user) => user.user)
+
+  const params = useParams();
 
   const formSchema = z.object({
     start: z.date({
@@ -65,16 +70,14 @@ const Bookings = () => {
 
 
   const onSubmit = (value: z.infer<typeof formSchema>) => {
-
-    const values = {
-      content : value.content ? value.content : "",
-      start: currentStart,
-      end: currentEnd,
-      user : selectedUser
-    }
-
     try {
-      console.log(values)
+      const values = {
+        content : value.content ? value.content : "",
+        start: currentStart,
+        end: currentEnd,
+        userId : selectedUser.id
+      }
+      axios.post(`/api/booking/${params.inseratId}`, values)
     } catch(err) {
       toast.error("Fehler beim hinzufügen der Buchung", err)
     }

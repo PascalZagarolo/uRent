@@ -6,6 +6,7 @@ import { User } from "@prisma/client";
 type searchUserByBookingStore = {
     user : User,
     changeUser: (newUser : User) => void;
+    resetUser: () => void;
 }
 
 export const usesearchUserByBookingStore = create<searchUserByBookingStore>((set) => ({
@@ -13,6 +14,8 @@ export const usesearchUserByBookingStore = create<searchUserByBookingStore>((set
     changeUser : (newUser: User) => {
         set({ user : newUser })
         console.log(newUser)
+    }, resetUser : () => {
+        set({ user : null })
     }
 }));
 

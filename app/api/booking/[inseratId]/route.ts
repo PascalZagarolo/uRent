@@ -1,15 +1,17 @@
-import { db } from '@/utils/db';
-import { NextResponse } from 'next/server';
+import { db } from "@/utils/db";
+import { NextResponse } from "next/server";
+
 export async function POST(
     req : Request,
     { params } : { params : { inseratId : string }}
 ) {
     try {
 
-        const values = await req.json()
+        
 
-        console.log(values)
+        const values = await req.json();
 
+        
         const booking = await db.booking.create({
             data : {
                 inseratId : params.inseratId,
@@ -19,10 +21,12 @@ export async function POST(
             }
         })
 
-        return NextResponse.json(booking)
+            
+            return NextResponse.json(booking)
+       
 
     } catch(error) {
-        console.log(error);
-        return new NextResponse("Interner Server Error", { status : 500 })
+        console.log("Fehler beim erstellen einer Buchung" , error);
+        return new NextResponse("Interner Server Error", { status: 500 })
     }
 }

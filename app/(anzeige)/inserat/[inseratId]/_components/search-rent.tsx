@@ -83,7 +83,7 @@ const SearchRent =  () => {
                     <Button 
                     className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300" 
                     variant="ghost" 
-                    onClick={() => {changeUser(user)}}
+                    onClick={() => {changeUser(user); setCurrentValue("")}}
                     key={user.id}
                     >
                         <div className="w-full  rounded-md p-2 items-center flex">

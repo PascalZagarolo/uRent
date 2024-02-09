@@ -11,8 +11,11 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { User } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { usesearchUserByBookingStore } from "@/store";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const SearchRent =  () => {
+
+    const pathname = usePathname();
 
     const [currentValue, setCurrentValue] = useState<string>("");
     const [matchingUsers , setMatchingUsers] = useState<User[]>([]);
@@ -28,6 +31,7 @@ const SearchRent =  () => {
         
     }
 
+    
     useEffect(() => {
         const fetchMatchingUsers = async () => {
             console.log(debouncedValue);

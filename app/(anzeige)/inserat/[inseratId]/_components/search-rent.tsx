@@ -28,7 +28,6 @@ const SearchRent =  () => {
 
     const onChange = (value) => {
         setCurrentValue(value);
-        
     }
 
     
@@ -68,10 +67,8 @@ const SearchRent =  () => {
                 "
                 value={selectedUser ? selectedUser.name : currentValue}
                 onChange={(e) => {
-                    
                         setCurrentValue(e.target.value);
-                        selectedUser ? changeUser(null) : null;
-                   
+                        selectedUser ? changeUser(null) : null;    
                 }}
                 />
             </div>
@@ -80,9 +77,9 @@ const SearchRent =  () => {
             
             <div className="block mt-1">
                 {matchingUsers.map((user) => (
-                    <Button 
+                    <span 
                     className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300" 
-                    variant="ghost" 
+                     
                     onClick={() => {changeUser(user); setCurrentValue("")}}
                     key={user.id}
                     >
@@ -100,7 +97,7 @@ const SearchRent =  () => {
                             {user.email}
                         </div>
                     </div>
-                    </Button>
+                    </span>
                 ))}
             </div>
         </div>

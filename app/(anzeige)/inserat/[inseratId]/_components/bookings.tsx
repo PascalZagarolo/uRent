@@ -71,15 +71,21 @@ const Bookings = () => {
 
   const onSubmit = (value: z.infer<typeof formSchema>) => {
     try {
+      console.log("getriggered")
+      setIsLoading(true);
       const values = {
         content : value.content ? value.content : "",
         start: currentStart,
         end: currentEnd,
         userId : selectedUser.id
       }
-      axios.post(`/api/booking/${params.inseratId}`, values)
+      axios.post(`/api/booking/${params.inseratId}`, values);
+      usesearchUserByBookingStore((state) => state.resetUser())
+      
     } catch(err) {
       toast.error("Fehler beim hinzufügen der Buchung", err)
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -217,13 +223,15 @@ const Bookings = () => {
                     )}
                   />
                 </div>
-                <Button type="submit"
+                <Button 
                   className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200"
-                  disabled={!selectedUser}
+                  disabled={!selectedUser || isLoading }
+                  type="submit"
                   >
                   Buchung hinzufügen</Button>
               </form>
             </Form>
+            
           </div>
         </div>
       </DialogContent>

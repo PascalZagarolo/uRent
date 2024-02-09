@@ -290,6 +290,8 @@ model Booking {
   endDate DateTime
 
   content String? @db.Text
+
+  @@unique([inseratId, startDate, endDate])
 }
 
 

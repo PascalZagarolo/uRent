@@ -36,7 +36,9 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
                     <div className="">
                         {bookings.length > 0 ? (
                             bookings.map((bookings) => (
-                                <span className="flex mt-2 border border-gray-300 p-4 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] ">
+                                <span className="flex mt-2 border border-gray-300 p-4 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"
+                                key={bookings.id}
+                                >
                                     <CalendarClock/>
                                     <p className="ml-2 font-semibold text-sm">{formatDateToDDMMYY(bookings.startDate)} - {formatDateToDDMMYY(bookings.endDate)}</p>
                                 </span>

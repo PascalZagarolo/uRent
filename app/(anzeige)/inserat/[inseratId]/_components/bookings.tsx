@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/popover"
 
 import { values } from "lodash"
-import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon } from "lucide-react"
+import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, PlusSquare } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
@@ -99,7 +99,7 @@ const Bookings = () => {
     <Dialog>
       <DialogTrigger className="w-[240px]">
         <Button className="w-full bg-white text-gray-900 border-2 border-gray-900 hover:bg-gray-200">
-          <CalendarCheck2 className="mr-2 h-4 w-4" /> Buchungen verwalten
+          <PlusSquare className="mr-2 h-4 w-4" /> Buchungen hinzufügen
         </Button>
       </DialogTrigger>
       <DialogContent>

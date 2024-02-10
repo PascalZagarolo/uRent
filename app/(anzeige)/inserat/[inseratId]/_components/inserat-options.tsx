@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { User, ContactOptions } from "@prisma/client";
+import { User, ContactOptions, Booking } from "@prisma/client";
 import { EmailShareButton, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, TwitterShareButton } from "react-share"
 
 import axios from "axios";
@@ -17,18 +17,19 @@ import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Toast } from "@/components/ui/toast";
 import Bookings from "./bookings";
+import ManageBookings from "./manage-bookings";
 
 
 interface InseratOptionsProps {
     user: User;
-    
+    bookings : Booking & { user : User}[];
     ownUser: User;
     contactOptions: ContactOptions;
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> =  ({
     user,
-    
+    bookings,
     ownUser,
     contactOptions
 }) => {
@@ -133,8 +134,12 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
 
     return (
         <div className="w-full">
-                {ownSite ? (
+                {!ownSite ? (
+                    <>
                     <Bookings/>
+                    
+                    </>
+
                 ) : (
                     <Dialog>
                     <DialogTrigger className="mt-4" asChild>
@@ -167,7 +172,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                                     <RadioGroupItem value="email" id="email" />
 
                                     <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center" /> E-Mail</Label>
-
+                                     
                                 </RadioGroup>
 
                             </div>
@@ -187,7 +192,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
             
 
 
-            {!ownSite && (
+            {!!ownSite ? (
                 <>
                 <div className="mt-4">
                 <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full" onClick={onStar}>
@@ -201,6 +206,12 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                 </Button>
             </div>
             </>
+            ) : (
+                
+                    <ManageBookings
+                    bookings = {bookings}
+                    />
+                
             )}
 
             <div className="mt-4">

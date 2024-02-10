@@ -33,7 +33,7 @@ import SearchRent from "./search-rent";
 import { User } from "@prisma/client";
 import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 
 interface BookingsProps {
@@ -49,6 +49,7 @@ const Bookings = () => {
   const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
   const params = useParams();
+  const router = useRouter();
 
   const formSchema = z.object({
     start: z.date({
@@ -80,11 +81,14 @@ const Bookings = () => {
         userId : selectedUser.id
       }
       axios.post(`/api/booking/${params.inseratId}`, values);
-      usesearchUserByBookingStore((state) => state.resetUser())
+      toast.success("Buchung hinzugefügt");
       
     } catch(err) {
       toast.error("Fehler beim hinzufügen der Buchung", err)
     } finally {
+      setTimeout(() => {
+        router.refresh();
+      }, 1000)
       setIsLoading(false);
     }
   }
@@ -223,12 +227,14 @@ const Bookings = () => {
                     )}
                   />
                 </div>
+                <DialogTrigger asChild>
                 <Button 
                   className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200"
                   disabled={!selectedUser || isLoading }
                   type="submit"
                   >
                   Buchung hinzufügen</Button>
+                </DialogTrigger>
               </form>
             </Form>
             

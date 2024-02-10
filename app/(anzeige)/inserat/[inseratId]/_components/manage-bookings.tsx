@@ -66,21 +66,33 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                     </h3>
                 </DialogTitle>
                 <div className="items-center">
-                    {bookings.map((booking : Booking & { user : User}) => (
-                        <div key={booking.id}>
-                            <div className="mt-2 flex items-center border border-gray-300 rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
-                                <Clock10Icon className="h-4 w-4 mr-2"/>
-                                
-                        <span className="font-semibold text-sm">  {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} </span>
-                        <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center">{booking.user.email}</p>
-                        <div className="ml-auto flex gap-x-4">
-                          <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
-                          <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>
-                        </div>
-                      </div>
-                        </div>
-                      
-                    ))}
+                    {bookings.length > 0 ? (
+                        bookings.map((booking : Booking & { user : User}) => (
+                            <div key={booking.id}>
+                                <div className="mt-2 flex items-center border border-gray-300 rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
+                                    <Clock10Icon className="h-4 w-4 mr-2"/>
+                                    
+                            <span className="font-semibold text-sm">  {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} </span>
+                            <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center">{booking.user.email}</p>
+                            <div className="ml-auto flex gap-x-4">
+                              <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
+                              <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>
+                            </div>
+                          </div>
+                            </div>
+                          
+                        ))
+                    ) : (
+                        <div >
+                                <div className="mt-2 flex items-center rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
+                                    <Clock10Icon className="h-4 w-4 mr-2"/>
+                                    
+                            
+                            <p className="text-sm ml-4 font-semibold text-gray-900/50 justify-center"> Noch keine Buchung hinzugefügt...</p>
+                            
+                          </div>
+                            </div>
+                    )}
                 </div>
                 
             </DialogContent>

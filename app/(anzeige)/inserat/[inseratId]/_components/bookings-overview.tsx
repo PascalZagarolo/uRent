@@ -42,13 +42,13 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
 
     return ( 
         <Popover>
-            <PopoverTrigger>
+            <PopoverTrigger className="hover:drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <CalendarCheck/>
             </PopoverTrigger>
             <PopoverContent side="right">
                 <div>
                     <h1 className="flex font-semibold mb-2"> Termine ({bookings.length}) </h1>
-                    <div className="h-[240px] overflow-y-auto no-scrollbar ">
+                    <div className="h-[240px] overflow-y-auto no-scrollbar">
                         <div className="">
                         {bookings.length > 0 ? (
                             bookings.map((booking) => (

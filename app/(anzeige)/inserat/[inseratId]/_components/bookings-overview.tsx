@@ -25,6 +25,21 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
         return `${formattedDay}.${formattedMonth}.${formattedYear}`;
     }
 
+    function formatDateToDDMM(date: Date): string {
+        const day: number = date.getDate();
+        const month: number = date.getMonth() + 1; 
+        const year: number = date.getFullYear() % 100; 
+    
+       
+        const formattedDay: string = (day < 10) ? '0' + day : day.toString();
+        const formattedMonth: string = (month < 10) ? '0' + month : month.toString();
+    
+        
+        const formattedYear: string = (year < 10) ? '0' + year : year.toString();
+    
+        return `${formattedDay}.${formattedMonth}`;
+    }
+
     return ( 
         <Popover>
             <PopoverTrigger>
@@ -44,7 +59,7 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
                                     >
                                         <CalendarClock />
                                         <div className="ml-2 font-semibold text-sm drop-shadow-none flex">
-                                            {formatDateToDDMMYY(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} <CheckIcon className="ml-1 text-emerald-600" />
+                                            {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} <CheckIcon className="ml-1 text-emerald-600" />
                                         </div>
                                     </span>
                                 ))

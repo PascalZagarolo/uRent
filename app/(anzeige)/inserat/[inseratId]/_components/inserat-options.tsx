@@ -133,7 +133,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
 
     return (
         <div className="w-full">
-                {!ownSite ? (
+                {ownSite ? (
                     <Bookings/>
                 ) : (
                     <Dialog>

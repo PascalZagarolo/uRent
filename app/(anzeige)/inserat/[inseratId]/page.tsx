@@ -80,11 +80,18 @@ const InseratAnzeige = async ({
 
     const inseratBookings = await db.booking.findMany({
         where: {
-            inseratId: inserat.id
+            inseratId: inserat.id,
+            
         }, orderBy : {
             startDate : "asc"
+        },
+        include : {
+            user : true,
+            
         }
     })
+
+   
 
 
 
@@ -171,9 +178,9 @@ const InseratAnzeige = async ({
                     <div className="sm:ml-16 xl:ml-0 flex sm:block justify-center">
                         <InseratOptions
                             user={user}
-
+                            //@ts-ignore
+                            bookings={inseratBookings}
                             ownUser={currentUser}
-
                             contactOptions={contactOptions}
                         />
                     </div>

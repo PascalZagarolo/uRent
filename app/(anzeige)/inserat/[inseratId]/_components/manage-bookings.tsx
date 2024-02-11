@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+
 import { Booking, User } from "@prisma/client";
-import { DialogTitle } from "@radix-ui/react-dialog";
-import { CalendarCheck2, Clock10Icon, Settings2Icon, Trash2 } from "lucide-react";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import axios from "axios";
+import { CalendarCheck2, Clock10Icon, Settings2Icon, Trash2, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface ManageBookingsProps {
     bookings : Booking & { user : User }[]
@@ -42,12 +47,26 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
         return `${formattedDay}.${formattedMonth}`;
     }
 
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
     const onManage = () => {
         console.log("delete");
     }
 
-    const onDelete = () => {
-        console.log("delete");
+    const onDelete = (bookingId : string) => {
+        try {
+            setIsLoading(true);
+            axios.delete(`/api/booking/delete/${bookingId}`);
+            toast.success("Buchung erfolgreich gelöscht");
+            setTimeout(() => {
+                router.refresh();
+            })
+        } catch {
+            toast.error("Fehler beim Löschen der Buchung")
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return ( 
@@ -76,7 +95,31 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                             <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center">{booking.user.email}</p>
                             <div className="ml-auto flex gap-x-4">
                               <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
-                              <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>
+                              <Dialog>
+                                <DialogTrigger>
+                                <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <h3 className="font-bold flex"><X/>Buchung löschen</h3>
+                                    </DialogHeader>
+                                    <DialogDescription className="text-xs font-semibold italic text-gray-900/50">
+                                        gelöschte Buchungen können nicht wiederhergestellt werden
+                                    </DialogDescription>
+                                    <div className="ml-auto flex gap-x-1">
+                                        <DialogTrigger>
+                                        <Button className="bg-rose-600 hover:bg-rose-500" onClick={() => {onDelete(booking.id)}}>
+                                            Buchung löschen
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogTrigger>
+                                        <Button variant="ghost" className="border border-black">
+                                            Abbrechen
+                                            </Button>
+                                        </DialogTrigger>
+                                    </div>
+                                </DialogContent>
+                              </Dialog>
                             </div>
                           </div>
                             </div>

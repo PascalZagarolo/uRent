@@ -8,6 +8,7 @@ import { CalendarCheck2, Clock10Icon, Settings2Icon, Trash2, X } from "lucide-re
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import EditBookingDialog from "./edit-booking-dialog";
 
 interface ManageBookingsProps {
     bookings : Booking & { user : User }[]
@@ -94,7 +95,7 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                             <span className="font-semibold text-sm">  {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} </span>
                             <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center">{booking.user.email}</p>
                             <div className="ml-auto flex gap-x-4">
-                              <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
+                              <EditBookingDialog booking = {booking} />
                               <Dialog>
                                 <DialogTrigger>
                                 <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>

@@ -78,15 +78,17 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
       setIsLoading(true);
       const values = {
         content : value.content ? value.content : "",
-        start: currentStart,
-        end: currentEnd,
+        startDate: currentStart,
+        endDate: currentEnd,
         userId : selectedUser.id
       }
-      axios.post(`/api/booking/${params.inseratId}`, values);
-      toast.success("Buchung hinzugefügt");
+      console.log(values)
+      axios.patch(`/api/booking/edit/${params.inseratId}`, values);
+      toast.success("Änderungen gespeichert");
       
     } catch(err) {
-      toast.error("Fehler beim hinzufügen der Buchung", err)
+      toast.error("Fehler beim ändern der Buchung", err)
+      console.log(err);
     } finally {
       setTimeout(() => {
         router.refresh();

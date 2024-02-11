@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 
@@ -9,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import EditBookingDialog from "./edit-booking-dialog";
+import { usesearchUserByBookingStore } from "@/store";
 
 interface ManageBookingsProps {
     bookings : Booking & { user : User }[]
@@ -69,6 +72,8 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
             setIsLoading(false);
         }
     }
+
+    
 
     return ( 
         <Dialog>

@@ -8,12 +8,19 @@ import { useEffect, useState } from "react";
 import { set } from 'date-fns';
 import toast from "react-hot-toast";
 import { useDebounce } from "@/hooks/use-debounce";
-import { User } from "@prisma/client";
+import { Booking, User } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { usesearchUserByBookingStore } from "@/store";
 import { usePathname, useSearchParams } from "next/navigation";
 
-const SearchRent =  () => {
+interface SearchRentProps {
+    booking? : Booking & { user : User }
+}
+
+
+const SearchRent: React.FC<SearchRentProps> =  ({
+    booking
+}) => {
 
     const pathname = usePathname();
 
@@ -78,7 +85,7 @@ const SearchRent =  () => {
             <div className="block mt-1">
                 {matchingUsers.map((user) => (
                     <span 
-                    className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300" 
+                    className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300 hover:cursor-pointer" 
                      
                     onClick={() => {changeUser(user); setCurrentValue("")}}
                     key={user.id}

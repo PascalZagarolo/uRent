@@ -37,7 +37,7 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 
 interface EditBookingDialogProps {
-    booking : Booking;
+    booking : Booking & { user : User};
 }
 
 
@@ -45,8 +45,8 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
     booking
 }) => {
 
-  const [currentStart, setCurrentStart] = useState(new Date());
-  const [currentEnd, setCurrentEnd] = useState(new Date());
+  const [currentStart, setCurrentStart] = useState(booking.startDate || new Date());
+  const [currentEnd, setCurrentEnd] = useState(booking.endDate || new Date());
   const [isLoading, setIsLoading] = useState(false)
   const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
@@ -95,11 +95,13 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
     }
   }
 
+  const changeUser = usesearchUserByBookingStore((user) => user.changeUser);
+
   
 
   return (
     <Dialog>
-      <DialogTrigger className="">
+      <DialogTrigger className="" onClick={() => {changeUser(booking.user)}}>
         
         <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
         
@@ -131,10 +133,10 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
-                                {field.value ? (
-                                  format(field.value, "PPP")
+                                {currentStart ? (
+                                  format(currentStart, "PPP")
                                 ) : (
-                                  <span>Pick a date</span>
+                                  <span>Wähle ein Datum</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
@@ -143,9 +145,9 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                           <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
                               mode="single"
-                              selected={field.value}
+                              selected={currentStart}
                               onSelect={(date) => {
-                                field.onChange(date); // This line was missing
+                                field.onChange(date);
                                 setCurrentStart(date);
                               }}
                               disabled={(date) =>
@@ -177,24 +179,22 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
-                                {field.value ? (
-                                  format(field.value, "PPP")
+                                {currentEnd ? (
+                                  format(currentEnd, "PPP")
                                 ) : (
-                                  <span>Pick a date</span>
+                                  <span>Wähle ein Datum</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
+                          <Calendar
                               mode="single"
-                              selected={field.value}
+                              selected={currentEnd}
                               onSelect={(date) => {
-                                const nextDay = new Date(date);
-                                nextDay.setDate(nextDay.getDate() + 1);
-                                field.onChange(nextDay);
-                                setCurrentEnd(nextDay);
+                                field.onChange(date);
+                                setCurrentEnd(date);
                               }}
                               disabled={(date) =>
                                 date < currentStart || date < new Date("1900-01-01")
@@ -211,7 +211,9 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
 
                 </div>
                 <div>
-                  <SearchRent />
+                  <SearchRent 
+                  booking={booking}
+                  />
                 </div>
                 <div>
                   <span className="font-semibold text-base flex">
@@ -224,6 +226,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                       <FormItem className="mt-2 ">
                         <Textarea
                           className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200 border border-gray-400"
+                          defaultValue={booking.content}
                         />
                       </FormItem>
                     )}
@@ -235,7 +238,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                   disabled={!selectedUser || isLoading }
                   type="submit"
                   >
-                  Buchung hinzufügen</Button>
+                  Änderungen speichern</Button>
                 </DialogTrigger>
               </form>
             </Form>

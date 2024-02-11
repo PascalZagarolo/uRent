@@ -83,7 +83,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
         userId : selectedUser.id
       }
       console.log(values)
-      axios.patch(`/api/booking/edit/${params.inseratId}`, values);
+      axios.patch(`/api/booking/edit/${booking.id}`, values);
       toast.success("Änderungen gespeichert");
       
     } catch(err) {

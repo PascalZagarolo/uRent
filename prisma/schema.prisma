@@ -130,6 +130,7 @@ enum Category {
   BAU
   CARAVAN
   TRAILOR
+  TRANSPORT
 }
 
 model Images {

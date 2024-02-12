@@ -48,21 +48,21 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
             <PopoverContent side="right">
                 <div>
                     <h1 className="flex font-semibold mb-2"> Termine ({bookings.length}) </h1>
-                    <div className="h-[240px] overflow-y-auto no-scrollbar">
+                    <div className="max-h-[240px] overflow-y-auto no-scrollbar">
                         <div className="">
                         {bookings.length > 0 ? (
                             bookings.map((booking) => (
-                                [...Array(4)].map((_, index) => (
+                               
                                     <span 
                                         className="flex mt-2 border border-gray-300 p-4 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"
-                                        key={`${booking.id}_${index}`} // Making sure the key is unique
+                                        key={`${booking.id}`} 
                                     >
                                         <CalendarClock />
                                         <div className="ml-2 font-semibold text-sm drop-shadow-none flex">
                                             {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} <CheckIcon className="ml-1 text-emerald-600" />
                                         </div>
                                     </span>
-                                ))
+                               
                             ))
                             
                             

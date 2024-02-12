@@ -134,7 +134,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
 
     return (
         <div className="w-full">
-                {!ownSite ? (
+                {ownSite ? (
                     <>
                     <Bookings/>
                     
@@ -188,11 +188,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                 </Dialog>
                 )}
 
-
-            
-
-
-            {!!ownSite ? (
+            {!ownSite ? (
                 <>
                 <div className="mt-4">
                 <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full" onClick={onStar}>

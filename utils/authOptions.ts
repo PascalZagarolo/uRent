@@ -29,7 +29,7 @@ export const authOptions: AuthOptions = {
   
         async authorize(credentials) {
           if (!credentials?.email || !credentials?.password) {
-            throw new Error('Invalid credentials');
+            throw new Error('Ungültige Anmeldedaten');
           }
   
           const user = await db.user.findUnique({
@@ -39,7 +39,7 @@ export const authOptions: AuthOptions = {
           });
   
           if (!user || !user?.password) {
-            throw new Error('Invalid credentials');
+            throw new Error('Ungültige Anmeldedaten');
           }
   
           const isCorrectPassword = await bcrypt.compare(
@@ -48,7 +48,7 @@ export const authOptions: AuthOptions = {
           );
   
           if (!isCorrectPassword) {
-            throw new Error('Invalid credentials');
+            throw new Error('Ungültige Anmeldedaten');
           }
   
           return user;

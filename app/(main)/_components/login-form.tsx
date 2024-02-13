@@ -10,7 +10,7 @@ import { signIn, useSession, } from "next-auth/react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { GithubIcon } from "lucide-react";
+import { Eye, GithubIcon } from "lucide-react";
 import Input from "@/components/input";
 import toast from "react-hot-toast";
 
@@ -159,6 +159,7 @@ const CredForm = ({
             label="Email"
             type="email"
           />
+          
           <Input
             disabled={isLoading}
             register={register}
@@ -167,7 +168,10 @@ const CredForm = ({
             id="password"
             label="Passwort"
             type="password"
-          />
+            
+          /> 
+          
+          
           <div>
             <Button disabled={isLoading} type="submit" className="bg-[#1f2332] hover:bg-[#25293a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
               {variant === 'LOGIN' ? 'Einloggen' : 'Registrieren'}

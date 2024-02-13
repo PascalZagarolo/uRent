@@ -1,11 +1,15 @@
 'use client';
 
+import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { 
   FieldErrors, 
   FieldValues, 
   UseFormRegister 
 } from "react-hook-form";
+import { Button } from "./ui/button";
+import { Eye } from "lucide-react";
+import { useState } from "react";
 
 interface InputProps {
   label: string;
@@ -26,6 +30,21 @@ const Input: React.FC<InputProps> = ({
   type = 'text',
   disabled,
 }) => {
+
+  const [newType, setNewType] = useState(type);
+  
+
+  const onPasswordShow = () => {
+     setNewType("text");
+     
+  }
+
+  const onPasswordRelease = () => {
+    setTimeout(() => {
+      setNewType("password");
+    }, 500)
+  }
+
   return ( 
     <div className="">
       <label 
@@ -41,10 +60,10 @@ const Input: React.FC<InputProps> = ({
       >
         {label}
       </label>
-      <div className="mt-2">
+      <div className={cn("mt-2", type === "password" ? "flex w-full" : "")}>
         <input
           id={id}
-          type={type}
+          type={newType}
           autoComplete={id}
           disabled={disabled}
           {...register(id, { required })}
@@ -70,6 +89,13 @@ const Input: React.FC<InputProps> = ({
             disabled && 'opacity-50 cursor-default'
           )}
         />
+        {type === 'password' && (
+          
+            <div className="items-center flex ml-2">
+              <Eye className="h-4 w-4" onMouseDown={onPasswordShow} onMouseUp={onPasswordRelease}/>
+            </div>
+          
+        )}
       </div>
     </div>
    );

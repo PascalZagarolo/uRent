@@ -64,7 +64,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     Fahrzeugkategorie
                 </h3>
 
-                <div className="flex justify-between ml-12 mr-12 mt-4 ">
+                <div className="flex justify-between ml-12 mr-12 mt-8 ">
                     <div className="">
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer",
                             currentCategory === "PKW" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("PKW") }}>

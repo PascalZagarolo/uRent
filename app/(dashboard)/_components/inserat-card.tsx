@@ -112,7 +112,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         <CalendarCheck2 className="mr-2" />  Zeitraum :
                     </p>
                     { inserat.annual ? (
-                        <p className="font-semibold italic"> Datumsunabhängig </p>
+                        <p className="font-semibold italic text-sm"> Datumsunabhängig verfügbar </p>
                     ) : (
                         <>
                         <p className="font-semibold text-gray-200">
@@ -134,7 +134,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     <p className="mr-2 flex font-bold">
                                         <Banknote
                                             className="mr-2 bg-gray-100 p-0.5 rounded-md border-gray-300 border-2 text-gray-900" />
-                                        Preis :
+                                        Preis {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)} : 
                                     </p>
                                     {inserat.price} €
                                 </div>

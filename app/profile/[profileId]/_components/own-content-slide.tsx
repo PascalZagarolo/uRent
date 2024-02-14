@@ -80,15 +80,19 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                           />
                         </div>
-                        <div className="flex mt-1">
-                          <Badge className="bg-emerald-600 border border-black">
+                        <div className="flex justify-between mt-1 items-center">
+                        <Badge className="bg-emerald-600 border border-black">
                             Verfügbar
                           </Badge>
                           
                           <div>
-                          <p className="flex font-semibold ml-8 italic text-gray-900/70 text-sm"> {formatDate(inserat.begin)} - {formatDate(inserat.end)}</p>
+                          {inserat.annual ? (
+                            <p className="text-xs italic mr-2"> Datumsunabhängig </p>
+                          ) : (
+                            <p className="flex font-semibold  italic text-gray-900/70 text-sm mr-2"> {formatDate(inserat.begin)} - {formatDate(inserat.end)}</p>
+                          )}
                           </div>
-                          <div className="flex ml-auto font-bold text-md">
+                          <div className="flex font-bold text-md">
                           {inserat.price}  <p className="text-xs mr-1">00</p> €
                           </div>
                         </div>

@@ -29,8 +29,8 @@ const InseratCardMobile: React.FC<InseratCardMobileProps> = ({
 }) => {
 
     const formatDate = (inputDate: Date): string => {
-        const day = inputDate.getDate().toString().padStart(2, '0');
-        const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = inputDate?.getDate().toString().padStart(2, '0');
+        const month = (inputDate?.getMonth() + 1).toString().padStart(2, '0');
         return `${day}.${month}`;
     };
 

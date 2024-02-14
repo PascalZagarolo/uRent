@@ -20,7 +20,7 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
         }
     })
 
-    const isPublishable = (inserat.title && inserat.description && inserat.price && inserat.category && inserat.begin && inserat.end && images.length > 0) ? true : false;
+    const isPublishable = (inserat.title && inserat.description && inserat.price && inserat.category && (inserat.begin && inserat.end || inserat.annual) && images.length > 0) ? true : false;
 
     return ( 
         <div className="w-full">

@@ -12,7 +12,8 @@ const nextConfig = {
         domains : [
             "www.dropbox.com",
             "previews.dropbox.com",
-            "res.cloudinary.com"
+            "res.cloudinary.com",
+            "lh3.googleusercontent.com"
         ]
     }
 

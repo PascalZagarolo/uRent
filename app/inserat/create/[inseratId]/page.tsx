@@ -39,7 +39,7 @@ const InseratCreation = async ({
                     />
                 </div>
                 <div className="col-span-1 ">
-                    <InseratBodyRight
+                <InseratBodyRight
                     inserat={inserat}
                     />
                 </div>

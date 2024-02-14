@@ -24,7 +24,9 @@ const DetailsPage = async ({
             case 'TRAILOR':
                 return "Anhänger";
             case 'CARAVAN':
-                return 'Anhänger'
+                return 'Wohnmobile';
+            case 'TRANSPORT':
+                return 'Transporter';
         }
     }
 

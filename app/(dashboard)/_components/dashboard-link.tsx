@@ -16,7 +16,6 @@ const DashboardLink: React.FC<DashboardLinkProps> = ({
 
     const router = useRouter();
 
-
     const onClick = () => {
         router.push(`/dashboard/${currentUser.id}`)
     }

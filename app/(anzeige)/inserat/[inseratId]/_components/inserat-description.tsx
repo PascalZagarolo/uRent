@@ -19,11 +19,13 @@ const InseratDescription: React.FC<InseratDescriptionProps> = ({
             <div className={cn("mt-2 w-[480px]  text-gray-200/90  ", isUnfolded ? "" : "h-[40px] truncate")}>
                                     {inserat.description}
             </div>
-            <div className="w-full mt-2">
+            {inserat.description.length > 60 && (
+                <div className="w-full mt-2">
                 <Button className="w-full border-2 border-gray-300" onClick={() => {isUnfolded ? setIsUnfolded(false) : setIsUnfolded(true)}}>
                     Mehr anzeigen
                 </Button>
             </div>
+            )}
         </div>
      );
 }

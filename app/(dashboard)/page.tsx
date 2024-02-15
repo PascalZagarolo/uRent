@@ -46,6 +46,15 @@ const Main = async ({
                 contains : searchParams.title
             },
             isPublished : true,
+            OR : [
+              {
+                annual : true
+              }, {
+                begin : {
+                  lte : new Date()
+                }
+              }
+            ]
             
         }, orderBy : {
             views : "desc"

@@ -47,7 +47,7 @@ const Bookings = async ({
             </h3>
             <div className="2xl:flex justify-between mt-8 ">
                 <div className="2xl:w-1/2">
-                    <h3 className="flex justify-start text-lg font-bold  text-gray-100 md:mr-16 bg-[#191d27] border-2 border-black rounded-md p-2
+                    <h3 className="flex justify-start text-lg font-bold  text-gray-100 2xl:mr-8 bg-[#191d27] border-2 border-black rounded-md p-2
                     drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                         <Star className="mr-4" /> Favourisierte Anzeigen
                     </h3>
@@ -68,10 +68,10 @@ const Bookings = async ({
                       </div>
                 </div>
                 <div className="2xl:w-1/2 2xl:mt-0 mt-8">
-                    <h3 className="flex justify-start text-lg font-bold text-gray-100 md:mr-16 bg-[#191d27] border-2 border-black rounded-md p-2">
+                    <h3 className="flex justify-start text-lg font-bold text-gray-100 2xl:mr-8 bg-[#191d27] border-2 border-black rounded-md p-2">
                         <ListOrdered className="mr-4" /> Buchungshistorie
                     </h3>
-                    <div className="">
+                    <div className=" ">
                         {bookings.map((booking) => (
                             <OrderColoumns
                                 key={booking.id}

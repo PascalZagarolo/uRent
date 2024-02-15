@@ -9,6 +9,8 @@ const OrderColoumns: React.FC<OrderColoumnsProps> = ({
     booking
 }) => {
 
+    const today = new Date();
+
     const formatDate = (inputDate: Date): string => {
         const returnDate =  format(new Date(inputDate), "dd.MM.yy")
       
@@ -24,26 +26,34 @@ const OrderColoumns: React.FC<OrderColoumnsProps> = ({
       };
 
     return ( 
-        <div className="mt-4 bg-white border-2 border-gray-300 p-4 rounded-lg mr-32 items-center">
-            <div className="flex gap-x-4">
-                <div className="flex w-[100px]">
+        <div className="mt-4 bg-white border-2 border-gray-300 p-4 rounded-lg 2xl:mr-8  items-center ">
+            <div className="flex gap-x-4 items-center">
+                <div className="md:flex md:w-[100px] hidden">
                     <img 
                     src={booking.inserat.images[0].url}
                     />
                 </div>
-                <div className="flex w-[180px]">
-                    <p className="flex font-semibold truncate text-sm">{booking.inserat.title}</p>
+                <div className="flex justify-center w-1/4 overflow-hidden">
+                    <p className="flex font-semibold truncate text-sm justify-center">{booking.inserat.title}</p>
                 </div>
-                <div className="flex w-[100px]">
-                    <p className="flex font-semibold">{booking.user.name}</p>
+                <div className="flex w-1/8 md:w-2/8">
+                    <p className="flex font-semibold truncate">{booking.user.name}</p>
                 </div>
-                <div className="flex w-[40px]">
-                    <p className="flex font-semibold">{booking.inserat.price}€</p>
+                <div className="md:flex w-1/8 justify-center hidden ">
+                    <div className="flex font-semibold justify-center truncate">{booking.inserat.price}€ {booking.inserat.annual && "/ Tag"}</div>
                 </div>
-                <div className="flex w-[240px] justify-center">
+                <div className="flex w-1/4 justify-center">
                     <p className="flex font-semibold mr-2">{formatPeriod(booking.startDate)}</p>
                     bis
                     <p className="flex font-semibold ml-2">{formatDate(booking.endDate)}</p>
+                </div>
+                <div className="hidden md:flex">
+                    {booking.endDate < today ? (
+                        <p className="flex font-semibold text-red-500">Abgelaufen</p>
+                    ) : (
+                        <p className="flex font-semibold text-green-500">Aktiv</p>
+                    
+                    )}
                 </div>
             </div>
         </div>

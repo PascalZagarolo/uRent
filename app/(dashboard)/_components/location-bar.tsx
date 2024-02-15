@@ -11,10 +11,12 @@ const LocationBar = () => {
                 placeholder="Ich komme aus..."
                 className="mt-2"
             />
-
+            <div className="bg-[#191d2e] p-2 border-2 border-black mt-2 rounded-md">
             <Map
-                className="mt-2 ml-2 h-6 w-6 text-white flex items-center"
+                className="  h-6 w-6 text-white flex items-center"
             />
+            </div>
+            
 
             
         </div>

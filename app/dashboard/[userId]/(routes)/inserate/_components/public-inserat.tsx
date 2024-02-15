@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
 
-import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, DollarSign, EuroIcon, EyeIcon, LocateFixedIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, ViewIcon, X } from "lucide-react";
+import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, DollarSign, EuroIcon, EyeIcon, LocateFixedIcon, LockIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, ViewIcon, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -62,17 +62,18 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
     return (
         
         
-        <div className=" w-1/6 rounded-lg ">
+        <div className="w-full rounded-lg ">
             <div className="h-[40px] flex bg-[#12141d] rounded-md">
                 <div className="w-full">
                 <Button className=" bg-[#ed580dec] hover:bg-[#ed580dec]/60 w-full flex justify-center text-xs rounded-md"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
-                    <Settings className="w-4 h-4 mr-2" /> Inserat verwalten 
+                    <Settings className="w-4 h-4 mr-2" /> <div className="hidden 2xl:flex">Inserat verwalten </div>
                 </Button>
                 </div>
                 <div className="ml-auto ">
                     <Button className="bg-[#12141d] rounded-md">
-                        Privat stellen
+                        <LockIcon className="h-4 w-4"/>
                     </Button>
+                    
                 </div>
             </div>
         <div className=" rounded-md border-2 border-[#000000] h-[320px]  bg-[#24293b] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
@@ -118,7 +119,7 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
             </div>
 
             <div className="flex w-full justify-center mt-auto bg-gray-300 rounded-md mb-2 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
-                <EyeIcon className="mr-2"/> 102 Ansichten
+                <EyeIcon className="mr-2"/> {inserat.views} Aufrufe
             </div>
             
         </div>

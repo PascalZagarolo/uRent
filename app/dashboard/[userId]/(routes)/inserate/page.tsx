@@ -42,9 +42,9 @@ const InserateOverview = async ({
                    <PencilRuler className="w-6 h-6 mr-2" /> Meine Veröffentlichungen ( {publicInserate.length} )
                 </h3>
             </div>
-            <div>
+            <div className="">
                 {publicInserate.length > 0 ? (
-                    <div className="flex gap-x-2 justify-between mt-4">
+                    <div className="flex gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
                         {publicInserate.map((draft) => (
                         <InseratPublic
                         key={draft.id}
@@ -67,7 +67,8 @@ const InserateOverview = async ({
                    <PencilRuler className="w-6 h-6 mr-2" /> Meine Entwürfe ( {drafts.length} )
                 </h3>
             </div>
-                <div className="grid grid-cols-5 gap-4">
+                <div>
+                <div className=" gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
                     {drafts.map((draft) => (
                         <InseratDrafts
                         key={draft.id}
@@ -75,6 +76,7 @@ const InserateOverview = async ({
                         inserat={draft}
                         />
                     ))}
+                </div>
                 </div>
             </div>
         </div>

@@ -65,7 +65,7 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
 
 
 
-        <div className=" rounded-md border-2 border-gray-300 h-[360px] mt-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] p-4">
+        <div className="w-full rounded-md  border-gray-300  mt-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] p-8">
             <div className="">
                 <h3 className="flex justify-start font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] text-lg">
                     <p>

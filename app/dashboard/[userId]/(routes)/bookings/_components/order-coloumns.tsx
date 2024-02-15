@@ -25,7 +25,7 @@ const OrderColoumns: React.FC<OrderColoumnsProps> = ({
         return `${day}.${month}`;
       };
 
-    return ( 
+    return (  
         <div className="mt-4 bg-white border-2 border-gray-300 p-4 rounded-lg 2xl:mr-8  items-center ">
             <div className="flex gap-x-4 items-center">
                 <div className="md:flex md:w-[100px] hidden">

@@ -51,7 +51,7 @@ const Main = async ({
                 annual : true
               }, {
                 begin : {
-                  lte : new Date()
+                  gte : new Date()
                 }
               }
             ]

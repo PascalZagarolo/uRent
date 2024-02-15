@@ -29,7 +29,7 @@ const DashboardLayout = async (
                 <SidebarMenu />
             </div>
         </div>
-        <div className="flex-1 p-8 bg-[#404040]/10 ml-64"> {/* Adjusted ml-48 to ml-64 */}
+        <div className="flex-1 p-8 bg-[#404040]/10 ml-64 min-h-screen"> 
             {children}
         </div>
     </div>

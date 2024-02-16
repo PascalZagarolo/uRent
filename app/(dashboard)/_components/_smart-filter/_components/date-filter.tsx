@@ -93,7 +93,10 @@ const DateFormFilter = () => {
 
     },[])
 
-
+    const filterReset = () => {
+        setPeriodBegin(null);
+        setPeriodEnd(null);
+    }
 
     return (
         <div className="mb-2">
@@ -123,8 +126,8 @@ const DateFormFilter = () => {
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
-                                {field.value ? (
-                                  format(field.value, "dd.MM")
+                                {periodBegin ? (
+                                  format(periodBegin, "dd.MM")
                                 ) : (
                                   <span className="font-semibold text-gray-900">Start</span>
                                 )}
@@ -170,8 +173,8 @@ const DateFormFilter = () => {
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
-                                {field.value ? (
-                                  format(field.value, "dd.MM")
+                                {periodEnd ? (
+                                  format(periodEnd, "dd.MM")
                                 ) : (
                                   <span className="font-semibold text-gray-900">Ende</span>
                                 )}
@@ -216,7 +219,7 @@ const DateFormFilter = () => {
                 
             </div>
             <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={() => {}} >
+                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={filterReset} disabled={!periodBegin && !periodEnd} >
                         Filter zurücksetzen
                     </Button>
                 </div>

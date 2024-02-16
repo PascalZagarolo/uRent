@@ -92,7 +92,7 @@ const Main = async ({
               periodEnd={searchParams.periodEnd}      />
     </div>
 
-    {/* Mobile Content */}
+    
     <div className="mt-2  overflow-y-auto sm:hidden flex items-center justify-center">
       <RelevanteInserateMobile
         title={searchParams.title}

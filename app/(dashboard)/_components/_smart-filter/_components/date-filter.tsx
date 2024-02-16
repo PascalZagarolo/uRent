@@ -14,7 +14,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Banknote, CalendarClockIcon, CalendarIcon, Clock12, Link } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { z } from "zod";
 import { useForm, FieldValues } from 'react-hook-form';
@@ -36,6 +36,10 @@ const DateFormFilter = () => {
 
     const [periodBegin, setPeriodBegin] = React.useState(null);
     const [periodEnd, setPeriodEnd] = React.useState(null);
+
+    const paramsPeriodBegin =  searchParams.get("periodBegin") ? new Date(searchParams.get("periodBegin")) : null;
+    const paramsPeriodEnd = searchParams.get("periodEnd") ? new Date(searchParams.get("periodEnd")) : null;
+    
 
     
 
@@ -89,9 +93,18 @@ const DateFormFilter = () => {
         console.log("...")
     }
 
+    //Zeitraum resetten, wenn ganzes Filterformular zurückgesetzt wird
     React.useEffect(() => {
+        if(!paramsPeriodBegin){
+            setPeriodBegin(null)
+        }
 
-    },[])
+        if(!paramsPeriodEnd){
+            setPeriodEnd(null)
+        }
+
+        
+    },[paramsPeriodBegin, paramsPeriodEnd])
 
     const filterReset = () => {
         setPeriodBegin(null);

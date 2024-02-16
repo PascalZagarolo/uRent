@@ -32,9 +32,9 @@ const OrderBy = () => {
     }
 
     return (
-        <Select onValueChange={(e) => {onClick(e)}}>
-            <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Sortieren nach" />
+        <Select onValueChange={(e) => {onClick(e)}} >
+            <SelectTrigger className="w-[180px] dark:text-gray-100 dark:focus:ring-0 dark:bg-slate-900">
+                <SelectValue placeholder="Sortieren nach" className="dark:text-gray-100" />
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="desc">Preis absteigend</SelectItem>

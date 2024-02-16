@@ -1,26 +1,48 @@
-'use client'
+import { useDebounce } from "@/hooks/use-debounce";
+import { PinIcon } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRef, useEffect, useState } from "react";
+import qs from 'query-string';
 
-import { Input } from "@/components/ui/input";
-import { Map } from "lucide-react";
-import LocationPerimeter from "./location-perimeter";
 
-const LocationBar = () => {
-    return (
-        <div className=" xl:flex items-center justify-start position: static hidden mr-4">
-            <Input
-                placeholder="Ich komme aus..."
-                className="mt-2"
-            />
-            <div className="bg-[#191d2e] p-2 border-2 border-black mt-2 rounded-md">
-            <Map
-                className="  h-6 w-6 text-white flex items-center"
-            />
-            </div>
-            
+const AutoComplete = () => {
+ const autoCompleteRef = useRef();
+ const inputRef = useRef();
+ const options = {
+  componentRestrictions: { country: "de" },
+  fields: ["address_components", "geometry", "icon", "name"],
+  
+ };
+ const [value, setValue] = useState("");
+ const debouncedValue = useDebounce(value);
+ 
+ const router = useRouter();
+ const pathname = usePathname();
+ const searchParams = useSearchParams();
+ const currentLocation = searchParams.get("location");
 
-            
-        </div>
+ 
+ 
+useEffect(() => {
+    //@ts-ignore
+    autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+     inputRef.current ,
+     options
     );
-}
+   }, [currentLocation]);
 
-export default LocationBar;
+
+ return (
+  <div className="flex items-center">
+   <div className="mr-16 flex items-center mt-2">
+   <input ref={inputRef} placeholder="Gebe deine Addresse ein..." className="p-2.5 pr-16   rounded-md input: text-sm border border-black input: justify-start"
+   onChange={(e) => setValue(e.target.value)}/>
+   <div className="p-2">
+    <PinIcon className="text-white h-4 w-4"/>
+    {currentLocation}
+   </div>
+   </div>
+  </div>
+ );
+};
+export default AutoComplete;

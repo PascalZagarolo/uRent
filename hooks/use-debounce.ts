@@ -6,7 +6,7 @@ export function useDebounce<T>(value : T, delay? : number) : T {
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedValue(value);
-        }, delay || 500 );
+        }, delay || 750 );
 
         return () => {
             clearTimeout(timer);

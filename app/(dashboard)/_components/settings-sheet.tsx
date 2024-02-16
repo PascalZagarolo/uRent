@@ -27,7 +27,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
     currentUser
 }) => {
 
-    const { setTheme } = useTheme()
+    const { theme, setTheme } = useTheme()
 
     function isWhitespace(str: string): boolean {
         return /^\s*$/.test(str);
@@ -161,8 +161,10 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                                     <Switch
                                         className=""
                                         defaultChecked={false}
+                                        checked={theme === "dark" ? true : false}
                                         onCheckedChange={(checked) => { checked ? setTheme("dark") : setTheme("light")}}
                                     /> <p className="font-semibold ml-4">Darkmode</p>
+                                    
                                 </div>
                             </div>
                         </div>

@@ -68,7 +68,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
                 <div className="flex justify-between ml-12 mr-12 mt-8 ">
                     <div className="">
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer",
+                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
                             currentCategory === "PKW" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("PKW") }}>
                             <CarFront />
                         </p>
@@ -78,7 +78,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     </div>
 
                     <div>
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer",
+                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
                             currentCategory === "LKW" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("LKW") }}>
                             <Truck />
                         </p>
@@ -91,7 +91,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
                 <div className="flex justify-between ml-12 mr-12 mt-4 ">
                     <div>
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer",
+                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
                             currentCategory === "LAND" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("LAND") }}>
                             <TractorIcon />
                         </p>
@@ -101,7 +101,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     </div>
 
                     <div>
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer",
+                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
                             currentCategory === "BAU" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("BAU") }}>
                             <ConstructionIcon />
                         </p>
@@ -118,7 +118,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
                     <div className="w-[40px] ml-2.5">
                         <div className="flex flex-col items-center">
-                            <p className={cn("p-4 rounded-md bg-white border-2 flex justify-center items-center hover:cursor-pointer",
+                            <p className={cn("p-4 rounded-md bg-white border-2 flex justify-center items-center hover:cursor-pointer dark:bg-[#1c1f2f]",
                                 currentCategory === "CARAVAN" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("CARAVAN") }}>
                                 <CaravanIcon className="" />
                             </p>
@@ -131,7 +131,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
 
                     <div className="">
-                        <p className={cn("p-4 rounded-md bg-white border-2   flex justify-center hover:cursor-pointer",
+                        <p className={cn("p-4 rounded-md bg-white border-2   flex justify-center hover:cursor-pointer dark:bg-[#1c1f2f]",
                             currentCategory === "TRANSPORT" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
                             <TramFront className="" />
                         </p>
@@ -148,7 +148,10 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     <Contact className="mr-2 h-4 w-4" />  kein passendes Angebot dabei ?
                 </div>
                 <div className="flex justify-center mt-2 rounded-md">
-                    <Button className="bg-[#ed580dec] w-full h-[100px] m ml-2 mr-2 border-2 border-[#000000] flex justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <Button className="bg-[#ed580dec] w-full h-[100px] m ml-2 mr-2 border-2 border-[#000000] flex 
+                    justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                    dark:text-gray-100 dark:hover:bg-[#ed580d]
+                    ">
                         <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 ">{treffer}</p> Ergebnisse
                     </Button>
                 </div>

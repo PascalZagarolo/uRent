@@ -163,7 +163,8 @@ const PriceFormFilter = () => {
                 
             </div>
             <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={onPriceReset} disabled={!currentStart && !currentEnd}>
+                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c] dark:text-gray-100
+                     dark:border-black dark:hover:bg-[#212538]" onClick={onPriceReset} disabled={!currentStart && !currentEnd}>
                         Filter zurücksetzen
                     </Button>
                 </div>

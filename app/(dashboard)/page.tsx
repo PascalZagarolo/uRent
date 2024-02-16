@@ -25,6 +25,8 @@ interface MainPageProps {
         end: string,
         filter : string,
         page : number,
+        periodBegin : string,
+        periodEnd: string
     }
 }
 
@@ -74,18 +76,20 @@ const Main = async ({
     
   </div>
 
-  {/* Margin for the content to avoid overlap */}
+      
+  
   <div className="2xl:ml-72 sm:mt-24 ml-4 relative sm:z-0">
-    {/* Main Content */}
+  
     <div className="hidden sm:block overflow-y-auto sm:overflow-hidden no-scrollbar ">
       <RelevanteInserate
-        title={searchParams.title}
-        category={searchParams.category}
-        filter={searchParams.filter}
-        start={searchParams.start}
-        end={searchParams.end}
-        page={searchParams.page}
-      />
+              title={searchParams.title}
+              category={searchParams.category}
+              filter={searchParams.filter}
+              start={searchParams.start}
+              end={searchParams.end}
+              page={searchParams.page} 
+              periodBegin={searchParams.periodBegin} 
+              periodEnd={searchParams.periodEnd}      />
     </div>
 
     {/* Mobile Content */}

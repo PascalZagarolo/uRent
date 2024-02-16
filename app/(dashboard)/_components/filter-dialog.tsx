@@ -23,7 +23,10 @@ const FilterDialog = () => {
         <div>
             <Dialog>
                 <DialogTrigger className="mr-2" asChild>
-                    <Button className="p-2 bg-white rounded-md text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border border-gray-100 hover:bg-gray-200">
+                    <Button className="p-2 bg-white  rounded-md text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                    border border-gray-100 hover:bg-gray-200
+                    dark:border-none dark:text-gray-100 dark:bg-slate-800 dark:hover:bg-slate-700
+                    ">
                         <Settings2Icon />
                     </Button>
                 </DialogTrigger>

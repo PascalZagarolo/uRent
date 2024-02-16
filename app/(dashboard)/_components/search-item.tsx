@@ -38,7 +38,7 @@ const SearchItem = () => {
             
 
             <Input
-                className="2xl:w-[240px]"
+                className="2xl:w-[240px] dark:border-none dark:focus:bring-0 dark:focus-visible:ring-0"
                 placeholder="Ich suche nach..."
                 value={value}
                 onChange={(e) => setValue(e.target.value)}

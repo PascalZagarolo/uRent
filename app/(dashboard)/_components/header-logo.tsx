@@ -17,6 +17,7 @@ import { Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import LogOutButton from "@/components/logout-button";
 import SettingsSheet from './settings-sheet';
+import { ModeToggle } from "@/components/toggle-mode";
 
 interface HeaderProps {
     currentUser: User;
@@ -42,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
                     <div className="text-[#4e5889] font-font-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</div>
                     <p className="text-[#eaebf0] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)]">Rent</p>
                 </h3>
-
+                    
                 <div className="flex">
                     <div className="flex items-center">
                         <div className="2xl:mr-16 items-center sm:mr-8">

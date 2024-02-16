@@ -155,7 +155,7 @@ const DateFormFilter = () => {
                                 {periodBegin ? (
                                   format(periodBegin, "dd.MM")
                                 ) : (
-                                  <span className="font-semibold text-gray-900">Start</span>
+                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80">Start</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
@@ -202,7 +202,7 @@ const DateFormFilter = () => {
                                 {periodEnd ? (
                                   format(periodEnd, "dd.MM")
                                 ) : (
-                                  <span className="font-semibold text-gray-900">Ende</span>
+                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80">Ende</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
@@ -245,7 +245,9 @@ const DateFormFilter = () => {
                 
             </div>
             <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={filterReset} disabled={!periodBegin && !periodEnd} >
+                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]
+                    dark:text-gray-100 dark:border-black dark:hover:bg-[#212538]
+                    " onClick={filterReset} disabled={!periodBegin && !periodEnd} >
                         Filter zurücksetzen
                     </Button>
                 </div>

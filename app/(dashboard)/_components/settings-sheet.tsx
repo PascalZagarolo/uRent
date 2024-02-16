@@ -10,6 +10,7 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import { set } from "lodash";
 import { SettingsIcon, UserCheck } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,6 +26,8 @@ interface SettingsSheetProps {
 const SettingsSheet: React.FC<SettingsSheetProps> = ({
     currentUser
 }) => {
+
+    const { setTheme } = useTheme()
 
     function isWhitespace(str: string): boolean {
         return /^\s*$/.test(str);
@@ -157,6 +160,8 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                                 <div className="flex">
                                     <Switch
                                         className=""
+                                        defaultChecked={false}
+                                        onCheckedChange={(checked) => { checked ? setTheme("dark") : setTheme("light")}}
                                     /> <p className="font-semibold ml-4">Darkmode</p>
                                 </div>
                             </div>

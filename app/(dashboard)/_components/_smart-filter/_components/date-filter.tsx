@@ -34,49 +34,34 @@ const DateFormFilter = () => {
     const currentTitle = searchParams.get("title");
     const category = searchParams.get("category");
 
-    const [currentStart, setCurrentStart] = React.useState(null);
-    const [currentEnd, setCurrentEnd] = React.useState(null);
+    const [periodBegin, setPeriodBegin] = React.useState(null);
+    const [periodEnd, setPeriodEnd] = React.useState(null);
 
-    const startPrice = searchParams.get("start");
-    const endPrice = searchParams.get("end");
     
 
 
-    const onClick = (startPrice: string, endPrice: string) => {
+    
 
-        setCurrentStart(Number(startPrice));
-        setCurrentEnd(Number(endPrice));
+        React.useEffect(() => {
+            const url = qs.stringifyUrl({
+                url: pathname,
+                query: {
+                    title: currentTitle,
+                    category: category,
+                    
+                    periodBegin : format(new Date(periodBegin), "dd-MM-yyyy"),
+                    periodEnd : format(new Date(periodEnd), "dd-MM-yyyy"),
+                    
+                }
+            }, { skipNull: true, skipEmptyString: true });
+    
+            router.push(url)
+        },[periodBegin, periodEnd])
 
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                title: currentTitle,
-                category: category,
-                end: endPrice,
-                start: startPrice,
-                
-            }
-        }, { skipNull: true, skipEmptyString: true });
+        
+ 
 
-        router.push(url)
-    }
-
-    const onPriceReset = () => {
-        setCurrentStart(null);
-        setCurrentEnd(null);
-
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                title: currentTitle,
-                category: category,
-                
-                
-            }
-        }, { skipNull: true, skipEmptyString: true });
-
-        router.push(url)
-    }
+    
 
     const formSchema = z.object({
         start: z.string().optional(),
@@ -103,6 +88,10 @@ const DateFormFilter = () => {
     const onSubmit = () => {
         console.log("...")
     }
+
+    React.useEffect(() => {
+
+    },[])
 
 
 
@@ -146,10 +135,11 @@ const DateFormFilter = () => {
                           <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
                               mode="single"
+                              //@ts-ignore
                               selected={field.value}
                               onSelect={(date) => {
                                 field.onChange(date);
-                                setCurrentStart(date);
+                                setPeriodBegin(date);
                               }}
                               disabled={(date) =>
                                 date < new Date() || date < new Date("1900-01-01")
@@ -192,15 +182,16 @@ const DateFormFilter = () => {
                           <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
                               mode="single"
+                              //@ts-ignore
                               selected={field.value}
                               onSelect={(date) => {
                                 const nextDay = new Date(date);
                                 nextDay.setDate(nextDay.getDate() + 1);
                                 field.onChange(nextDay);
-                                setCurrentEnd(nextDay);
+                                setPeriodEnd(nextDay);
                               }}
                               disabled={(date) =>
-                                date < currentStart || date < new Date("1900-01-01")
+                                date < periodBegin || date < new Date("1900-01-01")
                               }
                               initialFocus
                             />
@@ -225,7 +216,7 @@ const DateFormFilter = () => {
                 
             </div>
             <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={onPriceReset} disabled={!currentStart && !currentEnd}>
+                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]" onClick={() => {}} >
                         Filter zurücksetzen
                     </Button>
                 </div>

@@ -24,7 +24,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
    
     return ( 
         <div className="flex justify-start  items-center mt-2">
-            <div className="lg:flex  font-semibold mr-4 text-xs text-gray-200  hidden items-center">
+            <div className="  font-semibold mr-4 text-xs text-gray-200  hidden items-center 2xl:flex">
             🎉 Willkommen zurück
                     <p className="ml-1 font-bold hidden 2xl:flex  text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
                 </div>

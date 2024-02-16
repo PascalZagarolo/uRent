@@ -3,6 +3,7 @@ import { PinIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import qs from 'query-string';
+import { Input } from "@/components/ui/input";
 
 
 const AutoComplete = () => {
@@ -33,12 +34,13 @@ useEffect(() => {
 
 
  return (
-  <div className="flex items-center">
-   <div className="mr-16 flex items-center mt-2">
-   <input ref={inputRef} placeholder="Gebe deine Addresse ein..." className="p-2.5 pr-16   rounded-md input: text-sm border border-black input: justify-start"
+  <div className="lg:flex items-center hidden">
+   <div className="2xl:mr-16 xl:mr-8 flex items-center mt-2 w-full flex-shrink">
+   <Input ref={inputRef} placeholder="Standort.." 
+   className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border   border-black  input: justify-start "
    onChange={(e) => setValue(e.target.value)}/>
    <div className="p-2">
-    <PinIcon className="text-white h-4 w-4"/>
+    <PinIcon className="text-white h-4 w-4 2xl:block hidden"/>
     {currentLocation}
    </div>
    </div>

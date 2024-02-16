@@ -109,7 +109,7 @@ const DateFormFilter = () => {
           <div className="flex">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="flex gap-x-8">
+                <div className="flex gap-x-4">
                   <FormField
                     control={form.control}
                     name="start"
@@ -122,7 +122,7 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[110px] pl-3 text-left font-semibold",
+                                  "w-[120px] pl-3 text-left font-semibold",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -169,7 +169,7 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[110px] pl-3 text-left  font-semibold",
+                                  "w-[120px] pl-3 text-left  font-semibold",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >

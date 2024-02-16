@@ -46,21 +46,19 @@ const DateFormFilter = () => {
 
     
 
-        React.useEffect(() => {
-            const url = qs.stringifyUrl({
-                url: pathname,
-                query: {
-                    title: currentTitle,
-                    category: category,
-                    
-                    periodBegin : periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
-                    periodEnd : periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
-                    
-                }
-            }, { skipNull: true, skipEmptyString: true });
+    React.useEffect(() => {
+        const url = qs.stringifyUrl({
+            url: pathname,
+            query: {
+                title: currentTitle,
+                category: category,
+                periodBegin: periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
+                periodEnd: periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
+            }
+        }, { skipNull: true, skipEmptyString: true });
     
-            router.push(url)
-        },[periodBegin, periodEnd])
+        router.push(url);
+    }, [periodBegin, periodEnd, currentTitle, category]);
 
         
  
@@ -97,14 +95,15 @@ const DateFormFilter = () => {
     React.useEffect(() => {
         if(!paramsPeriodBegin){
             setPeriodBegin(null)
-        }
+        }  
+    },[paramsPeriodBegin ])
 
+    //Zeitraum resetten, wenn ganzes Filterformular zurückgesetzt wird
+    React.useEffect(() => {
         if(!paramsPeriodEnd){
             setPeriodEnd(null)
-        }
-
-        
-    },[paramsPeriodBegin, paramsPeriodEnd])
+        }  
+    },[paramsPeriodEnd ])
 
     const filterReset = () => {
         setPeriodBegin(null);
@@ -216,7 +215,7 @@ const DateFormFilter = () => {
                               selected={field.value}
                               onSelect={(date) => {
                                 const nextDay = new Date(date);
-                                nextDay.setDate(nextDay.getDate() + 1);
+                                nextDay.setDate(nextDay.getDate());
                                 field.onChange(nextDay);
                                 setPeriodEnd(nextDay);
                               }}
@@ -250,6 +249,7 @@ const DateFormFilter = () => {
                         Filter zurücksetzen
                     </Button>
                 </div>
+                
         </div>
     );
 }

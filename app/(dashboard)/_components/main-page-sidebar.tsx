@@ -46,6 +46,8 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
             url: pathname,
             query: {
                 title: currentTitle,
+                periodBegin: null,
+                periodEnd: null,
             }
         }, { skipNull: true, skipEmptyString: true });
 

@@ -17,6 +17,8 @@ type GetInserate = {
     start? : number;
     end? : number;
     page? : number;
+    periodBegin? : string;
+    periodEnd? : string;
 }
 
 export const getInserate = async ({
@@ -25,7 +27,9 @@ export const getInserate = async ({
     filter,
     start,
     end,
-    page
+    page,
+    periodBegin,
+    periodEnd
 } : GetInserate ): Promise<InserateWithImages[]> => {
     try {
 
@@ -39,6 +43,20 @@ export const getInserate = async ({
                         contains : title
                     },
                     category : category,
+                    OR : [
+                        {
+                            begin : {
+                                lte : periodBegin,
+                                gte : periodEnd
+                            
+                            }, end : {
+                                lte : periodBegin,
+                                gte : periodEnd
+                            }
+                        }, {
+                            annual : true
+                        }
+                    ]
                     
                 }, include : {
                     images : true,
@@ -65,7 +83,20 @@ export const getInserate = async ({
                     price : {
                         gte : start? start : 0,
                         lte : end? end : 1000000,
-                    }
+                    }, OR : [
+                        {
+                            begin : {
+                                lte : periodBegin,
+                                gte : periodEnd
+                            
+                            }, end : {
+                                lte : periodBegin,
+                                gte : periodEnd
+                            }
+                        }, {
+                            annual : true
+                        }
+                    ]
                     
                 }, include : {
                     images : true,

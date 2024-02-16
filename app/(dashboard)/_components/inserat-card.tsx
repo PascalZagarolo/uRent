@@ -154,7 +154,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </div>
                     </div>
                     <div className="ml-auto mr-4 flex items-center dark:bg-[#181818]/95 bg-[#181c28] border-2 border-gray-300 p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                        <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 rounded-md border-gray-300 border-2" /> Mömer <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
+                        <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 dark:bg-[#181818]/95 dark:border-none rounded-md border-gray-300 border-2" /> Mömer <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
                     </div>
                 </div>
                 <div className="w-full mt-2">

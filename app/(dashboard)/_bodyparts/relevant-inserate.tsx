@@ -62,9 +62,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     });
 
     return (
-        <div className="w-full">
+        <div className="w-full ">
 
-            {!title ? (
+{!title ? (
                 <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 p-3 text-gray-100 bg-[#181b27]">
                 <div className="ml-4 flex w-full items-center">
                     <div className="p-2 border-2 border-white rounded-lg">
@@ -114,14 +114,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 <div className="grid  sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 overflow-y-auto  justify-center">
                     {inserateArray.map((inserat, index) => (
                         <div className="w-full sm:w-1/2 md:w-1/4 p-4" key={inserat.id}>
-                            <InseratCard
-                                key={inserat.id}
-                                inserat={inserat}
-                                profileId={currentUser?.id || ""}
-                                isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
-                                owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
-                            />
-                        </div>
+                        <InseratCard
+                            key={inserat.id}
+                            inserat={inserat}
+                            profileId={currentUser?.id || ""}
+                            isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
+                            owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
+                        />
+                    </div>
                     ))}
                 </div>
 

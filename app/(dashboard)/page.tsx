@@ -81,7 +81,7 @@ const Main = async ({
   <div className="2xl:ml-72 sm:mt-24 ml-4 relative sm:z-0">
   
     <div className="hidden sm:block overflow-y-auto sm:overflow-hidden no-scrollbar ">
-      <RelevanteInserate
+    <RelevanteInserate
               title={searchParams.title}
               category={searchParams.category}
               filter={searchParams.filter}

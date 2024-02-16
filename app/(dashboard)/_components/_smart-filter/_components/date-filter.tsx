@@ -49,8 +49,8 @@ const DateFormFilter = () => {
                     title: currentTitle,
                     category: category,
                     
-                    periodBegin : format(new Date(periodBegin), "dd-MM-yyyy"),
-                    periodEnd : format(new Date(periodEnd), "dd-MM-yyyy"),
+                    periodBegin : periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
+                    periodEnd : periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
                     
                 }
             }, { skipNull: true, skipEmptyString: true });
@@ -96,6 +96,20 @@ const DateFormFilter = () => {
     const filterReset = () => {
         setPeriodBegin(null);
         setPeriodEnd(null);
+
+        const url = qs.stringifyUrl({
+            url: pathname,
+            query: {
+                title: currentTitle,
+                category: category,
+                
+                periodBegin : null,
+                periodEnd : null,
+                
+            }
+        }, { skipNull: true, skipEmptyString: true });
+
+        router.push(url)
     }
 
     return (

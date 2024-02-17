@@ -78,11 +78,11 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
               <FormLabel>Fahrzeugklasse</FormLabel>
               <Select onValueChange={(selectedValue : Category) => {setCurrentCategory(selectedValue)}} defaultValue={inserat.category || "PKW"}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200">
                     <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
+                <SelectContent className="dark:bg-[#000000] border-white">
                   <SelectItem value="PKW">PKW</SelectItem>
                   <SelectItem value="TRANSPORT">Transporter</SelectItem>
                   <SelectItem value="LKW">LKW</SelectItem>
@@ -97,7 +97,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-white mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-900 hover:bg-gray-200" 
+        <Button type="submit" className="bg-white dark:bg-[#000000] dark:hover:bg-gray-900 dark:text-gray-100 mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-900 hover:bg-gray-200" 
         disabled={currentCategory == inserat.category}>
           Kategorie auswählen
           </Button>

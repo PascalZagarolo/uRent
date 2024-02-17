@@ -64,13 +64,13 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
     return ( 
         <div className="mr-32 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ml-4  rounded-md">
-            <h1 className="text-xl flex justify-start p-4 font-semibold mt-2  text-gray-900  ">
+            <h1 className="text-xl flex justify-start p-4 font-semibold mt-2  text-gray-900  dark:text-gray-100">
                 <AlignCenter className="mr-4 "/>Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             <div>
                 
             </div>
-            <div className=" mr-16 mt-4 p-4 bg-white rounded-md border border-gray-200">
+            <div className=" mr-16 mt-4 p-4 bg-white dark:bg-[#0F0F0F] rounded-md border border-gray-200">
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
@@ -83,7 +83,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                 <FormControl>
                                     <Input
                                     {...field}
-                                    className=" w-80"
+                                    className=" w-80 dark:bg-[#0F0F0F] dark:border-gray-100"
                                     
                                     />
                                 </FormControl>
@@ -92,7 +92,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                         )}
                         />
                         <div>
-                            <Button variant="ghost" className="ml-4 bg-gray-200" type="submit">
+                            <Button variant="ghost" className="ml-4 bg-gray-200 dark:bg-[#000000] dark:hover:bg-[#191919]" type="submit">
                                 Titel speichern
                             </Button>
                         </div>
@@ -101,7 +101,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                     </div>  
                 ): (
                     <div className="">
-                        <p className="font-semibold text-gray-900/70   mr-8"> {inserat.title} </p>
+                        <p className="font-semibold text-gray-900/70 dark:text-gray-100   mr-8"> {inserat.title} </p>
                     </div>
                 )}
             </div>

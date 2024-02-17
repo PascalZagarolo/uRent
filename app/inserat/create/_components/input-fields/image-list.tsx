@@ -87,14 +87,15 @@ const ImageList: React.FC<ImageListProps> = ({
                                 {(provided) => (
                                     <div
                                     className={cn(
-                                        "flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-4 text-sm",
+                                        `flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-4 text-sm
+                                         dark:bg-[#202020] dark:text-gray-100 dark:border-none `,
                                         
                                     )}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     >
                                         <div
-                                        className={cn("px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 rounded-l-md transition")}
+                                        className={cn("px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 dark:hover:bg-[#282828] w-full  dark: border-none rounded-l-md transition")}
                                         {...provided.dragHandleProps}
                                         >
                                             {image.url}

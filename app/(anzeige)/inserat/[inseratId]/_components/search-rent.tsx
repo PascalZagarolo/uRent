@@ -70,7 +70,7 @@ const SearchRent: React.FC<SearchRentProps> =  ({
                 {selectedUser ? <img src={selectedUser.image ? selectedUser.image : "/placeholder-person.jpg"} className="w-8 h-8 rounded-full mr-2"/> : null}
                 <Input
                 className="border border-gray-400 bg-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-2
-                focus:ring-0 focus:border-0 focus:outline-none focus-visible:ring-0
+                focus:ring-0 focus:border-0 focus:outline-none focus-visible:ring-0 dark:bg-[#0a0a0a]
                 "
                 value={selectedUser ? selectedUser.name : currentValue}
                 onChange={(e) => {
@@ -85,22 +85,22 @@ const SearchRent: React.FC<SearchRentProps> =  ({
             <div className="block mt-1">
                 {matchingUsers.map((user) => (
                     <span 
-                    className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300 hover:cursor-pointer" 
+                    className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300 hover:cursor-pointer " 
                      
                     onClick={() => {changeUser(user); setCurrentValue("")}}
                     key={user.id}
                     >
-                        <div className="w-full  rounded-md p-2 items-center flex">
-                        <div className="w-[30px] h-[30px] rounded-md mr-4">
+                        <div className="w-full  rounded-md p-2 items-center flex dark:bg-[#171717]">
+                        <div className="w-[30px] h-[30px] rounded-md mr-4 ">
                             <img 
                             src={user.image ? user.image : "/placeholder-person.jpg"}
-                            className="object-fill rounded-full"
+                            className="object-fill rounded-full  "
                             />
                         </div>
                         <div className="flex justify-center font-semibold text-medium">
                             <p>{user.name}</p>
                         </div>
-                        <div className="ml-auto text-xs font-semibold italic text-gray-900/50">
+                        <div className="ml-auto text-xs font-semibold italic text-gray-900/50 dark:text-gray-100/90">
                             {user.email}
                         </div>
                     </div>

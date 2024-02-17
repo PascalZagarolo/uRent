@@ -102,7 +102,7 @@ const Bookings = () => {
           <PlusSquare className="mr-2 h-4 w-4" /> Buchungen hinzufügen
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100">
         <div>
           <div>
             <h3 className="font-bold flex mb-8">
@@ -121,16 +121,16 @@ const Bookings = () => {
                         <FormLabel>Anfangsdatum</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] dark:border-gray-100">
                               <Button
                                 variant={"outline"}
                                 className={cn(
                                   "w-[200px] pl-3 text-left font-normal",
-                                  !field.value && "text-muted-foreground"
+                                  !field.value && "text-muted-foreground  "
                                 )}
                               >
                                 {field.value ? (
-                                  format(field.value, "PPP")
+                                  format(field.value, "PPP") 
                                 ) : (
                                   <span>Pick a date</span>
                                 )}
@@ -142,8 +142,9 @@ const Bookings = () => {
                             <Calendar
                               mode="single"
                               selected={field.value}
+                              className="dark:bg-[#0a0a0a] dark:border-gray-100 dark:border"
                               onSelect={(date) => {
-                                field.onChange(date); // This line was missing
+                                field.onChange(date); 
                                 setCurrentStart(date);
                               }}
                               disabled={(date) =>
@@ -167,7 +168,7 @@ const Bookings = () => {
                         <FormLabel>Enddatum</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] dark:border-gray-100">
                               <Button
                                 variant={"outline"}
                                 className={cn(
@@ -188,6 +189,7 @@ const Bookings = () => {
                             <Calendar
                               mode="single"
                               selected={field.value}
+                              className="dark:bg-[#0a0a0a] dark:border-gray-100 dark:border"
                               onSelect={(date) => {
                                 const nextDay = new Date(date);
                                 nextDay.setDate(nextDay.getDate() + 1);
@@ -221,7 +223,7 @@ const Bookings = () => {
                     render={({ field }) => (
                       <FormItem className="mt-2 ">
                         <Textarea
-                          className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200 border border-gray-400"
+                          className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200 border border-gray-400 dark:bg-[#0a0a0a]"
                         />
                       </FormItem>
                     )}
@@ -229,7 +231,7 @@ const Bookings = () => {
                 </div>
                 <DialogTrigger asChild>
                 <Button 
-                  className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200"
+                  className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200 dark:bg-[#0a0a0a] dark:text-gray-100"
                   disabled={!selectedUser || isLoading }
                   type="submit"
                   >

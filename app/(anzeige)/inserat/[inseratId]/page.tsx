@@ -131,7 +131,8 @@ const InseratAnzeige = async ({
                             />
                         </div>
                         <div>
-                            <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-2 text-gray-900 rounded-md border-gray-800 border-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                            <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-2 text-gray-900 rounded-md border-gray-800 
+                            border-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161821] dark:border-[#161821] dark:text-gray-100">
                                 <div className="flex mr-auto items-center">
                                     <div className="flex font-bold italic text-sm items-center"> <MapPin className="text-rose-600 " /> Mömer </div>
                                 </div>

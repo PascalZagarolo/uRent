@@ -55,11 +55,11 @@ const Favourites : React.FC<FavouritesProps> = ({
 
         <div className="mt-4 2xl:mr-8">
             <div className="flex justify-end">
-                <Button className="flex justify-end bg-rose-600 hover:bg-rose-500 border-2 border-rose-900" onClick={onClick}>
+                <Button className="flex justify-end bg-rose-600 dark:bg-rose-700 dark:text-gray-100 hover:bg-rose-500 border-2 border-rose-900" onClick={onClick}>
                 <Trash2Icon className="h-4 w-4 mr-2"/>   Als Favourit entfernen 
                 </Button>
             </div>
-            <div className="flex gap-x-2  border-white border-2  rounded-md p-4 bg-white text-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <div className="flex gap-x-2  border-white border-2  rounded-md p-4 bg-white dark:bg-[#0F0F0F] dark:text-gray-100 text-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <div className="w-[160px] font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.1)]">
                 <p>{favourite.inserat.title}</p>
             </div>
@@ -67,9 +67,15 @@ const Favourites : React.FC<FavouritesProps> = ({
                 <p>{favourite.inserat.user.name}</p>
             </div>
             <div className="w-[240px] flex justify-center">
+            {favourite.inserat.annual ? (
+                <p className="font-semibold"> Datumsunabhängig </p>
+            ) : (
+                <>
                 <p className="mr-2">{formatPeriod(favourite.inserat.begin)}</p>
                 -
                 <p className="ml-2">{formatDate(favourite.inserat.end)}</p>
+                </>
+            )}
             </div>
             <div className="w-[180px] h-[100px] flex justify-center items-center">
                 <Image
@@ -77,7 +83,7 @@ const Favourites : React.FC<FavouritesProps> = ({
                 height={100}
                 width={180}
                 alt="Picture of the Inserat"
-                className="rounded-md border-2 border-gray-300"
+                className="rounded-md border-2 border-gray-300 dark:border-gray-800"
                 />
             </div>
             

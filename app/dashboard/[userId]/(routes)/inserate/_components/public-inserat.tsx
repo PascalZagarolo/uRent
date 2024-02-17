@@ -63,25 +63,25 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
         
         
         <div className="w-full rounded-lg ">
-            <div className="h-[40px] flex bg-[#12141d] rounded-md">
+            <div className="h-[40px] flex bg-[#12141d] dark:bg-[#07080c] rounded-md">
                 <div className="w-full">
-                <Button className=" bg-[#ed580dec] hover:bg-[#ed580dec]/60 w-full flex justify-center text-xs rounded-md"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
+                <Button className=" bg-[#ed580dec] dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-gray-100 hover:bg-[#ed580dec]/60 w-full flex justify-center text-xs rounded-md"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
                     <Settings className="w-4 h-4 mr-2" /> <div className="hidden 2xl:flex">Inserat verwalten </div>
                 </Button>
                 </div>
                 <div className="ml-auto ">
-                    <Button className="bg-[#12141d] rounded-md">
+                    <Button className="bg-[#12141d] rounded-md dark:bg-black dark:hover:bg-gray-800 dark:text-gray-100">
                         <LockIcon className="h-4 w-4"/>
                     </Button>
                     
                 </div>
             </div>
-        <div className=" rounded-md border-2 border-[#000000] h-[320px]  bg-[#24293b] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
+        <div className=" rounded-md border-2 border-[#000000] h-[320px]  bg-[#24293b] dark:bg-[#0f1119] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
         flex-shrink: 1">
             <h3>
                 <AlignCenter className="h-4 w-4"/>
             </h3>
-            <div className="bg-[#171a26] p-1  w-full mb-1 rounded-md border border-black items-center">
+            <div className="bg-[#171a26] p-1  w-full mb-1 rounded-md border border-black items-center dark:bg-[#0a0b10]">
                 <h3 className="items-center  text-base font-semibold justify-center text-gray-100 flex mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] mb-1">
                     
                     {inserat.title}</h3>
@@ -118,13 +118,13 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
                 <Clock1 className="h-4 w-4 mr-2"/>erstellt am : {formatDate(inserat.createdAt)}
             </div>
 
-            <div className="flex w-full justify-center mt-auto bg-gray-300 rounded-md mb-2 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
+            <div className="flex w-full justify-center mt-auto bg-gray-300 rounded-md mb-2 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] dark:bg-[#0a0b10]">
                 <EyeIcon className="mr-2"/> {inserat.views} Aufrufe
             </div>
             
         </div>
         <div className="flex w-full justify-center mt-auto  mb-2 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
-                <Button className=" bg-emerald-700 hover:bg-emerald-700/60  w-full border-2 border-emerald-900">
+                <Button className=" bg-emerald-700 dark:bg-emerald-800 hover:bg-emerald-700/60  w-full border-2 border-emerald-900">
                    <EuroIcon className="h-4 w-4 mr-2"/> Werbeoption ansehen
                     </Button> 
             </div>

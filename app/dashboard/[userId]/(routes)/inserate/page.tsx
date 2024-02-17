@@ -44,7 +44,7 @@ const InserateOverview = async ({
             </div>
             <div className="">
                 {publicInserate.length > 0 ? (
-                    <div className="flex gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
+                    <div className=" gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
                         {publicInserate.map((draft) => (
                         <InseratPublic
                         key={draft.id}

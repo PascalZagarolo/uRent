@@ -102,7 +102,7 @@ const InseratAnzeige = async ({
         <div className="2xl:grid  2xl:grid-cols-2 xl:flex justify-center  gap-12 xl:mt-24 h-max">
             <div className="h-full p-4">
                 <div className="flex xl:justify-end justify-center">
-                    <div className="mt-4 bg-[#262939] text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border border-gray-300 w-full md:w-auto">
+                    <div className="mt-4 bg-[#262939] dark:border-gray-900 text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border border-gray-300 w-full md:w-auto">
                         <div className="flex items-center justify-end truncate ">
                             {inserat.category === "PKW" && (
                                 <div className="bg-[#1d1f2b] sm:px-8 rounded-lg p-4">

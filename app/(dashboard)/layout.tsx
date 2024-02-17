@@ -14,7 +14,7 @@ const DashboardLayout = async (
    const currentUser = await getCurrentUser();
 
     return ( 
-        <div className="bg-[#404040]/10 dark:bg-[#232323]/90 min-h-screen no-scrollbar ">
+        <div className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar ">
              
              <div className="sm:hidden">
                 <MobileHeader/>

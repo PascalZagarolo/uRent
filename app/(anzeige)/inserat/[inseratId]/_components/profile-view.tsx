@@ -58,7 +58,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
             <div>
                 <div className="mt-1">
-                    <div><Badge className="bg-[#2d3144] dark:text-gray-100 dark:bg-slate-900"> Gewerblicher Händler </Badge></div>
+                    <div><Badge className="bg-[#2d3144] dark:text-gray-100 dark:bg-slate-900 dark:hover:bg-slate-800"> Gewerblicher Händler </Badge></div>
                 </div>
             </div>
             <div>

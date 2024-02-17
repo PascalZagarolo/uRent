@@ -38,11 +38,13 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
         ))}
       </CarouselContent>
       <div className="sm:block hidden">
-        <CarouselPrevious />
+        <CarouselPrevious 
+        className="dark:text-gray-100"
+        />
       </div>
       
       <div className="sm:block hidden">
-      <CarouselNext className=""/>
+      <CarouselNext className="dark:text-gray-100"/>
       </div>
       
     </Carousel>

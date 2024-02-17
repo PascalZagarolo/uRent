@@ -65,9 +65,9 @@ const Sitze: React.FC<SitzeProps> = ({
     }
     
     return (
-        <div className=" mt-4 flex items-center">
+        <div className=" mt-4 flex items-center ">
             <Form {...form}>
-      <form onSubmit={() => {}} className="w-[50%]">
+      <form onSubmit={() => {}} className="w-[50%] ">
         <FormField
           control={form.control}
           name="sitze"
@@ -76,7 +76,7 @@ const Sitze: React.FC<SitzeProps> = ({
               <FormLabel>Sitzplätze</FormLabel>
               <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={inserat.pkwAttribute?.sitze.toString()}>
                 <FormControl>
-                  <SelectTrigger className="min-w-[200px]"  >
+                  <SelectTrigger className="min-w-[200px] "  >
                     <SelectValue placeholder="Wähle die Menge der Sitzplätze aus" />
                   </SelectTrigger>
                 </FormControl>

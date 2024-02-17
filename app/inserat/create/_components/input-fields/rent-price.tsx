@@ -82,7 +82,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
                                                 type="text"
                                                 {...field}
                                                 name="price"
-                                                className="w-1/6"
+                                                className="w-1/6 dark:bg-[#151515] dark:border-gray-300"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -111,7 +111,8 @@ const RentPrice: React.FC<RentPriceProps> = ({
                     />
                     <div>
                         <Button
-                            className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2"
+                            className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
+                             dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                             type="submit" disabled={!isValid || isSubmitting || currentValue == inserat.price}
                         >
                             Preis festlegen

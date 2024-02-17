@@ -29,13 +29,13 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]
             "> <BackToHomepage/> <p className="mr-auto"> Anzeige bearbeiten </p> </h3>
             { inserat.isPublished ? (
-                <p className="flex justify-center text-base border-2 border-gray-200 mt-2 font-bold rounded-md ml-32
-                 mr-32 p-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">  veröffentlicht </p>
+                <p className="flex justify-center text-base border-2 border-gray-200 dark:bg-[#0F0F0F] dark:border-black/80 mt-2 font-bold rounded-md ml-32
+                 mr-32 p-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  ">  veröffentlicht </p>
             ) : (
-                <p className="flex justify-center text-base border-2 border-gray-200 mt-2 font-bold rounded-md ml-32
+                <p className="flex justify-center text-base border-2 border-gray-200 mt-2 font-bold rounded-md ml-32 dark:bg-[#0F0F0F] dark:border-black/80
                 mr-32 p-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] "> noch nicht veröffentlicht </p>
             )}
-            <p className={cn("text-sm  text-gray-800/50 flex justify-center mt-2 font-semibold ", isPublishable ? "text-emerald-600" : "text-rose-600")}>
+            <p className={cn("text-sm   text-gray-800/50 flex justify-center mt-2 font-semibold ", isPublishable ? "text-emerald-600" : "text-rose-600")}>
                 {isPublishable ? ("zur veröffentlichung bereit") : ("noch nicht zur veröffentlichung bereit")}
             </p>
             

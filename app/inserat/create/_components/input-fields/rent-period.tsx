@@ -14,6 +14,7 @@ import axios from "axios";
 import { format } from "date-fns";
 
 import { CalendarClockIcon, CalendarIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -29,6 +30,8 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
     const [isDateless, setIsDateless] = useState(false);
+
+    const router = useRouter();
 
     const formSchema = z.object({
         begin: z.date({
@@ -72,6 +75,9 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
             axios.patch(`/api/inserat/${inserat.id}`, values);
             toast.success("Datum erfolgreich festgelegt")
+            setTimeout(() => {
+                router.refresh();
+            }, 500)
         } catch {
             toast.error("Etwas ist schief gelaufen...")
         } finally {
@@ -84,7 +90,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
     return (
         <div>
-            <div className="w-full flex-col justify-center  bg-white p-8 max-w-max rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <div className="w-full flex-col justify-center dark:bg-[#0F0F0F] dark:border-gray-100 dark:border  bg-white p-8 max-w-max rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h3 className="font-bold text-xl flex justify-center">
                 <CalendarClockIcon className="mr-2"/>
                 Mietdauer
@@ -112,7 +118,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         <Button
                                                             variant={"outline"}
                                                             className={cn(
-                                                                "w-[240px] pl-3 text-left font-normal",
+                                                                "w-[240px] pl-3 text-left font-normal dark:bg-[#242424] dark:hover:bg-[#2d2d2d] dark:border-none",
                                                                 !field.value && "text-muted-foreground"
                                                             )}
                                                             disabled={!isDateless}
@@ -131,6 +137,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         mode="single"
                                                         selected={field.value}
                                                         onSelect={field.onChange}
+                                                        className="dark:bg-[#242424] dark:border dark:border-gray-200"
                                                         disabled={(date) =>
                                                             date < new Date() || date < new Date("1900-01-01") 
                                                             
@@ -162,7 +169,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                             variant={"outline"}
                                                             disabled={!isDateless}
                                                             className={cn(
-                                                                "w-[240px] pl-3 text-left font-normal",
+                                                                "w-[240px] pl-3 text-left font-normal dark:bg-[#242424] dark:border-none dark:hover:bg-[#2d2d2d]",
                                                                 !field.value && "text-muted-foreground"
                                                             )}
                                                         >
@@ -179,6 +186,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                 <PopoverContent className="w-auto p-0" align="start">
                                                     <Calendar
                                                         mode="single"
+                                                        className="dark:bg-[#242424] dark:border dark:border-gray-200"
                                                         selected={field.value}
                                                         onSelect={field.onChange}
                                                         disabled={(date) =>
@@ -196,7 +204,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                     )}
                                 />
                             </div>
-                            <Button type="submit" className="bg-blue-800 w-full mt-2" disabled={!isDateless}>Daten festlegen</Button>
+                            <Button type="submit" className="bg-blue-800 dark:bg-[#191919] dark:hover:bg-[#2d2d2d] dark:text-gray-100  w-full mt-2" disabled={!isDateless}>Daten festlegen</Button>
                         </form>
                     </Form>
                 </div>
@@ -204,10 +212,10 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         
                                            
         </div>
-        <div className="bg-white p-4 w-full mt-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
+        <div className="bg-white dark:bg-[#0F0F0F] p-4 w-full mt-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
                 <div className="flex">
                     <Switch
-                    className=""
+                    className="dark:bg-[#0F0F0F]"
                     defaultChecked={!isDateless}
                     onCheckedChange={(checked) => {setIsDateless(!checked); onAnnual();}}
                     

@@ -78,11 +78,11 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                     />
                 </div>
             </h3>
-            <p className="flex text-sm justify-start text-gray-900/50 font-semibold"> Halte um die Reihenfolge der Fotos zu ändern </p>
+            <p className="flex text-sm justify-start text-gray-900/50 font-semibold dark:text-gray-100"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
 
                 images.length > 0 ? (
-                    <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md">
+                    <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#0F0F0F] w-full">
                         <ImageList
                             onEdit={() => { }}
                             onReorder={onReorder}

@@ -213,7 +213,9 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
             <div className="mt-4">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="bg-[#1f2230] sm:w-[240px] border-2 border-black flex w-full">
+                        <Button className="bg-[#1f2230] sm:w-[240px] border-2 border-black flex w-full
+                        dark:text-gray-100 dark:bg-[#171923]
+                        ">
                             <Share className="h-4 w-4 mr-2" />  Anzeige teilen
                         </Button>
                     </DialogTrigger>

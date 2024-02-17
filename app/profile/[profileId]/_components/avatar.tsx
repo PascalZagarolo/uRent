@@ -15,6 +15,7 @@ const Avatar: React.FC<AvatarProps> = ({
         className="rounded-full  object-cover border-2 border-gray-700 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
         alt="Person"
     />
+    
 </div>
      );
 }

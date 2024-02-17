@@ -83,7 +83,7 @@ export const getInserate = async ({
                     price : {
                         gte : start? start : 0,
                         lte : end? end : 1000000,
-                    }, OR : [
+                    },  OR : [
                         {
                             begin : {
                                 lte : periodBegin,

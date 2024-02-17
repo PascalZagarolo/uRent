@@ -96,14 +96,14 @@ const DateFormFilter = () => {
         if(!paramsPeriodBegin){
             setPeriodBegin(null)
         }  
-    },[paramsPeriodBegin ])
+    },[paramsPeriodBegin])
 
     //Zeitraum resetten, wenn ganzes Filterformular zurückgesetzt wird
     React.useEffect(() => {
-        if(!paramsPeriodEnd){
-            setPeriodEnd(null)
-        }  
-    },[paramsPeriodEnd ])
+      if(!paramsPeriodEnd){
+          setPeriodEnd(null)
+      }  
+  },[paramsPeriodEnd])
 
     const filterReset = () => {
         setPeriodBegin(null);
@@ -199,7 +199,7 @@ const DateFormFilter = () => {
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
-                                {periodEnd ? (
+                                {periodEnd && paramsPeriodEnd ? (
                                   format(periodEnd, "dd.MM")
                                 ) : (
                                   <span className="font-semibold text-gray-900 dark:text-gray-100/80">Ende</span>
@@ -214,10 +214,8 @@ const DateFormFilter = () => {
                               //@ts-ignore
                               selected={field.value}
                               onSelect={(date) => {
-                                const nextDay = new Date(date);
-                                nextDay.setDate(nextDay.getDate());
-                                field.onChange(nextDay);
-                                setPeriodEnd(nextDay);
+                                field.onChange(date);
+                                setPeriodEnd(date);
                               }}
                               disabled={(date) =>
                                 date < periodBegin || date < new Date("1900-01-01")

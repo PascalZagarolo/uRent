@@ -65,14 +65,14 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
 
 
 
-        <div className="w-full rounded-md  border-gray-300  mt-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] p-8">
+        <div className="w-full rounded-md  border-gray-300  mt-2 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] p-8 dark:bg-[#07080c]">
             <div className="">
                 <h3 className="flex justify-start font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] text-lg">
                     <p>
                         <CarFront className="mr-2" />
                     </p>
                     {inserat.title}
-                    <p className="ml-auto font-medium italic text-sm text-gray-900/50">
+                    <p className="ml-auto font-medium italic text-sm text-gray-900/50 dark:text-gray-100">
                         {formatDate(inserat.createdAt)}
                     </p>
                 </h3>

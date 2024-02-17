@@ -65,7 +65,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 </div>
                 <div className="flex">
 
-                    <div className="flex mt-1   p-8  bg-white border-2 border-gray-200  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <div className="flex mt-1   p-8  bg-white dark:bg-[#10121a] border-2 border-gray-200  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
                         <div className="">
                             <div className="bg-[#10121a] text-gray-100 p-2  rounded-lg border-2 border-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -81,7 +81,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                     {ownProfile && (
                                         <UploadProfilePic />
                                     )}
-                                    <div className="text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] mt-2 flex">
+                                    <div className="text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] mt-2 flex dark:text-gray-300">
                                         <UserCircle2 className="mr-1" /> Mitglied seit : {convertDateTimeToString(currentUser.createdAt)}
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
                     </div>
                     {ownProfile && (
-                        <div className="ml-8 mt-1 w-1/2  p-8  bg-white border-2 border-gray-400  border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                        <div className="ml-8 mt-1 w-1/2  p-8  bg-white dark:bg-[#10121a] border-2 border-gray-400  border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
                         <div className="w-full ">
                             <p className="flex justify-center font-semibold items-center text-lg">

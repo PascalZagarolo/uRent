@@ -66,22 +66,22 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
     }
 
     return (
-        <div className="mt-2">
+        <div className="mt-2 ">
 
-                    <div className="mt-1  p-8  bg-white border border-gray-200 mr-16   drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-full">
+                    <div className="mt-1  p-8  bg-white dark:bg-[#10121a]  border border-gray-200 mr-16   drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-full">
                         <div className=" flex items-center">
                         <Separator
-                         className="w-16 mr-8 bg-gray-700"
+                         className="w-16 mr-8 bg-gray-700 dark:bg-gray-200"
                         />
-                        <p className="text-gray-900 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                        <p className="text-gray-900 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100">
                             Beschreibung
                         </p>
                         <Separator
-                         className="w-1/2 ml-8 bg-gray-700"
+                         className="w-1/2 ml-8 bg-gray-700 dark:bg-gray-200"
                         />
                         {ownProfile && (
-                            <Button className="ml-12 flex bg-gray-200" variant="ghost" onClick={onEdit}>
-                            <PencilIcon className="h-4 w-4"/>
+                            <Button className="ml-12 flex bg-gray-200 dark:bg-[#0d0f15]" variant="ghost" onClick={onEdit}>
+                            <PencilIcon className="h-4 w-4 dark:text-gray-100"/>
                         </Button>
                         )}
                         </div>
@@ -118,7 +118,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                             
 
                             <div>
-                                <div className={cn("", isUnfolded ? "" : "h-[80px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
+                                <div className={cn("dark:text-gray-100", isUnfolded ? "" : "h-[80px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
                                 {user.description}
                             </div>
                             <Button className="mt-4 w-full bg-gray-200 border-2 border-gray-300" variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
@@ -126,7 +126,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                             </Button>
                             </div>
                            ) : (
-                            <div className="mt-4 font-semibold text-gray-900/50 italic">
+                            <div className="mt-4 font-semibold text-gray-900/50 italic dark:text-gray-100/70">
                                 Du hast noch nichts über dich geteilt...
                             </div>
                            )}

@@ -42,8 +42,8 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
 
     return ( 
         <Popover>
-            <PopoverTrigger className="hover:drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                <CalendarCheck/>
+            <PopoverTrigger className="hover:drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
+            <CalendarCheck/>
             </PopoverTrigger>
             <PopoverContent side="right">
                 <div>

@@ -7,11 +7,11 @@ import { SettingsIcon } from "lucide-react";
 const ChatSettings = () => {
     return ( 
         <div className="">
-            <h1 className="flex text-base font-semibold p-4 bg-white border-gray-200 border-2">
+            <h1 className="flex text-base font-semibold p-4 bg-white border-gray-200 border-2 dark:bg-[#080808]">
                 <SettingsIcon className="mr-2"/> Chat-Einstellungen
             </h1>
             <div className="mt-2">
-                <div className="p-4 rounded-lg border-2 border-gray-700 flex bg-white font-bold">
+                <div className="p-4 rounded-lg border-2 border-gray-700 flex bg-white font-bold dark:bg-[#080808] dark:border-gray-200">
                     <Switch className="mr-2"/>
                     <div className="ml-2">
                         Person blockieren
@@ -19,7 +19,7 @@ const ChatSettings = () => {
                 </div>
             </div>
             <div className="mt-2 items-center">
-                <div className="p-4 rounded-lg border-2 border-gray-700 flex bg-white font-medium">
+                <div className="p-4 rounded-lg border-2 border-gray-700 flex bg-white font-medium dark:bg-[#080808] dark:border-gray-200">
                     <Switch className="mr-2"/>
                     <div className="text-sm ml-2">
                         Konversation stummschalten

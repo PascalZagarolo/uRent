@@ -44,9 +44,9 @@ const UploadImage = ({
             uploadPreset="oblbw2xl"
             options={{ maxFiles : 1}}
             >
-            <div className="mr-2 bg-white p-2 rounded-md items-center">
+            <div className="mr-2 bg-white p-2 rounded-md items-center dark:bg-[#060606] ">
                 
-                    <ImageIcon className="text-black  h-6 w-6" />
+                    <ImageIcon className="text-black dark:text-gray-100 h-6 w-6" />
                 
             </div>
             </CldUploadButton>

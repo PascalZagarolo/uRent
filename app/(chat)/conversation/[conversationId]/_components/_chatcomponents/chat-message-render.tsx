@@ -54,20 +54,20 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                         )}
                         <div className={cn("p-4 rounded-lg mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] border-2 flex border-gray-500",
                             isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-500 text-gray-100 mr-auto",
-                            messages.isInterest && "bg-gray-100 text-gray-900 border-emerald-600")}>
+                            messages.isInterest && "bg-gray-100 text-gray-900 border-emerald-600 dark:bg-[#0F0F0F] dark:border-none dark:text-gray-100")}>
                             {messages.image ? (
                                 <ChatImageRender
                                     imageLink={messages.image}
                                 />
                             ) : (
-                                <div>
+                                <div className="">
                                     {messages.isInterest && (
-                                        <div className="mb-4 hidden lg:block">
+                                        <div className="mb-4 hidden lg:block ">
                                             <div className="flex items-center">
                                                 <Forward />
                                                 <p className="ml-2 font-semibold text-xs text-gray-900/50">Interesse bezüglich...</p>
                                             </div>
-                                            <div className="p-4 border border-gray-200 bg-white rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:cursor-pointer"
+                                            <div className="p-4 border border-gray-200 bg-white dark:bg-[#0F0F0F] dark:text-gray-100 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:cursor-pointer"
                                                 onClick={
                                                     () => { router.push(`/inserat/${messages.inseratId}`) }
                                                 }
@@ -93,7 +93,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                                 {messages.inserat.price} €
                                                             </Badge>
                                                         </div>
-                                                        <div className="rounded-md bg-gray-100 border border-gray-500  ml-auto w-1/2 
+                                                        <div className="rounded-md bg-gray-100 border border-gray-500  ml-auto w-1/2 dark:bg-[#1d1d1d] dark:border-none
                                                         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2 max-h-[100px] overflow-hidden hidden 2xl:flex">
                                                             <p className="overflow-hidden text-overflow-ellipsis">{messages.inserat.description}</p>
                                                         </div>

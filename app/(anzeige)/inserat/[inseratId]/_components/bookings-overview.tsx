@@ -45,9 +45,9 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
             <PopoverTrigger className="hover:drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
             <CalendarCheck/>
             </PopoverTrigger>
-            <PopoverContent side="right">
+            <PopoverContent side="right" className="dark:bg-[#0F0F0F]">
                 <div>
-                    <h1 className="flex font-semibold mb-2"> Termine ({bookings.length}) </h1>
+                    <h1 className="flex font-semibold mb-2 "> Termine ({bookings.length}) </h1>
                     <div className="max-h-[240px] overflow-y-auto no-scrollbar">
                         <div className="">
                         {bookings.length > 0 ? (

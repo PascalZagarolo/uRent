@@ -65,9 +65,9 @@ const Inserat: React.FC<InseratProps> = ({
                         <PlusIcon className="w-4 h-4 lg:mr-2 flex justify-center" /> <p className="hidden lg:block">Neue Anzeige</p>
                     
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="dark:bg-[#0F0F0F]">
                     <DialogHeader>
-                        <DialogTitle className="text-xl  text-gray-900 mr-8 ml-2 p-2 rounded-md border-gray-400 border-2">
+                        <DialogTitle className="text-xl  text-gray-900 mr-8 ml-2 p-2 rounded-md border-gray-400 border-2 dark:border-none dark:text-gray-100">
                             Neue Anzeige erstellen
                             
                         </DialogTitle>
@@ -79,7 +79,7 @@ const Inserat: React.FC<InseratProps> = ({
 
 
                         </div>
-                        <p className="font-semibold text-xs text-gray-800/50 flex justify-center mb-8">der Titel kann jederzeit geändert werden</p>
+                        <p className="font-semibold text-xs text-gray-800/50 flex justify-center mb-8 dark:text-gray-100/70">der Titel kann jederzeit geändert werden</p>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)}>
                                 <FormField
@@ -91,6 +91,7 @@ const Inserat: React.FC<InseratProps> = ({
                                                 <Input
                                                     {...field}
                                                     placeholder="Titel der Anzeige..."
+                                                    className="dark:bg-[#0a0a0a] dark:border-gray-100"
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -100,7 +101,9 @@ const Inserat: React.FC<InseratProps> = ({
                                 <p><Separator className="ml-auto w-8 bg-black mt-4" /></p>
                                 <div className="flex ml-auto">
 
-                                    <Button className="bg-[#202336] border-2 border-gray-300 mt-4 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" type="submit">
+                                    <Button className="bg-[#202336] border-2 border-gray-300 mt-4 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                                    dark:bg-[#080808] dark:border-none dark:text-gray-100 dark:hover:bg-[#0c0c0c]
+                                    " type="submit">
                                         Anzeige erstellen
                                     </Button>
                                 </div>

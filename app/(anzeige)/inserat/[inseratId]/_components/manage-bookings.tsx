@@ -84,7 +84,7 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                 </Button>
                 </div>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100">
                 <DialogTitle>
                     <h3 className="font-bold flex mb-4">
                         <CalendarCheck2 className="mr-2" /> Buchungen verwalten
@@ -93,33 +93,33 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                 <div className="items-center">
                     {bookings.length > 0 ? (
                         bookings.map((booking : Booking & { user : User}) => (
-                            <div key={booking.id}>
+                            <div key={booking.id} className="dark:bg-[#0a0a0a] ">
                                 <div className="mt-2 flex items-center border border-gray-300 rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
                                     <Clock10Icon className="h-4 w-4 mr-2"/>
                                     
                             <span className="font-semibold text-sm">  {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} </span>
-                            <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center">{booking.user.email}</p>
+                            <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center dark:text-gray-100/70">{booking.user.email}</p>
                             <div className="ml-auto flex gap-x-4">
                               <EditBookingDialog booking = {booking} />
                               <Dialog>
                                 <DialogTrigger>
                                 <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>
                                 </DialogTrigger>
-                                <DialogContent>
+                                <DialogContent className="dark:bg-[#0a0a0a] dark:border-gray-100 ">
                                     <DialogHeader>
                                         <h3 className="font-bold flex"><X/>Buchung löschen</h3>
                                     </DialogHeader>
-                                    <DialogDescription className="text-xs font-semibold italic text-gray-900/50">
+                                    <DialogDescription className="text-xs font-semibold italic text-gray-900/50 dark:text-gray-100/70">
                                         gelöschte Buchungen können nicht wiederhergestellt werden
                                     </DialogDescription>
-                                    <div className="ml-auto flex gap-x-1">
+                                    <div className="ml-auto flex ">
                                         <DialogTrigger>
-                                        <Button className="bg-rose-600 hover:bg-rose-500" onClick={() => {onDelete(booking.id)}}>
+                                        <Button className="bg-rose-600 hover:bg-rose-500 dark:text-gray-100" onClick={() => {onDelete(booking.id)}}>
                                             Buchung löschen
                                             </Button>
                                         </DialogTrigger>
                                         <DialogTrigger>
-                                        <Button variant="ghost" className="border border-black">
+                                        <Button variant="ghost" className="border border-black dark:bg-[#000000] dark:hover:bg-[#0a0a0a] dark:border-gray-100">
                                             Abbrechen
                                             </Button>
                                         </DialogTrigger>

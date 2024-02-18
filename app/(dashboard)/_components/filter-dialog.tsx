@@ -30,7 +30,7 @@ const FilterDialog = () => {
                         <Settings2Icon />
                     </Button>
                 </DialogTrigger>
-                <DialogContent className="">
+                <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
                 <DialogHeader>
                         <DialogHeader className="italic font-semibold text-xl mb-4">
                             Anzeigen filtern
@@ -64,7 +64,8 @@ const FilterDialog = () => {
                             { currentCategory === "PKW" && <PkwFilter/> }
                         </div>
                         <DialogTrigger asChild>
-                            <Button className="mt-8 bg-[#282c45] text-white rounded-md p-2 w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"> 
+                            <Button className="mt-8 bg-[#282c45] text-white rounded-md p-2 w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                             dark:bg-[#090909] dark:hover:bg-[#1b1b1b]"> 
                             <ScanSearch className="mr-2"/> Filtern
                             </Button>
                         </DialogTrigger>

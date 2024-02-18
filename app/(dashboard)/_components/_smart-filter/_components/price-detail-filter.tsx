@@ -103,14 +103,14 @@ const PriceDetailForm = () => {
             
             <div className="flex gap-x-32 mt-2 justify-center">
                 <div >
-                    <h3 className="text-sm  text-gray-900 font-medium mb-1 flex justify-center">
+                    <h3 className="text-sm  text-gray-900 font-medium mb-1 flex justify-center dark:text-gray-100">
                         Von :
                     </h3>
                     <Select onValueChange={(e) => onClick(e, currentEnd)} value={startPrice || "0"} defaultValue="Start" >
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] focus:ring-0">
-                            <SelectValue className="font-bold" placeholder="Start" />
+                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] focus:ring-0 dark:bg-[#090909] dark:border-none">
+                            <SelectValue className="font-bold dark:input:text-gray-100" placeholder="Start" />
                         </SelectTrigger>
-                        <SelectContent className="" >
+                        <SelectContent className="dark:bg-[#090909] dark:border-none" >
                             <SelectGroup>
                                 
                                 
@@ -131,14 +131,14 @@ const PriceDetailForm = () => {
                     </Select>
                 </div>
                 <div className="">
-                    <h3 className="text-sm  text-gray-900 font-medium mb-1 flex justify-center">
+                    <h3 className="text-sm  text-gray-900 font-medium mb-1 flex justify-center dark:text-gray-100">
                         Bis :
                     </h3>
                     <Select onValueChange={(e) => onClick(currentStart, e)} value={endPrice || "max"} >
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] focus:ring-0">
+                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] focus:ring-0 dark:bg-[#090909] dark:border-none">
                             <SelectValue className="font-bold" placeholder="Ende"/>
                         </SelectTrigger>
-                        <SelectContent >
+                        <SelectContent className="dark:bg-[#090909] dark:border-none" >
                             <SelectGroup>
                                 
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>

@@ -219,7 +219,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                             <Share className="h-4 w-4 mr-2" />  Anzeige teilen
                         </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="dark:bg-[#0F0F0F]">
                         <DialogHeader className="flex">
                             <div className="flex text-lg font-semibold">
                                 <Forward className="mr-2 " /> Anzeige teilen
@@ -235,7 +235,9 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                                     url={currentUrl}
                                     hashtag="#Urent"
                                 >
-                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]
+                                    dark:bg-[#080808]
+                                    ">
                                         <FacebookIcon size={32} className="w-6 h-6" />
                                     </div>
 
@@ -247,7 +249,9 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                                     hashtags={["Urent", "#Mietwagen", "#Autovermietung", "#Inserat"]}
                                     url={currentUrl}
                                 >
-                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]
+                                    dark:bg-[#080808]
+                                    ">
                                         <TwitterIcon size={32} className="w-6 h-6" />
                                     </div>
                                 </TwitterShareButton>
@@ -257,14 +261,17 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                                     subject="Dieses Produkt habe ich auf Urent gefunden, Wow!"
                                     body="Hallo, ich habe dieses Produkt auf Urent gefunden und wollte es dir zeigen."
                                 >
-                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
+                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]
+                                    dark:bg-[#080808]
+                                    ">
                                         <Mail size={32} className="w-6 h-6 " />
                                     </div>
                                 </EmailShareButton>
                             </div>
                             <div className="mt-2 flex">
                                 <Input
-                                    className="rounded-none border border-gray-300 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:underline hover:cursor-pointer"
+                                    className="rounded-none border border-gray-300 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                    hover:underline hover:cursor-pointer dark:bg-[#080808]"
                                     value={currentUrl}
                                     onClick={() => { copyToClipboard(currentUrl) }}
                                 />

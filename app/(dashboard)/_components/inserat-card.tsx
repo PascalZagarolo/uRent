@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
-import { Banknote, CalendarCheck2, CarFront, Check, CheckCheckIcon, EyeIcon, LocateFixedIcon, MapPinIcon, Star, TramFront, Truck, X } from "lucide-react";
+import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, LocateFixedIcon, MapPinIcon, Star, TractorIcon, TramFront, Truck, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -66,10 +66,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         {
                             'PKW': <CarFront className=" text-gray-100 h-6 w-6 " /> ,
                             'LKW': <Truck className=" text-gray-100 h-6 w-6 " /> ,
-                            'LAND': <Truck className=" text-gray-100 h-6 w-6 " /> ,
-                            'BAU': <Truck className=" text-gray-100 h-6 w-6 " /> ,
+                            'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " /> ,
+                            'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " /> ,
                             'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
-                            'CARAVAN': <Truck className=" text-gray-100 h-6 w-6 " /> ,
+                            'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " /> ,
                         }[inserat.category]
                     }
                 </div>
@@ -80,7 +80,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="ml-auto items-center flex ">
 
                     <p className="">
-                        <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] dark:border-gray-400 dark:border dark:hover:bg-[#181818]/80">
+                        <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
+                        dark:border dark:border-[#171923]  dark:hover:bg-[#181818]/80">
                             <Star className={cn(isFaved ? "text-yellow-300" : "text-black")} />
                         </Button>
                     </p>

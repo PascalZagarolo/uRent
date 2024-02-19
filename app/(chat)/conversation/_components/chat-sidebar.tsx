@@ -36,7 +36,7 @@ const ChatSideBar = async () => {
     
 
     return ( 
-        <div className="sm:flex  overflow-y-hidden h-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hidden w-[420px]">
+        <div className="sm:flex  overflow-y-hidden h-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hidden w-[380px]">
         <div className=" bg-white  border-2 border-black dark:bg-[#0F0F0F] w-full">
                 <div>
                     <h3 className="flex justify-center p-4 text-lg font-semibold">

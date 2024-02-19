@@ -18,6 +18,14 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     lastMessage
 }) => {
 
+    const onClick = () => {
+        if(conversationId === params.conversationId) {
+            router.push(`/conversation`)
+        } else {
+            router.push(`/conversation/${conversationId}`);
+        }
+    }
+
     const params = useParams();
 
     const isOnSite = params.conversationId === conversationId ? true : false;
@@ -25,7 +33,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     return ( 
         <div className={cn(`flex items-center mr-auto w-full mt-2 rounded-md border-2  py-2 bg-[#272c45]
          text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hover:cursor-pointer`, !isOnSite ? "border-[#252b42]" : "border-2 border-[#171b2a]")}
-         onClick={() => {router.push(`/conversation/${conversationId}`)}}
+         onClick={onClick}
          >
             <div className="flex justify-center ml-4">
                 <p className="mr-2">

@@ -48,9 +48,11 @@ const Header: React.FC<HeaderProps> = ({
                     <div className="flex items-center">
                         <div className="2xl:mr-16 items-center sm:mr-8">
 
+                        { status === 'authenticated' && currentUser && (
                             <Inserat
-                                currentUser={currentUser}
-                            />
+                            currentUser={currentUser}
+                        />
+                        )}
                         </div>
 
                         <div className="flex justify-center mt-2">
@@ -70,9 +72,7 @@ const Header: React.FC<HeaderProps> = ({
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
                                 />
-                                <DashboardLink
-                                    currentUser={currentUser}
-                                />
+                                
                                 <div className="mt-2 ml-8">
                                     <LogOutButton />
                                 </div>

@@ -55,7 +55,7 @@ const Input: React.FC<InputProps> = ({
           font-bold 
           leading-6 
           text-gray-900
-          
+          dark:text-gray-100/90
         "
       >
         {label}
@@ -77,7 +77,9 @@ const Input: React.FC<InputProps> = ({
             text-gray-900 
             shadow-sm 
             ring-1 
-            ring-inset 
+            ring-inset
+            p-2
+            dark:text-gray-100/80
             ring-gray-300 
             placeholder:text-gray-400 
             focus:ring-2 

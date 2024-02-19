@@ -66,7 +66,7 @@ const ConversationPage = async ({
             <div className="w-full h-[100px] overflow-y-hidden bg-[#1d2235] border-2 border-[#23283d] sm:flex items-center hidden">
                 <ChatLogo/>
                 <h3 className="flex justify-center w-full text-[#eaebf0] text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] items-center">
-                   <MessageSquareIcon className="mr-2"/> Konversationen
+                   <MessageSquareIcon className="mr-4"/> Konversationen
                 </h3>
             </div>
             <MobileHeaderChat
@@ -75,9 +75,8 @@ const ConversationPage = async ({
             />
            <div className="h-screen flex overflow-y-hidden">
             <ChatSideBar
-            
             />
-            <div className="w-full">
+            <div className="w-full flex">
                 
             <ChatComponent
             //@ts-ignore
@@ -86,12 +85,13 @@ const ConversationPage = async ({
                 
                 conversation = {justConversation}
                 />
-            </div>
-           
-           <ConversationProfileBar
+                <ConversationProfileBar
            otherUser={otherUserDetails}
            attachments = { attachments }
            />
+            </div>
+           
+            
            </div>
         </div>
     );

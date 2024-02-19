@@ -60,7 +60,7 @@ const ChatInput = () => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 md:w-[340px] lg:w-[680px] 
+                                    <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 md:w-[340px] lg:w-[680px] 2xl:w-[1000px]
                                     dark:bg-[#080808] dark:text-gray-100"
                                         placeholder="Schreibe eine Nachricht..."
                                         {...field}

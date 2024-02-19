@@ -1,24 +1,13 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
-import ChatLogo from "./[conversationId]/_components/chat-logo";
 import { MessageSquareIcon, User2Icon } from "lucide-react";
-import ChatSideBar from "./[conversationId]/_components/chat-sidebar";
+import ChatLogo from "./_components/chat-logo";
+import ChatSideBar from "./_components/chat-sidebar";
+
 
 const Conversation = async () => {
 
     const currentUser = await getCurrentUser();
-
-    
-
-    
-
-    
-
-    
-
-   
-
-   
 
     return ( 
         <div className="overflow-y-hidden  h-screen bg-[#404040]/10 font-medium">
@@ -37,7 +26,7 @@ const Conversation = async () => {
                 <div className="flex justify-center items-center h-full">
                 
                     <p className="text-2xl">
-                    <User2Icon className="flex justify-center items-center w-full w-8 h-8"/>
+                    <User2Icon className="flex justify-center items-center w-full  h-8"/>
                         Wähle eine bereits gestarte Konversation und/oder starte eine neue Konversation
                     </p>
                 </div>

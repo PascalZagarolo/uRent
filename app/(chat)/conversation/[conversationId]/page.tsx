@@ -2,8 +2,8 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 import ConversationProfileBar from "./_components/conversation-profile-bar";
 import ChatComponent from "./_components/chat-component";
-import ChatLogo from "./_components/chat-logo";
-import ChatSideBar from "./_components/chat-sidebar";
+import ChatLogo from "../_components/chat-logo";
+import ChatSideBar from "../_components/chat-sidebar";
 import { MessageSquareIcon } from "lucide-react";
 import MobileHeaderChat from "./_components/mobile-header";
 

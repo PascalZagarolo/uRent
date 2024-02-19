@@ -1,7 +1,7 @@
 'use client';
 
 import { AlignCenterIcon, AlignJustify, ArrowLeft, MessageSquareIcon, User2Icon } from "lucide-react";
-import ChatLogo from "./chat-logo";
+import ChatLogo from "../../_components/chat-logo";
 import { User, Messages } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

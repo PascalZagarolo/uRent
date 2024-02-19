@@ -35,17 +35,17 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
          text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hover:cursor-pointer`, !isOnSite ? "border-[#252b42]" : "border-2 border-[#171b2a]")}
          onClick={onClick}
          >
-            <div className="flex justify-center ml-4">
+            <div className="flex justify-center ml-4 w-2/5">
                 <p className="mr-2">
                     <UserCircle2Icon/>
                 </p>
-                <p>
+                <p className="5 truncate mr-auto">
                     {user.name}
                 </p>
             </div>
             <div>
-                <p className="text-gray-200 text-sm overflow-x-hidden ml-2 font-medium w-[120px] h-[20px] truncate ">
-                    {lastMessage}
+                <p className="text-gray-200 text-sm overflow-x-hidden ml-2 font-medium w-[120px] h-[20px] mr-auto truncate ">
+                {lastMessage}
                 </p>
             </div>
             <div className="flex justify-center ml-auto mr-4">
@@ -53,7 +53,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                 height={45}    
                 width={45}
                 alt = "pfp"
-                className="rounded-full border-2 border-black"
+                className="rounded-full border-2 border-black w-[45px] h-[45px]"
                 src={user.image || "/placeholder-person.jpg"}
                  />
             </div>

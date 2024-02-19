@@ -15,9 +15,12 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
     currentUser
 }) => {
 
+    const otherUserId = conversation.userIds.find(id => id !== currentUser.id);
+
+
     const image = await db.user.findUnique({
         where : {
-            id : conversation.userIds[0]
+            id : otherUserId
         }
     })
 

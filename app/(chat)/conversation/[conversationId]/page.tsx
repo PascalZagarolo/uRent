@@ -75,10 +75,11 @@ const ConversationPage = async ({
             attachments={attachments}
         />
     </div>
-    <div className="flex flex-row h-full  ">
-        <div className="min-w-[420px]">
-        <ChatSideBar />
-        </div>
+    <div className="flex  h-full  w-full">
+    <div className="w-[460px] flex">
+            <ChatSideBar
+            />
+            </div>
         
         
         
@@ -96,7 +97,7 @@ const ConversationPage = async ({
        
         
         
-        <div className="ml-auto min-w-[300px]">
+        <div className="ml-auto w-[420px]">
         <ConversationProfileBar
             otherUser={otherUserDetails}
             attachments={attachments}

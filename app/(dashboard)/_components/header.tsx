@@ -1,7 +1,5 @@
 
-import LocationBar from "./location-bar";
-import SearchItem from "./search-item";
-import Inserat from "./add-inserat";
+
 import { User } from "@prisma/client";
 
 interface HeaderProps {

@@ -4,11 +4,12 @@ import { getServerSession } from 'next-auth'
 
 import { redirect } from 'next/navigation';
 import { KeyRound } from 'lucide-react';
+import getCurrentUser from '@/actions/getCurrentUser';
 
 
 export default async function Home() {
 
-
+    
 
     
    

@@ -41,7 +41,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             <Popover>
                 <PopoverTrigger>
                     <img
-                        src={currentUser.image}
+                        src={currentUser.image || "/placeholder-person.jpg"}
                         className="w-10 h-10 rounded-full border-gray-100 border"
                         
                     />

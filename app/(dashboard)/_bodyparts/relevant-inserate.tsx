@@ -2,12 +2,14 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 import { AlignCenter, Search, SearchCode, TrendingUp, } from "lucide-react";
 import InseratCard from "../_components/inserat-card";
-import { Images, Inserat, User } from "@prisma/client";
+import { Images, Inserat, User, Purchase } from '@prisma/client';
 import { getInserate } from "@/actions/getInserate";
 import type { Category } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 import { getSession } from "next-auth/react";
 import PaginationComponent from "@/components/pagination-component";
+import { useMemo } from "react";
+import InseratRenderedList from "./_components/inserat-rendered-list";
 
 interface RelevanteInserateProps {
     title: string;
@@ -49,17 +51,19 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     })
 
 
-    const inserateArray = await getInserate({
-        title: title,
-        category: category,
-        filter: filter,
-        start: Number(start),
-        end: Number(end),
-        page : Number(page),
-        periodBegin : periodBegin,
-        periodEnd : periodEnd,
-       
-    });
+    
+        const inserateArray = await getInserate({
+            title: title,
+            category: category,
+            filter: filter,
+            start: Number(start),
+            end: Number(end),
+            page : Number(page),
+            periodBegin : periodBegin,
+            periodEnd : periodEnd,
+           
+        });
+   
 
     return (
         <div className="w-full ">
@@ -111,19 +115,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     </h3>
                 </div>
             ) : (
-                <div className="grid  sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 overflow-y-auto  justify-center">
-                    {inserateArray.map((inserat, index) => (
-                        <div className="w-full sm:w-1/2 md:w-1/4 p-4" key={inserat.id}>
-                        <InseratCard
-                            key={inserat.id}
-                            inserat={inserat}
-                            profileId={currentUser?.id || ""}
-                            isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
-                            owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
-                        />
-                    </div>
-                    ))}
-                </div>
+                <InseratRenderedList 
+                inserateArray={inserateArray}
+                currentUser={currentUser}
+                //@ts-ignore
+                favedInserate={favedInserate}
+                //@ts-ignore
+                purchases={purchases}
+                />
 
 
             )}

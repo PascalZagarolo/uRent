@@ -121,7 +121,7 @@ const CredForm = ({
 
 
   return (
-    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md ">
       <div
         className="
         bg-white
@@ -133,6 +133,8 @@ const CredForm = ({
           border-gray-200
           border-2
           drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+          dark:bg-[#161616]
+          dark:border-[#161616]
         "
       >
         <form
@@ -147,6 +149,7 @@ const CredForm = ({
               required
               id="name"
               label="Nutzername"
+            
               
             />
           )}
@@ -173,7 +176,8 @@ const CredForm = ({
           
           
           <div>
-            <Button disabled={isLoading} type="submit" className="bg-[#1f2332] hover:bg-[#25293a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <Button disabled={isLoading} type="submit" className="bg-[#1f2332] hover:bg-[#25293a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+             dark:bg-[#0d0d0d] dark:hover:bg-[#171717] dark:text-gray-100">
               {variant === 'LOGIN' ? 'Einloggen' : 'Registrieren'}
             </Button>
           </div>
@@ -192,7 +196,7 @@ const CredForm = ({
               <div className="w-full border-t border-gray-300" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">
+              <span className="bg-white px-2 text-gray-500  dark:bg-[#161616] dark:text-gray-100/70">
                 sonstige Anmeldemöglichkeiten
               </span>
             </div>
@@ -201,7 +205,8 @@ const CredForm = ({
           <div className="mt-6 flex  justify-center ">
             <div className="w-full gap-y-4">
             
-            <Button variant="ghost" className="text-medium w-full mt-2 bg-gray-100 border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" 
+            <Button variant="ghost" className="text-medium w-full mt-2 bg-gray-100 border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+             dark:bg-[#0d0d0d] dark:hover:bg-[#171717]" 
             onClick={() => {onClick("google")}}>
               Google
             </Button>

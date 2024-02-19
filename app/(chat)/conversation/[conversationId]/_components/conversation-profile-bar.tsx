@@ -56,7 +56,7 @@ const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({
                         width={120}
                         height={120}
                         alt="profile picture"
-                        className="rounded-full border-2 border-black"
+                        className="rounded-full border-2 border-black h-[120px] w-[120px]"
                     />
                 </div>
                 <div className="mt-2">

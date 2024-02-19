@@ -87,7 +87,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
             </SheetTrigger>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <SheetContent>
+                    <SheetContent className="dark:bg-[#0F0F0F]">
                        
                             <ClipLoader
                             loading={isLoading}
@@ -112,8 +112,8 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                                                 
                                            
                                                 <Input
-                                                        className="rounded-none border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] focus:ring-0 focus:border-none "
-                                                        defaultValue={currentUser?.name}
+                                                        className="rounded-none border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                                        focus:ring-0 focus:border-none dark:bg-[#040404] dark:border-none"
                                                         
                                                         onChange={(e) => { setCurrentName(e.target.value) }}
                                                     />
@@ -128,7 +128,8 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                                     </p>
                                     
                                                     <Input
-                                                        className="rounded-none border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] focus:ring-0 focus:border-none "
+                                                        className="rounded-none border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                                        focus:ring-0 focus:border-none dark:bg-[#040404] dark:border-none"
                                                         value={currentUser?.email}
                                                     />
                                                 
@@ -171,8 +172,8 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
 
 
                         <SheetFooter className="mt-8">
-                            <Button className=
-                            "w-full bg-[#1f2332] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border border-gray-500"
+                            <Button className="w-full bg-[#1f2332] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border
+                             border-gray-500 dark:bg-[#040404] dark:border-none dark:text-gray-100 dark:hover:bg-[#181818]"
                              disabled={!somethingChanged || isWhitespace(currentName)}
                              onClick={onSubmit}
                              >

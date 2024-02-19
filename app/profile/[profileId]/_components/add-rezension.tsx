@@ -88,7 +88,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
                     </DialogHeader>
 
                     <div>
-                        <h3 className="text-lg text-gray-900 font-semibold dark:text-gray-100 dark:text-gray-100">
+                        <h3 className="text-lg text-gray-900 font-semibold dark:text-gray-100 ">
                             Bewertung
                         </h3>
 

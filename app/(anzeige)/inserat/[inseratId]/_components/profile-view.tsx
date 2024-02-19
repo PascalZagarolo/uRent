@@ -43,7 +43,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     src={user.image || "/placeholder-person.jpg"}
                     width={40}
                     height={40}
-                    className="rounded-full  "
+                    className="rounded-full h-[40px] w-[40px] "
                     alt="User-Bild"
                 />
                 <div className="font-semibold ml-2 flex items-center">
@@ -64,7 +64,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             <div>
                 <div>
                     <p className="text-sm text-white/50 mt-1 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100/90">
-                        Aktiv seit : 12.12.12
+                        Aktiv seit : {user.createdAt.toISOString().slice(0, 10)}
                     </p>
                 </div>
             </div>

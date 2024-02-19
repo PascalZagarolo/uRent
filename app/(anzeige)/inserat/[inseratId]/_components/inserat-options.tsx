@@ -46,7 +46,8 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
     const [text, setText] = useState(
         "Betreff: Anfrage bezüglich Mietwagen\n\n" +
         "Sehr geehrte Damen und Herren,\n\n" +
-        "Nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug. Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.\n\n" +
+        `Nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug.
+         Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.\n\n` +
         "Mit freundlichen Grüßen,\n" +
         "[Dein Name]\n\n" +
         "Meine Kontaktdaten : \n\n" +
@@ -149,14 +150,14 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                         </Button>
 
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="dark:bg-[#0F0F0F]">
                         <DialogHeader>
                             <div className="text-lg font-bold flex">
                                 <Lightbulb className="mr-2" />  Händler sofort kontaktieren
                             </div>
                         </DialogHeader>
                         <div>
-                            <Textarea className="h-[400px] border border-gray-300 bg-gray-200"
+                            <Textarea className="h-[400px] border border-gray-300 bg-gray-200 dark:bg-[#171717]"
                                 value={text}
                                 onChange={handleTextChange}
                             />
@@ -179,7 +180,9 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                         </div>
                         <div className="ml-auto">
                             <DialogTrigger>
-                                <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" onClick={onInterest} disabled={!text}>
+                                <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                                 dark:bg-[#171717] dark:hover:bg-[#1c1c1c] "
+                                onClick={onInterest} disabled={!text}>
                                     Senden
                                 </Button>
                             </DialogTrigger>
@@ -197,7 +200,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
             </div>
 
             <div className="mt-4">
-                <Button className="bg-[#33374d] sm:w-[240px] border-2 border-black flex w-full" onClick={onConversation}>
+                <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black flex w-full" onClick={onConversation}>
                     <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
                 </Button>
             </div>

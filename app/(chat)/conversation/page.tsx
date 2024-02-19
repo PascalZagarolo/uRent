@@ -19,7 +19,7 @@ const Conversation = async () => {
             </div>
             
            <div className="h-screen flex overflow-y-hidden ">
-            <div className="min-w-[420px] flex">
+            <div className="flex">
             <ChatSideBar
             />
             </div>

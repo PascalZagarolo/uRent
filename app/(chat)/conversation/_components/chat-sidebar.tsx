@@ -11,10 +11,10 @@ const ChatSideBar = async () => {
 
     const currentUser = await getCurrentUser();
 
-    let startedConversations;
+    let startedConversations: ConversationWithUsers[] = [];
 
     if(currentUser) {
-        const startedConversations: ConversationWithUsers[]  = await db.conversation.findMany({
+        startedConversations  = await db.conversation.findMany({
             where : {
                 userIds : {
                     has : currentUser.id

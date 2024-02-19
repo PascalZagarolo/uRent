@@ -162,8 +162,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                     <div className="rounded-md bg-[#1b1e2d] border-2 border-gray-100 position:absolute mr-2 dark:bg-[#171923] dark:border-none">
                         <div className="flex  items-center border border-black rounded-md">
-                            <Image
-                                className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 "
+                        <Image
+                                className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 object-fit  w-[40px] h-[40px]"
                                 src={inserat.user?.image || "/placeholder-person.jpg"}
                                 height={40}
                                 width={40}

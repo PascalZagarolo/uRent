@@ -58,7 +58,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
     }
 
     return (
-        <div className="sm:w-[400px] sm:h-[380px] w-[360px] h-[380px]   rounded-md  items-center dark:bg-[#171923]  bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+        <div className="sm:w-[400px] sm:h-[380px] w-[360px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
+          bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none">
             <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} >
                 <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     {
@@ -74,7 +75,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 <div className="px-2 py-1 mt-1 rounded-md  ">
                     <div className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-[210px] h-[40px]
-                 hover:cursor-pointer hover:underline dark:text-gray-100" onClick={onRedirect}> {inserat.title} </div>
+                 hover:cursor-pointer hover:underline dark:text-gray-100 " onClick={onRedirect}> {inserat.title} </div>
                 </div>
                 <div className="ml-auto items-center flex ">
 
@@ -159,7 +160,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 <div className="w-full mt-2">
 
-                    <div className="rounded-md bg-[#1b1e2d] border-2 border-gray-100 position:absolute mr-2 dark:bg-[#171923]">
+                    <div className="rounded-md bg-[#1b1e2d] border-2 border-gray-100 position:absolute mr-2 dark:bg-[#171923] dark:border-none">
                         <div className="flex  items-center border border-black rounded-md">
                             <Image
                                 className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 "

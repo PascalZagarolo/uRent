@@ -80,7 +80,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     
 
     return ( 
-        <div className="no-scrollbar  overflow-y-auto h-screen" >
+        <div className="no-scrollbar  overflow-y-auto h-screen w-full " >
             <div className="">
             <h3 className="flex justify-center text-gray-900/30 p-4 font-semibold dark:text-gray-100">
             Chat gestartet am {formateDate(conversation.createdAt)}

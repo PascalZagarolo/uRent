@@ -62,38 +62,49 @@ const ConversationPage = async ({
     
 
     return (
-        <div className="overflow-y-hidden  h-screen bg-[#404040]/10 font-medium">
-            <div className="w-full h-[100px] overflow-y-hidden bg-[#1d2235] border-2 border-[#23283d] sm:flex items-center hidden">
-                <ChatLogo/>
-                <h3 className="flex justify-center w-full text-[#eaebf0] text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] items-center">
-                   <MessageSquareIcon className="mr-4"/> Konversationen
-                </h3>
-            </div>
-            <MobileHeaderChat
-            otherUser = {otherUserDetails}
+        <div className="h-screen w-full">
+            <div className="overflow-y-hidden bg-[#404040]/10 font-medium w-full">
+        <div className="h-[100px] overflow-y-hidden bg-[#1d2235] border-2 border-[#23283d] sm:flex items-center hidden">
+            <ChatLogo/>
+            <h3 className="flex justify-center w-full text-[#eaebf0] text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] items-center">
+                <MessageSquareIcon className="mr-4"/> Konversationen
+            </h3>
+        </div>
+        <MobileHeaderChat
+            otherUser={otherUserDetails}
             attachments={attachments}
-            />
-           <div className="h-screen flex overflow-y-hidden">
-            <ChatSideBar
-            />
-            <div className="w-full flex">
-                
-            <ChatComponent
-            //@ts-ignore
+        />
+    </div>
+    <div className="flex flex-row h-full  ">
+        <div className="min-w-[420px]">
+        <ChatSideBar />
+        </div>
+        
+        
+        
+        <div className="w-full">
+        <ChatComponent
+                //@ts-ignore
                 messages={messages}
                 currentUser={currentUser}
-                
-                conversation = {justConversation}
-                />
-                <ConversationProfileBar
-           otherUser={otherUserDetails}
-           attachments = { attachments }
-           />
-            </div>
-           
-            
-           </div>
+                conversation={justConversation}
+            />
         </div>
+       
+        
+        
+       
+        
+        
+        <div className="ml-auto min-w-[300px]">
+        <ConversationProfileBar
+            otherUser={otherUserDetails}
+            attachments={attachments}
+        />
+        </div>
+        
+    </div>
+</div>
     );
 }
 

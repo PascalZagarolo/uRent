@@ -126,7 +126,7 @@ const DateFormFilter = () => {
 
     return (
         <div className="mb-2">
-            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2 border-black bg-[#1f2332] p-2 ">
+            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2 border-black bg-[#1f2332] p-2 border-[#1f2332] ">
                 <Clock12 className="mr-4" /> Zeitraum
             </h3>
             <div className="flex gap-x-4 mt-2">

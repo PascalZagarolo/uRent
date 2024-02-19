@@ -1,7 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 import { MessageCircleDashedIcon } from "lucide-react";
-import StartedChats from "./started-chats";
+import StartedChats from "../[conversationId]/_components/started-chats";
 
 import { Conversation, User, Messages } from "@prisma/client";
 

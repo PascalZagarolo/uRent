@@ -95,10 +95,21 @@ const ImageList: React.FC<ImageListProps> = ({
                                     {...provided.draggableProps}
                                     >
                                         <div
-                                        className={cn("px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 dark:hover:bg-[#282828] w-full  dark: border-none rounded-l-md transition")}
+                                        className={cn("px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 dark:hover:bg-[#282828]   dark: border-none rounded-l-md transition")}
                                         {...provided.dragHandleProps}
                                         >
-                                            {image.url}
+                                            <div className="flex">
+                                            <img 
+                                            src={image.url}
+                                            className="w-1/4"
+                                            />
+                                            <p className="ml-auto">
+                                                {image.url}
+                                            </p>
+                                            </div>
+                                            <p>
+                                                {image.position}
+                                            </p>
                                         </div>
                                         
                                         

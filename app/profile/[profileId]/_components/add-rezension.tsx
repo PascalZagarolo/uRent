@@ -70,25 +70,25 @@ const AddRezension: React.FC<AddRezensionProps> = ({
             <Dialog>
                 {canComment ? (
                     <DialogTrigger className="w-full" asChild>
-                    <Button className="w-full border-gray-200 border bg-gray-200" variant="ghost">
+                    <Button className="w-full border-gray-200 border bg-gray-200 dark:bg-[#0a0a0a] dark:hover:bg-[#191919]" variant="ghost">
                         Rezension verfassen
                     </Button>
                 </DialogTrigger>
                 ) : (
                     <p className="text-gray-800/50 font-semibold flex justify-center"> </p>
                 )}
-                <DialogContent className="w-[800px]">
+                <DialogContent className="w-[800px] dark:bg-[#0F0F0F] dark:border-gray-100">
                     <DialogHeader>
-                        <DialogTitle>
+                        <DialogTitle className="dark:text-gray-100">
                             Rezension verfassen
                         </DialogTitle>
-                        <p className="text-gray-900/50 text-xs">
+                        <p className="text-gray-900/50 text-xs dark:text-gray-100">
                             Teile deine Erfahrung mit diesem Mieter, um anderen Nutzern Anhalt zu geben.
                         </p>
                     </DialogHeader>
 
                     <div>
-                        <h3 className="text-lg text-gray-900 font-semibold">
+                        <h3 className="text-lg text-gray-900 font-semibold dark:text-gray-100 dark:text-gray-100">
                             Bewertung
                         </h3>
 
@@ -115,7 +115,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
                     </div>
 
                     <div>
-                        <p className="text-gray-900 font-semibold text-xs">Hinterlasse eine Bemerkung</p>
+                        <p className="text-gray-900 font-semibold text-xs dark:text-gray-100/70">Hinterlasse eine Bemerkung</p>
                     </div>
 
                     <Form {...form}>
@@ -128,6 +128,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
                                 <FormControl>
                                     <Textarea
                                     disabled={isSubmitting}
+                                    className="dark:bg-[#0b0b0b] dark:border-gray-100 dark:text-gray-100"
                                     placeholder="Erzähle etwas über deine Erfahrung mit diesem Mieter"
                                     {...field}
                                     />
@@ -139,7 +140,9 @@ const AddRezension: React.FC<AddRezensionProps> = ({
                         <div className="flex items-center gap-x-2">
                             <DialogTrigger asChild>
                             <Button disabled={!isValid || isSubmitting}  
-                            className="bg-gray-800 border-gray-200 border drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" type="submit">
+                            className="bg-gray-800 border-gray-200 border drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                             dark:bg-[#0b0b0b] dark:text-gray-100 dark:hover:bg-[#131313]" 
+                            type="submit">
                                 Beschreibung speichern
                             </Button>
                             </DialogTrigger>

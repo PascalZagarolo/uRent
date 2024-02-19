@@ -33,10 +33,10 @@ const OrderBy = () => {
 
     return (
         <Select onValueChange={(e) => {onClick(e)}} >
-            <SelectTrigger className="w-[180px] dark:text-gray-100 dark:focus:ring-0 dark:bg-slate-900">
+            <SelectTrigger className="w-[180px] dark:text-gray-100 dark:focus:ring-0 dark:bg-[#0F0F0F] dark:border-gray-900">
                 <SelectValue placeholder="Sortieren nach" className="dark:text-gray-100" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="dark:bg-[#0F0F0F] dark:border-gray-900">
                 <SelectItem value="desc">Preis absteigend</SelectItem>
                 <SelectItem value="asc">Preis aufsteigend</SelectItem>
                 <SelectItem value="relevance">Relevanz</SelectItem>

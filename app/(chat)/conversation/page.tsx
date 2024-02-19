@@ -18,9 +18,12 @@ const Conversation = async () => {
                 </h3>
             </div>
             
-           <div className="h-screen flex overflow-y-hidden">
+           <div className="h-screen flex overflow-y-hidden ">
+            <div className="min-w-[420px] flex">
             <ChatSideBar
             />
+            </div>
+            
             <div className="w-full">
             
                 <div className="flex justify-center items-center h-full">

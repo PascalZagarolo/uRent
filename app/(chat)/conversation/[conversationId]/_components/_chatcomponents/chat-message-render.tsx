@@ -42,9 +42,9 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
     return (
         <div>
 
-            <div className={cn("", isOwn ? "mr-2" : "ml-2 ")}>
+            <div className={cn("", isOwn ? "" : "ml-2 ")}>
 
-                <div className={cn("rounded-lg flex p-2 w-1/2", isOwn ? " mr-8 ml-auto" : " mr-auto")}>
+                <div className={cn("rounded-lg flex p-2 w-1/2", isOwn ? " mr-2 ml-auto" : " mr-auto")}>
 
                     <div className={cn("min-w-[50px]", isOwn ? "ml-auto" : "mr-auto")}>
                         {isOwn && (

@@ -13,6 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, GithubIcon } from "lucide-react";
 import Input from "@/components/input";
 import toast from "react-hot-toast";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 
 
@@ -26,6 +27,8 @@ const CredForm = ({
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
+
+  
 
   const onClick = (provider: "google" | "github") => {
     signIn(provider, {
@@ -45,11 +48,11 @@ const CredForm = ({
 
   console.log(session)
 
-  /* useEffect(() => {
+   useEffect(() => {
      if (session.status === 'authenticated' ) {
       router.push('/')
     }
-  }, [session?.status, router]); */
+  }, [session?.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {

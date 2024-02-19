@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Category, Inserat } from "@prisma/client";
@@ -15,7 +16,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface SelectCategoryInseratProps {
-  inserat : Inserat;
+  inserat: Inserat;
 }
 
 const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
@@ -23,88 +24,96 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
 }) => {
 
 
-    const formSchema = z.object({
-      category : z.string({
-        required_error: "Bitte wähle eine Kategorie aus"
-      })
+  const formSchema = z.object({
+    category: z.string({
+      required_error: "Bitte wähle eine Kategorie aus"
     })
+  })
 
-    const router = useRouter();
+  const router = useRouter();
 
-    const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-   
-      const form = useForm<z.infer<typeof formSchema>>({
-        resolver : zodResolver(formSchema),
-        defaultValues : {
-          category : inserat.category || "PKW"
-        }
-      })
 
-      const [currentCategory, setCurrentCategory] = useState<Category>(inserat.category || "PKW");
-   
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      category: inserat.category || "PKW"
+    }
+  })
 
-    const onSubmit = () => {
+  const [currentCategory, setCurrentCategory] = useState<Category>(inserat.category || "PKW");
+
+
+  const onSubmit = (selectedValue: Category) => {
+
+
+    
+    
+
+    try {
+
+      setCurrentCategory(selectedValue);
 
       const values = {
-        category : currentCategory
+        category: selectedValue
       }
 
-      try {
-        setIsLoading(true);
-        axios.patch(`/api/inserat/${inserat.id}`, values);
-        toast.success("Kategorie erfolgreich gespeichert");
-        setTimeout(() => {
-          router.refresh();
-        }, 1000)
-      } catch {
-        toast.error("Fehler beim Speichern der Kategorie");
-      } finally {
-        setIsLoading(false);
-      }
+      setIsLoading(true);
+      axios.patch(`/api/inserat/${inserat.id}`, values);
+      toast.success("Kategorie erfolgreich gespeichert als : " + values.category);
+      setTimeout(() => {
+        router.refresh();
+      }, 400)
+    } catch {
+      toast.error("Fehler beim Speichern der Kategorie");
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    
-    
-    return (
-        <div className=" mt-4 flex items-center">
-            <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[50%]">
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Fahrzeugklasse</FormLabel>
-              <Select onValueChange={(selectedValue : Category) => {setCurrentCategory(selectedValue)}} defaultValue={inserat.category || "PKW"}>
-                <FormControl>
-                  <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200">
-                    <SelectValue placeholder="Wähle die Art deines Fahrzeuges aus" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="dark:bg-[#000000] border-white">
-                  <SelectItem value="PKW">PKW</SelectItem>
-                  <SelectItem value="TRANSPORT">Transporter</SelectItem>
-                  <SelectItem value="LKW">LKW</SelectItem>
-                  <SelectItem value="LAND">Landwirtschaft</SelectItem>
-                  <SelectItem value="BAU">Baumaschinen</SelectItem>
-                  <SelectItem value="TRAILOR">Anhänger</SelectItem>
-                  <SelectItem value="CARAVAN">Wohnwagen</SelectItem>
-                </SelectContent>
-              </Select>
+// 
+
+  return (
+    <div className=" mt-4 flex items-center">
+
+
+
+      <div>
+        <Label>Fahrzeugklasse</Label>
+        <Select
+          onValueChange={(selectedValue: Category) => {
+            onSubmit(selectedValue);
+          }}
+          defaultValue={inserat.category || "PKW"}
+          disabled={isLoading}
+        >
+
+          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200" disabled={isLoading}  >
+            <SelectValue
+              placeholder="Wähle die Art deines Fahrzeuges aus"
               
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="bg-white dark:bg-[#000000] dark:hover:bg-gray-900 dark:text-gray-100 mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-900 hover:bg-gray-200" 
-        disabled={currentCategory == inserat.category}>
-          Kategorie auswählen
-          </Button>
-      </form>
-    </Form>
-        </div>
-    );
+            />
+          </SelectTrigger>
+
+          <SelectContent className="dark:bg-[#000000] border-white">
+            <SelectItem value="PKW">PKW</SelectItem>
+            <SelectItem value="TRANSPORT">Transporter</SelectItem>
+            <SelectItem value="LKW">LKW</SelectItem>
+            <SelectItem value="LAND">Landwirtschaft</SelectItem>
+            <SelectItem value="BAU">Baumaschinen</SelectItem>
+            <SelectItem value="TRAILOR">Anhänger</SelectItem>
+            <SelectItem value="CARAVAN">Wohnwagen</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+
+
+
+
+    </div>
+  );
 }
 
 export default SelectCategoryInserat;

@@ -60,7 +60,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
                             </div>
 
 
-                            <p className="text-xs text-gray-900/50 flex justify-center"> in {rezensionen.length} Bewertungen</p>
+                            <p className="text-xs text-gray-900/50 flex justify-center dark:text-gray-100"> in {rezensionen.length} Bewertungen</p>
                         </>
 
 
@@ -71,7 +71,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
             </div>
             
             {rezensionen.length !== 0 ? (
-                <div className="mt-4 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]">
+                <div className="mt-4 grid grid-cols-2 gap-4 p-8 bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] dark:bg-[#0F0F0F] dark:border-gray-300 dark:border">
                 {rezensionen.map((rezension : RezensionWithSender) => (
                     <RezensionenRender
                     rezension={rezension}

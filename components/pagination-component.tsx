@@ -15,6 +15,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string"
 import { useEffect } from "react";
 import { Button } from "./ui/button";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface PaginationComponentProps {
     amount: number;
@@ -39,9 +40,11 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
 
         router.push(url)
        }
+
+       const page = Number(searchParams.get("page")) || 1;
     
 
-    const pages = Math.round((amount / 8));
+    const pages = Math.ceil((amount / 8));
     return (
         <Pagination>
             <PaginationContent>
@@ -59,15 +62,15 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
                     </Button>
                 ))}
 
-                {pages > 1 && (
+                {pages > 1 && page > 1 && (
                     <PaginationItem>
-                        <PaginationEllipsis />
+                        <ArrowRight/>
                     </PaginationItem>
                 )}
 
                 {pages > 1 && (
                     <PaginationItem>
-                        <PaginationNext href="#" />
+                        <ArrowLeft/>
                     </PaginationItem>
                 )}
             </PaginationContent>

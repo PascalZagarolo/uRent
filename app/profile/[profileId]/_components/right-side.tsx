@@ -54,7 +54,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
                         <>
                             <div className="flex justify-center items-center mt-4">
                                 <p className="flex">
-                                    {averageRating} <Car className="ml-4" />
+                                    {averageRating.toFixed(1)} <Car className="ml-4" />
                                 </p>
 
                             </div>

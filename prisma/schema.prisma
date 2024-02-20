@@ -226,6 +226,10 @@ model Rezension {
   image String?
   rating Int
 
+  createdAt DateTime @default(now())
+
+  isEdited Boolean @default(false)
+
   receiverId String
   receiver User @relation("received" , fields: [receiverId], references: [id], onDelete: Cascade)
 

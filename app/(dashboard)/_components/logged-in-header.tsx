@@ -3,8 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { User } from "@prisma/client";
-import { MessageCircleIcon, Settings, Settings2Icon, SettingsIcon, TrendingUp, UserIcon } from "lucide-react";
+import { LogOutIcon, MessageCircleIcon, Settings, Settings2Icon, SettingsIcon, TrendingUp, UserIcon } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import ConversationShortCut from "./conversation-shortcut";
+import FavouritesShortCut from "./favourites-shortcut";
+import NotificationShortCut from "./notification-shortcut";
+import SettingsSheet from "./settings-sheet";
 
 
 interface LoggedInBarHeaderProps {
@@ -37,9 +42,22 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                 🎉 Willkommen zurück
                 <p className="ml-1 font-bold hidden 2xl:flex  text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
             </div>
+            <div className="flex lg:gap-x-2">
+            <div>
+                <NotificationShortCut/>
+            </div>
+            <div>
+                <FavouritesShortCut
+                currentUser = {currentUser}
+                />
+            </div>
+            <div className="items-center mr-4 ">
+            <ConversationShortCut/>
+            </div>
+            </div>
 
             <Popover>
-                <PopoverTrigger>
+                <PopoverTrigger asChild>
                     <img
                         src={currentUser.image || "/placeholder-person.jpg"}
                         className="w-[40px] h-[40px] rounded-full border-gray-100 border"
@@ -71,17 +89,26 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                             </p>
                     </Button>
 
+                    <SettingsSheet
+                                currentUser = {currentUser}
+                                />
+
+                    
+
                     <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] flex justify-start mt-2"
-                        onClick={onMessages}
+                        onClick={() => signOut({ callbackUrl : `${window.location.origin}/login`})}
                         >
-                            <MessageCircleIcon className="mr-4" />
+                            <LogOutIcon className="mr-4" />
                             <p>
-                                Nachrichten
+                               Abmelden
                             </p>
                     </Button>
+
+
+                    
                 </PopoverContent>
             </Popover>
 

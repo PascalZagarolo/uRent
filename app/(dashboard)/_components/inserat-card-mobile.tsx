@@ -182,10 +182,10 @@ const InseratCardMobile: React.FC<InseratCardMobileProps> = ({
                 </div>
                 <div className="w-full mt-2">
 
-                    <div className="rounded-md bg-[#1b1e2d] border-2 border-gray-100 position:absolute mr-2">
-                        <div className="flex  items-center border border-black rounded-md">
+                    <div className="rounded-md bg-[#1b1e2d] border-2 border-[#1b1e2d] position:absolute mr-2">
+                        <div className="flex  items-center  rounded-md">
                             <Image
-                                className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 "
+                                className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 h-[40px] w-[40px]"
                                 src={inserat.user?.image || "/placeholder-person.jpg"}
                                 height={40}
                                 width={40}

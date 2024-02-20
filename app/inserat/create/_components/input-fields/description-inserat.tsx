@@ -1,17 +1,20 @@
 'use client'
 
+import { onKeyPressForm } from "@/actions/form-actions";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
 import axios from "axios";
+import { set } from "lodash";
 import { AppWindow, PenIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { title } from "process";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -44,9 +47,6 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
         }
     })
 
-    const onClick = () => {
-        setIsEditing(isEditing => !isEditing);
-    }
 
     const onSubmit = (values : z.infer<typeof formSchema>) => {
         try {
@@ -64,26 +64,54 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
         }
     }
 
+    
+    function handleKeyPress(event) {
+        if ((event.key === 'Escape' || event.button === 0) && isEditing) {
+            setIsEditing(false); 
+
+            form.handleSubmit(onSubmit);
+        }
+      }
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    
+    useEffect(() => {
+        if (isEditing && textareaRef.current) {
+            textareaRef.current.focus();
+        }
+    }, [isEditing]);
+    
+
+
+    
+
     return ( 
-        <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ">
-            <h1 className="text-xl flex justify-start ml-8 font-semibold  mr-16 p-4 text-gray-900  dark:text-gray-100  ">
-               <AppWindow className="mr-4"/> Beschreibung <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
+        <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
+            <h1 className="text-xl flex justify-start ml-8 font-semibold  mr-16 p-4 text-gray-900  dark:text-gray-100" 
+            >
+               <AppWindow className="mr-4"/> Beschreibung <PenIcon className={cn("w-3 h-3 ml-4 mt-1", isEditing ? "block" : "hidden")}/>
             </h1>
             
-            <div className="ml-4  mt-2 bg-white dark:bg-[#0F0F0F] border border-gray-300 p-4 mr-32 rounded-md h-[120px]">
+            <div className="ml-4  mt-2 bg-white dark:bg-[#0F0F0F] border border-gray-300 p-4 mr-32 rounded-md h-[120px]" >
                 {isEditing ? (
-                    <div className="flex"> 
+                    <div className="flex w-full"> 
                         <Form {...form}>
-                    <form className="flex" onSubmit={form.handleSubmit(onSubmit)}>
+                    <form className="flex w-full" onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
                         control={form.control}
                         name="description"
+                    
                         render = {({field}) => (
-                            <FormItem>
+                            <FormItem className="w-full">
                                 <FormControl>
                                     <Textarea
                                     {...field}
-                                    className=" w-[500px] dark:bg-[#0F0F0F]"
+                                    className="  dark:bg-[#0F0F0F]"
+                                    ref={textareaRef}
+                                    onKeyDown={(e) => {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
+                                    onBlur={(e) => {setIsEditing(false)}}
                                     
                                     />
                                 </FormControl>
@@ -92,22 +120,19 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                         )}
                         
                         />
-                        <div>
-                            <Button variant="ghost" className="ml-4 bg-gray-200 text-sm border-gray-300 border-2 
-                            drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] dark:bg-[#020202] dark:hover:bg-[#191919] dark:border-none" type="submit">
-                                Beschreibung speichern
-                            </Button>
-                        </div>
+                        
                     </form>
                 </Form>
 
                     </div>
                     
                 ): (
-                    <div className="   ">
+                    <div onClick={() => {setIsEditing(true)}} className="hover:cursor-pointer">
 
                         {inserat.description ? (
-                            <p className="font-semibold text-gray-900 flex-1 truncate dark:text-gray-100  "> {inserat.description} </p>
+                            <p className="font-semibold text-gray-900 flex-1 truncate dark:text-gray-100"
+                            
+                            > {inserat.description} </p>
                         ) : (
                             <p className="font-semibold text-gray-900/50 italic text-sm dark:text-gray-100"> Noch keine Beschreibung hinzugefügt </p>
                         )}

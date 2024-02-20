@@ -29,8 +29,8 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                             //@ts-ignore
                             inserat={inserat}
                             profileId={currentUser?.id || ""}
-                            isFaved={favedInserate.some((favedInserat) => favedInserat.inseratId === inserat.id)}
-                            owned={purchases.some((purchase) => purchase.inseratId === inserat.id)}
+                            isFaved={favedInserate.some((favedInserat) => favedInserat.id === inserat.id)}
+                            owned={purchases.some((purchase) => purchase.id === inserat.id)}
                         />
                     </div>
                     ))}

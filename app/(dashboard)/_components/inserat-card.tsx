@@ -58,7 +58,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     }
 
     return (
-        <div className="sm:w-[400px] sm:h-[380px] w-[360px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
+        <div className="sm:w-[400px] sm:h-[380px] w-[400px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
           bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none">
             <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} >
                 <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -113,12 +113,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </Badge>
                         </div>
                     </div>
-                    <img
+                    <Image
                         src={inserat.images[0].url}
                         width={220}
                         height={260}
                         className="rounded-md border-2 border-gray-400 hover:cursor-pointer dark:border-gray-900"
                         onClick={onRedirect}
+                        alt={inserat.title}
                     />
                 </div>
             </div>
@@ -161,7 +162,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 <div className="w-full mt-2">
 
-                    <div className="rounded-md bg-[#1b1e2d]  position:absolute mr-2 dark:bg-[#171923] dark:border-none">
+                <div className="rounded-md bg-[#1b1e2d]  position:absolute mr-2 dark:bg-[#171923] dark:border-none">
                         <div className="flex  items-center border border-black rounded-md">
                         <Image
                                 className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 object-fit  w-[40px] h-[40px]"

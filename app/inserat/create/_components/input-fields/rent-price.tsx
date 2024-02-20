@@ -61,13 +61,13 @@ const RentPrice: React.FC<RentPriceProps> = ({
     const { isSubmitting, isValid } = form.formState
 
     return (
-        <div className="ml-4 mt-4">
+        <div className=" mt-4">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormLabel className="flex justify-start items-center">
                         <Banknote /><p className="ml-2 font-semibold"> Mietgebühr </p>
                     </FormLabel>
-                    <p className="font-semibold text-gray-800/50 text-xs"> Alle angaben in EUR </p>
+                    <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
                     <FormField
                         control={form.control}
                         name="price"

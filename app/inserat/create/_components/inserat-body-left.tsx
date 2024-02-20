@@ -28,7 +28,7 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = async ({
     })
 
     return (
-        <div className="p-4 bg-white dark:bg-[#0F0F0F] dark:border border-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  ml-8 rounded-md mr-8 ">
+        <div className="p-4 bg-white dark:bg-[#0b0b0b] dark:border-none border-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  ml-8 rounded-md mr-8 ">
             <h3 className="font-bold italic flex">
                 <BookOpen className="mr-2" /> Anzeigendetails
             </h3>
@@ -42,11 +42,11 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = async ({
                     inserat={inserat}
                 />
             </div>
-            <div className="ml-4 mr-8">
+            <div className=" ">
                 <div >
                     <h3 className="flex justify-center text-xl mt-8 font-semibold
                      bg-[#1f2332] p-4 text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] border-gray-800 border-2
-                     dark:bg-[#0F0F0F] dark:border-gray-100
+                     dark:bg-[#080808] dark:border-none
                      "><Car className="mr-4 h-6 w-6" />
                         Spezifikationen deiner Anzeige
                     </h3>

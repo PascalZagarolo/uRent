@@ -28,9 +28,10 @@ const InseratCreation = async ({
                 inserat={inserat}
                 />
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="p-4 rounded-md ">
+            <div className="grid grid-cols-2 gap-4 p-4  dark:bg-[#0F0F0F]  ">
                 
-                <div className="col-span-1 ">
+                <div className="col-span-1 mb-4">
                 <MoreDetails
                 inserat = {inserat}
                 />
@@ -43,6 +44,7 @@ const InseratCreation = async ({
                     inserat={inserat}
                     />
                 </div>
+            </div>
             </div>
 
         </div>

@@ -2,6 +2,7 @@ import { CarIcon } from "lucide-react";
 import { Rezension, User } from "@prisma/client";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
+import { format } from "date-fns";
 
 type RezensionWithSender = Rezension & {
     sender: User;
@@ -62,12 +63,19 @@ const RezensionenRender: React.FC<RezensionenRenderProps> = ({
                         {rezension.sender.email}
                     </p>
                 </div>
-                <div className="ml-auto mr-8">
-                    <div className="flex font-bold">
-                        {rezension.rating}/5 <CarIcon className="ml-2 text-blue-800"/>
+                
+                
+            </div>
+            <div className=" items-center mr-8">
+                    <div className="flex font-bold items-center">
+                    <div className=" mr-4 text-xs text-gray-100/60 flex gap-x-2">
+                  <p className="text-gray-100/80">erstellt : </p>  {format(new Date(rezension.createdAt), "dd.MM.yyyy")}
+                </div>
+                        <p className="ml-auto text-sm">
+                        {rezension.rating}/5 
+                        </p>
                     </div>
                 </div>
-            </div>
         </DialogHeader>
         <div>
             {rezension.content} 

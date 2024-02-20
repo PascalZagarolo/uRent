@@ -63,14 +63,14 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
 
     return ( 
-        <div className="mr-32 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]  ml-4  rounded-md">
-            <h1 className="text-xl flex justify-start p-4 font-semibold mt-2  text-gray-900  dark:text-gray-100">
+        <div className="mr-32 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]   rounded-md">
+            <h1 className="text-xl flex justify-start  font-semibold mt-8  text-gray-900  dark:text-gray-100">
                 <AlignCenter className="mr-4 "/>Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
             </h1>
             <div>
                 
             </div>
-            <div className=" mr-16 mt-4 p-4 bg-white dark:bg-[#0F0F0F] rounded-md border border-gray-200">
+            <div className="  mt-4 p-4 bg-white dark:bg-[#0F0F0F] rounded-md border border-gray-200">
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>

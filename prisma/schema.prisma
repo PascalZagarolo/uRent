@@ -231,6 +231,7 @@ model Rezension {
   rating Int
 
   createdAt DateTime @default(now())
+  editedAt DateTime? @updatedAt
 
   isEdited Boolean @default(false)
 

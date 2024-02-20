@@ -9,7 +9,7 @@ import { Images, Inserat } from "@prisma/client";
 import MainPageSidebar from "./_components/main-page-sidebar";
 import type { Category } from "@prisma/client";
 import { db } from "@/utils/db";
-import RelevanteInserateMobile from "./_bodyparts/relevante-inserate-mobile";
+
 import HeaderLogo from "./_components/header-logo";
 
 
@@ -80,7 +80,7 @@ const Main = async ({
   
   <div className="2xl:ml-72 sm:mt-24 ml-4 relative sm:z-0">
   
-    <div className="hidden sm:block overflow-y-auto sm:overflow-hidden no-scrollbar ">
+    <div className=" sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center ">
     <RelevanteInserate
               title={searchParams.title}
               category={searchParams.category}
@@ -93,16 +93,7 @@ const Main = async ({
     </div>
 
     
-    <div className="mt-2  overflow-y-auto sm:hidden flex items-center justify-center">
-      <RelevanteInserateMobile
-        title={searchParams.title}
-        category={searchParams.category}
-        filter={searchParams.filter}
-        start={searchParams.start}
-        end={searchParams.end}
-        page={searchParams.page}
-      />
-    </div>
+    
   </div>
 </div>
 

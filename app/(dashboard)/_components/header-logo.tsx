@@ -73,13 +73,9 @@ const Header: React.FC<HeaderProps> = ({
                                     currentUser={currentUser}
                                 />
                                 
-                                <div className="mt-2 ml-8">
-                                    <LogOutButton />
-                                </div>
+                                
                                 <div className="items-center flex mt-2">
-                                <SettingsSheet
-                                currentUser = {currentUser}
-                                />
+                                
                                 </div>
                                     
                                 

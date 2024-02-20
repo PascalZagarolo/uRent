@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
 import axios from "axios";
 import { set } from "lodash";
-import { SettingsIcon, UserCheck } from "lucide-react";
+import { Settings2Icon, SettingsIcon, UserCheck } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -80,10 +80,18 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
 
     return (
         <Sheet>
-            <SheetTrigger className="items-center flex ml-4 2xl:ml-8">
-                <SettingsIcon
-                    className="text-white h-6 w-6"
-                />
+            <SheetTrigger className="hidden lg:flex items-center   " asChild>
+            <Button
+                        variant="ghost"
+                        className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] flex justify-start mt-2"
+                        
+                        >
+                            <Settings2Icon className="mr-4" />
+                            <p>
+                                Einstellungen
+                            </p>
+                    </Button>
             </SheetTrigger>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>

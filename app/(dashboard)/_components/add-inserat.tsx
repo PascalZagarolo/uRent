@@ -62,7 +62,7 @@ const Inserat: React.FC<InseratProps> = ({
             <DialogTrigger className="bg-[#12141f] border border-black ml-8 mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     
                     
-                    <PlusIcon className="w-4 h-4 lg:mr-2 flex justify-center" /> <p className="hidden lg:block">Neue Anzeige</p>
+                    <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:block">Neue Anzeige</p>
                         
                     </DialogTrigger>
                 <DialogContent className="dark:bg-[#0F0F0F]">

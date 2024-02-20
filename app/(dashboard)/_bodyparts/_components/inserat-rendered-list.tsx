@@ -1,7 +1,10 @@
+'use client'
+
 import { InserateAndImages } from "@/types/types";
 import { Inserat, User } from "@prisma/client";
 import InseratCard from "../../_components/inserat-card";
 import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface InseratRenderedListProps {
     inserateArray: InserateAndImages[];
@@ -18,6 +21,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     purchases
 }) => {
 
+    
 
 
     return ( 

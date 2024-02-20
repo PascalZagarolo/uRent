@@ -74,18 +74,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     <div className="p-2 border-2 border-white rounded-lg">
                     <AlignCenter />
                     </div>
+
                     <h3 className="ml-8 flex font-bold text-2xl h-full w-full">
                         Relevante Inserate
                         
                         <div className="flex ml-auto mr-4 sm:mr-8 text-black">
-                            <OrderBy />
-                            <div className="ml-8">
-                            {inserateArray.length > 8 && (
-                                <PaginationComponent
-                                amount={inserateArray.length}
-                                />
-                            )}
-                        </div>
+                        <OrderBy />
+                            
+                            
                         </div>
                     </h3>
                 </div>

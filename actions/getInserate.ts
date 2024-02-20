@@ -66,11 +66,9 @@ export const getInserate = async ({
                 }
             })
 
-            if(page) {
-                return inserate.splice((page - 1) * 8, (page * 8) + 8)
-            }
+            
 
-            return inserate.splice(0, 8);
+            return inserate.splice(0, 16);
         } else {
             const inserate = await db.inserat.findMany({
                 where : {
@@ -106,11 +104,9 @@ export const getInserate = async ({
                 }
             })
 
-            if(page) {
-                return inserate.splice((page - 1) * 8, (page * 8) + 8)
-            }
+            
 
-            return inserate.splice(0, 8);
+            return inserate.splice(0, 16);
         }
 
         

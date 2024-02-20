@@ -2,8 +2,8 @@ import { getServerSession } from "next-auth";
 import React from "react";
 
 
-import HeaderLogo from "./_components/header-logo";
-import Header from "./_components/header";
+
+
 import getCurrentUser from "../../actions/getCurrentUser";
 import MobileHeader from "./_components/mobile-header";
 

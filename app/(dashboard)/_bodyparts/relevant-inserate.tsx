@@ -71,7 +71,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         <div className="sm:w-full ">
 
 {!title ? (
-                <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 p-3 text-gray-100 bg-[#181b27]">
+                <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 dark:border-gray-900 p-3 text-gray-100 bg-[#181b27]">
                 <div className="ml-4 flex w-full items-center">
                     <div className="p-2 border-2 border-white rounded-lg">
                     <AlignCenter />

@@ -63,13 +63,22 @@ const Main = async ({
         }
         
     })
+
+    const notifications = await db.notification.findMany({
+      where : {
+        userId : currentUser.id
+      }
+    })
     
     return ( 
         <div className="relative sm:h-full sm:overflow-y-auto no-scrollbar">
   {/* Fixed Header and Sidebar */}
   <div className="fixed top-0 w-full z-50">
     
-      <HeaderLogo currentUser={currentUser} />
+      <HeaderLogo 
+      currentUser={currentUser} 
+      notifications = {notifications} />
+      
       
       <MainPageSidebar treffer={inserate.length} />
       

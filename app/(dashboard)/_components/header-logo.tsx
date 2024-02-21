@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import LoggedInBarHeader from "./logged-in-header";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { User } from "@prisma/client";
+import { Notification, User } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import DashboardLayout from "../layout";
 import DashboardLink from "./dashboard-link";
@@ -21,10 +21,12 @@ import { ModeToggle } from "@/components/toggle-mode";
 
 interface HeaderProps {
     currentUser: User;
+    notifications : Notification[];
 }
 
 const Header: React.FC<HeaderProps> = ({
-    currentUser
+    currentUser,
+    notifications
 }) => {
 
     const { data: session, status } = useSession();
@@ -71,6 +73,7 @@ const Header: React.FC<HeaderProps> = ({
                             <div className="flex items-center justify-center mr-16">
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
+                                    notifications = {notifications}
                                 />
                                 
                                 

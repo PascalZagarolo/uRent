@@ -1,13 +1,16 @@
+
 import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@prisma/client";
-import type { Category } from "@prisma/client";
+import type { Category, PkwAttribute } from "@prisma/client";
+import { includes } from "lodash";
 
 
 
-type InserateWithImages = Inserat & {
+type InserateImagesAndAttributes = Inserat & {
+    user : User;
     images : Images[];
-    user: User;
-    
+    pkwAttribute : PkwAttribute;
+
 }
 
 type GetInserate = {   
@@ -30,11 +33,11 @@ export const getInserate = async ({
     page,
     periodBegin,
     periodEnd
-} : GetInserate ): Promise<InserateWithImages[]> => {
+} : GetInserate ): Promise<InserateImagesAndAttributes[]> => {
     try {
 
         
-
+        //!implement switch statements later
         if(filter === "relevance") {
             const inserate = await db.inserat.findMany({
                 where : {
@@ -62,7 +65,8 @@ export const getInserate = async ({
                     
                 }, include : {
                     images : true,
-                    user: true
+                    user: true,
+                    pkwAttribute : true
                 }, orderBy : {
                     views : "desc"
                 }
@@ -98,13 +102,11 @@ export const getInserate = async ({
                                 annual : true
                             }
                         ]
-                    } : {}
-                        
-                    
-                    
+                    } : {}   
                 }, include : {
                     images : true,
-                    user: true
+                    user: true,
+                    pkwAttribute : true
                 }, orderBy : {
                     price : filter === "asc" ? "asc" : "desc"
                 }

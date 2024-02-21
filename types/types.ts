@@ -1,5 +1,8 @@
-import { Images, Inserat } from "@prisma/client"
+import { Images, Inserat, PkwAttribute, User } from "@prisma/client"
 
-export type InserateAndImages = Inserat & {
-    images : Images[]
+export type InserateImagesAndAttributes = Inserat & {
+    user : User;
+    images : Images[];
+    pkwAttribute : PkwAttribute;
+
 }

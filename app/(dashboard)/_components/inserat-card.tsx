@@ -4,9 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { Images, Inserat, User } from "@prisma/client";
+import { InserateImagesAndAttributes } from "@/types/types";
+
+import { Images, Inserat, PkwAttribute, User } from "@prisma/client";
 import axios from "axios";
-import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, LocateFixedIcon, MapPinIcon, Star, TractorIcon, TramFront, Truck, X } from "lucide-react";
+import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, LocateFixedIcon, MapPinIcon, RockingChair, SofaIcon, Star, TractorIcon, TramFront, Truck, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,7 +16,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface InseratCardProps {
-    inserat: Inserat & { images: Images[]; user: User };
+    inserat: InserateImagesAndAttributes;
     profileId: string,
     isFaved: boolean,
     owned: boolean,
@@ -64,13 +66,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     {
                         {
-                            'PKW': <CarFront className=" text-gray-100 h-6 w-6 " /> ,
-                            'LKW': <Truck className=" text-gray-100 h-6 w-6 " /> ,
-                            'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " /> ,
-                            'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " /> ,
+                            'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
+                            'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
+                            'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " />,
+                            'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " />,
                             'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
-                            'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " /> ,
-                            'TRAILOR' : <CaravanIcon className=" text-gray-100 h-6 w-6 " />
+                            'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " />,
+                            'TRAILOR': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
                         }[inserat.category]
                     }
                 </div>
@@ -93,13 +95,25 @@ const InseratCard: React.FC<InseratCardProps> = ({
             <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-full">
                 <div className="flex mr-auto ml-2">
                     <div className="mr-4 w-[80px]">
+
                         <div>
-                            <Badge className="bg-[#2c3246] border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                            dark:bg-[#181818]/95 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-[#181818]/60">
-                                4-Sitzer
-                            </Badge>
+                            {
+                                {
+                                    'PKW': inserat.pkwAttribute?.sitze && (
+                                        <Badge className="bg-[#2c3246] border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                             dark:bg-[#181818]/95 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-[#181818]/60">
+                                                <SofaIcon className="h-4 w-4 mr-1"/>
+                                        <p className="mr-1 text-blue-200"> {inserat.pkwAttribute?.sitze} </p> Sitze
+                                    </Badge>
+                                    ),
+                                    
+                                }[inserat.category]
+                            }
+
+
                         </div>
-                        <div className="mt-2">
+
+                        <div className="mt-1">
                             <Badge className="bg-[#242a39] flex border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                             dark:text-gray-100 dark:bg-[#181818]/95 dark:border-gray-700 dark:hover:bg-[#181818]/60
                             ">
@@ -126,7 +140,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
             </div>
             <div className="ml-2 ">
                 <div className="flex  bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
-                <p className="text-gray-100 font-bold mr-4 flex">
+                    <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  {inserat.annual ? "" : "Zeitraum :"}
                     </p>
                     {inserat.annual ? (
@@ -163,9 +177,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 <div className="w-full mt-2">
 
-                <div className="rounded-md bg-[#1b1e2d]  position:absolute mr-2 dark:bg-[#171923] dark:border-none">
+                    <div className="rounded-md bg-[#1b1e2d]  position:absolute mr-2 dark:bg-[#171923] dark:border-none">
                         <div className="flex  items-center border border-black rounded-md">
-                        <Image
+                            <Image
                                 className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 object-fit  w-[40px] h-[40px]"
                                 src={inserat.user?.image || "/placeholder-person.jpg"}
                                 height={40}
@@ -179,8 +193,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </Link>
 
                             <div className="ml-auto mr-2">
-                                <Button className="bg-[#222637] border border-white font-semibold dark:bg-[#171923] dark:text-gray-100 dark:hover:bg-[#181818]/60" 
-                                onClick={() => { router.push(`/inserat/${inserat.id}`) }}>
+                                <Button className="bg-[#222637] border border-white font-semibold dark:bg-[#171923] dark:text-gray-100 dark:hover:bg-[#181818]/60"
+                                    onClick={() => { router.push(`/inserat/${inserat.id}`) }}>
                                     Besichtigen
                                 </Button>
                             </div>

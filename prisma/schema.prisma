@@ -90,6 +90,7 @@ model Inserat {
 
   description String? @db.Text
   price Float?
+  priceDaily Boolean @default(false)
 
   isPublished Boolean @default(false)
 

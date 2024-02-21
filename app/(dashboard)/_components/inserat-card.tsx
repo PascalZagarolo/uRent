@@ -139,7 +139,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
             </div>
             <div className="ml-2 ">
-                <div className="flex  bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
+                <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 dark:border-[#1e2332] border-gray-300 border-2 
+                drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  {inserat.annual ? "" : "Zeitraum :"}
                     </p>
@@ -162,16 +163,17 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                 <div className="font-semibold text-gray-900 flex mt-2 items-center">
                     <div className="flex">
-                        <div className="flex dark:bg-emerald-800 bg-emerald-600 p-2 rounded-md border-gray-300 border-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200">
+                        <div className="flex dark:bg-emerald-800 bg-emerald-600 p-2 rounded-md border-gray-300 border-2
+                         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800">
                             <div className="mr-2 flex font-bold">
-                                <Banknote
-                                    className="mr-2 bg-gray-100 p-0.5 rounded-md border-gray-300 border-2 text-gray-900" />
-                                Preis {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)} :
+                                
+                                <Banknote className="mr-1" />
                             </div>
-                            {inserat.price} €
+                            {inserat.price} €  {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)} 
                         </div>
                     </div>
-                    <div className="ml-auto mr-4 flex items-center dark:bg-[#171923] bg-[#181c28] border-2 border-gray-300 p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <div className="ml-auto mr-4 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] border-2 border-gray-300 
+                    p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                         <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 dark:bg-[#171923] dark:border-none rounded-md border-gray-300 border-2" /> Mömer <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
                     </div>
                 </div>

@@ -32,8 +32,8 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [isDateless, setIsDateless] = useState(inserat.annual);
 
-    const [currentStart, setCurrentStart] = useState<Date | null>(new Date());
-    const [currentEnd, setCurrentEnd] = useState<Date | null>(new Date());
+    const [currentStart, setCurrentStart] = useState<Date | null>(inserat.begin ? inserat.begin : new Date());
+    const [currentEnd, setCurrentEnd] = useState<Date | null>(inserat.end ? inserat.end : new Date());
 
     const router = useRouter();
 
@@ -54,9 +54,16 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
         }
     })
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
         try {   
             setIsLoading(true);
+
+            const values = {
+                begin : currentStart,
+                end : currentEnd,
+                annual: false
+            }
+
             axios.patch(`/api/inserat/${inserat.id}`, values);
             toast.success("Datum erfolgreich festgelegt");
         } catch {
@@ -204,11 +211,12 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                             <div>
                                                 Das Enddatum ist inkludiert.
                                             </div>
+                                            
                                           
                                         
                                  
                             </div>
-                            <Button type="submit" 
+                            <Button onClick={onSubmit} 
                             className="bg-blue-800 dark:bg-[#191919] dark:hover:bg-[#2d2d2d] dark:text-gray-100  w-full mt-2" 
                             disabled={isDateless}>Daten festlegen </Button>
                         

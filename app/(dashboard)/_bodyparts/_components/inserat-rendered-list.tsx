@@ -1,13 +1,14 @@
 'use client'
 
-import { InserateAndImages } from "@/types/types";
-import { Inserat, User } from "@prisma/client";
+
+import { Images, Inserat, PkwAttribute, User } from "@prisma/client";
 import InseratCard from "../../_components/inserat-card";
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import { InserateImagesAndAttributes } from "@/types/types";
 
 interface InseratRenderedListProps {
-    inserateArray: InserateAndImages[];
+    inserateArray: InserateImagesAndAttributes[];
     currentUser : User;
     favedInserate: Inserat[];
     purchases : Inserat[];
@@ -21,7 +22,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     purchases
 }) => {
 
-    
+    //!!!set searchresult amounts as zustand state
 
 
     return ( 
@@ -36,6 +37,9 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                             isFaved={favedInserate.some((favedInserat) => favedInserat.id === inserat.id)}
                             owned={purchases.some((purchase) => purchase.id === inserat.id)}
                         />
+                        <p>
+                            
+                        </p>
                     </div>
                     ))}
                 </div>

@@ -41,28 +41,7 @@ const Main = async ({
     
     
 
-    const inserate = await db.inserat.findMany({
-        where : {
-            category : searchParams.category,
-            title : {
-                contains : searchParams.title
-            },
-            isPublished : true,
-            OR : [
-              {
-                annual : true
-              }, {
-                begin : {
-                  gte : new Date()
-                }
-              }
-            ]
-            
-        }, orderBy : {
-            views : "desc"
-        }
-        
-    })
+    
 
     const notifications = await db.notification.findMany({
       where : {
@@ -80,7 +59,7 @@ const Main = async ({
       notifications = {notifications} />
       
       
-      <MainPageSidebar treffer={inserate.length} />
+      <MainPageSidebar treffer={12} />
       
     
   </div>

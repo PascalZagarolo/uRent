@@ -84,7 +84,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
             <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] flex justify-start mt-2"
+                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] flex justify-start mt-2 dark:border-none"
                         
                         >
                             <Settings2Icon className="mr-4" />

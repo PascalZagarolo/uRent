@@ -18,16 +18,17 @@ import { Input } from "@/components/ui/input";
 import { Toast } from "@/components/ui/toast";
 import Bookings from "./bookings";
 import ManageBookings from "./manage-bookings";
+import { Pencil2Icon } from "@radix-ui/react-icons";
 
 
 interface InseratOptionsProps {
     user: User;
-    bookings : Booking & { user : User}[];
+    bookings: Booking & { user: User }[];
     ownUser: User;
     contactOptions: ContactOptions;
 }
 
-const InseratOptions: React.FC<InseratOptionsProps> =  ({
+const InseratOptions: React.FC<InseratOptionsProps> = ({
     user,
     bookings,
     ownUser,
@@ -36,11 +37,11 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
 
 
 
-    
-    
+
+
     const currentUrl = window ? window.location.href : "....";
 
-    const name = contactOptions?.emailAddress  
+    const name = contactOptions?.emailAddress
 
 
     const [text, setText] = useState(
@@ -51,8 +52,8 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
         "Mit freundlichen Grüßen,\n" +
         "[Dein Name]\n\n" +
         "Meine Kontaktdaten : \n\n" +
-        "E-Mail : " + (name ? name : "[Deine E-Mail Addresse]") + "\n"  +
-        "Telefon : " + (contactOptions?.phoneNumber  ? contactOptions?.phoneNumber : "[Deine Telefonnummer]") + "\n"
+        "E-Mail : " + (name ? name : "[Deine E-Mail Addresse]") + "\n" +
+        "Telefon : " + (contactOptions?.phoneNumber ? contactOptions?.phoneNumber : "[Deine Telefonnummer]") + "\n"
 
 
 
@@ -69,11 +70,11 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
     const params = useParams();
 
     const onStar = () => {
-        if(ownUser) {
+        if (ownUser) {
             try {
                 setIsLoading(true);
                 axios.patch(`/api/profile/${user.id}/favourites`, { inseratId: params.inseratId })
-    
+
                 setTimeout(() => {
                     router.refresh();
                 }, 500)
@@ -87,28 +88,28 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
         }
     }
 
-    
+
 
     const onConversation = () => {
-       
-            if(ownUser){
-                try {
-                    setIsLoading(true);
-                    const conversation = axios.post(`/api/conversation/${ownUser.id}/${user.id}`).then((response) => {
-                        router.push(`/conversation/${response.data.id}`)
-                    })
-                } catch {
-                    toast.error("Fehler beim Erstellen der Konversation")
-                } finally {
-                    setIsLoading(false);
-                }
-            } else {
-                router.push(`/login`)
+
+        if (ownUser) {
+            try {
+                setIsLoading(true);
+                const conversation = axios.post(`/api/conversation/${ownUser.id}/${user.id}`).then((response) => {
+                    router.push(`/conversation/${response.data.id}`)
+                })
+            } catch {
+                toast.error("Fehler beim Erstellen der Konversation")
+            } finally {
+                setIsLoading(false);
             }
+        } else {
+            router.push(`/login`)
+        }
     }
 
     const onInterest = () => {
-        if(ownUser) {
+        if (ownUser) {
             try {
                 setIsLoading(true);
                 axios.post(`/api/interest/${params.inseratId}`, { text: text });
@@ -116,7 +117,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                 toast.error("Etwas ist schief gelaufen");
             } finally {
                 setIsLoading(false);
-    
+
             }
         } else {
             router.push(`/login`);
@@ -124,8 +125,8 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
     }
 
     const copyToClipboard = async (text: string) => {
-       await navigator.clipboard.writeText(text);
-       toast.success("Link in Zwischenablage kopiert")
+        await navigator.clipboard.writeText(text);
+        toast.success("Link in Zwischenablage kopiert")
     };
 
     const ownSite = ownUser?.id === user.id;
@@ -135,14 +136,14 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
 
     return (
         <div className="w-full">
-                {ownSite ? (
-                    <>
-                    <Bookings/>
-                    
-                    </>
+            {ownSite ? (
+                <>
+                    <Bookings />
 
-                ) : (
-                    <Dialog>
+                </>
+
+            ) : (
+                <Dialog>
                     <DialogTrigger className="mt-4" asChild>
 
                         <Button className="bg-emerald-600 border-2 border-black sm:w-[240px] w-full">
@@ -173,7 +174,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                                     <RadioGroupItem value="email" id="email" />
 
                                     <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center" /> E-Mail</Label>
-                                     
+
                                 </RadioGroup>
 
                             </div>
@@ -182,35 +183,44 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                             <DialogTrigger>
                                 <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                                  dark:bg-[#171717] dark:hover:bg-[#1c1c1c] "
-                                onClick={onInterest} disabled={!text}>
+                                    onClick={onInterest} disabled={!text}>
                                     Senden
                                 </Button>
                             </DialogTrigger>
                         </div>
                     </DialogContent>
                 </Dialog>
-                )}
+            )}
 
             {!ownSite ? (
                 <>
-                <div className="mt-4">
-                <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full" onClick={onStar}>
-                    <Star className="h-4 w-4 mr-2" />Anzeige vormerken
-                </Button>
-            </div>
+                    <div className="mt-4">
+                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full" onClick={onStar}>
+                            <Star className="h-4 w-4 mr-2" />Anzeige vormerken
+                        </Button>
+                    </div>
 
-            <div className="mt-4">
-                <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black flex w-full" onClick={onConversation}>
-                    <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
-                </Button>
-            </div>
-            </>
+                    <div className="mt-4">
+                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black flex w-full" onClick={onConversation}>
+                            <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
+                        </Button>
+                    </div>
+                </>
             ) : (
-                
-                    <ManageBookings
-                    bookings = {bookings}
-                    />
-                
+
+                <ManageBookings
+                    bookings={bookings}
+                />
+
+            )}
+
+            {ownSite && (
+                <Button className="bg-[#1f2230] sm:w-[240px] border-2 border-black flex w-full mt-4
+                    dark:text-gray-100 dark:bg-[#1f2230] dark:hover:bg-[#161921] dark:border dark:border-gray-100"
+                    onClick={() => {router.push(`/inserat/create/${params.inseratId}`)}}
+                    >
+                    <Pencil2Icon className="h-4 w-4 mr-2" />  Anzeige bearbeiten
+                </Button>
             )}
 
             <div className="mt-4">
@@ -230,7 +240,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                         </DialogHeader>
                         <div>
                             <p className="font-semibold italic flex">
-                               <Share className="mr-2"/> Soziale Netzwerke :
+                                <Share className="mr-2" /> Soziale Netzwerke :
                             </p>
                             <div className="flex gap-x-4 items-center mt-4 justify-evenly ">
                                 <FacebookShareButton
@@ -284,6 +294,7 @@ const InseratOptions: React.FC<InseratOptionsProps> =  ({
                         </div>
                     </DialogContent>
                 </Dialog>
+
             </div>
         </div>
     );

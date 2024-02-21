@@ -9,6 +9,7 @@ import { Forward, Share, Trash, TrashIcon } from "lucide-react";
 import DeleteMessage from "./delete-message";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
+import { use, useEffect, useState } from "react";
 
 type MessageWithInserat = Messages & { inserat: Inserat & { images: Images } }
 
@@ -26,17 +27,16 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
     const router = useRouter();
 
-    const formatEuropeanTime = (inputDate: Date): string => {
-        const date = format(new Date(inputDate), "HH:mm");
+    
+    const [showDate, setShowDate] = useState(false);
 
-        return date;
-    };
-
-    const formatEuropeanTimeDay = (inputDate: Date): string => {
-        const date = format(new Date(inputDate), "dd.MM.yy");
-
-        return date;
-    };
+    useEffect(() => {
+        setShowDate(false);
+        setTimeout(() => {
+            setShowDate(true);
+        }, 500)
+    },[messages])
+    
 
 
     return (
@@ -76,19 +76,20 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                     <div className="flex">
 
                                                         <div className="rounded-md 2xl:w-1/2">
-                                                            <img
+                                                            {showDate && (
+                                                                <img
                                                                 src={messages.inserat?.images[0].url}
                                                                 className=" object-cover rounded-md"
                                                                 alt="..."
                                                                 style={{ imageRendering: "auto" }}
+                                                                loading="eager"
                                                             />
+                                                            )}
                                                         </div>
 
                                                         <div className="ml-4 font-semibold truncate w-[160px] mr-4">
                                                             {messages.inserat?.title}
-                                                            <Badge className="2xl:flex ml-auto drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center hidden">
-                                                            {formatEuropeanTimeDay(messages.inserat?.createdAt)}
-                                                            </Badge>
+                                                            
                                                             <Badge className="flex ml-auto mt-2 bg-emerald-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center">
                                                                 {messages.inserat?.price} €
                                                             </Badge>
@@ -117,9 +118,11 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
                         </div>
 
-                        <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60 font-semibold dark:text-gray-100/60", isOwn ? "text-right" : "text-left")}>
+                        {showDate && (
+                            <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60 font-semibold dark:text-gray-100/60", isOwn ? "text-right" : "text-left")}>
                             {format(new Date(messages.createdAt), "HH:mm")} Uhr
                         </p>
+                        )}
                     </div>
 
                 </div>

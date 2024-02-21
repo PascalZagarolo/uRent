@@ -22,7 +22,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         <Popover>
             <PopoverTrigger asChild>
                 <Button className="lg:bg-[#181b27]" variant="ghost" >
-                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">{notifications.length}</p>
+                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">{notifications?.length || 0}</p>
                                     
                 </Button>
             </PopoverTrigger>

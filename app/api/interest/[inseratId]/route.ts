@@ -1,6 +1,7 @@
 import { db } from "@/utils/db";
 import { NextResponse } from "next/server";
 import getCurrentUser from '@/actions/getCurrentUser';
+import { pusherServer } from "@/lib/pusher";
 
 export async function POST(
     req : Request,
@@ -54,6 +55,8 @@ export async function POST(
                 }
             })
 
+            await pusherServer.trigger(createdConversation.id, 'messages:new', createMessage);
+
             return NextResponse.json({createdConversation , createMessage})
         } else {
             const createMessage = await db.messages.create({
@@ -65,6 +68,8 @@ export async function POST(
                     inseratId : inserat.id
                 }
             })
+
+            await pusherServer.trigger(existingConversation.id, 'messages:new', createMessage);
 
             return NextResponse.json(createMessage)
         }

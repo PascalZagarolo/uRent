@@ -10,6 +10,7 @@ import ConversationShortCut from "./conversation-shortcut";
 import FavouritesShortCut from "./favourites-shortcut";
 import NotificationShortCut from "./notification-shortcut";
 import SettingsSheet from "./settings-sheet";
+import { Separator } from "@/components/ui/separator";
 
 
 interface LoggedInBarHeaderProps {
@@ -39,8 +40,8 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
 
     return (
-        <div className="flex justify-start  items-center mt-2">
-            <div className="  font-semibold mr-4 text-xs text-gray-200  hidden items-center 2xl:flex">
+        <div className="flex ml-auto items-center mt-2">
+            <div className="  font-semibold 2xl:mr-16 lg:mr-8 text-xs text-gray-200  hidden items-center 2xl:flex">
                 🎉 Willkommen zurück
                 <p className="ml-1 font-bold hidden 2xl:flex  text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
             </div>
@@ -69,10 +70,16 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     />
                 </PopoverTrigger>
                 <PopoverContent className="dark:bg-[#0F0F0F] dark:text-gray-100">
+                    <div className="mb-2">
+                        <h3 className="flex">
+                            
+                            <span className="ml-2 text-base">Mein Konto</span>
+                        </h3>
+                    </div>
                     <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] flex justify-start"
+                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start"
                         onClick={onClick}
                         >
                             <UserIcon className="mr-4 w-6 h-6" />
@@ -84,7 +91,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] flex justify-start mt-2"
+                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={onDashboard}
                         >
                             <TrendingUp className="mr-4" />
@@ -98,11 +105,11 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                                 />
 
                     
-
+                        <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2"/>
                     <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] flex justify-start mt-2"
+                        border-2 border-gray-300   w-full dark:bg-[#0f0f0f] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={() => signOut({ callbackUrl : `${window.location.origin}/login`})}
                         >
                             <LogOutIcon className="mr-4" />

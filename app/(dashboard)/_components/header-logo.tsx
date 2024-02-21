@@ -37,8 +37,8 @@ const Header: React.FC<HeaderProps> = ({
 
     return (
         <div className="bg-[#1f2332] h-[90px] border border-black flex-shrink-1 hidden sm:block">
-            <div className="flex 2xl:justify-between md:justify-evenly">
-            <h3 className="flex justify-start items-center py-6 ml-8 text-3xl font-semibold text-white hover:cursor-pointer" onClick={() => {
+            <div className="flex 2xl:justify-start md:justify-evenly">
+            <h3 className="flex justify-start items-center py-6 ml-8 mr-16 text-3xl font-semibold text-white hover:cursor-pointer" onClick={() => {
                     router.push('/')
                 }}>
                     <Truck className="ml-1 mr-2" />
@@ -46,9 +46,9 @@ const Header: React.FC<HeaderProps> = ({
                     <p className="text-[#eaebf0] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)]">Rent</p>
                 </h3>
                     
-                <div className="flex">
-                    <div className="flex items-center">
-                        <div className="2xl:mr-16 items-center sm:mr-8">
+                <div className="flex w-full">
+                    <div className="flex items-center justify-center ml-auto">
+                        <div className="2xl:mr-32 items-center sm:mr-8">
 
                         { status === 'authenticated' && currentUser && (
                             <Inserat
@@ -70,20 +70,12 @@ const Header: React.FC<HeaderProps> = ({
 
                             />
                         ) : (
-                            <div className="flex items-center justify-center mr-16">
+                            <div className="items-center flex ml-auto mr-8">
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
                                     notifications = {notifications}
                                 />
                                 
-                                
-                                <div className="items-center flex mt-2">
-                                
-                                </div>
-                                    
-                                
-
-
                             </div>
                         )
                     }

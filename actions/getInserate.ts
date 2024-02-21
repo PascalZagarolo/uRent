@@ -43,20 +43,22 @@ export const getInserate = async ({
                         contains : title
                     },
                     category : category,
-                    OR : [
-                        {
-                            begin : {
-                                lte : periodBegin,
-                                gte : periodEnd
-                            
-                            }, end : {
-                                lte : periodBegin,
-                                gte : periodEnd
+                    ...(periodBegin || periodEnd) ? {
+                        OR : [
+                            {
+                                begin : {
+                                    lte : periodBegin,
+                                    gte : periodEnd
+                                
+                                }, end : {
+                                    lte : periodBegin,
+                                    gte : periodEnd
+                                }
+                            }, {
+                                annual : true
                             }
-                        }, {
-                            annual : true
-                        }
-                    ]
+                        ]
+                    } : {}
                     
                 }, include : {
                     images : true,
@@ -81,20 +83,24 @@ export const getInserate = async ({
                     price : {
                         gte : start? start : 0,
                         lte : end? end : 1000000,
-                    },  OR : [
-                        {
-                            begin : {
-                                lte : periodBegin,
-                                gte : periodEnd
-                            
-                            }, end : {
-                                lte : periodBegin,
-                                gte : periodEnd
+                    }, ...(periodBegin || periodEnd) ? {
+                        OR : [
+                            {
+                                begin : {
+                                    lte : periodBegin,
+                                    gte : periodEnd
+                                
+                                }, end : {
+                                    lte : periodBegin,
+                                    gte : periodEnd
+                                }
+                            }, {
+                                annual : true
                             }
-                        }, {
-                            annual : true
-                        }
-                    ]
+                        ]
+                    } : {}
+                        
+                    
                     
                 }, include : {
                     images : true,

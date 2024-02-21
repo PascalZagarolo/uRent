@@ -77,7 +77,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
                                                         <div className="rounded-md 2xl:w-1/2">
                                                             <img
-                                                                src={messages.inserat.images[0].url}
+                                                                src={messages.inserat?.images[0].url}
                                                                 className=" object-cover rounded-md"
                                                                 alt="..."
                                                                 style={{ imageRendering: "auto" }}
@@ -85,17 +85,17 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                         </div>
 
                                                         <div className="ml-4 font-semibold truncate w-[160px] mr-4">
-                                                            {messages.inserat.title}
+                                                            {messages.inserat?.title}
                                                             <Badge className="2xl:flex ml-auto drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center hidden">
-                                                                {formatEuropeanTimeDay(messages.inserat.createdAt)}
+                                                            {formatEuropeanTimeDay(messages.inserat?.createdAt)}
                                                             </Badge>
                                                             <Badge className="flex ml-auto mt-2 bg-emerald-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center">
-                                                                {messages.inserat.price} €
+                                                                {messages.inserat?.price} €
                                                             </Badge>
                                                         </div>
                                                         <div className="rounded-md bg-gray-100 border border-gray-500  ml-auto w-1/2 dark:bg-[#1d1d1d] dark:border-none
                                                         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2 max-h-[100px] overflow-hidden hidden 2xl:flex">
-                                                            <p className="overflow-hidden text-overflow-ellipsis">{messages.inserat.description}</p>
+                                                            <p className="overflow-hidden text-overflow-ellipsis">{messages.inserat?.description}</p>
                                                         </div>
 
 
@@ -118,7 +118,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                         </div>
 
                         <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60 font-semibold dark:text-gray-100/60", isOwn ? "text-right" : "text-left")}>
-                            {formatEuropeanTime(messages.createdAt)} Uhr
+                            {format(new Date(messages.createdAt), "HH:mm")} Uhr
                         </p>
                     </div>
 

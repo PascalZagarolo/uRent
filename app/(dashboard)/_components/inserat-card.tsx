@@ -70,6 +70,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " /> ,
                             'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
                             'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " /> ,
+                            'TRAILOR' : <CaravanIcon className=" text-gray-100 h-6 w-6 " />
                         }[inserat.category]
                     }
                 </div>
@@ -116,8 +117,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <Image
                         src={inserat.images[0].url}
                         width={220}
-                        height={260}
-                        className="rounded-md border-2 border-gray-400 hover:cursor-pointer dark:border-gray-900"
+                        height={240}
+                        className="rounded-md border-2 border-gray-400 hover:cursor-pointer dark:border-gray-900 max-h-[180px]"
                         onClick={onRedirect}
                         alt={inserat.title}
                     />

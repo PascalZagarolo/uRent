@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteImageForm from "./delete-image-form";
+import { set } from "lodash";
 
 
 
@@ -35,6 +36,10 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 image: result?.info?.secure_url
             })
             toast.success("Bild erfolgreich hochgeladen")
+            setTimeout(() => {
+                router.refresh();
+            
+            }, 500)
         } catch {
             toast.error("Fehler beim Upload")
         } finally {

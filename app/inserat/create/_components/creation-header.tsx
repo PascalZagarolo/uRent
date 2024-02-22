@@ -1,13 +1,13 @@
 import { db } from "@/utils/db";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Inserat } from "@prisma/client";
+import { Images, Inserat } from "@prisma/client";
 import PublishInserat from "./publish-inserat";
 import { ArrowLeft } from "lucide-react";
 import BackToHomepage from "./back-to-homepage";
 
 interface CreationHeaderProps {
-    inserat : Inserat;
+    inserat : Inserat & { images : Images[]};
 }
 
 const CreationHeader: React.FC<CreationHeaderProps> = async ({

@@ -14,6 +14,8 @@ const InseratCreation = async ({
     const inserat = await db.inserat.findUnique({
         where : {
             id : params.inseratId
+        }, include : {
+            images : true
         }
     })
 

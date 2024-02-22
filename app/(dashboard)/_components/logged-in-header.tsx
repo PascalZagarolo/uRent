@@ -11,11 +11,12 @@ import FavouritesShortCut from "./favourites-shortcut";
 import NotificationShortCut from "./notification-shortcut";
 import SettingsSheet from "./settings-sheet";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 
 interface LoggedInBarHeaderProps {
     currentUser: User;
-    notifications : Notification[];
+    notifications: Notification[];
 }
 
 const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
@@ -46,33 +47,46 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                 <p className="ml-1 font-bold hidden 2xl:flex  text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
             </div>
             <div className="flex lg:gap-x-2">
-            <div>
-                <NotificationShortCut
-                notifications = {notifications}
-                />
-            </div>
-            <div>
-                <FavouritesShortCut
-                currentUser = {currentUser}
-                />
-            </div>
-            <div className="items-center mr-4 ">
-            <ConversationShortCut/>
-            </div>
+                <div>
+                    <NotificationShortCut
+                        notifications={notifications}
+                    />
+                </div>
+                <div>
+                    
+                                <FavouritesShortCut
+                                    currentUser={currentUser}
+                                />
+                            
+                </div>
+                <div className="items-center mr-4 ">
+                    <ConversationShortCut />
+                </div>
             </div>
 
             <Popover>
-                <PopoverTrigger asChild>
-                    <img
-                        src={currentUser.image || "/placeholder-person.jpg"}
-                        className="w-[40px] h-[40px] rounded-full border-gray-100 border"
-                        
-                    />
-                </PopoverTrigger>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <PopoverTrigger asChild>
+
+                                <img
+                                    src={currentUser.image || "/placeholder-person.jpg"}
+                                    className="w-[40px] h-[40px] rounded-full border-gray-100 border hover:cursor-pointer"
+
+                                />
+
+                            </PopoverTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent className="dark:bg-[#0F0F0F]">
+                            <p>Mein Profil</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
                 <PopoverContent className="dark:bg-[#0F0F0F] dark:text-gray-100">
                     <div className="mb-2">
                         <h3 className="flex">
-                            
+
                             <span className="ml-2 text-base">Mein Konto</span>
                         </h3>
                     </div>
@@ -81,11 +95,11 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start"
                         onClick={onClick}
-                        >
-                            <UserIcon className="mr-4 w-6 h-6" />
-                            <p>
-                                Mein Profil
-                            </p>
+                    >
+                        <UserIcon className="mr-4 w-6 h-6" />
+                        <p>
+                            Mein Profil
+                        </p>
                     </Button>
 
                     <Button
@@ -93,37 +107,37 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={onDashboard}
-                        >
-                            <TrendingUp className="mr-4" />
-                            <p>
-                                Dashboard
-                            </p>
+                    >
+                        <TrendingUp className="mr-4" />
+                        <p>
+                            Dashboard
+                        </p>
                     </Button>
 
                     <SettingsSheet
-                                currentUser = {currentUser}
-                                />
+                        currentUser={currentUser}
+                    />
 
-                    
-                        <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2"/>
+
+                    <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2" />
                     <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                         border-2 border-gray-300   w-full dark:bg-[#0f0f0f] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                        onClick={() => signOut({ callbackUrl : `${window.location.origin}/login`})}
-                        >
-                            <LogOutIcon className="mr-4" />
-                            <p>
-                               Abmelden
-                            </p>
+                        onClick={() => signOut({ callbackUrl: `${window.location.origin}/login` })}
+                    >
+                        <LogOutIcon className="mr-4" />
+                        <p>
+                            Abmelden
+                        </p>
                     </Button>
 
 
-                    
+
                 </PopoverContent>
             </Popover>
 
-            
+
 
         </div>
     );

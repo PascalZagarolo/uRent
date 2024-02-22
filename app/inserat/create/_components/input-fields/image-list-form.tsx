@@ -48,16 +48,16 @@ const ImageListForm: React.FC<ImageListFormProps> = ({
                             <DialogTrigger>
                                 <Trash className="flex items-center mr-8"/>
                             </DialogTrigger>
-                            <DialogContent>
+                            <DialogContent className="dark:bg-[#0F0F0F] border-none">
                                 <DialogHeader>
                                     <DialogTitle className="flex items-center">
                                         <X className="text-rose-600 mr-2"/>Wirklich löschen ? 
                                     </DialogTitle>
-                                    <p className="text-sm font-semibold text-gray-800/50"> gelöschte Anhänge können nicht wiederhergestellt werden </p>
+                                    <p className="text-sm font-semibold text-gray-800/50 dark:text-gray-100"> gelöschte Anhänge können nicht wiederhergestellt werden </p>
                                 </DialogHeader>
                                 <div className="ml-auto mt-2">
                                     <DialogTrigger >
-                                        <Button className="bg-rose-600 hover:bg-rose-600/80" onClick={onClick}>
+                                        <Button className="bg-rose-600 hover:bg-rose-600/80 dark:text-gray-100" onClick={onClick}>
                                         Löschen
                                         </Button>
                                     </DialogTrigger>

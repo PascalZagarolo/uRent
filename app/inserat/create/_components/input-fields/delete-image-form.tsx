@@ -30,7 +30,7 @@ const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
                         <Trash2Icon className="mr-8"/>
                    
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="dark:bg-[#0F0F0F] border-none">
                     <DialogHeader>
                         <DialogTitle className="flex items-center" >
                         <ImageIcon className="mr-2"/>Fotos & Anhänge entfernen

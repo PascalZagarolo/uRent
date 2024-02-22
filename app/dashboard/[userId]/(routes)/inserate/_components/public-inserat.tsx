@@ -76,7 +76,7 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
                     
                 </div>
             </div>
-        <div className=" rounded-md border-2 border-[#000000] h-[320px]  bg-[#24293b] dark:bg-[#0f1119] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
+        <div className=" rounded-md border-2 border-[#000000]   bg-[#24293b] dark:bg-[#0f1119] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
         flex-shrink: 1">
             <h3>
                 <AlignCenter className="h-4 w-4"/>
@@ -103,12 +103,12 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
 
             </div>
            
-                <div className="flex justify-center items-center  h-[200px]" >
+                <div className="flex justify-center items-center  h-[160px]" >
                     <Image
-                        width={200}
-                        height={200}
+                        width={160}
+                        height={160}
                         src={inserat.images[0].url}
-                        className="rounded-md border-2 border-gray-200 mt-2 "
+                        className="rounded-md border-2 border-gray-200 mt-2 max-h-[200px]"
                         alt="Car-Vorschau"
                     />
                 </div>
@@ -123,11 +123,7 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
             </div>
             
         </div>
-        <div className="flex w-full justify-center mt-auto  mb-2 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)]">
-                <Button className=" bg-emerald-700 dark:bg-emerald-800 hover:bg-emerald-700/60  w-full border-2 border-emerald-900">
-                   <EuroIcon className="h-4 w-4 mr-2"/> Werbeoption ansehen
-                    </Button> 
-            </div>
+        
         </div>
         
 

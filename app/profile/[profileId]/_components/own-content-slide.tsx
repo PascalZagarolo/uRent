@@ -13,7 +13,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel"
-import { CarFront } from "lucide-react"
+import { CarFront, CaravanIcon, ConstructionIcon, TractorIcon, TramFront, Truck } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
@@ -70,7 +70,17 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                       <div>
                         <div className="flex items-center mb-4">
                           <div className="p-2 border-black border rounded-md">
-                            <CarFront className="" />
+                          {
+                        {
+                            'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
+                            'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
+                            'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " />,
+                            'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " />,
+                            'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
+                            'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " />,
+                            'TRAILOR': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
+                        }[inserat.category]
+                    }
                           </div>
                           <h3 className="font-semibold text-medium ml-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] p-2 ">
                             {inserat.title}
@@ -118,7 +128,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
           </div>
         </div>
       ) : (
-        <p className="mb-16 font-semibold text-gray-900/50 italic">
+        <p className="mb-16 font-semibold text-gray-900/50 italic dark:text-gray-100">
           Noch keine Inserate vorhanden
 
         </p>

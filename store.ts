@@ -19,3 +19,17 @@ export const usesearchUserByBookingStore = create<searchUserByBookingStore>((set
     }
 }));
 
+type getFilterAmount = {
+    
+    amount : number,
+    changeAmount: (newAmount : number) => void;
+}
+
+export const useGetFilterAmount = create<getFilterAmount>((set) => ({
+    amount : 0,
+    changeAmount : (newAmount: number) => {
+        set({ amount : newAmount })
+    } 
+}));
+
+

@@ -78,8 +78,9 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
                 </h3>
             </div>
             <div className="flex">
-                <Badge className={cn("text-white text-xs mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] border-gray-300 border-2", isPublishable ? "bg-emerald-600" : "bg-blue-800")}>
-                    {isPublishable ? ("zur veröffentlichung bereit") : ("noch nicht zur veröffentlichung bereit")}
+                <Badge className={cn("text-white text-xs mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] border-gray-300 border-2",
+                 isPublishable ? "bg-emerald-600" : "bg-gray-400")}>
+                    {isPublishable ? ("zur veröffentlichung bereit") : ("nicht zur veröffentlichung bereit")}
                 </Badge>
                 
             </div>

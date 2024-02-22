@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
 
-import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, DollarSign, EuroIcon, EyeIcon, LocateFixedIcon, LockIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, ViewIcon, X } from "lucide-react";
+import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, DollarSign, EuroIcon, EyeIcon, LocateFixedIcon, LockIcon, LockKeyhole, MapPinIcon, PencilRuler, Settings, Settings2, Star, UnlockKeyhole, ViewIcon, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -55,6 +55,20 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
         }
     }
 
+    const onLock = () => {
+        try {
+            setIsLoading(true);
+            axios.patch(`/api/inserat/${inserat.id}/publish`, { publish: false });
+            toast.success("Anzeige privat gestellt");
+            setTimeout(() => {
+                router.refresh();
+            }, 250)
+
+        } catch {
+            toast.error("Etwas ist schief gelaufen")
+        }
+    }
+
     const onRedirect = () => {
         router.push(`/inserat/${inserat.id}`)
     }
@@ -62,21 +76,25 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
     return (
         
         
-        <div className="w-full rounded-lg ">
+        <div className="w-full rounded-lg  p-2">
             <div className="h-[40px] flex bg-[#12141d] dark:bg-[#07080c] rounded-md">
-                <div className="w-full">
-                <Button className=" bg-[#ed580dec] dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-gray-100 hover:bg-[#ed580dec]/60 w-full flex justify-center text-xs rounded-md"  onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
+                <div className="w-full ">
+                <Button className=" bg-[#ed580dec] dark:bg-gray-900 dark:hover:bg-gray-800
+                 dark:text-gray-100 hover:bg-[#ed580dec]/60 w-full flex justify-center text-xs rounded-none"  
+                 onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
                     <Settings className="w-4 h-4 mr-2" /> <div className="hidden 2xl:flex">Inserat verwalten </div>
                 </Button>
                 </div>
                 <div className="ml-auto ">
-                    <Button className="bg-[#12141d] rounded-md dark:bg-black dark:hover:bg-gray-800 dark:text-gray-100">
-                        <LockIcon className="h-4 w-4"/>
+                    <Button className="bg-[#12141d]  dark:bg-black dark:hover:bg-gray-800 dark:text-gray-100 rounded-none"
+                    onClick={onLock}
+                    >
+                        {inserat.isPublished ? <UnlockKeyhole className="w-4 h-4" /> : <LockKeyhole className="w-4 h-4" />}
                     </Button>
                     
                 </div>
             </div>
-        <div className=" rounded-md border-2 border-[#000000]   bg-[#24293b] dark:bg-[#0f1119] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
+        <div className=" rounded-none    bg-[#24293b] dark:bg-[#0f1119] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
         flex-shrink: 1">
             <h3>
                 <AlignCenter className="h-4 w-4"/>
@@ -108,8 +126,9 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
                         width={160}
                         height={160}
                         src={inserat.images[0].url}
-                        className="rounded-md border-2 border-gray-200 mt-2 max-h-[200px]"
+                        className="rounded-md border-2 border-gray-200 mt-2 max-h-[200px] hover:cursor-pointer"
                         alt="Car-Vorschau"
+                        onClick={onRedirect}
                     />
                 </div>
             

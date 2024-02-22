@@ -1,17 +1,17 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Inserat } from "@prisma/client";
+import { Images, Inserat } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface PublishInseratProps {
     
     
     isPublishable : boolean;
-    inserat : Inserat;
+    inserat : Inserat & { images : Images[]};
 }
 
 const PublishInserat: React.FC<PublishInseratProps> = ({
@@ -49,14 +49,20 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
         }
     }
 
+    useEffect(() => {
+        if(inserat.images.length === 0) {
+            onPrivate();
+        }
+    },[inserat.images.length])
+
     return ( 
         <div className="mr-4">
             {!inserat.isPublished   ? (
-            <Button variant="ghost" size="sm" disabled={!isPublishable} onClick={onPublish}>
+            <Button variant="ghost" size="sm" className="dark:bg-sky-600"disabled={!isPublishable} onClick={onPublish}>
                 Anzeige veröffentlichen
             </Button>
         ) : (
-            <Button variant="ghost" size="sm" onClick={onPrivate}>
+            <Button variant="ghost" size="sm" className="dark:bg-sky-600" onClick={onPrivate}>
                 Anzeige privat schalten
             </Button>
         )}

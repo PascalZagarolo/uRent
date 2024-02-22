@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Images, Inserat } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 interface PublishInseratProps {
     
     
-    isPublishable : boolean;
+    isPublishable : object;
     inserat : Inserat & { images : Images[]};
 }
 
@@ -21,6 +21,8 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+
+    
 
     const onPublish = () => {
         try {
@@ -39,9 +41,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
             setIsLoading(true);
             axios.patch(`/api/inserat/${inserat.id}/publish` , { publish : false} );
             toast.success("Anzeige erfolgreich privat gestellt");
-            setTimeout(() => {
-                router.refresh();
-            }, 1000)
+            
         } catch {
             toast.error("Etwas ist schief gelaufen...")
         } finally {
@@ -49,11 +49,38 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
         }
     }
 
+    const firstUpdate = useRef(true);
+    const firstUpdate2 = useRef(true);
+
+
     useEffect(() => {
-        if(inserat.images.length === 0) {
+        
+        if(inserat.images.length === 0 && !firstUpdate.current) {
+            
             onPrivate();
+        } 
+
+        if(firstUpdate.current) {
+            
+            firstUpdate.current = false;
         }
+       
+        
     },[inserat.images.length])
+
+    useEffect(() => {
+        if(firstUpdate2.current === false) {
+            firstUpdate2.current = true;  
+            router.refresh();
+           
+        } 
+
+        if(firstUpdate2.current) {
+            
+        }
+    }, [inserat])
+
+    
 
     return ( 
         <div className="mr-4">

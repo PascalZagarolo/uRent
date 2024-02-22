@@ -66,6 +66,10 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
             axios.patch(`/api/inserat/${inserat.id}`, values);
             toast.success("Datum erfolgreich festgelegt");
+            setTimeout(() => {
+                router.refresh();
+            
+            },500)
         } catch {
             toast.error("Etwas ist schief gelaufen...")
         } finally {

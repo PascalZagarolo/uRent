@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { Label } from '@/components/ui/label';
 
 interface PublishInseratProps {
     
@@ -52,6 +53,15 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     const firstUpdate = useRef(true);
     const firstUpdate2 = useRef(true);
 
+    let canPublish = true;
+
+    for (let key in isPublishable) {
+        if (!isPublishable[key]) {
+          canPublish = false;
+          break;
+        }
+      }
+
 
     useEffect(() => {
         
@@ -69,23 +79,34 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     },[inserat.images.length])
 
     useEffect(() => {
-        if(firstUpdate2.current === false) {
-            firstUpdate2.current = true;  
-            router.refresh();
-           
-        } 
+        for (let key in isPublishable) {
+            if (!isPublishable[key]) {
+              canPublish = false;
+              break;
+            }
+          }
 
-        if(firstUpdate2.current) {
+          if(!firstUpdate2.current) {
+            setTimeout(() => {
+                firstUpdate2.current = true;
+            }, 100)
+            router.refresh();
+          }
+
+          if(firstUpdate2.current) {
             
+            firstUpdate2.current = false; 
         }
-    }, [inserat])
+
+          
+    }, [isPublishable])
 
     
 
     return ( 
         <div className="mr-4">
             {!inserat.isPublished   ? (
-            <Button variant="ghost" size="sm" className="dark:bg-sky-600"disabled={!isPublishable} onClick={onPublish}>
+            <Button variant="ghost" size="sm" className="dark:bg-sky-600"disabled={!canPublish} onClick={onPublish}>
                 Anzeige veröffentlichen
             </Button>
         ) : (
@@ -93,6 +114,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
                 Anzeige privat schalten
             </Button>
         )}
+        
         </div>
      );
 }

@@ -31,7 +31,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
     return (
         <div className="">
             <h3 className=" flex justify-center p-8 text-3xl font-bold  items-center bg-white rounded-md mt-6 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-            dark:bg-[#10121a] dark:border dark:border-gray-300">
+            dark:bg-[#10121a] dark:border dark:border-[#10121a]">
                 <Milestone className="mr-2" /> Meine Inhalte
             </h3>
             <div className="flex justify-center mt-8">
@@ -40,7 +40,8 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
                 />
             </div>
             <h3 className="flex justify-center font-semibold text-2xl items-center mt-8">
-                <Separator className="w-1/3 bg-gray-500 mr-8 " /> Rezensionen <Separator className="w-1/3 bg-gray-500 ml-8 " />
+                <Separator className="w-1/3 bg-gray-500 mr-8 h-[0.5px] dark:bg-gray-100" /> Rezensionen
+                 <Separator className="w-1/3 bg-gray-500 ml-8 dark:bg-gray-100 h-[0.5px]" />
             </h3>
 
             <div className=" mt-4 text-xl font-semibold">
@@ -82,8 +83,8 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
 
             </div>
             ) : (
-                <div className="mt-4 p-8 flex justify-center text-gray-900/50 font-semibold italic dark:bg-[#10121a] dark:border 
-                dark:border-gray-100 dark:text-gray-100/70">
+                <div className="mt-4 p-8 flex justify-center text-gray-900/50 font-semibold italic dark:bg-[#10121a] dark:border-[#10121a] dark:border 
+                 dark:text-gray-100/70">
                     Noch keine Rezensionen vorhanden
                 </div>
             )}

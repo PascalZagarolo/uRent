@@ -60,7 +60,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
             <CarouselContent className="w-[360px] h-[360px]">
               {inserat.map((inserat, index) => (
                 <CarouselItem key={index} className="">
-                  <Card className="bg-white p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] hover:cursor-pointer
+                  <Card className="bg-white p-2 rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] hover:cursor-pointer
                   dark:bg-[#0d0f15]
                   " 
                   onClick={() => {
@@ -76,7 +76,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                             {inserat.title}
                           </h3>
                         </div>
-                        <div className="h-[200px] w-[300px] flex items-center border-2 border-gray-300 rounded-md">
+                        <div className="h-[200px] w-[300px] flex items-center border border-gray-300 rounded-md">
                           <img
                             //@ts-ignore 
                             src={inserat.images[0].url}
@@ -90,9 +90,10 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                           
                           <div>
                           {inserat.annual ? (
-                            <p className="text-xs italic mr-2"> Datumsunabhängig </p>
+                            <p className="text-xs italic mr-2 dark:text-gray-100/80"> Datumsunabhängig </p>
                           ) : (
-                            <p className="flex font-semibold  italic text-gray-900/70 text-sm mr-2"> {formatDate(inserat.begin)} - {formatDate(inserat.end)}</p>
+                            <p className="flex font-semibold  italic text-gray-900/70 text-sm mr-2 dark:text-gray-100/80"> 
+                            {formatDate(inserat.begin)} - {formatDate(inserat.end)}</p>
                           )}
                           </div>
                           <div className="flex font-bold text-md">

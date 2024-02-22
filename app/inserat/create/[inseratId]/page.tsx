@@ -3,7 +3,7 @@ import CreationHeader from "../_components/creation-header";
 import InseratBodyLeft from "../_components/inserat-body-left";
 import { db } from "@/utils/db";
 import InseratBodyRight from "../_components/input-fields/inserat-body-right";
-import CreationHeaderLogo from "../_components/creation-logo";
+
 import MoreDetails from "../_components/more-details";
 
 
@@ -21,9 +21,7 @@ const InseratCreation = async ({
 
     return (
         <div className="bg-[#404040]/10 min-h-screen overflow-y-scroll ">
-            <div className="flex justify-center">
-                <CreationHeaderLogo/>
-            </div>
+            
                 
             <div className="flex justify-center ">
                 <CreationHeader 

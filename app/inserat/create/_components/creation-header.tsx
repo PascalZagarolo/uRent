@@ -5,6 +5,7 @@ import { Images, Inserat } from "@prisma/client";
 import PublishInserat from "./publish-inserat";
 import { ArrowLeft } from "lucide-react";
 import BackToHomepage from "./back-to-homepage";
+import { date } from "zod";
 
 interface CreationHeaderProps {
     inserat : Inserat & { images : Images[]};
@@ -20,7 +21,13 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
         }
     })
 
-    const isPublishable = (inserat.title && inserat.description && inserat.price && inserat.category && (inserat.begin && inserat.end || inserat.annual) && images.length > 0) ? true : false;
+    const isPublishable = {
+        title : inserat.title.length > 0,
+        description : inserat.description.length > 0,
+        price : inserat.price !== 0,
+        images : images.length > 0,
+        date : (inserat.end && inserat.begin) !== null || inserat.annual
+    } ;
 
     return ( 
         <div className="w-full">

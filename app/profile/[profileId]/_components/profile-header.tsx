@@ -65,10 +65,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 </div>
                 <div className="flex">
 
-                    <div className="flex mt-1   p-8  bg-white dark:bg-[#10121a] border-2 border-gray-200  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <div className="flex mt-1   p-8  bg-white dark:bg-[#10121a] border-2
+                     border-gray-200 dark:border-[#10121a] rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
                         <div className="">
-                            <div className="bg-[#10121a] text-gray-100 p-2  rounded-lg border-2 border-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                            <div className="bg-[#0b0d13] text-gray-100 p-2 dark:border-[#10121a]  rounded-lg border-2 border-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                                 <p className="font-bold text-lg  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] flex justify-center">
                                     {currentUser.name.charAt(0).toUpperCase() || ""}{currentUser.name.slice(1)}
                                 </p>

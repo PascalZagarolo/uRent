@@ -17,7 +17,7 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
     const nothingAdded = !contacts?.emailAddress && !contacts?.websiteAddress && !contacts?.addressString && !contacts?.phoneNumber ? true : false;
 
     return (
-        <div className="bg-white dark:bg-[#10121a] border border-gray-300 p-4  mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
+        <div className="bg-white dark:bg-[#10121a] dark:border-[#10121a] border border-gray-300 p-4  mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
             <div className={cn("gap-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" , nothingAdded ? "" : "grid grid-cols-2")}>
 
             { nothingAdded && (

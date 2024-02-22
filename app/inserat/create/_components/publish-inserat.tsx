@@ -30,6 +30,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
             setIsLoading(true);
             axios.patch(`/api/inserat/${inserat.id}/publish` , { publish : true });
             toast.success("Anzeige erfolgreich veröffentlicht");
+            router.push('/')
         } catch {
             toast.error("Etwas ist schief gelaufen...")
         } finally {
@@ -42,7 +43,9 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
             setIsLoading(true);
             axios.patch(`/api/inserat/${inserat.id}/publish` , { publish : false} );
             toast.success("Anzeige erfolgreich privat gestellt");
-            
+            setTimeout(() => {
+                router.refresh();
+            }, 250)
         } catch {
             toast.error("Etwas ist schief gelaufen...")
         } finally {

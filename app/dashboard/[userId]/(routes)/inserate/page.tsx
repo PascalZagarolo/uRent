@@ -8,10 +8,13 @@ const InserateOverview = async ({
     params
 } : { params : { userId : string }}) => {
 
-    const drafts = await db.inserat.findMany({
+    let publics = [];
+    let draft = [];
+
+    const inserateArray = await db.inserat.findMany({
         where : {
             userId : params.userId,
-            isPublished : false
+            
         },
         include : {
             images : true,
@@ -21,16 +24,13 @@ const InserateOverview = async ({
         }
     })
 
-    const publicInserate = await db.inserat.findMany({
-        where :{
-            userId : params.userId,
-            isPublished : true
-        }, include : {
-            images : true,
-            user : true
+    for (let i = 0; i < inserateArray.length; i++) {
+        if (inserateArray[i].isPublished) {
+            publics.push(inserateArray[i])
+        } else {
+            draft.push(inserateArray[i])
         }
-        
-    })
+    }
 
     
 
@@ -40,13 +40,13 @@ const InserateOverview = async ({
         <div className=" ">
             <div>
                 <h3 className="text-2xl font-bold flex justify-center mt-4 p-4 border border-black rounded-lg bg-[#1b1f2c] text-gray-100">
-                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Veröffentlichungen ( {publicInserate.length} )
+                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Veröffentlichungen ( {publics.length} )
                 </h3>
             </div>
             <div className="">
-                {publicInserate.length > 0 ? (
+                {publics.length > 0 ? (
                     <div className=" gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
-                        {publicInserate.map((draft) => (
+                        {publics.map((draft) => (
                         <InseratPublic
                         key={draft.id}
                         profileId={params.userId}
@@ -65,12 +65,12 @@ const InserateOverview = async ({
                 
                 <div className="mt-16">
                 <h3 className="text-2xl font-bold flex justify-center border border-black rounded-lg bg-[#1b1f2c] text-gray-100 p-4">
-                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Entwürfe ( {drafts.length} )
+                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Entwürfe ( {draft.length} )
                 </h3>
             </div>
                 <div>
                 <div className=" gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
-                    {drafts.map((draft) => (
+                    {draft.map((draft) => (
                         <InseratDrafts
                         key={draft.id}
                         profileId={params.userId}

@@ -104,6 +104,8 @@ model Inserat {
 
   category Category?
 
+  address Address?
+
   views Int @default(0)
 
   message Messages[]
@@ -127,6 +129,20 @@ model Inserat {
 
  
 
+}
+
+model Address {
+  id String @id @default(uuid())
+
+  inseratId String
+  inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  locationString String?
+
+  longitude String?
+  latitude String?
+
+  @@unique([inseratId])
 }
 
 enum Category {

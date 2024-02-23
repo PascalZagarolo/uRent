@@ -49,28 +49,23 @@ const Main = async ({
     })
     
     return ( 
-        <div className="relative sm:h-full sm:overflow-y-auto no-scrollbar">
-  {/* Fixed Header and Sidebar */}
-  <div className="fixed top-0 w-full z-50">
+        <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
+  
+  <div className="relative top-0 w-full z-50">
     
       <HeaderLogo 
       currentUser={currentUser} 
       notifications = {notifications} />
       
       
-      <div>
-        <MainPageSidebar treffer={12} />
-      </div>
-      
     
   </div>
-
-      
-  
-  <div className="2xl:ml-72 sm:mt-24 ml-4 relative sm:z-0">
-  
-    <div className=" sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center ">
-    <RelevanteInserate
+  <div className="relative flex justify-center">
+  <div className="top-0 mr-4">
+      <MainPageSidebar treffer={12} />
+      </div>
+      <div className=" sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%] ">
+      <RelevanteInserate
               title={searchParams.title}
               category={searchParams.category}
               filter={searchParams.filter}
@@ -79,11 +74,19 @@ const Main = async ({
               page={searchParams.page} 
               periodBegin={searchParams.periodBegin} 
               periodEnd={searchParams.periodEnd}      />
-    </div>
-
-    
-    
+      </div>
   </div>
+ 
+      
+     
+  
+      
+      
+     
+
+      
+      
+      
 </div>
 
 

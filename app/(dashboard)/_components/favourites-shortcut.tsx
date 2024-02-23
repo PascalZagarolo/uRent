@@ -22,7 +22,7 @@ const FavouritesShortCut: React.FC<FavouritesShortCutProps> = ({
         <TooltipProvider>
             <Tooltip>
             <TooltipTrigger asChild>
-                <Button className="lg:bg-[#181b27]" variant="ghost" onClick={() => { router.push(`/dashboard/${currentUser.id}/bookings`) }}>
+                <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost" onClick={() => { router.push(`/dashboard/${currentUser.id}/bookings`) }}>
                     <StarHalfIcon />
                 </Button>
             </TooltipTrigger>

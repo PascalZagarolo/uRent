@@ -68,7 +68,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className="sm:w-[750px] sm:h-[420px] w-[400px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
-          bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none">
+          bg-[#ffffff] border-2 border-white mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2">
             <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} >
                 <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     {
@@ -91,7 +91,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                     <p className="">
                         <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
-                        dark:border dark:border-[#171923]  dark:hover:bg-[#181818]/80">
+                        dark:border dark:border-[#171923]  dark:hover:none">
                             <Star className={cn(isFaved ? "text-yellow-300" : "text-black")} />
                         </Button>
                     </p>
@@ -196,7 +196,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 <div className="w-full mt-2">
 
-                    <div className="rounded-md bg-[#1b1e2d]  position:absolute mr-2 dark:bg-[#13141c] dark:border-none">
+                    <div className="rounded-md bg-[#1b1e2d] w-full position:absolute mr-2 dark:bg-[#13141c] dark:border-none">
                         <div className="flex  items-center   rounded-md">
                             <Image
                                 className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 object-fit  w-[40px] h-[40px]"

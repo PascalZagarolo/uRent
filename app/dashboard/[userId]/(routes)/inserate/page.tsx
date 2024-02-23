@@ -10,7 +10,8 @@ const InserateOverview = async ({
 
     const drafts = await db.inserat.findMany({
         where : {
-            userId : params.userId
+            userId : params.userId,
+            isPublished : false
         },
         include : {
             images : true,

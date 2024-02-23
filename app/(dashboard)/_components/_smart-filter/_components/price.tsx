@@ -109,7 +109,7 @@ const PriceFormFilter = () => {
                         Von :
                     </h3>
                     <Select onValueChange={(e) => onClick(e, currentEnd)} value={startPrice || "0"} defaultValue="Start">
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45]">
+                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
                             <SelectValue className="font-bold" placeholder="Start" />
                         </SelectTrigger>
                         <SelectContent >
@@ -137,7 +137,7 @@ const PriceFormFilter = () => {
                         Bis :
                     </h3>
                     <Select onValueChange={(e) => onClick(currentStart, e)} value={endPrice || "max"} >
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] ">
+                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
                             <SelectValue className="font-bold" placeholder="Ende"/>
                         </SelectTrigger>
                         <SelectContent >

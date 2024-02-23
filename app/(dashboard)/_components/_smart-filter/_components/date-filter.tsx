@@ -149,7 +149,7 @@ const DateFormFilter = () => {
                                 variant={"outline"}
                                 className={cn(
                                   "w-[120px] pl-3 text-left font-semibold",
-                                  !field.value && "text-muted-foreground"
+                                  !field.value && "text-muted-foreground dark:bg-[#0F0F0F] dark:border-none"
                                 )}
                               >
                                 {periodBegin ? (
@@ -195,7 +195,7 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[120px] pl-3 text-left  font-semibold",
+                                  "w-[120px] pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >

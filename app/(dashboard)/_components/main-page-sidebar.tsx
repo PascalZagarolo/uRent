@@ -58,7 +58,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
     const currentFilterResults = useGetFilterAmount((state) => state.amount);
 
     return (
-        <div className="h-full rounded-md  no-scrollbar w-[280px] hidden 2xl:block bg-[#202336]  sm:overflow-auto    ">
+        <div className="min-h-full rounded-md  no-scrollbar w-[280px] hidden 2xl:block bg-[#202336]  sm:overflow-auto    ">
             <h3 className="text-bold text-2xl p-2 rounded-md mt-4 flex justify-center text-gray-100 items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] bg-[#1b1e2c]">
                 <AlignCenter className="mr-4" /> Suchfilter <X className="h-4 w-4 mb-2 ml-2 hover:cursor-pointer" onClick={onReset} />
             </h3>

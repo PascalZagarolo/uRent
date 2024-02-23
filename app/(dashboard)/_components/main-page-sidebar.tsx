@@ -148,8 +148,8 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                 <div className="text-xs flex justify-center mt-2 text-gray-100 underline">
                     <Contact className="mr-2 h-4 w-4" />  kein passendes Angebot dabei ?
                 </div>
-                <div className="flex justify-center mt-4 rounded-md">
-                    <Button className="bg-sky-600 w-full h-[100px] m ml-2 mr-2 border-2 border-[#000000] flex 
+                <div className="flex justify-center mt-2 mb-2 rounded-md">
+                    <Button className="bg-sky-600 w-full h-[100px]  ml-2 mr-2 border-2 border-[#000000] flex 
                     justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                     dark:text-gray-100 dark:hover:bg-sky-700
                     ">

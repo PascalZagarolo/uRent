@@ -89,14 +89,14 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
           disabled={isLoading}
         >
 
-          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200" disabled={isLoading}  >
+          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none" disabled={isLoading}  >
             <SelectValue
               placeholder="Wähle die Art deines Fahrzeuges aus"
               
             />
           </SelectTrigger>
 
-          <SelectContent className="dark:bg-[#000000] border-white">
+          <SelectContent className="dark:bg-[#000000] border-white dark:border-none">
             <SelectItem value="PKW">PKW</SelectItem>
             <SelectItem value="TRANSPORT">Transporter</SelectItem>
             <SelectItem value="LKW">LKW</SelectItem>

@@ -73,7 +73,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
         }
       }
 
-    document.addEventListener('keydown', handleKeyPress);
+    
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     

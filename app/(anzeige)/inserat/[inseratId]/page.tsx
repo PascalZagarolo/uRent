@@ -123,7 +123,7 @@ const InseratAnzeige = async ({
                             border-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161821] dark:border-[#161821] dark:text-gray-100">
                                 <div className="flex mr-auto items-center">
                                     <div className="flex font-bold  text-sm items-center"> <MapPin className="text-rose-600 mr-4 " /> 
-                                    {inserat.address.locationString? inserat.address.locationString : "Keine Adresse hinterlegt"}
+                                    {inserat.address?.locationString? inserat.address?.locationString : "Keine Adresse hinterlegt"}
                                     </div>
                                 </div>
                                 <div className="justify-end flex mt-2 text-2xl font-bold">

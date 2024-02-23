@@ -1,10 +1,9 @@
-import LogOutButton from "@/components/logout-button";
+
 import getCurrentUser from "../../actions/getCurrentUser";
-import NewestInserate from "./_bodyparts/newest-inserate";
-import CategoryDashboard from "./_components/category-dashboard";
+
+
 import RelevanteInserate from "./_bodyparts/relevant-inserate";
-import { useSearchParams } from "next/navigation";
-import { getInserate } from "@/actions/getInserate";
+
 import { Images, Inserat } from "@prisma/client";
 import MainPageSidebar from "./_components/main-page-sidebar";
 import type { Category } from "@prisma/client";

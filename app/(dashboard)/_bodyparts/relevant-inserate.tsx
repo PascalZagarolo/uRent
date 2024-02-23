@@ -64,7 +64,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
    
 
     return (
-        <div className="sm:w-full ">
+        <div className="w-2/3">
 
 {!title ? (
                 <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 dark:border-gray-900 p-3 text-gray-100 bg-[#181b27]">
@@ -106,8 +106,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 
           
                 
-             
-                    <InseratRenderedList 
+             <div className="flex justify-center w-full">
+                
+             <InseratRenderedList 
                 inserateArray={inserate}
                 currentUser={currentUser}
                 //@ts-ignore
@@ -115,6 +116,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 //@ts-ignore
                 
                 />
+             </div>
                 
 
 

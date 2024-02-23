@@ -67,7 +67,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     };
 
     return (
-        <div className="sm:w-[400px] sm:h-[380px] w-[400px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
+        <div className="sm:w-[750px] sm:h-[420px] w-[400px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
           bg-[#ffffff] border-2 border-white mb-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none">
             <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} >
                 <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -100,10 +100,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
             </h3>
 
             <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-full">
-                <div className="flex mr-auto ml-2">
+                <div className="flex p-4  w-full">
                     <div className="mr-4 w-[80px]">
 
-                        <div>
+                        <div className="">
                             {
                                 {
                                     'PKW': inserat.pkwAttribute?.sitze && (
@@ -135,6 +135,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </Badge>
                         </div>
                     </div>
+                    <div className="flex w-full">
+                    <div className="w-1/2">
                     <Image
                         src={inserat.images[0].url}
                         width={220}
@@ -143,6 +145,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         onClick={onRedirect}
                         alt={inserat.title}
                     />
+                    </div>
+                    <div className="ml-4 dark:bg-[#191B27] w-1/2 p-4 text-xs rounded-md mr-2 overflow-hidden" >
+                        {inserat.description}
+                    </div>
+                    </div>
                 </div>
             </div>
             <div className="ml-2 ">
@@ -167,7 +174,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </>
                     )}
                 </div>
-
+                <div>
                 <div className="font-semibold text-gray-900 flex mt-2 items-center">
                     <div className="flex">
                         <div className="flex dark:bg-emerald-800 bg-emerald-600 p-2 rounded-md border-gray-300 border-2
@@ -185,11 +192,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
                          {inserat.address?.locationString ? getAddressCity(inserat.address?.locationString) : "Keine Angabe"}
                         <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
                     </div>
+                    
                 </div>
                 <div className="w-full mt-2">
 
-                    <div className="rounded-md bg-[#1b1e2d]  position:absolute mr-2 dark:bg-[#171923] dark:border-none">
-                        <div className="flex  items-center border border-black rounded-md">
+                    <div className="rounded-md bg-[#1b1e2d]  position:absolute mr-2 dark:bg-[#13141c] dark:border-none">
+                        <div className="flex  items-center   rounded-md">
                             <Image
                                 className="rounded-full ml-2 mt-2 mb-2 border border-gray-400 object-fit  w-[40px] h-[40px]"
                                 src={inserat.user?.image || "/placeholder-person.jpg"}
@@ -211,6 +219,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div >
 

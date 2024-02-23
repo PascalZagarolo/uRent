@@ -58,7 +58,9 @@ const Main = async ({
       notifications = {notifications} />
       
       
-      <MainPageSidebar treffer={12} />
+      <div>
+        <MainPageSidebar treffer={12} />
+      </div>
       
     
   </div>

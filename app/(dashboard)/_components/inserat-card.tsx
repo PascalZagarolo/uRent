@@ -146,7 +146,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         alt={inserat.title}
                     />
                     </div>
-                    <div className="ml-4 dark:bg-[#191B27] w-1/2 p-4 text-xs rounded-md mr-2 overflow-hidden" >
+                    <div className="ml-4 dark:bg-[#191B27] bg-gray-200 w-1/2 p-4 text-xs rounded-md mr-2 overflow-hidden" >
                         {inserat.description}
                     </div>
                     </div>

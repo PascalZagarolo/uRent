@@ -55,8 +55,8 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                     ))}
                 </div>
         ) : (
-            <div className="flex justify-center rounded-md height: 100%  mt-48 ">
-                    <h3 className="ml-4 mr-4 font-bold mb-16  text-3xl text-gray-800/50 italic flex justify-center items-center dark:text-gray-100/80">
+            <div className="flex justify-center rounded-md  mt-48 ">
+                    <h3 className="ml-4 mr-4 font-base mb-16  text-3xl text-gray-800/50 italic flex justify-center items-center dark:text-gray-100/80">
                         Keine passenden Angebote gefunden :/
                     </h3>
                 </div>

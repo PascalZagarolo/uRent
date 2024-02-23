@@ -19,7 +19,7 @@ interface InseratCardProps {
     inserat: InserateImagesAndAttributes;
     profileId: string,
     isFaved: boolean,
-    owned: boolean,
+    
 
 }
 
@@ -27,7 +27,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     inserat,
     profileId,
     isFaved,
-    owned
+    
 }) => {
 
     const formatDate = (inputDate: Date): string => {
@@ -58,6 +58,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
     const onRedirect = () => {
         router.push(`/inserat/${inserat.id}`)
     }
+
+    const getAddressCity = (address: string): string => {
+        const addressParts = address.split(', ');
+        if (addressParts.length >= 2) {
+            return addressParts[1]; 
+        } 
+    };
 
     return (
         <div className="sm:w-[400px] sm:h-[380px] w-[400px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
@@ -172,9 +179,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             {inserat.price} €  {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)} 
                         </div>
                     </div>
-                    <div className="ml-auto mr-4 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] border-2 border-gray-300 
-                    p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                        <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 dark:bg-[#171923] dark:border-none rounded-md border-gray-300 border-2" /> Mömer <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
+                    <div className="ml-auto w-[200px] mr-4 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] border-2 border-gray-300 
+                    p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm">
+                        <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 dark:bg-[#171923] dark:border-none rounded-md border-gray-300 border-2" /> 
+                         {inserat.address?.locationString ? getAddressCity(inserat.address?.locationString) : "Keine Angabe"}
+                        <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
                     </div>
                 </div>
                 <div className="w-full mt-2">

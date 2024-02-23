@@ -1,7 +1,7 @@
 
 import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@prisma/client";
-import type { Category, PkwAttribute } from "@prisma/client";
+import type { Address, Category, PkwAttribute } from "@prisma/client";
 import { includes } from "lodash";
 
 
@@ -10,6 +10,7 @@ type InserateImagesAndAttributes = Inserat & {
     user : User;
     images : Images[];
     pkwAttribute : PkwAttribute;
+    address : Address;
 
 }
 
@@ -66,7 +67,8 @@ export const getInserate = async ({
                 }, include : {
                     images : true,
                     user: true,
-                    pkwAttribute : true
+                    pkwAttribute : true,
+                    address : true
                 }, orderBy : {
                     views : "desc"
                 }
@@ -106,7 +108,8 @@ export const getInserate = async ({
                 }, include : {
                     images : true,
                     user: true,
-                    pkwAttribute : true
+                    pkwAttribute : true,
+                    address : true
                 }, orderBy : {
                     price : filter === "asc" ? "asc" : "desc"
                 }

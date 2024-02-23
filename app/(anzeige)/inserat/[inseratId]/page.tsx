@@ -25,6 +25,8 @@ const InseratAnzeige = async ({
     const inserat = await db.inserat.findUnique({
         where: {
             id: params.inseratId
+        }, include : {
+            address : true
         }
     })
 
@@ -46,21 +48,7 @@ const InseratAnzeige = async ({
         }
     })
 
-    if (currentUser) {
-        const purchases = await db.purchase.findUnique({
-            where: {
-                inseratId_userId: {
-                    inseratId: inserat.id,
-                    userId: currentUser?.id
-
-                }
-            }
-        })
-
-    } else {
-        const purchases = null;
-
-    }
+    
 
     const rezensionen = await db.rezension.findMany({
         where: {
@@ -134,7 +122,9 @@ const InseratAnzeige = async ({
                             <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-2 text-gray-900 rounded-md border-gray-800 
                             border-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161821] dark:border-[#161821] dark:text-gray-100">
                                 <div className="flex mr-auto items-center">
-                                    <div className="flex font-bold italic text-sm items-center"> <MapPin className="text-rose-600 " /> Mömer </div>
+                                    <div className="flex font-bold  text-sm items-center"> <MapPin className="text-rose-600 mr-4 " /> 
+                                    {inserat.address.locationString? inserat.address.locationString : "Keine Adresse hinterlegt"}
+                                    </div>
                                 </div>
                                 <div className="justify-end flex mt-2 text-2xl font-bold">
                                     {inserat.price} <p className="text-sm mr-1">00 €</p>

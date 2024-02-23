@@ -38,11 +38,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 
 
 
-    const purchases = await db.purchase.findMany({
-        where: {
-            userId: currentUser?.id || ""
-        }
-    })
+    
 
     const favedInserate = await db.favourite.findMany({
         where: {
@@ -117,7 +113,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 //@ts-ignore
                 favedInserate={favedInserate}
                 //@ts-ignore
-                purchases={purchases}
+                
                 />
                 
 

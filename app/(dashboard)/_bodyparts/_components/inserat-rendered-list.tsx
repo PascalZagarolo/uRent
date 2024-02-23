@@ -12,7 +12,7 @@ interface InseratRenderedListProps {
     inserateArray: InserateImagesAndAttributes[];
     currentUser : User;
     favedInserate: Inserat[];
-    purchases : Inserat[];
+    
 }
 
 
@@ -20,7 +20,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     inserateArray,
     currentUser,
     favedInserate,
-    purchases
+    
 }) => {
 
     
@@ -48,7 +48,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                             inserat={inserat}
                             profileId={currentUser?.id || ""}
                             isFaved={favedInserate.some((favedInserat) => favedInserat.id === inserat.id)}
-                            owned={purchases.some((purchase) => purchase.id === inserat.id)}
+                            
                         />
                         
                     </div>

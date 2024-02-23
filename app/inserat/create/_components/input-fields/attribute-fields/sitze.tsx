@@ -76,7 +76,7 @@ const Sitze: React.FC<SitzeProps> = ({
               <FormLabel>Sitzplätze</FormLabel>
               <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={inserat.pkwAttribute?.sitze.toString()}>
                 <FormControl>
-                  <SelectTrigger className="min-w-[200px] "  >
+                  <SelectTrigger className="min-w-[200px] dark:bg-[#151515] dark:border-none"  >
                     <SelectValue placeholder="Wähle die Menge der Sitzplätze aus" />
                   </SelectTrigger>
                 </FormControl>

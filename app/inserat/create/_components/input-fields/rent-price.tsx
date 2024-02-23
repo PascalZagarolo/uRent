@@ -61,7 +61,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
     const { isSubmitting, isValid } = form.formState
 
     return (
-        <div className=" mt-4">
+        <div className=" ">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormLabel className="flex justify-start items-center">
@@ -82,7 +82,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
                                                 type="text"
                                                 {...field}
                                                 name="price"
-                                                className="w-1/6 dark:bg-[#151515] dark:border-gray-300"
+                                                className="w-1/6 dark:bg-[#151515] dark:border-none"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 

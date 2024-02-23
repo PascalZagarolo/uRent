@@ -8,6 +8,8 @@ import RentPrice from "./input-fields/rent-price";
 import { Separator } from "@/components/ui/separator";
 import Sitze from "./input-fields/attribute-fields/sitze";
 import { db } from "@/utils/db";
+import SelectLocation from './input-fields/select-location';
+
 
 
 
@@ -24,6 +26,12 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = async ({
             id : inserat.id
         }, include : {
             pkwAttribute : true
+        }
+    })
+
+    const addressComponent = await db.address.findUnique({
+        where : {
+            inseratId : inserat.id
         }
     })
 
@@ -67,11 +75,20 @@ const InseratBodyLeft: React.FC<InseratBodyLeftProps> = async ({
                     )}
                 </div>
             </div>
-            <div>
+            <div className='flex w-full items-center justify-between mt-4'>
+                <div className='w-1/2'>
                 <RentPrice
                     inserat={inserat}
                     
                 />
+                </div>
+                <div className='w-1/2'>
+                <SelectLocation
+                inserat={inserat}
+                addressComponent = {addressComponent}
+                />
+                </div>
+                
             </div>
                         
 

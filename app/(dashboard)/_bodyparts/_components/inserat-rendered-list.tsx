@@ -40,7 +40,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
         <div>{inserateArray.length > 0 ? (
             <div className="grid  grid-cols-1  overflow-y-auto justify-center">
                     {inserateArray.map((inserat, index) => (
-                        <div className="w-full sm:w-1/2 md:w-1/4 p-2" key={inserat.id}>
+                        <div className="w-full sm:w-1/2 md:w-1/4 mt-4" key={inserat.id}>
                             
                         <InseratCard
                             key={inserat.id}

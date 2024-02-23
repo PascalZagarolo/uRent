@@ -64,7 +64,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
    
 
     return (
-        <div className="w-2/3">
+        <div className="w-[750px]">
 
 {!title ? (
                 <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 dark:border-gray-900 p-3 text-gray-100 bg-[#181b27]">

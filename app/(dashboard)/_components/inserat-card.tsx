@@ -61,9 +61,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     const getAddressCity = (address: string): string => {
         const addressParts = address.split(', ');
-        if (addressParts.length >= 2) {
+        if (addressParts.length > 2) {
             return addressParts[1]; 
-        } 
+        } else {
+            return addressParts[0];
+        }
     };
 
     return (
@@ -84,7 +86,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     }
                 </div>
                 <div className="px-2 py-1 mt-1 rounded-md  ">
-                    <div className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-[210px] h-[40px]
+                    <div className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-[320px] h-[40px]
                  hover:cursor-pointer hover:underline dark:text-gray-100 " onClick={onRedirect}> {inserat.title} </div>
                 </div>
                 <div className="ml-auto items-center flex ">
@@ -152,8 +154,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </div>
                 </div>
             </div>
-            <div className="ml-2 ">
-                <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100 mr-4 dark:border-[#1e2332] border-gray-300 border-2 
+            <div className=" ">
+                <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100  dark:border-[#1e2332] border-gray-300 border-2 
                 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  {inserat.annual ? "" : "Zeitraum :"}
@@ -186,11 +188,16 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             {inserat.price} €  {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)} 
                         </div>
                     </div>
-                    <div className="ml-auto w-[200px] mr-4 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] border-2 border-gray-300 
-                    p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm">
+                    <div className="ml-auto w-[320px]  flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] border-2 border-gray-300 
+                    p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm justify-center">
                         <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 dark:bg-[#171923] dark:border-none rounded-md border-gray-300 border-2" /> 
-                         {inserat.address?.locationString ? getAddressCity(inserat.address?.locationString) : "Keine Angabe"}
-                        <p className="text-gray-300 text-xs ml-2">(187 Km)</p>
+                         {inserat.address?.locationString ?
+                          getAddressCity(inserat.address?.locationString) 
+                          
+                          : "Keine Angabe"}
+                        {inserat.address?.locationString && (
+                            <p className="text-gray-300 text-xs ml-auto">{inserat.address?.postalCode} Deutschland</p>
+                        )}
                     </div>
                     
                 </div>

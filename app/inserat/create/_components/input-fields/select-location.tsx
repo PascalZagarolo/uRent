@@ -15,8 +15,8 @@ import axios from "axios";
 
 
 interface SelectLocationProps {
-  inserat : Inserat;
-  addressComponent? : Address;
+  inserat: Inserat;
+  addressComponent?: Address;
 }
 
 const SelectLocation: React.FC<SelectLocationProps> = ({
@@ -39,6 +39,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   const currentLocation = searchParams.get("location");
 
   const [currentAddress, setCurrentAddress] = useState("");
+  const [currentZipCode, setCurrentZipCode] = useState<null | number>(addressComponent?.postalCode || null);
 
   useEffect(() => {
     //@ts-ignore
@@ -59,12 +60,17 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
       const values = {
         //@ts-ignore
-        locationString : inputRef?.current?.value || null,
+        locationString: inputRef?.current?.value || null,
+        postalCode : currentZipCode
       }
 
       console.log(values);
 
       axios.patch(`/api/inserat/${inserat.id}/address`, values);
+      setTimeout(() => {
+        toast.success("Standort erfolgreich hinzugefügt");
+      router.refresh();
+      }, 500)
     } catch {
       toast.error("Etwas ist schief gelaufen");
     }
@@ -74,23 +80,43 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   return (
     <div className=" items-center ">
-      <div className="  items-center   flex-shrink">
-        <Label className="flex justify-start items-center">
-          <PinIcon  className="w-4 h-4"/> <p className="ml-2  font-semibold"> Standort </p>
-        </Label>
-        <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Wo ist deine Anzeige lokalisiert ? </p>
-        <Input ref={inputRef} placeholder="Standort.."
-          className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
-          onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }} 
-          defaultValue={addressComponent?.locationString}
+      <div className="flex">
+        <div className="  items-center   flex-shrink">
+          <Label className="flex justify-start items-center">
+            <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Standort </p>
+          </Label>
+          <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Wo ist deine Anzeige lokalisiert ? </p>
+          <Input ref={inputRef} placeholder="Standort.."
+            className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
+            onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
+            defaultValue={addressComponent?.locationString}
           />
-        
+
+        </div>
+        <div className="ml-4">
+          <Label className="flex justify-start items-center">
+            <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Postleitzahl </p>
+          </Label>
+          <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> 5-Stellige Plz </p>
+          <Input
+            className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md text-sm border mt-2 border-black dark:bg-[#151515] justify-start dark:focus-visible:ring-0"
+            type="text"
+            pattern="[0-9]{5}"
+            onChange={(e) => { setCurrentZipCode(Number(e.target.value)) }}
+            value={currentZipCode}
+            
+          />
+        </div>
       </div>
 
 
-      {/* @ts-ignore */}
-      <Button onClick={() => {onSubmit()}} className="mt-2 dark:bg-[#000000] dark:text-gray-100" disabled={!inputRef?.current?.value || addressComponent?.locationString === inputRef?.current?.value}>
-        <span className="">Standort wählen</span>
+      
+      <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
+      disabled={!inputRef?.current?.value || (addressComponent?.locationString === inputRef?.current?.value && currentZipCode === addressComponent?.postalCode) || !inputRef?.current?.value.length ||
+      String(currentZipCode).length !== 5
+      }
+      >
+        <span className="">Addresse wählen</span>
       </Button>
 
     </div>

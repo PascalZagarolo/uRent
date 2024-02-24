@@ -67,18 +67,13 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
 
     useEffect(() => {
-        
-        if(inserat.images.length === 0 && !firstUpdate.current) {
-            
+        if(inserat.images.length === 0 && !firstUpdate.current) {  
             onPrivate();
-        } 
+        }
 
-        if(firstUpdate.current) {
-            
+        if(firstUpdate.current) {   
             firstUpdate.current = false;
         }
-       
-        
     },[inserat.images.length])
 
     useEffect(() => {

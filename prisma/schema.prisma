@@ -55,6 +55,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  userAddress UserAddress?
+
   //Privacy Settings
 
   sharesEmail Boolean @default(false)
@@ -137,6 +139,7 @@ model Address {
   inseratId String
   inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
 
+  postalCode Int?
   locationString String?
 
   longitude String?
@@ -278,10 +281,28 @@ model ContactOptions {
   phone Boolean? @default(false)
   phoneNumber String?
 
-  address Boolean? @default(false)
-  addressString String?
+  userAddress UserAddress?
 
+}
 
+model UserAddress {
+  id String @id @default(uuid())
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  contactOptionsId String?
+  contactOptions ContactOptions? @relation(fields: [contactOptionsId], references: [userId], onDelete: Cascade)
+
+  postalCode Int?
+
+  locationString String?
+
+  longitude String?
+  latitude String?
+
+  @@unique([userId])
+  @@unique([contactOptionsId])
 
 }
 

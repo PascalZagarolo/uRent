@@ -21,12 +21,20 @@ const CreationHeader: React.FC<CreationHeaderProps> = async ({
         }
     })
 
+    const addressComponent = await db.address.findUnique({
+        where : {
+            inseratId : inserat.id
+        }
+    })
+
     const isPublishable = {
         title : inserat.title.length > 0,
         description : inserat.description?.length > 0 || false,
         price : inserat.price !== 0,
         images : images.length > 0,
-        date : (inserat.end && inserat.begin) !== null || inserat.annual
+        date : (inserat.end && inserat.begin) !== null || inserat.annual,
+        postalCode : addressComponent?.postalCode !== null,
+        location : addressComponent?.locationString !== null,
     };
 
     let canPublish = true;

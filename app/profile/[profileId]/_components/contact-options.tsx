@@ -14,7 +14,7 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
     ownProfile
 }) => {
 
-    const nothingAdded = !contacts?.emailAddress && !contacts?.websiteAddress && !contacts?.addressString && !contacts?.phoneNumber ? true : false;
+    const nothingAdded = !contacts?.emailAddress && !contacts?.websiteAddress &&  !contacts?.phoneNumber ? true : false;
 
     return (
         <div className="bg-white dark:bg-[#10121a] dark:border-[#10121a] border border-gray-300 p-4  mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
@@ -36,11 +36,7 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
                     <a href=".." className="hover:underline"> {contacts.websiteAddress} </a>
                     </div>
                 )}
-                {contacts?.addressString && (
-                    <div className="bg-gray-300 p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><MapPin className="p-1 rounded-md border-black border"/>
-                    {contacts.addressString}
-                    </div>
-                )}
+              
                 {contacts?.phoneNumber && (
                     <div className="bg-gray-300 p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><PhoneCall className="p-1 rounded-md border-black border"/>
                     {contacts.phoneNumber}

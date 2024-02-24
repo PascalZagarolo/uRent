@@ -4,25 +4,25 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 
 const DataPrivacy = async () => {
-    
+
     const currentUser = await getCurrentUser();
 
     const notifications = await db.notification.findMany({
-        where :{
-            userId : currentUser?.id
+        where: {
+            userId: currentUser?.id
         }
     })
-    
+
     return (
 
         <div>
             <div className="relative top-0 w-full z-50">
-                    <HeaderLogo
-                        currentUser={currentUser}
-                        notifications={notifications} />
-                </div>
+                <HeaderLogo
+                    currentUser={currentUser}
+                    notifications={notifications} />
+            </div>
             <div className="flex justify-center p-8">
-                
+
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md ">
                     <div className="  min-h-screen">
                         <div className="p-4 mt-4 dark:bg-[#161616] rounded-lg">
@@ -32,7 +32,7 @@ const DataPrivacy = async () => {
                         </div>
 
                         <div className="px-8">
-                            
+
                         </div>
 
                         <div className="p-8 text-sm dark:text-gray-300/90">
@@ -198,9 +198,51 @@ const DataPrivacy = async () => {
                                     dass sie mit der Verarbeitung der sie betreffenden personenbezogenen Daten
                                     einverstanden ist.
                                 </div>
+
+                                <div>
+                                    <h1 className="font-semibold text-lg">
+                                        2. Name und Anschrift des für die Verarbeitung Verantwortlichen
+                                    </h1>
+                                    <p>
+                                        Verantwortlicher im Sinne der Datenschutz-Grundverordnung, sonstiger in den
+                                        Mitgliedstaaten der Europäischen Union geltenden Datenschutzgesetze und anderer
+                                        Bestimmungen mit datenschutzrechtlichem Charakter ist die:
+                                    </p>
+
+                                    <div className="  p-2">
+                                        <p className="mt-1">
+                                            uRent
+                                        </p>
+                                        <p className="mt-1">
+                                            Sonnenstraße 24
+                                        </p>
+                                        <p className="mt-1">
+                                            42659 Solingen
+
+                                        </p>
+                                        <p className="mt-1">
+                                            Deutschland
+                                        </p>
+                                        <p className="mt-1">
+                                            Tel.: +49123456789
+                                        </p>
+                                        <p className="mt-1">
+                                            E-Mail: support@urent.de
+                                        </p>
+                                        <p className="mt-1">
+                                            Website: www.u-rent-rental.de
+                                        </p>
+                                    </div>
+
+                                </div>
                             </div>
+
                         </div>
+
+
                     </div>
+
+
 
                 </div>
 

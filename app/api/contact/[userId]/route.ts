@@ -22,7 +22,7 @@ export async function PATCH(
                  data : {
                     userId : params.userId,
                     emailAddress : values?.email || "",
-                    addressString : values?.address || "",
+                    
                     websiteAddress : values?.website || "",
                     
                 }
@@ -34,7 +34,7 @@ export async function PATCH(
                     userId : params.userId
                 }, data : {
                     emailAddress :  values?.email || "",
-                    addressString : values?.address || "",
+                    
                     websiteAddress : values?.website || "",
                 }
                 

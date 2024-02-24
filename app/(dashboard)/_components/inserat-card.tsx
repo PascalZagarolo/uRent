@@ -8,7 +8,8 @@ import { InserateImagesAndAttributes } from "@/types/types";
 
 import { Images, Inserat, PkwAttribute, User } from "@prisma/client";
 import axios from "axios";
-import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, LocateFixedIcon, MapPinIcon, RockingChair, SofaIcon, Star, TractorIcon, TramFront, Truck, X } from "lucide-react";
+import { format } from "date-fns";
+import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, LocateFixedIcon, MapPinIcon, MapPinned, RockingChair, SofaIcon, Star, TractorIcon, TramFront, Truck, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -70,9 +71,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className="sm:w-[750px] sm:h-[420px] w-[400px] h-[380px]   rounded-md  items-center dark:bg-[#171923]
-          bg-[#ffffff] border-2 border-white mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2">
+          bg-[#ffffff]  mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2">
             <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} >
-                <div className="bg-[#181c28] p-2 rounded-md border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                <div className="bg-[#181c28] p-2 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
@@ -101,7 +102,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
             </h3>
 
-            <div className="flex justify-center h-[200px] items-center  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-full">
+            <div className="flex justify-center h-[200px] items-center   w-full">
                 <div className="flex p-4  w-full">
                     <div className="mr-4 w-[80px]">
 
@@ -109,7 +110,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             {
                                 {
                                     'PKW': inserat.pkwAttribute?.sitze && (
-                                        <Badge className="bg-[#2c3246] border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                        <Badge className="bg-[#2c3246]  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                              dark:bg-[#181818]/95 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-[#181818]/60">
                                                 <SofaIcon className="h-4 w-4 mr-1"/>
                                         <p className="mr-1 text-blue-200"> {inserat.pkwAttribute?.sitze} </p> Sitze
@@ -123,14 +124,14 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </div>
 
                         <div className="mt-1">
-                            <Badge className="bg-[#242a39] flex border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                            <Badge className="bg-[#242a39] flex  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                             dark:text-gray-100 dark:bg-[#181818]/95 dark:border-gray-700 dark:hover:bg-[#181818]/60
                             ">
                                 <EyeIcon className="w-4 h-4 mr-1" /> {inserat.views}
                             </Badge>
                         </div>
                         <div className="mt-2">
-                            <Badge className="bg-emerald-600 border-2 border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                            <Badge className="bg-emerald-600  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                             dark:bg-emerald-800 dark:text-gray-100 dark:border-gray-900 dark:hover:bg-emerald-700
                             ">
                                 <CheckCheckIcon className="w-4 h-4" /> vorhanden
@@ -138,24 +139,33 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </div>
                     </div>
                     <div className="flex w-full">
-                    <div className="w-1/2">
+                    <div className="w-1/2 flex">
+                    <div className="">
                     <Image
                         src={inserat.images[0].url}
                         width={220}
                         height={240}
-                        className="rounded-md border-2 border-gray-400 hover:cursor-pointer dark:border-gray-900 max-h-[180px]"
+                        className="rounded-md  hover:cursor-pointer dark:border-gray-900 max-h-[180px]"
                         onClick={onRedirect}
                         alt={inserat.title}
                     />
+                    <div className="text-xs font-bold">
+                       inseriert am:  {format(new Date(inserat.createdAt), "dd.MM")}
                     </div>
-                    <div className="ml-4 dark:bg-[#191B27] bg-gray-200 w-1/2 p-4 text-xs rounded-md mr-2 overflow-hidden" >
+                    </div>
+                    <div className="flex text-xs font-bold">
+                    <ImageIcon className="w-4 h-4 mr-1 ml-1" />  {inserat.images.length} 
+                    </div>
+                    </div>
+                    
+                    <div className="ml-4 dark:bg-[#191B27] bg-gray-200 w-1/2 p-4 text-xs rounded-md mr-2 overflow-hidden h-[160px]" >
                         {inserat.description}
                     </div>
                     </div>
                 </div>
             </div>
             <div className=" ">
-                <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100  dark:border-[#1e2332] border-gray-300 border-2 
+                <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100  dark:border-[#1e2332]  
                 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  {inserat.annual ? "" : "Zeitraum :"}
@@ -179,7 +189,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div>
                 <div className="font-semibold text-gray-900 flex mt-2 items-center">
                     <div className="flex">
-                        <div className="flex dark:bg-emerald-800 bg-emerald-600 p-2 rounded-md border-gray-300 border-2
+                        <div className="flex dark:bg-emerald-800 bg-emerald-600 p-2 rounded-md 
                          drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800 px-4">
                             <div className="mr-2 flex font-bold">
                                 
@@ -188,9 +198,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             {inserat.price} €  {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)} 
                         </div>
                     </div>
-                    <div className="ml-auto w-[320px]  flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] border-2 border-gray-300 
+                    <div className="ml-auto w-[320px]  flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] 0 
                     p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm justify-center">
-                        <MapPinIcon className="text-rose-600 mr-2 bg-gray-200 dark:bg-[#171923] dark:border-none rounded-md border-gray-300 border-2" /> 
+                        <MapPinned className="text-rose-600 mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" /> 
                          {inserat.address?.locationString ?
                           getAddressCity(inserat.address?.locationString) 
                           

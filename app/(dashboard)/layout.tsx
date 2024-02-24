@@ -1,9 +1,4 @@
-
 import React from "react";
-
-
-
-
 import getCurrentUser from "../../actions/getCurrentUser";
 import MobileHeader from "./_components/mobile-header";
 

@@ -1,0 +1,36 @@
+'use client'
+
+import { TruckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+const Footer = () => {
+
+    const router = useRouter();
+
+    return ( 
+        <div className=" bottom-0 dark:bg-[#0F0F0F] w-full sticky">
+ <div className="flex justify-center text-gray-200   dark:text-gray-900 mt-2    w-full">
+    <div className="w-[1044px] bg-[#0b0c13] rounded-lg p-8">
+        <div className="flex ">
+          <TruckIcon className="w-6 h-6 dark:text-gray-200 mr-2"/>
+        <p className="dark:text-gray-100 text-xl font-semibold "> uRent </p>
+        <p className="text-xs dark:text-gray-200 mr-8 ml-1"> 2024</p>
+        <div className="flex justify-evenly dark:text-gray-100/80 font-semibold w-full">
+          <div className="hover:underline" >
+            Impressum
+          </div>
+          <div className="hover:underline" onClick={() => {router.push("/data-privacy")}}>
+            Datenschutz
+          </div>
+          <div className="hover:underline">
+            AGBs
+          </div>
+        </div>
+        </div>
+    </div>
+  </div>
+ </div>
+     );
+}
+ 
+export default Footer;

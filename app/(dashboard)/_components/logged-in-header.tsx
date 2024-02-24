@@ -72,7 +72,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
                                 <img
                                     src={currentUser.image || "/placeholder-person.jpg"}
-                                    className="w-[40px] h-[40px] rounded-full border-gray-100 border hover:cursor-pointer"
+                                    className="w-[40px] h-[40px] rounded-full  hover:cursor-pointer"
 
                                 />
 

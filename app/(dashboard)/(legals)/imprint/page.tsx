@@ -231,7 +231,7 @@ const Imprint = async () => {
                                         der Google in Verbindung bringen. Das Speichern von Cookies auf Ihrer Festplatte und die Anzeige von Web
                                         Beacons können Sie verhindern, indem Sie in Ihren Browser-Einstellungen &apos;keine Cookies akzeptieren&apos; wählen
                                         (Im MS Internet-Explorer unter &apos;Extras {'>'} Internetoptionen {'>'} Datenschutz{'>'} Einstellung&apos;; im Firefox unter
-                                        &apos;Extras {'>'} Einstellungen {'>'} Datenschutz {'>'} Cookies''); wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall
+                                        &apos;Extras {'>'} Einstellungen {'>'} Datenschutz {'>'} Cookies&apos;); wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall
                                         gegebenenfalls nicht sämtliche Funktionen dieser Website voll umfänglich nutzen können. Durch die Nutzung
                                         dieser Website erklären Sie sich mit der Bearbeitung der über Sie erhobenen Daten durch Google in der zuvor
                                         beschriebenen Art und Weise und zu dem zuvor benannten Zweck einverstanden.

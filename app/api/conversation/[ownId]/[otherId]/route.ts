@@ -36,3 +36,25 @@ export async function POST(
         return new NextResponse("Interner Server Error", { status: 500 })
     }
 }
+
+export async function GET(
+    req : Request,
+    { params } : { params : { ownId : string , otherId : string }}
+) {
+    try {
+
+        const foundConversation = await db.conversation.findFirst({
+            where : {
+                userIds : {
+                    hasEvery : [params.ownId , params.otherId]
+                }
+            }
+        })
+
+        return NextResponse.json(foundConversation)
+
+    } catch {
+        console.log("Fehler beim abrufen einer Konversation");
+        return new NextResponse("Interner Server Error", { status: 500 })
+    }
+}

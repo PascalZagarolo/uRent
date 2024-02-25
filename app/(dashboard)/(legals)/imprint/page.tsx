@@ -190,8 +190,8 @@ const Imprint = async () => {
                                         Google Analytics
                                     </p>
                                     <p>
-                                        Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (''Google''). Google Analytics
-                                        verwendet sog. ''Cookies'', Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der
+                                        Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (&apos;Google&apos;). Google Analytics
+                                        verwendet sog. &apos;Cookies&apos;, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der
                                         Benutzung der Website durch Sie ermöglicht. Die durch den Cookie erzeugten Informationen über Ihre Benutzung
                                         dieser Website (einschließlich Ihrer IP-Adresse) wird an einen Server von Google in den USA übertragen und
                                         dort gespeichert. Google wird diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um
@@ -216,9 +216,9 @@ const Imprint = async () => {
                                         Google AdSense
                                     </p>
                                     <p>
-                                        Diese Website benutzt Google Adsense, einen Webanzeigendienst der Google Inc., USA (''Google''). Google Adsense
-                                        verwendet sog. ''Cookies'' (Textdateien), die auf Ihrem Computer gespeichert werden und die eine Analyse der
-                                        Benutzung der Website durch Sie ermöglicht. Google Adsense verwendet auch sog. ''Web Beacons'' (kleine
+                                        Diese Website benutzt Google Adsense, einen Webanzeigendienst der Google Inc., USA (&apos;Google&apos;). Google Adsense
+                                        verwendet sog. &apos;Cookies&apos; (Textdateien), die auf Ihrem Computer gespeichert werden und die eine Analyse der
+                                        Benutzung der Website durch Sie ermöglicht. Google Adsense verwendet auch sog. &apos;Web Beacons&apos; (kleine
                                         unsichtbare Grafiken) zur Sammlung von Informationen. Durch die Verwendung des Web Beacons können einfache
                                         Aktionen wie der Besucherverkehr auf der Webseite aufgezeichnet und gesammelt werden. Die durch den Cookie
                                         und/oder Web Beacon erzeugten Informationen über Ihre Benutzung dieser Website (einschließlich Ihrer
@@ -229,9 +229,9 @@ const Imprint = async () => {
                                         Informationen gegebenenfalls an Dritte übertragen, sofern dies gesetzlich vorgeschrieben oder soweit Dritte
                                         diese Daten im Auftrag von Google verarbeiten. Google wird in keinem Fall Ihre IP-Adresse mit anderen Daten
                                         der Google in Verbindung bringen. Das Speichern von Cookies auf Ihrer Festplatte und die Anzeige von Web
-                                        Beacons können Sie verhindern, indem Sie in Ihren Browser-Einstellungen ''keine Cookies akzeptieren'' wählen
-                                        (Im MS Internet-Explorer unter ''Extras {'>'} Internetoptionen {'>'} Datenschutz{'>'} Einstellung''; im Firefox unter
-                                        ''Extras {'>'} Einstellungen {'>'} Datenschutz {'>'} Cookies''); wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall
+                                        Beacons können Sie verhindern, indem Sie in Ihren Browser-Einstellungen &apos;keine Cookies akzeptieren&apos; wählen
+                                        (Im MS Internet-Explorer unter &apos;Extras {'>'} Internetoptionen {'>'} Datenschutz{'>'} Einstellung&apos;; im Firefox unter
+                                        &apos;Extras {'>'} Einstellungen {'>'} Datenschutz {'>'} Cookies''); wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall
                                         gegebenenfalls nicht sämtliche Funktionen dieser Website voll umfänglich nutzen können. Durch die Nutzung
                                         dieser Website erklären Sie sich mit der Bearbeitung der über Sie erhobenen Daten durch Google in der zuvor
                                         beschriebenen Art und Weise und zu dem zuvor benannten Zweck einverstanden.

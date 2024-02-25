@@ -14,7 +14,7 @@ import { InserateImagesAndAttributes } from "@/types/types";
 import { Images, Inserat, PkwAttribute, User } from "@prisma/client";
 import axios from "axios";
 import { format } from "date-fns";
-import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, Lightbulb, LocateFixedIcon, Mail, MailCheckIcon, MailQuestion, MapPinIcon, MapPinned, RockingChair, Send, SofaIcon, Star, ThumbsUpIcon, TractorIcon, TramFront, Truck, X } from "lucide-react";
+import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, Lightbulb, LocateFixedIcon, Mail, MailCheckIcon, MailQuestion, MapPinIcon, MapPinned, RockingChair, Send, Settings2Icon, SofaIcon, Star, ThumbsUpIcon, TractorIcon, TramFront, Truck, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -38,6 +38,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
     currentUser
 
 }) => {
+
+    const isOwn = currentUser.id === inserat.userId;
 
     const formatDate = (inputDate: Date): string => {
         const day = inputDate.getDate().toString().padStart(2, '0');
@@ -135,6 +137,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
         } else {
             router.push(`/login`);
         }
+    }
+
+    const onEdit = () => {
+        router.push(`/inserat/create/${inserat.id}`);
     }
 
     return (
@@ -298,10 +304,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                         {inserat.user?.name}
                                     </p>
                                 </Link>
-
+                                
                                 <div className="flex ml-auto">
 
-                                    <Dialog>
+                                    {!isOwn ? (
+                                        <>
+                                        <Dialog>
                                         <DialogTrigger className="" asChild>
 
                                             <Button className="flex items-center mr-4 ml-auto bg-[#171923] rounded-md p-2 px-8 font-semibold
@@ -361,6 +369,14 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                         <MailCheckIcon className="w-4 h-4 mr-2" />
                                         Kontaktieren
                                     </Button>
+                                    </>
+                                    ) : (
+                                        <Button className="flex items-center mr-4  bg-slate-200  rounded-md p-2 px-8 font-semibold
+                                     dark:text-gray-900/80 dark:hover:bg-slate-300" onClick={onEdit}>
+                                        <Settings2Icon className="w-4 h-4 mr-2" />
+                                       Inserat bearbeiten
+                                    </Button>
+                                    )}
                                 </div>
 
 

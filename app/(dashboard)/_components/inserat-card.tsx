@@ -357,7 +357,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
                                     <Button className="flex items-center mr-4  bg-[#171923] rounded-md p-2 px-8 font-semibold
-                                 dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
+                                     dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
                                         <MailCheckIcon className="w-4 h-4 mr-2" />
                                         Kontaktieren
                                     </Button>

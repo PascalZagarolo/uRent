@@ -96,10 +96,8 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
             </div>
         <div className=" rounded-none    bg-[#24293b] dark:bg-[#0f1119] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] flex flex-col items-center
         flex-shrink: 1">
-            <h3>
-                <AlignCenter className="h-4 w-4"/>
-            </h3>
-            <div className="bg-[#171a26] p-1  w-full mb-1 rounded-md border border-black items-center dark:bg-[#0a0b10]">
+            
+            <div className="bg-[#171a26] p-1  w-full mb-1 rounded-md  items-center dark:bg-[#0a0b10]">
                 <h3 className="items-center  text-base font-semibold justify-center text-gray-100 flex mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] mb-1">
                     
                     {inserat.title}</h3>
@@ -137,8 +135,9 @@ const InseratPublic: React.FC<InseratPublicProps> = ({
                 <Clock1 className="h-4 w-4 mr-2"/>erstellt am : {formatDate(inserat.createdAt)}
             </div>
 
-            <div className="flex w-full justify-center mt-auto bg-gray-300 rounded-md mb-2 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] dark:bg-[#0a0b10]">
-                <EyeIcon className="mr-2"/> {inserat.views} Aufrufe
+            <div className="flex w-full justify-center mt-auto bg-gray-300 rounded-md p-2 font-semibold 
+            drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] dark:bg-[#0a0b10] items-center">
+                <EyeIcon className="mr-2 w-4 h-4"/> {inserat.views} Ansichten
             </div>
             
         </div>

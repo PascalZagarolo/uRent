@@ -59,7 +59,7 @@ const Favourites : React.FC<FavouritesProps> = ({
                 <Trash2Icon className="h-4 w-4 mr-2"/>   Als Favourit entfernen 
                 </Button>
             </div>
-            <div className="flex gap-x-2  border-white border-2  rounded-md p-4 bg-white dark:bg-[#0F0F0F] dark:text-gray-100 text-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <div className="flex gap-x-2      p-4 bg-white dark:bg-[#0F0F0F] dark:text-gray-100 text-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <div className="w-[160px] font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.1)]">
                 <p>{favourite.inserat.title}</p>
             </div>
@@ -83,7 +83,7 @@ const Favourites : React.FC<FavouritesProps> = ({
                 height={100}
                 width={180}
                 alt="Picture of the Inserat"
-                className="rounded-md border-2 border-gray-300 dark:border-gray-800"
+                className="rounded-md  dark:border-gray-800 h-[120px] w-[180px] object-cover"
                 />
             </div>
             

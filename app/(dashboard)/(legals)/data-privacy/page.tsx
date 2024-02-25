@@ -213,10 +213,10 @@ const DataPrivacy = async () => {
                                             uRent
                                         </p>
                                         <p className="mt-1">
-                                            Sonnenstraße 24
+                                            Lützowstraße 375
                                         </p>
                                         <p className="mt-1">
-                                            42659 Solingen
+                                        D-42653 Solingen
 
                                         </p>
                                         <p className="mt-1">

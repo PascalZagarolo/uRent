@@ -26,7 +26,7 @@ const OrderColoumns: React.FC<OrderColoumnsProps> = ({
       };
 
     return (  
-        <div className="mt-4 bg-white dark:bg-[#0F0F0F] border-2 border-gray-300 p-4 rounded-lg 2xl:mr-8  items-center ">
+        <div className="mt-4 bg-white dark:bg-[#0F0F0F]   p-4 rounded-lg 2xl:mr-8  items-center ">
             <div className="flex gap-x-4 items-center">
                 <div className="md:flex md:w-[100px] hidden">
                     <img 

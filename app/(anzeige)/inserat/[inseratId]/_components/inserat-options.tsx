@@ -54,10 +54,6 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         "Meine Kontaktdaten : \n\n" +
         "E-Mail : " + (name ? name : "[Deine E-Mail Addresse]") + "\n" +
         "Telefon : " + (contactOptions?.phoneNumber ? contactOptions?.phoneNumber : "[Deine Telefonnummer]") + "\n"
-
-
-
-
     );
 
     const handleTextChange = (event) => {

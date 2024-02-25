@@ -33,3 +33,15 @@ export const useGetFilterAmount = create<getFilterAmount>((set) => ({
 }));
 
 
+type loadingState = {
+    loading : boolean,
+    changeLoading: (newLoadingState: boolean) => void
+}
+
+export const useLoadingState = create<loadingState>((set) => ({
+    loading : false,
+    changeLoading : (newLoadingState : boolean) => {
+        loading : newLoadingState
+    }
+})) 
+

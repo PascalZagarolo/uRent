@@ -33,7 +33,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     
 
 
-    //!!!set searchresult amounts as zustand state
+    
 
 
     return ( 
@@ -47,6 +47,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                             //@ts-ignore
                             inserat={inserat}
                             profileId={currentUser?.id || ""}
+                            currentUser = {currentUser}
                             isFaved={favedInserate.some((favedInserat) => favedInserat.id === inserat.id)}
                             
                         />

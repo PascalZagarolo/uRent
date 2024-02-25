@@ -1,5 +1,5 @@
 import { useDebounce } from "@/hooks/use-debounce";
-import { PinIcon } from "lucide-react";
+import { LucideMapPinOff, MapPinOff, MapPinned, PinIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import qs from 'query-string';
@@ -69,7 +69,7 @@ useEffect(() => {
    className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border  border-black  input: justify-start dark:focus-visible:ring-0"
    onChange={(e) => {setValue(e.target.value)}}/>
    <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 " onClick={onSearch}>
-    <PinIcon className="text-white h-4 w-4 2xl:block hidden hover:cursor-pointer" />
+    <MapPinned className="text-white h-4 w-4 2xl:block hidden hover:cursor-pointer" />
     
    </Button>
    </div>

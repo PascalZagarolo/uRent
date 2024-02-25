@@ -16,13 +16,13 @@ const Footer = () => {
         <p className="dark:text-gray-100 text-xl font-semibold "> uRent </p>
         <p className="text-xs dark:text-gray-200 mr-8 ml-1"> 2024</p>
         <div className="flex justify-evenly dark:text-gray-100/80 font-semibold w-full">
-          <div className="hover:underline" onClick={() => {router.push("/imprint")}}>
+          <div className="hover:underline hover:cursor-pointer" onClick={() => {router.push("/imprint")}}>
             Impressum
           </div>
-          <div className="hover:underline" onClick={() => {router.push("/data-privacy")}}>
+          <div className="hover:underline hover:cursor-pointer" onClick={() => {router.push("/data-privacy")}}>
             Datenschutz
           </div>
-          <div className="hover:underline">
+          <div className="hover:underline hover:cursor-pointer">
             AGBs
           </div>
         </div>

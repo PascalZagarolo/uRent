@@ -45,7 +45,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
             toast.success("Anzeige erfolgreich privat gestellt");
             setTimeout(() => {
                 router.refresh();
-            }, 250)
+            }, 500)
         } catch {
             toast.error("Etwas ist schief gelaufen...")
         } finally {

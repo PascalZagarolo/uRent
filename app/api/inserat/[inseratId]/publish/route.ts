@@ -1,4 +1,5 @@
 import { db } from "@/utils/db";
+import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -26,15 +27,21 @@ export async function PATCH(
             }
         })
 
-        const addressObject = await fetch(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=65db7269a0101559750093uena07e08`)
+        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=${process.env.GEOCODING_API}`);
+
+        console.log("test")
+       
+        
+        console.log(addressObject.data[0].lat)
+        console.log(addressObject.data[0].lon) 
 
         if(publish) {
             const patchedAddress = await db.address.update({
                 where : {
                     inseratId : params.inseratId
                 }, data : {
-                    longitude: String(0),
-                    latitude: String(0),
+                    longitude: String(addressObject.data[0].lon),
+                    latitude: String(addressObject.data[0].lat),
                 }
             })
         }

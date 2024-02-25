@@ -27,7 +27,8 @@ interface MainPageProps {
         filter : string,
         page : number,
         periodBegin : string,
-        periodEnd: string
+        periodEnd: string,
+        location: string
     }
 }
 
@@ -78,7 +79,9 @@ const Main = async ({
               end={searchParams.end}
               page={searchParams.page} 
               periodBegin={searchParams.periodBegin} 
-              periodEnd={searchParams.periodEnd}      />
+              periodEnd={searchParams.periodEnd}
+              location={searchParams.location}
+              />
       </div>
       
   </div>

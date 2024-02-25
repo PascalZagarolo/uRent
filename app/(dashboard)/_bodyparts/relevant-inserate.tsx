@@ -18,6 +18,7 @@ interface RelevanteInserateProps {
     page : number;
     periodBegin : string;
     periodEnd : string;
+    location: string;
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
@@ -28,7 +29,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     end,
     page,
     periodBegin,
-    periodEnd
+    periodEnd,
+    location
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -57,6 +59,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         page : Number(page),
         periodBegin : periodBegin,
         periodEnd : periodEnd,
+        location : location
        
     });
 

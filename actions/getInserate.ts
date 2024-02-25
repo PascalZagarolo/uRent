@@ -2,6 +2,7 @@
 import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@prisma/client";
 import type { Address, Category, PkwAttribute } from "@prisma/client";
+import axios from "axios";
 import { includes } from "lodash";
 
 
@@ -23,7 +24,21 @@ type GetInserate = {
     page? : number;
     periodBegin? : string;
     periodEnd? : string;
+    location? : string
 }
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const r = 6371; // km
+    const p = Math.PI / 180;
+  
+    const a = 0.5 - Math.cos((lat2 - lat1) * p) / 2
+                  + Math.cos(lat1 * p) * Math.cos(lat2 * p) *
+                    (1 - Math.cos((lon2 - lon1) * p)) / 2;
+  
+    return 2 * r * Math.asin(Math.sqrt(a));
+  }
+
+
 
 export const getInserate = async ({
     title,
@@ -33,7 +48,8 @@ export const getInserate = async ({
     end,
     page,
     periodBegin,
-    periodEnd
+    periodEnd,
+    location
 } : GetInserate ): Promise<InserateImagesAndAttributes[]> => {
     try {
 
@@ -74,9 +90,27 @@ export const getInserate = async ({
                 }
             })
 
+            let filteredArray = [];
+
+            if(location) {
+                const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
+                
+
+                for (const inserat of inserate) {
+                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
+                                                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
+                                                        console.log(distance);
+                                                        if(distance < 50) {
+                                                            filteredArray.push(inserat);
+                                                        }
+                }
+            } else {
+                filteredArray = inserate;
+            }
+            
             
 
-            return inserate.splice(0, 16);
+            return filteredArray.splice(0, 16);
         } else {
             const inserate = await db.inserat.findMany({
                 where : {
@@ -115,9 +149,27 @@ export const getInserate = async ({
                 }
             })
 
+            let filteredArray = [];
             
+            if(location) {
+                const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
+                
 
-            return inserate.splice(0, 16);
+                for (const inserat of inserate) {
+                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
+                                                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
+                                                        console.log(addressObject.data[0].lat)
+                                                        console.log(addressObject.data[0].lon)
+                                                        console.log(distance);
+                                                        if(distance < 50) {
+                                                            filteredArray.push(inserat);
+                                                        }
+                }
+            } else {
+                filteredArray = inserate;
+            }
+
+            return filteredArray.splice(0, 16);
         }
 
         

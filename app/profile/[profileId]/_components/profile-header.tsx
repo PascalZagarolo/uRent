@@ -13,19 +13,20 @@ import ProfileDescription from "./profile-description";
 import ContactOptions from "./contact-options";
 import ContactOptionsRender from "./contact-options";
 import { db } from "@/utils/db";
+import { CheckmarkIcon } from "react-hot-toast";
 
 
 interface ProfileHeaderProps {
     currentUser: User;
     user: User;
-    ownProfile: boolean;
+    
 }
 
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     currentUser,
     user,
-    ownProfile
+    
 }) => {
 
     const convertDateTimeToString = (dateTime: Date): string => {
@@ -42,10 +43,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
         }
     })
 
-    const isOwnProfile = ownProfile || user.emailVerified ? true : false;
+    const isOwnProfile = currentUser?.id === user.id || user.emailVerified ? true : false;
+
+    const ownProfile = currentUser?.id === user.id
 
     return (
-        <div className="ml-8">
+        <div className=" px-4 ">
             
                 <div className="mt-4 mb-4">
                     { isOwnProfile && !user.confirmedMail && (
@@ -60,19 +63,20 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             
             <div className="">
                 
-                <div className="text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]">
-                    <BookUser className="mr-1" /> Profildetails
-                </div>
+                
                 <div className="flex">
 
-                    <div className="flex mt-1   p-8  bg-white dark:bg-[#10121a] border-2
-                     border-gray-200 dark:border-[#10121a] rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                    <div className="flex       
+                       rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
 
                         <div className="">
-                            <div className="bg-[#0b0d13] text-gray-100 p-2 dark:border-[#10121a]  rounded-lg border-2 border-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-                                <p className="font-bold text-lg  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] flex justify-center">
-                                    {currentUser.name.charAt(0).toUpperCase() || ""}{currentUser.name.slice(1)}
-                                </p>
+                        <div className=" text-gray-100     drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                                <div className=" text-md flex gap-x-4">
+                                   Name: <p className="font-semibold"> {currentUser.name.charAt(0).toUpperCase() || ""}{currentUser.name.slice(1)}</p>
+                                </div>
+                                <div className=" text-md flex gap-x-4">
+                                   Email-Addresse: <div className="font-semibold flex"> {user.email} {user.emailVerified && <CheckmarkIcon className="ml-1 h-2 w-2"/> }</div>
+                                </div>
                             </div>
                             <div className="flex mt-4">
                             <Avatar
@@ -91,26 +95,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                         </div>
 
                     </div>
-                    {ownProfile && (
-                        <div className="ml-8 mt-1 w-1/2  p-8  bg-white dark:bg-[#10121a] border-2 border-gray-400  border-dashed rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-
-                        <div className="w-full ">
-                            <p className="flex justify-center font-semibold items-center text-lg">
-                                Du hast ein Gewerbe ?
-                            </p>
-                        </div>
-                        <div className="mt-16">
-                            <a href="/..." className="underline flex justify-center"> Hier dein Gewerbe registrieren </a>
-                        </div>
-                       
-
-                </div>
-
-                    )}
+                    
                     
                 </div>
-                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
-                    <UserCircle2 className="mr-1" /> Über mich
+                <div className="mt-8 text-md font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
+                    <UserCircle2 className="mr-2 h-4 w-4" /> Über mich
                 </div>
                 <div>
                 <ProfileDescription 
@@ -119,8 +108,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 />
                 </div>
 
-                <div className="mt-8 text-xl font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
-                    <Contact className="mr-1" /> Kontakt
+                <div className="mt-8 text-md font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
+                    <Contact className="mr-2 h-4 w-4" /> Kontakt
                 </div>
                 <div className="">
                 <ContactOptionsRender

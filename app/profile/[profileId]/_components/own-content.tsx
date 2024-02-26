@@ -9,7 +9,7 @@ const OwnContent: React.FC<OwnContentProps> = ({
     inserate
 }) => {
     return ( 
-        <div className="">
+        <div>
             <OwnContentSlide
             inserat={inserate}
             />

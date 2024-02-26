@@ -4,7 +4,7 @@ import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Inserat, Images } from "@prisma/client"
+import { Inserat, Images, User } from "@prisma/client"
 import {
   Carousel,
   CarouselContent,
@@ -17,13 +17,16 @@ import { CarFront, CaravanIcon, ConstructionIcon, TractorIcon, TramFront, Truck 
 import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
+import InseratCard from "@/app/(dashboard)/_components/inserat-card"
 
 interface OwnContentSlideProps {
-  inserat: Inserat[] & { images: Images[] }[];
+  inserat: Inserat[] & { images: Images[],  }[];
+  currentUser : User
 }
 
 const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
-  inserat
+  inserat,
+  currentUser
 }) => {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
@@ -49,74 +52,35 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
 
   const router = useRouter();
   return (
-    <div className="">
+    <div className=" px-4">
       {inserat.length > 0 ? (
-        <div>
+        <div className="">
           <Carousel setApi={setApi} className=" " plugins={[
             Autoplay({
               delay: 5000,
             }),
           ]}>
-            <CarouselContent className="w-[360px] h-[360px]">
+            <CarouselContent className="">
               {inserat.map((inserat, index) => (
                 <CarouselItem key={index} className="">
-                  <Card className="bg-white p-2 rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] hover:cursor-pointer
-                  dark:bg-[#0d0f15]
+                  <Card className="bg-white  rounded-md border-none flex items-center justify-center  hover:cursor-pointer
+                  dark:bg-[#1C1C1C]
                   " 
-                  onClick={() => {
-                    router.push(`/inserat/${inserat.id}`)
-                  }}>
-                  <CardContent className="aspect-square flex items-center justify-center ">
-                      <div>
-                        <div className="flex items-center mb-4">
-                          <div className="p-2 border-black border rounded-md">
-                          {
-                        {
-                            'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
-                            'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
-                            'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " />,
-                            'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " />,
-                            'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
-                            'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " />,
-                            'TRAILOR': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
-                        }[inserat.category]
-                    }
-                          </div>
-                          <h3 className="font-semibold text-medium ml-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] p-2 ">
-                            {inserat.title}
-                          </h3>
-                        </div>
-                        <div className="h-[200px] w-[300px] flex items-center border border-gray-300 rounded-md">
-                          <img
-                            //@ts-ignore 
-                            src={inserat.images[0].url}
-                            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                          />
-                        </div>
-                        <div className="flex justify-between mt-1 items-center">
-                        <Badge className="bg-emerald-600 border border-black">
-                            Verfügbar
-                          </Badge>
-                          
-                          <div>
-                          {inserat.annual ? (
-                            <p className="text-xs italic mr-2 dark:text-gray-100/80"> Datumsunabhängig </p>
-                          ) : (
-                            <p className="flex font-semibold  italic text-gray-900/70 text-sm mr-2 dark:text-gray-100/80"> 
-                            {formatDate(inserat.begin)} - {formatDate(inserat.end)}</p>
-                          )}
-                          </div>
-                          <div className="flex font-bold text-md">
-                          {inserat.price}  <p className="text-xs mr-1">00</p> €
-                          </div>
-                        </div>
-                      </div>
+                  >
+                  <CardContent className="flex justify-center">
+                  <InseratCard 
+                      currentUser={currentUser}
+                      //@ts-ignore
+                      inserat={inserat}
+                      isFaved={false}
+                      profileId={currentUser.id}
+                      />
                     </CardContent>
                   </Card>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            {inserat.length > 1 && (
+            {inserat.length > 10000 && (
               <>
                 <CarouselPrevious />
                 <CarouselNext />

@@ -226,8 +226,10 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                             </div>
                             <Button onClick={onSubmit} 
                             className="bg-blue-800 dark:bg-[#191919] dark:hover:bg-[#2d2d2d] dark:text-gray-100  w-full mt-2" 
-                            disabled={isDateless}>Daten festlegen </Button>
-                        
+                            disabled={isDateless || 
+                            (currentStart?.toString() === inserat.begin?.toString() && currentEnd?.toString() === inserat.end?.toString()) 
+                            }>Daten festlegen </Button>
+                            
                 </div>
             </div>
                                                         

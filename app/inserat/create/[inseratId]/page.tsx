@@ -13,6 +13,7 @@ import BasicInformation from "./_parts/basic-information";
 import ContactInformation from "./_parts/contact-information";
 import PublishInserat from "../_components/publish-inserat";
 import RentPeriod from "../_components/input-fields/rent-period";
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 const InseratCreation = async ({
@@ -82,7 +83,7 @@ const InseratCreation = async ({
                             <h3 className="text-2xl font-bold flex">
                               <Signpost className="mr-2"/>  Inserat bearbeiten
                             </h3>
-                            <p className="text-sm dark:text-gray-100/70">
+                            <p className="text-xs dark:text-gray-100/70">
                                 Gebe Informationen zu deinem Inserat an - desto genauer du bist, desto eher finden dich potientielle Kunden.
                             </p>
 
@@ -162,7 +163,9 @@ const InseratCreation = async ({
                         </div>
                     </div>
                 </div>
+                
             </div>
+            <Footer/>
         </div>
 
 

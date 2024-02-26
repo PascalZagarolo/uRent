@@ -85,13 +85,15 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
           onValueChange={(selectedValue: Category) => {
             onSubmit(selectedValue);
           }}
-          
+          defaultValue={inserat.category || "PKW"}
           disabled={isLoading}
         >
 
-          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md w-1/3" disabled={isLoading}  >
+          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md w-1/3" 
+          disabled={isLoading} defaultValue={inserat.category || "PKW"} >
             <SelectValue
               placeholder="Wähle die Kategorie aus"
+              defaultValue={inserat.category || "PKW"}
               
             />
           </SelectTrigger>

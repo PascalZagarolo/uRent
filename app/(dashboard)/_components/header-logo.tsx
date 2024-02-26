@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import LogOutButton from "@/components/logout-button";
 import SettingsSheet from './settings-sheet';
 import { ModeToggle } from "@/components/toggle-mode";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
     currentUser: User;
@@ -47,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({
                 </h3>
                     
                 <div className="flex w-full">
-                    <div className="flex items-center justify-center ml-auto">
+                    <div className={cn("flex items-center justify-center ", status === 'authenticated' ? "ml-auto" : "w-full" )}>
                         <div className="2xl:mr-32 items-center sm:mr-8">
 
                         { status === 'authenticated' && currentUser && (

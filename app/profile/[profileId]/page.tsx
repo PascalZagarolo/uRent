@@ -1,14 +1,9 @@
 import { db } from "@/utils/db";
 import ProfileHeader from "./_components/profile-header";
-import ProfileBody from "./_components/profile-body";
 import getCurrentUser from "@/actions/getCurrentUser";
-import ProfileFooter from "./_components/profile-footer";
-import RightSideProfile from "./_components/right-side";
 import { Rezension, User } from "@prisma/client";
-import ReturnHomePage from "./_components/return-homepage";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
-import { Contact2Icon, TruckIcon, UserX2Icon, UsersIcon } from "lucide-react";
-
+import { Contact2Icon, TruckIcon,  UsersIcon } from "lucide-react";
 import OwnContentSlide from "./_components/own-content-slide";
 
 

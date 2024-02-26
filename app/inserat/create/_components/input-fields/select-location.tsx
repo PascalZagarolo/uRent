@@ -51,6 +51,15 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   }, [currentLocation]);
 
+  const getZipCode = async () => {
+    //@ts-ignore
+    const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
+
+    const extractedZipCode = parseInt(addressObject.data[0].display_name.match(/\b\d+\b/)![0], 10)
+
+    setCurrentZipCode(extractedZipCode)
+  }
+
 
   useEffect(() => {
     //@ts-ignore
@@ -95,6 +104,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
             onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
             defaultValue={addressComponent?.locationString}
+            onBlur={getZipCode}
           />
 
         </div>

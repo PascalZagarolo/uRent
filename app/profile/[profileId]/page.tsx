@@ -80,8 +80,8 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                />
                                <div>
                         <div className="mt-8">
-                                <h1 className="text-lg font-semibold flex">
-                                    <TruckIcon className="mr-2"/>Weitere Inhalte
+                                <h1 className="text-lg font-semibold flex items-center">
+                                    <TruckIcon className="mr-2"/>Weitere Inhalte <p className=" ml-2 text-sm">{inserate.length}</p>
                                 </h1>
                             </div>
                             <OwnContentSlide 

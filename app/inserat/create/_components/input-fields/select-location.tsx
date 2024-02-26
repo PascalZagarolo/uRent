@@ -39,7 +39,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   const searchParams = useSearchParams();
   const currentLocation = searchParams.get("location");
 
-  const [currentAddress, setCurrentAddress] = useState("");
+  const [currentAddress, setCurrentAddress] = useState(addressComponent?.locationString || "");
   const [currentZipCode, setCurrentZipCode] = useState<null | number>(addressComponent?.postalCode || null);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
 
   return (
-    <div className=" items-center w-full">
+    <div className="items-center w-full">
        <h3 className="text-md font-semibold items-center flex">
           <MapPin className="h-4 w-4 mr-2"/> Addresse
         </h3>

@@ -92,7 +92,9 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
             console.log(values)
 
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            if(checked) {
+                axios.patch(`/api/inserat/${inserat.id}`, values);
+            }
             toast.success(checked ? "Angebot ist nun datumsunabhängig" : "Angebot ist nun datumsabhängig")
             setTimeout(() => {
                 router.refresh();

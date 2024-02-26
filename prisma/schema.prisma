@@ -73,6 +73,7 @@ model User {
   conversations Conversation[]
   contactOptions ContactOptions[]
   bookings Booking[]
+  bookingRequests BookingRequest[]
   notifications Notification[]
 }
 
@@ -118,6 +119,7 @@ model Inserat {
   images Images[]
   purchased Purchase[]
   bookings Booking[]
+  bookingrequest BookingRequest[]
   favourites Favourite[]
   
   
@@ -346,6 +348,24 @@ model Booking {
   content String? @db.Text
 
   @@unique([inseratId, startDate, endDate])
+}
+
+model BookingRequest {
+  id String @id @default(uuid())
+
+  inseratId String
+  inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  startDate DateTime
+  endDate DateTime
+
+  createdAt DateTime @default(now())
+
+  content String? @db.Text
+
 }
 
 model Notification {

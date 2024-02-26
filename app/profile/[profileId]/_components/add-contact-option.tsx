@@ -85,7 +85,7 @@ const AddContactOption = ({
                 </Button>
 
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="dark:bg-[#151515] border-none">
                 <DialogHeader>
                     <div className="flex">
                         <ContactIcon className="mr-2" /> <p className="text-xl font-semibold"> Kontaktmöglichkeiten verwalten </p>
@@ -102,7 +102,7 @@ const AddContactOption = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2"
+                                            <Input className="mt-2 dark:bg-[#0a0a0a] border-none"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -121,7 +121,7 @@ const AddContactOption = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2"
+                                            <Input className="mt-2 dark:bg-[#0a0a0a]"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -145,7 +145,7 @@ const AddContactOption = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2"
+                                            <Input className="mt-2 dark:bg-[#0a0a0a]"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -216,7 +216,8 @@ const AddContactOption = ({
                         </div>
                         )}
                         
-                            <Button className="mt-4 w-full bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" variant="ghost" disabled={!isValid || isSubmitting}> Speichern </Button>
+                            <Button className="mt-4 w-full bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" 
+                            variant="ghost" disabled={!isValid || isSubmitting} type="submit"> Speichern </Button>
                         
 
 

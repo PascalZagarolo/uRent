@@ -66,9 +66,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 
                 <div className="flex">
 
-                    <div className="flex       
-                       rounded-md ">
-
+                    <div className="flex rounded-md">
                         <div className="">
                         <div className=" dark:text-gray-100     ">
                                 <div className=" text-md flex gap-x-4">

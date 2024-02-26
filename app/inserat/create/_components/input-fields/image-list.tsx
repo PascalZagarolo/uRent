@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils"
 import { Grid, Pencil, Trash2Icon } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 
 interface ImageListProps {
@@ -43,6 +44,8 @@ const ImageList: React.FC<ImageListProps> = ({
 
     })
 
+    const router = useRouter();
+
     const onDragEnd = (result : DropResult) => {
         if(!result.destination) {
             return
@@ -65,6 +68,9 @@ const ImageList: React.FC<ImageListProps> = ({
         }));
 
         onReorder(bulkUpdatedData);
+        setTimeout(() => {
+            router.refresh();
+        }, 250)
     }
 
     
@@ -78,38 +84,35 @@ const ImageList: React.FC<ImageListProps> = ({
     }
 
     return ( 
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd} >
             <Droppable droppableId="image">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                    <div {...provided.droppableProps} ref={provided.innerRef} className="grid grid-cols-2 gap-4 md:grid-cols-1 lg:grid-cols-2 ">
                         {chapters.map((image,index) => (
                             <Draggable key={image.id} draggableId={image.id} index={index}>
                                 {(provided) => (
                                     <div
                                     className={cn(
-                                        `flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-4 text-sm
-                                         dark:bg-[#202020] dark:text-gray-100 dark:border-none `,
+                                        `flex items-center  bg-slate-200 border-slate-200 w-full h-[200px] text-slate-700 rounded-md p-2 text-sm
+                                        dark:bg-[#202020] dark:text-gray-100   `,
                                         
                                     )}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     >
                                         <div
-                                        className={cn("px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 dark:hover:bg-[#282828]   dark: border-none rounded-l-md transition")}
+                                        className={cn(` border-r border-r-slate-200 hover:bg-slate-300 
+                                        dark:hover:bg-[#282828] dark: border-none rounded-l-md `)}
                                         {...provided.dragHandleProps}
                                         >
-                                            <div className="flex">
+                                            <div className="flex ">
                                             <img 
                                             src={image.url}
-                                            className="w-1/4"
+                                            className=" object-cover h-[160px]"
                                             />
-                                            <p className="ml-auto">
-                                                {image.url}
-                                            </p>
+                                            
                                             </div>
-                                            <p>
-                                                {image.position}
-                                            </p>
+                                            
                                         </div>
                                         
                                         

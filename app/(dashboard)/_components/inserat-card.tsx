@@ -211,7 +211,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             <Badge className="bg-emerald-600  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                                 dark:bg-emerald-800 dark:text-gray-100 dark:border-gray-900 dark:hover:bg-emerald-700
                                 ">
-                                <CheckCheckIcon className="w-4 h-4" /> vorhanden
+                                <CheckCheckIcon className="w-4 h-4" /> verfügbar
                             </Badge>
                         </div>
                     </div>
@@ -372,7 +372,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     </>
                                     ) : (
                                         <Button className="flex items-center mr-4  bg-slate-200  rounded-md p-2 px-8 font-semibold
-                                     dark:text-gray-900/80 dark:hover:bg-slate-300" onClick={onEdit}>
+                                     dark:text-gray-900/80 dark:hover:bg-slate-300 text-gray-900" onClick={onEdit}>
                                         <Settings2Icon className="w-4 h-4 mr-2" />
                                        Inserat bearbeiten
                                     </Button>

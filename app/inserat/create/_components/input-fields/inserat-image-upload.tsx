@@ -53,11 +53,11 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             await axios.put(`/api/inserat/${params.inseratId}/image/reorder`, {
                 list : updateData
             } )
-            toast.success("Reorder erfolgreich");
+            
             setTimeout(() => {
                 router.refresh();
             
-            }, 1000)
+            }, 500)
         } catch {
             toast.error("Fehler beim Reorder")
         } finally {
@@ -67,7 +67,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
 
     return (
         <div className="">
-            <h3 className="flex justify-center font-semibold text-xl items-center">
+            <h3 className="flex justify-center font-semibold text-md items-center">
                 <ImageIcon className="mr-2 " />
                 Fotos und Anhänge
                 <CldUploadButton
@@ -83,7 +83,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                     />
                 </div>
             </h3>
-            <p className="flex text-sm justify-start text-gray-900/50 font-semibold dark:text-gray-100"> Halte um die Reihenfolge der Fotos zu ändern </p>
+            <p className="flex text-sm justify-start text-gray-900/50  dark:text-gray-100"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
 
                 images.length > 0 ? (

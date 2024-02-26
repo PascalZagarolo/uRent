@@ -1,5 +1,6 @@
 'use client'
 
+import { onKeyPressForm } from "@/actions/form-actions";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -10,7 +11,7 @@ import axios from "axios";
 import { AlignCenter, PenIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -61,47 +62,64 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
         }
     }
 
+    function handleKeyPress(event) {
+        if ((event.key === 'Escape' || event.button === 0) && isEditing) {
+            setIsEditing(false); 
+
+            form.handleSubmit(onSubmit);
+        }
+      }
+
+    
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    
+    useEffect(() => {
+        if (isEditing && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isEditing]);
+    
+
 
     return ( 
-        <div className="mr-32 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]   rounded-md">
-            <h1 className="text-xl flex justify-start  font-semibold mt-8  text-gray-900  dark:text-gray-100">
-                <AlignCenter className="mr-4 "/>Titel deiner Anzeige <PenIcon className="w-4 h-4 ml-4 mt-1" onClick={onClick}/>
+        <div className=" drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]   rounded-md">
+            <h1 className="text-md flex justify-start  font-semibold   text-gray-900  dark:text-gray-100 items-center">
+                <AlignCenter className="mr-2  h-4 w-4"/>Titel deiner Anzeige 
             </h1>
             <div>
                 
             </div>
-            <div className="  mt-4 p-4 bg-white dark:bg-[#0F0F0F] rounded-md border border-gray-200">
+            <div className="  mt-2 p-4 bg-white dark:bg-[#0F0F0F]  ">
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
-                    <form className="flex" onSubmit={form.handleSubmit(onSubmit)}>
+                    <form className="flex w-full" onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
                         control={form.control}
                         name="title"
                         render = {({field}) => (
-                            <FormItem>
-                                <FormControl>
+                            <FormItem className="w-full">
+                                <FormControl className="w-full">
                                     <Input
                                     {...field}
-                                    className=" w-80 dark:bg-[#0F0F0F] dark:border-gray-100"
-                                    
+                                    ref={inputRef}
+                                    className="  dark:bg-[#0F0F0F] dark:border-gray-100 focus:border-none focus:ring-0 focus-visible:ring-0 w-full rounded-none"
+                                    onKeyDown={(e) => {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
+                                    onBlur={(e) => {setIsEditing(false)}}
                                     />
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
                         )}
                         />
-                        <div>
-                            <Button variant="ghost" className="ml-4 bg-gray-200 dark:bg-[#000000] dark:hover:bg-[#191919]" type="submit">
-                                Titel speichern
-                            </Button>
-                        </div>
+                        
                     </form>
                 </Form>
                     </div>  
                 ): (
-                    <div className="">
-                        <p className="font-semibold text-gray-900/70 dark:text-gray-100   mr-8"> {inserat.title} </p>
+                    <div className="hover:cursor-pointer" onClick={() => {setIsEditing(true)}}>
+                        <p className=" text-gray-900/70 dark:text-gray-100   mr-8"> {inserat.title} </p>
                     </div>
                 )}
             </div>

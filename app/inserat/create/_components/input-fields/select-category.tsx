@@ -75,28 +75,28 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
 // 
 
   return (
-    <div className=" mt-4 flex items-center">
+    <div className="  flex  w-full">
 
 
 
-      <div>
+      <div className="w-full">
         <Label>Fahrzeugklasse</Label>
         <Select
           onValueChange={(selectedValue: Category) => {
             onSubmit(selectedValue);
           }}
-          defaultValue={inserat.category || "PKW"}
+          
           disabled={isLoading}
         >
 
-          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none" disabled={isLoading}  >
+          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md w-1/3" disabled={isLoading}  >
             <SelectValue
-              placeholder="Wähle die Art deines Fahrzeuges aus"
+              placeholder="Wähle die Kategorie aus"
               
             />
           </SelectTrigger>
 
-          <SelectContent className="dark:bg-[#000000] border-white dark:border-none">
+          <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
             <SelectItem value="PKW">PKW</SelectItem>
             <SelectItem value="TRANSPORT">Transporter</SelectItem>
             <SelectItem value="LKW">LKW</SelectItem>

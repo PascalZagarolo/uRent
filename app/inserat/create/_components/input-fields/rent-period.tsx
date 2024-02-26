@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -111,33 +112,34 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
 
     return (
-        <div>
-            <div className="w-full flex-col justify-center dark:bg-[#0b0b0b] dark:border-gray-100 dark:border-none  bg-white p-8 max-w-max rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-            <h3 className="font-bold text-xl flex justify-center">
+        <div className="w-full">
+            <div className="  justify-center dark:bg-[#0b0b0b] dark:border-gray-100 dark:border-none 
+             bg-white p-8  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h3 className="w-full font-bold text-xl flex justify-center">
                 <CalendarClockIcon className="mr-2"/>
                 Mietdauer
                 
             </h3>
             
-            <div className="">
-                <div className="">
+            <div className="w-full">
+                <div className="w-full">
                    
                       
-                            <h1 className="font-semibold text-base mb-2">
+                            <h1 className=" text-base mb-2">
                                 Von :
                             </h1>
-                            <div className="block">
+                            <div className="w-full">
                                 
                             
                                             
                                             <Popover>
                                             
-                                                <PopoverTrigger asChild>
+                                                <PopoverTrigger asChild className="w-full">
                                                     
                                                         <Button
                                                             variant={"outline"}
                                                             className={cn(
-                                                                "w-[240px] pl-3 text-left font-normal dark:bg-[#242424] dark:hover:bg-[#2d2d2d] dark:border-none",
+                                                                "min-w-full pl-3 text-left font-normal dark:bg-[#242424] dark:hover:bg-[#2d2d2d] dark:border-none",
                                                                 !currentStart && "text-muted-foreground"
                                                             )}
                                                             disabled={isDateless}
@@ -167,11 +169,11 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                     />
                                                 </PopoverContent>
                                             </Popover>
-                                            <div>
+                                            <div className="text-xs dark:text-gray-100/70">
                                                 Das Startdatum ist inkludiert.
                                             </div>
                                             
-                                <h1 className="font-semibold text-base mt-4 mb-2">
+                                <h1 className=" text-base mt-4 mb-2">
                                     Bis :
                                 </h1>
                                 
@@ -184,7 +186,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                             variant={"outline"}
                                                             disabled={isDateless}
                                                             className={cn(
-                                                                "w-[240px] pl-3 text-left font-normal dark:bg-[#242424] dark:border-none dark:hover:bg-[#2d2d2d]",
+                                                                "w-full pl-3 text-left font-normal dark:bg-[#242424] dark:border-none dark:hover:bg-[#2d2d2d]",
                                                                 !currentEnd && "text-muted-foreground"
                                                             )}
                                                         >
@@ -212,7 +214,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                     />
                                                 </PopoverContent>
                                             </Popover>
-                                            <div>
+                                            <div className="text-xs dark:text-gray-100/70">
                                                 Das Enddatum ist inkludiert.
                                             </div>
                                             
@@ -229,15 +231,15 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         
                                            
         </div>
-        <div className="bg-white dark:bg-[#0b0b0b] p-4 w-full mt-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
+        <div className="bg-white dark:bg-[#0b0b0b] p-4 w-full mt-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
                 <div className="flex">
-                    <Switch
+                    <Checkbox
                     className="dark:bg-[#0F0F0F]"
                     defaultChecked={isDateless}
                     
                     onCheckedChange={(checked) => {
                         console.log(checked)
-                        onAnnual(checked);
+                        onAnnual(Boolean(checked));
                         
                     }}
                 

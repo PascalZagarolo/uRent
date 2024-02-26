@@ -89,12 +89,12 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
 
     return ( 
         <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
-            <h1 className="text-xl flex justify-start  font-semibold    text-gray-900  dark:text-gray-100" 
+            <h1 className="text-md flex justify-start  font-semibold    text-gray-900  dark:text-gray-100 items-center" 
             >
-               <AppWindow className="mr-4"/> Beschreibung <PenIcon className={cn("w-3 h-3 ml-4 mt-1", isEditing ? "block" : "hidden")}/>
+               <AppWindow className="mr-2 h-4 w-4"/> Beschreibung 
             </h1>
             
-            <div className=" mt-2 bg-white dark:bg-[#0F0F0F] border border-gray-300 p-4  rounded-md h-[120px]" >
+            <div className=" mt-2 bg-white dark:bg-[#0F0F0F]  p-4 rounded-md  h-[120px]" >
                 {isEditing ? (
                     <div className="flex w-full"> 
                         <Form {...form}>

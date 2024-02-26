@@ -18,7 +18,7 @@ const AutoComplete = () => {
 
  const searchParams = useSearchParams();
  const [value, setValue] = useState(searchParams.get("location") || "");
- const debouncedValue = useDebounce(value);
+
  
  const router = useRouter();
  const pathname = usePathname();
@@ -43,7 +43,7 @@ useEffect(() => {
           url: pathname,
           query : {
             // @ts-ignore
-            location : inputRef?.current?.value
+            location : inputRef?.current?.value 
           }
         },  {skipEmptyString: true, skipNull: true})
         router.push(url)

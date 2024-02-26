@@ -27,7 +27,7 @@ const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
             <Dialog>
                 <DialogTrigger>
                 
-                        <Trash2Icon className="mr-8"/>
+                        <Trash2Icon className="h-4 w-4 text-rose-600"/>
                    
                 </DialogTrigger>
                 <DialogContent className="dark:bg-[#0F0F0F] border-none">

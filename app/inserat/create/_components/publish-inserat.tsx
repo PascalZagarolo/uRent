@@ -102,13 +102,13 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     
 
     return ( 
-        <div className="mr-4">
+        <div className="w-full mt-auto">
             {!inserat.isPublished   ? (
-            <Button variant="ghost" size="sm" className="dark:bg-sky-600"disabled={!canPublish} onClick={onPublish}>
+            <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full"disabled={!canPublish} onClick={onPublish}>
                 Anzeige veröffentlichen
             </Button>
         ) : (
-            <Button variant="ghost" size="sm" className="dark:bg-sky-600" onClick={onPrivate}>
+            <Button variant="ghost" size="sm" className="dark:bg-sky-600 hover:dark:bg-sky-700 w-full" onClick={onPrivate}>
                 Anzeige privat schalten
             </Button>
         )}

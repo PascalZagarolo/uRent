@@ -41,7 +41,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     const notifications = await db.notification.findMany({
         where: {
-            userId: currentUser.id
+            userId: currentUser?.id
         }
     })
 

@@ -87,7 +87,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                         <UploadProfilePic />
                                     )}
                                     <div className="text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] mt-2 flex dark:text-gray-300">
-                                        <UserCircle2 className="mr-1" /> Mitglied seit : {convertDateTimeToString(currentUser.createdAt)}
+                                        <UserCircle2 className="mr-1" /> Mitglied seit : {convertDateTimeToString(user?.createdAt)}
                                     </div>
                                 </div>
                             </div>

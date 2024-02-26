@@ -73,7 +73,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                       //@ts-ignore
                       inserat={inserat}
                       isFaved={false}
-                      profileId={currentUser.id}
+                      profileId={currentUser?.id}
                       />
                     </CardContent>
                   </Card>

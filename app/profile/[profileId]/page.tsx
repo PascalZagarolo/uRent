@@ -8,7 +8,7 @@ import { Rezension, User } from "@prisma/client";
 import ReturnHomePage from "./_components/return-homepage";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import { Contact2Icon, TruckIcon, UserX2Icon, UsersIcon } from "lucide-react";
-import OwnContent from "./_components/own-content";
+
 import OwnContentSlide from "./_components/own-content-slide";
 
 

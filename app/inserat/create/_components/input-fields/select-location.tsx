@@ -55,9 +55,11 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     //@ts-ignore
     const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
 
-    const extractedZipCode = parseInt(addressObject.data[0].display_name.match(/\b\d+\b/)![0], 10)
+    const extractedZipCode = parseInt(addressObject.data[0].display_name.match(/\b\d{5}\b/))
 
-    setCurrentZipCode(extractedZipCode)
+    if(extractedZipCode) {
+      setCurrentZipCode(extractedZipCode)
+    }
   }
 
 

@@ -6,6 +6,11 @@ import ProfileFooter from "./_components/profile-footer";
 import RightSideProfile from "./_components/right-side";
 import { Rezension, User } from "@prisma/client";
 import ReturnHomePage from "./_components/return-homepage";
+import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
+import { Contact2Icon, TruckIcon, UserX2Icon, UsersIcon } from "lucide-react";
+import OwnContent from "./_components/own-content";
+import OwnContentSlide from "./_components/own-content-slide";
+
 
 type RezensionWithSender = Rezension & {
     sender: User;
@@ -28,10 +33,17 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             userId: params.profileId,
             isPublished: true
         }, include: {
-            images: true
+            images: true,
+            user: true,
+
         }
     })
 
+    const notifications = await db.notification.findMany({
+        where: {
+            userId: currentUser.id
+        }
+    })
 
     const rezensionen: RezensionWithSender[] = await db.rezension.findMany({
         where: {
@@ -45,39 +57,49 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
 
     return (
-        <div className="min-h-screen bg-[#404040]/10 dark:bg-[#0F0F0F]">
-            <div className="w-full p-4">
-                <div className="flex p-8 rounded-md border-2 border-gray-300 dark:border-[#10121a] bg-[#10121a] text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-full ">
-                    <h3 className="text-4xl font-semibold flex justify-start items-center">
-                        <div className="mr-4">
-                            <ReturnHomePage />
+        <div className="dark:bg-[#141414]">
+            <div className="relative top-0 w-full z-50">
+                <HeaderLogo
+                    currentUser={currentUser}
+                    notifications={notifications} />
+            </div>
+            <div className="flex justify-center p-8 bg-[#404040]/10 h-full">
+                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+                    <div className="min-h-screen">
+                        <div className="p-4">
+                            <div>
+                                <h3 className="text-2xl flex font-bold">
+                                    <UsersIcon className="mr-2" />  Profilübersicht
+                                </h3>
+                            </div>
+                            
+                            <div className="mt-8">
+                                <h1 className="text-lg font-semibold flex">
+                                    <Contact2Icon className="mr-2"/>Profildetails
+                                </h1>
+                            </div>
+                            <ProfileHeader
+                               user={user}
+                               currentUser={currentUser}    
+                               
+                               />
+                               <div>
+                        <div className="mt-8">
+                                <h1 className="text-lg font-semibold flex">
+                                    <TruckIcon className="mr-2"/>Weitere Inhalte
+                                </h1>
+                            </div>
+                            <OwnContentSlide 
+                                inserat={inserate}
+                                currentUser = {currentUser}
+                                />
+                            </div>
                         </div>
-                        <p className="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  text-[#475aa7] text-5xl">P</p> rofilübersicht
-                    </h3>
-
+                        
+                        
+                    </div>
                 </div>
             </div>
-            <div className="2xl:flex  p-4">
-                
-                    <div className="2xl:w-1/2">
-                        <ProfileHeader
-                            currentUser={user}
-                            user={user}
-                            ownProfile={ownProfile}
-                        />
-                    </div>
-
-                    <div className="2xl:w-1/2 ml-8 mr-8">
-                        <RightSideProfile
-                            inserate={inserate}
-                            rezensionen={rezensionen}
-                        />
-                    </div>
-                
-            </div>
-
-
-
         </div>
     );
 }

@@ -19,7 +19,7 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
     return ( 
         <div>
             <div>
-               <TitleInserat 
+            <TitleInserat 
                inserat={inserat}
                /> 
             </div>

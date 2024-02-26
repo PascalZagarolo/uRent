@@ -33,7 +33,7 @@ const NotVerifiedYet: React.FC<NotVerifiedYetProps> = ({
     return (
         <>
         {isOwnProfile && (
-            <Alert className="mt-2 mr-16 bg-yellow-100 dark:bg-[#0F0F0F] dark:border-gray-200">
+            <Alert className="mt-2 mr-16 bg-yellow-100 dark:text-gray-900 border-none">
             <AlertTitle className="flex">
                 <AlertCircleIcon /> <p className="ml-2"> Dein Account wurde noch nicht bestätigt</p>
             </AlertTitle>

@@ -39,7 +39,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 }) => {
 
-    const isOwn = currentUser.id === inserat.userId;
+    const isOwn = currentUser?.id === inserat.userId;
 
     const formatDate = (inputDate: Date): string => {
         const day = inputDate?.getDate().toString().padStart(2, '0');
@@ -56,9 +56,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
         `Nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug.
          Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.\n\n` +
         "Mit freundlichen Grüßen,\n" +
-        (currentUser.name ? currentUser.name + " " : "[Dein Name] ") +
+        (currentUser?.name ? currentUser?.name + " " : "[Dein Name] ") +
         "Meine Kontaktdaten : \n\n" +
-        "E-Mail : " + (currentUser.email ? currentUser.email : "[Deine E-Mail Addresse]") + "\n"
+        "E-Mail : " + (currentUser?.email ? currentUser?.email : "[Deine E-Mail Addresse]") + "\n"
 
     );
 

@@ -27,18 +27,18 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
                 )}
 
                 {contacts?.emailAddress && (
-                    <div className="bg-gray-300 p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><MailCheckIcon className="p-1 rounded-md border-black border"/>
+                    <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><MailCheckIcon className="p-1 rounded-md border-black border"/>
                     {contacts.emailAddress}
                     </div>
                 )}
                 {contacts?.websiteAddress && (
-                    <div className="bg-gray-300 p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><Globe2Icon className="p-1 rounded-md border-black border"/>
+                    <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><Globe2Icon className="p-1 rounded-md border-black border"/>
                     <a href=".." className="hover:underline"> {contacts.websiteAddress} </a>
                     </div>
                 )}
               
                 {contacts?.phoneNumber && (
-                    <div className="bg-gray-300 p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><PhoneCall className="p-1 rounded-md border-black border"/>
+                    <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><PhoneCall className="p-1 rounded-md border-black border"/>
                     {contacts.phoneNumber}
                     </div>
                 )}

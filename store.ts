@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import EditName from './app/profile/[profileId]/_components/edit-name-component';
+
 import { User } from "@prisma/client";
 
 

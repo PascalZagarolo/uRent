@@ -27,7 +27,7 @@ export async function PATCH(
             }
         })
 
-        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=${process.env.GEOCODING_API}`);
+        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=$65db7269a0101559750093uena07e08`);
 
         console.log("test")
        

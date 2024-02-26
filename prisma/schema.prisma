@@ -99,14 +99,17 @@ model Inserat {
   alreadyOwned Boolean @default(false)
   isAvailable Boolean @default(true)
 
+  emailAddress String?
+  phoneNumber String?
+
   begin DateTime?
   end DateTime?
 
   annual Boolean @default(false)
 
   category Category?
-
   address Address?
+  pkwAttribute PkwAttribute?
 
   views Int @default(0)
 
@@ -115,15 +118,15 @@ model Inserat {
   images Images[]
   purchased Purchase[]
   bookings Booking[]
-
-  location String?
+  favourites Favourite[]
+  
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  favourites Favourite[]
+  
 
-  pkwAttribute PkwAttribute?
+  
 
 
   userId String

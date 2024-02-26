@@ -1,5 +1,5 @@
 import { Car, Milestone, Signal } from "lucide-react";
-import OwnContent from "./own-content";
+
 
 import { Inserat, Images, Rezension, User } from "@prisma/client";
 
@@ -34,11 +34,7 @@ const RightSideProfile: React.FC<RightSideProfileProps> = async ({
             dark:bg-[#10121a] dark:border dark:border-[#10121a] ">
                 <Milestone className="mr-2" /> Meine Inhalte
             </h3>
-            <div className="flex justify-center mt-8">
-                <OwnContent
-                    inserate={inserate}
-                />
-            </div>
+            
             <h3 className="flex justify-center font-semibold text-2xl items-center mt-8">
                 <Separator className="w-1/3 bg-gray-500 mr-8 h-[0.5px] dark:bg-gray-100" /> Rezensionen
                  <Separator className="w-1/3 bg-gray-500 ml-8 dark:bg-gray-100 h-[0.5px]" />

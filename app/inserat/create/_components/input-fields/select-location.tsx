@@ -4,9 +4,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { MapIcon, MapPin, PinIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
-import qs from 'query-string';
 import { Input } from "@/components/ui/input";
-import { set } from "lodash";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Label } from "@/components/ui/label";
@@ -51,17 +49,20 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   }, [currentLocation]);
 
+
+  //automatically converts the inputAddress to a zip code with the help of geocode maps api, and sets the currentZipCode state
   const getZipCode = async () => {
     //@ts-ignore
     const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
-
-    const extractedZipCode = parseInt(addressObject.data[0].display_name.match(/\b\d{5}\b/))
+    console.log(addressObject.data[0]?.display_name.match)
+    const extractedZipCode = parseInt(addressObject.data[0]?.display_name.match(/\b0*\d{5}\b/));
 
     if(extractedZipCode) {
       setCurrentZipCode(extractedZipCode)
+    } else {
+      setCurrentZipCode(null);
     }
   }
-
 
   useEffect(() => {
     //@ts-ignore
@@ -69,15 +70,12 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   const onSubmit = () => {
     try {
-
       const values = {
         //@ts-ignore
         locationString: inputRef?.current?.value || null,
         postalCode: currentZipCode
       }
-
       console.log(values);
-
       axios.patch(`/api/inserat/${inserat.id}/address`, values);
       setTimeout(() => {
         toast.success("Standort erfolgreich hinzugefügt");
@@ -87,8 +85,6 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       toast.error("Etwas ist schief gelaufen");
     }
   }
-
-
 
   return (
     <div className="items-center w-full">

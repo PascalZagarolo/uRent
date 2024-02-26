@@ -43,6 +43,12 @@ const InseratCreation = async ({
         }
     })
 
+    const addressComponent = await db.address.findUnique({
+        where :{
+            inseratId : inserat.id
+        }
+    })
+
     const isPublishable = {
         title : inserat.title.length > 0,
         description : inserat.description?.length > 0 || false,
@@ -50,7 +56,7 @@ const InseratCreation = async ({
         images : inserat.images.length > 0,
         date : (inserat.end && inserat.begin) !== null || inserat.annual,
         postalCode : inserat.address?.postalCode !== null,
-        location : inserat.address.locationString !== null,
+        location : inserat.address?.locationString !== null,
     };
 
     let canPublish = true;
@@ -140,6 +146,7 @@ const InseratCreation = async ({
                                      <div>
                                         <ContactInformation
                                         inserat={inserat}
+                                        addressComponent={addressComponent}
                                         />
                                      </div>
                                 </div>

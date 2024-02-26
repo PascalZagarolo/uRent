@@ -66,7 +66,7 @@ const Inserat: React.FC<InseratProps> = ({
                     <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:block">Neue Anzeige</p>
                         
                     </DialogTrigger>
-                <DialogContent className="dark:bg-[#0F0F0F]">
+                <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
                     <DialogHeader>
                         <DialogTitle className="text-xl  text-gray-900 mr-8 ml-2 p-2 rounded-md border-gray-400 border-2 dark:border-none dark:text-gray-100">
                             Neue Anzeige erstellen
@@ -92,7 +92,7 @@ const Inserat: React.FC<InseratProps> = ({
                                                 <Input
                                                     {...field}
                                                     placeholder="Titel der Anzeige..."
-                                                    className="dark:bg-[#0a0a0a] dark:border-gray-100"
+                                                    className="dark:bg-[#0a0a0a] dark:border-gray-100 focus-visible:ring-0"
                                                 />
                                             </FormControl>
                                             <FormMessage />

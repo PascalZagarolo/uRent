@@ -72,7 +72,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                         <div className="">
                         <div className=" text-gray-100     drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                                 <div className=" text-md flex gap-x-4">
-                                   Name: <p className="font-semibold"> {currentUser.name.charAt(0).toUpperCase() || ""}{currentUser.name.slice(1)}</p>
+                                   Name: <p className="font-semibold"> {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}</p>
                                 </div>
                                 <div className=" text-md flex gap-x-4">
                                    Email-Addresse: <div className="font-semibold flex"> {user.email} {user.emailVerified && <CheckmarkIcon className="ml-1 h-2 w-2"/> }</div>
@@ -80,7 +80,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                             </div>
                             <div className="flex mt-4">
                             <Avatar
-                                    imageUrl={currentUser.image}
+                                    imageUrl={user.image}
                                 />
                                 <div className="items-center ml-8">
                                     {ownProfile && (

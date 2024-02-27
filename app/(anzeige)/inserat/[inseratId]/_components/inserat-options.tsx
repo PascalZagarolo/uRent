@@ -142,7 +142,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
 
-                        <Button className="bg-emerald-600 border-2 border-black sm:w-[240px] w-full">
+                        <Button className="bg-emerald-700 border-2 border-black sm:w-[240px] w-full text-gray-200">
                             <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
                         </Button>
 
@@ -191,13 +191,13 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             {!ownSite ? (
                 <>
                     <div className="mt-4">
-                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full" onClick={onStar}>
+                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full text-gray-200" onClick={onStar}>
                             <Star className="h-4 w-4 mr-2" />Anzeige vormerken
                         </Button>
                     </div>
 
                     <div className="mt-4">
-                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black flex w-full" onClick={onConversation}>
+                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black flex w-full text-gray-200" onClick={onConversation}>
                             <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
                         </Button>
                     </div>

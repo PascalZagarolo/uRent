@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Inserat, User } from "@prisma/client";
 import axios from "axios";
+import { format } from "date-fns";
 import { AlignCenter, CarIcon, User2 } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -34,8 +35,8 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const router = useRouter();
 
     return (
-        <div className="px-4 py-4 bg-gradient-to-b from-[#586392] via-[#5a6288] to-[#565e82] w-[400px] border
-         border-black rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+        <div className="px-4 py-4 bg-gradient-to-b from-[#586392] via-[#5a6288] to-[#565e82] w-[400px] 
+          rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
          dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
          ">
             <div className="flex items-center  text-gray-100">
@@ -63,15 +64,15 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
             <div>
                 <div>
-                    <p className="text-sm text-white/50 mt-1 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100/90">
-                        Aktiv seit : {user.createdAt.toISOString().slice(0, 10)}
+                    <p className="text-sm  mt-1 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100/90">
+                        Aktiv seit : {format(new Date(user.createdAt), "dd.MM.yyyy")}
                     </p>
                 </div>
             </div>
             <div className="flex gap-x-1 mt-4">
 
                 <div>
-                    <p className="font-bold mr-2 text-[#1d1f2c] dark:text-gray-100">
+                    <p className=" mr-2 text-[#1d1f2c] dark:text-gray-100">
                         Zufriedenheit :
                     </p>
                 </div>
@@ -82,7 +83,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
 
             </div>
-            <div className="mt-2 flex text-[#1d1f2c] font-bold dark:text-gray-100">
+            <div className="mt-2 flex text-[#1d1f2c]  dark:text-gray-100">
                 offene Anzeigen <p className="ml-2">({inseratArray.length})</p>
             </div>
 

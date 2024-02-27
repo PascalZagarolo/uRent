@@ -21,7 +21,7 @@ const InseratDescription: React.FC<InseratDescriptionProps> = ({
             </div>
             {inserat.description.length > 60 && (
                 <div className="w-full mt-2">
-                <Button className="w-full border-2 border-gray-300" onClick={() => {isUnfolded ? setIsUnfolded(false) : setIsUnfolded(true)}}>
+                <Button className="w-full bg-[#1D1F2B] hover:bg-[#242635] text-gray-100" onClick={() => {isUnfolded ? setIsUnfolded(false) : setIsUnfolded(true)}}>
                     {isUnfolded ? "Weniger" : "Mehr"} anzeigen
                 </Button>
             </div>

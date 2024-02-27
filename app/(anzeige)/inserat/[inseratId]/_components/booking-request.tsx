@@ -107,7 +107,7 @@ const Bookings = () => {
   return (
     <Dialog>
       <DialogTrigger className="sm:w-[240px] w-full">
-        <Button className="w-full bg-blue-900  text-gray-100  hover:bg-gray-200">
+        <Button className="w-full bg-blue-900 hover:bg-blue-800 text-gray-100  ">
           <CalendarSearchIcon className="mr-2 h-4 w-4" /> Buchung vorschlagen
         </Button>
       </DialogTrigger>

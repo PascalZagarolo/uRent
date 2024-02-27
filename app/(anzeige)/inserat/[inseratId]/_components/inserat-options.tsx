@@ -143,7 +143,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
 
-                        <Button className="bg-emerald-700 border-2 border-black sm:w-[240px] w-full text-gray-200">
+                        <Button className="bg-emerald-700  sm:w-[240px] w-full text-gray-200">
                             <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
                         </Button>
 

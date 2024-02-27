@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
+
 import { Inserat, User } from "@prisma/client";
+import axios from "axios";
 import { MailCheckIcon, MailOpen, PinIcon } from "lucide-react";
 import React from "react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface SelectEmailProps {
     inserat : Inserat & { user : User}
@@ -19,14 +22,28 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
     inserat
 }) => {
 
-    const [currentAddress, setCurrentAddress] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [currentAddress, setCurrentAddress] = useState(inserat.emailAddress || "");
     const [value, setValue] = useState("");
 
     const [isPrefill, setIsPrefill] = useState(false);
 
     const onSubmit = () => {
-        console.log()
-    }
+        try {
+          setIsLoading(true)
+          const values = {
+            emailAddress : currentAddress
+          }
+
+          axios.patch(`/api/inserat/${inserat.id}`, values);
+
+
+        } catch {
+          toast.error("Fehler beim Versenden der E-Mail")
+        } finally {
+          setIsLoading(false);
+        }
+    } 
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -78,9 +95,9 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
 
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
-        disabled={!currentAddress}
+        disabled={!currentAddress || currentAddress === inserat.emailAddress}
       >
-        <span className="">Email-Bestätigen</span>
+        <span className="">Email-Bestätigen</span> 
       </Button>
 
     </div>

@@ -1,6 +1,6 @@
 import { db } from "@/utils/db";
 import InseratImageCarousel from "./_components/inserat-image";
-import { AlignLeft, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, MailIcon, MailMinus, MapPin, Phone, TractorIcon, TramFront, Truck } from "lucide-react";
+import { AlignLeft, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck } from "lucide-react";
 import Active from "./_components/active-badge";
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
@@ -142,9 +142,12 @@ const InseratAnzeige = async ({
                             <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-4 text-gray-900  border-gray-800 
                              drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#13151c]  dark:text-gray-100 mt-2">
                                 <div className="flex mr-auto items-center ">
-                                    <div className="flex font-bold  text-sm items-center truncate w-full"> <MapPin className="text-rose-600 mr-2 h-4 w-4" />
+                                    <div className="flex font-bold  text-sm items-center truncate sm:w-full "> 
+                                    <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
+                                        <p className="w-[200px] sm:w-full">
                                         {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"},
                                         {inserat.address?.postalCode && ` ${inserat.address?.postalCode}`} DE
+                                        </p> 
                                     </div>
                                 </div>
                                 <div className="justify-end flex mt-2 text-xl font-semibold">
@@ -163,8 +166,8 @@ const InseratAnzeige = async ({
                         <div className="mt-2">
                             <div className=" ">
 
-                                <div className="w-full flex mt-2">
-                                    <div className="w-1/2 items-center">
+                                <div className="w-full sm:flex mt-2">
+                                    <div className="sm:w-1/2 items-center">
                                         <div className="flex items-center">
                                            
                                                 
@@ -173,7 +176,7 @@ const InseratAnzeige = async ({
                                            
                                         </div>
                                     </div>
-                                    <div className="w-1/2 items-center">
+                                    <div className="sm:w-1/2 items-center">
                                         <div className="flex items-center">
                                             {inserat?.phoneNumber && (
                                                 <>    <Phone className="w-4 h-4 mr-2" />  <p className="ml-4 font-semibold text-sm"> {inserat?.phoneNumber}</p> </>

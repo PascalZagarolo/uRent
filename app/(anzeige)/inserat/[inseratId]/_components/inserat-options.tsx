@@ -10,7 +10,7 @@ import { EmailShareButton, FacebookMessengerIcon, FacebookMessengerShareButton, 
 
 import axios from "axios";
 import { set } from "date-fns";
-import { ArrowRight, Banknote, Check, CopyIcon, Facebook, FacebookIcon, Forward, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp, TwitterIcon } from "lucide-react";
+import { ArrowRight, Banknote, CalendarSearchIcon, Check, CopyIcon, Facebook, FacebookIcon, Forward, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp, TwitterIcon } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -19,6 +19,7 @@ import { Toast } from "@/components/ui/toast";
 import Bookings from "./bookings";
 import ManageBookings from "./manage-bookings";
 import { Pencil2Icon } from "@radix-ui/react-icons";
+import BookingRequest from "./booking-request";
 
 
 interface InseratOptionsProps {
@@ -147,7 +148,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                         </Button>
 
                     </DialogTrigger>
-                    <DialogContent className="dark:bg-[#0F0F0F]">
+                    <DialogContent className="dark:bg-[#0F0F0F] border-none">
                         <DialogHeader>
                             <div className="text-lg font-bold flex">
                                 <Lightbulb className="mr-2" />  Händler sofort kontaktieren
@@ -190,14 +191,20 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
             {!ownSite ? (
                 <>
+
                     <div className="mt-4">
-                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black w-full text-gray-200" onClick={onStar}>
+                        <BookingRequest/>
+                    </div>
+                    <div className="mt-4">
+                        <Button className="bg-[#171923] sm:w-[240px] border border-black  w-full text-gray-200" onClick={onStar}>
                             <Star className="h-4 w-4 mr-2" />Anzeige vormerken
                         </Button>
                     </div>
 
+
+
                     <div className="mt-4">
-                        <Button className="bg-[#464c69] sm:w-[240px] border-2 border-black flex w-full text-gray-200" onClick={onConversation}>
+                        <Button className="bg-[#171923] sm:w-[240px] border border-black flex w-full text-gray-200" onClick={onConversation}>
                             <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
                         </Button>
                     </div>
@@ -213,8 +220,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             {ownSite && (
                 <Button className="bg-[#1f2230] sm:w-[240px] border-2 border-black flex w-full mt-4
                     dark:text-gray-100 dark:bg-[#1f2230] dark:hover:bg-[#161921] dark:border dark:border-gray-100"
-                    onClick={() => {router.push(`/inserat/create/${params.inseratId}`)}}
-                    >
+                    onClick={() => { router.push(`/inserat/create/${params.inseratId}`) }}
+                >
                     <Pencil2Icon className="h-4 w-4 mr-2" />  Anzeige bearbeiten
                 </Button>
             )}
@@ -222,8 +229,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             <div className="mt-4">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="bg-[#1f2230] sm:w-[240px] border-2 border-black flex w-full
-                        dark:text-gray-100 dark:bg-[#0d0f14] dark:hover:bg-[#161921] dark:border dark:border-gray-100
+                        <Button className="bg-[#1f2230] sm:w-[240px] border border-black flex w-full
+                        dark:text-gray-100 dark:bg-[#0d0f14] dark:hover:bg-[#161921] dark:border dark:border-gray-400
                         ">
                             <Share className="h-4 w-4 mr-2" />  Anzeige teilen
                         </Button>

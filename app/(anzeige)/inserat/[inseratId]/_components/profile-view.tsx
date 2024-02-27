@@ -35,7 +35,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const router = useRouter();
 
     return (
-        <div className="px-4 py-4 bg-gradient-to-b from-[#586392] via-[#5a6288] to-[#565e82] w-[400px] 
+        <div className="px-4 py-4 bg-[#171923] sm:w-[400px] w-full mr-2 ml-2
           rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
          dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
          ">

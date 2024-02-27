@@ -143,9 +143,11 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
 
-                        <Button className="bg-emerald-700  sm:w-[240px] w-full text-gray-200">
-                            <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
-                        </Button>
+                       {ownUser && (
+                         <Button className="bg-emerald-700  sm:w-[240px] w-full text-gray-200">
+                         <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
+                     </Button>
+                       )}
 
                     </DialogTrigger>
                     <DialogContent className="dark:bg-[#0F0F0F] border-none">
@@ -193,18 +195,20 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                 <>
 
                     <div className="mt-4">
-                        <BookingRequest/>
+                        {ownUser && (
+                            <BookingRequest/>
+                        )}
                     </div>
                     <div className="mt-4">
-                        <Button className="bg-[#171923] sm:w-[240px] border border-black  w-full text-gray-200" onClick={onStar}>
-                            <Star className="h-4 w-4 mr-2" />Anzeige vormerken
+                        <Button className="bg-[#171923] hover:bg-[#1c1f2b] sm:w-[240px]   w-full  text-gray-200" onClick={onStar}>
+                            <Star className="h-4 w-4 mr-2" /> Anzeige vormerken
                         </Button>
                     </div>
 
 
 
                     <div className="mt-4">
-                        <Button className="bg-[#171923] sm:w-[240px] border border-black flex w-full text-gray-200" onClick={onConversation}>
+                        <Button className="bg-[#171923] hover:bg-[#1c1f2b]  sm:w-[240px]  flex w-full text-gray-200" onClick={onConversation}>
                             <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
                         </Button>
                     </div>
@@ -229,8 +233,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             <div className="mt-4">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="bg-[#1f2230] sm:w-[240px] border border-black flex w-full
-                        dark:text-gray-100 dark:bg-[#0d0f14] dark:hover:bg-[#161921] dark:border dark:border-gray-400
+                        <Button className="bg-[#0e1017] sm:w-[240px]  flex w-full
+                        dark:text-gray-100  dark:hover:bg-[#161921] border border-gray-400
                         ">
                             <Share className="h-4 w-4 mr-2" />  Anzeige teilen
                         </Button>

@@ -9,22 +9,22 @@ import { Label } from "@/components/ui/label";
 
 import { Inserat, User } from "@prisma/client";
 import axios from "axios";
-import { MailCheckIcon, MailOpen, PinIcon } from "lucide-react";
+import { MailCheckIcon, MailOpen, PhoneCall, PhoneCallIcon, PhoneForwarded, PhoneIncomingIcon, PinIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface SelectEmailProps {
+interface PhoneNumberProps {
     inserat : Inserat & { user : User}
 }
 
-const SelectEmail: React.FC<SelectEmailProps> = ({
+const PhoneNumber: React.FC<PhoneNumberProps> = ({
     inserat
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentAddress, setCurrentAddress] = useState(inserat.emailAddress || "");
+    const [currentNumber, setCurrentNumber] = useState(inserat.phoneNumber || "");
     const [value, setValue] = useState("");
 
     const [isPrefill, setIsPrefill] = useState(false);
@@ -35,7 +35,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
         try {
           setIsLoading(true)
           const values = {
-            emailAddress : currentAddress
+            phoneNumber : currentNumber
           }
 
           axios.patch(`/api/inserat/${inserat.id}`, values);
@@ -54,10 +54,10 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
     const onPrefill = () => {
         if(!isPrefill) {
-            setCurrentAddress(inserat.user.email);
+            setCurrentNumber("1234567890");
             setIsPrefill(true);
         } else if(isPrefill) {
-            setCurrentAddress("");
+            setCurrentNumber("");
             setIsPrefill(false);
         }
     }
@@ -65,22 +65,23 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
     return ( 
         <div className="items-center w-full">
        <h3 className="text-md font-semibold items-center flex">
-          <MailCheckIcon className="h-4 w-4 mr-2"/> Mail
+          <PhoneIncomingIcon className="h-4 w-4 mr-2"/> Telefonisch
         </h3>
       <div className="flex mt-4 ">
        
         <div className="  items-center  w-full">
           <Label className="flex justify-start items-center">
-             <p className=" mb-0.5 font-semibold"> Email-Addresse </p>
+            <p className="mb-0.5  font-semibold"> Telefonnummer </p>
           </Label>
-          <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1"> über welche Addresse möchtest du kontaktiert werden? </p>
-          <Input placeholder="name@addresse.de"
+          <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1"> wie möchtest du telefonisch erreicht werden? </p>
+          <Input placeholder="+49 1234567890"
+          type="tel"
           ref={inputRef}
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] 
             input: justify-start dark:focus-visible:ring-0 w-full"
             disabled={isPrefill}
-            value={currentAddress}
-            onChange={(e) => { setCurrentAddress(e.target.value) }}
+            value={currentNumber}
+            onChange={(e) => { setCurrentNumber(e.target.value) }}
             
           />
 
@@ -100,13 +101,13 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
 
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!currentAddress || currentAddress === inserat.emailAddress}
+        disabled={!currentNumber || currentNumber === inserat.phoneNumber}
       >
-        <span className="">Email-Bestätigen</span> 
+        <span className="">Telefonnr. bestätigen</span> 
       </Button>
 
     </div>
      );
 }
  
-export default SelectEmail;
+export default PhoneNumber;

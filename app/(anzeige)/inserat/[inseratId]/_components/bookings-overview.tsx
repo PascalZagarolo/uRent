@@ -45,7 +45,7 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
             <PopoverTrigger className="hover:drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
             <CalendarCheck/>
             </PopoverTrigger>
-            <PopoverContent side="right" className="dark:bg-[#0F0F0F]">
+            <PopoverContent side="right" className="dark:bg-[#0F0F0F] border-none">
                 <div>
                     <h1 className="flex font-semibold mb-2 "> Termine ({bookings.length}) </h1>
                     <div className="max-h-[240px] overflow-y-auto no-scrollbar">
@@ -54,7 +54,7 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
                             bookings.map((booking) => (
                                
                                     <span 
-                                        className="flex mt-2 border border-gray-300 p-4 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"
+                                        className="flex mt-2  p-4 dark:bg-[#1a1a1a] rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]"
                                         key={`${booking.id}`} 
                                     >
                                         <CalendarClock />
@@ -67,7 +67,7 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
                             
                             
                         ) : (
-                            <span className="flex mt-2 border border-gray-300 p-4 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] ">
+                            <span className="flex mt-2  p-4 rounded-md dark:bg-[#1a1a1a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] ">
                                     <CalendarClock/>
                                     <p className="ml-2 font-semibold text-gray-900/50 italic text-xs dark:text-gray-100">Noch keine Reservierungen vorhanden</p>
                                 </span>

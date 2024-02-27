@@ -29,10 +29,13 @@ const AutoComplete = () => {
  
 useEffect(() => {
     //@ts-ignore
-    autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-     inputRef.current ,
-     options
-    );
+    if(window.google) {
+      //@ts-ignore
+      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+        inputRef.current ,
+        options
+       );
+    }
    }, [currentLocation]);
 
    

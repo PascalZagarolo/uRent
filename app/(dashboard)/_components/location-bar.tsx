@@ -75,7 +75,7 @@ useEffect(() => {
    
    onChange={(e) => {setValue(e.target.value)}}/>
    <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 " onClick={onSearch}>
-    <MapPinned className="text-white h-4 w-4 2xl:block hidden hover:cursor-pointer" />
+    <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
     
    </Button>
    </div>

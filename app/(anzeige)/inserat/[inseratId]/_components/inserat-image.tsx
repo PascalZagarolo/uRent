@@ -36,7 +36,9 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
         
         ))}
       </CarouselContent>
-      <div className="sm:block hidden">
+      {sortedImages.length > 1 && (
+        <>
+        <div className="sm:block hidden">
         <CarouselPrevious 
         className="dark:text-gray-100"
         />
@@ -45,6 +47,8 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
       <div className="sm:block hidden">
       <CarouselNext className="dark:text-gray-100"/>
       </div>
+      </>
+      )}
       
     </Carousel>
      );

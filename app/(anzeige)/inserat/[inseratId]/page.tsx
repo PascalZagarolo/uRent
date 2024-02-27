@@ -1,12 +1,14 @@
 import { db } from "@/utils/db";
 import InseratImageCarousel from "./_components/inserat-image";
-import { AlignLeft, Calendar, CarFront, Contact2, MailIcon, MailMinus, MapPin, Phone } from "lucide-react";
+import { AlignLeft, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, MailIcon, MailMinus, MapPin, Phone, TractorIcon, TramFront, Truck } from "lucide-react";
 import Active from "./_components/active-badge";
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
 import getCurrentUser from "@/actions/getCurrentUser";
 import InseratDescription from "./_components/inserat-description";
 import BookingsOverview from "./_components/bookings-overview";
+import { format } from "date-fns";
+
 
 
 
@@ -25,8 +27,8 @@ const InseratAnzeige = async ({
     const inserat = await db.inserat.findUnique({
         where: {
             id: params.inseratId
-        }, include : {
-            address : true
+        }, include: {
+            address: true
         }
     })
 
@@ -48,7 +50,7 @@ const InseratAnzeige = async ({
         }
     })
 
-    
+
 
     const rezensionen = await db.rezension.findMany({
         where: {
@@ -69,13 +71,13 @@ const InseratAnzeige = async ({
     const inseratBookings = await db.booking.findMany({
         where: {
             inseratId: inserat.id,
-            
-        }, orderBy : {
-            startDate : "asc"
+
+        }, orderBy: {
+            startDate: "asc"
         },
-        include : {
-            user : true,
-            
+        include: {
+            user: true,
+
         }
     })
 
@@ -100,12 +102,22 @@ const InseratAnzeige = async ({
                 <div className="flex xl:justify-end justify-center">
                     <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-full md:w-auto">
                         <div className="flex items-center justify-end truncate ">
-                            {inserat.category === "PKW" && (
-                                <div className="bg-[#1d1f2b] sm:px-8 rounded-lg p-4">
-                                    <CarFront className="" />
-                                </div>
 
-                            )}
+                            <div className="bg-[#1d1f2b] sm:px-8 rounded-lg p-4">
+                                {
+                                    {
+                                        'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
+                                        'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
+                                        'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " />,
+                                        'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " />,
+                                        'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
+                                        'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " />,
+                                        'TRAILOR': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
+                                    }[inserat.category]
+                                }
+                            </div>
+
+
                             <p className=" text-md sm:text-xl ml-4 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
                             bg-[#1d1f2b] px-8 rounded-lg p-4 w-[400px] truncate flex justify-center 
                              "> {inserat.title} </p>
@@ -116,8 +128,8 @@ const InseratAnzeige = async ({
                             </div>
                         </div>
                         <div className="flex items-center gap-x-2 mt-1 sm:text-sm text-xs">
-                            <p className="sm:text-sm text-xs text-gray-200 font-semibold italic">erstellt am :</p>
-                            <p className="font-semibold sm:text-sm text-xs">01.01.24</p>
+                            <p className="text-xs text-gray-200  ">erstellt am :</p>
+                            <p className="font-semibold sm:text-sm text-xs">{format(new Date(inserat.createdAt), "dd.MM")}</p>
                         </div>
 
 
@@ -127,15 +139,15 @@ const InseratAnzeige = async ({
                             />
                         </div>
                         <div>
-                            <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-2 text-gray-900 rounded-md border-gray-800 
-                            border-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161821] dark:border-[#161821] dark:text-gray-100 mt-2">
+                            <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-4 text-gray-900  border-gray-800 
+                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#13151c]  dark:text-gray-100 mt-2">
                                 <div className="flex mr-auto items-center ">
-                                    <div className="flex font-bold  text-sm items-center truncate w-full"> <MapPin className="text-rose-600 mr-2 h-4 w-4" /> 
-                                    {inserat.address?.locationString? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"},
-                                    {inserat.address?.postalCode && ` ${inserat.address?.postalCode}`} DE
+                                    <div className="flex font-bold  text-sm items-center truncate w-full"> <MapPin className="text-rose-600 mr-2 h-4 w-4" />
+                                        {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"},
+                                        {inserat.address?.postalCode && ` ${inserat.address?.postalCode}`} DE
                                     </div>
                                 </div>
-                                <div className="justify-end flex mt-2 text-2xl font-bold">
+                                <div className="justify-end flex mt-2 text-xl font-semibold">
                                     {inserat.price} <p className="text-sm mr-1">00 €</p>
                                 </div>
 
@@ -143,33 +155,37 @@ const InseratAnzeige = async ({
                             </div>
 
                         </div>
-                        
+
                         <div className="mt-2">
-                                <p className="flex text-lg sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" /> Kontaktinformationen des Händlers</p>
-                            </div>
-                       
+                            <p className="flex text-lg sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" /> Kontaktinformationen des Händlers</p>
+                        </div>
+
                         <div className="mt-2">
                             <div className=" ">
-                                
-                                    <div className="w-full flex mt-2">
-                                        <div className="w-1/2 items-center">
-                                            <div className="flex items-center">
-                                            <MailIcon className="w-4 h-4 mr-2"/><p className="text-md"> {inserat?.emailAddress}</p>
-                                            </div>
-                                        </div>
-                                        <div className="w-1/2 items-center">
-                                            <div className="flex items-center">
-                                            {inserat?.phoneNumber && (
-                                            <>    <Phone className="w-4 h-4 mr-2"/>  <p className="ml-4 font-semibold text-md"> {inserat?.phoneNumber}</p> </>
-                                            )}
-                                            </div>
+
+                                <div className="w-full flex mt-2">
+                                    <div className="w-1/2 items-center">
+                                        <div className="flex items-center">
+                                           
+                                                
+                                                <MailIcon className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat?.emailAddress ? inserat?.emailAddress : user.email}</p>
+                                               
+                                           
                                         </div>
                                     </div>
+                                    <div className="w-1/2 items-center">
+                                        <div className="flex items-center">
+                                            {inserat?.phoneNumber && (
+                                                <>    <Phone className="w-4 h-4 mr-2" />  <p className="ml-4 font-semibold text-sm"> {inserat?.phoneNumber}</p> </>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
 
-                                    
+
                             </div>
                             <p className="flex text-lg sm:text-lg font-semibold items-center mt-8">
-                                    <AlignLeft className="mr-2 h-4 w-4" /> Beschreibung der Anzeige</p>
+                                <AlignLeft className="mr-2 h-4 w-4" /> Beschreibung der Anzeige</p>
                             <InseratDescription
                                 inserat={inserat}
                             />
@@ -184,7 +200,7 @@ const InseratAnzeige = async ({
 
 
             <div>
-                
+
                 <div className=" p-2 xl:mt-24 sm:flex justify-center xl:block">
 
                     <div className="xl:hidden flex sm:block justify-center">

@@ -1,4 +1,5 @@
 import { db } from "@/utils/db";
+import { Address } from "@prisma/client";
 import axios from "axios";
 import { NextResponse } from "next/server";
 
@@ -21,13 +22,15 @@ export async function PATCH(
             }
         })
 
+        
+
         const addressInserat = await db.address.findUnique({
             where : {
                 inseratId : params.inseratId
             }
         })
 
-        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=$65db7269a0101559750093uena07e08`);
+        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=65db7269a0101559750093uena07e08`);
 
         console.log("test")
        
@@ -44,13 +47,27 @@ export async function PATCH(
                     latitude: String(addressObject.data[0].lat),
                 }
             })
+
+            if(patchedAddress) {
+                return NextResponse.json(patchedInserat)
+            } else {
+                const createdAddress = await db.address.create({
+                    data : {
+                        inseratId : params.inseratId,
+                        longitude: String(addressObject.data[0].lon),
+                        latitude: String(addressObject.data[0].lat),
+                    }
+                })
+
+                return NextResponse.json(createdAddress)
+            }
         }
 
-        return NextResponse.json(patchedInserat)
+        
 
     } catch (error) {
 
-        console.log("Fehler in /api/inserat/[inseratId]/publish/route.ts:");
+        console.log("Fehler in /api/inserat/[inseratId]/publish/route.ts:" + error);
         return new NextResponse("Interner Server Error" , { status : 500 })
 
     }

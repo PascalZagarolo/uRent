@@ -17,7 +17,7 @@ const DashboardLayout = async (
     return (
         <div className="bg-[#404040]/10 h-full overflow-hidden">
     <div className="flex min-h-full">
-        <div className="bg-[#151821] w-64 h-screen border-r border-black fixed">
+        <div className="bg-[#1C1E2B] w-64 h-screen  fixed">
             <UrentDashboardLogoHeader/>
             <p className="flex justify-center text-xl font-medium drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)] text-gray-200 bg-[#1b1e2b] p-4">
                <BarChartHorizontal className="h-6 w-6 mr-2"/> Dashboard
@@ -29,7 +29,7 @@ const DashboardLayout = async (
                 <SidebarMenu />
             </div>
         </div>
-        <div className="flex-1 p-8 bg-[#404040]/10 ml-64 min-h-screen"> 
+        <div className="flex-1  bg-[#404040]/10 dark:bg-[#0F0F0F] ml-64 min-h-screen"> 
             {children}
         </div>
     </div>

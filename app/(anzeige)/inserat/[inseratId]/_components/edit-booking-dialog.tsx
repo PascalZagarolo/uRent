@@ -103,7 +103,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
 
   return (
     <Dialog>
-      <DialogTrigger className="" onClick={() => {changeUser(booking.user)}}>
+      <DialogTrigger className="" onClick={() => {changeUser(booking.user)}} >
         
         <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
         

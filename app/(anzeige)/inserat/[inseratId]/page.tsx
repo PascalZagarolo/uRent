@@ -1,6 +1,6 @@
 import { db } from "@/utils/db";
 import InseratImageCarousel from "./_components/inserat-image";
-import { AlignLeft, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck } from "lucide-react";
+import { AlignLeft, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, Globe2, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck } from "lucide-react";
 import Active from "./_components/active-badge";
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
@@ -34,19 +34,19 @@ const InseratAnzeige = async ({
 
     const user = await db.user.findUnique({
         where: {
-            id: inserat.userId
+            id: inserat?.userId
         }
     })
 
     const inseratArray = await db.inserat.findMany({
         where: {
-            userId: user.id
+            userId: user?.id
         }
     })
 
     const inseratOwner = await db.user.findUnique({
         where: {
-            id: inserat.userId
+            id: inserat?.userId
         }
     })
 
@@ -54,23 +54,19 @@ const InseratAnzeige = async ({
 
     const rezensionen = await db.rezension.findMany({
         where: {
-            receiverId: user.id
+            receiverId: user?.id
         }
     })
 
-    let contactOptions;
-
-    if (currentUser) {
-        contactOptions = await db.contactOptions.findUnique({
-            where: {
-                userId: currentUser?.id
-            }
-        })
+   const contactOptions = await db.contactOptions.findUnique({
+    where :{
+        userId : user?.id
     }
+   })
 
     const inseratBookings = await db.booking.findMany({
         where: {
-            inseratId: inserat.id,
+            inseratId: inserat?.id,
 
         }, orderBy: {
             startDate: "asc"
@@ -177,12 +173,28 @@ const InseratAnzeige = async ({
                                         </div>
                                     </div>
                                     <div className="sm:w-1/2 items-center">
-                                        <div className="flex items-center">
+                                        <div className="flex items-center sm:mt-0 mt-2">
                                             {inserat?.phoneNumber && (
-                                                <>    <Phone className="w-4 h-4 mr-2" />  <p className="ml-4 font-semibold text-sm"> {inserat?.phoneNumber}</p> </>
+                                                <>    <Phone className="w-4 h-4 mr-2" />  <p className=" text-sm"> {inserat?.phoneNumber}</p> </>
                                             )}
                                         </div>
                                     </div>
+                                </div>
+                                <div className="w-full sm:flex mt-2">
+                                    <div className="sm:w-1/2 items-center">
+                                        <div className="flex items-center">
+                                           
+                                                
+                                                {contactOptions?.websiteAddress && (
+                                                    <a href={contactOptions?.websiteAddress} className="flex hover:underline">
+                                                    <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> {contactOptions?.websiteAddress ? contactOptions?.websiteAddress : ""}</p>
+                                                    </a>
+                                                )}
+                                               
+                                           
+                                        </div>
+                                    </div>
+                                    
                                 </div>
 
 

@@ -1,12 +1,24 @@
 import { db } from "@/utils/db"
 import InseratDrafts from "./_components/inserat-drafts"
-import { PencilRuler } from "lucide-react"
+import { ContrastIcon, FilePieChartIcon, PencilRuler, ReceiptIcon, TruckIcon } from "lucide-react"
 import InseratPublic from "./_components/public-inserat"
+import HeaderLogo from "@/app/(dashboard)/_components/header-logo"
+import getCurrentUser from "@/actions/getCurrentUser"
+import InserateDashboardRender from "./_components/inserate-dashboard-render"
+
 
 
 const InserateOverview = async ({
     params
 } : { params : { userId : string }}) => {
+
+    const currentUser = await getCurrentUser();
+
+    const notifications = await db.notification.findMany({
+        where :{
+            userId : params.userId
+        }
+    })
 
     let publics = [];
     let draft = [];
@@ -32,54 +44,45 @@ const InserateOverview = async ({
         }
     }
 
+    //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
+    /* const [renderAmount, setRenderAmount] = useState(5); */
+
     
 
 
 
     return ( 
         <div className=" ">
-            <div>
-                <h3 className="text-2xl font-bold flex justify-center mt-4 p-4 border border-black rounded-lg bg-[#1b1f2c] text-gray-100">
-                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Veröffentlichungen ( {publics.length} )
-                </h3>
-            </div>
-            <div className="">
-                {publics.length > 0 ? (
-                    <div className=" gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
-                        {publics.map((draft) => (
-                        <InseratPublic
-                        key={draft.id}
-                        profileId={params.userId}
-                        inserat={draft}
-                        />
-                    ))}
+            
+            <div className="flex justify-center p-8 bg-[#404040]/10">
+                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+                    <div className="  min-h-screen">
+
+
+                        <div className="p-4 mt-4  rounded-lg ">
+                            <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
+                                <FilePieChartIcon className="mr-4" /> Meine Inserate <p className="ml-4 text-lg"> {inserateArray.length}</p>
+                            </h3>
+                            <div className="p-4 gap-y-2">
+                                {inserateArray.map((inserat) => (
+                                    inserateArray.length > 0 && (
+                                        <InserateDashboardRender 
+                                        inserat = {inserat}
+                                        />
+                                    )
+                                ))}
+                                {inserateArray.length > 4 && (
+                                    <p className="mt-2 text-xs  underline hover:cursor-pointer">
+                                        Mehr anzeigen...
+                                    </p>
+                                )}
+                            </div>
                     </div>
-                    
-                ) : (
-                    <div>
-                        <h3 className="text-lg italic font-bold flex justify-center  p-4   rounded-lg  text-gray-900/50">
-                            Du hast noch keine Anzeigen veröffentlicht
-                        </h3>
+
                     </div>
-                )}
-                
-                <div className="mt-16">
-                <h3 className="text-2xl font-bold flex justify-center border border-black rounded-lg bg-[#1b1f2c] text-gray-100 p-4">
-                   <PencilRuler className="w-6 h-6 mr-2" /> Meine Entwürfe ( {draft.length} )
-                </h3>
-            </div>
-                <div>
-                <div className=" gap-x-2 justify-between mt-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 grid-cols-2">
-                    {draft.map((draft) => (
-                        <InseratDrafts
-                        key={draft.id}
-                        profileId={params.userId}
-                        inserat={draft}
-                        />
-                    ))}
                 </div>
                 </div>
-            </div>
+                        
         </div>
      ) 
     }

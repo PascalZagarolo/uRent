@@ -30,7 +30,7 @@ const SideBarMenu = () => {
     return ( 
         <div className="h-full text-gray-100">
             <div className="  ">
-                <h3 className="flex  font-bold text-base  bg-[#12141c] p-2 border border-black  ">
+                <h3 className="flex  font-bold text-base  bg-[#181a25] p-4    ">
                     Menü
                 </h3>
             </div>

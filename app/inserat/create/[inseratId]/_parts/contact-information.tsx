@@ -1,6 +1,7 @@
 import { Address, Inserat, User } from "@prisma/client";
 import SelectLocation from "../../_components/input-fields/select-location";
 import SelectEmail from "../../_components/input-fields/select-email";
+import PhoneNumber from "../../_components/input-fields/phone-number";
 
 interface ContactInformationProps {
     inserat : Inserat & { user : User};
@@ -26,6 +27,11 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
                 inserat = {inserat}
                 />
             </div>
+            </div>
+            <div className="mt-4 w-1/2">
+                <PhoneNumber
+                inserat={inserat}
+                />
             </div>
         </div>
      );

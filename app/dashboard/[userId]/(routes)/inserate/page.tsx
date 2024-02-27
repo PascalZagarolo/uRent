@@ -68,6 +68,7 @@ const InserateOverview = async ({
                                     inserateArray.length > 0 && (
                                         <InserateDashboardRender 
                                         inserat = {inserat}
+                                        key={inserat.id}
                                         />
                                     )
                                 ))}

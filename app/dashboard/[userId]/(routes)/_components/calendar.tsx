@@ -143,6 +143,7 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
                             <CalendarDay
                                 index={index}
                                 day={day}
+                                key={dateKey}
                                 //@ts-ignore
                                 bookings={todaysEvents}
                             />

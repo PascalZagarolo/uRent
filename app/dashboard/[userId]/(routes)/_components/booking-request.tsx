@@ -67,7 +67,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
             
             </div>
             <div className="w-full mt-2">
-                <Button className="w-full bg-[#1C1C1C] text-gray-200 flex">
+                <Button className="w-full bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex">
                    <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                 </Button>
             </div>

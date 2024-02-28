@@ -1,5 +1,5 @@
 import { CalendarSearchIcon, Car, FilePieChartIcon, ListOrdered, Package, Star } from "lucide-react";
-import OrderColoumns from "./_components/order-coloumns";
+
 import { db } from "@/utils/db";
 
 import { Booking, Inserat, User } from "@prisma/client";

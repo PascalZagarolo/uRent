@@ -25,7 +25,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                 />
             )
         ))}
-        {inserateArray.length > 4 && (
+        {inserateArray.length > 5 && (
             <p className="mt-2 text-xs  underline hover:cursor-pointer" onClick={() => {setRenderAmount(renderAmount + 5)}}>
                 Mehr anzeigen...
             </p>

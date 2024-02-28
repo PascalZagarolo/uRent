@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 
 import { cn } from "@/lib/utils";
 import { Images, Inserat, User } from "@prisma/client";
@@ -79,10 +80,10 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
             </div>
             <div className="flex">
                 <Badge className={cn("text-white text-xs mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] border-gray-300 border-2",
-                 isPublishable ? "bg-emerald-600" : "bg-gray-400")}>
+                    isPublishable ? "bg-emerald-600" : "bg-gray-400")}>
                     {isPublishable ? ("zur veröffentlichung bereit") : ("nicht zur veröffentlichung bereit")}
                 </Badge>
-                
+
             </div>
             <div className="h-[180px] mr-2 ml-2 border-2 mt-2">
                 {inserat.images.length > 0 ? (
@@ -98,14 +99,23 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
                 )}
             </div>
             <div className="w-full mt-3 ">
-                    <div className="">
-                    <Button className="bg-white border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-3/4 text-gray-900 text-sm hover:bg-gray-200" onClick={() => {router.push(`/inserat/create/${inserat.id}`)}}>
+                <div className="">
+                    <Button className="bg-white border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-3/4 text-gray-900 text-sm hover:bg-gray-200" onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
                         <Settings className="w-4 h-4 mr-2 text-gray-800" /> Inserat verwalten
                     </Button>
-                    <Button className="bg-rose-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-1/4 hover:bg-rose-500">
-                        <Trash2 className="w-4 h-4" />
-                    </Button>
-                    </div>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button className="bg-rose-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-1/4 hover:bg-rose-500">
+                                <Trash2 className="w-4 h-4" />
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                
+                            </DialogHeader>
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </div>
         </div>
 

@@ -6,6 +6,7 @@ import { Booking, Inserat, User } from "@prisma/client";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import FavouriteRenderList from "./_components/favourite-render-list";
 import FavouriteDashboardRender from "./_components/favourite-render";
+import BookingRenderList from "./_components/booking-render-list";
 
 const Bookings = async ({
     params
@@ -21,6 +22,19 @@ const Bookings = async ({
                     images: true
                 }
             },
+        }
+    })
+
+    const bookings = await db.booking.findMany({
+        where :{
+            userId : params.userId
+        }, include : { 
+            inserat : {
+                include : {
+                    images : true,
+                    user : true
+                }
+            }
         }
     })
 
@@ -54,6 +68,12 @@ const Bookings = async ({
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 <CalendarSearchIcon className="mr-4" /> Meine Buchungen <p className="ml-4 text-lg"> </p>
                             </h3>
+                            <div className="p-4">
+                                <BookingRenderList 
+                                //@ts-ignore
+                                bookings={bookings}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

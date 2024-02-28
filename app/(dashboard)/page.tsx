@@ -2,7 +2,7 @@
 import getCurrentUser from "../../actions/getCurrentUser";
 
 
-import RelevanteInserate from "./_bodyparts/relevant-inserate";
+
 
 import { Images, Inserat } from "@prisma/client";
 import MainPageSidebar from "./_components/main-page-sidebar";
@@ -12,6 +12,7 @@ import { db } from "@/utils/db";
 import HeaderLogo from "./_components/header-logo";
 import { TruckIcon } from "lucide-react";
 import Footer from "./_components/footer";
+import { Suspense, lazy } from "react";
 
 
 type InserateWithImages = Inserat & {
@@ -41,7 +42,7 @@ const Main = async ({
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)
     
-    
+    const LazyRelevanteInserate = lazy(() => import("./_bodyparts/relevant-inserate"));
 
     
 
@@ -71,17 +72,19 @@ const Main = async ({
       <MainPageSidebar treffer={12} />
       </div>
       <div className=" sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%] ">
-      <RelevanteInserate
-              title={searchParams.title}
-              category={searchParams.category}
-              filter={searchParams.filter}
-              start={searchParams.start}
-              end={searchParams.end}
-              page={searchParams.page} 
-              periodBegin={searchParams.periodBegin} 
-              periodEnd={searchParams.periodEnd}
-              location={searchParams.location}
-              />
+      <Suspense fallback={<div>Laden...</div>}>
+                <LazyRelevanteInserate
+                    title={searchParams.title}
+                    category={searchParams.category}
+                    filter={searchParams.filter}
+                    start={searchParams.start}
+                    end={searchParams.end}
+                    page={searchParams.page}
+                    periodBegin={searchParams.periodBegin}
+                    periodEnd={searchParams.periodEnd}
+                    location={searchParams.location}
+                />
+            </Suspense>
       </div>
       
   </div>

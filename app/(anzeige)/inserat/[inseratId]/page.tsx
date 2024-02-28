@@ -74,7 +74,6 @@ const InseratAnzeige = async ({
         },
         include: {
             user: true,
-
         }
     })
 

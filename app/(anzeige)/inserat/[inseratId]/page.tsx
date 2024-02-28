@@ -8,6 +8,7 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import InseratDescription from "./_components/inserat-description";
 import BookingsOverview from "./_components/bookings-overview";
 import { format } from "date-fns";
+import { lazy } from "react";
 
 
 
@@ -58,11 +59,11 @@ const InseratAnzeige = async ({
         }
     })
 
-   const contactOptions = await db.contactOptions.findUnique({
-    where :{
-        userId : user?.id
-    }
-   })
+    const contactOptions = await db.contactOptions.findUnique({
+        where: {
+            userId: user?.id
+        }
+    })
 
     const inseratBookings = await db.booking.findMany({
         where: {
@@ -76,6 +77,8 @@ const InseratAnzeige = async ({
 
         }
     })
+
+    const LazyInseratImageCarousel = lazy(() => import  ("./_components/inserat-image"));
 
     function ripOutToLongAddresses(input: string): string {
         const commaCount = input.split(',').length - 1;
@@ -130,20 +133,18 @@ const InseratAnzeige = async ({
 
 
                         <div className="mt-4 rounded-md     flex justify-center text-gray-900">
-                            <InseratImageCarousel
-                                images={images}
-                            />
+                            <LazyInseratImageCarousel images={images} />
                         </div>
                         <div>
                             <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-4 text-gray-900  border-gray-800 
                              drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#13151c]  dark:text-gray-100 mt-2">
                                 <div className="flex mr-auto items-center ">
-                                    <div className="flex font-bold  text-sm items-center truncate sm:w-full "> 
-                                    <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
+                                    <div className="flex font-bold  text-sm items-center truncate sm:w-full ">
+                                        <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
                                         <p className="w-[200px] sm:w-full">
-                                        {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"},
-                                        {inserat.address?.postalCode && ` ${inserat.address?.postalCode}`} DE
-                                        </p> 
+                                            {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"},
+                                            {inserat.address?.postalCode && ` ${inserat.address?.postalCode}`} DE
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="justify-end flex mt-2 text-xl font-semibold">
@@ -165,11 +166,11 @@ const InseratAnzeige = async ({
                                 <div className="w-full sm:flex mt-2">
                                     <div className="sm:w-1/2 items-center">
                                         <div className="flex items-center">
-                                           
-                                                
-                                                <MailIcon className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat?.emailAddress ? inserat?.emailAddress : user.email}</p>
-                                               
-                                           
+
+
+                                            <MailIcon className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat?.emailAddress ? inserat?.emailAddress : user.email}</p>
+
+
                                         </div>
                                     </div>
                                     <div className="sm:w-1/2 items-center">
@@ -183,18 +184,18 @@ const InseratAnzeige = async ({
                                 <div className="w-full sm:flex mt-2">
                                     <div className="sm:w-1/2 items-center">
                                         <div className="flex items-center">
-                                           
-                                                
-                                                {contactOptions?.websiteAddress && (
-                                                    <a href={contactOptions?.websiteAddress} className="flex hover:underline">
+
+
+                                            {contactOptions?.websiteAddress && (
+                                                <a href={contactOptions?.websiteAddress} className="flex hover:underline">
                                                     <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> {contactOptions?.websiteAddress ? contactOptions?.websiteAddress : ""}</p>
-                                                    </a>
-                                                )}
-                                               
-                                           
+                                                </a>
+                                            )}
+
+
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
 

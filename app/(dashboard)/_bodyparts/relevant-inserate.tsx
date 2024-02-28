@@ -6,8 +6,8 @@ import { getInserate } from "@/actions/getInserate";
 import type { Category, Images, Inserat, PkwAttribute, User } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 
+const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
 
-import InseratRenderedList from "./_components/inserat-rendered-list";
 import { Suspense, lazy } from "react";
 
 interface RelevanteInserateProps {

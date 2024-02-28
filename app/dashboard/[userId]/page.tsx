@@ -116,6 +116,7 @@ const DashboardPage = async ({
                                         <BookingRequestRender
                                         //@ts-ignore
                                         request={request}
+                                        key={request.id}
                                         />
                                     
                                     ))}

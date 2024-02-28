@@ -8,6 +8,7 @@ import OrderBy from "../_components/_smart-filter/order-by";
 
 
 import InseratRenderedList from "./_components/inserat-rendered-list";
+import { Suspense, lazy } from "react";
 
 interface RelevanteInserateProps {
     title: string;
@@ -15,9 +16,9 @@ interface RelevanteInserateProps {
     filter: string;
     start: string;
     end: string;
-    page : number;
-    periodBegin : string;
-    periodEnd : string;
+    page: number;
+    periodBegin: string;
+    periodEnd: string;
     location: string;
 }
 
@@ -36,11 +37,11 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     const currentUser = await getCurrentUser()
 
 
-    
 
 
 
-    
+
+
 
     const favedInserate = await db.favourite.findMany({
         where: {
@@ -49,52 +50,54 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     })
 
 
-    
+
     const inserate = await getInserate({
         title: title,
         category: category,
         filter: filter,
         start: Number(start),
         end: Number(end),
-        page : Number(page),
-        periodBegin : periodBegin,
-        periodEnd : periodEnd,
-        location : location
-       
-    });
+        page: Number(page),
+        periodBegin: periodBegin,
+        periodEnd: periodEnd,
+        location: location
 
+    });
     
-   
+    
+
+
+    const LoadingComponent = () => <div>Laden...</div>
 
     return (
         <div className="">
 
-{!title ? (
+            {!title ? (
                 <div className="h-full flex sm:block sm:mt-0 items-center font-semibold   p-4 text-gray-100 bg-[#141620]">
-                <div className="ml-4 flex w-full items-center">
-                    <div className="p-2 sm:block hidden rounded-lg">
-                    <AlignCenter />
+                    <div className="ml-4 flex w-full items-center">
+                        <div className="p-2 sm:block hidden rounded-lg">
+                            <AlignCenter />
+                        </div>
+
+                        <h3 className=" sm:ml-8 flex font-base text-lg items-center sm:text-2xl h-full w-full">
+
+                            Relevante
+
+                            Inserate
+                            <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
+                                <OrderBy />
+
+
+                            </div>
+                        </h3>
                     </div>
 
-                    <h3 className=" sm:ml-8 flex font-base text-lg items-center sm:text-2xl h-full w-full">
-                        
-                    Relevante
-                        
-                        Inserate
-                        <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
-                        <OrderBy />
-                            
-                            
-                        </div>
-                    </h3>
                 </div>
-
-            </div>
             ) : (
                 <div className="h-full flex sm:block sm:mt-0 items-center  border-2 border-gray-300 dark:border-gray-900 p-4 text-gray-100 bg-[#141620]">
                     <div className="ml-4 flex w-full items-center">
                         <div className="p-2 border-2  rounded-lg">
-                        <SearchCode />
+                            <SearchCode />
                         </div>
                         <h3 className="ml-8 flex font-bold text-2xl h-full w-full">
                             ({inserate.length}) Suchergebnisse
@@ -107,25 +110,24 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 </div>
             )}
 
-           
-                
-          
-                
-             <div className="flex justify-center  ">
-                
-             <InseratRenderedList 
-                inserateArray={inserate}
-                currentUser={currentUser}
-                //@ts-ignore
-                favedInserate={favedInserate}
-                //@ts-ignore
-                
-                />
-             </div>
-                
 
 
-         
+
+
+            <div className="flex justify-center">
+                <Suspense fallback={<LoadingComponent />}>
+                    <InseratRenderedList
+                        inserateArray={inserate}
+                        currentUser={currentUser}
+                        //@ts-ignore
+                        favedInserate={favedInserate}
+                    />
+                </Suspense>
+            </div>
+
+
+
+
 
 
 

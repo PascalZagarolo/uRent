@@ -22,6 +22,7 @@ const FavouriteRenderList: React.FC<FavouriteRenderListProps> = ({
                 favourites.length > 0 && (
                     <FavouriteRender
                     favourite = {favourite}
+                    key={favourite.id}
                     />
             )
         ))}

@@ -139,7 +139,7 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
                     const dateKey = format(day, "yyyy-MM-dd");
                     const todaysEvents = eventsByDate[dateKey] || [];
                     return (
-                        <div>
+                        <div key={index}>
                             <CalendarDay
                                 index={index}
                                 day={day}

@@ -15,8 +15,8 @@ import { ThemeProvider } from '@/components/theme-provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'uRent - Rental Service',
-  description: 'uRent',
+  title: 'Mieten mit uRent',
+  description: 'Mieten mit uRent',
 }
 
 

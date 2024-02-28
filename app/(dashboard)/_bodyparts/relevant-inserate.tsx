@@ -70,16 +70,18 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         <div className="">
 
 {!title ? (
-                <div className="h-full flex sm:block sm:mt-0 items-center border-2 border-gray-300 dark:border-gray-900 p-3 text-gray-100 bg-[#141620]">
+                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold   p-4 text-gray-100 bg-[#141620]">
                 <div className="ml-4 flex w-full items-center">
-                    <div className="p-2 border-2 border-white rounded-lg">
+                    <div className="p-2 sm:block hidden rounded-lg">
                     <AlignCenter />
                     </div>
 
-                    <h3 className="ml-8 flex font-bold text-2xl h-full w-full">
-                        Relevante Inserate
+                    <h3 className=" sm:ml-8 flex font-base text-lg items-center sm:text-2xl h-full w-full">
                         
-                        <div className="flex ml-auto mr-4 sm:mr-8 text-black">
+                    Relevante
+                        
+                        Inserate
+                        <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
                         <OrderBy />
                             
                             

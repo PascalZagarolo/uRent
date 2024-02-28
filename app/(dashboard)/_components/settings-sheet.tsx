@@ -95,7 +95,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
             </SheetTrigger>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <SheetContent className="dark:bg-[#0F0F0F]">
+                    <SheetContent className="dark:bg-[#0F0F0F] border-none">
                        
                             <ClipLoader
                             loading={isLoading}

@@ -86,7 +86,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <div className="mr-2">
                     <Image 
                     className="w-[30px] h-[30px] rounded-full"
-                    src={request.user.image}
+                    src={request.user.image || "/placeholder-person.jpg"}
                     alt="Profilbild"
                     width={30}
                     height={30}

@@ -52,13 +52,13 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                 messageId={messages.id}
                             />
                         )}
-                        <div className={cn("p-4 rounded-lg mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] border-2 flex border-gray-500",
+                        <div className={cn("p-4 rounded-lg mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)]  flex ",
                             isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-500 text-gray-100 mr-auto",
                             messages.isInterest && "bg-gray-100 text-gray-900 border-emerald-600 dark:bg-[#0F0F0F] dark:border-none dark:text-gray-100")}>
                             {messages.image ? (
                                 <ChatImageRender
                                     imageLink={messages.image}
-                                />
+                                /> 
                             ) : (
                                 <div className="">
                                     {messages.isInterest && (
@@ -67,7 +67,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                 <Forward />
                                                 <p className="ml-2 font-semibold text-xs text-gray-900/50">Interesse bezüglich...</p>
                                             </div>
-                                            <div className="p-4 border border-gray-200 bg-white dark:bg-[#0F0F0F] dark:text-gray-100 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:cursor-pointer"
+                                            <div className="p-4  bg-white dark:bg-[#1C1C1C] dark:text-gray-100 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:cursor-pointer"
                                                 onClick={
                                                     () => { router.push(`/inserat/${messages.inseratId}`) }
                                                 }
@@ -119,7 +119,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                         </div>
 
                         {showDate && (
-                            <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60 font-semibold dark:text-gray-100/60", isOwn ? "text-right" : "text-left")}>
+                            <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60  dark:text-gray-100/60", isOwn ? "text-right" : "text-left")}>
                             {format(new Date(messages.createdAt), "HH:mm")} Uhr
                         </p>
                         )}

@@ -94,7 +94,7 @@ const DashboardPage = async ({
     return (
         <div className="">
             
-            <div className="flex justify-center p-8  ">
+            <div className="flex justify-center py-8 px-4  ">
             
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">

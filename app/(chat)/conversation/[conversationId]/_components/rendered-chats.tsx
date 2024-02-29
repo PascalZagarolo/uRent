@@ -31,8 +31,8 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     const isOnSite = params.conversationId === conversationId ? true : false;
     const router = useRouter();
     return ( 
-        <div className={cn(`flex items-center mr-auto w-full mt-2 rounded-md border-2  py-2 bg-[#272c45]
-         text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hover:cursor-pointer`, !isOnSite ? "border-[#252b42]" : "border-2 border-[#171b2a]")}
+        <div className={cn(`flex items-center mr-auto w-full mt-2 rounded-md border-2  py-2 bg-[#1C1C1C]
+         text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hover:cursor-pointer`, !isOnSite ? "border-[#171717]" : "border-2 border-[#1C1C1C]")}
          onClick={onClick}
          >
             <div className="flex justify-center ml-4 w-2/5">
@@ -53,7 +53,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                 height={45}    
                 width={45}
                 alt = "pfp"
-                className="rounded-full border-2 border-black w-[45px] h-[45px]"
+                className="rounded-full  w-[45px] h-[45px]"
                 src={user.image || "/placeholder-person.jpg"}
                  />
             </div>

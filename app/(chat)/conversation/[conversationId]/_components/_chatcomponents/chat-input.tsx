@@ -47,38 +47,43 @@ const ChatInput = () => {
     }
 
     return (
-        <div className="absolute bottom-0 flex justify-center sm:bg-white items-center  dark:bg-[#0F0F0F]">
-            <div className="flex sm:bg-white  sm:p-4 rounded-lg dark:bg-[#0F0F0F]" >
-            <UploadImage/>
+        <div className="bottom-0 flex justify-center sm:bg-white items-center  w-full dark:bg-[#0F0F0F]">
+            
+        <div className="w-full flex p-4">
+        
+        <UploadImage/>
 
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex  ">
+<Form {...form} >
+    <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full">
 
-                    <FormField
-                        control={form.control}
-                        name="content"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 md:w-[340px] lg:w-[680px] 2xl:w-[1000px]
-                                    dark:bg-[#080808] dark:text-gray-100"
-                                        placeholder="Schreibe eine Nachricht..."
-                                        {...field}
-                                    />
-                                </FormControl>
-                                
-                            </FormItem>
-                        )}
-                    />
-                    <div className="ml-2">
-                        <Button className="bg-white border-2 border-black hover:bg-gray-100 dark:bg-[#080808] " type="submit">
+        <FormField
+            control={form.control}
+            
+            name="content"
+            render={({ field }) => (
+                <FormItem className="w-full">
+                    <FormControl className="w-full">
+                        <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 w-full
+                        dark:bg-[#080808] dark:text-gray-100"
+                            placeholder="Schreibe eine Nachricht..."
+                            {...field}
+                        />
+                    </FormControl>
+                    
+                </FormItem>
+            )}
+        />
+        
+        <div className="ml-2">
+                        <Button className="bg-white  hover:bg-gray-100 dark:bg-[#080808] " type="submit">
                             <Send className="text-black dark:text-gray-100" />
                         </Button>
                     </div>
-                </form>
-            </Form>
-            </div>
 
+    </form>
+</Form>
+            </div>
+        
 
         </div>
     );

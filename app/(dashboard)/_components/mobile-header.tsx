@@ -24,19 +24,19 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 
     
     return ( 
-        <div className="bg-[#1f2332] h-[100px]  flex items-center">
-            <div className="flex items-center ml-2">
+        <div className="bg-[#1f2332] h-[100px] w-full flex items-center">
+            <div className="flex items-center ml-2 w-full">
             <MobileLogoDialog/>
-                <div className="flex justify-center ml-4">
+                <div className=" ml-4 w-full">
                     <SearchItem/>
                 </div>
-                <div>
+                <div className="w-2/6">
                 {
                         status === 'unauthenticated' || !currentUser ? (
                             <>
                             </>
                         ) : (
-                            <div className="flex ml-auto ">
+                            <div className="flex w-full ml-auto ">
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
                                     notifications = {notifications}

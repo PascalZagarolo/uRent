@@ -1,8 +1,15 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { BookingRequest, Images, Inserat, User } from "@prisma/client";
+import axios from "axios";
 import { format } from "date-fns";
+
 import { CarFrontIcon, Check, MailCheck, X } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 
 interface BookingRequestRenderProps {
@@ -12,6 +19,42 @@ interface BookingRequestRenderProps {
 const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     request
 }) => {
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+
+
+    const onAccept = () => {
+        try {
+            setIsLoading(true);
+            axios.patch(`/api/bookingrequest/accept/${request.id}`);
+            toast.success("Anfrage angenommen");
+            setTimeout(() => {
+                router.refresh();
+            }, 500);
+        } catch {
+            toast.error("Fehler beim Annehmen der Anfrage")
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const onDecline = () => {
+        try {
+            setIsLoading(true);
+            axios.patch(`/api/bookingrequest/declined/${request.id}`);
+            toast.success("Anfrage abgelehnt");
+            setTimeout(() => {
+                router.refresh();
+            }, 500);
+        } catch {
+            toast.error("Fehler beim Ablehnen der Anfrage")
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return ( 
         <div className="bg-[#141414] p-4 mt-2 rounded-md ">
             <div className="flex w-full truncate font-semibold items-center">
@@ -19,7 +62,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
              {request.inserat.title} 
              </p>
              <div className="ml-auto">
-                <Button className=" p-4 mr-2" variant="ghost" size="sm">
+                <Button className=" p-4 mr-2" variant="ghost" size="sm" onClick={onAccept}>
                     <Check className="h-4 w-4 text-emerald-600"/>
                 </Button>
                 <Button className=" p-4" variant="ghost" size="sm">
@@ -63,8 +106,9 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                     <p className="ml-1">{format(new Date(request.endDate), "dd.MM.yy")}</p>
                     </div>
                 </div>
-            
-            
+            </div>
+            <div className="max-w-full mt-2 text-xs text-gray-100/70 max-h-[40px] truncate">
+                {request?.content ? request.content : "Keine Nachricht hinzugefügt..."} 
             </div>
             <div className="w-full mt-2">
                 <Button className="w-full bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex">

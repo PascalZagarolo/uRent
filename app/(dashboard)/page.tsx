@@ -13,6 +13,7 @@ import HeaderLogo from "./_components/header-logo";
 import { TruckIcon } from "lucide-react";
 import Footer from "./_components/footer";
 import { Suspense, lazy } from "react";
+import { BeatLoader, ClipLoader } from "react-spinners";
 
 
 type InserateWithImages = Inserat & {
@@ -72,7 +73,7 @@ const Main = async ({
       <MainPageSidebar treffer={12} />
       </div>
       <div className=" sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%] ">
-      <Suspense fallback={<div>Laden...</div>}>
+      <Suspense fallback={<div className="ml-4"><ClipLoader loading/></div>}>
                 <LazyRelevanteInserate
                     title={searchParams.title}
                     category={searchParams.category}

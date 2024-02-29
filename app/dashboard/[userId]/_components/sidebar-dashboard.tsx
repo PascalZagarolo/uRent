@@ -2,6 +2,8 @@
 
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { CircuitBoard, X } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 
 const SidebarDashboard = () => {
@@ -16,18 +18,21 @@ const SidebarDashboard = () => {
     const baseUrl = "/dashboard/" + params.userId;
 
     return ( 
-        <div className=" dark:bg-[#1C1C1C] rounded-md w-[240px]">
+        <div className=" dark:bg-[#1C1C1C] rounded-md w-[240px] p-2">
                 <div className="p-4">
-                    <h3 className="text-lg font-semibold">
-                        Dashboard
+                    <h3 className="text-lg font-semibold flex items-center">
+                      <CircuitBoard className="w-4 h-4 mr-2"/>  Dashboard
                     </h3>
                 </div>
-                <div className="mt-4 p-2">
-                    <Button className="bg-[#141414] hover:bg-[#151515] w-full  dark:text-gray-100 flex" onClick={() => {router.push(baseUrl + "/inserate")}}>
-                        Meine Inhalte
+                <div className="p-2">
+                    <Button className="bg-[#141414] hover:bg-[#191919] w-full  dark:text-gray-100 flex " onClick={() => {router.push(baseUrl)}}>
+                       <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (!pathname.includes("bookings") && !pathname.includes("inserate")) && "block")} /> Übersicht
                     </Button>
-                    <Button className="bg-[#141414] hover:bg-[#151515] w-full  dark:text-gray-100 flex mt-2" onClick={() => {router.push(baseUrl + "/bookings")}}>
-                        Favouriten & Buchungen
+                    <Button className="bg-[#141414] hover:bg-[#191919] w-full  dark:text-gray-100 flex mt-2" onClick={() => {router.push(baseUrl + "/inserate")}}>
+                    <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("inserate")) && "block" )} />  Meine Inhalte
+                    </Button>
+                    <Button className="bg-[#141414] hover:bg-[#191919] w-full  dark:text-gray-100 flex mt-2" onClick={() => {router.push(baseUrl + "/bookings")}}>
+                    <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("bookings")) && "block" )} />   Favouriten & Buchungen
                     </Button>
                 </div>
             </div>

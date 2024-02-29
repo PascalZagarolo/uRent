@@ -41,25 +41,25 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
 
     return (
-        <div className="flex ml-auto items-center mt-2">
+        <div className="flex ml-auto items-center sm:mt-2">
             <div className="  font-semibold 2xl:mr-16 lg:mr-8 text-xs text-gray-200  hidden items-center 2xl:flex">
                 🎉 Willkommen zurück
                 <p className="ml-1 font-bold hidden 2xl:flex  text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
             </div>
             <div className="flex lg:gap-x-2">
-                <div>
+                <div className="sm:block hidden">
                     <NotificationShortCut
                         notifications={notifications}
                     />
                 </div>
-                <div>
+                <div className="sm:block hidden">
                     
                                 <FavouritesShortCut
                                     currentUser={currentUser}
                                 />
                             
                 </div>
-                <div className="items-center mr-4 ">
+                <div className="items-center mr-4 sm:block hidden">
                     <ConversationShortCut />
                 </div>
             </div>
@@ -72,7 +72,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
                                 <img
                                     src={currentUser.image || "/placeholder-person.jpg"}
-                                    className="w-[40px] h-[40px] rounded-full  hover:cursor-pointer"
+                                    className="sm:ml-0 ml-4 w-[40px] h-[40px] rounded-full  hover:cursor-pointer"
 
                                 />
 

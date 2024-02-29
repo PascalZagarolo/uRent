@@ -8,7 +8,7 @@ const Footer = () => {
     const router = useRouter();
 
     return ( 
-        <div className=" bottom-0 dark:bg-[#0F0F0F] w-full sticky border-y border-gray-300/10">
+        <div className=" bottom-0 dark:bg-[#0F0F0F] bg-[#191B27] w-full sticky border-y border-gray-300/10">
  <div className="flex justify-center text-gray-200   dark:text-gray-900 mt-2    w-full">
     <div className="w-[1044px] bg-[#0b0c13]bg-[#0b0c13] rounded-lg p-8">
         <div className="flex ">

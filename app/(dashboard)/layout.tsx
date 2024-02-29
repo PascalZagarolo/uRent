@@ -10,7 +10,7 @@ const DashboardLayout = async (
    const currentUser = await getCurrentUser();
    const notification = await db.notification.findMany({
     where : {
-        userId : currentUser.id
+        userId : currentUser?.id
     }
    })
 

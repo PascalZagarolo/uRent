@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({
     return (
         <div className="bg-[#1f2332] h-[90px]  flex-shrink-1 hidden sm:block">
             <div className="flex 2xl:justify-start md:justify-evenly">
-            <h3 className="flex justify-start items-center py-6 ml-8   sm:text-3xl font-semibold text-white hover:cursor-pointer" onClick={() => {
+            <h3 className="flex justify-start items-center py-6 ml-8 sm:text-3xl font-semibold text-white hover:cursor-pointer" onClick={() => {
                     router.push('/')
                 }}>
                     <Truck className="sm:ml-1 mr-2" />

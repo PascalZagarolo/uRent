@@ -1,8 +1,11 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Booking } from "@prisma/client";
 import clsx from "clsx";
 import { format, isToday } from "date-fns";
-import { CarIcon } from "lucide-react";
+import { CarIcon, X } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 interface Event {
     date: Date;
@@ -21,6 +24,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
     day,
     bookings
 }) => {
+
+  const searchParams = useSearchParams();
+
+  const inseratFilter = searchParams.get("inseratId");
+
     return ( 
         
             
@@ -37,9 +45,13 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                  
                     <div
                     key={booking.id}
-                    className="  text-gray-900 flex justify-center mt-2"
+                    className="  text-gray-900 bg-emerald-500 rounded-md p-2 flex justify-center mt-2"
                   >
-                    <CarIcon className="text-gray-100 w-6 h-6"/>
+                    {inseratFilter ? (
+                      <X className="text-gray-900 w-4 h-4"/>
+                    ) : (
+                      <CarIcon className="text-gray-900 w-4 h-4"/>
+                    )}
                   </div>
                  
                 );

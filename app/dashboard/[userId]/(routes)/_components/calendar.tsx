@@ -110,6 +110,9 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
                             <SelectValue onSelect={(e) => { console.log(e) }} placeholder="Nach Inserat filtern" />
                         </SelectTrigger>
                         <SelectContent className="dark:bg-[#0f0f0f] border-none">
+                        <SelectItem key={-1} value={null}>
+                                    Alle
+                                </SelectItem>
                             {inserate.map((inserat, index) => (
                                 <SelectItem key={index} value={inserat.id}>
                                     {inserat.title} 

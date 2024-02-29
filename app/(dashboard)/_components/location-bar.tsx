@@ -71,7 +71,7 @@ useEffect(() => {
   <div className="lg:flex items-center hidden">
    <div className="2xl:mr-16 xl:mr-8 flex items-center mt-2 w-full flex-shrink">
    <Input ref={inputRef} placeholder="Standort.." 
-   className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border  border-black  input: justify-start dark:focus-visible:ring-0"
+   className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm   input: justify-start dark:focus-visible:ring-0"
    
    onChange={(e) => {setValue(e.target.value)}}/>
    <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 " onClick={onSearch}>

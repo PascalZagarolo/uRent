@@ -47,7 +47,7 @@ const ChatInput = () => {
     }
 
     return (
-        <div className="bottom-0 flex justify-center sm:bg-white items-center  w-full dark:bg-[#0F0F0F]">
+        <div className="bottom-0 flex justify-center sm:bg-white items-center  w-full dark:bg-[#080808]">
             
         <div className="w-full flex p-4">
         
@@ -64,7 +64,7 @@ const ChatInput = () => {
                 <FormItem className="w-full">
                     <FormControl className="w-full">
                         <Input className="mt-auto mb-4 border-2 border-none text-black border-gray-300 w-full
-                        dark:bg-[#080808] dark:text-gray-100"
+                        dark:bg-[#0F0F0F] dark:text-gray-100"
                             placeholder="Schreibe eine Nachricht..."
                             {...field}
                         />
@@ -75,7 +75,7 @@ const ChatInput = () => {
         />
         
         <div className="ml-2">
-                        <Button className="bg-white  hover:bg-gray-100 dark:bg-[#080808] " type="submit">
+                        <Button className="bg-white  hover:bg-gray-100 dark:bg-[#0F0F0F] dark:hover:bg-[#151515] " type="submit">
                             <Send className="text-black dark:text-gray-100" />
                         </Button>
                     </div>

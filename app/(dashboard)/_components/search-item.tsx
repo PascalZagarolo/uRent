@@ -32,13 +32,13 @@ const SearchItem = () => {
     }, [debouncedValue, router, pathname])
 
     return (
-        <div className="flex items-center justify-start position: static sm:mr-4 md:mr-4 2xl:mr-4 ">
+        <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4 ">
 
             
             
 
             <Input
-                className="2xl:w-[240px] dark:border-none dark:focus:bring-0 dark:focus-visible:ring-0"
+                className="2xl:w-[240px] w-full dark:border-none dark:focus:bring-0 dark:focus-visible:ring-0"
                 placeholder="Ich suche nach..."
                 value={value}
                 onChange={(e) => setValue(e.target.value)}

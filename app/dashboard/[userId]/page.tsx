@@ -1,6 +1,6 @@
 
 
-import { CalendarCheck2, TrendingUp, User2Icon, UserPlus2 } from "lucide-react";
+import { CalendarCheck2, ContainerIcon, EyeIcon, TrendingUp, Truck, User2Icon, UserCog2Icon, UserPlus2 } from "lucide-react";
 import Logo from "../../profile/[profileId]/_components/u-rent-logo";
 import DashboardLayout from '../../(dashboard)/layout';
 import { Booking, BookingRequest, Images, Inserat, User } from "@prisma/client";
@@ -16,6 +16,7 @@ import { addDays, subDays } from "date-fns";
 import getCurrentUser from "@/actions/getCurrentUser";
 
 import BookingRequestRender from "./(routes)/_components/booking-request";
+import { forEach } from "lodash";
 
 interface MainPageProps {
     searchParams : {
@@ -78,6 +79,13 @@ const DashboardPage = async ({
         bookingRequests.push(...requests);
     }
 
+    let views = 0;
+
+    const viewAmount = forEach(everyInserat, (inserat) => {
+        views =+ inserat.views;
+        
+    })
+
     
 
 
@@ -94,7 +102,21 @@ const DashboardPage = async ({
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 <TrendingUp className="mr-4" /> Dashboard <p className="ml-4 text-lg"> </p>
                             </h3>
-                            <div className="p-4 mt-16 flex">
+                            <h3 className="flex text-lg font-semibold items-center mt-8">
+                                    <UserCog2Icon className="w-4 h-4 mr-2" /> Profilstatistik
+                                </h3>
+                            <div className="w-full dark:bg-[#141414] p-4  flex justify-evenly mt-2 rounded-md">
+                            <div className="text-xl font-semibold flex p-4 bg-[#1C1C1C] rounded-md">
+                                <Truck className="h-6 w-6 mr-2" />
+                                {everyInserat.length} <p className="font-medium ml-2"> Inserate </p>
+                            </div>
+                            <div className="text-xl font-semibold flex mr-2 p-4 bg-[#1C1C1C] rounded-md">
+                            <EyeIcon className="h-6 w-6 mr-2" />   {views} <p className="font-medium ml-2"> Ansichten </p>
+                            </div>
+                            
+                                </div>
+                            <div className="p-4 mt-8 flex">
+                                
                                 <div className="sm:w-3/5 mr-4">
                                 <h3 className="flex text-lg font-semibold items-center">
                                     <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender
@@ -120,6 +142,11 @@ const DashboardPage = async ({
                                         />
                                     
                                     ))}
+                                    {bookingRequests.length === 0 && (
+                                        <div className="mt-8 flex justify-center text-sm  text-gray-100/60">
+                                            Du hast keine offenen Anfragen...
+                                        </div>
+                                    )}
                                 </div>
                                 </div>
                             </div>

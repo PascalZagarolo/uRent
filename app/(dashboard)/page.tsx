@@ -69,9 +69,10 @@ const Main = async ({
 
  <div>
  <div className="relative flex justify-center mt-4">
-  <div className="top-0 sm:mr-4 ">
-      <MainPageSidebar treffer={12} />
+ <div className="top-0 sm:mr-4 ">
+ <MainPageSidebar treffer={12} />
       </div>
+      
       <div className=" sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%] ">
       <Suspense fallback={<div className="ml-4"><ClipLoader loading/></div>}>
                 <LazyRelevanteInserate
@@ -87,7 +88,6 @@ const Main = async ({
                 />
             </Suspense>
       </div>
-      
   </div>
   
  </div>

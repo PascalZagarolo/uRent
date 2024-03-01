@@ -14,22 +14,42 @@ const SearchItem = () => {
 
     const [value, setValue] = useState("");
 
+    
+
     const debouncedValue = useDebounce(value);
+
+    
 
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
 
+    const currentLocation = searchParams.get("location");
+    const currentTitle = searchParams.get("title")
+
     useEffect(() => {
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                title: debouncedValue
+                title: debouncedValue,
+                location: currentLocation,
             }
         }, { skipEmptyString: true, skipNull: true })
 
         router.push(url)
-    }, [debouncedValue, router, pathname])
+    }, [debouncedValue, router, pathname, currentLocation])
+
+    const onSearch = () => {
+        const url = qs.stringifyUrl({
+            url: "/",
+            query: {
+                title: debouncedValue,
+                location : currentLocation,
+            }
+        }, { skipEmptyString: true, skipNull: true })
+
+        router.push(url)
+    }
 
     return (
         <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4 ">
@@ -43,7 +63,7 @@ const SearchItem = () => {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
             />
-            <div className="px-2 py-2  rounded-md   bg-slate-800 dark:hover:bg-slate-700 hover: cursor-pointer hidden xl:flex" >
+            <div className="px-2 py-2  rounded-md   bg-slate-800 dark:hover:bg-slate-700 hover: cursor-pointer hidden xl:flex" onClick={onSearch}>
             <Search
                 className=" text-white h-6 w-6"
             />

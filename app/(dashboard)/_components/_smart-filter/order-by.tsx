@@ -36,7 +36,7 @@ const OrderBy = () => {
             <SelectTrigger className="w-[180px] dark:text-gray-100 dark:focus:ring-0 dark:bg-[#0F0F0F] dark:border-gray-900" >
                 <SelectValue placeholder="Sortieren nach" className="dark:text-gray-100" />
             </SelectTrigger>
-            <SelectContent className="dark:bg-[#0F0F0F] dark:border-gray-900">
+            <SelectContent className="dark:bg-[#0F0F0F] dark:border-gray-900 border-none">
                 <SelectItem value="desc">Preis absteigend</SelectItem>
                 <SelectItem value="asc">Preis aufsteigend</SelectItem>
                 <SelectItem value="relevance">Relevanz</SelectItem>

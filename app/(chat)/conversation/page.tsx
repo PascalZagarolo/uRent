@@ -18,7 +18,7 @@ const ConversationPage = async () => {
         startedConversations  = await db.conversation.findMany({
             where : {
                 userIds : {
-                    has : currentUser.id
+                    has : currentUser?.id
                 }
             }, include : {
                 users : true,
@@ -36,7 +36,7 @@ const ConversationPage = async () => {
 
     const notifications = await db.notification.findMany({
         where : {
-            userId : currentUser.id
+            userId : currentUser?.id
         }
     })
 

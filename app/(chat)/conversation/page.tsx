@@ -5,12 +5,18 @@ import { MessageSquareIcon, User2Icon } from "lucide-react";
 import StartedChats from "./[conversationId]/_components/started-chats";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import { Messages, User, Conversation } from "@prisma/client";
+import { redirect } from "next/navigation";
+
 
 type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
 
 const ConversationPage = async () => {
 
     const currentUser = await getCurrentUser();
+
+    if(!currentUser) {
+        redirect("/login")
+    }
 
     let startedConversations: ConversationWithUsers[] = [];
 
@@ -41,7 +47,7 @@ const ConversationPage = async () => {
     })
 
     return ( 
-        <div className="bg-[#0F0F0F] min-h-screen">
+        <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 min-h-screen">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}

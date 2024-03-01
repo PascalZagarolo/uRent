@@ -31,8 +31,8 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     const isOnSite = params.conversationId === conversationId ? true : false;
     const router = useRouter();
     return ( 
-        <div className={cn(`flex items-center mr-auto w-full  p-4  bg-[#0F0F0F]
-         text-gray-100  hover:cursor-pointer`, !isOnSite ? "" : "")}
+        <div className={cn(`flex items-center mr-auto w-full  p-4  
+         text-gray-100  hover:cursor-pointer`, isOnSite ? "bg-[#0F0F0F]" : "bg-[#1c1c1c]")}
          onClick={onClick}
          >
 

@@ -1,7 +1,7 @@
 import { db } from "@/utils/db";
-import InseratImageCarousel from "./_components/inserat-image";
+
 import { AlignLeft, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, Globe2, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck } from "lucide-react";
-import Active from "./_components/active-badge";
+
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
 import getCurrentUser from "@/actions/getCurrentUser";
@@ -10,10 +10,7 @@ import BookingsOverview from "./_components/bookings-overview";
 import { format } from "date-fns";
 import { lazy } from "react";
 import { Metadata } from "next";
-import { useParams } from "next/navigation";
-import { NextPage, NextPageContext } from "next";
-import { Head } from "next/document";
-import { getInserate } from '../../../../actions/getInserate';
+
 
 
 
@@ -25,10 +22,7 @@ export const InseratAnzeige = async ({
     params
 }: { params: { inseratId: string } }) => {
 
-    const metadata: Metadata = {
-        title: 'Mieten assuf uRent',
-        description: 'Kostenlos und schnell mieten auf uRent. Mieten und Vermieten Sie alles, was Sie brauchen.',
-      }
+    
 
     const currentUser = await getCurrentUser();
 

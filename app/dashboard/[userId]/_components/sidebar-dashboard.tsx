@@ -18,7 +18,7 @@ const SidebarDashboard = () => {
     const baseUrl = "/dashboard/" + params.userId;
 
     return ( 
-        <div className=" dark:bg-[#1C1C1C] rounded-md w-[240px] p-2">
+        <div className=" dark:bg-[#1C1C1C] rounded-md w-[280px] p-2">
                 <div className="p-4">
                     <h3 className="text-lg font-semibold flex items-center">
                       <CircuitBoard className="w-4 h-4 mr-2"/>  Dashboard

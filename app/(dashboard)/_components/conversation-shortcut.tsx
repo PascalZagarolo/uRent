@@ -10,8 +10,6 @@ const ConversationShortCut = () => {
     const router = useRouter();
 
     return (
-
-
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>

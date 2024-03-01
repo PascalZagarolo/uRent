@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { User } from "@prisma/client";
-import { UserCircle2Icon } from "lucide-react";
+import { UserCircle2Icon, X } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
@@ -31,32 +31,29 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     const isOnSite = params.conversationId === conversationId ? true : false;
     const router = useRouter();
     return ( 
-        <div className={cn(`flex items-center mr-auto w-full mt-2 rounded-md border-2  py-2 bg-[#1C1C1C]
-         text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] hover:cursor-pointer`, !isOnSite ? "border-[#171717]" : "border-2 border-[#1C1C1C]")}
+        <div className={cn(`flex items-center mr-auto w-full  p-4  bg-[#0F0F0F]
+         text-gray-100  hover:cursor-pointer`, !isOnSite ? "" : "")}
          onClick={onClick}
          >
-            <div className="flex justify-center ml-4 w-2/5">
-                <p className="mr-2">
-                    <UserCircle2Icon/>
-                </p>
-                <p className="5 truncate mr-auto">
-                    {user.name}
-                </p>
-            </div>
+
             <div>
-                <p className="text-gray-200 text-sm overflow-x-hidden ml-2 font-medium w-[120px] h-[20px] mr-auto truncate ">
-                {lastMessage}
-                </p>
-            </div>
-            <div className="flex justify-center ml-auto mr-4">
-                <Image
-                height={45}    
-                width={45}
-                alt = "pfp"
-                className="rounded-full  w-[45px] h-[45px]"
+                <Image 
+                alt="Profile Picture"
                 src={user.image || "/placeholder-person.jpg"}
-                 />
+                width={40}
+                height={40}
+                className="rounded-full h-[32px] w-[32px] object-cover mr-2"
+                />
             </div>
+            <div className="w-1/2 truncate">
+                {user.name} 
+            </div>
+            {isOnSite && (
+                <div className="ml-auto">
+                <X  className="w-4 h-4 text-blue-800"/>
+                </div>
+            )}
+            
         </div>
      );
 }

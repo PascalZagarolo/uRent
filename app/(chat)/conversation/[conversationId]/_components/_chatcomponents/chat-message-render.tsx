@@ -65,7 +65,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                         <div className="mb-4 hidden lg:block ">
                                             <div className="flex items-center">
                                                 <Forward />
-                                                <p className="ml-2 font-semibold text-xs text-gray-900/50">Interesse bezüglich...</p>
+                                                <p className="ml-2 font-semibold text-xs text-gray-900/50 dark:text-gray-300">Interesse bezüglich...</p>
                                             </div>
                                             <div className="p-4  bg-white dark:bg-[#1C1C1C] dark:text-gray-100 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:cursor-pointer"
                                                 onClick={

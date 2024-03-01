@@ -1,18 +1,22 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
-import ConversationProfileBar from "./_components/conversation-profile-bar";
+
 import ChatComponent from "./_components/chat-component";
-import ChatLogo from "../_components/chat-logo";
-import ChatSideBar from "../_components/chat-sidebar";
-import { MessageSquareIcon, TrendingUp, User2Icon, UserIcon } from "lucide-react";
+
+import { MessageSquareIcon, TrendingUp,  User2Icon, UserIcon } from "lucide-react";
 import MobileHeaderChat from "./_components/mobile-header";
 import ChatInput from "./_components/_chatcomponents/chat-input";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import useActiveList from "@/hooks/useActiveList";
-import ChatHeader from "./_components/chat-header";
 
+
+import ChatHeader from "./_components/chat-header";
+import { Conversation, Messages, User } from "@prisma/client";
+import { find } from "lodash";
+import RenderedChats from "./_components/rendered-chats";
+import StartedChats from "./_components/started-chats";
+
+type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
 
 const ConversationPage = async ({
     params
@@ -20,7 +24,27 @@ const ConversationPage = async ({
 
     const currentUser = await getCurrentUser();
 
-    
+    let startedConversations: ConversationWithUsers[] = [];
+
+    if(currentUser) {
+        startedConversations  = await db.conversation.findMany({
+            where : {
+                userIds : {
+                    has : currentUser.id
+                }
+            }, include : {
+                users : true,
+                messages : {
+                    orderBy : {
+                        createdAt : "asc"
+                    }
+                
+                }
+            }
+        })
+    } else {
+        startedConversations = [];
+    }
 
     const conversation = await db.conversation.findUnique({
         where: {
@@ -79,6 +103,7 @@ const ConversationPage = async ({
         }
     })
 
+    let otherUserChat: User;
 
     return (
         <div className="bg-[#0F0F0F] min-h-screen">
@@ -88,10 +113,25 @@ const ConversationPage = async ({
                     notifications={notifications} />
             </div>
             <div className="flex justify-center h-screen py-8 px-4">
+                <div className="dark:bg-[#1c1c1c] mr-4 rounded-md  w-[280px]">
+                    <h3 className="text-xl font-semibold flex items-center p-4 ">
+                      <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
+                    </h3>
+                    <div className="mt-4">
+                        {startedConversations.map((conversation: ConversationWithUsers) => (
+                           <StartedChats
+                           key={conversation.id}
+                           conversation={conversation}
+                           currentUser = {currentUser}
+                           />
+                        ))}
+                    </div>
+                </div>
+                
                 <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white">
                     <div className="rounded-lg h-full no-scrollbar">
                         <div className="relative h-full">
-                            <h3 className="dark:text-gray-100 dark:bg-[#080808] text-2xl flex items-center p-4 font-semibold border border-gray-600/10 sticky top-0 z-10">
+                            <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-2xl flex items-center p-4 font-semibold border border-gray-600/10 sticky top-0 z-10">
                                 <Image 
                                  className="rounded-full w-[40px] h-[40px] object-cover mr-4"
                                  src={otherUserDetails.image || "/placeholder-person.jpg"}
@@ -116,7 +156,6 @@ const ConversationPage = async ({
                             </div>
                             <div className="sticky bottom-0 w-full flex items-center border-t border-gray-600/10 ">
                                 <ChatInput />
-
                             </div>
                         </div>
                     </div>

@@ -31,7 +31,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
     
 
     return ( 
-        <div className="flex justify-center p-1">
+        <div className="flex justify-center ">
             <RenderedChats
             user = {image}
             conversationId={conversation.id}

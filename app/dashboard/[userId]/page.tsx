@@ -104,9 +104,7 @@ const DashboardPage = async ({
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 <TrendingUp className="mr-4" /> Übersicht <p className="ml-4 text-lg"> </p>
                             </h3>
-                            <h3 className="flex text-lg font-semibold items-center mt-8">
-                                <UserCog2Icon className="w-4 h-4 mr-2" /> Profilstatistik
-                            </h3>
+                            
                             <div className="w-full dark:bg-[#141414] p-4  flex justify-evenly mt-2 rounded-md">
                                 <div className="text-xl font-semibold flex p-4 bg-[#1C1C1C] rounded-md">
                                     <Truck className="h-6 w-6 mr-2" />
@@ -117,7 +115,7 @@ const DashboardPage = async ({
                                 </div>
 
                             </div>
-                            <div className="p-4 mt-8 sm:flex">
+                            <div className="p-4  sm:flex">
 
                                 <div className="sm:w-3/5 mr-4">
                                     <h3 className="flex text-lg font-semibold items-center">

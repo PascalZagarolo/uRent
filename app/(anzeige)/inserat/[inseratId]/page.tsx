@@ -9,13 +9,26 @@ import InseratDescription from "./_components/inserat-description";
 import BookingsOverview from "./_components/bookings-overview";
 import { format } from "date-fns";
 import { lazy } from "react";
+import { Metadata } from "next";
+import { useParams } from "next/navigation";
+import { NextPage, NextPageContext } from "next";
+import { Head } from "next/document";
+import { getInserate } from '../../../../actions/getInserate';
 
 
 
 
-const InseratAnzeige = async ({
+
+
+
+export const InseratAnzeige = async ({
     params
 }: { params: { inseratId: string } }) => {
+
+    const metadata: Metadata = {
+        title: 'Mieten assuf uRent',
+        description: 'Kostenlos und schnell mieten auf uRent. Mieten und Vermieten Sie alles, was Sie brauchen.',
+      }
 
     const currentUser = await getCurrentUser();
 
@@ -90,11 +103,14 @@ const InseratAnzeige = async ({
     }
 
 
-
-
+    
+    
 
 
     return (
+        
+        
+      
         <div className="2xl:grid  2xl:grid-cols-2 xl:flex justify-center  gap-12 xl:mt-24 h-max">
             <div className="h-full p-4">
                 <div className="flex xl:justify-end justify-center">
@@ -247,7 +263,10 @@ const InseratAnzeige = async ({
                 </div>
             </div>
         </div>
+      
     );
 }
 
 export default InseratAnzeige;
+
+

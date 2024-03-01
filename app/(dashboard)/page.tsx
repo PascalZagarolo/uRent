@@ -14,6 +14,7 @@ import { TruckIcon } from "lucide-react";
 import Footer from "./_components/footer";
 import { Suspense, lazy } from "react";
 import { BeatLoader, ClipLoader } from "react-spinners";
+import { Metadata } from "next";
 
 
 type InserateWithImages = Inserat & {
@@ -34,9 +35,22 @@ interface MainPageProps {
     }
 }
 
+export const metadata: Metadata = {
+    title: 'Mieten auf uRent',
+    description: 'Kostenlos und schnell mieten auf uRent. Mieten und Vermieten Sie alles, was Sie brauchen.',
+  }
+
 const Main = async ({
     searchParams
-} : MainPageProps) => {  
+} : MainPageProps) => {
+
+    
+    const metadata: Metadata = {
+        title: 'Mieten ',
+        description: 'Kostenlos und schnell mieten auf uRent. Mieten und Vermieten Sie alles, was Sie brauchen.',
+      }
+    
+
 
     const currentUser = await getCurrentUser();
 

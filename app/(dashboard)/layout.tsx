@@ -7,6 +7,13 @@ const DashboardLayout = async (
     { children } : { children : React.ReactNode }
 ) => {
 
+    <meta
+  name="Mieten auf uRent!"
+  content="Kostenlos und schnell mieten auf uRent. Mieten Sie alles, was Sie brauchen."
+    />
+
+
+
    const currentUser = await getCurrentUser();
    const notification = await db.notification.findMany({
     where : {

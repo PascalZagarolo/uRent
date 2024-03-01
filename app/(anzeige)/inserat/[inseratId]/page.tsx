@@ -18,7 +18,7 @@ import { Metadata } from "next";
 
 
 
-export const InseratAnzeige = async ({
+const InseratAnzeige = async ({
     params
 }: { params: { inseratId: string } }) => {
 

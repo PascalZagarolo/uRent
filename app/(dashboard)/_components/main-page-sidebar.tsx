@@ -22,10 +22,16 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
     const searchParams = useSearchParams();
     const currentCategory = searchParams.get("category");
     const currentTitle = searchParams.get("title");
+    const currentLocation = searchParams.get("location")
 
     const router = useRouter();
 
     const [setCategory, setNewCategory] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Store currentLocation in session storage
+        sessionStorage.setItem("currentLocation", currentLocation);
+      }, [currentLocation]);
 
     const onClick = (category: string) => {
 
@@ -49,6 +55,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                 title: currentTitle,
                 periodBegin: null,
                 periodEnd: null,
+                location: currentLocation,
             }
         }, { skipNull: true, skipEmptyString: true });
 
@@ -63,7 +70,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                 <AlignCenter className="mr-4" /> Suchfilter <X className="h-4 w-4 mb-2 ml-2 hover:cursor-pointer" onClick={onReset} />
             </h3>
             <div className="mt-4 ">
-                <h3 className="text-gray-100 font-semibold border-2 rounded-md border-black p-2 flex justify-center ml-2 mr-2 bg-[#1b1f2c] dark:border-[#1f2332]">
+                <h3 className="text-gray-100 font-semibold  rounded-md  p-2 flex justify-center ml-2 mr-2 bg-[#1b1f2c] dark:border-[#1f2332]">
                     Fahrzeugkategorie
                 </h3>
 
@@ -143,7 +150,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
                 </div>
                 <div>
-                    <PKW />
+                <PKW />
                 </div>
                 <div className="text-xs flex justify-center mt-2 text-gray-100 underline">
                     <Contact className="mr-2 h-4 w-4" />  kein passendes Angebot dabei ?

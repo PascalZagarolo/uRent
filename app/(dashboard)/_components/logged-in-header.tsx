@@ -83,7 +83,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
-                <PopoverContent className="dark:bg-[#0F0F0F] dark:text-gray-100">
+                <PopoverContent className="dark:bg-[#0F0F0F] dark:text-gray-100 border-none">
                     <div className="mb-2">
                         <h3 className="flex">
 

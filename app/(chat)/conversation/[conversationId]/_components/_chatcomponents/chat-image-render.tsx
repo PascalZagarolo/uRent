@@ -18,7 +18,7 @@ const ChatImageRender: React.FC<ChatImageRenderProps> = ({
                     />
                 </div>
             </DialogTrigger>
-            <DialogContent className="">
+            <DialogContent className="dark:bg-[#101010] flex justify-center border-none">
                 <div>
                     <img
                         className="width: auto;

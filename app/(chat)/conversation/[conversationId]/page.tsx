@@ -113,7 +113,7 @@ const ConversationPage = async ({
                     notifications={notifications} />
             </div>
             <div className="flex justify-center h-screen py-8 px-4">
-                <div className="dark:bg-[#0F0F0F] mr-4 rounded-md  w-[280px]">  
+            <div className="dark:bg-[#0F0F0F] mr-4 rounded-md w-[280px] h-full">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                     </h3>

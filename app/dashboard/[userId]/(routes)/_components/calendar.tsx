@@ -92,7 +92,7 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
     },[currentFilter])
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 border dark:border-none">
             <div className="mb-4 flex items-center">
                 <Button onClick={decreaseMonth} className="" variant="ghost">
                     <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />

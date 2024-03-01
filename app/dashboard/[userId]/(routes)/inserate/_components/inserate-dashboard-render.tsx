@@ -40,7 +40,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     }
 
     return (
-        <div className="w-full dark:bg-[#141414] p-4 mt-2">
+        <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
                 <div className="w-[200px] h-[100px]">
                     {inserat.images.length > 0 ? (
@@ -52,7 +52,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                             className="h-full w-full object-cover"
                         />
                     ) : (
-                        <div className="w-full h-full flex justify-center items-center dark:bg-[#0F0F0F] text-xs">
+                        <div className="w-full h-full flex justify-center items-center bg-[#ECECEC] dark:bg-[#0F0F0F] text-xs">
                             keine Fotos vorhanden
                         </div>
                     )}
@@ -61,14 +61,14 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     {inserat.title}
                 </div>
                 <div className="w-1/6">
-                    <p className={cn("text-sm flex items-center", inserat.isPublished ? "text-emerald-600 font-semibold" : "text-gray-100/40")}>
-                        {inserat.isPublished ? <> <Globe2Icon className="mr-2 h-4 w-4 text-gray-100/80" /> Veröffentlicht </> : "Entwurf"}
+                    <p className={cn("text-sm flex items-center", inserat.isPublished ? "text-emerald-600 font-semibold" : "dark:text-gray-100/40 text-gray-700")}>
+                        {inserat.isPublished ? <> <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> Veröffentlicht </> : "Entwurf"}
                     </p>
                 </div>
-                <div className="w-2/6 text-sm text-gray-100/70 flex justify-center">
+                <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 flex justify-center">
                     <div>
                         {format(new Date(inserat.createdAt), "dd.MM.yyyy")}
-                        <p className="text-gray-100">
+                        <p className="dark:text-gray-100 text-gray-800">
                             erstellt am
                         </p>
                     </div>

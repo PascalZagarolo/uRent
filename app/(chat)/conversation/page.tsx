@@ -1,45 +1,86 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 import { MessageSquareIcon, User2Icon } from "lucide-react";
-import ChatLogo from "./_components/chat-logo";
-import ChatSideBar from "./_components/chat-sidebar";
 
+import StartedChats from "./[conversationId]/_components/started-chats";
+import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
+import { Messages, User, Conversation } from "@prisma/client";
 
-const Conversation = async () => {
+type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
+
+const ConversationPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    return ( 
-        <div className="overflow-y-hidden  h-screen bg-[#404040]/10 font-medium">
-            <div className="w-full h-[100px] overflow-y-hidden bg-[#1d2235] border-2 border-[#23283d] sm:flex items-center hidden">
-                <ChatLogo/>
-                <h3 className="flex justify-center w-full text-[#eaebf0] text-3xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.12)] items-center">
-                   <MessageSquareIcon className="mr-4"/> Konversationen
-                </h3>
-            </div>
-            
-           <div className="h-screen flex overflow-y-hidden ">
-            <div className="flex">
-            <ChatSideBar
-            />
-            </div>
-            
-            <div className="w-full">
-            
-                <div className="flex justify-center items-center h-full">
+    let startedConversations: ConversationWithUsers[] = [];
+
+    if(currentUser) {
+        startedConversations  = await db.conversation.findMany({
+            where : {
+                userIds : {
+                    has : currentUser.id
+                }
+            }, include : {
+                users : true,
+                messages : {
+                    orderBy : {
+                        createdAt : "asc"
+                    }
                 
-                    <p className="text-2xl">
-                    <User2Icon className="flex justify-center items-center w-full  h-8"/>
-                        Wähle eine bereits gestarte Konversation und/oder starte eine neue Konversation
-                    </p>
+                }
+            }
+        })
+    } else {
+        startedConversations = [];
+    }
+
+    const notifications = await db.notification.findMany({
+        where : {
+            userId : currentUser.id
+        }
+    })
+
+    return ( 
+        <div className="bg-[#0F0F0F] min-h-screen">
+            <div className="relative top-0 w-full z-50">
+                <HeaderLogo
+                    currentUser={currentUser}
+                    notifications={notifications} />
+            </div>
+            <div className="flex justify-center h-screen py-8 px-4">
+            <div className="dark:bg-[#0F0F0F] mr-4 rounded-md w-[280px] h-full">  
+                    <h3 className="text-md font-semibold flex items-center p-4 ">
+                    <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
+                    </h3>
+                    <div className="mt-4">
+                        {startedConversations.map((conversation: ConversationWithUsers) => (
+                           <StartedChats
+                           key={conversation.id}
+                           conversation={conversation}
+                           currentUser = {currentUser}
+                           />
+                        ))}
+                    </div>
                 </div>
                 
+                <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white">
+                    <div className="rounded-lg h-full no-scrollbar">
+                        <div className="relative h-full flex justify-center items-center font-semibold text-lg">
+                            
+                            
+                            
+                            <div className="mr-2">
+                                <User2Icon className="w-12 h-12 text-gray-500 dark:text-gray-400" />
+                            </div>
+                                Tippe auf eine Konversation um sie zu öffnen...
+                           
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
-           
-           
-           </div>
         </div>
      );
 }
  
-export default Conversation;
+export default ConversationPage;

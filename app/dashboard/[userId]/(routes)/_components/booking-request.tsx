@@ -56,7 +56,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     }
 
     return ( 
-        <div className="bg-[#141414] p-4 mt-2 rounded-md ">
+        <div className="dark:bg-[#141414] p-4 mt-2 rounded-md border dark:border-none ">
             <div className="flex w-full truncate font-semibold items-center">
              <CarFrontIcon className="w-4 h-4 mr-2"/>    <p className="w-[200px] truncate">
              {request.inserat.title} 
@@ -107,11 +107,11 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                     </div>
                 </div>
             </div>
-            <div className="max-w-full mt-2 text-xs text-gray-100/70 max-h-[40px] truncate">
+            <div className="max-w-full mt-2 text-xs dark:text-gray-100/70 text-gray-700 max-h-[40px] truncate">
                 {request?.content ? request.content : "Keine Nachricht hinzugefügt..."} 
             </div>
             <div className="w-full mt-2">
-                <Button className="w-full bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex">
+                <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex">
                    <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                 </Button>
             </div>

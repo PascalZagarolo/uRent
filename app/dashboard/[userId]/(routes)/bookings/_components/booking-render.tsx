@@ -42,7 +42,7 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
     }
 
     return (
-        <div className="w-full dark:bg-[#141414] p-4 mt-2">
+        <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
             <div className="w-[200px] h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${booking.inserat.id}`)}}>
                     {booking?.inserat?.images?.length > 0 ? (
@@ -66,14 +66,14 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
                 <p className="flex items-center font-normal ">
                         <CalendarCheck2 className="w-4 h-4 mr-2" /> Datum
                     </p>
-                    <p className={cn("text-sm  h-[100px] overflow-hidden", booking?.inserat.isPublished ? "text-gray-100 font-semibold" :
+                    <p className={cn("text-sm  h-[100px] overflow-hidden", booking?.inserat.isPublished ? "dark:text-gray-100 text-gray-800 font-semibold" :
                      "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
                          {format(new Date(booking.startDate), "dd.MM.")} - {format(new Date(booking.endDate), "dd.MM.yy")}
                          
                     </p>
                     
                 </div>
-                <div className="w-2/6 text-sm text-gray-100/90 ml-4 font-semibold ">
+                <div className="w-2/6 text-sm dark:text-gray-100/90 text-gray-700 ml-4 font-semibold ">
                     <div>
                         <div className="flex items-center">
                             <Image

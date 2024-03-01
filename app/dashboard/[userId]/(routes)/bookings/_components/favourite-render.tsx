@@ -42,7 +42,7 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
     }
 
     return (
-        <div className="w-full dark:bg-[#141414] p-4 mt-2">
+        <div className="w-full dark:bg-[#141414] p-4 mt-2 border dark:border-none rounded-md">
             <div className="flex">
             <div className="w-[200px] h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${favourite.inserat.id}`)}}>
                     {favourite?.inserat?.images?.length > 0 ? (
@@ -67,7 +67,7 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                          {favourite.inserat.description}
                     </p>
                 </div>
-                <div className="w-2/6 text-sm text-gray-100/90  font-semibold ml-4">
+                <div className="w-2/6 text-sm dark:text-gray-100/90 text-gray-700  font-semibold ml-4">
                     <div>
                         <div className="flex items-center">
                             <Image

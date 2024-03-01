@@ -48,7 +48,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     alt="User-Bild"
                 />
                 <div className="font-semibold ml-2 flex items-center">
-                    <p className="font-black text-xl text-[#262a3c] dark:text-[#49506c]">{user.name.charAt(0).toUpperCase()}</p><div>{user.name.slice(1)}</div>
+                    <p className="font-black text-xl text-[#49506c] dark:text-[#49506c]">{user.name.charAt(0).toUpperCase()}</p><div>{user.name.slice(1)}</div>
 
                 </div>
                 <div className="flex ml-auto">
@@ -64,7 +64,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
             <div>
                 <div>
-                    <p className="text-sm  mt-1 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100/90">
+                    <p className="text-sm  mt-1 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100/90 text-gray-400">
                         Aktiv seit : {format(new Date(user.createdAt), "dd.MM.yyyy")}
                     </p>
                 </div>
@@ -72,23 +72,23 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="flex gap-x-1 mt-4">
 
                 <div>
-                    <p className=" mr-2 text-[#1d1f2c] dark:text-gray-100">
+                    <p className=" mr-2 text-gray-200 dark:text-gray-100">
                         Zufriedenheit :
                     </p>
                 </div>
                 <div className="flex">
-                 {!isNaN(averageRating) ? <p className="font-semibold flex dark:text-gray-100"> {averageRating} / 5  <CarIcon className="ml-2" /> </p>  : 
+                 {!isNaN(averageRating) ? <p className="font-semibold flex dark:text-gray-100 text-gray-200"> {averageRating} / 5  <CarIcon className="ml-2" /> </p>  : 
                  <p className="text-sm text-gray-900/50 dark:text-gray-100/80">keine Bewertungen vorhanden</p>} 
 
                 </div>
 
             </div>
-            <div className="mt-2 flex text-[#1d1f2c]  dark:text-gray-100">
+            <div className="mt-2 flex text-gray-200 dark:text-gray-100 ">
                 offene Anzeigen <p className="ml-2">({inseratArray.length})</p>
             </div>
 
             <div className="mt-4">
-                <Button className="w-full flex bg-[#1f222f] border border-black12 dark:text-gray-100 dark:hover:bg-[#282b3b]" onClick={() => { router.push(`/profile/${inseratOwner.id}`) }}>
+                <Button className="w-full flex bg-[#1f222f]  dark:text-gray-100 text-gray-300 dark:hover:bg-[#282b3b]" onClick={() => { router.push(`/profile/${inseratOwner.id}`) }}>
                     <User2 className="w-6 h-6 mr-2" />  Zum Profil
                 </Button>
             </div>

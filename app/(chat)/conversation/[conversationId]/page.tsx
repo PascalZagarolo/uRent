@@ -30,7 +30,7 @@ const ConversationPage = async ({
         startedConversations  = await db.conversation.findMany({
             where : {
                 userIds : {
-                    has : currentUser.id
+                    has : currentUser?.id
                 }
             }, include : {
                 users : true,

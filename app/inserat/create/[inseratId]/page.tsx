@@ -108,7 +108,6 @@ const InseratCreation = async ({
                                      </div>
                                 </div>
                             </div>
-
                             <div className="mt-4">
                                 <div>
                                     <div className="flex justify-evenly items-center">
@@ -127,10 +126,8 @@ const InseratCreation = async ({
                                         inserat={inserat}
                                         />
                                      </div>
-                                     
                                 </div>
                             </div>
-
                             <div className="mt-4">
                                 <div>
                                     <div className="flex justify-evenly items-center">
@@ -152,18 +149,15 @@ const InseratCreation = async ({
                                      </div>
                                 </div>
                             </div>
-
                             <div className="w-full mt-4  flex items-center">
                                     <PublishInserat
                                     isPublishable={isPublishable}
                                     inserat={inserat}
                                     />
                                 </div>  
-
                         </div>
                     </div>
-                </div>
-                
+                </div>   
             </div>
             <Footer/>
         </div>

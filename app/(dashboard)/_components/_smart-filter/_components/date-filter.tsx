@@ -48,7 +48,20 @@ const DateFormFilter = () => {
 
     
 
-    
+    React.useEffect(() => {
+      const url = qs.stringifyUrl({
+          url: pathname,
+          query: {
+              title: currentTitle,
+              category: category,
+              periodBegin: periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
+              periodEnd: periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
+              currentLocation : currentLocation
+          }
+      }, { skipNull: true, skipEmptyString: true });
+  
+      router.push(url);
+  }, [periodBegin, periodEnd, currentTitle, category]);
 
         
  

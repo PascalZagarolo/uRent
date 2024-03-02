@@ -26,51 +26,42 @@ const InseratAnzeige = async ({
 
     const currentUser = await getCurrentUser();
 
-    const images = await db.images.findMany({
-        where: {
-            inseratId: params.inseratId
-        }
-    })
+    
 
     const inserat = await db.inserat.findUnique({
         where: {
             id: params.inseratId
         }, include: {
-            address: true
+            address: true,
+            images : true,
+            user : {
+                include : {
+                    contactOptions : true
+                }
+            },
+            
         }
     })
 
-    const user = await db.user.findUnique({
-        where: {
-            id: inserat?.userId
-        }
-    })
+    
 
     const inseratArray = await db.inserat.findMany({
         where: {
-            userId: user?.id
+            userId: inserat.user?.id
         }
     })
 
-    const inseratOwner = await db.user.findUnique({
-        where: {
-            id: inserat?.userId
-        }
-    })
+    
 
 
 
     const rezensionen = await db.rezension.findMany({
         where: {
-            receiverId: user?.id
+            receiverId: inserat.user?.id
         }
     })
 
-    const contactOptions = await db.contactOptions.findUnique({
-        where: {
-            userId: user?.id
-        }
-    })
+    
 
     const inseratBookings = await db.booking.findMany({
         where: {
@@ -102,9 +93,6 @@ const InseratAnzeige = async ({
 
 
     return (
-        
-        
-      
         <div className="2xl:grid  2xl:grid-cols-2 xl:flex justify-center  gap-12 xl:mt-24 h-max">
             <div className="h-full p-4">
                 <div className="flex xl:justify-end justify-center">
@@ -142,7 +130,7 @@ const InseratAnzeige = async ({
 
 
                         <div className="mt-4 rounded-md     flex justify-center text-gray-900">
-                            <LazyInseratImageCarousel images={images} />
+                            <LazyInseratImageCarousel images={inserat.images} />
                         </div>
                         <div>
                             <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-4 text-gray-900  border-gray-800 
@@ -177,7 +165,7 @@ const InseratAnzeige = async ({
                                         <div className="flex items-center">
 
 
-                                            <MailIcon className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat?.emailAddress ? inserat?.emailAddress : user.email}</p>
+                                            <MailIcon className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat?.emailAddress ? inserat?.emailAddress : inserat.user.email}</p>
 
 
                                         </div>
@@ -195,9 +183,10 @@ const InseratAnzeige = async ({
                                         <div className="flex items-center">
 
 
-                                            {contactOptions?.websiteAddress && (
-                                                <a href={contactOptions?.websiteAddress} className="flex hover:underline">
-                                                    <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> {contactOptions?.websiteAddress ? contactOptions?.websiteAddress : ""}</p>
+                                            {inserat.user.contactOptions[0].websiteAddress && (
+                                                <a href={inserat.user.contactOptions[0].websiteAddress} className="flex hover:underline">
+                                                    <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat.user.contactOptions[0].websiteAddress? 
+                                                    inserat.user.contactOptions[0].websiteAddress : ""}</p>
                                                 </a>
                                             )}
 
@@ -230,26 +219,26 @@ const InseratAnzeige = async ({
 
                     <div className="xl:hidden flex sm:block justify-center">
                         <ProfileView
-                            user={user}
+                            user={inserat.user}
                             inseratArray={inseratArray}
-                            inseratOwner={inseratOwner}
+                            inseratOwner={inserat.user}
                             averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                         />
                     </div>
                     <div className="sm:ml-16 xl:ml-0 flex sm:block justify-center">
                         <InseratOptions
-                            user={user}
+                            user={inserat.user}
                             //@ts-ignore
                             bookings={inseratBookings}
                             ownUser={currentUser}
-                            contactOptions={contactOptions}
+                            contactOptions={inserat.user.contactOptions[0]}
                         />
                     </div>
                     <div className="hidden xl:mt-16 xl:block">
                         <ProfileView
-                            user={user}
+                            user={inserat.user}
                             inseratArray={inseratArray}
-                            inseratOwner={inseratOwner}
+                            inseratOwner={inserat.user}
                             averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                         />
                     </div>

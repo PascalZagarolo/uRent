@@ -55,10 +55,8 @@ const ChatInput = () => {
 
 <Form {...form} >
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full">
-
         <FormField
             control={form.control}
-            
             name="content"
             render={({ field }) => (
                 <FormItem className="w-full">
@@ -73,7 +71,7 @@ const ChatInput = () => {
                 </FormItem>
             )}
         />
-        
+    
         <div className="ml-2">
                         <Button className="bg-white  hover:bg-gray-100 dark:bg-[#0F0F0F] dark:hover:bg-[#151515] " type="submit">
                             <Send className="text-black dark:text-gray-100" />

@@ -3,7 +3,7 @@ export function convertState(state : string) : string {
         case " North Rhine-Westphalia":
             return "Nordrhein-Westfalen";
             break;
-        case "Bavaria":
+        case " Bavaria":
             return "Bayern";
             break;
         default : 

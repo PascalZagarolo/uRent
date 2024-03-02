@@ -115,8 +115,7 @@ const InseratAnzeige = async ({
 
 
                             <p className=" text-md sm:text-xl ml-2 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
-                            bg-[#1d1f2b] px-8 rounded-lg p-4 w-[400px] truncate flex justify-center 
-                             "> {inserat.title} </p>
+                            bg-[#1d1f2b] px-8 rounded-lg p-4 w-[400px] truncate flex justify-center "> {inserat.title} </p>
                             <div className="flex justify-end ml-2 sm:ml-2 bg-[#1d1f2b] sm:px-8 p-4 rounded-lg sm:p-4">
                                 <BookingsOverview
                                     bookings={inseratBookings}
@@ -133,8 +132,7 @@ const InseratAnzeige = async ({
                             <LazyInseratImageCarousel images={inserat.images} />
                         </div>
                         <div>
-                            <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-4  border-gray-800 
-                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-[#13151c]  text-gray-100 mt-2">
+                            <div className="flex justify-end items-center  am:mt-8 p-4  border-gray-800 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-[#13151c]  text-gray-100 mt-2">
                                 <div className="flex mr-auto items-center ">
                                     <div className="flex font-bold  text-sm items-center truncate sm:w-full ">
                                         <MapPinned className="text-rose-600 mr-2 h-4 w-4" />

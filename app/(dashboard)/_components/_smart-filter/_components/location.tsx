@@ -12,7 +12,6 @@ const LocationSmartFilter = () => {
             <div className="gap-x-4 mt-4">
                 
                 <Input
-                
                 placeholder="Standort..."
                 type="text"
                 />
@@ -23,7 +22,7 @@ const LocationSmartFilter = () => {
                     </Button>
                 </div>
             </div>
-     );
+);
 }
- 
+
 export default LocationSmartFilter;

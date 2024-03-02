@@ -283,7 +283,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                                 : "Keine Angabe"}
                             {inserat.address?.locationString && (
-                                <p className="text-gray-300 text-xs ml-auto">{inserat.address?.postalCode} Deutschland</p>
+                                <p className="text-gray-100 text-xs ml-auto">{inserat.address?.postalCode}
+                                 {inserat.address?.state ? inserat.address?.state + "," : ""} Deutschland</p>
                             )}
                         </div>
 

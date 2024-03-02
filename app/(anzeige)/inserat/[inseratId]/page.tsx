@@ -78,12 +78,11 @@ const InseratAnzeige = async ({
     const LazyInseratImageCarousel = lazy(() => import  ("./_components/inserat-image"));
 
     function ripOutToLongAddresses(input: string): string {
-        const commaCount = input.split(',').length - 1;
-        if (commaCount >= 3) {
-            const firstCommaIndex = input.indexOf(',');
-            return input.substring(0, firstCommaIndex).trim();
+        const lastCommaIndex = input.lastIndexOf(',');
+        if (lastCommaIndex !== -1) { // Check if comma exists
+            return input.substring(0, lastCommaIndex).trim();
         } else {
-            return input;
+            return input; // No comma found, return the original input
         }
     }
 
@@ -136,10 +135,12 @@ const InseratAnzeige = async ({
                                 <div className="flex mr-auto items-center ">
                                     <div className="flex font-bold  text-sm items-center truncate sm:w-full ">
                                         <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
-                                        <p className="w-[200px] sm:w-full">
-                                            {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"}
-                                            {inserat.address?.postalCode && `, ${inserat.address?.postalCode} DE`} 
-                                        </p>
+                                        <div className="w-[200px] sm:w-full flex">
+                                        {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"}
+                                            <p className="ml-1">
+                                            | {inserat.address?.postalCode && `${inserat.address?.postalCode}`} {inserat.address?.state ? inserat.address?.state + "," : ""} Deutschland
+                                            </p> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="justify-end flex mt-2 text-xl font-semibold">

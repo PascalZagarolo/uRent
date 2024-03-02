@@ -41,7 +41,8 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
             url: pathname,
             query: {
                 title: currentTitle,
-                category: newCategory
+                category: newCategory,
+                location: currentLocation
             }
         }, { skipNull: true, skipEmptyString: true });
 

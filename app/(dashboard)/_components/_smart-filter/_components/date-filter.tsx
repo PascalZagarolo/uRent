@@ -56,7 +56,7 @@ const DateFormFilter = () => {
               category: category,
               periodBegin: periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
               periodEnd: periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
-              currentLocation : currentLocation
+              location : currentLocation
           }
       }, { skipNull: true, skipEmptyString: true });
   
@@ -120,6 +120,7 @@ const DateFormFilter = () => {
                 
                 periodBegin : null,
                 periodEnd : null,
+                location : currentLocation
                 
             }
         }, { skipNull: true, skipEmptyString: true });

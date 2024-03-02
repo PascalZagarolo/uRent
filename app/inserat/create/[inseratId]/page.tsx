@@ -153,12 +153,12 @@ const InseratCreation = async ({
                                 </div>
                             </div>
 
-                                <div className="w-full mt-4  flex items-center">
+                            <div className="w-full mt-4  flex items-center">
                                     <PublishInserat
                                     isPublishable={isPublishable}
                                     inserat={inserat}
                                     />
-                                </div>
+                                </div>  
 
                         </div>
                     </div>

@@ -208,7 +208,7 @@ const CredForm = ({
           <div className="mt-6 flex  justify-center ">
             <div className="w-full gap-y-4">
             
-            <Button variant="ghost" className="text-medium w-full mt-2 bg-gray-100 border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+            <Button variant="ghost" className="text-medium w-full mt-2 bg-gray-100  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
              dark:bg-[#0d0d0d] dark:hover:bg-[#171717]" 
             onClick={() => {onClick("google")}}>
               Google

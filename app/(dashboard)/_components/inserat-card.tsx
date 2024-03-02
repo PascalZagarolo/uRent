@@ -1,5 +1,6 @@
 'use client'
 
+import { convertState } from "@/actions/convert-states";
 import findConversation from "@/actions/findConversation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -275,7 +276,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 {inserat.price} €  {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)}
                             </div>
                         </div>
-                        <div className="ml-auto sm:w-[320px]  flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] 0 
+                        <div className="ml-auto sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] 0 
                         p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm justify-center">
                             <MapPinned className="text-rose-600 mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
                             {inserat.address?.locationString ?
@@ -283,8 +284,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                                 : "Keine Angabe"}
                             {inserat.address?.locationString && (
-                                <p className="text-gray-100 text-xs ml-auto">{inserat.address?.postalCode}
-                                 {inserat.address?.state ? inserat.address?.state + "," : ""} Deutschland</p>
+                                <div className="text-gray-100 text-xs ml-auto flex">{inserat.address?.postalCode + " "}
+                                 <p className=" truncate ml-1 max-w-[160px] mr-1"> {inserat.address?.state ? convertState(inserat.address?.state) + "," : ""} </p> DE</div>
                             )}
                         </div>
 

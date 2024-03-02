@@ -40,6 +40,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   const [currentAddress, setCurrentAddress] = useState(addressComponent?.locationString || "");
   const [currentZipCode, setCurrentZipCode] = useState<null | number>(addressComponent?.postalCode || null);
+  const [currentState, setCurrentState] = useState(addressComponent?.state || "");
 
   useEffect(() => {
     //@ts-ignore
@@ -59,7 +60,23 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
     
     let extractedZipCode;
+    let extractedState : string[] = addressObject?.data[0]?.display_name.split(",");
+    console.log(extractedState?.[extractedState?.length -3]);
 
+    //retrieve data until state is delivered..
+    if(extractedState?.[extractedState?.length -3] === undefined) {
+      for(let i = 0; i < addressObject.data.length; i++) {
+        extractedState = addressObject.data[i].display_name.split(",");
+
+        if(extractedState[extractedState?.length -3] !== undefined) {
+          setCurrentState(extractedState[extractedState?.length -3]);
+          break;
+        }
+      }
+    }
+    setCurrentState(extractedState?.[extractedState?.length -3]);
+
+    //retrieve data until zipCode is delivered..
     for(let i = 0; i < addressObject.data.length; i++) {
        extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
        console.log(addressObject.data[i])
@@ -87,7 +104,8 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       const values = {
         //@ts-ignore
         locationString: inputRef?.current?.value || null,
-        postalCode: currentZipCode
+        postalCode: currentZipCode,
+        state : currentState
       }
       console.log(values);
       axios.patch(`/api/inserat/${inserat.id}/address`, values);

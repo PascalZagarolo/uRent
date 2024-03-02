@@ -72,7 +72,7 @@ const SitzeDetailForm = () => {
             end : null
         }
     })
-   
+
 
     const onStartPrice = (values : z.infer<typeof formSchema>) => {
         console.log(values);

@@ -133,14 +133,14 @@ const InseratAnzeige = async ({
                             <LazyInseratImageCarousel images={inserat.images} />
                         </div>
                         <div>
-                            <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-4 text-gray-900  border-gray-800 
-                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#13151c]  dark:text-gray-100 mt-2">
+                            <div className="flex justify-end items-center bg-gray-100/100 am:mt-8 p-4  border-gray-800 
+                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-[#13151c]  text-gray-100 mt-2">
                                 <div className="flex mr-auto items-center ">
                                     <div className="flex font-bold  text-sm items-center truncate sm:w-full ">
                                         <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
                                         <p className="w-[200px] sm:w-full">
-                                            {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"},
-                                            {inserat.address?.postalCode && ` ${inserat.address?.postalCode}`} DE
+                                            {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"}
+                                            {inserat.address?.postalCode && `, ${inserat.address?.postalCode} DE`} 
                                         </p>
                                     </div>
                                 </div>

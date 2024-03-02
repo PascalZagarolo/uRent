@@ -53,17 +53,29 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   //automatically converts the inputAddress to a zip code with the help of geocode maps api, and sets the currentZipCode state
   const getZipCode = async () => {
     //@ts-ignore
+    console.log(inputRef?.current?.value);
+    //@ts-ignore
     const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
     
-    console.log(addressObject.data[0]?.display_name.match)
-    const extractedZipCode = parseInt(addressObject.data[0]?.display_name.match(/\b0*\d{5}\b/));
+    let extractedZipCode;
+
+    for(let i = 0; i < addressObject.data.length; i++) {
+       extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
+       console.log(extractedZipCode)
+       if(!isNaN(extractedZipCode)) {
+           setCurrentZipCode(extractedZipCode);
+           return; 
+       }
+    }
+
+    console.log(extractedZipCode);
 
     if(extractedZipCode) {
       setCurrentZipCode(extractedZipCode)
     } else {
       setCurrentZipCode(null);
     }
-  }
+}
 
   useEffect(() => {
     //@ts-ignore

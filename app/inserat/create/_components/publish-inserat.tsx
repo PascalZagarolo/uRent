@@ -67,7 +67,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
 
     useEffect(() => {
-        if(inserat.images.length === 0 && !firstUpdate.current) {  
+        if(inserat.images.length === 0 && !firstUpdate.current && inserat.isPublished) {  
             onPrivate();
         }
 

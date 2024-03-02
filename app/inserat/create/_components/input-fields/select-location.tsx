@@ -1,7 +1,7 @@
 'use client'
 
 import { useDebounce } from "@/hooks/use-debounce";
-import { MapIcon, MapPin, PinIcon } from "lucide-react";
+import { AlertCircle, MapIcon, MapPin, PinIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Address, Inserat } from "@prisma/client";
 import axios from "axios";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 
 interface SelectLocationProps {
@@ -61,7 +62,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
     for(let i = 0; i < addressObject.data.length; i++) {
        extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
-       console.log(extractedZipCode)
+       console.log(addressObject.data[i])
        if(!isNaN(extractedZipCode)) {
            setCurrentZipCode(extractedZipCode);
            return; 
@@ -102,10 +103,23 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   return (
     <div className="items-center w-full">
        <h3 className="text-md font-semibold items-center flex">
-          <MapPin className="h-4 w-4 mr-2"/> Addresse
+          <MapPin className="h-4 w-4 mr-2"/> Addresse 
+          <TooltipProvider>
+          <Tooltip>
+          
+            <TooltipTrigger>
+              <AlertCircle  className="w-4 h-4 ml-2"/>
+            </TooltipTrigger> 
+          <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+            
+              Beim automatischen erzeugen der Postleitzahl, kann es vereinzelt zu Fehlern kommen. Bitte prüfe deine PLZ bevor du sie einschickst.
+           
+          </TooltipContent>
+          </Tooltip>
+          </TooltipProvider>
         </h3>
+        
       <div className="flex mt-4 w-full">
-       
         <div className="  items-center  ">
           <Label className="flex justify-start items-center">
             <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Standort </p>
@@ -117,7 +131,6 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
             defaultValue={addressComponent?.locationString}
             onBlur={getZipCode}
           />
-
         </div>
         <div className="ml-4">
           <Label className="flex justify-start items-center">
@@ -134,15 +147,12 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           />
         </div>
       </div>
-
       <RadioGroup className="mt-2">
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="option-two" id="option-two" className="h-2 w-2" />
           <Label htmlFor="option-two" className="text-sm"><p className="text-sm"> Informationen aus meinem Profil verwenden </p></Label>
         </div>
       </RadioGroup>
-
-
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
         disabled={!inputRef?.current?.value || (addressComponent?.locationString === inputRef?.current?.value && currentZipCode === addressComponent?.postalCode) || !inputRef?.current?.value.length ||
           String(currentZipCode).length !== 5
@@ -150,7 +160,6 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       >
         <span className="">Addresse wählen</span>
       </Button>
-
     </div>
   );
 };

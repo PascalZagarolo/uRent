@@ -45,10 +45,7 @@ const Main = async ({
 } : MainPageProps) => {
 
     
-    const metadata: Metadata = {
-        title: 'Mieten ',
-        description: 'Kostenlos und schnell mieten auf uRent. Mieten und Vermieten Sie alles, was Sie brauchen.',
-      }
+    
     
 
 

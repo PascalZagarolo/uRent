@@ -5,7 +5,7 @@ import getCurrentUser from "../../actions/getCurrentUser";
 
 
 import { Images, Inserat } from "@prisma/client";
-import MainPageSidebar from "./_components/main-page-sidebar";
+
 import type { Category } from "@prisma/client";
 import { db } from "@/utils/db";
 
@@ -15,6 +15,7 @@ import Footer from "./_components/footer";
 import { Suspense, lazy } from "react";
 import { BeatLoader, ClipLoader } from "react-spinners";
 import { Metadata } from "next";
+import RelevanteInserate from "./_bodyparts/relevant-inserate";
 
 
 type InserateWithImages = Inserat & {
@@ -54,8 +55,8 @@ const Main = async ({
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)
     
-    const LazyRelevanteInserate = lazy(() => import("./_bodyparts/relevant-inserate"));
-
+    
+    const LazyMainPageSideBar = lazy(() => import("./_components/main-page-sidebar"));
     
 
     const notifications = await db.notification.findMany({
@@ -80,13 +81,15 @@ const Main = async ({
 
  <div>
  <div className="relative flex justify-center mt-4">
+ <Suspense fallback={<div className="ml-4"><ClipLoader loading/></div>}>
  <div className="top-0 sm:mr-4 ">
- <MainPageSidebar treffer={12} />
+ <LazyMainPageSideBar treffer={12} />
       </div>
+      </Suspense>
       
       <div className=" sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%] ">
-      <Suspense fallback={<div className="ml-4"><ClipLoader loading/></div>}>
-                <LazyRelevanteInserate
+     
+                <RelevanteInserate
                     title={searchParams.title}
                     category={searchParams.category}
                     filter={searchParams.filter}
@@ -97,7 +100,7 @@ const Main = async ({
                     periodEnd={searchParams.periodEnd}
                     location={searchParams.location}
                 />
-            </Suspense>
+           
       </div>
   </div>
   

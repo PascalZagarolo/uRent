@@ -53,47 +53,48 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
 
   //automatically converts the inputAddress to a zip code with the help of geocode maps api, and sets the currentZipCode state
+  //scheiße neu schreiben
   const getZipCode = async () => {
     //@ts-ignore
     console.log(inputRef?.current?.value);
     //@ts-ignore
     const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
-    
     let extractedZipCode;
-    let extractedState : string[] = addressObject?.data[0]?.display_name.split(",");
-    console.log(extractedState?.[extractedState?.length -3]);
-
-    //retrieve data until state is delivered..
-    if(extractedState?.[extractedState?.length -3] === undefined) {
-      for(let i = 0; i < addressObject.data.length; i++) {
+    const addressString = addressObject.data[0].display_name;
+    const numberOfCommas = (addressString.split(",").length - 1) > 2 ? 3 : 2;
+    const extractedState = addressString.split(",").map(item => item.trim());
+    const newState = extractedState[extractedState?.length - numberOfCommas]
+    console.log(newState);
+    //?retrieve data until state is delivered..
+    /* 
+    if (extractedState?.[extractedState?.length - 3] === undefined) {
+      for (let i = 0; i < addressObject.data.length; i++) {
         extractedState = addressObject.data[i].display_name.split(",");
-
-        if(extractedState[extractedState?.length -3] !== undefined) {
-          setCurrentState(extractedState[extractedState?.length -3]);
+        console.log(extractedState[extractedState?.length - 3])
+        if (extractedState[extractedState?.length - 3] !== undefined) {
+          setCurrentState(extractedState[extractedState?.length - 3]);
           break;
         }
       }
     }
-    setCurrentState(extractedState?.[extractedState?.length -3]);
-
+    */
+    setCurrentState(newState);
     //retrieve data until zipCode is delivered..
-    for(let i = 0; i < addressObject.data.length; i++) {
-       extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
-       console.log(addressObject.data[i])
-       if(!isNaN(extractedZipCode)) {
-           setCurrentZipCode(extractedZipCode);
-           return; 
-       }
+    for (let i = 0; i < addressObject.data.length; i++) {
+      extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
+      console.log(addressObject.data[i])
+      if (!isNaN(extractedZipCode)) {
+        setCurrentZipCode(extractedZipCode);
+        return;
+      }
     }
-
     console.log(extractedZipCode);
-
-    if(extractedZipCode) {
+    if (extractedZipCode) {
       setCurrentZipCode(extractedZipCode)
     } else {
       setCurrentZipCode(null);
     }
-}
+  }
 
   useEffect(() => {
     //@ts-ignore
@@ -105,7 +106,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         //@ts-ignore
         locationString: inputRef?.current?.value || null,
         postalCode: currentZipCode,
-        state : currentState
+        state: currentState
       }
       console.log(values);
       axios.patch(`/api/inserat/${inserat.id}/address`, values);
@@ -120,23 +121,23 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   return (
     <div className="items-center w-full">
-       <h3 className="text-md font-semibold items-center flex">
-          <MapPin className="h-4 w-4 mr-2"/> Addresse 
-          <TooltipProvider>
+      <h3 className="text-md font-semibold items-center flex">
+        <MapPin className="h-4 w-4 mr-2" /> Addresse
+        <TooltipProvider>
           <Tooltip>
-          
+
             <TooltipTrigger>
-              <AlertCircle  className="w-4 h-4 ml-2"/>
-            </TooltipTrigger> 
-          <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
-            
+              <AlertCircle className="w-4 h-4 ml-2" />
+            </TooltipTrigger>
+            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+
               Beim automatischen erzeugen der Postleitzahl, kann es vereinzelt zu Fehlern kommen. Bitte prüfe deine PLZ bevor du sie einschickst.
-           
-          </TooltipContent>
+
+            </TooltipContent>
           </Tooltip>
-          </TooltipProvider>
-        </h3>
-        
+        </TooltipProvider>
+      </h3>
+
       <div className="flex mt-4 w-full">
         <div className="  items-center  ">
           <Label className="flex justify-start items-center">

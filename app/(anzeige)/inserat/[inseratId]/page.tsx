@@ -183,7 +183,7 @@ const InseratAnzeige = async ({
                                         <div className="flex items-center">
 
 
-                                            {inserat.user.contactOptions[0].websiteAddress && (
+                                            {inserat.user.contactOptions[0]?.websiteAddress && (
                                                 <a href={inserat?.user?.contactOptions[0]?.websiteAddress} className="flex hover:underline">
                                                     <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat.user?.contactOptions[0]?.websiteAddress? 
                                                     inserat.user.contactOptions[0]?.websiteAddress : ""}</p>

@@ -145,6 +145,7 @@ model Address {
   inserat Inserat @relation(fields: [inseratId], references: [id], onDelete: Cascade)
 
   postalCode Int?
+  state String?
   locationString String?
 
   longitude String?

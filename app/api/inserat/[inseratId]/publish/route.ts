@@ -34,7 +34,10 @@ export async function PATCH(
 
         console.log("test")
        
-        
+        console.log(addressObject.data[0]);
+
+        const address: string[] = addressObject.data[0].display_name.split(",");
+        console.log(address[address.length -3])
         console.log(addressObject.data[0].lat)
         console.log(addressObject.data[0].lon) 
 
@@ -45,6 +48,7 @@ export async function PATCH(
                 }, data : {
                     longitude: String(addressObject.data[0].lon),
                     latitude: String(addressObject.data[0].lat),
+                    state : address[address.length -3],
                 }
             })
 
@@ -56,6 +60,7 @@ export async function PATCH(
                         inseratId : params.inseratId,
                         longitude: String(addressObject.data[0].lon),
                         latitude: String(addressObject.data[0].lat),
+                        state : address[address.length -3],
                     }
                 })
 
@@ -63,7 +68,7 @@ export async function PATCH(
             }
         }
 
-        
+        return NextResponse.json(patchedInserat)
 
     } catch (error) {
 

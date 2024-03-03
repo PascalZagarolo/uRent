@@ -10,19 +10,19 @@ export const newVerification = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
 
   if (!existingToken) {
-    return { error: "Token does not exist!" };
+    return { error: "Der angegebene Link funktioniert nicht." };
   }
 
   const hasExpired = new Date(existingToken.expires) < new Date();
 
   if (hasExpired) {
-    return { error: "Token has expired!" };
+    return { error: "Email abgelaufen" };
   }
 
   const existingUser = await getUserByEmail(existingToken.email);
 
   if (!existingUser) {
-    return { error: "Email does not exist!" };
+    return { error: "Account existiert nicht." };
   }
 
   await db.user.update({
@@ -40,5 +40,5 @@ export const newVerification = async (token: string) => {
       });
   }, 2000)
 
-  return { success: "Email verified!" };
+  return { success: "Email erfolgreich verifiziert!" };
 };

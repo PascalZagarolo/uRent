@@ -14,6 +14,7 @@ import { Eye, GithubIcon } from "lucide-react";
 import Input from "@/components/input";
 import toast from "react-hot-toast";
 import getCurrentUser from "@/actions/getCurrentUser";
+import Link from "next/link";
 
 
 
@@ -100,7 +101,7 @@ const CredForm = ({
           router.push('/')
         }
       })
-      .catch(() => toast.error('Etwas ist schief gelaufen'))
+      .catch(() => toast.error('Etwas ist schiefgelaufen'))
       .finally(() => setIsLoading(false))
     }
 
@@ -111,7 +112,7 @@ const CredForm = ({
       })
       .then((callback) => {
         if (callback?.error) {
-          toast.error('Invalid credentials!');
+          toast.error('Ungültige Zugangsdaten');
         }
 
         if (callback?.ok) {
@@ -141,7 +142,7 @@ const CredForm = ({
         "
       >
         <form
-          className="space-y-6"
+          className="space-y-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           {variant === 'REGISTER' && (
@@ -177,6 +178,12 @@ const CredForm = ({
             
           /> 
           
+            
+              <Link href={"..."} className="underline text-xs">
+                Passwort vergessen?
+              </Link>
+            
+          
           
           <div>
             <Button disabled={isLoading} type="submit" className="bg-[#1f2332] hover:bg-[#25293a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
@@ -205,10 +212,10 @@ const CredForm = ({
             </div>
           </div>
 
-          <div className="mt-6 flex  justify-center ">
+          <div className="flex mt-4  justify-center ">
             <div className="w-full gap-y-4">
             
-            <Button variant="ghost" className="text-medium w-full mt-2 bg-gray-100  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+            <Button variant="ghost" className="text-medium w-full  bg-gray-100  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
              dark:bg-[#0d0d0d] dark:hover:bg-[#171717]" 
             onClick={() => {onClick("google")}}>
               Google

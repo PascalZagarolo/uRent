@@ -1,128 +1,52 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import axios from 'axios'
-
-
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useCallback, useEffect, useState } from "react";
-import { signIn, useSession, } from "next-auth/react";
-
-import { useRouter, useSearchParams } from "next/navigation";
-
-import { Eye, GithubIcon } from "lucide-react";
-import Input from "@/components/input";
-import toast from "react-hot-toast";
-import getCurrentUser from "@/actions/getCurrentUser";
-import Link from "next/link";
 
 
 
+import {  useForm } from 'react-hook-form';
+import { useState, useTransition } from "react";
 
 
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const ResetForm = ({
 
-}) => {
+import { reset } from "@/actions/reset";
 
+const ResetForm = () => {
 
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
-
-  
-
-  const onClick = (provider: "google" | "github") => {
-    signIn(provider, {
-      callbackUrl: callbackUrl || "/",
-    });
-  }
-
-  const session = useSession();
-
-  type Variant = "LOGIN" | "REGISTER";
-
-  const router = useRouter();
-  const [variant, setVariant] = useState<Variant>('LOGIN');
-
-  
-  const [isLoading, setIsLoading] = useState(false);
-
-  console.log(session)
-
-   useEffect(() => {
-     if (session.status === 'authenticated' ) {
-      router.push('/')
-    }
-  }, [session?.status, router]);
-
-  const toggleVariant = useCallback(() => {
-    if (variant === 'LOGIN') {
-      setVariant('REGISTER')
-    } else if (variant === 'REGISTER') {
-      setVariant('LOGIN')
-    }
-  }, [variant])
-
-  
-  
-
-  const {
-    register,
-    handleSubmit,
-    formState: {
-      errors,
-    }
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: ''
-    }
+  const ResetSchema = z.object({
+    email: z.string().email({
+      message: "Email is required",
+    }),
   });
 
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
 
- 
+  const form = useForm<z.infer<typeof ResetSchema>>({
+    resolver: zodResolver(ResetSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
-  
-    if (variant === 'REGISTER') {
-      axios.post('/api/register', data)
-      .then(() => signIn('credentials', {
-        ...data,
-        redirect: false,
-      }))
-      .then((callback) => {
-        if (callback?.error) {
-          toast.error('Ungültige Anmeldedaten!');
-        }
+  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
+    setError("");
+    setSuccess("");
 
-        if (callback?.ok) {
-          router.push('/')
-        }
-      })
-      .catch(() => toast.error('Etwas ist schiefgelaufen'))
-      .finally(() => setIsLoading(false))
-    }
-
-    if (variant === 'LOGIN') {
-      signIn('credentials', {
-        ...data,
-        redirect: false
-      })
-      .then((callback) => {
-        if (callback?.error) {
-          toast.error('Ungültige Zugangsdaten');
-        }
-
-        if (callback?.ok) {
-          router.push('/')
-        }
-      })
-      .finally(() => setIsLoading(false))
-    }
-  }
-
+    startTransition(() => {
+      reset(values)
+        .then((data) => {
+          setError(data?.error);
+          setSuccess(data?.success);
+        });
+    });
+  };
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md ">
@@ -141,28 +65,42 @@ const ResetForm = ({
           dark:border-[#161616]
         "
       >
-        <form
-          className="space-y-4"
-          onSubmit={handleSubmit(onSubmit)}
+
+<Form {...form}>
+        <form 
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6"
         >
-          
-          <Input
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-            id="email"
-            label="Email"
-            type="email"
-          />
-          
-          <div>
-            <Button disabled={isLoading} type="submit" className="bg-[#1f2332] hover:bg-[#25293a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-             dark:bg-[#0d0d0d] dark:hover:bg-[#171717] dark:text-gray-100">
-              Email anfordern
-            </Button>
+          <div className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="john.doe@example.com"
+                      type="email"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
+          
+          <Button
+            disabled={isPending}
+            type="submit"
+            className="w-full"
+          >
+            Passwort zurücksetzen
+          </Button>
         </form>
+      </Form>
 
         
         

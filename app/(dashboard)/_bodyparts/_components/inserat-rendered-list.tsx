@@ -61,7 +61,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                 </div>
         ) : (
             <div className="flex justify-center rounded-md  mt-48 ">
-                    <h3 className=" font-semibold mb-16 w-[760px] text-xl text-gray-800/50  flex justify-center items-center dark:text-gray-100">
+                    <h3 className=" font-semibold mb-16 sm:w-[760px] text-xl text-gray-800/50  flex justify-center items-center dark:text-gray-100">
                         Noch keine passenden Angebote vorhanden...
                     </h3>
                 </div>

@@ -20,3 +20,18 @@ export const sendVerificationEmail = async (
         html:`<p> Klick <a href=${confirmLink}> hier </a> um deinen Account zu verifizieren </p>`
     });
 }
+
+export const sendPasswordResetEmail = async (
+    email: string,
+    token: string,
+  ) => {
+    const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/new-password?token=${token}`
+  
+    await resend.emails.send({
+      from: "mail@u-rent-rental.de",
+      to: email,
+      subject: "Passwort zurücksetzen!",
+      html: `<p>Klicke <a href="${resetLink}">hier</a> um dein Passwort zurückzusetzen</p>`
+    });
+  };
+  

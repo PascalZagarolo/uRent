@@ -10,11 +10,12 @@ import { useState, useTransition } from "react";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { z } from "zod";
+import { date, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
 import { reset } from "@/actions/reset";
+import toast from "react-hot-toast";
 
 const ResetForm = () => {
 
@@ -44,6 +45,11 @@ const ResetForm = () => {
         .then((data) => {
           setError(data?.error);
           setSuccess(data?.success);
+          if(data?.success) {
+            toast.success("Email wurde gesendet");
+          } else if(data?.error) {
+            toast.error(data.error);
+          }
         });
     });
   };
@@ -83,6 +89,7 @@ const ResetForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="john.doe@example.com"
+                      className="dark:bg-[#3B3B3B] "
                       type="email"
                     />
                   </FormControl>

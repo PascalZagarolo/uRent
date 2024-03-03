@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Notification, User } from "@prisma/client";
-import { LogOutIcon, MessageCircleIcon, Settings, Settings2Icon, SettingsIcon, TrendingUp, UserIcon } from "lucide-react";
+import { LogOutIcon, MailCheck, MessageCircleIcon, Settings, Settings2Icon, SettingsIcon, TrendingUp, UserIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ConversationShortCut from "./conversation-shortcut";
@@ -111,6 +111,18 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         <TrendingUp className="mr-4" />
                         <p>
                             Dashboard
+                        </p>
+                    </Button>
+
+                    <Button
+                        variant="ghost"
+                        className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
+                        onClick={onMessages}
+                    >
+                        <MailCheck className="mr-4" />
+                        <p>
+                            Meine Konversationen
                         </p>
                     </Button>
 

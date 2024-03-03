@@ -89,11 +89,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     const getAddressCity = (address: string): string => {
         const addressParts = address.split(', ');
-        if (addressParts.length > 2) {
-            return addressParts[1];
-        } else {
-            return addressParts[0];
-        }
+        return addressParts[addressParts.length - 2]
     };
 
     const onConversation = () => {
@@ -145,7 +141,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     }
 
     return (
-        <div className="sm:w-[750px] sm:h-[420px] w-[400px] h-full   rounded-md  items-center dark:bg-[#171923]
+        <div className="sm:w-[760px] sm:h-[420px] w-[400px] h-full   rounded-md  items-center dark:bg-[#171923]
           bg-[#ffffff]  mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2">
 
 
@@ -189,7 +185,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 {
                                     'PKW': inserat.pkwAttribute?.sitze && (
                                         <Badge className="bg-[#2c3246]  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                                 dark:bg-[#181818]/95 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-[#181818]/60">
+                                                 dark:bg-[#181818]/95 dark:text-gray-100  dark:hover:bg-[#181818]/60">
                                             <SofaIcon className="h-4 w-4 mr-1" />
                                             <p className="mr-1 text-blue-200"> {inserat.pkwAttribute?.sitze} </p> Sitze
                                         </Badge>
@@ -203,14 +199,14 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                         <div className="mt-1 sm:block hidden">
                             <Badge className="bg-[#242a39] flex  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                dark:text-gray-100 dark:bg-[#181818]/95 dark:border-gray-700 dark:hover:bg-[#181818]/60
+                                dark:text-gray-100 dark:bg-[#181818]/95  dark:hover:bg-[#181818]/60
                                 ">
                                 <EyeIcon className="w-4 h-4 mr-1" /> {inserat.views}
                             </Badge>
                         </div>
                         <div className="mt-2 sm:block hidden">
                             <Badge className="bg-emerald-600  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                dark:bg-emerald-800 dark:text-gray-100 dark:border-gray-900 dark:hover:bg-emerald-700
+                                dark:bg-emerald-800 dark:text-gray-100  dark:hover:bg-emerald-700
                                 ">
                                 <CheckCheckIcon className="w-4 h-4" /> verfügbar
                             </Badge>

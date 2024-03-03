@@ -59,11 +59,11 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     //@ts-ignore
     const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
     let extractedZipCode;
-    console.log(addressObject.data[0]?.display_name)
+    console.log(addressObject.data[0])
     const addressString = addressObject.data[0]?.display_name;
     const numberOfCommas = (addressString?.split(",").length - 1) > 2 ? 3 : 2;
     const extractedState = addressString?.split(",").map(item => item.trim());
-    const newState = extractedState[extractedState?.length - numberOfCommas]
+    const newState = extractedState?.[extractedState?.length - numberOfCommas]
     console.log(newState);
     //?retrieve data until state is delivered..
     /* 

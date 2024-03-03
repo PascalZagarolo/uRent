@@ -122,7 +122,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     >
                         <MailCheck className="mr-4" />
                         <p>
-                            Meine Konversationen
+                            Konversationen
                         </p>
                     </Button>
 

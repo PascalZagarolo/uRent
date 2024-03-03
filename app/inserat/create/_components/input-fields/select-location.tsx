@@ -53,7 +53,6 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
 
   //automatically converts the inputAddress to a zip code with the help of geocode maps api, and sets the currentZipCode state
-  //scheiße neu schreiben
   const getZipCode = async () => {
     //@ts-ignore
     console.log(inputRef?.current?.value);

@@ -40,7 +40,7 @@ const Sitze: React.FC<SitzeProps> = ({
       const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-          sitze : inserat.pkwAttribute?.sitze
+          sitze : inserat.pkwAttribute?.seats
         }
       })
    
@@ -48,7 +48,7 @@ const Sitze: React.FC<SitzeProps> = ({
     const onSubmit = (sitze : number) => {
 
       const values = {
-        sitze : sitze
+        seats : sitze
       }
 
       try {
@@ -74,7 +74,7 @@ const Sitze: React.FC<SitzeProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Sitzplätze</FormLabel>
-              <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={inserat.pkwAttribute?.sitze.toString()}>
+              <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={inserat.pkwAttribute?.seats.toString()}>
                 <FormControl>
                   <SelectTrigger className="min-w-[200px] dark:bg-[#151515] dark:border-none"  >
                     <SelectValue placeholder="Wähle die Menge der Sitzplätze aus" />

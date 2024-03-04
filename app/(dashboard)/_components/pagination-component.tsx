@@ -13,6 +13,7 @@ import {
   } from "@/components/ui/pagination"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { useGetFilterAmount, useResultsPerPage } from "@/store";
 
 const PaginationComponent = () => {
 
@@ -38,30 +39,44 @@ const PaginationComponent = () => {
     router.push(url)
   }
 
+  const itemsPerPage = useResultsPerPage((state) => state.results);
+  const globalResults = useGetFilterAmount((state) => state.amount);
+
+  const expectedPages = (Math.ceil(globalResults / itemsPerPage)) ? Math.ceil(globalResults / itemsPerPage) : 1;
+  
+
     return ( 
     <div className=" dark:bg-[#13141C] p-4 sm:w-[1060px] flex justify-center">
         <Pagination>
         <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#" />
+          {Number(currentPage) > 1 && (
+            <PaginationItem onClick={() => {changePage(Number(currentPage) - 1)}}>
+            <PaginationPrevious/>
           </PaginationItem>
-          <PaginationItem onClick={() => {changePage(1)}}>
-            <PaginationLink>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem onClick={() => {changePage(2)}}>
-            <PaginationLink>
-              2
-            </PaginationLink>
-          </PaginationItem>
+          )}
           
-          <PaginationItem>
+         
+          {Array.from({length : expectedPages}, (_, index) => (
+            
+              <PaginationItem onClick={() => {changePage(index + 1)}}>
+              <PaginationLink>{index + 1}</PaginationLink>
+            </PaginationItem>
+           
+          ))}
+          {Number(expectedPages) > 5 && (
+            <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
+          )}
+          {Number(currentPage) < expectedPages && expectedPages > 1 &&  (
+            <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}}>
+            <PaginationNext />
           </PaginationItem>
+          )}
         </PaginationContent>
       </Pagination> 
+
+      
     </div>
       );
 }

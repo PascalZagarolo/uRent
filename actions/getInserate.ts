@@ -1,4 +1,5 @@
 
+import { useGetFilterAmount } from "@/store";
 import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@prisma/client";
 import type { Address, Category, PkwAttribute } from "@prisma/client";
@@ -27,8 +28,9 @@ type GetInserate = {
     location? : string
 }
 
+//returns km
 function calculateDistance(lat1, lon1, lat2, lon2) {
-    const r = 6371; // km
+    const r = 6371; 
     const p = Math.PI / 180;
   
     const a = 0.5 - Math.cos((lat2 - lat1) * p) / 2
@@ -51,9 +53,10 @@ export const getInserate = async ({
     periodEnd,
     location
 } : GetInserate ): Promise<InserateImagesAndAttributes[]> => {
-    try {
+    
 
-        
+    
+    try {
         //!implement switch statements later
         if(filter === "relevance") {
             const inserate = await db.inserat.findMany({
@@ -89,7 +92,6 @@ export const getInserate = async ({
                     views : "desc"
                 }
             })
-
             let filteredArray = [];
 
             if(location) {
@@ -108,9 +110,8 @@ export const getInserate = async ({
                 filteredArray = inserate;
             }
             
+            return filteredArray;
             
-
-            return filteredArray.splice(0, 16);
         } else {
             const inserate = await db.inserat.findMany({
                 where : {
@@ -148,13 +149,14 @@ export const getInserate = async ({
                     price : filter === "asc" ? "asc" : "desc"
                 }
             })
+            
+            
 
             let filteredArray = [];
             
             if(location) {
                 const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
                 
-
                 for (const inserat of inserate) {
                     const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
                                                         Number(inserat.address?.latitude), Number(inserat.address?.longitude));
@@ -168,13 +170,9 @@ export const getInserate = async ({
             } else {
                 filteredArray = inserate;
             }
-
-            return filteredArray.splice(0, 16);
+            
+            return filteredArray;
         }
-
-        
-        
-        
     } catch {
         console.log("Fehler beim erhalten der Inserate");
         return [];

@@ -1,10 +1,8 @@
-import Image from 'next/image'
-import CredForm from '../_components/login-form'
-import { getServerSession } from 'next-auth'
 
-import { redirect } from 'next/navigation';
+import CredForm from '../_components/login-form'
+
 import { KeyRound } from 'lucide-react';
-import getCurrentUser from '@/actions/getCurrentUser';
+
 
 
 export default async function Home() {

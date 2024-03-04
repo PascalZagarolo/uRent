@@ -38,6 +38,7 @@ const DateFormFilter = () => {
     const [periodEnd, setPeriodEnd] = React.useState(null);
 
     const currentLocation = searchParams.get("location");
+    const currentPage = searchParams.get("page");
 
     const paramsPeriodBegin =  searchParams.get("periodBegin") ? new Date(searchParams.get("periodBegin")) : null;
     const paramsPeriodEnd = searchParams.get("periodEnd") ? new Date(searchParams.get("periodEnd")) : null;
@@ -56,7 +57,8 @@ const DateFormFilter = () => {
               category: category,
               periodBegin: periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
               periodEnd: periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
-              location : currentLocation
+              location : currentLocation,
+              page : currentPage
           }
       }, { skipNull: true, skipEmptyString: true });
   

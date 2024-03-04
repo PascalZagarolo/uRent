@@ -10,14 +10,12 @@ import PKW from "./_smart-filter/pkw";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useGetFilterAmount } from "@/store";
+import { getInserate } from "@/actions/getInserate";
+import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
-interface MainPageSideBarProps {
-    treffer: number;
-}
 
-const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
-    treffer
-}) => {
+
+const MainPageSideBar= () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const currentCategory = searchParams.get("category");
@@ -28,10 +26,13 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
     const [setCategory, setNewCategory] = useState<string | null>(null);
 
+    const params = getSearchParamsFunction("category");
+
     useEffect(() => {
         // Store currentLocation in session storage
         sessionStorage.setItem("currentLocation", currentLocation);
       }, [currentLocation]);
+
 
     const onClick = (category: string) => {
 
@@ -40,9 +41,8 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                title: currentTitle,
                 category: newCategory,
-                location: currentLocation
+                ...params,
             }
         }, { skipNull: true, skipEmptyString: true });
 
@@ -62,9 +62,10 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
         router.push(url)
     }
-    
-    const currentFilterResults = useGetFilterAmount((state) => state.amount);
 
+    const results = useGetFilterAmount((state) => state.amount);
+
+    
     return (
         <div className=" rounded-md  no-scrollbar w-[280px] hidden xl:block bg-[#202336]  sm:overflow-auto    ">
             <h3 className="text-bold text-2xl p-2 rounded-md mt-4 flex justify-center text-gray-100 items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] bg-[#1b1e2c]">
@@ -74,7 +75,6 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                 <h3 className="text-gray-100 font-semibold  rounded-md  p-2 flex justify-center ml-2 mr-2 bg-[#1b1f2c] dark:border-[#1f2332]">
                     Fahrzeugkategorie
                 </h3>
-
                 <div className="flex justify-between ml-12 mr-12 mt-8 ">
                     <div className="">
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
@@ -161,7 +161,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                     dark:text-gray-100 dark:hover:bg-sky-700
                     ">
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {currentFilterResults} </p> Ergebnisse
+                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
                     </Button>
                 </div>
             </div>

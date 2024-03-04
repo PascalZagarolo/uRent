@@ -63,6 +63,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         location: location
 
     });
+
+    
     
     
 
@@ -78,20 +80,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                         <div className="p-2 sm:block hidden rounded-lg">
                             <AlignCenter />
                         </div>
-
                         <h3 className=" sm:ml-8 flex font-base text-lg items-center sm:text-2xl h-full w-full">
-
                             Relevante
-
                             Inserate
                             <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
                                 <OrderBy />
-
-
                             </div>
                         </h3>
                     </div>
-
                 </div>
             ) : (
                 <div className="h-full flex sm:block sm:mt-0 items-center  border-2 border-gray-300 dark:border-gray-900 p-4 text-gray-100 bg-[#141620]">
@@ -106,14 +102,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                             </div>
                         </h3>
                     </div>
-
                 </div>
             )}
-
-
-
-
-
             <div className="flex justify-center">
                 <Suspense fallback={<LoadingComponent />}>
                     <InseratRenderedList
@@ -121,16 +111,10 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                         currentUser={currentUser}
                         //@ts-ignore
                         favedInserate={favedInserate}
+                        
                     />
                 </Suspense>
             </div>
-
-
-
-
-
-
-
         </div>
 
     );

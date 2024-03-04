@@ -78,7 +78,7 @@ const MainPageSideBar= () => {
                 <div className="flex justify-between ml-12 mr-12 mt-8 ">
                     <div className="">
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "PKW" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("PKW") }}>
+                            currentCategory === "PKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("PKW") }}>
                             <CarFront />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -88,7 +88,7 @@ const MainPageSideBar= () => {
 
                     <div>
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "LKW" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("LKW") }}>
+                            currentCategory === "LKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("LKW") }}>
                             <Truck />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -101,7 +101,7 @@ const MainPageSideBar= () => {
                 <div className="flex justify-between ml-12 mr-12 mt-4 ">
                     <div>
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "LAND" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("LAND") }}>
+                            currentCategory === "LAND" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("LAND") }}>
                             <TractorIcon />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -111,7 +111,7 @@ const MainPageSideBar= () => {
 
                     <div>
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "BAU" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("BAU") }}>
+                            currentCategory === "BAU" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("BAU") }}>
                             <ConstructionIcon />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -128,7 +128,7 @@ const MainPageSideBar= () => {
                     <div className="w-[40px] ml-2.5">
                         <div className="flex flex-col items-center">
                             <p className={cn("p-4 rounded-md bg-white border-2 flex justify-center items-center hover:cursor-pointer dark:bg-[#1c1f2f]",
-                                currentCategory === "CARAVAN" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("CARAVAN") }}>
+                                currentCategory === "CARAVAN" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("CARAVAN") }}>
                                 <CaravanIcon className="" />
                             </p>
                             <p className="text-gray-100 text-xs font-semibold mt-1  text-center">
@@ -141,7 +141,7 @@ const MainPageSideBar= () => {
 
                     <div className="">
                         <p className={cn("p-4 rounded-md bg-white border-2   flex justify-center hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "TRANSPORT" ? "border-[#ed580dec]" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
+                            currentCategory === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
                             <TramFront className="" />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1 ">

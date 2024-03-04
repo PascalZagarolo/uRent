@@ -12,11 +12,7 @@ import FilterDialog from "./filter-dialog";
 
 const SearchItem = () => {
 
-    const [value, setValue] = useState("");
-
     
-
-    const debouncedValue = useDebounce(value);
 
     
 
@@ -26,6 +22,12 @@ const SearchItem = () => {
 
     const currentLocation = searchParams.get("location");
     const currentTitle = searchParams.get("title")
+
+    const [value, setValue] = useState(currentTitle || "");
+
+    
+
+    const debouncedValue = useDebounce(value);
 
     useEffect(() => {
         const url = qs.stringifyUrl({

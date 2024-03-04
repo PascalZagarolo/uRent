@@ -140,6 +140,26 @@ model Inserat {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model PkwAttribute {
+  id String @id @default(uuid())
+
+  brand String?
+  model String?
+  color String?
+
+  seats Int?
+  doors Int?
+
+  initial DateTime?
+  miles Int?
+  power Int?
+
+  inseratId String?
+  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  @@unique([inseratId])
+}
+
 model Address {
   id String @id @default(uuid())
 
@@ -314,25 +334,7 @@ model UserAddress {
 
 }
 
-model PkwAttribute {
-  id String @id @default(uuid())
 
-  marke String?
-  model String?
-  farbe String?
-
-  sitze Int?
-
-  erstzulassung DateTime?
-  kilometer Int?
-  leistung Int?
-
-  inseratId String?
-  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
-
-  @@unique([inseratId])
-
-}
 
 model Booking {
   id String @id @default(uuid())

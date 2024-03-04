@@ -46,11 +46,6 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
 
 
   const onSubmit = (selectedValue: Category) => {
-
-
-    
-    
-
     try {
 
       setCurrentCategory(selectedValue);

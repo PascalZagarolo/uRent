@@ -14,6 +14,7 @@ import ContactInformation from "./_parts/contact-information";
 import PublishInserat from "../_components/publish-inserat";
 import RentPeriod from "../_components/input-fields/rent-period";
 import Footer from "@/app/(dashboard)/_components/footer";
+import CategoryInformation from "./_parts/category-information";
 
 
 const InseratCreation = async ({
@@ -26,7 +27,8 @@ const InseratCreation = async ({
         }, include: {
             images: true,
             address: true,
-            user: true
+            user: true,
+            pkwAttribute : true,
         }
     })
 
@@ -148,6 +150,11 @@ const InseratCreation = async ({
                                         />
                                      </div>
                                 </div>
+                            </div>
+                            <div className="mt-4">
+                                <CategoryInformation 
+                                inserat = {inserat}
+                                />
                             </div>
                             <div className="w-full mt-4  flex items-center">
                                     <PublishInserat

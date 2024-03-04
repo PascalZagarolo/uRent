@@ -152,8 +152,8 @@ model PkwAttribute {
 
   transmission Transmission?
 
-  type CarType
-  fuel FuelType
+  type CarType?
+  fuel FuelType?
 
   initial DateTime?
   miles Int?

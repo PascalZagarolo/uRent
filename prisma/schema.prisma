@@ -150,6 +150,11 @@ model PkwAttribute {
   seats Int?
   doors Int?
 
+  transmission Transmission?
+
+  type CarType
+  fuel FuelType
+
   initial DateTime?
   miles Int?
   power Int?
@@ -158,6 +163,31 @@ model PkwAttribute {
   inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
 
   @@unique([inseratId])
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+  SEMI_AUTOMATIC
+}
+
+enum CarType {
+  KOMBI
+  SUV
+  LIMOUSINE
+  VAN
+  KLEINBUS
+  CABRIO
+  KLEIN
+  SPORT
+  SUPERSPORT
+}
+
+enum FuelType {
+  ELEKTRISCH
+  DIESEL
+  BENZIN
+  HYBRID
 }
 
 model Address {

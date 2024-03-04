@@ -46,38 +46,42 @@ const PaginationComponent = () => {
   
 
     return ( 
-    <div className=" dark:bg-[#13141C] bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-4 sm:w-[1060px] flex justify-center">
-        <Pagination>
-        <PaginationContent>
-          {Number(currentPage) > 1 && (
-            <PaginationItem onClick={() => {changePage(Number(currentPage) - 1)}}>
-            <PaginationPrevious/>
-          </PaginationItem>
-          )}
+    <>
+    {expectedPages > 1 && (
+      <div className=" dark:bg-[#13141C] bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-4 sm:w-[1060px] flex justify-center">
+      <Pagination>
+      <PaginationContent>
+        {Number(currentPage) > 1 && (
+          <PaginationItem onClick={() => {changePage(Number(currentPage) - 1)}}>
+          <PaginationPrevious/>
+        </PaginationItem>
+        )}
+        
+       
+        {Array.from({length : expectedPages}, (_, index) => (
           
+            <PaginationItem onClick={() => {changePage(index + 1)}} key={index}>
+            <PaginationLink>{index + 1}</PaginationLink>
+          </PaginationItem>
          
-          {Array.from({length : expectedPages}, (_, index) => (
-            
-              <PaginationItem onClick={() => {changePage(index + 1)}} key={index}>
-              <PaginationLink>{index + 1}</PaginationLink>
-            </PaginationItem>
-           
-          ))}
-          {Number(expectedPages) > 5 && (
-            <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          )}
-          {Number(currentPage) < expectedPages && expectedPages > 1 &&  (
-            <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}}>
-            <PaginationNext />
-          </PaginationItem>
-          )}
-        </PaginationContent>
-      </Pagination> 
+        ))}
+        {Number(expectedPages) > 5 && (
+          <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        )}
+        {Number(currentPage) < expectedPages && expectedPages > 1 &&  (
+          <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}}>
+          <PaginationNext />
+        </PaginationItem>
+        )}
+      </PaginationContent>
+    </Pagination> 
 
-      
-    </div>
+    
+  </div>
+    )}
+    </>
       );
 }
  

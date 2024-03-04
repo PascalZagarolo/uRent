@@ -6,7 +6,7 @@ import InseratCard from "../../_components/inserat-card";
 import { use, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { InserateImagesAndAttributes } from "@/types/types";
-import { useGetFilterAmount } from "@/store";
+import { useGetFilterAmount, useResultsPerPage } from "@/store";
 
 interface InseratRenderedListProps {
     inserateArray: InserateImagesAndAttributes[];
@@ -41,13 +41,17 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
         setRenderedList(inserateArray)
     }, [inserateArray])
 
+    const itemsPerPage = useResultsPerPage((state) => state.results);
+
+    const startIndex = (currentPage ? parseInt(currentPage) - 1 : 0) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
 
 
 
     return (
         <div>{inserateArray.length > 0 ? (
             <div className="sm:grid  sm:grid-cols-1  overflow-y-auto justify-center  ">
-                {renderedList.slice(0, 2).map((inserat, index) => (
+                {renderedList.slice(startIndex, endIndex).map((inserat, index) => (
                     <div className="w-full sm:w-1/2 md:w-1/4" key={inserat.id}>
                         <InseratCard
                             key={inserat.id}

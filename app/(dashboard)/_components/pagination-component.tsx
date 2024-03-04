@@ -58,7 +58,7 @@ const PaginationComponent = () => {
          
           {Array.from({length : expectedPages}, (_, index) => (
             
-              <PaginationItem onClick={() => {changePage(index + 1)}}>
+              <PaginationItem onClick={() => {changePage(index + 1)}} key={index}>
               <PaginationLink>{index + 1}</PaginationLink>
             </PaginationItem>
            

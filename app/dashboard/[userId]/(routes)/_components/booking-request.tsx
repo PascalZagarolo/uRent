@@ -111,7 +111,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 {request?.content ? request.content : "Keine Nachricht hinzugefügt..."} 
             </div>
             <div className="w-full mt-2">
-                <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex">
+                <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex" onClick={() => {router.push(`/conversation/${request.user.id}`)}}>
                    <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                 </Button>
             </div>

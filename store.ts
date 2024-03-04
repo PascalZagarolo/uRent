@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 import { User } from "@prisma/client";
+import { result } from "lodash";
 
 
 type searchUserByBookingStore = {
@@ -43,5 +44,17 @@ export const useLoadingState = create<loadingState>((set) => ({
     changeLoading : (newLoadingState : boolean) => {
         loading : newLoadingState
     }
-})) 
+}))
+
+type resultsPerPage = {
+    results : number,
+    changeAmount: (newAmount : number) => void;
+}
+
+export const useResultsPerPage = create<resultsPerPage>((set) => ({
+    results : 12,
+    changeAmount : (newAmount: number) => {
+        set({ results : newAmount })
+    }
+}))
 

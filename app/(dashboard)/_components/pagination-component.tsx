@@ -46,7 +46,7 @@ const PaginationComponent = () => {
   
 
     return ( 
-    <div className=" dark:bg-[#13141C] p-4 sm:w-[1060px] flex justify-center">
+    <div className=" dark:bg-[#13141C] bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-4 sm:w-[1060px] flex justify-center">
         <Pagination>
         <PaginationContent>
           {Number(currentPage) > 1 && (

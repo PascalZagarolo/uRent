@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Transmission } from "@prisma/client";
+import { FuelType } from "@prisma/client";
+
 
 
 import axios from "axios";
@@ -11,33 +12,33 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface TransmissionFormProps {
-    transmission : Transmission;
+interface FuelFormProps {
+  fuel : FuelType;
 }
 
-const TransmissionForm: React.FC<TransmissionFormProps> = ({
-    transmission
+const FuelForm: React.FC<FuelFormProps> = ({
+    fuel
 }) => {
 
-    const [currentTransmission, setCurrentTransmission] = useState<Transmission | null>(null);
+    const [currentFuel, setCurrentFuel] = useState<FuelType | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: Transmission) => {
+    const onSubmit = (selectedValue: FuelType) => {
         try {
     
-            setCurrentTransmission(selectedValue);
+            setCurrentFuel(selectedValue);
     
           const values = {
-            transmission: selectedValue
+            fuel: selectedValue
           }
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.transmission);
+          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.fuel);
           setTimeout(() => {
             router.refresh();
           }, 400)
@@ -51,27 +52,30 @@ const TransmissionForm: React.FC<TransmissionFormProps> = ({
     return ( 
         <div className="w-full">
             <div className="w-full">
-        <Label>Getriebe</Label>
+        <Label>Kraftstoff</Label>
         <Select
-          onValueChange={(transmission : Transmission) => {
-            onSubmit(transmission);
+          onValueChange={(fuel : FuelType) => {
+            onSubmit(fuel);
           }}
-          defaultValue={transmission || null}
+          defaultValue={fuel || "BENZIN"}
           disabled={isLoading}
+          value={fuel || currentFuel || "BENZIN"}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={transmission || null} >
+          disabled={isLoading} defaultValue={fuel || "BENZIN"} >
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={transmission || null}
+              defaultValue={fuel || "BENZIN"}
               
             />
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-            <SelectItem value="MANUAL">Manuell</SelectItem>
-            <SelectItem value="AUTOMATIC">Automatisch</SelectItem>
+            <SelectItem value="BENZIN">Benzin</SelectItem>
+            <SelectItem value="DIESEL">Diesel</SelectItem>
+            <SelectItem value="ELEKTRISCH">Elektrisch</SelectItem>
+            <SelectItem value="HYBRID">Hybrid</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -79,4 +83,4 @@ const TransmissionForm: React.FC<TransmissionFormProps> = ({
      );
 }
  
-export default TransmissionForm;
+export default FuelForm;

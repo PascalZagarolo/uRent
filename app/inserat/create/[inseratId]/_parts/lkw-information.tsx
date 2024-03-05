@@ -8,6 +8,7 @@ import PowerForm from "./pkw/power";
 import InitialForm from "./pkw/initial";
 import CarBrandForm from "./pkw/carbrand";
 import WeightClassForm from "./lkw/weightClass";
+import ApplicationForm from "./lkw/application";
 ;
 
 
@@ -33,7 +34,9 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                   
+                   <ApplicationForm 
+                   application={inserat?.lkwAttribute?.application}
+                   />
                 </div>
                 <div className="w-1/2">
                     <WeightClassForm 

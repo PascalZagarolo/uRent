@@ -5,6 +5,7 @@ import FuelForm from "./pkw/fuel";
 import CarTypeForm from "./pkw/car-type";
 import Doors from "./pkw/doors";
 import PowerForm from "./pkw/power";
+import InitialForm from "./pkw/initial";
 
 
 interface PkwInformationProps {
@@ -58,9 +59,12 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     />
                 </div>
                 <div className="w-1/2">
+                    <InitialForm 
                     
+                    inital={inserat?.pkwAttribute?.initial}/>
                 </div>
             </div>
+            
         </div>
     );
 }

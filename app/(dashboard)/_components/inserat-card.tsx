@@ -264,7 +264,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="font-semibold text-gray-900 flex mt-2 items-center">
                         <div className="flex">
                             <div className="flex dark:bg-emerald-800 bg-emerald-600 p-2 rounded-md 
-                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800 px-4 sm:text-sm text-xs">
+                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800 px-4 sm:text-sm text-xs items-center">
                                 <div className="mr-2 flex font-bold">
 
                                     <Banknote className="mr-1 sm:block hidden" />

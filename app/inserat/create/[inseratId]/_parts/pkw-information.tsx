@@ -1,7 +1,10 @@
-import { Inserat, PkwAttribute } from "@prisma/client";
+import { CarType, Inserat, PkwAttribute } from "@prisma/client";
 import Seats from "./pkw/seats";
 import TransmissionForm from "./pkw/transmission";
 import FuelForm from "./pkw/fuel";
+import CarTypeForm from "./pkw/car-type";
+import Doors from "./pkw/doors";
+import PowerForm from "./pkw/power";
 
 
 interface PkwInformationProps {
@@ -26,14 +29,36 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                    <FuelForm 
-                    fuel={inserat?.pkwAttribute?.fuel}
+                    <CarTypeForm
+                    cartype = {inserat?.pkwAttribute?.type}
                     />
                 </div>
                 <div className="w-1/2">
                     <TransmissionForm
                         transmission={inserat.pkwAttribute.transmission}
                     />
+                </div>
+            </div>
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                    <FuelForm 
+                    fuel={inserat?.pkwAttribute?.fuel}
+                    />
+                </div>
+                <div className="w-1/2">
+                    <Doors 
+                        doors={inserat?.pkwAttribute?.doors}
+                    />
+                </div>
+            </div>
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                    <PowerForm
+                    power={inserat?.pkwAttribute?.power}
+                    />
+                </div>
+                <div className="w-1/2">
+                    
                 </div>
             </div>
         </div>

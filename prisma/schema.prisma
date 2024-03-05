@@ -173,6 +173,7 @@ enum Transmission {
 
 enum CarType {
   KOMBI
+  COUPE
   SUV
   LIMOUSINE
   VAN

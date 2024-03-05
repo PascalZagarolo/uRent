@@ -19,6 +19,7 @@ import { ModeToggle } from "@/components/toggle-mode";
 import { cn } from "@/lib/utils";
 import { Suspense, lazy } from "react";
 import { ClipLoader } from "react-spinners";
+import LocationBar from "./location-bar";
 
 interface HeaderProps {
     currentUser: User;
@@ -30,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({
     notifications
 }) => {
 
-    const LocationBar = lazy(() => import('./location-bar'));
+    
 
     const { data: session, status } = useSession();
 
@@ -64,9 +65,9 @@ const Header: React.FC<HeaderProps> = ({
                             <SearchItem />
                         </div>
                         <div className="flex justify-center">
-                            <Suspense fallback={<div className="flex justify-center items-center"><ClipLoader className="h-4 w-4"/></div>}>
+                            
                                 <LocationBar />
-                            </Suspense>
+                            
                         </div>
                     </div>
                     {

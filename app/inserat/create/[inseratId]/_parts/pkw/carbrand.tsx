@@ -50,7 +50,6 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
     }
 
     function removeUnderscore(inputString: string): string {
-        
         const outputString = inputString.replace(/_/g, ' ');
         return outputString;
     }

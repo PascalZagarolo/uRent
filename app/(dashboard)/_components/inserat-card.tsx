@@ -113,7 +113,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
     const onInterest = async () => {
         if (currentUser) {
             try {
-
                 setIsLoading(true);
                 axios.post(`/api/interest/${inserat.id}`, { text: text }).then(() => {
                     axios.get(`/api/conversation/${currentUser.id}/${inserat.userId}`).then((response) => {
@@ -129,7 +128,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 toast.error("Etwas ist schief gelaufen");
             } finally {
                 setIsLoading(false);
-
             }
         } else {
             router.push(`/login`);
@@ -358,11 +356,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             </div>
                                         </DialogContent>
                                     </Dialog>
-
-
-
-
-
 
                                     <Button className="flex items-center mr-4  bg-[#171923] rounded-md p-2 px-4 sm:px-8 font-semibold
                                      dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>

@@ -9,6 +9,8 @@ import InitialForm from "./pkw/initial";
 import CarBrandForm from "./pkw/carbrand";
 import WeightClassForm from "./lkw/weightClass";
 import ApplicationForm from "./lkw/application";
+import LoadingForm from "./lkw/loading";
+import DriveForm from "./lkw/drive";
 ;
 
 
@@ -46,10 +48,14 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                   
+                   <LoadingForm 
+                   loading={inserat?.lkwAttribute?.loading}
+                   />
                 </div>
                 <div className="w-1/2">
-                    
+                    <DriveForm 
+                    drive={inserat?.lkwAttribute?.drive}
+                    />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">

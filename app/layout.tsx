@@ -9,6 +9,7 @@ import ToasterContext from './context/ToasterContext'
 import AuthContext from './context/AuthContext'
 import ActiveStatus from '@/components/ActiveStatus'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@/components/theme-provider'
 
 
@@ -41,6 +42,7 @@ export default function RootLayout({
     <Toaster/>
     </AuthContext>
     <SpeedInsights/>
+    <Analytics/>
     </ThemeProvider>
       </body>
     </html>

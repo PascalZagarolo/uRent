@@ -29,6 +29,7 @@ const InseratCreation = async ({
             address: true,
             user: true,
             pkwAttribute : true,
+            lkwAttribute : true,
         }
     })
 

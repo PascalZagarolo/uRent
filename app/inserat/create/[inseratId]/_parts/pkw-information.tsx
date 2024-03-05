@@ -6,6 +6,8 @@ import CarTypeForm from "./pkw/car-type";
 import Doors from "./pkw/doors";
 import PowerForm from "./pkw/power";
 import InitialForm from "./pkw/initial";
+import CarBrandForm from "./pkw/carbrand";
+;
 
 
 interface PkwInformationProps {
@@ -20,7 +22,9 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
         <div className="mt-4">
             <div className="flex w-full gap-x-8">
                 <div className="w-1/2">
-                    1
+                    <CarBrandForm 
+                    brand = {inserat?.pkwAttribute?.brand}
+                    />
                 </div>
                 <div className="w-1/2">
                     <Seats

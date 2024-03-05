@@ -118,14 +118,17 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                             
 
                             <div>
-                                <div className={cn("dark:text-gray-100", isUnfolded ? "" : "h-[80px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
-                                {user.description}
+                                <div className={cn("dark:text-gray-100", isUnfolded ? "h-full" : "max-h-[80px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
+                                {user.description} 
+
                             </div>
-                            <Button className="mt-2 w-full bg-gray-200 
-                            focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
-                            " variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
-                                {isUnfolded ? "Weniger anzeigen" : "Mehr anzeigen"}
-                            </Button>
+                            {user.description.length > 400 && (
+                                <Button className="mt-2 w-full bg-gray-200 
+                                focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
+                                " variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
+                                    {isUnfolded ? "Weniger anzeigen" : "Mehr anzeigen"}
+                                </Button>
+                            )}
                             </div>
                            ) : (
                             <div className="mt-2 font-base text-gray-900/50 italic dark:text-gray-100/70">

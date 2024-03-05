@@ -29,7 +29,7 @@ const PowerForm: React.FC<PowerFormProps> = ({
 
     const [usesPS, setUsesPS] = useState(true);
 
-    const [currentKW, setCurrentKW] = useState<number | null>(power * 0.735499 || null);
+    const [currentKW, setCurrentKW] = useState<number | null>(Math.round(power * 0.735499) || null);
     const [currentPS, setCurrentPS] = useState<number | null>(power || null);
     const [isLoading, setIsLoading] = useState(false);
 

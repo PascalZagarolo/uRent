@@ -310,6 +310,99 @@ model LkwAttribute {
   @@unique([inseratId])
 }
 
+enum LkwBrands {
+    Anhui_Jianghuai_Automobile
+    Ashok_Leyland
+    Beiben_Trucks
+    Bedford_Vehicles
+    Beiqi_Foton
+    BYD_Auto
+    Changan_Automobile
+    Changan_Motors
+    Changfeng_Group
+    Changhe
+    Chery_Automobile
+    Chevrolet_Trucks
+    Daihatsu
+    DAF_Trucks
+    Dongfeng_Liuzhou_Motor
+    Dongfeng_Motor_Corporation
+    Dodge_Trucks
+    Eicher_Motors
+    FAW_Group
+    FAW_Group_Corporation
+    FAW_Jiefang
+    FAW_Jilin_Automobile
+    Fiat_Professional
+    Ford_Trucks
+    Freightliner_Trucks
+    Fuso
+    GAC_Group
+    GAZ_Group
+    Geely_Auto
+    GMC_Trucks
+    Great_Wall_Motors
+    Hafei
+    Haima_Automobile
+    Haval
+    Hawtai
+    Higer_Bus
+    Hino_Motors
+    Hyundai_Trucks
+    International_Trucks
+    Isuzu_Motors
+    Iveco
+    JAC_Motors
+    Jiefang
+    Jinhua_Youngman_Vehicle
+    Jinbei
+    Kamaz
+    Kenworth
+    King_Long
+    KrAZ
+    Land_Rover
+    Landwind
+    Leyland_Trucks
+    Lifan_Group
+    Mack_Trucks
+    MAN_Truck_Bus
+    Maruti_Suzuki
+    Mazda_Trucks
+    Maxus
+    Mercedes_Benz_Trucks
+    Mitsubishi_Fuso_Truck_and_Bus_Corporation
+    Navistar_International
+    Nissan_Trucks
+    Peterbilt
+    Piaggio_Commercial_Vehicles
+    Renault_Trucks
+    SAF_HOLLAND
+    SAIC_Motor
+    Scania
+    Shaanxi_Automobile_Group
+    Shacman
+    Shandong_Tangjun_Ouling_Automobile_Manufacture
+    Sichuan_Tengzhong
+    Sinotruk
+    Sisu_Auto
+    Tata_Motors
+    Tatra_Trucks
+    Toyota_Trucks
+    UD_Trucks
+    Ural_Automotive_Plant
+    Volkswagen_Commercial_Vehicles
+    Volvo_Trucks
+    Western_Star_Trucks
+    Wuling_Motors
+    Xiamen_Golden_Dragon_Bus
+    Yutong_Group
+    Zotye_Auto
+    Zhejiang_Geely_Holding_Group
+    ZIL
+
+}
+
+
 enum DriveType {
   D4x2
   D4x4

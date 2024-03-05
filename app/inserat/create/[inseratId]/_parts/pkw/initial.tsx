@@ -93,7 +93,8 @@ const InitialForm: React.FC<InitialFormProps> = ({
                 />
             </div>
         </div>
-        <Button onClick={onSubmit} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100" disabled={validValue}>
+        <Button onClick={onSubmit} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100" 
+        disabled={validValue || currentInitial.toDateString() === inital.toDateString()}>
             <span className="">Baujahr angeben</span>
         </Button>
         

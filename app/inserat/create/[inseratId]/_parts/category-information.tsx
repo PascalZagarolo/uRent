@@ -26,10 +26,10 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
             <div>
                 {
                     {
-                        'LAND': <PkwInformation 
+                        'PKW': <PkwInformation 
                         inserat = { inserat }
                         />,
-                        'PKW': <LkwInformation 
+                        'LKW': <LkwInformation 
                         inserat = { inserat }
                         />,
                     }[inserat.category]

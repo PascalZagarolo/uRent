@@ -295,7 +295,7 @@ enum FuelType {
 model LkwAttribute {
   id String @id @default(uuid())
 
-  brand String?
+  brand LkwBrand?
   model String?
   seats Int?
 
@@ -310,7 +310,7 @@ model LkwAttribute {
   @@unique([inseratId])
 }
 
-enum LkwBrands {
+enum LkwBrand {
     Anhui_Jianghuai_Automobile
     Ashok_Leyland
     Beiben_Trucks

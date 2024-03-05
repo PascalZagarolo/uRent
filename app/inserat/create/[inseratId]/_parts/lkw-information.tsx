@@ -1,4 +1,4 @@
-import { Inserat, LkwAttribute, PkwAttribute } from "@prisma/client";
+import { Inserat, LkwAttribute, LkwBrand, PkwAttribute } from "@prisma/client";
 import Seats from "./lkw/seats";
 import TransmissionForm from "./pkw/transmission";
 import FuelForm from "./pkw/fuel";
@@ -11,6 +11,7 @@ import WeightClassForm from "./lkw/weightClass";
 import ApplicationForm from "./lkw/application";
 import LoadingForm from "./lkw/loading";
 import DriveForm from "./lkw/drive";
+import LkwBrandForm from "./lkw/lkwbrand";
 ;
 
 
@@ -26,7 +27,9 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
         <div className="mt-4">
             <div className="flex w-full gap-x-8">
                 <div className="w-1/2">
-                    
+                    <LkwBrandForm
+                    brand={inserat?.lkwAttribute?.brand}
+                    />
                 </div>
                 <div className="w-1/2">
                     <Seats

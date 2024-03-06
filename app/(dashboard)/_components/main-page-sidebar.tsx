@@ -1,6 +1,6 @@
 'use client';
 
-import { AlignCenter, CarFront, CaravanIcon, ConstructionIcon, Contact, Glasses, SearchIcon, TractorIcon, TramFront, Truck, X } from "lucide-react";
+import { AlignCenter, CarFront, CaravanIcon, ConstructionIcon, Contact, Glasses, SearchIcon, Settings2, TractorIcon, TramFront, Truck, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
@@ -153,8 +153,8 @@ const MainPageSideBar= () => {
                 <div>
                 <PKW />
                 </div>
-                <div className="text-xs flex justify-center mt-2 text-gray-100 underline">
-                    <Contact className="mr-2 h-4 w-4" />  kein passendes Angebot dabei ?
+                <div className="text-xs flex justify-center mt-2 text-gray-100 underline hover:cursor-pointer" onClick={() => {router.push("/search")}}>
+                    <Settings2 className="mr-2 h-4 w-4" /> Zu der Erweiterten Suche
                 </div>
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
                     <Button className="bg-blue-800 w-full h-[100px]  ml-2 mr-2  flex 

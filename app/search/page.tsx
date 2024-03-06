@@ -21,7 +21,7 @@ const SearchPage = async () => {
         }
     })
 
-    const results = await getSearchResults();
+    
 
     return (
         <div className="bg-[#404040]/10 dark:bg-[#0F0F0F]">
@@ -40,7 +40,7 @@ const SearchPage = async () => {
                                 <MagnifyingGlassIcon className="mr-4 h-6 w-6" /> Erweiterte Detail-Suche 
                                 <div className="ml-auto">
                                     <ResultsSearchPage 
-                                    results={results}
+                                   
                                     />
                                 </div>
                             </h3>

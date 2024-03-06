@@ -20,6 +20,8 @@ const CategorySearch = () => {
         console.log('category' in searchParams && searchParams['category'] === "PKW")
     }
 
+    
+
     return (
         <div className="w-full">
             <h3 className="font-semibold text-md flex items-center">

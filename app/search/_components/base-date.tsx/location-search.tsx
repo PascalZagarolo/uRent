@@ -4,15 +4,21 @@ import qs from 'query-string';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MapPinned } from "lucide-react";
+import { useSavedSearchParams } from "@/store";
 
-const AutoComplete = () => {
+const LocationSearch = () => {
   const autoCompleteRef = useRef();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const currentLocation = searchParams.get("location");
+;
+
+  const currentObject = useSavedSearchParams((state) => state.searchParams);
+  
+ 
   const currentTitle = searchParams.get("title");
-  const [value, setValue] = useState(currentLocation || "");
+  const [value, setValue] = useState(currentObject["location"] || "")
+  
 
   const inputRef = useRef();
   const options = {
@@ -27,28 +33,14 @@ const AutoComplete = () => {
         inputRef.current,
         options
       );
-      
-    }
-  }, [currentLocation]);
 
-  useEffect(() => {
-    //@ts-ignore
-    if (!inputRef?.current?.value) {
-      const url = qs.stringifyUrl({
-        url: pathname,
-        query: {
-          location: null,
-          title : currentTitle
-        }
-      }, { skipEmptyString: true, skipNull: true });
-      router.push(url);
+      console.log(google.maps.places.Autocomplete)
     }
-  }, [value]);
+  }, []);
 
-  useEffect(() => {
-    // Store currentLocation in session storage
-    sessionStorage.setItem("currentLocation", currentLocation);
-  }, [currentLocation]);
+  
+
+
 
   const onSearch = () => {
     const url = qs.stringifyUrl({
@@ -63,21 +55,25 @@ const AutoComplete = () => {
   };
 
   return (
-    <div className="lg:flex items-center hidden">
-      <div className="2xl:mr-16 xl:mr-8 flex items-center mt-2 w-full flex-shrink">
+    <div className="items-center">
+      <h3 className="font-semibold flex">
+         <MapPinned  className="w-4 h-4 mr-2"/> Addresse
+        </h3>
+      <div className=" flex items-center mt-2 w-full flex-shrink">
+        
         <Input
           ref={inputRef}
-          defaultValue={currentLocation || ""}
           placeholder="Standort.."
-          className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0"
-          onChange={(e) => { setValue(e.target.value) }} />
-        <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 " onClick={onSearch}>
-          <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
-        </Button>
+          className=" rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0 dark:bg-[#141414] border-none"
+          onChange={(e) => { setValue(e.target.value); console.log(e.target.value)}}
+          //@ts-ignore 
+          onBlur={() => {setValue(inputRef?.current?.value)}}
+          />
+        
       </div>
       
     </div>
   );
 };
 
-export default AutoComplete;
+export default LocationSearch;

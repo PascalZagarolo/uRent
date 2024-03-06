@@ -58,5 +58,26 @@ export const useResultsPerPage = create<resultsPerPage>((set) => ({
     }
 }))
 
+type savedSearchParams = {
+    searchParams : Object,
+    changeSearchParams: (newSearchParams : Object, value : string) => void;
+}
+
+export const useSavedSearchParams = create<savedSearchParams>((set) => ({
+    searchParams : {},
+    changeSearchParams(newSearchParams, value) {
+
+        ;
+
+        set((state) => ({
+            searchParams: {
+                ...state.searchParams,
+                [newSearchParams.toString().trim()]: value
+            }   
+        }));
+        
+    },
+}))
+
 
 

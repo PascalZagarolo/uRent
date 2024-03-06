@@ -130,11 +130,11 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                     <div onClick={() => {setIsEditing(true)}} className="hover:cursor-pointer">
 
                         {inserat.description ? (
-                            <p className="font-semibold text-gray-900 flex-1 text-sm max-h-[100px] overflow-hidden dark:text-gray-100 ">
+                            <p className=" text-gray-900  text-sm max-h-[100px] overflow-hidden dark:text-gray-100 ">
                             {inserat.description}
                           </p>
                         ) : (
-                            <p className="font-semibold text-gray-900/50 italic text-sm dark:text-gray-100"> Noch keine Beschreibung hinzugefügt </p>
+                            <p className=" text-gray-900/50 italic text-sm dark:text-gray-100"> Noch keine Beschreibung hinzugefügt </p>
                         )}
                         
                     </div>

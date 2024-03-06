@@ -65,7 +65,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormLabel className="flex justify-start items-center">
-                        <Banknote /><p className="ml-2 font-semibold"> Kautionsgebühr </p>
+                        <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Kautionsgebühr </p>
                     </FormLabel>
                     <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
                     <FormField

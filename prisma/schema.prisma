@@ -155,6 +155,7 @@ model PkwAttribute {
   doors Int?
 
   freeMiles Int?
+  extraCost Float?
 
   transmission Transmission?
 

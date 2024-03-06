@@ -1,13 +1,12 @@
 
-import CreationHeader from "../_components/creation-header";
-import InseratBodyLeft from "../_components/inserat-body-left";
-import { db } from "@/utils/db";
-import InseratBodyRight from "../_components/input-fields/inserat-body-right";
 
-import MoreDetails from "../_components/more-details";
+import { db } from "@/utils/db";
+
+
+
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { ShellIcon, Signpost } from "lucide-react";
+import { Signpost } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import BasicInformation from "./_parts/basic-information";
 import ContactInformation from "./_parts/contact-information";

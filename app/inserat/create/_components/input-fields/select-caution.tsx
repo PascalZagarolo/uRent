@@ -24,7 +24,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(inserat.price || 0);
+    const [currentValue, setCurrentValue] = useState(inserat.caution || 0);
 
     const formSchema = z.object({
         caution: z.preprocess(
@@ -39,7 +39,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: inserat.price || 0
+            caution: inserat.caution || 0
         }
     })
 

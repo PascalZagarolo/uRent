@@ -13,11 +13,11 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-interface RentPriceProps {
+interface SelectPriceProps {
     inserat: Inserat;
 }
 
-const RentPrice: React.FC<RentPriceProps> = ({
+const SelectPrice: React.FC<SelectPriceProps> = ({
     inserat
 }) => {
 
@@ -52,7 +52,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
                 router.refresh();
             }, 1000)
         } catch {
-            toast.error("Fehler beim Speichern des Preises");
+            toast.error("Fehler beim Speichern der Kaution");
         } finally {
             setIsLoading(false);
         }
@@ -65,7 +65,7 @@ const RentPrice: React.FC<RentPriceProps> = ({
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormLabel className="flex justify-start items-center">
-                        <Banknote /><p className="ml-2 font-semibold"> Mietgebühr </p>
+                        <Banknote /><p className="ml-2 font-semibold"> Mietpreis </p>
                     </FormLabel>
                     <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
                     <FormField
@@ -76,13 +76,13 @@ const RentPrice: React.FC<RentPriceProps> = ({
                                 control={form.control}
                                 name="price"
                                 render={({ field }) => (
-                                    <FormItem className="mt-2 flex">
+                                    <FormItem className="mt-2 ">
                                         <FormControl>
                                             <Input
                                                 type="text"
                                                 {...field}
                                                 name="price"
-                                                className="w-1/6 dark:bg-[#151515] dark:border-none"
+                                                className=" dark:bg-[#151515] dark:border-none"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -90,21 +90,24 @@ const RentPrice: React.FC<RentPriceProps> = ({
                                                     const cleanedValue = rawValue.replace(/[^0-9.]/g, '');
 
 
-                                                    const formattedValue = parseFloat(cleanedValue).toFixed(2);
+                                                    let formattedValue = parseFloat(cleanedValue).toFixed(2);
 
-
+                                                    if(isNaN(Number(formattedValue))){
+                                                        formattedValue = String(0);
+                                                    }
                                                     e.currentTarget.value = formattedValue;
 
                                                     setCurrentValue(Number(formattedValue));
-
+                                                        
                                                     field.onChange(formattedValue);
                                                 }}
                                                 disabled={inserat.category ? false : true}
                                             />
                                         </FormControl>
-                                        <EuroIcon className="ml-2 h-4 w-4" />
+                                        
                                         <FormMessage />
                                     </FormItem>
+                                    
                                 )}
                             />
                         )}
@@ -125,4 +128,4 @@ const RentPrice: React.FC<RentPriceProps> = ({
     );
 }
 
-export default RentPrice;
+export default SelectPrice;

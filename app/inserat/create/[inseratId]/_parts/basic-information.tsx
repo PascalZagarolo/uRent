@@ -5,6 +5,8 @@ import SelectCategoryInserat from "../../_components/input-fields/select-categor
 import ImageListForm from "../../_components/input-fields/image-list-form";
 import InseratImageUpload from "../../_components/input-fields/inserat-image-upload";
 import RentPeriod from "../../_components/input-fields/rent-period";
+import RentPrice from "../../_components/input-fields/rent-price";
+import SelectPrice from "../../_components/input-fields/rent-price";
 
 
 interface BasicInformationProps {
@@ -37,6 +39,11 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
             <div className="mt-8">
                 <InseratImageUpload
                 images={images}
+                />
+            </div>
+            <div className="mt-4">
+                <SelectPrice 
+                inserat={inserat}
                 />
             </div>
             

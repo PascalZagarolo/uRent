@@ -118,6 +118,9 @@ model Inserat {
 
   annual Boolean @default(false)
 
+  caution Float?
+  reqAge Int?
+
   category Category?
   address Address?
   pkwAttribute PkwAttribute?
@@ -150,6 +153,8 @@ model PkwAttribute {
 
   seats Int?
   doors Int?
+
+  freeMiles Int?
 
   transmission Transmission?
 

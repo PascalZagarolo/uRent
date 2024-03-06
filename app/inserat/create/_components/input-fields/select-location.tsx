@@ -12,6 +12,7 @@ import { Address, Inserat } from "@prisma/client";
 import axios from "axios";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 interface SelectLocationProps {
@@ -143,7 +144,8 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           <Label className="flex justify-start items-center">
             <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Standort </p>
           </Label>
-          <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1"> Wo ist deine Anzeige lokalisiert ? </p>
+          <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1  sm:block hidden"> Standort des Fahrzeugs ? </div>
+          <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1  sm:hidden block"> Standort ? </div>
           <Input ref={inputRef} placeholder="Standort.."
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
             onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
@@ -153,9 +155,12 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         </div>
         <div className="ml-4">
           <Label className="flex justify-start items-center">
-            <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Postleitzahl </p>
+            <PinIcon className="w-4 h-4" /> 
+            <p className="ml-2  font-semibold sm:block hidden"> Postleitzahl </p> 
+            <p className="ml-2 font-semibold sm:hidden block"> PLZ </p>
           </Label>
-          <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1"> 5-Stellige Plz </p>
+          <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:block hidden"> 5-Stellige Plz </p>
+          <p className="text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:hidden block"> 5-Stellig </p>
           <Input
             className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md text-sm border mt-2 border-black dark:bg-[#151515] justify-start dark:focus-visible:ring-0"
             type="text"
@@ -166,12 +171,20 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           />
         </div>
       </div>
-      <RadioGroup className="mt-2">
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="option-two" id="option-two" className="h-2 w-2" />
-          <Label htmlFor="option-two" className="text-sm"><p className="text-sm"> Informationen aus meinem Profil verwenden </p></Label>
-        </div>
-      </RadioGroup>
+      
+      <div className="flex mt-2">
+      <Checkbox 
+      className="sm:h-4 sm:w-4 mr-2"
+      onCheckedChange={() => {}}
+      />
+      <Label className="sm:block hidden">
+        Informationen aus Profil verwenden
+      </Label>
+      <Label className="sm:hidden block">
+        aus dem Profil
+      </Label>
+    </div>
+   
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
         disabled={!inputRef?.current?.value || (addressComponent?.locationString === inputRef?.current?.value && currentZipCode === addressComponent?.postalCode) || !inputRef?.current?.value.length ||
           String(currentZipCode).length !== 5

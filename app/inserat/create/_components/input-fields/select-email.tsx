@@ -73,7 +73,8 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
           <Label className="flex justify-start items-center">
              <p className=" mb-0.5 font-semibold"> Email-Addresse </p>
           </Label>
-          <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1"> über welche Addresse möchtest du kontaktiert werden? </p>
+          <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:block hidden"> über welche Addresse möchtest du kontaktiert werden? </div>
+          <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:hidden block"> deine benutzte E-Mail </div>
           <Input placeholder="name@addresse.de"
           ref={inputRef}
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] 
@@ -90,11 +91,14 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
       <div className="flex mt-2">
       <Checkbox 
-      className="h-4 w-4 mr-2"
+      className="sm:h-4 sm:w-4 mr-2"
       onCheckedChange={onPrefill}
       />
-      <Label>
+      <Label className="sm:block hidden">
         Informationen aus Profil verwenden
+      </Label>
+      <Label className="sm:hidden block">
+        aus dem Profil
       </Label>
     </div>
 

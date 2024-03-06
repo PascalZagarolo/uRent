@@ -5,23 +5,25 @@ import { Button } from "@/components/ui/button";
 import { useSavedSearchParams } from "@/store";
 import axios from "axios";
 import { ArrowRightCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 
 const ResultsSearchPage = () => {
 
     const searchParams = useSavedSearchParams((state) => state.searchParams);
-    const [currentResults, setCurrentResults] = useState(0);
-
-    useEffect (() => {
+    const [currentResults, setCurrentResults] = useState();
+    const router = useRouter();
+    //? Fix 429-Error in Axios, because of too many requests regarding location..
+    useEffect(() => {
         const getSearchResults = async () => {
-            
             const values = searchParams
             const results = await axios.patch('/api/search', values);
-            setCurrentResults(results.data)
+            setCurrentResults(results.data);
+            router.refresh();
         }
-        getSearchResults()
-    }, [searchParams])
+        getSearchResults();
+    }, [searchParams]);
 
     return ( 
         <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-semibold">

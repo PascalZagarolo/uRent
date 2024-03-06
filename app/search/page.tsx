@@ -1,3 +1,5 @@
+
+
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
 
@@ -5,8 +7,11 @@ import { TruckIcon } from "lucide-react";
 import HeaderLogo from "../(dashboard)/_components/header-logo";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import CategorySearch from "./_components/category-search";
+import BaseDataSearch from "./_components/base-data-search";
+import ResultsSearchPage from "./_components/results-searchpage";
+import { getSearchResults } from "@/actions/getSearchResults";
 
-const Imprint = async () => {
+const SearchPage = async () => {
 
     const currentUser = await getCurrentUser();
 
@@ -15,6 +20,8 @@ const Imprint = async () => {
             userId: currentUser?.id
         }
     })
+
+    const results = await getSearchResults();
 
     return (
         <div className="bg-[#404040]/10 dark:bg-[#0F0F0F]">
@@ -30,13 +37,19 @@ const Imprint = async () => {
 
                         <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                <MagnifyingGlassIcon className="mr-4 h-6 w-6" /> Erweiterte Detail-Suche
+                                <MagnifyingGlassIcon className="mr-4 h-6 w-6" /> Erweiterte Detail-Suche 
+                                <div className="ml-auto">
+                                    <ResultsSearchPage 
+                                    results={results}
+                                    />
+                                </div>
                             </h3>
                         </div>
 
 
 
-                        <div className="p-8 text-sm dark:text-gray-300/90">
+                        <div className="p-8 text-sm dark:text-gray-300/90 space-y-4">
+                            <BaseDataSearch />
                             <CategorySearch />
                         </div>
                     </div>
@@ -48,4 +61,4 @@ const Imprint = async () => {
     );
 }
 
-export default Imprint;
+export default SearchPage;

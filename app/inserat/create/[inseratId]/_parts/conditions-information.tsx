@@ -3,6 +3,7 @@ import SelectLocation from "../../_components/input-fields/select-location";
 import SelectEmail from "../../_components/input-fields/select-email";
 import PhoneNumber from "../../_components/input-fields/phone-number";
 import SelectCaution from "../../_components/input-fields/select-caution";
+import RequiredAge from "../../_components/input-fields/select-req-age";
 
 interface ConditionsInformationProps {
     inserat : Inserat & { user : User};
@@ -23,15 +24,13 @@ const ConditionsInformation: React.FC<ConditionsInformationProps> = ({
                 />
             </div>
             <div className="w-1/2">
-                <SelectEmail
-                inserat = {inserat}
+                <RequiredAge 
+                inserat={inserat}
                 />
             </div>
             </div>
             <div className="mt-4 w-1/2">
-                <PhoneNumber
-                inserat={inserat}
-                />
+                
             </div>
         </div>
      );

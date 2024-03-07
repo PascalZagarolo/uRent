@@ -26,8 +26,8 @@ const ResultsSearchPage = () => {
     }, [searchParams]);
 
     return ( 
-        <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-semibold">
-            Zu den {currentResults} Ergebnissen <ArrowRightCircle className="w-4 h-4 ml-2" />
+        <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-medium">
+            Zu den <p className="font-bold px-1"> {currentResults} </p> Ergebnissen <ArrowRightCircle className="w-4 h-4 ml-2" />
         </Button>
      );
 }

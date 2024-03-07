@@ -25,24 +25,23 @@ const CategorySearch = () => {
 
     return (
         <div className="w-full">
-            <h3 className="font-semibold text-md flex items-center">
-                Fahrzeug-Kategorie
-                <Separator 
-                className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
-                
-                />
-            </h3>
-            <div className="w-full flex justify-between mt-4">
-            {Object.values(Category).map((category, index) => (
-                <>
-                <Button key={index} value={category} 
-                className={cn(
-                    "dark:bg-[#141414] dark:hover:bg-[#1d1d1d] dark:text-gray-100 py-6 border-2 dark:border-[#141414]", 
-                    currentObject["category"] === category && "border-2 dark:border-blue-800"
-                )}
-                onClick={() => setCategory(category)}
+    <h3 className="font-semibold text-md flex items-center">
+        Fahrzeug-Kategorie
+        <Separator 
+        className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
+        />
+    </h3>
+    <div className="w-full flex justify-between mt-4">
+        {Object.values(Category).map((category, index) => (
+            <div key={index} className="flex flex-col items-center"> 
+                <Button 
+                    value={category} 
+                    className={cn(
+                        "dark:bg-[#141414] dark:hover:bg-[#1d1d1d] dark:text-gray-100 py-6 border-2 dark:border-[#141414]", 
+                        currentObject["category"] === category && "border-2 dark:border-blue-800"
+                    )}
+                    onClick={() => setCategory(category)}
                 >
-                    
                     {
                         {
                             'PKW': <CarFrontIcon className="w-6 h-6" />,
@@ -53,15 +52,24 @@ const CategorySearch = () => {
                             'TRAILOR': <RiCaravanLine className="w-6 h-6"/>,
                             'TRANSPORT': <PiVanFill className="w-6 h-6" />,
                         }[category]
-                    }
-                    
+                    }   
                 </Button>
-               
-                </>
-            ))}
-             
+                <span className={cn("text-sm mt-2  dark:text-gray-100", currentObject["category"] === category && " font-semibold")}>{
+                        {
+                            'PKW': "Pkw",
+                            'LKW': "Lkw",
+                            'LAND': "Land",
+                            'BAU': "Bau",
+                            'CARAVAN': "Wohnmobil",
+                            'TRAILOR': "Anhänger",
+                            'TRANSPORT': "Transport",
+                        }[category]
+                    }</span> 
             </div>
-        </div>
+        ))}
+    </div>
+</div>
+
     );
 }
 

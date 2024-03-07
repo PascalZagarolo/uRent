@@ -7,7 +7,7 @@ import FreeMilesSearch from "./condition-data/free-miles";
 const ConditionsSearch = () => {
     return ( 
         <div>
-            <h3 className="font-semibold text-md flex items-center">
+            <h3 className="font-semibold text-md flex items-center dark:text-gray-100">
                 Mietkonditionen
                 <Separator 
                 className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"

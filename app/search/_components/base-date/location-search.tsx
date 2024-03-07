@@ -13,7 +13,7 @@ const LocationSearch = () => {
   const pathname = usePathname();
 ;
 
-const { searchParams, changeSearchParams } = useSavedSearchParams();
+const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
 const currentObject = useSavedSearchParams((state) => state.searchParams)
   
@@ -49,8 +49,10 @@ const currentObject = useSavedSearchParams((state) => state.searchParams)
   
     const setLocation = (currentString : string) => {
       changeSearchParams("location", currentString);
-      console.log(currentObject["location"])
-      console.log(value)
+    }
+
+    const deleteLocation = () => {
+      deleteSearchParams("location");
     }
 
  
@@ -67,8 +69,17 @@ const currentObject = useSavedSearchParams((state) => state.searchParams)
           placeholder="Standort.."
           className=" rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0 dark:bg-[#141414] border-none"
           onChange={(e) => { setValue(e.target.value); console.log(e.target.value)}}
-          //@ts-ignore 
-          onBlur={() => {setValue(inputRef?.current?.value); setLocation(inputRef?.current?.value); }}
+          
+          onBlur={() => {
+            //@ts-ignore 
+            setValue(inputRef?.current?.value); 
+            //@ts-ignore 
+          if(inputRef?.current?.value) {//@ts-ignore 
+            setLocation(inputRef?.current?.value);
+          } else {
+            deleteLocation();
+          }
+          }}
           />
         
       </div>

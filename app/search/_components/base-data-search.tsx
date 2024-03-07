@@ -2,6 +2,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import LocationSearch from "./base-date.tsx/location-search";
+import DateSearch from "./base-date.tsx/date-search";
 
 const BaseDataSearch = () => {
     return ( 
@@ -18,7 +19,7 @@ const BaseDataSearch = () => {
 <LocationSearch />
                 </div>
                 <div className="w-1/3">
-1
+<DateSearch />
                 </div>
                 <div className="w-1/3">
 1

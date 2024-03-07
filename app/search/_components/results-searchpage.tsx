@@ -1,13 +1,13 @@
 'use client'
 
-import { getSearchResults } from "@/actions/getSearchResults";
+
 import { Button } from "@/components/ui/button";
 import { useSavedSearchParams } from "@/store";
 import axios from "axios";
-import { ArrowRightCircle } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import qs from "query-string"
+import { BiArrowToRight } from "react-icons/bi";
 
 
 const ResultsSearchPage = () => {
@@ -45,8 +45,9 @@ const ResultsSearchPage = () => {
     }
 
     return ( 
-        <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-medium" onClick={onRedirect}>
-            Zu den <p className="font-bold px-1"> {currentResults} </p> Ergebnissen <ArrowRightCircle className="w-4 h-4 ml-2" />
+        <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-base p-8" onClick={onRedirect}>
+             <p className="font-bold px-1"> {currentResults} </p> Ergebnisse <BiArrowToRight   className="w-4 h-4 ml-2" />
+
         </Button>
      );
 }

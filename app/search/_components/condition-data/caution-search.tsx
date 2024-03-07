@@ -2,13 +2,14 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useSavedSearchParams } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Inserat } from "@prisma/client";
 import axios from "axios";
 import { set } from "date-fns";
 import { Banknote, EuroIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -21,6 +22,13 @@ const CautionSearch = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [currentValue, setCurrentValue] = useState(0);
+    const { searchParams, changeSearchParams } = useSavedSearchParams();
+    const savedParams = useSavedSearchParams((state) => state.searchParams);
+
+    const setCaution = () => {
+        changeSearchParams("caution", currentValue);
+        console.log(savedParams['caution'])
+    }
 
     const formSchema = z.object({
         caution: z.preprocess(
@@ -86,6 +94,8 @@ const CautionSearch = () => {
                                                     setCurrentValue(Number(formattedValue));
                                                         
                                                     field.onChange(formattedValue);
+
+                                                    setCaution();
                                                 }}
                                                 
                                             />

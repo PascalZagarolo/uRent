@@ -11,16 +11,16 @@ const CategorySearchRender = () => {
             <h3 className="font-semibold text-md flex items-center text-gray-100">
                 {
                     {
-                        'PKW' : "Pkw",
-                        'LKW' : "Lkw",
-                        'LAND' : "Landmaschinen",
-                        'BAU' : "Bau",
-                        'CARAVAN' : "Wohnmobil",
-                        'TRAILOR' : "Anhänger",
-                        'TRANSPORT' : "Transporter"
+                        'PKW' : "Pkw - ",
+                        'LKW' : "Lkw - ",
+                        'LAND' : "Landmaschinen - ",
+                        'BAU' : "Bau - ",
+                        'CARAVAN' : "Wohnmobil - ",
+                        'TRAILOR' : "Anhänger - ",
+                        'TRANSPORT' : "Transporter - "
 
                     }[currentParams['category']] 
-                } - Details
+                } Details
                 <Separator
                     className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
 

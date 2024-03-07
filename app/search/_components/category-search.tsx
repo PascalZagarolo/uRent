@@ -12,7 +12,7 @@ import { RiCaravanLine } from "react-icons/ri";
 
 const CategorySearch = () => {
 
-    const { searchParams, changeSearchParams } = useSavedSearchParams();
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
@@ -21,6 +21,9 @@ const CategorySearch = () => {
         console.log('category' in searchParams && searchParams['category'] === "PKW")
     }
 
+    const deleteCategory = () => {
+        deleteSearchParams("category")
+    }
     
 
     return (
@@ -40,8 +43,9 @@ const CategorySearch = () => {
                         "dark:bg-[#141414] dark:hover:bg-[#1d1d1d] dark:text-gray-100 py-6 border-2 dark:border-[#141414]", 
                         currentObject["category"] === category && "border-2 dark:border-blue-800"
                     )}
-                    onClick={() => setCategory(category)}
+                    onClick={() => currentObject["category"] === category ? deleteCategory() : setCategory(category)}
                 >
+                    
                     {
                         {
                             'PKW': <CarFrontIcon className="w-6 h-6" />,

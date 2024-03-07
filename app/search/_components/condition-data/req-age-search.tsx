@@ -59,7 +59,7 @@ const RequiredAgeSearch = () => {
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-            <SelectItem value="0">BELIEBIG</SelectItem>
+            <SelectItem value="0">Beliebig</SelectItem>
             <SelectItem value="16">16</SelectItem>
             <SelectItem value="17">17</SelectItem>
             <SelectItem value="18">18</SelectItem>

@@ -13,7 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Banknote, CalendarClockIcon, CalendarIcon, Clock12, Link } from "lucide-react";
+import { Banknote, CalendarClockIcon, CalendarIcon, Clock10Icon, Clock12, Link } from "lucide-react";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { z } from "zod";
@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
 
-const DateFormFilter = () => {
+const DateSearch = () => {
 
     const router = useRouter();
     const pathname = usePathname();
@@ -110,51 +110,31 @@ const DateFormFilter = () => {
       }  
   },[paramsPeriodEnd])
 
-    const filterReset = () => {
-        setPeriodBegin(null);
-        setPeriodEnd(null);
-
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                title: currentTitle,
-                category: category,
-                
-                periodBegin : null,
-                periodEnd : null,
-                location : currentLocation
-                
-            }
-        }, { skipNull: true, skipEmptyString: true });
-
-        router.push(url)
-    }
+    
 
     return (
-        <div className="mb-2">
-            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2  bg-[#1b1f2c] p-2 border-[#1f2332] ">
-                <Clock12 className="mr-4" /> Zeitraum
-            </h3>
-            <div className="flex gap-x-4 mt-2">
-            <div>
+        <div>
+            
+            <div className="flex gap-x-4">
+            <div className="w-full">
           
           <div className="flex">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="flex gap-x-4">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                <div className="flex gap-x-2">
                   <FormField
                     control={form.control}
                     name="start"
                     render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel className="text-gray-100/80">Beginn</FormLabel>
+                      <FormItem className="flex flex-col w-full">
+                        <FormLabel className="text-gray-100/80 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> Mietbeginn</FormLabel>
                         <Popover>
-                          <PopoverTrigger asChild>
+                          <PopoverTrigger asChild className="w-full">
                             <FormControl>
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[120px] pl-3 text-left font-semibold",
+                                  "w-full pl-3 text-left font-semibold",
                                   !field.value && "text-muted-foreground dark:bg-[#0F0F0F] dark:border-none"
                                 )}
                               >
@@ -167,7 +147,7 @@ const DateFormFilter = () => {
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                          <PopoverContent className="w-auto p-0 border-none" align="start">
                             <Calendar
                               mode="single"
                               //@ts-ignore
@@ -194,15 +174,15 @@ const DateFormFilter = () => {
                     control={form.control}
                     name="end"
                     render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel className="text-gray-100/70">Ablauf</FormLabel>
+                      <FormItem className="flex flex-col w-full">
+                        <FormLabel className="text-gray-100/70 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> Mietende</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[120px] pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
+                                  "w-full pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -215,7 +195,7 @@ const DateFormFilter = () => {
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                          <PopoverContent className="w-auto p-0 border-none" align="start">
                             <Calendar
                               mode="single"
                               //@ts-ignore
@@ -250,16 +230,10 @@ const DateFormFilter = () => {
         </div>
                 
             </div>
-            <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]
-                    dark:text-gray-100 dark:border-black dark:hover:bg-[#212538]
-                    " onClick={filterReset} disabled={!periodBegin && !periodEnd} >
-                        Filter zurücksetzen
-                    </Button>
-                </div>
+           
                 
         </div>
     );
 }
 
-export default DateFormFilter;
+export default DateSearch;

@@ -3,6 +3,7 @@
 import { Separator } from "@/components/ui/separator";
 import LocationSearch from "./base-date/location-search";
 import DateSearch from "./base-date/date-search";
+import PriceSearch from "./base-date/price-search";
 
 const BaseDataSearch = () => {
     return ( 
@@ -22,7 +23,7 @@ const BaseDataSearch = () => {
 <DateSearch />
                 </div>
                 <div className="w-1/3">
-1
+<PriceSearch />
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useSavedSearchParams } from "@/store";
 import { Inserat } from "@prisma/client";
 
 
@@ -19,31 +20,19 @@ const RequiredAgeSearch = () => {
     const [currentAge, setCurrentAge] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
     const router = useRouter();
 
     const params = useParams();
 
     const onSubmit = (selectedValue: number) => {
-        try {
-    
-            setCurrentAge(selectedValue);
-    
-          const values = {
-            reqAge: selectedValue
-          }
-    
-          setIsLoading(true);
-          axios.patch(`/api/inserat/${params.inseratId}`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.reqAge);
-          setTimeout(() => {
-            router.refresh();
-          }, 400)
-        } catch {
-          toast.error("Fehler beim Speichern der Kategorie");
-        } finally {
-          setIsLoading(false);
-        }
-      }
+        changeSearchParams("reqAge" , selectedValue);
+    }
+
+    const deleteAge = () => {
+      deleteSearchParams("reqAge")
+    }
 
     return ( 
         <div className="w-full">
@@ -53,8 +42,8 @@ const RequiredAgeSearch = () => {
                     </Label>
                     
         <Select
-          onValueChange={(seats) => {
-            onSubmit(Number(seats));
+          onValueChange={(reqAge) => {
+            Number(reqAge) === 0 ? deleteAge() : onSubmit(Number(reqAge))
           }}
           
           disabled={isLoading}
@@ -70,6 +59,7 @@ const RequiredAgeSearch = () => {
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+            <SelectItem value="0">BELIEBIG</SelectItem>
             <SelectItem value="16">16</SelectItem>
             <SelectItem value="17">17</SelectItem>
             <SelectItem value="18">18</SelectItem>

@@ -21,13 +21,17 @@ const CautionSearch = () => {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(0);
-    const { searchParams, changeSearchParams } = useSavedSearchParams();
+    const [currentValue, setCurrentValue] = useState<number | null>(0);
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
     const savedParams = useSavedSearchParams((state) => state.searchParams);
 
     const setCaution = () => {
         changeSearchParams("caution", currentValue);
         console.log(savedParams['caution'])
+    }
+
+    const deleteCaution = () => {
+        deleteSearchParams("caution")
     }
 
     const formSchema = z.object({
@@ -50,7 +54,7 @@ const CautionSearch = () => {
     const onSubmit = () => {
         console.log(2)
     }
-   
+
 
     const { isSubmitting, isValid } = form.formState
 
@@ -61,7 +65,7 @@ const CautionSearch = () => {
                     <FormLabel className="flex justify-start items-center">
                         <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Kautionsgebühr </p>
                     </FormLabel>
-                    
+
                     <FormField
                         control={form.control}
                         name="caution"
@@ -76,39 +80,38 @@ const CautionSearch = () => {
                                                 type="text"
                                                 {...field}
                                                 name="price"
-                                                className=" dark:bg-[#151515] dark:border-none"
+                                                className="dark:bg-[#151515] dark:border-none"
+                                                placeholder="Wie hoch darf die Kaution sein?"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
-
-
                                                     const cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-
-
                                                     let formattedValue = parseFloat(cleanedValue).toFixed(2);
 
-                                                    if(isNaN(Number(formattedValue))){
-                                                        formattedValue = String(0);
+                                                    if (isNaN(Number(formattedValue))) {
+                                                        formattedValue = null;
                                                     }
-                                                    e.currentTarget.value = formattedValue;
 
+                                                    e.currentTarget.value = formattedValue;
                                                     setCurrentValue(Number(formattedValue));
-                                                        
                                                     field.onChange(formattedValue);
 
-                                                    setCaution();
+                                                    if (formattedValue) {
+                                                        setCaution();
+                                                    } else {
+                                                        deleteCaution();
+                                                    }
                                                 }}
-                                                
                                             />
                                         </FormControl>
-                                        
+
                                         <FormMessage />
                                     </FormItem>
-                                    
+
                                 )}
                             />
                         )}
                     />
-                    
+
                 </form>
             </Form>
         </div>

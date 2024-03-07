@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 import { useSavedSearchParams } from "@/store";
 import { Category } from "@prisma/client";
 import { CarFrontIcon, CaravanIcon, Construction, TractorIcon, TramFrontIcon, TruckIcon } from "lucide-react";
-
+import { PiVanFill } from "react-icons/pi";
+import { RiCaravanLine } from "react-icons/ri";
 
 const CategorySearch = () => {
 
@@ -33,13 +34,15 @@ const CategorySearch = () => {
             </h3>
             <div className="w-full flex justify-between mt-4">
             {Object.values(Category).map((category, index) => (
+                <>
                 <Button key={index} value={category} 
                 className={cn(
-                    "dark:bg-[#141414] dark:hover:bg-[#1d1d1d] dark:text-gray-100 py-6 ", 
-                    currentObject["category"] === category && "border-2 border-blue-800"
+                    "dark:bg-[#141414] dark:hover:bg-[#1d1d1d] dark:text-gray-100 py-6 border-2 dark:border-[#141414]", 
+                    currentObject["category"] === category && "border-2 dark:border-blue-800"
                 )}
                 onClick={() => setCategory(category)}
                 >
+                    
                     {
                         {
                             'PKW': <CarFrontIcon className="w-6 h-6" />,
@@ -47,12 +50,16 @@ const CategorySearch = () => {
                             'LAND': <TractorIcon className="w-6 h-6"/>,
                             'BAU': <Construction className="w-6 h-6"/>,
                             'CARAVAN': <CaravanIcon className="w-6 h-6"/>,
-                            'TRAILOR': <CaravanIcon className="w-6 h-6" />,
-                            'TRANSPORT': <TramFrontIcon className="w-6 h-6"/>,
+                            'TRAILOR': <RiCaravanLine className="w-6 h-6"/>,
+                            'TRANSPORT': <PiVanFill className="w-6 h-6" />,
                         }[category]
                     }
+                    
                 </Button>
+               
+                </>
             ))}
+             
             </div>
         </div>
     );

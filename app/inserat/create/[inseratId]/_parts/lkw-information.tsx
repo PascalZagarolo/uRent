@@ -28,7 +28,7 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
             <div className="flex w-full gap-x-8">
                 <div className="w-1/2">
                     <LkwBrandForm
-                    brand={inserat?.lkwAttribute?.brand}
+                    brand={inserat?.lkwAttribute?.lkwBrand}
                     />
                 </div>
                 <div className="w-1/2">

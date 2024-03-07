@@ -34,11 +34,11 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
         try {
             setCurrentBrand(selectedValue);
             const values = {
-                brand: selectedValue
+                lkwBrand: selectedValue
             }
             setIsLoading(true);
             axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-            toast.success("Anzahl Türen erfolgreich gespeichert : " + values.brand);
+            toast.success("Anzahl Türen erfolgreich gespeichert : " + values.lkwBrand);
             setTimeout(() => {
                 router.refresh();
             }, 400)
@@ -62,17 +62,17 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     onValueChange={(brand: LkwBrand) => {
                         onSubmit(brand);
                     }}
-                    defaultValue={brand}
+                    
                     disabled={isLoading}
                     value={brand || currentBrand }
                     
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                        disabled={isLoading} defaultValue={brand}>
+                        disabled={isLoading} >
                         <SelectValue
                             placeholder="Wähle die Kategorie aus"
-                            defaultValue={brand}
+                            
                             className="placeholder:text-gray-100"
                         />
                     </SelectTrigger>

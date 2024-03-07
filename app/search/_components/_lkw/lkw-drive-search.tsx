@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSavedSearchParams } from "@/store";
-import { Inserat, LkwBrand } from "@prisma/client";
+import { DriveType, Inserat, LkwBrand } from "@prisma/client";
 
 
 import axios from "axios";
@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 
 
 
-const LkwBrandSearch = () => {
+const LkwDriveSearch = () => {
 
     const [currentAge, setCurrentAge] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -27,12 +27,12 @@ const LkwBrandSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
-        changeSearchParams("lkwBrand" , selectedValue);
+        changeSearchParams("drive" , selectedValue);
         console.log(selectedValue)
     }
 
-    const deleteBrand = () => {
-      deleteSearchParams("lkwBrand")
+    const deleteDrive = () => {
+      deleteSearchParams("drive")
     }
 
     function removeUnderscore(inputString: string): string {
@@ -44,12 +44,12 @@ const LkwBrandSearch = () => {
         <div className="w-full">
             <div className="w-full">
             <Label className="flex justify-start items-center ">
-                        <p className="ml-2 font-semibold"> Marke </p>
+                        <p className="ml-2 font-semibold"> Antrieb </p>
                     </Label>
                     
         <Select
           onValueChange={(brand) => {
-            brand === "BELIEBIG" ? deleteBrand() : onSubmit(brand)
+            brand === "BELIEBIG" ? deleteDrive() : onSubmit(brand)
           }}
           
           disabled={isLoading}
@@ -58,7 +58,7 @@ const LkwBrandSearch = () => {
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
           disabled={isLoading}  >
             <SelectValue
-              placeholder="Wähle deine gewünschte Marke"
+              placeholder="Wähle deinen gewünschten Antrieb"
               
               
             />
@@ -67,10 +67,10 @@ const LkwBrandSearch = () => {
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
           <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
                                 Beliebig
-                            </SelectItem>
-          {Object.values(LkwBrand).map((brand, index) => (
-                            <SelectItem key={index} value={brand}>
-                                {removeUnderscore(brand)}
+         </SelectItem>
+         {Object.values(DriveType).map((drive, index) => (
+                            <SelectItem key={index} value={drive}>
+                                {drive.substring(1)}
                             </SelectItem>
                         ))}
           </SelectContent>
@@ -80,4 +80,4 @@ const LkwBrandSearch = () => {
      );
 }
  
-export default LkwBrandSearch;
+export default LkwDriveSearch;

@@ -1,8 +1,8 @@
 'use client'
 
 import { Separator } from "@/components/ui/separator";
-import LocationSearch from "./base-date.tsx/location-search";
-import DateSearch from "./base-date.tsx/date-search";
+import LocationSearch from "./base-date/location-search";
+import DateSearch from "./base-date/date-search";
 
 const BaseDataSearch = () => {
     return ( 

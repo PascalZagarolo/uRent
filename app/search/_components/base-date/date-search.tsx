@@ -134,8 +134,8 @@ const DateSearch = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-full pl-3 text-left font-semibold",
-                                  !field.value && "text-muted-foreground dark:bg-[#0F0F0F] dark:border-none"
+                                  "w-full pl-3 text-left font-semibold dark:bg-[#0F0F0F] border-none",
+                                  !field.value && "text-muted-foreground  dark:border-none"
                                 )}
                               >
                                 {periodBegin ? (
@@ -175,7 +175,7 @@ const DateSearch = () => {
                     name="end"
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-full">
-                        <FormLabel className="text-gray-100/70 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> Mietende</FormLabel>
+                        <FormLabel className="mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> Mietende</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>

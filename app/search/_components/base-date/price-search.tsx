@@ -62,13 +62,13 @@ const CautionSearch = () => {
                     <div className="w-full flex gap-x-2">
                         <div className="w-1/2">
                         <FormLabel className="flex justify-start items-center">
-                        <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Min. Preis </p>
+                        <Banknote className="w-4 h-4" /><div className="ml-2 font-semibold flex"> Min. <p className="sm:block hidden px-1"> Preis </p> </div>
                     </FormLabel>
                     
                         </div>
                         <div className="w-1/2">
                         <FormLabel className="flex justify-start items-center">
-                        <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Max. Preis </p>
+                        <Banknote className="w-4 h-4" /><div className="ml-2 font-semibold flex"> Max. <p className="sm:block hidden px-1"> Preis </p> </div>
                     </FormLabel>
                         </div>
                     </div>

@@ -127,7 +127,9 @@ const DateSearch = () => {
                     name="start"
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-full">
-                        <FormLabel className="text-gray-100/80 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> Mietbeginn</FormLabel>
+                        <FormLabel className="text-gray-100/80 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> 
+                        <div className="sm:ml-2 font-semibold flex "> Start </div>
+                        </FormLabel>
                         <Popover>
                           <PopoverTrigger asChild className="w-full">
                             <FormControl>
@@ -141,9 +143,9 @@ const DateSearch = () => {
                                 {periodBegin ? (
                                   format(periodBegin, "dd.MM")
                                 ) : (
-                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80">Start</span>
+                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80 sm:block hidden">Start</span>
                                 )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50 " />
+                                <CalendarIcon className="sm:ml-auto h-4 w-4 opacity-50 " />
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
@@ -175,7 +177,7 @@ const DateSearch = () => {
                     name="end"
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-full">
-                        <FormLabel className="mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> Mietende</FormLabel>
+                        <FormLabel className="mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> <div className="sm:ml-2 font-semibold flex"> Ende </div> </FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -189,9 +191,9 @@ const DateSearch = () => {
                                 {periodEnd && paramsPeriodEnd ? (
                                   format(periodEnd, "dd.MM")
                                 ) : (
-                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80">Ende</span>
+                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80 sm:block hidden">Ende</span>
                                 )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                <CalendarIcon className="sm:ml-auto h-4 w-4 opacity-50" />
                               </Button>
                             </FormControl>
                           </PopoverTrigger>

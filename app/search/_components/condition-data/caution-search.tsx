@@ -25,10 +25,13 @@ const CautionSearch = () => {
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
     const savedParams = useSavedSearchParams((state) => state.searchParams);
 
-    const setCaution = () => {
-        changeSearchParams("caution", currentValue);
-        console.log(savedParams['caution'])
+    const setCaution = async (currentCaution: number) => {
+        await changeSearchParams("caution", currentCaution);
     }
+
+    useEffect(() => {
+        console.log(savedParams['caution']);
+    }, [savedParams]);
 
     const deleteCaution = () => {
         deleteSearchParams("caution")
@@ -96,7 +99,7 @@ const CautionSearch = () => {
                                                     field.onChange(formattedValue);
 
                                                     if (formattedValue) {
-                                                        setCaution();
+                                                        setCaution(Number(formattedValue));
                                                     } else {
                                                         deleteCaution();
                                                     }

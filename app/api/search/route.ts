@@ -23,7 +23,7 @@ export async function PATCH(
         const values = await req.json();
        
         const {location,
-            lkwBrand, 
+            lkwBrand, application, loading, drive, weightClass, seats,
             ...filteredValues} = values;
 
         const results = await db.inserat.findMany({

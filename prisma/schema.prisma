@@ -301,7 +301,7 @@ enum FuelType {
 model LkwAttribute {
   id String @id @default(uuid())
 
-  brand LkwBrand?
+  lkwBrand LkwBrand?
   model String?
   seats Int?
 

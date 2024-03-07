@@ -8,16 +8,20 @@ import { useSavedSearchParams } from "@/store";
 
 const LocationSearch = () => {
   const autoCompleteRef = useRef();
-  const searchParams = useSearchParams();
+  
   const router = useRouter();
   const pathname = usePathname();
 ;
 
-  const currentObject = useSavedSearchParams((state) => state.searchParams);
+const { searchParams, changeSearchParams } = useSavedSearchParams();
+
+const currentObject = useSavedSearchParams((state) => state.searchParams)
   
  
-  const currentTitle = searchParams.get("title");
+  
   const [value, setValue] = useState(currentObject["location"] || "")
+  const [count, setCount] = useState(0);
+  
   
 
   const inputRef = useRef();
@@ -42,17 +46,14 @@ const LocationSearch = () => {
 
 
 
-  const onSearch = () => {
-    const url = qs.stringifyUrl({
-      url: "/",
-      query: {
-        //@ts-ignore
-        location: inputRef?.current?.value,
-        title: currentTitle
-      }
-    }, { skipEmptyString: true, skipNull: true });
-    router.push(url);
-  };
+  
+    const setLocation = (currentString : string) => {
+      changeSearchParams("location", currentString);
+      console.log(currentObject["location"])
+      console.log(value)
+    }
+
+ 
 
   return (
     <div className="items-center">
@@ -67,11 +68,11 @@ const LocationSearch = () => {
           className=" rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0 dark:bg-[#141414] border-none"
           onChange={(e) => { setValue(e.target.value); console.log(e.target.value)}}
           //@ts-ignore 
-          onBlur={() => {setValue(inputRef?.current?.value)}}
+          onBlur={() => {setValue(inputRef?.current?.value); setLocation(inputRef?.current?.value); }}
           />
         
       </div>
-      
+     
     </div>
   );
 };

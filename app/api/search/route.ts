@@ -22,7 +22,9 @@ export async function PATCH(
        console.log("1")
         const values = await req.json();
        
-        const {location, ...filteredValues} = values;
+        const {location,
+            lkwBrand, 
+            ...filteredValues} = values;
 
         const results = await db.inserat.findMany({
             where : {

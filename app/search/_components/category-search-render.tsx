@@ -2,6 +2,7 @@
 
 import { Separator } from '@/components/ui/separator';
 import { useSavedSearchParams } from '../../../store';
+import LkwSearch from './category-data/lkw-search';
 const CategorySearchRender = () => {
 
     const currentParams = useSavedSearchParams((state) => state.searchParams)
@@ -26,6 +27,20 @@ const CategorySearchRender = () => {
 
                 />
             </h3>
+            <div className='mt-4'>
+            {
+                    {
+                        'PKW' : "Pkw - ",
+                        'LKW' : <LkwSearch />,
+                        'LAND' : "Landmaschinen - ",
+                        'BAU' : "Bau - ",
+                        'CARAVAN' : "Wohnmobil - ",
+                        'TRAILOR' : "Anhänger - ",
+                        'TRANSPORT' : "Transporter - "
+
+                    }[currentParams['category']] 
+                }
+            </div>
         </div>
     );
 }

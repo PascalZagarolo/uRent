@@ -81,7 +81,7 @@ const CautionSearch = () => {
                                 control={form.control}
                                 name="minPrice"
                                 render={({ field }) => (
-                                    <FormItem className="mt-2 ">
+                                    <FormItem className="mt-3 ">
                                         <FormControl>
                                             <Input
                                                 type="text"
@@ -122,7 +122,7 @@ const CautionSearch = () => {
                                 control={form.control}
                                 name="maxPrice"
                                 render={({ field }) => (
-                                    <FormItem className="mt-2 ">
+                                    <FormItem className="mt-3 ">
                                         <FormControl>
                                             <Input
                                                 type="text"

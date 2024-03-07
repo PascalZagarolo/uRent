@@ -11,6 +11,7 @@ import BaseDataSearch from "./_components/base-data-search";
 import ResultsSearchPage from "./_components/results-searchpage";
 import { getSearchResults } from "@/actions/getSearchResults";
 import ConditionsSearch from "./_components/conditions-search";
+import CategorySearchRender from "./_components/category-search-render";
 
 const SearchPage = async () => {
 
@@ -53,7 +54,7 @@ const SearchPage = async () => {
                             <BaseDataSearch />
                             <ConditionsSearch />
                             <CategorySearch />
-                            
+                            <CategorySearchRender />
                         </div>
                     </div>
                 </div>

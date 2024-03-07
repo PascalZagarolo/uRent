@@ -8,7 +8,7 @@ import PriceSearch from "./base-date/price-search";
 const BaseDataSearch = () => {
     return ( 
         <div>
-            <h3 className="font-semibold text-md flex items-center">
+            <h3 className="font-semibold text-md flex items-center dark:text-gray-100">
                 Basisdaten
                 <Separator 
                 className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"

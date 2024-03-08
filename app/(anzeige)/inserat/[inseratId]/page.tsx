@@ -10,6 +10,7 @@ import BookingsOverview from "./_components/bookings-overview";
 import { format } from "date-fns";
 import { lazy } from "react";
 import { Metadata } from "next";
+import InseratAttributes from "./_components/inserat-attributes";
 
 
 
@@ -39,7 +40,8 @@ const InseratAnzeige = async ({
                     contactOptions : true
                 }
             },
-            
+            pkwAttribute: true,
+            lkwAttribute: true,
         }
     })
 
@@ -92,7 +94,7 @@ const InseratAnzeige = async ({
 
 
     return (
-        <div className="2xl:grid  2xl:grid-cols-2 xl:flex justify-center  gap-12 xl:mt-24 h-max">
+        <div className="2xl:grid 2xl:grid-cols-2 xl:flex justify-center gap-12 xl:mt-24 h-max">
             <div className="h-full p-4">
                 <div className="flex xl:justify-end justify-center">
                     <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-full md:w-auto">
@@ -203,14 +205,21 @@ const InseratAnzeige = async ({
                                 inserat={inserat}
                             />
                         </div>
+                        
                     </div>
 
-
+                    
                 </div>
-
+                <div className="flex sm:justify-center xl:justify-end">
+                <div className="flex justify-end xl:ml-auto w-[655px] mt-8">
+                <InseratAttributes 
+                inserat={inserat}
+                />
+                </div>
+                </div>
             </div>
 
-
+            
 
             <div>
 
@@ -243,6 +252,10 @@ const InseratAnzeige = async ({
                     </div>
 
                 </div>
+                
+            </div>
+            <div className="flex justify-center">
+                
             </div>
         </div>
       

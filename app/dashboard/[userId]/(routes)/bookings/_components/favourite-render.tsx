@@ -44,14 +44,14 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] p-4 mt-2 border dark:border-none rounded-md">
             <div className="flex">
-            <div className="w-[200px] h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${favourite.inserat.id}`)}}>
+            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${favourite.inserat.id}`)}}>
                     {favourite?.inserat?.images?.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
                             src={favourite?.inserat?.images[0]?.url}
                             width={200}
                             height={100}
-                            className="w-full h-full min-h-[100px] min-w-[200px] object-cover"
+                            className="w-full h-full min-h-[100px] min-w-1/4 object-cover"
                         />
                     ) : (
                         <div className="w-full h-full flex justify-center items-center dark:bg-[#0F0F0F] text-xs">
@@ -67,7 +67,7 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                          {favourite.inserat.description}
                     </p>
                 </div>
-                <div className="w-2/6 text-sm dark:text-gray-100/90 text-gray-700  font-semibold ml-4">
+                <div className="md:w-2/6 w-1/6 text-sm dark:text-gray-100/90 text-gray-700  font-semibold ml-4">
                     <div>
                         <div className="flex items-center">
                             <Image
@@ -77,7 +77,7 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                                 width={40}
                                 height={40}
                             />
-                            <p className="ml-2">
+                            <p className="ml-2 md:block hidden">
                             {favourite.inserat.user.name}
                                 </p>
                             
@@ -89,7 +89,7 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
 
                     
                             <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" onClick={onDelete}>
-                                <StarHalf className="w-4 h-4 mr-2 text-rose-600" />  Favourit entfernen
+                                <StarHalf className="w-4 h-4 md:mr-2 text-rose-600" />  <p className="md:block hidden">Favourit entfernen</p>
                             </Button>
                         
                 </div>

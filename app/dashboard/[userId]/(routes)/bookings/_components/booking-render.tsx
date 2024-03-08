@@ -44,14 +44,14 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
-            <div className="w-[200px] h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${booking.inserat.id}`)}}>
+            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${booking.inserat.id}`)}}>
                     {booking?.inserat?.images?.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
                             src={booking?.inserat?.images[0]?.url}
                             width={200}
                             height={100}
-                            className="w-full h-full min-h-[100px] min-w-[200px] object-cover"
+                            className="w-full h-full min-h-[100px] min-w-1/4 object-cover"
                         />
                     ) : (
                         <div className="w-full h-full flex justify-center items-center dark:bg-[#0F0F0F] text-xs">
@@ -63,17 +63,17 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
                     {booking?.inserat?.title} 
                 </div>
                 <div className="w-1/6 h-[100px]">
-                <p className="flex items-center font-normal ">
-                        <CalendarCheck2 className="w-4 h-4 mr-2" /> Datum
+                <p className="flex items-center font-normal md:justify-start justify-center">
+                        <CalendarCheck2 className="w-4 h-4 md:mr-2 " /> <p className="md:block hidden"> Datum </p>
                     </p>
                     <p className={cn("text-sm  h-[100px] overflow-hidden", booking?.inserat.isPublished ? "dark:text-gray-100 text-gray-800 font-semibold" :
                      "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-                         {format(new Date(booking.startDate), "dd.MM.")} - {format(new Date(booking.endDate), "dd.MM.yy")}
+                         {format(new Date(booking.startDate), "dd.MM.")} - {format(new Date(booking.endDate), "dd.MM")}
                          
                     </p>
                     
                 </div>
-                <div className="w-2/6 text-sm dark:text-gray-100/90 text-gray-700 ml-4 font-semibold ">
+                <div className="md:w-2/6 w-1/6 text-sm dark:text-gray-100/90 text-gray-700 ml-4 font-semibold ">
                     <div>
                         <div className="flex items-center">
                             <Image
@@ -83,18 +83,18 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
                                 width={40}
                                 height={40}
                             />
-                            <p className="ml-2">
+                            <p className="ml-2 md:block hidden">
                             {booking.inserat.user.name}
                             </p>
                         </div>
 
                     </div>
                 </div>
-                <div className="justify-center w-1/8  h-full gap-y-2">
+                <div className="justify-center md:w-1/8  h-full gap-y-2">
 
                     
                             <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" >
-                                <CalendarDaysIcon className="w-4 h-4 mr-2 text-rose-600" />  Buchung ansehen
+                                <CalendarDaysIcon className="w-4 h-4 md:mr-2 text-rose-600" />  <p className="md:block hidden">Buchung ansehen</p>
                             </Button>
                         
                 </div>

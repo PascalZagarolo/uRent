@@ -45,18 +45,17 @@ const Bookings = async ({
 
 
     return (
-        <div className=" ">
+        
 
             <div className="flex justify-center py-8 px-4 ">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
-                    <div className="  min-h-screen">
+                    <div className=" min-h-screen">
 
-
-                        <div className="p-4 mt-4  rounded-lg ">
-                        <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
+                    <div className="md:p-4 mt-4  rounded-lg ">
+                        <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center md:px-0 px-4">
                                 <StarFilledIcon className="mr-4" /> Meine Favouriten <p className="ml-4 text-lg"> </p>
                             </h3>
-                            <div className="p-4">
+                            <div className="md:p-4 p-2">
                                 <FavouriteRenderList 
                                 //@ts-ignore
                                 favourites={favourites}
@@ -64,21 +63,22 @@ const Bookings = async ({
                             </div>
                         </div>
 
-                        <div className="p-4 mt-4  rounded-lg ">
-                        <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
+                        <div className="md:p-4 mt-4  rounded-lg ">
+                        <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center md:px-0 px-4">
                                 <CalendarSearchIcon className="mr-4" /> Meine Buchungen <p className="ml-4 text-lg"> </p>
                             </h3>
-                            <div className="p-4">
+                            <div className="md:p-4 p-2 md:pb-0 pb-4">
                                 <BookingRenderList 
                                 //@ts-ignore
                                 bookings={bookings}
                                 />
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
-        </div>
+       
     );
 }
 

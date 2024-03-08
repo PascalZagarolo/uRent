@@ -71,7 +71,7 @@ const AutoComplete = () => {
           placeholder="Standort.."
           className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0"
           onChange={(e) => { setValue(e.target.value) }} />
-        <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 " onClick={onSearch}>
+        <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 ml-1 " onClick={onSearch}>
           <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
         </Button>
       </div>

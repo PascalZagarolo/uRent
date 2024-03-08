@@ -50,9 +50,6 @@ const CategorySearch = () => {
                         {
                             'PKW': <CarFrontIcon className="w-6 h-6" />,
                             'LKW': <TruckIcon className="w-6 h-6"/>,
-                            'LAND': <TractorIcon className="w-6 h-6"/>,
-                            'BAU': <Construction className="w-6 h-6"/>,
-                            'CARAVAN': <CaravanIcon className="w-6 h-6"/>,
                             'TRAILOR': <RiCaravanLine className="w-6 h-6"/>,
                             'TRANSPORT': <PiVanFill className="w-6 h-6" />,
                         }[category]
@@ -62,11 +59,8 @@ const CategorySearch = () => {
                         {
                             'PKW': "Pkw",
                             'LKW': "Lkw",
-                            'LAND': "Land",
-                            'BAU': "Bau",
-                            'CARAVAN': "Wohnmobil",
                             'TRAILOR': "Anhänger",
-                            'TRANSPORT': "Transport",
+                            'TRANSPORT': "Transporter",
                         }[category]
                     }</span> 
             </div>

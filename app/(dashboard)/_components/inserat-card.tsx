@@ -326,16 +326,19 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 {inserat.price} €  {inserat.annual && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)}
                             </div>
                         </div>
-                        <div className="ml-auto sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] 0 
-                        p-2 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm justify-center">
+                        <div className="ml-auto w-2/3  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] 0 
+                        p-2 sm:pl-2 pl-0 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm justify-center">
                             <MapPinned className="text-rose-600 mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
+                            <div className={cn("w-1/3 truncate", !inserat.address?.locationString && "w-full flex justify-center")}>
                             {inserat.address?.locationString ?
-                                getAddressCity(inserat.address?.locationString)
+                                getAddressCity(inserat.address?.locationString) 
 
                                 : "Keine Angabe"}
+                                
+                            </div>
                             {inserat.address?.locationString && (
-                                <div className="text-gray-100 text-xs ml-auto flex">{inserat.address?.postalCode + " "}
-                                    <p className=" truncate ml-1 max-w-[160px] mr-1"> {inserat.address?.state ? convertState(inserat.address?.state) + "," : ""} </p> DE</div>
+                                <div className="text-gray-100 w-1/3 sm:w-2/3 text-xs ml-2 sm:ml-auto  flex">{inserat.address?.postalCode + " "}
+                                    <p className=" truncate ml-1 sm:max-w-[160px] mr-1"> {inserat.address?.state ? convertState(inserat.address?.state) + "," : ""} </p>DE</div>
                             )}
                         </div>
 

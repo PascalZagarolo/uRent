@@ -52,10 +52,10 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
     return ( 
         <div className="w-full">
             <div className="w-full">
-            <Label className="flex justify-start items-center mt-1">
+            <Label className="flex justify-start items-center ">
                         <User2Icon className="w-4 h-4" /><p className="ml-2 font-semibold"> Mindestalter </p>
                     </Label>
-                    <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 truncate"> Wie alt müssen deine Mieter sein? </p>
+                    <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80  truncate"> Wie alt müssen deine Mieter sein? </p>
         <Select
           onValueChange={(seats) => {
             onSubmit(Number(seats));

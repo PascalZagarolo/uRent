@@ -9,6 +9,7 @@ import OrderBy from "../_components/_smart-filter/order-by";
 const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
 
 import { Suspense, lazy } from "react";
+import { InserateImagesAndAttributes } from "@/types/types";
 
 interface RelevanteInserateProps {
     title: string;

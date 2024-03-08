@@ -19,11 +19,12 @@ export async function PATCH(
     try {
 
         
-       console.log("1")
+       
         const values = await req.json();
        
         const {location,
             lkwBrand, application, loading, drive, weightClass, seats,
+            brand, power, fuel, transmission, type, miles, initial, doors,
             ...filteredValues} = values;
 
         const results = await db.inserat.findMany({
@@ -34,7 +35,7 @@ export async function PATCH(
                 address : true
             }
         })
-        console.log("1")
+        
         let filteredResult = [];
             
         if(location) {

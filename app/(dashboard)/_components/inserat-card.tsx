@@ -1,27 +1,32 @@
 'use client'
 
 import { convertState } from "@/actions/convert-states";
-import findConversation from "@/actions/findConversation";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Separator } from "@/components/ui/separator";
+
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { InserateImagesAndAttributes } from "@/types/types";
 
-import { Images, Inserat, PkwAttribute, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import axios from "axios";
 import { format } from "date-fns";
-import { Banknote, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, Lightbulb, LocateFixedIcon, Mail, MailCheckIcon, MailQuestion, MapPinIcon, MapPinned, RockingChair, Send, Settings2Icon, SofaIcon, Star, ThumbsUpIcon, TractorIcon, TramFront, Truck, X } from "lucide-react";
+import {
+    Banknote, CalendarCheck2, CarFront, CaravanIcon, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, Lightbulb, Mail, MailCheckIcon,
+    MapPinned, Send, Settings2Icon, SofaIcon, Star, ThumbsUpIcon, TractorIcon, TramFront, Truck, X
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { ClipLoader } from "react-spinners";
+import { FaCar } from "react-icons/fa";
+import { GiSteeringWheel } from "react-icons/gi";
+import { PiEngineFill } from "react-icons/pi";
 
 interface InseratCardProps {
     inserat: InserateImagesAndAttributes;
@@ -181,13 +186,64 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         <div className="sm:block hidden">
                             {
                                 {
-                                    'PKW': inserat.pkwAttribute?.seats && (
-                                        <Badge className="bg-[#2c3246]  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                                 dark:bg-[#181818]/95 dark:text-gray-100  dark:hover:bg-[#181818]/60">
-                                            <SofaIcon className="h-4 w-4 mr-1" />
-                                            <p className="mr-1 text-blue-200"> {inserat.pkwAttribute?.seats} </p> Sitze
-                                        </Badge>
-                                    ),
+                                    'PKW':
+                                        <div className="space-y-1">
+                                            {inserat.pkwAttribute?.seats && (
+                                                <Badge className="bg-blue-800   drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                                  dark:text-gray-100  dark:hover:bg-[#181818]/60">
+                                                    <SofaIcon className="h-4 w-4 mr-1" />
+                                                    <p className="mr-1 text-blue-200"> {inserat.pkwAttribute?.seats} </p> Sitze
+                                                </Badge>
+                                            )}
+                                            {inserat.pkwAttribute?.power && (
+
+                                                <Badge className="bg-blue-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                                  dark:text-gray-100  dark:hover:bg-[#181818]/60">
+                                                    <FaCar className="h-4 w-4 mr-1" />
+                                                    <p className="mr-1 text-blue-200"> {inserat.pkwAttribute?.power} </p> PS
+                                                </Badge>
+                                            )}
+                                            {inserat.pkwAttribute?.freeMiles && (
+
+                                                <Badge className="bg-blue-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                                 dark:text-gray-100  dark:hover:bg-[#181818]/60">
+                                                    <GiSteeringWheel className="h-4 w-4 mr-1" />
+                                                    <p className="mr-1 text-blue-200"> {inserat.pkwAttribute?.freeMiles} </p> KM
+                                                </Badge>
+                                            )}
+                                        </div>,
+                                    'LKW': <div className="space-y-1">
+                                        {inserat.lkwAttribute?.loading && (
+
+                                            <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                             dark:text-gray-100 hover:bg-yellow-600">
+                                                <PiEngineFill className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-yellow-800">
+                                                    {inserat.lkwAttribute?.loading.substring(0, 1)}
+                                                    {inserat.lkwAttribute?.loading.substring(1).toLowerCase()}
+                                                </p>
+                                            </Badge>
+                                        )}
+                                        {inserat.lkwAttribute?.application && (
+
+                                            <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                          dark:text-gray-100 hover:bg-yellow-600 ">
+                                                <PiEngineFill className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-yellow-800"> 
+                                                {inserat.lkwAttribute?.application.substring(0, 1)}
+                                                    {inserat.lkwAttribute?.application.substring(1).toLowerCase()}
+                                                </p>
+                                            </Badge>
+                                        )}
+                                        {inserat.lkwAttribute?.drive && (
+
+                                            <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                                dark:text-gray-100  hover:bg-yellow-600">
+                                                <PiEngineFill className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-yellow-800"> {inserat.lkwAttribute?.drive.substring(1)} </p>
+                                            </Badge>
+                                        )}
+                                    </div>,
 
                                 }[inserat.category]
                             }
@@ -279,7 +335,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 : "Keine Angabe"}
                             {inserat.address?.locationString && (
                                 <div className="text-gray-100 text-xs ml-auto flex">{inserat.address?.postalCode + " "}
-                                 <p className=" truncate ml-1 max-w-[160px] mr-1"> {inserat.address?.state ? convertState(inserat.address?.state) + "," : ""} </p> DE</div>
+                                    <p className=" truncate ml-1 max-w-[160px] mr-1"> {inserat.address?.state ? convertState(inserat.address?.state) + "," : ""} </p> DE</div>
                             )}
                         </div>
 
@@ -288,7 +344,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                         <div className="rounded-md bg-[#1b1e2d] w-full position:absolute mr-2 dark:bg-[#13141c] dark:border-none">
                             <div className="flex  items-center   rounded-md">
-                            <Image
+                                <Image
                                     className="rounded-full ml-2 mt-2 mb-2 object-fit  w-[40px] h-[40px]"
                                     src={inserat.user?.image || "/placeholder-person.jpg"}
                                     height={40}
@@ -300,77 +356,77 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                         {inserat.user?.name}
                                     </p>
                                 </Link>
-                                
+
                                 <div className="flex ml-auto">
 
                                     {!isOwn ? (
                                         <>
-                                        <Dialog>
-                                        <DialogTrigger className="" asChild>
+                                            <Dialog>
+                                                <DialogTrigger className="" asChild>
 
-                                            <Button className="flex items-center mr-4 ml-auto bg-[#171923] rounded-md p-2  font-semibold
+                                                    <Button className="flex items-center mr-4 ml-auto bg-[#171923] rounded-md p-2  font-semibold
                                                  dark:text-gray-100 dark:hover:bg-[#181818]/60 px-4 sm:px-8">
-                                                <ThumbsUpIcon className="w-4 h-4 sm:mr-2" />
+                                                        <ThumbsUpIcon className="w-4 h-4 sm:mr-2" />
+                                                        <p className="sm:block hidden">
+                                                            Anfragen
+                                                        </p>
+                                                    </Button>
+
+                                                </DialogTrigger>
+                                                <DialogContent className="dark:bg-[#0F0F0F]">
+                                                    <DialogHeader>
+                                                        <div className="text-lg font-bold flex">
+                                                            <Lightbulb className="mr-2" />  Händler sofort kontaktieren
+                                                        </div>
+                                                    </DialogHeader>
+                                                    <div>
+                                                        <Textarea className="h-[400px] border border-gray-300 bg-gray-200 dark:bg-[#171717]"
+                                                            value={text}
+                                                            onChange={handleTextChange}
+                                                        />
+                                                    </div>
+                                                    <div>
+
+                                                        <div>
+                                                            <RadioGroup className="flex gap-x-4 items-center" defaultValue="messenger">
+                                                                <RadioGroupItem value="messenger" id="messenger" />
+
+                                                                <Label className="flex "> <Send className="w-4 h-4 mr-2 items-center" /> Direktnachricht </Label>
+
+                                                                <RadioGroupItem value="email" id="email" />
+
+                                                                <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center" /> E-Mail</Label>
+
+                                                            </RadioGroup>
+
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-auto">
+                                                        <DialogTrigger>
+                                                            <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                                                          dark:bg-[#171717] dark:hover:bg-[#1c1c1c] "
+                                                                onClick={onInterest} disabled={!text}>
+                                                                Senden
+                                                            </Button>
+                                                        </DialogTrigger>
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+
+                                            <Button className="flex items-center mr-4  bg-[#171923] rounded-md p-2 px-4 sm:px-8 font-semibold
+                                     dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
+                                                <MailCheckIcon className="w-4 h-4 sm:mr-2" />
                                                 <p className="sm:block hidden">
-                                                Anfragen
+                                                    Kontaktieren
                                                 </p>
                                             </Button>
-
-                                        </DialogTrigger>
-                                        <DialogContent className="dark:bg-[#0F0F0F]">
-                                            <DialogHeader>
-                                                <div className="text-lg font-bold flex">
-                                                    <Lightbulb className="mr-2" />  Händler sofort kontaktieren
-                                                </div>
-                                            </DialogHeader>
-                                            <div>
-                                                <Textarea className="h-[400px] border border-gray-300 bg-gray-200 dark:bg-[#171717]"
-                                                    value={text}
-                                                    onChange={handleTextChange}
-                                                />
-                                            </div>
-                                            <div>
-
-                                                <div>
-                                                    <RadioGroup className="flex gap-x-4 items-center" defaultValue="messenger">
-                                                        <RadioGroupItem value="messenger" id="messenger" />
-
-                                                        <Label className="flex "> <Send className="w-4 h-4 mr-2 items-center" /> Direktnachricht </Label>
-
-                                                        <RadioGroupItem value="email" id="email" />
-
-                                                        <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center" /> E-Mail</Label>
-
-                                                    </RadioGroup>
-
-                                                </div>
-                                            </div>
-                                            <div className="ml-auto">
-                                                <DialogTrigger>
-                                                    <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                                          dark:bg-[#171717] dark:hover:bg-[#1c1c1c] "
-                                                        onClick={onInterest} disabled={!text}>
-                                                        Senden
-                                                    </Button>
-                                                </DialogTrigger>
-                                            </div>
-                                        </DialogContent>
-                                    </Dialog>
-
-                                    <Button className="flex items-center mr-4  bg-[#171923] rounded-md p-2 px-4 sm:px-8 font-semibold
-                                     dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
-                                        <MailCheckIcon className="w-4 h-4 sm:mr-2" />
-                                        <p className="sm:block hidden"> 
-                                            Kontaktieren
-                                        </p>
-                                    </Button>
-                                    </>
+                                        </>
                                     ) : (
                                         <Button className="flex items-center mr-4  bg-slate-200  rounded-md p-2 px-4 sm:px-8 font-semibold
                                      dark:text-gray-900/80 dark:hover:bg-slate-300 text-gray-900" onClick={onEdit}>
-                                        <Settings2Icon className="w-4 h-4 mr-2" />
-                                       Inserat bearbeiten
-                                    </Button>
+                                            <Settings2Icon className="w-4 h-4 mr-2" />
+                                            Inserat bearbeiten
+                                        </Button>
                                     )}
                                 </div>
 

@@ -112,7 +112,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                         <div className="mt-16">
                             <p className="font-semibold text-lg "> Mein Profil</p>
                             <div className="mt-4 flex-col">
-
+                            
                                 <div>
                                     <p className="text-sm mb-2">
                                         Name
@@ -122,7 +122,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                                                 <Input
                                                         className="rounded-none border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                                         focus:ring-0 focus:border-none dark:bg-[#040404] dark:border-none"
-                                                        
+                                                        value={currentName}
                                                         onChange={(e) => { setCurrentName(e.target.value) }}
                                                     />
                                                 

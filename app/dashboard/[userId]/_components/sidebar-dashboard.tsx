@@ -32,7 +32,7 @@ const SidebarDashboard = () => {
                     <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("inserate")) && "block" )} />  Meine Inhalte
                     </Button>
                     <Button className="dark:bg-[#141414] hover:bg-[#191919] w-full  dark:text-gray-100 flex mt-2" onClick={() => {router.push(baseUrl + "/bookings")}}>
-                    <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("bookings")) && "block" )} />   Favouriten & Buchungen
+                    <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("bookings")) && "block" )} />   Favouriten & Buchungen 
                     </Button>
                 </div>
             </div>

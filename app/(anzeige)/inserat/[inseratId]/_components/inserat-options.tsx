@@ -223,7 +223,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
             {ownSite && (
                 <Button className="bg-[#1f2230] sm:w-[240px] border-2 border-black flex w-full mt-4
-                    dark:text-gray-100 dark:bg-[#1f2230] dark:hover:bg-[#161921] dark:border dark:border-gray-100"
+                    dark:text-gray-100 dark:bg-[#1f2230] dark:hover:bg-[#161921] border-none"
                     onClick={() => { router.push(`/inserat/create/${params.inseratId}`) }}
                 >
                     <Pencil2Icon className="h-4 w-4 mr-2" />  Anzeige bearbeiten

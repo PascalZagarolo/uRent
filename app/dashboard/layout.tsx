@@ -33,10 +33,8 @@ const DashboardLayout = async (
 
             </div>
 
-            <div className="flex justify-center">
-                <div className="mt-8">
-                    <SidebarDashboard />
-                </div>
+            <div >
+            
                 {children}
 
             </div>

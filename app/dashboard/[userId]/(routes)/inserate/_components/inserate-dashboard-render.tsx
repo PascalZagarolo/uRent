@@ -42,7 +42,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
-                <div className="w-[200px] h-[100px]">
+                <div className="h-[100px] w-1/4">
                     {inserat.images.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
@@ -52,20 +52,20 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                             className="h-full w-full object-cover"
                         />
                     ) : (
-                        <div className="w-full h-full flex justify-center items-center bg-[#ECECEC] dark:bg-[#0F0F0F] text-xs">
-                            keine Fotos vorhanden
+                        <div className="w-full h-full flex justify-center items-center bg-[#ECECEC] dark:bg-[#0F0F0F] text-xs truncate">
+                            keine Fotos <p className="hidden sm:block"> vorhanden </p>
                         </div>
                     )}
                 </div>
                 <div className="w-1/4 truncate ml-4 text-sm font-base mr-2">
                     {inserat.title}
                 </div>
-                <div className="w-1/6">
-                    <p className={cn("text-sm flex items-center", inserat.isPublished ? "text-emerald-600 font-semibold" : "dark:text-gray-100/40 text-gray-700")}>
+                <div className="md:w-1/6 w-1/6 truncate">
+                    <div className={cn("text-sm flex items-center ", inserat.isPublished ? "text-emerald-600 font-semibold" : "dark:text-gray-100/40 text-gray-700")}>
                         {inserat.isPublished ? <> <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> Veröffentlicht </> : "Entwurf"}
-                    </p>
+                    </div>
                 </div>
-                <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 flex justify-center">
+                <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 md:flex justify-center hidden">
                     <div>
                         {format(new Date(inserat.createdAt), "dd.MM.yyyy")}
                         <p className="dark:text-gray-100 text-gray-800">
@@ -73,14 +73,14 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         </p>
                     </div>
                 </div>
-                <div className="justify-center w-1/8 items-center h-full gap-y-2">
+                <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">
                     <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" onClick={onEdit}>
-                        <Edit3 className="w-4 h-4 mr-2" />  Inserat bearbeiten
+                        <Edit3 className="w-4 h-4 xl:mr-2" /> <p className="xl:flex hidden"> Inserat bearbeiten</p>
                     </Button>
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full mt-4">
-                                <Trash2 className="w-4 h-4 mr-2 text-rose-600" />  Inserat löschen
+                                <Trash2 className="w-4 h-4 xl:mr-2 text-rose-600" />  <p className="xl:flex hidden">Inserat löschen</p>
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="dark:bg-[#141414] border-none">

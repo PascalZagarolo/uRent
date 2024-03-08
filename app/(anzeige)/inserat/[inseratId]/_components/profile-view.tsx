@@ -57,11 +57,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     </Button>
                 </div>
             </div>
-            <div>
-                <div className="mt-1">
-                    <div><Badge className="bg-[#2d3144] dark:text-gray-100 dark:bg-slate-900 dark:hover:bg-slate-800"> Gewerblicher Händler </Badge></div>
-                </div>
-            </div>
+            
             <div>
                 <div>
                     <p className="text-sm  mt-1 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100/90 text-gray-400">

@@ -9,22 +9,24 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { Textarea } from "@/components/ui/textarea";
+import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { InserateImagesAndAttributes } from "@/types/types";
 
 import { User } from "@prisma/client";
+import { TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip";
 import axios from "axios";
 import { format } from "date-fns";
 import {
-    Banknote, CalendarCheck2, CarFront, CaravanIcon, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, Lightbulb, Mail, MailCheckIcon,
+    Banknote, Building2, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, KeySquareIcon, Lightbulb, Mail, MailCheckIcon,
     MapPinned, Send, Settings2Icon, SofaIcon, Star, ThumbsUpIcon, TractorIcon, TramFront, Truck, X
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import { FaCar } from "react-icons/fa";
+import toast, { CheckmarkIcon } from "react-hot-toast";
+import { FaCar, FaHouseUser } from "react-icons/fa";
 import { GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill } from "react-icons/pi";
 
@@ -229,8 +231,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                           dark:text-gray-100 hover:bg-yellow-600 ">
                                                 <PiEngineFill className="h-4 w-4 mr-1" />
-                                                <p className="mr-1 text-yellow-800"> 
-                                                {inserat.lkwAttribute?.application.substring(0, 1)}
+                                                <p className="mr-1 text-yellow-800">
+                                                    {inserat.lkwAttribute?.application.substring(0, 1)}
                                                     {inserat.lkwAttribute?.application.substring(1).toLowerCase()}
                                                 </p>
                                             </Badge>
@@ -330,9 +332,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         p-2 sm:pl-2 pl-0 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm justify-center">
                             <MapPinned className="text-rose-600 mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
                             <div className={cn("w-1/3 truncate", !inserat.address?.locationString && "w-full flex justify-center")}>
-                            {inserat.address?.locationString ?
-                                getAddressCity(inserat.address?.locationString) 
-                                : "Keine Angabe"}
+                                {inserat.address?.locationString ?
+                                    getAddressCity(inserat.address?.locationString)
+                                    : "Keine Angabe"}
                             </div>
                             {inserat.address?.locationString && (
                                 <div className="text-gray-100 w-1/3 sm:w-2/3 text-xs ml-2 sm:ml-auto  flex">{inserat.address?.postalCode + " "}
@@ -353,9 +355,28 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     alt="User-Bild"
                                 />
                                 <Link href={`/profile/${inserat.userId}`}>
-                                    <p className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)]">
+                                    <p className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] items-center flex
+                                    
+                                    ">
                                         {inserat.user?.name}
+                                        {inserat?.user.emailVerified && (
+                                            <TooltipProvider>
+                                            <Tooltip>
+
+                                                <TooltipTrigger>
+                                                    <div>
+                                                        <Check className="w-4 h-4 ml-2" />
+                                                    </div>
+                                                    
+                                                </TooltipTrigger>
+                                                <TooltipContent className="dark:bg-[#0F0F0F] border-none">
+                                                   Verifiziert
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
+                                        )}
                                     </p>
+
                                 </Link>
 
                                 <div className="flex ml-auto">

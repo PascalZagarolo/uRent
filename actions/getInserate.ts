@@ -87,6 +87,7 @@ export const getInserate = async ({
                     images : true,
                     user: true,
                     pkwAttribute : true,
+                    lkwAttribute : true,
                     address : true
                 }, orderBy : {
                     views : "desc"
@@ -144,6 +145,7 @@ export const getInserate = async ({
                     images : true,
                     user: true,
                     pkwAttribute : true,
+                    lkwAttribute : true,
                     address : true
                 }, orderBy : {
                     price : filter === "asc" ? "asc" : "desc"

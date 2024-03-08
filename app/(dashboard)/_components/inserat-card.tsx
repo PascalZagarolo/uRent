@@ -332,9 +332,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             <div className={cn("w-1/3 truncate", !inserat.address?.locationString && "w-full flex justify-center")}>
                             {inserat.address?.locationString ?
                                 getAddressCity(inserat.address?.locationString) 
-
                                 : "Keine Angabe"}
-                                
                             </div>
                             {inserat.address?.locationString && (
                                 <div className="text-gray-100 w-1/3 sm:w-2/3 text-xs ml-2 sm:ml-auto  flex">{inserat.address?.postalCode + " "}

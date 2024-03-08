@@ -69,7 +69,7 @@ const SearchRent: React.FC<SearchRentProps> =  ({
             <div className="w-full flex items-center">
                 {selectedUser ? <img src={selectedUser.image ? selectedUser.image : "/placeholder-person.jpg"} className="w-8 h-8 rounded-full mr-2"/> : null}
                 <Input
-                className="border border-gray-400 bg-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-2
+                className="border-none bg-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-2
                 focus:ring-0 focus:border-0 focus:outline-none focus-visible:ring-0 dark:bg-[#0a0a0a]
                 "
                 value={selectedUser ? selectedUser.name : currentValue}

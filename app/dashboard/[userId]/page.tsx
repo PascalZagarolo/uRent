@@ -92,7 +92,7 @@ const DashboardPage = async ({
 
 
     return (
-        <div className="">
+        
             
             <div className="flex justify-center py-8 px-4  ">
             
@@ -155,7 +155,7 @@ const DashboardPage = async ({
                 </div>
             </div>
 
-        </div>
+       
     );
 }
 

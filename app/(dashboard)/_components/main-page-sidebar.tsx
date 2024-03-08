@@ -13,7 +13,7 @@ import { useGetFilterAmount } from "@/store";
 import { getInserate } from "@/actions/getInserate";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
-
+import { RiCaravanLine } from "react-icons/ri";
 
 const MainPageSideBar= () => {
     const pathname = usePathname();
@@ -102,20 +102,20 @@ const MainPageSideBar= () => {
                     <div>
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
                             currentCategory === "LAND" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("LAND") }}>
-                            <TractorIcon />
+                            <RiCaravanLine className="w-6 h-6" />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
-                            Land
+                            Anhänger
                         </p>
                     </div>
 
-                    <div>
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "BAU" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("BAU") }}>
-                            <ConstructionIcon />
+                    <div className="w-[60px]">
+                        <p className={cn("p-4 rounded-md bg-white border-2   flex justify-center hover:cursor-pointer dark:bg-[#1c1f2f]",
+                            currentCategory === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
+                            <PiVanFill className="w-6 h-6" />
                         </p>
-                        <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
-                            Bau
+                        <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1 ">
+                            Transporter
                         </p>
                     </div>
 
@@ -125,29 +125,14 @@ const MainPageSideBar= () => {
                 <div className="flex justify-between ml-12 mr-12 mt-4 ">
 
 
-                    <div className="w-[40px] ml-2.5">
-                        <div className="flex flex-col items-center">
-                            <p className={cn("p-4 rounded-md bg-white border-2 flex justify-center items-center hover:cursor-pointer dark:bg-[#1c1f2f]",
-                                currentCategory === "CARAVAN" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("CARAVAN") }}>
-                                <CaravanIcon className="" />
-                            </p>
-                            <p className="text-gray-100 text-xs font-semibold mt-1  text-center">
-                                Wohnmobile <br /> & Anhänger
-                            </p>
-                        </div>
-                    </div>
+                    
 
 
 
-                    <div className="">
-                        <p className={cn("p-4 rounded-md bg-white border-2   flex justify-center hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
-                            <PiVanFill className="w-6 h-6" />
-                        </p>
-                        <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1 ">
-                            Transport
-                        </p>
-                    </div>
+                    
+                 
+                    
+                    
 
                 </div>
                 <div>

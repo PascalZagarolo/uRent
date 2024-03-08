@@ -97,10 +97,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
             <SelectItem value="PKW">PKW</SelectItem>
             <SelectItem value="TRANSPORT">Transporter</SelectItem>
             <SelectItem value="LKW">LKW</SelectItem>
-            <SelectItem value="LAND">Landwirtschaft</SelectItem>
-            <SelectItem value="BAU">Baumaschinen</SelectItem>
             <SelectItem value="TRAILOR">Anhänger</SelectItem>
-            <SelectItem value="CARAVAN">Wohnwagen</SelectItem>
           </SelectContent>
         </Select>
       </div>

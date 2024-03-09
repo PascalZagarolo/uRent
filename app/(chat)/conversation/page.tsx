@@ -6,6 +6,8 @@ import StartedChats from "./[conversationId]/_components/started-chats";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import { Messages, User, Conversation } from "@prisma/client";
 import { redirect } from "next/navigation";
+import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
+
 
 
 type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
@@ -53,6 +55,12 @@ const ConversationPage = async () => {
                     currentUser={currentUser}
                     notifications={notifications} />
             </div>
+            <div className="sm:hidden">
+                <MobileHeader
+                currentUser={currentUser}
+                notifications={notifications}
+                />
+             </div>
             <div className="flex justify-center h-screen py-8 px-4">
             <div className="dark:bg-[#0F0F0F] mr-4 rounded-md w-[280px] h-full">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">

@@ -1,6 +1,7 @@
 import { Inserat, LkwAttribute, PkwAttribute } from "@prisma/client";
 import { CarFrontIcon, CarFront, TruckIcon } from 'lucide-react';
 import PkwAttributeRender from "./_categories/pkw-attribute-render";
+import LkwAttributeRender from "./_categories/lkw-attribute-render copy";
 
 interface InseratAttributesProps {
     inserat: Inserat & { pkwAttribute: PkwAttribute, lkwAttribute: LkwAttribute }
@@ -25,7 +26,7 @@ const InseratAttributes: React.FC<InseratAttributesProps> = ({
             {
                     {
                         'PKW': <PkwAttributeRender attributes = {inserat.pkwAttribute} />,
-                        
+                        'LKW' : <LkwAttributeRender attributes = {inserat.lkwAttribute} />                        
                     }[inserat.category]
                 }
             </div>

@@ -147,7 +147,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className="sm:w-[760px] sm:h-[420px] w-[400px] h-full   rounded-md  items-center dark:bg-[#171923]
-          bg-[#ffffff]  mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2">
+          bg-[#ffffff]  mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2 ">
 
 
 

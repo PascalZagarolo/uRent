@@ -12,7 +12,8 @@ export async function POST(
         const inserat = await db.inserat.create({
             data : {
                 title : title,
-                userId : userId
+                userId : userId,
+                category : "PKW"
             }
         })
 

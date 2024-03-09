@@ -15,12 +15,12 @@ import SearchItem from "./search-item";
 import { Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { ModeToggle } from "@/components/toggle-mode";
+
 import { cn } from "@/lib/utils";
-import { Suspense, lazy } from "react";
-import { ClipLoader } from "react-spinners";
-import LocationBar from "./location-bar";
+
 import MobileFilterSheet from "./mobile-filter-sheet";
+import LocationBar from "./location-bar";
+
 
 interface HeaderProps {
     currentUser: User;
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
 
 
-
+    
     const { data: session, status } = useSession();
 
     const router = useRouter();
@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({
                         </div>
                         <div className="flex justify-center">
 
-                            <LocationBar />
+                        <LocationBar />
 
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import { db } from "@/utils/db";
 
-import { AlignLeft, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, Globe2, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck } from "lucide-react";
+import { AlignLeft, BookAIcon, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, Globe2, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck, UserCircleIcon } from "lucide-react";
 
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
@@ -9,11 +9,11 @@ import InseratDescription from "./_components/inserat-description";
 import BookingsOverview from "./_components/bookings-overview";
 import { format } from "date-fns";
 import { lazy } from "react";
-import { Metadata } from "next";
 import InseratAttributes from "./_components/inserat-attributes";
-
-
-
+import { TbPigMoney } from "react-icons/tb";
+import { PiSteeringWheel } from "react-icons/pi";
+import { GiReceiveMoney } from "react-icons/gi";
+import { CiBookmark } from "react-icons/ci";
 
 
 
@@ -165,9 +165,34 @@ const InseratAnzeige = async ({
                                 {inserat.price} <p className="text-sm mr-1">00 €</p>
                             </div>
                         </div>
-
                         <div className="mt-2">
-                            <p className="flex text-lg sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" /> Kontaktinformationen des Händlers</p>
+                            <p className="flex text-lg sm:text-lg  items-center"><CiBookmark  className="mr-2 h-4 w-4" /> 
+                            Rahmenbedingungen</p>
+                        </div>
+                        <div className="w-full flex mt-2">
+                            <div className="w-1/2 truncate font-semibold text-sm flex">
+                            <TbPigMoney className="w-4 h-4 mr-2 text-rose-300" />  Kaution : {inserat?.caution ? inserat?.caution + " €" : "Keine Kaution angegeben"} 
+                            </div>
+                            <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                    <UserCircleIcon className="w-4 h-4 mr-2 text-blue-600" /> Mindestalter : {inserat?.reqAge ? inserat?.reqAge + " Jahre" : "Kein Mindestalter angegeben"} 
+                            </div>
+                        </div>
+                        {inserat?.category === "PKW" && (
+                            <div className="w-full flex mt-2">
+                            <div className="w-1/2 truncate font-semibold text-sm flex">
+                            <PiSteeringWheel className="w-4 h-4 mr-2 text-gray-400" />  Freikilometer : 
+                            {inserat?.pkwAttribute?.freeMiles ? " " + inserat?.pkwAttribute?.freeMiles + " Km" : "Keine KM-Anzahl angegeben"} 
+                            </div>
+                            <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                    <GiReceiveMoney className="w-4 h-4 mr-2 text-emerald-600" /> 
+                                    Extrapreis /Km : {inserat?.pkwAttribute?.extraCost ? inserat?.pkwAttribute?.extraCost + " €" : "Keine Kosten angegeben"} 
+                            </div>
+                        </div>
+                        )}
+                        <div className="mt-4">
+                            <div className="flex text-lg sm:text-lg  items-center"><Contact2 className="mr-2 h-4 w-4" /> Kontaktinformationen von 
+                            <p className="font-semibold px-1"> {inserat.user.name} </p>
+                            </div>
                         </div>
 
                         <div className="mt-2">

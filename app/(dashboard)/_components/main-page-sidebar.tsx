@@ -10,7 +10,7 @@ import PKW from "./_smart-filter/pkw";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useGetFilterAmount } from "@/store";
-import { getInserate } from "@/actions/getInserate";
+
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
@@ -28,11 +28,12 @@ const MainPageSideBar= () => {
 
     const params = getSearchParamsFunction("category");
 
+    /*
     useEffect(() => {
         // Store currentLocation in session storage
         sessionStorage.setItem("currentLocation", currentLocation);
       }, [currentLocation]);
-
+*/
 
     const onClick = (category: string) => {
 

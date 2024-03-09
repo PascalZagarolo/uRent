@@ -9,6 +9,8 @@ import LoggedInBarHeader from "./logged-in-header";
 
 import { User, Notification } from "@prisma/client";
 import MobileFilterSheet from './mobile-filter-sheet';
+import { usePathname } from "next/navigation";
+import DashboardSheet from "./dashboard-sheet";
 
 interface MobileHeaderProps {
     currentUser : User;
@@ -23,13 +25,25 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
     
     const { data: session, status } = useSession();
 
+    const pathname = usePathname();
+
+    const isDashboard = pathname.includes('dashboard');
+
     
     return ( 
         <div className="bg-[#1f2332] h-[140px] w-full">
             <div className="flex items-center">
             <div className="flex items-center ml-2 w-full">
             <div className="mr-4">
-                <MobileFilterSheet />
+                {
+                    isDashboard ? (
+                        <DashboardSheet
+                        currentUserId={currentUser.id}
+                        />
+                    ) : (
+                        <MobileFilterSheet />
+                    )
+                }
                 </div>
             <MobileLogoDialog/>
                 

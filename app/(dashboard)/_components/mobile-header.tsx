@@ -3,11 +3,12 @@
 
 import SearchItem from "./search-item";
 import MobileLogoDialog from "./mobile-logo-dialog";
-import getCurrentUser from "@/actions/getCurrentUser";
+
 import { useSession } from "next-auth/react";
 import LoggedInBarHeader from "./logged-in-header";
-import { db } from "@/utils/db";
+
 import { User, Notification } from "@prisma/client";
+import MobileFilterSheet from './mobile-filter-sheet';
 
 interface MobileHeaderProps {
     currentUser : User;
@@ -24,13 +25,15 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 
     
     return ( 
-        <div className="bg-[#1f2332] h-[100px] w-full flex items-center">
+        <div className="bg-[#1f2332] h-[140px] w-full">
+            <div className="flex items-center">
             <div className="flex items-center ml-2 w-full">
-            <MobileLogoDialog/>
-                <div className="ml-4 w-full">
-                    <SearchItem/>
+                <div className="mr-4">
+                <MobileFilterSheet />
                 </div>
-                <div className="w-2/6">
+            <MobileLogoDialog/>
+                
+                <div className="w-full">
                 {
                         status === 'unauthenticated' || !currentUser ? (
                             <div>
@@ -47,6 +50,11 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                     }
                 </div>
             </div>
+            
+        </div>
+        <div className="w-full px-4">
+                    <SearchItem/>
+                </div>
         </div>
      );
 }

@@ -48,7 +48,7 @@ const PaginationComponent = () => {
     return ( 
     <>
     {expectedPages > 1 && (
-      <div className=" dark:bg-[#13141C] bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-4 sm:w-[1060px] flex justify-center">
+      <div className=" dark:bg-[#13141C] bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-4 w-full sm:w-[1060px] flex justify-center">
       <Pagination>
       <PaginationContent>
         {Number(currentPage) > 1 && (
@@ -60,7 +60,7 @@ const PaginationComponent = () => {
        
         {Array.from({length : expectedPages}, (_, index) => (
           
-            <PaginationItem onClick={() => {changePage(index + 1)}} key={index}>
+            <PaginationItem className="bg-[#191B27] rounded-md" onClick={() => {changePage(index + 1)}} key={index}>
             <PaginationLink>{index + 1}</PaginationLink>
           </PaginationItem>
          

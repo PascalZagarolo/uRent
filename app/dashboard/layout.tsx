@@ -9,6 +9,7 @@ import UrentDashboardLogoHeader from "./[userId]/_components/u-rent-logo-dashboa
 import SidebarDashboard from "./[userId]/_components/sidebar-dashboard";
 import HeaderLogo from "../(dashboard)/_components/header-logo";
 import getCurrentUser from "@/actions/getCurrentUser";
+import MobileHeader from "../(dashboard)/_components/mobile-header";
 
 const DashboardLayout = async (
     { children }: { children: React.ReactNode },
@@ -32,7 +33,12 @@ const DashboardLayout = async (
 
 
             </div>
-
+            <div className="sm:hidden">
+                <MobileHeader
+                currentUser={currentUser}
+                notifications={notifications}
+                />
+             </div>
             <div >
             
                 {children}

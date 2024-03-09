@@ -15,6 +15,7 @@ import { Conversation, Messages, User } from "@prisma/client";
 import { find } from "lodash";
 import RenderedChats from "./_components/rendered-chats";
 import StartedChats from "./_components/started-chats";
+import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 
 type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
 
@@ -112,6 +113,12 @@ const ConversationPage = async ({
                     currentUser={currentUser}
                     notifications={notifications} />
             </div>
+            <div className="sm:hidden">
+                <MobileHeader
+                currentUser={currentUser}
+                notifications={notifications}
+                />
+             </div>
             <div className="flex justify-center h-screen py-8 px-4">
             <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] h-full">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">

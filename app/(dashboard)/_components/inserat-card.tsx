@@ -4,31 +4,29 @@ import { convertState } from "@/actions/convert-states";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { Textarea } from "@/components/ui/textarea";
-import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
+
+
 import { cn } from "@/lib/utils";
 import { InserateImagesAndAttributes } from "@/types/types";
 
 import { User } from "@prisma/client";
-import { TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip";
+
 import axios from "axios";
 import { format } from "date-fns";
 import {
-    Banknote, Building2, CalendarCheck2, CarFront, CaravanIcon, Check, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, KeySquareIcon, Lightbulb, Mail, MailCheckIcon,
-    MapPinned, Send, Settings2Icon, SofaIcon, Star, ThumbsUpIcon, TractorIcon, TramFront, Truck, X
+    Banknote,  CalendarCheck2, CarFront, CaravanIcon,  CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, 
+    MapPinned,  SofaIcon, Star,  TractorIcon, TramFront, Truck,
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast, { CheckmarkIcon } from "react-hot-toast";
-import { FaCar, FaHouseUser } from "react-icons/fa";
+import toast  from "react-hot-toast";
+import { FaCar } from "react-icons/fa";
 import { GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill } from "react-icons/pi";
+import ProfileBar from "./inserat-card/profile-bar";
 
 interface InseratCardProps {
     inserat: InserateImagesAndAttributes;
@@ -99,51 +97,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
         return addressParts[addressParts.length - 2]
     };
 
-    const onConversation = () => {
+    
 
-        if (currentUser) {
-            try {
-                setIsLoading(true);
-                const conversation = axios.post(`/api/conversation/${currentUser.id}/${inserat.userId}`).then((response) => {
-                    router.push(`/conversation/${response.data.id}`)
-                })
-            } catch {
-                toast.error("Fehler beim Erstellen der Konversation")
-            } finally {
-                setIsLoading(false);
-            }
-        } else {
-            router.push(`/login`)
-        }
-    }
-
-    const onInterest = async () => {
-        if (currentUser) {
-            try {
-                setIsLoading(true);
-                axios.post(`/api/interest/${inserat.id}`, { text: text }).then(() => {
-                    axios.get(`/api/conversation/${currentUser.id}/${inserat.userId}`).then((response) => {
-                        if (response) {
-                            console.log(response)
-                            router.push(`/conversation/${response.data.id}`)
-                        } else {
-                            toast.error("Fehler beim abrufen")
-                        }
-                    })
-                })
-            } catch {
-                toast.error("Etwas ist schief gelaufen");
-            } finally {
-                setIsLoading(false);
-            }
-        } else {
-            router.push(`/login`);
-        }
-    }
-
-    const onEdit = () => {
-        router.push(`/inserat/create/${inserat.id}`);
-    }
+    
 
     return (
         <div className="sm:w-[760px] sm:h-[420px] w-[400px] h-full   rounded-md  items-center dark:bg-[#171923]
@@ -271,7 +227,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex">
                             <div className="">
-                                <Image
+                            <Image
                                     src={inserat.images[0].url}
                                     width={220}
                                     height={240}
@@ -343,119 +299,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </div>
 
                     </div>
-                    <div className="w-full mt-2">
-
-                        <div className="rounded-md bg-[#1b1e2d] w-full position:absolute mr-2 dark:bg-[#13141c] dark:border-none">
-                            <div className="flex  items-center   rounded-md">
-                                <Image
-                                    className="rounded-full ml-2 mt-2 mb-2 object-fit  w-[40px] h-[40px]"
-                                    src={inserat.user?.image || "/placeholder-person.jpg"}
-                                    height={40}
-                                    width={40}
-                                    alt="User-Bild"
-                                />
-                                <Link href={`/profile/${inserat.userId}`}>
-                                    <p className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] items-center flex
-                                    
-                                    ">
-                                        {inserat.user?.name}
-                                        {inserat?.user.emailVerified && (
-                                            <TooltipProvider>
-                                            <Tooltip>
-
-                                                <TooltipTrigger>
-                                                    <div>
-                                                        <Check className="w-4 h-4 ml-2" />
-                                                    </div>
-                                                    
-                                                </TooltipTrigger>
-                                                <TooltipContent className="dark:bg-[#0F0F0F] border-none">
-                                                   Verifiziert
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                        )}
-                                    </p>
-
-                                </Link>
-
-                                <div className="flex ml-auto">
-
-                                    {!isOwn ? (
-                                        <>
-                                            <Dialog>
-                                                <DialogTrigger className="" asChild>
-
-                                                    <Button className="flex items-center mr-4 ml-auto bg-[#171923] rounded-md p-2  font-semibold
-                                                 dark:text-gray-100 dark:hover:bg-[#181818]/60 px-4 sm:px-8">
-                                                        <ThumbsUpIcon className="w-4 h-4 sm:mr-2" />
-                                                        <p className="sm:block hidden">
-                                                            Anfragen
-                                                        </p>
-                                                    </Button>
-
-                                                </DialogTrigger>
-                                                <DialogContent className="dark:bg-[#0F0F0F]">
-                                                    <DialogHeader>
-                                                        <div className="text-lg font-bold flex">
-                                                            <Lightbulb className="mr-2" />  Händler sofort kontaktieren
-                                                        </div>
-                                                    </DialogHeader>
-                                                    <div>
-                                                        <Textarea className="h-[400px] border border-gray-300 bg-gray-200 dark:bg-[#171717]"
-                                                            value={text}
-                                                            onChange={handleTextChange}
-                                                        />
-                                                    </div>
-                                                    <div>
-
-                                                        <div>
-                                                            <RadioGroup className="flex gap-x-4 items-center" defaultValue="messenger">
-                                                                <RadioGroupItem value="messenger" id="messenger" />
-
-                                                                <Label className="flex "> <Send className="w-4 h-4 mr-2 items-center" /> Direktnachricht </Label>
-
-                                                                <RadioGroupItem value="email" id="email" />
-
-                                                                <Label className="flex "> <Mail className="w-4 h-4 mr-2 items-center" /> E-Mail</Label>
-
-                                                            </RadioGroup>
-
-                                                        </div>
-                                                    </div>
-                                                    <div className="ml-auto">
-                                                        <DialogTrigger>
-                                                            <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                                          dark:bg-[#171717] dark:hover:bg-[#1c1c1c] "
-                                                                onClick={onInterest} disabled={!text}>
-                                                                Senden
-                                                            </Button>
-                                                        </DialogTrigger>
-                                                    </div>
-                                                </DialogContent>
-                                            </Dialog>
-
-                                            <Button className="flex items-center mr-4  bg-[#171923] rounded-md p-2 px-4 sm:px-8 font-semibold
-                                     dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
-                                                <MailCheckIcon className="w-4 h-4 sm:mr-2" />
-                                                <p className="sm:block hidden">
-                                                    Kontaktieren
-                                                </p>
-                                            </Button>
-                                        </>
-                                    ) : (
-                                        <Button className="flex items-center mr-4  bg-slate-200  rounded-md p-2 px-4 sm:px-8 font-semibold
-                                     dark:text-gray-900/80 dark:hover:bg-slate-300 text-gray-900" onClick={onEdit}>
-                                            <Settings2Icon className="w-4 h-4 mr-2" />
-                                            Inserat bearbeiten
-                                        </Button>
-                                    )}
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
+                    <ProfileBar
+                    inserat={inserat}
+                    currentUser={currentUser}
+                    />
                 </div>
             </div >
 

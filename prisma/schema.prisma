@@ -144,6 +144,13 @@ model Inserat {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Category {
+  PKW
+  LKW
+  TRAILOR
+  TRANSPORT
+}
+
 model PkwAttribute {
   id String @id @default(uuid())
 
@@ -464,15 +471,7 @@ model Address {
   @@unique([inseratId])
 }
 
-enum Category {
-  PKW
-  LKW
-  LAND
-  BAU
-  CARAVAN
-  TRAILOR
-  TRANSPORT
-}
+
 
 model Images {
   id String @id @default(uuid())

@@ -7,6 +7,7 @@ import { StarFilledIcon } from "@radix-ui/react-icons";
 import FavouriteRenderList from "./_components/favourite-render-list";
 import FavouriteDashboardRender from "./_components/favourite-render";
 import BookingRenderList from "./_components/booking-render-list";
+import SidebarDashboard from "../../_components/sidebar-dashboard";
 
 const Bookings = async ({
     params
@@ -48,6 +49,9 @@ const Bookings = async ({
         
 
             <div className="flex justify-center py-8 px-4 ">
+                <div className="px-4 hidden md:block">
+                <SidebarDashboard />
+            </div>
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className=" min-h-screen">
 

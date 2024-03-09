@@ -99,17 +99,17 @@ const PriceFormFilter = () => {
 
 
     return (
-        <div>
-            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2  bg-[#1b1f2c] p-2 border-[#1f2332]">
+        <div className="w-full xl:mr-2 xl:ml-2"> 
+            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2 w-full bg-[#1b1f2c] p-2 border-[#1f2332]">
                 <Banknote className="mr-4" /> Preis
             </h3>
-            <div className="flex gap-x-4 mt-2">
-                <div >
+            <div className="flex gap-x-4 mt-2 w-full">
+                <div className="w-1/2">
                     <h3 className="text-sm  text-gray-300  mb-1">
                         Von :
                     </h3>
                     <Select onValueChange={(e) => onClick(e, currentEnd)} value={startPrice || "0"} defaultValue="Start">
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
+                        <SelectTrigger className="xl:w-[120px] w-full font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
                             <SelectValue className="font-bold" placeholder="Start" />
                         </SelectTrigger>
                         <SelectContent >
@@ -132,12 +132,12 @@ const PriceFormFilter = () => {
                         </SelectContent>
                     </Select>
                 </div>
-                <div className="">
+                <div className="w-1/2">
                     <h3 className="text-sm  text-gray-300 mb-1">
                         Bis :
                     </h3>
                     <Select onValueChange={(e) => onClick(currentStart, e)} value={endPrice || "max"} >
-                        <SelectTrigger className="w-[120px] font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
+                        <SelectTrigger className="xl:w-[120px] w-full font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
                             <SelectValue className="font-bold" placeholder="Ende"/>
                         </SelectTrigger>
                         <SelectContent >

@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { Suspense, lazy } from "react";
 import { ClipLoader } from "react-spinners";
 import LocationBar from "./location-bar";
+import MobileFilterSheet from "./mobile-filter-sheet";
 
 interface HeaderProps {
     currentUser: User;
@@ -31,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({
     notifications
 }) => {
 
-    
+
 
     const { data: session, status } = useSession();
 
@@ -60,14 +61,16 @@ const Header: React.FC<HeaderProps> = ({
                                 />
                             )}
                         </div>
-
+                        <div className="p-4 xl:hidden flex rounded-md mt-2  items-center">
+                            <MobileFilterSheet />
+                        </div>
                         <div className="flex justify-center mt-2">
                             <SearchItem />
                         </div>
                         <div className="flex justify-center">
-                            
-                                <LocationBar />
-                            
+
+                            <LocationBar />
+
                         </div>
                     </div>
                     {

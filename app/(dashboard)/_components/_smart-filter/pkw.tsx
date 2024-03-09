@@ -5,7 +5,7 @@ import PriceFormFilter from "./_components/price";
 
 const PKW = () => {
     return ( 
-        <div>
+        <div className="w-full">
             <div className="mt-4 flex justify-center">
                 <PriceFormFilter/>
             </div>

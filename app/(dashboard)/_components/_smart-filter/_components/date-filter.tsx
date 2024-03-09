@@ -131,22 +131,22 @@ const DateFormFilter = () => {
     }
 
     return (
-        <div className="mb-2">
+        <div className="mb-2 w-full xl:ml-2 xl:mr-2">
             <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2  bg-[#1b1f2c] p-2 border-[#1f2332] ">
                 <Clock12 className="mr-4" /> Zeitraum
             </h3>
-            <div className="flex gap-x-4 mt-2">
-            <div>
+            <div className="flex gap-x-4 mt-2 w-full">
+            <div className="w-full">
           
-          <div className="flex">
+          <div className="flex w-full">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="flex gap-x-4">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                <div className="flex gap-x-4 w-full">
                   <FormField
                     control={form.control}
                     name="start"
                     render={({ field }) => (
-                      <FormItem className="flex flex-col">
+                      <FormItem className="flex flex-col w-1/2">
                         <FormLabel className="text-gray-100/80">Beginn</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
@@ -154,7 +154,7 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[120px] pl-3 text-left font-semibold",
+                                  "xl:w-[120px] pl-3 text-left w-full font-semibold",
                                   !field.value && "text-muted-foreground dark:bg-[#0F0F0F] dark:border-none"
                                 )}
                               >
@@ -194,7 +194,7 @@ const DateFormFilter = () => {
                     control={form.control}
                     name="end"
                     render={({ field }) => (
-                      <FormItem className="flex flex-col">
+                      <FormItem className="flex flex-col w-1/2">
                         <FormLabel className="text-gray-100/70">Ablauf</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
@@ -202,7 +202,7 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[120px] pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
+                                  "xl:w-[120px] w-full pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >

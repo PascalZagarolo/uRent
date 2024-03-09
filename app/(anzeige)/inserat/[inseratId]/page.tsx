@@ -23,21 +23,21 @@ const InseratAnzeige = async ({
     params
 }: { params: { inseratId: string } }) => {
 
-    
+
 
     const currentUser = await getCurrentUser();
 
-    
+
 
     const inserat = await db.inserat.findUnique({
         where: {
             id: params.inseratId
         }, include: {
             address: true,
-            images : true,
-            user : {
-                include : {
-                    contactOptions : true
+            images: true,
+            user: {
+                include: {
+                    contactOptions: true
                 }
             },
             pkwAttribute: true,
@@ -45,7 +45,7 @@ const InseratAnzeige = async ({
         }
     })
 
-    
+
 
     const inseratArray = await db.inserat.count({
         where: {
@@ -53,7 +53,7 @@ const InseratAnzeige = async ({
         }
     })
 
-    
+
 
 
 
@@ -63,7 +63,7 @@ const InseratAnzeige = async ({
         }
     })
 
-    
+
 
     const inseratBookings = await db.booking.findMany({
         where: {
@@ -77,7 +77,7 @@ const InseratAnzeige = async ({
         }
     })
 
-    const LazyInseratImageCarousel = lazy(() => import  ("./_components/inserat-image"));
+    const LazyInseratImageCarousel = lazy(() => import("./_components/inserat-image"));
 
     function ripOutToLongAddresses(input: string): string {
         const lastCommaIndex = input.lastIndexOf(',');
@@ -89,15 +89,15 @@ const InseratAnzeige = async ({
     }
 
 
-    
-    
+
+
 
 
     return (
-        <div className="2xl:grid 2xl:grid-cols-2 xl:flex justify-center gap-12 xl:mt-24 h-max">
+        <div className="2xl:grid 2xl:grid-cols-2 xl:flex justify-center gap-12 xl:mt-24 h-max ">
             <div className="h-full p-4">
                 <div className="flex xl:justify-end justify-center">
-                    <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-full md:w-auto">
+                    <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-[655px] ">
                         <div className="flex items-center justify-end truncate ">
 
                             <div className="bg-[#1d1f2b] sm:px-8 rounded-lg p-4">
@@ -129,29 +129,41 @@ const InseratAnzeige = async ({
                         </div>
 
 
-                        <div className="mt-4 rounded-md     flex justify-center text-gray-900">
+                        <div className="mt-4 rounded-md  text-gray-100   flex justify-center ">
                             <LazyInseratImageCarousel images={inserat.images} />
                         </div>
                         <div>
-                            <div className="flex justify-end items-center  am:mt-8 p-4  border-gray-800 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-[#13151c]  text-gray-100 mt-2">
-                                <div className="flex mr-auto items-center ">
-                                    <div className="flex font-bold  text-sm items-center truncate sm:w-full ">
-                                        <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
-                                        <div className="w-[200px] sm:w-full flex">
-                                        {inserat.address?.locationString ? ripOutToLongAddresses(inserat.address?.locationString) : "Keine Adresse hinterlegt"}
-                                            <p className="ml-1">
-                                            | {inserat.address?.postalCode && `${inserat.address?.postalCode}`} {inserat.address?.state ? inserat.address?.state + "," : ""} Deutschland
-                                            </p> 
+                            <div className="flex justify-end items-center rounded-md sm:mt-8 p-4 w-full border-gray-800 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-[#13151c]  text-gray-100 mt-2">
+                                <div className="flex mr-auto items-center w-full">
+                                    <div className="flex font-bold  text-sm items-center  sm:w-full ">
+
+                                        <div className="sm:w-full flex gap-x-2">
+                                            <div>
+                                            <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
+                                            </div>
+                                            <div className="w-2/4 truncate flex items-center">  
+                                                {inserat.address?.locationString ? (
+                                                    <span className="truncate max-w-full">  {ripOutToLongAddresses(inserat.address?.locationString)}
+                                                    </span>
+                                                ) : (
+                                                    "Keine Adresse hinterlegt"
+                                                )}
+                                            </div>
+                                            <div className="w-2/4 truncate">
+                                                {inserat.address?.postalCode && `${inserat.address?.postalCode} `}
+                                                {inserat.address?.state ? inserat.address?.state + ", " : ""}DE
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
-                                <div className="justify-end flex mt-2 text-xl font-semibold">
-                                    {inserat.price} <p className="text-sm mr-1">00 €</p>
-                                </div>
+
 
 
                             </div>
-
+                            <div className="justify-end flex mt-2 text-xl font-semibold w-1/8">
+                                {inserat.price} <p className="text-sm mr-1">00 €</p>
+                            </div>
                         </div>
 
                         <div className="mt-2">
@@ -186,8 +198,8 @@ const InseratAnzeige = async ({
 
                                             {inserat.user.contactOptions[0]?.websiteAddress && (
                                                 <a href={inserat?.user?.contactOptions[0]?.websiteAddress} className="flex hover:underline">
-                                                    <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat.user?.contactOptions[0]?.websiteAddress? 
-                                                    inserat.user.contactOptions[0]?.websiteAddress : ""}</p>
+                                                    <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> {inserat.user?.contactOptions[0]?.websiteAddress ?
+                                                        inserat.user.contactOptions[0]?.websiteAddress : ""}</p>
                                                 </a>
                                             )}
 
@@ -205,21 +217,21 @@ const InseratAnzeige = async ({
                                 inserat={inserat}
                             />
                         </div>
-                        
+
                     </div>
 
-                    
+
                 </div>
                 <div className="flex sm:justify-center xl:justify-end">
-                <div className="flex justify-end xl:ml-auto w-[655px] mt-8">
-                <InseratAttributes 
-                inserat={inserat}
-                />
-                </div>
+                    <div className="flex justify-end xl:ml-auto w-[655px] mt-8">
+                        <InseratAttributes
+                            inserat={inserat}
+                        />
+                    </div>
                 </div>
             </div>
 
-            
+
 
             <div>
 
@@ -252,13 +264,13 @@ const InseratAnzeige = async ({
                     </div>
 
                 </div>
-                
+
             </div>
             <div className="flex justify-center">
-                
+
             </div>
         </div>
-      
+
     );
 }
 

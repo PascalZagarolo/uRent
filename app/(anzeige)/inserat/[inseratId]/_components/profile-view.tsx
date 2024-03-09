@@ -14,7 +14,7 @@ import { useEffect } from "react";
 
 interface ProfileViewProps {
     user: User;
-    inseratArray: Inserat[];
+    inseratArray: number;
     inseratOwner: User;
     averageRating: number,
 }
@@ -80,7 +80,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
             </div>
             <div className="mt-2 flex text-gray-200 dark:text-gray-100 ">
-                offene Anzeigen <p className="ml-2">({inseratArray.length})</p>
+                offene Anzeigen <p className="ml-2">({inseratArray})</p>
             </div>
 
             <div className="mt-4">

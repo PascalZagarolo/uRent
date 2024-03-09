@@ -61,10 +61,10 @@ const MobileFilterSheet = () => {
     return (
 
         <Sheet>
-            <SheetTrigger className="flex items-center">
+            <SheetTrigger className="flex items-center sm:bg-[#1C1E2C] p-2 rounded-md">
                 <AlignLeft className="w-6 h-6" />
             </SheetTrigger>
-            <SheetContent side="left" className="bg-[#202336] border-none w-2/3 h-full">
+            <SheetContent side="left" className="bg-[#202336] border-none w-2/3 h-full overflow-y-scroll no-scrollbar">
                 <h3 className="text-bold text-2xl p-2 rounded-md mt-4 flex w-full justify-center text-gray-100 items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                  bg-[#1b1e2c]">
                     <FilterIcon className="mr-4" /> Suchfilter <X className="h-4 w-4 mb-2 ml-2 hover:cursor-pointer" onClick={onReset} />
@@ -130,7 +130,7 @@ const MobileFilterSheet = () => {
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
                     <Button className="bg-blue-800 w-full h-[100px]    flex 
                     justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                    dark:text-gray-100 dark:hover:bg-sky-700
+                    dark:text-gray-100 dark:hover:bg-sky-700 
                     ">
                         <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
                     </Button>

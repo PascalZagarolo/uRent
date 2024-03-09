@@ -28,7 +28,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
         <div className="bg-[#1f2332] h-[140px] w-full">
             <div className="flex items-center">
             <div className="flex items-center ml-2 w-full">
-                <div className="mr-4">
+            <div className="mr-4">
                 <MobileFilterSheet />
                 </div>
             <MobileLogoDialog/>

@@ -52,7 +52,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         notifications={notifications}
                     />
                 </div>
-                <div className="sm:block hidden">
+                <div className="lg:block hidden">
                     
                                 <FavouritesShortCut
                                     currentUser={currentUser}

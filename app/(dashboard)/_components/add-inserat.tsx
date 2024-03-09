@@ -59,7 +59,7 @@ const Inserat: React.FC<InseratProps> = ({
         <div>
             
             <Dialog >
-            <DialogTrigger className="bg-[#12141f]   lg:mr-4 2xl:mr-16 mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center 
+            <DialogTrigger className="bg-[#12141f] ml-4  lg:mr-4 2xl:mr-16 mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center 
             font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#1C1E2C] ">
                     
                     

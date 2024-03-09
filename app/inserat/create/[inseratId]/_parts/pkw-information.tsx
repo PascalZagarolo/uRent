@@ -40,7 +40,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                 </div>
                 <div className="w-1/2">
                     <TransmissionForm
-                        transmission={inserat.pkwAttribute.transmission}
+                        transmission={inserat.pkwAttribute?.transmission}
                     />
                 </div>
             </div>

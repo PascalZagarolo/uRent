@@ -32,15 +32,18 @@ const CategorySearchRender = () => {
             {
                     {
                         'PKW' : <PkwSearch /> ,
-                        'LKW' : <LkwSearch />,
-                        'LAND' : "Landmaschinen - ",
-                        'BAU' : "Bau - ",
-                        'CARAVAN' : "Wohnmobil - ",
+                        'LKW' : <LkwSearch />,   
                         'TRAILOR' : "Anhänger - ",
                         'TRANSPORT' : "Transporter - "
 
                     }[currentParams['category']] 
                 }
+
+                {!currentParams['category'] && (
+                    <div className='flex justify-center text-md font-semibold'>
+                        Noch keine Kategorie ausgewählt..
+                    </div>
+                )}
             </div>
         </div>
     );

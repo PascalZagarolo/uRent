@@ -14,10 +14,20 @@ export const sendVerificationEmail = async (
     console.log("sendVerificationEmail" + email + token)
 
     await resend.emails.send({
-        from: "mail@u-rent-rental.de",
+        from: "uRent@u-rent-rental.de",
         to: email,
         subject: "Bestätige deine Anmeldung",
-        html:`<p> Klick <a href=${confirmLink}> hier </a> um deinen Account zu verifizieren </p>`
+        html:`
+        <div>
+        <h3 className="font-semibold">
+          uRent - Anmelde Bestätigung
+        </h3>
+        <p>
+        Willkommen bei uRent!
+        </p>
+        <p> Klick <a href=${confirmLink}> hier </a> um deinen Account zu verifizieren. Und den vollen Funktionsumfang von uRent zu erleben. </p>
+        </div>
+        `
     });
 }
 

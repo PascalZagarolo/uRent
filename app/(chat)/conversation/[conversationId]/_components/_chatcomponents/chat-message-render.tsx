@@ -107,7 +107,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                             </div>
                                         </div>
                                     )}
-                                    <div className="flex justify-center">
+                                    <div className="flex justify-center break-words">
 
                                         {messages.content}
 

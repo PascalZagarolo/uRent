@@ -3,7 +3,7 @@ import { db } from "@/utils/db";
 
 import ChatComponent from "./_components/chat-component";
 
-import { MessageSquareIcon, TrendingUp,  User2Icon, UserIcon } from "lucide-react";
+import { ArrowLeft, ArrowLeftCircle, MessageSquareIcon, TrendingUp,  User2Icon, UserIcon } from "lucide-react";
 import MobileHeaderChat from "./_components/mobile-header";
 import ChatInput from "./_components/_chatcomponents/chat-input";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
@@ -16,6 +16,7 @@ import { find } from "lodash";
 import RenderedChats from "./_components/rendered-chats";
 import StartedChats from "./_components/started-chats";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
+import ReturnToChat from "./_components/return-to-chat";
 
 type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
 
@@ -138,14 +139,18 @@ const ConversationPage = async ({
                 <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white">
                     <div className="rounded-lg h-full no-scrollbar">
                         <div className="relative h-full">
-                            <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-2xl flex items-center p-4 font-semibold  sticky top-0 z-10">
+                            <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-md truncate sm:text-2xl flex items-center p-4 font-semibold  sticky top-0 z-10">
+                                <ReturnToChat />
                                 <Image 
                                  className="rounded-full w-[40px] h-[40px] object-cover mr-4"
                                  src={otherUserDetails.image || "/placeholder-person.jpg"}
                                  width={40}
                                 height={40}
                                 alt="Profile Picture"
-                                />{otherUserDetails.name} <p className="ml-4 text-lg"> </p>
+                                />
+                                <div className="w-2/4 truncate">
+                                {otherUserDetails.name} 
+                                </div>
                                 <div className="ml-auto">
                                     <ChatHeader 
                                     otherUser={otherUserDetails}

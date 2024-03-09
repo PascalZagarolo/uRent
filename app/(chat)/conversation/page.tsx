@@ -62,7 +62,7 @@ const ConversationPage = async () => {
                 />
              </div>
             <div className="flex justify-center h-screen py-8 px-4 ">
-            <div className="dark:bg-[#0F0F0F] mr-4 rounded-md w-[280px] h-full hidden md:block">  
+            <div className="dark:bg-[#0F0F0F] mr-4 rounded-md w-[280px] h-full ">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                     </h3>
@@ -77,7 +77,7 @@ const ConversationPage = async () => {
                     </div>
                 </div>
                 
-                <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white">
+                <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
                     <div className="rounded-lg h-full no-scrollbar">
                         <div className="relative h-full flex justify-center items-center font-semibold text-lg">
                             

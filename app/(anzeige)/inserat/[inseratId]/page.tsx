@@ -47,7 +47,7 @@ const InseratAnzeige = async ({
 
     
 
-    const inseratArray = await db.inserat.findMany({
+    const inseratArray = await db.inserat.count({
         where: {
             userId: inserat.user?.id
         }

@@ -7,6 +7,7 @@ import getCurrentUser from "@/actions/getCurrentUser"
 import InserateDashboardRender from "./_components/inserate-dashboard-render"
 import InserateRenderList from "./_components/inserat-render-list"
 import Inserat from '@prisma/client';
+import SidebarDashboard from "../../_components/sidebar-dashboard"
 
 
 
@@ -52,9 +53,12 @@ const InserateOverview = async ({
 
 
     return ( 
-        <div className=" ">
+        
             
             <div className="flex justify-center py-8 px-4">
+            <div className="px-4 hidden md:block">
+                <SidebarDashboard />
+            </div>
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
 
@@ -75,7 +79,7 @@ const InserateOverview = async ({
                 </div>
                 </div>
                         
-        </div>
+        
      ) 
     }
 export default InserateOverview 

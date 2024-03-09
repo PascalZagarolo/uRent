@@ -29,7 +29,7 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
         alt="Inserat Image"
     />
 </div>
-          <p className="flex justify-center text-gray-800 font-semibold text-sm mt-2">
+          <p className="flex justify-center text-gray-100 font-semibold text-sm mt-2">
             ( {index + 1} / {sortedImages.length} )
           </p>
         </CarouselItem>

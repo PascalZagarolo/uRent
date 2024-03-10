@@ -15,7 +15,7 @@ import RentPeriod from "../_components/input-fields/rent-period";
 import Footer from "@/app/(dashboard)/_components/footer";
 import CategoryInformation from "./_parts/category-information";
 import ConditionsInformation from "./_parts/conditions-information";
-
+import { MdPostAdd } from "react-icons/md";
 
 const InseratCreation = async ({
     params
@@ -84,7 +84,7 @@ const InseratCreation = async ({
                     <div className="min-h-screen">
                         <div className="p-4">
                             <h3 className="text-2xl font-bold flex">
-                              <Signpost className="mr-2"/>  Inserat bearbeiten
+                              <MdPostAdd  className="mr-2"/>  Inserat bearbeiten
                             </h3>
                             <p className="text-xs dark:text-gray-100/70">
                                 Gebe Informationen zu deinem Inserat an - desto genauer du bist, desto eher finden dich potientielle Kunden.
@@ -103,7 +103,7 @@ const InseratCreation = async ({
                                         className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
                                         />
                                      </div>
-                                     <div>
+                                     <div className="mt-4">
                                         <BasicInformation
                                         inserat={inserat}
                                         images = {images}

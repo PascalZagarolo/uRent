@@ -28,6 +28,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         type : searchParams.get("type"),
         doors : searchParams.get("doors"),
         power : searchParams.get("power"),
+        freeMiles : searchParams.get("freeMiles"),
 
         //LKW
         lkwBrand : searchParams.get("lkwBrand"),

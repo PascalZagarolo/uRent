@@ -68,19 +68,20 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-2 ">
 
-                    <div className="mt-1  p-8  bg-white dark:bg-[#191919]  dark:border-[#191919] border border-gray-200 mr-16   drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-full">
+                    <div className="mt-1  p-4  bg-white dark:bg-[#191919]  dark:border-[#191919] border border-gray-200    
+                    drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-full">
                         <div className=" flex items-center">
                         <Separator
-                         className="w-16 mr-8 bg-gray-700 dark:bg-gray-200"
+                         className="sm:w-1/4 w-1/10 mr-8 bg-gray-700 dark:bg-gray-200"
                         />
                         <p className="text-gray-900 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100">
                             Beschreibung
                         </p>
                         <Separator
-                         className="w-1/2 ml-8 bg-gray-700 dark:bg-gray-200"
+                         className="sm:w-1/4 w-1/10 ml-8 bg-gray-700 dark:bg-gray-200"
                         />
                         {ownProfile && (
-                            <Button className="ml-12 flex bg-gray-200 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" variant="ghost" onClick={onEdit}>
+                            <Button className="ml-auto flex bg-gray-200 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" variant="ghost" onClick={onEdit}>
                             <PencilIcon className="h-4 w-4 dark:text-gray-100"/>
                         </Button>
                         )}

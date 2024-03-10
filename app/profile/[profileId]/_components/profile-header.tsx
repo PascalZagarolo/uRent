@@ -48,27 +48,27 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     const ownProfile = currentUser?.id === user.id
 
     return (
-        <div className=" px-4 ">
+        <div className="px-4">
             
-                <div className="mt-4 mb-4">
-                    { isOwnProfile && !user.confirmedMail && (
+            <div className="mt-4 mb-4">
+            { isOwnProfile && !user.confirmedMail && (
                         <NotVerifiedYet
                         email={user.email}
                         isOwnProfile={isOwnProfile}
                     />
-                    )}
+                    )} 
                 </div>
           
 
             
-            <div className="">
+            
                 
                 
                 <div className="flex">
 
                     <div className="flex rounded-md">
                         <div className="">
-                        <div className=" dark:text-gray-100     ">
+                        <div className=" dark:text-gray-100">
                                 <div className=" text-md flex gap-x-4">
                                    Name: <p className="font-semibold"> {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}</p>
                                 </div>
@@ -109,13 +109,13 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 <div className="mt-8 text-md font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
                     <Contact className="mr-2 h-4 w-4" /> Kontakt
                 </div>
-                <div className="">
+                
                 <ContactOptionsRender
                     contacts={contacts}
                     ownProfile={ownProfile}
                     />
-                </div>
-            </div>
+                
+            
 
 
         </div>

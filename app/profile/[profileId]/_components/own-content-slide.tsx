@@ -52,7 +52,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
 
   const router = useRouter();
   return (
-    <div className=" px-4">
+    <div className="">
       {inserat.length > 0 ? (
         <div className="">
           <Carousel setApi={setApi} className=" " plugins={[
@@ -67,7 +67,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                   dark:bg-[#1C1C1C]
                   " 
                   >
-                  <CardContent className="flex justify-center">
+                  <CardContent>
                   <InseratCard 
                       currentUser={currentUser}
                       //@ts-ignore

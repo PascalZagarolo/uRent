@@ -1,21 +1,20 @@
 'use client'
 
-import { useDebounce } from "@/hooks/use-debounce";
-import { AlertCircle, MapIcon, MapPin, PinIcon } from "lucide-react";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useEffect, useState } from "react";
+
+import {PinIcon } from "lucide-react";
+import {  usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
+
 import { Label } from "@/components/ui/label";
-import { Address, Inserat } from "@prisma/client";
-import axios from "axios";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useSavedSearchParams } from "@/store";
+
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import qs from "query-string"
 import { Separator } from "@/components/ui/separator";
+import { MdCancel } from "react-icons/md";
 
 
 
@@ -33,7 +32,7 @@ const PkwPowerBar = () => {
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    
 
     const params = getSearchParamsFunction("power");
 
@@ -49,6 +48,20 @@ const PkwPowerBar = () => {
 
         router.push(url) 
         
+    }
+
+    const onClear = () => {
+        const url = qs.stringifyUrl({
+            url : pathname,
+            query : {
+                power : null,
+                ...params
+            }
+        }, { skipEmptyString: true, skipNull: true })
+        setCurrentKW(null);
+        setCurrentPS(null);
+
+        router.push(url) 
     }
 
     
@@ -72,8 +85,8 @@ const PkwPowerBar = () => {
                     </Label>
 
                     <Input
-                        placeholder="Leistung in PS"
-                        className="p-2.5   rounded-md input: text-sm border mt-2  
+                        placeholder="in PS"
+                        className="p-2.5 rounded-md input: text-sm border mt-2  
                         border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0 w-full"
                         onChange={(e) => {
                             setCurrentPS(Number(e.target.value));
@@ -81,17 +94,19 @@ const PkwPowerBar = () => {
                         }}
                         disabled={!usesPS}
                         value={currentPS || ''}
-                        onBlur={onSubmit}
+                        
                     />
                 </div>
                 
                 <div className="w-1/2">
                     <Label className="flex justify-start items-center">
-                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> KW </p>
+                        <PinIcon className="w-4 h-4" /> <div className="ml-2 font-semibold flex items-center w-full"> KW 
+                        <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} /> </div>
+                        
                     </Label>
 
                     <Input
-                        placeholder="Leistung in KW"
+                        placeholder="in KW"
                         className="p-2.5   rounded-md input: text-sm border mt-2 
                          border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0 w-full"
                         onChange={(e) => {
@@ -100,7 +115,7 @@ const PkwPowerBar = () => {
                         }}
                         disabled={usesPS}
                         value={currentKW || ''}
-                        onBlur={onSubmit}
+                        
                     />
                 </div>
             </div>

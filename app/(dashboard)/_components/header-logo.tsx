@@ -4,10 +4,10 @@
 import LoginBarHeader from "./login-bar-header";
 
 import { useSession } from "next-auth/react";
-import LoggedInBarHeader from "./logged-in-header";
+
 
 import { Notification, User } from "@prisma/client";
-;
+
 
 import Inserat from "./add-inserat";
 import SearchItem from "./search-item";
@@ -20,6 +20,9 @@ import { cn } from "@/lib/utils";
 
 import MobileFilterSheet from "./mobile-filter-sheet";
 import LocationBar from "./location-bar";
+import { lazy } from "react";
+import LoggedInBarHeader from "./logged-in-header";
+
 
 
 interface HeaderProps {
@@ -38,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({
 
     const router = useRouter();
 
-
+   
 
     return (
         <div className="bg-[#1f2332] h-[90px]  flex-shrink-1 hidden sm:block">

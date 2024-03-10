@@ -24,6 +24,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 
 const DateFormFilter = () => {
@@ -31,39 +32,27 @@ const DateFormFilter = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const currentTitle = searchParams.get("title");
-    const category = searchParams.get("category");
 
-    const [periodBegin, setPeriodBegin] = React.useState(null);
-    const [periodEnd, setPeriodEnd] = React.useState(null);
+
+    
 
     const currentLocation = searchParams.get("location");
     const currentPage = searchParams.get("page");
 
-    const paramsPeriodBegin =  searchParams.get("periodBegin") ? new Date(searchParams.get("periodBegin")) : null;
-    const paramsPeriodEnd = searchParams.get("periodEnd") ? new Date(searchParams.get("periodEnd")) : null;
+    const paramsPeriodBegin =  searchParams.get("periodBegin");
+    const paramsPeriodEnd = searchParams.get("periodEnd");
+    
+    const [periodBegin, setPeriodBegin] = React.useState(null);
+    const [periodEnd, setPeriodEnd] = React.useState(null);
+
+    const params = getSearchParamsFunction("periodBegin", "periodEnd");
+
+    
+
+
     
 
     
-
-
-    
-
-    React.useEffect(() => {
-      const url = qs.stringifyUrl({
-          url: pathname,
-          query: {
-              title: currentTitle,
-              category: category,
-              periodBegin: periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
-              periodEnd: periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
-              location : currentLocation,
-              page : currentPage
-          }
-      }, { skipNull: true, skipEmptyString: true });
-  
-      router.push(url);
-  }, [periodBegin, periodEnd, currentTitle, category]);
 
         
  
@@ -78,8 +67,8 @@ const DateFormFilter = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-            start : null,
-            end : null
+            start : periodBegin || null,
+            end : periodEnd || null
         }
     })
    
@@ -117,12 +106,11 @@ const DateFormFilter = () => {
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                title: currentTitle,
-                category: category,
+                
                 
                 periodBegin : null,
                 periodEnd : null,
-                location : currentLocation
+                ...params,
                 
             }
         }, { skipNull: true, skipEmptyString: true });
@@ -154,8 +142,8 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "xl:w-[120px] pl-3 text-left w-full font-semibold",
-                                  !field.value && "text-muted-foreground dark:bg-[#0F0F0F] dark:border-none"
+                                  "xl:w-[120px] pl-3 text-left w-full font-semibold dark:bg-[#0F0F0F]",
+                                  !field.value && "text-muted-foreground  dark:border-none"
                                 )}
                               >
                                 {periodBegin ? (
@@ -236,24 +224,17 @@ const DateFormFilter = () => {
                       </FormItem>
                     )}
                   />
-
-
-                </div>
-                
-                
-                
-                
+                </div> 
               </form>
-            </Form>
-            
+            </Form> 
           </div>
         </div>
                 
             </div>
             <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c]
-                    dark:text-gray-100 dark:border-black dark:hover:bg-[#212538]
-                    " onClick={filterReset} disabled={!periodBegin && !periodEnd} >
+                    <Button className="bg-[#1a1d2c] w-full border 
+                    dark:text-gray-100  dark:hover:bg-[#212538]
+                    " onClick={filterReset} disabled={!periodBegin && !periodEnd && !params.periodBegin && !paramsPeriodEnd} >
                         Filter zurücksetzen
                     </Button>
                 </div>

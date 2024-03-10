@@ -7,8 +7,8 @@ import { Search } from "lucide-react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import { useEffect, useState } from "react";
-import path from "path";
-import FilterDialog from "./filter-dialog";
+import { getSearchParamsFunction } from "@/actions/getSearchParams";
+
 
 const SearchItem = () => {
 
@@ -25,6 +25,7 @@ const SearchItem = () => {
 
     const [value, setValue] = useState(currentTitle || "");
 
+    const params = getSearchParamsFunction("title");
     
 
     const debouncedValue = useDebounce(value);
@@ -34,7 +35,7 @@ const SearchItem = () => {
             url: pathname,
             query: {
                 title: debouncedValue,
-                location: currentLocation,
+                ...params
             }
         }, { skipEmptyString: true, skipNull: true })
 

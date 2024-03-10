@@ -5,6 +5,7 @@ import PkwDoorsBar from "./pkw/pkw-doors";
 import PkwFuelBar from "./pkw/pkw-fuel";
 import PkwTransmissionBar from "./pkw/pkw-transmission";
 import PkwPowerBar from "./pkw/pkw-power";
+import PkwTypeBar from "./pkw/pkw-type";
 
 const PkwSearchComponents = () => {
     return ( 
@@ -26,6 +27,7 @@ const PkwSearchComponents = () => {
             <PkwTransmissionBar />
             </div>
             </div>
+            <PkwTypeBar />
             <PkwPowerBar />
         </div>
      );

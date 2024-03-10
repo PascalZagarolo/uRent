@@ -62,7 +62,7 @@ const PkwDoorsBar = () => {
                     disabled={isLoading}
                 >
 
-                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none flex justify-center  focus-visible:ring-0 mt-2 rounded-md "
+                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none   focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}  
                         
                         >

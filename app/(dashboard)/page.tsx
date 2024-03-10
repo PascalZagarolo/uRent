@@ -10,13 +10,14 @@ import type { Category } from "@prisma/client";
 import { db } from "@/utils/db";
 
 import HeaderLogo from "./_components/header-logo";
-import { TruckIcon } from "lucide-react";
+
 import Footer from "./_components/footer";
 import { Suspense, lazy } from "react";
-import { BeatLoader, ClipLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 import { Metadata } from "next";
 import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import PaginationComponent from "./_components/pagination-component";
+import { useSaveCurrentUser } from "@/store";
 
 
 type InserateWithImages = Inserat & {
@@ -52,6 +53,8 @@ const Main = async ({
 
 
     const currentUser = await getCurrentUser();
+
+    
 
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)

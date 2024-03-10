@@ -89,5 +89,21 @@ export const useSavedSearchParams = create<savedSearchParams>((set) => ({
     }
 }))
 
+type saveCurrentUser = {
+    savedCurrentUser : User,
+    changeCurrentUser: (newUser : User) => void;
+    getSavedCurrentUser : () => User | null;
+}
+
+export const useSaveCurrentUser = create<saveCurrentUser>((set) => ({
+    savedCurrentUser : null,
+    changeCurrentUser : (newUser: User) => {
+        set({ savedCurrentUser : newUser })
+    },
+    getSavedCurrentUser() {
+        return this.savedCurrentUser;
+    }
+}))
+
 
 

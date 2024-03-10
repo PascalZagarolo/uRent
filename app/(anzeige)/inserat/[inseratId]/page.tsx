@@ -14,7 +14,7 @@ import { TbPigMoney } from "react-icons/tb";
 import { PiSteeringWheel } from "react-icons/pi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { CiBookmark } from "react-icons/ci";
-
+import { FaAddressCard } from "react-icons/fa";
 
 
 
@@ -157,12 +157,16 @@ const InseratAnzeige = async ({
                                     </div>
 
                                 </div>
-
-
-
                             </div>
-                            <div className="justify-end flex mt-2 text-xl font-semibold w-1/8">
+                            <div className="flex w-full items-center">
+                            {inserat.license && (
+                                    <div className=" font-semibold flex w-3/4 items-center">
+                                       <FaAddressCard className="w-4 h-4 mr-2" /><p className="font-normal px-2"> Führerscheinklasse : </p> {inserat.license}
+                                    </div>
+                                )}
+                            <div className="ml-auto flex mt-2 text-xl font-semibold ">
                                 {inserat.price} <p className="text-sm mr-1">00 €</p>
+                            </div>
                             </div>
                         </div>
                         <div className="mt-2">

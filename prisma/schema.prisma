@@ -118,6 +118,7 @@ model Inserat {
 
   annual Boolean @default(false)
 
+  license LicenseType?
   caution Float?
   reqAge Int?
 
@@ -142,6 +143,32 @@ model Inserat {
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum LicenseType {
+  A1
+  A2
+  A
+  AM
+
+  B
+  B17
+  B96
+  B196
+  B197
+  BE
+
+  C1
+  C1E
+  C
+  CE
+
+  D1
+  D1E
+  DE
+
+  L
+  T
 }
 
 enum Category {

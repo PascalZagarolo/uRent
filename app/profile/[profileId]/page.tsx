@@ -59,10 +59,10 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     notifications={notifications} />
             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10 h-full">
-                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+                <div className="sm:w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="min-h-screen">
-                        <div className="p-4">
-                            <div>
+                    <div className="p-4">
+                        <div>
                                 <h3 className="text-2xl flex font-bold">
                                     <UsersIcon className="mr-2" />  Profilübersicht
                                 </h3>

@@ -7,48 +7,58 @@ import InseratImageUpload from "../../_components/input-fields/inserat-image-upl
 import RentPeriod from "../../_components/input-fields/rent-period";
 import RentPrice from "../../_components/input-fields/rent-price";
 import SelectPrice from "../../_components/input-fields/rent-price";
+import SelectLicenseInserat from "../../_components/input-fields/select-license";
 
 
 interface BasicInformationProps {
-    inserat : Inserat,
-    images : Images[];
+    inserat: Inserat,
+    images: Images[];
 }
 
 const BasicInformation: React.FC<BasicInformationProps> = ({
     inserat,
     images
 }) => {
-    return ( 
+    return (
         <div>
             <div>
-            <TitleInserat 
-               inserat={inserat}
-               /> 
+                <TitleInserat
+                    inserat={inserat}
+                />
             </div>
             <div className="mt-4">
-            <DescriptionInserat
-            inserat={inserat}
-            />
+                <DescriptionInserat
+                    inserat={inserat}
+                />
             </div>
             <div className="mt-4 flex w-full justify-between items-center">
+                <div className="w-1/2">
                 <SelectCategoryInserat
-                inserat={inserat}
+                    inserat={inserat}
                 />
-                
+                </div>
+                <div className="w-1/2">
+                    <SelectLicenseInserat 
+                    inserat={inserat}
+                    />
+                </div>
+
             </div>
             <div className="mt-8">
                 <InseratImageUpload
-                images={images}
+                    images={images}
                 />
             </div>
             <div className="mt-4">
-                <SelectPrice 
-                inserat={inserat}
-                />
+                
+                        <SelectPrice
+                            inserat={inserat}
+                        />
+                    
             </div>
-            
+
         </div>
-     );
+    );
 }
- 
+
 export default BasicInformation;

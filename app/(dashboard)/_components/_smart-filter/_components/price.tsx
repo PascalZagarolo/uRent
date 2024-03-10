@@ -20,6 +20,7 @@ import { z } from "zod";
 import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 
 const PriceFormFilter = () => {
@@ -35,22 +36,22 @@ const PriceFormFilter = () => {
 
     const startPrice = searchParams.get("start");
     const endPrice = searchParams.get("end");
+
+    const params = getSearchParamsFunction("start", "end");
     
 
 
     const onClick = (startPrice: string, endPrice: string) => {
 
-        setCurrentStart(Number(startPrice));
-        setCurrentEnd(Number(endPrice));
+        setCurrentStart(Number(startPrice) !== 0 ? Number(startPrice) : null);
+        setCurrentEnd(Number(endPrice) !== 0 ? Number(endPrice) : null);
 
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                title: currentTitle,
-                category: category,
                 end: endPrice,
                 start: startPrice,
-                
+                ...params,
             }
         }, { skipNull: true, skipEmptyString: true });
 
@@ -64,10 +65,7 @@ const PriceFormFilter = () => {
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                title: currentTitle,
-                category: category,
-                
-                
+                ...params
             }
         }, { skipNull: true, skipEmptyString: true });
 
@@ -82,19 +80,13 @@ const PriceFormFilter = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-            start : null,
-            end : null
+            start : params.start || null,
+            end : params.end || null,
         }
     })
    
 
-    const onStartPrice = (values : z.infer<typeof formSchema>) => {
-        console.log(values);
-    }
-
-    const onEndPrice = (values : z.infer<typeof formSchema>) => {
-        console.log(values);
-    }
+    
 
 
 
@@ -115,7 +107,7 @@ const PriceFormFilter = () => {
                         <SelectContent >
                             <SelectGroup>
                                 <SelectLabel>Startpreis</SelectLabel>
-                                
+                                <SelectItem value={null} className="font-bold" >Beliebig</SelectItem>
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
                                 <SelectItem value="75" className="font-bold">75 €</SelectItem>
@@ -143,6 +135,7 @@ const PriceFormFilter = () => {
                         <SelectContent >
                             <SelectGroup>
                                 <SelectLabel>Endpreis</SelectLabel>
+                                <SelectItem value={null} className="font-bold" >Beliebig</SelectItem>
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
                                 <SelectItem value="75" className="font-bold">75 €</SelectItem>
@@ -163,8 +156,8 @@ const PriceFormFilter = () => {
                 
             </div>
             <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border border-[#11131c] dark:text-gray-100
-                     dark:border-black dark:hover:bg-[#212538]" onClick={onPriceReset} disabled={!currentStart && !currentEnd}>
+                    <Button className="bg-[#1a1d2c] w-full border  dark:text-gray-100
+                      dark:hover:bg-[#212538]" onClick={onPriceReset} disabled={!currentStart && !currentEnd && !startPrice && !endPrice}>
                         Filter zurücksetzen
                     </Button>
                 </div>

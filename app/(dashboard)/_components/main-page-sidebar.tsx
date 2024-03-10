@@ -1,11 +1,11 @@
 'use client';
 
-import { AlignCenter, CarFront, CaravanIcon, ConeIcon, ConstructionIcon, Contact, FilterIcon, FilterXIcon, Glasses, SearchIcon, Settings2, TractorIcon, TramFront, Truck, X } from "lucide-react";
+import { CarFront, FilterIcon,SearchIcon, Settings2, Truck, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
 import qs from "query-string";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PKW from "./_smart-filter/pkw";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -51,15 +51,7 @@ const MainPageSideBar= () => {
     }
 
     const onReset = () => {
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                title: currentTitle,
-                periodBegin: null,
-                periodEnd: null,
-                location: currentLocation,
-            }
-        }, { skipNull: true, skipEmptyString: true });
+        const url = process.env.NEXT_PUBLIC_BASE_URL
 
         router.push(url)
     }

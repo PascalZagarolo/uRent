@@ -4,6 +4,7 @@ import qs from 'query-string';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MapPinned } from "lucide-react";
+import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 const AutoComplete = () => {
   const autoCompleteRef = useRef();
@@ -19,6 +20,8 @@ const AutoComplete = () => {
     componentRestrictions: { country: "de" },
     fields: ["address_components", "geometry", "icon", "name"],
   };
+
+  const params = getSearchParamsFunction("location");
 
   useEffect(() => {
     if (window.google) {
@@ -38,7 +41,7 @@ const AutoComplete = () => {
         url: pathname,
         query: {
           location: null,
-          title : currentTitle
+          ...params
         }
       }, { skipEmptyString: true, skipNull: true });
       router.push(url);
@@ -56,7 +59,7 @@ const AutoComplete = () => {
       query: {
         //@ts-ignore
         location: inputRef?.current?.value,
-        title: currentTitle
+        ...params
       }
     }, { skipEmptyString: true, skipNull: true });
     router.push(url);

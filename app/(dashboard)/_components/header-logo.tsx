@@ -73,7 +73,6 @@ const Header: React.FC<HeaderProps> = ({
                         <div className="flex justify-center">
 
                         <LocationBar />
-
                         </div>
                     </div>
                     {

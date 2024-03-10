@@ -4,6 +4,7 @@ import { CarFrontIcon, TruckIcon } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
+import PkwSearchComponents from "./pkw-search-components";
 
 
 const CategoryOverview = () => {
@@ -37,9 +38,19 @@ const CategoryOverview = () => {
                 }
                 </div>
             </div>
-
+            
             </div>
         )}
+        <div className="p-2">
+        {
+                    {
+                        "PKW" : <PkwSearchComponents />,
+                        "LKW" : "Lkw",
+                        "TRAILOR" : "Anhänger",
+                        "TRANSPORT" : "Transporter",
+                    }[currentCategory]
+                }
+        </div>
         </>
      );
 }

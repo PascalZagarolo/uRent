@@ -4,6 +4,7 @@ import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@prisma/client";
 import type { Address, Category, LkwAttribute, PkwAttribute } from "@prisma/client";
 import axios from "axios";
+import { lte } from "lodash";
 
 
 
@@ -58,7 +59,7 @@ export const getInserate = async ({
 
     
     try {
-        //!implement switch statements later
+        
         if(filter === "relevance") {
             const inserate = await db.inserat.findMany({
                 where : {
@@ -67,22 +68,24 @@ export const getInserate = async ({
                         contains : title
                     },
                     category : category,
-                    ...(periodBegin || periodEnd) ? {
+                    ...(periodBegin || periodEnd) && {
                         OR : [
                             {
                                 begin : {
-                                    lte : periodBegin,
-                                    gte : periodEnd
+                                    
+                                    gte : periodBegin
                                 
                                 }, end : {
-                                    lte : periodBegin,
-                                    gte : periodEnd
+                                    lte : periodEnd
+                                   
                                 }
                             }, {
                                 annual : true
                             }
                         ]
-                    } : {}
+                    },
+                    
+
                     
                 }, include : {
                     images : true,
@@ -126,22 +129,20 @@ export const getInserate = async ({
                     price : {
                         gte : start? start : 0,
                         lte : end? end : 1000000,
-                    }, ...(periodBegin || periodEnd) ? {
+                    }, ...(periodBegin || periodEnd) && {
                         OR : [
                             {
                                 begin : {
-                                    lte : periodBegin,
-                                    gte : periodEnd
+                                    gte : periodBegin
                                 
                                 }, end : {
-                                    lte : periodBegin,
-                                    gte : periodEnd
+                                    lte : periodEnd
                                 }
                             }, {
                                 annual : true
                             }
                         ]
-                    } : {}   
+                    },  
                 }, include : {
                     images : true,
                     user: true,

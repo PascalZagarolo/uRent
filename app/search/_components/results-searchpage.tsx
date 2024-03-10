@@ -34,7 +34,7 @@ const ResultsSearchPage = () => {
         const filteredValues = searchParams;
 
         const url = qs.stringifyUrl({
-            url : pathname,
+            url : process.env.NEXT_PUBLIC_BASE_URL,
             //@ts-ignore
             query : {
                 ...filteredValues

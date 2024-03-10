@@ -2,6 +2,9 @@
 import PkwBrandBar from "./pkw/pkw-brand";
 import PkwSeatsBar from "./pkw/pkw-seats";
 import PkwDoorsBar from "./pkw/pkw-doors";
+import PkwFuelBar from "./pkw/pkw-fuel";
+import PkwTransmissionBar from "./pkw/pkw-transmission";
+import PkwPowerBar from "./pkw/pkw-power";
 
 const PkwSearchComponents = () => {
     return ( 
@@ -15,6 +18,15 @@ const PkwSearchComponents = () => {
             <PkwDoorsBar />
             </div>
             </div>
+            <div className="w-full flex gap-x-2">
+            <div className="w-1/2">
+            <PkwFuelBar />
+            </div>
+            <div className="w-1/2">
+            <PkwTransmissionBar />
+            </div>
+            </div>
+            <PkwPowerBar />
         </div>
      );
 }

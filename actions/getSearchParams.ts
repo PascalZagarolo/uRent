@@ -16,6 +16,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         page : searchParams.get("page"),
         start : searchParams.get("start"),
         end : searchParams.get("end"),
+        license : searchParams.get("license"),
         //Conditions
         reqAge : searchParams.get("reqAge"),
         caution: searchParams.get("caution"),

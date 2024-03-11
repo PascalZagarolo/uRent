@@ -23,8 +23,10 @@ export async function PATCH(
         const values = await req.json();
        
         const {location,
+            //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
-            brand, power, fuel, transmission, type, miles, initial, doors,
+            //PKW
+            brand, power, fuel, transmission, type, miles, initial, doors, extraCost,
             ...filteredValues} = values;
 
         const results = await db.inserat.findMany({

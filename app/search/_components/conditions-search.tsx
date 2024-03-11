@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import RequiredAgeSearch from "./condition-data/req-age-search";
 import CautionSearch from "./condition-data/caution-search";
 import FreeMilesSearch from "./condition-data/free-miles";
+import LicenseSearch from "./condition-data/license-search";
 
 const ConditionsSearch = () => {
     return ( 
@@ -15,13 +16,16 @@ const ConditionsSearch = () => {
                 />
             </h3>
             <div className="w-full flex mt-4 space-x-4">
-                <div className="w-1/3">
+                <div className="w-1/4">
+<LicenseSearch />
+                </div>
+                <div className="w-1/4">
 <CautionSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="w-1/4">
 <RequiredAgeSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="w-1/4">
 <FreeMilesSearch />
                 </div>
             </div>

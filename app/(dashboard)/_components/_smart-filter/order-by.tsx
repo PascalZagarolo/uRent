@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string"
 import type { Category } from "@prisma/client";
+import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 const OrderBy = () => {
 
@@ -16,16 +17,13 @@ const OrderBy = () => {
 
     const router = useRouter();
 
-
+    const params = getSearchParamsFunction("filter");
     const onClick = (filter : string) => {
         const url = qs.stringifyUrl({
             url : pathname,
             query : {
-                title : currentTitle,
-                category : category,
-                end : endPrice,
-                start : startPrice,
-                filter : filter
+                filter : filter,
+                ...params,
             }
         }, { skipEmptyString : true , skipNull : true })
         router.push(url)

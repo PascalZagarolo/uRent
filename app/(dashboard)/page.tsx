@@ -6,7 +6,7 @@ import getCurrentUser from "../../actions/getCurrentUser";
 
 import { Images, Inserat } from "@prisma/client";
 
-import type { Category } from "@prisma/client";
+import type { CarBrands, CarType, Category, FuelType, Transmission } from "@prisma/client";
 import { db } from "@/utils/db";
 
 import HeaderLogo from "./_components/header-logo";
@@ -17,7 +17,7 @@ import { ClipLoader } from "react-spinners";
 import { Metadata } from "next";
 import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import PaginationComponent from "./_components/pagination-component";
-import { useSaveCurrentUser } from "@/store";
+
 
 
 type InserateWithImages = Inserat & {
@@ -34,7 +34,25 @@ interface MainPageProps {
         page: number,
         periodBegin: string,
         periodEnd: string,
-        location: string
+        location: string,
+
+        //conditions
+
+        reqAge?: string;
+        reqLicense?: string;
+
+        //PKW
+        brand?: CarBrands;
+        doors?: string;
+        initial?: string;
+        power?: string;
+        seats?: string;
+        fuel?: FuelType;
+        transmission?: Transmission;
+        type?: CarType;
+        freeMiles?: string;
+        extraCost?: string
+
     }
 }
 
@@ -54,7 +72,7 @@ const Main = async ({
 
     const currentUser = await getCurrentUser();
 
-    
+
 
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)
@@ -72,19 +90,19 @@ const Main = async ({
     return (
         <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
             <div className="relative top-0 w-full z-50">
-               <HeaderLogo
+                <HeaderLogo
                     currentUser={currentUser}
                     notifications={notifications} />
             </div>
             <div>
-            <div className="relative flex justify-center mt-4">
+                <div className="relative flex justify-center mt-4">
                     <Suspense fallback={<div className="ml-4"><ClipLoader loading /></div>}>
-                    <div className="top-0 sm:mr-4 ">
-                            <LazyMainPageSideBar  />
+                        <div className="top-0 sm:mr-4 ">
+                            <LazyMainPageSideBar />
                         </div>
                     </Suspense>
                     <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
-                    <RelevanteInserate
+                        <RelevanteInserate
                             title={searchParams.title}
                             category={searchParams.category}
                             filter={searchParams.filter}
@@ -94,14 +112,29 @@ const Main = async ({
                             periodBegin={searchParams.periodBegin}
                             periodEnd={searchParams.periodEnd}
                             location={searchParams.location}
+
+                            reqAge={searchParams.reqAge} 
+                            reqLicense={searchParams.reqLicense}
+
+                            // Car specific attributes
+                            brand={searchParams.brand}
+                            doors={searchParams.doors}
+                            initial={searchParams.initial}
+                            power={searchParams.power}
+                            seats={searchParams.seats}
+                            fuel={searchParams.fuel}
+                            transmission={searchParams.transmission}
+                            type={searchParams.type}
+                            freeMiles={searchParams.freeMiles}
+                            extraCost={searchParams.extraCost}
                         />
                     </div>
                 </div>
                 <div className="p-4 flex justify-center">
-                    <PaginationComponent/>
+                    <PaginationComponent />
                 </div>
             </div>
-            
+
             <Footer />
         </div>
 

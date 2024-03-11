@@ -3,7 +3,7 @@ import { db } from "@/utils/db";
 import { AlignCenter, Search, SearchCode, TrendingUp, } from "lucide-react";
 
 import { getInserate } from "@/actions/getInserate";
-import type { Category, Images, Inserat, PkwAttribute, User } from "@prisma/client";
+import type { CarBrands, CarType, Category, FuelType, Images, Inserat, PkwAttribute, Transmission, User } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 
 const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
@@ -21,6 +21,24 @@ interface RelevanteInserateProps {
     periodBegin: string;
     periodEnd: string;
     location: string;
+
+    //conditions
+
+    reqAge?: string;
+    reqLicense?: string;
+
+    //PKW
+    brand?: CarBrands;
+    doors?: string;
+    initial?: string;
+    power?: string;
+    seats?: string;
+    fuel?: FuelType;
+    transmission?: Transmission;
+    type?: CarType;
+    freeMiles?: string;
+    extraCost?: string
+
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
@@ -32,7 +50,21 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     page,
     periodBegin,
     periodEnd,
-    location
+    location,
+
+    reqAge,
+    reqLicense,
+
+    brand,
+    doors,
+    initial,
+    power,
+    seats,
+    fuel,
+    transmission,
+    type,
+    freeMiles,
+    extraCost
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -61,13 +93,27 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         page: Number(page),
         periodBegin: periodBegin,
         periodEnd: periodEnd,
-        location: location
+        location: location,
+
+        reqAge : Number(reqAge),
+        reqLicense : reqLicense,
+
+        brand : brand,
+        doors : Number(doors),
+        initial : new Date(initial),
+        power : Number(power),
+        seats : Number(seats) || null,
+        fuel : fuel,
+        transmission : transmission,
+        type : type,
+        freeMiles : Number(freeMiles),
+        extraCost : Number(extraCost)
 
     });
 
-    
-    
-    
+
+
+
 
 
     const LoadingComponent = () => <div>Laden...</div>
@@ -112,7 +158,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                         currentUser={currentUser}
                         //@ts-ignore
                         favedInserate={favedInserate}
-                        
+
                     />
                 </Suspense>
             </div>

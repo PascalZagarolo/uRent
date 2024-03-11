@@ -2,7 +2,7 @@
 
 import { db } from "@/utils/db";
 import { Images, Inserat, User } from "@prisma/client";
-import type { Address, Category, LkwAttribute, PkwAttribute } from "@prisma/client";
+import type { Address, CarBrands, CarType, Category, FuelType, LkwAttribute, PkwAttribute, Transmission } from "@prisma/client";
 import axios from "axios";
 import { lte } from "lodash";
 
@@ -10,37 +10,54 @@ import { lte } from "lodash";
 
 
 type InserateImagesAndAttributes = Inserat & {
-    user : User;
-    images : Images[];
-    pkwAttribute : PkwAttribute;
-    lkwAttribute : LkwAttribute;
-    address : Address;
+    user: User;
+    images: Images[];
+    pkwAttribute: PkwAttribute;
+    lkwAttribute: LkwAttribute;
+    address: Address;
 
 }
 
-type GetInserate = {   
-    title? : string;
-    category? : Category;
-    filter? : string;
-    start? : number;
-    end? : number;
-    page? : number;
-    periodBegin? : string;
-    periodEnd? : string;
-    location? : string
+type GetInserate = {
+    title?: string;
+    category?: Category;
+    filter?: string;
+    start?: number;
+    end?: number;
+    page?: number;
+    periodBegin?: string;
+    periodEnd?: string;
+    location?: string;
+
+    //conditions
+
+    reqAge?: number;
+    reqLicense?: string;
+
+    //PKW
+    brand?: CarBrands;
+    doors?: number;
+    initial?: Date;
+    power?: number;
+    seats?: number;
+    fuel?: FuelType;
+    transmission?: Transmission;
+    type?: CarType;
+    freeMiles?: number;
+    extraCost?: number
 }
 
 //returns km
 function calculateDistance(lat1, lon1, lat2, lon2) {
-    const r = 6371; 
+    const r = 6371;
     const p = Math.PI / 180;
-  
+
     const a = 0.5 - Math.cos((lat2 - lat1) * p) / 2
-                  + Math.cos(lat1 * p) * Math.cos(lat2 * p) *
-                    (1 - Math.cos((lon2 - lon1) * p)) / 2;
-  
+        + Math.cos(lat1 * p) * Math.cos(lat2 * p) *
+        (1 - Math.cos((lon2 - lon1) * p)) / 2;
+
     return 2 * r * Math.asin(Math.sqrt(a));
-  }
+}
 
 
 
@@ -53,128 +70,217 @@ export const getInserate = async ({
     page,
     periodBegin,
     periodEnd,
-    location
-} : GetInserate ): Promise<InserateImagesAndAttributes[]> => {
-    
+    location,
 
-    
+    reqAge,
+    reqLicense,
+
+    brand,
+    doors,
+    initial,
+    power,
+    seats,
+    fuel,
+    transmission,
+    type,
+    freeMiles,
+    extraCost
+}: GetInserate): Promise<InserateImagesAndAttributes[]> => {
+
+
+
     try {
-        
-        if(filter === "relevance") {
+
+        if (filter === "relevance") {
             const inserate = await db.inserat.findMany({
-                where : {
-                    isPublished : true,
-                    title : {
-                        contains : title
+                where: {
+                    isPublished: true,
+                    title: {
+                        contains: title
                     },
-                    category : category,
+                    category: category,
                     ...(periodBegin || periodEnd) && {
-                        OR : [
+                        OR: [
                             {
-                                begin : {
-                                    
-                                    gte : periodBegin
-                                
-                                }, end : {
-                                    lte : periodEnd
-                                   
+                                begin: {
+
+                                    gte: periodBegin
+
+                                }, end: {
+                                    lte: periodEnd
+
                                 }
                             }, {
-                                annual : true
+                                annual: true
                             }
                         ]
                     },
-                    
+                    ...(reqAge) && {
+                        reqAge: {
+                            lte: reqAge
+                        }
+                    },
+                    ...(category === "PKW") && {
+                        pkwAttribute: {
+                            brand: brand,
+                            ...(doors) && {
+                                doors : doors
+                            },
+                            ...(seats) && {
+                                seats: {
+                                    gte: seats
+                                },
+                            },
+                            fuel: fuel,
+                            transmission: transmission,
+                            type: type,
+                            ...(freeMiles) && {
+                                freeMiles: {
+                                    gte: freeMiles
+                                }
+                            
+                            },
+                            ...(extraCost) && {
+                                extraCost: {
+                                    gte: extraCost
+                                }
+                            },
+                            ...(power) && {
+                                power: {
+                                    gte: power
+                                }
+                            },
+                        }
+                    }
 
-                    
-                }, include : {
-                    images : true,
+
+
+                }, include: {
+                    images: true,
                     user: true,
-                    pkwAttribute : true,
-                    lkwAttribute : true,
-                    address : true
-                }, orderBy : {
-                    views : "desc"
+                    pkwAttribute: true,
+                    lkwAttribute: true,
+                    address: true
+                }, orderBy: {
+                    views: "desc"
                 }
             })
             let filteredArray = [];
 
-            if(location) {
+            if (location) {
                 const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-                
+
 
                 for (const inserat of inserate) {
-                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
-                                                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
-                                                        console.log(distance);
-                                                        if(distance < 50) {
-                                                            filteredArray.push(inserat);
-                                                        }
+                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
+                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
+                    console.log(distance);
+                    if (distance < 50) {
+                        filteredArray.push(inserat);
+                    }
                 }
             } else {
                 filteredArray = inserate;
             }
-            
+
             return filteredArray;
-            
+
         } else {
             const inserate = await db.inserat.findMany({
-                where : {
-                    isPublished : true,
-                    title : {
-                        contains : title,
+                where: {
+                    isPublished: true,
+                    title: {
+                        contains: title,
                         mode: 'insensitive'
                     },
-                    category : category,
-                    price : {
-                        gte : start? start : 0,
-                        lte : end? end : 1000000,
+                    category: category,
+                    price: {
+                        gte: start ? start : 0,
+                        lte: end ? end : 1000000,
                     }, ...(periodBegin || periodEnd) && {
-                        OR : [
+                        OR: [
                             {
-                                begin : {
-                                    gte : periodBegin
-                                
-                                }, end : {
-                                    lte : periodEnd
+                                begin: {
+                                    gte: periodBegin
+
+                                }, end: {
+                                    lte: periodEnd
                                 }
                             }, {
-                                annual : true
+                                annual: true
                             }
                         ]
-                    },  
-                }, include : {
-                    images : true,
+                    },
+                    ...(reqAge) && {
+                        reqAge: {
+                            lte: reqAge
+                        }
+                    },
+                    ...(category === "PKW") && {
+                        pkwAttribute: {
+                            brand: brand,
+                            ...(doors) && {
+                                doors : doors
+                            },
+                            ...(seats) && {
+                                seats: {
+                                    gte: seats
+                                },
+                            },
+                            fuel: fuel,
+                            transmission: transmission,
+                            type: type,
+                            ...(freeMiles) && {
+                                freeMiles: {
+                                    gte: freeMiles
+                                }
+                            
+                            },
+                            ...(extraCost) && {
+                                extraCost: {
+                                    gte: extraCost
+                                }
+                            },
+                            ...(power) && {
+                                power: {
+                                    gte: power
+                                }
+                            },
+                        }
+                    }
+
+                }, include: {
+                    images: true,
                     user: true,
-                    pkwAttribute : true,
-                    lkwAttribute : true,
-                    address : true
-                }, orderBy : {
-                    price : filter === "asc" ? "asc" : "desc"
+                    pkwAttribute: true,
+                    lkwAttribute: true,
+                    address: true
+                }, orderBy: {
+                    price: filter === "asc" ? "asc" : "desc"
                 }
             })
-            
-            
+            console.log(seats)
+
 
             let filteredArray = [];
-            
-            if(location) {
+
+            if (location) {
                 const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-                
+
                 for (const inserat of inserate) {
-                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
-                                                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
-                                                        console.log(addressObject.data[0].lat)
-                                                        console.log(addressObject.data[0].lon)
-                                                        console.log(distance);
-                                                        if(distance < 50) {
-                                                            filteredArray.push(inserat);
-                                                        }
+                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
+                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
+                    console.log(addressObject.data[0].lat)
+                    console.log(addressObject.data[0].lon)
+                    console.log(distance);
+                    if (distance < 50) {
+                        filteredArray.push(inserat);
+                    }
                 }
             } else {
                 filteredArray = inserate;
             }
-            
+
             return filteredArray;
         }
     } catch {

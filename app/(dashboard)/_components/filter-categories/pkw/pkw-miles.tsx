@@ -30,7 +30,6 @@ const FreeMilesBar = () => {
             (args) => (args === '' ? undefined : args),
             z.coerce
                 .number({ invalid_type_error: 'Preis muss eine Nummer sein' })
-                .positive('Price must be positive')
                 .optional()
         ),
     })

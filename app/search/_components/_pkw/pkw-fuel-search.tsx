@@ -70,9 +70,9 @@ const PkwFuelSearch = () => {
 
 
                         <SelectItem value="BENZIN">Benzin</SelectItem>
-            <SelectItem value="DIESEL">Diesel</SelectItem>
-            <SelectItem value="ELEKTRISCH">Elektrisch</SelectItem>
-            <SelectItem value="HYBRID">Hybrid</SelectItem>
+                        <SelectItem value="DIESEL">Diesel</SelectItem>
+                        <SelectItem value="ELEKTRISCH">Elektrisch</SelectItem>
+                        <SelectItem value="HYBRID">Hybrid</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

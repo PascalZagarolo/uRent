@@ -8,6 +8,7 @@ import PkwPowerBar from "./pkw/pkw-power";
 import PkwTypeBar from "./pkw/pkw-type";
 import { Separator } from "@/components/ui/separator";
 import FreeMilesBar from "./pkw/pkw-miles";
+import ExtraMilesBar from "./pkw/pkw-extra-cost";
 
 const PkwSearchComponents = () => {
     return ( 
@@ -35,14 +36,8 @@ const PkwSearchComponents = () => {
             <h3 className="flex justify-center text-md items-center font-semibold  mt-4">
                 <Separator className="w-1/3 mr-2 bg-gray-200 h-[0.5px]" /> Kilometer <Separator className="w-1/3 ml-2 bg-gray-200 h-[0.5px]" />
             </h3>
-            
-            
-            <FreeMilesBar />
-            
-            
-            
-            
-           
+            <FreeMilesBar /> 
+            <ExtraMilesBar />
             </div>
             <PkwPowerBar />
         </div>

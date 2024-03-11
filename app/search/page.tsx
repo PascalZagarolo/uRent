@@ -9,7 +9,6 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import CategorySearch from "./_components/category-search";
 import BaseDataSearch from "./_components/base-data-search";
 import ResultsSearchPage from "./_components/results-searchpage";
-import { getSearchResults } from "@/actions/getSearchResults";
 import ConditionsSearch from "./_components/conditions-search";
 import CategorySearchRender from "./_components/category-search-render";
 
@@ -47,9 +46,6 @@ const SearchPage = async () => {
                                 </div>
                             </h3>
                         </div>
-
-
-
                         <div className="p-8 text-sm dark:text-gray-300/90 space-y-4">
                             <BaseDataSearch />
                             <ConditionsSearch />

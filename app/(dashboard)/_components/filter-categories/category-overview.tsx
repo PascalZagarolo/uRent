@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import PkwSearchComponents from "./pkw-search-components";
+import ConditionsSearchComponent from "./conditions-search-component";
 
 
 const CategoryOverview = () => {
@@ -16,7 +17,14 @@ const CategoryOverview = () => {
     return ( 
         <>
         {currentCategory && (
-            <div className="p-2 mr-2 ml-2 bg-[#1B1F2C] rounded-md">
+            <div className="">
+<ConditionsSearchComponent />
+            </div>
+        )}
+        {currentCategory && (
+            
+            <div className="p-2 mr-2 ml-2 bg-[#1B1F2C] rounded-md mt-4">
+                
                 <div className="w-full flex justify-start items-center">
                 {
                     {
@@ -41,6 +49,11 @@ const CategoryOverview = () => {
             
             </div>
         )}
+        
+           
+                
+           
+        
         <div className="p-2">
         {
                     {

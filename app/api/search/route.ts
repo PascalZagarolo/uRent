@@ -22,7 +22,7 @@ export async function PATCH(
        
         const values = await req.json();
        
-        const {location,
+        const {location, amount,
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
@@ -31,6 +31,11 @@ export async function PATCH(
 
         const results = await db.inserat.findMany({
             where : {
+                ...(amount) && {
+                    amount : {
+                        gte : amount
+                    }
+                },
                 ...filteredValues,
                 isPublished : true
             }, include : {

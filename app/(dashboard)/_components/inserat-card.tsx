@@ -25,7 +25,7 @@ import { useState } from "react";
 import toast  from "react-hot-toast";
 import { FaCar } from "react-icons/fa";
 import { GiSteeringWheel } from "react-icons/gi";
-import { PiEngineFill } from "react-icons/pi";
+import { PiEngineFill, PiVanFill } from "react-icons/pi";
 import ProfileBar from "./inserat-card/profile-bar";
 
 interface InseratCardProps {
@@ -113,10 +113,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         {
                             'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
                             'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
-                            'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " />,
-                            'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " />,
-                            'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
-                            'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " />,
+                            'TRANSPORT': <PiVanFill className=" text-gray-100 h-6 w-6 " />,
                             'TRAILOR': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
                         }[inserat.category]
                     }

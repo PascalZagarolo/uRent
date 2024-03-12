@@ -118,7 +118,7 @@ const InseratCreation = async ({
                                         className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
                                         />
                                         <h1 className="flex justify-center text-lg font-semibold">
-                                            Zeitraum
+                                            Zeitraum *
                                         </h1>
                                         <Separator 
                                         className="w-1/3 h-[0.5px] dark:bg-gray-100/20"

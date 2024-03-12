@@ -75,7 +75,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
 
 
       <div className="w-full">
-        <Label>Fahrzeugklasse</Label>
+        <Label>Fahrzeugklasse *</Label>
         <Select
           onValueChange={(selectedValue: Category) => {
             onSubmit(selectedValue);

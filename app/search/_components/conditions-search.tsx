@@ -5,6 +5,7 @@ import CautionSearch from "./condition-data/caution-search";
 import FreeMilesSearch from "./condition-data/free-miles";
 import LicenseSearch from "./condition-data/license-search";
 import ExtraMilesSearch from "./condition-data/extra-miles-search";
+import AmountSearch from "./condition-data/amount-search";
 
 const ConditionsSearch = () => {
     return (
@@ -29,10 +30,13 @@ const ConditionsSearch = () => {
 
             </div>
             <div className="w-full flex mt-4 space-x-4">
-                <div className="w-1/2">
+            <div className="w-1/3">
+                    <AmountSearch />
+                </div>
+                <div className="w-1/3">
                     <FreeMilesSearch />
                 </div>
-                <div className="w-1/2">
+                <div className="w-1/3">
                     <ExtraMilesSearch />
                 </div>
 

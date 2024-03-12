@@ -1,7 +1,9 @@
-import { Inserat, TrailerAttribute} from "@prisma/client";
+import {  Inserat, TrailerAttribute} from "@prisma/client";
 
 
 import TrailerTypeCreation from "./trailer/trailer-type";
+import TrailerCoupling from "./trailer/trailer-coupling";
+import TrailerBrake from "./trailer/trailer-brake";
 
 
 
@@ -22,10 +24,14 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                 
+                 <TrailerCoupling 
+                 coupling = {inserat.trailerAttribute?.coupling}
+                 />
                 </div>
                 <div className="w-1/2">
-                 4   
+                 <TrailerBrake 
+                 brake = {inserat.trailerAttribute?.brake}
+                 />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">

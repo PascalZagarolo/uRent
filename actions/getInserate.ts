@@ -28,7 +28,7 @@ type GetInserate = {
     periodBegin?: string;
     periodEnd?: string;
     location?: string;
-
+    amount? : number;
     //conditions
 
     reqAge?: number;
@@ -78,6 +78,7 @@ export const getInserate = async ({
     periodBegin,
     periodEnd,
     location,
+    amount,
 
     reqAge,
     reqLicense,
@@ -127,6 +128,11 @@ export const getInserate = async ({
                                 annual: true
                             }
                         ]
+                    },
+                    ...(amount) && {
+                        amount : {
+                            lte : amount
+                        }
                     },
                     ...(reqAge) && {
                         reqAge: {
@@ -225,6 +231,11 @@ export const getInserate = async ({
                                 annual: true
                             }
                         ]
+                    },
+                    ...(amount) && {
+                        amount : {
+                            gte : amount
+                        }
                     },
                     ...(reqAge) && {
                         reqAge: {

@@ -111,7 +111,7 @@ model Inserat {
   isAvailable Boolean @default(true)
   multi Boolean @default(false)
 
-  amount Int? 
+  amount Int? @default(1)
 
   emailAddress String?
   phoneNumber String?

@@ -35,6 +35,7 @@ interface MainPageProps {
         periodBegin: string,
         periodEnd: string,
         location: string,
+        amount : string,
 
         //conditions
 
@@ -118,6 +119,7 @@ const Main = async ({
                             periodBegin={searchParams.periodBegin}
                             periodEnd={searchParams.periodEnd}
                             location={searchParams.location}
+                            amount={searchParams.amount}
 
                             reqAge={searchParams.reqAge}
                             reqLicense={searchParams.reqLicense}

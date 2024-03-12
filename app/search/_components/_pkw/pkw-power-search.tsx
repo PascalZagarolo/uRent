@@ -63,7 +63,7 @@ const PkwPowerSearch = () => {
                     <Input
                         placeholder="Leistung in PS"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  
-                        border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
+                        dark:border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         onChange={(e) => {
                             setCurrentPS(Number(e.target.value));
                             setCurrentKW(Math.round(Number(e.target.value) * 0.735499));
@@ -81,7 +81,7 @@ const PkwPowerSearch = () => {
                     <Input
                         placeholder="Leistung in PS"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
-                         border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
+                         dark:border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         onChange={(e) => {
                             setCurrentKW(Number(e.target.value));
                             setCurrentPS(Math.round(Number(e.target.value) * 1.35962));

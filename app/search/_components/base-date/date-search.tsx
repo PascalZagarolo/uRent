@@ -136,7 +136,7 @@ const DateSearch = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-full pl-3 text-left font-semibold dark:bg-[#0F0F0F] border-none",
+                                  "w-full pl-3 text-left font-semibold dark:bg-[#0F0F0F] dark:border-none",
                                   !field.value && "text-muted-foreground  dark:border-none"
                                 )}
                               >

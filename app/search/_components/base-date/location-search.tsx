@@ -67,7 +67,7 @@ const currentObject = useSavedSearchParams((state) => state.searchParams)
         <Input
           ref={inputRef}
           placeholder="Standort.."
-          className=" rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0 dark:bg-[#141414] border-none"
+          className=" rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0 dark:bg-[#141414] dark:border-none"
           onChange={(e) => { setValue(e.target.value); console.log(e.target.value)}}
           
           onBlur={() => {

@@ -17,6 +17,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         start : searchParams.get("start"),
         end : searchParams.get("end"),
         license : searchParams.get("license"),
+        amount: searchParams.get("amount"),
         //Sort
         filter : searchParams.get("filter"),
         //Conditions

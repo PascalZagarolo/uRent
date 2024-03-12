@@ -21,7 +21,7 @@ interface RelevanteInserateProps {
     periodBegin: string;
     periodEnd: string;
     location: string;
-
+    amount : string;
     //conditions
 
     reqAge?: string;
@@ -58,6 +58,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     periodBegin,
     periodEnd,
     location,
+    amount,
 
     reqAge,
     reqLicense,
@@ -107,6 +108,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         periodBegin: periodBegin,
         periodEnd: periodEnd,
         location: location,
+        amount : Number(amount),
 
         reqAge: Number(reqAge),
         reqLicense: reqLicense,

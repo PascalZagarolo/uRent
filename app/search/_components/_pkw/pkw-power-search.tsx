@@ -59,7 +59,6 @@ const PkwPowerSearch = () => {
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> PS </p>
                     </Label>
-
                     <Input
                         placeholder="Leistung in PS"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  
@@ -75,9 +74,8 @@ const PkwPowerSearch = () => {
                 </div>
                 <div className="ml-4">
                     <Label className="flex justify-start items-center">
-                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> KW </p>
+                        <PinIcon className="w-4 h-4" /> <p className="ml-2 font-semibold"> KW </p>
                     </Label>
-
                     <Input
                         placeholder="Leistung in PS"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
@@ -100,7 +98,6 @@ const PkwPowerSearch = () => {
                     <Label htmlFor="KW" className="text-sm"><p className="text-sm"> KW </p></Label>
                 </div>
             </RadioGroup>
-
         </div>
     );
 };

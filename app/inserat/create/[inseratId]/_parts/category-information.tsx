@@ -1,10 +1,11 @@
 import { Separator } from "@/components/ui/separator";
-import { Inserat, LkwAttribute, PkwAttribute } from "@prisma/client";
+import { Inserat, LkwAttribute, PkwAttribute, TrailerAttribute } from "@prisma/client";
 import PkwInformation from "./pkw-information";
 import LkwInformation from "./lkw-information";
+import TrailorInformation from "./trailor-information";
 
 interface CategoryInformationProps {
-    inserat: Inserat & { pkwAttribute? : PkwAttribute, lkwAttribute : LkwAttribute};
+    inserat: Inserat & { pkwAttribute? : PkwAttribute, lkwAttribute? : LkwAttribute, trailerAttribute? : TrailerAttribute};
 }
 
 const CategoryInformation: React.FC<CategoryInformationProps> = ({
@@ -17,7 +18,13 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                     className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
                 />
                 <h1 className="flex justify-center text-lg font-semibold">
-                    {inserat.category} - Details
+                    {
+                        {
+                            'PKW': 'PKW',
+                            'LKW' : 'LKW',
+                            'TRAILOR' : 'Anhänger',
+                        }[inserat.category]
+                    } - Details
                 </h1>
                 <Separator
                     className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
@@ -32,6 +39,9 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                         'LKW': <LkwInformation 
                         inserat = { inserat }
                         />,
+                        'TRAILOR' : <TrailorInformation 
+                        inserat = { inserat }
+                        />
                     }[inserat.category]
                 }
             </div>

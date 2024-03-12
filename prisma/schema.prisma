@@ -129,6 +129,7 @@ model Inserat {
   address Address?
   pkwAttribute PkwAttribute?
   lkwAttribute LkwAttribute?
+  trailerAttribute TrailerAttribute?
 
   views Int @default(0)
 
@@ -463,6 +464,7 @@ enum LoadingType {
   AUFFAHRRAMPE
   LADERAMPE
   KRAN
+  MITNAHMESTAPLER
 }
 
 enum ApplicationType {
@@ -483,7 +485,52 @@ enum ApplicationType {
 
 }
 
+model TrailerAttribute {
+  id String @id @default(uuid())
 
+  type TrailerType?
+  coupling CouplingType?
+  loading LoadingType?
+  extraType ExtraType?
+
+  axis Int?
+
+  brake Boolean?
+
+  inseratId String?
+  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  @@unique([inseratId])
+}
+
+enum TrailerType {
+  KLEIN
+  SATTEL
+  ANHAENGER
+}
+
+enum CouplingType {
+  KUGELKOPFKUPPLUNG
+  MAULKUPPLUNG
+}
+
+enum ExtraType {
+  CONTAINERTRANSPORT
+  
+  FAHRZEUGTRANSPORT
+  FLUESSIGKEITSTRANSPORT
+
+  KASTENWAGEN
+  KOFFERAUFBAU
+  KUEHLAUFBAU
+
+  MOEBELTRANSPORT
+  MULDENKIPPER
+
+  PERSONENTRANSPORT
+  PLANE
+  PRITSCHE
+}
 
 model Address {
   id String @id @default(uuid())

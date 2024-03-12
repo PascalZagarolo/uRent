@@ -60,12 +60,12 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
         try {
 
             const values = {
-                amount : currentValue
+                amount : Number(currentValue)
             }
 
             setIsLoading(true);
             axios.patch(`/api/inserat/${inserat.id}`, values);
-            toast.success("Preis erfolgreich gespeichert");
+            
             setTimeout(() => {
                 router.refresh();
             }, 1000)
@@ -125,7 +125,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            type="submit" disabled={!currentValue || currentValue === inserat.amount || inserat.multi === false}
+                            onClick={onSubmit} disabled={!currentValue || Number(currentValue) === inserat.amount || inserat.multi === false}
                         >
                             Anzahl angeben
                         </Button>

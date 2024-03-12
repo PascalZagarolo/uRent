@@ -1,10 +1,10 @@
 
 
 import { db } from "@/utils/db";
-import { Images, Inserat, User } from "@prisma/client";
-import type { Address, CarBrands, CarType, Category, FuelType, LkwAttribute, PkwAttribute, Transmission } from "@prisma/client";
+import { Images, Inserat, LkwBrand, User } from "@prisma/client";
+import type { Address, ApplicationType, CarBrands, CarType, Category, DriveType, FuelType, LkwAttribute, LoadingType, PkwAttribute, Transmission } from "@prisma/client";
 import axios from "axios";
-import { lte } from "lodash";
+
 
 
 
@@ -44,7 +44,14 @@ type GetInserate = {
     transmission?: Transmission;
     type?: CarType;
     freeMiles?: number;
-    extraCost?: number
+    extraCost?: number;
+
+    //LKW
+    weightClass? : number;
+    drive? : DriveType;
+    loading? : LoadingType;
+    application? : ApplicationType;
+    lkwBrand? : LkwBrand;
 }
 
 //returns km
@@ -84,7 +91,13 @@ export const getInserate = async ({
     transmission,
     type,
     freeMiles,
-    extraCost
+    extraCost,
+
+    weightClass,
+    drive,
+    loading,
+    application,
+    lkwBrand
 }: GetInserate): Promise<InserateImagesAndAttributes[]> => {
 
 
@@ -120,6 +133,7 @@ export const getInserate = async ({
                             lte: reqAge
                         }
                     },
+                    //PKW-Attribute
                     ...(category === "PKW") && {
                         pkwAttribute: {
                             brand: brand,
@@ -152,7 +166,8 @@ export const getInserate = async ({
                             },
                         }
                     }
-
+                    
+                    
 
 
                 }, include: {
@@ -216,6 +231,7 @@ export const getInserate = async ({
                             lte: reqAge
                         }
                     },
+                    //PKW-Attribute
                     ...(category === "PKW") && {
                         pkwAttribute: {
                             brand: brand,
@@ -246,6 +262,24 @@ export const getInserate = async ({
                                     gte: power
                                 }
                             },
+                        }
+                    },
+                    //LKW-Attribute
+                    ...(category === "LKW") && {
+                        lkwAttribute: {
+                            lkwBrand: lkwBrand,
+                            ...(weightClass) && {
+                                weightClass : weightClass
+                            },
+                            ...(seats) && {
+                                seats: {
+                                    gte: seats
+                                },
+                            },
+                            drive : drive,
+                            loading: loading,
+                            application : application,
+                            
                         }
                     }
 

@@ -118,7 +118,7 @@ const ExtraCost: React.FC<ExtraCostProps> = ({
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                             type="submit" disabled={!isValid || isSubmitting || currentValue == inserat.pkwAttribute?.extraCost}
                         >
-                            Zusatskosten angeben
+                            Zusatzkosten angeben
                         </Button>
                         
                     </div>

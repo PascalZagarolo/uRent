@@ -125,8 +125,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium sm:w-[320px] h-[40px]
                      hover:cursor-pointer hover:underline dark:text-gray-100 " onClick={onRedirect}> {inserat.title} </div>
                 </div>
-                <div className="ml-auto items-center sm:flex hidden">
-
+                <div className="ml-auto items-center sm:flex hidden ">
+                    
                     <p className="">
                         <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
                             dark:border dark:border-[#171923]  dark:hover:none">

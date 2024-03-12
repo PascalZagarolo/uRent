@@ -1,6 +1,6 @@
 'use client';
 
-import { CarFront, FilterIcon,SearchIcon, Settings2, Truck, X } from "lucide-react";
+import { ArrowLeftCircle, CarFront, FilterIcon,SearchIcon, Settings2, Truck, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
@@ -124,8 +124,8 @@ const MainPageSideBar= () => {
                 <div>
                     <CategoryOverview />
                 </div>
-                <div className="text-xs flex justify-center mt-2 text-gray-100 underline hover:cursor-pointer" onClick={() => {router.push("/search")}}>
-                    <Settings2 className="mr-2 h-4 w-4" /> Zu der Erweiterten Suche
+                <div className="text-xs flex justify-center text-gray-100 underline hover:cursor-pointer" onClick={() => {router.push("/search")}}>
+                    <Settings2 className="mr-2 h-4 w-4" /> Erweiterte Suche
                 </div>
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
                     <Button className="bg-blue-800 w-full h-[100px]  ml-2 mr-2  flex 

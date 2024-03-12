@@ -107,8 +107,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-            <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center  rounded-md mr-2",)} >
-                <div className="bg-[#181c28] p-2 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center w-full rounded-md mr-2",)} >
+                <div className="bg-[#181c28] p-2 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-1/10">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
@@ -118,20 +118,34 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         }[inserat.category]
                     }
                 </div>
-                <div className="px-2 py-1 mt-1 rounded-md  ">
-                    <div className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium sm:w-[320px] h-[40px]
+                <div className="px-2 py-1 mt-1 rounded-md w-1/2">
+                    <div className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-full h-[40px]
                      hover:cursor-pointer hover:underline dark:text-gray-100 " onClick={onRedirect}> {inserat.title} </div>
                 </div>
-                <div className="ml-auto items-center sm:flex hidden ">
+                {inserat?.multi && (
+                    <span className="p-4 text-xs text-gray-100 border-white border-dashed border bg-[#191B27] rounded-md flex items-center">
+{
+                        {
+                            'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
+                            'LKW': <Truck className=" text-gray-100 h-4 w-4 mr-2" />,
+                            'TRANSPORT': <PiVanFill className=" text-gray-100 h-4 w-4 mr-2" />,
+                            'TRAILOR': <CaravanIcon className=" text-gray-100 h-4 w-4 mr-2" />
+                        }[inserat.category]
+                    }
+
+                       Noch <p className=" font-black px-1 ">{inserat?.amount}</p> verfügbar
+                    </span>
+                )}
+                <div className="ml-auto items-center sm:flex hidden">
                     
-                    <p className="">
+                    
                         <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
                             dark:border dark:border-[#171923]  dark:hover:none">
                             <Star className={cn(isFaved ? "text-yellow-300" : "text-black")} />
                         </Button>
-                    </p>
+                    
                 </div>
-
+                    
             </h3>
 
             <div className="flex justify-center h-[200px] items-center   w-full">

@@ -74,13 +74,13 @@ const PkwPowerBar = () => {
     return (
         <div className="items-center w-full">
 
-            <h3 className="flex justify-center text-md items-center font-semibold">
+            <h3 className="flex justify-center text-md items-center font-semibold text-gray-200">
                 <Separator className="w-1/3 mr-2 bg-gray-200" /> Leistung <Separator className="w-1/3 ml-2 bg-gray-200" />
             </h3>
             <div className="flex mt-4 w-full gap-x-4">
 
             <div className="items-center  w-1/2">
-                    <Label className="flex justify-start items-center">
+                    <Label className="flex justify-start items-center text-gray-200">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> PS </p>
                     </Label>
 
@@ -99,7 +99,7 @@ const PkwPowerBar = () => {
                 </div>
                 
                 <div className="w-1/2">
-                    <Label className="flex justify-start items-center">
+                    <Label className="flex justify-start items-center text-gray-200">
                         <PinIcon className="w-4 h-4" /> <div className="ml-2 font-semibold flex items-center w-full"> KW 
                         <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} /> </div>
                         
@@ -120,10 +120,10 @@ const PkwPowerBar = () => {
                 </div>
             </div>
             <RadioGroup className="mt-2" defaultValue="PS">
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="PS" id="PS" className="h-2 w-2" onClick={() => { setUsesPS(true) }} />
+                <div className="flex items-center space-x-2 text-gray-200">
+                    <RadioGroupItem value="PS" id="PS" className="h-2 w-2 bg-gray-200" onClick={() => { setUsesPS(true) }} />
                     <Label htmlFor="PS" className="text-sm"><p className="text-sm"> PS </p></Label>
-                    <RadioGroupItem value="KW" id="KW" className="h-2 w-2" onClick={() => { setUsesPS(false) }} />
+                    <RadioGroupItem value="KW" id="KW" className="h-2 w-2 bg-gray-200" onClick={() => { setUsesPS(false) }} />
                     <Label htmlFor="KW" className="text-sm"><p className="text-sm"> KW </p></Label>
                 </div>
             </RadioGroup>

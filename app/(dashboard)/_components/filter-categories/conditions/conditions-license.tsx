@@ -51,7 +51,7 @@ const LicenseBar = () => {
         <div className="w-full">
             <div className="w-full">
             <Label className="flex justify-start items-center ">
-                        <p className="ml-2 font-semibold"> Führerschein </p>
+                        <p className="ml-2 font-semibold text-gray-200"> Führerschein </p>
                     </Label>
                     
         <Select

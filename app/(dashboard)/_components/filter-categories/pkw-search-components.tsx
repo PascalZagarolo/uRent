@@ -33,7 +33,7 @@ const PkwSearchComponents = () => {
             <PkwTypeBar />
             
             <div className="w-full gap-x-2 space-y-4">
-            <h3 className="flex justify-center text-md items-center font-semibold  mt-4">
+            <h3 className="flex justify-center text-md items-center font-semibold  mt-4 text-gray-200">
                 <Separator className="w-1/3 mr-2 bg-gray-200 h-[0.5px]" /> Kilometer <Separator className="w-1/3 ml-2 bg-gray-200 h-[0.5px]" />
             </h3>
             <FreeMilesBar /> 

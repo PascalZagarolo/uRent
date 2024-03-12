@@ -51,7 +51,7 @@ const PkwBrandBar = () => {
         <div className="w-full">
             <div className="w-full">
             <Label className="flex justify-start items-center ">
-                        <p className="ml-2 font-semibold"> Marke </p>
+                        <p className="ml-2 font-semibold text-gray-200"> Marke </p>
                     </Label>
                     
         <Select

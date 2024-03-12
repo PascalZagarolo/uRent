@@ -53,8 +53,8 @@ const PkwSeatsBar = () => {
     return (
         <div className="w-full">
             <div className="w-full">
-                <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Sitze </p> 
+                <Label className="flex justify-start items-center text-gray-200">
+                    <p className="ml-2 font-semibold text-gray-200"> Sitze </p> 
                 </Label>
 
                 <Select

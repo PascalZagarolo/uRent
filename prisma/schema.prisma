@@ -109,6 +109,9 @@ model Inserat {
 
   alreadyOwned Boolean @default(false)
   isAvailable Boolean @default(true)
+  multi Boolean @default(false)
+
+  amount Int? 
 
   emailAddress String?
   phoneNumber String?

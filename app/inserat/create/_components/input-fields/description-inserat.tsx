@@ -91,7 +91,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
         <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
             <h1 className="text-md flex justify-start  font-semibold    text-gray-900  dark:text-gray-100 items-center" 
             >
-               <AppWindow className="mr-2 h-4 w-4"/> Beschreibung 
+               <AppWindow className="mr-2 h-4 w-4"/> Beschreibung *
             </h1>
             
             <div className=" mt-2 bg-white dark:bg-[#0F0F0F]  p-4 rounded-md  h-[120px]" >

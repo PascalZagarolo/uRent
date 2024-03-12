@@ -69,7 +69,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
         <div className="">
             <h3 className="flex justify-center font-semibold text-md items-center">
                 <ImageIcon className="mr-2 h-4 w-4" />
-                Fotos und Anhänge
+                Fotos und Anhänge *
                 <CldUploadButton
                     onUpload={handleImageUpload}
                     uploadPreset="oblbw2xl"

@@ -119,7 +119,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
              bg-white p-8  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h3 className="w-full font-bold text-xl flex justify-center">
                 <CalendarClockIcon className="mr-2"/>
-                Mietdauer
+                Mietdauer 
                 
             </h3>
             

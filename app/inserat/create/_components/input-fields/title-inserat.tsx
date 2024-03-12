@@ -42,9 +42,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
     const router = useRouter();
 
-    const onClick = () => {
-        setIsEditing(isEditing => !isEditing);
-    }
+    
 
     const onSubmit = (values : z.infer<typeof formSchema>) => {
         try {
@@ -85,7 +83,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
     return ( 
         <div className=" drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]   rounded-md">
             <h1 className="text-md flex justify-start  font-semibold   text-gray-900  dark:text-gray-100 items-center">
-                <AlignCenter className="mr-2  h-4 w-4"/>Titel deiner Anzeige 
+                <AlignCenter className="mr-2  h-4 w-4"/>Titel deiner Anzeige *
             </h1>
             <div>
                 

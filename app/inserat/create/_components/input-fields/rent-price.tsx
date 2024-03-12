@@ -65,7 +65,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormLabel className="flex justify-start items-center">
-                        <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Mietpreis </p>
+                        <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Mietpreis *</p>
                     </FormLabel>
                     <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
                     <FormField

@@ -8,6 +8,8 @@ import RentPeriod from "../../_components/input-fields/rent-period";
 import RentPrice from "../../_components/input-fields/rent-price";
 import SelectPrice from "../../_components/input-fields/rent-price";
 import SelectLicenseInserat from "../../_components/input-fields/select-license";
+import SelectInseratType from "../../_components/input-fields/select-inserat-type";
+import SelectVehicleAmount from "../../_components/input-fields/select-vehicle-amount";
 
 
 interface BasicInformationProps {
@@ -33,13 +35,13 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
             </div>
             <div className="mt-4 flex w-full justify-between items-center">
                 <div className="w-1/2">
-                <SelectCategoryInserat
-                    inserat={inserat}
-                />
+                    <SelectCategoryInserat
+                        inserat={inserat}
+                    />
                 </div>
                 <div className="w-1/2">
-                    <SelectLicenseInserat 
-                    inserat={inserat}
+                    <SelectLicenseInserat
+                        inserat={inserat}
                     />
                 </div>
 
@@ -49,12 +51,26 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                     images={images}
                 />
             </div>
-            <div className="mt-4">
-                
-                        <SelectPrice
-                            inserat={inserat}
+            <div className="mt-4 w-full flex gap-x-4">
+
+                <div className="w-1/2">
+                    <SelectPrice
+                        inserat={inserat}
+                    />
+                </div>
+                <div className="w-1/2 flex gap-x-2">
+                    <div className="w-1/2">
+                        <SelectInseratType 
+                        inserat={inserat}
                         />
-                    
+                    </div>
+                    <div className="w-1/2">
+                        <SelectVehicleAmount
+                        inserat = {inserat}
+                        />
+                    </div>
+                </div>
+
             </div>
 
         </div>

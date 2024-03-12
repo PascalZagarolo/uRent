@@ -29,6 +29,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
 
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentDescription, setCurrentDescription] = useState(inserat?.description || "")
 
     const router = useRouter();
 
@@ -48,8 +49,13 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
     })
 
 
-    const onSubmit = (values : z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
         try {
+
+            const values = {
+                description : currentDescription
+            }
+
             setIsLoading(true);
             axios.patch(`/api/inserat/${inserat.id}`, values)
             toast.success("Beschreibung erfolgreich gespeichert")
@@ -91,7 +97,11 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
         <div className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
             <h1 className="text-md flex justify-start  font-semibold    text-gray-900  dark:text-gray-100 items-center" 
             >
-               <AppWindow className="mr-2 h-4 w-4"/> Beschreibung *
+               <AppWindow className="mr-2 h-4 w-4"/> Beschreibung * 
+               <Button className="ml-auto dark:bg-[#0F0F0F] dark:hover:bg-[#1a1a1a] dark:text-gray-100 text-xs font-semibold"
+               onClick={onSubmit}
+               disabled={currentDescription === inserat.description || isLoading || !currentDescription}
+               > Änderungen speichern </Button>
             </h1>
             
             <div className=" mt-2 bg-white dark:bg-[#0F0F0F]  p-4 rounded-md  h-[120px]" >
@@ -110,9 +120,9 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                                     {...field}
                                     className="  dark:bg-[#0F0F0F]"
                                     ref={textareaRef}
-                                    onKeyDown={(e) => {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
+                                    onChange={(e) => {setCurrentDescription(e.target.value)}}
+                                    value={currentDescription}
                                     onBlur={(e) => {setIsEditing(false)}}
-                                    
                                     />
                                 </FormControl>
                                 <FormMessage/>
@@ -131,7 +141,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
 
                         {inserat.description ? (
                             <p className=" text-gray-900  text-sm max-h-[100px] overflow-hidden dark:text-gray-100 ">
-                            {inserat.description}
+                            {currentDescription}
                           </p>
                         ) : (
                             <p className=" text-gray-900/50 italic text-sm dark:text-gray-100"> Noch keine Beschreibung hinzugefügt </p>

@@ -54,7 +54,7 @@ const RequiredAgeBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Min. Alter </p>
+                    <p className="ml-2 font-semibold text-gray-200"> Min. Alter </p>
                 </Label>
 
                 <Select

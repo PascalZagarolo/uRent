@@ -74,7 +74,7 @@ const FreeMilesBar = () => {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormLabel className="flex justify-start items-center">
-                        <div className="ml-2 font-semibold flex items-center w-full"> <TbSteeringWheel className="mr-2" /> Freikilometer
+                        <div className="ml-2 font-semibold flex items-center w-full text-gray-200"> <TbSteeringWheel className="mr-2" /> Freikilometer
                             <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} />
                         </div>
                     </FormLabel>

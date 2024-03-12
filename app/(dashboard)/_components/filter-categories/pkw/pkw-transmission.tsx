@@ -50,7 +50,7 @@ const PkwTransmissionBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Getriebe </p>
+                    <p className="ml-2 font-semibold text-gray-200"> Getriebe </p>
                 </Label>
 
                 <Select

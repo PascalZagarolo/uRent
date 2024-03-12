@@ -72,8 +72,8 @@ const ExtraMilesBar = () => {
         <div className=" ">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <FormLabel className="flex justify-start items-center">
-                        <div className="ml-2 font-semibold flex items-center w-full"> <GiReceiveMoney  className="w-4 h-4 mr-2" /> Kosten/Km
+                    <FormLabel className="flex justify-start items-center text-gray-200">
+                        <div className="ml-2 font-semibold flex items-center w-full"> <GiReceiveMoney  className="w-4 h-4 mr-2 text-gray-200" /> Kosten/Km
                             <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} />
                         </div>
                     </FormLabel>

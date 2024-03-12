@@ -8,8 +8,8 @@ const ConditionsSearchComponent = () => {
         <div className="  mr-2 ml-2 space-y-4">
             <div className="p-2 bg-[#1B1F2C] rounded-md">
 
-                <div className="w-full flex justify-start items-center text-lg">
-                    <IoIosPaper className="h-6 w-6 mr-4" />    Mietkonditionen
+                <div className="w-full flex justify-start items-center text-lg text-gray-200">
+                    <IoIosPaper className="h-6 w-6 mr-4"/>    Mietkonditionen
                 </div>
             </div>
             <div className="w-full flex gap-x-4">

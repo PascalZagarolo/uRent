@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { AlignCenter, CarIcon, User2 } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ProfileViewProps {
     user: User;
@@ -28,9 +28,11 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
     const params = useParams();
 
+    const [firstReload, setFirstReload] = useState(false);
+
     useEffect(() => {
         axios.patch(`/api/inserat/${params.inseratId}/view`);
-    })
+    },[])
 
     const router = useRouter();
 

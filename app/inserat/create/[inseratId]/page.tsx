@@ -30,6 +30,7 @@ const InseratCreation = async ({
             user: true,
             pkwAttribute : true,
             lkwAttribute : true,
+            trailerAttribute : true,
         }
     })
 

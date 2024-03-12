@@ -74,7 +74,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
                 <div className="flex">
                  {!isNaN(averageRating) ? <p className="font-semibold flex dark:text-gray-100 text-gray-200"> {averageRating} / 5  <CarIcon className="ml-2" /> </p>  : 
-                 <p className="text-sm text-gray-900/50 dark:text-gray-100/80">keine Bewertungen vorhanden</p>} 
+                 <p className="text-sm text-gray-100/80">keine Bewertungen vorhanden</p>} 
 
                 </div>
 

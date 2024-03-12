@@ -50,7 +50,7 @@ const LkwBrandBar = () => {
     return ( 
         <div className="w-full">
             <div className="w-full">
-            <Label className="flex justify-start items-center ">
+            <Label className="flex justify-start items-center text-gray-200">
                         <p className="ml-2 font-semibold"> Marke </p>
                     </Label>
                     

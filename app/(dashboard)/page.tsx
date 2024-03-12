@@ -6,7 +6,7 @@ import getCurrentUser from "../../actions/getCurrentUser";
 
 import { Images, Inserat } from "@prisma/client";
 
-import type { CarBrands, CarType, Category, FuelType, Transmission } from "@prisma/client";
+import type { ApplicationType, CarBrands, CarType, Category, DriveType, FuelType, LkwBrand, LoadingType, Transmission } from "@prisma/client";
 import { db } from "@/utils/db";
 
 import HeaderLogo from "./_components/header-logo";
@@ -51,7 +51,13 @@ interface MainPageProps {
         transmission?: Transmission;
         type?: CarType;
         freeMiles?: string;
-        extraCost?: string
+        extraCost?: string;
+
+        weightClass?: string;
+        drive?: DriveType;
+        loading?: LoadingType;
+        application: ApplicationType;
+        lkwBrand?: LkwBrand;
 
     }
 }
@@ -113,7 +119,7 @@ const Main = async ({
                             periodEnd={searchParams.periodEnd}
                             location={searchParams.location}
 
-                            reqAge={searchParams.reqAge} 
+                            reqAge={searchParams.reqAge}
                             reqLicense={searchParams.reqLicense}
 
                             // Car specific attributes
@@ -127,6 +133,13 @@ const Main = async ({
                             type={searchParams.type}
                             freeMiles={searchParams.freeMiles}
                             extraCost={searchParams.extraCost}
+
+                            //LKW specific attributes
+                            weightClass={searchParams.weightClass}
+                            drive={searchParams.drive}
+                            loading={searchParams.loading}
+                            application={searchParams.application}
+                            lkwBrand={searchParams.lkwBrand}
                         />
                     </div>
                 </div>

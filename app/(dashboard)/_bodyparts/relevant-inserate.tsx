@@ -3,7 +3,7 @@ import { db } from "@/utils/db";
 import { AlignCenter, Search, SearchCode, TrendingUp, } from "lucide-react";
 
 import { getInserate } from "@/actions/getInserate";
-import type { CarBrands, CarType, Category, FuelType, Images, Inserat, PkwAttribute, Transmission, User } from "@prisma/client";
+import type { ApplicationType, CarBrands, CarType, Category, DriveType, FuelType, Images, Inserat, LkwBrand, LoadingType, PkwAttribute, Transmission, User } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 
 const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
@@ -37,7 +37,14 @@ interface RelevanteInserateProps {
     transmission?: Transmission;
     type?: CarType;
     freeMiles?: string;
-    extraCost?: string
+    extraCost?: string;
+
+    //LKW
+    weightClass?: string;
+    drive?: DriveType;
+    loading?: LoadingType;
+    application: ApplicationType;
+    lkwBrand?: LkwBrand;
 
 }
 
@@ -64,7 +71,13 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     transmission,
     type,
     freeMiles,
-    extraCost
+    extraCost,
+
+    weightClass,
+    drive,
+    loading,
+    application,
+    lkwBrand
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -95,19 +108,25 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         periodEnd: periodEnd,
         location: location,
 
-        reqAge : Number(reqAge),
-        reqLicense : reqLicense,
+        reqAge: Number(reqAge),
+        reqLicense: reqLicense,
 
-        brand : brand,
-        doors : Number(doors),
-        initial : new Date(initial),
-        power : Number(power),
-        seats : Number(seats) || null,
-        fuel : fuel,
-        transmission : transmission,
-        type : type,
-        freeMiles : Number(freeMiles),
-        extraCost : Number(extraCost)
+        brand: brand,
+        doors: Number(doors),
+        initial: new Date(initial),
+        power: Number(power),
+        seats: Number(seats) || null,
+        fuel: fuel,
+        transmission: transmission,
+        type: type,
+        freeMiles: Number(freeMiles),
+        extraCost: Number(extraCost),
+
+        weightClass: Number(weightClass),
+        drive: drive,
+        loading: loading,
+        application: application,
+        lkwBrand: lkwBrand,
 
     });
 

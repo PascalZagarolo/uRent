@@ -10,6 +10,7 @@ import { useParams, usePathname, useRouter, useSearchParams } from "next/navigat
 import { useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { FaRegIdCard } from "react-icons/fa";
 
 
 
@@ -51,7 +52,7 @@ const LicenseBar = () => {
         <div className="w-full">
             <div className="w-full">
             <Label className="flex justify-start items-center ">
-                        <p className="ml-2 font-semibold text-gray-200"> Führerschein </p>
+                        <p className="ml-2 font-semibold text-gray-200 flex"> <FaRegIdCard className="h-4 w-4 mr-2" /> Führerschein </p>
                     </Label>
                     
         <Select

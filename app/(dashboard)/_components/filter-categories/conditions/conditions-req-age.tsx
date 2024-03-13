@@ -13,6 +13,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useState } from "react";
 import qs from "query-string";
+import { User2Icon } from "lucide-react";
 
 
 
@@ -54,7 +55,7 @@ const RequiredAgeBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold text-gray-200"> Min. Alter </p>
+                    <p className="ml-2 font-semibold text-gray-200 flex"> <User2Icon className="w-4 h-4 mr-2" />Min. Alter </p>
                 </Label>
 
                 <Select

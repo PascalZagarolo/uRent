@@ -5,6 +5,7 @@ import { CarFrontIcon, ConstructionIcon, DoorClosedIcon, Globe2, MapPin, MapPinn
 import { FaTruckMoving } from "react-icons/fa";
 import { PiCouchFill, PiEngine } from "react-icons/pi";
 import { LiaTruckLoadingSolid } from "react-icons/lia";
+import { TbCarCrane } from "react-icons/tb";
 
 interface LkwAttributeRenderProps {
     attributes: LkwAttribute
@@ -34,7 +35,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
             {attributes?.loading && (
                 
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <PiEngine className="w-4 h-4 mr-2" />    {attributes.loading.substring(0,1)}{attributes.loading.substring(1).toLowerCase()}   
+                    <TbCarCrane  className="w-4 h-4 mr-2" />    {attributes.loading.substring(0,1)}{attributes.loading.substring(1).toLowerCase()}   
                 </div>
             )}
             {attributes?.drive && (

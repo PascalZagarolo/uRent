@@ -14,12 +14,12 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 
 
-const LkwLoadingBar = () => {
-    const brand = useSearchParams().get("loading");
-    const [currentBrand, setCurrentBrand] = useState(brand);
+const TrailerWeightClassBar = () => {
+    const weightClass = useSearchParams().get("weightClass");
+    const [currentWeight, setCurrentWeight] = useState(weightClass);
     const [isLoading, setIsLoading] = useState(false);
 
-    const params = getSearchParamsFunction("loading")
+    const params = getSearchParamsFunction("weightClass")
 
     const pathname = usePathname();
 
@@ -28,11 +28,11 @@ const LkwLoadingBar = () => {
 
 
     const onSubmit = (selectedValue: string) => {
-        setCurrentBrand(selectedValue)
+        setCurrentWeight(selectedValue)
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                loading: selectedValue,
+                weightClass: selectedValue,
                 ...params
             }
         }, { skipEmptyString: true, skipNull: true })
@@ -51,14 +51,14 @@ const LkwLoadingBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center text-gray-200">
-                    <p className="ml-2 font-semibold"> Ladevorrichtung </p>
+                    <p className="ml-2 font-semibold"> Gewichtsklasse </p>
                 </Label>
 
                 <Select
                     onValueChange={(brand) => {
                         onSubmit(brand)
                     }}
-                    value={currentBrand}
+                    value={currentWeight}
                     disabled={isLoading}
                 >
 
@@ -73,13 +73,20 @@ const LkwLoadingBar = () => {
                         />
                     </SelectTrigger>
 
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value={null} className="font-semibold">
-                            Beliebig
-                        </SelectItem>
-                        <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
-                        <SelectItem value="LADERAMPE">Laderampe</SelectItem>
-                        <SelectItem value="KRAN">Kran</SelectItem>
+                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
+                    <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                        <SelectItem value="75">0,75 t</SelectItem>
+                        <SelectItem value="150">1,5 t</SelectItem>
+                        <SelectItem value="280">2,8 t</SelectItem>
+                        <SelectItem value="350">3,5 t</SelectItem>
+                        <SelectItem value="750">7,5 t</SelectItem>
+                        <SelectItem value="1200">12 t</SelectItem>
+                        <SelectItem value="1800">18 t</SelectItem>
+                        <SelectItem value="2600">26 t</SelectItem>
+                        <SelectItem value="3200">32 t</SelectItem>
+                        <SelectItem value="3900">39 t</SelectItem>
+                        <SelectItem value="5000">{'>'} 39 t</SelectItem>
+                        
                     </SelectContent>
                 </Select>
             </div>
@@ -87,4 +94,4 @@ const LkwLoadingBar = () => {
     );
 }
 
-export default LkwLoadingBar;
+export default TrailerWeightClassBar;

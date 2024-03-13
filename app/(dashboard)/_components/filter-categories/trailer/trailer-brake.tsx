@@ -14,12 +14,12 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 
 
-const LkwLoadingBar = () => {
-    const brand = useSearchParams().get("loading");
-    const [currentBrand, setCurrentBrand] = useState(brand);
+const TrailerBrakeBar = () => {
+    const brake = useSearchParams().get("brake");
+    const [currentBrand, setCurrentBrand] = useState(brake);
     const [isLoading, setIsLoading] = useState(false);
 
-    const params = getSearchParamsFunction("loading")
+    const params = getSearchParamsFunction("brake")
 
     const pathname = usePathname();
 
@@ -32,7 +32,7 @@ const LkwLoadingBar = () => {
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                loading: selectedValue,
+                brake: selectedValue,
                 ...params
             }
         }, { skipEmptyString: true, skipNull: true })
@@ -51,7 +51,7 @@ const LkwLoadingBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center text-gray-200">
-                    <p className="ml-2 font-semibold"> Ladevorrichtung </p>
+                    <p className="ml-2 font-semibold"> Auflaufbremse </p>
                 </Label>
 
                 <Select
@@ -77,9 +77,9 @@ const LkwLoadingBar = () => {
                         <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
-                        <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
-                        <SelectItem value="LADERAMPE">Laderampe</SelectItem>
-                        <SelectItem value="KRAN">Kran</SelectItem>
+                        <SelectItem value="true">ja</SelectItem>
+                        <SelectItem value="false">nein</SelectItem>
+                        
                     </SelectContent>
                 </Select>
             </div>
@@ -87,4 +87,4 @@ const LkwLoadingBar = () => {
     );
 }
 
-export default LkwLoadingBar;
+export default TrailerBrakeBar;

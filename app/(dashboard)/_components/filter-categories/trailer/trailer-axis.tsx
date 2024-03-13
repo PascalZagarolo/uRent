@@ -14,12 +14,12 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 
 
-const LkwLoadingBar = () => {
-    const brand = useSearchParams().get("loading");
-    const [currentBrand, setCurrentBrand] = useState(brand);
+const TrailerAxisBar = () => {
+    const axis = useSearchParams().get("axis");
+    const [currentWeight, setCurrentWeight] = useState(axis);
     const [isLoading, setIsLoading] = useState(false);
 
-    const params = getSearchParamsFunction("loading")
+    const params = getSearchParamsFunction("axis")
 
     const pathname = usePathname();
 
@@ -28,11 +28,11 @@ const LkwLoadingBar = () => {
 
 
     const onSubmit = (selectedValue: string) => {
-        setCurrentBrand(selectedValue)
+        setCurrentWeight(selectedValue)
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                loading: selectedValue,
+                axis: selectedValue,
                 ...params
             }
         }, { skipEmptyString: true, skipNull: true })
@@ -51,14 +51,14 @@ const LkwLoadingBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center text-gray-200">
-                    <p className="ml-2 font-semibold"> Ladevorrichtung </p>
+                    <p className="ml-2 font-semibold"> Anz. Achsen </p>
                 </Label>
 
                 <Select
                     onValueChange={(brand) => {
                         onSubmit(brand)
                     }}
-                    value={currentBrand}
+                    value={currentWeight}
                     disabled={isLoading}
                 >
 
@@ -73,13 +73,14 @@ const LkwLoadingBar = () => {
                         />
                     </SelectTrigger>
 
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value={null} className="font-semibold">
-                            Beliebig
-                        </SelectItem>
-                        <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
-                        <SelectItem value="LADERAMPE">Laderampe</SelectItem>
-                        <SelectItem value="KRAN">Kran</SelectItem>
+                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
+                        <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                        <SelectItem value="4">4</SelectItem>
+                        <SelectItem value="5">{'>'} 4 </SelectItem>
+                        
+
                     </SelectContent>
                 </Select>
             </div>
@@ -87,4 +88,4 @@ const LkwLoadingBar = () => {
     );
 }
 
-export default LkwLoadingBar;
+export default TrailerAxisBar;

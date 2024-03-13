@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import { useSavedSearchParams } from '../../../store';
 import LkwSearch from './category-data/lkw-search';
 import PkwSearch from './category-data/pkw-search';
+import TransportSearch from './category-data/transport-search';
 const CategorySearchRender = () => {
 
     const currentParams = useSavedSearchParams((state) => state.searchParams)
@@ -33,8 +34,8 @@ const CategorySearchRender = () => {
                     {
                         'PKW' : <PkwSearch /> ,
                         'LKW' : <LkwSearch />,   
-                        'TRAILOR' : "Anhänger - ",
-                        'TRANSPORT' : "Transporter - "
+                        'TRAILOR' : "TRAILOR",
+                        'TRANSPORT' : <TransportSearch />
 
                     }[currentParams['category']] 
                 }

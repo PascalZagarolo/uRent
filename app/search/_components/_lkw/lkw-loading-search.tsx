@@ -43,7 +43,7 @@ const LkwLoadingSearch = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Ladetyp </p>
+                    <p className="ml-2 font-semibold"> Ladevorrichtung </p>
                 </Label>
 
                 <Select

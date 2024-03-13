@@ -44,7 +44,7 @@ const PkwDoorsSearch = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Sitze </p>
+                    <p className="ml-2 font-semibold"> Türen </p>
                 </Label>
 
                 <Select

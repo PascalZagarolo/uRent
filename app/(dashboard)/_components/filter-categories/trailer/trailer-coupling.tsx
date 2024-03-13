@@ -1,46 +1,40 @@
 'use client';
 
+import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useSavedSearchParams } from "@/store";
-import { CarBrands, Inserat, LkwBrand } from "@prisma/client";
-
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import qs from "query-string";
-import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 
 
 
-const LkwLoadingBar = () => {
-    const brand = useSearchParams().get("loading");
-    const [currentBrand, setCurrentBrand] = useState(brand);
+const TrailerCouplingBar = () => {
+    const coupling = useSearchParams().get("coupling");
+    const [currentType, setCurrentType] = useState(coupling);
     const [isLoading, setIsLoading] = useState(false);
 
-    const params = getSearchParamsFunction("loading")
 
     const pathname = usePathname();
 
     const router = useRouter();
 
-
+    const params = getSearchParamsFunction("coupling");
 
     const onSubmit = (selectedValue: string) => {
-        setCurrentBrand(selectedValue)
+        setCurrentType(selectedValue)
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                loading: selectedValue,
+                coupling: selectedValue,
                 ...params
             }
         }, { skipEmptyString: true, skipNull: true })
 
         router.push(url)
+
     }
-
-
 
     function removeUnderscore(inputString: string): string {
         const outputString = inputString.replace(/_/g, ' ');
@@ -51,23 +45,21 @@ const LkwLoadingBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center text-gray-200">
-                    <p className="ml-2 font-semibold"> Ladevorrichtung </p>
+                    <p className="ml-2 font-semibold"> Kupplungsart </p>
                 </Label>
 
                 <Select
                     onValueChange={(brand) => {
                         onSubmit(brand)
                     }}
-                    value={currentBrand}
+                    value={currentType}
                     disabled={isLoading}
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                        disabled={isLoading}
-
-                    >
+                        disabled={isLoading}  >
                         <SelectValue
-                            placeholder="Wähle deinen Anwendungsbereich"
+                            placeholder="Welcher Autotyp?"
 
 
                         />
@@ -77,9 +69,11 @@ const LkwLoadingBar = () => {
                         <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
-                        <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
-                        <SelectItem value="LADERAMPE">Laderampe</SelectItem>
-                        <SelectItem value="KRAN">Kran</SelectItem>
+
+
+                        <SelectItem value="KUGELKOPFKUPPLUNG">Kugelkopfkupplung</SelectItem>
+                        <SelectItem value="MAULKUPPLUNG">Maulkupplung</SelectItem>
+
                     </SelectContent>
                 </Select>
             </div>
@@ -87,4 +81,4 @@ const LkwLoadingBar = () => {
     );
 }
 
-export default LkwLoadingBar;
+export default TrailerCouplingBar;

@@ -482,7 +482,6 @@ enum ApplicationType {
   PERSONENTRANSPORT
   PLANWAGEN
   PRITSCHENWAGEN
-
 }
 
 model TrailerAttribute {
@@ -549,8 +548,6 @@ model Address {
   @@unique([inseratId])
 }
 
-
-
 model Images {
   id String @id @default(uuid())
 
@@ -559,12 +556,8 @@ model Images {
 
   inseratId String?
   inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
-
   
 }
-
-
-
 
 model Favourite {
   id String @id @default(uuid())

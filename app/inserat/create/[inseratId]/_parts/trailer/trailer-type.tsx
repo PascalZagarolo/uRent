@@ -9,6 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { TrailerType } from "@prisma/client";
 import { cn } from "@/lib/utils";
+import { RiCaravanLine } from "react-icons/ri";
 
 interface TrailerTypeProps {
     trailerType : TrailerType;
@@ -54,6 +55,17 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
             <div className="flex flex-col items-center">
                 <Button 
                 className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100", 
+                trailerType === "ANHAENGER" && "border-2 dark:border-blue-800 border-blue-800")}
+                onClick={() => {onSelect("ANHAENGER")}}
+                >
+                    <RiCaravanLine   className="h-6 w-6" />
+                </Button>
+                <p className={cn("text-center text-sm mt-1", trailerType === "ANHAENGER" && "font-semibold")}>Anhänger</p>
+            </div>
+
+            <div className="flex flex-col items-center">
+                <Button 
+                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100", 
                 trailerType === "KLEIN" && "border-2 dark:border-blue-800 border-blue-800")}
                 onClick={() => {onSelect("KLEIN")}}
                 >
@@ -61,6 +73,8 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
                 </Button>
                 <p className={cn("text-center text-sm mt-1", trailerType === "KLEIN" && "font-semibold")}>Kleinanhänger</p>
             </div>
+
+            
 
             <div className="flex flex-col items-center">
                 <Button 

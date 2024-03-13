@@ -24,7 +24,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(inserat.amount || 1);
+    const [currentValue, setCurrentValue] = useState(inserat.amount);
 
     const formSchema = z.object({
         amount: z.preprocess(
@@ -44,7 +44,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
             }
             axios.patch(`/api/inserat/${inserat.id}`, values);
         } if(inserat.multi === true) {
-            setCurrentValue(2);
+            setCurrentValue(inserat.amount || 2);
             
         }
     }, [inserat.multi])
@@ -125,7 +125,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            onClick={onSubmit} disabled={!currentValue || Number(currentValue) === inserat.amount || inserat.multi === false}
+                            onClick={onSubmit} disabled={!currentValue || currentValue == inserat.amount || inserat.multi === false}
                         >
                             Anzahl angeben
                         </Button>

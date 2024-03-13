@@ -1,15 +1,16 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
-import { AlignCenter, Search, SearchCode, TrendingUp, } from "lucide-react";
+import { AlignCenter , SearchCode } from "lucide-react";
 
 import { getInserate } from "@/actions/getInserate";
-import type { ApplicationType, CarBrands, CarType, Category, DriveType, FuelType, Images, Inserat, LkwBrand, LoadingType, PkwAttribute, Transmission, User } from "@prisma/client";
+import type { ApplicationType, CarBrands, CarType, Category, DriveType, 
+    FuelType, LkwBrand, LoadingType, Transmission, } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 
 const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
 
 import { Suspense, lazy } from "react";
-import { InserateImagesAndAttributes } from "@/types/types";
+
 
 interface RelevanteInserateProps {
     title: string;

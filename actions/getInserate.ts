@@ -2,7 +2,8 @@
 
 import { db } from "@/utils/db";
 import { Images, Inserat, LkwBrand, User } from "@prisma/client";
-import type { Address, ApplicationType, CarBrands, CarType, Category, DriveType, FuelType, LkwAttribute, LoadingType, PkwAttribute, Transmission } from "@prisma/client";
+import type { Address, ApplicationType, CarBrands, CarType, Category, DriveType, 
+FuelType, LkwAttribute, LoadingType, PkwAttribute, TrailerAttribute, Transmission, TransportAttribute } from "@prisma/client";
 import axios from "axios";
 
 
@@ -12,10 +13,11 @@ import axios from "axios";
 type InserateImagesAndAttributes = Inserat & {
     user: User;
     images: Images[];
+    address: Address;
     pkwAttribute: PkwAttribute;
     lkwAttribute: LkwAttribute;
-    address: Address;
-
+    trailerAttribute : TrailerAttribute;
+    transportAttribute : TransportAttribute;
 }
 
 type GetInserate = {
@@ -173,9 +175,6 @@ export const getInserate = async ({
                         }
                     }
                     
-                    
-
-
                 }, include: {
                     images: true,
                     user: true,

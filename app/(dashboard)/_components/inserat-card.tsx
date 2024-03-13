@@ -15,18 +15,20 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import { format } from "date-fns";
 import {
-    Banknote,  CalendarCheck2, CarFront, CaravanIcon,  CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon, 
-    MapPinned,  SofaIcon, Star,  TractorIcon, TramFront, Truck,
+    Banknote, CalendarCheck2, CarFront, CaravanIcon, CheckCheckIcon, ConstructionIcon, EyeIcon, ImageIcon,
+    MapPinned, SofaIcon, Star, TractorIcon, TramFront, Truck,
+    WeightIcon,
 } from "lucide-react";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast  from "react-hot-toast";
-import { FaCar } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { FaCar, FaGasPump } from "react-icons/fa";
 import { GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill, PiVanFill } from "react-icons/pi";
 import ProfileBar from "./inserat-card/profile-bar";
+import { TbCrane } from "react-icons/tb";
 
 interface InseratCardProps {
     inserat: InserateImagesAndAttributes;
@@ -97,9 +99,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
         return addressParts[addressParts.length - 2]
     };
 
-    
 
-    
+
+
 
     return (
         <div className="sm:w-[760px] sm:h-[420px] w-full h-full rounded-md  items-center dark:bg-[#171923]
@@ -124,28 +126,28 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 {inserat?.multi && (
                     <span className="p-4 text-xs text-gray-100 border-white border-dashed border bg-[#191B27] rounded-md flex items-center">
-{
                         {
-                            'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
-                            'LKW': <Truck className=" text-gray-100 h-4 w-4 mr-2" />,
-                            'TRANSPORT': <PiVanFill className=" text-gray-100 h-4 w-4 mr-2" />,
-                            'TRAILOR': <CaravanIcon className=" text-gray-100 h-4 w-4 mr-2" />
-                        }[inserat.category]
-                    }
+                            {
+                                'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
+                                'LKW': <Truck className=" text-gray-100 h-4 w-4 mr-2" />,
+                                'TRANSPORT': <PiVanFill className=" text-gray-100 h-4 w-4 mr-2" />,
+                                'TRAILOR': <CaravanIcon className=" text-gray-100 h-4 w-4 mr-2" />
+                            }[inserat.category]
+                        }
 
-                       Noch <p className=" font-black px-1 ">{inserat?.amount}</p> verfügbar
+                        Noch <p className=" font-black px-1 ">{inserat?.amount}</p> verfügbar
                     </span>
                 )}
                 <div className="ml-auto items-center sm:flex hidden">
-                    
-                    
-                        <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
+
+
+                    <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
                             dark:border dark:border-[#171923]  dark:hover:none">
-                            <Star className={cn(isFaved ? "text-yellow-300" : "text-black")} />
-                        </Button>
-                    
+                        <Star className={cn(isFaved ? "text-yellow-300" : "text-black")} />
+                    </Button>
+
                 </div>
-                    
+
             </h3>
 
             <div className="flex justify-center h-[200px] items-center   w-full">
@@ -213,6 +215,73 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             </Badge>
                                         )}
                                     </div>,
+                                    'TRANSPORT': <div className="space-y-1">
+                                        {inserat.transportAttribute?.loading && (
+
+                                            <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                         dark:text-gray-100 hover:bg-gray-600">
+                                                <TbCrane className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-gray-800">
+                                                    {inserat.transportAttribute?.loading.substring(0, 1)}
+                                                    {inserat.transportAttribute?.loading.substring(1).toLowerCase()}
+                                                </p>
+                                            </Badge>
+                                        )}
+                                        {inserat.transportAttribute?.seats && (
+
+                                            <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                            dark:text-gray-100 hover:bg-gray-600">
+
+                                                <SofaIcon className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-gray-800"> {inserat.pkwAttribute?.seats} </p> Sitze
+                                            </Badge>
+                                        )}
+                                        {inserat.transportAttribute?.fuel && (
+
+                                            <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                            dark:text-gray-100 hover:bg-gray-600">
+                                                <FaGasPump className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-gray-800">
+                                                    {inserat.transportAttribute?.fuel.substring(0, 1)}
+                                                    {inserat.transportAttribute?.fuel.substring(1).toLowerCase()}
+                                                </p>
+                                            </Badge>
+                                        )}
+                                    </div>,
+                                    'TRAILOR': <div className="space-y-1">
+                                        {inserat.trailerAttribute?.type && (
+
+                                            <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                     dark:text-gray-100 hover:bg-rose-900  ">
+                                                <CaravanIcon className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-rose-200">
+                                                    {inserat.trailerAttribute?.type?.substring(0, 1)}
+                                                    {inserat.trailerAttribute?.type?.substring(1).toLowerCase()}
+                                                </p>
+                                            </Badge>
+                                        )}
+                                        {inserat.trailerAttribute?.loading && (
+
+                                            <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                            dark:text-gray-100 hover:bg-rose-900">
+                                                <TbCrane className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-rose-200">
+                                                    {inserat.trailerAttribute?.loading.substring(0, 1)}
+                                                    {inserat.trailerAttribute?.loading.substring(1).toLowerCase()}
+                                                </p>
+                                            </Badge>
+                                        )}
+                                        {inserat.trailerAttribute?.weightClass && (
+
+                                            <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                                            dark:text-gray-100 hover:bg-rose-900">
+                                                <WeightIcon className="h-4 w-4 mr-1" />
+                                                <p className="mr-1 text-rose-200 w-full">
+                                                 bis {inserat.trailerAttribute.weightClass / 100}t
+                                                </p>
+                                            </Badge>
+                                        )}
+                                    </div>,
 
                                 }[inserat.category]
                             }
@@ -238,7 +307,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex">
                             <div className="">
-                            <Image
+                                <Image
                                     src={inserat.images[0].url}
                                     width={220}
                                     height={240}
@@ -311,20 +380,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                     </div>
                     <ProfileBar
-                    inserat={inserat}
-                    currentUser={currentUser}
+                        inserat={inserat}
+                        currentUser={currentUser}
                     />
                 </div>
-            </div >
-
-
-
-
-
-
-
-
-        </div >
+            </div>
+        </div>
     );
 }
 

@@ -11,7 +11,7 @@ import { format } from "date-fns";
 import { lazy } from "react";
 import InseratAttributes from "./_components/inserat-attributes";
 import { TbPigMoney } from "react-icons/tb";
-import { PiSteeringWheel } from "react-icons/pi";
+import { PiSteeringWheel, PiVanFill } from "react-icons/pi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { CiBookmark } from "react-icons/ci";
 import { FaAddressCard } from "react-icons/fa";
@@ -42,6 +42,8 @@ const InseratAnzeige = async ({
             },
             pkwAttribute: true,
             lkwAttribute: true,
+            transportAttribute : true,
+            trailerAttribute : true
         }
     })
 
@@ -105,10 +107,7 @@ const InseratAnzeige = async ({
                                     {
                                         'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
                                         'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
-                                        'LAND': <TractorIcon className=" text-gray-100 h-6 w-6 " />,
-                                        'BAU': <ConstructionIcon className=" text-gray-100 h-6 w-6 " />,
-                                        'TRANSPORT': <TramFront className=" text-gray-100 h-6 w-6 " />,
-                                        'CARAVAN': <CaravanIcon className=" text-gray-100 h-6 w-6 " />,
+                                        'TRANSPORT': <PiVanFill className=" text-gray-100 h-6 w-6 " />,
                                         'TRAILOR': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
                                     }[inserat.category]
                                 }

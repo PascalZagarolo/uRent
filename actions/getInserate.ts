@@ -181,6 +181,8 @@ export const getInserate = async ({
                     user: true,
                     pkwAttribute: true,
                     lkwAttribute: true,
+                    trailerAttribute : true,
+                    transportAttribute : true,
                     address: true
                 }, orderBy: {
                     views: "desc"
@@ -299,6 +301,8 @@ export const getInserate = async ({
                     user: true,
                     pkwAttribute: true,
                     lkwAttribute: true,
+                    trailerAttribute : true,
+                    transportAttribute : true,
                     address: true
                 }, orderBy: {
                     price: filter === "asc" ? "asc" : "desc"

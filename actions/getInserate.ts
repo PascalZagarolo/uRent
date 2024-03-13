@@ -2,8 +2,9 @@
 
 import { db } from "@/utils/db";
 import { Images, Inserat, LkwBrand, User } from "@prisma/client";
-import type { Address, ApplicationType, CarBrands, CarType, Category, DriveType, 
-FuelType, LkwAttribute, LoadingType, PkwAttribute, TrailerAttribute, Transmission, TransportAttribute } from "@prisma/client";
+import type { Address, ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType, 
+    ExtraType, 
+FuelType, LkwAttribute, LoadingType, PkwAttribute, TrailerAttribute, TrailerType, Transmission, TransportAttribute } from "@prisma/client";
 import axios from "axios";
 
 
@@ -44,7 +45,7 @@ type GetInserate = {
     seats?: number;
     fuel?: FuelType;
     transmission?: Transmission;
-    type?: CarType;
+    type?: any;
     freeMiles?: number;
     extraCost?: number;
 
@@ -54,6 +55,14 @@ type GetInserate = {
     loading? : LoadingType;
     application? : ApplicationType;
     lkwBrand? : LkwBrand;
+
+    //Trailer
+    trailerType : TrailerType;
+    coupling : CouplingType;
+    extraType : ExtraType;
+    axis : number;
+    brake : boolean;
+    
 }
 
 //returns km
@@ -100,7 +109,13 @@ export const getInserate = async ({
     drive,
     loading,
     application,
-    lkwBrand
+    lkwBrand,
+
+    trailerType,
+    coupling,
+    extraType,
+    axis,
+    brake,
 }: GetInserate): Promise<InserateImagesAndAttributes[]> => {
 
 
@@ -207,6 +222,24 @@ export const getInserate = async ({
                             fuel : fuel,
                             transmission : transmission,
                             loading : loading
+                        }
+                    },
+                    ...(category === "TRAILOR") && {
+                        trailerAttribute : {
+                            
+                            type : type,
+                            coupling : coupling,
+                            loading : loading,
+                            extraType : extraType,
+                            ...(brake === null) ? {
+                                
+                            } : {
+                                brake : brake
+                            },
+                            weightClass : weightClass,
+                            ...(axis) && {
+                                axis : axis
+                            }
                         }
                     }
                     
@@ -338,13 +371,29 @@ export const getInserate = async ({
                             ...(doors) && {
                                 doors : doors
                             },
-                            
                             fuel : fuel,
                             transmission : transmission,
                             loading : loading
                         }
+                    }, ...(category === "TRAILOR") && {
+                        trailerAttribute : {
+                            
+                            type : type,
+                            coupling : coupling,
+                            loading : loading,
+                            extraType : extraType,
+                            ...(brake === null) ? {
+                                
+                            } : {
+                                brake : brake
+                            },
+                            weightClass : weightClass,
+                            ...(axis) && {
+                                axis : axis
+                            }
+                        }
                     }
-
+                    
                 }, include: {
                     images: true,
                     user: true,
@@ -357,8 +406,8 @@ export const getInserate = async ({
                     price: filter === "asc" ? "asc" : "desc"
                 }
             })
-            console.log(seats)
-
+            
+            console.log(brake)
 
             let filteredArray = [];
 

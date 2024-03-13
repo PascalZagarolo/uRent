@@ -1,10 +1,13 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/utils/db";
-import { AlignCenter , SearchCode } from "lucide-react";
+import { AlignCenter, SearchCode } from "lucide-react";
 
 import { getInserate } from "@/actions/getInserate";
-import type { ApplicationType, CarBrands, CarType, Category, DriveType, 
-    FuelType, LkwBrand, LoadingType, Transmission, } from "@prisma/client";
+import type {
+    ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType,
+    ExtraType,
+    FuelType, LkwBrand, LoadingType, TrailerType, Transmission,
+} from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 
 const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
@@ -22,7 +25,7 @@ interface RelevanteInserateProps {
     periodBegin: string;
     periodEnd: string;
     location: string;
-    amount : string;
+    amount: string;
     //conditions
 
     reqAge?: string;
@@ -46,6 +49,13 @@ interface RelevanteInserateProps {
     loading?: LoadingType;
     application: ApplicationType;
     lkwBrand?: LkwBrand;
+
+    //Trailer
+    trailerType: TrailerType;
+    coupling: CouplingType;
+    extraType: ExtraType;
+    axis: string;
+    brake: string
 
 }
 
@@ -79,7 +89,13 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     drive,
     loading,
     application,
-    lkwBrand
+    lkwBrand,
+
+    trailerType,
+    coupling,
+    extraType,
+    axis,
+    brake,
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -109,7 +125,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         periodBegin: periodBegin,
         periodEnd: periodEnd,
         location: location,
-        amount : Number(amount),
+        amount: Number(amount),
 
         reqAge: Number(reqAge),
         reqLicense: reqLicense,
@@ -131,7 +147,12 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         application: application,
         lkwBrand: lkwBrand,
 
-    });
+        trailerType : trailerType,
+        coupling : coupling,
+        extraType : extraType,
+        axis : Number(axis),
+        brake : brake ? (brake.toLowerCase() == 'true') : null,
+});
 
 
 

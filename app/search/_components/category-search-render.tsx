@@ -5,6 +5,7 @@ import { useSavedSearchParams } from '../../../store';
 import LkwSearch from './category-data/lkw-search';
 import PkwSearch from './category-data/pkw-search';
 import TransportSearch from './category-data/transport-search';
+import TrailerSearch from './category-data/trailer-search';
 const CategorySearchRender = () => {
 
     const currentParams = useSavedSearchParams((state) => state.searchParams)
@@ -16,9 +17,6 @@ const CategorySearchRender = () => {
                     {
                         'PKW' : "Pkw - ",
                         'LKW' : "Lkw - ",
-                        'LAND' : "Landmaschinen - ",
-                        'BAU' : "Bau - ",
-                        'CARAVAN' : "Wohnmobil - ",
                         'TRAILOR' : "Anhänger - ",
                         'TRANSPORT' : "Transporter - "
 
@@ -34,7 +32,7 @@ const CategorySearchRender = () => {
                     {
                         'PKW' : <PkwSearch /> ,
                         'LKW' : <LkwSearch />,   
-                        'TRAILOR' : "TRAILOR",
+                        'TRAILOR' : <TrailerSearch />,
                         'TRANSPORT' : <TransportSearch />
 
                     }[currentParams['category']] 

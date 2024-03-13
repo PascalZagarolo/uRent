@@ -40,15 +40,15 @@ const SearchPage = async () => {
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 <MagnifyingGlassIcon className="mr-4 h-6 w-6" /> Erweiterte Detail-Suche 
                                 <div className="ml-auto">
-                                    <ResultsSearchPage 
+                                <ResultsSearchPage 
                                    
-                                    />
+                                   />
                                 </div>
                             </h3>
                         </div>
                         <div className="p-8 text-sm dark:text-gray-300/90 space-y-4">
-                            <BaseDataSearch />
-                            <ConditionsSearch />
+                        <BaseDataSearch />
+                        <ConditionsSearch />
                             <CategorySearch />
                             <CategorySearchRender />
                         </div>

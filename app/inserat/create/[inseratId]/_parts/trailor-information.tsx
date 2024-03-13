@@ -7,6 +7,7 @@ import TrailerBrake from "./trailer/trailer-brake";
 import TrailerAxis from "./trailer/trailer-axis";
 import TrailerExtraType from "./trailer/trailer-extra-type";
 import TrailerLoading from "./trailer/trailer-loading";
+import TrailerWeightClass from "./trailer/trailer-weight-class";
 
 
 
@@ -51,12 +52,14 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
+                <TrailerWeightClass 
+                    weightClass={inserat.trailerAttribute?.weightClass}
+                    />
+                </div>
+                <div className="w-1/2">
                 <TrailerBrake 
                  brake = {inserat.trailerAttribute?.brake}
                  />
-                </div>
-                <div className="w-1/2">
-                    
                 </div>
             </div>
             

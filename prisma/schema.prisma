@@ -130,6 +130,7 @@ model Inserat {
   pkwAttribute PkwAttribute?
   lkwAttribute LkwAttribute?
   trailerAttribute TrailerAttribute?
+  transportAttribute TransportAttribute?
 
   views Int @default(0)
 
@@ -530,6 +531,23 @@ enum ExtraType {
   PERSONENTRANSPORT
   PLANE
   PRITSCHE
+}
+
+model TransportAttribute {
+  id String @id @default(uuid())
+
+  loading LoadingType?
+  transmission Transmission?
+  
+  seats Int?
+  doors Int?
+
+  fuel FuelType?
+
+  inseratId String?
+  inserat Inserat? @relation(fields: [inseratId], references: [id], onDelete: Cascade)
+
+  @@unique([inseratId])
 }
 
 model Address {

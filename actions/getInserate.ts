@@ -173,6 +173,41 @@ export const getInserate = async ({
                                 }
                             },
                         }
+                    },
+                    //LKW-Attribute
+                    ...(category === "LKW") && {
+                        lkwAttribute: {
+                            lkwBrand: lkwBrand,
+                            ...(weightClass) && {
+                                weightClass : weightClass
+                            },
+                            ...(seats) && {
+                                seats: {
+                                    gte: seats
+                                },
+                            },
+                            drive : drive,
+                            loading: loading,
+                            application : application,
+                            
+                        }
+                    },
+                    //TRANSPORT-Attribute
+                    ...(category === "TRANSPORT") && {
+                        transportAttribute : {
+                            ...(seats) && {
+                                seats: {
+                                    gte: seats
+                                },
+                            },
+                            ...(doors) && {
+                                doors : doors
+                            },
+                            
+                            fuel : fuel,
+                            transmission : transmission,
+                            loading : loading
+                        }
                     }
                     
                 }, include: {
@@ -292,6 +327,21 @@ export const getInserate = async ({
                             loading: loading,
                             application : application,
                             
+                        }
+                    }, ...(category === "TRANSPORT") && {
+                        transportAttribute : {
+                            ...(seats) && {
+                                seats: {
+                                    gte: seats
+                                },
+                            },
+                            ...(doors) && {
+                                doors : doors
+                            },
+                            
+                            fuel : fuel,
+                            transmission : transmission,
+                            loading : loading
                         }
                     }
 

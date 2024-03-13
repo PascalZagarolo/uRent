@@ -1,9 +1,9 @@
 'use client'
 
 
-import { Images, Inserat, PkwAttribute, User } from "@prisma/client";
+import { Inserat, User } from "@prisma/client";
 import InseratCard from "../../_components/inserat-card";
-import { use, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { InserateImagesAndAttributes } from "@/types/types";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
@@ -55,7 +55,6 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                     <div className="w-full sm:w-1/2 md:w-1/4" key={inserat.id}>
                         <InseratCard
                             key={inserat.id}
-                            //@ts-ignore
                             inserat={inserat}
                             profileId={currentUser?.id || ""}
                             currentUser={currentUser}

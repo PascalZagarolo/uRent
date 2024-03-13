@@ -4,6 +4,9 @@ import {  Inserat, TrailerAttribute} from "@prisma/client";
 import TrailerTypeCreation from "./trailer/trailer-type";
 import TrailerCoupling from "./trailer/trailer-coupling";
 import TrailerBrake from "./trailer/trailer-brake";
+import TrailerAxis from "./trailer/trailer-axis";
+import TrailerExtraType from "./trailer/trailer-extra-type";
+import TrailerLoading from "./trailer/trailer-loading";
 
 
 
@@ -29,25 +32,31 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
                  />
                 </div>
                 <div className="w-1/2">
-                 <TrailerBrake 
-                 brake = {inserat.trailerAttribute?.brake}
+                 <TrailerExtraType
+                 extraType={inserat.trailerAttribute?.extraType}
                  />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                 5  
+                 <TrailerLoading 
+                 loading={inserat.trailerAttribute?.loading}
+                 />
                 </div>
                 <div className="w-1/2">
-                    6
+                    <TrailerAxis 
+                    axis={inserat.trailerAttribute?.axis}
+                    />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                    7
+                <TrailerBrake 
+                 brake = {inserat.trailerAttribute?.brake}
+                 />
                 </div>
                 <div className="w-1/2">
-                    8
+                    
                 </div>
             </div>
             

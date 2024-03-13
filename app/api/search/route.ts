@@ -27,6 +27,8 @@ export async function PATCH(
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
             brand, power, fuel, transmission, type, miles, initial, doors, extraCost,
+            //TRAILER
+            coupling, extraType, axis, brake,
             ...filteredValues} = values;
 
         const results = await db.inserat.findMany({

@@ -11,7 +11,7 @@ import { useState } from "react";
 
 
 
-const LkwWeightClassSearch = () => {
+const TrailerAxisSearch = () => {
 
     const [currentAge, setCurrentAge] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -23,12 +23,12 @@ const LkwWeightClassSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
-        changeSearchParams("weightClass", selectedValue);
+        changeSearchParams("axis", selectedValue);
         console.log(selectedValue)
     }
 
     const deleteWeight = () => {
-        deleteSearchParams("weightClass")
+        deleteSearchParams("axis")
     }
 
     function removeUnderscore(inputString: string): string {
@@ -40,7 +40,7 @@ const LkwWeightClassSearch = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Gewichtsklasse </p>
+                    <p className="ml-2 font-semibold"> Anz. Achsen </p>
                 </Label>
 
                 <Select
@@ -54,7 +54,7 @@ const LkwWeightClassSearch = () => {
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}  >
                         <SelectValue
-                            placeholder="Wie viel Gewicht?"
+                            placeholder="Wie viele Achsen?"
 
 
                         />
@@ -64,12 +64,11 @@ const LkwWeightClassSearch = () => {
                         <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
                             Beliebig
                         </SelectItem>
-                        <SelectItem value="3">bis 3,5 t</SelectItem>
-                        <SelectItem value="5">3,5 - 5t</SelectItem>
-                        <SelectItem value="7">5,0 - 7,5t</SelectItem>
-                        <SelectItem value="12">7,5 - 12t</SelectItem>
-                        <SelectItem value="26">12t - 26t</SelectItem>
-                        <SelectItem value="0">Sonstiges</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                        <SelectItem value="4">4</SelectItem>
+                        <SelectItem value="5">{'>'} 4 </SelectItem>
+
                     </SelectContent>
                 </Select>
             </div>
@@ -77,4 +76,4 @@ const LkwWeightClassSearch = () => {
     );
 }
 
-export default LkwWeightClassSearch;
+export default TrailerAxisSearch;

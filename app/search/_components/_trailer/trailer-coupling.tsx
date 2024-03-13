@@ -3,6 +3,9 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSavedSearchParams } from "@/store";
+import { LkwBrand } from "@prisma/client";
+
+
 
 import { useParams, useRouter } from "next/navigation";
 
@@ -11,7 +14,7 @@ import { useState } from "react";
 
 
 
-const LkwWeightClassSearch = () => {
+const TrailerCouplingSearch = () => {
 
     const [currentAge, setCurrentAge] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -23,12 +26,12 @@ const LkwWeightClassSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
-        changeSearchParams("weightClass", selectedValue);
+        changeSearchParams("coupling", selectedValue);
         console.log(selectedValue)
     }
 
-    const deleteWeight = () => {
-        deleteSearchParams("weightClass")
+    const deleteType = () => {
+        deleteSearchParams("coupling")
     }
 
     function removeUnderscore(inputString: string): string {
@@ -40,12 +43,12 @@ const LkwWeightClassSearch = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Gewichtsklasse </p>
+                    <p className="ml-2 font-semibold"> Kupplungsart </p>
                 </Label>
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteWeight() : onSubmit(brand)
+                        brand === "BELIEBIG" ? deleteType() : onSubmit(brand)
                     }}
 
                     disabled={isLoading}
@@ -54,22 +57,18 @@ const LkwWeightClassSearch = () => {
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}  >
                         <SelectValue
-                            placeholder="Wie viel Gewicht?"
+                            placeholder="Welche Kupplung?"
 
 
                         />
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem  value="BELIEBIG" className="font-semibold">
                             Beliebig
                         </SelectItem>
-                        <SelectItem value="3">bis 3,5 t</SelectItem>
-                        <SelectItem value="5">3,5 - 5t</SelectItem>
-                        <SelectItem value="7">5,0 - 7,5t</SelectItem>
-                        <SelectItem value="12">7,5 - 12t</SelectItem>
-                        <SelectItem value="26">12t - 26t</SelectItem>
-                        <SelectItem value="0">Sonstiges</SelectItem>
+                        <SelectItem value="KUGELKOPFKUPPLUNG">Kugelkopfkupplung</SelectItem>
+                        <SelectItem value="MAULKUPPLUNG">Maulkupplung</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -77,4 +76,4 @@ const LkwWeightClassSearch = () => {
     );
 }
 
-export default LkwWeightClassSearch;
+export default TrailerCouplingSearch;

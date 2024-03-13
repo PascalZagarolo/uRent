@@ -494,6 +494,7 @@ model TrailerAttribute {
   extraType ExtraType?
 
   axis Int?
+  weightClass Int?
 
   brake Boolean?
 

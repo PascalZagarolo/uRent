@@ -52,7 +52,7 @@ const TrailerLoading: React.FC<CarTypeProps> = ({
     return (
         <div className="w-full">
             <div className="w-full">
-                <Label>Ladetyp</Label>
+                <Label>Ladevorrichtung</Label>
                 <Select
                     onValueChange={(loading: LoadingType) => {
                         onSubmit(loading);

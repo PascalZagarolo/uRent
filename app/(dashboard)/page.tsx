@@ -6,7 +6,7 @@ import getCurrentUser from "../../actions/getCurrentUser";
 
 import { Images, Inserat } from "@prisma/client";
 
-import type { ApplicationType, CarBrands, CarType, Category, DriveType, FuelType, LkwBrand, LoadingType, Transmission } from "@prisma/client";
+import type { ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType, ExtraType, FuelType, LkwBrand, LoadingType, TrailerType, Transmission } from "@prisma/client";
 import { db } from "@/utils/db";
 
 import HeaderLogo from "./_components/header-logo";
@@ -35,7 +35,7 @@ interface MainPageProps {
         periodBegin: string,
         periodEnd: string,
         location: string,
-        amount : string,
+        amount: string,
 
         //conditions
 
@@ -54,11 +54,19 @@ interface MainPageProps {
         freeMiles?: string;
         extraCost?: string;
 
+        //LKW
         weightClass?: string;
         drive?: DriveType;
         loading?: LoadingType;
         application: ApplicationType;
         lkwBrand?: LkwBrand;
+
+        //TRANSPORT
+        trailerType: TrailerType;
+        coupling: CouplingType;
+        extraType: ExtraType;
+        axis: string;
+        brake: string
 
     }
 }
@@ -142,6 +150,12 @@ const Main = async ({
                             loading={searchParams.loading}
                             application={searchParams.application}
                             lkwBrand={searchParams.lkwBrand}
+
+                            trailerType={searchParams.trailerType}
+                            coupling={searchParams.coupling}
+                            extraType={searchParams.extraType}
+                            axis={searchParams.axis}
+                            brake={searchParams.brake}
                         />
                     </div>
                 </div>

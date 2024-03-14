@@ -51,7 +51,9 @@ const CredForm = ({
 
    useEffect(() => {
      if (session.status === 'authenticated' ) {
-      router.push('/')
+      
+        router.push('/')
+     
     }
   }, [session?.status, router]);
 
@@ -98,7 +100,9 @@ const CredForm = ({
         }
 
         if (callback?.ok) {
-          router.push('/')
+          setTimeout(() => {
+            router.push('/')
+          }, 350)
         }
       })
       .catch(() => toast.error('Etwas ist schiefgelaufen'))
@@ -116,7 +120,9 @@ const CredForm = ({
         }
 
         if (callback?.ok) {
-          router.push('/')
+          setTimeout(() => {
+            router.push('/')
+          }, 350)
         }
       })
       .finally(() => setIsLoading(false))

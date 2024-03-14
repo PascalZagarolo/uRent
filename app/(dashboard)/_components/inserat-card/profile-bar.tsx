@@ -94,19 +94,22 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         <div className="w-full mt-2">
 
                         <div className="rounded-md bg-[#1b1e2d] w-full position:absolute mr-2 dark:bg-[#13141c] dark:border-none">
-                            <div className="flex  items-center   rounded-md">
-                                <Image
+                            <div className="flex  items-center  w-full rounded-md">
+                            <Image
                                     className="rounded-full ml-2 mt-2 mb-2 object-fit  w-[40px] h-[40px]"
                                     src={inserat.user?.image || "/placeholder-person.jpg"}
                                     height={40}
                                     width={40}
                                     alt="User-Bild"
                                 />
-                                <Link href={`/profile/${inserat.userId}`}>
-                                    <p className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] items-center flex
-                                    
-                                    ">
+                                <Link href={`/profile/${inserat.userId}`} className="w-1/2 truncate">
+                                    <div className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] items-center flex truncate">
+                                        
+                                        <div className="w-3/4 truncate">
                                         {inserat.user?.name}
+                                        </div> 
+                                       
+                                        <div className="w-1/4">
                                         {inserat?.user.emailVerified && (
                                             <TooltipProvider>
                                             <Tooltip>
@@ -123,7 +126,8 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                             </Tooltip>
                                         </TooltipProvider>
                                         )}
-                                    </p>
+                                        </div>
+                                    </div>
 
                                 </Link>
 

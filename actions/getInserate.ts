@@ -217,13 +217,13 @@ export const getInserate = async ({
                             },
                             ...(doors) && {
                                 doors : doors
-                            },
-                            
+                            },        
                             fuel : fuel,
                             transmission : transmission,
                             loading : loading
                         }
                     },
+                    //TRANSPORT-Attribute
                     ...(category === "TRAILOR") && {
                         trailerAttribute : {
                             
@@ -242,7 +242,6 @@ export const getInserate = async ({
                             }
                         }
                     }
-                    
                 }, include: {
                     images: true,
                     user: true,
@@ -361,6 +360,7 @@ export const getInserate = async ({
                             application : application,
                             
                         }
+                        //TRANSPORT-Attribute
                     }, ...(category === "TRANSPORT") && {
                         transportAttribute : {
                             ...(seats) && {

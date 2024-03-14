@@ -1,8 +1,4 @@
 'use client';
-
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useSavedSearchParams } from "@/store";
 import { CarBrands, Inserat, LkwBrand } from "@prisma/client";
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -11,82 +7,127 @@ import { useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
+import MultipleSelector, { Option } from '@/components/multiple-selector';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import * as React from 'react';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { toast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+
+
 
 
 
 const PkwBrandBar = () => {
-    const brand = useSearchParams().get("brand");
-    const [currentBrand, setCurrentBrand] = useState(brand);
-    const [isLoading, setIsLoading] = useState(false);
+  const brand = useSearchParams().get("brand");
+  const [currentBrand, setCurrentBrand] = useState(brand);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const params = getSearchParamsFunction("brand")
+  const params = getSearchParamsFunction("brand")
 
-    const pathname = usePathname();
+  const pathname = usePathname();
 
-    const router = useRouter();
+  const router = useRouter();
 
-    
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentBrand(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                brand : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
 
-        router.push(url)
+  const OPTIONS: Option[] = [
+
+  ];
+
+  for (const brand in CarBrands) {
+    if (CarBrands.hasOwnProperty(brand)) {
+      OPTIONS.push({
+        value: CarBrands[brand],
+        label: removeUnderscore(CarBrands[brand])
+      });
     }
-
-    
-
-    function removeUnderscore(inputString: string): string {
-      const outputString = inputString.replace(/_/g, ' ');
-      return outputString;
   }
 
-    return ( 
-        <div className="w-full">
-            <div className="w-full">
-            <Label className="flex justify-start items-center ">
-                        <p className="ml-2 font-semibold text-gray-200"> Marke </p>
-                    </Label>
-                    
-        <Select
-          onValueChange={(brand) => {
-            onSubmit(brand)
-          }}
-          value={currentBrand}
-          disabled={isLoading}
-        >
+  const onSubmits = (selectedValue: string) => {
+    setCurrentBrand(selectedValue)
+    const url = qs.stringifyUrl({
+      url: pathname,
+      query: {
+        brand: selectedValue,
+        ...params
+      }
+    }, { skipEmptyString: true, skipNull: true })
 
-          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} 
-          
-          >
-            <SelectValue
-              placeholder="Wähle deine gewünschte Marke"
-              
-              
-            />
-          </SelectTrigger>
+    router.push(url)
+  }
 
-          <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-          <SelectItem key="beliebig" value={null} className="font-semibold">
-                                Beliebig
-                            </SelectItem>
-          {Object.values(CarBrands).map((brand, index) => (
-                            <SelectItem key={index} value={brand}>
-                                {removeUnderscore(brand)}
-                            </SelectItem>
-                        ))}
-          </SelectContent>
-        </Select>
-      </div>
-        </div>
-     );
-}
+
+
+  function removeUnderscore(inputString: string): string {
+    const outputString = inputString.replace(/_/g, ' ');
+    return outputString;
+  }
+
+  const optionSchema = z.object({
+    label: z.string().optional(),
+    value: z.string().optional(),
+    disable: z.boolean().optional(),
+  });
+
+  const FormSchema = z.object({
+    brands: z.array(optionSchema).optional(),
+  });
+
+  
+    const form = useForm<z.infer<typeof FormSchema>>({
+      resolver: zodResolver(FormSchema),
+    });
  
-export default PkwBrandBar;
+    const [loading, setLoading] = React.useState(false);
+
+    function onSubmit(data: z.infer<typeof FormSchema>) {
+      setLoading(true);
+
+      console.log(data)
+    }
+  
+    return (
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+          <FormField
+            control={form.control}
+            name="brands"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Marke</FormLabel>
+                <FormControl>
+                  <MultipleSelector
+                    defaultOptions={OPTIONS}
+                    placeholder="Filter nach Marke"
+                    emptyIndicator={
+                      <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                        Keine Resultate gefunden.
+                      </p>
+                    }
+                  />
+                  
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full" variant="ghost">
+            Submit
+          </Button>
+        </form>
+      </Form>
+    );
+  };
+
+
+  export default PkwBrandBar;

@@ -113,12 +113,10 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                         {inserat?.user.emailVerified && (
                                             <TooltipProvider>
                                             <Tooltip>
-
                                                 <TooltipTrigger>
                                                     <div>
                                                         <Check className="w-4 h-4 ml-2" />
                                                     </div>
-                                                    
                                                 </TooltipTrigger>
                                                 <TooltipContent className="dark:bg-[#0F0F0F] border-none">
                                                    Verifiziert

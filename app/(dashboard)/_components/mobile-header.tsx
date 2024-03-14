@@ -11,10 +11,12 @@ import { User, Notification } from "@prisma/client";
 import MobileFilterSheet from './mobile-filter-sheet';
 import { usePathname } from "next/navigation";
 import DashboardSheet from "./dashboard-sheet";
+import LoginBarHeader from "./login-bar-header";
+import MobileLoginButton from "./mobile-login-button";
 
 interface MobileHeaderProps {
-    currentUser : User;
-    notifications : Notification[];
+    currentUser: User;
+    notifications: Notification[];
 }
 
 const MobileHeader: React.FC<MobileHeaderProps> = ({
@@ -22,55 +24,56 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
     notifications
 }) => {
 
-    
+
     const { data: session, status } = useSession();
 
     const pathname = usePathname();
 
     const isDashboard = pathname.includes('dashboard');
 
-    
-    return ( 
+
+    return (
         <div className="bg-[#1f2332] h-[140px] w-full">
-            <div className="flex items-center">
-            <div className="flex items-center ml-2 w-full">
-            <div className="mr-4">
-                {
-                    isDashboard ? (
-                        <DashboardSheet
-                        currentUserId={currentUser.id}
-                        />
-                    ) : (
-                        <MobileFilterSheet />
-                    )
-                }
-                </div>
-            <MobileLogoDialog/>
-                
-                <div className="w-full">
-                {
-                        status === 'unauthenticated' || !currentUser ? (
-                            <div>
-                            </div>
-                        ) : (
-                            <div className="flex w-full ml-auto ">
-                                <LoggedInBarHeader
-                                    currentUser={currentUser}
-                                    notifications = {notifications}
+            <div className="flex items-center w-full">
+                <div className="flex items-center ml-2 w-full">
+                    <div className="mr-4">
+                        {
+                            isDashboard ? (
+                                <DashboardSheet
+                                    currentUserId={currentUser.id}
                                 />
-                                
-                            </div>
-                        )
-                    }
+                            ) : (
+                                <MobileFilterSheet />
+                            )
+                        }
+                    </div>
+                    <MobileLogoDialog />
+
+                    <div className="w-full">
+                        {
+                            status === 'unauthenticated' || !currentUser ? (
+                                <div className="w-full flex justify-end px-4">
+                                    <MobileLoginButton />
+                                </div>
+                            ) : (
+                                <div className="flex w-full ml-auto ">
+                                    <LoggedInBarHeader
+                                        currentUser={currentUser}
+                                        notifications={notifications}
+                                    />
+
+                                </div>
+                            )
+                        }
+                    </div>
                 </div>
+
             </div>
-            
+            <div className="w-full px-4">
+                <SearchItem />
+            </div>
         </div>
-        <div className="w-full px-4">
-                    <SearchItem/>
-                </div>
-        </div>
-     );
+    );
 }
- 
+
 export default MobileHeader;

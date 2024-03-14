@@ -31,7 +31,7 @@ const DashboardLayout = async (
                 />
              </div>
              
-             <div className="">
+             <div>
              {children}
             </div>
         </div>

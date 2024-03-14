@@ -7,6 +7,7 @@ import type {
     ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType,
     ExtraType,
     FuelType, LkwBrand, LoadingType, TrailerType, Transmission,
+    User,
 } from "@prisma/client";
 import OrderBy from "../_components/_smart-filter/order-by";
 
@@ -55,7 +56,9 @@ interface RelevanteInserateProps {
     coupling: CouplingType;
     extraType: ExtraType;
     axis: string;
-    brake: string
+    brake: string,
+
+    currentUser : User;
 
 }
 
@@ -96,9 +99,11 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     extraType,
     axis,
     brake,
+
+    currentUser
 }) => {
 
-    const currentUser = await getCurrentUser()
+    
 
 
 

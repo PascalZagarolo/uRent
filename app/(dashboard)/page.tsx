@@ -6,7 +6,8 @@ import getCurrentUser from "../../actions/getCurrentUser";
 
 import { Images, Inserat } from "@prisma/client";
 
-import type { ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType, ExtraType, FuelType, LkwBrand, LoadingType, TrailerType, Transmission } from "@prisma/client";
+import type { ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType, ExtraType, FuelType, 
+    LkwBrand, LoadingType, TrailerType, Transmission } from "@prisma/client";
 import { db } from "@/utils/db";
 
 import HeaderLogo from "./_components/header-logo";
@@ -20,9 +21,7 @@ import PaginationComponent from "./_components/pagination-component";
 
 
 
-type InserateWithImages = Inserat & {
-    images: Images[]
-}
+
 
 interface MainPageProps {
     searchParams: {
@@ -156,6 +155,8 @@ const Main = async ({
                             extraType={searchParams.extraType}
                             axis={searchParams.axis}
                             brake={searchParams.brake}
+
+                            currentUser = {currentUser}
                         />
                     </div>
                 </div>

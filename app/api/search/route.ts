@@ -22,7 +22,7 @@ export async function PATCH(
        
         const values = await req.json();
        
-        const {location, amount,
+        const { location, amount, category, reqAge, freeMiles,
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
@@ -30,21 +30,116 @@ export async function PATCH(
             //TRAILER
             coupling, extraType, axis, brake,
             ...filteredValues} = values;
-
+            
+            
         const results = await db.inserat.findMany({
             where : {
+                category : category,
+                ...filteredValues,
+                isPublished : true,
+
                 ...(amount) && {
                     amount : {
-                        gte : amount
+                        gte : Number(amount)
                     }
                 },
-                ...filteredValues,
-                isPublished : true
-            }, include : {
+                ...(reqAge) && {
+                    reqAge: {
+                        lte: Number(reqAge)
+                    }
+                },
+                //PKW-Attribute
+                ...(category === "PKW") && {
+                    pkwAttribute: {
+                        brand: brand,
+                        ...(doors) && {
+                            doors : Number(doors)
+                        },
+                        ...(seats) && {
+                            seats: {
+                                gte: Number(seats)
+                            },
+                        },
+                        fuel: fuel,
+                        transmission: transmission,
+                        type: type,
+                        ...(freeMiles) && {
+                            freeMiles: {
+                                gte: Number(freeMiles)
+                            }
+                        
+                        },
+                        ...(extraCost) && {
+                            extraCost: {
+                                gte: Number(extraCost)
+                            }
+                        },
+                        ...(power) && {
+                            power: {
+                                gte: Number(power)
+                            }
+                        },
+                    }
+                },
+                //LKW-Attribute
+                ...(category === "LKW") && {
+                    lkwAttribute: {
+                        lkwBrand: lkwBrand,
+                        ...(weightClass) && {
+                            weightClass : Number(weightClass)
+                        },
+                        ...(seats) && {
+                            seats: {
+                                gte: Number(seats)
+                            },
+                        },
+                        drive : drive,
+                        loading: loading,
+                        application : application,
+                        
+                    }
+                    //TRANSPORT-Attribute
+                }, ...(category === "TRANSPORT") && {
+                    transportAttribute : {
+                        ...(seats) && {
+                            seats: {
+                                gte: Number(seats)
+                            },
+                        },
+                        ...(doors) && {
+                            doors : Number(doors)
+                        },
+                        fuel : fuel,
+                        transmission : transmission,
+                        loading : loading
+                    }
+                }, ...(category === "TRAILOR") && {
+                    trailerAttribute : {
+                        
+                        type : type,
+                        coupling : coupling,
+                        loading : loading,
+                        extraType : extraType,
+                        ...(brake === undefined) ? {
+                            
+                        } : {
+                            brake : brake === "true" ? true : false
+                        },
+                        ...(weightClass) && {
+                            weightClass : Number(weightClass)
+                        },
+                        ...(axis) && {
+                            axis : Number(axis)
+                        }
+                    }
+                }
+            },
+            
+             include : {
                 address : true
-            }
+            }, 
         })
-        
+        console.log(brake)
         let filteredResult = [];
             
         if(location) {

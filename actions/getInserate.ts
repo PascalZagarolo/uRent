@@ -2,9 +2,10 @@
 
 import { db } from "@/utils/db";
 import { Images, Inserat, LkwBrand, User } from "@prisma/client";
-import type { Address, ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType, 
+import type { Address, ApplicationType, CarBrands, Category, CouplingType, DriveType, 
     ExtraType, 
-FuelType, LkwAttribute, LoadingType, PkwAttribute, TrailerAttribute, TrailerType, Transmission, TransportAttribute } from "@prisma/client";
+FuelType, LkwAttribute, LoadingType, PkwAttribute, TrailerAttribute, TrailerType, 
+Transmission, TransportAttribute } from "@prisma/client";
 import axios from "axios";
 
 
@@ -117,11 +118,7 @@ export const getInserate = async ({
     axis,
     brake,
 }: GetInserate): Promise<InserateImagesAndAttributes[]> => {
-
-
-
     try {
-
         if (filter === "relevance") {
             const inserate = await db.inserat.findMany({
                 where: {
@@ -203,8 +200,7 @@ export const getInserate = async ({
                             },
                             drive : drive,
                             loading: loading,
-                            application : application,
-                            
+                            application : application,    
                         }
                     },
                     //TRANSPORT-Attribute
@@ -258,7 +254,6 @@ export const getInserate = async ({
 
             if (location) {
                 const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-
 
                 for (const inserat of inserate) {
                     const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
@@ -407,8 +402,7 @@ export const getInserate = async ({
                 }
             })
             
-            console.log(brake)
-
+        
             let filteredArray = [];
 
             if (location) {

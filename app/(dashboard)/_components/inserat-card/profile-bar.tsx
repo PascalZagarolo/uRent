@@ -100,7 +100,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                     src={inserat.user?.image || "/placeholder-person.jpg"}
                                     height={40}
                                     width={40}
-                                    loading="lazy"
+                                    
                                     alt="User-Bild"
                                 />
                                 <Link href={`/profile/${inserat.userId}`} className="w-1/2 truncate">

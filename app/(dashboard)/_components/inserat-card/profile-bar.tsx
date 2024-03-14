@@ -105,11 +105,9 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                 />
                                 <Link href={`/profile/${inserat.userId}`} className="w-1/2 truncate">
                                     <div className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] items-center flex truncate">
-                                        
                                         <div className="w-3/4 truncate">
                                         {inserat.user?.name}
-                                        </div> 
-                                       
+                                        </div>   
                                         <div className="w-1/4">
                                         {inserat?.user.emailVerified && (
                                             <TooltipProvider>

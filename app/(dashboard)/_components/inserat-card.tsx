@@ -309,7 +309,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             <div className="">
                                 <Image
                                     src={inserat.images[0].url}
-                                    loading="lazy"
+                                    
                                     width={220}
                                     height={240}
                                     className="rounded-md hover:cursor-pointer dark:border-gray-900 max-h-[180px] full"

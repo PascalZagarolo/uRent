@@ -180,13 +180,13 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     </div>
                 </div>
             ) : (
-                <div className="h-full flex sm:block sm:mt-0 items-center  border-2 border-gray-300 dark:border-gray-900 p-4 text-gray-100 bg-[#141620]">
+                <div className="h-full flex sm:block sm:mt-0 items-center  border-2 border-gray-300 dark:border-gray-900 p-4 text-gray-100 bg-[#141620] ">
                     <div className="ml-4 flex w-full items-center">
                         <div className="p-2 border-2  rounded-lg">
                             <SearchCode />
                         </div>
-                        <h3 className="ml-8 flex font-bold text-2xl h-full w-full">
-                            ({inserate.length}) Suchergebnisse
+                        <h3 className="ml-8 flex font-bold text-lg sm:text-2xl h-full w-full">
+                            ({inserate.length}) Ergebnisse
                             <div className="flex ml-auto mr-4 sm:mr-8 text-black">
                                 <OrderBy />
                             </div>

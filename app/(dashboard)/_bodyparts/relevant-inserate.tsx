@@ -33,7 +33,7 @@ interface RelevanteInserateProps {
     reqLicense?: string;
 
     //PKW
-    brand?: CarBrands;
+    brand?: CarBrands[];
     doors?: string;
     initial?: string;
     power?: string;

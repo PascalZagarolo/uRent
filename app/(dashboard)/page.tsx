@@ -42,7 +42,7 @@ interface MainPageProps {
         reqLicense?: string;
 
         //PKW
-        brand?: CarBrands;
+        brand?: any;
         doors?: string;
         initial?: string;
         power?: string;

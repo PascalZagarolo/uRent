@@ -8,7 +8,9 @@ import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 import { useEffect, forwardRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-
+import { usePathname, useRouter } from 'next/dist/client/components/navigation';
+import qs from "query-string";
+import { getSearchParamsFunction } from '@/actions/getSearchParams';
 
 export interface Option {
   value: string;
@@ -266,6 +268,29 @@ export const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSe
       void exec();
     }, [debouncedSearchTerm, open]);
 
+    useEffect(() => {
+      selected.forEach(value =>{
+        console.log(value.value)
+      })
+    }, [selected])
+
+    const pathname = usePathname();
+    const params = getSearchParamsFunction("brand")
+    const router = useRouter();
+    useEffect(() => {
+
+      const brandArray = selected.map(value => value.value)
+
+      const url = qs.stringifyUrl({
+        url: pathname,
+        query: {
+          [category]: brandArray,
+          ...params
+        }
+      }, { skipEmptyString: true, skipNull: true })
+  
+      router.push(url)
+    },[selected])
     
 
     const CreatableItem = () => {

@@ -109,6 +109,7 @@ const PkwBrandBar = () => {
                   <MultipleSelector
                     defaultOptions={OPTIONS}
                     placeholder="Filter nach Marke"
+                    category="brand"
                     emptyIndicator={
                       <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                         Keine Resultate gefunden.

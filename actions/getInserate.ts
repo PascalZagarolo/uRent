@@ -39,7 +39,7 @@ type GetInserate = {
     reqLicense?: string;
 
     //PKW
-    brand?: CarBrands;
+    brand?: CarBrands[];
     doors?: number;
     initial?: Date;
     power?: number;
@@ -119,6 +119,7 @@ export const getInserate = async ({
     brake,
 }: GetInserate): Promise<InserateImagesAndAttributes[]> => {
     try {
+        console.log(Array.isArray(brand))
         if (filter === "relevance") {
             const inserate = await db.inserat.findMany({
                 where: {
@@ -156,7 +157,9 @@ export const getInserate = async ({
                     //PKW-Attribute
                     ...(category === "PKW") && {
                         pkwAttribute: {
-                            brand: brand,
+                                  brand: {
+                                    in : brand,
+                                  }, 
                             ...(doors) && {
                                 doors : doors
                             },
@@ -308,7 +311,13 @@ export const getInserate = async ({
                     //PKW-Attribute
                     ...(category === "PKW") && {
                         pkwAttribute: {
-                            brand: brand,
+                            ...(Array.isArray(brand)) ? {
+                                brand : {
+                                    in : brand
+                                }
+                            } : {
+                                brand : brand
+                            },
                             ...(doors) && {
                                 doors : doors
                             },
@@ -402,7 +411,7 @@ export const getInserate = async ({
                 }
             })
             
-        
+            
             let filteredArray = [];
 
             if (location) {

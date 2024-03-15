@@ -28,8 +28,8 @@ import { Button } from '@/components/ui/button';
 
 
 const PkwBrandBar = () => {
-  const brand = useSearchParams().get("brand");
-  const [currentBrand, setCurrentBrand] = useState(brand);
+  const brand = useSearchParams().getAll("brand");
+  const [currentBrand, setCurrentBrand] = useState(brand[0]);
   const [isLoading, setIsLoading] = useState(false);
 
   const params = getSearchParamsFunction("brand")
@@ -38,7 +38,7 @@ const PkwBrandBar = () => {
 
   const router = useRouter();
 
-
+  
 
   const OPTIONS: Option[] = [
 
@@ -66,7 +66,9 @@ const PkwBrandBar = () => {
     router.push(url)
   }
 
-  
+  React.useEffect(() => {
+    console.log(brand)
+  })
 
   function removeUnderscore(inputString: string): string {
     const outputString = inputString.replace(/_/g, ' ');
@@ -116,15 +118,12 @@ const PkwBrandBar = () => {
                       </p>
                     }
                   />
-                  
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" variant="ghost">
-            Submit
-          </Button>
+          
         </form>
       </Form>
     );

@@ -20,7 +20,7 @@ export default async function Home() {
                     </h3>
                 </div>
 
-                <div className='flex justify-center items-center'>
+                <div className='flex justify-center items-center '>
                     <CredForm />
                 </div>
                     

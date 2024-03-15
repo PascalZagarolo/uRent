@@ -1,5 +1,5 @@
 import Link from "next/link";
-import getCurrentUser from "../../actions/getCurrentUser";
+
 
 const LoginLayout = async (
     { children }: { children: React.ReactNode }

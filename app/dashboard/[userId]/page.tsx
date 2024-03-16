@@ -136,6 +136,7 @@ const DashboardPage = async ({
                                     <h3 className="flex text-lg font-semibold items-center">
                                         <UserPlus2 className="w-4 h-4 mr-2" /> Offene Anfragen <p className="text-sm ml-4"> {bookingRequests.length} </p>
                                     </h3>
+                                    <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
                                     {bookingRequests.map((request: BookingRequest & { inserat: Inserat & { images: Images[] }, user: User }) => (
                                         <BookingRequestRender
                                             //@ts-ignore
@@ -148,6 +149,7 @@ const DashboardPage = async ({
                                             Du hast keine offenen Anfragen...
                                         </div>
                                     )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

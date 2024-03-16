@@ -14,7 +14,7 @@ import { ArrowLeft, ArrowLeftCircleIcon, ArrowLeftFromLine, ArrowLeftSquare, Arr
 import { useEffect, useMemo, useState } from "react";
 import CalendarDay from "./calendar-day";
 import { Button } from "@/components/ui/button";
-import { Booking, Inserat } from "@prisma/client";
+import { Booking, Inserat, User } from "@prisma/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import qs from "query-string";
 import { usePathname, useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
 interface EventCalendarProps {
     inserate: Inserat[],
-    bookings: Booking[]
+    bookings: Booking & {inserat : Inserat, user : User}[]
 }
 
 const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
@@ -61,7 +61,7 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
     };
 
     const eventsByDate = useMemo(() => {
-        return bookings.reduce((acc: { [key: string]: Booking[] }, booking) => {
+        return bookings.reduce((acc: { [key: string]: Booking[] }, booking : Booking & {inserat : Inserat, user : User}) => {
             const startDate = new Date(booking.startDate);
             const endDate = new Date(booking.endDate);
 

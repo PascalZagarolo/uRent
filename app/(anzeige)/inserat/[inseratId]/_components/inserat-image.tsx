@@ -22,13 +22,12 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
       <CarouselContent className="items-center">
         {sortedImages.map((image, index) => (
           <CarouselItem key={index}>
-          <div className="w-full md:h-[320px] rounded-md overflow-hidden">
+          <div className="w-full md:h-[320px] rounded-md overflow-hidden drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
           <Image
         className="w-full h-full object-cover"
         src={image.url}
         alt="Inserat Image"
-        width={1920}
-        height={1920}
+        fill
     />
 </div>
           <p className="flex justify-center text-gray-100 font-semibold text-sm mt-2">

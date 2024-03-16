@@ -14,7 +14,7 @@ export async function POST(
 
         const verificationToken = await generateVerificationToken(email);
 
-        console.log(verificationToken.email, verificationToken.token)
+        
         
         await sendVerificationEmail(
             verificationToken.email,

@@ -18,7 +18,7 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
     const sortedImages = [...images].sort((a, b) => a.position - b.position);
 
     return ( 
-        <Carousel className="sm:w-4/5 items-center md:h-[320px]  ">
+        <Carousel className="w-full items-center md:h-[320px]  ">
       <CarouselContent className="items-center">
         {sortedImages.map((image, index) => (
           <CarouselItem key={index}>
@@ -38,19 +38,7 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
         
         ))}
       </CarouselContent>
-      {sortedImages.length > 1 && (
-        <>
-        <div className="sm:block hidden">
-        <CarouselPrevious 
-        className="dark:text-gray-100"
-        />
-      </div>
       
-      <div className="sm:block hidden">
-      <CarouselNext className="dark:text-gray-100"/>
-      </div>
-      </>
-      )}
       
     </Carousel>
      );

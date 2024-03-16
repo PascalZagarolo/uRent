@@ -92,8 +92,8 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
           </div>
         </div>
       ) : (
-        <p className="mb-16 font-semibold text-gray-900/50 italic dark:text-gray-100">
-          Noch keine Inserate vorhanden
+        <p className="mb-16  text-gray-900/50  dark:text-gray-100 justify-center flex">
+          Noch keine Inserate vorhanden...
 
         </p>
 

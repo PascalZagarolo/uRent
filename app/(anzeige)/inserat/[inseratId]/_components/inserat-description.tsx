@@ -16,7 +16,7 @@ const InseratDescription: React.FC<InseratDescriptionProps> = ({
     const [isUnfolded, setIsUnfolded] = useState(false);
     return ( 
         <div className="overflow-hidden">
-            <div className={cn(" sm:w-[480px] text-sm  text-gray-200/90  ", isUnfolded ? "" : "h-[20px] truncate")}>
+            <div className={cn("sm:w-[480px] w-full text-sm  text-gray-200/90  ", isUnfolded ? "" : "h-[12px]")}>
                                     {inserat.description} 
             </div>
             {inserat.description.length > 60 && (

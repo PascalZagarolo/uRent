@@ -19,7 +19,7 @@ const OtherInserate: React.FC<OtherInserateProps> = ({
     return ( 
         <div className="w-2/5 bg-[#171923] px-4 py-4 rounded-md ">
             <h3 className=" flex gap-x-2 font-medium">
-            <IoIosPaper className = "w-4 h-4" />   Weiteres  von <div className="w-3/5 truncate  font-semibold">{user.name}</div>
+            <IoIosPaper className = "w-4 h-4" />   Weiteres  von <div className="w-3/5 truncate  font-semibold">{user?.name}</div>
                 
             </h3>
             <div className="px-2 mt-2">
@@ -29,6 +29,7 @@ const OtherInserate: React.FC<OtherInserateProps> = ({
                 <div className="px-2 max-h-[400px]">
                 {inserate.map((inserat) => (
                     <OtherInserateRender 
+                    key={inserat.id}
                     //@ts-ignore
                     inserat = {inserat}
                     />

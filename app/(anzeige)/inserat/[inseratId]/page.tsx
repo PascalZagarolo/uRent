@@ -15,6 +15,7 @@ import { PiSteeringWheel, PiVanFill } from "react-icons/pi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { CiBookmark } from "react-icons/ci";
 import { FaAddressCard } from "react-icons/fa";
+import OtherInserate from "./_components/other-inserate";
 
 
 
@@ -49,9 +50,12 @@ const InseratAnzeige = async ({
 
 
 
-    const inseratArray = await db.inserat.count({
+    const inseratArray = await db.inserat.findMany({
         where: {
             userId: inserat.user?.id
+        }, include : {
+            images  : true
+ 
         }
     })
 
@@ -96,10 +100,10 @@ const InseratAnzeige = async ({
 
 
     return (
-        <div className="2xl:grid 2xl:grid-cols-2 xl:flex justify-center gap-12 xl:mt-24 h-max ">
-            <div className="h-full p-4">
-                <div className="flex xl:justify-end justify-center">
-                    <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-[655px] ">
+        <div className="2xl:grid 2xl:grid-cols-2 w-full xl:flex justify-center gap-12 xl:mt-24 h-max ">
+            <div className="h-full p-4 w-full1">
+                <div className="flex xl:justify-end justify-center w-full">
+                    <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-8/12 ">
                         <div className="flex items-center justify-end truncate ">
 
                             <div className="bg-[#1d1f2b] sm:px-8 rounded-lg p-4">
@@ -115,7 +119,7 @@ const InseratAnzeige = async ({
 
 
                             <p className=" text-md sm:text-xl ml-2 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
-                            bg-[#1d1f2b] px-8 rounded-lg p-4 w-[400px] truncate flex justify-center "> {inserat.title} </p>
+                            bg-[#1d1f2b] px-8 rounded-lg p-4 w-3/4 truncate flex justify-center "> {inserat.title} </p>
                             <div className="flex justify-end ml-2 sm:ml-2 bg-[#1d1f2b] sm:px-8 p-4 rounded-lg sm:p-4">
                                 <BookingsOverview
                                     bookings={inseratBookings}
@@ -251,7 +255,7 @@ const InseratAnzeige = async ({
 
                 </div>
                 <div className="flex sm:justify-center xl:justify-end">
-                    <div className="flex justify-end xl:ml-auto w-[655px] mt-8">
+                    <div className="flex justify-end xl:ml-auto w-8/12 mt-8">
                         <InseratAttributes
                             inserat={inserat}
                         />
@@ -268,7 +272,7 @@ const InseratAnzeige = async ({
                     <div className="xl:hidden flex sm:block justify-center">
                         <ProfileView
                             user={inserat.user}
-                            inseratArray={inseratArray}
+                            inseratArray={inseratArray.length}
                             inseratOwner={inserat.user}
                             averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                         />
@@ -285,12 +289,17 @@ const InseratAnzeige = async ({
                     <div className="hidden xl:mt-16 xl:block">
                         <ProfileView
                             user={inserat.user}
-                            inseratArray={inseratArray}
+                            inseratArray={inseratArray.length}
                             inseratOwner={inserat.user}
                             averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                         />
                     </div>
-
+                    <div className="py-8">
+                    <OtherInserate 
+                    user = {inserat.user}
+                    inserate = {inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
+                    />
+                    </div>                                        
                 </div>
 
             </div>

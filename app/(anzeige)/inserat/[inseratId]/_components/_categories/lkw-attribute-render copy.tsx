@@ -43,11 +43,12 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     <GearIcon className="w-4 h-4 mr-2" />    {attributes.drive.substring(1)}
                 </div>
             )}
-            {attributes?.weightClass && (
+            {Number(attributes?.weightClass) !== 0 && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
                     <WeightIcon className="w-4 h-4 mr-2" />   
                     { 
-                        {
+                        {   
+                            '0' : "Sonstiges",
                             '3' : " bis 3,5 t",
                             '5' : " 3,5 - 5,0 t",
                             '7' : " 5,0 - 7,5 t",
@@ -59,7 +60,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
 
                 </div>
             )}
-
+            
             {attributes?.seats && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
                     <PiCouchFill className="w-4 h-4 mr-2" />    {attributes.seats} {attributes.seats > 1 ? 'Sitze' : 'Sitz'}

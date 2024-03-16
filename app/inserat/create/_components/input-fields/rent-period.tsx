@@ -182,8 +182,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                       
                                
                                             <Popover>
-                                                <PopoverTrigger asChild>
-                                                   
+                                                <PopoverTrigger asChild>     
                                                         <Button
                                                             variant={"outline"}
                                                             disabled={isDateless}
@@ -195,7 +194,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                             {currentEnd ? (
                                                                 format(currentEnd, "PPP")
                                                             ) : (
-                                                                <span>Wähle einen Startpunkt</span>
+                                                                <span>Wähle deinen Endpunkt</span>
                                                             )}
                                                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                         

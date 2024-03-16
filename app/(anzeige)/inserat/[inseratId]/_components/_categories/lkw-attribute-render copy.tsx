@@ -45,7 +45,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
             )}
             {attributes?.weightClass && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <WeightIcon className="w-4 h-4 mr-2" />   Gewichtsklasse :
+                    <WeightIcon className="w-4 h-4 mr-2" />   
                     { 
                         {
                             '3' : " bis 3,5 t",

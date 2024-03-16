@@ -29,7 +29,7 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
             
             {attributes?.seats && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <PiCouchFill className="w-4 h-4 mr-2" />    {attributes?.seats} Sitze
+                    <PiCouchFill className="w-4 h-4 mr-2" />    {attributes?.seats} 
                 </div>
             )}
             {attributes?.fuel && (
@@ -52,7 +52,7 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
             )}
             {Number(attributes?.doors) !== 0 && attributes?.doors  && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <DoorClosedIcon className="w-4 h-4 mr-2" />    {attributes?.doors}/{Number(attributes?.doors) + 1} Türer
+                    <DoorClosedIcon className="w-4 h-4 mr-2" />    {attributes?.doors}/{Number(attributes?.doors) + 1} 
                 </div>
             )}
            

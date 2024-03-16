@@ -45,6 +45,7 @@ const Bookings = () => {
 
   const [currentStart, setCurrentStart] = useState(new Date());
   const [currentEnd, setCurrentEnd] = useState(new Date());
+  const [currentContent, setCurrentContent] = useState<string | null>("");
   const [isLoading, setIsLoading] = useState(false)
   const [currentNotice, setCurrentNotice] = useState("");
   const selectedUser = usesearchUserByBookingStore((user) => user.user)
@@ -82,7 +83,7 @@ const Bookings = () => {
       console.log("getriggered")
       setIsLoading(true);
       const values = {
-        content : currentNotice ? currentNotice : "",
+        content : currentContent,
         startDate: currentStart,
         endDate: currentEnd,
       }
@@ -224,6 +225,7 @@ const Bookings = () => {
                     render={({ field }) => (
                       <FormItem className="mt-2 ">
                         <Textarea
+                        onChange={(e) => setCurrentContent(e.target.value)}
                           className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200  dark:bg-[#0a0a0a] border-none"
                         />
                       </FormItem>

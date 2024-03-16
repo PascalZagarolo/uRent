@@ -25,14 +25,16 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     const router = useRouter();
 
 
-    const onAccept = () => {
+    const  onAccept = async () => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/bookingrequest/accept/${request.id}`);
-            toast.success("Anfrage angenommen");
-            setTimeout(() => {
+            await axios.patch(`/api/bookingrequest/accept/${request.id}`).then(() => {
                 router.refresh();
-            }, 500);
+            })
+            toast.success("Anfrage angenommen");
+            
+                
+            
         } catch {
             toast.error("Fehler beim Annehmen der Anfrage")
         } finally {
@@ -40,14 +42,14 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
         }
     }
 
-    const onDecline = () => {
+    const onDecline = async () => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/bookingrequest/declined/${request.id}`);
-            toast.success("Anfrage abgelehnt");
-            setTimeout(() => {
+            axios.delete(`/api/bookingrequest/declined/${request.id}`).then(() => {
                 router.refresh();
-            }, 500);
+            })
+            toast.success("Anfrage abgelehnt");
+            
         } catch {
             toast.error("Fehler beim Ablehnen der Anfrage")
         } finally {
@@ -56,7 +58,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     }
 
     return ( 
-        <div className="dark:bg-[#141414] p-4 mt-2 rounded-md border dark:border-none ">
+        <div className="dark:bg-[#141414] p-4 mb-4 rounded-md border dark:border-none ">
             <div className="flex w-full truncate font-semibold items-center">
              <CarFrontIcon className="w-4 h-4 mr-2"/>    <p className="w-[200px] truncate">
              {request.inserat.title} 
@@ -65,7 +67,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <Button className=" p-4 mr-2" variant="ghost" size="sm" onClick={onAccept}>
                     <Check className="h-4 w-4 text-emerald-600"/>
                 </Button>
-                <Button className=" p-4" variant="ghost" size="sm">
+                <Button className=" p-4" variant="ghost" size="sm" onClick={onDecline}>
                     <X className="h-4 w-4 text-rose-600"/>
                 </Button>
             </div>

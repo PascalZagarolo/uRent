@@ -47,12 +47,15 @@ const DashboardPage = async ({
         }
     })
 
-    let involvedBookings: Booking[] = [];
+    let involvedBookings: Booking & {inserat : Inserat, user : User}[] = [] as any;
 
     for (let i = 0; i < inserate.length; i++) {
         const bookings = await db.booking.findMany({
             where: {
                 inseratId: inserate[i].id
+            }, include : {
+                user : true,
+                inserat : true
             }
         })
 
@@ -125,7 +128,6 @@ const DashboardPage = async ({
                                 </h3>
                                 <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
                                     <EventCalendar
-
                                         inserate={everyInserat}
                                         bookings={involvedBookings}
                                     />

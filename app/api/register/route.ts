@@ -21,14 +21,15 @@ export async function POST(
 
   const user = await db.user.create({
     data: {
-      password : hashedPassword,
-      email : email as string,
-      name : name,
-      
+      password: hashedPassword,
+      email: email as string,
+      name: name,
+
     }
   });
 
-  const verificationToken = await generateVerificationToken(email);
+  const verificationToken = await generateVerificationToken(email as string);
+
   await sendVerificationEmail(
     verificationToken.email,
     verificationToken.token

@@ -37,7 +37,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const router = useRouter();
 
     return (
-        <div className="px-4 py-4 bg-[#171923] sm:w-[400px] w-full mr-2 ml-2
+        <div className="px-4 py-4 bg-[#171923] sm:w-2/5 w-full 
           rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
          dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
          ">
@@ -49,8 +49,9 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     className="rounded-full h-[40px] w-[40px] "
                     alt="User-Bild"
                 />
-                <div className="font-semibold ml-2 flex items-center">
-                    <p className="font-black text-xl text-[#49506c] dark:text-[#49506c]">{user.name.charAt(0).toUpperCase()}</p><div>{user.name.slice(1)}</div>
+                <div className="font-semibold ml-2 flex items-center w-3/4 truncate">
+                    <p className="font-black text-xl text-[#49506c] dark:text-[#49506c]">
+                        {user.name.charAt(0).toUpperCase()}</p><div>{user.name.slice(1)}</div>
 
                 </div>
                 <div className="flex ml-auto">

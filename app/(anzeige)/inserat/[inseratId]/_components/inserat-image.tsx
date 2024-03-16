@@ -18,11 +18,11 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
     const sortedImages = [...images].sort((a, b) => a.position - b.position);
 
     return ( 
-        <Carousel className="md:w-[500px] items-center md:h-[320px]  ">
+        <Carousel className="md:w-4/5 items-center md:h-[320px]  ">
       <CarouselContent className="items-center">
         {sortedImages.map((image, index) => (
           <CarouselItem key={index}>
-          <div className="md:w-[500px] md:h-[320px] rounded-md overflow-hidden">
+          <div className="md:w-full md:h-[320px] rounded-md overflow-hidden">
     <img
         className="w-full h-full object-cover"
         src={image.url}

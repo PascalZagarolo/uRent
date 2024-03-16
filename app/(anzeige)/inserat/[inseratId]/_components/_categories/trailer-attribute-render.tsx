@@ -26,23 +26,23 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             {attributes?.type && (
                 
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <CaravanIcon className="w-4 h-4 mr-2" />    {attributes.type.substring(0,1)}{attributes.type.substring(1).toLowerCase()}
+                    <CaravanIcon className="w-4 h-4 mr-2" />    {attributes?.type?.substring(0,1)}{attributes?.type?.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.extraType && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <RiCaravanFill  className="w-4 h-4 mr-2" />    {attributes.extraType?.substring(0,1)}{attributes.extraType?.substring(1).toLowerCase()}
+                    <RiCaravanFill  className="w-4 h-4 mr-2" />    {attributes?.extraType?.substring(0,1)}{attributes?.extraType?.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.coupling && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <FaGears  className="w-4 h-4 mr-2" />    {attributes.coupling?.substring(0,1)}{attributes.coupling?.substring(1).toLowerCase()}
+                    <FaGears  className="w-4 h-4 mr-2" />    {attributes?.coupling?.substring(0,1)}{attributes?.coupling?.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.loading && (
                 
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <TbCrane   className="w-4 h-4 mr-2" />    {attributes.loading.substring(0,1)}{attributes.loading.substring(1).toLowerCase()}   
+                    <TbCrane   className="w-4 h-4 mr-2" />    {attributes?.loading?.substring(0,1)}{attributes?.loading?.substring(1).toLowerCase()}   
                 </div>
             )}
             {attributes?.axis && (
@@ -54,7 +54,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
                             '3' : "Dreiachser",
                             '4' : "Vierachser",
                             '5' : " > 4 Achsen"
-                        }[attributes.axis]
+                        }[attributes?.axis]
                     }
                 </div>
             )}
@@ -74,7 +74,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
                             '3200' : " bis 32 t",
                             '3900' : " bis 39 t",
                             '5000' : " {'>'} 39 t",
-                        }[attributes.weightClass]
+                        }[attributes?.weightClass]
                     }
 
                 </div>
@@ -82,7 +82,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
 
             {attributes?.brake && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <GiStoneWheel  className="w-4 h-4 mr-2" />    {String(attributes.brake) === "true" ? "Hat Auflaufbremse" : "Keine Bremse"}
+                    <GiStoneWheel  className="w-4 h-4 mr-2" />    {String(attributes?.brake) === "true" ? "Hat Auflaufbremse" : "Keine Bremse"}
                 </div>
             )}
             

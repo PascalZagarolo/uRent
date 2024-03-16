@@ -52,7 +52,8 @@ const InseratAnzeige = async ({
 
     const inseratArray = await db.inserat.findMany({
         where: {
-            userId: inserat.user?.id
+            userId: inserat.user?.id,
+            isPublished : true
         }, include: {
             images: true
 

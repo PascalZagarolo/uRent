@@ -100,7 +100,7 @@ const InseratAnzeige = async ({
 
 
     return (
-        <div className="2xl:grid 2xl:grid-cols-2 w-full xl:flex justify-center gap-12 xl:mt-24 h-max ">
+        <div className="xl:grid xl:grid-cols-2 w-full  justify-center  xl:mt-12 h-max ">
             <div className="h-full p-4 w-full1">
                 <div className="flex xl:justify-end justify-center w-full">
                     <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  w-8/12 ">

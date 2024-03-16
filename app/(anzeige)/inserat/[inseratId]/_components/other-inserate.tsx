@@ -34,25 +34,12 @@ const OtherInserate: React.FC<OtherInserateProps> = ({
                     inserat = {inserat}
                     />
                 ))}
-                {inserate.map((inserat) => (
-                    <OtherInserateRender 
-                    key={inserat.id}
-                    //@ts-ignore
-                    inserat = {inserat}
-                    />
-                ))}
-                {inserate.map((inserat) => (
-                    <OtherInserateRender 
-                    key={inserat.id}
-                    //@ts-ignore
-                    inserat = {inserat}
-                    />
-                ))}
+                
             </div>
             ) : (
                 <div className="px-2 max-h-[400px]">
                 
-                <p className="text-gray-200/80 font-medium text-sm">
+                <p className="text-gray-200/80 font-medium text-sm mt-2">
                     Noch keine weiteren Inserate vorhanden..
                 </p>
                 </div>

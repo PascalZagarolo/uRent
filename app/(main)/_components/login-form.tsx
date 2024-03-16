@@ -100,7 +100,9 @@ const CredForm = ({
         }
 
         if (callback?.ok) {
-          toast.success('Erfolgreich angemeldet');
+          setTimeout(() => {
+            router.push('/')
+          }, 500)
         }
       })
       .catch(() => toast.error('Etwas ist schiefgelaufen'))
@@ -118,7 +120,9 @@ const CredForm = ({
         }
 
         if (callback?.ok) {
-          toast.success('Erfolgreich angemeldet');
+          setTimeout(() => {
+            router.push('/')
+          }, 500)
         }
       })
       .finally(() => setIsLoading(false))

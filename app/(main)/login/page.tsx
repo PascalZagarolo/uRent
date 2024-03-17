@@ -1,4 +1,5 @@
 
+import { auth } from '@/auth';
 import CredForm from '../_components/login-form'
 
 import { KeyRound } from 'lucide-react';
@@ -23,7 +24,7 @@ export default async function Home() {
                 <div className='flex justify-center items-center '>
                     <CredForm />
                 </div>
-                    
+                   
             </main>
         </div>
     )

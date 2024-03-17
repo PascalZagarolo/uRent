@@ -10,10 +10,9 @@ import { signIn, useSession, } from "next-auth/react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { Eye, GithubIcon } from "lucide-react";
+
 import Input from "@/components/input";
 import toast from "react-hot-toast";
-import getCurrentUser from "@/actions/getCurrentUser";
 import Link from "next/link";
 
 
@@ -100,10 +99,10 @@ const CredForm = ({
         }
 
         if (callback?.ok) {
-          setTimeout(() => {
+          
             toast.success('Erfolgreich angemeldet');
-            router.push('/')
-          }, 500)
+            
+          
         }
       })
       .catch(() => toast.error('Etwas ist schiefgelaufen'))
@@ -121,14 +120,15 @@ const CredForm = ({
         }
 
         if (callback?.ok) {
-          setTimeout(() => {
+          
             toast.success('Erfolgreich angemeldet');
-            router.push('/')
-          }, 500)
+          
         }
       })
       .finally(() => setIsLoading(false))
     }
+
+    
   }
 
 

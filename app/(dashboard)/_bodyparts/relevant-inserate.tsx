@@ -1,5 +1,5 @@
-import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
+
+
 import { AlignCenter, SearchCode } from "lucide-react";
 
 import { getInserate } from "@/actions/getInserate";
@@ -14,6 +14,9 @@ import OrderBy from "../_components/_smart-filter/order-by";
 const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
 
 import { Suspense, lazy } from "react";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
+import { favourite, users } from "@/db/schema";
 
 
 interface RelevanteInserateProps {
@@ -58,7 +61,7 @@ interface RelevanteInserateProps {
     axis: string;
     brake: string,
 
-    currentUser : User;
+    currentUser : typeof users.$inferSelect;
 
 }
 
@@ -112,10 +115,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 
 
 
-    const favedInserate = await db.favourite.findMany({
-        where: {
-            userId: currentUser?.id || ""
-        }
+    const favedInserate = await db.query.favourite.findMany({
+        where: eq(favourite.userId, currentUser.id)
     })
 
 

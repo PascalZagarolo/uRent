@@ -6,7 +6,7 @@ import LoginBarHeader from "./login-bar-header";
 import { useSession } from "next-auth/react";
 
 
-import { Notification, User } from "@prisma/client";
+
 
 
 import Inserat from "./add-inserat";
@@ -20,19 +20,20 @@ import { cn } from "@/lib/utils";
 
 import MobileFilterSheet from "./mobile-filter-sheet";
 import LocationBar from "./location-bar";
-import { lazy } from "react";
+
 import LoggedInBarHeader from "./logged-in-header";
+import { users } from "@/db/schema";
 
 
 
 interface HeaderProps {
-    currentUser: User;
-    notifications: Notification[];
+    currentUser: typeof users.$inferSelect;
+    
 }
 
 const Header: React.FC<HeaderProps> = ({
     currentUser,
-    notifications
+    
 }) => {
 
 
@@ -77,14 +78,12 @@ const Header: React.FC<HeaderProps> = ({
                     </div>
                     {
                         status === 'unauthenticated' || !currentUser ? (
-                            <LoginBarHeader
-
-                            />
+                            <LoginBarHeader/>
                         ) : (
                             <div className="items-center flex ml-auto mr-8">
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
-                                    notifications={notifications}
+                                    
                                 />
 
                             </div>

@@ -12,16 +12,17 @@ import NotificationShortCut from "./notification-shortcut";
 import SettingsSheet from "./settings-sheet";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { users } from "@/db/schema";
 
 
 interface LoggedInBarHeaderProps {
-    currentUser: User;
-    notifications: Notification[];
+    currentUser: typeof users.$inferSelect;
+   
 }
 
 const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     currentUser,
-    notifications
+    
 }) => {
 
     const router = useRouter();
@@ -49,7 +50,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             <div className="flex lg:gap-x-2">
                 <div className="sm:block hidden">
                     <NotificationShortCut
-                        notifications={notifications}
+                        
                     />
                 </div>
                 <div className="lg:block hidden">
@@ -71,7 +72,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                             <PopoverTrigger asChild>
 
                                 <img
-                                    src={currentUser.image || "/placeholder-person.jpg"}
+                                    src={currentUser?.image || "/placeholder-person.jpg"}
                                     className="sm:ml-0 sm:mr-0 mr-4 w-[40px] h-[40px] rounded-full  hover:cursor-pointer"
 
                                 />

@@ -1,11 +1,14 @@
+
+import db from "@/db/drizzle";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
-import { db } from "@/utils/db";
+
 import bcrypt from "bcrypt";
 
 
 
 import { NextResponse } from "next/server";
+import { users, verificationTokens } from '../../../db/schema';
 
 export async function POST(
   request: Request
@@ -19,6 +22,7 @@ export async function POST(
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
+  /* 
   const user = await db.user.create({
     data: {
       password: hashedPassword,
@@ -26,7 +30,14 @@ export async function POST(
       name: name,
 
     }
+  });*/
+
+  const user = await db.insert(users).values({
+      password: hashedPassword,
+      email: email as string,
+      name: name,
   });
+
 
   const verificationToken = await generateVerificationToken(email as string);
 

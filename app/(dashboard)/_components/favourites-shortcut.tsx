@@ -2,13 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { users } from "@/db/schema";
 import { User } from "@prisma/client";
 import { MessageCircle, MessageCircleMoreIcon, StarHalfIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface FavouritesShortCutProps {
 
-    currentUser: User
+    currentUser: typeof users.$inferSelect;
 
 }
 

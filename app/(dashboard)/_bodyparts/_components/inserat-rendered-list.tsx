@@ -7,10 +7,11 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { InserateImagesAndAttributes } from "@/types/types";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
+import { users } from "@/db/schema";
 
 interface InseratRenderedListProps {
     inserateArray: InserateImagesAndAttributes[];
-    currentUser: User;
+    currentUser: typeof users.$inferSelect;
     favedInserate: Inserat[];
 
 

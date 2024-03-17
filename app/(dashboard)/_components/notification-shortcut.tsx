@@ -7,14 +7,10 @@ import { Notification } from "@prisma/client";
 import { BellDotIcon, BellPlus, MessageCircle, MessageCircleMoreIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface NotificationShortCutProps { 
-    notifications : Notification[];
-}
 
 
-const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
-    notifications
-}) => {
+
+const NotificationShortCut = () => {
 
     const router = useRouter();
 
@@ -22,7 +18,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         <Popover>
             <PopoverTrigger asChild>
                 <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost" >
-                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">{notifications?.length || 0}</p>
+                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">0</p>
                                     
                 </Button>
             </PopoverTrigger>

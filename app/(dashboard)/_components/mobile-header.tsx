@@ -7,21 +7,22 @@ import MobileLogoDialog from "./mobile-logo-dialog";
 import { useSession } from "next-auth/react";
 import LoggedInBarHeader from "./logged-in-header";
 
-import { User, Notification } from "@prisma/client";
+
 import MobileFilterSheet from './mobile-filter-sheet';
 import { usePathname } from "next/navigation";
 import DashboardSheet from "./dashboard-sheet";
-import LoginBarHeader from "./login-bar-header";
+
 import MobileLoginButton from "./mobile-login-button";
+import { users } from '../../../db/schema';
 
 interface MobileHeaderProps {
-    currentUser: User;
-    notifications: Notification[];
+    currentUser: typeof users.$inferSelect;
+    
 }
 
 const MobileHeader: React.FC<MobileHeaderProps> = ({
     currentUser,
-    notifications
+    
 }) => {
 
 
@@ -40,7 +41,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                         {
                             isDashboard ? (
                                 <DashboardSheet
-                                    currentUserId={currentUser.id}
+                                    currentUserId={String(currentUser.id)}
                                 />
                             ) : (
                                 <MobileFilterSheet />
@@ -59,7 +60,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                                 <div className="flex w-full ml-auto ">
                                     <LoggedInBarHeader
                                         currentUser={currentUser}
-                                        notifications={notifications}
+                                        
                                     />
 
                                 </div>

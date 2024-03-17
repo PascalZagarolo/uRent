@@ -4,11 +4,11 @@ import getCurrentUser from "../../actions/getCurrentUser";
 
 
 
-import { Images, Inserat } from "@prisma/client";
+
 
 import type { ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType, ExtraType, FuelType, 
     LkwBrand, LoadingType, TrailerType, Transmission } from "@prisma/client";
-import { db } from "@/utils/db";
+
 
 import HeaderLogo from "./_components/header-logo";
 
@@ -18,6 +18,9 @@ import { ClipLoader } from "react-spinners";
 import { Metadata } from "next";
 import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import PaginationComponent from "./_components/pagination-component";
+import db from "@/db/drizzle";
+import MainPageSideBar from "./_components/main-page-sidebar";
+
 
 
 
@@ -92,31 +95,27 @@ const Main = async ({
     const end = Number(searchParams.end)
 
 
-    const LazyMainPageSideBar = lazy(() => import("./_components/main-page-sidebar"));
 
 
-    const notifications = await db.notification.findMany({
-        where: {
-            userId: currentUser?.id
-        }
-    })
+    
 
     return (
         <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    notifications={notifications} />
+                     />
             </div>
             <div>
                 <div className="relative flex justify-center mt-4">
                     <Suspense fallback={<div className="ml-4"><ClipLoader loading /></div>}>
                         <div className="top-0 sm:mr-4 ">
-                            <LazyMainPageSideBar />
+                            <MainPageSideBar />
                         </div>
                     </Suspense>
                     <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
-                        <RelevanteInserate
+                    {/* 
+                    <RelevanteInserate
                             title={searchParams.title}
                             category={searchParams.category}
                             filter={searchParams.filter}
@@ -158,6 +157,7 @@ const Main = async ({
 
                             currentUser = {currentUser}
                         />
+                        */}
                     </div>
                 </div>
                 <div className="p-4 flex justify-center">

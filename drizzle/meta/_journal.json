@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1710692986150,
+      "tag": "0000_huge_shard",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1710693667877,
+      "tag": "0001_rich_lady_vermin",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1710693822768,
+      "tag": "0002_faithful_hydra",
+      "breakpoints": true
+    }
+  ]
+}

@@ -66,6 +66,7 @@ export const verificationTokens = pgTable(
     {
         identifier: text("identifier").notNull(),
         token: text("token").notNull(),
+        email: text("email").notNull(),
         expires: timestamp("expires", { mode: "date" }).notNull(),
     },
     (vt) => ({
@@ -152,6 +153,17 @@ export const inserat = pgTable("inserat", {
 
     pkwId: integer("pkwId")
         .references(() => pkwAttribute.id, { onDelete: "cascade" }),
+
+    lkwId: integer("lkwId")
+        .references(() => lkwAttribute.id, { onDelete: "cascade" }),
+
+    trailerId: integer("lkwId")
+        .references(() => trailerAttribute.id, { onDelete: "cascade" }),
+
+    transportId : integer("transportId")
+            .references(() => transportAttribute.id, { onDelete: "cascade" }),
+    
+    
 })
 
 export const brandEnum = pgEnum("brand", [

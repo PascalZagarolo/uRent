@@ -38,7 +38,7 @@ export const generateVerificationToken = async (email : string) => {
 
   if(existingToken) {
      await db.delete(verificationTokens)
-      .where(eq(verificationTokens.identifier, existingToken.id))
+      .where(eq(verificationTokens.identifier, existingToken.identifier))
   }
 
   const verificationToken = await db.insert(verificationTokens).values({

@@ -114,9 +114,9 @@ const MainPageSideBar= () => {
                 <PKW />
                 </div>
                 <div>
-                    {/*
+                    
                     <CategoryOverview />
-                    */}
+                    
                 </div>
                 <div className="text-xs flex justify-center text-gray-100 underline hover:cursor-pointer" onClick={() => {router.push("/search")}}>
                     <Settings2 className="mr-2 h-4 w-4" /> Erweiterte Suche

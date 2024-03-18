@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { TbSteeringWheel } from "react-icons/tb";
+
 import { z } from "zod";
 import qs from "query-string"
 import { getSearchParamsFunction } from "@/actions/getSearchParams";

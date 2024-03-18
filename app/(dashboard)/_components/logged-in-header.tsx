@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Notification, User } from "@prisma/client";
-import { LogOutIcon, MailCheck, MessageCircleIcon, Settings, Settings2Icon, SettingsIcon, TrendingUp, UserIcon } from "lucide-react";
+
+import { LogOutIcon, MailCheck, TrendingUp, UserIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ConversationShortCut from "./conversation-shortcut";

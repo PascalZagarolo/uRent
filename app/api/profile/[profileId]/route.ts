@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -9,15 +12,13 @@ export async function PATCH(
 
         const values = await req.json();
 
-        const updatedProfile = await db.user.update({
-            where : {
-                id : params.profileId
-            }, data : {
+        const updatedProfile = await db.update(users).set({
+             
                 ...values
-            }
-        })
+            
+        }).where(eq(users.id, Number(params.profileId))).returning()
 
-        return NextResponse.json(updatedProfile)
+        return NextResponse.json(updatedProfile[0])
 
     } catch (error) {
         console.log(error);

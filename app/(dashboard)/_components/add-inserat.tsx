@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { users } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "@prisma/client";
+
 import axios from "axios";
 
 

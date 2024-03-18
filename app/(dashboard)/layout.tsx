@@ -29,7 +29,7 @@ const DashboardLayout = async (
                 */}
                 
              </div>
-             {currentUser.name} + {currentUser.email}
+             
              <div>
                 
                

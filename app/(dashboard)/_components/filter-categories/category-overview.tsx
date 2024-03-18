@@ -1,7 +1,7 @@
 'use client'
 
 import { CarFrontIcon, TruckIcon } from "lucide-react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import PkwSearchComponents from "./pkw-search-components";
@@ -21,7 +21,7 @@ const CategoryOverview = () => {
         <>
         {currentCategory && (
             <div className="">
-<ConditionsSearchComponent />
+            <ConditionsSearchComponent />
             </div>
         )}
         {currentCategory && (
@@ -57,6 +57,7 @@ const CategoryOverview = () => {
                 
            
         
+        {/*
         <div className="p-2 ">
         {
                     {
@@ -67,6 +68,7 @@ const CategoryOverview = () => {
                     }[currentCategory]
                 }
         </div>
+        */}
         </>
      );
 }

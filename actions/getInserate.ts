@@ -1,7 +1,9 @@
 
 
 
-import { applicationEnum, brandEnum, categoryEnum, couplingEnum, driveEnum, extraTypeEnum, fuelTypeEnum, images, lkwBrandEnum, loadingEnum, trailerEnum, transmissionEnum } from "@/db/schema";
+import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender, 
+    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender, 
+    LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
 
 
 
@@ -22,7 +24,7 @@ type InserateImagesAndAttributes = Inserat & {
 
 type GetInserate = {
     title?: string;
-    category?: typeof categoryEnum;
+    category?: typeof CategoryEnumRender;
     filter?: string;
     start?: number;
     end?: number;
@@ -37,28 +39,28 @@ type GetInserate = {
     reqLicense?: string;
 
     //PKW
-    brand?: typeof brandEnum[];
+    brand?: typeof BrandEnumRender[];
     doors?: number;
     initial?: Date;
     power?: number;
     seats?: number;
-    fuel?: typeof fuelTypeEnum;
-    transmission?: typeof transmissionEnum;
+    fuel?: typeof FuelTypeEnumRender;
+    transmission?: typeof TransmissionEnumRender;
     type?: any;
     freeMiles?: number;
     extraCost?: number;
 
     //LKW
     weightClass? : number;
-    drive? : typeof driveEnum;
-    loading? : typeof loadingEnum;
-    application? : typeof applicationEnum;
-    lkwBrand? : typeof lkwBrandEnum;
+    drive? : typeof DriveEnumRender;
+    loading? : typeof LoadingEnumRender;
+    application? : typeof ApplicationEnumRender;
+    lkwBrand? : typeof LkwBrandEnumRender;
 
     //Trailer
-    trailerType : typeof trailerEnum;
-    coupling : typeof couplingEnum;
-    extraType : typeof extraTypeEnum;
+    trailerType : typeof TrailerEnumRender;
+    coupling : typeof CouplingEnumRender;
+    extraType : typeof ExtraTypeEnumRender;
     axis : number;
     brake : boolean;
     

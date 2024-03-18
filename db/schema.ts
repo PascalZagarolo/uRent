@@ -14,6 +14,8 @@ import {
 import type { AdapterAccount } from '@auth/core/adapters'
 
 import { relations } from "drizzle-orm"
+import { z } from "zod"
+
 
 
 
@@ -121,6 +123,8 @@ export const categoryEnum = pgEnum("category", [
     "TRANSPORT"
 ])
 
+export const CategoryEnumRender = z.enum(categoryEnum.enumValues).Enum;
+
 export const inserat = pgTable("inserat", {
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
@@ -167,26 +171,30 @@ export const inserat = pgTable("inserat", {
 })
 
 export const brandEnum = pgEnum("brand", [
-    ' Acura ', ' Alfa_Romeo ', ' Alpha_Motor_Corporation ', ' Arcimoto ', ' Arrinera_Automotive ', ' Aptera_Motors ',
-    ' Aston_Martin ', ' Atlis_Motor_Vehicles ', ' Audi ', ' BMW ', ' Bentley ', ' Bollinger_Motors ', ' Bugatti ',
-    ' Buick ', ' BYD ', ' BYTON ', ' Cadillac ', ' Canoo ', ' Chery ', ' Chevrolet ', ' Chrysler ', ' Citroen ',
-    ' Dacia ', ' Daihatsu ', ' Dodge ', ' Electra_Meccanica ', ' Electrameccanica_Vehicles_Corp ', ' Elio_Motors ',
-    ' Faraday_Future ', ' Ferrari ', ' Fiat ', ' Fisker_Inc ', ' Ford ', ' Genesis ', ' Geely ', ' GMC ', ' Great_Wall ',
-    ' Haval ', ' Honda ', ' Hummer ', ' Hyundai ', ' Infiniti ', ' Isuzu ', ' JAC ', ' Jaguar ', ' Jeep ', ' Karma_Automotive ',
-    ' Kia ', ' Kreisel_Electric ', ' Land_Rover ', ' Lamborghini ', ' Lexus ', ' Lincoln ', ' Local_Motors ', ' Lordstown_Motors ',
-    ' Lotus ', ' Lucid_Motors ', ' Mahindra ', ' Maserati ', ' Mazda ', ' McLaren ', ' Mercedes_Benz ', ' MG ',
-    ' Micro_Mobility_Systems ', ' Mini ', ' Mitsubishi ', ' NIO ', ' Nikola_Corporation ', ' Nissan ', ' Opel ',
-    ' Peugeot ', ' Polestar ', ' Porsche ', ' Proton ', ' RAM ', ' Renault ', ' Rimac ', ' Rivian ', ' Rolls_Royce ',
-    ' Saab ', ' SEAT ', ' Smart ', ' SsangYong ', ' Subaru ', ' Suzuki ', ' Skoda ', ' Tesla ', ' Terrafugia ', ' Toyota ',
-    ' Vanderhall_Motor_Works ',
-    ' Vauxhall ', ' VinFast ', ' Volkswagen ', ' Volvo ', ' Workhorse_Group_Inc ', ' Wuling ', ' Zoyte '
+    'Acura' , 'Alfa_Romeo', 'Alpha_Motor_Corporation', 'Arcimoto', 'Arrinera_Automotive', 'Aptera_Motors',
+    'Aston_Martin', 'Atlis_Motor_Vehicles', 'Audi', 'BMW', 'Bentley', 'Bollinger_Motors', ' Bugatti ',
+    'Buick', 'BYD', 'BYTON', 'Cadillac', 'Canoo', 'Chery', 'Chevrolet', 'Chrysler', 'Citroen',
+    'Dacia', 'Daihatsu', 'Dodge', 'Electra_Meccanica', 'Electrameccanica_Vehicles_Corp', 'Elio_Motors',
+    'Faraday_Future', 'Ferrari' , 'Fiat', 'Fisker_Inc', 'Ford', 'Genesis', 'Geely', 'GMC', 'Great_Wall',
+    'Haval', 'Honda', 'Hummer', 'Hyundai', 'Infiniti', 'Isuzu', 'JAC', 'Jaguar',  'Jeep', 'Karma_Automotive',
+    'Kia ', ' Kreisel_Electric ', ' Land_Rover ', ' Lamborghini ', ' Lexus ', ' Lincoln ', ' Local_Motors ', 'Lordstown_Motors',
+    'Lotus ', ' Lucid_Motors ', ' Mahindra ', ' Maserati ', ' Mazda ', ' McLaren ', ' Mercedes_Benz ', ' MG ',
+    'Micro_Mobility_Systems ', 'Mini', 'Mitsubishi', 'NIO', ' Nikola_Corporation ', ' Nissan ', ' Opel ',
+    'Peugeot', 'Polestar',  'Porsche', 'Proton', 'RAM', 'Renault', 'Rimac', 'Rivian', 'Rolls_Royce',
+    'Saab', 'SEAT', 'Smart', 'SsangYong', 'Subaru', 'Suzuki', 'Skoda', 'Tesla', 'Terrafugia', 'Toyota',
+    'Vanderhall_Motor_Works',
+    'Vauxhall', 'VinFast', 'Volkswagen', 'Volvo', 'Workhorse_Group_Inc', 'Wuling', 'Zoyte'
 ])
+
+export const BrandEnumRender = z.enum(brandEnum.enumValues).Enum;
 
 export const transmissionEnum = pgEnum("transmission", [
     "MANUAL",
     "AUTOMATIC",
     "SEMI_AUTOMATIC"
 ])
+
+export const TransmissionEnumRender = z.enum(transmissionEnum.enumValues).Enum;
 
 export const carTypeEnum = pgEnum("carType", [
     "KOMBI",
@@ -202,12 +210,16 @@ export const carTypeEnum = pgEnum("carType", [
 
 ])
 
+export const CarTypeEnumRender = z.enum(carTypeEnum.enumValues).Enum;
+
 export const fuelTypeEnum = pgEnum("fuelType", [
     "ELEKTRISCH",
     "DIESEL",
     "BENZIN",
     "HYBRID"
 ])
+
+export const FuelTypeEnumRender = z.enum(fuelTypeEnum.enumValues).Enum;
 
 export const pkwAttribute = pgTable("pkwAttribute", {
     id: serial("id").primaryKey(),
@@ -230,6 +242,8 @@ export const pkwAttribute = pgTable("pkwAttribute", {
     inseratId: integer("inseratId" )
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
+
+
 
 export const lkwBrandEnum = pgEnum("lkwBrand", [
     "Anhui_Jianghuai_Automobile",
@@ -323,6 +337,8 @@ export const lkwBrandEnum = pgEnum("lkwBrand", [
 
 ])
 
+export const LkwBrandEnumRender = z.enum(lkwBrandEnum.enumValues).Enum;
+
 export const driveEnum = pgEnum("drive", [
     "D4x2",
     "D4x4",
@@ -336,12 +352,16 @@ export const driveEnum = pgEnum("drive", [
     "D8x8",
 ])
 
+export const DriveEnumRender = z.enum(driveEnum.enumValues).Enum;
+
 export const loadingEnum = pgEnum("loading", [
     "AUFFAHRRAMPE",
     "LADERAMPE",
     "KRAN",
     "MITNAHMESTAPLER"
 ])
+
+export const LoadingEnumRender = z.enum(loadingEnum.enumValues).Enum;
 
 export const applicationEnum = pgEnum("application", [
     "DEICHSELANHAENGER",
@@ -359,6 +379,8 @@ export const applicationEnum = pgEnum("application", [
     "PLANWAGEN",
     "PRITSCHENWAGEN"
 ])
+
+export const ApplicationEnumRender = z.enum(applicationEnum.enumValues).Enum;
 
 export const lkwAttribute = pgTable("lkwAttribute", {
     id: serial("id").primaryKey(),
@@ -382,10 +404,14 @@ export const trailerEnum = pgEnum("trailer", [
     "ANHAENGER"
 ])
 
+export const TrailerEnumRender = z.enum(trailerEnum.enumValues).Enum;
+
 export const couplingEnum = pgEnum("coupling", [
     "KUGELKOPFKUPPLUNG",
     "MAULKUPPLUNG",
 ])
+
+export const CouplingEnumRender = z.enum(couplingEnum.enumValues).Enum;
 
 export const extraTypeEnum = pgEnum("extraType", [
     "CONTAINERTRANSPORT",
@@ -404,6 +430,8 @@ export const extraTypeEnum = pgEnum("extraType", [
     "PLANE",
     "PRITSCHE",
 ])
+
+export const ExtraTypeEnumRender = z.enum(extraTypeEnum.enumValues).Enum;
 
 export const trailerAttribute = pgTable("trailerAttribute", {
     id: serial("id").primaryKey(),

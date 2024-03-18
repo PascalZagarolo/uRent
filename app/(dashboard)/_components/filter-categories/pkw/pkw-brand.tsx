@@ -1,7 +1,7 @@
 'use client';
-import { CarBrands, Inserat, LkwBrand } from "@prisma/client";
 
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useState } from "react";
 import qs from "query-string";
@@ -20,8 +20,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { toast } from '@/components/ui/use-toast';
-import { Button } from '@/components/ui/button';
+
+import { BrandEnumRender } from "@/db/schema";
 
 
 
@@ -44,14 +44,18 @@ const PkwBrandBar = () => {
 
   ];
 
-  for (const brand in CarBrands) {
-    if (CarBrands.hasOwnProperty(brand)) {
+  
+
+  for (const brand in BrandEnumRender) {
+    if (BrandEnumRender.hasOwnProperty(brand)) {
       OPTIONS.push({
-        value: CarBrands[brand],
-        label: removeUnderscore(CarBrands[brand])
+        value: BrandEnumRender[brand],
+        label: removeUnderscore(BrandEnumRender[brand])
       });
     }
   }
+
+  
 
   const onSubmits = (selectedValue: string) => {
     setCurrentBrand(selectedValue)

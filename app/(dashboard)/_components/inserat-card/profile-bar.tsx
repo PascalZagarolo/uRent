@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Inserat, User } from "@prisma/client";
+import { inserat, inseratRelations, users } from "@/db/schema";
+
 import axios from "axios";
 import { Check, Lightbulb, MailCheckIcon, Settings2Icon, ThumbsUpIcon } from "lucide-react";
 import Image from "next/image";
@@ -13,9 +14,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
+
 interface ProfileBarProps {
-    inserat : Inserat & { user : User},
-    currentUser : User
+    inserat : typeof inserat.$inferSelect.users,
+    currentUser : typeof users.$inferSelect
 }
 
 const ProfileBar: React.FC<ProfileBarProps> = ({

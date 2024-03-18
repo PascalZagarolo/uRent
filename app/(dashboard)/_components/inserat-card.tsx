@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { InserateImagesAndAttributes } from "@/types/types";
 
-import { User } from "@prisma/client";
+
 
 import axios from "axios";
 import { format } from "date-fns";
@@ -29,12 +29,13 @@ import { GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill, PiVanFill } from "react-icons/pi";
 import ProfileBar from "./inserat-card/profile-bar";
 import { TbCrane } from "react-icons/tb";
+import { users } from "@/db/schema";
 
 interface InseratCardProps {
     inserat: InserateImagesAndAttributes;
     profileId: string,
     isFaved: boolean,
-    currentUser: User;
+    currentUser: typeof users.$inferSelect;
 
 
 }
@@ -47,7 +48,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 }) => {
 
-    const isOwn = currentUser?.id === inserat.userId;
+    const isOwn = currentUser?.id === Number(inserat.userId);
 
     const formatDate = (inputDate: Date): string => {
         const day = inputDate?.getDate().toString().padStart(2, '0');

@@ -1,13 +1,15 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { User } from "@prisma/client";
+import { users } from "@/db/schema";
+
 import { BarChart3 } from "lucide-react";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 
+
 interface DashboardLinkProps {
-    currentUser : User;
+    currentUser : typeof users.$inferSelect;
 }
 
 const DashboardLink: React.FC<DashboardLinkProps> = ({

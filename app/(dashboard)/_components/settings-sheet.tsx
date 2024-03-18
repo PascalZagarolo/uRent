@@ -7,10 +7,10 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 import { Switch } from "@/components/ui/switch";
 import { users } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "@prisma/client";
+
 import axios from "axios";
-import { set } from "lodash";
-import { Settings2Icon, SettingsIcon, UserCheck } from "lucide-react";
+
+import { Settings2Icon, UserCheck } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -13,7 +13,7 @@ const getCurrentUser = async () => {
   try {
     
     const current = await auth();
-    
+    console.log(current)
     const currentUser = await db.query.users.findFirst({
       where: eq(users.email, current.user?.email)
     });

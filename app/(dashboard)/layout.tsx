@@ -21,16 +21,22 @@ const DashboardLayout = async (
         <div className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar ">
                         <div className="sm:hidden">
                 
+                {/*
                 <MobileHeader
                 currentUser={currentUser}
                 
-                />
+                /> 
+                */}
                 
              </div>
-             
+             {currentUser.name} + {currentUser.email}
              <div>
+                
+               
+                {children} 
+               
              
-             {children}
+             
              
             </div>
         </div>

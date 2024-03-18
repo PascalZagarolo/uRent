@@ -1,18 +1,19 @@
 import { create } from "zustand";
+import { users } from "./db/schema";
 
-import { User } from "@prisma/client";
-import { result } from "lodash";
+
+
 
 
 type searchUserByBookingStore = {
-    user : User,
-    changeUser: (newUser : User) => void;
+    user : typeof users.$inferSelect,
+    changeUser: (newUser : typeof users.$inferSelect) => void;
     resetUser: () => void;
 }
 
 export const usesearchUserByBookingStore = create<searchUserByBookingStore>((set) => ({
     user : null,
-    changeUser : (newUser: User) => {
+    changeUser : (newUser: typeof users.$inferSelect) => {
         set({ user : newUser })
         console.log(newUser)
     }, resetUser : () => {
@@ -90,14 +91,14 @@ export const useSavedSearchParams = create<savedSearchParams>((set) => ({
 }))
 
 type saveCurrentUser = {
-    savedCurrentUser : User,
-    changeCurrentUser: (newUser : User) => void;
-    getSavedCurrentUser : () => User | null;
+    savedCurrentUser : typeof users.$inferSelect,
+    changeCurrentUser: (newUser : typeof users.$inferSelect) => void;
+    getSavedCurrentUser : () => typeof users.$inferSelect | null;
 }
 
 export const useSaveCurrentUser = create<saveCurrentUser>((set) => ({
     savedCurrentUser : null,
-    changeCurrentUser : (newUser: User) => {
+    changeCurrentUser : (newUser: typeof users.$inferSelect) => {
         set({ savedCurrentUser : newUser })
     },
     getSavedCurrentUser() {

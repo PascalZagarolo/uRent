@@ -20,6 +20,7 @@ import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import PaginationComponent from "./_components/pagination-component";
 import db from "@/db/drizzle";
 import MainPageSideBar from "./_components/main-page-sidebar";
+import { auth } from "@/auth";
 
 
 
@@ -94,27 +95,29 @@ const Main = async ({
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)
 
-
+    const user = await auth();
 
 
     
 
     return (
         <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
+            {/*
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
                      />
             </div>
+            */}
             <div>
                 <div className="relative flex justify-center mt-4">
-                    <Suspense fallback={<div className="ml-4"><ClipLoader loading /></div>}>
+                    
                         <div className="top-0 sm:mr-4 ">
                             <MainPageSideBar />
                         </div>
-                    </Suspense>
+                     {/* 
                     <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
-                    {/* 
+                     
                     <RelevanteInserate
                             title={searchParams.title}
                             category={searchParams.category}
@@ -157,8 +160,9 @@ const Main = async ({
 
                             currentUser = {currentUser}
                         />
-                        */}
+                        
                     </div>
+                    */}
                 </div>
                 <div className="p-4 flex justify-center">
                     <PaginationComponent />
@@ -166,6 +170,8 @@ const Main = async ({
             </div>
 
             <Footer />
+   
+    
         </div>
 
 

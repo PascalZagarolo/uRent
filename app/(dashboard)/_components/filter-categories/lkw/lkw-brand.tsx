@@ -3,13 +3,14 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSavedSearchParams } from "@/store";
-import { CarBrands, Inserat, LkwBrand } from "@prisma/client";
+
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { LkwBrandEnumRender } from "@/db/schema";
 
 
 
@@ -77,7 +78,7 @@ const LkwBrandBar = () => {
           <SelectItem key="beliebig" value={null} className="font-semibold">
                                 Beliebig
                             </SelectItem>
-          {Object.values(LkwBrand).map((brand, index) => (
+          {Object.values(LkwBrandEnumRender).map((brand, index) => (
                             <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>

@@ -2,14 +2,14 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useSavedSearchParams } from "@/store";
-import { CarBrands, DriveType, Inserat, LkwBrand } from "@prisma/client";
+
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { DriveEnumRender } from "@/db/schema";
 
 
 
@@ -77,7 +77,7 @@ const LkwDriveBar = () => {
           <SelectItem key="beliebig" value={null} className="font-semibold">
                                 Beliebig
                             </SelectItem>
-          {Object.values(DriveType).map((drive, index) => (
+          {Object.values(DriveEnumRender).map((drive, index) => (
                             <SelectItem key={index} value={drive}>
                                 {drive.substring(1)}
                             </SelectItem>

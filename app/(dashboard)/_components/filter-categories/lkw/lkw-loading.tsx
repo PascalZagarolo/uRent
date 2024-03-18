@@ -2,10 +2,9 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useSavedSearchParams } from "@/store";
-import { CarBrands, Inserat, LkwBrand } from "@prisma/client";
 
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useState } from "react";
 import qs from "query-string";
@@ -42,10 +41,7 @@ const LkwLoadingBar = () => {
 
 
 
-    function removeUnderscore(inputString: string): string {
-        const outputString = inputString.replace(/_/g, ' ');
-        return outputString;
-    }
+    
 
     return (
         <div className="w-full">

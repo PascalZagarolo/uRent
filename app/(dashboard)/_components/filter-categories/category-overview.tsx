@@ -7,8 +7,8 @@ import { RiCaravanLine } from "react-icons/ri";
 import PkwSearchComponents from "./pkw-search-components";
 import ConditionsSearchComponent from "./conditions-search-component";
 import LkwSearchComponent from "./lkw-search-component";
-import TransportSearchComponent from "./transport-search-component";
-import TrailerSearchComponent from './trailer-search-component';
+import TrailerSearchComponent from "./trailer-search-component";
+
 
 
 const CategoryOverview = () => {
@@ -57,18 +57,24 @@ const CategoryOverview = () => {
                 
            
         
-        {/*
+        
         <div className="p-2 ">
         {
                     {
                         "PKW" : <PkwSearchComponents />,
-                        "LKW" : <LkwSearchComponent />,
+                        
+                       
+                       "LKW" : <LkwSearchComponent />,
+                       
                         "TRAILOR" : <TrailerSearchComponent />,
+                        /*
                         "TRANSPORT" : <TransportSearchComponent />,
+                       */
+                        
                     }[currentCategory]
                 }
         </div>
-        */}
+        
         </>
      );
 }

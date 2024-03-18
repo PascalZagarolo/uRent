@@ -1,30 +1,28 @@
 
 
-import { db } from "@/utils/db";
-import { Images, Inserat, LkwBrand, User } from "@prisma/client";
-import type { Address, ApplicationType, CarBrands, Category, CouplingType, DriveType, 
-    ExtraType, 
-FuelType, LkwAttribute, LoadingType, PkwAttribute, TrailerAttribute, TrailerType, 
-Transmission, TransportAttribute } from "@prisma/client";
-import axios from "axios";
+
+import { applicationEnum, brandEnum, categoryEnum, couplingEnum, driveEnum, extraTypeEnum, fuelTypeEnum, images, lkwBrandEnum, loadingEnum, trailerEnum, transmissionEnum } from "@/db/schema";
 
 
 
 
 
+
+/*
 type InserateImagesAndAttributes = Inserat & {
     user: User;
-    images: Images[];
+    images: typeof images.$inferSelect[];
     address: Address;
     pkwAttribute: PkwAttribute;
     lkwAttribute: LkwAttribute;
     trailerAttribute : TrailerAttribute;
     transportAttribute : TransportAttribute;
 }
+*/
 
 type GetInserate = {
     title?: string;
-    category?: Category;
+    category?: typeof categoryEnum;
     filter?: string;
     start?: number;
     end?: number;
@@ -39,28 +37,28 @@ type GetInserate = {
     reqLicense?: string;
 
     //PKW
-    brand?: CarBrands[];
+    brand?: typeof brandEnum[];
     doors?: number;
     initial?: Date;
     power?: number;
     seats?: number;
-    fuel?: FuelType;
-    transmission?: Transmission;
+    fuel?: typeof fuelTypeEnum;
+    transmission?: typeof transmissionEnum;
     type?: any;
     freeMiles?: number;
     extraCost?: number;
 
     //LKW
     weightClass? : number;
-    drive? : DriveType;
-    loading? : LoadingType;
-    application? : ApplicationType;
-    lkwBrand? : LkwBrand;
+    drive? : typeof driveEnum;
+    loading? : typeof loadingEnum;
+    application? : typeof applicationEnum;
+    lkwBrand? : typeof lkwBrandEnum;
 
     //Trailer
-    trailerType : TrailerType;
-    coupling : CouplingType;
-    extraType : ExtraType;
+    trailerType : typeof trailerEnum;
+    coupling : typeof couplingEnum;
+    extraType : typeof extraTypeEnum;
     axis : number;
     brake : boolean;
     
@@ -117,324 +115,7 @@ export const getInserate = async ({
     extraType,
     axis,
     brake,
-}: GetInserate): Promise<InserateImagesAndAttributes[]> => {
-    try {
-        console.log(Array.isArray(brand))
-        if (filter === "relevance") {
-            const inserate = await db.inserat.findMany({
-                where: {
-                    isPublished: true,
-                    title: {
-                        contains: title
-                    },
-                    category: category,
-                    ...(periodBegin || periodEnd) && {
-                        OR: [
-                            {
-                                begin: {
-
-                                    gte: periodBegin
-
-                                }, end: {
-                                    lte: periodEnd
-
-                                }
-                            }, {
-                                annual: true
-                            }
-                        ]
-                    },
-                    ...(amount) && {
-                        amount : {
-                            lte : amount
-                        }
-                    },
-                    ...(reqAge) && {
-                        reqAge: {
-                            lte: reqAge
-                        }
-                    },
-                    //PKW-Attribute
-                    ...(category === "PKW") && {
-                        pkwAttribute: {
-                                  brand: {
-                                    in : brand,
-                                  }, 
-                            ...(doors) && {
-                                doors : doors
-                            },
-                            ...(seats) && {
-                                seats: {
-                                    gte: seats
-                                },
-                            },
-                            fuel: fuel,
-                            transmission: transmission,
-                            type: type,
-                            ...(freeMiles) && {
-                                freeMiles: {
-                                    gte: freeMiles
-                                }
-                            
-                            },
-                            ...(extraCost) && {
-                                extraCost: {
-                                    gte: extraCost
-                                }
-                            },
-                            ...(power) && {
-                                power: {
-                                    gte: power
-                                }
-                            },
-                        }
-                    },
-                    //LKW-Attribute
-                    ...(category === "LKW") && {
-                        lkwAttribute: {
-                            lkwBrand: lkwBrand,
-                            ...(weightClass) && {
-                                weightClass : weightClass
-                            },
-                            ...(seats) && {
-                                seats: {
-                                    gte: seats
-                                },
-                            },
-                            drive : drive,
-                            loading: loading,
-                            application : application,    
-                        }
-                    },
-                    //TRANSPORT-Attribute
-                    ...(category === "TRANSPORT") && {
-                        transportAttribute : {
-                            ...(seats) && {
-                                seats: {
-                                    gte: seats
-                                },
-                            },
-                            ...(doors) && {
-                                doors : doors
-                            },        
-                            fuel : fuel,
-                            transmission : transmission,
-                            loading : loading
-                        }
-                    },
-                    //TRANSPORT-Attribute
-                    ...(category === "TRAILOR") && {
-                        trailerAttribute : {
-                            
-                            type : type,
-                            coupling : coupling,
-                            loading : loading,
-                            extraType : extraType,
-                            ...(brake === null) ? {
-                                
-                            } : {
-                                brake : brake
-                            },
-                            weightClass : weightClass,
-                            ...(axis) && {
-                                axis : axis
-                            }
-                        }
-                    }
-                }, include: {
-                    images: true,
-                    user: true,
-                    pkwAttribute: true,
-                    lkwAttribute: true,
-                    trailerAttribute : true,
-                    transportAttribute : true,
-                    address: true
-                }, orderBy: {
-                    views: "desc"
-                }
-            })
-            let filteredArray = [];
-
-            if (location) {
-                const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-
-                for (const inserat of inserate) {
-                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
-                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
-                    console.log(distance);
-                    if (distance < 50) {
-                        filteredArray.push(inserat);
-                    }
-                }
-            } else {
-                filteredArray = inserate;
-            }
-
-            return filteredArray;
-
-        } else {
-            const inserate = await db.inserat.findMany({
-                where: {
-                    isPublished: true,
-                    title: {
-                        contains: title,
-                        mode: 'insensitive'
-                    },
-                    category: category,
-                    price: {
-                        gte: start ? start : 0,
-                        lte: end ? end : 1000000,
-                    }, ...(periodBegin || periodEnd) && {
-                        OR: [
-                            {
-                                begin: {
-                                    gte: periodBegin
-
-                                }, end: {
-                                    lte: periodEnd
-                                }
-                            }, {
-                                annual: true
-                            }
-                        ]
-                    },
-                    ...(amount) && {
-                        amount : {
-                            gte : amount
-                        }
-                    },
-                    ...(reqAge) && {
-                        reqAge: {
-                            lte: reqAge
-                        }
-                    },
-                    //PKW-Attribute
-                    ...(category === "PKW") && {
-                        pkwAttribute: {
-                            ...(Array.isArray(brand)) ? {
-                                brand : {
-                                    in : brand
-                                }
-                            } : {
-                                brand : brand
-                            },
-                            ...(doors) && {
-                                doors : doors
-                            },
-                            ...(seats) && {
-                                seats: {
-                                    gte: seats
-                                },
-                            },
-                            fuel: fuel,
-                            transmission: transmission,
-                            type: type,
-                            ...(freeMiles) && {
-                                freeMiles: {
-                                    gte: freeMiles
-                                }
-                            
-                            },
-                            ...(extraCost) && {
-                                extraCost: {
-                                    gte: extraCost
-                                }
-                            },
-                            ...(power) && {
-                                power: {
-                                    gte: power
-                                }
-                            },
-                        }
-                    },
-                    //LKW-Attribute
-                    ...(category === "LKW") && {
-                        lkwAttribute: {
-                            lkwBrand: lkwBrand,
-                            ...(weightClass) && {
-                                weightClass : weightClass
-                            },
-                            ...(seats) && {
-                                seats: {
-                                    gte: seats
-                                },
-                            },
-                            drive : drive,
-                            loading: loading,
-                            application : application,
-                            
-                        }
-                        //TRANSPORT-Attribute
-                    }, ...(category === "TRANSPORT") && {
-                        transportAttribute : {
-                            ...(seats) && {
-                                seats: {
-                                    gte: seats
-                                },
-                            },
-                            ...(doors) && {
-                                doors : doors
-                            },
-                            fuel : fuel,
-                            transmission : transmission,
-                            loading : loading
-                        }
-                    }, ...(category === "TRAILOR") && {
-                        trailerAttribute : {
-                            
-                            type : type,
-                            coupling : coupling,
-                            loading : loading,
-                            extraType : extraType,
-                            ...(brake === null) ? {
-                                
-                            } : {
-                                brake : brake
-                            },
-                            weightClass : weightClass,
-                            ...(axis) && {
-                                axis : axis
-                            }
-                        }
-                    }
-                    
-                }, include: {
-                    images: true,
-                    user: true,
-                    pkwAttribute: true,
-                    lkwAttribute: true,
-                    trailerAttribute : true,
-                    transportAttribute : true,
-                    address: true
-                }, orderBy: {
-                    price: filter === "asc" ? "asc" : "desc"
-                }
-            })
-            
-            
-            let filteredArray = [];
-
-            if (location) {
-                const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-
-                for (const inserat of inserate) {
-                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
-                        Number(inserat.address?.latitude), Number(inserat.address?.longitude));
-                    console.log(addressObject.data[0].lat)
-                    console.log(addressObject.data[0].lon)
-                    console.log(distance);
-                    if (distance < 50) {
-                        filteredArray.push(inserat);
-                    }
-                }
-            } else {
-                filteredArray = inserate;
-            }
-
-            return filteredArray;
-        }
-    } catch {
-        console.log("Fehler beim erhalten der Inserate");
-        return [];
-    }
+}: GetInserate): Promise<[]> => {
+    return[];
+        
 }

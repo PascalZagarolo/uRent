@@ -1,15 +1,14 @@
 'use client';
 
-import { ArrowLeftCircle, CarFront, FilterIcon,SearchIcon, Settings2, Truck, X } from "lucide-react";
+import { CarFront, FilterIcon,SearchIcon, Settings2, Truck, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
 import qs from "query-string";
-import { useState } from "react";
 import PKW from "./_smart-filter/pkw";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useGetFilterAmount } from "@/store";
+
 
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
@@ -20,21 +19,14 @@ const MainPageSideBar= () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const currentCategory = searchParams.get("category");
-    const currentTitle = searchParams.get("title");
-    const currentLocation = searchParams.get("location")
-
+   
     const router = useRouter();
 
-    const [setCategory, setNewCategory] = useState<string | null>(null);
+    
 
     const params = getSearchParamsFunction("category");
 
-    /*
-    useEffect(() => {
-        // Store currentLocation in session storage
-        sessionStorage.setItem("currentLocation", currentLocation);
-      }, [currentLocation]);
-*/
+   
 
     const onClick = (category: string) => {
 
@@ -56,9 +48,9 @@ const MainPageSideBar= () => {
 
         router.push(url)
     }
-
+    /*
     const results = useGetFilterAmount((state) => state.amount);
-
+    */
     
     return (
         <div className=" rounded-md  no-scrollbar w-[280px] hidden xl:block bg-[#202336]  sm:overflow-auto    ">
@@ -122,7 +114,9 @@ const MainPageSideBar= () => {
                 <PKW />
                 </div>
                 <div>
+                    {/*
                     <CategoryOverview />
+                    */}
                 </div>
                 <div className="text-xs flex justify-center text-gray-100 underline hover:cursor-pointer" onClick={() => {router.push("/search")}}>
                     <Settings2 className="mr-2 h-4 w-4" /> Erweiterte Suche
@@ -132,7 +126,7 @@ const MainPageSideBar= () => {
                     justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                     dark:text-gray-100 dark:hover:bg-sky-700
                     ">
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
+                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> 426 </p> Ergebnisse
                     </Button>
                 </div>
             </div>

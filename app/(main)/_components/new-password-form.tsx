@@ -14,7 +14,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
-import { reset } from "@/actions/reset";
+
 import { Eye } from "lucide-react";
 import { newPassword } from "@/actions/new-password";
 import { useRouter, useSearchParams } from "next/navigation";

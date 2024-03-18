@@ -8,6 +8,7 @@ import PkwSearchComponents from "./pkw-search-components";
 import ConditionsSearchComponent from "./conditions-search-component";
 import LkwSearchComponent from "./lkw-search-component";
 import TrailerSearchComponent from "./trailer-search-component";
+import TransportSearchComponent from "./transport-search-component";
 
 
 
@@ -67,9 +68,9 @@ const CategoryOverview = () => {
                        "LKW" : <LkwSearchComponent />,
                        
                         "TRAILOR" : <TrailerSearchComponent />,
-                        /*
+                       
                         "TRANSPORT" : <TransportSearchComponent />,
-                       */
+                       
                         
                     }[currentCategory]
                 }

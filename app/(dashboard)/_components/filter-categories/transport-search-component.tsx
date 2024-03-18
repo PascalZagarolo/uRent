@@ -1,14 +1,9 @@
 
-import PkwBrandBar from "./pkw/pkw-brand";
+
 import PkwSeatsBar from "./pkw/pkw-seats";
 import PkwDoorsBar from "./pkw/pkw-doors";
 import PkwFuelBar from "./pkw/pkw-fuel";
 import PkwTransmissionBar from "./pkw/pkw-transmission";
-import PkwPowerBar from "./pkw/pkw-power";
-import PkwTypeBar from "./pkw/pkw-type";
-import { Separator } from "@/components/ui/separator";
-import FreeMilesBar from "./pkw/pkw-miles";
-import ExtraMilesBar from "./pkw/pkw-extra-cost";
 import LkwLoadingBar from "./lkw/lkw-loading";
 
 const TransportSearchComponents = () => {

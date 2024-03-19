@@ -10,11 +10,12 @@ import {
     pgEnum,
     serial,
     uuid,
+    date,
 
 } from "drizzle-orm/pg-core"
 import type { AdapterAccount } from '@auth/core/adapters'
 
-import { relations, sql } from "drizzle-orm"
+import { InferModel, relations, sql } from "drizzle-orm"
 import { z } from "zod"
 
 
@@ -151,8 +152,8 @@ export const inserat = pgTable("inserat", {
 
     views: integer("views").notNull().default(0),
 
-    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
-    updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
+    createdAt: date("createdAt", { mode: "date" }).defaultNow(),
+    updatedAt: date("updatedAt", { mode: "date" }).defaultNow(),
 
     userId: uuid("userId")
         .notNull()
@@ -175,6 +176,8 @@ export const inserat = pgTable("inserat", {
     
     
 })
+
+
 
 export const brandEnum = pgEnum("brand", [
     'Acura' , 'Alfa_Romeo', 'Alpha_Motor_Corporation', 'Arcimoto', 'Arrinera_Automotive', 'Aptera_Motors',

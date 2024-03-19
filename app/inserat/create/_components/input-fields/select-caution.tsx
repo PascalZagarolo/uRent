@@ -2,11 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { inserat } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat } from "@prisma/client";
+
 import axios from "axios";
-import { set } from "date-fns";
-import { Banknote, EuroIcon } from "lucide-react";
+
+import { Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,17 +15,17 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface SelectCautionProps {
-    inserat: Inserat;
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const SelectCaution: React.FC<SelectCautionProps> = ({
-    inserat
+    thisInserat
 }) => {
 
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(inserat.caution || 0);
+    const [currentValue, setCurrentValue] = useState(thisInserat.caution || 0);
 
     const formSchema = z.object({
         caution: z.preprocess(
@@ -39,14 +40,14 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: inserat.caution || 0
+            caution: thisInserat.caution || 0
         }
     })
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Preis erfolgreich gespeichert");
             setTimeout(() => {
                 router.refresh();
@@ -101,7 +102,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
                                                         
                                                     field.onChange(formattedValue);
                                                 }}
-                                                disabled={inserat.category ? false : true}
+                                                disabled={thisInserat.category ? false : true}
                                             />
                                         </FormControl>
                                         
@@ -116,7 +117,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            type="submit" disabled={!isValid || isSubmitting || currentValue == inserat.caution}
+                            type="submit" disabled={!isValid || isSubmitting || currentValue == thisInserat.caution}
                         >
                             Kaution festlegen
                         </Button>

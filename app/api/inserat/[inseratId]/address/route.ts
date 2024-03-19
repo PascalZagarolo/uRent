@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { address, inserat } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -9,37 +12,37 @@ export async function PATCH(
 
         const values = await req.json();
 
-        const existingAddressObject = await db.address.findFirst({
-            where : {
-                inseratId : params.inseratId
-            }
+        console.log(values);
+
+        const existingAddressObject = await db.query.address.findFirst({
+            where : eq(address.inseratId, params.inseratId)
         })
 
-        if(existingAddressObject) {
-           const updatedAddress =  await db.address.update({
-            where :{
-                id : existingAddressObject.id
-            }, data : {
+        if(!existingAddressObject) {
+
+            const [patchedAddress] = await db.insert(address).values({
+                inseratId : params.inseratId,
+                ...values,
+            }).returning()
+
+            const [patchedOrigin] = await db.update(inserat).set({
+                addressId : patchedAddress.id
+            }).where(eq(inserat.id, params.inseratId)).returning();
+
+            return NextResponse.json({patchedAddress, patchedOrigin});
+            
+        } else {
+            const patchedAddress = await db.update(address).set({
                 ...values
-            }
-           })
-
-           return NextResponse.json(updatedAddress);
-        } else if(!existingAddressObject) {
-            const createdAddress = await db.address.create({
-                data : {
-                    inseratId : params.inseratId,
-                    ...values
-                
-                }
-            })
-
-            return NextResponse.json(createdAddress);
-
+            }).where(eq(address.inseratId, params.inseratId)).returning();
+            return NextResponse.json(patchedAddress[0]);
         }
 
-    } catch(error) {
+        
+
+    } catch (error) {
         console.log(error);
-        return new NextResponse("Interner Server Error" , { status : 500 })
+        return new NextResponse(error, { status: 500 });
+        
     }
 }

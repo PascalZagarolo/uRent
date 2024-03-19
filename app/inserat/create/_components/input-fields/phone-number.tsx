@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { inserat } from "@/db/schema";
 
 
-import { Inserat, User } from "@prisma/client";
+
 import axios from "axios";
 import { MailCheckIcon, MailOpen, PhoneCall, PhoneCallIcon, PhoneForwarded, PhoneIncomingIcon, PinIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -16,15 +17,15 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface PhoneNumberProps {
-    inserat : Inserat & { user : User}
+  thisInserat : typeof inserat.$inferSelect
 }
 
 const PhoneNumber: React.FC<PhoneNumberProps> = ({
-    inserat
+  thisInserat
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentNumber, setCurrentNumber] = useState(inserat.phoneNumber || "");
+    const [currentNumber, setCurrentNumber] = useState(thisInserat.phoneNumber || "");
     const [value, setValue] = useState("");
 
     const [isPrefill, setIsPrefill] = useState(false);
@@ -38,7 +39,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
             phoneNumber : currentNumber
           }
 
-          axios.patch(`/api/inserat/${inserat.id}`, values);
+          axios.patch(`/api/inserat/${thisInserat.id}`, values);
           setTimeout(() => {
             router.refresh();
           }, 250)
@@ -101,7 +102,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
 
 
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!currentNumber || currentNumber === inserat.phoneNumber}
+        disabled={!currentNumber || currentNumber === thisInserat.phoneNumber}
       >
         <span className="">Telefonnr. bestätigen</span> 
       </Button>

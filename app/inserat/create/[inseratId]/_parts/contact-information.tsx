@@ -1,36 +1,37 @@
-import { Address, Inserat, User } from "@prisma/client";
+
 import SelectLocation from "../../_components/input-fields/select-location";
 import SelectEmail from "../../_components/input-fields/select-email";
 import PhoneNumber from "../../_components/input-fields/phone-number";
+import { address, inserat } from "@/db/schema";
 
 interface ContactInformationProps {
-    inserat : Inserat & { user : User};
-    addressComponent? : Address;
+    thisInserat : typeof inserat.$inferSelect;
+    thisAddressComponent? : typeof address.$inferSelect;
 }
 
 
 const ContactInformation: React.FC<ContactInformationProps> = ({
-    inserat,
-    addressComponent
+    thisInserat,
+    thisAddressComponent
 }) => {
     return ( 
         <div className="mt-8">
             <div className="w-full flex gap-x-4">
             <div className="w-1/2">
                 <SelectLocation
-                inserat={inserat}
-                addressComponent={addressComponent}
+                thisInserat={thisInserat}
+                thisAddressComponent={thisAddressComponent}
                 />
             </div>
             <div className="w-1/2">
                 <SelectEmail
-                inserat = {inserat}
+                thisInserat = {thisInserat}
                 />
             </div>
             </div>
             <div className="mt-4 w-1/2">
                 <PhoneNumber
-                inserat={inserat}
+                thisInserat={thisInserat}
                 />
             </div>
         </div>

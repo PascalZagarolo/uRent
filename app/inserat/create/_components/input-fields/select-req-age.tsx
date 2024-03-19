@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Inserat } from "@prisma/client";
+import { inserat } from "@/db/schema";
+
 
 
 import axios from "axios";
@@ -13,14 +14,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface RequiredAgeProps {
-    inserat : Inserat;
+  thisInserat : typeof inserat.$inferSelect;
 }
 
 const RequiredAge: React.FC<RequiredAgeProps> = ({
-    inserat
+  thisInserat
 }) => {
 
-    const [currentAge, setCurrentAge] = useState(inserat.reqAge);
+    const [currentAge, setCurrentAge] = useState<number | null>(thisInserat.reqAge);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -60,12 +61,12 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          defaultValue={String(inserat.reqAge) || "18"}
+          value={currentAge ? String(currentAge) : "16"}
           disabled={isLoading}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={inserat.reqAge} >
+          disabled={isLoading} defaultValue={thisInserat.reqAge} >
             <SelectValue
               placeholder="Wähle die Kategorie aus"
               defaultValue={inserat.reqAge}

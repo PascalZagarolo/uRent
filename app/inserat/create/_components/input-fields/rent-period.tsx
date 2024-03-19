@@ -4,13 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
+import { inserat } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat } from "@prisma/client";
+
 import axios from "axios";
 
 import { format } from "date-fns";
@@ -23,18 +21,18 @@ import toast from "react-hot-toast";
 import { boolean, z } from "zod";
 
 interface RentPeriodProps {
-    inserat : Inserat
+    thisInserat : typeof inserat.$inferSelect
 }
 
 const RentPeriod: React.FC<RentPeriodProps> = ({
-    inserat
+    thisInserat
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [isDateless, setIsDateless] = useState(inserat.annual);
+    const [isDateless, setIsDateless] = useState(thisInserat.annual);
 
-    const [currentStart, setCurrentStart] = useState<Date | null>(inserat.begin ? inserat.begin : new Date());
-    const [currentEnd, setCurrentEnd] = useState<Date | null>(inserat.end ? inserat.end : new Date());
+    const [currentStart, setCurrentStart] = useState<Date | null>(thisInserat.begin ? thisInserat.begin : new Date());
+    const [currentEnd, setCurrentEnd] = useState<Date | null>(thisInserat.end ? thisInserat.end : new Date());
 
     const router = useRouter();
 
@@ -65,7 +63,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                 annual: false
             }
 
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Datum erfolgreich festgelegt");
             setTimeout(() => {
                 router.refresh();
@@ -93,7 +91,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
             console.log(values)
 
             if(checked) {
-                axios.patch(`/api/inserat/${inserat.id}`, values);
+                axios.patch(`/api/inserat/${thisInserat.id}`, values);
             }
             toast.success(checked ? "Angebot ist nun datumsunabhängig" : "Angebot ist nun datumsabhängig")
             setTimeout(() => {
@@ -226,7 +224,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                             <Button onClick={onSubmit} 
                             className="bg-blue-800 dark:bg-[#191919] dark:hover:bg-[#2d2d2d] dark:text-gray-100  w-full mt-2" 
                             disabled={isDateless || 
-                            (currentStart?.toString() === inserat.begin?.toString() && currentEnd?.toString() === inserat.end?.toString()) 
+                            (currentStart?.toString() === thisInserat.begin?.toString() && currentEnd?.toString() === thisInserat.end?.toString()) 
                             }>Daten festlegen </Button>
                             
                 </div>
@@ -239,15 +237,11 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                     <Checkbox
                     className="dark:bg-[#0F0F0F]"
                     defaultChecked={isDateless}
-                    
                     onCheckedChange={(checked) => {
                         console.log(checked)
                         onAnnual(Boolean(checked));
                         
                     }}
-                
-                    
-                    
                     /> 
                     <p className="ml-2 font-semibold  text-sm ">
                         Datumsunabhängig anbieten

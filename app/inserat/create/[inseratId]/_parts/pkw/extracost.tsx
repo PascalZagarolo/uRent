@@ -3,28 +3,29 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat, PkwAttribute } from "@prisma/client";
+
 import axios from "axios";
-import { set } from "date-fns";
-import { Banknote, CarTaxiFrontIcon, EuroIcon } from "lucide-react";
+
+import { CarTaxiFrontIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import { inserat } from '../../../../../../db/schema';
 
 interface ExtraCostProps {
-    inserat: Inserat & { pkwAttribute : PkwAttribute };
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const ExtraCost: React.FC<ExtraCostProps> = ({
-    inserat
+    thisInserat
 }) => {
 
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(inserat.pkwAttribute?.freeMiles || 0);
+    const [currentValue, setCurrentValue] = useState(thisInserat.pkwAttribute?.extraCost || 0);
 
     const formSchema = z.object({
         extraCost: z.preprocess(
@@ -39,14 +40,14 @@ const ExtraCost: React.FC<ExtraCostProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            extraCost: inserat.pkwAttribute?.freeMiles || 0
+            extraCost: thisInserat.pkwAttribute?.extraCost || 0
         }
     })
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}/pkw`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}/pkw`, values);
             toast.success("Preis erfolgreich gespeichert");
             setTimeout(() => {
                 router.refresh();
@@ -101,7 +102,7 @@ const ExtraCost: React.FC<ExtraCostProps> = ({
                                                         
                                                     field.onChange(formattedValue);
                                                 }}
-                                                disabled={inserat.category ? false : true}
+                                                disabled={thisInserat.category ? false : true}
                                             />
                                         </FormControl>
                                         
@@ -116,7 +117,7 @@ const ExtraCost: React.FC<ExtraCostProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            type="submit" disabled={!isValid || isSubmitting || currentValue == inserat.pkwAttribute?.extraCost}
+                            type="submit" disabled={!isValid || isSubmitting || currentValue == thisInserat.pkwAttribute?.extraCost}
                         >
                             Zusatzkosten angeben
                         </Button>

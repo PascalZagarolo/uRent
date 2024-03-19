@@ -53,8 +53,6 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             }).then(() => {
                 router.refresh();
             })
-            
-            
         } catch {
             toast.error("Fehler beim Reorder")
         } finally {

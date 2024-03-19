@@ -1,12 +1,12 @@
 
 
-import { db } from "@/utils/db";
+
 
 
 
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { Signpost } from "lucide-react";
+
 import { Separator } from "@/components/ui/separator";
 import BasicInformation from "./_parts/basic-information";
 import ContactInformation from "./_parts/contact-information";
@@ -16,50 +16,42 @@ import Footer from "@/app/(dashboard)/_components/footer";
 import CategoryInformation from "./_parts/category-information";
 import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
+import { address, images,  inserat, lkwAttribute, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
 
 const InseratCreation = async ({
     params
 }: { params: { inseratId: string } }) => {
 
-    const inserat = await db.inserat.findUnique({
-        where: {
-            id: params.inseratId
-        }, include: {
-            images: true,
-            address: true,
-            user: true,
-            pkwAttribute : true,
-            lkwAttribute : true,
-            trailerAttribute : true,
-            transportAttribute : true
-        }
-    })
-
     const currentUser = await getCurrentUser();
 
-    const notifications = await db.notification.findMany({
-        where: {
-            userId: currentUser.id
-        }
+    const thisInserat = await db.query.inserat.findFirst({
+       with : {
+        images : true,
+        address : true,
+        user: true,
+        pkwAttribute : true,
+        lkwAttribute : true,
+        trailerAttribute : true,
+        transportAttribute : true
+        },
+        where : eq(inserat.id,  params.inseratId)        
     })
 
-    const images = await db.images.findMany({
-        where :{
-            inseratId : inserat.id
-        }
+    const relatedImages = await db.query.images.findMany({
+        where : eq(images.inseratId, thisInserat.id)
     })
 
-    const addressComponent = await db.address.findUnique({
-        where :{
-            inseratId : inserat.id
-        }
+    const addressComponent = await db.query.address.findFirst({
+        where : eq(address.id, thisInserat.addressId)
     })
 
     const isPublishable = {
         title : inserat.title.length > 0,
         description : inserat.description?.length > 0 || false,
         price : inserat.price !== 0,
-        images : inserat.images.length > 0,
+        images : inserat.images?.length > 0,
         date : (inserat.end && inserat.begin) !== null || inserat.annual,
         postalCode : inserat.address?.postalCode !== null,
         location : inserat.address?.locationString !== null,
@@ -79,7 +71,7 @@ const InseratCreation = async ({
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    notifications={notifications} />
+                     />
             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10 h-full">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
@@ -91,7 +83,6 @@ const InseratCreation = async ({
                             <p className="text-xs dark:text-gray-100/70">
                                 Gebe Informationen zu deinem Inserat an - desto genauer du bist, desto eher finden dich potientielle Kunden.
                             </p>
-
                             <div className="mt-4">
                                 <div>
                                     <div className="flex justify-evenly items-center">
@@ -106,10 +97,12 @@ const InseratCreation = async ({
                                         />
                                      </div>
                                      <div className="mt-4">
+                                        
                                         <BasicInformation
-                                        inserat={inserat}
-                                        images = {images}
+                                        thisInserat={thisInserat}
+                                        thisImages = {relatedImages}
                                         />
+                                        
                                      </div>
                                 </div>
                             </div>
@@ -127,9 +120,11 @@ const InseratCreation = async ({
                                         />
                                      </div>
                                      <div className="mt-4">
+                                        {/*
                                         <RentPeriod
                                         inserat={inserat}
                                         />
+                                        */}
                                      </div>
                                 </div>
                             </div>
@@ -147,10 +142,12 @@ const InseratCreation = async ({
                                         />
                                      </div>
                                      <div>
+                                        {/*
                                         <ConditionsInformation
                                         inserat={inserat}
                                         addressComponent={addressComponent}
                                         />
+                                        */}
                                      </div>
                                 </div>
                             </div>
@@ -168,23 +165,29 @@ const InseratCreation = async ({
                                         />
                                      </div>
                                      <div>
+                                        {/*
                                         <ContactInformation
                                         inserat={inserat}
                                         addressComponent={addressComponent}
                                         />
+                                        */}
                                      </div>
                                 </div>
                             </div>
                             <div className="mt-4">
+                                {/*
                                 <CategoryInformation 
                                 inserat = {inserat}
                                 />
+                                */}
                             </div>
                             <div className="w-full mt-4  flex items-center">
+                                {/*
                                     <PublishInserat
                                     isPublishable={isPublishable}
                                     inserat={inserat}
                                     />
+                                    */}
                                 </div>  
                         </div>
                     </div>

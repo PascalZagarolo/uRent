@@ -10,14 +10,15 @@ import { z } from "zod";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Inserat } from "@prisma/client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { inserat } from "@/db/schema";
 
 interface SelectInseratTypeProps {
-    inserat: Inserat;
+    thisInserat: typeof inserat.$inferSelect;
 }
 
-const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ inserat }) => {
+const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ thisInserat }) => {
     const formSchema = z.object({
         multi: z.boolean({
             required_error: "Bitte wähle eine Kategorie aus"
@@ -29,11 +30,11 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ inserat }) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            multi: inserat.multi || false
+            multi: thisInserat.multi || false
         }
     });
 
-    const [currentCategory, setCurrentCategory] = useState<boolean>(inserat.multi);
+    const [currentCategory, setCurrentCategory] = useState<boolean>(thisInserat.multi);
 
     const onSubmit = (selectedValue: string) => {
         try {
@@ -43,7 +44,7 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ inserat }) => {
                 multi: selectedValue === "true"
             };
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Mehrfachanzeige : " + values.multi);
             setTimeout(() => {
                 router.refresh();
@@ -69,7 +70,7 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ inserat }) => {
                     onValueChange={(selectedValue: string) => {
                         onSubmit(selectedValue);
                     }}
-                    defaultValue={String(inserat.multi)}
+                    defaultValue={String(thisInserat.multi)}
                     disabled={isLoading}
                 >
                     <SelectTrigger

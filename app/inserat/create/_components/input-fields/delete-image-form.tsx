@@ -8,14 +8,15 @@ import { Images } from "@prisma/client";
 import { ImageIcon, Trash2Icon } from "lucide-react";
 import ImageList from "./image-list";
 import ImageListForm from "./image-list-form";
+import { images } from "@/db/schema";
 
 
 interface DeleteImageFormProps {
-    images : Images[];
+    thisImages : typeof images.$inferSelect[];
 }
 
 const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
-    images
+    thisImages
 }) => {
 
     const onClick = () => {
@@ -37,16 +38,16 @@ const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
                         </DialogTitle>
                         
                     </DialogHeader>
-                    {images.length === 0 ? (
+                    {thisImages.length === 0 ? (
                         <div>
                             <p className="text-gray-800/50 font-bold"> Noch keine Bilder hinzugefügt </p>
                         </div>
                     ) : (
                         <div>
-                        {images.map((image) => (
+                        {thisImages.map((image) => (
                             <ImageListForm
                             key={image.id}
-                            image={image}
+                            thisImage={image}
                             />
                         ))}
                     </div>

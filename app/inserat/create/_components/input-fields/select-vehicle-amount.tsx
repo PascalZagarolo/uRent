@@ -3,28 +3,29 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat, PkwAttribute } from "@prisma/client";
+
 import axios from "axios";
-import { set } from "date-fns";
+
 import { Banknote, CarTaxiFrontIcon, EuroIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import { inserat } from '../../../../../db/schema';
 
 interface SelectVehicleAmountProps {
-    inserat: Inserat;
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
-    inserat
+    thisInserat
 }) => {
 
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(inserat.amount);
+    const [currentValue, setCurrentValue] = useState(thisInserat.amount);
 
     const formSchema = z.object({
         amount: z.preprocess(
@@ -37,22 +38,22 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
     })
 
     useEffect(() => {
-        if(inserat.multi === false) {
+        if(thisInserat.multi === false) {
             setCurrentValue(1);
             const values = {
                 amount : 1
             }
-            axios.patch(`/api/inserat/${inserat.id}`, values);
-        } if(inserat.multi === true) {
-            setCurrentValue(inserat.amount || 2);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
+        } if(thisInserat.multi === true) {
+            setCurrentValue(thisInserat.amount || 2);
             
         }
-    }, [inserat.multi])
+    }, [thisInserat.multi])
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            amount: inserat?.multi === true ? inserat.amount || 2 : 1
+            amount: thisInserat?.multi === true ? thisInserat.amount || 2 : 1
         }
     })
 
@@ -64,7 +65,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
             }
 
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
             
             setTimeout(() => {
                 router.refresh();
@@ -108,7 +109,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
                                                 onChange={handleInputChange}
-                                                disabled={inserat.multi === false}
+                                                disabled={thisInserat.multi === false}
                                                 value={currentValue}
                                                 onBlur={() => {currentValue < 2 && setCurrentValue(2)}}
                                             />
@@ -125,7 +126,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            onClick={onSubmit} disabled={!currentValue || currentValue == inserat.amount || inserat.multi === false}
+                            onClick={onSubmit} disabled={!currentValue || currentValue == thisInserat.amount || thisInserat.multi === false}
                         >
                             Anzahl angeben
                         </Button>

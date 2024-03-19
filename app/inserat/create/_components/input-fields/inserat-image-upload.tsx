@@ -1,45 +1,43 @@
 'use client'
 
 
-import { ImageIcon, PlusCircleIcon, Trash2Icon } from "lucide-react";
+import { ImageIcon, PlusCircleIcon } from "lucide-react";
 
-import { Images } from "@prisma/client";
 import ImageList from "./image-list";
-import { Button } from "@/components/ui/button";
 import { CldUploadButton } from "next-cloudinary";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteImageForm from "./delete-image-form";
-import { set } from "lodash";
+import { images } from "@/db/schema";
+
 
 
 
 interface InseratImageUploadProps {
-    images: Images[];
+    thisImages: typeof images.$inferSelect[];
 
 }
 
 const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
-    images
+    thisImages
 }) => {
 
     const params = useParams();
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    const handleImageUpload = (result: any) => {
+    const handleImageUpload = async (result: any) => {
         try {
             setIsLoading(true)
             axios.post(`/api/inserat/${params.inseratId}/image`, {
                 image: result?.info?.secure_url
-            })
-            toast.success("Bild erfolgreich hochgeladen")
-            setTimeout(() => {
+            }).then(() => {
+                toast.success("Bild erfolgreich hochgeladen")
                 router.refresh();
-            
-            }, 500)
+            })
+             
         } catch {
             toast.error("Fehler beim Upload")
         } finally {
@@ -52,12 +50,11 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             setIsLoading(true)
             await axios.put(`/api/inserat/${params.inseratId}/image/reorder`, {
                 list : updateData
-            } )
-            
-            setTimeout(() => {
+            }).then(() => {
                 router.refresh();
+            })
             
-            }, 500)
+            
         } catch {
             toast.error("Fehler beim Reorder")
         } finally {
@@ -79,19 +76,19 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 </CldUploadButton>
                 <div className="ml-auto">
                     <DeleteImageForm 
-                    images = { images }
+                    thisImages = { thisImages }
                     />
                 </div>
             </h3>
             <p className="flex text-sm justify-start text-gray-900/50  dark:text-gray-100"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
 
-                images.length > 0 ? (
+        thisImages.length > 0 ? (
                     <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#0F0F0F] w-full">
                         <ImageList
                             onEdit={() => { }}
                             onReorder={onReorder}
-                            items={images || []}
+                            items={thisImages || []}
                             
                         />
                     </div>

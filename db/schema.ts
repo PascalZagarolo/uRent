@@ -117,6 +117,8 @@ export const licenseEnum = pgEnum(
     "T",
 ])
 
+export const LicenseEnumRender = z.enum(licenseEnum.enumValues).Enum;
+
 export const categoryEnum = pgEnum("category", [
     "PKW",
     "LKW",
@@ -131,7 +133,7 @@ export const inserat = pgTable("inserat", {
     title: text("title").notNull(),
     description: text("description"),
     category: categoryEnum("category"),
-    price: decimal("price", { precision: 2 }),
+    price: decimal("price"),
     isPublished: boolean("isPublished").notNull().default(false),
     multi: boolean("multi").notNull().default(false),
     amount: integer("amount").notNull().default(1),
@@ -155,6 +157,9 @@ export const inserat = pgTable("inserat", {
     userId: uuid("userId")
         .notNull()
         .references(() => users.id, { onDelete: "cascade" }),
+
+    addressId : uuid("addressId")
+        .references(() => address.id, { onDelete: "cascade" }),
 
     pkwId: uuid("pkwId")
         .references(() => pkwAttribute.id, { onDelete: "cascade" }),
@@ -231,7 +236,7 @@ export const pkwAttribute = pgTable("pkwAttribute", {
     doors: integer("doors"),
 
     freeMiles: integer("freeMiles"),
-    extraCost: decimal("extraCost", { precision: 2 }),
+    extraCost: decimal("extraCost"),
 
     transmission: transmissionEnum("transmission"),
     type: carTypeEnum("type"),
@@ -712,6 +717,10 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
         fields: [inserat.transportId],
         references: [transportAttribute.id]
     }),
+    address : one(address, {
+        fields : [inserat.addressId],
+        references : [address.id]
+    }),
 
     message : many(message),
 
@@ -725,6 +734,20 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     favourites : many(favourite),
 }))
 
+export const imageRelations = relations(images, ({ one }) => ({
+    inserat : one(inserat, {
+        fields : [images.inseratId],
+        references: [inserat.id]
+    })
+}))
+
+export const addressRelations = relations(address, ({ one }) => ({
+    inserat : one(inserat, {
+        fields : [address.inseratId],
+        references : [inserat.id]
+    })
+}))
+
 export const pkwAttributeRelations = relations(pkwAttribute, ({ one }) => ({
     inserat : one(inserat, {
         fields : [pkwAttribute.inseratId],
@@ -734,21 +757,21 @@ export const pkwAttributeRelations = relations(pkwAttribute, ({ one }) => ({
 
 export const lkwAttributeRelations = relations(lkwAttribute, ({ one }) => ({
     inserat : one(inserat, {
-        fields : [pkwAttribute.inseratId],
+        fields : [lkwAttribute.inseratId],
         references : [inserat.id]
     })
 }))
 
 export const trailerAttributeRelations = relations(trailerAttribute, ({ one }) => ({
     inserat : one(inserat, {
-        fields : [pkwAttribute.inseratId],
+        fields : [trailerAttribute.inseratId],
         references : [inserat.id]
     })
 }))
 
 export const transportAttributeRelations = relations(transportAttribute, ({ one }) => ({
     inserat : one(inserat, {
-        fields : [pkwAttribute.inseratId],
+        fields : [transportAttribute.inseratId],
         references : [inserat.id]
     })
 }))

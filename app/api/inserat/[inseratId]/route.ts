@@ -1,5 +1,9 @@
-import { db } from "@/utils/db";
+
+
 import { NextResponse } from "next/server";
+import { inserat } from '../../../../db/schema';
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
 
 export async function PATCH(
     req : Request,
@@ -10,14 +14,9 @@ export async function PATCH(
         const values = await req.json();
         
 
-        const patchedInserat = await db.inserat.update({
-            where : {
-                id : params.inseratId
-            }, data :   {
-                ...values,
-                
-            }
-        })
+        const patchedInserat = await db.update(inserat).set({
+            ...values
+        }).where(eq(inserat.id, params.inseratId)).returning();
 
         return NextResponse.json(patchedInserat)
 

@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { images } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -7,21 +10,16 @@ export async function DELETE(
 ) {
     try {
 
-        const findImage = await db.images.findUnique({
-            where : {
-                id : params.imageId
-            }
+        const findImage = await db.query.images.findFirst({
+            where : eq(images.id , params.imageId)
         })
 
         if(!findImage) {
             return new NextResponse("Bild nicht gefunden" , { status : 404 })
         }
 
-        const deletedImage = await db.images.delete({
-            where : {
-                id : params.imageId
-            }
-        })
+        const deletedImage = await db.delete(images)
+                                    .where(eq(images.id, params.imageId)).returning();
 
 
 

@@ -1,35 +1,35 @@
 'use client'
 
-import { onKeyPressForm } from "@/actions/form-actions";
+
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+import { inserat } from "@/db/schema";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat } from "@prisma/client";
+
 import axios from "axios";
-import { set } from "lodash";
-import { AppWindow, PenIcon } from "lucide-react";
+
+import { AppWindow} from "lucide-react";
 import { useRouter } from "next/navigation";
-import { title } from "process";
+
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface DescriptionInseratProps {
-    inserat : Inserat;
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
-    inserat
+    thisInserat
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [currentDescription, setCurrentDescription] = useState(inserat?.description || "")
+    const [currentDescription, setCurrentDescription] = useState(thisInserat?.description || "")
 
     const router = useRouter();
 
@@ -44,7 +44,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-            description : inserat.description || ""
+            description : thisInserat.description || ""
         }
     })
 
@@ -57,7 +57,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
             }
 
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}`, values)
+            axios.patch(`/api/inserat/${thisInserat.id}`, values)
             toast.success("Beschreibung erfolgreich gespeichert")
             setTimeout(() => {
                 router.refresh();
@@ -100,7 +100,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                <AppWindow className="mr-2 h-4 w-4"/> Beschreibung * 
                <Button className="ml-auto dark:bg-[#0F0F0F] dark:hover:bg-[#1a1a1a] dark:text-gray-100 text-xs font-semibold"
                onClick={onSubmit}
-               disabled={currentDescription === inserat.description || isLoading || !currentDescription}
+               disabled={currentDescription === thisInserat.description || isLoading || !currentDescription}
                > Änderungen speichern </Button>
             </h1>
             
@@ -139,7 +139,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                 ): (
                     <div onClick={() => {setIsEditing(true)}} className="hover:cursor-pointer">
 
-                        {inserat.description ? (
+                        {thisInserat.description ? (
                             <p className=" text-gray-900  text-sm max-h-[100px] overflow-hidden dark:text-gray-100 ">
                             {currentDescription}
                           </p>

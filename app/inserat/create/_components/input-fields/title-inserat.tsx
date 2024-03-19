@@ -1,12 +1,13 @@
 'use client'
 
 import { onKeyPressForm } from "@/actions/form-actions";
-import { Button } from "@/components/ui/button";
+
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { inserat } from "@/db/schema";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat } from "@prisma/client";
+
 import axios from "axios";
 import { AlignCenter, PenIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -17,11 +18,11 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface TitleInseratProps {
-    inserat : Inserat;
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const TitleInserat: React.FC<TitleInseratProps> = ({
-    inserat
+    thisInserat
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
@@ -36,7 +37,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-            title : inserat.title || ""
+            title : thisInserat.title || ""
         }
     })
 
@@ -47,7 +48,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
     const onSubmit = (values : z.infer<typeof formSchema>) => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Titel erfolgreich gespeichert");
             setTimeout(() => {
                 router.refresh();
@@ -102,7 +103,8 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                     <Input
                                     {...field}
                                     ref={inputRef}
-                                    className="  dark:bg-[#0F0F0F] dark:border-gray-100 focus:border-none focus:ring-0 focus-visible:ring-0 w-full rounded-none"
+                                    className="  dark:bg-[#0F0F0F] dark:border-gray-100 
+                                     focus:ring-0 focus-visible:ring-0 w-full rounded-none border"
                                     onKeyDown={(e) => {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
                                     onBlur={(e) => {setIsEditing(false)}}
                                     />
@@ -117,7 +119,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                     </div>  
                 ): (
                     <div className="hover:cursor-pointer" onClick={() => {setIsEditing(true)}}>
-                        <p className=" text-gray-900/70 dark:text-gray-100   mr-8"> {inserat.title} </p>
+                        <p className=" text-gray-900/70 dark:text-gray-100   mr-8"> {thisInserat.title} </p>
                     </div>
                 )}
             </div>

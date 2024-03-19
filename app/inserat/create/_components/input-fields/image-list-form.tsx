@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { images } from "@/db/schema";
 import { Images } from "@prisma/client";
 import axios from "axios";
 
@@ -14,24 +15,22 @@ import toast from "react-hot-toast";
 
 
 interface ImageListFormProps {
-    image : Images
+    thisImage : typeof images.$inferSelect
 }
 
 const ImageListForm: React.FC<ImageListFormProps> = ({
-    image
+    thisImage
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    const onClick = () => {
+    const onClick = async () => {
         try {
             setIsLoading(true);
-            axios.delete(`/api/image/${image.id}`);
+            await axios.delete(`/api/image/${thisImage?.id}`)
             toast.success("Bild erfolgreich gelöscht");
-            setTimeout(() => {
-                router.refresh()
-            }, 1000)
+            router.refresh();
         } catch {
             toast.error("Fehler beim Löschen des Bildes")
         } finally {
@@ -40,7 +39,7 @@ const ImageListForm: React.FC<ImageListFormProps> = ({
     }
 
     return ( 
-        <div key={image.id} className="mt-2">
+        <div key={thisImage?.id} className="mt-2">
             <div className="flex justify-start">
                 <div className="flex">
                     <div className="flex mr-auto">
@@ -75,13 +74,15 @@ const ImageListForm: React.FC<ImageListFormProps> = ({
                         </Dialog>
                         
                     </div>
+                    <div>
                     <Image
-                    src={image.url}
+                    src={thisImage?.url}
                     width={200}
                     height={200}
                     alt="pic"
-                    className="flex justify-center"
+                    className="flex justify-start  h-[100px] object-cover"
                     />
+                    </div>
                 </div>
                 
             </div>

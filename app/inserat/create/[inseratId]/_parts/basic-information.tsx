@@ -1,4 +1,3 @@
-import { Images, Inserat } from "@prisma/client";
 import TitleInserat from "../../_components/input-fields/title-inserat";
 import DescriptionInserat from "../../_components/input-fields/description-inserat";
 import SelectCategoryInserat from "../../_components/input-fields/select-category";
@@ -10,64 +9,79 @@ import SelectPrice from "../../_components/input-fields/rent-price";
 import SelectLicenseInserat from "../../_components/input-fields/select-license";
 import SelectInseratType from "../../_components/input-fields/select-inserat-type";
 import SelectVehicleAmount from "../../_components/input-fields/select-vehicle-amount";
+import { images, inserat } from "@/db/schema";
 
 
 interface BasicInformationProps {
-    inserat: Inserat,
-    images: Images[];
+    thisInserat: typeof inserat.$inferSelect,
+    thisImages: typeof images.$inferSelect[];
 }
 
 const BasicInformation: React.FC<BasicInformationProps> = ({
-    inserat,
-    images
+    thisInserat,
+    thisImages
 }) => {
     return (
         <div>
-            <div>
+            <div> 
                 <TitleInserat
-                    inserat={inserat}
+                    thisInserat={thisInserat}
                 />
             </div>
             <div className="mt-4">
+                
                 <DescriptionInserat
-                    inserat={inserat}
+                    thisInserat={thisInserat}
                 />
+               
             </div>
             <div className="mt-4 flex w-full justify-between items-center">
                 <div className="w-1/2">
+                     
                     <SelectCategoryInserat
-                        inserat={inserat}
+                        thisInserat={thisInserat}
                     />
+                   
                 </div>
                 <div className="w-1/2">
+                     
                     <SelectLicenseInserat
-                        inserat={inserat}
+                        thisInserat={thisInserat}
                     />
+                   
                 </div>
 
             </div>
             <div className="mt-8">
+               
                 <InseratImageUpload
-                    images={images}
+                    thisImages={thisImages}
                 />
+                
             </div>
             <div className="mt-4 w-full flex gap-x-4">
 
                 <div className="w-1/2">
+                   
                     <SelectPrice
-                        inserat={inserat}
+                        thisInserat={thisInserat}
                     />
+                    
                 </div>
                 <div className="w-1/2 flex gap-x-2">
                     <div className="w-1/2">
+                       
                         <SelectInseratType 
-                        inserat={inserat}
+                        thisInserat={thisInserat}
                         />
+                        
                     </div>
                     <div className="w-1/2">
+                        
                         <SelectVehicleAmount
-                        inserat = {inserat}
+                        thisInserat = {thisInserat}
                         />
+                        
                     </div>
                 </div>
 

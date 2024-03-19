@@ -4,7 +4,7 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem,  SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Category, Inserat, LicenseType } from "@prisma/client";
+
 import axios from "axios";
 
 import { useRouter } from "next/navigation";
@@ -13,13 +13,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import { inserat, LicenseEnumRender } from '../../../../../db/schema';
 
 interface SelectLicenseInseratProps {
-    inserat: Inserat;
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
-    inserat
+    thisInserat
 }) => {
 
 
@@ -37,14 +38,14 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            category: inserat?.license
+            category: thisInserat?.license
         }
     })
 
-    const [currentLicense, setCurrentLicense] = useState<LicenseType | null>(inserat?.license);
+    const [currentLicense, setCurrentLicense] = useState<typeof LicenseEnumRender | null>(thisInserat?.license);
 
 
-    const onSubmit = (selectedValue: LicenseType) => {
+    const onSubmit = (selectedValue: typeof LicenseEnumRender) => {
         try {
 
             setCurrentLicense(selectedValue);
@@ -54,7 +55,7 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
             }
 
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Führerscheinklasse : " + values.license);
             setTimeout(() => {
                 router.refresh();
@@ -76,15 +77,16 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
             <div className="w-full">
                 <Label>Führerscheinklasse</Label>
                 <Select
-                    onValueChange={(selectedValue: LicenseType) => {
+                //@ts-ignore
+                    onValueChange={(selectedValue: typeof LicenseEnumRender) => {
                         onSubmit(selectedValue);
                     }}
-                    defaultValue={inserat.license}
+                    defaultValue={thisInserat.license}
                     disabled={isLoading}
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md w-1/2"
-                        disabled={isLoading} defaultValue={inserat.license} >
+                        disabled={isLoading} defaultValue={thisInserat.license} >
                         <SelectValue
                             placeholder="Wähle die Kategorie aus"
                             
@@ -96,7 +98,7 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
                         <SelectItem value={null}>
                             Beliebig
                         </SelectItem>
-                        {Object.values(LicenseType).map((license, index) => (
+                        {Object.values(LicenseEnumRender).map((license, index) => (
                             <SelectItem key={index} value={license}>
                                 {license}
                             </SelectItem>

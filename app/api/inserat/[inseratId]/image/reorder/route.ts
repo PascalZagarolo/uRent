@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { images } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PUT(
@@ -10,13 +13,9 @@ export async function PUT(
         const { list } = await req.json();
 
         for (let item of list) {
-            await db.images.update({
-                where :{
-                    id : item.id
-                }, data :{
-                    position : item.position
-                }
-            })
+            await db.update(images).set({
+                position : item.position
+            }).where(eq(images.id, item.id))
         }
 
         return new NextResponse("Erfolg" , { status : 200})

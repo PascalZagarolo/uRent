@@ -1,6 +1,6 @@
 'use client';
 
-import { Images, Inserat } from "@prisma/client";
+
 
 import { useEffect, useState } from "react";
 
@@ -12,16 +12,15 @@ import {
 } from "@hello-pangea/dnd"
 
 import { cn } from "@/lib/utils"
-import { Grid, Pencil, Trash2Icon } from "lucide-react";
-import toast from "react-hot-toast";
-import axios from "axios";
+
 import { useRouter } from "next/navigation";
+import { images } from "@/db/schema";
 
 
 interface ImageListProps {
     onEdit : (id : string) => void;
     onReorder : (updateData : { id : string, position : number }[]) => void;
-    items : Images[];
+    items : typeof images.$inferSelect[];
     
 }
 

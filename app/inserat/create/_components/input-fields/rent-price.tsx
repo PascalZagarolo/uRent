@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { inserat } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat } from "@prisma/client";
 import axios from "axios";
 import { set } from "date-fns";
 import { Banknote, EuroIcon } from "lucide-react";
@@ -14,17 +14,17 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface SelectPriceProps {
-    inserat: Inserat;
+    thisInserat: typeof inserat.$inferSelect;
 }
 
 const SelectPrice: React.FC<SelectPriceProps> = ({
-    inserat
+    thisInserat
 }) => {
 
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(inserat.price || 0);
+    const [currentValue, setCurrentValue] = useState(thisInserat.price || 0);
 
     const formSchema = z.object({
         price: z.preprocess(
@@ -39,14 +39,19 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            price: inserat.price || 0
+            price: thisInserat.price || 0
         }
     })
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
+
+            const values = {
+                price : value.price.toFixed(2)
+            }
+
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}`, values);
+            axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Preis erfolgreich gespeichert");
             setTimeout(() => {
                 router.refresh();
@@ -101,7 +106,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                                                         
                                                     field.onChange(formattedValue);
                                                 }}
-                                                disabled={inserat.category ? false : true}
+                                                disabled={thisInserat.category ? false : true}
                                             />
                                         </FormControl>
                                         
@@ -116,7 +121,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            type="submit" disabled={!isValid || isSubmitting || currentValue == inserat.price}
+                            type="submit" disabled={!isValid || isSubmitting || currentValue == thisInserat.price}
                         >
                             Preis festlegen
                         </Button>

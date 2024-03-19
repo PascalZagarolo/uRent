@@ -1,4 +1,6 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { inserat } from "@/db/schema";
 import { NextResponse } from "next/server"
 
 export async function POST(
@@ -7,17 +9,16 @@ export async function POST(
 ) {
     try {
 
-        const {title, userId } = await req.json();
+        const values = await req.json();
 
-        const inserat = await db.inserat.create({
-            data : {
-                title : title,
-                userId : userId,
-                category : "PKW"
-            }
-        })
+        console.log(values)
 
-        return NextResponse.json(inserat)
+        const data = await db.insert(inserat)
+                                .values({
+                                    ...values
+                                }).returning();
+
+        return NextResponse.json(data[0])
 
 
 

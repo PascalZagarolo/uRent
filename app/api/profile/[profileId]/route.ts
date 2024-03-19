@@ -13,10 +13,8 @@ export async function PATCH(
         const values = await req.json();
 
         const updatedProfile = await db.update(users).set({
-             
                 ...values
-            
-        }).where(eq(users.id, Number(params.profileId))).returning()
+        }).where(eq(users.id, params.profileId)).returning()
 
         return NextResponse.json(updatedProfile[0])
 

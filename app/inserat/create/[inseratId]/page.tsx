@@ -20,6 +20,7 @@ import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { address, images,  inserat, lkwAttribute, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
 
+
 const InseratCreation = async ({
     params
 }: { params: { inseratId: string } }) => {
@@ -27,23 +28,25 @@ const InseratCreation = async ({
     const currentUser = await getCurrentUser();
 
     const thisInserat = await db.query.inserat.findFirst({
-       with : {
-        images : true,
-        address : true,
-        user: true,
-        pkwAttribute : true,
-        lkwAttribute : true,
-        trailerAttribute : true,
-        transportAttribute : true
-        },
-        where : eq(inserat.id,  params.inseratId)        
-    })
+        with : {
+         images : true,
+         address : true,
+         user: true,
+         pkwAttribute : true,
+         lkwAttribute : true,
+         trailerAttribute : true,
+         transportAttribute : true
+         },
+         where : eq(inserat.id,  params.inseratId)        
+     })
+
+    console.log(thisInserat)
 
     const relatedImages = await db.query.images.findMany({
         where : eq(images.inseratId, thisInserat.id)
     })
 
-    const addressComponent = await db.query.address.findFirst({
+    const thisAddressComponent = await db.query.address.findFirst({
         where : eq(address.id, thisInserat.addressId)
     })
 
@@ -120,11 +123,11 @@ const InseratCreation = async ({
                                         />
                                      </div>
                                      <div className="mt-4">
-                                        {/*
+                                       
                                         <RentPeriod
-                                        inserat={inserat}
+                                        thisInserat={thisInserat}
                                         />
-                                        */}
+                                       
                                      </div>
                                 </div>
                             </div>
@@ -141,13 +144,14 @@ const InseratCreation = async ({
                                         className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
                                         />
                                      </div>
+                                     
                                      <div>
-                                        {/*
+                                        
                                         <ConditionsInformation
-                                        inserat={inserat}
-                                        addressComponent={addressComponent}
+                                        thisInserat={thisInserat}
+                                        thisAddressComponent={thisAddressComponent}
                                         />
-                                        */}
+                                        
                                      </div>
                                 </div>
                             </div>
@@ -165,12 +169,12 @@ const InseratCreation = async ({
                                         />
                                      </div>
                                      <div>
-                                        {/*
+                                        
                                         <ContactInformation
-                                        inserat={inserat}
-                                        addressComponent={addressComponent}
+                                        thisInserat={thisInserat}
+                                        thisAddressComponent={thisAddressComponent}
                                         />
-                                        */}
+                                        
                                      </div>
                                 </div>
                             </div>

@@ -1,28 +1,27 @@
 'use client'
 
 import { useDebounce } from "@/hooks/use-debounce";
-import { AlertCircle, MapIcon, MapPin, PinIcon } from "lucide-react";
+import { AlertCircle, MapPin, PinIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Label } from "@/components/ui/label";
-import { Address, Inserat } from "@prisma/client";
 import axios from "axios";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
+import { address, inserat } from "@/db/schema";
 
 
 interface SelectLocationProps {
-  inserat: Inserat;
-  addressComponent?: Address;
+  thisInserat: typeof inserat.$inferSelect;
+  thisAddressComponent?: typeof address.$inferSelect;
 }
 
 const SelectLocation: React.FC<SelectLocationProps> = ({
-  inserat,
-  addressComponent
+  thisInserat,
+  thisAddressComponent
 }) => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
@@ -39,9 +38,9 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   const searchParams = useSearchParams();
   const currentLocation = searchParams.get("location");
 
-  const [currentAddress, setCurrentAddress] = useState(addressComponent?.locationString || "");
-  const [currentZipCode, setCurrentZipCode] = useState<null | number>(addressComponent?.postalCode || null);
-  const [currentState, setCurrentState] = useState(addressComponent?.state || "");
+  const [currentAddress, setCurrentAddress] = useState(thisAddressComponent?.locationString || "");
+  const [currentZipCode, setCurrentZipCode] = useState<null | number>(thisAddressComponent?.postalCode || null);
+  const [currentState, setCurrentState] = useState(thisAddressComponent?.state || "");
 
   useEffect(() => {
     //@ts-ignore
@@ -110,7 +109,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         state: currentState
       }
       console.log(values);
-      axios.patch(`/api/inserat/${inserat.id}/address`, values);
+      axios.patch(`/api/inserat/${thisInserat.id}/address`, values);
       setTimeout(() => {
         toast.success("Standort erfolgreich hinzugefügt");
         router.refresh();
@@ -149,7 +148,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           <Input ref={inputRef} placeholder="Standort.."
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
             onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
-            defaultValue={addressComponent?.locationString}
+            defaultValue={thisAddressComponent?.locationString}
             onBlur={getZipCode}
           />
         </div>
@@ -186,7 +185,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     </div>
    
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
-        disabled={!inputRef?.current?.value || (addressComponent?.locationString === inputRef?.current?.value && currentZipCode === addressComponent?.postalCode) || !inputRef?.current?.value.length ||
+        disabled={!inputRef?.current?.value || (thisAddressComponent?.locationString === inputRef?.current?.value && currentZipCode === thisAddressComponent?.postalCode) || !inputRef?.current?.value.length ||
           String(currentZipCode).length !== 5
         }
       >

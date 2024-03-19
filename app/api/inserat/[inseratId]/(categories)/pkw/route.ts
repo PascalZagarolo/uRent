@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { inserat, pkwAttribute } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -9,30 +12,30 @@ export async function PATCH(
 
         const values = await req.json();
 
-        const findAttributes = await db.pkwAttribute.findFirst({
-            where : {
-                inseratId : params.inseratId
-            }
+        console.log(values);
+
+        const findAttributes = await db.query.pkwAttribute.findFirst({
+            where : eq(pkwAttribute.inseratId, params.inseratId)
         })
 
         if(!findAttributes) {
-            const patchedInserat = await db.pkwAttribute.create({
-                data: {
-                    inseratId : params.inseratId,
-                    ...values
-                }
-            })
-            return NextResponse.json(patchedInserat);
+
+            const [patchedInserat] = await db.insert(pkwAttribute).values({
+                inseratId : params.inseratId,
+                ...values,
+            }).returning()
+
+            const [patchedOrigin] = await db.update(inserat).set({
+                pkwId : patchedInserat.id
+            }).where(eq(inserat.id, params.inseratId)).returning();
+
+            return NextResponse.json({patchedInserat, patchedOrigin});
             
         } else {
-            const patchedInserat = await db.pkwAttribute.update({
-                where : {
-                    inseratId : params.inseratId
-                }, data : {
-                    ...values
-                }
-            })
-            return NextResponse.json(patchedInserat);
+            const patchedInserat = await db.update(pkwAttribute).set({
+                ...values
+            }).where(eq(pkwAttribute.inseratId, params.inseratId)).returning();
+            return NextResponse.json(patchedInserat[0]);
         }
 
         

@@ -5,26 +5,26 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { inserat } from "@/db/schema";
 
 
-import { Inserat, User } from "@prisma/client";
 import axios from "axios";
-import { MailCheckIcon, MailOpen, PinIcon } from "lucide-react";
+import { MailCheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface SelectEmailProps {
-    inserat : Inserat & { user : User}
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const SelectEmail: React.FC<SelectEmailProps> = ({
-    inserat
+  thisInserat
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentAddress, setCurrentAddress] = useState(inserat.emailAddress || "");
+    const [currentAddress, setCurrentAddress] = useState(thisInserat.emailAddress || "");
     const [value, setValue] = useState("");
 
     const [isPrefill, setIsPrefill] = useState(false);
@@ -38,7 +38,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
             emailAddress : currentAddress
           }
 
-          axios.patch(`/api/inserat/${inserat.id}`, values);
+          axios.patch(`/api/inserat/${thisInserat.id}`, values);
           setTimeout(() => {
             router.refresh();
           }, 250)
@@ -54,7 +54,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
     const onPrefill = () => {
         if(!isPrefill) {
-            setCurrentAddress(inserat.user.email);
+            setCurrentAddress(thisInserat.user.email);
             setIsPrefill(true);
         } else if(isPrefill) {
             setCurrentAddress("");
@@ -104,7 +104,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
 
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!currentAddress || currentAddress === inserat.emailAddress}
+        disabled={!currentAddress || currentAddress === thisInserat.emailAddress}
       >
         <span className="">Email-Bestätigen</span> 
       </Button>

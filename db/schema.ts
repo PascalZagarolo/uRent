@@ -9,18 +9,19 @@ import {
     decimal,
     pgEnum,
     serial,
+    uuid,
 
 } from "drizzle-orm/pg-core"
 import type { AdapterAccount } from '@auth/core/adapters'
 
-import { relations } from "drizzle-orm"
+import { relations, sql } from "drizzle-orm"
 import { z } from "zod"
 
 
 
 
 export const users = pgTable("user", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     name: text("name"),
     email: text("email").notNull(),
     emailVerified: timestamp("emailVerified", { mode: "date" }),
@@ -38,7 +39,7 @@ export const users = pgTable("user", {
 export const accounts = pgTable(
     "account",
     {
-        userId: integer("userId")
+        userId: uuid("userId")
             .references(() => users.id, { onDelete: "cascade" }).notNull(),
         type: text("type").$type<AdapterAccount["type"]>().notNull(),
         provider: text("provider").notNull(),
@@ -58,7 +59,7 @@ export const accounts = pgTable(
 
 export const sessions = pgTable("session", {
     sessionToken: text("sessionToken").notNull().primaryKey(),
-    userId: integer("userId")
+    userId: uuid("userId")
         .references(() => users.id, { onDelete: "cascade" }).notNull(),
     expires: timestamp("expires", { mode: "date" }).notNull(),
 })
@@ -126,7 +127,7 @@ export const categoryEnum = pgEnum("category", [
 export const CategoryEnumRender = z.enum(categoryEnum.enumValues).Enum;
 
 export const inserat = pgTable("inserat", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     title: text("title").notNull(),
     description: text("description"),
     category: categoryEnum("category"),
@@ -151,20 +152,20 @@ export const inserat = pgTable("inserat", {
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
     updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
 
-    userId: integer("userId")
+    userId: uuid("userId")
         .notNull()
         .references(() => users.id, { onDelete: "cascade" }),
 
-    pkwId: integer("pkwId")
+    pkwId: uuid("pkwId")
         .references(() => pkwAttribute.id, { onDelete: "cascade" }),
 
-    lkwId: integer("lkwId")
+    lkwId: uuid("lkwId")
         .references(() => lkwAttribute.id, { onDelete: "cascade" }),
 
-    trailerId: integer("lkwId")
+    trailerId: uuid("trailerId")
         .references(() => trailerAttribute.id, { onDelete: "cascade" }),
 
-    transportId : integer("transportId")
+    transportId : uuid("transportId")
             .references(() => transportAttribute.id, { onDelete: "cascade" }),
     
     
@@ -222,7 +223,7 @@ export const fuelTypeEnum = pgEnum("fuelType", [
 export const FuelTypeEnumRender = z.enum(fuelTypeEnum.enumValues).Enum;
 
 export const pkwAttribute = pgTable("pkwAttribute", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     brand: brandEnum("brand"),
     model: text("model"),
@@ -239,7 +240,7 @@ export const pkwAttribute = pgTable("pkwAttribute", {
     initial: timestamp("initial", { mode: "date" }),
     power: integer("power"),
 
-    inseratId: integer("inseratId" )
+    inseratId: uuid("inseratId" )
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
 
@@ -383,7 +384,7 @@ export const applicationEnum = pgEnum("application", [
 export const ApplicationEnumRender = z.enum(applicationEnum.enumValues).Enum;
 
 export const lkwAttribute = pgTable("lkwAttribute", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     lkwBrand: lkwBrandEnum("lkwBrand"),
     model: text("model"),
@@ -394,7 +395,7 @@ export const lkwAttribute = pgTable("lkwAttribute", {
     loading: loadingEnum("loading"),
     application: applicationEnum("application"),
 
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
 
@@ -434,7 +435,7 @@ export const extraTypeEnum = pgEnum("extraType", [
 export const ExtraTypeEnumRender = z.enum(extraTypeEnum.enumValues).Enum;
 
 export const trailerAttribute = pgTable("trailerAttribute", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     type: trailerEnum("type"),
     coupling: couplingEnum("coupling"),
@@ -446,12 +447,12 @@ export const trailerAttribute = pgTable("trailerAttribute", {
 
     brake: boolean("brake").notNull().default(false),
 
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
 
 export const transportAttribute = pgTable("transportAttribute", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     loading: loadingEnum("loading"),
     transmission: transmissionEnum("transmission"),
@@ -461,12 +462,12 @@ export const transportAttribute = pgTable("transportAttribute", {
 
     fuel: fuelTypeEnum("fuel"),
 
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
 
 export const address = pgTable("address", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     postalCode: integer("postalCode"),
     state: text("state"),
@@ -475,45 +476,45 @@ export const address = pgTable("address", {
     longitude: text("longitude"),
     latitude: text("latitude"),
 
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
 
 export const images = pgTable("images", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     position: integer("position"),
     url: text("url").notNull(),
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
 })
 
 export const favourite = pgTable("favourite", {
-    userId: integer("userId").
+    userId: uuid("userId").
         references(() => users.id, { onDelete: "cascade" }).notNull(),
-    inseratId: integer("inseratId").
+    inseratId: uuid("inseratId").
         references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 }, (favourite) => ({
     compoundKey: primaryKey({ columns: [favourite.userId, favourite.inseratId] }),
 }))
 
 export const purchase = pgTable("purchase", {
-    id: serial("id").primaryKey(),
-    userId: integer("userId").
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    userId: uuid("userId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
     .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 })
 
 export const stripeCustomer = pgTable("stripeCustomer", {
-    id: serial("id").primaryKey(),
-    userId: integer("userId").
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    userId: uuid("userId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
-    stripeCustomerId: integer("stripeCustomerId").notNull().unique(),
+    stripeCustomerId: uuid("stripeCustomerId").notNull().unique(),
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
     updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
@@ -521,17 +522,17 @@ export const stripeCustomer = pgTable("stripeCustomer", {
 })
 
 export const conversation = pgTable("conversation", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
-    userId: integer("userId").
+    userId: uuid("userId").
         
         references(() => users.id, { onDelete: "cascade" }).notNull(),
-    userId2: integer("userId2").
+    userId2: uuid("userId2").
         references(() => users.id, { onDelete: "cascade" }).notNull(),
 })
 
 export const message = pgTable("message", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     content: text("content"),
 
@@ -540,19 +541,19 @@ export const message = pgTable("message", {
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
     updatedAt: timestamp("updatedAt", { mode: "date" }),
 
-    inseratId: integer("inseratId").
+    inseratId: uuid("inseratId").
         references(() => inserat.id, { onDelete: "cascade" }).notNull(),
-    senderId: integer("senderId").
+    senderId: uuid("senderId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
-    conversationId: integer("conversationId").
+    conversationId: uuid("conversationId").
         notNull().
         references(() => conversation.id, { onDelete: "cascade" }),
 
 })
 
 export const rezension = pgTable("rezension", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     content: text("content"),
     image: text("image"),
@@ -563,17 +564,17 @@ export const rezension = pgTable("rezension", {
 
     isEdited: boolean("isEdited").notNull().default(false),
 
-    receiverId: integer("receiverId").
+    receiverId: uuid("receiverId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
 
-    senderId: integer("senderId").
+    senderId: uuid("senderId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
 })
 
 export const contactOptions = pgTable("contactOptions", {
-    userId: integer("userId").
+    userId: uuid("userId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }).primaryKey(),
 
@@ -586,18 +587,18 @@ export const contactOptions = pgTable("contactOptions", {
     phone: boolean("phone").notNull().default(false),
     phoneNumber: text("phoneNumber"),
 
-    userAddressId: integer("userAddressId").
+    userAddressId: uuid("userAddressId").
         references(() => userAddress.id, { onDelete: "cascade" }),
 })
 
 export const userAddress = pgTable("userAddress", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    userId: integer("userId").
+    userId: uuid("userId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }).unique(),
 
-    contactOptionsId: integer("contactOptionsId").
+    contactOptionsId: uuid("contactOptionsId").
         references(() => contactOptions.userId, { onDelete: "cascade" }).unique(),
 
     postalCode: integer("postalCode"),
@@ -608,12 +609,12 @@ export const userAddress = pgTable("userAddress", {
 })
 
 export const booking = pgTable("booking", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
-    userId: integer("userId").
+    userId: uuid("userId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
 
@@ -628,12 +629,12 @@ export const booking = pgTable("booking", {
 })
 
 export const bookingRequest = pgTable("bookingRequest", {
-    id: serial("id").primaryKey(),
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    inseratId: integer("inseratId")
+    inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
-    userId: integer("userId").
+    userId: uuid("userId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
 
@@ -691,14 +692,26 @@ export const userRelations = relations(users, ({ one, many }) => ({
 }));
 
 export const inseratRelations = relations(inserat, ({ one, many }) => ({
-    owner: one(users, {
+    user: one(users, {
         fields: [inserat.userId],
         references: [users.id]
     }),
-    pkwAttribute: one(pkwAttribute),
-    lkwAttribute: one(lkwAttribute),
-    trailerAttribute: one(trailerAttribute),
-    transportAttribute: one(transportAttribute),
+    pkwAttribute: one(pkwAttribute, {
+        fields: [inserat.pkwId],
+        references: [pkwAttribute.id]
+    }),
+    lkwAttribute: one(lkwAttribute, {
+        fields: [inserat.lkwId],
+        references: [lkwAttribute.id]
+    }),
+    trailerAttribute: one(trailerAttribute, {
+        fields: [inserat.trailerId],
+        references: [trailerAttribute.id]
+    }),
+    transportAttribute: one(transportAttribute, {
+        fields: [inserat.transportId],
+        references: [transportAttribute.id]
+    }),
 
     message : many(message),
 
@@ -710,4 +723,32 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     bookingRequests : many(bookingRequest),
 
     favourites : many(favourite),
+}))
+
+export const pkwAttributeRelations = relations(pkwAttribute, ({ one }) => ({
+    inserat : one(inserat, {
+        fields : [pkwAttribute.inseratId],
+        references : [inserat.id]
+    })
+}))
+
+export const lkwAttributeRelations = relations(lkwAttribute, ({ one }) => ({
+    inserat : one(inserat, {
+        fields : [pkwAttribute.inseratId],
+        references : [inserat.id]
+    })
+}))
+
+export const trailerAttributeRelations = relations(trailerAttribute, ({ one }) => ({
+    inserat : one(inserat, {
+        fields : [pkwAttribute.inseratId],
+        references : [inserat.id]
+    })
+}))
+
+export const transportAttributeRelations = relations(transportAttribute, ({ one }) => ({
+    inserat : one(inserat, {
+        fields : [pkwAttribute.inseratId],
+        references : [inserat.id]
+    })
 }))

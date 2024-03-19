@@ -41,9 +41,15 @@ const Inserat: React.FC<InseratProps> = ({
         }
     })
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
-            const res = axios.post("/api/inserat", {title : values.title, userId : currentUser.id}).
+
+            const values = {
+                title: value.title,
+                userId : currentUser.id
+            }
+
+            const res = axios.post("/api/inserat", values).
             then((res) => {
                 toast.success("Anzeige erfolgreich erstellt");
                 router.push(`/inserat/create/${res.data.id}`);

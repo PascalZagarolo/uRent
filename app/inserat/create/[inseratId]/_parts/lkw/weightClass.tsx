@@ -2,7 +2,6 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Transmission } from "@prisma/client";
 
 
 import axios from "axios";
@@ -12,60 +11,58 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface WeightClassFormProps {
-    weightClass : number;
+  thisWeightClass: number;
 }
 
 const WeightClassForm: React.FC<WeightClassFormProps> = ({
-    weightClass
+  thisWeightClass
 }) => {
 
-    const [currentWeight, setCurrentWeight] = useState<number | null>(weightClass || null);
-    const [isLoading, setIsLoading] = useState(false);
+  const [currentWeight, setCurrentWeight] = useState<number | null>(thisWeightClass || null);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const router = useRouter();
+  const router = useRouter();
 
-    const params = useParams();
+  const params = useParams();
 
-    const onSubmit = (selectedValue: number) => {
-        try {
-    
-          setCurrentWeight(selectedValue);
-    
-          const values = {
-            weightClass: selectedValue
-          }
-    
-          setIsLoading(true);
-          axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-          toast.success("Gewicht gespeichert : " + values.weightClass);
-          setTimeout(() => {
-            router.refresh();
-          }, 400)
-        } catch {
-          toast.error("Fehler beim Speichern des Gewichts");
-        } finally {
-          setIsLoading(false);
-        }
+  const onSubmit = (selectedValue: number) => {
+    try {
+
+      setCurrentWeight(selectedValue);
+
+      const values = {
+        weightClass: selectedValue
       }
 
-    return ( 
-        <div className="w-full">
-            <div className="w-full">
+      setIsLoading(true);
+      axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
+      toast.success("Gewicht gespeichert : " + values.weightClass);
+      setTimeout(() => {
+        router.refresh();
+      }, 400)
+    } catch {
+      toast.error("Fehler beim Speichern des Gewichts");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  return (
+    <div className="w-full">
+      <div className="w-full">
         <Label>Gewichtsklasse</Label>
         <Select
           onValueChange={(weightClass) => {
             onSubmit(Number(weightClass));
           }}
-          defaultValue={String(weightClass) || null}
+          value={String(currentWeight)}
           disabled={isLoading}
         >
 
-          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={weightClass || null} >
+          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+            disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={weightClass || null}
-              
             />
           </SelectTrigger>
 
@@ -76,13 +73,13 @@ const WeightClassForm: React.FC<WeightClassFormProps> = ({
             <SelectItem value="12">7,5 - 12t</SelectItem>
             <SelectItem value="26">12t - 26t</SelectItem>
             <SelectItem value="0">Sonstiges</SelectItem>
-            
+
           </SelectContent>
         </Select>
-        
+
       </div>
-        </div>
-     );
+    </div>
+  );
 }
- 
+
 export default WeightClassForm;

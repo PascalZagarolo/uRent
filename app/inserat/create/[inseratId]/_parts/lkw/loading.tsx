@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LoadingType,  Transmission } from "@prisma/client";
+import { LoadingEnumRender } from "@/db/schema";
+
 
 
 import axios from "axios";
@@ -12,25 +13,23 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface LoadingFormProps {
-    loading : LoadingType;
+    thisLoading : typeof LoadingEnumRender;
 }
 
 const LoadingForm: React.FC<LoadingFormProps> = ({
-    loading
+  thisLoading
 }) => {
 
-    const [currentloading, setCurrentloading] = useState<LoadingType | null>(null);
+    const [currentLoading, setCurrentloading] = useState<typeof LoadingEnumRender | null>(thisLoading);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: LoadingType) => {
+    const onSubmit = (selectedValue: typeof LoadingEnumRender) => {
         try {
-    
             setCurrentloading(selectedValue);
-    
           const values = {
             loading: selectedValue
           }
@@ -53,27 +52,24 @@ const LoadingForm: React.FC<LoadingFormProps> = ({
             <div className="w-full">
         <Label>Ladevorrichtung</Label>
         <Select
-          onValueChange={(loading : LoadingType) => {
+          //@ts-ignore
+          onValueChange={(loading : typeof LoadingEnumRender) => {
             onSubmit(loading);
           }}
-          defaultValue={loading || null}
+           //@ts-ignore
+          value={currentLoading}
           disabled={isLoading}
         >
-
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={loading || null} >
+          disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={loading || null}
-              
             />
           </SelectTrigger>
-
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
             <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
             <SelectItem value="LADERAMPE">Laderampe</SelectItem>
             <SelectItem value="KRAN">Kran</SelectItem>
-            
           </SelectContent>
         </Select>
       </div>

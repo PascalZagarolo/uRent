@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FuelType, LkwBrand } from "@prisma/client";
+import { LkwBrandEnumRender } from "@/db/schema";
+
 
 
 
@@ -13,14 +14,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface LkwBrandFormProps {
-    brand: LkwBrand;
+    thisBrand: typeof LkwBrandEnumRender;
 }
 
 const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
-    brand
+    thisBrand
 }) => {
 
-    const [currentBrand, setCurrentBrand] = useState<LkwBrand | null>(brand || null);
+    const [currentBrand, setCurrentBrand] = useState<typeof LkwBrandEnumRender | null>(thisBrand);
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -30,7 +31,7 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
     const params = useParams();
 
 
-    const onSubmit = (selectedValue: LkwBrand) => {
+    const onSubmit = (selectedValue: typeof LkwBrandEnumRender) => {
         try {
             setCurrentBrand(selectedValue);
             const values = {
@@ -59,12 +60,13 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
             <div className="w-1/2">
                 <Label>Lkw-Marke</Label>
                 <Select
-                    onValueChange={(brand: LkwBrand) => {
+                //@ts-ignore
+                    onValueChange={(brand: typeof LkwBrandEnumRender) => {
                         onSubmit(brand);
                     }}
-                    
                     disabled={isLoading}
-                    value={brand || currentBrand }
+                    //@ts-ignore
+                    value={currentBrand}
                     
                 >
 
@@ -78,7 +80,7 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        {Object.values(LkwBrand).map((brand, index) => (
+                        {Object.values(LkwBrandEnumRender).map((brand, index) => (
                             <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>

@@ -1,25 +1,25 @@
 'use client'
 
-import { useDebounce } from "@/hooks/use-debounce";
-import { AlertCircle, MapIcon, MapPin, PinIcon } from "lucide-react";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useEffect, useState } from "react";
+
+import { PinIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Label } from "@/components/ui/label";
-import { Address, Inserat } from "@prisma/client";
+
 import axios from "axios";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 
 
 interface PowerFormProps {
-    power: number;
+    thisPower: number;
 }
 
 const PowerForm: React.FC<PowerFormProps> = ({
-    power
+    thisPower
 }) => {
 
 
@@ -29,8 +29,8 @@ const PowerForm: React.FC<PowerFormProps> = ({
 
     const [usesPS, setUsesPS] = useState(true);
 
-    const [currentKW, setCurrentKW] = useState<number | null>(Math.round(power * 0.735499) || null);
-    const [currentPS, setCurrentPS] = useState<number | null>(power || null);
+    const [currentKW, setCurrentKW] = useState<number | null>(Math.round(thisPower * 0.735499) || null);
+    const [currentPS, setCurrentPS] = useState<number | null>(thisPower || null);
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -107,7 +107,7 @@ const PowerForm: React.FC<PowerFormProps> = ({
                 </div>
             </RadioGroup>
             <Button onClick={onSubmit} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100" //@ts-ignore
-            disabled={!currentPS || currentPS === power || currentPS === 0 || currentPS === NaN}
+            disabled={!currentPS || currentPS === thisPower || currentPS === 0 || currentPS === NaN}
             >
                 <span className="">Leistung angeben</span>
             </Button>

@@ -11,14 +11,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface SeatsProps {
-    seats : number;
+  thisSeats : number;
 }
 
 const Seats: React.FC<SeatsProps> = ({
-    seats
+  thisSeats
 }) => {
 
-    const [currentSeats, setCurrentSeats] = useState(seats);
+    const [currentSeats, setCurrentSeats] = useState(thisSeats);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -55,15 +55,15 @@ const Seats: React.FC<SeatsProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          defaultValue={String(seats) || "4"}
+          defaultValue={String(thisSeats) || "4"}
           disabled={isLoading}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={seats} >
+          disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={seats}
+
               
             />
           </SelectTrigger>

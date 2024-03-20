@@ -1,16 +1,17 @@
 import { Separator } from "@/components/ui/separator";
-import { Inserat, LkwAttribute, PkwAttribute, TrailerAttribute, TransportAttribute } from "@prisma/client";
+
 import PkwInformation from "./pkw-information";
 import LkwInformation from "./lkw-information";
 import TrailorInformation from "./trailor-information";
 import TransportInformation from "./transport-information";
+import { inserat } from "@/db/schema";
 
 interface CategoryInformationProps {
-    inserat: Inserat & { pkwAttribute? : PkwAttribute, lkwAttribute? : LkwAttribute, trailerAttribute? : TrailerAttribute, transportAttribute? : TransportAttribute};
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const CategoryInformation: React.FC<CategoryInformationProps> = ({
-    inserat
+    thisInserat
 }) => {
     return (
         <div>
@@ -25,7 +26,7 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                             'LKW' : 'LKW',
                             'TRAILOR' : 'Anhänger',
                             'TRANSPORT' : 'Transporter'
-                        }[inserat.category]
+                        }[thisInserat.category]
                     } - Details
                 </h1>
                 <Separator
@@ -36,18 +37,20 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                 {
                     {
                         'PKW': <PkwInformation 
-                        inserat = { inserat }
+                        thisInserat = { thisInserat }
                         />,
+                        
                         'LKW': <LkwInformation 
-                        inserat = { inserat }
+                        thisInserat = { thisInserat }
                         />,
+                        /*
                         'TRAILOR' : <TrailorInformation 
-                        inserat = { inserat }
+                        thisInserat = { thisInserat }
                         />,
                         'TRANSPORT' : <TransportInformation 
-                        inserat = { inserat }
-                        />
-                    }[inserat.category]
+                        thisInserat = { thisInserat }
+                        />*/
+                    }[thisInserat.category]
                 }
             </div>
         </div>

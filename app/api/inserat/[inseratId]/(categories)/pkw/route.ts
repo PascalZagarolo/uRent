@@ -12,7 +12,7 @@ export async function PATCH(
 
         const values = await req.json();
 
-        console.log(values);
+        
 
         const findAttributes = await db.query.pkwAttribute.findFirst({
             where : eq(pkwAttribute.inseratId, params.inseratId)

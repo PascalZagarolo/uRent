@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DriveType,  Transmission } from "@prisma/client";
+import { DriveEnumRender } from "@/db/schema";
+
 
 
 import axios from "axios";
@@ -12,21 +13,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface DriveFormProps {
-    drive : DriveType;
+    thisDrive : typeof DriveEnumRender;
 }
 
 const DriveForm: React.FC<DriveFormProps> = ({
-    drive
+  thisDrive
 }) => {
 
-    const [currentdrive, setCurrentdrive] = useState<DriveType | null>(null);
+    const [currentDrive, setCurrentdrive] = useState<typeof DriveEnumRender | null>(thisDrive);
     const [isdrive, setIsdrive] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: DriveType) => {
+    const onSubmit = (selectedValue: typeof DriveEnumRender) => {
         try {
     
             setCurrentdrive(selectedValue);
@@ -53,24 +54,26 @@ const DriveForm: React.FC<DriveFormProps> = ({
             <div className="w-full">
         <Label>Antrieb</Label>
         <Select
-          onValueChange={(drive : DriveType) => {
+        //@ts-ignore
+          onValueChange={(drive : typeof DriveEnumRender) => {
             onSubmit(drive);
           }}
-          defaultValue={drive || null}
+          //@ts-ignore
+          value={currentDrive}
           disabled={isdrive}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isdrive} defaultValue={drive || null} >
+          disabled={isdrive}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={drive || null}
+              
               
             />
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-          {Object.values(DriveType).map((drive, index) => (
+          {Object.values(DriveEnumRender).map((drive, index) => (
                             <SelectItem key={index} value={drive}>
                                 {drive.substring(1)}
                             </SelectItem>

@@ -46,6 +46,10 @@ const InseratCreation = async ({
         where : eq(images.inseratId, thisInserat.id)
     })
 
+    const onlyInserat = await db.query.inserat.findFirst({
+        where : eq(inserat.id,  params.inseratId)
+    })
+
     const thisAddressComponent = await db.query.address.findFirst({
         where : eq(address.id, thisInserat.addressId)
     })
@@ -80,6 +84,7 @@ const InseratCreation = async ({
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="min-h-screen">
                         <div className="p-4">
+                            
                             <h3 className="text-2xl font-bold flex">
                               <MdPostAdd  className="mr-2"/>  Inserat bearbeiten
                             </h3>
@@ -179,11 +184,11 @@ const InseratCreation = async ({
                                 </div>
                             </div>
                             <div className="mt-4">
-                                {/*
+                                
                                 <CategoryInformation 
-                                inserat = {inserat}
+                                thisInserat = {thisInserat}
                                 />
-                                */}
+                                
                             </div>
                             <div className="w-full mt-4  flex items-center">
                                 {/*

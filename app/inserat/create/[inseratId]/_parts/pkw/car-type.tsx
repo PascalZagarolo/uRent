@@ -2,9 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarType, FuelType } from "@prisma/client";
-
-
+import { CarTypeEnumRender } from "@/db/schema";
 
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
@@ -13,21 +11,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-  cartype : CarType;
+  thisCarType : typeof CarTypeEnumRender;
 }
 
 const CarTypeForm: React.FC<CarTypeProps> = ({
-    cartype
+  thisCarType
 }) => {
 
-    const [currentCarType, setcurrentCarType] = useState<CarType | null>(null);
+    const [currentCarType, setcurrentCarType] = useState<typeof CarTypeEnumRender | null>(thisCarType);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: CarType) => {
+    const onSubmit = (selectedValue: typeof CarTypeEnumRender) => {
         try {
     
             setcurrentCarType(selectedValue);
@@ -54,19 +52,21 @@ const CarTypeForm: React.FC<CarTypeProps> = ({
             <div className="w-full">
         <Label>Fahrzeugtyp</Label>
         <Select
-          onValueChange={(carType : CarType) => {
+        //@ts-ignore
+          onValueChange={(carType : typeof CarTypeEnumRender) => {
             onSubmit(carType);
           }}
-          defaultValue={cartype || "COUPE"}
+          
           disabled={isLoading}
-          value={cartype || currentCarType ||"COUPE"}
+          //@ts-ignore
+          value={thisCarType || currentCarType || "KOMBI"}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={cartype || "COUPE"} >
+          disabled={isLoading}  >
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={cartype || "COUPE"}
+              
               
             />
           </SelectTrigger>

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { booking } from "@/db/schema";
 import { Booking, Inserat, User } from "@prisma/client";
 import clsx from "clsx";
 import { format, isToday } from "date-fns";
@@ -17,7 +18,7 @@ interface Event {
 interface CalendarDayProps {
   index: number;
   day: Date;
-  bookings: Booking & { inserat: Inserat, user: User }[];
+  bookings: typeof booking.$inferSelect[];
 }
 
 

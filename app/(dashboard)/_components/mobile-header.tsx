@@ -41,7 +41,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                         {
                             isDashboard ? (
                                 <DashboardSheet
-                                    currentUserId={String(currentUser.id)}
+                                    currentUserId={currentUser?.id}
                                 />
                             ) : (
                                 <MobileFilterSheet />

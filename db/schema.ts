@@ -498,13 +498,12 @@ export const images = pgTable("images", {
 })
 
 export const favourite = pgTable("favourite", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     userId: uuid("userId").
         references(() => users.id, { onDelete: "cascade" }).notNull(),
     inseratId: uuid("inseratId").
         references(() => inserat.id, { onDelete: "cascade" }).notNull(),
-}, (favourite) => ({
-    compoundKey: primaryKey({ columns: [favourite.userId, favourite.inseratId] }),
-}))
+} )
 
 export const purchase = pgTable("purchase", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
@@ -775,6 +774,39 @@ export const trailerAttributeRelations = relations(trailerAttribute, ({ one }) =
 export const transportAttributeRelations = relations(transportAttribute, ({ one }) => ({
     inserat : one(inserat, {
         fields : [transportAttribute.inseratId],
+        references : [inserat.id]
+    })
+}))
+
+export const bookingRelations = relations(booking, ({ one }) => ({
+    user : one(users, {
+        fields : [booking.userId],
+        references : [users.id]
+    }),
+    inserat : one(inserat, {
+        fields : [booking.inseratId],
+        references : [inserat.id]
+    })
+}))
+
+export const bookingRequestRelations = relations(bookingRequest, ({ one }) => ({
+    user : one(users, {
+        fields : [bookingRequest.userId],
+        references : [users.id]
+    }),
+    inserat : one(inserat, {
+        fields : [bookingRequest.inseratId],
+        references : [inserat.id]
+    })
+}))
+
+export const favouriteRelation = relations(favourite, ({ one }) => ({
+    user : one(users, {
+        fields : [favourite.userId],
+        references : [users.id]
+    }),
+    inserat : one(inserat, {
+        fields : [favourite.inseratId],
         references : [inserat.id]
     })
 }))

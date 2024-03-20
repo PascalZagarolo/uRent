@@ -1,37 +1,23 @@
-import { CalendarSearchIcon, Car, FilePieChartIcon, ListOrdered, Package, Star } from "lucide-react";
-
-import { db } from "@/utils/db";
-
-import { Booking, Inserat, User } from "@prisma/client";
+import { CalendarSearchIcon } from "lucide-react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import FavouriteRenderList from "./_components/favourite-render-list";
-import FavouriteDashboardRender from "./_components/favourite-render";
 import BookingRenderList from "./_components/booking-render-list";
 import SidebarDashboard from "../../_components/sidebar-dashboard";
+import db from "@/db/drizzle";
+import { booking, favourite } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 const Bookings = async ({
     params
 }: { params: { userId: string } }) => {
 
-    const favourites = await db.favourite.findMany({
-        where: {
-            userId: params.userId
-        }, include: {
-            inserat: {
-                include: {
-                    user: true,
-                    images: true
-                }
-            },
-        }
-    })
-
-    const bookings = await db.booking.findMany({
-        where :{
-            userId : params.userId
-        }, include : { 
+    
+    const favourites = await db.query.favourite.findMany({
+        where : (
+            eq(favourite.userId, params.userId)
+        ), with : {
             inserat : {
-                include : {
+                with : {
                     images : true,
                     user : true
                 }
@@ -39,6 +25,18 @@ const Bookings = async ({
         }
     })
 
+    const bookings = await db.query.booking.findMany({
+        where : (
+            eq(booking.userId, params.userId)
+        ), with : {
+            inserat : {
+                with : {
+                    images : true,
+                    user : true
+                }
+            }
+        }
+    })
     
 
     
@@ -46,8 +44,6 @@ const Bookings = async ({
 
 
     return (
-        
-
             <div className="flex justify-center py-8 px-4 ">
                 <div className="px-4 hidden md:block">
                 <SidebarDashboard />
@@ -60,10 +56,16 @@ const Bookings = async ({
                                 <StarFilledIcon className="mr-4" /> Meine Favouriten <p className="ml-4 text-lg"> </p>
                             </h3>
                             <div className="md:p-4 p-2">
-                                <FavouriteRenderList 
-                                //@ts-ignore
-                                favourites={favourites}
-                                />
+                                {favourites.length > 0 ? (
+                                    <FavouriteRenderList 
+                                    //@ts-ignore
+                                    favourites={favourites}
+                                    />
+                                ) : (
+                                    <div className="flex justify-center text-gray-100/70">
+                                        Noch keine Anzeigen gespeichert...
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -72,10 +74,16 @@ const Bookings = async ({
                                 <CalendarSearchIcon className="mr-4" /> Meine Buchungen <p className="ml-4 text-lg"> </p>
                             </h3>
                             <div className="md:p-4 p-2 md:pb-0 pb-4">
-                                <BookingRenderList 
-                                //@ts-ignore
-                                bookings={bookings}
-                                />
+                                {bookings.length > 0 ? (
+                                    <BookingRenderList 
+                                    //@ts-ignore
+                                    bookings={bookings}
+                                    />
+                                ) : (
+                                    <div className="flex justify-center text-gray-100/70">
+                                        Noch keine Fahrzeuge gebucht...
+                                    </div>
+                                )}
                             </div>
                         </div>
                         

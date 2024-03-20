@@ -1,6 +1,9 @@
-import { db } from "@/utils/db";
-import { Address } from "@prisma/client";
+
+import db from "@/db/drizzle";
+import { address, inserat } from "@/db/schema";
+
 import axios from "axios";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -13,21 +16,12 @@ export async function PATCH(
 
         const { publish } = await req.json();
 
-        const patchedInserat = await db.inserat.update({
-            where : {
-                id : params.inseratId
-            }, data : {
-                isPublished : publish,
-                
-            }
-        })
+        const patchedInserat = await db.update(inserat).set({
+            isPublished : publish
+        }).where(eq(inserat.id, params.inseratId)).returning();
 
-        
-
-        const addressInserat = await db.address.findUnique({
-            where : {
-                inseratId : params.inseratId
-            }
+        const addressInserat = await db.query.address.findFirst({
+            where : (eq(address.inseratId, params.inseratId))
         })
 
         const addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=65db7269a0101559750093uena07e08`);
@@ -36,40 +30,33 @@ export async function PATCH(
        
         console.log(addressObject.data[0]);
 
-        const address: string[] = addressObject.data[0].display_name.split(",");
-        console.log(address[address.length -3])
+        const pAddress: string[] = addressObject.data[0].display_name.split(",");
+        console.log(pAddress[address.length -3])
         console.log(addressObject.data[0].lat)
         console.log(addressObject.data[0].lon) 
 
         if(publish) {
-            const patchedAddress = await db.address.update({
-                where : {
-                    inseratId : params.inseratId
-                }, data : {
+                const patchedAddress = await db.update(address).set({
                     longitude: String(addressObject.data[0].lon),
                     latitude: String(addressObject.data[0].lat),
                     state : address[address.length -3],
-                }
-            })
+            }).where(eq(address.inseratId, params.inseratId)).returning();
 
             if(patchedAddress) {
-                return NextResponse.json(patchedInserat)
+                return NextResponse.json(patchedInserat[0]);
             } else {
-                const createdAddress = await db.address.create({
-                    data : {
-                        inseratId : params.inseratId,
-                        longitude: String(addressObject.data[0].lon),
-                        latitude: String(addressObject.data[0].lat),
-                        state : address[address.length -3],
-                    }
-                })
+                const createdAddress = await db.insert(address).values({
+                    inseratId : params.inseratId,
+                    longitude: String(addressObject.data[0].lon),
+                    latitude: String(addressObject.data[0].lat),
+                    state : address[address.length -3],
+                }).returning();
 
-                return NextResponse.json(createdAddress)
+                return NextResponse.json(createdAddress[0])
             }
         }
 
-        return NextResponse.json(patchedInserat)
-
+        return NextResponse.json(patchedInserat[0]);
     } catch (error) {
 
         console.log("Fehler in /api/inserat/[inseratId]/publish/route.ts:" + error);

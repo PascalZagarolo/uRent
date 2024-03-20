@@ -1,5 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
+
 import HeaderLogo from "../../_components/header-logo";
 import { TruckIcon } from "lucide-react";
 
@@ -7,18 +7,13 @@ const Imprint = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const notifications = await db.notification.findMany({
-        where: {
-            userId: currentUser?.id
-        }
-    })
+    
 
     return (
         <div>
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser}
-                    notifications={notifications} />
+                    currentUser={currentUser} />
             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">

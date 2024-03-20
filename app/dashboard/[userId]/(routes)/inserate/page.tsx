@@ -1,13 +1,15 @@
-import { db } from "@/utils/db"
-import InseratDrafts from "./_components/inserat-drafts"
-import { ContrastIcon, FilePieChartIcon, PencilRuler, ReceiptIcon, TruckIcon } from "lucide-react"
-import InseratPublic from "./_components/public-inserat"
-import HeaderLogo from "@/app/(dashboard)/_components/header-logo"
+
+
+import { FilePieChartIcon } from "lucide-react"
+
 import getCurrentUser from "@/actions/getCurrentUser"
-import InserateDashboardRender from "./_components/inserate-dashboard-render"
+
 import InserateRenderList from "./_components/inserat-render-list"
-import Inserat from '@prisma/client';
+
 import SidebarDashboard from "../../_components/sidebar-dashboard"
+import db from "@/db/drizzle"
+import { eq } from "drizzle-orm"
+import { inserat } from "@/db/schema"
 
 
 
@@ -17,25 +19,20 @@ const InserateOverview = async ({
 
     const currentUser = await getCurrentUser();
 
-    const notifications = await db.notification.findMany({
-        where :{
-            userId : params.userId
-        }
-    })
+    
 
     let publics = [];
     let draft = [];
 
-    const inserateArray = await db.inserat.findMany({
-        where : {
-            userId : params.userId,
-        },
-        include : {
+    const inserateArray = await db.query.inserat.findMany({
+        where : (
+            eq(inserat.userId, currentUser?.id)
+        ),
+        with : {
             images : true,
-            user: true
-        }, orderBy : {
-            createdAt : "desc"
-        }
+            user : true
+        }, orderBy :  (inserat, {desc}) => [desc(inserat.createdAt)]
+       
     })
 
     for (let i = 0; i < inserateArray.length; i++) {
@@ -68,10 +65,16 @@ const InserateOverview = async ({
                                 <FilePieChartIcon className="mr-4" /> Meine Inserate <p className="ml-4 text-lg"> {inserateArray.length}</p>
                             </h3>
                             <div className="p-4 ">
-                                <InserateRenderList 
-                                //@ts-ignore
-                                inserateArray={inserateArray}
-                                />
+                                {inserateArray.length > 0 ? (
+                                    <InserateRenderList 
+                                    
+                                    inserateArray={inserateArray}
+                                    />
+                                ) : (
+                                    <div className="flex justify-center text-gray-100/70">
+                                        Noch keine Inhalte erstellt...
+                                    </div>
+                                )}
                             </div>
                     </div>
 

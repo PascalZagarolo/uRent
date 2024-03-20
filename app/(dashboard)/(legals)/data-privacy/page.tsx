@@ -1,26 +1,20 @@
-import { Separator } from "@/components/ui/separator";
+
 import HeaderLogo from "../../_components/header-logo";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
 import { TruckIcon } from "lucide-react";
 
 const DataPrivacy = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const notifications = await db.notification.findMany({
-        where: {
-            userId: currentUser?.id
-        }
-    })
+  
 
     return (
 
         <div>
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser}
-                    notifications={notifications} />
+                    currentUser={currentUser}/>
             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10">
 

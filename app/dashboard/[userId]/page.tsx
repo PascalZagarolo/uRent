@@ -1,23 +1,14 @@
 
 
-import { CalendarCheck2, ContainerIcon, EyeIcon, TrendingUp, Truck, User2Icon, UserCog2Icon, UserPlus2 } from "lucide-react";
-import Logo from "../../profile/[profileId]/_components/u-rent-logo";
-import DashboardLayout from '../../(dashboard)/layout';
-import { Booking, BookingRequest, Images, Inserat, User } from "@prisma/client";
-import { db } from "@/utils/db";
-import Drafts from "./_components/drafts-user";
-import { use, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { BeatLoader } from "react-spinners";
-import { Calendar } from "@/components/ui/calendar";
-import OwnCalendar from "./(routes)/_components/calendar";
+import { CalendarCheck2, EyeIcon, TrendingUp, Truck, UserPlus2 } from "lucide-react";
 import EventCalendar from "./(routes)/_components/calendar";
-import { addDays, subDays } from "date-fns";
 import getCurrentUser from "@/actions/getCurrentUser";
-
 import BookingRequestRender from "./(routes)/_components/booking-request";
 import { forEach } from "lodash";
 import SidebarDashboard from "./_components/sidebar-dashboard";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
+import { booking, bookingRequest, inserat } from "@/db/schema";
 
 interface MainPageProps {
     searchParams: {
@@ -31,56 +22,55 @@ const DashboardPage = async ({
 
     const currentUser = await getCurrentUser();
 
-    const everyInserat = await db.inserat.findMany({
-        where: {
-            userId: currentUser?.id
-        }
+    const everyInserat = await db.query.inserat.findMany({
+        where : eq(inserat.userId , currentUser?.id)
     })
 
-    const inserate = await db.inserat.findMany({
-        where: {
-            userId: currentUser?.id,
-            id: searchParams?.inseratId
-        }, select: {
-            id: true,
-
-        }
+    const foundInserate = await db.query.inserat.findMany({
+        where : (
+            eq(inserat.userId, currentUser?.id)
+            
+        )  
     })
 
-    let involvedBookings: Booking & {inserat : Inserat, user : User}[] = [] as any;
+    let involvedBookings;
 
-    for (let i = 0; i < inserate.length; i++) {
-        const bookings = await db.booking.findMany({
-            where: {
-                inseratId: inserate[i].id
-            }, include : {
-                user : true,
-                inserat : true
-            }
-        })
-
-        involvedBookings.push(...bookings);
+    if(foundInserate.length > 0) {
+        for (let i = 0; i < foundInserate.length; i++) {
+        
+            const bookings = await db.query.booking.findMany({
+                where : (
+                    eq(booking.inseratId, foundInserate[i].id)
+                ), with : {
+                    user : true,
+                    inserat : true,
+                }
+            })
+    
+            involvedBookings.push(...bookings);
+        }
     }
 
-    let bookingRequests: BookingRequest & { inserat: Inserat & { images: Images[] }, user: User }[] = [] as any;
+    let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
 
-    for (let i = 0; i < everyInserat.length; i++) {
-        const requests = await db.bookingRequest.findMany({
-            where: {
-                inseratId: everyInserat[i].id
-            }, include: {
-                inserat: {
-                    include: {
-                        images: true,
-
-                    },
-
-                },
-                user: true
-            }
-        })
-
-        bookingRequests.push(...requests);
+    if(everyInserat.length > 0) {
+        for (let i = 0; i < everyInserat.length; i++) {
+        
+            const requests = await db.query.bookingRequest.findMany({
+                where : (
+                    eq(bookingRequest.inseratId, everyInserat[i].id)
+                ), with : {
+                    user : true,
+                    inserat : {
+                        with : {
+                            images : true
+                        }
+                    }
+                }
+            })
+    
+            bookingRequests.push(...requests);
+        }
     }
 
     let views = 0;
@@ -127,10 +117,12 @@ const DashboardPage = async ({
                                     <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender
                                 </h3>
                                 <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
+                                    
                                     <EventCalendar
-                                        inserate={everyInserat}
+                                        everyInserat={everyInserat}
                                         bookings={involvedBookings}
                                     />
+                                   
                                 </div>
                             </div>
                             <div className="sm:w-2/5">
@@ -139,9 +131,9 @@ const DashboardPage = async ({
                                         <UserPlus2 className="w-4 h-4 mr-2" /> Offene Anfragen <p className="text-sm ml-4"> {bookingRequests.length} </p>
                                     </h3>
                                     <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
-                                    {bookingRequests.map((request: BookingRequest & { inserat: Inserat & { images: Images[] }, user: User }) => (
+                                     
+                                    {bookingRequests.map((request : typeof bookingRequest.$inferSelect) => (
                                         <BookingRequestRender
-                                            //@ts-ignore
                                             request={request}
                                             key={request?.id || 1}
                                         />
@@ -151,6 +143,7 @@ const DashboardPage = async ({
                                             Du hast keine offenen Anfragen...
                                         </div>
                                     )}
+                                    
                                     </div>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TransmissionEnumRender } from "@/db/schema";
-import { Transmission } from "@prisma/client";
+
 
 
 import axios from "axios";

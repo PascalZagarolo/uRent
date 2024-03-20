@@ -1,12 +1,13 @@
 'use client';
 
-import { Favourite, Images, Inserat, User } from "@prisma/client";
+
 import InserateDashboardRender from "./favourite-render";
 import { useState } from "react";
 import FavouriteRender from "./favourite-render";
+import { favourite } from "@/db/schema";
 
 interface FavouriteRenderListProps {
-    favourites : Favourite & { inserat : Inserat & { images : Images[], user: User}}[]
+    favourites : typeof favourite.$inferSelect[]
 }
 
 const FavouriteRenderList: React.FC<FavouriteRenderListProps> = ({
@@ -18,11 +19,11 @@ const FavouriteRenderList: React.FC<FavouriteRenderListProps> = ({
 
     return ( 
         <div>
-            {favourites.slice(0,renderAmount).map((favourite : Favourite & { inserat : Inserat & { images : Images[], user: User}}) => (
+            {favourites.slice(0,renderAmount).map((favourite) => (
                 favourites.length > 0 && (
                     <FavouriteRender
-                    favourite = {favourite}
-                    key={favourite.id}
+                    thisFavourite = {favourite}
+                    key={favourite.inseratId}
                     />
             )
         ))}

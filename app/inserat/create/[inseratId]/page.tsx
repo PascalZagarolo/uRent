@@ -55,13 +55,13 @@ const InseratCreation = async ({
     })
 
     const isPublishable = {
-        title : inserat.title.length > 0,
-        description : inserat.description?.length > 0 || false,
-        price : inserat.price !== 0,
-        images : inserat.images?.length > 0,
-        date : (inserat.end && inserat.begin) !== null || inserat.annual,
-        postalCode : inserat.address?.postalCode !== null,
-        location : inserat.address?.locationString !== null,
+        title : thisInserat.title.length > 0,
+        description : thisInserat.description?.length > 0 || false,
+        price : thisInserat.price !== 0,
+        images : thisInserat.images?.length > 0,
+        date : (thisInserat.end && thisInserat.begin) !== null || thisInserat.annual,
+        postalCode : thisInserat.address?.postalCode !== null,
+        location : thisInserat.address?.locationString !== null,
     };
 
     let canPublish = true;
@@ -191,12 +191,12 @@ const InseratCreation = async ({
                                 
                             </div>
                             <div className="w-full mt-4  flex items-center">
-                                {/*
+                               
                                     <PublishInserat
                                     isPublishable={isPublishable}
-                                    inserat={inserat}
+                                    thisInserat={thisInserat}
                                     />
-                                    */}
+                                   
                                 </div>  
                         </div>
                     </div>

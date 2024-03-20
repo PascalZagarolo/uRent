@@ -1,26 +1,24 @@
 'use client'
 
-import { useDebounce } from "@/hooks/use-debounce";
-import { AlertCircle, MapIcon, MapPin, PinIcon } from "lucide-react";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useEffect, useState } from "react";
+
+import {  PinIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Label } from "@/components/ui/label";
-import { Address, Inserat } from "@prisma/client";
+
 import axios from "axios";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { format } from "date-fns";
+
 
 
 interface InitialFormProps {
-    inital: Date;
+    thisInitial: Date;
 }
 
 const InitialForm: React.FC<InitialFormProps> = ({
-    inital
+    thisInitial
 }) => {
 
     function formatDateToMMYYYY(date) {
@@ -45,7 +43,7 @@ const InitialForm: React.FC<InitialFormProps> = ({
     
 
     const [currentInitial, setcurrentInitial] = useState<Date | null>(null);
-    const [inputValue, setInputValue] = useState(formatDateToMMYYYY(inital) || '');
+    const [inputValue, setInputValue] = useState(formatDateToMMYYYY(thisInitial) || '');
     const [validValue, setValidValue] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
     
@@ -116,7 +114,7 @@ const InitialForm: React.FC<InitialFormProps> = ({
             </div>
         </div>
         <Button onClick={onSubmit} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100" 
-        disabled={validValue || currentInitial?.toDateString() === inital?.toDateString() || !currentInitial} >
+        disabled={validValue || currentInitial?.toDateString() === thisInitial?.toDateString() || !currentInitial} >
             <span className="">Baujahr angeben</span>
         </Button>
         

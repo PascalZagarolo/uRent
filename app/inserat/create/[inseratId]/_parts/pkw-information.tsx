@@ -1,4 +1,3 @@
-import { Inserat, PkwAttribute } from "@prisma/client";
 import Seats from "./pkw/seats";
 import TransmissionForm from "./pkw/transmission";
 import FuelForm from "./pkw/fuel";
@@ -7,65 +6,66 @@ import Doors from "./pkw/doors";
 import PowerForm from "./pkw/power";
 import InitialForm from "./pkw/initial";
 import CarBrandForm from "./pkw/carbrand";
+import { inserat } from "@/db/schema";
 ;
 
 
 interface PkwInformationProps {
-    inserat: Inserat & { pkwAttribute?: PkwAttribute };
+    thisInserat : typeof inserat.$inferSelect;
 
 }
 
 const PkwInformation: React.FC<PkwInformationProps> = ({
-    inserat
+    thisInserat
 }) => {
     return (
         <div className="mt-4">
             <div className="flex w-full gap-x-8">
                 <div className="w-1/2">
                     <CarBrandForm 
-                    brand = {inserat?.pkwAttribute?.brand}
+                    thisBrand = {thisInserat?.pkwAttribute?.brand}
                     />
                 </div>
                 <div className="w-1/2">
                     <Seats
-                        seats={inserat?.pkwAttribute?.seats}
+                    thisSeats={thisInserat?.pkwAttribute?.seats}
                     />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                     <CarTypeForm
-                    cartype = {inserat?.pkwAttribute?.type}
+                    thisCarType = {thisInserat?.pkwAttribute?.type}
                     />
                 </div>
                 <div className="w-1/2">
                     <TransmissionForm
-                        transmission={inserat.pkwAttribute?.transmission}
+                        thisTransmission={thisInserat.pkwAttribute?.transmission}
                     />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                     <FuelForm 
-                    fuel={inserat?.pkwAttribute?.fuel}
+                    thisFuel={thisInserat?.pkwAttribute?.fuel}
                     />
                 </div>
                 <div className="w-1/2">
                     <Doors 
-                        doors={inserat?.pkwAttribute?.doors}
+                        thisDoors={thisInserat?.pkwAttribute?.doors}
                     />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                     <PowerForm
-                    power={inserat?.pkwAttribute?.power}
+                    thisPower={thisInserat?.pkwAttribute?.power}
                     />
                 </div>
                 <div className="w-1/2">
                     <InitialForm 
                     
-                    inital={inserat?.pkwAttribute?.initial}/>
+                    thisInitial={thisInserat?.pkwAttribute?.initial}/>
                 </div>
             </div>
             

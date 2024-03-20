@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarBrands, FuelType } from "@prisma/client";
+import { BrandEnumRender } from "@/db/schema";
+
 
 
 
@@ -13,14 +14,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarBrandFormProps {
-    brand: CarBrands;
+    thisBrand: typeof BrandEnumRender;
 }
 
 const CarBrandForm: React.FC<CarBrandFormProps> = ({
-    brand
+    thisBrand
 }) => {
 
-    const [currentBrand, setCurrentBrand] = useState<CarBrands | null>(brand || null);
+    const [currentBrand, setCurrentBrand] = useState<typeof BrandEnumRender | null>(thisBrand || null);
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -30,7 +31,7 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
     const params = useParams();
 
 
-    const onSubmit = (selectedValue: CarBrands) => {
+    const onSubmit = (selectedValue: typeof BrandEnumRender) => {
         try {
             setCurrentBrand(selectedValue);
             const values = {
@@ -59,26 +60,27 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
             <div className="w-1/2">
                 <Label>Automarke</Label>
                 <Select
-                    onValueChange={(brand: CarBrands) => {
+                    //@ts-ignore
+                    onValueChange={(brand: typeof BrandEnumRender) => {
                         onSubmit(brand);
                     }}
-                    defaultValue={brand}
                     disabled={isLoading}
-                    value={brand || currentBrand }
+                    //@ts-ignore
+                    value={thisBrand || currentBrand || "Acura"}
                     
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                        disabled={isLoading} defaultValue={brand}>
+                        disabled={isLoading}>
                         <SelectValue
                             placeholder="Wähle die Kategorie aus"
-                            defaultValue={brand}
+                            
                             className="placeholder:text-gray-100"
                         />
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        {Object.values(CarBrands).map((brand, index) => (
+                        {Object.values(BrandEnumRender).map((brand, index) => (
                             <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>

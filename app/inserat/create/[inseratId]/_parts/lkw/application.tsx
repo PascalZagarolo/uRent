@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ApplicationType, Transmission } from "@prisma/client";
+import { ApplicationEnumRender } from "@/db/schema";
+
 
 
 import axios from "axios";
@@ -12,21 +13,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface ApplicationFormProps {
-    application : ApplicationType;
+    thisApplication : typeof ApplicationEnumRender;
 }
 
 const ApplicationForm: React.FC<ApplicationFormProps> = ({
-    application
+  thisApplication
 }) => {
 
-    const [currentApplication, setCurrentApplication] = useState<ApplicationType | null>(null);
+    const [currentApplication, setCurrentApplication] = useState<typeof ApplicationEnumRender | null>(thisApplication);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: ApplicationType) => {
+    const onSubmit = (selectedValue: typeof ApplicationEnumRender) => {
         try {
     
             setCurrentApplication(selectedValue);
@@ -53,18 +54,20 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
             <div className="w-full">
         <Label>Anwendungsbereich</Label>
         <Select
-          onValueChange={(application : ApplicationType) => {
+        //@ts-ignore
+          onValueChange={(application : typeof ApplicationEnumRender) => {
             onSubmit(application);
           }}
-          defaultValue={application || null}
+          //@ts-ignore
+          value = {currentApplication}
           disabled={isLoading}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={application || null} >
+          disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={application || null}
+              
               
             />
           </SelectTrigger>

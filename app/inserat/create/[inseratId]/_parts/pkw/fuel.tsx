@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FuelType } from "@prisma/client";
+import { FuelTypeEnumRender } from "@/db/schema";
+
 
 
 
@@ -13,21 +14,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface FuelFormProps {
-  fuel : FuelType;
+  thisFuel : typeof FuelTypeEnumRender;
 }
 
 const FuelForm: React.FC<FuelFormProps> = ({
-    fuel
+  thisFuel
 }) => {
 
-    const [currentFuel, setCurrentFuel] = useState<FuelType | null>(null);
+    const [currentFuel, setCurrentFuel] = useState<typeof FuelTypeEnumRender | null>(thisFuel);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: FuelType) => {
+    const onSubmit = (selectedValue: typeof FuelTypeEnumRender) => {
         try {
     
             setCurrentFuel(selectedValue);
@@ -54,20 +55,19 @@ const FuelForm: React.FC<FuelFormProps> = ({
             <div className="w-full">
         <Label>Kraftstoff</Label>
         <Select
-          onValueChange={(fuel : FuelType) => {
+        //@ts-ignore
+          onValueChange={(fuel : typeof FuelTypeEnumRender) => {
             onSubmit(fuel);
           }}
-          defaultValue={fuel || "BENZIN"}
           disabled={isLoading}
-          value={fuel || currentFuel || "BENZIN"}
+          //@ts-ignore
+          value={thisFuel || currentFuel || "BENZIN"}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={fuel || "BENZIN"} >
+          disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={fuel || "BENZIN"}
-              
             />
           </SelectTrigger>
 

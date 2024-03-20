@@ -11,14 +11,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface DoorsProps {
-    doors : number;
+  thisDoors : number;
 }
 
 const Doors: React.FC<DoorsProps> = ({
-    doors
+  thisDoors
 }) => {
 
-    const [currentDoors, setCurrentDoors] = useState(doors);
+    const [currentDoors, setCurrentDoors] = useState(thisDoors);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -55,15 +55,15 @@ const Doors: React.FC<DoorsProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          defaultValue={String(doors) || "4"}
+          value={String(currentDoors)}
           disabled={isLoading}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={doors} >
+          disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={doors}
+              
               
             />
           </SelectTrigger>

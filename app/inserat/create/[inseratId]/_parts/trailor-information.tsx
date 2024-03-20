@@ -1,6 +1,3 @@
-import {  Inserat, TrailerAttribute} from "@prisma/client";
-
-
 import TrailerTypeCreation from "./trailer/trailer-type";
 import TrailerCoupling from "./trailer/trailer-coupling";
 import TrailerBrake from "./trailer/trailer-brake";
@@ -8,57 +5,58 @@ import TrailerAxis from "./trailer/trailer-axis";
 import TrailerExtraType from "./trailer/trailer-extra-type";
 import TrailerLoading from "./trailer/trailer-loading";
 import TrailerWeightClass from "./trailer/trailer-weight-class";
+import { inserat } from "@/db/schema";
 
 
 
 interface TrailorInformationProps {
-    inserat: Inserat & { trailerAttribute? : TrailerAttribute }
+    thisInserat : typeof inserat.$inferSelect;
 
 }
 
 const TrailorInformation: React.FC<TrailorInformationProps> = ({
-    inserat
+    thisInserat
 }) => {
     return (
         <div className="mt-4">
             <div className="flex w-full gap-x-8">
                 <TrailerTypeCreation 
-                trailerType = {inserat.trailerAttribute?.type}
+                trailerType = {thisInserat.trailerAttribute?.type}
                 />
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                  <TrailerCoupling 
-                 coupling = {inserat.trailerAttribute?.coupling}
+                 coupling = {thisInserat.trailerAttribute?.coupling}
                  />
                 </div>
                 <div className="w-1/2">
                  <TrailerExtraType
-                 extraType={inserat.trailerAttribute?.extraType}
+                 extraType={thisInserat.trailerAttribute?.extraType}
                  />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                  <TrailerLoading 
-                 loading={inserat.trailerAttribute?.loading}
+                 loading={thisInserat.trailerAttribute?.loading}
                  />
                 </div>
                 <div className="w-1/2">
                     <TrailerAxis 
-                    axis={inserat.trailerAttribute?.axis}
+                    axis={thisInserat.trailerAttribute?.axis}
                     />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                 <TrailerWeightClass 
-                    weightClass={inserat.trailerAttribute?.weightClass}
+                    weightClass={thisInserat.trailerAttribute?.weightClass}
                     />
                 </div>
                 <div className="w-1/2">
                 <TrailerBrake 
-                 brake = {inserat.trailerAttribute?.brake}
+                 brake = {thisInserat.trailerAttribute?.brake}
                  />
                 </div>
             </div>

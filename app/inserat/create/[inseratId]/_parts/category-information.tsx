@@ -24,7 +24,7 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                         {
                             'PKW': 'PKW',
                             'LKW' : 'LKW',
-                            'TRAILOR' : 'Anhänger',
+                            'TRAILER' : 'Anhänger',
                             'TRANSPORT' : 'Transporter'
                         }[thisInserat.category]
                     } - Details
@@ -43,13 +43,14 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                         'LKW': <LkwInformation 
                         thisInserat = { thisInserat }
                         />,
-                        /*
-                        'TRAILOR' : <TrailorInformation 
+                        
+                        'TRAILER' : <TrailorInformation 
                         thisInserat = { thisInserat }
                         />,
+                       
                         'TRANSPORT' : <TransportInformation 
                         thisInserat = { thisInserat }
-                        />*/
+                        />
                     }[thisInserat.category]
                 }
             </div>

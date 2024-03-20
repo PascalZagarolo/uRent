@@ -26,31 +26,31 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                  <TransportLoading 
-                 loading={thisInserat?.transportAttribute?.loading}
+                 thisLoading={thisInserat?.transportAttribute?.loading}
                  />
                 </div>
                 <div className="w-1/2">
                 <TransportTransmission 
-                 transmission={thisInserat?.transportAttribute?.transmission}
+                 thisTransmission={thisInserat?.transportAttribute?.transmission}
                  />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                  <TransportFuel 
-                 fuel={thisInserat?.transportAttribute?.fuel}
+                 thisFuel={thisInserat?.transportAttribute?.fuel}
                  />
                 </div>
                 <div className="w-1/2">
                     <TransportSeats 
-                    seats = {thisInserat?.transportAttribute?.seats}
+                    thisSeats = {thisInserat?.transportAttribute?.seats}
                     />
                 </div>
             </div>
             <div className="flex w-full gap-x-8  mt-4">
                 <div className="w-1/2">
                 <TransportDoors 
-                doors={thisInserat?.transportAttribute?.doors}
+                thisDoors={thisInserat?.transportAttribute?.doors}
                 />
                 </div>
                 <div>

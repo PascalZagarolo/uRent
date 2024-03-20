@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarType, CouplingType, FuelType } from "@prisma/client";
+
 
 
 
@@ -13,14 +13,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-  axis : number;
+  thisAxis : number;
 }
 
 const TrailerAxis: React.FC<CarTypeProps> = ({
-    axis
+  thisAxis
 }) => {
 
-    const [currentAxis, setCurrentAxis] = useState<number | null>(null);
+    const [currentAxis, setCurrentAxis] = useState<number | null>(thisAxis);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -60,7 +60,7 @@ const TrailerAxis: React.FC<CarTypeProps> = ({
           
           
           disabled={isLoading}
-          value={axis ? String(axis) : null}
+          value={thisAxis ? String(thisAxis) : null}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 

@@ -2,6 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { TransmissionEnumRender } from "@/db/schema";
 import { Transmission } from "@prisma/client";
 
 
@@ -12,21 +13,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface TransportTransmissionProps {
-    transmission : Transmission;
+    thisTransmission : typeof TransmissionEnumRender;
 }
 
 const TransportTransmission: React.FC<TransportTransmissionProps> = ({
-    transmission
+  thisTransmission
 }) => {
 
-    const [currentTransmission, setCurrentTransmission] = useState<Transmission | null>(null);
+    const [currentTransmission, setCurrentTransmission] = useState<typeof TransmissionEnumRender | null>(thisTransmission);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: Transmission) => {
+    const onSubmit = (selectedValue: typeof TransmissionEnumRender) => {
         try {
     
             setCurrentTransmission(selectedValue);
@@ -53,18 +54,20 @@ const TransportTransmission: React.FC<TransportTransmissionProps> = ({
             <div className="w-full">
         <Label>Getriebe</Label>
         <Select
-          onValueChange={(transmission : Transmission) => {
+        //@ts-ignore
+          onValueChange={(transmission : typeof TransmissionEnumRender) => {
             onSubmit(transmission);
           }}
-          defaultValue={transmission || null}
+          //@ts-ignore
+          value={currentTransmission}
           disabled={isLoading}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading} defaultValue={transmission || null} >
+          disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={transmission || null}
+              
               
             />
           </SelectTrigger>

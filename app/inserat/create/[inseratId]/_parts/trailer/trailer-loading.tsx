@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarType, CouplingType, ExtraType, FuelType, LoadingType } from "@prisma/client";
+import { LoadingEnumRender } from "@/db/schema";
+
 
 
 
@@ -13,24 +14,24 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-    loading: LoadingType;
+    thisLoading: typeof LoadingEnumRender;
 }
 
 const TrailerLoading: React.FC<CarTypeProps> = ({
-    loading
+    thisLoading
 }) => {
 
-    const [currentCoupling, setCurrentCoupling] = useState<LoadingType | null>(null);
+    const [currentLoading, setCurrentLoading] = useState<typeof LoadingEnumRender | null>(thisLoading);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: LoadingType) => {
+    const onSubmit = (selectedValue: typeof LoadingEnumRender) => {
         try {
 
-            setCurrentCoupling(selectedValue);
+            setCurrentLoading(selectedValue);
 
             const values = {
                 loading: selectedValue
@@ -54,13 +55,13 @@ const TrailerLoading: React.FC<CarTypeProps> = ({
             <div className="w-full">
                 <Label>Ladevorrichtung</Label>
                 <Select
-                    onValueChange={(loading: LoadingType) => {
+                    //@ts-ignore
+                    onValueChange={(loading: typeof LoadingEnumRender) => {
                         onSubmit(loading);
                     }}
-
-
                     disabled={isLoading}
-                    value={loading}
+                    //@ts-ignore
+                    value={currentLoading}
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
@@ -73,7 +74,7 @@ const TrailerLoading: React.FC<CarTypeProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        {Object.values(LoadingType).map((load, index) => (
+                        {Object.values(LoadingEnumRender).map((load, index) => (
                             <SelectItem key={index} value={load}>
                                 {load.substring(0,1)}{load.substring(1).toLowerCase()}
                             </SelectItem>

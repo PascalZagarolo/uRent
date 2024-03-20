@@ -2,18 +2,18 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarType, CouplingType, FuelType } from "@prisma/client";
+
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-  brake: boolean;
+  thisBrake: boolean;
 }
 
-const TrailerBrake: React.FC<CarTypeProps> = ({ brake }) => {
-  const [currentCoupling, setCurrentCoupling] = useState<boolean | null>(brake);
+const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
+  const [currentCoupling, setCurrentCoupling] = useState<boolean | null>(thisBrake);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -49,11 +49,11 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ brake }) => {
       <div className="w-full">
         <Label>Auflaufbremse?</Label>
         <Select
-          onValueChange={(coupling: CouplingType) => {
+          onValueChange={(coupling) => {
             onSubmit(coupling);
           }}
           disabled={isLoading}
-          value={brake !== null ? String(brake) : null}
+          value={thisBrake !== null ? String(thisBrake) : null}
         >
           <SelectTrigger
             className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "

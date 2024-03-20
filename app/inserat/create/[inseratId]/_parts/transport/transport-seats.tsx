@@ -11,14 +11,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface TransportSeatsProps {
-    seats : number;
+    thisSeats : number;
 }
 
 const TransportSeats: React.FC<TransportSeatsProps> = ({
-    seats
+  thisSeats
 }) => {
 
-    const [currentSeats, setCurrentSeats] = useState(seats);
+    const [currentSeats, setCurrentSeats] = useState(thisSeats);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -55,7 +55,7 @@ const TransportSeats: React.FC<TransportSeatsProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          defaultValue={seats ? String(seats) : null}
+          defaultValue={thisSeats ? String(thisSeats) : null}
           disabled={isLoading}
         >
 

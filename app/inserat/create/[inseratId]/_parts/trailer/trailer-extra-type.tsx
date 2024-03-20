@@ -2,7 +2,8 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarType, CouplingType, ExtraType, FuelType } from "@prisma/client";
+import { ExtraTypeEnumRender } from "@/db/schema";
+
 
 
 
@@ -13,21 +14,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-    extraType: ExtraType;
+    thisExtraType: typeof ExtraTypeEnumRender;
 }
 
 const TrailerExtraType: React.FC<CarTypeProps> = ({
-    extraType
+    thisExtraType
 }) => {
 
-    const [currentCoupling, setCurrentCoupling] = useState<ExtraType | null>(null);
+    const [currentCoupling, setCurrentCoupling] = useState<typeof ExtraTypeEnumRender | null>(thisExtraType);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: ExtraType) => {
+    const onSubmit = (selectedValue: typeof ExtraTypeEnumRender) => {
         try {
 
             setCurrentCoupling(selectedValue);
@@ -54,13 +55,13 @@ const TrailerExtraType: React.FC<CarTypeProps> = ({
             <div className="w-full">
                 <Label>Erw. Fahrzeugklasse</Label>
                 <Select
-                    onValueChange={(extraType: ExtraType) => {
+                //@ts-ignore
+                    onValueChange={(extraType: typeof ExtraTypeEnumRender) => {
                         onSubmit(extraType);
                     }}
-
-
                     disabled={isLoading}
-                    value={extraType}
+                    //@ts-ignore
+                    value={currentCoupling}
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "

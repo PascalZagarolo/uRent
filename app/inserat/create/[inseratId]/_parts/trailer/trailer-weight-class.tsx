@@ -13,14 +13,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-  weightClass : number;
+  thisWeightClass : number;
 }
 
 const TrailerWeightClass: React.FC<CarTypeProps> = ({
-    weightClass
+  thisWeightClass
 }) => {
 
-    const [currentWeight, setCurrentWeight] = useState<number | null>(null);
+    const [currentWeight, setCurrentWeight] = useState<number | null>(thisWeightClass);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -60,7 +60,7 @@ const TrailerWeightClass: React.FC<CarTypeProps> = ({
           
           
           disabled={isLoading}
-          value={weightClass ? String(weightClass) : null}
+          value={thisWeightClass ? String(thisWeightClass) : null}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 

@@ -11,14 +11,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface TransportDoorsProps {
-    doors : number;
+    thisDoors : number;
 }
 
 const TransportDoors: React.FC<TransportDoorsProps> = ({
-    doors
+  thisDoors
 }) => {
 
-    const [currentDoors, setCurrentDoors] = useState(doors);
+    const [currentDoors, setCurrentDoors] = useState(thisDoors);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -55,7 +55,7 @@ const TransportDoors: React.FC<TransportDoorsProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          defaultValue={doors ? String(doors) : null}
+          defaultValue={thisDoors ? String(thisDoors) : null}
           disabled={isLoading}
         >
 

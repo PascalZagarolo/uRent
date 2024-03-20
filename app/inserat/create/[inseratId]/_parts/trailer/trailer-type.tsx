@@ -7,16 +7,17 @@ import { AiOutlineAlignLeft } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { TrailerType } from "@prisma/client";
+
 import { cn } from "@/lib/utils";
 import { RiCaravanLine } from "react-icons/ri";
+import { TrailerEnumRender } from "@/db/schema";
 
 interface TrailerTypeProps {
-    trailerType : TrailerType;
+    thisTrailerType : typeof TrailerEnumRender;
 }
 
 const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
-    trailerType
+    thisTrailerType
 }) => {
 
     const params = useParams();
@@ -44,34 +45,41 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
             <div className="w-full flex justify-evenly">
             <div className="flex flex-col items-center">
                 <Button 
-                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100", 
-                trailerType === "SATTEL" && "border-2 dark:border-blue-800 border-blue-800")} 
+                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100",
+                //@ts-ignore 
+                thisTrailerType === "SATTEL" && "border-2 dark:border-blue-800 border-blue-800")} 
                 onClick={() => {onSelect("SATTEL")}}>
                     <BsTruckFlatbed className="h-6 w-6" />
                 </Button>
-                <p className={cn("text-center text-sm mt-1", trailerType === "SATTEL" && "font-semibold")}>Sattelzug</p>
+                <p className={cn("text-center text-sm mt-1", //@ts-ignore
+                 thisTrailerType === "SATTEL" && "font-semibold")}>Sattelzug</p>
             </div>
 
             <div className="flex flex-col items-center">
                 <Button 
-                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100", 
-                trailerType === "ANHAENGER" && "border-2 dark:border-blue-800 border-blue-800")}
+                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100",
+                //@ts-ignore 
+                thisTrailerType === "ANHAENGER" && "border-2 dark:border-blue-800 border-blue-800")}
                 onClick={() => {onSelect("ANHAENGER")}}
                 >
                     <RiCaravanLine   className="h-6 w-6" />
                 </Button>
-                <p className={cn("text-center text-sm mt-1", trailerType === "ANHAENGER" && "font-semibold")}>Anhänger</p>
+                <p //@ts-ignore 
+                className={cn("text-center text-sm mt-1", thisTrailerType === "ANHAENGER" && "font-semibold")}>Anhänger</p>
             </div>
 
             <div className="flex flex-col items-center">
                 <Button 
-                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100", 
-                trailerType === "KLEIN" && "border-2 dark:border-blue-800 border-blue-800")}
+                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100",
+                //@ts-ignore 
+                thisTrailerType === "KLEIN" && "border-2 dark:border-blue-800 border-blue-800")}
                 onClick={() => {onSelect("KLEIN")}}
                 >
                     <FaTrailer  className="h-6 w-6" />
                 </Button>
-                <p className={cn("text-center text-sm mt-1", trailerType === "KLEIN" && "font-semibold")}>Kleinanhänger</p>
+                
+                <p //@ts-ignore
+                className={cn("text-center text-sm mt-1", thisTrailerType === "KLEIN" && "font-semibold")}>Kleinanhänger</p>
             </div>
 
             
@@ -79,12 +87,12 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
             <div className="flex flex-col items-center">
                 <Button 
                 className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] dark:border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100", 
-                !trailerType && "border-2 dark:border-blue-800 border-blue-800")}
+                !thisTrailerType && "border-2 dark:border-blue-800 border-blue-800")}
                 onClick={() => {onSelect(null)}}
                 >
                     <AiOutlineAlignLeft className="h-6 w-6" />
                 </Button>
-                <p className={cn("text-center text-sm mt-1", !trailerType && "font-semibold")}>Sonstiges</p>
+                <p className={cn("text-center text-sm mt-1", !thisTrailerType && "font-semibold")}>Sonstiges</p>
             </div>
         </div>
         </div>

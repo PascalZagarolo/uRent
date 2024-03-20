@@ -2,9 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CarType, CouplingType, FuelType } from "@prisma/client";
-
-
+import { CouplingEnumRender } from "@/db/schema";
 
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
@@ -13,21 +11,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-  coupling : CouplingType;
+  thisCoupling : typeof CouplingEnumRender;
 }
 
 const TrailerCoupling: React.FC<CarTypeProps> = ({
-    coupling
+  thisCoupling
 }) => {
 
-    const [currentCoupling, setCurrentCoupling] = useState<CouplingType | null>(null);
+    const [currentCoupling, setCurrentCoupling] = useState<typeof CouplingEnumRender | null>(thisCoupling);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: CouplingType) => {
+    const onSubmit = (selectedValue:typeof CouplingEnumRender) => {
         try {
     
             setCurrentCoupling(selectedValue);
@@ -54,13 +52,13 @@ const TrailerCoupling: React.FC<CarTypeProps> = ({
             <div className="w-full">
         <Label>Kupplungsart</Label>
         <Select
-          onValueChange={(coupling : CouplingType) => {
+        //@ts-ignore
+          onValueChange={(coupling : typeof CouplingEnumRender) => {
             onSubmit(coupling);
-          }}
-          
-          
+          }} 
           disabled={isLoading}
-          value={coupling}
+          //@ts-ignore
+          value={currentCoupling}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 

@@ -21,42 +21,42 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
         <div className="mt-4">
             <div className="flex w-full gap-x-8">
                 <TrailerTypeCreation 
-                trailerType = {thisInserat.trailerAttribute?.type}
+                thisTrailerType = {thisInserat.trailerAttribute?.type}
                 />
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                  <TrailerCoupling 
-                 coupling = {thisInserat.trailerAttribute?.coupling}
+                 thisCoupling = {thisInserat.trailerAttribute?.coupling}
                  />
                 </div>
                 <div className="w-1/2">
                  <TrailerExtraType
-                 extraType={thisInserat.trailerAttribute?.extraType}
+                 thisExtraType={thisInserat.trailerAttribute?.extraType}
                  />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                  <TrailerLoading 
-                 loading={thisInserat.trailerAttribute?.loading}
+                 thisLoading={thisInserat.trailerAttribute?.loading}
                  />
                 </div>
                 <div className="w-1/2">
                     <TrailerAxis 
-                    axis={thisInserat.trailerAttribute?.axis}
+                    thisAxis={thisInserat.trailerAttribute?.axis}
                     />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                 <TrailerWeightClass 
-                    weightClass={thisInserat.trailerAttribute?.weightClass}
+                    thisWeightClass={thisInserat.trailerAttribute?.weightClass}
                     />
                 </div>
                 <div className="w-1/2">
                 <TrailerBrake 
-                 brake = {thisInserat.trailerAttribute?.brake}
+                 thisBrake = {thisInserat.trailerAttribute?.brake}
                  />
                 </div>
             </div>

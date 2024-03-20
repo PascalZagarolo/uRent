@@ -2,6 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { FuelTypeEnumRender } from "@/db/schema";
 import { FuelType } from "@prisma/client";
 
 
@@ -13,21 +14,21 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface TransportFuelProps {
-  fuel : FuelType;
+  thisFuel : typeof FuelTypeEnumRender;
 }
 
 const TransportFuel: React.FC<TransportFuelProps> = ({
-    fuel
+  thisFuel
 }) => {
 
-    const [currentFuel, setCurrentFuel] = useState<FuelType | null>(null);
+    const [currentFuel, setCurrentFuel] = useState<typeof FuelTypeEnumRender | null>(thisFuel);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: FuelType) => {
+    const onSubmit = (selectedValue: typeof FuelTypeEnumRender) => {
         try {
     
             setCurrentFuel(selectedValue);
@@ -54,12 +55,14 @@ const TransportFuel: React.FC<TransportFuelProps> = ({
             <div className="w-full">
         <Label>Kraftstoff</Label>
         <Select
-          onValueChange={(fuel : FuelType) => {
+        //@ts-ignore
+          onValueChange={(fuel : typeof FuelTypeEnumRender) => {
             onSubmit(fuel);
           }}
           
           disabled={isLoading}
-          value={fuel}
+          //@ts-ignore
+          value={currentFuel}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 

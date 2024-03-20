@@ -2,23 +2,21 @@
 
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { favourite } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { Favourite, Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
-import { format } from "date-fns";
-import { Edit3, Globe2Icon, SignpostBig, StarHalf, Trash2, X } from "lucide-react";
+import { StarHalf } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface FavouriteDashboardRenderProps {
-    favourite: Favourite & { inserat: Inserat & { images: Images[], user: User } };
+    thisFavourite: typeof favourite.$inferSelect;
 }
 
 const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
-    favourite
+    thisFavourite
 }) => {
     const router = useRouter();
 
@@ -29,7 +27,7 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
     const onDelete = () => {
         try {
             setIsLoading(true);
-            axios.delete(`/api/favourite/${favourite.id}`);
+            axios.delete(`/api/favourite/${thisFavourite.id}`);
             setTimeout(() => {
                 router.refresh();
             }, 500)
@@ -44,11 +42,11 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] p-4 mt-2 border dark:border-none rounded-md">
             <div className="flex">
-            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${favourite.inserat.id}`)}}>
-                    {favourite?.inserat?.images?.length > 0 ? (
+            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${favourite[0].inserat.id}`)}}>
+                    {thisFavourite[0]?.inserat?.images?.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
-                            src={favourite?.inserat?.images[0]?.url}
+                            src={thisFavourite[0]?.inserat?.images[0]?.url}
                             width={200}
                             height={100}
                             className="w-full h-full min-h-[100px] min-w-1/4 object-cover"
@@ -60,25 +58,26 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                     )}
                 </div>
                 <div className="w-1/4 truncate ml-4 text-sm font-base mr-2">
-                    {favourite?.inserat?.title}
+                    {thisFavourite[0]?.inserat?.title}
                 </div>
                 <div className="w-1/6 h-[100px]">
-                    <p className={cn("text-sm flex items-start h-[100px] overflow-hidden", favourite?.inserat.isPublished ? "text-emerald-600 font-semibold" : "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-                         {favourite.inserat.description}
+                    <p className={cn("text-sm flex items-start h-[100px] overflow-hidden", thisFavourite[0]?.inserat.isPublished ? 
+                    "text-emerald-600 font-semibold" : "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                         {thisFavourite[0].inserat.description}
                     </p>
                 </div>
                 <div className="md:w-2/6 w-1/6 text-sm dark:text-gray-100/90 text-gray-700  font-semibold ml-4">
                     <div>
                         <div className="flex items-center">
                             <Image
-                                src={favourite.inserat?.user?.image || "/placeholder-person.jpg"}
+                                src={thisFavourite[0].inserat?.user?.image || "/placeholder-person.jpg"}
                                 alt="Profilbild"
                                 className="w-[30px] h-[30px] rounded-full object-cover mr-2"
                                 width={40}
                                 height={40}
                             />
                             <p className="ml-2 md:block hidden">
-                            {favourite.inserat.user.name}
+                            {thisFavourite[0].inserat.user.name}
                                 </p>
                             
                         </div>

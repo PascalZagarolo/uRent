@@ -1,7 +1,8 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { BookingRequest, Images, Inserat, User } from "@prisma/client";
+import { bookingRequest } from "@/db/schema";
+
 import axios from "axios";
 import { format } from "date-fns";
 
@@ -10,10 +11,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { inserat } from '../../../../../db/schema';
 
 
 interface BookingRequestRenderProps {
-    request : BookingRequest & {inserat : Inserat & {images : Images[]}, user : User};
+    request : typeof bookingRequest.$inferSelect;
 }
 
 const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
@@ -61,7 +63,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
         <div className="dark:bg-[#141414] p-4 mb-4 rounded-md border dark:border-none ">
             <div className="flex w-full truncate font-semibold items-center">
              <CarFrontIcon className="w-4 h-4 mr-2"/>    <p className="w-[200px] truncate">
-             {request.inserat.title} 
+             {request[0].inserat?.title} 
              </p>
              <div className="ml-auto">
                 <Button className=" p-4 mr-2" variant="ghost" size="sm" onClick={onAccept}>
@@ -75,7 +77,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
             <div className="justify-center flex w-full h-[100px] mt-2">
                 <Image 
                 className="min-h-[50px] min-w-[300px] object-cover flex justify-center"
-                src={request.inserat.images[0].url}
+                src={request[0].inserat?.images[0]?.url}
                 alt="Inserat-Bild"
                 width={200}
                 height={50}
@@ -88,7 +90,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <div className="mr-2">
                     <Image 
                     className="w-[30px] h-[30px] rounded-full"
-                    src={request.user.image || "/placeholder-person.jpg"}
+                    src={request[0].user.image || "/placeholder-person.jpg"}
                     alt="Profilbild"
                     width={30}
                     height={30}
@@ -96,7 +98,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 </div>
                     <div>
                    
-                    <p className="font-semibold">{request.user.name}</p>
+                    <p className="font-semibold">{request[0].user?.name}</p>
                     </div>
                 
                 </div>
@@ -113,7 +115,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 {request?.content ? request.content : "Keine Nachricht hinzugefügt..."} 
             </div>
             <div className="w-full mt-2">
-                <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex" onClick={() => {router.push(`/conversation/${request.user.id}`)}}>
+                <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex" 
+                onClick={() => {router.push(`/conversation/${request[0].user.id}`)}}>
                    <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                 </Button>
             </div>

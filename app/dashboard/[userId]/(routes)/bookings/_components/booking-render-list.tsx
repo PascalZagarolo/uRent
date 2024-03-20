@@ -1,13 +1,14 @@
 'use client';
 
-import { Booking, Favourite, Images, Inserat, User } from "@prisma/client";
-import InserateDashboardRender from "./favourite-render";
+
+
 import { useState } from "react";
-import FavouriteRender from "./favourite-render";
+
 import BookingDashboardRender from "./booking-render";
+import { booking } from "@/db/schema";
 
 interface BookingRenderListProps {
-    bookings : Booking & { inserat : Inserat & { images : Images[], user: User}}[]
+    bookings : typeof booking.$inferSelect[]
 }
 
 const BookingRenderList: React.FC<BookingRenderListProps> = ({
@@ -19,10 +20,10 @@ const BookingRenderList: React.FC<BookingRenderListProps> = ({
 
     return ( 
         <div>
-            {bookings.slice(0,renderAmount).map((booking : Booking & { inserat : Inserat & { images : Images[], user: User}}) => (
+            {bookings.slice(0,renderAmount).map((booking) => (
                 bookings.length > 0 && (
                     <BookingDashboardRender
-                    booking = {booking}
+                    thisBooking = {booking}
                     key={booking.id}
                     />
             )

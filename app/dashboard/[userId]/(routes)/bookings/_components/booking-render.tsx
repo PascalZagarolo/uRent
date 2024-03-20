@@ -2,9 +2,8 @@
 
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { booking } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { Booking, Favourite, Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
 import { format } from "date-fns";
 import { CalendarCheck2, CalendarDaysIcon, Edit3, Globe2Icon, SignpostBig, StarHalf, Trash2, X } from "lucide-react";
@@ -14,11 +13,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface BookingDashboardRenderProps {
-    booking: Booking & { inserat: Inserat & { images: Images[], user: User } };
+    thisBooking: typeof booking.$inferSelect;
 }
 
 const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
-    booking
+    thisBooking
 }) => {
     const router = useRouter();
 
@@ -29,7 +28,7 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
     const onDelete = () => {
         try {
             setIsLoading(true);
-            axios.delete(`/api/favourite/${booking.id}`);
+            axios.delete(`/api/favourite/${thisBooking.id}`);
             setTimeout(() => {
                 router.refresh();
             }, 500)
@@ -44,11 +43,11 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
-            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${booking.inserat.id}`)}}>
-                    {booking?.inserat?.images?.length > 0 ? (
+            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${thisBooking[0].inserat.id}`)}}>
+                    {thisBooking[0]?.inserat?.images?.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
-                            src={booking?.inserat?.images[0]?.url}
+                            src={thisBooking[0]?.inserat?.images[0]?.url}
                             width={200}
                             height={100}
                             className="w-full h-full min-h-[100px] min-w-1/4 object-cover"
@@ -60,15 +59,15 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
                     )}
                 </div>
                 <div className="w-1/4 truncate ml-4 text-sm font-base mr-2">
-                    {booking?.inserat?.title} 
+                    {thisBooking[0]?.inserat?.title} 
                 </div>
                 <div className="w-1/6 h-[100px]">
                 <p className="flex items-center font-normal md:justify-start justify-center">
                         <CalendarCheck2 className="w-4 h-4 md:mr-2 " /> <p className="md:block hidden"> Datum </p>
                     </p>
-                    <p className={cn("text-sm  h-[100px] overflow-hidden", booking?.inserat.isPublished ? "dark:text-gray-100 text-gray-800 font-semibold" :
+                    <p className={cn("text-sm  h-[100px] overflow-hidden", thisBooking[0]?.inserat.isPublished ? "dark:text-gray-100 text-gray-800 font-semibold" :
                      "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-                         {format(new Date(booking.startDate), "dd.MM.")} - {format(new Date(booking.endDate), "dd.MM")}
+                         {format(new Date(thisBooking[0].startDate), "dd.MM.")} - {format(new Date(thisBooking[0].endDate), "dd.MM")}
                          
                     </p>
                     
@@ -77,14 +76,14 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
                     <div>
                         <div className="flex items-center">
                             <Image
-                                src={booking.inserat?.user?.image || "/placeholder-person.jpg"}
+                                src={thisBooking[0].inserat?.user?.image || "/placeholder-person.jpg"}
                                 alt="Profilbild"
                                 className="w-[30px] h-[30px] rounded-full object-cover mr-2"
                                 width={40}
                                 height={40}
                             />
                             <p className="ml-2 md:block hidden">
-                            {booking.inserat.user.name}
+                            {thisBooking[0].inserat.user.name}
                             </p>
                         </div>
 

@@ -16,19 +16,19 @@ import toast from "react-hot-toast";
 
 
 interface ProfileBarProps {
-    inserat : typeof inserat.$inferSelect.users,
+    thisInserat : typeof inserat.$inferSelect.users,
     currentUser : typeof users.$inferSelect
 }
 
 const ProfileBar: React.FC<ProfileBarProps> = ({
-    inserat,
+    thisInserat,
     currentUser    
     }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    const isOwn = currentUser?.id === inserat.userId;
+    const isOwn = currentUser?.id === thisInserat.userId;
     
     const [text, setText] = useState(
         "Betreff: Anfrage bezüglich Mietwagen\n\n" +
@@ -47,7 +47,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         if (currentUser) {
             try {
                 setIsLoading(true);
-                const conversation = axios.post(`/api/conversation/${currentUser.id}/${inserat.userId}`).then((response) => {
+                const conversation = axios.post(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
                     router.push(`/conversation/${response.data.id}`)
                 })
             } catch {
@@ -64,8 +64,8 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         if (currentUser) {
             try {
                 setIsLoading(true);
-                axios.post(`/api/interest/${inserat.id}`, { text: text }).then(() => {
-                    axios.get(`/api/conversation/${currentUser.id}/${inserat.userId}`).then((response) => {
+                axios.post(`/api/interest/${thisInserat.id}`, { text: text }).then(() => {
+                    axios.get(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
                         if (response) {
                             console.log(response)
                             router.push(`/conversation/${response.data.id}`)
@@ -85,7 +85,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     }
 
     const onEdit = () => {
-        router.push(`/inserat/create/${inserat.id}`);
+        router.push(`/inserat/create/${thisInserat.id}`);
     }
 
     const handleTextChange = (event) => {
@@ -99,19 +99,19 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                             <div className="flex  items-center  w-full rounded-md">
                             <Image
                                     className="rounded-full ml-2 mt-2 mb-2 object-fit  w-[40px] h-[40px]"
-                                    src={inserat.user?.image || "/placeholder-person.jpg"}
+                                    src={thisInserat.user?.image || "/placeholder-person.jpg"}
                                     height={40}
                                     width={40}
                                     
                                     alt="User-Bild"
                                 />
-                                <Link href={`/profile/${inserat.userId}`} className="w-1/2 truncate">
+                                <Link href={`/profile/${thisInserat.userId}`} className="w-1/2 truncate">
                                     <div className="ml-4 font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] items-center flex truncate">
                                         <div className="w-3/4 truncate">
-                                        {inserat.user?.name}
+                                        {thisInserat.user?.name}
                                         </div>   
                                         <div className="w-1/4">
-                                        {inserat?.user.emailVerified && (
+                                        {thisInserat?.user.emailVerified && (
                                             <TooltipProvider>
                                             <Tooltip>
                                                 <TooltipTrigger>

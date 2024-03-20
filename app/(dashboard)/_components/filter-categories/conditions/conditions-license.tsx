@@ -3,7 +3,6 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSavedSearchParams } from "@/store";
-import { CarBrands, Inserat, LicenseType, LkwBrand } from "@prisma/client";
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -11,6 +10,7 @@ import { useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { FaRegIdCard } from "react-icons/fa";
+import { LicenseEnumRender } from "@/db/schema";
 
 
 
@@ -78,7 +78,7 @@ const LicenseBar = () => {
           <SelectItem key="beliebig" value={null} className="font-semibold">
                                 Beliebig
                             </SelectItem>
-          {Object.values(LicenseType).map((license, index) => (
+          {Object.values(LicenseEnumRender).map((license, index) => (
                             <SelectItem key={index} value={license}>
                                {license}
                             </SelectItem>

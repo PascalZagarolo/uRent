@@ -1,11 +1,11 @@
 'use client';
 
-import { Images, Inserat, User } from "@prisma/client";
 import InserateDashboardRender from "./inserate-dashboard-render";
 import { useState } from "react";
+import { inserat } from "@/db/schema";
 
 interface InserateRenderListProps {
-    inserateArray : Inserat & { images : Images[], user : User}[]
+    inserateArray : typeof inserat.$inferSelect
 }
 
 const InserateRenderList: React.FC<InserateRenderListProps> = ({
@@ -17,10 +17,10 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
     return ( 
         <div>
-            {inserateArray.slice(0,renderAmount).map((inserat : Inserat & { images : Images[], user : User}) => (
+            {inserateArray.slice(0,renderAmount).map((inserat) => (
                 inserateArray.length > 0 && (
                 <InserateDashboardRender 
-                inserat = {inserat}
+                thisInserat = {inserat}
                 key={inserat.id}
                 />
             )

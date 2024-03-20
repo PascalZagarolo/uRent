@@ -1,9 +1,19 @@
 
 
 
+import db from "@/db/drizzle";
 import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender, 
-    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender, 
-    LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
+    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, lkwAttribute, LkwBrandEnumRender, 
+    LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender, 
+    transportAttribute} from "@/db/schema";
+import { between, eq, gte, ilike, lte } from "drizzle-orm";
+
+
+
+
+
+
+
 
 
 
@@ -24,7 +34,7 @@ type InserateImagesAndAttributes = Inserat & {
 
 type GetInserate = {
     title?: string;
-    category?: typeof CategoryEnumRender;
+    thisCategory?: typeof CategoryEnumRender;
     filter?: string;
     start?: number;
     end?: number;
@@ -39,14 +49,14 @@ type GetInserate = {
     reqLicense?: string;
 
     //PKW
-    brand?: typeof BrandEnumRender[];
+    thisBrand?: typeof BrandEnumRender[];
     doors?: number;
     initial?: Date;
     power?: number;
     seats?: number;
     fuel?: typeof FuelTypeEnumRender;
     transmission?: typeof TransmissionEnumRender;
-    type?: any;
+    thisType?: any;
     freeMiles?: number;
     extraCost?: number;
 
@@ -82,7 +92,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 export const getInserate = async ({
     title,
-    category,
+    thisCategory,
     filter,
     start,
     end,
@@ -95,14 +105,14 @@ export const getInserate = async ({
     reqAge,
     reqLicense,
 
-    brand,
+    thisBrand,
     doors,
     initial,
     power,
     seats,
     fuel,
     transmission,
-    type,
+    thisType,
     freeMiles,
     extraCost,
 
@@ -117,7 +127,36 @@ export const getInserate = async ({
     extraType,
     axis,
     brake,
-}: GetInserate): Promise<[]> => {
-    return[];
+}: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
+    try {
+        console.log(thisCategory)
+        const foundInserate = await db.query.inserat.findMany({
+            
+            with : {
+                user : true,
+                images : true,
+                address : true,
+                
+                    lkwAttribute: true,
+                    pkwAttribute: true,
+                    trailerAttribute: true,
+                    transportAttribute: true,
+                
+                    
+                    
+                
+            }, where : (
+                eq(inserat.isPublished, "true"),
+                thisCategory ? eq(inserat.category, thisCategory) : undefined,
+                title ? ilike(inserat.title, title) : undefined
+                
+            )
+        })
+
+        return foundInserate;
+
+    } catch {
+        return [];
+    }
         
 }

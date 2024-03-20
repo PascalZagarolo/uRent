@@ -3,12 +3,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { inserat } from "@/db/schema";
 
 import { cn } from "@/lib/utils";
-import { Images, Inserat, User } from "@prisma/client";
 import axios from "axios";
 
-import { AlignCenter, Banknote, CalendarCheck2, CarFront, Check, Clock1, LocateFixedIcon, MapPinIcon, PencilRuler, Settings, Settings2, Star, Trash2, X } from "lucide-react";
+import {  CarFront, Settings, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface InseratDraftsProps {
-    inserat: Inserat & { images: Images[]; user: User };
+    thisInserat: typeof inserat.$inferSelect;
     profileId: string,
 
 
@@ -24,7 +24,7 @@ interface InseratDraftsProps {
 }
 
 const InseratDrafts: React.FC<InseratDraftsProps> = ({
-    inserat,
+    thisInserat,
     profileId,
 
 
@@ -44,7 +44,7 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
     const onFav = () => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/profile/${profileId}/favourites`, { inseratId: inserat.id })
+            axios.patch(`/api/profile/${profileId}/favourites`, { inseratId: thisInserat.id })
 
             setTimeout(() => {
                 router.refresh();
@@ -57,10 +57,11 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
     }
 
     const onRedirect = () => {
-        router.push(`/inserat/${inserat.id}`)
+        router.push(`/inserat/${thisInserat.id}`)
     }
 
-    const isPublishable = (inserat.title && inserat.description && inserat.price && inserat.category && inserat.begin && inserat.end && inserat.images.length > 0) ? true : false;
+    const isPublishable = (thisInserat.title && thisInserat.description && thisInserat.price && thisInserat.category &&
+         thisInserat.begin && thisInserat.end && thisInserat.images.length > 0) ? true : false;
 
     return (
 
@@ -72,9 +73,9 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
                     <p>
                         <CarFront className="mr-2" />
                     </p>
-                    {inserat.title}
+                    {thisInserat.title}
                     <p className="ml-auto font-medium italic text-sm text-gray-900/50 dark:text-gray-100">
-                        {formatDate(inserat.createdAt)}
+                        {formatDate(thisInserat.createdAt)}
                     </p>
                 </h3>
             </div>
@@ -86,9 +87,9 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
 
             </div>
             <div className="h-[180px] mr-2 ml-2 border-2 mt-2">
-                {inserat.images.length > 0 ? (
+                {thisInserat.images.length > 0 ? (
                     <img
-                        src={inserat.images[0].url}
+                        src={thisInserat.images[0].url}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         alt="Inserat Image"
                     />
@@ -100,7 +101,8 @@ const InseratDrafts: React.FC<InseratDraftsProps> = ({
             </div>
             <div className="w-full mt-3 ">
                 <div className="">
-                    <Button className="bg-white border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-3/4 text-gray-900 text-sm hover:bg-gray-200" onClick={() => { router.push(`/inserat/create/${inserat.id}`) }}>
+                    <Button className="bg-white border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-3/4 text-gray-900 text-sm hover:bg-gray-200" 
+                    onClick={() => { router.push(`/inserat/create/${thisInserat.id}`) }}>
                         <Settings className="w-4 h-4 mr-2 text-gray-800" /> Inserat verwalten
                     </Button>
                     <Dialog>

@@ -6,29 +6,28 @@ import {
     endOfMonth,
     format,
     getDay,
-    isToday,
-    setMonth,
     startOfMonth,
 } from "date-fns";
-import { ArrowLeft, ArrowLeftCircleIcon, ArrowLeftFromLine, ArrowLeftSquare, ArrowRightCircleIcon } from "lucide-react";
+import {  ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import CalendarDay from "./calendar-day";
 import { Button } from "@/components/ui/button";
-import { Booking, Inserat, User } from "@prisma/client";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import qs from "query-string";
 import { usePathname, useRouter } from "next/navigation";
+import { booking,  inserat } from "@/db/schema";
 
 const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
 
 
 interface EventCalendarProps {
-    inserate: Inserat[],
-    bookings: Booking & {inserat : Inserat, user : User}[]
+    everyInserat: typeof inserat.$inferSelect[],
+    bookings: typeof booking.$inferSelect[]
 }
 
-const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
+const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
 
     const [currentFilter, setCurrentFilter] = useState<string | null>(null);
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -61,9 +60,9 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
     };
 
     const eventsByDate = useMemo(() => {
-        return bookings.reduce((acc: { [key: string]: Booking[] }, booking : Booking & {inserat : Inserat, user : User}) => {
-            const startDate = new Date(booking.startDate);
-            const endDate = new Date(booking.endDate);
+        return bookings?.reduce((acc: { [key: string]: typeof booking.$inferSelect[] }, pBooking : typeof booking.$inferSelect) => {
+            const startDate = new Date(pBooking.startDate);
+            const endDate = new Date(pBooking.endDate);
 
             const currentDate = new Date(startDate);
             while (currentDate <= endDate) {
@@ -72,7 +71,7 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
                     acc[dateKey] = [];
                 }
 
-                acc[dateKey].push(booking);
+                acc[dateKey].push(pBooking);
 
                 currentDate.setDate(currentDate.getDate() + 1);
             }
@@ -113,7 +112,7 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
                         <SelectItem key={-1} value={null}>
                                     Alle
                                 </SelectItem>
-                            {inserate.map((inserat, index) => (
+                            {everyInserat.map((inserat, index) => (
                                 <SelectItem key={index} value={inserat.id}>
                                     {inserat.title} 
                                 </SelectItem>
@@ -140,7 +139,7 @@ const EventCalendar = ({ bookings, inserate }: EventCalendarProps) => {
                 })}
                 {daysInMonth.map((day, index) => {
                     const dateKey = format(day, "yyyy-MM-dd");
-                    const todaysEvents = eventsByDate[dateKey] || [];
+                    const todaysEvents = /*eventsByDate[dateKey] || */[];
                     return (
                         <div key={index}>
                             <CalendarDay

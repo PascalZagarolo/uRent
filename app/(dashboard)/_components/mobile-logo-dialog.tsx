@@ -1,7 +1,6 @@
 'use client'
-
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Settings, TrendingUpIcon, Truck, User, User2Icon } from "lucide-react";
+;
+import { Truck,  } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const MobileLogoDialog = () => {

@@ -3,12 +3,7 @@
 import { AlignCenter, SearchCode } from "lucide-react";
 
 import { getInserate } from "@/actions/getInserate";
-import type {
-    ApplicationType, CarBrands, CarType, Category, CouplingType, DriveType,
-    ExtraType,
-    FuelType, LkwBrand, LoadingType, TrailerType, Transmission,
-    User,
-} from "@prisma/client";
+
 import OrderBy from "../_components/_smart-filter/order-by";
 
 const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-list"));
@@ -16,12 +11,12 @@ const InseratRenderedList = lazy(() => import("./_components/inserat-rendered-li
 import { Suspense, lazy } from "react";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { favourite, users } from "@/db/schema";
+import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, DriveEnumRender, ExtraTypeEnumRender, favourite, FuelTypeEnumRender, LkwBrandEnumRender, LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender, users } from "@/db/schema";
 
 
 interface RelevanteInserateProps {
     title: string;
-    category: Category;
+    thisCategory: typeof CategoryEnumRender;
     filter: string;
     start: string;
     end: string;
@@ -36,28 +31,28 @@ interface RelevanteInserateProps {
     reqLicense?: string;
 
     //PKW
-    brand?: CarBrands[];
+    thisBrand?: typeof BrandEnumRender[];
     doors?: string;
     initial?: string;
     power?: string;
     seats?: string;
-    fuel?: FuelType;
-    transmission?: Transmission;
-    type?: CarType;
+    fuel?: typeof FuelTypeEnumRender;
+    transmission?: typeof TransmissionEnumRender;
+    thisType?: typeof CarTypeEnumRender;
     freeMiles?: string;
     extraCost?: string;
 
     //LKW
     weightClass?: string;
-    drive?: DriveType;
-    loading?: LoadingType;
-    application: ApplicationType;
-    lkwBrand?: LkwBrand;
+    drive?: typeof DriveEnumRender;
+    loading?: typeof LoadingEnumRender;
+    application: typeof ApplicationEnumRender;
+    lkwBrand?: typeof LkwBrandEnumRender;
 
     //Trailer
-    trailerType: TrailerType;
-    coupling: CouplingType;
-    extraType: ExtraType;
+    trailerType: typeof TrailerEnumRender;
+    coupling: typeof CouplingEnumRender;
+    extraType: typeof ExtraTypeEnumRender;
     axis: string;
     brake: string,
 
@@ -67,7 +62,7 @@ interface RelevanteInserateProps {
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     title,
-    category,
+    thisCategory,
     filter,
     start,
     end,
@@ -80,14 +75,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     reqAge,
     reqLicense,
 
-    brand,
+    thisBrand,
     doors,
     initial,
     power,
     seats,
     fuel,
     transmission,
-    type,
+    thisType,
     freeMiles,
     extraCost,
 
@@ -113,17 +108,19 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 
 
 
+    let favedInserate = [];
+
+    if(currentUser) {
+        favedInserate = await db.query.favourite.findMany({
+            where: eq(favourite?.userId, currentUser?.id)
+        })
+    }
 
 
-    const favedInserate = await db.query.favourite.findMany({
-        where: eq(favourite.userId, currentUser.id)
-    })
 
-
-
-    const inserate = await getInserate({
+    const foundInserate = await getInserate({
         title: title,
-        category: category,
+        thisCategory: thisCategory,
         filter: filter,
         start: Number(start),
         end: Number(end),
@@ -136,14 +133,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         reqAge: Number(reqAge),
         reqLicense: reqLicense,
 
-        brand: brand,
+        thisBrand: thisBrand,
         doors: Number(doors),
         initial: new Date(initial),
         power: Number(power),
         seats: Number(seats) || null,
         fuel: fuel,
         transmission: transmission,
-        type: type,
+        thisType: thisType,
         freeMiles: Number(freeMiles),
         extraCost: Number(extraCost),
 
@@ -169,7 +166,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 
     return (
         <div className="">
-
+            
             {!title ? (
                 <div className="h-full flex sm:block sm:mt-0 items-center font-semibold   p-4 text-gray-100 bg-[#141620]">
                     <div className="ml-4 flex w-full items-center">
@@ -192,7 +189,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                             <SearchCode />
                         </div>
                         <h3 className="ml-8 flex font-bold text-lg sm:text-2xl h-full w-full">
-                            ({inserate.length}) Ergebnisse
+                            ({foundInserate.length}) Ergebnisse
                             <div className="flex ml-auto mr-4 sm:mr-8 text-black">
                                 <OrderBy />
                             </div>
@@ -203,7 +200,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
             <div className="flex justify-center">
                 <Suspense fallback={<LoadingComponent />}>
                     <InseratRenderedList
-                        inserateArray={inserate}
+                        inserateArray={foundInserate}
                         currentUser={currentUser}
                         //@ts-ignore
                         favedInserate={favedInserate}

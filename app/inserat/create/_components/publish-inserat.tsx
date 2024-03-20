@@ -1,23 +1,23 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Images, Inserat } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { Label } from '@/components/ui/label';
+
+import { inserat } from "@/db/schema";
 
 interface PublishInseratProps {
     
     
     isPublishable : object;
-    inserat : Inserat & { images : Images[]};
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const PublishInserat: React.FC<PublishInseratProps> = ({
     isPublishable,
-    inserat
+    thisInserat
 }) => {
     
     const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     const onPublish = () => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}/publish` , { publish : true });
+            axios.patch(`/api/inserat/${thisInserat.id}/publish` , { publish : true });
             toast.success("Anzeige erfolgreich veröffentlicht");
             router.push('/')
         } catch {
@@ -41,7 +41,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     const onPrivate = () => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/inserat/${inserat.id}/publish` , { publish : false} );
+            axios.patch(`/api/inserat/${thisInserat.id}/publish` , { publish : false} );
             toast.success("Anzeige erfolgreich privat gestellt");
             setTimeout(() => {
                 router.refresh();
@@ -67,14 +67,14 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
 
     useEffect(() => {
-        if(inserat.images.length === 0 && !firstUpdate.current && inserat.isPublished) {  
+        if(thisInserat.images.length === 0 && !firstUpdate.current && thisInserat.isPublished) {  
             onPrivate();
         }
 
         if(firstUpdate.current) {   
             firstUpdate.current = false;
         }
-    },[inserat.images.length])
+    },[thisInserat.images.length])
 
     useEffect(() => {
         for (let key in isPublishable) {
@@ -104,7 +104,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     return ( 
         <div className="w-full mt-auto">
             <p className="flex justify-center text-xs dark:text-gray-100/80  text-gray-900/50"> Pflichtfelder sind mit einem  &apos; * &apos; markiert.</p>
-            {!inserat.isPublished   ? (
+            {!thisInserat.isPublished   ? (
             <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full"disabled={!canPublish} onClick={onPublish}>
                 Anzeige veröffentlichen
             </Button>

@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FuelTypeEnumRender } from "@/db/schema";
-import { FuelType } from "@prisma/client";
+
 
 
 

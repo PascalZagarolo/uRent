@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { inserat } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { Images, Inserat } from "@prisma/client";
+
 import axios from "axios";
 import { format } from "date-fns";
 import { Edit3, Globe2Icon, Trash2, X } from "lucide-react";
@@ -11,24 +12,24 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface InserateDashboardRenderProps {
-    inserat: Inserat & { images: Images[] };
+    thisInserat: typeof inserat.$inferSelect;
 }
 
 const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
-    inserat
+    thisInserat
 }) => {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
 
     const onEdit = () => {
-        router.push(`/inserat/create/${inserat.id}`);
+        router.push(`/inserat/create/${thisInserat.id}`);
     }
 
     const onDelete = () => {
         try {
             setIsLoading(true);
-            axios.delete(`/api/inserat/${inserat.id}/delete`);
+            axios.delete(`/api/inserat/${thisInserat.id}/delete`);
             setTimeout(() => {
                 router.refresh();   
             }, 250)
@@ -43,10 +44,10 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
                 <div className="h-[100px] w-1/4">
-                    {inserat.images.length > 0 ? (
+                    {thisInserat.images.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
-                            src={inserat?.images[0]?.url}
+                            src={thisInserat?.images[0]?.url}
                             width={200}
                             height={100}
                             className="h-full w-full object-cover"
@@ -58,16 +59,17 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     )}
                 </div>
                 <div className="w-1/4 truncate ml-4 text-sm font-base mr-2">
-                    {inserat.title}
+                    {thisInserat.title}
                 </div>
                 <div className="md:w-1/6 w-1/6 truncate">
-                    <div className={cn("text-sm flex items-center ", inserat.isPublished ? "text-emerald-600 font-semibold" : "dark:text-gray-100/40 text-gray-700")}>
-                        {inserat.isPublished ? <> <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> Veröffentlicht </> : "Entwurf"}
+                    <div className={cn("text-sm flex items-center ", thisInserat.isPublished ? "text-emerald-600 font-semibold" : 
+                    "dark:text-gray-100/40 text-gray-700")}>
+                        {thisInserat.isPublished ? <> <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> Veröffentlicht </> : "Entwurf"}
                     </div>
                 </div>
                 <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 md:flex justify-center hidden">
                     <div>
-                        {format(new Date(inserat.createdAt), "dd.MM.yyyy")}
+                        {format(new Date(thisInserat.createdAt), "dd.MM.yyyy")}
                         <p className="dark:text-gray-100 text-gray-800">
                             erstellt am
                         </p>

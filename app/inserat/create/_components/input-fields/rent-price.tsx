@@ -106,7 +106,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                                                         
                                                     field.onChange(formattedValue);
                                                 }}
-                                                disabled={thisInserat.category ? false : true}
+                                                
                                             />
                                         </FormControl>
                                         

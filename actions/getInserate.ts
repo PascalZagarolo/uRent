@@ -131,12 +131,16 @@ export const getInserate = async ({
     try {
         console.log(thisCategory)
         const foundInserate = await db.query.inserat.findMany({
-            
+            where : (
+                eq(inserat.isPublished, "true"),
+                thisCategory ? eq(inserat.category, "LKW") : undefined,
+                title ? ilike(inserat.title, title) : undefined
+                
+            ),
             with : {
                 user : true,
                 images : true,
                 address : true,
-                
                     lkwAttribute: true,
                     pkwAttribute: true,
                     trailerAttribute: true,
@@ -145,12 +149,7 @@ export const getInserate = async ({
                     
                     
                 
-            }, where : (
-                eq(inserat.isPublished, "true"),
-                thisCategory ? eq(inserat.category, thisCategory) : undefined,
-                title ? ilike(inserat.title, title) : undefined
-                
-            )
+            }
         })
 
         return foundInserate;

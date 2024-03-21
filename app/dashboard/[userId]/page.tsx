@@ -47,7 +47,7 @@ const DashboardPage = async ({
                 }
             })
     
-            involvedBookings.push(...bookings);
+            involvedBookings?.push(...bookings);
         }
     }
 
@@ -103,7 +103,7 @@ const DashboardPage = async ({
                         <div className="w-full dark:bg-[#141414] p-4  flex justify-evenly mt-2 rounded-md">
                             <div className="text-xl font-semibold flex p-4 border dark:border-none dark:bg-[#1C1C1C] rounded-md">
                                 <Truck className="h-6 w-6 mr-2" />
-                                {everyInserat.length} <p className="font-medium ml-2"> Inserate </p>
+                                {everyInserat.length} <p className="font-medium ml-2"> {everyInserat.length === 1 ? "Inserat" : "Inserate"} </p>
                             </div>
                             <div className="text-xl font-semibold flex mr-2 p-4 border dark:border-none dark:bg-[#1C1C1C] rounded-md">
                                 <EyeIcon className="h-6 w-6 mr-2" />   {views} <p className="font-medium ml-2"> Ansichten </p>

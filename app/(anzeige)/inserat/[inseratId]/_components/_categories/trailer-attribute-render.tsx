@@ -1,16 +1,16 @@
-import { TrailerAttribute } from "@prisma/client";
-import { GearIcon } from "@radix-ui/react-icons";
+
 
 import { CaravanIcon, WeightIcon } from "lucide-react";
 import { LuAxis3D } from "react-icons/lu";
 import { PiCouchFill } from "react-icons/pi";
 import { FaGears } from "react-icons/fa6";
-import { TbCarCrane, TbCrane } from "react-icons/tb";
+import {  TbCrane } from "react-icons/tb";
 import { GiStoneWheel } from "react-icons/gi";
 import { RiCaravanFill } from "react-icons/ri";
+import { trailerAttribute } from "@/db/schema";
 
 interface TrailerAttributeRenderProps {
-    attributes: TrailerAttribute
+    attributes: typeof trailerAttribute.$inferSelect
 
 }
 

@@ -1,14 +1,14 @@
-import { LkwAttribute } from "@prisma/client";
+
 import { GearIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
-import { CarFrontIcon, ConstructionIcon, DoorClosedIcon, Globe2, MapPin, MapPinned, WeightIcon } from "lucide-react";
+import { WeightIcon } from "lucide-react";
 import { FaTruckMoving } from "react-icons/fa";
 import { PiCouchFill, PiEngine } from "react-icons/pi";
 import { LiaTruckLoadingSolid } from "react-icons/lia";
 import { TbCarCrane } from "react-icons/tb";
+import { lkwAttribute } from "@/db/schema";
 
 interface LkwAttributeRenderProps {
-    attributes: LkwAttribute
+    attributes: typeof lkwAttribute.$inferSelect
 
 }
 

@@ -1,4 +1,5 @@
 
+
 import {
     timestamp,
     pgTable,
@@ -33,6 +34,10 @@ export const users = pgTable("user", {
     confirmedMail: boolean("confirmedMail").notNull().default(false),
     description: text("description"),
     sharesEmail: boolean("sharesEmail").notNull().default(false),
+    contactId : uuid("contactId")
+        .references(() => contactOptions.id, { onDelete: "cascade" }),
+    userAddressId : uuid("userAddressId")
+                    .references(() => userAddress.id, { onDelete: "cascade" }),
 })
 
 
@@ -142,8 +147,8 @@ export const inserat = pgTable("inserat", {
     emailAddress: text("emailAddress"),
     phoneNumber: text("phoneNumber"),
 
-    begin: timestamp("begin", { mode: "date" }),
-    end: timestamp("end", { mode: "date" }),
+    begin: timestamp("begin", {mode: "date"}),
+    end: timestamp("end", {mode: "date"}),
     annual: boolean("annual").notNull().default(false),
 
     license: licenseEnum("license"),
@@ -152,8 +157,8 @@ export const inserat = pgTable("inserat", {
 
     views: integer("views").notNull().default(0),
 
-    createdAt: date("createdAt", { mode: "date" }).defaultNow(),
-    updatedAt: date("updatedAt", { mode: "date" }).defaultNow(),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+    updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
 
     userId: uuid("userId")
         .notNull()
@@ -245,7 +250,7 @@ export const pkwAttribute = pgTable("pkwAttribute", {
     type: carTypeEnum("type"),
     fuel: fuelTypeEnum("fuel"),
 
-    initial: timestamp("initial", { mode: "date" }),
+    initial: timestamp("initial", {mode: "date"}),
     power: integer("power"),
 
     inseratId: uuid("inseratId" )
@@ -581,9 +586,11 @@ export const rezension = pgTable("rezension", {
 })
 
 export const contactOptions = pgTable("contactOptions", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+
     userId: uuid("userId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }).primaryKey(),
+        references(() => users.id, { onDelete: "cascade" }),
 
     email: boolean("email").notNull().default(false),
     emailAddress: text("emailAddress"),
@@ -606,7 +613,7 @@ export const userAddress = pgTable("userAddress", {
         references(() => users.id, { onDelete: "cascade" }).unique(),
 
     contactOptionsId: uuid("contactOptionsId").
-        references(() => contactOptions.userId, { onDelete: "cascade" }).unique(),
+        references(() => contactOptions.id, { onDelete: "cascade" }).unique(),
 
     postalCode: integer("postalCode"),
 
@@ -627,8 +634,8 @@ export const booking = pgTable("booking", {
 
     content: text("content"),
 
-    startDate: timestamp("begin", { mode: "date" }),
-    endDate: timestamp("end", { mode: "date" }),
+    startDate: timestamp("startDate", {mode: "date"}),
+    endDate: timestamp("endDate", {mode: "date"}),
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 
@@ -647,8 +654,8 @@ export const bookingRequest = pgTable("bookingRequest", {
 
     content: text("content"),
 
-    startDate: timestamp("begin", { mode: "date" }),
-    endDate: timestamp("end", { mode: "date" }),
+    startDate: timestamp("startDate", {mode: "date"}),
+    endDate: timestamp("endDate", {mode: "date"}),
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 
@@ -680,6 +687,12 @@ export const notifications = pgTable("notification", {
 */
 //every array of a user => e.g liked posts etc..
 export const userRelations = relations(users, ({ one, many }) => ({
+
+    userAddress : one(userAddress, {
+        fields : [users.userAddressId],
+        references : [userAddress.id]
+    }),
+
     inserat: many(inserat),
 
     writtenRezensionen: many(rezension, { relationName : "writtenRezensionen" }),
@@ -691,7 +704,10 @@ export const userRelations = relations(users, ({ one, many }) => ({
 
     favourites : many(favourite),
     conversation : many(conversation),
-    contactOptions : many(contactOptions),
+    contactOptions : one(contactOptions, {
+        fields : [users.contactId],
+        references : [contactOptions.id]
+    }),
 
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
@@ -808,5 +824,12 @@ export const favouriteRelation = relations(favourite, ({ one }) => ({
     inserat : one(inserat, {
         fields : [favourite.inseratId],
         references : [inserat.id]
+    })
+}))
+
+export const contactOptionsRelation = relations(contactOptions, ({ one }) => ({
+    userAddress : one(userAddress, {
+        fields : [contactOptions.userAddressId],
+        references: [userAddress.id]
     })
 }))

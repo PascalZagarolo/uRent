@@ -8,24 +8,25 @@ import { useEffect, useState } from "react";
 import { set } from 'date-fns';
 import toast from "react-hot-toast";
 import { useDebounce } from "@/hooks/use-debounce";
-import { Booking, User } from "@prisma/client";
+
 import { Button } from "@/components/ui/button";
 import { usesearchUserByBookingStore } from "@/store";
 import { usePathname, useSearchParams } from "next/navigation";
+import { booking, users } from "@/db/schema";
 
 interface SearchRentProps {
-    booking? : Booking & { user : User }
+    thisBooking? : typeof booking.$inferSelect
 }
 
 
 const SearchRent: React.FC<SearchRentProps> =  ({
-    booking
+    thisBooking
 }) => {
 
     const pathname = usePathname();
 
     const [currentValue, setCurrentValue] = useState<string>("");
-    const [matchingUsers , setMatchingUsers] = useState<User[]>([]);
+    const [matchingUsers , setMatchingUsers] = useState<typeof users[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const debouncedValue = useDebounce(currentValue);
@@ -83,25 +84,25 @@ const SearchRent: React.FC<SearchRentProps> =  ({
             
             
             <div className="block mt-1">
-                {matchingUsers.map((user) => (
+                {matchingUsers.map((pUser) => (
                     <span 
                     className="w-full drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-gray-200 border border-gray-300 hover:cursor-pointer " 
                      
-                    onClick={() => {changeUser(user); setCurrentValue("")}}
-                    key={user.id}
+                    onClick={() => {changeUser(pUser); setCurrentValue("")}}
+                    key={pUser.id}
                     >
                         <div className="w-full  rounded-md p-2 items-center flex dark:bg-[#171717]">
                         <div className="w-[30px] h-[30px] rounded-md mr-4 ">
                             <img 
-                            src={user.image ? user.image : "/placeholder-person.jpg"}
+                            src={pUser.image ? pUser.image : "/placeholder-person.jpg"}
                             className="object-fill rounded-full  "
                             />
                         </div>
                         <div className="flex justify-center font-semibold text-medium">
-                            <p>{user.name}</p>
+                            <p>{pUser.name}</p>
                         </div>
                         <div className="ml-auto text-xs font-semibold italic text-gray-900/50 dark:text-gray-100/90">
-                            {user.email}
+                            {pUser.email}
                         </div>
                     </div>
                     </span>

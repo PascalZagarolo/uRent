@@ -30,14 +30,14 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import SearchRent from "./search-rent";
-import { User } from "@prisma/client";
 import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
+import { users } from "@/db/schema";
 
 interface BookingsProps {
-  user: User[];
+  user: typeof users.$inferSelect;
 }
 
 
@@ -102,7 +102,7 @@ const Bookings = () => {
           <PlusSquare className="mr-2 h-4 w-4" /> Buchungen hinzufügen
         </Button>
       </DialogTrigger>
-      <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100">
+      <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none">
         <div>
           <div>
             <h3 className="font-bold flex mb-8">
@@ -125,7 +125,7 @@ const Bookings = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[200px] pl-3 text-left font-normal",
+                                  "w-[200px] pl-3 text-left font-normal dark:border-none",
                                   !field.value && "text-muted-foreground  "
                                 )}
                               >
@@ -172,7 +172,7 @@ const Bookings = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "w-[200px] pl-3 text-left font-normal",
+                                  "w-[200px] pl-3 text-left font-normal dark:border-none",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -223,7 +223,8 @@ const Bookings = () => {
                     render={({ field }) => (
                       <FormItem className="mt-2 ">
                         <Textarea
-                          className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200 border border-gray-400 dark:bg-[#0a0a0a]"
+                          className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                            dark:bg-[#0a0a0a]"
                         />
                       </FormItem>
                     )}
@@ -231,8 +232,9 @@ const Bookings = () => {
                 </div>
                 <DialogTrigger asChild>
                 <Button 
-                  className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200
-                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717]"
+                  className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                   hover:bg-gray-200
+                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
                   disabled={!selectedUser || isLoading }
                   type="submit"
                   >

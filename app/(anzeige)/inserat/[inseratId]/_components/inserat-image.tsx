@@ -1,21 +1,22 @@
 'use client'
 
 
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import  { Images } from "@prisma/client";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { images } from "@/db/schema";
+
 
 import Image from "next/image";
 
 
 interface InseratImageCarouselProps {
-    images : Images[]
+    imagesData : typeof images.$inferSelect[]
 }
 
 const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
-    images
+  imagesData
 }) => {
 
-    const sortedImages = [...images].sort((a, b) => a.position - b.position);
+    const sortedImages = [...imagesData].sort((a, b) => a.position - b.position);
 
     return ( 
         <Carousel className="w-full items-center md:h-[320px]  ">

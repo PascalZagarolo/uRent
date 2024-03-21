@@ -30,23 +30,24 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import SearchRent from "./search-rent";
-import { Booking, User } from "@prisma/client";
+
 import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
+import { booking } from "@/db/schema";
 
 interface EditBookingDialogProps {
-    booking : Booking & { user : User};
+    thisBooking : typeof booking.$inferSelect;
 }
 
 
 const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
-    booking
+  thisBooking
 }) => {
 
-  const [currentStart, setCurrentStart] = useState(booking.startDate || new Date());
-  const [currentEnd, setCurrentEnd] = useState(booking.endDate || new Date());
+  const [currentStart, setCurrentStart] = useState(thisBooking.startDate || new Date());
+  const [currentEnd, setCurrentEnd] = useState(thisBooking.endDate || new Date());
   const [isLoading, setIsLoading] = useState(false)
   const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
@@ -103,7 +104,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
 
   return (
     <Dialog>
-      <DialogTrigger className="" onClick={() => {changeUser(booking.user)}} >
+      <DialogTrigger className="" onClick={() => {changeUser(thisBooking[0].user)}} >
         
         <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
         
@@ -214,7 +215,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                 </div>
                 <div>
                   <SearchRent 
-                  booking={booking}
+                  thisBooking={thisBooking}
                   />
                 </div>
                 <div>
@@ -228,7 +229,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
                       <FormItem className="mt-2 ">
                         <Textarea
                           className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200 border-none dark:bg-[#0a0a0a]"
-                          defaultValue={booking.content}
+                          defaultValue={thisBooking.content}
                         />
                       </FormItem>
                     )}

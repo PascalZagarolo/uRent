@@ -1,9 +1,10 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Booking } from "@prisma/client";
+import { booking } from "@/db/schema";
+
 import { CalendarCheck, CalendarClock, CheckCheckIcon, CheckIcon } from "lucide-react";
 
 interface BookingsOverviewProps{
-    bookings : Booking[]
+    bookings : typeof booking.$inferSelect[]
 }
 
 const BookingsOverview: React.FC<BookingsOverviewProps> = ({
@@ -69,7 +70,8 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
                         ) : (
                             <span className="flex mt-2  p-4 rounded-md dark:bg-[#1a1a1a] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] ">
                                     <CalendarClock/>
-                                    <p className="ml-2 font-semibold text-gray-900/50 italic text-xs dark:text-gray-100">Noch keine Reservierungen vorhanden</p>
+                                    <p className="ml-2 font-semibold text-gray-900/50 italic text-xs dark:text-gray-100">
+                                        Noch keine Reservierungen vorhanden</p>
                                 </span>
                         )}
                         </div>

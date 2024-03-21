@@ -1,4 +1,4 @@
-import { PkwAttribute } from "@prisma/client";
+import { pkwAttribute } from "@/db/schema";
 import { GearIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { CarFrontIcon, ConstructionIcon, DoorClosedIcon, Globe2, MapPin, MapPinned } from "lucide-react";
@@ -6,7 +6,7 @@ import { PiCouchFill, PiEngine } from "react-icons/pi";
 import { RiGasStationLine } from "react-icons/ri";
 
 interface PkwAttributeRenderProps {
-    attributes: PkwAttribute
+    attributes: typeof pkwAttribute.$inferSelect
 
 }
 

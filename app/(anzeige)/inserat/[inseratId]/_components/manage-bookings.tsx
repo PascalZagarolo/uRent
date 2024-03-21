@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 
-import { Booking, User } from "@prisma/client";
+
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import axios from "axios";
 import { CalendarCheck2, Clock10Icon, Settings2Icon, Trash2, X } from "lucide-react";
@@ -12,9 +12,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import EditBookingDialog from "./edit-booking-dialog";
 import { usesearchUserByBookingStore } from "@/store";
+import { booking } from "@/db/schema";
 
 interface ManageBookingsProps {
-    bookings : Booking & { user : User }[]
+    bookings : typeof booking.$inferSelect[]
 }
 
 const ManageBookings: React.FC<ManageBookingsProps> = ({
@@ -92,15 +93,15 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                 </DialogTitle>
                 <div className="items-center">
                     {bookings.length > 0 ? (
-                        bookings.map((booking : Booking & { user : User}) => (
+                        bookings.map((booking) => (
                             <div key={booking.id} className="dark:bg-[#0a0a0a] ">
                                 <div className="mt-2 flex items-center border border-none rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
                                     <Clock10Icon className="h-4 w-4 mr-2"/>
                                     
                             <span className="font-semibold text-sm">  {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} </span>
-                            <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center dark:text-gray-100/70">{booking.user.email}</p>
+                            <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center dark:text-gray-100/70">{booking[0].user.email}</p>
                             <div className="ml-auto flex gap-x-4">
-                              <EditBookingDialog booking = {booking} />
+                              <EditBookingDialog thisBooking = {booking} />
                               <Dialog>
                                 <DialogTrigger>
                                 <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>
@@ -134,11 +135,8 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                     ) : (
                         <div >
                                 <div className="mt-2 flex items-center rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
-                                    <Clock10Icon className="h-4 w-4 mr-2"/>
-                                    
-                            
+                                    <Clock10Icon className="h-4 w-4 mr-2"/>                    
                             <p className="text-sm ml-4 font-semibold text-gray-900/50 justify-center"> Noch keine Buchung hinzugefügt...</p>
-                            
                           </div>
                             </div>
                     )}

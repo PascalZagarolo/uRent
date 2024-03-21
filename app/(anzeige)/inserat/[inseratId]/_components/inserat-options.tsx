@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { User, ContactOptions, Booking } from "@prisma/client";
 import { EmailShareButton, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, TwitterShareButton } from "react-share"
 
 import axios from "axios";
@@ -20,17 +19,18 @@ import Bookings from "./bookings";
 import ManageBookings from "./manage-bookings";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import BookingRequest from "./booking-request";
+import { booking, contactOptions, users } from "@/db/schema";
 
 
 interface InseratOptionsProps {
-    user: User;
-    bookings: Booking & { user: User }[];
-    ownUser: User;
-    contactOptions: ContactOptions;
+    thisUser: typeof users.$inferSelect;
+    bookings: typeof booking.$inferSelect[];
+    ownUser: typeof users.$inferSelect;
+    contactOptions: typeof contactOptions.$inferSelect;
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
-    user,
+    thisUser,
     bookings,
     ownUser,
     contactOptions
@@ -70,7 +70,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         if (ownUser) {
             try {
                 setIsLoading(true);
-                axios.patch(`/api/profile/${user.id}/favourites`, { inseratId: params.inseratId })
+                axios.patch(`/api/profile/${thisUser.id}/favourites`, { inseratId: params.inseratId })
 
                 setTimeout(() => {
                     router.refresh();
@@ -92,7 +92,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         if (ownUser) {
             try {
                 setIsLoading(true);
-                const conversation = axios.post(`/api/conversation/${ownUser.id}/${user.id}`).then((response) => {
+                const conversation = axios.post(`/api/conversation/${ownUser.id}/${thisUser.id}`).then((response) => {
                     router.push(`/conversation/${response.data.id}`)
                 })
             } catch {
@@ -126,7 +126,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         toast.success("Link in Zwischenablage kopiert")
     };
 
-    const ownSite = ownUser?.id === user.id;
+    const ownSite = ownUser?.id === thisUser.id;
 
 
 

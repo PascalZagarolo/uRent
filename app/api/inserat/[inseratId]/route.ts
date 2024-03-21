@@ -11,11 +11,25 @@ export async function PATCH(
 ) {
     try {
 
-        const values = await req.json();
+        const { begin, end, initial, ...values } = await req.json();
         
+        const usedBegin = new Date(begin);
+        const usedEnd = new Date(end);
+        const usedInitial = new Date(initial);
+
+        console.log(usedBegin)
 
         const patchedInserat = await db.update(inserat).set({
-            ...values
+            ...(begin) && {
+                begin : usedBegin
+            },
+            ...(end) && {
+                end : usedEnd
+            },
+            ...(initial) && {
+                inital : usedInitial
+            },
+            ...values,
         }).where(eq(inserat.id, params.inseratId)).returning();
 
         return NextResponse.json(patchedInserat)

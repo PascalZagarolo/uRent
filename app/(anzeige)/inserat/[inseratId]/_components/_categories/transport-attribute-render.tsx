@@ -1,13 +1,14 @@
-import { TransportAttribute } from "@prisma/client";
+import { transportAttribute } from "@/db/schema";
+
 import { GearIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
-import { CarFrontIcon, ConstructionIcon, DoorClosedIcon, Globe2, MapPin, MapPinned } from "lucide-react";
-import { PiCouchFill, PiEngine } from "react-icons/pi";
+
+import {  DoorClosedIcon, } from "lucide-react";
+import { PiCouchFill, } from "react-icons/pi";
 import { RiGasStationLine } from "react-icons/ri";
 import { TbCarCrane } from "react-icons/tb";
 
 interface TransportAttributeRenderProps {
-    attributes: TransportAttribute
+    attributes: typeof transportAttribute.$inferSelect;
 
 }
 

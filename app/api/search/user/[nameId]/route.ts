@@ -1,4 +1,7 @@
-import { db } from '@/utils/db';
+
+import db from '@/db/drizzle';
+import { users } from '@/db/schema';
+import { ilike } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(
@@ -8,17 +11,14 @@ export async function PATCH(
     try {
 
        
+        const foundUsers = await db.query.users.findMany({
+            where : (
+                ilike(users.name, `%${params.nameId}%`)
+            )
+        })
+       
 
-       const users = await db.user.findMany({
-        where : {
-            name : {
-                contains : params.nameId,
-                mode : "insensitive"
-            }
-        }
-       })
-
-        return NextResponse.json(users)
+        return NextResponse.json(foundUsers)
 
     } catch (error) {
         console.log(error);

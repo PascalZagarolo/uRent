@@ -1,10 +1,9 @@
 'use client';
 
 
-import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Inserat, User } from "@prisma/client";
+import { users } from "@/db/schema";
 import axios from "axios";
 import { format } from "date-fns";
 import { AlignCenter, CarIcon, User2 } from "lucide-react";
@@ -13,14 +12,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ProfileViewProps {
-    user: User;
+    thisUser: typeof users.$inferSelect;
     inseratArray: number;
-    inseratOwner: User;
+    inseratOwner: typeof users.$inferSelect;
     averageRating: number,
 }
 
 const ProfileView: React.FC<ProfileViewProps> = ({
-    user,
+    thisUser,
     inseratArray,
     inseratOwner,
     averageRating
@@ -29,10 +28,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const params = useParams();
 
     const [firstReload, setFirstReload] = useState(false);
-
+    /*
     useEffect(() => {
         axios.patch(`/api/inserat/${params.inseratId}/view`);
-    },[])
+    },[]) */
 
     const router = useRouter();
 
@@ -43,7 +42,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
          ">
             <div className="flex items-center  text-gray-100">
                 <Image
-                    src={user.image || "/placeholder-person.jpg"}
+                    src={thisUser.image || "/placeholder-person.jpg"}
                     width={40}
                     height={40}
                     className="rounded-full h-[40px] w-[40px] "
@@ -51,7 +50,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 />
                 <div className="font-semibold ml-2 flex items-center w-3/4 truncate">
                     <p className="font-black text-xl text-[#49506c] dark:text-[#49506c]">
-                        {user.name.charAt(0).toUpperCase()}</p><div>{user.name.slice(1)}</div>
+                        {thisUser.name.charAt(0).toUpperCase()}</p><div>{thisUser.name.slice(1)}</div>
 
                 </div>
                 <div className="flex ml-auto">
@@ -64,7 +63,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             <div>
                 <div>
                     <p className="text-sm  mt-1 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100/90 text-gray-400">
-                        Aktiv seit : {format(new Date(user.createdAt), "dd.MM.yyyy")}
+                        Aktiv seit : {format(new Date(thisUser.createdAt), "dd.MM.yyyy")}
                     </p>
                 </div>
             </div>

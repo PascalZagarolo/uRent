@@ -92,9 +92,7 @@ const DashboardPage = async ({
                 <SidebarDashboard />
             </div>
             <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
-                <div className="  min-h-screen">
-
-
+                <div className="min-h-screen">
                     <div className="p-4 mt-4  rounded-lg ">
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                             <TrendingUp className="mr-4" /> Übersicht <p className="ml-4 text-lg"> </p>

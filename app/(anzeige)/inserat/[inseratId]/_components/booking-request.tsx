@@ -29,15 +29,15 @@ import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, Calenda
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import SearchRent from "./search-rent";
-import { User } from "@prisma/client";
+
 import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
+import { users } from "@/db/schema";
 
 interface BookingsProps {
-  user: User[];
+  user: typeof users.$inferSelect[];
 }
 
 

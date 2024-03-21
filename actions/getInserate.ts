@@ -6,7 +6,7 @@ import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnu
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, lkwAttribute, LkwBrandEnumRender, 
     LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender, 
     transportAttribute} from "@/db/schema";
-import { between, eq, gte, ilike, lte } from "drizzle-orm";
+import { and, between, eq, gte, ilike, like, lte } from "drizzle-orm";
 
 
 
@@ -20,17 +20,7 @@ import { between, eq, gte, ilike, lte } from "drizzle-orm";
 
 
 
-/*
-type InserateImagesAndAttributes = Inserat & {
-    user: User;
-    images: typeof images.$inferSelect[];
-    address: Address;
-    pkwAttribute: PkwAttribute;
-    lkwAttribute: LkwAttribute;
-    trailerAttribute : TrailerAttribute;
-    transportAttribute : TransportAttribute;
-}
-*/
+
 
 type GetInserate = {
     title?: string;
@@ -129,13 +119,19 @@ export const getInserate = async ({
     brake,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
     try {
-        console.log(thisCategory)
+        console.log(title);
+        console.log(title ? "ja" : "nein")
+        
+           const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
+
         const foundInserate = await db.query.inserat.findMany({
             where : (
-                eq(inserat.isPublished, "true"),
-                thisCategory ? eq(inserat.category, "LKW") : undefined,
-                title ? ilike(inserat.title, title) : undefined
-                
+                and(
+                    eq(inserat.isPublished, "true"),
+                    thisCategory ? eq(inserat.category, thisCategory) : undefined,
+                    //@ts-ignore
+                    ...ilikeQuery,
+                )
             ),
             with : {
                 user : true,
@@ -145,10 +141,6 @@ export const getInserate = async ({
                     pkwAttribute: true,
                     trailerAttribute: true,
                     transportAttribute: true,
-                
-                    
-                    
-                
             }
         })
 

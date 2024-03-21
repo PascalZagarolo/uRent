@@ -10,8 +10,9 @@ export async function PATCH(
 ) {
     try {
 
-        const values = await req.json();
+        const {initial, ...values} = await req.json();
 
+        const usedInitial = new Date(initial);
         
 
         const findAttributes = await db.query.pkwAttribute.findFirst({
@@ -22,10 +23,13 @@ export async function PATCH(
 
             const [patchedInserat] = await db.insert(pkwAttribute).values({
                 inseratId : params.inseratId,
+                ...(initial) && {
+                    initial : usedInitial
+                },
                 ...values,
             }).returning()
 
-            const [patchedOrigin] = await db.update(inserat).set({
+            const patchedOrigin = await db.update(inserat).set({
                 pkwId : patchedInserat.id
             }).where(eq(inserat.id, params.inseratId)).returning();
 
@@ -33,6 +37,9 @@ export async function PATCH(
             
         } else {
             const patchedInserat = await db.update(pkwAttribute).set({
+                ...(initial) && {
+                    initial : usedInitial
+                },
                 ...values
             }).where(eq(pkwAttribute.inseratId, params.inseratId)).returning();
             return NextResponse.json(patchedInserat[0]);

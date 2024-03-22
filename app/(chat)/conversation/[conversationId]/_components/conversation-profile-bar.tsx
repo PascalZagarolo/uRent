@@ -2,15 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { ImageIcon, MailCheck, PhoneCall, PlusCircle, PlusSquare, User2, UserCheck, UserCircle } from "lucide-react";
-import { User, Messages } from "@prisma/client";
+
 import Image from "next/image";
 import AttachmentRender from "./attachment-render";
 import ChatSettings from "./chat-settings";
 import useActiveList from "@/hooks/useActiveList";
+import { message, users } from "@/db/schema";
 
 interface ConversationProfileBarProps {
-    otherUser: User;
-    attachments: Messages[]
+    otherUser: typeof users.$inferSelect;
+    attachments: typeof message.$inferSelect[]
 }
 
 const ConversationProfileBar: React.FC<ConversationProfileBarProps> = ({

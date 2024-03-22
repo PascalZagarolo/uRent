@@ -1,13 +1,14 @@
 'use client'
 
+import { users } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { User } from "@prisma/client";
+
 import { UserCircle2Icon, X } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
 interface RenderedChatsProps {
-    user : User,
+    user : typeof users.$inferSelect,
     conversationId : string,
     lastMessage : string
 }

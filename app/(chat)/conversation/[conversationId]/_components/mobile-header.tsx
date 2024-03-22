@@ -1,17 +1,17 @@
 'use client';
 
-import { AlignCenterIcon, AlignJustify, ArrowLeft, MessageSquareIcon, User2Icon } from "lucide-react";
-import ChatLogo from "../../_components/chat-logo";
-import { User, Messages } from "@prisma/client";
+import { ArrowLeft, } from "lucide-react";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import MobileProfileSidebar from "./mobile-profile-sidebar";
 import useActiveList from "@/hooks/useActiveList";
 import { cn } from "@/lib/utils";
+import { message, users } from "@/db/schema";
 
 interface MobileHeaderChatProps {
-    otherUser : User;
-    attachments : Messages[]
+    otherUser : typeof users.$inferSelect;
+    attachments : typeof message.$inferSelect[]
 }
 
 const MobileHeaderChat: React.FC<MobileHeaderChatProps> = ({

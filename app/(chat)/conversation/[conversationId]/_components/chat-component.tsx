@@ -1,27 +1,27 @@
 'use client'
 
-import { db } from "@/utils/db";
-import ChatInput from "./_chatcomponents/chat-input";
+
 import ChatMessageRender from "./_chatcomponents/chat-message-render";
-import { Messages, User, Conversation, Inserat, Images } from '@prisma/client';
+
 import { useEffect, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { useParams } from "next/navigation";
 import { find, set } from "lodash";
 import { format } from "date-fns";
+import { conversation, message, users } from "@/db/schema";
 
-type MessageWithInserat = Messages & { inserat : Inserat & { images : Images } }
+
 
 interface ChatComponentProps {
-    messages : MessageWithInserat[]
-    currentUser : User;
-    conversation : Conversation;
+    messages : typeof message.$inferSelect[]
+    currentUser : typeof users.$inferSelect;
+    thisConversation : typeof conversation.$inferSelect;
 }
 
 const ChatComponent: React.FC<ChatComponentProps> =  ({
     messages,
     currentUser,
-    conversation
+    thisConversation
 }) => {
 
     const formateDate = (date : Date) => {
@@ -50,7 +50,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             bottomRef?.current?.scrollIntoView({ behavior: "smooth" });
         }
 
-        const deleteMessage = (message : Messages) => {
+        const deleteMessage = (message) => {
             setMessages((current) => {
                 
                 const index = current.findIndex((m) => m.id === message.id);
@@ -83,10 +83,10 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         <div className="no-scrollbar  overflow-y-auto h-screen w-full " >
             <div className="dark:bg-[#1C1C1C]">
             <h3 className="flex justify-center  text-gray-900/30 p-4  dark:text-gray-100">
-            Chat gestartet am {formateDate(conversation.createdAt)}
+            Chat gestartet am {formateDate(thisConversation.createdAt)}
             </h3>
             <div className="no-scrollbar h-full overflow-y-hidden">
-            {pMessages.map((message : MessageWithInserat) => (
+            {pMessages.map((message) => (
                 <ChatMessageRender
                 key={message.id}
                 messages={message}
@@ -98,7 +98,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             </div>
            
             </div>
-            <div className="h-screen text-gray-100 flex justify-center w-full bottom-0   ">
+            <div className="h-screen text-gray-100 flex justify-center w-full bottom-0">
                
             </div>
         </div>

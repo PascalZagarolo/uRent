@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from "@/lib/utils";
-import { Messages, User, Inserat, Images } from "@prisma/client";
+
 
 import ChatImageRender from "./chat-image-render";
 import { format } from "date-fns";
@@ -10,11 +10,13 @@ import DeleteMessage from "./delete-message";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
+import { message } from "@/db/schema";
 
-type MessageWithInserat = Messages & { inserat: Inserat & { images: Images } }
+
+
 
 interface ChatMessageRenderProps {
-    messages: MessageWithInserat;
+    messages: typeof message.$inferSelect;
     isOwn: boolean;
 
 }
@@ -65,9 +67,11 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                         <div className="mb-4 hidden lg:block ">
                                             <div className="flex items-center">
                                                 <Forward />
-                                                <p className="ml-2 font-semibold text-xs text-gray-900/50 dark:text-gray-300">Interesse bezüglich...</p>
+                                                <p className="ml-2 font-semibold text-xs text-gray-900/50 dark:text-gray-300">
+                                                    Interesse bezüglich...</p>
                                             </div>
-                                            <div className="p-4  bg-white dark:bg-[#1C1C1C] dark:text-gray-100 rounded-md  hover:cursor-pointer"
+                                            <div className="p-4  bg-white dark:bg-[#1C1C1C] dark:text-gray-100 rounded-md 
+                                             hover:cursor-pointer"
                                                 onClick={
                                                     () => { router.push(`/inserat/${messages.inseratId}`) }
                                                 }
@@ -78,7 +82,8 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                         <div className="rounded-md 2xl:w-1/2">
                                                             {showDate && (
                                                                 <img
-                                                                src={messages.inserat?.images[0].url}
+                                                                src={//@ts-ignore
+                                                                    messages.inserat?.images[0].url}
                                                                 className=" object-cover rounded-md"
                                                                 alt="..."
                                                                 style={{ imageRendering: "auto" }}
@@ -88,15 +93,18 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                         </div>
 
                                                         <div className="ml-4 font-semibold truncate w-[160px] mr-4">
-                                                            {messages.inserat?.title}
+                                                            {//@ts-ignore
+                                                            messages.inserat.title}
                                                             
                                                             <Badge className="flex ml-auto mt-2 bg-emerald-600 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center">
-                                                                {messages.inserat?.price} €
+                                                                {//@ts-ignore
+                                                                messages.inserat?.price} €
                                                             </Badge>
                                                         </div>
                                                         <div className="rounded-md bg-gray-100 text-xs font-medium  ml-auto w-1/2 dark:bg-[#1d1d1d] dark:border-none
                                                         drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2 max-h-[100px] overflow-hidden hidden 2xl:flex">
-                                                            <p className="overflow-hidden text-overflow-ellipsis">{messages.inserat?.description}</p>
+                                                            <p className="overflow-hidden text-overflow-ellipsis">{//@ts-ignore
+                                                                                                                    messages.inserat?.description}</p>
                                                         </div>
 
 

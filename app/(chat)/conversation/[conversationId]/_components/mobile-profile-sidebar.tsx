@@ -2,15 +2,16 @@
 
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 import { AlignJustify, ImageDown, PlusSquare } from "lucide-react";
-import { User, Messages } from "@prisma/client";
+
 import Image from "next/image";
-import AttachmentRender from "./attachment-render";
+
 import AttachmentRenderMobile from "./attachment-render-mobile";
 import ChatSettings from "./chat-settings";
+import { message, users } from "@/db/schema";
 
 interface MobileProfileSidebarProps {
-    user : User;
-    attachments : Messages[]
+    user : typeof users.$inferSelect;
+    attachments : typeof message.$inferSelect[]
 }
 
 

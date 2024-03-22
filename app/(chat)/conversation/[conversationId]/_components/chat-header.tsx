@@ -1,10 +1,11 @@
 'use client';
 
+import { users } from "@/db/schema";
 import useActiveList from "@/hooks/useActiveList";
-import { User } from "next-auth";
+
 
 interface ChatHeaderProps {
-    otherUser : User;
+    otherUser : typeof users.$inferSelect;
 }
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({

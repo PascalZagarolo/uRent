@@ -1,16 +1,18 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
+
 import { MessageSquareIcon, User2Icon } from "lucide-react";
 
 import StartedChats from "./[conversationId]/_components/started-chats";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
-import { Messages, User, Conversation } from "@prisma/client";
+
 import { redirect } from "next/navigation";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
+import db from "@/db/drizzle";
+import { eq, or } from "drizzle-orm";
+import { conversation } from '../../../db/schema';
 
 
 
-type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
 
 const ConversationPage = async () => {
 
@@ -20,45 +22,35 @@ const ConversationPage = async () => {
         redirect("/login")
     }
 
-    let startedConversations: ConversationWithUsers[] = [];
+    let startedConversations;
 
     if(currentUser) {
-        startedConversations  = await db.conversation.findMany({
-            where : {
-                userIds : {
-                    has : currentUser?.id
-                }
-            }, include : {
-                users : true,
-                messages : {
-                    orderBy : {
-                        createdAt : "asc"
-                    }
+        startedConversations = await db.query.conversation.findMany({
+            where : (
+                or(
+                    eq(conversation.user1Id, currentUser.id),
+                    eq(conversation.user2Id, currentUser.id)
                 
-                }
-            }
+                )
+            )
         })
     } else {
         startedConversations = [];
     }
 
-    const notifications = await db.notification.findMany({
-        where : {
-            userId : currentUser?.id
-        }
-    })
+   
 
     return ( 
         <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 min-h-screen">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    notifications={notifications} />
+                    />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                 currentUser={currentUser}
-                notifications={notifications}
+                
                 />
              </div>
             <div className="flex justify-center h-screen py-8 px-4 ">
@@ -68,7 +60,7 @@ const ConversationPage = async () => {
                     </h3>
                     {startedConversations.length > 0 ? (
                         <div className="mt-4">
-                        {startedConversations.map((conversation: ConversationWithUsers) => (
+                        {startedConversations.map((conversation) => (
                            <StartedChats
                            key={conversation.id}
                            conversation={conversation}

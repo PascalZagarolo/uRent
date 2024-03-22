@@ -1,40 +1,45 @@
-import { db } from "@/utils/db";
-import { Conversation, User, Messages } from "@prisma/client";
-import RenderedChats from "./rendered-chats";
 
-type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
+
+import { conversation, message, users } from "@/db/schema";
+import RenderedChats from "./rendered-chats";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
+
+
 
 interface StartedChatsProps{
-    conversation : ConversationWithUsers,
-    currentUser : User
+    conversations : typeof conversation.$inferSelect,
+    currentUser : typeof users.$inferSelect
 }
 
 
 const StartedChats: React.FC<StartedChatsProps> = async ({
-    conversation,
+    conversations,
     currentUser
 }) => {
 
-    const otherUserId = conversation.userIds.find(id => id !== currentUser.id);
+    const otherUserId = conversations.user1Id === currentUser.id ? conversations.user2Id : conversations.user1Id;
 
 
-    const image = await db.user.findUnique({
-        where : {
-            id : otherUserId
-        }
+    const userImage = await db.query.users.findFirst({
+        where : eq(users.id, otherUserId)
     })
 
-    const lastMessage = conversation.messages[conversation.messages.length - 1];
+    const lastMessage = await db.query.message.findMany({
+        where : eq(message.conversationId, conversations.id),
+        orderBy : (message, {asc}) => [asc(message.createdAt)]
+    
+    })
 
-    let content = lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet"
+    let content = lastMessage[0]?.content ? lastMessage[0].content : "Hat ein Bild gesendet"
 
     
 
     return ( 
         <div className="flex justify-center ">
             <RenderedChats
-            user = {image}
-            conversationId={conversation.id}
+            user = {userImage}
+            conversationId={conversations.id}
             lastMessage = {content}
             />
         </div>

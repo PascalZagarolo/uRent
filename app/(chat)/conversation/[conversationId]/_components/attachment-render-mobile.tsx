@@ -1,9 +1,9 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Messages } from "@prisma/client";
+import { message } from "@/db/schema";
 
 
 interface AttachmentRenderMobileProps {
-    messageWithImage : Messages
+    messageWithImage : typeof message.$inferSelect
 }
 
 const AttachmentRenderMobile: React.FC<AttachmentRenderMobileProps> = ({

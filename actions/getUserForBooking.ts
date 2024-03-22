@@ -1,5 +1,7 @@
-import { db } from "@/utils/db";
-import { User } from "@prisma/client";
+import db from "@/db/drizzle";
+import { users } from "@/db/schema";
+import { ilike } from "drizzle-orm";
+
 
 type getUser = {
     username? : string;
@@ -7,16 +9,13 @@ type getUser = {
 
 export const getUserByName = async ({
     username
-}: getUser) : Promise<User[]> => {
+}: getUser) : Promise<typeof users.$inferSelect[]> => {
 
     try {
-        const user = await db.user.findMany({
-            where : {
-                name : {
-                    contains : username,
-                    mode : "insensitive"
-                }
-            }
+        const user = await db.query.users.findMany({
+            where : (
+                ilike(users.username, `%${username}%`)
+            )
         })
 
         return user;

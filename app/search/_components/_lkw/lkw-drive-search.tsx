@@ -2,8 +2,9 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { DriveEnumRender } from "@/db/schema";
 import { useSavedSearchParams } from "@/store";
-import { DriveType, Inserat, LkwBrand } from "@prisma/client";
+
 
 
 import axios from "axios";
@@ -68,7 +69,7 @@ const LkwDriveSearch = () => {
           <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
                                 Beliebig
          </SelectItem>
-         {Object.values(DriveType).map((drive, index) => (
+         {Object.values(DriveEnumRender).map((drive, index) => (
                             <SelectItem key={index} value={drive}>
                                 {drive.substring(1)}
                             </SelectItem>

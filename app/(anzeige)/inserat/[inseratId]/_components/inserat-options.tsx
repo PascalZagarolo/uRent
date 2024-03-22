@@ -5,16 +5,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { EmailShareButton, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, TwitterShareButton } from "react-share"
+import { EmailShareButton, FacebookShareButton, TwitterShareButton } from "react-share"
 
 import axios from "axios";
-import { set } from "date-fns";
-import { ArrowRight, Banknote, CalendarSearchIcon, Check, CopyIcon, Facebook, FacebookIcon, Forward, Lightbulb, Mail, PlaneIcon, Send, Share, Star, ThumbsUp, TwitterIcon } from "lucide-react";
+import { CopyIcon, FacebookIcon, Forward, Lightbulb, Mail, Send, Share, Star,
+     ThumbsUp, TwitterIcon } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
-import { Toast } from "@/components/ui/toast";
+
 import Bookings from "./bookings";
 import ManageBookings from "./manage-bookings";
 import { Pencil2Icon } from "@radix-ui/react-icons";
@@ -142,7 +142,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             ) : (
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
-
+                    
                        {ownUser && (
                          <Button className="bg-emerald-700 hover:bg-emerald-600  sm:w-[240px] w-full text-gray-200">
                          <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
@@ -233,8 +233,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             <div className="mt-4">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="bg-[#0e1017] sm:w-[240px]  flex w-full
-                        dark:text-gray-100  dark:hover:bg-[#161921] border border-gray-400
+                        <Button className="bg-[#1b1e2b] sm:w-[240px]  flex w-full
+                        dark:text-gray-100  dark:hover:bg-[#161921] 
                         ">
                             <Share className="h-4 w-4 mr-2" />  Anzeige teilen
                         </Button>

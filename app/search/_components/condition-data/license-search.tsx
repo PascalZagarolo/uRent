@@ -2,8 +2,9 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { LicenseEnumRender } from "@/db/schema";
 import { useSavedSearchParams } from "@/store";
-import { CarBrands, LicenseType } from "@prisma/client";
+
 
 
 import { useParams, useRouter } from "next/navigation";
@@ -66,7 +67,7 @@ const LicenseSearch = () => {
           <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
                                 Beliebig
                             </SelectItem>
-          {Object.values(LicenseType).map((license, index) => (
+          {Object.values(LicenseEnumRender).map((license, index) => (
                             <SelectItem key={index} value={license}>
                                 {removeUnderscore(license)}
                             </SelectItem>

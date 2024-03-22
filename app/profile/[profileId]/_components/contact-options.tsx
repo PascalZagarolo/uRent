@@ -49,12 +49,6 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
             {ownProfile && (
                 <AddContactOption />
             )}
-            <div className="flex-row flex">
-
-            </div>
-            <div>
-
-            </div>
         </div>
     );
 }

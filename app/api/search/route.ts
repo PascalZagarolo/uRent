@@ -1,5 +1,8 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { inserat } from "@/db/schema";
 import axios from "axios";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -31,7 +34,7 @@ export async function PATCH(
             coupling, extraType, axis, brake,
             ...filteredValues} = values;
             
-            
+        /*    
         const results = await db.inserat.findMany({
             where : {
                 category : category,
@@ -138,6 +141,13 @@ export async function PATCH(
              include : {
                 address : true
             }, 
+        })
+        */
+
+        const results = await db.query.inserat.findMany({
+            where : eq(
+                inserat.isPublished, true
+            )
         })
         console.log(brake)
         let filteredResult = [];

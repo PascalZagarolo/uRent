@@ -1,9 +1,9 @@
 
 
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
 
-import { TruckIcon } from "lucide-react";
+
+
 import HeaderLogo from "../(dashboard)/_components/header-logo";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import CategorySearch from "./_components/category-search";
@@ -16,11 +16,7 @@ const SearchPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const notifications = await db.notification.findMany({
-        where: {
-            userId: currentUser?.id
-        }
-    })
+    
 
     
 
@@ -29,7 +25,7 @@ const SearchPage = async () => {
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    notifications={notifications} />
+                    />
             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
@@ -49,8 +45,8 @@ const SearchPage = async () => {
                         <div className="p-8 text-sm dark:text-gray-300/90 space-y-4">
                         <BaseDataSearch />
                         <ConditionsSearch />
-                            <CategorySearch />
-                            <CategorySearchRender />
+                        <CategorySearch />
+                        <CategorySearchRender />
                         </div>
                     </div>
                 </div>

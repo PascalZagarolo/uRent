@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { booking } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/dist/server/web/spec-extension/response";
 
 
@@ -8,17 +11,24 @@ export async function PATCH(
 ) {
     try {
 
-        const values = await req.json();
+        const {startDate, endDate, ...values} = await req.json();
+
+        const usedStart = new Date(startDate);
+        const usedEnd = new Date(endDate);
         
         console.log(values);
         
-        const editedBooking = await db.booking.update({
-            where : {
-                id : params.bookingId
-            }, data : {
-                ...values
-            }
-        })
+        const [editedBooking] = await db.update(booking).set({
+            ...(startDate) && {
+                startDate: usedStart
+            
+            },...(endDate) && {
+                endDate: usedEnd
+            },
+            content : values.content,
+            userId : values.userId
+           
+        }).where(eq(booking.id, params.bookingId)).returning();
 
         return NextResponse.json(editedBooking);
 

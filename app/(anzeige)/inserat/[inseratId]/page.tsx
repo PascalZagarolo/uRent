@@ -53,10 +53,8 @@ const InseratAnzeige = async ({
 
     const inseratArray = await db.query.inserat.findMany({
         where : (
-           
             eq(inserat.userId, thisInserat.user.id),
-            eq(inserat.isPublished, true)
-           
+            eq(inserat.isPublished, true)   
         ), with : {
             images : true
         }
@@ -76,10 +74,11 @@ const InseratAnzeige = async ({
 
     const inseratBookings = await db.query.booking.findMany({
         where : (
-            eq(booking.inseratId, inserat.id)
+            eq(booking.inseratId, thisInserat.id)
         ),
         with : {
-            user : true
+            user : true,
+            
         }, orderBy :  (booking, {asc}) => [asc(booking.startDate)]
     })
 
@@ -118,7 +117,7 @@ const InseratAnzeige = async ({
                                 }
                             </div>
 
-
+                            
                             <p className=" text-md sm:text-xl ml-2 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
                             bg-[#1d1f2b] px-8 rounded-lg p-4 w-3/4 truncate flex justify-center "> {thisInserat.title} </p>
                             <div className="flex justify-end ml-2 sm:ml-2 bg-[#1d1f2b] w-1/8  p-4 rounded-lg sm:p-4">
@@ -239,10 +238,11 @@ const InseratAnzeige = async ({
 
 
                                             {thisInserat.user?.contactOptions?.websiteAddress && (
-                                                <a href={thisInserat?.user?.contactOptions[0]?.websiteAddress} className="flex hover:underline">
+                                                <a href="/"
+                                                className="flex hover:underline">
                                                     <Globe2 className="w-4 h-4 mr-2" /><p className="text-sm"> 
-                                                    {thisInserat.user?.contactOptions[0]?.websiteAddress ?
-                                                        thisInserat.user.contactOptions[0]?.websiteAddress : ""}</p>
+                                                    {thisInserat.user?.contactOptions?.websiteAddress ?
+                                                        thisInserat.user.contactOptions?.websiteAddress : ""}</p>
                                                 </a>
                                             )}
 
@@ -256,7 +256,6 @@ const InseratAnzeige = async ({
                             </div>
                             <p className="flex text-lg sm:text-lg font-semibold items-center mt-8">
                                 <AlignLeft className="mr-2 h-4 w-4" /> Beschreibung der Anzeige</p>
-                                
                                 <InseratDescription
                                 thisInserat={thisInserat}
                             />
@@ -297,8 +296,7 @@ const InseratAnzeige = async ({
                     <div className="sm:ml-16 xl:ml-0 flex sm:block justify-center">
                         
                         <InseratOptions
-                            thisUser={thisInserat.user}
-                            //@ts-ignore
+                            thisUser={thisInserat.user}  
                             bookings={inseratBookings}
                             ownUser={currentUser}
                             contactOptions={thisInserat.user.contactOptions}

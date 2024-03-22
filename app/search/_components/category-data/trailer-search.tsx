@@ -1,4 +1,4 @@
-import { TrailerType } from "@prisma/client";
+
 import LkwApplicationSearch from "../_lkw/lkw-application-search";
 import LkwBrandSearch from "../_lkw/lkw-brand-search";
 import LkwDriveSearch from "../_lkw/lkw-drive-search";

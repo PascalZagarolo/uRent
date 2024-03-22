@@ -4,7 +4,7 @@ import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Inserat, Images, User } from "@prisma/client"
+
 import {
   Carousel,
   CarouselContent,
@@ -18,14 +18,15 @@ import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
 import InseratCard from "@/app/(dashboard)/_components/inserat-card"
+import { inserat, users } from "@/db/schema"
 
 interface OwnContentSlideProps {
-  inserat: Inserat[] & { images: Images[],  }[];
-  currentUser : User
+  foundInserate: typeof inserat.$inferSelect[];
+  currentUser : typeof users.$inferSelect
 }
 
 const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
-  inserat,
+  foundInserate,
   currentUser
 }) => {
   const [api, setApi] = React.useState<CarouselApi>()
@@ -53,7 +54,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
   const router = useRouter();
   return (
     <div className="">
-      {inserat.length > 0 ? (
+      {foundInserate.length > 0 ? (
         <div className="">
           <Carousel setApi={setApi} className=" " plugins={[
             Autoplay({
@@ -61,7 +62,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
             }),
           ]}>
             <CarouselContent className="">
-              {inserat.map((inserat, index) => (
+              {foundInserate.map((thisInserat, index) => (
                 <CarouselItem key={index} className="">
                   <Card className="bg-white  rounded-md border-none flex items-center justify-center  hover:cursor-pointer
                   dark:bg-[#1C1C1C]
@@ -70,8 +71,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                   <CardContent>
                   <InseratCard 
                       currentUser={currentUser}
-                      //@ts-ignore
-                      inserat={inserat}
+                      thisInserat={thisInserat}
                       isFaved={false}
                       profileId={currentUser?.id}
                       />
@@ -80,7 +80,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                 </CarouselItem>
               ))}
             </CarouselContent>
-            {inserat.length > 10000 && (
+            {foundInserate.length > 10000 && (
               <>
                 <CarouselPrevious />
                 <CarouselNext />

@@ -37,7 +37,7 @@ const InseratCreation = async ({
          trailerAttribute : true,
          transportAttribute : true
          },
-         where : eq(inserat.id,  params.inseratId)        
+         where : eq(inserat.id, params.inseratId)        
      })
 
     console.log(thisInserat)

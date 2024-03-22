@@ -1,7 +1,8 @@
-import { Inserat } from "@prisma/client";
+import { inserat } from "@/db/schema";
+
 
 interface ProfileStatsLayoutProps {
-    inserate : Inserat[]
+    inserate : typeof inserat.$inferSelect;
 }
 
 

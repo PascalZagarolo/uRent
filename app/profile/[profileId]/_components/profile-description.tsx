@@ -6,7 +6,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useState } from "react";
-import { User } from "@prisma/client";
+
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { PencilIcon } from "lucide-react";
@@ -16,11 +16,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { set } from "lodash";
 import { cn } from "@/lib/utils";
+import { users } from "@/db/schema";
 
 
 interface ProfileDescriptionProps { 
     ownProfile : boolean;
-    user : User;
+    user : typeof users.$inferSelect;
 }
 
 
@@ -28,7 +29,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
     ownProfile,
     user
 }) => {
-
+    
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 

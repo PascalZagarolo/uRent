@@ -1,5 +1,4 @@
-import { User } from "@prisma/client";
-import Logo from "./u-rent-logo";
+
 import Avatar from "./avatar";
 import LocationProfile from "./location-rating";
 import RatingProfile from "./rating-profile";
@@ -7,18 +6,19 @@ import UploadProfilePic from "./upload-profile-pic";
 import { AlignCenterIcon, BookUser, Contact, Contact2, UserCircle2 } from "lucide-react";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import NotVerifiedYet from "./not-verified-yet";
-import { use } from "react";
-import { Separator } from "@/components/ui/separator";
+
 import ProfileDescription from "./profile-description";
-import ContactOptions from "./contact-options";
 import ContactOptionsRender from "./contact-options";
-import { db } from "@/utils/db";
+
 import { CheckmarkIcon } from "react-hot-toast";
+import { contactOptions, users } from "@/db/schema";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
 
 
 interface ProfileHeaderProps {
-    currentUser: User;
-    user: User;
+    currentUser: typeof users.$inferSelect;
+    user: typeof users.$inferSelect;
     
 }
 
@@ -37,10 +37,10 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
         return `${day}.${month}.${year}`;
     };
 
-    const contacts = await db.contactOptions.findUnique({
-        where : {
-            userId : user.id
-        }
+    const contacts = await db.query.contactOptions.findFirst({
+        where : (
+            eq(contactOptions.userId, user.id)
+        )
     })
 
     const isOwnProfile = currentUser?.id === user.id || user.emailVerified ? true : false;
@@ -101,7 +101,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 </div>
                 <div>
                 <ProfileDescription 
-                ownProfile={ownProfile}
+                    ownProfile={ownProfile}
                     user={user}
                 />
                 </div>

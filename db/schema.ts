@@ -146,13 +146,13 @@ export const inserat = pgTable("inserat", {
 
     emailAddress: text("emailAddress"),
     phoneNumber: text("phoneNumber"),
-
+    
     begin: timestamp("begin", {mode: "date"}),
     end: timestamp("end", {mode: "date"}),
     annual: boolean("annual").notNull().default(false),
 
     license: licenseEnum("license"),
-    caution: decimal("caution", { precision: 2 }),
+    caution: decimal("caution"),
     reqAge: integer("reqAge"),
 
     views: integer("views").notNull().default(0),
@@ -536,10 +536,9 @@ export const stripeCustomer = pgTable("stripeCustomer", {
 export const conversation = pgTable("conversation", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
-    userId: uuid("userId").
-        
+    user1Id: uuid("user1").
         references(() => users.id, { onDelete: "cascade" }).notNull(),
-    userId2: uuid("userId2").
+    user2Id: uuid("user2").
         references(() => users.id, { onDelete: "cascade" }).notNull(),
 })
 
@@ -554,7 +553,7 @@ export const message = pgTable("message", {
     updatedAt: timestamp("updatedAt", { mode: "date" }),
 
     inseratId: uuid("inseratId").
-        references(() => inserat.id, { onDelete: "cascade" }).notNull(),
+        references(() => inserat.id, { onDelete: "cascade" }),
     senderId: uuid("senderId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
@@ -686,6 +685,20 @@ export const notifications = pgTable("notification", {
 })
 */
 //every array of a user => e.g liked posts etc..
+
+export const accountRelations = relations(accounts, ({ one }) => ({
+    users : one(users, {
+        fields : [accounts.userId],
+        references : [users.id]
+    })
+}))
+
+export const sessionRelations =  relations(sessions, ({ one }) => ({
+    users : one(users, {
+        fields : [sessions.userId],
+        references : [users.id]
+    })
+}))
 export const userRelations = relations(users, ({ one, many }) => ({
 
     userAddress : one(userAddress, {
@@ -703,7 +716,8 @@ export const userRelations = relations(users, ({ one, many }) => ({
     sessions : many(sessions),
 
     favourites : many(favourite),
-    conversation : many(conversation),
+    conversation_user1 : many(conversation,{ relationName : "conversation_user1" }),
+    conversation_user2 : many(conversation,{ relationName : "conversation_user2" }),
     contactOptions : one(contactOptions, {
         fields : [users.contactId],
         references : [contactOptions.id]
@@ -743,8 +757,6 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     message : many(message),
 
     images : many(images),
-
-    purchased : many(purchase),
 
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
@@ -832,4 +844,46 @@ export const contactOptionsRelation = relations(contactOptions, ({ one }) => ({
         fields : [contactOptions.userAddressId],
         references: [userAddress.id]
     })
+}))
+
+export const messageRelations = relations(message, ({ one }) => ({
+    sender : one(users, {
+        fields : [message.senderId],
+        references : [users.id]
+    }),
+    conversation : one(conversation, {
+        fields : [message.conversationId],
+        references : [conversation.id]
+    }),
+    inserat : one(inserat, {
+        fields : [message.inseratId],
+        references : [inserat.id]
+    })
+}))
+
+export const rezensionRelations = relations(rezension, ({ one }) => ({
+    sender : one(users , {
+        fields : [rezension.senderId],
+        references : [users.id],
+        relationName : "writtenRezensionen"
+    }),
+    receiver : one(users, {
+        fields : [rezension.receiverId],
+        references : [users.id],
+        relationName : "receivedRezensionen"
+    })
+}))
+
+export const conversationRelations = relations(conversation, ({ one, many }) => ({
+    user1 : one(users, {
+        fields : [conversation.user1Id],
+        references : [users.id],
+        relationName : "conversation_user1"
+    }),
+    user2 : one(users, {
+        fields : [conversation.user2Id],
+        references : [users.id],
+        relationName : "conversation_user2"
+    }),
+    messages : many(message)
 }))

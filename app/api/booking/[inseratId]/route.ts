@@ -11,17 +11,20 @@ export async function POST(
 
 
 
-        const values = await req.json();
+        const {start, end, ...values} = await req.json();
 
-
+        const usedStart = new Date(start);
+        const usedEnd = new Date(end);
+        console.log(typeof start)
         console.log(values);
         const [createdBooking] = await db.insert(booking).values({
             inseratId: params.inseratId,
             userId: values.userId,
-            startDate: values.startDate,
-            endDate: values.endDate,
+            startDate : usedStart,
+            endDate : usedEnd,
         }).returning();
 
+        console.log(createdBooking);
 
         return NextResponse.json(createdBooking)
 

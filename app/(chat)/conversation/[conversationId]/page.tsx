@@ -1,5 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
+
 
 import ChatComponent from "./_components/chat-component";
 
@@ -11,14 +11,18 @@ import Image from "next/image";
 
 
 import ChatHeader from "./_components/chat-header";
-import { Conversation, Messages, User } from "@prisma/client";
+
 import { find } from "lodash";
 import RenderedChats from "./_components/rendered-chats";
 import StartedChats from "./_components/started-chats";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import ReturnToChat from "./_components/return-to-chat";
+import db from "@/db/drizzle";
+import { and, eq, is, isNotNull, or } from "drizzle-orm";
+import { conversation } from "@/db/schema";
+import { users, message } from '../../../../db/schema';
 
-type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
+
 
 const ConversationPage = async ({
     params
@@ -26,98 +30,92 @@ const ConversationPage = async ({
 
     const currentUser = await getCurrentUser();
 
-    let startedConversations: ConversationWithUsers[] = [];
+    let startedConversations;
 
     if(currentUser) {
-        startedConversations  = await db.conversation.findMany({
-            where : {
-                userIds : {
-                    has : currentUser?.id
-                }
-            }, include : {
-                users : true,
-                messages : {
-                    orderBy : {
-                        createdAt : "asc"
-                    }
+        startedConversations = await db.query.conversation.findMany({
+            where : (
+                or(
+                    eq(conversation.user1Id, currentUser.id),
+                    eq(conversation.user2Id, currentUser.id)
                 
-                }
+                )
+            ), with : {
+                messages : true,
+                user1 : true,
+                user2 : true
+
+
             }
         })
     } else {
         startedConversations = [];
     }
 
-    const conversation = await db.conversation.findUnique({
-        where: {
-            id: params.conversationId
-        }, select: {
-            userIds: true
+    const thisConversation = await db.query.conversation.findFirst({
+        where : eq(conversation.id, params.conversationId),
+        with : {
+            user1 : true,
+            user2 : true,
         }
+    
     })
 
-    const justConversation = await db.conversation.findUnique({
-        where: {
-            id: params.conversationId
-        }
+    const justConversation = await db.query.conversation.findFirst({
+        where : eq(conversation.id, params.conversationId)
     })
 
-    const notifications = await db.notification.findMany({
-        where : {
-            userId : currentUser.id
-        }
-    })
+    
 
-    const messages = await db.messages.findMany({
-        where: {
-            conversationId: params.conversationId
-        }, include: {
-            sender: true,
-            inserat: {
-                include: {
-                    images: true
+    const messages = await db.query.message.findMany({
+        where : eq(
+            message.conversationId, params.conversationId
+        ), with : {
+            sender : true,
+            inserat : {
+                with : {
+                    images : true
                 }
             }
         }
     })
 
-    const otherUser = conversation.userIds.find((id) => id !== currentUser.id);
+    const otherUser = conversation.user1Id === currentUser.id ? conversation.user2Id : conversation.user1Id;
 
     
 
-    const otherUserDetails = await db.user.findUnique({
-        where: {
-            id: otherUser,
-        },
-
+    const otherUserDetails = await db.query.users.findFirst({
+        where : eq(
+            users.id, otherUser
+        )
     })
 
     
 
-    const attachments = await db.messages.findMany({
-        where: {
-            conversationId: params.conversationId,
-            image: {
-                not: null
-            }
-        }, orderBy: {
-            createdAt: "desc"
-        }
+    const attachments = await db.query.message.findMany({
+        where : (
+            and(
+                isNotNull(message.image),
+                eq(message.conversationId, params.conversationId)
+            )
+        ), orderBy : (message, {asc}) => [asc(message.createdAt)]
+
+        
     })
 
-    let otherUserChat: User;
+    let otherUserChat: typeof users.$inferSelect;
 
     return (
         <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 min-h-screen">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    notifications={notifications} />
+                     />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                 currentUser={currentUser}
-                notifications={notifications}
+                
                 />
              </div>
             <div className="flex justify-center h-screen py-8 px-4 ">
@@ -126,10 +124,10 @@ const ConversationPage = async ({
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                     </h3>
                     <div className="mt-4">
-                    {startedConversations.map((conversation: ConversationWithUsers) => (
+                    {startedConversations.map((conversation) => (
                            <StartedChats
                            key={conversation.id}
-                           conversation={conversation}
+                           conversations={conversation}
                            currentUser = {currentUser}
                            />
                         ))}
@@ -163,7 +161,7 @@ const ConversationPage = async ({
                                     //@ts-ignore
                                     messages={messages}
                                     currentUser={currentUser}
-                                    conversation={justConversation}
+                                    thisConversation={justConversation}
                                 />
                             </div>
                             <div className="sticky bottom-0 w-full flex items-center border-t border-gray-600/10 ">

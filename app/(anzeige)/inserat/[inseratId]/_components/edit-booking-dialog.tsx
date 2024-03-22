@@ -73,7 +73,7 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
   })
 
 
-  const onSubmit = (value: z.infer<typeof formSchema>) => {
+  const onSubmit = async (value: z.infer<typeof formSchema>) => {
     try {
       console.log("getriggered")
       setIsLoading(true);
@@ -83,9 +83,10 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
         endDate: currentEnd,
         userId : selectedUser.id
       }
-      console.log(values)
-      axios.patch(`/api/booking/edit/${booking.id}`, values);
+      
+      await axios.patch(`/api/booking/edit/${thisBooking.id}`, values);
       toast.success("Änderungen gespeichert");
+      router.refresh();
       
     } catch(err) {
       toast.error("Fehler beim ändern der Buchung", err)
@@ -104,7 +105,8 @@ const EditBookingDialog: React.FC<EditBookingDialogProps> = ({
 
   return (
     <Dialog>
-      <DialogTrigger className="" onClick={() => {changeUser(thisBooking[0].user)}} >
+      <DialogTrigger className="" onClick={() => {//@ts-ignore 
+                                          changeUser(thisBooking.user)}} >
         
         <Settings2Icon className="w-6 h-6 hover:cursor-pointer"/>
         

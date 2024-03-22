@@ -233,7 +233,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             dark:text-gray-100 hover:bg-gray-600">
 
                                                 <SofaIcon className="h-4 w-4 mr-1" />
-                                                <p className="mr-1 text-gray-800"> {thisInserat.pkwAttribute?.seats} </p> Sitze
+                                                <p className="mr-1 text-gray-800"> {thisInserat.transportAttribute?.seats} </p> Sitze
                                             </Badge>
                                         )}
                                         {thisInserat.transportAttribute?.fuel && (

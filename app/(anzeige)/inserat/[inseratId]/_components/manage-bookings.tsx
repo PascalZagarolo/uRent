@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import EditBookingDialog from "./edit-booking-dialog";
-import { usesearchUserByBookingStore } from "@/store";
+
 import { booking } from "@/db/schema";
 
 interface ManageBookingsProps {
@@ -93,15 +93,19 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                 </DialogTitle>
                 <div className="items-center">
                     {bookings.length > 0 ? (
-                        bookings.map((booking) => (
-                            <div key={booking.id} className="dark:bg-[#0a0a0a] ">
+                        bookings.map((pBooking) => (
+                            <div key={pBooking.id} className="dark:bg-[#0a0a0a] ">
                                 <div className="mt-2 flex items-center border border-none rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
                                     <Clock10Icon className="h-4 w-4 mr-2"/>
                                     
-                            <span className="font-semibold text-sm">  {formatDateToDDMM(booking.startDate)} - {formatDateToDDMMYY(booking.endDate)} </span>
-                            <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center dark:text-gray-100/70">{booking[0].user.email}</p>
+                            <span className="font-semibold text-sm">  {formatDateToDDMM(pBooking.startDate)} - {formatDateToDDMMYY(pBooking.endDate)} </span>
+                            <p className="text-xs ml-4 font-semibold text-gray-900/50 justify-center dark:text-gray-100/70">
+                                
+                                { //@ts-ignore
+                                pBooking?.user.email
+                                }</p>
                             <div className="ml-auto flex gap-x-4">
-                              <EditBookingDialog thisBooking = {booking} />
+                              <EditBookingDialog thisBooking = {pBooking} />
                               <Dialog>
                                 <DialogTrigger>
                                 <Trash2 className="text-rose-600 h-6 w-6 hover:cursor-pointer"/>
@@ -115,7 +119,8 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                                     </DialogDescription>
                                     <div className="ml-auto flex space-x-2">
                                         <DialogTrigger>
-                                        <Button className="bg-rose-600 hover:bg-rose-500 dark:text-gray-100" onClick={() => {onDelete(booking.id)}}>
+                                        <Button className="bg-rose-600 hover:bg-rose-500 dark:text-gray-100" onClick={() => 
+                                            {onDelete(pBooking.id)}}>
                                             Buchung löschen
                                             </Button>
                                         </DialogTrigger>
@@ -136,7 +141,7 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
                         <div >
                                 <div className="mt-2 flex items-center rounded-md p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]" >
                                     <Clock10Icon className="h-4 w-4 mr-2"/>                    
-                            <p className="text-sm ml-4 font-semibold text-gray-900/50 justify-center"> Noch keine Buchung hinzugefügt...</p>
+                            <p className="text-sm ml-4 font-semibold text-gray-900/50 dark:text-gray-100/70 justify-center"> Noch keine Buchung hinzugefügt...</p>
                           </div>
                             </div>
                     )}

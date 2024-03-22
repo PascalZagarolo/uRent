@@ -7,9 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { values } from "lodash";
 import { ContactIcon, Globe2, Home, Locate, MailOpenIcon, Map, MapPin, Navigation, PlugZap, Settings2 } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -20,7 +19,7 @@ import { z } from "zod";
 const AddContactOption = ({
     
 }) => {
-
+    const router = useRouter()
     const params = useParams();
 
     const [emailEnabled, setEmailEnabled] = useState(false);
@@ -68,7 +67,9 @@ const AddContactOption = ({
         console.log(values)
 
         try {
-            axios.patch(`/api/contact/${params.profileId}`, values)
+            axios.patch(`/api/contact/${params.profileId}`, values).then(() => {
+                router.refresh()
+            })
         } catch {
             toast.error("Fehler beim Speichern")
         }
@@ -215,10 +216,11 @@ const AddContactOption = ({
                             </div>
                         </div>
                         )}
-                        
-                            <Button className="mt-4 w-full bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" 
+                        <DialogTrigger asChild>
+                            <Button className="mt-4 w-full bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  
+                            dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" 
                             variant="ghost" disabled={!isValid || isSubmitting} type="submit"> Speichern </Button>
-                        
+                        </DialogTrigger>
 
 
                     </form>

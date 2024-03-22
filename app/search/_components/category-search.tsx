@@ -3,9 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { SelectItem } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { CategoryEnumRender } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { useSavedSearchParams } from "@/store";
-import { Category } from "@prisma/client";
+
 import { CarFrontIcon, CaravanIcon, Construction, TractorIcon, TramFrontIcon, TruckIcon } from "lucide-react";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
@@ -35,7 +36,7 @@ const CategorySearch = () => {
         />
     </h3>
     <div className="w-full flex justify-between mt-4">
-        {Object.values(Category).map((category, index) => (
+        {Object.values(CategoryEnumRender).map((category, index) => (
             <div key={index} className="flex flex-col items-center"> 
                 <Button 
                     value={category} 
@@ -50,7 +51,7 @@ const CategorySearch = () => {
                         {
                             'PKW': <CarFrontIcon className="w-6 h-6" />,
                             'LKW': <TruckIcon className="w-6 h-6"/>,
-                            'TRAILOR': <RiCaravanLine className="w-6 h-6"/>,
+                            'TRAILER': <RiCaravanLine className="w-6 h-6"/>,
                             'TRANSPORT': <PiVanFill className="w-6 h-6" />,
                         }[category]
                     }   
@@ -59,7 +60,7 @@ const CategorySearch = () => {
                         {
                             'PKW': "Pkw",
                             'LKW': "Lkw",
-                            'TRAILOR': "Anhänger",
+                            'TRAILER': "Anhänger",
                             'TRANSPORT': "Transporter",
                         }[category]
                     }</span> 

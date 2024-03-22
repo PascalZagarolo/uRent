@@ -2,8 +2,9 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BrandEnumRender } from "@/db/schema";
 import { useSavedSearchParams } from "@/store";
-import { CarBrands, Inserat, LkwBrand } from "@prisma/client";
+
 
 
 import axios from "axios";
@@ -68,7 +69,7 @@ const PkwBrandSearch = () => {
           <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
                                 Beliebig
                             </SelectItem>
-          {Object.values(CarBrands).map((brand, index) => (
+          {Object.values(BrandEnumRender).map((brand, index) => (
                             <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>

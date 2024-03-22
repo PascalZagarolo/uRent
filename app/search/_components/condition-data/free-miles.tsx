@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat, PkwAttribute } from "@prisma/client";
+
 import axios from "axios";
 import { set } from "date-fns";
 import { Banknote, CarTaxiFrontIcon, EuroIcon } from "lucide-react";

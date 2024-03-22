@@ -34,32 +34,6 @@ const OtherInserate: React.FC<OtherInserateProps> = ({
                             thisInserat={pInserat}
                         />
                     ))}
-                    {inserateArray.map((pInserat) => (
-                        <OtherInserateRender
-                            key={pInserat.id}
-                            thisInserat={pInserat}
-                        />
-                    ))}
-                    {inserateArray.map((pInserat) => (
-                        <OtherInserateRender
-                            key={pInserat.id}
-                            thisInserat={pInserat}
-                        />
-                    ))}
-                    {inserateArray.map((pInserat) => (
-                        <OtherInserateRender
-                            key={pInserat.id}
-                            thisInserat={pInserat}
-                        />
-                    ))}
-                    {inserateArray.map((pInserat) => (
-                        <OtherInserateRender
-                            key={pInserat.id}
-                            thisInserat={pInserat}
-                        />
-                    ))}
-                    
-
                 </div>
             ) : (
                 <div className="px-2 max-h-[400px]">

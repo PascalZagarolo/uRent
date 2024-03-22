@@ -63,7 +63,7 @@ const ConversationPage = async () => {
                         {startedConversations.map((conversation) => (
                            <StartedChats
                            key={conversation.id}
-                           conversation={conversation}
+                           conversations={conversation}
                            currentUser = {currentUser}
                            />
                         ))}

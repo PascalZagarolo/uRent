@@ -1,18 +1,19 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
+
 import { MessageCircleDashedIcon } from "lucide-react";
 import StartedChats from "../[conversationId]/_components/started-chats";
 
-import { Conversation, User, Messages } from "@prisma/client";
 
-type ConversationWithUsers = Conversation & { users: User[], messages : Messages[] };
+
+
 
 const ChatSideBar = async () => {
 
     const currentUser = await getCurrentUser();
 
-    let startedConversations: ConversationWithUsers[] = [];
+    let startedConversations;
 
+    /* 
     if(currentUser) {
         startedConversations  = await db.conversation.findMany({
             where : {
@@ -31,7 +32,7 @@ const ChatSideBar = async () => {
         })
     } else {
         startedConversations = [];
-    }
+    }*/
 
     
 
@@ -46,13 +47,16 @@ const ChatSideBar = async () => {
                 <div>
                 {startedConversations.length > 0 ? (
                     <div>
-                    {startedConversations.map((conversation: ConversationWithUsers) => (
+                        {/*
+                            {startedConversations.map((conversation: ConversationWithUsers) => (
                             <StartedChats
                             key={conversation.id}
                             conversation={conversation}
                             currentUser = {currentUser}
                             />
-                        ))}
+                        ))}                        
+                        */}
+                    
                     </div>
                 ) : (
                     <div>

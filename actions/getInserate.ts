@@ -10,18 +10,6 @@ import { and, between, eq, gte, ilike, like, lte } from "drizzle-orm";
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 type GetInserate = {
     title?: string;
     thisCategory?: typeof CategoryEnumRender;

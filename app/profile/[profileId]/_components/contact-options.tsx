@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Globe2Icon, MailCheckIcon, MapPin, PhoneCall, Settings2 } from "lucide-react";
 import AddContactOption from "./add-contact-option";
-import { ContactOptions }   from "@prisma/client";
+
 import { cn } from "@/lib/utils";
+import { contactOptions } from "@/db/schema";
 
 interface ContactOptionsProps {
-    contacts : ContactOptions;
+    contacts : typeof contactOptions.$inferSelect;
     ownProfile : boolean;
 }
 

@@ -13,9 +13,9 @@ export async function PATCH(
         const values = await req.json();
 
         const updatedProfile = await db.update(users).set({
-                ...values
+        ...values
         }).where(eq(users.id, params.profileId)).returning()
-
+        console.log(updatedProfile)
         return NextResponse.json(updatedProfile[0])
 
     } catch (error) {

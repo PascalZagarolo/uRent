@@ -34,7 +34,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     },[]) */
 
     const router = useRouter();
-
+    console.log(inseratOwner)
     return (
         <div className="px-4 py-4 bg-[#171923] xl:min-w-[360px] sm:w-2/5 w-full 
           rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
@@ -86,7 +86,8 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             </div>
 
             <div className="mt-4">
-                <Button className="w-full flex bg-[#1f222f]  dark:text-gray-100 text-gray-300 dark:hover:bg-[#282b3b]" onClick={() => { router.push(`/profile/${inseratOwner.id}`) }}>
+                <Button className="w-full flex bg-[#1f222f]  dark:text-gray-100 text-gray-300 dark:hover:bg-[#282b3b]" 
+                onClick={() => { router.push(`/profile/${inseratOwner.id}`) }}>
                     <User2 className="w-6 h-6 mr-2" />  Zum Profil
                 </Button>
             </div>

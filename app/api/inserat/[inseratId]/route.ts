@@ -15,7 +15,7 @@ export async function PATCH(
         
         const usedBegin = new Date(begin);
         const usedEnd = new Date(end);
-        const usedInitial = new Date(initial);
+        
 
         console.log(usedBegin)
 
@@ -25,9 +25,6 @@ export async function PATCH(
             },
             ...(end) && {
                 end : usedEnd
-            },
-            ...(initial) && {
-                inital : usedInitial
             },
             ...values,
         }).where(eq(inserat.id, params.inseratId)).returning();

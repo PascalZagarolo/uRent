@@ -1,19 +1,18 @@
 import { CarIcon } from "lucide-react";
-import { Rezension, User } from "@prisma/client";
+
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 import { format } from "date-fns";
+import { rezension } from "@/db/schema";
 
-type RezensionWithSender = Rezension & {
-    sender: User;
-  };
+
 
 interface RezensionenRenderProps {
-    rezension : RezensionWithSender
+    thisRezension : typeof rezension.$inferSelect;
 }
 
 const RezensionenRender: React.FC<RezensionenRenderProps> = ({
-    rezension
+    thisRezension
 }) => {
     return ( 
         <Dialog>
@@ -32,14 +31,14 @@ const RezensionenRender: React.FC<RezensionenRenderProps> = ({
                 />
             </div>
             <div className="ml-4 font-semibold">
-                {rezension.sender.name}
+                {thisRezension[0].sender.name}
             </div>
             <div className="ml-auto flex font-bold">
-                {rezension.rating}/5 <CarIcon className="ml-2 text-blue-800"/>
+                {thisRezension[0].rating}/5 <CarIcon className="ml-2 text-blue-800"/>
             </div>
             </div>
             <div className="mt-2 truncate  text-gray-800 dark:text-gray-100">
-            {rezension.content}
+            {thisRezension[0].content}
             </div>
         </div>
        </DialogTrigger>
@@ -58,9 +57,9 @@ const RezensionenRender: React.FC<RezensionenRenderProps> = ({
                 
                 
                 <div className="ml-4 text-lg">
-                    {rezension.sender.name}
+                    {thisRezension[0].sender.name}
                     <p className="text-xs dark:text-gray-100/70">
-                        {rezension.sender.email}
+                        {thisRezension[0].sender.email}
                     </p>
                 </div>
                 
@@ -69,16 +68,16 @@ const RezensionenRender: React.FC<RezensionenRenderProps> = ({
             <div className=" items-center mr-8">
                     <div className="flex font-bold items-center">
                     <div className=" mr-4 text-xs text-gray-100/60 flex gap-x-2">
-                  <p className="text-gray-100/80">erstellt : </p>  {format(new Date(rezension.createdAt), "dd.MM.yyyy")}
+                  <p className="text-gray-100/80">erstellt : </p>  {format(new Date(thisRezension[0].createdAt), "dd.MM.yyyy")}
                 </div>
                         <p className="ml-auto text-sm">
-                        {rezension.rating}/5 
+                        {thisRezension[0].rating}/5 
                         </p>
                     </div>
                 </div>
         </DialogHeader>
         <div>
-            {rezension.content} 
+            {thisRezension[0].content} 
         </div>
         <div>
           

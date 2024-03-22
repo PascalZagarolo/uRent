@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -10,15 +13,11 @@ export async function PATCH(
 
         const image = body.image
 
-        const patchedProfile = await db.user.update({
-            where : {
-                id : params.profileId
-            }, data : {
-                image : image
-            }
-        })
-
-        return NextResponse.json(patchedProfile);
+        const patchedProfile = await db.update(users).set({
+            image : image
+        }).where(eq(users.id, params.profileId)).returning();
+        console.log(patchedProfile)
+        return NextResponse.json(patchedProfile[0]);
     } catch (error) {
         console.log("Fehler beim Profilbild hochladen : ", error);
         return new NextResponse("Interner Server Error", { status : 500 })

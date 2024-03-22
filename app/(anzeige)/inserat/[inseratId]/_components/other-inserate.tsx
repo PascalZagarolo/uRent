@@ -24,17 +24,41 @@ const OtherInserate: React.FC<OtherInserateProps> = ({
                 <div className="w-3/5 truncate font-semibold">{thisUser?.name}</div>
             </h3>
             <div className="px-2 mt-2">
-                <Separator className="w-full bg-[#1D1F2B] h-[0.5px]" />
+                <Separator className="w-full bg-[#393c53] h-[0.5px]" />
             </div>
             {inserateArray.length > 0 ? (
                 <div className="px-2 py-2 space-y-4 max-h-[400px] overflow-y-scroll no-scrollbar">
-                    {inserateArray.map((inserat) => (
+                    {inserateArray.map((pInserat) => (
                         <OtherInserateRender
-                            key={inserat.id}
-                            //@ts-ignore
-                            thisInserat={inserat}
+                            key={pInserat.id}
+                            thisInserat={pInserat}
                         />
                     ))}
+                    {inserateArray.map((pInserat) => (
+                        <OtherInserateRender
+                            key={pInserat.id}
+                            thisInserat={pInserat}
+                        />
+                    ))}
+                    {inserateArray.map((pInserat) => (
+                        <OtherInserateRender
+                            key={pInserat.id}
+                            thisInserat={pInserat}
+                        />
+                    ))}
+                    {inserateArray.map((pInserat) => (
+                        <OtherInserateRender
+                            key={pInserat.id}
+                            thisInserat={pInserat}
+                        />
+                    ))}
+                    {inserateArray.map((pInserat) => (
+                        <OtherInserateRender
+                            key={pInserat.id}
+                            thisInserat={pInserat}
+                        />
+                    ))}
+                    
 
                 </div>
             ) : (

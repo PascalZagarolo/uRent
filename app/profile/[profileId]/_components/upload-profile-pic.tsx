@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { CldUploadButton } from 'next-cloudinary';
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -11,7 +11,7 @@ import { UploadCloudIcon } from "lucide-react";
 const UploadProfilePic = () => {
 
     const params = useParams();
-
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
     const handleImageUpload = (result : any) => {
@@ -19,6 +19,8 @@ const UploadProfilePic = () => {
             setIsLoading(true)
             axios.patch(`/api/profile/${params.profileId}/profilepicture`, {
                 image : result?.info?.secure_url
+            }).then(() => {
+                router.refresh();
             })
             toast.success("Profilbild erfolgreich hochgeladen")
         } catch {
@@ -35,7 +37,8 @@ const UploadProfilePic = () => {
             uploadPreset="oblbw2xl"
             options={{ maxFiles : 1}}
             >
-            <p className="flex justify-center text-sm font-bold text-gray-900/90  "> <UploadCloudIcon className="mr-2"/> Profilbild bearbeiten </p>
+            <p className="flex justify-center text-sm font-bold text-gray-900/90  "> 
+            <UploadCloudIcon className="mr-2"/> Profilbild bearbeiten </p>
             </CldUploadButton>
         </div>
      );

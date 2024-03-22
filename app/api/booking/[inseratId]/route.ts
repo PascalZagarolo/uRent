@@ -22,6 +22,7 @@ export async function POST(
             userId: values.userId,
             startDate : usedStart,
             endDate : usedEnd,
+            content : values.content,
         }).returning();
 
         console.log(createdBooking);

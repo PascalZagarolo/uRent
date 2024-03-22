@@ -57,7 +57,9 @@ const InseratAnzeige = async ({
             eq(inserat.userId, thisInserat.user.id),
             eq(inserat.isPublished, true)
            
-        )
+        ), with : {
+            images : true
+        }
     })
 
 
@@ -196,8 +198,8 @@ const InseratAnzeige = async ({
                                 </div>
                                 <div className="w-1/2 truncate flex font-semibold text-sm ">
                                     <GiReceiveMoney className="w-4 h-4 mr-2 text-emerald-600" />
-                                    Extrapreis /Km : 
-                                    {thisInserat?.pkwAttribute?.extraCost ? thisInserat?.pkwAttribute?.extraCost + " €" : "Keine Kosten angegeben"}
+                                    Extrapreis /Km : {thisInserat?.pkwAttribute?.extraCost ? thisInserat?.pkwAttribute?.extraCost + " €" 
+                                    : "Keine Kosten angegeben"}
                                 </div>
                             </div>
                         )}
@@ -283,11 +285,11 @@ const InseratAnzeige = async ({
                 <div className=" p-2 xl:mt-24 sm:flex justify-center xl:block">
 
                     <div className="xl:hidden flex sm:block justify-center">
-                        
+                                                        
                         <ProfileView
                             thisUser={thisInserat.user}
                             inseratArray={inseratArray.length}
-                            inseratOwner={inserat.user}
+                            inseratOwner={thisInserat.user}
                             averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                         />
                        
@@ -308,7 +310,7 @@ const InseratAnzeige = async ({
                         <ProfileView
                             thisUser={thisInserat.user}
                             inseratArray={inseratArray.length}
-                            inseratOwner={inserat.user}
+                            inseratOwner={thisInserat.user}
                             averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
                         />
                         

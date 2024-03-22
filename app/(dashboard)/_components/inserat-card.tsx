@@ -47,7 +47,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 }) => {
 
-    const isOwn = currentUser?.id === thisInserat.userId;
+    const isOwn = currentUser?.id === thisInserat?.userId;
 
     const formatDate = (inputDate: Date): string => {
         const day = inputDate?.getDate().toString().padStart(2, '0');

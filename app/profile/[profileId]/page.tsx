@@ -1,56 +1,47 @@
-import { db } from "@/utils/db";
+
 import ProfileHeader from "./_components/profile-header";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { Rezension, User } from "@prisma/client";
+
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import { Contact2Icon, TruckIcon, UsersIcon } from "lucide-react";
 import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
+import db from "@/db/drizzle";
+import { and, eq } from "drizzle-orm";
+import { inserat, rezension, users } from "@/db/schema";
 
 
 
 
-
-type RezensionWithSender = Rezension & {
-    sender: User;
-};
 
 const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
-    const user = await db.user.findUnique({
-        where: {
-            id: params.profileId
-        }
-    })
+    const [thisUser] = await db.select().from(users).where(eq(users.id, params.profileId))
+
+    console.log(thisUser)
 
     const currentUser = await getCurrentUser();
 
-    const ownProfile = currentUser?.id === user.id ? true : false;
+    const ownProfile = currentUser?.id === thisUser.id ? true : false;
 
-    const inserate = await db.inserat.findMany({
-        where: {
-            userId: params.profileId,
-            isPublished: true
-        }, include: {
-            images: true,
-            user: true,
-
+    const foundInserate = await db.query.inserat.findMany({
+        where : (
+            and(
+                eq(inserat.userId, params.profileId),
+                eq(inserat.isPublished, true)
+            )
+        ), with : {
+            images : true,
+            user : true
         }
     })
 
-    const notifications = await db.notification.findMany({
-        where: {
-            userId: currentUser?.id
-        }
-    })
+    
 
-    const rezensionen: RezensionWithSender[] = await db.rezension.findMany({
-        where: {
-            receiverId: params.profileId
-        }, include: {
-            sender: true
-
-        }
+    const rezensionen = await db.query.rezension.findMany({
+        where : (
+            eq(rezension.receiverId, params.profileId)
+        )
     })
 
 
@@ -60,12 +51,12 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    notifications={notifications} />
+                     />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
-                    notifications={notifications}
+                    
                 />
             </div>
             <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">
@@ -83,15 +74,16 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                     <Contact2Icon className="mr-2" />Profildetails
                                 </h1>
                             </div>
+                            
                             <ProfileHeader
-                                user={user}
+                                user={thisUser}
                                 currentUser={currentUser}
 
                             />
                             <div>
                                 <div className="mt-8 px-4">
                                     <h1 className="text-lg font-semibold flex items-center">
-                                        <TruckIcon className="mr-2" />Weitere Inhalte <p className=" ml-2 text-sm">{inserate.length}</p>
+                                        <TruckIcon className="mr-2" />Weitere Inhalte <p className=" ml-2 text-sm">{foundInserate.length}</p>
                                     </h1>
                                 </div>
                             </div>
@@ -99,7 +91,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                         
                         <div>
                         <OwnContentSlide
-                            inserat={inserate}
+                            foundInserate={foundInserate}
                             currentUser={currentUser}
                         />
                         </div>

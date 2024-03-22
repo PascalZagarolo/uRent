@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { values } from "lodash";
-import { ContactIcon, Globe2, Home, Locate, LocateFixed, MailCheck, MailOpenIcon, Map, MapPin, Navigation, PlugZap, Settings2 } from "lucide-react";
+import { ContactIcon, Globe2, Home, Locate, MailOpenIcon, Map, MapPin, Navigation, PlugZap, Settings2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

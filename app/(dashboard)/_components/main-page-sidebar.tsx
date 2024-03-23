@@ -14,6 +14,7 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
+import { useGetFilterAmount } from "@/store";
 
 const MainPageSideBar= () => {
     const pathname = usePathname();
@@ -48,9 +49,9 @@ const MainPageSideBar= () => {
 
         router.push(url)
     }
-    /*
+   
     const results = useGetFilterAmount((state) => state.amount);
-    */
+    
     
     return (
         <div className=" rounded-md  no-scrollbar w-[280px] hidden xl:block bg-[#202336]  sm:overflow-auto    ">
@@ -126,7 +127,7 @@ const MainPageSideBar= () => {
                     justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                     dark:text-gray-100 dark:hover:bg-sky-700
                     ">
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> 426 </p> Ergebnisse
+                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
                     </Button>
                 </div>
             </div>

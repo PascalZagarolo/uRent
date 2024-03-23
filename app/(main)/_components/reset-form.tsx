@@ -1,30 +1,30 @@
-'use client'
+"use client";
 
-import { Button } from "@/components/ui/button";
-
-
-
-import {  useForm } from 'react-hook-form';
+import * as z from "zod";
+import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
-
-
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { date, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,  
+} from "@/components/ui/form";
+
+import { Button } from "@/components/ui/button";
+
 import { reset } from "@/actions/reset";
-import toast from "react-hot-toast";
+import { ResetSchema } from "@/schemas/reset-password-schema";
+import { CardWrapper } from "./card-wrapper";
+import { FormError } from "./form-error";
+import { FormSuccess } from "./form-success";
 
-const ResetForm = () => {
-
-  const ResetSchema = z.object({
-    email: z.string().email({
-      message: "Email is required",
-    }),
-  });
-
+export const ResetForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -45,34 +45,17 @@ const ResetForm = () => {
         .then((data) => {
           setError(data?.error);
           setSuccess(data?.success);
-          if(data?.success) {
-            toast.success("Email wurde gesendet");
-          } else if(data?.error) {
-            toast.error(data.error);
-          }
         });
     });
   };
 
   return (
-    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md ">
-      <div
-        className="
-        bg-white
-          px-4
-          py-8
-          shadow
-          sm:rounded-lg
-          sm:px-10
-          border-gray-200
-          border-2
-          drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-          dark:bg-[#161616]
-          dark:border-[#161616]
-        "
-      >
-
-<Form {...form}>
+    <CardWrapper
+      headerLabel="Forgot your password?"
+      backButtonLabel="Zurück zum Login"
+      backButtonHref="/login"
+    >
+      <Form {...form}>
         <form 
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-6"
@@ -89,7 +72,6 @@ const ResetForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="john.doe@example.com"
-                      className="dark:bg-[#3B3B3B] "
                       type="email"
                     />
                   </FormControl>
@@ -98,23 +80,17 @@ const ResetForm = () => {
               )}
             />
           </div>
-          
+          <FormError message={error} />
+          <FormSuccess message={success} />
           <Button
             disabled={isPending}
             type="submit"
             className="w-full"
           >
-            Passwort zurücksetzen
+            Email senden
           </Button>
         </form>
       </Form>
-
-        
-        
-      </div>
-      
-    </div>
+    </CardWrapper>
   );
-}
-
-export default ResetForm;
+};

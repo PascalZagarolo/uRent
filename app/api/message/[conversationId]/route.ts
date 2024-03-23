@@ -1,7 +1,9 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
+
 import { NextResponse } from "next/server";
 import { pusherServer } from "@/lib/pusher";
+import db from "@/db/drizzle";
+import { message } from "@/db/schema";
 
 export async function POST(
     req : Request,
@@ -14,14 +16,11 @@ export async function POST(
         const values = await req.json();
 
 
-        const newMessage = await db.messages.create({
-            data : {
-                conversationId: params.conversationId,
-                ...values,
-                senderId : currentUser.id,
-                
-            }
-        });
+        const [newMessage] = await db.insert(message).values({
+            conversationId : params.conversationId,
+            senderId : currentUser.id,
+            ...values
+        }).returning();
 
         await pusherServer.trigger(params.conversationId, 'messages:new', newMessage);
 

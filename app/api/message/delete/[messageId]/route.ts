@@ -1,5 +1,8 @@
+import db from "@/db/drizzle";
+import { message } from "@/db/schema";
 import { pusherServer } from "@/lib/pusher";
-import { db } from "@/utils/db";
+import { eq } from "drizzle-orm";
+
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -8,19 +11,17 @@ export async function DELETE(
 ) { 
     try {
 
-        const message = await db.messages.findUnique({
-            where : {
-                id : params.messageId
-            }
+        const foundMessage = await db.query.message.findFirst({
+            where : (
+               eq( message.id, params.messageId)
+            )
         })
         
-        const conversationId = message.conversationId;
+        const conversationId = foundMessage.conversationId;
 
-        const deletedMessage = await db.messages.delete({
-            where :{
-                id : params.messageId
-            }
-        })
+        const [deletedMessage] = await db.delete(message).where(
+            eq(message.id, params.messageId)
+        ).returning()
 
         await pusherServer.trigger(conversationId, 'messages:delete', deletedMessage);
 

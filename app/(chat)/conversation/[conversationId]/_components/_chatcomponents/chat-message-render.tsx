@@ -127,7 +127,8 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                         </div>
 
                         {showDate && (
-                            <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60  dark:text-gray-100/60", isOwn ? "text-right" : "text-left")}>
+                            <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60  dark:text-gray-100/60", 
+                            isOwn ? "text-right" : "text-left")}>
                             {format(new Date(messages.createdAt), "HH:mm")} Uhr
                         </p>
                         )}

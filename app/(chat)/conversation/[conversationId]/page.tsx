@@ -80,13 +80,13 @@ const ConversationPage = async ({
         }
     })
 
-    const otherUser = conversation.user1Id === currentUser.id ? conversation.user2Id : conversation.user1Id;
+    const otherUserId = thisConversation.user1Id === currentUser.id ? thisConversation.user2Id : thisConversation.user1Id;
 
-    
+    console.log(otherUserId)
 
     const otherUserDetails = await db.query.users.findFirst({
         where : eq(
-            users.id, otherUser
+            users.id, otherUserId
         )
     })
 
@@ -165,7 +165,7 @@ const ConversationPage = async ({
                                 />
                             </div>
                             <div className="sticky bottom-0 w-full flex items-center border-t border-gray-600/10 ">
-                                <ChatInput />
+                            <ChatInput />
                             </div>
                         </div>
                     </div>

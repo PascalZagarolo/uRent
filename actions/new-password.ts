@@ -57,7 +57,7 @@ export const newPassword = async (
     password : hashedPassword
   }).where(eq(users.id, existingUser.id))
 
-  await db.delete(resetPasswordToken).where(eq(resetPasswordToken.identifier, existingToken.id))
+  await db.delete(resetPasswordToken).where(eq(resetPasswordToken.identifier, existingToken.identifier))
 
   return { success: "Password geändert!" };
 };

@@ -1,4 +1,4 @@
-import { Inserat, TrailerAttribute, TransportAttribute} from "@prisma/client";
+
 
 
 import TransportLoading from "./transport/transport-loading";

@@ -10,8 +10,14 @@ export async function PATCH(
 ) {
     try {
 
+        const foundInserat = await db.query.inserat.findFirst({
+            where : (
+                eq(inserat.id, params.inseratId)
+            )
+        })
+
         const updateInserat = await db.update(inserat).set({
-            views : inserat.views + 1
+            views : (foundInserat.views + 1)
         }).where(eq(inserat.id, params.inseratId)).returning()
 
         return NextResponse.json(updateInserat[0])

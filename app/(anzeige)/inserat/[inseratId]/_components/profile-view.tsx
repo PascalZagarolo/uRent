@@ -28,10 +28,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const params = useParams();
 
     const [firstReload, setFirstReload] = useState(false);
-    /*
+   
     useEffect(() => {
         axios.patch(`/api/inserat/${params.inseratId}/view`);
-    },[]) */
+    },[]) 
 
     const router = useRouter();
     console.log(inseratOwner)

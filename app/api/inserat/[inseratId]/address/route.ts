@@ -20,13 +20,13 @@ export async function PATCH(
 
         if(!existingAddressObject) {
 
-            const [patchedAddress] = await db.insert(address).values({
+            const patchedAddress = await db.insert(address).values({
                 inseratId : params.inseratId,
                 ...values,
             }).returning()
 
-            const [patchedOrigin] = await db.update(inserat).set({
-                addressId : patchedAddress.id
+            const patchedOrigin = await db.update(inserat).set({
+                addressId : patchedAddress[0].id
             }).where(eq(inserat.id, params.inseratId)).returning();
 
             return NextResponse.json({patchedAddress, patchedOrigin});

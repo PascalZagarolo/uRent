@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { inserat } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -7,13 +10,9 @@ export async function DELETE(
 ) {
     try {
 
-        const deletedInserat = await db.inserat.delete({
-            where : {
-                id : params.inseratId
-            }
-        })
+        const deletedInserat = await db.delete(inserat).where(eq(inserat.id, params.inseratId)).returning()
 
-        return NextResponse.json(deletedInserat)
+        return NextResponse.json(deletedInserat[0])
 
     } catch(error) {
         console.log(error);

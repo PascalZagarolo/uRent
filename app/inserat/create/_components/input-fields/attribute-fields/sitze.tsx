@@ -3,8 +3,9 @@
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { inserat } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Inserat, PkwAttribute } from "@prisma/client";
+
 
 import axios from "axios";
 
@@ -17,11 +18,11 @@ import { z } from "zod";
 
 
 interface SitzeProps {
-  inserat : Inserat & { pkwAttribute : PkwAttribute }
+  thisInserat : typeof inserat.$inferSelect
 }
 
 const Sitze: React.FC<SitzeProps> = ({
-  inserat
+  thisInserat
 }) => {
 
     const params = useParams();
@@ -40,7 +41,7 @@ const Sitze: React.FC<SitzeProps> = ({
       const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
-          sitze : inserat.pkwAttribute?.seats
+          sitze : thisInserat.pkwAttribute?.seats
         }
       })
    
@@ -74,7 +75,7 @@ const Sitze: React.FC<SitzeProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Sitzplätze</FormLabel>
-              <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={inserat.pkwAttribute?.seats.toString()}>
+              <Select onValueChange={(selectedValue) => {onSubmit(Number(selectedValue))}} defaultValue={thisInserat.pkwAttribute?.seats.toString()}>
                 <FormControl>
                   <SelectTrigger className="min-w-[200px] dark:bg-[#151515] dark:border-none"  >
                     <SelectValue placeholder="Wähle die Menge der Sitzplätze aus" />

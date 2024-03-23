@@ -25,7 +25,7 @@ export async function PATCH(
                 ...values,
             }).returning()
 
-            const [patchedOrigin] = await db.update(inserat).set({
+            const patchedOrigin = await db.update(inserat).set({
                 trailerId : patchedInserat.id
             }).where(eq(inserat.id, params.inseratId)).returning();
 

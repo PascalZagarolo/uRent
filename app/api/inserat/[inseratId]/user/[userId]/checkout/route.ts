@@ -1,5 +1,8 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { inserat, purchase, stripeCustomer, users } from "@/db/schema";
 import { stripe } from "@/lib/stripe";
+import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -10,29 +13,32 @@ export async function POST(
     try {
 
 
-        const user = await db.user.findUnique({
-            where : {
-                id : params.userId
-            }
+        const thisUser = await db.query.users.findFirst({
+            where : (
+                eq(users.id, params.userId)
+            )
         })
 
-        const inserat = await db.inserat.findUnique({
-            where : {
-                id : params.inseratId,
-                isPublished : true
-            }, 
+        const thisInserat = await db.query.inserat.findFirst({
+            where : (
+                and(
+                    eq(inserat.id, params.inseratId),
+                    eq(inserat.isPublished, true)
+                )
+                
+            )
         })
 
-        const purchase = await db.purchase.findUnique({
-            where : {
-                inseratId_userId : {
-                    inseratId : params.inseratId,
-                    userId : params.userId
-                 }
-            }
+        const existingPurchase = await db.query.purchase.findFirst({
+            where : (
+                and(
+                    eq(purchase.inseratId, thisInserat.id),
+                    eq(purchase.userId, thisUser.id)
+                )
+            )
         })
 
-        if(purchase) {
+        if(existingPurchase) {
             return new NextResponse("Inserat bereits gekauft" , { status : 400 })
         }
 
@@ -50,29 +56,31 @@ export async function POST(
             }
         ];
 
-        let stripeCustomer = await db.stripeCustomer.findUnique({
-            where : {
-                userId : params.userId
-            }, select : {
-                stripeCustomerId : true  
+        let thisCustomer: typeof stripeCustomer.$inferSelect = await db.query.stripeCustomer.findFirst({
+            where : (
+                eq(stripeCustomer.userId, thisUser.id)
+            ), with : {
+                stripeCustomer : true
             }
         })
 
-        if(!stripeCustomer) {
+        if(!thisCustomer) {
+            
             const customer = await stripe.customers.create({
-                email : user.email,
-            });
-
-            stripeCustomer = await db.stripeCustomer.create({
-                data : {
-                    userId : params.userId,
-                    stripeCustomerId : customer.id  
-                }
+                email : thisUser.email
+            
             })
+
+            const createdCustomer = await db.insert(stripeCustomer).values({
+                userId : params.userId,
+                stripeCustomerId : customer.id,
+                createdAt : new Date(),
+                updatedAt : new Date(),
+            }).returning();
         }
 
         const session = await stripe.checkout.sessions.create({
-            customer : stripeCustomer.stripeCustomerId,
+            customer : thisCustomer.stripeCustomerId,
             line_items,
             mode: 'payment',
             success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}?success=1`,

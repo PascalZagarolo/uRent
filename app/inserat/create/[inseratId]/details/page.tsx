@@ -1,14 +1,15 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
 import ReturnBackTo from "./_components/return-back-to";
+import { eq } from "drizzle-orm";
+import { inserat } from "@/db/schema";
 
 const DetailsPage = async ({
     params
 } : { params : { inseratId : string }}) => {
 
-    const inserat = await db.inserat.findUnique({
-        where : {
-            id : params.inseratId
-        }
+    const thisInserat = await db.query.inserat.findFirst({
+        where : eq(inserat.id, params.inseratId)
     })
 
     const renderSwitch = (category : string) => {
@@ -36,10 +37,10 @@ const DetailsPage = async ({
                 <h3 className="text-2xl p-4 flex font-bold">
                  <div className="mr-4">
                  <ReturnBackTo
-                 inseratId = {inserat.id}
+                 inseratId = {thisInserat.id}
                  />
                  </div> 
-                 <p className="font-medium mr-2">  Details - </p> {renderSwitch(inserat.category)}
+                 <p className="font-medium mr-2">  Details - </p> {renderSwitch(thisInserat.category)}
                 </h3>
             </div>
         </div>

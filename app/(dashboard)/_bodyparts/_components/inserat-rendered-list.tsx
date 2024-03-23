@@ -31,7 +31,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
         setRenderedList(inserateArray)
     }, [inserateArray])
 
-    /*
+    
     useGetFilterAmount.setState({ amount: inserateArray.length })
 
     useEffect(() => {
@@ -46,7 +46,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
 
     const startIndex = (currentPage ? parseInt(currentPage) - 1 : 0) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-*/
+
 
 
     return (

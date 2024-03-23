@@ -131,7 +131,7 @@ export const getInserate = async ({
                     transportAttribute: true,
             }
         })
-
+        
         return foundInserate;
 
     } catch {

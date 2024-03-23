@@ -41,7 +41,7 @@ const DeleteMessage: React.FC<DeleteMessageProps> = ({
                         <TrashIcon className="w-4 h-4 text-right " />
                     </div>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="dark:border-none dark:bg-[#0F0F0F]">
                     <DialogHeader>
                         <DialogTitle className="font-bold flex">
                             <X className="text-rose-600" /> Möchtest du diese Nachricht wirklich löschen ?
@@ -58,7 +58,7 @@ const DeleteMessage: React.FC<DeleteMessageProps> = ({
                         </DialogTrigger>
 
                         <DialogTrigger>
-                            <Button className="bg-rose-600 hover:bg-rose-400" onClick={onClick}>
+                            <Button className="bg-rose-600 hover:bg-rose-400 dark:text-gray-200" onClick={onClick}>
                                 Endgültig löschen
                             </Button>
                         </DialogTrigger>

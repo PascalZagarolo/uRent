@@ -33,7 +33,8 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     const router = useRouter();
     return ( 
         <div className={cn(`flex items-center mr-auto w-full  p-4  
-         text-gray-800 dark:text-gray-100/90 font-semibold hover:cursor-pointer`, isOnSite ? "dark:bg-[#0F0F0F] bg-[#404040]/10" : "bg-white dark:bg-[#1c1c1c]")}
+         text-gray-800 dark:text-gray-100/90 font-semibold hover:cursor-pointer border-t border-b dark:border-[#1C1C1C]`, 
+         isOnSite ? "dark:bg-[#0F0F0F] bg-[#404040]/10" : "bg-white dark:bg-[#1c1c1c]")}
          onClick={onClick}
          >
 

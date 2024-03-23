@@ -3,7 +3,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string"
-import type { Category } from "@prisma/client";
+
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 const OrderBy = () => {

@@ -3,7 +3,7 @@
 
 
 import { Dialog, DialogContent, DialogHeader, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
-import { Images } from "@prisma/client";
+
 
 import { ImageIcon, Trash2Icon } from "lucide-react";
 import ImageList from "./image-list";

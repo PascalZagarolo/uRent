@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { images } from "@/db/schema";
-import { Images } from "@prisma/client";
+
 import axios from "axios";
 
 import { Trash, X } from "lucide-react";

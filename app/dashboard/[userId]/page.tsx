@@ -33,7 +33,7 @@ const DashboardPage = async ({
         )  
     })
 
-    let involvedBookings;
+    let involvedBookings : typeof booking[] = [];
 
     if(foundInserate.length > 0) {
         for (let i = 0; i < foundInserate.length; i++) {
@@ -46,8 +46,8 @@ const DashboardPage = async ({
                     inserat : true,
                 }
             })
-    
-            involvedBookings?.push(...bookings);
+        //@ts-ignore
+            involvedBookings.push(...bookings);
         }
     }
 
@@ -95,7 +95,7 @@ const DashboardPage = async ({
                 <div className="min-h-screen">
                     <div className="p-4 mt-4  rounded-lg ">
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                            <TrendingUp className="mr-4" /> Übersicht <p className="ml-4 text-lg"> </p>
+                            <TrendingUp className="mr-4" /> Übersicht  <p className="ml-4 text-lg"> </p>
                         </h3>
 
                         <div className="w-full dark:bg-[#141414] p-4  flex justify-evenly mt-2 rounded-md">
@@ -112,12 +112,13 @@ const DashboardPage = async ({
 
                             <div className="sm:w-3/5 mr-4">
                                 <h3 className="flex text-lg font-semibold items-center">
-                                    <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender
+                                    <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender 
                                 </h3>
                                 <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
                                     
                                     <EventCalendar
                                         everyInserat={everyInserat}
+                                        //@ts-ignore
                                         bookings={involvedBookings}
                                     />
                                    

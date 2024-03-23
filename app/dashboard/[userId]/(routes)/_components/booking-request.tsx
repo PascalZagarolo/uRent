@@ -63,7 +63,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
         <div className="dark:bg-[#141414] p-4 mb-4 rounded-md border dark:border-none ">
             <div className="flex w-full truncate font-semibold items-center">
              <CarFrontIcon className="w-4 h-4 mr-2"/>    <p className="w-[200px] truncate">
-             {request[0].inserat?.title} 
+             {//@ts-ignore
+             request.inserat?.title} 
              </p>
              <div className="ml-auto">
                 <Button className=" p-4 mr-2" variant="ghost" size="sm" onClick={onAccept}>
@@ -77,7 +78,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
             <div className="justify-center flex w-full h-[100px] mt-2">
                 <Image 
                 className="min-h-[50px] min-w-[300px] object-cover flex justify-center"
-                src={request[0].inserat?.images[0]?.url}
+                src={//@ts-ignore
+                    request.inserat?.images[0]?.url}
                 alt="Inserat-Bild"
                 width={200}
                 height={50}
@@ -90,7 +92,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <div className="mr-2">
                     <Image 
                     className="w-[30px] h-[30px] rounded-full"
-                    src={request[0].user.image || "/placeholder-person.jpg"}
+                    src={//@ts-ignore
+                        request.user.image || "/placeholder-person.jpg"}
                     alt="Profilbild"
                     width={30}
                     height={30}
@@ -98,7 +101,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 </div>
                     <div>
                    
-                    <p className="font-semibold">{request[0].user?.name}</p>
+                    <p className="font-semibold">{//@ts-ignore
+                    request.user?.name}</p>
                     </div>
                 
                 </div>
@@ -116,7 +120,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
             </div>
             <div className="w-full mt-2">
                 <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex" 
-                onClick={() => {router.push(`/conversation/${request[0].user.id}`)}}>
+                //@ts-ignore
+                onClick={() => {router.push(`/conversation/${request.user.id}`)}}>
                    <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                 </Button>
             </div>

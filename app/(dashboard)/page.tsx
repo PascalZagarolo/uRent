@@ -102,13 +102,11 @@ const Main = async ({
 
     return (
         <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
-           
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
                      />
             </div>
-            
             <div>
                 <div className="relative flex justify-center mt-4">
                     

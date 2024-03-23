@@ -1,7 +1,10 @@
-import { db } from "@/utils/db";
+
 import { NextResponse } from "next/server";
 import getCurrentUser from '@/actions/getCurrentUser';
 import { pusherServer } from "@/lib/pusher";
+import db from "@/db/drizzle";
+import { and, eq, or } from "drizzle-orm";
+import { conversation, inserat, message } from "@/db/schema";
 
 export async function POST(
     req : Request,
@@ -11,62 +14,60 @@ export async function POST(
         
         const  { text } = await req.json()
 
-        const inserat = await db.inserat.findUnique({
-            where : {
-                id : params.inseratId
+        const thisInserat = await db.query.inserat.findFirst({
+            where : (
+                eq(inserat.id, params.inseratId)
+            ), with : {
+                user : true
             }
         })
 
-        const inseratOwner = await db.user.findUnique({
-            where : {
-                id : inserat.userId
-            }
-        })
+        
 
         const currentUser = await getCurrentUser();
 
-        if (inseratOwner.id === currentUser.id) {
+        if (thisInserat.user.id === currentUser.id) {
             return new NextResponse("You can't interest your own inserat", { status: 403 })
         }
 
-        const existingConversation  = await db.conversation.findFirst({
-            where : {
-                userIds : {
-                    hasEvery : [inseratOwner.id , currentUser.id]
-                }
-            }
+        const existingConversation = await db.query.conversation.findFirst({
+            where :(
+                or(
+                    and(
+                        eq(conversation.user1Id, thisInserat.user.id),
+                        eq(conversation.user2Id, currentUser.id)
+                    ), and(
+                        eq(conversation.user2Id, thisInserat.user.id),
+                        eq(conversation.user1Id, currentUser.id)
+                    )
+                )
+            )
         })
 
         if(!existingConversation) {
-            const createdConversation = await db.conversation.create({
-                data : {
-                    userIds : [inseratOwner.id , currentUser.id],
-                
-                }
+            const createdConversation = await db.insert(conversation).values({
+                user1Id : currentUser.id,
+                user2Id : thisInserat.user.id
+            }).returning()
+
+            const createMessage = await db.insert(message).values({
+                conversationId : createdConversation[0].id,
+                senderId : currentUser.id,
+                content : text,
+                isInterest : true,
+                inseratId : thisInserat.id
             })
 
-            const createMessage = await db.messages.create({
-                data : {
-                    conversationId : createdConversation.id,
-                    senderId : currentUser.id,
-                    content : text,
-                    isInterest : true,
-                    inseratId : inserat.id
-                }
-            })
-
-            await pusherServer.trigger(createdConversation.id, 'messages:new', createMessage);
+            await pusherServer.trigger(createdConversation[0].id, 'messages:new', createMessage);
 
             return NextResponse.json({createdConversation , createMessage})
         } else {
-            const createMessage = await db.messages.create({
-                data : {
-                    conversationId : existingConversation.id,
-                    senderId : currentUser.id,
-                    content : text,
-                    isInterest : true,
-                    inseratId : inserat.id
-                }
+            const createMessage = await db.insert(message).values({
+                conversationId : existingConversation.id,
+                senderId : currentUser.id,
+                content : text,
+                isInterest : true,
+                inseratId : thisInserat.id
             })
 
             await pusherServer.trigger(existingConversation.id, 'messages:new', createMessage);

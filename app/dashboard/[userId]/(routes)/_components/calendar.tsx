@@ -92,6 +92,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
 
     return (
         <div className="container mx-auto p-4 border dark:border-none">
+            
             <div className="mb-4 flex items-center">
                 <Button onClick={decreaseMonth} className="" variant="ghost">
                     <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
@@ -139,14 +140,13 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                 })}
                 {daysInMonth.map((day, index) => {
                     const dateKey = format(day, "yyyy-MM-dd");
-                    const todaysEvents = /*eventsByDate[dateKey] || */[];
+                    const todaysEvents = eventsByDate[dateKey] || [];
                     return (
                         <div key={index}>
                             <CalendarDay
                                 index={index}
                                 day={day}
                                 key={dateKey}
-                                //@ts-ignore
                                 bookings={todaysEvents}
                             />
 

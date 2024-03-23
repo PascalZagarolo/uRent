@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { booking } from "@/db/schema";
-import { Booking, Inserat, User } from "@prisma/client";
+
 import clsx from "clsx";
 import { format, isToday } from "date-fns";
 import { CalendarSearchIcon, CarIcon, UserIcon, X } from "lucide-react";
@@ -43,11 +43,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
       })}
     >
       {format(day, "d")}
-      {bookings?.map((booking: Booking & { inserat: Inserat, user: User }) => {
+      {bookings?.map((pBooking) => {
         return (
 
           <div
-            key={booking.id}
+            key={pBooking.id}
             className="   bg-blue-600 rounded-md p-2 flex justify-center mt-2"
           >
             {inseratFilter ? (
@@ -57,14 +57,18 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                 <HoverCardTrigger><CarIcon className="text-gray-200 w-4 h-4" /></HoverCardTrigger>
                 <HoverCardContent className="dark:bg-[#1C1C1C] border-none">
                   <h3 className="font-semibold flex justify-start">
-                    {booking.inserat.title}
+                    {//@ts-ignore
+                    pBooking.inserat.title}
                   </h3>
-                  <div className="flex items-center justify-start hover:underline hover:cursor-pointer" onClick={() => {router.push(`/profile/${booking.userId}`)}}>
-                    <UserIcon className="h-4 w-4 mr-2" /> {booking?.user?.name} 
+                  <div className="flex items-center justify-start hover:underline hover:cursor-pointer" 
+                  onClick={() => {router.push(`/profile/${booking.userId}`)}}>
+                    <UserIcon className="h-4 w-4 mr-2" /> {//@ts-ignore
+                    pBooking?.user?.name} 
                     <div className="ml-auto">
                     <Image 
                     alt="Mieter-Bild"
-                    src={booking?.user?.image || "/placeholder-person.jpg"}
+                    src={//@ts-ignore
+                      pBooking?.user?.image || "/placeholder-person.jpg"}
                     width={100}
                     height={100}
                     className="w-[32px] h-[32px] rounded-full"
@@ -72,7 +76,8 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                     </div>
                   </div>
                   <div className="flex items-center justify-start">
-                  <CalendarSearchIcon className="h-4 w-4 mr-2" />{format(new Date(booking.startDate), "dd.MM")} - {format(new Date(booking.endDate), "dd.MM")}
+                  <CalendarSearchIcon className="h-4 w-4 mr-2" />
+                  {format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
                   </div>
                 </HoverCardContent>
               </HoverCard>

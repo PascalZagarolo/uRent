@@ -5,7 +5,8 @@ const nextConfig = {
         appDir : true,
         swcPlugins : [
             ["next-superjson-plugin", { }]
-        ]
+        ],
+        missingSuspenseWithCSRBailout : false,
     },
 
     images : {

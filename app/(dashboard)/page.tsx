@@ -23,10 +23,6 @@ import { ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingE
      LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
 
 
-
-
-
-
 interface MainPageProps {
     searchParams: {
         title: string,
@@ -109,13 +105,10 @@ const Main = async ({
             </div>
             <div>
                 <div className="relative flex justify-center mt-4">
-                    
                         <div className="top-0 sm:mr-4 ">
                             <MainPageSideBar />
                         </div>
-                      
-                    <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
-                     
+                    <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]"> 
                     <RelevanteInserate
                             title={searchParams.title}
                             thisCategory={searchParams.category}
@@ -158,7 +151,6 @@ const Main = async ({
 
                             currentUser = {currentUser}
                         />
-                        
                     </div>
                     
                 </div>

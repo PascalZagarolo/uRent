@@ -10,7 +10,7 @@ import { generatePasswordResetToken } from "@/lib/tokens";
 
 const ResetSchema = z.object({
     email: z.string().email({
-      message: "Email is required",
+      message: "Email ist benötigt",
     }),
   });
 
@@ -18,7 +18,7 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
   const validatedFields = ResetSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return { error: "Invalid emaiL!" };
+    return { error: "Ungültige Email!" };
   }
 
   const { email } = validatedFields.data;
@@ -32,10 +32,10 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
   const passwordResetToken = await generatePasswordResetToken(email);
   
   await sendPasswordResetEmail(
-    passwordResetToken[0].email,
-    passwordResetToken[0].token,
+    passwordResetToken?.email,
+    passwordResetToken?.token,
   );
   
 
-  return { success: "Reset email sent!" };
+  return { success: "Email gesendet!" };
 }

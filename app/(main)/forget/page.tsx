@@ -1,14 +1,13 @@
-import ResetForm from "../_components/reset-form";
+import { ResetForm } from "../_components/reset-form";
 
-const ForgetPage = () => {
-    return ( 
-        <div>
-            <h3 className="flex justify-center font-semibold text-xl">
-                Mein Passwort zurücksetzen
-            </h3>
-            <ResetForm/>
+
+
+const ResetPage = () => {
+    return (
+        <div className="w-full flex justify-center">
+            <ResetForm />
         </div>
-     );
+    );
 }
- 
-export default ForgetPage;
+
+export default ResetPage;

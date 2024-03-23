@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { favourite } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -6,11 +9,7 @@ export async function DELETE(
     { params } : { params : { favouriteId : string}}
 ) {
     try {
-        const deletedFavourite = await db.favourite.delete({
-            where : {
-                id : params.favouriteId
-            }
-        })
+        const [deletedFavourite] = await db.delete(favourite).where(eq(favourite.id, params.favouriteId)).returning()
 
         return NextResponse.json(deletedFavourite);
         

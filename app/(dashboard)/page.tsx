@@ -158,10 +158,7 @@ const Main = async ({
                     <PaginationComponent />
                 </div>
             </div>
-
             <Footer />
-   
-    
         </div>
 
 

@@ -8,7 +8,6 @@ const nextConfig = {
         ],
         missingSuspenseWithCSRBailout : false,
     },
-
     images : {
         domains : [
             "www.dropbox.com",

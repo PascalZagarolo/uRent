@@ -2,7 +2,8 @@ import Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import stripe from "stripe";
-import { db } from "@/utils/db";
+import db from "@/db/drizzle";
+import { purchase } from "@/db/schema";
 
 export async function POST(
     req : Request,
@@ -31,12 +32,10 @@ export async function POST(
             return new NextResponse("Invalid metadata: WEBHOOK_2" , { status : 400 })
         }
 
-        await db.purchase.create({
-            data : {
-                inseratId : inseratId,
-                userId : userId,
-            }
-        });
+        await db.insert(purchase).values({
+            inseratId : inseratId,
+            userId : userId
+        })
     } else {
         return new NextResponse("Invalid event type: WEBHOOK_1" , { status : 200 })
     }

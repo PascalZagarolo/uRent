@@ -1,6 +1,9 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import { db } from "@/utils/db";
+import { rezension } from "@/db/schema";
+
 import { NextResponse } from "next/server";
+import { values } from 'lodash';
+import db from "@/db/drizzle";
 
 export async function POST(
     req : Request,
@@ -12,16 +15,14 @@ export async function POST(
 
         const currentUser = await getCurrentUser();
 
-        const postedReview = await db.rezension.create({
-            data : {
-                senderId : currentUser.id,
-                receiverId : params.profileId,
-                rating,
-                content
-            }
-        })
+        const postedReview = await db.insert(rezension).values({
+            senderId : currentUser.id,
+            receiverId : params.profileId,
+            rating : rating,
+            content : content
+        }).returning();
 
-        return NextResponse.json(postedReview);
+        return NextResponse.json(postedReview[0]);
 
     } catch (error) {
         console.log(error);

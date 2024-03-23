@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { booking, bookingRequest, inserat } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -6,27 +9,22 @@ export async function PATCH(
     { params } : { params : { requestId : string}}
 ) {
     try {
-        const findRequest = await db.bookingRequest.findUnique({
-            where : {
-                id : params.requestId
-            }
+        const findRequest = await db.query.bookingRequest.findFirst({
+            where : (
+                eq(bookingRequest.id, params.requestId)
+            )
         })
 
-        const adaptedBooking = await db.booking.create({
-            data : {
-                userId : findRequest?.userId,
-                startDate : findRequest?.startDate,
-                endDate : findRequest?.endDate,
-                content : findRequest?.content,
-                inseratId : findRequest?.inseratId
-            }
-        })
 
-        const deletedRequest = await db.bookingRequest.delete({
-            where : {
-                id : params.requestId
-            }
-        })
+        const [adaptedBooking] = await db.insert(booking).values({
+            userId : findRequest.userId,
+            inseratId : findRequest.inseratId,
+            startDate : findRequest.startDate,
+            endDate : findRequest.endDate,
+            content : findRequest.content
+        }).returning()
+
+        const deletedRequest = await db.delete(bookingRequest).where(eq(bookingRequest.id, params.requestId))
 
         return NextResponse.json(adaptedBooking);
 

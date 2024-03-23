@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { bookingRequest } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -7,11 +10,7 @@ export async function DELETE(
 ) {
     try {
 
-        const rejectedBooking = await db.bookingRequest.delete({
-            where :{
-                id : params.requestId
-            }
-        });
+        const rejectedBooking = await db.delete(bookingRequest).where(eq(bookingRequest.id, params.requestId))
 
         return NextResponse.json(rejectedBooking);
 

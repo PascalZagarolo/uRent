@@ -1,4 +1,7 @@
-import { db } from "@/utils/db";
+
+import db from "@/db/drizzle";
+import { favourite } from "@/db/schema";
+import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -9,30 +12,26 @@ export async function PATCH(
 
         const inseratId = await req.json();
 
-        const alreadyExisting = await db.favourite.findFirst({
-            where : {
-                userId : params.profileId,
-                inseratId : inseratId.inseratId,
-            }
+        const alreadyExisting = await db.query.favourite.findFirst({
+            where : (
+                and(
+                    eq(favourite.userId, params.profileId),
+                    eq(favourite.inseratId, inseratId.inseratId)
+                )
+            )
         })
 
         if(alreadyExisting) {
 
-            const deletedFavourite = await db.favourite.delete({
-                where : {
-                    id : alreadyExisting.id
-                }
-            })
+            const [deletedFavourite] = await db.delete(favourite).where(eq(favourite.id, alreadyExisting.id)).returning();
 
             return NextResponse.json(deletedFavourite);
             
         } else if(!alreadyExisting) {
 
-            const newFavourite = await db.favourite.create({
-                data : {
-                    userId : params.profileId,
-                    inseratId : inseratId.inseratId,
-                }
+            const newFavourite = await db.insert(favourite).values({
+                userId : params.profileId,
+                inseratId : inseratId.inseratId
             })
             return NextResponse.json(newFavourite);
         }

@@ -9,6 +9,7 @@ import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq } from "drizzle-orm";
 import { inserat, rezension, users } from "@/db/schema";
+import { Suspense } from "react";
 
 
 
@@ -60,7 +61,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 />
             </div>
             <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">
-                <div className="md:w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
+                <div className="md:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
                     <div className="min-h-screen">
                         <div className="sm:p-4 p-2">
                             <div>
@@ -89,7 +90,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             </div>
                         </div>
                         
-                        <div>
+                        <div className="p-2">
                         <OwnContentSlide
                             foundInserate={foundInserate}
                             currentUser={currentUser}

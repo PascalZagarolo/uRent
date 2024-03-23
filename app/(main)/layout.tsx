@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
 
 const LoginLayout = async (
@@ -16,7 +17,9 @@ const LoginLayout = async (
     </h3>
 
     <div className="mt-8 flex-grow">
+       
         {children}
+        
     </div>
 </div>
 

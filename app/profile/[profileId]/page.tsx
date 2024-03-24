@@ -60,7 +60,6 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
-                    
                 />
             </div>
             <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">

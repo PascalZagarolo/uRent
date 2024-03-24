@@ -1,5 +1,9 @@
+
 'use server';
 
+
+import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
+import { render } from '@react-email/components';
 import { Resend } from "resend";
 
 
@@ -13,21 +17,13 @@ export const sendVerificationEmail = async (
 
     console.log("sendVerificationEmail" + email + token)
 
+   
+
     await resend.emails.send({
         from: "uRent@u-rent-rental.de",
         to: email,
         subject: "Bestätige deine Anmeldung",
-        html:`
-        <div>
-        <h3 className="font-semibold">
-          uRent - Anmelde Bestätigung
-        </h3>
-        <p>
-        Willkommen bei uRent!
-        </p>
-        <p> Klick <a href=${confirmLink}> hier </a> um deinen Account zu verifizieren. Und den vollen Funktionsumfang von uRent zu erleben. </p>
-        </div>
-        `
+        react : ConfirmMail({confirmLink}) ,
     });
 }
 

@@ -34,7 +34,7 @@ const CookiesDialog = () => {
                     Inhalte und Anzeigen bereitzustellen. <br/>
                     Cookies sind kleine Textdateien, die auf Ihrem Computer oder Mobilgerät 
                     gespeichert werden, wenn Sie unsere Website besuchen.<br/> 
-                    Indem Sie auf "Akzeptieren" klicken, stimmen Sie der 
+                    Indem Sie auf &quot;Akzeptieren&quot; klicken, stimmen Sie der 
                     Verwendung von Cookies gemäß unserer Cookie-Richtlinie zu. Sie können Ihre Cookie-Einstellungen jederzeit ändern, 
                     indem Sie die Einstellungen Ihres Browsers anpassen.
                     <br/>

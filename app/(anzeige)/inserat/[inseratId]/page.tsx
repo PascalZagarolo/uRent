@@ -141,20 +141,20 @@ const InseratAnzeige = async ({
                                 <div className="flex mr-auto items-center w-full">
                                     <div className="flex font-bold  text-sm items-center  sm:w-full ">
 
-                                        <div className="sm:w-full flex gap-x-2">
-                                            <div>
+                                        <div className="w-full flex gap-x-2">
+                                        <div>
                                                 <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
                                             </div>
-                                            <div className="w-2/4 truncate flex items-center">
+                                            <div className="sm:w-2/4 truncate flex items-center">
                                                 {thisInserat.address?.locationString ? (
-                                                    <span className="truncate max-w-full"> 
+                                                    <span className="max-w-full hidden sm:block"> 
                                                      {ripOutToLongAddresses(thisInserat.address?.locationString)}
                                                     </span>
                                                 ) : (
                                                     "Keine Adresse hinterlegt"
                                                 )}
                                             </div>
-                                            <div className="w-2/4 truncate">
+                                            <div className="w-2/4 sm:truncate  whitespace-nowrap">
                                                 {thisInserat.address?.postalCode && `${thisInserat.address?.postalCode} `}
                                                 {thisInserat.address?.state ? convertState(thisInserat.address?.state) + ", " : ""}DE
                                             </div>

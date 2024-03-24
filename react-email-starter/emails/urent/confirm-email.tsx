@@ -14,8 +14,8 @@ import {
 import { Inter } from "next/font/google";
   import * as React from "react";
   
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}`
     : "";
   
     interface ConfirmMailProps {
@@ -32,8 +32,10 @@ import { Inter } from "next/font/google";
         <Container style={container}>
           <Section style={box}>
             <img              
-              src="urent\react-email-starter\emails\urent\logo\uRent.png"
+              src={`${baseUrl}/uRent.png`}
               alt="uRent Logo"
+              width={120}
+              height={120}
             />
             <Hr style={hr} />
             <Text style={paragraph}>

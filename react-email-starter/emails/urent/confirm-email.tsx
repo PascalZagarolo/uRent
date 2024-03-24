@@ -31,11 +31,8 @@ import { Inter } from "next/font/google";
       <Body style={main}>
         <Container style={container}>
           <Section style={box}>
-            <img
-              
-              src="https://previews.dropbox.com/p/thumb/ACMBjLxy_Y1L4nkNtpoLK8NvHs-b9ojSXoBsvx3xQe9N7XGYjoYY7-BZ2NKBQCA63G8KJHVXZah7vQ0kosLypE85tpYqv6vYF1wOYYSUBVB09xELXz_SIbMStIu9fyI9uQUnRvtRj3jySR5c_glFV_5tl6nvaBt7hrbnFXtSe2YOCZwE6LcOkT2ajZ7edlDzAqQNi_R0QFOiauOI_Ov7BCDonCaSbXScPRyvLcWP2a8vO0N49sCLwAkt5W5onaaLCFV5dfKC1hceJuyrPFjvSA52FuhmD5C8SIWwk_fUTVR8AO9GuvngS3FXZLPC5WB6G4EWodPxC-hGGjvDMfGytjfa/p.png"
-              
-              
+            <img              
+              src="urent\react-email-starter\emails\urent\logo\uRent.png"
               alt="uRent Logo"
             />
             <Hr style={hr} />

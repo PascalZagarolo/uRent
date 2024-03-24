@@ -6,7 +6,7 @@ import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnu
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, lkwAttribute, LkwBrandEnumRender, 
     LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender, 
     transportAttribute} from "@/db/schema";
-import { and, between, eq, gte, ilike, like, lte } from "drizzle-orm";
+import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
 
 
 
@@ -107,8 +107,12 @@ export const getInserate = async ({
     brake,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
     try {
-        console.log(title);
-        console.log(title ? "ja" : "nein")
+
+        const usedStart = new Date(periodBegin);
+        const usedEnd = new Date(periodEnd);
+        console.log(periodBegin)
+
+        console.log(usedStart < usedEnd)
         
            const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
 
@@ -121,6 +125,17 @@ export const getInserate = async ({
                     ...ilikeQuery,
                     start? gte(inserat.price, start) : undefined,
                     end? lte(inserat.price, end) : undefined,
+                    periodBegin ? 
+                    or(
+                        (gte(inserat.begin, usedStart)), eq(inserat.annual, "true")
+                    ) : undefined,
+                    periodEnd ? 
+                    or(
+                        (lte(inserat.end, usedEnd)),
+                         eq(inserat.annual, "true")
+                    )
+                    : undefined,
+                    
                 )
             ),
             with : {

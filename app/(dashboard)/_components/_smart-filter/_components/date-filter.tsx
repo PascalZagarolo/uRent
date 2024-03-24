@@ -39,7 +39,7 @@ const DateFormFilter = () => {
     const currentLocation = searchParams.get("location");
     const currentPage = searchParams.get("page");
 
-    const paramsPeriodBegin =  searchParams.get("periodBegin");
+    const paramsPeriodBegin = searchParams.get("periodBegin");
     const paramsPeriodEnd = searchParams.get("periodEnd");
     
     const [periodBegin, setPeriodBegin] = React.useState(null);
@@ -98,6 +98,20 @@ const DateFormFilter = () => {
           setPeriodEnd(null)
       }  
   },[paramsPeriodEnd])
+
+  React.useEffect(() => {
+    
+    const url = qs.stringifyUrl({
+      url : pathname,
+      query : {
+        periodBegin : periodBegin,
+        periodEnd : periodEnd,
+        ...params
+      }
+    }, { skipEmptyString : true, skipNull : true})
+
+    router.push(url)
+  },[periodBegin, periodEnd])
 
     const filterReset = () => {
         setPeriodBegin(null);

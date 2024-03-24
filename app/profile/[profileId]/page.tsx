@@ -7,9 +7,9 @@ import { Contact2Icon, TruckIcon, UsersIcon } from "lucide-react";
 import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { inserat, rezension, users } from "@/db/schema";
-import { Suspense } from "react";
+
 
 
 
@@ -17,13 +17,11 @@ import { Suspense } from "react";
 
 const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
-    const [thisUser] = await db.select().from(users).where(eq(users.id, params.profileId))
-
-    console.log(thisUser)
+    const pageOwnerId = params.profileId;
 
     const currentUser = await getCurrentUser();
 
-    const ownProfile = currentUser?.id === thisUser.id ? true : false;
+    
 
     const foundInserate = await db.query.inserat.findMany({
         where : (
@@ -37,11 +35,16 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
         }
     })
 
+
+    const thisUser = await db.query.users.findFirst({
+        where : eq(users.id, foundInserate[0].userId)
+    })
     
+    const ownProfile = currentUser?.id === thisUser.id ? true : false;
 
     const rezensionen = await db.query.rezension.findMany({
         where : (
-            eq(rezension.receiverId, params.profileId)
+            eq(rezension.receiverId, pageOwnerId)
         )
     })
 

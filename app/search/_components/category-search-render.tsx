@@ -32,7 +32,7 @@ const CategorySearchRender = () => {
                     {
                         'PKW' : <PkwSearch /> ,
                         'LKW' : <LkwSearch />,   
-                        'TRAILOR' : <TrailerSearch />,
+                        'TRAILER' : <TrailerSearch />,
                         'TRANSPORT' : <TransportSearch />
 
                     }[currentParams['category']] 

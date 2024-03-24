@@ -2,6 +2,7 @@
 'use server';
 
 
+import ChangePassword from '@/react-email-starter/emails/urent/change-password';
 import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
 import { render } from '@react-email/components';
 import { Resend } from "resend";
@@ -36,8 +37,8 @@ export const sendPasswordResetEmail = async (
     await resend.emails.send({
       from: "mail@u-rent-rental.de",
       to: email,
-      subject: "Passwort zurücksetzen!",
-      html: `<p>Klicke <a href="${resetLink}">hier</a> um dein Passwort zurückzusetzen</p>`
+      subject: "Zurücksetzen deines Passworts",
+      react: ChangePassword({ confirmLink : resetLink }),
     });
   };
   

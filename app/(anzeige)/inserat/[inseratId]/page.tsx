@@ -100,7 +100,7 @@ const InseratAnzeige = async ({
 
 
     return (
-        <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-8 xl:mt-12 h-max ">
+        <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max ">
             <div className="h-full p-4 w-full1">
                 <div className="flex xl:justify-end justify-center w-full">
                     <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  
@@ -282,7 +282,7 @@ const InseratAnzeige = async ({
 
             <div>
 
-                <div className=" p-2 xl:mt-24 sm:flex justify-center xl:block">
+                <div className=" p-2 xl:mt-8 sm:flex justify-center xl:block">
 
                     <div className="xl:hidden flex sm:block justify-center">
                                                         

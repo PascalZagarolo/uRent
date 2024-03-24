@@ -76,7 +76,7 @@ const CookiesDialog = () => {
                         Weitere Informationen zum Datenschutz
                     </Button>
                 </div>
-                <div className="w-full flex justify-evenly text-xs">
+                <div className="w-full flex justify-evenly text-xs py-2">
                     <a href="/impressum" className="hover:underline">
                         Impressum
                     </a>

@@ -108,7 +108,7 @@ const Main = async ({
             
             <div>
                 <div className="relative flex justify-center mt-4">
-                <CookiesDialog />
+                
                         <div className="top-0 sm:mr-4 ">
                             <MainPageSideBar />
                         </div>
@@ -164,6 +164,7 @@ const Main = async ({
                 </div>
             </div>
             <Footer />
+            <CookiesDialog />
         </div>
 
 

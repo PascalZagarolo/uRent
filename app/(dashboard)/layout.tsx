@@ -27,8 +27,8 @@ const DashboardLayout = async (
                 />  
              </div>
              <div>
-             <CookiesDialog />
                 {children} 
+                
             </div>
         </div>
      );

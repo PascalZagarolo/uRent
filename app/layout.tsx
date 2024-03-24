@@ -28,6 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore
+     crossorigin="anonymous"></script>
+      </head>
       <body className={inter.className}>  
       <ThemeProvider
       attribute="class"
@@ -36,6 +40,7 @@ export default function RootLayout({
       disableTransitionOnChange> 
       <AuthContext>
       <ActiveStatus/>
+      
       <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
         </script>   
       {children}

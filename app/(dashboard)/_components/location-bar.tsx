@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MapPinned } from "lucide-react";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import axios from "axios";
 
 const AutoComplete = () => {
   const autoCompleteRef = useRef();
@@ -19,11 +20,15 @@ const AutoComplete = () => {
   const options = {
     componentRestrictions: { country: "de" },
     fields: ["address_components", "geometry", "icon", "name"],
+    
   };
 
   const params = getSearchParamsFunction("location");
 
   useEffect(() => {
+
+    console.log("1")
+
     if (window.google) {
       //@ts-ignore
       autoCompleteRef.current = new window.google.maps.places.Autocomplete(
@@ -53,16 +58,48 @@ const AutoComplete = () => {
     sessionStorage.setItem("currentLocation", currentLocation);
   }, [currentLocation]);
 
+  const getCurrentLocation = () => {
+    const status = document.querySelector('status');
+
+    const success = async (position) => {
+      console.log(position.coords.latitude, position.coords.longitude);
+      const addressObject = await axios.get(`https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&api_key=65db7269a0101559750093uena07e08`);
+      const addressString = addressObject.data?.address?.road + " " + addressObject.data?.address?.house_number
+      + ", " + addressObject.data?.address?.city + ", "  + (addressObject.data?.address?.country === "Germany" ? 
+      "Deutschland" : addressObject.data?.address?.country)
+      const url = qs.stringifyUrl({
+        url: "/",
+        query: {
+          //@ts-ignore
+          location: addressString,
+          ...params
+        }
+      }, { skipEmptyString: true, skipNull: true });
+      router.push(url);
+    }
+
+    const error = () => {
+      status.textContent = 'Unable to retrieve your location';
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
   const onSearch = () => {
-    const url = qs.stringifyUrl({
-      url: "/",
-      query: {
-        //@ts-ignore
-        location: inputRef?.current?.value,
-        ...params
-      }
-    }, { skipEmptyString: true, skipNull: true });
-    router.push(url);
+    //@ts-ignore
+    if (inputRef?.current?.value) {
+      const url = qs.stringifyUrl({
+        url: "/",
+        query: {
+          //@ts-ignore
+          location: inputRef?.current?.value,
+          ...params
+        }
+      }, { skipEmptyString: true, skipNull: true });
+      router.push(url);
+    } else {
+      getCurrentLocation();
+    }
   };
 
   return (

@@ -121,8 +121,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     }
                 </div>
                 <div className="px-2 py-1 mt-1 rounded-md w-1/2">
-                    <div className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] truncate overflow-hidden text-medium w-full h-[40px]
-                     hover:cursor-pointer hover:underline dark:text-gray-100 " onClick={onRedirect}> {thisInserat.title} </div>
+                    <a className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
+                    truncate overflow-hidden text-medium w-full h-[40px]
+                     hover:cursor-pointer hover:underline dark:text-gray-100 "
+                        href={`/inserat/${thisInserat.id}`}
+                        target="_blank"
+                        
+                    > {thisInserat.title} </a>
                 </div>
                 {thisInserat?.multi && (
                     <span className="p-4 text-xs text-gray-100 border-white border-dashed border bg-[#191B27] rounded-md flex items-center">
@@ -277,7 +282,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             dark:text-gray-100 hover:bg-rose-900">
                                                 <WeightIcon className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-rose-200 w-full">
-                                                 bis {thisInserat.trailerAttribute.weightClass / 100}t
+                                                    bis {thisInserat.trailerAttribute.weightClass / 100}t
                                                 </p>
                                             </Badge>
                                         )}
@@ -309,7 +314,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             <div className="">
                                 <Image
                                     src={thisInserat.images[0]?.url}
-                                    
+
                                     width={220}
                                     height={240}
                                     className="rounded-md hover:cursor-pointer dark:border-gray-900 max-h-[180px] full"

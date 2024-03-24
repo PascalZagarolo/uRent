@@ -21,6 +21,7 @@ import { auth } from "@/auth";
 import { ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, 
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender,
      LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
+import CookiesDialog from "@/components/cookies";
 
 
 interface MainPageProps {
@@ -104,8 +105,10 @@ const Main = async ({
                     currentUser={currentUser}
                      />
             </div>
+            
             <div>
                 <div className="relative flex justify-center mt-4">
+                <CookiesDialog />
                         <div className="top-0 sm:mr-4 ">
                             <MainPageSideBar />
                         </div>

@@ -4,19 +4,22 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CookiesDialog = () => {
 
-    
+    const router = useRouter()
 
     const cAccepted = JSON.parse(localStorage.getItem("cookiesAccepted"));
 
     const [accepted, setAccepted] = useState(cAccepted || false);
+    
     localStorage.setItem('cookiesAccepted', accepted.toString());
 
     const onClick = () => {
         setAccepted(true);
-        toast.success("Einstellungen gespeichert!")
+        toast.success("Einstellungen gespeichert!");
+        router.refresh();
     }
 
 

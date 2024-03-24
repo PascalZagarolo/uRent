@@ -37,7 +37,7 @@ const AutoComplete = () => {
       );
       
     }
-  }, [currentLocation]);
+  }, [currentLocation, value]);
 
   useEffect(() => {
     //@ts-ignore

@@ -1,5 +1,6 @@
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import getCurrentUser from "@/actions/getCurrentUser";
+import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 
 
 const InseratLayout = async ({
@@ -15,6 +16,12 @@ const InseratLayout = async ({
             <HeaderLogo 
             currentUser={currentUser} 
             />
+            <div className="sm:hidden">
+                <MobileHeader
+                currentUser={currentUser}
+                
+                />  
+             </div>
 
             <div className="h-full">
                 {children}

@@ -11,6 +11,7 @@ import ActiveStatus from '@/components/ActiveStatus'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@/components/theme-provider'
+import CookiesDialog from '@/components/cookies'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -42,8 +43,8 @@ export default function RootLayout({
       <ActiveStatus/>
       
       <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
-        </script>   
-      {children}
+        </script>  
+        {children}
       <ToasterContext/>
     <Toaster/>
     </AuthContext>

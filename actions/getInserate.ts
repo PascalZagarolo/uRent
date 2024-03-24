@@ -119,6 +119,8 @@ export const getInserate = async ({
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
                     //@ts-ignore
                     ...ilikeQuery,
+                    start? gte(inserat.price, start) : undefined,
+                    end? lte(inserat.price, end) : undefined,
                 )
             ),
             with : {
@@ -131,6 +133,7 @@ export const getInserate = async ({
                     transportAttribute: true,
             }
         })
+        
         
         return foundInserate;
 

@@ -19,6 +19,7 @@ import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
 import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute } from '../../../../db/schema';
 import { eq } from "drizzle-orm";
+import { convertState } from "@/actions/convert-states";
 
 
 
@@ -155,7 +156,7 @@ const InseratAnzeige = async ({
                                             </div>
                                             <div className="w-2/4 truncate">
                                                 {thisInserat.address?.postalCode && `${thisInserat.address?.postalCode} `}
-                                                {thisInserat.address?.state ? thisInserat.address?.state + ", " : ""}DE
+                                                {thisInserat.address?.state ? convertState(thisInserat.address?.state) + ", " : ""}DE
                                             </div>
                                         </div>
                                     </div>

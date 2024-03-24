@@ -38,11 +38,6 @@ const Bookings = async ({
         }
     })
     
-
-    
-
-
-
     return (
             <div className="flex justify-center py-8 px-4 ">
                 <div className="px-4 hidden md:block">

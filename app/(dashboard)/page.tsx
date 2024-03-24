@@ -99,6 +99,7 @@ const Main = async ({
     return (
         <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
             <div className="relative top-0 w-full z-50">
+               
                 <HeaderLogo
                     currentUser={currentUser}
                      />

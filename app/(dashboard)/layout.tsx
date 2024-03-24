@@ -1,6 +1,7 @@
 import React from "react";
 import getCurrentUser from "../../actions/getCurrentUser";
 import MobileHeader from "./_components/mobile-header";
+import CookiesDialog from "@/components/cookies";
 
 
 const DashboardLayout = async (
@@ -26,6 +27,7 @@ const DashboardLayout = async (
                 />  
              </div>
              <div>
+             <CookiesDialog />
                 {children} 
             </div>
         </div>

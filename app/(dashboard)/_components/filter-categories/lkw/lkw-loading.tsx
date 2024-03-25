@@ -61,8 +61,6 @@ const LkwLoadingBar = () => {
                     >
                         <SelectValue
                             placeholder="Wähle deinen Anwendungsbereich"
-
-
                         />
                     </SelectTrigger>
                     

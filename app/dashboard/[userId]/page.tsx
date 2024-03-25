@@ -7,7 +7,7 @@ import BookingRequestRender from "./(routes)/_components/booking-request";
 import { forEach } from "lodash";
 import SidebarDashboard from "./_components/sidebar-dashboard";
 import db from "@/db/drizzle";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { booking, bookingRequest, inserat } from "@/db/schema";
 
 interface MainPageProps {
@@ -28,7 +28,10 @@ const DashboardPage = async ({
 
     const foundInserate = await db.query.inserat.findMany({
         where : (
-            eq(inserat.userId, currentUser?.id)
+            and(
+                eq(inserat.userId, currentUser?.id),
+                eq(inserat.isPublished, "true")
+            )
             
         )  
     })

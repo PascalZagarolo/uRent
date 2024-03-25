@@ -34,7 +34,7 @@ const CategoryOverview = () => {
                     {
                         "PKW" : <CarFrontIcon className="h-6 w-6 mr-2" />,
                         "LKW" : <TruckIcon className="h-6 w-6 mr-2" />,
-                        "TRAILOR" : <RiCaravanLine className="h-6 w-6 mr-2" />,
+                        "TRAILER" : <RiCaravanLine className="h-6 w-6 mr-2" />,
                         "TRANSPORT" : <PiVanFill className="h-6 w-6 mr-2" />,
                     }[currentCategory]
                 }
@@ -44,7 +44,7 @@ const CategoryOverview = () => {
                     {
                         "PKW" : "Pkw",
                         "LKW" : "Lkw",
-                        "TRAILOR" : "Anhänger",
+                        "TRAILER" : "Anhänger",
                         "TRANSPORT" : "Transporter",
                     }[currentCategory]
                 }
@@ -67,7 +67,7 @@ const CategoryOverview = () => {
                        
                        "LKW" : <LkwSearchComponent />,
                        
-                        "TRAILOR" : <TrailerSearchComponent />,
+                        "TRAILER" : <TrailerSearchComponent />,
                        
                         "TRANSPORT" : <TransportSearchComponent />,
                        

@@ -88,7 +88,7 @@ const MainPageSideBar= () => {
                 <div className="flex justify-between ml-12 mr-12 mt-4 ">
                     <div>
                         <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "TRAILOR" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRAILOR") }}>
+                            currentCategory === "TRAILER" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRAILER") }}>
                             <RiCaravanLine className="w-6 h-6" />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">

@@ -111,7 +111,7 @@ export const getInserate = async ({
     axis,
     brake,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
-
+    
     const PkwFilter = (pInserat : typeof inserat) => {
         
         const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
@@ -139,6 +139,29 @@ export const getInserate = async ({
 
         return bSeats && bWeightClass && bDrive && bLoading && bApplication && bLkwBrand;
     } 
+
+    const TrailerFilter = (pInserat : typeof inserat) => {
+        const bType = trailerType ? trailerType === pInserat.trailerAttribute.type : true;
+        const bExtraType = extraType ? extraType === pInserat.trailerAttribute.extraType : true;
+        const bCoupling = coupling ? coupling === pInserat.trailerAttribute.coupling : true;
+        const bLoading = loading ? loading === pInserat.trailerAttribute.loading : true;
+        const bAxis = axis ? axis === pInserat.trailerAttribute.axis : true;
+        const bWeightClass = weightClass ? weightClass === pInserat.trailerAttribute.weightClass : true;
+        const bBrake = brake ? brake === pInserat.trailerAttribute.brake : true;
+
+        return bType && bExtraType && bCoupling && bLoading && bAxis && bWeightClass && bBrake; 
+    }
+
+    const TransportFilter = (pInserat : typeof inserat) => {
+        const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
+        const bTransmisson = transmission ? transmission === pInserat.transportAttribute.transmission : true;
+        const bSeats = seats ? seats <= pInserat.transportAttribute.seats : true;
+        const bDoors = doors ? doors === pInserat.transportAttribute.doors : true;
+        const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
+
+
+        return bLoading && bTransmisson && bSeats && bDoors && bFuel;
+    }
 
     try {
         const usedStart = new Date(periodBegin);
@@ -196,12 +219,12 @@ export const getInserate = async ({
                 }
                 //@ts-ignore
                 case "TRAILER": {
-                    return true;
+                    return TrailerFilter(pInserat);
                     break;
                 }
                 //@ts-ignore
                 case "TRANSPORT": {
-                    return true;
+                    return TransportFilter(pInserat);
                     break;
                 } default: {
                     return true;

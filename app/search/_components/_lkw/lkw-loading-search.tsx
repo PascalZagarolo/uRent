@@ -45,30 +45,22 @@ const LkwLoadingSearch = () => {
                 <Label className="flex justify-start items-center ">
                     <p className="ml-2 font-semibold"> Ladevorrichtung </p>
                 </Label>
-
                 <Select
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteLoading() : onSubmit(brand)
                     }}
-
                     disabled={isLoading}
                 >
-
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}  >
                         <SelectValue
                             placeholder="Welcher Ladetyp?"
-
-
                         />
                     </SelectTrigger>
-
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
                         <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
                             Beliebig
                         </SelectItem>
-
-
                         <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
                         <SelectItem value="LADERAMPE">Laderampe</SelectItem>
                         <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>

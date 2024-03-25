@@ -61,7 +61,7 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          value={currentAge ? String(currentAge) : "16"}
+          value={currentAge ? String(currentAge) : null}
           disabled={isLoading}
         >
 
@@ -75,6 +75,7 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+            <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="16">16</SelectItem>
             <SelectItem value="17">17</SelectItem>
             <SelectItem value="18">18</SelectItem>

@@ -42,7 +42,7 @@ const LkwApplicationSearch = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Anwendung </p>
+                    <p className="ml-2 font-semibold"> Erw. Fahrzeugkategorie </p>
                 </Label>
 
                 <Select
@@ -68,7 +68,7 @@ const LkwApplicationSearch = () => {
                         </SelectItem>
 
 
-                        <SelectItem value="DEICHSELANHAENGER">Deichselanhänger</SelectItem>
+                        
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
                         <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 

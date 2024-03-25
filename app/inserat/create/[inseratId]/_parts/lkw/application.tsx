@@ -52,7 +52,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
     return ( 
         <div className="w-full">
             <div className="w-full">
-        <Label>Anwendungsbereich</Label>
+        <Label>Erw. Fahrzeugkategorie</Label>
         <Select
         //@ts-ignore
           onValueChange={(application : typeof ApplicationEnumRender) => {
@@ -73,7 +73,6 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-            <SelectItem value="DEICHSELANHAENGER">Deichselanhänger</SelectItem>
             <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
             <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 

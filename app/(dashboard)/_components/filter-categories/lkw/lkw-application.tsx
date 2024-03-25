@@ -50,7 +50,7 @@ const LkwApplicationBar = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center text-gray-200">
-                    <p className="ml-2 font-semibold"> Anwendung </p>
+                    <p className="ml-2 font-semibold truncate"> Erw. Kategorie </p>
                 </Label>
 
                 <Select
@@ -76,7 +76,6 @@ const LkwApplicationBar = () => {
                         <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
-                        <SelectItem value="DEICHSELANHAENGER">Deichselanhänger</SelectItem>
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
                         <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 

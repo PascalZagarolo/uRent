@@ -171,7 +171,7 @@ const InseratAnzeige = async ({
                                     </div>
                                 )}
                                 <div className="ml-auto flex mt-2 text-xl font-semibold ">
-                                    {thisInserat.price} € {thisInserat.annual && <p className="text-xs px-1">/Tag </p>}
+                                    {thisInserat.price} € {thisInserat.dailyPrice && <p className="text-xs px-1">/Tag </p>}
                                 </div>
                             </div>
                         </div>

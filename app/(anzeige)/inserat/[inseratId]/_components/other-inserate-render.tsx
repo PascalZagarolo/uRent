@@ -37,11 +37,17 @@ const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
             </h3>
             <div className="h-1/2   p-2  bg-[#161923]">
                 <p className="text-sm text-gray-100 font-semibold truncate">
-                    {thisInserat?.price} € {thisInserat?.annual && "/ Tag"}
+                    {thisInserat?.price} € {thisInserat.dailyPrice && "/ Tag"}
                 </p>
-                <p className="text-xs mt-2 ">
+                {thisInserat.annual ? (
+                    <p className="text-xs mt-2 truncate">
+                        Datumsunabhängig
+                    </p>
+                ) : (
+                    <p className="text-xs mt-2">
                     {format(new Date(thisInserat?.begin), 'dd.MM')} - {format(new Date(thisInserat?.end), 'dd.MM')}
                 </p>
+                )}
             </div>
             </div>
             </div>

@@ -19,6 +19,8 @@ import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { address, images,  inserat, lkwAttribute, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
+import { Progress } from "@/components/ui/progress";
+import { FloatingNav } from "@/components/following-navbar";
 
 
 const InseratCreation = async ({
@@ -85,12 +87,15 @@ const InseratCreation = async ({
                     <div className="min-h-screen">
                         <div className="p-4">
                             
-                            <h3 className="text-2xl font-bold flex">
-                              <MdPostAdd  className="mr-2"/>  Inserat bearbeiten
+                            <h3 className="text-2xl font-bold flex items-center">
+                              <MdPostAdd  className="mr-2"/>  Inserat bearbeiten 
                             </h3>
-                            <p className="text-xs dark:text-gray-100/70">
+                            <p className="text-xs dark:text-gray-100/70 mt-2">
                                 Gebe Informationen zu deinem Inserat an - desto genauer du bist, desto eher finden dich potientielle Kunden.
                             </p>
+                            <FloatingNav 
+                            thisInserat={thisInserat}
+                            />
                             <div className="mt-4">
                                 <div>
                                     <div className="flex justify-evenly items-center">
@@ -116,22 +121,12 @@ const InseratCreation = async ({
                             </div>
                             <div className="mt-4">
                                 <div>
-                                    <div className="flex justify-evenly items-center">
-                                        <Separator 
-                                        className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
-                                        />
-                                        <h1 className="flex justify-center text-lg font-semibold">
-                                            Zeitraum *
-                                        </h1>
-                                        <Separator 
-                                        className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
-                                        />
-                                     </div>
+                                    
                                      <div className="mt-4">
-                                       
-                                        <RentPeriod
-                                        thisInserat={thisInserat}
-                                        />
+                                     <CategoryInformation 
+                                thisInserat = {thisInserat}
+                                />
+                                        
                                        
                                      </div>
                                 </div>
@@ -162,7 +157,30 @@ const InseratCreation = async ({
                             </div>
                             <div className="mt-4">
                                 <div>
-                                    <div className="flex justify-evenly items-center">
+                                    <div className="flex  justify-evenly items-center">
+                                        <Separator 
+                                        className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                        />
+                                        <h1 className="flex justify-center text-lg font-semibold">
+                                            Zeitraum *
+                                        </h1>
+                                        <Separator 
+                                        className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                        />
+                                     </div>
+                                    
+                                     <div className="mt-4">
+                                        
+                                     <RentPeriod
+                                        thisInserat={thisInserat}
+                                        />
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                
+                            <div className="flex justify-evenly items-center">
                                         <Separator 
                                         className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
                                         />
@@ -173,21 +191,11 @@ const InseratCreation = async ({
                                         className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
                                         />
                                      </div>
-                                     <div>
-                                        
-                                        <ContactInformation
+
+                                <ContactInformation
                                         thisInserat={thisInserat}
                                         thisAddressComponent={thisAddressComponent}
                                         />
-                                        
-                                     </div>
-                                </div>
-                            </div>
-                            <div className="mt-4">
-                                
-                                <CategoryInformation 
-                                thisInserat = {thisInserat}
-                                />
                                 
                             </div>
                             <div className="w-full mt-4  flex items-center">

@@ -20,9 +20,9 @@ const DataPrivacy = async () => {
 
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
-                        <div className="p-4 mt-4 dark:bg-[#161616] rounded-lg ">
+                        <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                <TruckIcon className="mr-4" /> uRent - Datenschutzerklärung <p className="ml-auto text-sm"> (01.01.2024) </p>
+                                 uRent - Datenschutzerklärung <p className="ml-auto text-sm"> (01.01.2024) </p>
                             </h3>
                         </div>
 

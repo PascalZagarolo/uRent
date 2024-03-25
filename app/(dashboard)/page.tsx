@@ -22,6 +22,7 @@ import { ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingE
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender,
      LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
 import CookiesDialog from "@/components/cookies";
+import CookiesSheet from "./_components/cookies-sheet";
 
 
 interface MainPageProps {

@@ -41,7 +41,7 @@ interface MainPageProps {
         //conditions
 
         reqAge?: string;
-        reqLicense?: string;
+        license?: string;
 
         //PKW
         brand?: any;
@@ -128,7 +128,7 @@ const Main = async ({
                             amount={searchParams.amount}
 
                             reqAge={searchParams.reqAge}
-                            reqLicense={searchParams.reqLicense}
+                            reqLicense={searchParams.license}
 
                             // Car specific attributes
                             thisBrand={searchParams.brand}

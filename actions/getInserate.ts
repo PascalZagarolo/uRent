@@ -111,6 +111,13 @@ export const getInserate = async ({
     axis,
     brake,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
+
+    const ConditionFilter = (pInserat : typeof inserat) => {
+        const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
+        const bLicense = reqLicense ? reqLicense === pInserat.license : true;
+        
+        return bAge && bLicense;
+    }
     
     const PkwFilter = (pInserat : typeof inserat) => {
         
@@ -205,7 +212,11 @@ export const getInserate = async ({
         })
 
         const filteredArray = foundInserate.filter((pInserat) => {
-            
+
+            const conditions = ConditionFilter(pInserat);
+
+            if(!conditions) return false;
+
             switch(thisCategory) {
                 //@ts-ignore
                 case "PKW": {

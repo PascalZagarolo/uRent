@@ -1,6 +1,7 @@
 'use client'
 
 import { onKeyPressForm } from "@/actions/form-actions";
+import { Button } from "@/components/ui/button";
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentTitle, setCurrentTitle] = useState(thisInserat.title || "");
 
     const formSchema = z.object({
         title : z.string().min(3, {
@@ -45,9 +47,12 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
     
 
-    const onSubmit = (values : z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
         try {
             setIsLoading(true);
+            const values = {
+                title : currentTitle
+            }
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Titel erfolgreich gespeichert");
             setTimeout(() => {
@@ -84,7 +89,15 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
     return ( 
         <div className=" drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]   rounded-md">
             <h1 className="text-md flex justify-start  font-semibold   text-gray-900  dark:text-gray-100 items-center">
-                <AlignCenter className="mr-2  h-4 w-4"/>Titel deiner Anzeige *
+                <AlignCenter className="mr-2 h-4 w-4"/>Titel deiner Anzeige *
+                
+                    <Button 
+                    className="ml-auto dark:bg-[#0F0F0F] dark:hover:bg-[#1a1a1a] dark:text-gray-100 text-xs font-semibold"
+                    disabled={currentTitle === thisInserat.title || !currentTitle}
+                    onClick={onSubmit}
+                    > 
+                    Änderungen speichern </Button>
+                
             </h1>
             <div>
                 
@@ -103,9 +116,12 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                     <Input
                                     {...field}
                                     ref={inputRef}
+                                    onChange={(e) => {setCurrentTitle(e.target.value)}}
+                                    value={currentTitle}
                                     className="  dark:bg-[#0F0F0F] dark:border-gray-100 
                                      focus:ring-0 focus-visible:ring-0 w-full rounded-none border"
-                                    onKeyDown={(e) => {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
+                                    onKeyDown={(e) => 
+                                        {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
                                     onBlur={(e) => {setIsEditing(false)}}
                                     />
                                 </FormControl>
@@ -119,7 +135,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                     </div>  
                 ): (
                     <div className="hover:cursor-pointer" onClick={() => {setIsEditing(true)}}>
-                        <p className=" text-gray-900/70 dark:text-gray-100   mr-8"> {thisInserat.title} </p>
+                        <p className=" text-gray-900/70 dark:text-gray-100 mr-8"> {currentTitle} </p>
                     </div>
                 )}
             </div>

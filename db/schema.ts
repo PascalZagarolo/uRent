@@ -150,6 +150,7 @@ export const inserat = pgTable("inserat", {
     begin: timestamp("begin", {mode: "date"}),
     end: timestamp("end", {mode: "date"}),
     annual: boolean("annual").notNull().default(false),
+    dailyPrice : boolean("dailyPrice").notNull().default(false),
 
     license: licenseEnum("license"),
     caution: decimal("caution"),

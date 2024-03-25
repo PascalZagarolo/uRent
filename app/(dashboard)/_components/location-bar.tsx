@@ -13,29 +13,24 @@ const AutoComplete = () => {
   const router = useRouter();
   const pathname = usePathname();
   const currentLocation = searchParams.get("location");
-  const currentTitle = searchParams.get("title");
+  
   const [value, setValue] = useState(currentLocation || "");
 
   const inputRef = useRef();
   const options = {
     componentRestrictions: { country: "de" },
     fields: ["address_components", "geometry", "icon", "name"],
-    
   };
 
   const params = getSearchParamsFunction("location");
 
   useEffect(() => {
-
-    console.log("1")
-
     if (window.google) {
       //@ts-ignore
       autoCompleteRef.current = new window.google.maps.places.Autocomplete(
         inputRef.current,
         options
-      );
-      
+      ); 
     }
   }, [currentLocation, value]);
 
@@ -60,7 +55,6 @@ const AutoComplete = () => {
 
   const getCurrentLocation = () => {
     const status = document.querySelector('status');
-
     const success = async (position) => {
       console.log(position.coords.latitude, position.coords.longitude);
       const addressObject = await axios.get(`https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&api_key=65db7269a0101559750093uena07e08`);
@@ -77,11 +71,9 @@ const AutoComplete = () => {
       }, { skipEmptyString: true, skipNull: true });
       router.push(url);
     }
-
     const error = () => {
       status.textContent = 'Unable to retrieve your location';
     }
-
     navigator.geolocation.getCurrentPosition(success, error);
   }
 

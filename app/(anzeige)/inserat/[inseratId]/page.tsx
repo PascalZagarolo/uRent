@@ -17,7 +17,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FaAddressCard } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute } from '../../../../db/schema';
+import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute } from '../../../../db/schema';
 import { and, eq } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
 
@@ -183,33 +183,43 @@ const InseratAnzeige = async ({
                                 Rahmenbedingungen</p>
                         </div>
                         <div className="w-full flex mt-2">
-                            <div className="w-1/2 truncate font-semibold text-sm flex">
+                            {thisInserat?.caution && (
+                                <div className="w-1/2 truncate font-semibold text-sm flex">
                                 <TbPigMoney className="w-4 h-4 mr-2 text-rose-300" />  
-                                Kaution : {thisInserat?.caution ? thisInserat?.caution + " €" : "Keine Kaution angegeben"}
+                                Kaution : {thisInserat?.caution + " €" }
                             </div>
+                            )}
+                             {thisInserat?.reqAge && (
                             <div className="w-1/2 truncate flex font-semibold text-sm ">
-                                <UserCircleIcon className="w-4 h-4 mr-2 text-blue-600" /> 
-                                Mindestalter : {thisInserat?.reqAge ? thisInserat?.reqAge + " Jahre" : "Kein Mindestalter angegeben"}
+                                    <>
+                                    <UserCircleIcon className="w-4 h-4 mr-2 text-blue-600" /> 
+                                    Mindestalter : {thisInserat?.reqAge + " Jahre"}
+                                    </>
+                                
                             </div>
+                            )}
                         </div>
                         {thisInserat?.category === "PKW" && (
                             <div className="w-full flex mt-2">
-                                <div className="w-1/2 truncate font-semibold text-sm flex">
+                                {thisInserat?.pkwAttribute?.freeMiles && (
+                                    <div className="w-1/2 truncate font-semibold text-sm flex">
                                     <PiSteeringWheel className="w-4 h-4 mr-2 text-gray-400" />  
                                     Freikilometer :
                                     {thisInserat?.pkwAttribute?.freeMiles ? " " + thisInserat?.pkwAttribute?.freeMiles + " Km" : "Keine KM-Anzahl angegeben"}
                                 </div>
-                                <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                )}
+                                {thisInserat?.pkwAttribute?.extraCost && (
+                                    <div className="w-1/2 truncate flex font-semibold text-sm ">
                                     <GiReceiveMoney className="w-4 h-4 mr-2 text-emerald-600" />
                                     Extrapreis /Km : {thisInserat?.pkwAttribute?.extraCost ? thisInserat?.pkwAttribute?.extraCost + " €" 
                                     : "Keine Kosten angegeben"}
                                 </div>
+                                )}
                             </div>
                         )}
                         <div className="mt-4">
                             <div className="flex sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" /> 
                              Kontaktinformationen 
-                            
                             </div>
                         </div>
 

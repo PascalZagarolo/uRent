@@ -6,15 +6,15 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
-    const r = 6371; 
+    const r = 6371;
     const p = Math.PI / 180;
-  
+
     const a = 0.5 - Math.cos((lat2 - lat1) * p) / 2
-                  + Math.cos(lat1 * p) * Math.cos(lat2 * p) *
-                    (1 - Math.cos((lon2 - lon1) * p)) / 2;
-  
+        + Math.cos(lat1 * p) * Math.cos(lat2 * p) *
+        (1 - Math.cos((lon2 - lon1) * p)) / 2;
+
     return 2 * r * Math.asin(Math.sqrt(a));
-  }
+}
 
 export async function PATCH(
     req : Request
@@ -147,7 +147,9 @@ export async function PATCH(
         const results = await db.query.inserat.findMany({
             where : eq(
                 inserat.isPublished, true
-            )
+            ), with : {
+                address : true
+            }
         })
         console.log(brake)
         let filteredResult = [];
@@ -156,14 +158,16 @@ export async function PATCH(
                 const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
            
             
-            for (const inserat of results) {
+            for (const pInserat of results) {
                 const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
-                                                    Number(inserat.address?.latitude), Number(inserat.address?.longitude));
+                                                    Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
                                                     console.log(addressObject.data[0].lat)
                                                     console.log(addressObject.data[0].lon)
-                                                    console.log(distance);
+                                                    console.log(Number(inserat.address?.latitude))
+                                                    console.log(Number(inserat.address?.longitude))
                                                     if(distance < 50) {
-                                                        filteredResult.push(inserat);
+                                                        filteredResult.push(pInserat);
+                                                        console.log(distance)
                                                     }
             }
         } else {

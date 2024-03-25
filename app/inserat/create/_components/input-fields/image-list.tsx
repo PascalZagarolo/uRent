@@ -72,8 +72,12 @@ const ImageList: React.FC<ImageListProps> = ({
         }, 250)
     }
 
+    useEffect(() => {
     
+    setChapters(items)
+    },[items.length])
 
+    
     if(!isMounted) {
         return null;
     }

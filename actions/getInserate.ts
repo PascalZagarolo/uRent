@@ -112,6 +112,15 @@ export const getInserate = async ({
     brake,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
+    const Addressfilter = async (pInserat : typeof inserat) => {
+        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
+
+        const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
+            Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
+            console.log(distance)
+            return distance <= 50;
+    }
+
     const ConditionFilter = (pInserat : typeof inserat) => {
         const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
         const bLicense = reqLicense ? reqLicense === pInserat.license : true;
@@ -211,8 +220,10 @@ export const getInserate = async ({
             }
         })
 
-        const filteredArray = foundInserate.filter((pInserat) => {
+        
 
+        const filteredArray = foundInserate.filter((pInserat) => {
+            
             const conditions = ConditionFilter(pInserat);
 
             if(!conditions) return false;
@@ -243,8 +254,30 @@ export const getInserate = async ({
                 
             }
         });
+
         
-        return filteredArray; 
+
+        let returnedArray = [];
+
+        if(location) {
+            const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
+       
+        
+        for (const pInserat of filteredArray) {
+            const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
+                                                Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
+                                                
+                                                if(distance < 50) {
+                                                    returnedArray.push(pInserat);
+                                                    console.log(distance)
+                                                }
+        }
+    } else {
+        returnedArray = filteredArray;
+    }
+
+        
+        return returnedArray; 
         
         
         

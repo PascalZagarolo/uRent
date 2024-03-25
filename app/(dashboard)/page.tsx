@@ -164,7 +164,7 @@ const Main = async ({
                 </div>
             </div>
             <Footer />
-            <CookiesDialog />
+            
         </div>
 
 

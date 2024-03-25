@@ -103,13 +103,13 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
     return ( 
         <div className="w-full mt-auto">
-            <p className="flex justify-center text-xs dark:text-gray-100/80  text-gray-900/50"> Pflichtfelder sind mit einem  &apos; * &apos; markiert.</p>
+            <p className="flex justify-center text-xs dark:text-gray-100/80  text-gray-900/50"> Pflichtfelder sind mit einem  *  markiert.</p>
             {!thisInserat.isPublished   ? (
             <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full"disabled={!canPublish} onClick={onPublish}>
                 Anzeige veröffentlichen
             </Button>
         ) : (
-            <Button variant="ghost" size="sm" className="dark:bg-sky-600 hover:dark:bg-sky-700 w-full" onClick={onPrivate}>
+            <Button variant="ghost" size="sm" className="dark:bg-blue-800 hover:dark:bg-blue-700 w-full" onClick={onPrivate}>
                 Anzeige privat schalten
             </Button>
         )}

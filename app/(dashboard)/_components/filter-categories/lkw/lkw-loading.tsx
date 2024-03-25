@@ -49,7 +49,6 @@ const LkwLoadingBar = () => {
                 <Label className="flex justify-start items-center text-gray-200">
                     <p className="ml-2 font-semibold"> Ladevorrichtung </p>
                 </Label>
-
                 <Select
                     onValueChange={(brand) => {
                         onSubmit(brand)
@@ -57,10 +56,8 @@ const LkwLoadingBar = () => {
                     value={currentBrand}
                     disabled={isLoading}
                 >
-
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}
-
                     >
                         <SelectValue
                             placeholder="Wähle deinen Anwendungsbereich"
@@ -68,12 +65,13 @@ const LkwLoadingBar = () => {
 
                         />
                     </SelectTrigger>
-
+                    
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
                         <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
+                        <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
                         <SelectItem value="LADERAMPE">Laderampe</SelectItem>
                         <SelectItem value="KRAN">Kran</SelectItem>
                     </SelectContent>

@@ -137,8 +137,6 @@ export const getInserate = async ({
         const bApplication = application ? application == pInserat.lkwAttribute.application : true;
         const bLkwBrand = lkwBrand ? lkwBrand === pInserat.lkwAttribute.lkwBrand : true;
 
-        console.log(bSeats, bWeightClass, bDrive, bLoading, bApplication, bLkwBrand)
-
         return bSeats && bWeightClass && bDrive && bLoading && bApplication && bLkwBrand;
     } 
 

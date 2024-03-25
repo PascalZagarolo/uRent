@@ -71,6 +71,7 @@ const LkwLoadingSearch = () => {
 
                         <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
                         <SelectItem value="LADERAMPE">Laderampe</SelectItem>
+                        <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
                         <SelectItem value="KRAN">Kran</SelectItem>
                     </SelectContent>
                 </Select>

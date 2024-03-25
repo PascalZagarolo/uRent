@@ -372,6 +372,7 @@ export const DriveEnumRender = z.enum(driveEnum.enumValues).Enum;
 export const loadingEnum = pgEnum("loading", [
     "AUFFAHRRAMPE",
     "LADERAMPE",
+    "LADEBORDWAND",
     "KRAN",
     "MITNAHMESTAPLER"
 ])

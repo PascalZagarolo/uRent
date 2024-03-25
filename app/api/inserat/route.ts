@@ -15,6 +15,7 @@ export async function POST(
 
         const data = await db.insert(inserat)
                                 .values({
+                                    category : "PKW",
                                     ...values
                                 }).returning();
 

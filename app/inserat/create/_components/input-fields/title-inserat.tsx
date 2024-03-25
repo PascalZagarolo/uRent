@@ -93,7 +93,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                 
                     <Button 
                     className="ml-auto dark:bg-[#0F0F0F] dark:hover:bg-[#1a1a1a] dark:text-gray-100 text-xs font-semibold"
-                    disabled={currentTitle === thisInserat.title || !currentTitle}
+                    disabled={currentTitle === thisInserat.title || !currentTitle.trim()}
                     onClick={onSubmit}
                     > 
                     Änderungen speichern </Button>
@@ -118,8 +118,8 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                     ref={inputRef}
                                     onChange={(e) => {setCurrentTitle(e.target.value)}}
                                     value={currentTitle}
-                                    className="  dark:bg-[#0F0F0F] dark:border-gray-100 
-                                     focus:ring-0 focus-visible:ring-0 w-full rounded-none border"
+                                    className="  dark:bg-[#0F0F0F]  
+                                     focus:ring-0 focus-visible:ring-0 w-full rounded-none border-gray-600 "
                                     onKeyDown={(e) => 
                                         {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
                                     onBlur={(e) => {setIsEditing(false)}}
@@ -135,7 +135,11 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                     </div>  
                 ): (
                     <div className="hover:cursor-pointer" onClick={() => {setIsEditing(true)}}>
-                        <p className=" text-gray-900/70 dark:text-gray-100 mr-8"> {currentTitle} </p>
+                        {!currentTitle.trim() ? (
+                            <p className=" text-gray-900/70 dark:text-gray-200/70 mr-8 text-sm"> Noch kein Titel hinzugefügt </p>
+                        ) : (
+                            <p className=" text-gray-900/70 dark:text-gray-100 mr-8 text-sm"> {currentTitle} </p>
+                        )}
                     </div>
                 )}
             </div>

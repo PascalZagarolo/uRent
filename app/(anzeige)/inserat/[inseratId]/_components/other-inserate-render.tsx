@@ -23,10 +23,10 @@ const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
             <div className="rounded-md w-2/3">
                 <Image
                 src={thisInserat?.images[0]?.url} 
-                width={1920}
-                height={1080}
+                width={320}
+                height={160}
                 alt="Inserat Image"
-                className="w-full h-[160px] px-2 py-2 rounded-md"
+                className="w-full h-[160px] px-2 py-2 rounded-md object-cover"
                 />
             </div>
             

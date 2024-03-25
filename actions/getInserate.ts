@@ -14,6 +14,7 @@ import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
 
 
 
+
 type GetInserate = {
     title?: string;
     thisCategory?: typeof CategoryEnumRender;
@@ -123,12 +124,23 @@ export const getInserate = async ({
         const bFuel = fuel ? fuel === pInserat.pkwAttribute.fuel : true;
         const bInitial = initial.getTime() ? initial.getTime() >= pInserat.pkwAttribute.initial.getTime() : true;
         const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;
-        
-        
-
+    
         return bSeats && bPower && bDoors && bFreeMiles &&
          bExtraCost && bType && bTransmission && bFuel && bBrand;
     }
+
+    const LkwFilter = (pInserat : typeof inserat) => {
+        const bSeats = seats ? pInserat.lkwAttribute.seats >= seats : true;
+        const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
+        const bDrive = drive ? drive === pInserat.lkwAttribute.drive : true;
+        const bLoading = loading ? loading === pInserat.lkwAttribute.loading : true;
+        const bApplication = application ? application == pInserat.lkwAttribute.application : true;
+        const bLkwBrand = lkwBrand ? lkwBrand === pInserat.lkwAttribute.lkwBrand : true;
+
+        console.log(bSeats, bWeightClass, bDrive, bLoading, bApplication, bLkwBrand)
+
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bLkwBrand;
+    } 
 
     try {
         const usedStart = new Date(periodBegin);
@@ -181,7 +193,7 @@ export const getInserate = async ({
                 }
                 //@ts-ignore
                 case "LKW": {
-                    return true;
+                    return LkwFilter(pInserat);
                     break;
                 }
                 //@ts-ignore

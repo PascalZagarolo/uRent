@@ -1,14 +1,16 @@
 'use client'
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { inserat } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { set } from "date-fns";
 import { Banknote, EuroIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -25,7 +27,8 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
     const [currentValue, setCurrentValue] = useState(thisInserat.price || 0);
-
+    const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
+ 
     const formSchema = z.object({
         price: z.preprocess(
             (args) => (args === '' ? undefined : args),
@@ -45,11 +48,9 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
 
     const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
-
             const values = {
                 price : value.price.toFixed(2)
             }
-
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
             toast.success("Preis erfolgreich gespeichert");
@@ -62,6 +63,19 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
             setIsLoading(false);
         }
     }
+
+    useEffect(() => {
+        const values = {
+            dailyPrice : isDailyPrice
+        }
+        axios.patch(`/api/inserat/${thisInserat.id}`, values);
+    }, [isDailyPrice])
+
+    useEffect(() => {
+        if(thisInserat.annual) {
+            setDailyPrice(true)
+        }
+    },[thisInserat.annual])
 
     const { isSubmitting, isValid } = form.formState
 
@@ -117,7 +131,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                             />
                         )}
                     />
-                    <div>
+                    <div className="w-full flex items-center">
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
@@ -125,7 +139,17 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                         >
                             Preis festlegen
                         </Button>
-                        
+                        <div className="ml-auto space-x-2">
+                        <Label>
+                            Preis pro Tag
+                        </Label>
+                        <Checkbox
+                        onCheckedChange={(checked) => {setDailyPrice(!isDailyPrice)}}
+                        checked={isDailyPrice}
+                        disabled={thisInserat.annual}
+                        />
+                      
+                        </div>
                     </div>
                 </form>
             </Form>

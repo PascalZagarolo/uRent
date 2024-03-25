@@ -85,7 +85,8 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
             const values = {
                 begin: null,
                 end : null,
-                annual: checked
+                annual: checked,
+                dailyPrice : true,
             }
 
             console.log(values)

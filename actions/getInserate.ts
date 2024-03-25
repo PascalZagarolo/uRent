@@ -6,7 +6,11 @@ import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnu
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, lkwAttribute, LkwBrandEnumRender, 
     LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender, 
     transportAttribute} from "@/db/schema";
+import axios from "axios";
 import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
+
+
+
 
 
 
@@ -106,54 +110,109 @@ export const getInserate = async ({
     axis,
     brake,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
-    try {
 
+    const PkwFilter = (pInserat : typeof inserat) => {
+        
+        const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
+        const bPower = power ? pInserat.pkwAttribute.power >= power : true;
+        const bDoors = doors ? pInserat.pkwAttribute.doors >= doors : true;
+        const bFreeMiles = freeMiles ? pInserat.pkwAttribute.freeMiles >= freeMiles : true;
+        const bExtraCost = extraCost ? pInserat.pkwAttribute.extraCost >= extraCost : true;
+        const bType = thisType ? thisType === pInserat.pkwAttribute.type : true;
+        const bTransmission = transmission ? transmission === pInserat.pkwAttribute.transmission : true;
+        const bFuel = fuel ? fuel === pInserat.pkwAttribute.fuel : true;
+        const bInitial = initial.getTime() ? initial.getTime() >= pInserat.pkwAttribute.initial.getTime() : true;
+        const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;
+        
+        
+
+        return bSeats && bPower && bDoors && bFreeMiles &&
+         bExtraCost && bType && bTransmission && bFuel && bBrand;
+    }
+
+    try {
         const usedStart = new Date(periodBegin);
         const usedEnd = new Date(periodEnd);
-        console.log(periodBegin)
-
-        console.log(usedStart < usedEnd)
         
-           const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
-
-        const foundInserate = await db.query.inserat.findMany({
-            where : (
+        let foundInserate; 
+        
+        const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
+        
+        foundInserate = await db.query.inserat.findMany({
+            where: (
                 and(
                     eq(inserat.isPublished, "true"),
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
                     //@ts-ignore
                     ...ilikeQuery,
-                    start? gte(inserat.price, start) : undefined,
-                    end? lte(inserat.price, end) : undefined,
-                    periodBegin ? 
-                    or(
-                        (gte(inserat.begin, usedStart)), eq(inserat.annual, "true")
-                    ) : undefined,
-                    periodEnd ? 
-                    or(
-                        (lte(inserat.end, usedEnd)),
-                         eq(inserat.annual, "true")
-                    )
-                    : undefined,
-                    
+                    start ? gte(inserat.price, start) : undefined,
+                    end ? lte(inserat.price, end) : undefined,
+                    periodBegin ?
+                        or(
+                            (gte(inserat.begin, usedStart)), eq(inserat.annual, "true")
+                        ) : undefined,
+                    periodEnd ?
+                        or(
+                            (lte(inserat.end, usedEnd)),
+                            eq(inserat.annual, "true")
+                        )
+                        : undefined,
+        
                 )
             ),
-            with : {
-                user : true,
-                images : true,
-                address : true,
-                    lkwAttribute: true,
-                    pkwAttribute: true,
-                    trailerAttribute: true,
-                    transportAttribute: true,
+            with: {
+                user: true,
+                images: true,
+                address: true,
+                lkwAttribute: true,
+                pkwAttribute: true,
+                trailerAttribute: true,
+                transportAttribute: true,
             }
         })
+
+        const filteredArray = foundInserate.filter((pInserat) => {
+            
+            switch(thisCategory) {
+                //@ts-ignore
+                case "PKW": {
+                    return PkwFilter(pInserat);
+                    break;
+                }
+                //@ts-ignore
+                case "LKW": {
+                    return true;
+                    break;
+                }
+                //@ts-ignore
+                case "TRAILER": {
+                    return true;
+                    break;
+                }
+                //@ts-ignore
+                case "TRANSPORT": {
+                    return true;
+                    break;
+                } default: {
+                    return true;
+                }
+                
+            }
+        });
+        
+        return filteredArray; 
         
         
-        return foundInserate;
+        
+        
 
     } catch {
         return [];
     }
-        
+
+    
 }
+        
+
+
+

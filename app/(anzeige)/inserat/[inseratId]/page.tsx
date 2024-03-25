@@ -105,11 +105,9 @@ const InseratAnzeige = async ({
         <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max ">
             <div className="h-full p-4 w-full1">
                 <div className="flex xl:justify-end justify-center w-full">
-                    ss {inseratArray.length}
                     <div className="mt-4 bg-[#161923]  text-gray-200 p-8 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  
                     sm:w-8/12 ">
                         <div className="flex items-center justify-between truncate ">
-
                             <div className="bg-[#1d1f2b] w-1/8 rounded-lg p-4">
                                 {
                                     {

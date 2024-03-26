@@ -244,6 +244,7 @@ export const extraTypeEnum = pgEnum("extraType", [
     "FLUESSIGKEITSTRANSPORT",
 
     "KASTENWAGEN",
+    "KIPPER",
     "KOFFERAUFBAU",
     "KUEHLAUFBAU",
 
@@ -409,6 +410,7 @@ export const applicationEnum = pgEnum("application", [
 
     "KASTENWAGEN",
     "KOFFERAUFBAU",
+    "KIPPER",
     "KUEHLWAGEN",
 
     "MOEBELTRANSPORT",

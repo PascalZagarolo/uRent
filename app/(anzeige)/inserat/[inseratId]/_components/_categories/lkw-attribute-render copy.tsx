@@ -48,13 +48,17 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     <WeightIcon className="w-4 h-4 mr-2" />   
                     { 
                         {   
-                            '0' : "Sonstiges",
-                            '3' : " bis 3,5 t",
-                            '5' : " 3,5 - 5,0 t",
-                            '7' : " 5,0 - 7,5 t",
-                            '12' : " 7,5 - 12 t",
-                            '26' : " 12 - 26 t",
-                            '40' : " 26 - 40 t",
+                            '75' : " bis 0,75 t",
+                            '150' : " bis 1,5 t",
+                            '280' : " bis 2,8 t",
+                            '350' : " bis 3,5 t",
+                            '750' : " bis 7,5 t",
+                            '1200' : " bis 12 t",
+                            '1800' : " bis 18 t",
+                            '2600' : " bis 26 t",
+                            '3200' : " bis 32 t",
+                            '3900' : " bis 39 t",
+                            '5000' : " {'>'} 39 t",
                         }[attributes.weightClass]
                     }
 

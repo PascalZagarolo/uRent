@@ -374,7 +374,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                                     <Banknote className="mr-1 sm:block hidden" />
                                 </div>
-                                {thisInserat.price} €  {thisInserat.dailyPrice && (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)}
+                                {thisInserat.price} €  {thisInserat.dailyPrice ? (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)
+                                                                            : (<div className="text-[10px] ml-1 mr-1" > / Zeitraum</div>)}
                             </div>
                         </div>
                         <div className="ml-auto w-2/3  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] 0 

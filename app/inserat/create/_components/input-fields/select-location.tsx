@@ -189,7 +189,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           String(currentZipCode).length !== 5
         }
       >
-        <span className="">Addresse wählen</span>
+        <span className="">Addresse angeben</span>
       </Button>
     </div>
   );

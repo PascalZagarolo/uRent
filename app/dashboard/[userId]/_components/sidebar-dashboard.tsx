@@ -26,12 +26,20 @@ const SidebarDashboard = () => {
                 </div>
                 <div className="p-2">
                     <Button className="dark:bg-[#141414]  hover:bg-[#191919] w-full  dark:text-gray-100 flex " onClick={() => {router.push(baseUrl)}}>
-                       <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (!pathname.includes("bookings") && !pathname.includes("inserate")) && "block")} /> Übersicht
+                       <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (!pathname.includes("bookings") && 
+                       !pathname.includes("inserate") && !pathname.includes("manage")) && "block")} /> Übersicht
                     </Button>
-                    <Button className="dark:bg-[#141414] hover:bg-[#191919] w-full  dark:text-gray-100 flex mt-2" onClick={() => {router.push(baseUrl + "/inserate")}}>
+                    <Button className="dark:bg-[#141414]  hover:bg-[#191919] mt-2  w-full  dark:text-gray-100 flex " 
+                    onClick={() => {router.push(baseUrl + "/manage")}}>
+                       <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("manage") 
+                       && !pathname.includes("inserate")) && "block")} /> Meine Fahrzeuge
+                    </Button>
+                    <Button className="dark:bg-[#141414] hover:bg-[#191919] w-full  dark:text-gray-100 flex mt-2" 
+                    onClick={() => {router.push(baseUrl + "/inserate")}}>
                     <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("inserate")) && "block" )} />  Meine Inhalte
                     </Button>
-                    <Button className="dark:bg-[#141414] hover:bg-[#191919] w-full truncate dark:text-gray-100 flex mt-2" onClick={() => {router.push(baseUrl + "/bookings")}}>
+                    <Button className="dark:bg-[#141414] hover:bg-[#191919] w-full truncate dark:text-gray-100 flex mt-2" 
+                    onClick={() => {router.push(baseUrl + "/bookings")}}>
                     <X className={cn("w-4 h-4 mr-2 text-blue-800 hidden", (pathname.includes("bookings")) && "block" )} />   Favouriten & <br/> Buchungen 
                     </Button>
                 </div>

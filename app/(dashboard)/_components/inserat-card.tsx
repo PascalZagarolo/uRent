@@ -135,7 +135,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="ml-auto">
                 {thisInserat?.multi && (
                     <span className="p-4 text-xs text-gray-100
-                     border-white border-dashed border bg-[#191B27] rounded-md flex items-center">
+                     border-white border-dashed border bg-[#191B27] rounded-md flex items-center hover:cursor-default">
                         {
                             {
                                 'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
@@ -320,7 +320,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             <div className="">
                                 <Image
                                     src={thisInserat.images[0]?.url}
-
                                     width={220}
                                     height={240}
                                     className="rounded-md hover:cursor-pointer dark:border-gray-900 max-h-[180px] full"

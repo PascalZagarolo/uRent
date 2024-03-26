@@ -40,11 +40,11 @@ const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
                     {thisInserat?.price} € {thisInserat.dailyPrice && "/ Tag"}
                 </p>
                 {thisInserat.annual ? (
-                    <p className="text-xs mt-2 truncate">
+                    <p className="text-xs mt-2 truncate text-gray-200">
                         Datumsunabhängig
                     </p>
                 ) : (
-                    <p className="text-xs mt-2">
+                    <p className="text-xs mt-2 text-gray-200">
                     {format(new Date(thisInserat?.begin), 'dd.MM')} - {format(new Date(thisInserat?.end), 'dd.MM')}
                 </p>
                 )}

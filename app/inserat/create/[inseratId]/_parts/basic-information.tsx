@@ -10,6 +10,12 @@ import SelectLicenseInserat from "../../_components/input-fields/select-license"
 import SelectInseratType from "../../_components/input-fields/select-inserat-type";
 import SelectVehicleAmount from "../../_components/input-fields/select-vehicle-amount";
 import { images, inserat } from "@/db/schema";
+import PkwExtraType from "./pkw/pkw-extra-type";
+import { pkwAttribute } from '../../../../../db/schema';
+import TransportExtraType from "./transport/transport-extra-type";
+import LkwApplicationBar from "@/app/(dashboard)/_components/filter-categories/lkw/lkw-application";
+import ApplicationForm from "./lkw/application";
+import TrailerExtraType from "./trailer/trailer-extra-type";
 
 
 interface BasicInformationProps {
@@ -35,12 +41,24 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                 />
                
             </div>
-            <div className="mt-4 flex w-full justify-between items-center">
-                <div className="w-1/2">
+            <div className="mt-4 flex w-full justify-between items-center space-x-2">
+                <div className="w-1/2 flex space-x-2">
                      
-                    <SelectCategoryInserat
-                        thisInserat={thisInserat}
-                    />
+                    <div className="w-1/2">
+                        <SelectCategoryInserat
+                            thisInserat={thisInserat}
+                        />
+                    </div>
+                    <div className="w-1/2">
+                    {
+                        {
+                            "PKW" : <PkwExtraType thisExtraType={thisInserat.pkwAttribute.extraType} />,
+                            "TRANSPORT" : <TransportExtraType thisExtraType={thisInserat.transportAttribute.extraType} />,
+                            "LKW" : <ApplicationForm thisApplication={thisInserat.lkwAttribute?.application} />,
+                            "TRAILER" : <TrailerExtraType thisExtraType={thisInserat.trailerAttribute?.extraType} />
+                        }[thisInserat.category]
+                    }
+                    </div>
                    
                 </div>
                 <div className="w-1/2">

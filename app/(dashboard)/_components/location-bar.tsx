@@ -58,8 +58,7 @@ const AutoComplete = () => {
     const success = async (position) => {
       console.log(position.coords.latitude, position.coords.longitude);
       const addressObject = await axios.get(`https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&api_key=65db7269a0101559750093uena07e08`);
-      const addressString = addressObject.data?.address?.road + " " + addressObject.data?.address?.house_number
-      + ", " + addressObject.data?.address?.city + ", "  + (addressObject.data?.address?.country === "Germany" ? 
+      const addressString = addressObject.data?.address?.road + " " + addressObject.data?.address?.city + ", "  + (addressObject.data?.address?.country === "Germany" ? 
       "Deutschland" : addressObject.data?.address?.country)
       const url = qs.stringifyUrl({
         url: "/",
@@ -70,6 +69,8 @@ const AutoComplete = () => {
         }
       }, { skipEmptyString: true, skipNull: true });
       router.push(url);
+      router.refresh();
+      
     }
     const error = () => {
       status.textContent = 'Unable to retrieve your location';

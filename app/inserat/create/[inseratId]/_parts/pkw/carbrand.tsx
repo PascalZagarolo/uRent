@@ -1,7 +1,8 @@
 'use client';
 
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { BrandEnumRender } from "@/db/schema";
 
 
@@ -78,11 +79,34 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                        
+                        <SelectGroup>
+                            <SelectLabel>
+                                Häufigsten
+                            </SelectLabel>
+                            <SelectItem value="Audi">Audi</SelectItem>
+                            <SelectItem value="BMW">Bmw</SelectItem>
+                            <SelectItem value="Ford">Ford</SelectItem>
+                            <SelectItem value="Mercedes_Benz">Mercedes Benz</SelectItem>
+                            <SelectItem value="Opel">Opel</SelectItem>
+                            
+                            <SelectItem value="SEAT">Seat</SelectItem>
+                            <SelectItem value="Skoda">Skoda</SelectItem>
+                            <SelectItem value="Toyota">Toyota</SelectItem>
+                            <SelectItem value="Volkswagen">Volkswagen</SelectItem>
+                            <SelectLabel>
+                                <Separator className="w-full"/>
+                            </SelectLabel>
+                        </SelectGroup>
                         <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(BrandEnumRender).map((brand, index) => (
-                            <SelectItem key={index} value={brand}>
+                            !(brand === "Audi" || brand === "BMW" || brand === "Ford" || brand === "Mercedes_Benz" || brand === "Opel" || 
+                            brand === "SEAT" || brand === "Skoda" || brand === "Toyota" || brand ==="Volkswagen") && 
+                            (
+                                <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>
+                            )
                         ))}
                     </SelectContent>
                 </Select>

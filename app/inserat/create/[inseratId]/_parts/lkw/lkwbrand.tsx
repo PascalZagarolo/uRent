@@ -1,7 +1,8 @@
 'use client';
 
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { LkwBrandEnumRender } from "@/db/schema";
 
 
@@ -80,13 +81,28 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                    <SelectGroup>
+                            <SelectLabel>
+                                Häufigsten
+                            </SelectLabel>
+                            <SelectItem value="MAN_Truck_Bus">MAN</SelectItem>
+                            <SelectItem value="Scania">Scania</SelectItem>
+                            <SelectItem value="Toyota_Trucks">Toyota</SelectItem>
+                            <SelectItem value="Volvo_Trucks">Volvo</SelectItem>
+                            <SelectLabel>
+                                <Separator className="w-full"/>
+                            </SelectLabel>
+                        </SelectGroup>
                     <SelectItem value={null}>
                                 Beliebig
                             </SelectItem>
                         {Object.values(LkwBrandEnumRender).map((brand, index) => (
-                            <SelectItem key={index} value={brand}>
+                            !(brand === "MAN_Truck_Bus" || brand === "Scania" || brand === "Toyota_Trucks" || brand === "Volvo_Trucks") 
+                            && (
+                                <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>
+                            )
                         ))}
                     </SelectContent>
                 </Select>

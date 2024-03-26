@@ -27,16 +27,14 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                     />
                 </div>
                 <div className="w-1/2">
-                    <Seats
-                    thisSeats={thisInserat?.lkwAttribute?.seats}
-                    />
+                    
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                   <ApplicationForm 
-                   thisApplication={thisInserat?.lkwAttribute?.application}
-                   />
+                <Seats
+                    thisSeats={thisInserat?.lkwAttribute?.seats}
+                    />
                 </div>
                 <div className="w-1/2">
                     <WeightClassForm 

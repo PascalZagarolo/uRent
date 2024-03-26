@@ -80,6 +80,9 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                    <SelectItem  value={null}>
+                                Beliebig
+                            </SelectItem>
                         {Object.values(LkwBrandEnumRender).map((brand, index) => (
                             <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

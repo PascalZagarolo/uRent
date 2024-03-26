@@ -74,7 +74,8 @@ interface MainPageProps {
 
 export const metadata: Metadata = {
     title: 'Mieten auf uRent',
-    description: 'Kostenlos und schnell mieten auf uRent. Mieten und Vermieten Sie alles, was Sie brauchen.',
+    description: `PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
+    Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent.`,
 }
 
 const Main = async ({

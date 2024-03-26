@@ -31,9 +31,7 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
                  />
                 </div>
                 <div className="w-1/2">
-                 <TrailerExtraType
-                 thisExtraType={thisInserat.trailerAttribute?.extraType}
-                 />
+                 
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">

@@ -1,5 +1,6 @@
 
 
+
 import {
     timestamp,
     pgTable,
@@ -236,6 +237,24 @@ export const fuelTypeEnum = pgEnum("fuelType", [
 
 export const FuelTypeEnumRender = z.enum(fuelTypeEnum.enumValues).Enum;
 
+export const extraTypeEnum = pgEnum("extraType", [
+    "CONTAINERTRANSPORT",
+
+    "FAHRZEUGTRANSPORT",
+    "FLUESSIGKEITSTRANSPORT",
+
+    "KASTENWAGEN",
+    "KOFFERAUFBAU",
+    "KUEHLAUFBAU",
+
+    "MOEBELTRANSPORT",
+    "MULDENKIPPER",
+
+    "PERSONENTRANSPORT",
+    "PLANE",
+    "PRITSCHE",
+])
+
 export const pkwAttribute = pgTable("pkwAttribute", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -246,6 +265,7 @@ export const pkwAttribute = pgTable("pkwAttribute", {
 
     freeMiles: integer("freeMiles"),
     extraCost: decimal("extraCost"),
+    extraType : extraTypeEnum("extraType"),
 
     transmission: transmissionEnum("transmission"),
     type: carTypeEnum("type"),
@@ -380,6 +400,8 @@ export const loadingEnum = pgEnum("loading", [
 export const LoadingEnumRender = z.enum(loadingEnum.enumValues).Enum;
 
 export const applicationEnum = pgEnum("application", [
+    "CONTAINERTRANSPORT",
+    
     "DEICHSELANHAENGER",
 
     "FAHRZEUGTRANSPORT",
@@ -393,7 +415,9 @@ export const applicationEnum = pgEnum("application", [
 
     "PERSONENTRANSPORT",
     "PLANWAGEN",
-    "PRITSCHENWAGEN"
+    "PRITSCHENWAGEN",
+
+    "SONSTIGES"
 ])
 
 export const ApplicationEnumRender = z.enum(applicationEnum.enumValues).Enum;
@@ -429,23 +453,7 @@ export const couplingEnum = pgEnum("coupling", [
 
 export const CouplingEnumRender = z.enum(couplingEnum.enumValues).Enum;
 
-export const extraTypeEnum = pgEnum("extraType", [
-    "CONTAINERTRANSPORT",
 
-    "FAHRZEUGTRANSPORT",
-    "FLUESSIGKEITSTRANSPORT",
-
-    "KASTENWAGEN",
-    "KOFFERAUFBAU",
-    "KUEHLAUFBAU",
-
-    "MOEBELTRANSPORT",
-    "MULDENKIPPER",
-
-    "PERSONENTRANSPORT",
-    "PLANE",
-    "PRITSCHE",
-])
 
 export const ExtraTypeEnumRender = z.enum(extraTypeEnum.enumValues).Enum;
 
@@ -471,6 +479,7 @@ export const transportAttribute = pgTable("transportAttribute", {
 
     loading: loadingEnum("loading"),
     transmission: transmissionEnum("transmission"),
+    extraType : extraTypeEnum("extraType"),
 
     seats: integer("seats"),
     doors: integer("doors"),

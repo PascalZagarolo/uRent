@@ -55,7 +55,7 @@ const WeightClassForm: React.FC<WeightClassFormProps> = ({
           onValueChange={(weightClass) => {
             onSubmit(Number(weightClass));
           }}
-          value={String(currentWeight)}
+          value={currentWeight ? String(currentWeight) : null}
           disabled={isLoading}
         >
 
@@ -67,12 +67,18 @@ const WeightClassForm: React.FC<WeightClassFormProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-            <SelectItem value="3">bis 3,5 t</SelectItem>
-            <SelectItem value="5">3,5 - 5t</SelectItem>
-            <SelectItem value="7">5,0 - 7,5t</SelectItem>
-            <SelectItem value="12">7,5 - 12t</SelectItem>
-            <SelectItem value="26">12t - 26t</SelectItem>
-            <SelectItem value="0">Sonstiges</SelectItem>
+          <SelectItem value={null}>Beliebig</SelectItem>
+          <SelectItem value="75">0,75 t</SelectItem>
+            <SelectItem value="150">1,5 t</SelectItem>
+            <SelectItem value="280">2,8 t</SelectItem>
+            <SelectItem value="350">3,5 t</SelectItem>
+            <SelectItem value="750">7,5 t</SelectItem>
+            <SelectItem value="1200">12 t</SelectItem>
+            <SelectItem value="1800">18 t</SelectItem>
+            <SelectItem value="2600">26 t</SelectItem>
+            <SelectItem value="3200">32 t</SelectItem>
+            <SelectItem value="3900">39 t</SelectItem>
+            <SelectItem value="5000">{'>'} 39 t</SelectItem>
 
           </SelectContent>
         </Select>

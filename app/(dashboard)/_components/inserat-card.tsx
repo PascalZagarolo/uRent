@@ -29,6 +29,7 @@ import { PiEngineFill, PiVanFill } from "react-icons/pi";
 import ProfileBar from "./inserat-card/profile-bar";
 import { TbCrane } from "react-icons/tb";
 import { inserat, users } from "@/db/schema";
+import Link from "next/link";
 
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
@@ -120,17 +121,20 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         }[thisInserat.category]
                     }
                 </div>
-                <div className="px-2 py-1 mt-1 rounded-md w-1/2">
-                    <a className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
-                    truncate overflow-hidden text-medium w-full h-[40px]
-                     hover:cursor-pointer hover:underline dark:text-gray-100 "
+                <div className="px-2 py-1 mt-1 rounded-md w-1/2 items-center">
+                    <Link className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
+                     text-base  h-[40px] flex
+                     hover:cursor-pointer hover:underline dark:text-gray-100  items-center"
                         href={`/inserat/${thisInserat.id}`}
                         target="_blank"
                         
-                    > {thisInserat.title} </a>
+                    ><div className="truncate">
+                       {thisInserat.title}</div></Link>
                 </div>
+                <div className="ml-auto">
                 {thisInserat?.multi && (
-                    <span className="p-4 text-xs text-gray-100 border-white border-dashed border bg-[#191B27] rounded-md flex items-center">
+                    <span className="p-4 text-xs text-gray-100
+                     border-white border-dashed border bg-[#191B27] rounded-md flex items-center">
                         {
                             {
                                 'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
@@ -143,6 +147,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         Noch <p className=" font-black px-1 ">{thisInserat?.amount}</p> verfügbar
                     </span>
                 )}
+                    </div>
                 <div className="ml-auto items-center sm:flex hidden">
 
 

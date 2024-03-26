@@ -30,7 +30,7 @@ export const LoginForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-    ? "Email already in use with different provider!"
+    ? "Diese Email wurde schon mit einem anderen Account verknüpft. Bitte logge dich mit dem anderen Account ein."
     : "";
 
   const [showTwoFactor, setShowTwoFactor] = useState(false);

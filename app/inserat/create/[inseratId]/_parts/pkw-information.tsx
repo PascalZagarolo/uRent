@@ -8,6 +8,7 @@ import InitialForm from "./pkw/initial";
 import CarBrandForm from "./pkw/carbrand";
 import { inserat } from "@/db/schema";
 import PkwWeightClass from "./pkw/pkw-weight-class";
+import CarLoadingForm from "./pkw/car-loading";
 ;
 
 
@@ -64,6 +65,11 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     thisWeightClass={thisInserat?.pkwAttribute?.weightClass}
                     />
                 </div>
+                <div className="w-1/2">
+                    <CarLoadingForm
+                    thisLoading={thisInserat?.pkwAttribute?.loading}
+                    />
+                </div>
                 
             </div>
             <div className="flex w-full gap-x-8 mt-4">
@@ -74,7 +80,6 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                 </div>
                 <div className="w-1/2">
                     <InitialForm 
-                    
                     thisInitial={thisInserat?.pkwAttribute?.initial}/>
                 </div>
             </div>

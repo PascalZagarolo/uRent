@@ -93,7 +93,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     </div>
                     <Button
                         variant="ghost"
-                        className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                        className="  bg-[#e1dfdf] 
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start"
                         onClick={onClick}
                     >
@@ -105,7 +105,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
                     <Button
                         variant="ghost"
-                        className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                        className="  bg-[#e1dfdf] 
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={onDashboard}
                     >
@@ -117,7 +117,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
                     <Button
                         variant="ghost"
-                        className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                        className="  bg-[#e1dfdf] 
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={onMessages}
                     >
@@ -135,7 +135,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2" />
                     <Button
                         variant="ghost"
-                        className="  bg-[#e1dfdf] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+                        className="  bg-[#e1dfdf] 
                         border-2 border-gray-300   w-full dark:bg-[#0f0f0f] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={() => signOut({ callbackUrl: `${window.location.origin}/login` })}
                     >

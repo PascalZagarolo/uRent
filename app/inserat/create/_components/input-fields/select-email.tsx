@@ -106,7 +106,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
         disabled={!currentAddress || currentAddress === thisInserat.emailAddress}
       >
-        <span className="">Email-Bestätigen</span> 
+        <span className="">Email angeben</span> 
       </Button>
 
     </div>

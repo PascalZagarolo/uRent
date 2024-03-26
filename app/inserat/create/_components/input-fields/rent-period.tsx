@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { inserat } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +14,7 @@ import axios from "axios";
 
 import { format } from "date-fns";
 
-import { CalendarClockIcon, CalendarIcon } from "lucide-react";
+import { AlertCircle, CalendarClockIcon, CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -247,6 +248,18 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                     <p className="ml-2 font-semibold  text-sm ">
                         Datumsunabhängig anbieten
                     </p>
+                    <TooltipProvider>
+                        <Tooltip>
+
+                            <TooltipTrigger>
+                                <AlertCircle className="w-4 h-4 ml-2" />
+                            </TooltipTrigger>
+                            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+                                Datumsunabhängige Anzeigen bleiben immer online und sind nicht an ein Datum gebunden. <br/>
+                                Du kannst diese dann manuell selber als belegt oder als verfügbar markieren.
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </div>
         </div>
         </div>

@@ -66,20 +66,19 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
                     }}
                     disabled={isLoading}
                     //@ts-ignore
-                    value={thisBrand || currentBrand || "Acura"}
+                    value={currentBrand}
                     
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}>
                         <SelectValue
-                            placeholder="Wähle die Kategorie aus"
-                            
                             className="placeholder:text-gray-100"
                         />
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                        <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(BrandEnumRender).map((brand, index) => (
                             <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

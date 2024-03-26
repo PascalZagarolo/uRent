@@ -18,7 +18,7 @@ const TrailerCoupling: React.FC<CarTypeProps> = ({
   thisCoupling
 }) => {
 
-    const [currentCoupling, setCurrentCoupling] = useState<typeof CouplingEnumRender | null>(thisCoupling);
+    const [currentCoupling, setCurrentCoupling] = useState<typeof CouplingEnumRender | null>(thisCoupling || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();

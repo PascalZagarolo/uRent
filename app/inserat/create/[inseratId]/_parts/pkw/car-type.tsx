@@ -18,7 +18,7 @@ const CarTypeForm: React.FC<CarTypeProps> = ({
   thisCarType
 }) => {
 
-    const [currentCarType, setcurrentCarType] = useState<typeof CarTypeEnumRender | null>(thisCarType);
+    const [currentCarType, setcurrentCarType] = useState<typeof CarTypeEnumRender | null>(thisCarType || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -59,19 +59,17 @@ const CarTypeForm: React.FC<CarTypeProps> = ({
           
           disabled={isLoading}
           //@ts-ignore
-          value={thisCarType || currentCarType || "KOMBI"}
+          value={currentCarType}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
           disabled={isLoading}  >
             <SelectValue
-              placeholder="Wähle die Kategorie aus"
-              
-              
             />
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+            <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="KOMBI">Kombi</SelectItem>
             <SelectItem value="COUPE">Coupe</SelectItem>
             <SelectItem value="SUV">SUV</SelectItem>

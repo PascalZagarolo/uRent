@@ -20,7 +20,7 @@ const LoadingForm: React.FC<LoadingFormProps> = ({
   thisLoading
 }) => {
 
-    const [currentLoading, setCurrentloading] = useState<typeof LoadingEnumRender | null>(thisLoading);
+    const [currentLoading, setCurrentloading] = useState<typeof LoadingEnumRender | null>(thisLoading || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();

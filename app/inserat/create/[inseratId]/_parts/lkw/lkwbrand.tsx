@@ -21,7 +21,7 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
     thisBrand
 }) => {
 
-    const [currentBrand, setCurrentBrand] = useState<typeof LkwBrandEnumRender | null>(thisBrand);
+    const [currentBrand, setCurrentBrand] = useState<typeof LkwBrandEnumRender | null>(thisBrand || null);
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -80,7 +80,7 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                    <SelectItem  value={null}>
+                    <SelectItem value={null}>
                                 Beliebig
                             </SelectItem>
                         {Object.values(LkwBrandEnumRender).map((brand, index) => (

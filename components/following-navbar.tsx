@@ -31,15 +31,16 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
 
     const necessaryFields = {
         description : thisInserat.description?.length > 0 || false,
-        price : thisInserat.price !== 0,
+        price : !!thisInserat.price,
         date : (thisInserat.end && thisInserat.begin) !== null || thisInserat.annual,
         images : thisInserat.images?.length > 0,
         title : thisInserat.title.length > 0,
-        category : thisInserat.category !== null,
-        postalCode : thisInserat.address?.postalCode !== null,
-        location : thisInserat.address?.locationString !== null,
+        category : thisInserat.category != null,
+        postalCode : thisInserat.address?.postalCode != null,
+        location : thisInserat.address?.locationString != null,
     }
 
+    console.log()
     
 
     let trueAttributes = 0;

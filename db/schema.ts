@@ -184,7 +184,15 @@ export const inserat = pgTable("inserat", {
     
 })
 
+export const loadingEnum = pgEnum("loading", [
+    "AUFFAHRRAMPE",
+    "LADERAMPE",
+    "LADEBORDWAND",
+    "KRAN",
+    "MITNAHMESTAPLER"
+])
 
+export const LoadingEnumRender = z.enum(loadingEnum.enumValues).Enum;
 
 export const brandEnum = pgEnum("brand", [
     'Acura' , 'Alfa_Romeo', 'Alpha_Motor_Corporation', 'Arcimoto', 'Arrinera_Automotive', 'Aptera_Motors',
@@ -266,7 +274,10 @@ export const pkwAttribute = pgTable("pkwAttribute", {
 
     freeMiles: integer("freeMiles"),
     extraCost: decimal("extraCost"),
+    loading: loadingEnum("loading"),
     extraType : extraTypeEnum("extraType"),
+
+    weightClass: integer("weightClass"),
 
     transmission: transmissionEnum("transmission"),
     type: carTypeEnum("type"),
@@ -390,15 +401,7 @@ export const driveEnum = pgEnum("drive", [
 
 export const DriveEnumRender = z.enum(driveEnum.enumValues).Enum;
 
-export const loadingEnum = pgEnum("loading", [
-    "AUFFAHRRAMPE",
-    "LADERAMPE",
-    "LADEBORDWAND",
-    "KRAN",
-    "MITNAHMESTAPLER"
-])
 
-export const LoadingEnumRender = z.enum(loadingEnum.enumValues).Enum;
 
 export const applicationEnum = pgEnum("application", [
     "CONTAINERTRANSPORT",
@@ -430,6 +433,8 @@ export const lkwAttribute = pgTable("lkwAttribute", {
     lkwBrand: lkwBrandEnum("lkwBrand"),
     model: text("model"),
     seats: integer("seats"),
+
+    power: integer("power"),
 
     weightClass: integer("weightClass"),
     drive: driveEnum("drive"),
@@ -482,6 +487,10 @@ export const transportAttribute = pgTable("transportAttribute", {
     loading: loadingEnum("loading"),
     transmission: transmissionEnum("transmission"),
     extraType : extraTypeEnum("extraType"),
+
+    weightClass: integer("weightClass"),
+
+    power: integer("power"),
 
     seats: integer("seats"),
     doors: integer("doors"),

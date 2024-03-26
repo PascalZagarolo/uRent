@@ -7,6 +7,7 @@ import PowerForm from "./pkw/power";
 import InitialForm from "./pkw/initial";
 import CarBrandForm from "./pkw/carbrand";
 import { inserat } from "@/db/schema";
+import PkwWeightClass from "./pkw/pkw-weight-class";
 ;
 
 
@@ -56,6 +57,15 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     />
                 </div>
             </div>
+            
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                    <PkwWeightClass
+                    thisWeightClass={thisInserat?.pkwAttribute?.weightClass}
+                    />
+                </div>
+                
+            </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                     <PowerForm
@@ -68,7 +78,6 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     thisInitial={thisInserat?.pkwAttribute?.initial}/>
                 </div>
             </div>
-            
         </div>
     );
 }

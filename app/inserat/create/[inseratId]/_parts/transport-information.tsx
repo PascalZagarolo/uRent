@@ -7,6 +7,7 @@ import TransportSeats from "./transport/transport-seats";
 import TransportFuel from "./transport/transport-fuel";
 import TransportDoors from "./transport/transport-doors";
 import { inserat } from "@/db/schema";
+import TransportWeightClass from "./transport/transport-weight-class";
 
 
 
@@ -53,8 +54,10 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
                 thisDoors={thisInserat?.transportAttribute?.doors}
                 />
                 </div>
-                <div>
-                    
+                <div className="w-1/2">
+                <TransportWeightClass 
+                thisWeightClass={thisInserat?.transportAttribute?.weightClass}
+                />
                 </div>
             </div>
             

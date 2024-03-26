@@ -48,11 +48,11 @@ const PaginationComponent = () => {
     return ( 
     <>
     {expectedPages > 1 && (
-      <div className=" dark:bg-[#13141C] bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-4 w-full sm:w-[1060px] flex justify-center">
+      <div className=" dark:bg-[#13141C]  bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-4 w-full sm:w-[1060px] flex justify-center">
       <Pagination>
       <PaginationContent>
         {Number(currentPage) > 1 && (
-          <PaginationItem onClick={() => {changePage(Number(currentPage) - 1)}}>
+          <PaginationItem onClick={() => {changePage(Number(currentPage) - 1)}} className="">
           <PaginationPrevious/>
         </PaginationItem>
         )}
@@ -60,8 +60,9 @@ const PaginationComponent = () => {
        
         {Array.from({length : expectedPages}, (_, index) => (
           
-            <PaginationItem className="bg-[#191B27] rounded-md hover:cursor-pointer" onClick={() => {changePage(index + 1)}} key={index}>
-            <PaginationLink>{index + 1}</PaginationLink>
+            <PaginationItem className="bg-[#191B27] hover:bg-[#242738]
+             text-gray-200 rounded-md hover:cursor-pointer" onClick={() => {changePage(index + 1)}} key={index}>
+            <PaginationLink className="hover:bg-[#242738] hover:text-gray-300">{index + 1}</PaginationLink>
           </PaginationItem>
          
         ))}

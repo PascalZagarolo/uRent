@@ -52,7 +52,7 @@ const TrailerWeightClass: React.FC<CarTypeProps> = ({
     return ( 
         <div className="w-full">
             <div className="w-full">
-        <Label>Gewichtsklasse</Label>
+        <Label>zul. Gesamtgewicht</Label>
         <Select
           onValueChange={(axis : string) => {
             onSubmit(axis);

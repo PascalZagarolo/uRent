@@ -71,8 +71,8 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ thisInserat }) =>
                                 <AlertCircle className="w-4 h-4 ml-2" />
                             </TooltipTrigger>
                             <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
-                                Falls du mehrere identische Fahrzeuge dieser Art hast, wähle "Mehrfach",
-                                falls du nur ein Fahrzeug dieser Art hast, wähle "Einzel".
+                                Falls du mehrere identische Fahrzeuge dieser Art hast, wähle &quot;Mehrfach&quot;,
+                                falls du nur ein Fahrzeug dieser Art hast, wähle &quot;Einzel&quot;.
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>

@@ -12,10 +12,7 @@ export const {
     signIn,
     signOut
 } = NextAuth({
-    pages : {
-        signIn : "/login",
-        error : `auth/error`
-    },
+    
     events : {
         async linkAccount({ user }) {
             await db.update(users).set({

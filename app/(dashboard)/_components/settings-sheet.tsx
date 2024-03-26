@@ -153,7 +153,7 @@ const SettingsSheet: React.FC<SettingsSheetProps> = ({
                             <div className="mt-8">
                                 <p className="font-semibold text-lg "> Privatsphäre Einstellungen </p>
                                 <div className="mt-4">
-                                    <div className="flex">
+                                    <div className="flex ">
                                         <Switch
                                             className=""
                                         /> <p className="font-semibold ml-4">E-Mail teilen</p>

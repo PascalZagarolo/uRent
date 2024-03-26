@@ -31,7 +31,7 @@ const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
             </div>
             
             <div className="w-1/3 space-y-2">
-            <h3 className=" font-medium h-1/2 overflow-hidden dark:text-gray-800 text-gray-200 text-sm w-full hover:underline hover:cursor-pointer" 
+            <h3 className=" font-medium h-1/2 overflow-hidden  text-gray-200 text-sm w-full hover:underline hover:cursor-pointer" 
             onClick={() => {router.push(`/inserat/${thisInserat.id}`)}}>
             {thisInserat?.title} 
             </h3>

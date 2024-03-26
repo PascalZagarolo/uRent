@@ -37,7 +37,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
 
     const thisUser = await db.query.users.findFirst({
-        where : eq(users.id, foundInserate[0].userId)
+        where : eq(users.id, pageOwnerId)
     })
     
     const ownProfile = currentUser?.id === thisUser.id ? true : false;

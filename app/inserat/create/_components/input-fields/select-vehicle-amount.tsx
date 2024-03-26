@@ -44,8 +44,8 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                 amount : 1
             }
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
-        } if(thisInserat.multi === true) {
-            setCurrentValue(thisInserat.amount || 2);
+        } else if(thisInserat.multi === true) {
+            setCurrentValue(thisInserat.amount >= 2 ? thisInserat.amount : 2);
             
         }
     }, [thisInserat.multi])

@@ -62,10 +62,12 @@ const InseratCreation = async ({
         price : thisInserat.price !== 0,
         images : thisInserat.images?.length > 0,
         date : (thisInserat.end && thisInserat.begin) !== null || thisInserat.annual,
-        postalCode : thisInserat.address?.postalCode !== null,
-        location : thisInserat.address?.locationString !== null,
-        state : thisInserat.address?.state !== null,
+        postalCode : thisInserat.address?.postalCode != null,
+        location : thisInserat.address?.locationString != null,
+        state : thisInserat.address?.state != null,
     };
+
+    
 
     let canPublish = true;
     

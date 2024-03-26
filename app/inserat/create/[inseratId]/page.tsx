@@ -64,6 +64,7 @@ const InseratCreation = async ({
         date : (thisInserat.end && thisInserat.begin) !== null || thisInserat.annual,
         postalCode : thisInserat.address?.postalCode !== null,
         location : thisInserat.address?.locationString !== null,
+        state : thisInserat.address?.state !== null,
     };
 
     let canPublish = true;

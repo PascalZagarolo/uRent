@@ -53,7 +53,7 @@ type resultsPerPage = {
 }
 
 export const useResultsPerPage = create<resultsPerPage>((set) => ({
-    results : 12,
+    results : 10,
     changeAmount : (newAmount: number) => {
         set({ results : newAmount })
     }

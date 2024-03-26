@@ -60,7 +60,7 @@ const PaginationComponent = () => {
        
         {Array.from({length : expectedPages}, (_, index) => (
           
-            <PaginationItem className="bg-[#191B27] rounded-md" onClick={() => {changePage(index + 1)}} key={index}>
+            <PaginationItem className="bg-[#191B27] rounded-md hover:cursor-pointer" onClick={() => {changePage(index + 1)}} key={index}>
             <PaginationLink>{index + 1}</PaginationLink>
           </PaginationItem>
          
@@ -71,7 +71,7 @@ const PaginationComponent = () => {
         </PaginationItem>
         )}
         {Number(currentPage) < expectedPages && expectedPages > 1 &&  (
-          <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}}>
+          <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}} className="hover:cursor-pointer">
           <PaginationNext />
         </PaginationItem>
         )}

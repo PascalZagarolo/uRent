@@ -168,7 +168,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         <div className="">
             
             {!title ? (
-                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold   p-4 text-gray-100 bg-[#141620]">
+                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full p-4 text-gray-100 bg-[#141620]">
                     <div className="ml-4 flex w-full items-center">
                         <div className="p-2 sm:block hidden rounded-lg">
                             <AlignCenter />
@@ -197,7 +197,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                     </div>
                 </div>
             )}
-            <div className="flex justify-center">
+            <div className="flex justify-center w-full">
                 <Suspense fallback={<LoadingComponent />}>
                     <InseratRenderedList
                         inserateArray={foundInserate}

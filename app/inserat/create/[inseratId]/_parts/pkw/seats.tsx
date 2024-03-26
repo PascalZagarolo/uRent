@@ -55,7 +55,7 @@ const Seats: React.FC<SeatsProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          defaultValue={String(thisSeats) || "4"}
+          value={currentSeats ? String(currentSeats) : null}
           disabled={isLoading}
         >
 
@@ -69,6 +69,7 @@ const Seats: React.FC<SeatsProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+          <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="1">1</SelectItem>
             <SelectItem value="2">2</SelectItem>
             <SelectItem value="3">3</SelectItem>
@@ -76,6 +77,7 @@ const Seats: React.FC<SeatsProps> = ({
             <SelectItem value="5">5</SelectItem>
             <SelectItem value="6">6</SelectItem>
             <SelectItem value="7">7</SelectItem>
+            <SelectItem value="8">{'>'}7</SelectItem>
           </SelectContent>
         </Select>
       </div>

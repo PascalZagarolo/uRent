@@ -21,7 +21,7 @@ const FuelForm: React.FC<FuelFormProps> = ({
   thisFuel
 }) => {
 
-    const [currentFuel, setCurrentFuel] = useState<typeof FuelTypeEnumRender | null>(thisFuel);
+    const [currentFuel, setCurrentFuel] = useState<typeof FuelTypeEnumRender | null>(thisFuel || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -61,7 +61,7 @@ const FuelForm: React.FC<FuelFormProps> = ({
           }}
           disabled={isLoading}
           //@ts-ignore
-          value={thisFuel || currentFuel || "BENZIN"}
+          value={currentFuel}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
@@ -72,6 +72,7 @@ const FuelForm: React.FC<FuelFormProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+            <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="BENZIN">Benzin</SelectItem>
             <SelectItem value="DIESEL">Diesel</SelectItem>
             <SelectItem value="ELEKTRISCH">Elektrisch</SelectItem>

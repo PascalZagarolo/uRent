@@ -20,7 +20,7 @@ const DriveForm: React.FC<DriveFormProps> = ({
   thisDrive
 }) => {
 
-    const [currentDrive, setCurrentdrive] = useState<typeof DriveEnumRender | null>(thisDrive);
+    const [currentDrive, setCurrentdrive] = useState<typeof DriveEnumRender | null>(thisDrive || null);
     const [isdrive, setIsdrive] = useState(false);
 
     const router = useRouter();

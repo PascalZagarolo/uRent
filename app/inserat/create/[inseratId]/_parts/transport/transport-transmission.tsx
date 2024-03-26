@@ -20,7 +20,7 @@ const TransportTransmission: React.FC<TransportTransmissionProps> = ({
   thisTransmission
 }) => {
 
-    const [currentTransmission, setCurrentTransmission] = useState<typeof TransmissionEnumRender | null>(thisTransmission);
+    const [currentTransmission, setCurrentTransmission] = useState<typeof TransmissionEnumRender | null>(thisTransmission || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();

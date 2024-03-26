@@ -13,7 +13,7 @@ interface CarTypeProps {
 }
 
 const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
-  const [currentCoupling, setCurrentCoupling] = useState<boolean | null>(thisBrake);
+  const [currentCoupling, setCurrentCoupling] = useState<boolean | null>(thisBrake || null);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -62,9 +62,8 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
             <SelectValue placeholder="Wähle die Kategorie aus" />
           </SelectTrigger>
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-            <SelectItem value="true">ja</SelectItem>
-            <SelectItem value="false">nein</SelectItem>
-            <SelectItem value={null}>Beliebig</SelectItem>
+            <SelectItem value="true">Vorhanden</SelectItem>
+            <SelectItem value="false">Nicht Vorhanden</SelectItem>   
           </SelectContent>
         </Select>
       </div>

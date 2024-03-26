@@ -21,7 +21,7 @@ const TransportLoading: React.FC<CarTypeProps> = ({
     thisLoading
 }) => {
 
-    const [currentLoading, setCurrentLoading] = useState<typeof LoadingEnumRender | null>(thisLoading);
+    const [currentLoading, setCurrentLoading] = useState<typeof LoadingEnumRender | null>(thisLoading || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -67,19 +67,17 @@ const TransportLoading: React.FC<CarTypeProps> = ({
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}  >
                         <SelectValue
-                            placeholder="Wähle die Kategorie aus"
-
-
                         />
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                    <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(LoadingEnumRender).map((load, index) => (
                             <SelectItem key={index} value={load}>
                                 {load.substring(0,1)}{load.substring(1).toLowerCase()}
                             </SelectItem>
                         ))}
-                        <SelectItem value={null}>Beliebig</SelectItem>
+                        
                     </SelectContent>
                 </Select>
             </div>

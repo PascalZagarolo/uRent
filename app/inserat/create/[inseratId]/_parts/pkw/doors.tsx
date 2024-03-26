@@ -55,7 +55,7 @@ const Doors: React.FC<DoorsProps> = ({
           onValueChange={(seats) => {
             onSubmit(Number(seats));
           }}
-          value={String(currentDoors)}
+          value={currentDoors ? String(currentDoors) : null}
           disabled={isLoading}
         >
 
@@ -69,6 +69,7 @@ const Doors: React.FC<DoorsProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+            <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="2">2/3</SelectItem>
             <SelectItem value="4">4/5</SelectItem>
             <SelectItem value="6">6/7</SelectItem>

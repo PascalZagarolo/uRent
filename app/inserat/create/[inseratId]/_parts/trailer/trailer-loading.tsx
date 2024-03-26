@@ -21,7 +21,7 @@ const TrailerLoading: React.FC<CarTypeProps> = ({
     thisLoading
 }) => {
 
-    const [currentLoading, setCurrentLoading] = useState<typeof LoadingEnumRender | null>(thisLoading);
+    const [currentLoading, setCurrentLoading] = useState<typeof LoadingEnumRender | null>(thisLoading || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();

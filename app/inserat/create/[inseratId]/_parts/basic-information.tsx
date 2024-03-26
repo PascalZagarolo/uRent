@@ -52,10 +52,10 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                     <div className="w-1/2">
                     {
                         {
-                            "PKW" : <PkwExtraType thisExtraType={thisInserat.pkwAttribute.extraType} />,
-                            "TRANSPORT" : <TransportExtraType thisExtraType={thisInserat.transportAttribute.extraType} />,
-                            "LKW" : <ApplicationForm thisApplication={thisInserat.lkwAttribute?.application} />,
-                            "TRAILER" : <TrailerExtraType thisExtraType={thisInserat.trailerAttribute?.extraType} />
+                            "PKW" : <PkwExtraType thisExtraType={thisInserat?.pkwAttribute?.extraType} />,
+                            "TRANSPORT" : <TransportExtraType thisExtraType={thisInserat?.transportAttribute?.extraType} />,
+                            "LKW" : <ApplicationForm thisApplication={thisInserat?.lkwAttribute?.application} />,
+                            "TRAILER" : <TrailerExtraType thisExtraType={thisInserat?.trailerAttribute?.extraType} />
                         }[thisInserat.category]
                     }
                     </div>

@@ -50,7 +50,7 @@ const WeightClassForm: React.FC<WeightClassFormProps> = ({
   return (
     <div className="w-full">
       <div className="w-full">
-        <Label>Gewichtsklasse</Label>
+        <Label>zul. Gesamtgewicht</Label>
         <Select
           onValueChange={(weightClass) => {
             onSubmit(Number(weightClass));

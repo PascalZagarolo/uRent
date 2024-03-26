@@ -7,6 +7,7 @@ import LoadingForm from "./lkw/loading";
 import DriveForm from "./lkw/drive";
 import LkwBrandForm from "./lkw/lkwbrand";
 import { inserat } from "@/db/schema";
+import LkwPowerForm from "./lkw/lkw-power";
 ;
 
 
@@ -52,6 +53,16 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                     <DriveForm 
                     thisDrive={thisInserat?.lkwAttribute?.drive}
                     />
+                </div>
+            </div>
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                   <LkwPowerForm 
+                   thisPower={thisInserat?.lkwAttribute?.power}
+                   />
+                </div>
+                <div className="w-1/2">
+                   
                 </div>
             </div>
             

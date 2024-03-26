@@ -8,6 +8,7 @@ import TransportFuel from "./transport/transport-fuel";
 import TransportDoors from "./transport/transport-doors";
 import { inserat } from "@/db/schema";
 import TransportWeightClass from "./transport/transport-weight-class";
+import TransportPowerForm from "./transport/transport-power";
 
 
 
@@ -59,6 +60,14 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
                 thisWeightClass={thisInserat?.transportAttribute?.weightClass}
                 />
                 </div>
+            </div>
+            <div className="flex w-full gap-x-8  mt-4">
+                <div className="w-1/2">
+                <TransportPowerForm 
+                thisPower={thisInserat?.transportAttribute?.power}
+                />
+                </div>
+                
             </div>
             
         </div>

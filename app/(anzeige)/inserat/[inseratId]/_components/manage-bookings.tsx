@@ -80,7 +80,7 @@ const ManageBookings: React.FC<ManageBookingsProps> = ({
         <Dialog>
             <DialogTrigger asChild>
                 <div className="mt-4">
-                <Button className="flex w-full sm:w-[240px] border-2 border-gray-900 bg-white text-gray-900 hover:bg-gray-200">
+                <Button className="flex w-full sm:w-[240px] border border-gray-900 bg-white text-gray-900 hover:bg-gray-200">
                    <CalendarCheck2 className="mr-2 h-4 w-4"/> Buchungen verwalten
                 </Button>
                 </div>

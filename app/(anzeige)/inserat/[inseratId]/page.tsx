@@ -20,6 +20,7 @@ import db from "@/db/drizzle";
 import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute } from '../../../../db/schema';
 import { and, eq } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
+import { RiCaravanLine } from "react-icons/ri";
 
 
 
@@ -114,7 +115,7 @@ const InseratAnzeige = async ({
                                         'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
                                         'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
                                         'TRANSPORT': <PiVanFill className=" text-gray-100 h-6 w-6 " />,
-                                        'TRAILER': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
+                                        'TRAILER': <RiCaravanLine className=" text-gray-100 h-6 w-6 " />
                                     }[thisInserat.category]
                                 }
                             </div>

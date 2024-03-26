@@ -30,6 +30,7 @@ import ProfileBar from "./inserat-card/profile-bar";
 import { TbCrane } from "react-icons/tb";
 import { inserat, users } from "@/db/schema";
 import Link from "next/link";
+import { RiCaravanLine } from "react-icons/ri";
 
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
@@ -117,7 +118,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
                             'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
                             'TRANSPORT': <PiVanFill className=" text-gray-100 h-6 w-6 " />,
-                            'TRAILOR': <CaravanIcon className=" text-gray-100 h-6 w-6 " />
+                            'TRAILER': <RiCaravanLine className="text-gray-100 w-6 h-6" />
                         }[thisInserat.category]
                     }
                 </div>

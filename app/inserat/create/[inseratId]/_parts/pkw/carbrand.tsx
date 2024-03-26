@@ -101,7 +101,7 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
                         <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(BrandEnumRender).map((brand, index) => (
                             //@ts-ignore
-                            !(brand === "Audi" || brand === "BMW" || brand === "Ford" || brand === "Mercedes_Benz" || brand === "Opel" || brand === "SEAT" || brand === "Skoda" || brand === "Toyota" || brand ==="Volkswagen") && 
+                            !(brand === "Audi" || brand === "BMW" || brand === "Ford" || brand === " Mercedes_Benz " || brand === "Opel" || brand === "SEAT" || brand === "Skoda" || brand === "Toyota" || brand ==="Volkswagen") && 
                             (
                                 <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

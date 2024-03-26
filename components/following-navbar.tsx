@@ -40,7 +40,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
         location : thisInserat.address?.locationString != null,
     }
 
-    console.log()
+    
     
 
     let trueAttributes = 0;

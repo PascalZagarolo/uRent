@@ -43,7 +43,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     <GearIcon className="w-4 h-4 mr-2" />    {attributes.drive.substring(1)}
                 </div>
             )}
-            {Number(attributes?.weightClass) !== 0 && (
+            {attributes?.weightClass && attributes?.weightClass != 0 && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
                     <WeightIcon className="w-4 h-4 mr-2" />   
                     { 
@@ -59,7 +59,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                             '3200' : " bis 32 t",
                             '3900' : " bis 39 t",
                             '5000' : " {'>'} 39 t",
-                        }[attributes.weightClass]
+                        }[attributes?.weightClass]
                     }
 
                 </div>

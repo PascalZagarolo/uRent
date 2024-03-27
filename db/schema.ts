@@ -434,6 +434,8 @@ export const lkwAttribute = pgTable("lkwAttribute", {
     model: text("model"),
     seats: integer("seats"),
 
+    axis: integer("axis"),
+
     power: integer("power"),
 
     weightClass: integer("weightClass"),

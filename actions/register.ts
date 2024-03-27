@@ -14,7 +14,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields!" };
+    return { error: "Ungültige Angaben" };
   }
 
   const { email, password, name } = validatedFields.data;
@@ -39,5 +39,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     verificationToken.token,
   );
 
-  return { success: "Email wurde versendet!" };
+  return { success: "Bitte bestätige deine Email-Addresse." };
 };

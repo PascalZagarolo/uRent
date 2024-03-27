@@ -48,7 +48,7 @@ export const login = async (
       verificationToken.token,
     );
 
-    return { success: "Email gesendet" };
+    return { success: "Bitte bestätige deine Email-Addresse" };
   }
   try {
     console.log(password)

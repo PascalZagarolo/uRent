@@ -21,7 +21,7 @@ const TrailerExtraType: React.FC<CarTypeProps> = ({
     thisExtraType
 }) => {
 
-    const [currentCoupling, setCurrentCoupling] = useState<typeof ExtraTypeEnumRender | null>(thisExtraType);
+    const [currentCoupling, setCurrentCoupling] = useState<typeof ExtraTypeEnumRender | null>(thisExtraType || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -74,6 +74,7 @@ const TrailerExtraType: React.FC<CarTypeProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                    <SelectItem value={null}>Beliebig</SelectItem>
                         <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
                         <SelectItem value="FLUESSIGKEITSTRANSPORT">Fluessigkeitstransport</SelectItem>
@@ -84,8 +85,7 @@ const TrailerExtraType: React.FC<CarTypeProps> = ({
                         <SelectItem value="MULDENKIPPER">Muldenkipper</SelectItem>
                         <SelectItem value="PERSONENTRANSPORT">Personentransport</SelectItem>
                         <SelectItem value="PLANE">Plane</SelectItem>
-                        <SelectItem value="PRITSCHE">Pritsche</SelectItem>
-                        <SelectItem value={null}>Beliebig</SelectItem>
+                        <SelectItem value="PRITSCHE">Pritsche</SelectItem>   
                     </SelectContent>
                 </Select>
             </div>

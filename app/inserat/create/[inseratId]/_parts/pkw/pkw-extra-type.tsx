@@ -21,7 +21,7 @@ const PkwExtraType: React.FC<CarTypeProps> = ({
     thisExtraType
 }) => {
 
-    const [currentCoupling, setCurrentCoupling] = useState<typeof ExtraTypeEnumRender | null>(thisExtraType);
+    const [currentCoupling, setCurrentCoupling] = useState<typeof ExtraTypeEnumRender | null>(thisExtraType || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -67,7 +67,7 @@ const PkwExtraType: React.FC<CarTypeProps> = ({
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}  >
                         <SelectValue
-                            placeholder="Wähle die Kategorie aus"
+                            
 
 
                         />

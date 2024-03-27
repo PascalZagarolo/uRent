@@ -12,15 +12,16 @@ import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FaBoxOpen } from "react-icons/fa";
+import { GiResize } from "react-icons/gi";
 
 
 
-interface LkwLoadingVolumeFormProps {
-    thisVolume: number;
+interface LoadingSizeFormProps {
+    thisSize: number;
 }
 
-const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
-    thisVolume
+const LoadingSizeForm: React.FC<LoadingSizeFormProps> = ({
+    thisSize
 }) => {
 
 
@@ -30,8 +31,9 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
 
     const [usesPS, setUsesPS] = useState(true);
 
-    const [currentLiter, setCurrentLiter] = useState<number | string | null>(thisVolume || null);
-    const [currentMeter, setCurrentMeter] = useState<number | string | null>(thisVolume * 0.001 || null);
+    const [currentLiter, setCurrentLiter] = useState<number | string | null>(thisSize || null);
+    const [currentMeter, setCurrentMeter] = useState<number | string | null>(thisSize * 0.001 || null);
+    const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -45,14 +47,14 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                     loading_volume: currentLiter
                 }
                 setIsLoading(true);
-                axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
+                axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
                 toast.success("Anzahl der PS gespeichert : " + values.loading_volume);
                 setTimeout(() => {
                     router.refresh();
                 }, 400)
                 
             } else {
-                
+                setError("Ungültige Eingabe");
                 console.log("keine Nummer");
                 return;
             }
@@ -71,23 +73,22 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
     return (
         <div className="items-center w-full">
             <Label className="font-semibold flex">
-            <FaBoxOpen className="w-4 h-4 mr-2" />     Ladevolumen
+            <GiResize className="h-4 w-4 mr-2" />    Laderaum 
                 </Label>
 
             <div className="flex mt-4 w-full">
                 
                 <div className="  items-center  ">
                     <Label className="flex justify-start items-center">
-                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Liter </p>
+                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Länge </p>
                     </Label>
 
                     <Input
-                        placeholder="Volumen in Liter"
+                        placeholder="in Metern"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                          onChange={(e) => {
                             const rawValue = e.currentTarget.value;
-
 
                             let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
                             cleanedValue = rawValue.replace(/,/g, '.');
@@ -102,11 +103,36 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                 </div>
                 <div className="ml-4">
                     <Label className="flex justify-start items-center">
-                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Kubikmeter </p>
+                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Breite </p>
                     </Label>
 
                     <Input
-                        placeholder="Volumen in m³"
+                        placeholder="in Metern"
+                        className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
+                         border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
+                        type="decimal"
+                        onChange={(e) => {
+                            const rawValue = e.currentTarget.value;
+
+
+                            let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
+                            cleanedValue = rawValue.replace(/,/g, '.');
+                            setCurrentMeter(cleanedValue)
+                            if (!isNaN(parseFloat(cleanedValue))) {
+                                setCurrentLiter(parseFloat(cleanedValue) * 1000);
+                            }
+                        }}
+                        disabled={usesPS}
+                        value={currentMeter}
+                    />
+                </div>
+                <div className="ml-4">
+                    <Label className="flex justify-start items-center">
+                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Höhe </p>
+                    </Label>
+
+                    <Input
+                        placeholder="in Metern"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         type="decimal"
@@ -127,23 +153,18 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                 </div>
             </div>
             <RadioGroup className="mt-2" defaultValue="PS">
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="PS" id="PS" className="h-2 w-2" onClick={() => { setUsesPS(true) }} />
-                    <Label htmlFor="PS" className="text-sm"><p className="text-sm"> Liter </p></Label>
-                    <RadioGroupItem value="KW" id="KW" className="h-2 w-2" onClick={() => { setUsesPS(false) }} />
-                    <Label htmlFor="KW" className="text-sm"><p className="text-sm"> m³ </p></Label>
-                </div>
+                
             </RadioGroup>
             
-            <Button onClick={onSubmit} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100"
+            <Button onClick={onSubmit} className="mt-6 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100"
 
-                disabled={!currentLiter || currentLiter == thisVolume || currentLiter == 0
+                disabled={!currentLiter || currentLiter == thisSize || currentLiter == 0
                     //@ts-ignore 
                      || !!isNaN(Number(Math.round(currentLiter))) || !!isNaN(Number(Math.round(currentMeter)))}
             >
-                <span className="">Volumen angeben</span>
+                <span className="">Laderaumangeben</span>
             </Button>
         </div>
     );
 };
-export default LkwLoadingVolumeForm;
+export default LoadingSizeForm;

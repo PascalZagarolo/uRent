@@ -10,6 +10,8 @@ import { inserat } from "@/db/schema";
 import PkwWeightClass from "./pkw/pkw-weight-class";
 import CarLoadingForm from "./pkw/car-loading";
 import LoadingVolumeForm from "./pkw/loading-volume";
+import LoadingSizeForm from "./pkw/loading-size";
+import { pkwAttribute } from '../../../../../db/schema';
 ;
 
 
@@ -91,7 +93,9 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     />
                 </div>
                 <div className="w-1/2">
-                    
+                    <LoadingSizeForm 
+                    thisSize = {thisInserat?.pkwAttribute?.loading_size}
+                    />
                 </div>
             </div>
         </div>

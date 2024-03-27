@@ -119,7 +119,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
              bg-white p-8  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h3 className="w-full font-bold text-xl flex justify-center">
                 <CalendarClockIcon className="mr-2"/>
-                Verfügbarkeit
+               Zeitlich begrenztes Inserat
                 
             </h3>
             
@@ -246,7 +246,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                     }}
                     /> 
                     <p className="ml-2 font-semibold  text-sm ">
-                        Datumsunabhängig anbieten
+                        Dauerhaftes Inserat
                     </p>
                     <TooltipProvider>
                         <Tooltip>
@@ -255,7 +255,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                 <AlertCircle className="w-4 h-4 ml-2" />
                             </TooltipTrigger>
                             <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
-                                Datumsunabhängige Anzeigen bleiben immer online und sind nicht an ein Datum gebunden. <br/>
+                                Dauerhafte Inserate bleiben immer online und sind nicht an ein Datum gebunden. <br/>
                                 Du kannst diese dann manuell selber als belegt oder als verfügbar markieren.
                             </TooltipContent>
                         </Tooltip>

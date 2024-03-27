@@ -20,7 +20,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
   thisApplication
 }) => {
 
-    const [currentApplication, setCurrentApplication] = useState<typeof ApplicationEnumRender | null>(thisApplication);
+    const [currentApplication, setCurrentApplication] = useState<typeof ApplicationEnumRender | null>(thisApplication || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -73,6 +73,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+          <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
             <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 

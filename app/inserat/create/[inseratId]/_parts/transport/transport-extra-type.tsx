@@ -21,7 +21,7 @@ const TransportExtraType: React.FC<CarTypeProps> = ({
     thisExtraType
 }) => {
 
-    const [currentCoupling, setCurrentCoupling] = useState<typeof ExtraTypeEnumRender | null>(thisExtraType);
+    const [currentCoupling, setCurrentCoupling] = useState<typeof ExtraTypeEnumRender | null>(thisExtraType || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();

@@ -47,7 +47,7 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
   return (
     <div className="w-full">
       <div className="w-full">
-        <Label>Auflaufbremse?</Label>
+        <Label>Bremsvorrichtung</Label>
         <Select
           onValueChange={(coupling) => {
             onSubmit(coupling);
@@ -64,8 +64,8 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
           >
             <SelectValue placeholder="Wähle die Kategorie aus" />
             <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-            <SelectItem value="true">Vorhanden</SelectItem>
-            <SelectItem value="false">Nicht Vorhanden</SelectItem>   
+            <SelectItem value="true">gebremst</SelectItem>
+            <SelectItem value="false">ungebremst</SelectItem>   
           </SelectContent>
           </SelectTrigger>
           

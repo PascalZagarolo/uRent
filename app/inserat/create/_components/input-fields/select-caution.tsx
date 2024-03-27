@@ -88,8 +88,8 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
                                                     const rawValue = e.currentTarget.value;
 
 
-                                                    const cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-
+                                                    let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
+                                                    cleanedValue = rawValue.replace(/,/g, '.');
 
                                                     let formattedValue = parseFloat(cleanedValue).toFixed(2);
 

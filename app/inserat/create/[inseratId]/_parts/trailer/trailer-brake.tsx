@@ -64,8 +64,8 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
           >
             <SelectValue placeholder="Wähle die Kategorie aus" />
             <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-            <SelectItem value="true">gebremst</SelectItem>
-            <SelectItem value="false">ungebremst</SelectItem>   
+            <SelectItem value="true">Gebremst</SelectItem>
+            <SelectItem value="false">Ungebremst</SelectItem>   
           </SelectContent>
           </SelectTrigger>
           

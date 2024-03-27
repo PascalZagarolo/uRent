@@ -283,6 +283,15 @@ export const pkwAttribute = pgTable("pkwAttribute", {
     type: carTypeEnum("type"),
     fuel: fuelTypeEnum("fuel"),
 
+    loading_volume : decimal("loading_volume"),
+
+    loading_l : decimal("loading_l"),
+    loading_b : decimal("loading_b"),
+    loading_h : decimal("loading_h"),
+    loading_size : decimal("loading_size"),
+
+    
+
     initial: timestamp("initial", {mode: "date"}),
     power: integer("power"),
 
@@ -438,6 +447,13 @@ export const lkwAttribute = pgTable("lkwAttribute", {
 
     power: integer("power"),
 
+    loading_volume : decimal("loading_volume"),
+
+    loading_l : decimal("loading_l"),
+    loading_b : decimal("loading_b"),
+    loading_h : decimal("loading_h"),
+    loading_size : decimal("loading_size"),
+
     weightClass: integer("weightClass"),
     drive: driveEnum("drive"),
     loading: loadingEnum("loading"),
@@ -474,6 +490,13 @@ export const trailerAttribute = pgTable("trailerAttribute", {
     loading: loadingEnum("loading"),
     extraType: extraTypeEnum("extraType"),
 
+    loading_volume : decimal("loading_volume"),
+
+    loading_l : decimal("loading_l"),
+    loading_b : decimal("loading_b"),
+    loading_h : decimal("loading_h"),
+    loading_size : decimal("loading_size"),
+
     axis: integer("axis"),
     weightClass: integer("weight"),
 
@@ -489,6 +512,13 @@ export const transportAttribute = pgTable("transportAttribute", {
     loading: loadingEnum("loading"),
     transmission: transmissionEnum("transmission"),
     extraType : extraTypeEnum("extraType"),
+
+    loading_volume : decimal("loading_volume"),
+
+    loading_l : decimal("loading_l"),
+    loading_b : decimal("loading_b"),
+    loading_h : decimal("loading_h"),
+    loading_size : decimal("loading_size"),
 
     weightClass: integer("weightClass"),
 

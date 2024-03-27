@@ -6,6 +6,7 @@ import TrailerExtraType from "./trailer/trailer-extra-type";
 import TrailerLoading from "./trailer/trailer-loading";
 import TrailerWeightClass from "./trailer/trailer-weight-class";
 import { inserat } from "@/db/schema";
+import TrailerLoadingVolumeForm from "./trailer/trailer-volume";
 
 
 
@@ -57,6 +58,14 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
                  thisBrake = {thisInserat.trailerAttribute?.brake}
                  />
                 </div>
+            </div>
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                <TrailerLoadingVolumeForm 
+                    thisVolume={thisInserat.trailerAttribute?.loading_volume}
+                    />
+                </div>
+                
             </div>
             
         </div>

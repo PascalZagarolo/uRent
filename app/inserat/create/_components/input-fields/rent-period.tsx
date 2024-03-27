@@ -115,7 +115,65 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
 
     return (
         <div className="w-full">
-            <div className="  justify-center dark:bg-[#0b0b0b] dark:border-gray-100 dark:border-none 
+            <div className="bg-white dark:bg-[#0b0b0b] p-4 w-full mt-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
+                <div className="flex">
+                    <Checkbox
+                    className="dark:bg-[#0F0F0F]"
+                    checked={isDateless}
+                    onCheckedChange={(checked) => {
+                        console.log(checked)
+                        onAnnual(Boolean(checked));
+                        
+                    }}
+                    /> 
+                    <p className="ml-2 font-semibold  text-sm ">
+                        Dauerhaftes Inserat
+                    </p>
+                    <TooltipProvider>
+                        <Tooltip>
+
+                            <TooltipTrigger>
+                                <AlertCircle className="w-4 h-4 ml-2" />
+                            </TooltipTrigger>
+                            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+                                Dauerhafte Inserate bleiben immer online und sind nicht an ein Datum gebunden. <br/>
+                                Du kannst diese dann manuell selber als belegt oder als verfügbar markieren.
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
+        </div>
+
+        <div className="bg-white dark:bg-[#0b0b0b] p-4 w-full mt-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
+                <div className="flex">
+                    <Checkbox
+                    className="dark:bg-[#0F0F0F]"
+                    checked={!isDateless}
+                    onCheckedChange={(checked) => {
+                        console.log(checked)
+                        onAnnual(Boolean(checked ? false : true));
+                        
+                    }}
+                    /> 
+                    <p className="ml-2 font-semibold  text-sm ">
+                        Zeitlich begrenztes Inserat
+                    </p>
+                    <TooltipProvider>
+                        <Tooltip>
+
+                            <TooltipTrigger>
+                                <AlertCircle className="w-4 h-4 ml-2" />
+                            </TooltipTrigger>
+                            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+                                Zeitlich begrenzte Inserate werden automatisch nach dem Ablaufen des Datums privat gestellt. <br/>
+                                Du kannst das Datum jederzeit ändern.
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
+        </div>
+
+            <div className="  justify-center dark:bg-[#0b0b0b] dark:border-gray-100 dark:border-none mt-4 
              bg-white p-8  rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             <h3 className="w-full font-bold text-xl flex justify-center">
                 <CalendarClockIcon className="mr-2"/>
@@ -234,34 +292,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                         
                                            
         </div>
-        <div className="bg-white dark:bg-[#0b0b0b] p-4 w-full mt-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" >
-                <div className="flex">
-                    <Checkbox
-                    className="dark:bg-[#0F0F0F]"
-                    defaultChecked={isDateless}
-                    onCheckedChange={(checked) => {
-                        console.log(checked)
-                        onAnnual(Boolean(checked));
-                        
-                    }}
-                    /> 
-                    <p className="ml-2 font-semibold  text-sm ">
-                        Dauerhaftes Inserat
-                    </p>
-                    <TooltipProvider>
-                        <Tooltip>
-
-                            <TooltipTrigger>
-                                <AlertCircle className="w-4 h-4 ml-2" />
-                            </TooltipTrigger>
-                            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
-                                Dauerhafte Inserate bleiben immer online und sind nicht an ein Datum gebunden. <br/>
-                                Du kannst diese dann manuell selber als belegt oder als verfügbar markieren.
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                </div>
-        </div>
+        
         </div>
     );
 }

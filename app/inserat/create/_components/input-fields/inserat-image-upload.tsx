@@ -91,7 +91,8 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                         />
                     </div>
                 ) : (
-                    <p className="text-gray-800/50 font-semibold text-sm italic flex justify-center mt-16 dark:text-gray-100/80"> Noch keine Anhänge oder Fotos hinzugefügt... </p>
+                    <p className="text-gray-800/50  text-sm  flex justify-center py-8 dark:text-gray-100/80">
+                         Noch keine Anhänge oder Fotos hinzugefügt... </p>
                 )
             }
 

@@ -52,7 +52,7 @@ const LkwAxis: React.FC<CarTypeProps> = ({
     return ( 
         <div className="w-full">
             <div className="w-full">
-        <Label>Achsen</Label>
+        <Label>Anz. Achsen</Label>
         <Select
           onValueChange={(axis : string) => {
             onSubmit(axis);

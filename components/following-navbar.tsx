@@ -41,7 +41,15 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
     }
 
     
-    
+    function getMissing() : string {
+        for (const key in necessaryFields) {
+            if (necessaryFields[key] === false) {
+                
+                return key;
+            }
+        }
+        return "";
+    }
 
     let trueAttributes = 0;
 
@@ -109,6 +117,22 @@ for (const key in necessaryFields) {
                                 <p className="w-full text-xs flex justify-center dark:text-gray-100/70">Noch nicht zur Veröffentlichung bereit</p>
                             )
                         )}
+                        {trueAttributes !== Object.keys(necessaryFields).length && (
+                            <p className="flex justify-center text-xs text-rose-600 mt-2 font-semibold">
+                                {
+                                    {
+                                        "description" : "Bitte füge eine Beschreibung hinzu",
+                                        "price" : "Bitte gebe einen Preis an",
+                                        "date" : "Bitte gebe ein Datum/ oder Datumstyp an",
+                                        "images" : "Bitte füge Bilder deinem Inserat bei",
+                                        "title" : "Bitte füge deinem Inserat ein Titel hinzu",
+                                        "category" : "Bitte geben deinem Inserat eine Kategorie",
+                                        "location" : "Bitte füge deinem Inserat eine Addresse hinzu",
+                                        "postalCode" : "Bitte gebe deinem Inserat eine passende PLZ",         
+                                    }[getMissing()]
+                                }
+                            </p>
+                        ) }
                     </div>
                 </div>
 

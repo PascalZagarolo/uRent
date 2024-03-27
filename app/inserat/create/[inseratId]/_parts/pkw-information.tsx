@@ -94,7 +94,9 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                 </div>
                 <div className="w-1/2">
                     <LoadingSizeForm 
-                    thisSize = {thisInserat?.pkwAttribute?.loading_size}
+                    thisLength = {thisInserat?.pkwAttribute?.loading_l}
+                    thisWidth = {thisInserat?.pkwAttribute?.loading_b}
+                    thisHeight = {thisInserat?.pkwAttribute?.loading_h}
                     />
                 </div>
             </div>

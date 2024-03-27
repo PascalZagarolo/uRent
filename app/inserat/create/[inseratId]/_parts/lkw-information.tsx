@@ -10,6 +10,8 @@ import { inserat } from "@/db/schema";
 import LkwPowerForm from "./lkw/lkw-power";
 import LkwAxis from "./lkw/lkw-axis";
 import LkwLoadingVolumeForm from "./lkw/lkw-volume";
+import LkwSizeForm from "./lkw/loading-size";
+import { lkwAttribute } from '../../../../../db/schema';
 
 
 
@@ -77,7 +79,11 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                    />
                 </div>
                 <div className="w-1/2">
-                   
+                   <LkwSizeForm 
+                   thisHeight={thisInserat?.lkwAttribute?.loading_h}
+                   thisWidth={thisInserat?.lkwAttribute?.loading_b}
+                   thisLength={thisInserat?.lkwAttribute?.loading_l}
+                   />
                 </div>
             </div>
             

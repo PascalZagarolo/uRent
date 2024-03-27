@@ -7,6 +7,8 @@ import TrailerLoading from "./trailer/trailer-loading";
 import TrailerWeightClass from "./trailer/trailer-weight-class";
 import { inserat } from "@/db/schema";
 import TrailerLoadingVolumeForm from "./trailer/trailer-volume";
+import TrailerSizeForm from "./trailer/trailer-size";
+import { trailerAttribute } from '../../../../../db/schema';
 
 
 
@@ -65,7 +67,13 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
                     thisVolume={thisInserat.trailerAttribute?.loading_volume}
                     />
                 </div>
-                
+                <div className="w-1/2">
+                <TrailerSizeForm 
+                thisHeight={thisInserat?.trailerAttribute?.loading_h}
+                thisWidth={thisInserat?.trailerAttribute?.loading_b}
+                thisLength={thisInserat?.trailerAttribute?.loading_l}                
+                />
+                </div>
             </div>
             
         </div>

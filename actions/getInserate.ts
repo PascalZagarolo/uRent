@@ -217,6 +217,15 @@ export const getInserate = async ({
                 pkwAttribute: true,
                 trailerAttribute: true,
                 transportAttribute: true,
+            },
+            ...(filter === "relevance") && {
+                orderBy : (views, { desc }) => [desc(inserat.views)]
+            },
+            ...(filter === "asc") && {
+                orderBy : (price, { asc }) => [asc(inserat.price)]
+            },
+            ...(filter === "desc") && {
+                orderBy : (price, { desc }) => [desc(inserat.price)]
             }
         })
 

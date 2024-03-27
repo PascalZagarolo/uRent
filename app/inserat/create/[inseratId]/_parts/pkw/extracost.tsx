@@ -88,8 +88,8 @@ const ExtraCost: React.FC<ExtraCostProps> = ({
                                                     const rawValue = e.currentTarget.value;
 
 
-                                                    const cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-
+                                                    let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
+                                                    cleanedValue = rawValue.replace(/,/g, '.');
 
                                                     let formattedValue = Number(cleanedValue).toFixed(2);
 

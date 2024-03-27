@@ -7,7 +7,7 @@ import { getUserByEmail } from "@/data/user";
 import GitHub from "next-auth/providers/github";
 import { LoginSchema } from "./app/(main)/_components/_schemas";
 import Credentials from "next-auth/providers/credentials";
-import { users } from "./db/schema";
+
 
 
 
@@ -43,10 +43,7 @@ export default {
         if(passwordsMatch) {
           console.log("Stimmt");
           return user;
-        }
-        
-       
-        
+        }  
       }
       return null;
       

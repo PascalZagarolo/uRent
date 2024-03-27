@@ -50,14 +50,10 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                 setTimeout(() => {
                     router.refresh();
                 }, 400)
-                
             } else {
-                
                 console.log("keine Nummer");
                 return;
             }
-            
-
         } catch {
             toast.error("Etwas ist schief gelaufen...");
         }

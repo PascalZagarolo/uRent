@@ -10,6 +10,7 @@ import { inserat } from "@/db/schema";
 import TransportWeightClass from "./transport/transport-weight-class";
 import TransportPowerForm from "./transport/transport-power";
 import TransportLoadingVolumeForm from "./transport/transport-volume";
+import TransportSizeForm from "./transport/transport-size";
 
 
 
@@ -75,6 +76,13 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
                 <div className="w-1/2">
                 <TransportLoadingVolumeForm
                 thisVolume={thisInserat?.transportAttribute?.loading_volume}
+                />
+                </div>
+                <div className="w-1/2">
+                <TransportSizeForm
+                thisHeight={thisInserat?.transportAttribute?.loading_h}
+                thisWidth={thisInserat?.transportAttribute?.loading_b}
+                thisLength={thisInserat?.transportAttribute?.loading_l}
                 />
                 </div>
             </div>

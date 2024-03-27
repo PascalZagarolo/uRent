@@ -16,14 +16,14 @@ import { GiResize } from "react-icons/gi";
 
 
 
-interface LoadingSizeFormProps {
+interface TrailerSizeFormProps {
     
     thisLength : number;
     thisWidth : number;
     thisHeight : number;
 }
 
-const LoadingSizeForm: React.FC<LoadingSizeFormProps> = ({
+const TrailerSizeForm: React.FC<TrailerSizeFormProps> = ({
     thisLength,
     thisWidth,
     thisHeight
@@ -56,7 +56,7 @@ const LoadingSizeForm: React.FC<LoadingSizeFormProps> = ({
                     loading_h : currentHeight,
                 }
                 setIsLoading(true);
-                axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
+                axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
                 toast.success("Anzahl der PS gespeichert : " + values);
                 setTimeout(() => {
                     router.refresh();
@@ -173,4 +173,4 @@ const LoadingSizeForm: React.FC<LoadingSizeFormProps> = ({
         </div>
     );
 };
-export default LoadingSizeForm;
+export default TrailerSizeForm;

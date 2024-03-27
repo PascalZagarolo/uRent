@@ -8,7 +8,9 @@ import DriveForm from "./lkw/drive";
 import LkwBrandForm from "./lkw/lkwbrand";
 import { inserat } from "@/db/schema";
 import LkwPowerForm from "./lkw/lkw-power";
-;
+import LkwAxis from "./lkw/lkw-axis";
+
+
 
 
 interface LkwInformationProps {
@@ -28,7 +30,9 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                     />
                 </div>
                 <div className="w-1/2">
-                    
+                    <LkwAxis 
+                    thisAxis={thisInserat?.lkwAttribute?.axis}
+                    />
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">

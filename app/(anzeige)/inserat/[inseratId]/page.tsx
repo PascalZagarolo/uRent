@@ -122,7 +122,7 @@ const InseratAnzeige = async ({
 
                             
                             <p className=" text-md sm:text-base ml-2 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
-                            bg-[#1d1f2b] px-8 rounded-lg p-4 w-3/4 truncate flex justify-center "> {thisInserat.title} </p>
+                            bg-[#1d1f2b] px-8 rounded-lg p-4 w-3/4 truncate  "> {thisInserat.title} </p>
                             <div className="flex justify-end ml-2 sm:ml-2 bg-[#1d1f2b] w-1/8  p-4 rounded-lg sm:p-4">
                                 <BookingsOverview
                                     bookings={inseratBookings}

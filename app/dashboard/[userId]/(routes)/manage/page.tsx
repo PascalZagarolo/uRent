@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/u
 import { MdManageSearch } from "react-icons/md";
 import db from "@/db/drizzle";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { booking, bookingRequest, inserat } from "@/db/schema";
+import { booking, bookingRequest, inserat, vehicle } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 import SelectInserat from "./_components/select-inserat";
 import AddBooking from "./_components/add-bookings";
@@ -33,7 +33,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
             )
         ), with: {
             images: true,
-
+            vehicles : true,
         }
     })
 

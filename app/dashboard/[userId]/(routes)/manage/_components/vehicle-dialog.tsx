@@ -34,6 +34,7 @@ const VehicleDialog: React.FC<VehicleDialogProps> = ({
     const onSubmit = async () => {
         const values = {
             title : currentTitle,
+            registration : currentRegistration
         }
         try {
             await axios.post(`/api/inserat/${thisInserat.id}/vehicle`, values)
@@ -113,7 +114,7 @@ const VehicleDialog: React.FC<VehicleDialogProps> = ({
                         <Input
                             className="dark:bg-[#080808] dark:border-none mt-2"
                             onChange={(e) => {
-                                setCurrentTitle(e.target.value)
+                                setCurrentRegistration(e.target.value)
                             }}
                         />
                     </div>

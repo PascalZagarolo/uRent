@@ -24,13 +24,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaCar, FaGasPump } from "react-icons/fa";
-import { GiSteeringWheel } from "react-icons/gi";
+import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill, PiVanFill } from "react-icons/pi";
 import ProfileBar from "./inserat-card/profile-bar";
 import { TbCrane } from "react-icons/tb";
 import { inserat, users } from "@/db/schema";
 import Link from "next/link";
 import { RiCaravanLine } from "react-icons/ri";
+import { BsTools } from "react-icons/bs";
 
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
@@ -141,7 +142,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
                                 'LKW': <Truck className=" text-gray-100 h-4 w-4 mr-2" />,
                                 'TRANSPORT': <PiVanFill className=" text-gray-100 h-4 w-4 mr-2" />,
-                                'TRAILOR': <CaravanIcon className=" text-gray-100 h-4 w-4 mr-2" />
+                                'TRAILER': <CaravanIcon className=" text-gray-100 h-4 w-4 mr-2" />
                             }[thisInserat.category]
                         }
 
@@ -199,7 +200,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                                             <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                              dark:text-gray-100 hover:bg-yellow-600">
-                                                <PiEngineFill className="h-4 w-4 mr-1" />
+                                                <TbCrane className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-yellow-800">
                                                     {thisInserat.lkwAttribute?.loading.substring(0, 1)}
                                                     {thisInserat.lkwAttribute?.loading.substring(1).toLowerCase()}
@@ -210,7 +211,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                                             <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                           dark:text-gray-100 hover:bg-yellow-600 ">
-                                                <PiEngineFill className="h-4 w-4 mr-1" />
+                                                <BsTools  className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-yellow-800">
                                                     {thisInserat.lkwAttribute?.application.substring(0, 1)}
                                                     {thisInserat.lkwAttribute?.application.substring(1).toLowerCase()}
@@ -221,7 +222,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                                             <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                                 dark:text-gray-100  hover:bg-yellow-600">
-                                                <PiEngineFill className="h-4 w-4 mr-1" />
+                                                <GiCarWheel  className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-yellow-800"> {thisInserat.lkwAttribute?.drive.substring(1)} </p>
                                             </Badge>
                                         )}
@@ -259,7 +260,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             </Badge>
                                         )}
                                     </div>,
-                                    'TRAILOR': <div className="space-y-1">
+                                    'TRAILER': <div className="space-y-1">
                                         {thisInserat.trailerAttribute?.type && (
 
                                             <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 

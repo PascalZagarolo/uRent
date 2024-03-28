@@ -131,7 +131,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             </div>
                         </h3>
                         <div className="py-4">
-                            <AddBooking />
+                            <AddBooking 
+                            foundInserate={foundInserate}
+                            />
                         </div>
 
                         <div className="p-4  sm:flex">

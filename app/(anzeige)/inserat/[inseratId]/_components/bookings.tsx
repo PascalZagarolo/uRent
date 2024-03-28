@@ -109,6 +109,8 @@ const Bookings = () => {
               <CalendarClockIcon className="mr-2" /> Buchungen verwalten
             </h3>
           </div>
+          <div>
+          </div>
           <div className="flex">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -132,7 +134,7 @@ const Bookings = () => {
                                 {field.value ? (
                                   format(field.value, "PPP") 
                                 ) : (
-                                  <span>Pick a date</span>
+                                  <span>Wähle ein Datum</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
@@ -179,7 +181,7 @@ const Bookings = () => {
                                 {field.value ? (
                                   format(field.value, "PPP")
                                 ) : (
-                                  <span>Pick a date</span>
+                                  <span>Wähle ein Datum</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>

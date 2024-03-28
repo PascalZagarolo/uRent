@@ -220,7 +220,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                 
                                                         selected={currentStart}
                                                         onSelect={(e) => {setCurrentStart(e); console.log(currentStart)}}
-                                                        className="dark:bg-[#242424] dark:border dark:border-gray-200"
+                                                        className="dark:bg-[#0B0B0B] dark:border-none"
                                                         disabled={(date) =>
                                                             date < new Date() 
                                                             
@@ -250,7 +250,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                             )}
                                                         >
                                                             {currentEnd ? (
-                                                                format(currentEnd, "PPP")
+                                                                format(currentEnd, "PPP" )
                                                             ) : (
                                                                 <span>Wähle deinen Endpunkt</span>
                                                             )}
@@ -262,7 +262,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                 <PopoverContent className="w-auto p-0" align="start">
                                                     <Calendar
                                                         mode="single"
-                                                        className="dark:bg-[#242424] dark:border dark:border-gray-200"
+                                                        className="dark:bg-[#0B0B0B] dark:border-none"
                                                         selected={currentEnd}
                                                         onSelect={(e) => {setCurrentEnd(e)}}
                                                         disabled={(date) =>

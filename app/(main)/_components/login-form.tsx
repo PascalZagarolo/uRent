@@ -25,6 +25,7 @@ import { CardWrapper } from "./card-wrapper";
 import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 import { LoginSchema } from "./_schemas";
+import { EyeIcon } from "lucide-react";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -45,6 +46,8 @@ export const LoginForm = () => {
       password: "",
     },
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
@@ -68,6 +71,16 @@ export const LoginForm = () => {
         .catch(() => setError("Something went wrong"));
     });
   };
+
+  const onHold = () => {
+    setShowPassword(true)
+  }
+
+  const onRelease = () => {
+    setTimeout(() => {
+      setShowPassword(false)
+    }, 200)
+  }
 
   return (
     <CardWrapper
@@ -94,6 +107,7 @@ export const LoginForm = () => {
                         {...field}
                         disabled={isPending}
                         placeholder="123456"
+                        className="bg-[#1F2332]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -115,6 +129,7 @@ export const LoginForm = () => {
                           disabled={isPending}
                           placeholder="john.doe@example.com"
                           type="email"
+                          className="bg-[#1a1c2c] border-none"
                         />
                       </FormControl>
                       <FormMessage />
@@ -127,14 +142,26 @@ export const LoginForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Passwort</FormLabel>
+                      <div className="flex rounded-lg w-full gap-x-1">
                       <FormControl>
                         <Input
                           {...field}
                           disabled={isPending}
                           placeholder="******"
-                          type="password"
+                          type={showPassword ? "text" : "password"}
+                          className="bg-[#1a1c2c] border-none rounded-none"
                         />
+                        
                       </FormControl>
+                      <Button variant="ghost" className="bg-[#1a1c2c] rounded-none " 
+                      onMouseDown={onHold} 
+                      onMouseUp={onRelease}
+                      type="button"
+                      onClick={() => {}}
+                      >
+                          <EyeIcon className="h-4 w-4"/>
+                        </Button>
+                        </div>
                       <Button
                         size="sm"
                         variant="link"

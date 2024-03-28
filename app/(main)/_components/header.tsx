@@ -1,7 +1,10 @@
+'use client'
+
 import { Poppins } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 import { TruckIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -15,13 +18,23 @@ interface HeaderProps {
 export const Header = ({
   label,
 }: HeaderProps) => {
+
+  const pathname = usePathname();
+
+  const isLogin = pathname.includes("/login");
+ 
+
   return (
-    <div className="w-full flex flex-col gap-y-4 items-center justify-center">
+    <div className="w-full flex flex-col gap-y-2 items-center justify-center">
       <h1 className={cn(
-        "text-4xl font-semibold flex items-center",
+        "text-3xl font-semibold flex items-center",
         font.className,
       )}>
-        <TruckIcon className="w-6 h-6 mr-2" /> uRent
+        {isLogin ? (
+          "Einloggen"
+        ) : (
+          "Registrieren"
+        )}
       </h1>
       <p className="text-muted-foreground text-sm">
         {label}

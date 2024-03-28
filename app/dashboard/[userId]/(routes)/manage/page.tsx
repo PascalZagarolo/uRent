@@ -6,8 +6,19 @@ import db from "@/db/drizzle";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { inserat } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
+import SelectInserat from "./_components/select-inserat";
+import AddBooking from "./_components/add-bookings";
+import RenderedInserat from "./_components/rendered-inserat";
 
-const ManagePage = async () => {
+interface ManagePageProps {
+    searchParams: {
+        inseratId: string
+    }
+}
+
+const ManagePage: React.FC<ManagePageProps> = async ({
+    searchParams
+}) => {
 
     const currentUser = await getCurrentUser();
 
@@ -23,6 +34,20 @@ const ManagePage = async () => {
         }
     })
 
+    let thisInserat;
+
+    if(searchParams.inseratId) {
+        thisInserat = await db.query.inserat.findFirst({
+            where : (
+                and(
+                    eq(inserat.id, searchParams.inseratId),
+                )
+            ), with : {
+                images : true
+            }
+        })
+    }
+
     return (
         <div className="flex justify-center py-8 px-4  ">
             <div className="px-4 hidden md:block">
@@ -36,31 +61,27 @@ const ManagePage = async () => {
                                 <MdManageSearch className="mr-4" /> Fahrzeuge verwalten
                             </div>
                             <div className="w-1/3">
-                                <Select>
-                                    <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F]">
-                                        <SelectContent className="dark:bg-[#0F0F0F] dark:border-none">
-                                            {foundInserate.map((thisInserat) => (
-                                                <SelectItem value={thisInserat.id} key={thisInserat.id}>
-                                                    {thisInserat.title}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </SelectTrigger>
-                                </Select>
+                                <SelectInserat 
+                                    foundInserate={foundInserate}
+                                />
                             </div>
                         </h3>
-
+                        <div className="py-4">
+                            <AddBooking />
+                        </div>
 
                         <div className="p-4  sm:flex">
-
                             <div className="sm:w-3/5 mr-4">
-                                <h3 className="flex text-lg font-semibold items-center">
-
-                                </h3>
                                 <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
-
-
-
+                                    {thisInserat ? (
+                                        <RenderedInserat 
+                                        thisInserat={thisInserat}
+                                        />
+                                    ) : (
+                                        <div className="flex justify-center p-8 text-sm">
+                                            Noch kein Inserat ausgewählt
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="sm:w-2/5">

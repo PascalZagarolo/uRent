@@ -45,7 +45,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
 
     <div
       key={index}
-      className={clsx("dark:bg-[#1C1C1C] rounded-md p-4 text-center ", {
+      className={clsx("dark:bg-[#0F0F0F]  p-4 text-center ", {
         "bg-gray-200": isToday(day),
         "text-emerald-400 font-semibold": isToday(day),
       })}
@@ -58,7 +58,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           {isShowing(pBooking.inseratId) && 
           <div
           key={pBooking.id}
-          className="   bg-blue-600 rounded-md p-2 flex justify-center mt-2"
+          className="   bg-blue-600 rounded-md py-2  flex justify-center mt-2"
         >
           {inseratFilter ? (
             <X className="text-gray-900 w-4 h-4" />

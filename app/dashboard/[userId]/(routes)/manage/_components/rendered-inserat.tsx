@@ -1,9 +1,10 @@
 import { inserat } from "@/db/schema";
 import { format } from "date-fns";
-import { CalendarCheck2Icon, CarFront, Truck } from "lucide-react";
+import { CalendarCheck2Icon, CarFront, MapPinIcon, Truck } from "lucide-react";
 import Image from "next/image";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
+import { convertState } from '../../../../../../actions/convert-states';
 
 interface RenderedInseratProps { 
     thisInserat : typeof inserat.$inferSelect
@@ -26,8 +27,11 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                         }[thisInserat.category]
                     }
                     </div>
-                <h3 className="text-sm font-semibold">
-                    {thisInserat?.title}
+                <h3 className="text-sm font-semibold flex w-full">
+                    {thisInserat?.title} 
+                    <p className="ml-auto text-xs">
+                    {format(new Date(thisInserat?.createdAt), 'dd.MM.yyyy')}
+                    </p>
                 </h3>
                 </div>
                 <div className="mt-2">
@@ -41,8 +45,22 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                         />
                     </div>
                     <div className="w-full mt-2 flex justify-start">
+                        <MapPinIcon
+                        className="w-4 h-4 mr-2 text-rose-600"
+                        />
+                        
+                        <div className="w-1/2 text-xs truncate">
+                            {thisInserat?.address?.locationString}
+                        </div>
+                        <div className="w-1/2 flex justify-end truncate text-xs font-semibold">
+                        {thisInserat?.address?.postalCode + ", "}
+                        {convertState(thisInserat?.address?.state)}
+                        </div> 
+                        
+                    </div>
+                    <div className="w-full mt-2 mb-4 flex justify-start">
                         <CalendarCheck2Icon
-                        className="w-4 h-4 mr-2"
+                        className="w-4 h-4 mr-2 "
                         />
                         {thisInserat?.annual ? (
                             <p className="text-sm">
@@ -53,7 +71,7 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                                 {format(new Date(thisInserat?.begin), 'dd.MM.yyyy')} - {format(new Date(thisInserat?.end), 'dd.MM.yyyy')}
                             </p>
                         )}
-                        <div className="ml-auto text-sm flex font-semibold">
+                        <div className="ml-auto text-sm flex font-semibold ">
                             {thisInserat?.price} € <p className="text-xs">{thisInserat?.annual ? "/Zeitraum" : "/Tag"}</p>
                         </div>
                     </div>

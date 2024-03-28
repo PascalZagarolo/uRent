@@ -80,7 +80,7 @@ const ConversationPage = async ({
         }
     })
 
-    const otherUserId = thisConversation.user1Id === currentUser.id ? thisConversation.user2Id : thisConversation.user1Id;
+    const otherUserId = thisConversation?.user1Id === currentUser.id ? thisConversation?.user2Id : thisConversation?.user1Id;
 
     console.log(otherUserId)
 

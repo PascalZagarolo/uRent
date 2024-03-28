@@ -80,15 +80,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
         }, {});
     }, [bookings]);
 
-    useEffect(() => {
-        const url = qs.stringifyUrl({
-            url : pathName,
-            query : {
-                inseratId : currentFilter
-            }
-        } , { skipEmptyString : true, skipNull : true})
-        router.push(url)
-    },[currentFilter])
+    
 
     return (
         <div className="container mx-auto p-4 border dark:border-none">
@@ -105,27 +97,13 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
 
 
                 <div className="ml-auto">
-                    <Select onValueChange={(e) => {setCurrentFilter(e)}}>
-                        <SelectTrigger className="dark:bg-[#0f0f0f] border-none w-[200px] truncate" onSelect={(e) => { console.log(e) }}>
-                            <SelectValue onSelect={(e) => { console.log(e) }} placeholder="Nach Inserat filtern" />
-                        </SelectTrigger>
-                        <SelectContent className="dark:bg-[#0f0f0f] border-none">
-                        <SelectItem key={-1} value={null}>
-                                    Alle
-                                </SelectItem>
-                            {everyInserat.map((inserat, index) => (
-                                <SelectItem key={index} value={inserat.id}>
-                                    {inserat.title} 
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                    
                 </div>
             </div>
             <div className="grid grid-cols-7 gap-2">
                 {WEEKDAYS.map((day) => {
                     return (
-                        <div key={day} className="font-bold text-center ">
+                        <div key={day} className="font-bold text-center bg-[#0F0F0F]">
                             {day}
                         </div>
                     );
@@ -134,7 +112,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                     return (
                         <div
                             key={`empty-${index}`}
-                            className=" rounded-md p-2 text-center "
+                            className="  p-2 text-center dark:bg-[#202020]"
                         />
                     );
                 })}
@@ -142,7 +120,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                     const dateKey = format(day, "yyyy-MM-dd");
                     const todaysEvents = eventsByDate[dateKey] || [];
                     return (
-                        <div key={index}>
+                        <div key={index} className="">
                             <CalendarDay
                                 index={index}
                                 day={day}

@@ -54,25 +54,44 @@ const DashboardPage = async ({
         }
     }
 
+    
+
     let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
 
-    if(everyInserat.length > 0) {
-        for (let i = 0; i < everyInserat.length; i++) {
-        
-            const requests = await db.query.bookingRequest.findMany({
-                where : (
-                    eq(bookingRequest.inseratId, everyInserat[i].id)
-                ), with : {
-                    user : true,
-                    inserat : {
-                        with : {
-                            images : true
-                        }
+    if(searchParams.inseratId) {
+        const requests = await db.query.bookingRequest.findMany({
+            where : (
+                eq(bookingRequest.inseratId, searchParams.inseratId)
+            ), with : {
+                user : true,
+                inserat : {
+                    with : {
+                        images : true
                     }
                 }
-            })
-    
-            bookingRequests.push(...requests);
+            }
+        })
+
+        bookingRequests = requests
+    } else {
+        if(everyInserat.length > 0) {
+            for (let i = 0; i < everyInserat.length; i++) {
+            
+                const requests = await db.query.bookingRequest.findMany({
+                    where : (
+                        eq(bookingRequest.inseratId, everyInserat[i].id)
+                    ), with : {
+                        user : true,
+                        inserat : {
+                            with : {
+                                images : true
+                            }
+                        }
+                    }
+                })
+        
+                bookingRequests.push(...requests);
+            }
         }
     }
 
@@ -128,25 +147,8 @@ const DashboardPage = async ({
                                 </div>
                             </div>
                             <div className="sm:w-2/5">
-                                <div>
-                                    <h3 className="flex text-lg font-semibold items-center">
-                                        <UserPlus2 className="w-4 h-4 mr-2" /> Offene Anfragen <p className="text-sm ml-4"> {bookingRequests.length} </p>
-                                    </h3>
-                                    <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
-                                     
-                                    {bookingRequests.map((request : typeof bookingRequest.$inferSelect) => (
-                                        <BookingRequestRender
-                                            request={request}
-                                            key={request?.id || 1}
-                                        />
-                                    ))}
-                                    {bookingRequests.length === 0 && (
-                                        <div className="mt-8 flex justify-center text-sm  text-gray-100/60">
-                                            Du hast keine offenen Anfragen...
-                                        </div>
-                                    )}
-                                    
-                                    </div>
+                            <div>
+                            
                                 </div>
                             </div>
                         </div>

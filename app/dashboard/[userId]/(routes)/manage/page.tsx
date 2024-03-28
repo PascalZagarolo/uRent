@@ -4,17 +4,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/u
 import { MdManageSearch } from "react-icons/md";
 import db from "@/db/drizzle";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { booking, bookingRequest, inserat, vehicle } from "@/db/schema";
+import { address, booking, bookingRequest, inserat, vehicle } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 import SelectInserat from "./_components/select-inserat";
 import AddBooking from "./_components/add-bookings";
 import RenderedInserat from "./_components/rendered-inserat";
 import BookingRequestRender from "../_components/booking-request";
 import EventCalendar from "../_components/calendar";
+import RenderedVehicle from "./_components/rendered-vehicle";
 
 interface ManagePageProps {
     searchParams: {
-        inseratId: string
+        inseratId: string,
+        vehicleId: string
     }
 }
 
@@ -110,7 +112,25 @@ const ManagePage: React.FC<ManagePageProps> = async ({
         }
     }
 
+    let thisVehicle : typeof inserat.$inferSelect | null = null;
 
+    if(searchParams.vehicleId) {
+        thisVehicle = await db.query.vehicle.findFirst({
+            where : (
+                and(
+                    eq(vehicle.id, searchParams.vehicleId)
+                )
+            ), with : {
+                inserat :  {
+                    with : {
+                        address : true
+                    }
+                }
+            }
+        })
+    }
+
+    console.log(thisVehicle?.inserat)
 
     return (
         <div className="flex justify-center py-8 px-4  ">
@@ -139,7 +159,14 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         <div className="p-4  sm:flex">
                             <div className="sm:w-3/5 mr-4">
                                 <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
-                                    {thisInserat ? (
+                                {searchParams.vehicleId ? (
+                                    <>
+                                    <RenderedVehicle
+                                    thisVehicle={thisVehicle}
+                                    />
+                                    </>
+                                ) : (
+                                    thisInserat ? (
                                         <RenderedInserat
                                             thisInserat={thisInserat}
                                         />
@@ -149,7 +176,8 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                             Noch kein Inserat ausgewählt
                                             </p>
                                         </div>
-                                    )}
+                                    )
+                                )}
                                 </div>
                             </div>
                             <div className="sm:w-2/5">

@@ -392,7 +392,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     <p className=" truncate ml-1 sm:max-w-[160px] mr-1"> {thisInserat.address?.state ? convertState(thisInserat.address?.state) + "," : ""} </p>DE</div>
                             )}
                         </div>
-
                     </div>
                     <ProfileBar
                         thisInserat={thisInserat}

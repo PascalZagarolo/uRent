@@ -81,6 +81,12 @@ const RenderedVehicle: React.FC<RenderedVehicleProps> = ({
                 </div>
                 <div className="mt-2">
                     <div className="w-full flex justify-center">
+                    <CldUploadButton
+                                onUpload={handleImageUpload}
+                                uploadPreset="oblbw2xl"
+                                options={{ maxFiles: 1 }}
+                                className="w-full"
+                            >
                         {thisVehicle?.image ? (
                             <Image
                                 alt="preview image"
@@ -90,17 +96,13 @@ const RenderedVehicle: React.FC<RenderedVehicleProps> = ({
                                 className="w-full h-[200px] object-cover"
                             />
                         ) : (
-                            <CldUploadButton
-                                onUpload={handleImageUpload}
-                                uploadPreset="oblbw2xl"
-                                options={{ maxFiles: 1 }}
-                                className="w-full"
-                            >
+                            
                                 <div className="w-full h-[200px] flex items-center justify-center border-dashed border text-xs border-gray-400">
                                     Foto hinzufügen...
                                 </div>
-                            </CldUploadButton>
+                            
                         )}
+                        </CldUploadButton>
                     </div>
                     <div className="w-full mt-2 flex justify-start">
                         <MapPinIcon

@@ -50,6 +50,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                 ), with : {
                     user : true,
                     inserat : true,
+                    vehicle : true
                 }
             })
         //@ts-ignore

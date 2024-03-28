@@ -31,10 +31,15 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   const searchParams = useSearchParams();
 
   const inseratFilter = searchParams.get("inseratId");
+  const vehicleFilter = searchParams.get("vehicleId");
   const router = useRouter();
   
-  const isShowing = (id : string) => {
+  const isShowing = (id : string, vehicleId? : string) => {
     if(inseratFilter){
+        if(vehicleFilter){
+          
+          return vehicleId === vehicleFilter && id === inseratFilter;
+        }
       return id === inseratFilter;
     }
     return true;
@@ -55,7 +60,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
         return (
 
           <>
-          {isShowing(pBooking.inseratId) && 
+          {isShowing(pBooking.inseratId, pBooking?.vehicleId) && 
           <div
           key={pBooking.id}
           className="   bg-blue-600 rounded-md py-2  flex justify-center mt-2"

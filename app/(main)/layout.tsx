@@ -1,5 +1,7 @@
+import { Truck } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
+import HeaderRedirect from "./_components/logo-redirect";
 
 
 const LoginLayout = async (
@@ -10,13 +12,26 @@ const LoginLayout = async (
 
     return (
         <div className="min-w-screen min-h-screen flex flex-col  dark:bg-[#0F0F0F]">
-    <h3 className="font-semibold text-5xl mt-8 rounded-md flex justify-center">
-        <Link href="/" className="flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] text-[#414c78] dark:text-gray-100">
-            <p className="dark:text-[#414c78]">u</p> Rent
-        </Link>
-    </h3>
+    <div>
+    <div className="bg-[#1f2332] h-[90px]  flex-shrink-1 hidden sm:block">
+            <div className="flex 2xl:justify-start md:justify-evenly">
+                <HeaderRedirect />
 
-    <div className="mt-8 flex-grow">
+                <div className="flex w-full">
+                   
+                    
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+
+    <div className="mt-8 flex-grow h-full items-center">
        
         {children}
         

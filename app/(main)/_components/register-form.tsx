@@ -21,11 +21,14 @@ import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 import { RegisterSchema } from "./_schemas";
 import { register } from "@/actions/register";
+import { EyeIcon } from "lucide-react";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -48,6 +51,16 @@ export const RegisterForm = () => {
         });
     });
   };
+
+  const onHold = () => {
+    setShowPassword(true)
+  }
+
+  const onRelease = () => {
+    setTimeout(() => {
+      setShowPassword(false)
+    }, 200)
+  }
 
   return (
     <CardWrapper
@@ -73,6 +86,7 @@ export const RegisterForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="John Doe"
+                      className="bg-[#1a1c2c] border-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -91,6 +105,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="john.doe@example.com"
                       type="email"
+                      className="bg-[#1a1c2c] border-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -103,18 +118,30 @@ export const RegisterForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Passwort</FormLabel>
+                  <div className="flex gap-x-1">
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder="******"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
+                      className="rounded-none bg-[#1a1c2c] border-none"
                     />
                   </FormControl>
+                  <Button variant="ghost" className="bg-[#1a1c2c] rounded-none " 
+                      onMouseDown={onHold} 
+                      onMouseUp={onRelease}
+                      type="button"
+                      onClick={() => {}}
+                      >
+                          <EyeIcon className="h-4 w-4"/>
+                        </Button>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
+           
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />

@@ -685,6 +685,9 @@ export const booking = pgTable("booking", {
     userId: uuid("userId").
         notNull().
         references(() => users.id, { onDelete: "cascade" }),
+    
+    vehicleId : uuid("vehicleId")
+        .references(() => vehicle.id, { onDelete : "cascade"}),
 
     content: text("content"),
 
@@ -713,6 +716,17 @@ export const bookingRequest = pgTable("bookingRequest", {
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 
+})
+
+export const vehicle = pgTable("vehicle", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+
+    inseratId: uuid("inseratId")
+        .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
+
+    title : text("title"),
+    registration: text("registration"),
+    image : text("image")
 })
 
 /*
@@ -817,6 +831,16 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     bookingRequests : many(bookingRequest),
 
     favourites : many(favourite),
+
+    vehicles : many(vehicle),
+}))
+
+export const vehicleRelations = relations(vehicle, ({ one, many }) => ({
+    inserat : one(inserat, {
+        fields : [vehicle.inseratId],
+        references : [inserat.id]
+    }),
+    bookings : many(booking)
 }))
 
 export const imageRelations = relations(images, ({ one }) => ({
@@ -869,6 +893,10 @@ export const bookingRelations = relations(booking, ({ one }) => ({
     inserat : one(inserat, {
         fields : [booking.inseratId],
         references : [inserat.id]
+    }),
+    vehicle : one(vehicle, {
+        fields : [booking.vehicleId],
+        references : [vehicle.id],
     })
 }))
 

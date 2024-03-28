@@ -145,7 +145,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                         />
                                     ) : (
                                         <div className="flex justify-center py-40 text-sm">
+                                            <p className="py-1">
                                             Noch kein Inserat ausgewählt
+                                            </p>
                                         </div>
                                     )}
                                 </div>

@@ -22,11 +22,14 @@ import { FormError } from "./form-error";
 import { RegisterSchema } from "./_schemas";
 import { register } from "@/actions/register";
 import { EyeIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -48,7 +51,13 @@ export const RegisterForm = () => {
         .then((data) => {
           setError(data.error);
           setSuccess(data.success);
+          if(data.success) {
+            setTimeout(() => {
+              router.push("/login")
+            },1000)
+          }
         });
+        
     });
   };
 

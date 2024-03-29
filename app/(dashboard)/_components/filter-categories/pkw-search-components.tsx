@@ -10,6 +10,9 @@ import { Separator } from "@/components/ui/separator";
 import FreeMilesBar from "./pkw/pkw-miles";
 import ExtraMilesBar from "./pkw/pkw-extra-cost";
 import TrailerExtraTypeBar from "./trailer/trailer-extra-type";
+import LkwLoadingBar from "./lkw/lkw-loading";
+import LkwWeightClassBar from "./lkw/lkw-weight-class";
+import TrailerWeightClassBar from "./trailer/trailer-weight-class";
 
 const PkwSearchComponents = () => {
     return ( 
@@ -33,6 +36,14 @@ const PkwSearchComponents = () => {
             </div>
             <PkwTypeBar />
             <TrailerExtraTypeBar />
+            <div className="w-full flex gap-x-2">
+            <div className="w-1/2">
+                <LkwLoadingBar />
+            </div>
+            <div className="w-1/2">
+                <TrailerWeightClassBar />
+            </div>
+            </div>
             <div className="w-full gap-x-2 space-y-4">
             <h3 className="flex justify-center text-md items-center font-semibold  mt-4 text-gray-200">
                 <Separator className="w-1/3 mr-2 bg-gray-200 h-[0.5px]" /> Kilometer <Separator className="w-1/3 ml-2 bg-gray-200 h-[0.5px]" />

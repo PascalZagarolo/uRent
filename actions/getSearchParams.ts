@@ -51,6 +51,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         //TRANSPORT
 
         //Loading
+        volume : searchParams.get("volume"),
 
         loading_h : searchParams.get("loading_h"),
         loading_l : searchParams.get("loading_l"),

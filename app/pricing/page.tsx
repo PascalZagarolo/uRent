@@ -41,7 +41,7 @@ const PricingPage = async () => {
                                 uRent Business
                             </h3>
                             <p className="text-sm dark:text-gray-200/70  flex justify-center">
-                                        Fange noch heute an. Vermiete, erreiche und verwalte deine Fahrzeuge kinderleicht.
+                                        Fange noch heute an. Vermiete, erreiche und verwalte deine Fahrzeuge so einfach wie noch nie.
                                         </p>
                         </div>
                         <div className="p-4 items-center">
@@ -83,7 +83,7 @@ const PricingPage = async () => {
 
                                     </div>
                                 </div>
-                                <div className="w-1/3 border-blue-900  border dark:bg-[#232323] p-4 rounded-md">
+                                <div className="w-1/3 border-blue-900  border-2 dark:bg-[#232323] p-4 rounded-md">
                                     <h3 className="text-lg font-semibold w-full flex">
                                         Pro <div className="ml-auto"> <Badge className="bg-blue-900 hover:bg-blue-700 text-gray-100"> Am beliebtesten <FaFireFlameCurved className="w-4 h-4 ml-2" /> </Badge> </div>
                                     </h3>

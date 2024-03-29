@@ -127,7 +127,7 @@ export const LoginForm = () => {
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="john.doe@example.com"
+                          placeholder="max.muster@email.com"
                           type="email"
                           className="bg-[#1a1c2c] border-none"
                         />

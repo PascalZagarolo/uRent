@@ -28,7 +28,7 @@ const LoadingVolumeBar = () => {
     const [usesPS, setUsesPS] = useState(true);
 
     const [currentLiter, setCurrentLiter] = useState<number | string | null>(parseFloat(volume));
-    const [currentMeter, setCurrentMeter] = useState<number | string | null>(parseFloat(volume) * 0.001 || null);
+    const [currentMeter, setCurrentMeter] = useState<number | string | null>(volume ? parseFloat(volume) * 0.001 : null);
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false);
 
@@ -58,7 +58,7 @@ const LoadingVolumeBar = () => {
             }
         }, { skipEmptyString: true, skipNull: true })
         setCurrentLiter(null);
-        setCurrentMeter(null);
+        setCurrentMeter(0);
 
         router.push(url) 
     }

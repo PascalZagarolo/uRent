@@ -14,6 +14,7 @@ import LkwLoadingBar from "./lkw/lkw-loading";
 import LkwWeightClassBar from "./lkw/lkw-weight-class";
 import TrailerWeightClassBar from "./trailer/trailer-weight-class";
 import LoadingVolumeBar from "./every/loading_volume";
+import LoadingSizeBar from "./every/loading_size";
 
 const PkwSearchComponents = () => {
     return ( 
@@ -58,6 +59,7 @@ const PkwSearchComponents = () => {
                 <Separator className="w-1/3 mr-2 bg-gray-200 h-[0.5px]" /> Laderaum <Separator className="w-1/3 ml-2 bg-gray-200 h-[0.5px]" />
             </h3>
             <LoadingVolumeBar />
+            <LoadingSizeBar />
             </div>
         </div>
      );

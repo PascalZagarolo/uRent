@@ -15,12 +15,14 @@ export async function POST(
 
         const usedStart = new Date(start);
         const usedEnd = new Date(end);
+        console.log(params.inseratId)
         console.log(typeof start)
         console.log(values);
         const [createdBooking] = await db.insert(booking).values({
             inseratId: params.inseratId,
             userId: values.userId,
             startDate : usedStart,
+            vehicleId : values.vehicleId,
             endDate : usedEnd,
             content : values.content,
         }).returning();

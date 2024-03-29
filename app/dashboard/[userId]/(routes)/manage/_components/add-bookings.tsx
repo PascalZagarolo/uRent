@@ -38,6 +38,7 @@ import { inserat, users } from "@/db/schema";
 import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { vehicle } from '../../../../../../db/schema';
 
 interface AddBookingProps {
     foundInserate : typeof inserat.$inferSelect[]
@@ -51,8 +52,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentStart, setCurrentStart] = useState(new Date());
     const [currentEnd, setCurrentEnd] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
-    const [currentInserat, setCurrentInserat] = useState<string>(null);
+    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(null);
+    const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
+
+    console.log(currentInserat?.vehicles)
 
     const params = useParams();
     const router = useRouter();
@@ -84,9 +88,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 content: value.content ? value.content : "",
                 start: currentStart,
                 end: currentEnd,
-                userId: selectedUser.id
+                userId: selectedUser.id,
+                vehicleId: currentVehicle
             }
-            axios.post(`/api/booking/${currentInserat}`, values);
+            axios.post(`/api/booking/${currentInserat.id}`, values);
             toast.success("Buchung hinzugefügt");
 
         } catch (err) {
@@ -126,12 +131,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
                         <Select
                             onValueChange={(selectedValue) => {
                                 setCurrentInserat(selectedValue);
+                                setCurrentVehicle(null);
                             }}
                             
                             value={currentInserat}
                             
                         >
-
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2">
                                 {currentInserat ? (
                                     <SelectValue>
@@ -146,10 +151,53 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                 
                                     {foundInserate.map((thisInserat) => (
-                                        <SelectItem value={thisInserat.id} key={thisInserat.id}>
+                                        <SelectItem value={thisInserat} key={thisInserat.id}>
                                             {thisInserat.title}
                                         </SelectItem>
                                     ))}
+                                </SelectContent>
+                            </SelectTrigger>
+                        </Select>
+                    </div>
+                    <div className="pb-8 pr-8">
+                        <Label className="">
+                           Fahrzeug
+                        </Label>
+                        <Select
+                            onValueChange={(selectedValue) => {
+                                setCurrentVehicle(selectedValue);
+                            }}
+                            
+                            value={currentVehicle}
+                            
+                        >
+                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]" 
+                            disabled={!currentInserat ||  currentInserat?.vehicles.length <= 0}>
+                                {currentVehicle ? (
+                                    <SelectValue>
+                                
+                                    </SelectValue>
+                                ) : (
+                                    <SelectValue>
+                                        Wähle dein Fahrzeug
+                                    </SelectValue>
+                                )}
+                                
+                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                                
+                                    {currentInserat?.vehicles.length > 0 ? (
+                                        
+                                        currentInserat?.vehicles?.map((thisVehicle) => (
+                                            <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
+                                                {thisVehicle.title}
+                                            </SelectItem>
+                                        ))
+                                        
+                                    ) : (
+                                        <SelectItem value={null}>
+                                            Keine Fahrzeuge verfügbar
+                                        </SelectItem>
+                                    )}
                                 </SelectContent>
                             </SelectTrigger>
                         </Select>

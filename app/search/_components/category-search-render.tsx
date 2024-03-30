@@ -9,7 +9,7 @@ import TrailerSearch from './category-data/trailer-search';
 const CategorySearchRender = () => {
 
     const currentParams = useSavedSearchParams((state) => state.searchParams)
-
+    
     return (
         <div className="w-full">
             <h3 className="font-semibold text-md flex items-center dark:text-gray-100">
@@ -20,7 +20,7 @@ const CategorySearchRender = () => {
                         'TRAILOR' : "Anhänger - ",
                         'TRANSPORT' : "Transporter - "
 
-                    }[currentParams['category']] 
+                    }[currentParams['thisCategory']] 
                 } Details
                 <Separator
                     className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
@@ -35,10 +35,10 @@ const CategorySearchRender = () => {
                         'TRAILER' : <TrailerSearch />,
                         'TRANSPORT' : <TransportSearch />
 
-                    }[currentParams['category']] 
+                    }[currentParams['thisCategory']] 
                 }
 
-                {!currentParams['category'] && (
+                {!currentParams['thisCategory'] && (
                     <div className='flex justify-center text-md font-semibold'>
                         Noch keine Kategorie ausgewählt..
                     </div>

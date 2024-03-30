@@ -26,12 +26,12 @@ const PkwTypeSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
-        changeSearchParams("type", selectedValue);
+        changeSearchParams("thisType", selectedValue);
         console.log(selectedValue)
     }
 
     const deleteType = () => {
-        deleteSearchParams("type")
+        deleteSearchParams("thisType")
     }
 
     function removeUnderscore(inputString: string): string {

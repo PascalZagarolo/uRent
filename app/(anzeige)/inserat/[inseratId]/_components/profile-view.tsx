@@ -53,11 +53,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                         {thisUser.name.charAt(0).toUpperCase()}</p><div>{thisUser.name.slice(1)}</div>
 
                 </div>
-                <div className="flex ml-auto">
-                    <Button variant="ghost" size="sm" className="ml-auto">
-                        Folgen
-                    </Button>
-                </div>
+                
             </div>
             
             <div>

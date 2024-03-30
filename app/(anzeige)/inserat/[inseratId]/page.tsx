@@ -188,15 +188,14 @@ const InseratAnzeige = async ({
                                 Kaution : {thisInserat?.caution + " €" }
                             </div>
                             )}
-                             {thisInserat?.reqAge && (
-                            <div className="w-1/2 truncate flex font-semibold text-sm ">
-                                    <>
-                                    <UserCircleIcon className="w-4 h-4 mr-2 text-blue-600" /> 
-                                    Mindestalter : {thisInserat?.reqAge + " Jahre"}
-                                    </>
-                                
+                             {thisInserat?.reqAge != 0 && thisInserat?.reqAge &&(
+                                <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                <>
+                                <UserCircleIcon className="w-4 h-4 mr-2 text-blue-600" /> 
+                                Mindestalter : {thisInserat?.reqAge + " Jahre"}
+                                </>
                             </div>
-                            )}
+                             )}
                         </div>
                         {thisInserat?.category === "PKW" && (
                             <div className="w-full flex mt-2">

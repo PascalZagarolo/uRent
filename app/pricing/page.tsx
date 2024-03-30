@@ -85,7 +85,7 @@ const PricingPage = async () => {
                                 </div>
                                 <div className="w-1/3 border-blue-900  border-2 dark:bg-[#232323] p-4 rounded-md">
                                     <h3 className="text-lg font-semibold w-full flex">
-                                        Pro <div className="ml-auto"> <Badge className="bg-blue-900 hover:bg-blue-700 text-gray-100"> Am beliebtesten <FaFireFlameCurved className="w-4 h-4 ml-2" /> </Badge> </div>
+                                        Premium <div className="ml-auto"> <Badge className="bg-blue-900 hover:bg-blue-700 text-gray-100"> Am beliebtesten <FaFireFlameCurved className="w-4 h-4 ml-2" /> </Badge> </div>
                                     </h3>
                                     <p className="text-xs dark:text-gray-200/70 h-[32px]">
                                         Für den ambitionierten Vermieter. Mehr Funktionen, mehr Möglichkeiten, mehr Kunden.

@@ -123,7 +123,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         }[thisInserat.category]
                     }
                 </div>
-                <div className="w-3/4 px-4 text-base font-semibold h-[20px] text-ellipsis sm:truncate overflow-hidden">
+                <div className="w-3/4 px-4 text-base font-semibold h-[24px] text-ellipsis sm:truncate overflow-hidden">
                     
                         <Link
                         className="hover:underline  overflow-hidden truncate whitespace-break-spaces break-words text-ellipsis"
@@ -151,7 +151,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </span>
                 )}
                     </div>
-                <div className="ml-auto items-center sm:flex hidden">
+                <div className="ml-auto items-center sm:flex hidden mt-4">
 
 
                     <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
@@ -338,7 +338,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </div>
                         </div>
 
-                        <div className="ml-4 dark:bg-[#191B27] bg-gray-100/30 dark:border-none border w-1/2 p-2 text-xs rounded-md mr-2 overflow-hidden h-[180px]" >
+                        <div className="ml-4 dark:bg-[#191B27] bg-gray-100/30 dark:border-none border 
+                        w-1/2 p-2 text-xs rounded-md sm:mr-2 overflow-hidden sm:h-[180px] h-[130px]" >
                             <div className="h-full overflow-hidden text-xs">
                             {thisInserat.description}
                             </div>

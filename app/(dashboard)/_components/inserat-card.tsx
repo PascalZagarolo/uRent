@@ -323,7 +323,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     src={thisInserat.images[0]?.url}
                                     width={220}
                                     height={240}
-                                    className="rounded-md hover:cursor-pointer  dark:border-gray-900 max-h-[180px] w-full"
+                                    className="rounded-md hover:cursor-pointer  dark:border-gray-900 max-h-[180px] 
+                                    w-full object-cover"
                                     onClick={onRedirect}
                                     alt={thisInserat.title}
                                 />
@@ -345,6 +346,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
             </div>
             <div className="w-full">
+
+
                 <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100  dark:border-[#1e2332]  
                     drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
                     <p className="text-gray-100 font-bold mr-4 flex">

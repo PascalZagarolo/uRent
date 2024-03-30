@@ -122,7 +122,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   return (
     <div className="items-center w-full">
       <h3 className="text-md font-semibold items-center flex">
-        <MapPin className="h-4 w-4 mr-2" /> Addresse *
+        <MapPin className="h-4 w-4 mr-2" /> Adresse *
         <TooltipProvider>
           <Tooltip>
 

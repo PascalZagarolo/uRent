@@ -104,21 +104,21 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                > Änderungen speichern </Button>
             </h1>
             
-            <div className=" mt-2 bg-white dark:bg-[#0F0F0F]  p-4 rounded-md  h-[120px]" >
+            <div className=" mt-2 bg-white dark:bg-[#0F0F0F] hover:cursor-pointer p-4 rounded-md  h-[160px]" onClick={() => {setIsEditing(true)}} >
                 {isEditing ? (
-                    <div className="flex w-full"> 
+                    <div className="flex w-full h-full"> 
                         <Form {...form}>
-                    <form className="flex w-full" onSubmit={form.handleSubmit(onSubmit)}>
+                    <form className="flex w-full h-full" onSubmit={form.handleSubmit(onSubmit)}>
                         <FormField
                         control={form.control}
                         name="description"
                     
                         render = {({field}) => (
-                            <FormItem className="w-full">
+                            <FormItem className="w-full h-full">
                                 <FormControl>
                                     <Textarea
                                     {...field}
-                                    className="  dark:bg-[#0F0F0F]"
+                                    className="  dark:bg-[#0F0F0F] h-full"
                                     ref={textareaRef}
                                     onChange={(e) => {setCurrentDescription(e.target.value)}}
                                     value={currentDescription}
@@ -137,14 +137,14 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                     </div>
                     
                 ): (
-                    <div onClick={() => {setIsEditing(true)}} className="hover:cursor-pointer">
+                    <div className="">
 
-                        {thisInserat.description ? (
-                            <p className=" text-gray-900  text-sm max-h-[100px] overflow-hidden dark:text-gray-100 ">
+                        {currentDescription  ? (
+                            <p className=" text-gray-900 text-sm max-h-[100px] overflow-hidden dark:text-gray-100 ">
                             {currentDescription}
                           </p>
                         ) : (
-                            <p className=" text-gray-900/50 italic text-sm dark:text-gray-100"> Noch keine Beschreibung hinzugefügt </p>
+                            <p className=" text-gray-900/50  text-sm dark:text-gray-200/70"> Gebe Informationen zu deinem Inserat an.. </p>
                         )}
                         
                     </div>

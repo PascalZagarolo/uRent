@@ -40,7 +40,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: thisInserat.caution || 0
+            caution: thisInserat.caution || null
         }
     })
 
@@ -84,6 +84,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
                                                 {...field}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
+                                                placeholder="Gebe deine Kaution ein"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -94,7 +95,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
                                                     let formattedValue = parseFloat(cleanedValue).toFixed(2);
 
                                                     if(isNaN(Number(formattedValue))){
-                                                        formattedValue = String(0);
+                                                        formattedValue = null;
                                                     }
                                                     e.currentTarget.value = formattedValue;
 

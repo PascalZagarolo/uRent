@@ -1,3 +1,4 @@
+import LoadingSizeSearch from "../_every/loading-size-search";
 import LoadingVolumeSearch from "../_every/loading-volume-search";
 import LkwApplicationSearch from "../_lkw/lkw-application-search";
 import LkwBrandSearch from "../_lkw/lkw-brand-search";
@@ -9,33 +10,33 @@ import PkwPowerSearch from "../_pkw/pkw-power-search";
 import TrailerAxisSearch from "../_trailer/trailer-axis";
 
 const LkwSearch = () => {
-    return ( 
+    return (
         <div className="w-full">
             <div className="w-full flex gap-x-2">
-        	    <div className="w-1/3">
-<LkwBrandSearch />
+                <div className="w-1/3">
+                    <LkwBrandSearch />
                 </div>
                 <div className="w-1/3">
-<LkwApplicationSearch />
+                    <LkwApplicationSearch />
                 </div>
                 <div className="w-1/3">
-<LkwLoadingSearch />
+                    <LkwLoadingSearch />
                 </div>
             </div>
             <div className="w-full flex gap-x-2 mt-4">
-        	    <div className="w-1/3">
-<LkwDriveSearch />
+                <div className="w-1/3">
+                    <LkwDriveSearch />
                 </div>
                 <div className="w-1/3">
-<LkwWeightClassSearch />
+                    <LkwWeightClassSearch />
                 </div>
                 <div className="w-1/3">
-<LkwSeatsSearch />
+                    <LkwSeatsSearch />
                 </div>
             </div>
             <div className="w-full flex gap-x-2 mt-4">
-        	    <div className="w-1/3">
-<TrailerAxisSearch />
+                <div className="w-1/3">
+                    <TrailerAxisSearch />
                 </div>
                 <div className="w-1/3">
 
@@ -45,18 +46,18 @@ const LkwSearch = () => {
                 </div>
             </div>
             <div className="w-full flex gap-x-2 mt-4">
-        	    <div className="w-1/3">
-<PkwPowerSearch />
+                <div className="w-1/3">
+                    <PkwPowerSearch />
                 </div>
                 <div className="w-1/3">
-                <LoadingVolumeSearch />
+                    <LoadingVolumeSearch />
                 </div>
                 <div className="w-1/3">
-
+                    <LoadingSizeSearch />
                 </div>
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default LkwSearch;

@@ -2,6 +2,8 @@
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useSavedSearchParams } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -16,13 +18,14 @@ import { z } from "zod";
 
 
 
-const CautionSearch = () => {
+const LoadingVolumeSearch = () => {
 
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentMin, setCurrentMin] = useState(null);
-    const [currentMax, setCurrentMax] = useState(null);
+    const [currentLiter, setCurrentLiter] = useState(null);
+    const [currentMeter, setCurrentMeter] = useState(null);
+    const [usesLiter, setUsesLiter] = useState(true);
 
     const formSchema = z.object({
         minPrice: z.preprocess(
@@ -53,34 +56,37 @@ const CautionSearch = () => {
     
     useEffect(() => {
         const setAmount = async () => {
-            await changeSearchParams("minPrice", currentMin);
-                   }
-    setAmount();
-    }, [currentMin, currentMax])
-   
-    useEffect(() => {
-        const setAmount = async () => {
-            await changeSearchParams("maxPrice", currentMax);  
+            if(currentLiter === 0) {
+                deleteSearchParams("volume");
+            } else {
+                await changeSearchParams("volume", currentLiter);
+            }
         }
-        setAmount();
-    },[currentMax])
+    setAmount();
+    }, [currentLiter])
+   
+    
 
     const { isSubmitting, isValid } = form.formState
 
     return (
         <div className=" ">
+            <h3 className="font-semibold">
+                Volumen
+            </h3>
             <Form {...form}>
                 <form>
-                    <div className="w-full flex gap-x-2">
+                    <div className="w-full flex gap-x-2 mt-3">
+                    
                         <div className="w-1/2">
                         <FormLabel className="flex justify-start items-center">
-                        <Banknote className="w-4 h-4" /><div className="ml-2 font-semibold flex"> Min. <p className="sm:block hidden px-1"> Preis </p> </div>
+                        <div className="ml-2 font-semibold flex"> Liter </div>
                     </FormLabel>
                     
                         </div>
                         <div className="w-1/2">
                         <FormLabel className="flex justify-start items-center">
-                        <Banknote className="w-4 h-4" /><div className="ml-2 font-semibold flex"> Max. <p className="sm:block hidden px-1"> Preis </p> </div>
+                        <div className="ml-2 font-semibold flex"> Meter  </div>
                     </FormLabel>
                         </div>
                     </div>
@@ -100,7 +106,7 @@ const CautionSearch = () => {
                                                 {...field}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
-                                                placeholder="Min. Preis"
+                                                placeholder="... l"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -115,16 +121,17 @@ const CautionSearch = () => {
                                                     }
                                                     e.currentTarget.value = formattedValue;
 
-                                                    setCurrentMin(Number(formattedValue));
-                                                        
+                                                    setCurrentLiter(Number(formattedValue));
+                                                    setCurrentMeter(Number(formattedValue) * 0.001);
                                                     field.onChange(formattedValue);
                                                     
+                                                    
                                                 }}
-                                                
+                                                disabled={!usesLiter}
                                             />
                                         </FormControl>
                                         
-                                        <FormMessage />
+                                        
                                     </FormItem>
                                     
                                 )}
@@ -143,7 +150,7 @@ const CautionSearch = () => {
                                                 {...field}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
-                                                placeholder="Max. Preis"
+                                                placeholder="m³"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -158,17 +165,25 @@ const CautionSearch = () => {
                                                     }
                                                     e.currentTarget.value = formattedValue;
 
-                                                    setCurrentMax(Number(formattedValue));
+                                                    setCurrentMeter(Number(formattedValue));
+                                                    setCurrentLiter(Number(formattedValue) * 1000);
                                                         
                                                     field.onChange(formattedValue);
+                                                    if(formattedValue !== null) {
+                                                        //@ts-ignore
+                                                        form.setValue("minPrice", formattedValue * 1000)
+                                                    } else {
+                                                        form.setValue("minPrice", 0)
+                                                    }
+                                                    
                                                     
                                                 }}
-                                                
+                                                disabled={usesLiter}
                                                 
                                             />
                                         </FormControl>
                                         
-                                        <FormMessage />
+                                        
                                     </FormItem>
                                     
                                 )}
@@ -179,8 +194,16 @@ const CautionSearch = () => {
 
                 </form>
             </Form>
+            <RadioGroup className="mt-2" defaultValue="PS">
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="PS" id="PS" className="h-2 w-2" onClick={() => { setUsesLiter(true) }} />
+                    <Label htmlFor="PS" className="text-sm"><p className="text-sm"> Liter </p></Label>
+                    <RadioGroupItem value="KW" id="KW" className="h-2 w-2" onClick={() => { setUsesLiter(false) }} />
+                    <Label htmlFor="KW" className="text-sm"><p className="text-sm"> m³ </p></Label>
+                </div>
+            </RadioGroup>
         </div>
     );
 }
 
-export default CautionSearch;
+export default LoadingVolumeSearch;

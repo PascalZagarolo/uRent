@@ -91,8 +91,16 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                         />
                     </div>
                 ) : (
-                    <p className="text-gray-800/50  text-sm  flex justify-center py-8 dark:text-gray-100/80">
-                         Noch keine Anhänge oder Fotos hinzugefügt... </p>
+                    <CldUploadButton
+                    onUpload={handleImageUpload}
+                    uploadPreset="oblbw2xl"
+                    options={{ maxFiles: 1 }}
+                    className="w-full"
+                >
+                    <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-32 border-dashed border
+                     dark:text-gray-100/80 dark:border-gray-500">
+                         Noch keine Fotos hinzugefügt... </div>
+                         </CldUploadButton>
                 )
             }
 

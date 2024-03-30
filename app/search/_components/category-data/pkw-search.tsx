@@ -1,3 +1,4 @@
+import LoadingSizeSearch from "../_every/loading-size-search";
 import LoadingVolumeSearch from "../_every/loading-volume-search";
 import LkwLoadingSearch from "../_lkw/lkw-loading-search";
 import PkwBrandSearch from "../_pkw/pkw-brand-search";
@@ -51,10 +52,10 @@ const PkwSearch = () => {
                     <PkwPowerSearch />
                 </div>
                 <div className="w-1/3">
-                <LoadingVolumeSearch />
+                    <LoadingVolumeSearch />
                 </div>
                 <div className="w-1/3">
-
+                    <LoadingSizeSearch />
                 </div>
             </div>
         </div>

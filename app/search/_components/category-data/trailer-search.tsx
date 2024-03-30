@@ -12,6 +12,7 @@ import TrailerCouplingSearch from "../_trailer/trailer-coupling";
 import TrailerBrakeSearch from "../_trailer/trailer-brakes";
 import TrailerAxisSearch from "../_trailer/trailer-axis";
 import LoadingVolumeSearch from "../_every/loading-volume-search";
+import LoadingSizeSearch from "../_every/loading-size-search";
 
 const TrailerSearch = () => {
 
@@ -48,7 +49,7 @@ const TrailerSearch = () => {
                     <TrailerBrakeSearch />
                 </div>
                 <div className="w-1/3">
-                
+
                 </div>
                 <div className="w-1/3">
 
@@ -56,10 +57,10 @@ const TrailerSearch = () => {
             </div>
             <div className="w-full flex gap-x-2 mt-4">
                 <div className="w-1/3">
-                <LoadingVolumeSearch />
+                    <LoadingVolumeSearch />
                 </div>
                 <div className="w-1/3">
-                
+                    <LoadingSizeSearch />
                 </div>
                 <div className="w-1/3">
 

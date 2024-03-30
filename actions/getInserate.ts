@@ -15,6 +15,7 @@ import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
 
 
 
+
 type GetInserate = {
     title?: string;
     thisCategory?: typeof CategoryEnumRender;
@@ -56,6 +57,12 @@ type GetInserate = {
     extraType : typeof ExtraTypeEnumRender;
     axis : number;
     brake : boolean;
+
+    volume : number;
+
+    loading_l : number;
+    loading_b : number;
+    loading_h : number;
     
 }
 
@@ -110,6 +117,12 @@ export const getInserate = async ({
     extraType,
     axis,
     brake,
+
+    volume,
+
+    loading_l,
+    loading_b,
+    loading_h
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
     const Addressfilter = async (pInserat : typeof inserat) => {
@@ -133,6 +146,9 @@ export const getInserate = async ({
         const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
         const bPower = power ? pInserat.pkwAttribute.power >= power : true;
         const bDoors = doors ? pInserat.pkwAttribute.doors >= doors : true;
+        const bExtraType = extraType ? extraType === pInserat.pkwAttribute.extraType : true;
+        const bLoading = loading ? loading === pInserat.pkwAttribute.loading : true;
+        const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
         const bFreeMiles = freeMiles ? pInserat.pkwAttribute.freeMiles >= freeMiles : true;
         const bExtraCost = extraCost ? pInserat.pkwAttribute.extraCost >= extraCost : true;
         const bType = thisType ? thisType === pInserat.pkwAttribute.type : true;
@@ -140,20 +156,33 @@ export const getInserate = async ({
         const bFuel = fuel ? fuel === pInserat.pkwAttribute.fuel : true;
         const bInitial = initial.getTime() ? initial.getTime() >= pInserat.pkwAttribute.initial.getTime() : true;
         const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;
+
+        const bVolume = volume ? volume <= pInserat.pkwAttribute.loading_volume : true
+        const bLength = loading_l ? loading_l <= pInserat.pkwAttribute.loading_l : true;
+        const bBreite = loading_b ? loading_b <= pInserat.pkwAttribute.loading_b : true;
+        const bHeight = loading_h ? loading_h <= pInserat.pkwAttribute.loading_h : true;
     
         return bSeats && bPower && bDoors && bFreeMiles &&
-         bExtraCost && bType && bTransmission && bFuel && bBrand;
+         bExtraCost && bType && bTransmission && bFuel && bBrand && 
+         bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
     }
 
     const LkwFilter = (pInserat : typeof inserat) => {
         const bSeats = seats ? pInserat.lkwAttribute.seats >= seats : true;
+        const bAxis = axis ? axis === pInserat.lkwAttribute.axis : true;
         const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
         const bDrive = drive ? drive === pInserat.lkwAttribute.drive : true;
         const bLoading = loading ? loading === pInserat.lkwAttribute.loading : true;
         const bApplication = application ? application == pInserat.lkwAttribute.application : true;
         const bLkwBrand = lkwBrand ? lkwBrand === pInserat.lkwAttribute.lkwBrand : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bLkwBrand;
+        const bVolume = volume ? volume <= pInserat.lkwAttribute.loading_volume : true;
+        const bLength = loading_l ? loading_l <= pInserat.lkwAttribute.loading_l : true;
+        const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute.loading_b : true;
+        const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute.loading_h : true;
+
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication 
+        && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     } 
 
     const TrailerFilter = (pInserat : typeof inserat) => {
@@ -165,18 +194,31 @@ export const getInserate = async ({
         const bWeightClass = weightClass ? weightClass === pInserat.trailerAttribute.weightClass : true;
         const bBrake = brake ? brake === pInserat.trailerAttribute.brake : true;
 
-        return bType && bExtraType && bCoupling && bLoading && bAxis && bWeightClass && bBrake; 
+        const bVolume = volume ? volume <= pInserat.trailerAttribute.loading_volume : true;
+        const bLength = loading_l ? loading_l <= pInserat.trailerAttribute.loading_l : true;
+        const bBreite = loading_b ? loading_b <= pInserat.trailerAttribute.loading_b : true;
+        const bHeight = loading_h ? loading_h <= pInserat.trailerAttribute.loading_h : true;
+
+        return bType && bExtraType && bCoupling && bLoading && bAxis 
+        && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight; 
     }
 
     const TransportFilter = (pInserat : typeof inserat) => {
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmisson = transmission ? transmission === pInserat.transportAttribute.transmission : true;
+        const bPower = power ? pInserat.transportAttribute.power >= power : true;
+        const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
         const bSeats = seats ? seats <= pInserat.transportAttribute.seats : true;
         const bDoors = doors ? doors === pInserat.transportAttribute.doors : true;
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
 
+        const bVolume = volume ? volume <= pInserat.transportAttribute.loading_volume : true;
+        const bLength = loading_l ? loading_l <= pInserat.transportAttribute.loading_l : true;
+        const bBreite = loading_b ? loading_b <= pInserat.transportAttribute.loading_b : true;
+        const bHeight = loading_h ? loading_h <= pInserat.transportAttribute.loading_h : true;
 
-        return bLoading && bTransmisson && bSeats && bDoors && bFuel;
+        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower 
+        && bExtraType && bVolume && bLength && bBreite && bHeight;
     }
 
     try {

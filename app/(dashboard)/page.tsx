@@ -67,7 +67,12 @@ interface MainPageProps {
         coupling: typeof CouplingEnumRender;
         extraType: typeof ExtraTypeEnumRender;
         axis: string;
-        brake: string
+        brake: string;
+
+        volume : number,
+        loading_l : number,
+        loading_b : number,
+        loading_h : number,
 
     }
 }
@@ -157,6 +162,11 @@ const Main = async ({
                             brake={searchParams.brake}
 
                             currentUser = {currentUser}
+
+                            volume={searchParams.volume}
+                            loading_l={searchParams.loading_l}
+                            loading_b={searchParams.loading_b}
+                            loading_h={searchParams.loading_h}
                         />
                     </div>
                     

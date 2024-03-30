@@ -148,7 +148,7 @@ export const getInserate = async ({
         const bDoors = doors ? pInserat.pkwAttribute.doors >= doors : true;
         const bExtraType = extraType ? extraType === pInserat.pkwAttribute.extraType : true;
         const bLoading = loading ? loading === pInserat.pkwAttribute.loading : true;
-        const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
+        const bWeightClass = weightClass ? pInserat.pkwAttribute.weightClass === weightClass : true;
         const bFreeMiles = freeMiles ? pInserat.pkwAttribute.freeMiles >= freeMiles : true;
         const bExtraCost = extraCost ? pInserat.pkwAttribute.extraCost >= extraCost : true;
         const bType = thisType ? thisType === pInserat.pkwAttribute.type : true;

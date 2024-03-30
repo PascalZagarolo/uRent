@@ -37,6 +37,10 @@ const ResultsSearchPage = () => {
             url : process.env.NEXT_PUBLIC_BASE_URL,
             //@ts-ignore
             query : {
+                //@ts-ignore
+                category : filteredValues.thisCategory,
+                //@ts-ignore
+                type : filteredValues.thisType,
                 ...filteredValues
             }
         })

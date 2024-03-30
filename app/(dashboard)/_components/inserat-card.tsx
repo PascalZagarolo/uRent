@@ -400,7 +400,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 <div className="ml-auto gap-x-2 flex text-xs w-3/5 overflow-hidden items-center">
                                     {thisInserat.address?.postalCode + ", "}
                                     <div className="w-2/3 sm:truncate h-[16px]">
-                                    {thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}
+                                    {thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}, Deutschland
                                     </div>
                                 </div>
                             )}

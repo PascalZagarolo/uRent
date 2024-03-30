@@ -29,7 +29,7 @@ export async function PATCH(
 
         const values = await req.json();
        
-        const { location, amount, thisCategory, reqAge, freeMiles, reqLicense,
+        const { location, amount, thisCategory, reqAge, freeMiles, reqLicense, minPrice, maxPrice,
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
@@ -43,7 +43,8 @@ export async function PATCH(
             ...filteredValues} = values;
 
             
-
+            console.log(minPrice)
+            console.log(maxPrice)
             const ConditionFilter = (pInserat : typeof inserat) => {
                 const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
                 const bLicense = reqLicense ? reqLicense === pInserat.license : true;
@@ -159,6 +160,8 @@ export async function PATCH(
                             eq(inserat.annual, "true")
                         )
                         : undefined,
+                minPrice ? gte(inserat.price, minPrice) : undefined,
+                maxPrice ? lte(inserat.price, maxPrice) : undefined,
                 
             ), 
             with : {

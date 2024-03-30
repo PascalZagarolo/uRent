@@ -2,13 +2,14 @@
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useSavedSearchParams } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
 
 import { Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -48,9 +49,15 @@ const CautionSearch = () => {
         }
     })
 
-    const onSubmit = () => {
-        console.log(2)
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    
+    useEffect(() => {
+        const setAmount = async () => {
+            await changeSearchParams("minPrice", currentMin);
+            await changeSearchParams("maxPrice", currentMax);        
     }
+    setAmount();
+    }, [currentMin, currentMax])
    
 
     const { isSubmitting, isValid } = form.formState
@@ -58,7 +65,7 @@ const CautionSearch = () => {
     return (
         <div className=" ">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form>
                     <div className="w-full flex gap-x-2">
                         <div className="w-1/2">
                         <FormLabel className="flex justify-start items-center">
@@ -105,6 +112,7 @@ const CautionSearch = () => {
                                                     setCurrentMin(Number(formattedValue));
                                                         
                                                     field.onChange(formattedValue);
+                                                    
                                                 }}
                                                 
                                             />
@@ -146,6 +154,7 @@ const CautionSearch = () => {
                                                     setCurrentMax(Number(formattedValue));
                                                         
                                                     field.onChange(formattedValue);
+                                                    
                                                 }}
                                                 
                                             />

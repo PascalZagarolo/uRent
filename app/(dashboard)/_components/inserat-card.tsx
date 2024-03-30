@@ -112,8 +112,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-            <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer text-ellipsis  items-center w-full rounded-md mr-2",)} >
-                <div className="bg-[#181c28] p-2 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-1/10">
+            <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md mr-2",)} >
+                <div className="bg-[#181c28] p-2 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:w-1/10">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
@@ -123,17 +123,18 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         }[thisInserat.category]
                     }
                 </div>
-                <div className="px-2 py-1 mt-1 rounded-md w-1/2 items-center">
-                    <Link className="ml-4 font-bold text-[#0d0f15] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
-                     text-base  h-[40px] flex
-                     hover:cursor-pointer hover:underline dark:text-gray-100  items-center"
+                <div className="w-3/4 px-4 text-base font-semibold h-[20px] text-ellipsis sm:truncate overflow-hidden">
+                    
+                        <Link
+                        className="hover:underline  overflow-hidden truncate whitespace-break-spaces break-words text-ellipsis"
                         href={`/inserat/${thisInserat.id}`}
                         target="_blank"
+                        >
+                        {thisInserat.title} 
+                        </Link>
                         
-                    ><div className="truncate">
-                       {thisInserat.title}</div></Link>
                 </div>
-                <div className="ml-auto">
+                <div className="ml-auto mr-4 ">
                 {thisInserat?.multi && (
                     <span className="p-4 text-xs text-gray-100
                      border-white border-dashed border bg-[#191B27] rounded-md flex items-center hover:cursor-default">
@@ -146,7 +147,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             }[thisInserat.category]
                         }
 
-                        Noch <p className=" font-black px-1 ">{thisInserat?.amount}</p> verfügbar
+                        <p className=" font-black sm:px-1 ">{thisInserat?.amount}</p> 
                     </span>
                 )}
                     </div>
@@ -372,10 +373,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div>
 
                 {/* Part2 */}
-                <div className="font-semibold text-gray-900 flex mt-2 items-center">
-                    <div className="flex">
+                <div className="font-semibold text-gray-900 flex mt-2 items-center w-full">
+                    <div className="flex ">
                             <div className="flex dark:bg-emerald-900 bg-emerald-900 p-2 rounded-md 
-                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800 px-4 sm:text-sm text-xs items-center">
+                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800 px-4 sm:text-sm 
+                             text-xs items-center">
                                 <div className="mr-2 flex font-bold">
 
                                     <Banknote className="mr-1 sm:block hidden" />
@@ -384,20 +386,29 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                                                             : (<div className="text-[10px] ml-1 mr-1" > / Zeitraum</div>)}
                             </div>
                         </div>
-                        <div className="ml-auto w-2/3  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28] 0 
-                        p-2 sm:pl-2 pl-0 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] truncate text-sm justify-center">
-                            <MapPinned className="text-rose-600 mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
-                            <div className={cn("w-1/3 truncate", !thisInserat.address?.locationString && "w-full flex justify-center")}>
+                        <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28]  
+                        p-2 sm:pl-2 pl-0 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:truncate text-sm justify-center">
+                            <MapPinned className="text-rose-600 sm:mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
+                            <div className={cn("w-1/3 sm:truncate h-[20px] overflow-hidden", !thisInserat.address?.locationString && "w-full flex justify-center")}>
                                 {thisInserat.address?.locationString ?
                                     getAddressCity(thisInserat.address?.locationString)
                                     : "Keine Angabe"}
                             </div>
+                            
+                            
                             {thisInserat.address?.locationString && (
-                                <div className="text-gray-100 w-1/3 sm:w-2/3 text-xs ml-2 sm:ml-auto  flex">{thisInserat.address?.postalCode + " "}
-                                    <p className=" truncate ml-1 sm:max-w-[160px] mr-1"> {thisInserat.address?.state ? convertState(thisInserat.address?.state) + "," : ""} </p>DE</div>
+                                <div className="ml-auto gap-x-2 flex text-xs w-3/5 overflow-hidden items-center">
+                                    {thisInserat.address?.postalCode + ", "}
+                                    <div className="w-2/3 sm:truncate h-[16px]">
+                                    {thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}
+                                    </div>
+                                </div>
                             )}
+                            
+                            
                         </div>
                     </div>
+
 
 
                     <ProfileBar

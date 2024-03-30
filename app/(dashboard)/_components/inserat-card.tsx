@@ -162,9 +162,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
             </h3>
 
-            <div className="flex justify-center h-[200px] items-center   w-full">
+            <div className="flex justify-center h-[200px] items-center  w-full">
                 <div className="flex p-4  w-full">
-                    <div className="mr-4 sm:w-[80px]">
+                    <div className="mr-4 sm:w-[80px] ">
 
                         <div className="sm:block hidden">
                             {
@@ -317,7 +317,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </div>
                     </div>
                     <div className="flex w-full">
-                        <div className="sm:w-1/2 flex">
+                        <div className="sm:w-1/2 flex w-full">
                             <div className="w-full">
                                 <Image
                                     src={thisInserat.images[0]?.url}
@@ -344,7 +344,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </div>
                 </div>
             </div>
-            <div className=" ">
+            <div className="w-full">
                 <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100  dark:border-[#1e2332]  
                     drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
                     <p className="text-gray-100 font-bold mr-4 flex">

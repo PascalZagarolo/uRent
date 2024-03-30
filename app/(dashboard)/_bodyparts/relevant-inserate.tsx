@@ -58,6 +58,11 @@ interface RelevanteInserateProps {
 
     currentUser : typeof users.$inferSelect;
 
+    volume? : number;
+    loading_l? : number;
+    loading_b? : number;
+    loading_h? : number;
+
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
@@ -98,7 +103,12 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     axis,
     brake,
 
-    currentUser
+    currentUser,
+    
+    volume,
+    loading_b,
+    loading_h,
+    loading_l
 }) => {
 
     
@@ -155,6 +165,11 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         extraType : extraType,
         axis : Number(axis),
         brake : brake ? (brake.toLowerCase() == 'true') : null,
+
+        volume : volume,
+        loading_l : loading_l,
+        loading_b : loading_b,
+        loading_h : loading_h
 });
 
 

@@ -73,17 +73,20 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
             </div>
             <div className="flex w-full gap-x-8  mt-4">
                 
-                <div className="w-1/2">
+                <div className="w-1/3">
                 <TransportLoadingVolumeForm
                 thisVolume={thisInserat?.transportAttribute?.loading_volume}
                 />
                 </div>
-                <div className="w-1/2">
+                <div className="w-1/3">
                 <TransportSizeForm
                 thisHeight={thisInserat?.transportAttribute?.loading_h}
                 thisWidth={thisInserat?.transportAttribute?.loading_b}
                 thisLength={thisInserat?.transportAttribute?.loading_l}
                 />
+                </div>
+                <div className="w-1/3">
+                
                 </div>
             </div>
             

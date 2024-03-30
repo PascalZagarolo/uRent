@@ -180,23 +180,23 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     const LoadingComponent = () => <div>Laden...</div>
 
     return (
-        <div className="">
+        <div className="w-full">
             
             {!title ? (
-                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full p-4 text-gray-100 bg-[#141620]">
-                    <div className="ml-4 flex w-full items-center">
-                        <div className="p-2 sm:block hidden rounded-lg">
-                            <AlignCenter />
-                        </div>
-                        <h3 className=" sm:ml-8 flex font-base text-lg items-center sm:text-2xl h-full w-full">
-                            Relevante
-                            Inserate
-                            <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
-                                <OrderBy />
-                            </div>
-                        </h3>
+                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full py-4 text-gray-100 bg-[#141620]">
+                <div className="ml-4 flex w-full items-center">
+                    <div className="p-2 sm:block hidden rounded-lg">
+                        <AlignCenter />
                     </div>
+                    <h3 className="  flex font-base text-lg items-center sm:text-2xl h-full w-full">
+                        Relevante
+                        Inserate
+                        <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
+                            <OrderBy />
+                        </div>
+                    </h3>
                 </div>
+            </div>
             ) : (
                 <div className="h-full flex sm:block sm:mt-0 items-center  border-2 border-gray-300 dark:border-gray-900 p-4 text-gray-100 bg-[#141620] ">
                     <div className="ml-4 flex w-full items-center">
@@ -214,7 +214,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
             )}
             <div className="flex justify-center w-full">
                 <Suspense fallback={<LoadingComponent />}>
-                    <InseratRenderedList
+                <InseratRenderedList
                         inserateArray={foundInserate}
                         currentUser={currentUser}
                         //@ts-ignore

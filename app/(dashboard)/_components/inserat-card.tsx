@@ -107,7 +107,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
     return (
-        <div className="sm:w-[760px] sm:h-[420px] w-full h-full rounded-md  items-center dark:bg-[#171923]
+        <div className="md:w-[760px] sm:h-[420px] w-full h-full rounded-md  items-center dark:bg-[#171923]
           bg-[#ffffff]  mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2 ">
 
 
@@ -318,12 +318,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </div>
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex">
-                            <div className="">
+                            <div className="w-full">
                                 <Image
                                     src={thisInserat.images[0]?.url}
                                     width={220}
                                     height={240}
-                                    className="rounded-md hover:cursor-pointer dark:border-gray-900 max-h-[180px] full"
+                                    className="rounded-md hover:cursor-pointer  dark:border-gray-900 max-h-[180px] w-full"
                                     onClick={onRedirect}
                                     alt={thisInserat.title}
                                 />
@@ -367,9 +367,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     )}
                 </div>
                 <div>
-                    <div className="font-semibold text-gray-900 flex mt-2 items-center">
-                        <div className="flex">
-                            <div className="flex dark:bg-emerald-800 bg-emerald-600 p-2 rounded-md 
+
+                {/* Part2 */}
+                <div className="font-semibold text-gray-900 flex mt-2 items-center">
+                    <div className="flex">
+                            <div className="flex dark:bg-emerald-900 bg-emerald-900 p-2 rounded-md 
                              drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800 px-4 sm:text-sm text-xs items-center">
                                 <div className="mr-2 flex font-bold">
 
@@ -393,6 +395,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             )}
                         </div>
                     </div>
+
+
                     <ProfileBar
                         thisInserat={thisInserat}
                         currentUser={currentUser}

@@ -111,20 +111,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                         {thisInserat.user?.name}
                                         </div>   
                                         <div className="w-1/4">
-                                        {thisInserat?.user.emailVerified && (
-                                            <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger>
-                                                    <div>
-                                                        <Check className="w-4 h-4 ml-2" />
-                                                    </div>
-                                                </TooltipTrigger>
-                                                <TooltipContent className="dark:bg-[#0F0F0F] border-none">
-                                                   Verifiziert
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                        )}
+                                        
                                         </div>
                                     </div>
 

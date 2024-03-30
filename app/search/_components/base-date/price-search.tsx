@@ -21,8 +21,8 @@ const CautionSearch = () => {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentMin, setCurrentMin] = useState(0);
-    const [currentMax, setCurrentMax] = useState(0);
+    const [currentMin, setCurrentMin] = useState(null);
+    const [currentMax, setCurrentMax] = useState(null);
 
     const formSchema = z.object({
         minPrice: z.preprocess(
@@ -44,8 +44,8 @@ const CautionSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            minPrice: 0,
-            maxPrice : 0,
+            minPrice: null,
+            maxPrice : null,
         }
     })
 
@@ -54,11 +54,16 @@ const CautionSearch = () => {
     useEffect(() => {
         const setAmount = async () => {
             await changeSearchParams("minPrice", currentMin);
-            await changeSearchParams("maxPrice", currentMax);        
-    }
+                   }
     setAmount();
     }, [currentMin, currentMax])
    
+    useEffect(() => {
+        const setAmount = async () => {
+            await changeSearchParams("maxPrice", currentMax);  
+        }
+        setAmount();
+    },[currentMax])
 
     const { isSubmitting, isValid } = form.formState
 
@@ -95,6 +100,7 @@ const CautionSearch = () => {
                                                 {...field}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
+                                                placeholder="Min. Preis"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -105,7 +111,7 @@ const CautionSearch = () => {
                                                     let formattedValue = parseFloat(cleanedValue).toFixed(2);
 
                                                     if(isNaN(Number(formattedValue))){
-                                                        formattedValue = String(0);
+                                                        formattedValue = null;
                                                     }
                                                     e.currentTarget.value = formattedValue;
 
@@ -137,6 +143,7 @@ const CautionSearch = () => {
                                                 {...field}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
+                                                placeholder="Max. Preis"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -147,7 +154,7 @@ const CautionSearch = () => {
                                                     let formattedValue = parseFloat(cleanedValue).toFixed(2);
 
                                                     if(isNaN(Number(formattedValue))){
-                                                        formattedValue = String(0);
+                                                        formattedValue = null;
                                                     }
                                                     e.currentTarget.value = formattedValue;
 
@@ -156,6 +163,7 @@ const CautionSearch = () => {
                                                     field.onChange(formattedValue);
                                                     
                                                 }}
+                                                
                                                 
                                             />
                                         </FormControl>

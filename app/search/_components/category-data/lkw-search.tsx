@@ -4,6 +4,8 @@ import LkwDriveSearch from "../_lkw/lkw-drive-search";
 import LkwLoadingSearch from "../_lkw/lkw-loading-search";
 import LkwSeatsSearch from "../_lkw/lkw-seats-search";
 import LkwWeightClassSearch from "../_lkw/lkw-weightclass-search";
+import PkwPowerSearch from "../_pkw/pkw-power-search";
+import TrailerAxisSearch from "../_trailer/trailer-axis";
 
 const LkwSearch = () => {
     return ( 
@@ -28,6 +30,28 @@ const LkwSearch = () => {
                 </div>
                 <div className="w-1/3">
 <LkwSeatsSearch />
+                </div>
+            </div>
+            <div className="w-full flex gap-x-2 mt-4">
+        	    <div className="w-1/3">
+<TrailerAxisSearch />
+                </div>
+                <div className="w-1/3">
+
+                </div>
+                <div className="w-1/3">
+
+                </div>
+            </div>
+            <div className="w-full flex gap-x-2 mt-4">
+        	    <div className="w-1/3">
+<PkwPowerSearch />
+                </div>
+                <div className="w-1/3">
+
+                </div>
+                <div className="w-1/3">
+
                 </div>
             </div>
         </div>

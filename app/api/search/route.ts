@@ -4,6 +4,7 @@ import { inserat } from "@/db/schema";
 import axios from "axios";
 import { and, eq, gte, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { lkwAttribute } from '../../../db/schema';
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
     const r = 6371;
@@ -81,13 +82,15 @@ export async function PATCH(
             }
         
             const LkwFilter = (pInserat : typeof inserat) => {
-                const bSeats = seats ? pInserat.lkwAttribute.seats >= seats : true;
-                const bAxis = axis ? axis === pInserat.lkwAttribute.axis : true;
-                const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
-                const bDrive = drive ? drive === pInserat.lkwAttribute.drive : true;
-                const bLoading = loading ? loading === pInserat.lkwAttribute.loading : true;
-                const bApplication = application ? application == pInserat.lkwAttribute.application : true;
-                const bLkwBrand = lkwBrand ? lkwBrand === pInserat.lkwAttribute.lkwBrand : true;
+                
+                const bSeats = seats ? pInserat?.lkwAttribute?.seats >= seats : true;
+                const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
+                const bWeightClass = weightClass ? pInserat?.lkwAttribute?.weightClass === weightClass : true;
+                const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;
+                const bLoading = loading ? loading === pInserat?.lkwAttribute?.loading : true;
+                const bApplication = application ? application == pInserat?.lkwAttribute?.application : true;
+                const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
+                const bPower = power ? pInserat?.lkwAttribute?.power >= power : true;
         
                 const bVolume = volume ? volume <= pInserat.lkwAttribute.loading_volume : true;
                 const bLength = loading_l ? loading_l <= pInserat.lkwAttribute.loading_l : true;
@@ -95,7 +98,7 @@ export async function PATCH(
                 const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute.loading_h : true;
         
                 return bSeats && bWeightClass && bDrive && bLoading && bApplication 
-                && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
+                && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight && bPower;
             } 
         
             const TrailerFilter = (pInserat : typeof inserat) => {

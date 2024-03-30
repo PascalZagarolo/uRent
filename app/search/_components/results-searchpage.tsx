@@ -43,7 +43,7 @@ const ResultsSearchPage = () => {
                 type : filteredValues.thisType,
                 ...filteredValues
             }
-        })
+        }, {skipEmptyString: true, skipNull: true})
         console.log(filteredValues)
         router.push(url);
     }

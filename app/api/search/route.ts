@@ -104,6 +104,7 @@ export async function PATCH(
             const TrailerFilter = (pInserat : typeof inserat) => {
                 const bType = trailerType ? trailerType === pInserat.trailerAttribute.type : true;
                 const bExtraType = extraType ? extraType === pInserat.trailerAttribute.extraType : true;
+                
                 const bCoupling = coupling ? coupling === pInserat.trailerAttribute.coupling : true;
                 const bLoading = loading ? loading === pInserat.trailerAttribute.loading : true;
                 const bAxis = axis ? axis === pInserat.trailerAttribute.axis : true;
@@ -124,6 +125,7 @@ export async function PATCH(
                 const bTransmisson = transmission ? transmission === pInserat.transportAttribute.transmission : true;
                 const bPower = power ? pInserat.transportAttribute.power >= power : true;
                 const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
+                const bWeightClass = weightClass ? pInserat?.transportAttribute?.weightClass === weightClass : true;
                 const bSeats = seats ? seats <= pInserat.transportAttribute.seats : true;
                 const bDoors = doors ? doors === pInserat.transportAttribute.doors : true;
                 const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
@@ -133,7 +135,7 @@ export async function PATCH(
                 const bBreite = loading_b ? loading_b <= pInserat.transportAttribute.loading_b : true;
                 const bHeight = loading_h ? loading_h <= pInserat.transportAttribute.loading_h : true;
         
-                return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower 
+                return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bWeightClass
                 && bExtraType && bVolume && bLength && bBreite && bHeight;
             }
 

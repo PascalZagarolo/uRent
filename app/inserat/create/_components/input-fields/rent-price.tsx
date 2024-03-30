@@ -42,7 +42,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            price: thisInserat.price || 0
+            price: thisInserat.price || null
         }
     })
 
@@ -95,13 +95,14 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                                 control={form.control}
                                 name="price"
                                 render={({ field }) => (
-                                    <FormItem className="mt-2 ">
+                                    <FormItem className="mt-2">
                                         <FormControl>
                                             <Input
                                                 type="text"
                                                 {...field}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
+                                                placeholder="Mietpreis hinzufügen"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -112,7 +113,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                                                     let formattedValue = parseFloat(cleanedValue).toFixed(2);
 
                                                     if(isNaN(Number(formattedValue))){
-                                                        formattedValue = String(0);
+                                                        formattedValue = null;
                                                     }
                                                     e.currentTarget.value = formattedValue;
 

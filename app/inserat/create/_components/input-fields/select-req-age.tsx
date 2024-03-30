@@ -76,8 +76,6 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
             <SelectItem value={null}>Beliebig</SelectItem>
-            <SelectItem value="16">16</SelectItem>
-            <SelectItem value="17">17</SelectItem>
             <SelectItem value="18">18</SelectItem>
             <SelectItem value="19">19</SelectItem>
             <SelectItem value="20">20</SelectItem>

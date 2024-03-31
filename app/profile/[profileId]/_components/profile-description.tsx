@@ -42,7 +42,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            description: ""
+            description: user.description
         }
     })
 
@@ -59,6 +59,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
             setIsLoading(true);
             axios.patch(`/api/profile/${user.id}`, values);
             toast.success("Beschreibung erfolgreich geändert");
+            setIsEditing(false);
         } catch {
             toast.error("Fehler beim Ändern der Beschreibung")
         } finally {
@@ -81,7 +82,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                         <Separator
                          className="sm:w-1/4 w-1/10 ml-8 bg-gray-700 dark:bg-gray-200"
                         />
-                        {ownProfile && (
+                        {ownProfile && !isEditing && (
                             <Button className="ml-auto flex bg-gray-200 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" variant="ghost" onClick={onEdit}>
                             <PencilIcon className="h-4 w-4 dark:text-gray-100"/>
                         </Button>
@@ -98,7 +99,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                                          <FormItem>
                                              <FormControl>
                                                  <Textarea
-                                                     {...field} className="dark:bg-[#171717] border-none"
+                                                     {...field} className="dark:bg-[#171717] border-none h-[200px]"
                                                  />
                                              </FormControl>
                                              <FormMessage/>
@@ -107,7 +108,8 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
              
                                  />
                                  <div>
-                                     <Button className="bg-gray-300 border-2 hover:bg-gray-100 mt-2" size="sm" type="submit">
+                                     <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
+                                      dark:bg-[#171717] hover:bg-gray-100 mt-2"  type="submit">
                                          Beschreibung ändern
                                      </Button>
                                  </div>
@@ -120,7 +122,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                             
 
                             <div>
-                                <div className={cn("dark:text-gray-100", isUnfolded ? "h-full" : "max-h-[80px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
+                                <div className={cn("dark:text-gray-100 whitespace-pre-wrap break-words", isUnfolded ? "h-full" : "max-h-[72px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
                                 {user.description} 
 
                             </div>

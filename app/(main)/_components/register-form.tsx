@@ -132,7 +132,7 @@ export const RegisterForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="******"
+                      placeholder="**********"
                       type={showPassword ? "text" : "password"}
                       className="rounded-none bg-[#1a1c2c] border-none"
                     />

@@ -72,8 +72,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                 <div className=" text-md flex gap-x-4">
                                    Name: <p className="font-semibold"> {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}</p>
                                 </div>
-                                <div className=" text-md flex gap-x-4">
-                                   Email-Addresse: <div className="font-semibold flex"> {user.email} {user.emailVerified && <CheckmarkIcon className="ml-1 h-2 w-2"/> }</div>
+                                <div className=" text-md flex sm:gap-x-0 gap-x-4">
+                                   Email<p className="hidden sm:block mr-2">-Adresse</p> : <div className="font-semibold flex sm:ml-4"> {user.email} {user.emailVerified && <CheckmarkIcon className="ml-1 h-2 w-2"/> }</div>
                                 </div>
                             </div>
                             <div className="flex mt-4">

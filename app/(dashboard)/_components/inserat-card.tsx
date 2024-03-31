@@ -107,8 +107,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
     return (
-        <div className="md:w-[760px] sm:h-[420px] w-full h-full  items-center bg-[#171923]
-            mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2 ">
+        <div className="md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
+            mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none px-2 py-4  ">
 
 
 
@@ -116,10 +116,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="bg-[#181c28] p-2 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:w-1/10">
                     {
                         {
-                            'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
-                            'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
-                            'TRANSPORT': <PiVanFill className=" text-gray-100 h-6 w-6 " />,
-                            'TRAILER': <RiCaravanLine className="text-gray-100 w-6 h-6" />
+                            'PKW': <CarFront className=" text-gray-300 h-6 w-6 " />,
+                            'LKW': <Truck className=" text-gray-300 h-6 w-6 " />,
+                            'TRANSPORT': <PiVanFill className=" text-gray-300 h-6 w-6 " />,
+                            'TRAILER': <RiCaravanLine className="text-gray-300 w-6 h-6" />
                         }[thisInserat.category]
                     }
                 </div>
@@ -136,8 +136,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 <div className="ml-auto mr-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 {thisInserat?.multi && (
-                    <span className="p-4 text-xs text-gray-100
-                      bg-[#191B27] rounded-md flex items-center hover:cursor-default">
+                    <span className="p-2 text-xs text-gray-100
+                      bg-[#191B27]  flex items-center hover:cursor-default">
                         {
                             {
                                 'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
@@ -148,6 +148,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         }
 
                         <p className=" font-black sm:px-1 ">{thisInserat?.amount}</p> 
+                        <div className="hidden sm:block"> Verfügbar </div>
                     </span>
                 )}
                     </div>

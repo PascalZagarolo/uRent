@@ -12,6 +12,7 @@ import { Suspense, lazy } from "react";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, DriveEnumRender, ExtraTypeEnumRender, favourite, FuelTypeEnumRender, LkwBrandEnumRender, LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender, users } from "@/db/schema";
+import { MdFilterList } from "react-icons/md";
 
 
 interface RelevanteInserateProps {
@@ -186,9 +187,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full py-4 text-gray-100 bg-[#141620]">
                 <div className="ml-4 flex w-full items-center">
                     <div className="p-2 sm:block hidden rounded-lg">
-                        <AlignCenter />
+                        <MdFilterList className="w-6 h-6 sm:mr-2" />
                     </div>
-                    <h3 className="  flex font-base text-lg items-center sm:text-2xl h-full w-full">
+                    <h3 className="  flex font-base text-lg items-center sm:text-xl h-full w-full">
                         Relevante
                         Inserate
                         <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">

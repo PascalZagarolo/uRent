@@ -670,7 +670,9 @@ export const userAddress = pgTable("userAddress", {
         references(() => contactOptions.id, { onDelete: "cascade" }).unique(),
 
     postalCode: integer("postalCode"),
-
+    city : text("city"),
+    street : text("street"),
+    houseNumber : integer("houseNumber"),
     locationString: text("locationString"),
     longitude: text("longitude"),
     latitude: text("latitude"),

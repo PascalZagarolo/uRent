@@ -19,14 +19,14 @@ import { eq } from "drizzle-orm";
 interface ProfileHeaderProps {
     currentUser: typeof users.$inferSelect;
     user: typeof users.$inferSelect;
-    
+    thisContactOptions: typeof contactOptions.$inferSelect;
 }
 
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     currentUser,
     user,
-    
+    thisContactOptions,
 }) => {
 
     const convertDateTimeToString = (dateTime: Date): string => {
@@ -37,11 +37,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
         return `${day}.${month}.${year}`;
     };
 
-    const contacts = await db.query.contactOptions.findFirst({
-        where : (
-            eq(contactOptions.userId, user.id)
-        )
-    })
+    
 
     const isOwnProfile = currentUser?.id === user.id || user.emailVerified ? true : false;
 
@@ -111,7 +107,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 </div>
                 
                 <ContactOptionsRender
-                    contacts={contacts}
+                    thisContactOptions={thisContactOptions}
                     ownProfile={ownProfile}
                     />
                 

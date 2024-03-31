@@ -8,7 +8,7 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import { inserat, rezension, users } from "@/db/schema";
+import { contactOptions, inserat, rezension, users } from "@/db/schema";
 
 
 
@@ -35,12 +35,20 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
         }
     })
 
+    const thisContactoptions = await db.query.contactOptions.findFirst({
+        where : (
+            eq(contactOptions.userId , pageOwnerId)
+        ), with : {
+            userAddress : true
+        }
+    })
+
 
     const thisUser = await db.query.users.findFirst({
         where : eq(users.id, pageOwnerId)
     })
     
-    const ownProfile = currentUser?.id === thisUser.id ? true : false;
+    const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
     const rezensionen = await db.query.rezension.findMany({
         where : (
@@ -81,6 +89,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             <ProfileHeader
                                 user={thisUser}
                                 currentUser={currentUser}
+                                thisContactOptions = {thisContactoptions}
 
                             />
                             <div>

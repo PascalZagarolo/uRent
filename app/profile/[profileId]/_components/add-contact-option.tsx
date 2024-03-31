@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage, FormDescription } from '@/components/ui/form';
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,25 +14,30 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
+import { contactOptions } from '../../../../db/schema';
 
+
+interface AddContactOptionProps {
+    thisContactOptions : typeof contactOptions.$inferSelect;
+ }
 
 const AddContactOption = ({
-    
+    thisContactOptions
 }) => {
     const router = useRouter()
     const params = useParams();
 
-    const [emailEnabled, setEmailEnabled] = useState(false);
-    const [websiteEnabled, setWebsiteEnabled] = useState(false);
-    const [addressEnabled, setAddressEnabled] = useState(false);
+    const [currentWebsite, setCurrentWebsite] = useState(thisContactOptions.websiteAddress);
+    const [currentEmail, setCurrentEmail] = useState(thisContactOptions.emailAddress);
+    const [currentStreet, setCurrentStreet] = useState(thisContactOptions.userAddress?.street);
+    const [currentHouseNumber, setCurrentHouseNumber] = useState(thisContactOptions.userAddress?.houseNumber);
+    const [currentPlz, setCurrentPlz] = useState(thisContactOptions.userAddress?.postalCode);
+    const [currentCity, setCurrentCity] = useState(thisContactOptions.userAddress?.city);
+    
 
     const formSchema = z.object({
-        email: emailEnabled ? z.string().email().min(1, {
-            message: "Email zu kurz"
-        }) : z.string().optional(),
-        website: emailEnabled ? z.string().min(1, {
-            message: "Email zu kurz"
-        }) : z.string().optional(),
+        email: z.string().optional(),
+        website: z.string().optional(),
         city: z.string().optional(),
         street : z.string().optional(),
         houseNumber : z.string().optional(),
@@ -52,21 +57,19 @@ const AddContactOption = ({
         }
     })
 
-    const onSubmit = (pValues : z.infer<typeof formSchema>) => {
-
-        const address = addressEnabled ?  pValues.street + " " + pValues.houseNumber + ", " + pValues.plz + " " + pValues.city : null;
-
-        
-
+    const onSubmit = () => {
+        try {
+           
         const values = {
-            email : pValues.email,
-            website : pValues.website,
-            address : address
+            email : currentEmail,
+            website : currentWebsite,
+            city : currentCity,
+            street : currentStreet,
+            houseNumber : currentHouseNumber,
+            postalCode : currentPlz,
+            
         }
 
-        console.log(values)
-
-        try {
             axios.patch(`/api/contact/${params.profileId}`, values).then(() => {
                 router.refresh()
             })
@@ -95,8 +98,8 @@ const AddContactOption = ({
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
                         <div className="flex items-center font-semibold"> <Globe2 className="mr-2" />  Website
-                            <Switch className="ml-auto" defaultChecked={websiteEnabled} onCheckedChange={(selectedValue) => {setWebsiteEnabled(selectedValue)}} /> </div>
-                        {websiteEnabled && (
+                             </div>
+                     
                             <FormField
                                 control={form.control}
                                 name="website"
@@ -104,37 +107,41 @@ const AddContactOption = ({
                                     <FormItem>
                                         <FormControl>
                                             <Input className="mt-2 dark:bg-[#0a0a0a] border-none"
-                                                {...field}
+                                            onChange={(e) => setCurrentWebsite(e.target.value)}
+                                            value={currentWebsite}
+                                               
                                             />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-                        )}
+                        
 
                         <div className="flex items-center font-semibold mt-4"> <MailOpenIcon className="mr-2" />  Email
-                            <Switch className="ml-auto" defaultChecked={emailEnabled} onCheckedChange={(selectedValue) => {setEmailEnabled(selectedValue)}} /> </div>
-                        {emailEnabled && (
+                             </div>
+                        
                             <FormField
                                 control={form.control}
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2 dark:bg-[#0a0a0a]"
-                                                {...field}
+                                            <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
+                                            onChange={(e) => setCurrentEmail(e.target.value)}
+                                            value={currentEmail}
+                                                
                                             />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-                        )}
+                        
 
                         <div className="flex items-center font-semibold mt-4"> <MapPin className="mr-2" />  Addresse
-                            <Switch className="ml-auto" defaultChecked={addressEnabled} onCheckedChange={(selectedValue) => {setAddressEnabled(selectedValue)}} /> </div>
-                        {addressEnabled && (
+                             </div>
+
                             <div className="mt-4">
                             <div>
                             <p className="flex items-center">
@@ -146,8 +153,10 @@ const AddContactOption = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2 dark:bg-[#0a0a0a]"
-                                                {...field}
+                                            <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
+                                            onChange={(e) => setCurrentCity(e.target.value)}
+                                            value={currentCity}
+                                                
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -166,8 +175,10 @@ const AddContactOption = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2"
-                                                {...field}
+                                            <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
+                                            onChange={(e) => setCurrentStreet(e.target.value)}
+                                            value={currentStreet}
+                                          
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -185,8 +196,10 @@ const AddContactOption = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2"
-                                                {...field}
+                                            <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
+                                            onChange={(e) => setCurrentHouseNumber(e.target.value)}
+                                            value={currentHouseNumber}
+                                                
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -195,7 +208,7 @@ const AddContactOption = ({
                             />
                             </div>
                             </div>
-                            <div>
+                            <div className="mt-2">
                             <p className="flex items-center">
                                 <Navigation className="mr-2 w-4 h-4"/> PLZ
                             </p>
@@ -205,8 +218,10 @@ const AddContactOption = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="mt-2"
-                                                {...field}
+                                            <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
+                                            onChange={(e) => setCurrentPlz(e.target.value)}
+                                            value={currentPlz}
+                                               
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -215,16 +230,14 @@ const AddContactOption = ({
                             />
                             </div>
                         </div>
-                        )}
                         <DialogTrigger asChild>
                             <Button className="mt-4 w-full bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  
                             dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" 
-                            variant="ghost" disabled={!isValid || isSubmitting} type="submit"> Speichern </Button>
+                            variant="ghost" type="submit"> Speichern </Button>
                         </DialogTrigger>
-
-
                     </form>
                 </Form>
+                
             </DialogContent>
         </Dialog>
     );

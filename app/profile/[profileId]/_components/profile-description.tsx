@@ -100,6 +100,9 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                                              <FormControl>
                                                  <Textarea
                                                      {...field} className="dark:bg-[#171717] border-none h-[200px]"
+                                                     onBlur={() => {
+                                                        setIsEditing(false);
+                                                     }}
                                                  />
                                              </FormControl>
                                              <FormMessage/>

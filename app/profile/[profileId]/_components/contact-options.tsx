@@ -10,18 +10,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface ContactOptionsProps {
-    contacts: typeof contactOptions.$inferSelect;
+    thisContactOptions: typeof contactOptions.$inferSelect;
     ownProfile: boolean;
 }
 
 const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
-    contacts,
+    thisContactOptions,
     ownProfile
 }) => {
 
     const router = useRouter();
 
-    const nothingAdded = !contacts?.emailAddress && !contacts?.websiteAddress && !contacts?.phoneNumber ? true : false;
+    const nothingAdded = !thisContactOptions?.emailAddress && !thisContactOptions?.websiteAddress && !thisContactOptions?.phoneNumber ? true : false;
 
     return (
         <div className="bg-white dark:bg-[#191919]  dark:border-[#191919] border border-gray-300 p-4 mt-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] ">
@@ -33,29 +33,31 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
                     </p>
                 )}
 
-                {contacts?.emailAddress && (
+                {thisContactOptions?.emailAddress && (
                     <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><MailCheckIcon className="p-1 rounded-md border-black border" />
-                        {contacts.emailAddress}
+                        {thisContactOptions.emailAddress}
                     </div>
                 )}
-                {contacts?.websiteAddress && (
+                {thisContactOptions?.websiteAddress && (
                     <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><Globe2Icon className="p-1 rounded-md border-black border" />
-                        <a href={`//${contacts.websiteAddress}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                            {contacts.websiteAddress}
+                        <a href={`//${thisContactOptions.websiteAddress}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                            {thisContactOptions.websiteAddress}
                         </a>
                     </div>
                 )}
 
-                {contacts?.phoneNumber && (
+                {thisContactOptions?.phoneNumber && (
                     <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"><PhoneCall className="p-1 rounded-md border-black border" />
-                        {contacts.phoneNumber}
+                        {thisContactOptions.phoneNumber}
                     </div>
                 )}
 
 
             </div>
             {ownProfile && (
-                <AddContactOption />
+                <AddContactOption 
+                thisContactOptions={thisContactOptions}
+                />
             )}
         </div>
     );

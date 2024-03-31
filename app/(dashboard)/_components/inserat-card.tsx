@@ -113,7 +113,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
             <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md mr-2",)} >
-                <div className="bg-[#181c28] p-2 rounded-md  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:w-1/10">
+                <div className="bg-[#181c28] p-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:w-1/10">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-300 h-6 w-6 " />,
@@ -134,9 +134,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </Link>
                         
                 </div>
-                <div className="ml-auto mr-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+                <div className="ml-auto mr-4 ">
                 {thisInserat?.multi && (
-                    <span className="p-2 text-xs text-gray-100
+                    <span className="p-3 text-xs text-gray-100
                       bg-[#191B27]  flex items-center hover:cursor-default">
                         {
                             {
@@ -156,7 +156,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 <Button variant="ghost" onClick={onFav} className="bg-[#171923] 
-        border border-[#171923]  hover:none drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+        border border-[#171923]  hover:none ">
     <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
 </Button>
 
@@ -338,7 +338,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </div>
 
                         <div className="ml-4 bg-[#191B27] text-gray-200  border-none  
-                        w-1/2 p-2 text-xs rounded-md sm:mr-2 overflow-hidden sm:h-[172px] h-[130px]" >
+                        w-1/2 p-2 text-xs sm:mr-2 overflow-hidden sm:h-[172px] h-[130px]" >
                             <div className="h-full overflow-hidden text-xs whitespace-pre-wrap break-words">
                             {thisInserat.description}
                             </div>
@@ -349,7 +349,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
             <div className="w-full">
 
 
-                <div className="flex justify-center bg-[#1e2332] p-2 rounded-md text-gray-100  dark:border-[#1e2332]  
+                <div className="flex justify-center bg-[#1e2332] p-2  text-gray-100  dark:border-[#1e2332]  
                     drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <CalendarCheck2 className="mr-2" />  {thisInserat.annual ? "" : "Zeitraum :"}
@@ -375,19 +375,20 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 {/* Part2 */}
                 <div className="font-semibold text-gray-900 flex mt-2 items-center w-full">
                     <div className="flex ">
-                            <div className="flex dark:bg-emerald-900 bg-emerald-900 p-2 rounded-md 
-                             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200 dark:border-emerald-800 px-4 sm:text-sm 
+                            <div className="flex dark:bg-emerald-800 bg-emerald-800 p-2 rounded-md 
+                              text-gray-200 dark:border-emerald-800 px-4 sm:text-sm 
                              text-xs items-center">
                                 <div className="mr-2 flex font-bold">
 
-                                    <Banknote className="mr-1 sm:block hidden" />
+                                <Banknote className="mr-1 sm:block hidden" />
                                 </div>
                                 {thisInserat.price} €  {thisInserat.dailyPrice ? (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)
                                                                             : (<div className="text-[10px] ml-1 mr-1" > / Zeitraum</div>)}
                             </div>
                         </div>
-                        <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923]  bg-[#181c28]  
-                        p-2 sm:pl-2 pl-0 rounded-lg text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:truncate text-sm justify-center">
+                        <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923] 
+                         bg-[#181c28]  
+                        p-2 sm:pl-2 pl-0  text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:truncate text-sm justify-center">
                             <MapPinned className="text-rose-600 sm:mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
                             <div className={cn("w-1/3 sm:truncate h-[20px] overflow-hidden", !thisInserat.address?.locationString && "w-full flex justify-center")}>
                                 {thisInserat.address?.locationString ?

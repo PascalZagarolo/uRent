@@ -107,8 +107,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
     return (
-        <div className="md:w-[760px] sm:h-[420px] w-full h-full rounded-md  items-center dark:bg-[#171923]
-          bg-[#ffffff]  mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2 ">
+        <div className="md:w-[760px] sm:h-[420px] w-full h-full rounded-md items-center bg-[#171923]
+            mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none p-2 ">
 
 
 
@@ -123,10 +123,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         }[thisInserat.category]
                     }
                 </div>
-                <div className="w-3/4 px-4 text-base font-semibold h-[24px] text-ellipsis sm:truncate overflow-hidden">
+                <div className="w-3/4 px-4 text-base font-semibold h-[24px] text-ellipsis text-gray-200 sm:truncate overflow-hidden">
                     
                         <Link
-                        className="hover:underline  overflow-hidden truncate whitespace-break-spaces break-words text-ellipsis"
+                        className="hover:underline h-[24px] overflow-hidden truncate whitespace-break-spaces break-words text-ellipsis"
                         href={`/inserat/${thisInserat.id}`}
                         target="_blank"
                         >
@@ -134,10 +134,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         </Link>
                         
                 </div>
-                <div className="ml-auto mr-4 ">
+                <div className="ml-auto mr-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 {thisInserat?.multi && (
                     <span className="p-4 text-xs text-gray-100
-                     border-white border-dashed border bg-[#191B27] rounded-md flex items-center hover:cursor-default">
+                      bg-[#191B27] rounded-md flex items-center hover:cursor-default">
                         {
                             {
                                 'PKW': <CarFront className=" text-gray-100 h-4 w-4 mr-2" />,
@@ -151,15 +151,15 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </span>
                 )}
                     </div>
-                <div className="ml-auto items-center sm:flex hidden mt-4">
+                    <div className="ml-auto items-center sm:flex hidden sm:mr-4">
 
 
-                    <Button variant="ghost" onClick={onFav} className="dark:bg-[#171923] 
-                            dark:border dark:border-[#171923]  dark:hover:none">
-                        <Star className={cn(isFaved ? "text-yellow-300" : "text-black")} />
-                    </Button>
+<Button variant="ghost" onClick={onFav} className="bg-[#171923] 
+        border border-[#171923]  hover:none drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+    <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
+</Button>
 
-                </div>
+</div>
 
             </h3>
 
@@ -318,25 +318,25 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex w-full">
                             <div className="w-full">
-                                <Image
+                            <Image
                                     src={thisInserat.images[0]?.url}
-                                    width={220}
-                                    height={240}
-                                    className="rounded-md hover:cursor-pointer  dark:border-gray-900 max-h-[180px] 
+                                    width={320}
+                                    height={160}
+                                    className="rounded-md hover:cursor-pointer  dark:border-gray-900 h-[160px] 
                                     w-full object-cover"
                                     onClick={onRedirect}
                                     alt={thisInserat.title}
                                 />
-                                <div className="text-xs font-semibold">
+                                <div className="text-xs justify-end text-gray-200">
                                     inseriert am:  {format(new Date(thisInserat.createdAt), "dd.MM")}
                                 </div>
                             </div>
-                            <div className="flex text-xs font-bold">
+                            <div className="flex text-xs font-bold text-gray-200">
                                 <ImageIcon className="w-4 h-4 mr-1 ml-1" />  {thisInserat.images.length}
                             </div>
                         </div>
 
-                        <div className="ml-4 dark:bg-[#191B27] bg-gray-100/30 dark:border-none border 
+                        <div className="ml-4 bg-[#191B27] text-gray-200  border-none  
                         w-1/2 p-2 text-xs rounded-md sm:mr-2 overflow-hidden sm:h-[172px] h-[130px]" >
                             <div className="h-full overflow-hidden text-xs whitespace-pre-wrap break-words">
                             {thisInserat.description}

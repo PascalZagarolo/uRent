@@ -64,7 +64,7 @@ const MainPageSideBar= () => {
                 </h3>
                 <div className="flex justify-between ml-12 mr-12 mt-8 ">
                     <div className="">
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
+                        <p className={cn("p-4 rounded-md text-gray-200  border-2 hover:cursor-pointer bg-[#1c1f2f]",
                             currentCategory === "PKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("PKW") }}>
                             <CarFront />
                         </p>
@@ -74,7 +74,7 @@ const MainPageSideBar= () => {
                     </div>
 
                     <div>
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
+                        <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
                             currentCategory === "LKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("LKW") }}>
                             <Truck />
                         </p>
@@ -87,7 +87,7 @@ const MainPageSideBar= () => {
 
                 <div className="flex justify-between ml-12 mr-12 mt-4 ">
                     <div>
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
+                        <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
                             currentCategory === "TRAILER" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRAILER") }}>
                             <RiCaravanLine className="w-6 h-6" />
                         </p>
@@ -97,7 +97,7 @@ const MainPageSideBar= () => {
                     </div>
 
                     <div className="w-[60px]">
-                        <p className={cn("p-4 rounded-md bg-white border-2   flex justify-center hover:cursor-pointer dark:bg-[#1c1f2f]",
+                        <p className={cn("p-4 rounded-md text-gray-200 border-2   flex justify-center hover:cursor-pointer bg-[#1c1f2f]",
                             currentCategory === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
                             <PiVanFill className="w-6 h-6" />
                         </p>

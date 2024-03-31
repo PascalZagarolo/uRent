@@ -90,31 +90,31 @@ const ImageList: React.FC<ImageListProps> = ({
         <DragDropContext onDragEnd={onDragEnd} >
             <Droppable droppableId="image">
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef} className="grid grid-cols-2 gap-4 md:grid-cols-1 lg:grid-cols-2 ">
+                    <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
                         {chapters.map((image,index) => (
                             <Draggable key={image.id} draggableId={image.id} index={index}>
                                 {(provided) => (
                                     <div
                                     className={cn(
                                         `flex items-center  bg-slate-200 border-slate-200 w-full h-[200px] text-slate-700 rounded-md p-2 text-sm
-                                        dark:bg-[#202020] dark:text-gray-100   `,
+                                        dark:bg-[#202020] dark:text-gray-100 `,
                                         
                                     )}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     >
                                         <div
-                                        className={cn(` border-r border-r-slate-200 hover:bg-slate-300 
+                                        className={cn(`w-full p-2 border-r border-r-slate-200 hover:bg-slate-300 
                                         dark:hover:bg-[#282828] dark: border-none rounded-l-md `)}
                                         {...provided.dragHandleProps}
                                         >
-                                            <div className="flex ">
+                                         <div className="flex ">
                                             <img 
                                             src={image.url}
                                             className=" object-cover h-[160px]"
                                             />
                                             
-                                            </div>
+                                            </div>   
                                             
                                         </div>
                                         

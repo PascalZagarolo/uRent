@@ -104,7 +104,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
         disabled={!currentNumber || currentNumber === thisInserat.phoneNumber}
       >
-        <span className="">Telefonnr. angeben</span> 
+        <span className="">Telefonnr. anzeigen</span> 
       </Button>
 
     </div>

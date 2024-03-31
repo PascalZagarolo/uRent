@@ -147,7 +147,7 @@ export const LoginForm = () => {
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="******"
+                          placeholder="**********"
                           type={showPassword ? "text" : "password"}
                           className="bg-[#1a1c2c] border-none rounded-none"
                         />

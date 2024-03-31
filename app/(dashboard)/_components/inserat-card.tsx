@@ -285,7 +285,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             </Badge>
                                         )}
                                         {thisInserat.trailerAttribute?.weightClass && (
-
                                             <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                             dark:text-gray-100 hover:bg-rose-900">
                                                 <WeightIcon className="h-4 w-4 mr-1" />
@@ -295,7 +294,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             </Badge>
                                         )}
                                     </div>,
-
                                 }[thisInserat.category]
                             }
 
@@ -398,7 +396,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             
                             
                             {thisInserat.address?.locationString && (
-                                <div className="ml-auto gap-x-2 flex text-xs w-3/5 overflow-hidden items-center">
+                                <div className="ml-auto gap-x-1 flex text-xs w-3/5 overflow-hidden items-center">
                                     {thisInserat.address?.postalCode + ", "}
                                     <div className="w-2/3 sm:truncate h-[16px]">
                                     {thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}, Deutschland

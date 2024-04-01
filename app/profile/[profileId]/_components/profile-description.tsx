@@ -71,7 +71,7 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
         <div className="mt-2 ">
 
                     <div className="mt-1  p-4  bg-white dark:bg-[#191919]  dark:border-[#191919] border border-gray-200    
-                    drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] w-full">
+                     w-full">
                         <div className=" flex items-center">
                         <Separator
                          className="sm:w-1/4 w-1/10 mr-8 bg-gray-700 dark:bg-gray-200"

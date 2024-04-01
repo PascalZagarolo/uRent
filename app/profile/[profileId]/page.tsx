@@ -31,7 +31,8 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             )
         ), with : {
             images : true,
-            user : true
+            user : true,
+            address : true
         }
     })
 

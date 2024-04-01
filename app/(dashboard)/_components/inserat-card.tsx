@@ -113,7 +113,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
             <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md mr-2",)} >
-                <div className="bg-[#181c28] p-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:w-1/10">
+                <div className="bg-[#181c28] p-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:w-1/10">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-300 h-6 w-6 " />,

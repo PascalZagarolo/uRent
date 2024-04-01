@@ -29,48 +29,78 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
             
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                 <TransportLoading 
-                 thisLoading={thisInserat?.transportAttribute?.loading}
-                 />
+                    
+                 <TransportWeightClass 
+                thisWeightClass={thisInserat?.transportAttribute?.weightClass}
+                />
                 </div>
                 <div className="w-1/2">
-                <TransportTransmission 
+                
+                
+                </div>
+            </div>
+
+
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                //Marke
+                 
+                </div>
+                <div className="w-1/2">
+                   
+                <TransportSeats 
+                    thisSeats = {thisInserat?.transportAttribute?.seats}
+                    />
+                    
+                </div>
+            </div>
+
+
+            <div className="flex w-full gap-x-8  mt-4">
+                <div className="w-1/2">
+                    
+                    <TransportTransmission 
                  thisTransmission={thisInserat?.transportAttribute?.transmission}
                  />
                 </div>
-            </div>
-            <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                 <TransportFuel 
+                
+                <TransportFuel 
                  thisFuel={thisInserat?.transportAttribute?.fuel}
                  />
                 </div>
-                <div className="w-1/2">
-                    <TransportSeats 
-                    thisSeats = {thisInserat?.transportAttribute?.seats}
-                    />
-                </div>
             </div>
+
+
             <div className="flex w-full gap-x-8  mt-4">
                 <div className="w-1/2">
+                    
+                
                 <TransportDoors 
                 thisDoors={thisInserat?.transportAttribute?.doors}
                 />
                 </div>
+                
                 <div className="w-1/2">
-                <TransportWeightClass 
-                thisWeightClass={thisInserat?.transportAttribute?.weightClass}
-                />
+                <TransportLoading 
+                 thisLoading={thisInserat?.transportAttribute?.loading}
+                 />
                 </div>
             </div>
+
             <div className="flex w-full gap-x-8  mt-4">
+                
                 <div className="w-1/2">
                 <TransportPowerForm 
                 thisPower={thisInserat?.transportAttribute?.power}
                 />
                 </div>
+                <div className="w-1/2">
+                
+                </div>
                 
             </div>
+
             <div className="flex w-full gap-x-8  mt-4">
                 
                 <div className="w-1/2">

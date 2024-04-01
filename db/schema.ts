@@ -450,6 +450,8 @@ export const lkwAttribute = pgTable("lkwAttribute", {
 
     loading_volume : decimal("loading_volume"),
 
+    transmission: transmissionEnum("transmission"),
+
     loading_l : decimal("loading_l"),
     loading_b : decimal("loading_b"),
     loading_h : decimal("loading_h"),

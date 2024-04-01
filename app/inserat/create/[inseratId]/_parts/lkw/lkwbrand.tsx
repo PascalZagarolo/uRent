@@ -58,7 +58,7 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
 
     return (
         <div className="w-full">
-            <div className="w-1/2">
+            <div className="w-full">
                 <Label>Lkw-Marke</Label>
                 <Select
                 //@ts-ignore

@@ -50,7 +50,7 @@ const TransportSeats: React.FC<TransportSeatsProps> = ({
     return ( 
         <div className="w-full">
             <div className="w-full">
-        <Label>Anzahl der Sitze</Label>
+        <Label>Anz. Sitze</Label>
         <Select
           onValueChange={(seats) => {
             onSubmit(Number(seats));

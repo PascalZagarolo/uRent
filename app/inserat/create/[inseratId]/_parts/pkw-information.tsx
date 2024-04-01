@@ -69,9 +69,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     />
                 </div>
                 <div className="w-1/2">
-                    <CarLoadingForm
-                    thisLoading={thisInserat?.pkwAttribute?.loading}
-                    />
+                    
                 </div>
                 
             </div>

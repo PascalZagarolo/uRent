@@ -225,15 +225,13 @@ export const getInserate = async ({
         const usedStart = new Date(periodBegin);
         const usedEnd = new Date(periodEnd);
         
-        let foundInserate; 
         
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
         
-        foundInserate = await db.query.inserat.findMany({
+        const findInserate = await db.query.inserat.findMany({
             where: (
                 and(
                     eq(inserat.isPublished, "true"),
-                    thisCategory ? eq(inserat.category, thisCategory) : undefined,
                     //@ts-ignore
                     ...ilikeQuery,
                     start ? gte(inserat.price, start) : undefined,
@@ -248,7 +246,6 @@ export const getInserate = async ({
                             eq(inserat.annual, "true")
                         )
                         : undefined,
-        
                 )
             ),
             with: {
@@ -269,9 +266,10 @@ export const getInserate = async ({
             ...(filter === "desc") && {
                 orderBy : (price, { desc }) => [desc(inserat.price)]
             }
-        })
+            
+        }).prepare("findInserate")
 
-        
+        const foundInserate = await findInserate.execute();
 
         const filteredArray = foundInserate.filter((pInserat) => {
             

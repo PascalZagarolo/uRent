@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import DeleteImageForm from "./delete-image-form";
-import { images } from "@/db/schema";
+import { images, inserat } from "@/db/schema";
 
 
 
@@ -92,16 +92,18 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                             items={thisImages || []}
                             
                         />
-                        <CldUploadButton
-                    onUpload={handleImageUpload}
-                    uploadPreset="oblbw2xl"
-                    options={{ maxFiles: 1 }}
-                    className="w-full"
-                >
-                    <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-32 border-dashed border
-                     dark:text-gray-100/80 dark:border-gray-500">
-                         Foto hinzufügen </div>
-                         </CldUploadButton>
+                        {thisImages.length < 8 && (
+                            <CldUploadButton
+                            onUpload={handleImageUpload}
+                            uploadPreset="oblbw2xl"
+                            options={{ maxFiles: 1 }}
+                            className="w-full"
+                        >
+                            <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-20 border-dashed border
+                             dark:text-gray-100/80 dark:border-gray-500">
+                                 Foto hinzufügen </div>
+                                 </CldUploadButton>
+                        )}
                     </div>
                
                     

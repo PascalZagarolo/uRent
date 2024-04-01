@@ -2,6 +2,8 @@ import { pkwAttribute } from "@/db/schema";
 import { GearIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { CarFrontIcon, ConstructionIcon, DoorClosedIcon, Globe2, MapPin, MapPinned } from "lucide-react";
+import { GiResize } from "react-icons/gi";
+import { HiCubeTransparent } from "react-icons/hi";
 import { PiCouchFill, PiEngine } from "react-icons/pi";
 import { RiGasStationLine } from "react-icons/ri";
 
@@ -17,18 +19,18 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
 
     let shownItems = 0;
 
-    return ( 
+    return (
         <div className="w-full grid grid-cols-2 gap-4 mt-4">
             {attributes?.brand && (
-                
+
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
                     <CarFrontIcon className="w-4 h-4 mr-2" />    {attributes.brand}
                 </div>
             )}
             {attributes?.power && (
-                
+
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS 
+                    <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS
                 </div>
             )}
             {attributes?.freeMiles && (
@@ -53,9 +55,9 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
             )}
             {attributes?.transmission && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <GearIcon className="w-4 h-4 mr-2" />    
-                    
-                    { 
+                    <GearIcon className="w-4 h-4 mr-2" />
+
+                    {
                         {
                             'MANUAL': 'Schaltgetriebe',
                             'AUTOMATIC': 'Automatikgetriebe'
@@ -65,13 +67,23 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
             )}
             {attributes?.initial && (
                 <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
-                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")} 
-                    
-                    
+                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
+                </div>
+            )}
+
+            {attributes?.loading_volume && (
+                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                    <HiCubeTransparent className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
+                </div>
+            )}
+
+            {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
+                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                    <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
                 </div>
             )}
         </div>
-     );
+    );
 }
- 
+
 export default PkwAttributeRender;

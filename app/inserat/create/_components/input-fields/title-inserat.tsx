@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { inserat } from "@/db/schema";
+import { useUnsavedChanges } from "@/store";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -29,6 +30,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [currentTitle, setCurrentTitle] = useState(thisInserat.title || "");
+    const {currentChanges, changeCurrent} = useUnsavedChanges()
 
     const formSchema = z.object({
         title : z.string().min(3, {
@@ -45,7 +47,14 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
     const router = useRouter();
 
-    
+    useEffect(() => {
+        const setAmount = async () => {
+            await changeCurrent("title", currentTitle);
+        
+        }
+
+        setAmount();
+    }, [currentTitle])
 
     const onSubmit = () => {
         try {
@@ -90,13 +99,14 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
         <div className=" drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]   rounded-md">
             <h1 className="text-md flex justify-start  font-semibold   text-gray-900  dark:text-gray-100 items-center">
                 <AlignCenter className="mr-2 h-4 w-4"/>Titel deiner Anzeige *
-                
+                {/* 
                     <Button 
                     className="ml-auto dark:bg-[#0F0F0F] dark:hover:bg-[#1a1a1a] dark:text-gray-100 text-xs font-semibold"
                     disabled={currentTitle === thisInserat.title || !currentTitle.trim()}
                     onClick={onSubmit}
                     > 
                     Änderungen speichern </Button>
+                    */}
                 
             </h1>
             <div>

@@ -105,7 +105,9 @@ const InseratCreation = async ({
                                     </p>
                                 </div>
                                 <div className="ml-auto">
-                                    <SaveChanges />
+                                    <SaveChanges 
+                                    thisInserat={thisInserat}
+                                    />
                                 </div>
                             </div>
                             <FloatingNav

@@ -106,5 +106,26 @@ export const useSaveCurrentUser = create<saveCurrentUser>((set) => ({
     }
 }))
 
+type unsavedChanges = {
+    currentChanges : Object,
+    changeCurrent: (newChange : Object, value : string | number) => void;
+    getState: () => Object;
+}
+
+export const useUnsavedChanges = create<unsavedChanges>((set) => ({
+    currentChanges : {},
+    changeCurrent(newChange, value) {
+        set((state) => ({
+            currentChanges: {
+                ...state.currentChanges,
+                [newChange.toString().trim()]: value
+            }   
+        }));
+        
+    },
+    getState() {
+        return this.currentChanges;
+    }
+}))
 
 

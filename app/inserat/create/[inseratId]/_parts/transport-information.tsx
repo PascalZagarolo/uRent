@@ -43,7 +43,7 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
 
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                //Marke
+                Marke
                  
                 </div>
                 <div className="w-1/2">

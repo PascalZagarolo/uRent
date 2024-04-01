@@ -11,11 +11,6 @@ import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
 
 
 
-
-
-
-
-
 type GetInserate = {
     title?: string;
     thisCategory?: typeof CategoryEnumRender;
@@ -125,14 +120,7 @@ export const getInserate = async ({
     loading_h
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
-    const Addressfilter = async (pInserat : typeof inserat) => {
-        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-
-        const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
-            Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
-            console.log(distance)
-            return distance <= 50;
-    }
+    
 
     const ConditionFilter = (pInserat : typeof inserat) => {
         const bAge = reqAge ? reqAge >= pInserat.reqAge : true;

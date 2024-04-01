@@ -22,9 +22,9 @@ const Footer = () => {
           <div className="hover:underline hover:cursor-pointer text-sm sm:text-base" onClick={() => {router.push("/data-privacy")}}>
             Datenschutz
           </div>
-          <div className="hover:underline hover:cursor-pointer text-sm sm:text-base">
+          <a className="hover:underline hover:cursor-pointer text-sm sm:text-base" href="/agbs">
             AGBs
-          </div>
+          </a>
         </div>
         </div>
     </div>

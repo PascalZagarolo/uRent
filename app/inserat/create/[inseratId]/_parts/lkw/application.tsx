@@ -74,10 +74,12 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
           <SelectItem value={null}>Beliebig</SelectItem>
+          <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
+          <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
             <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
             <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 
-            <SelectItem value="KASTENWAGEN">Kastenwagen</SelectItem>
+            
             <SelectItem value="KOFFERAUFBAU">Kofferaufbau</SelectItem>
             <SelectItem value="KUEHLWAGEN">Kühlwagen</SelectItem>
 

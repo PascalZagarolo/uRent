@@ -29,36 +29,42 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
             </div>
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                 <TrailerCoupling 
-                 thisCoupling = {thisInserat.trailerAttribute?.coupling}
-                 />
-                </div>
-                <div className="w-1/2">
-                 
-                </div>
-            </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
-                 <TrailerLoading 
-                 thisLoading={thisInserat.trailerAttribute?.loading}
-                 />
-                </div>
-                <div className="w-1/2">
-                    <TrailerAxis 
-                    thisAxis={thisInserat.trailerAttribute?.axis}
-                    />
-                </div>
-            </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
                 <TrailerWeightClass 
                     thisWeightClass={thisInserat.trailerAttribute?.weightClass}
                     />
                 </div>
                 <div className="w-1/2">
+                <TrailerAxis 
+                    thisAxis={thisInserat.trailerAttribute?.axis}
+                    />
+                
+                </div>
+            </div>
+
+
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
                 <TrailerBrake 
                  thisBrake = {thisInserat.trailerAttribute?.brake}
                  />
+                </div>
+                <div className="w-1/2">
+                    
+                    
+                    
+                </div>
+            </div>
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                <TrailerCoupling 
+                 thisCoupling = {thisInserat.trailerAttribute?.coupling}
+                 />
+                </div>
+                <div className="w-1/2">
+                <TrailerLoading 
+                 thisLoading={thisInserat.trailerAttribute?.loading}
+                 />
+                
                 </div>
             </div>
             <div className="flex w-full gap-x-8 mt-4">

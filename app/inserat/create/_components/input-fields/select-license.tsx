@@ -81,11 +81,13 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
                     onValueChange={(selectedValue: typeof LicenseEnumRender) => {
                         onSubmit(selectedValue);
                     }}
+                    
                     defaultValue={thisInserat.license}
                     disabled={isLoading}
                 >
 
-                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md w-1/2"
+                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 
+                    rounded-md w-full"
                         disabled={isLoading} defaultValue={thisInserat.license} >
                         <SelectValue
                             placeholder="Wähle die Kategorie aus"

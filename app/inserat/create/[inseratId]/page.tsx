@@ -17,7 +17,7 @@ import CategoryInformation from "./_parts/category-information";
 import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { address, images,  inserat, lkwAttribute, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
@@ -29,7 +29,7 @@ const InseratCreation = async ({
 
     const currentUser = await getCurrentUser();
 
-    const thisInserat = await db.query.inserat.findFirst({
+    const findInserat = db.query.inserat.findFirst({
         with : {
          images : true,
          address : true,
@@ -39,8 +39,10 @@ const InseratCreation = async ({
          trailerAttribute : true,
          transportAttribute : true
          },
-         where : eq(inserat.id, params.inseratId)        
-     })
+         where : eq(inserat.id, sql.placeholder("inseratId"))        
+     }).prepare("findInserat")
+
+     const thisInserat = await findInserat.execute({inseratId : params.inseratId})
 
     console.log(thisInserat)
 

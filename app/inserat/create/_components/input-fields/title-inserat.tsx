@@ -30,7 +30,19 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [currentTitle, setCurrentTitle] = useState(thisInserat.title || "");
+
+    
     const {currentChanges, changeCurrent} = useUnsavedChanges()
+
+    useEffect(() => {
+        const setAmount = async () => {
+            await changeCurrent("title", currentTitle);
+        
+        }
+
+        setAmount();
+    }, [currentTitle])
+
 
     const formSchema = z.object({
         title : z.string().min(3, {
@@ -47,14 +59,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
 
     const router = useRouter();
 
-    useEffect(() => {
-        const setAmount = async () => {
-            await changeCurrent("title", currentTitle);
-        
-        }
-
-        setAmount();
-    }, [currentTitle])
+    
 
     const onSubmit = () => {
         try {

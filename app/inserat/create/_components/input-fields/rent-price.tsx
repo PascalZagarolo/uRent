@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { inserat } from "@/db/schema";
+import { useUnsavedChanges } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { set } from "date-fns";
@@ -26,8 +27,22 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(thisInserat.price || 0);
+    const [currentValue, setCurrentValue] = useState(thisInserat.price);
     const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
+
+    const {currentChanges, changeCurrent, deleteCurrent} = useUnsavedChanges()
+
+    useEffect(() => {
+        const setAmount = async () => {
+            if(currentValue) {
+                await changeCurrent("price", Number(currentValue)?.toFixed(2));
+            } else {
+                console.log("delete")
+                deleteCurrent("price");
+            }
+        }
+        setAmount();
+    }, [currentValue])
  
     const formSchema = z.object({
         price: z.preprocess(

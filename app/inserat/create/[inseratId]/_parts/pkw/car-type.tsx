@@ -70,15 +70,23 @@ const CarTypeForm: React.FC<CarTypeProps> = ({
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
             <SelectItem value={null}>Beliebig</SelectItem>
-            <SelectItem value="KOMBI">Kombi</SelectItem>
-            <SelectItem value="COUPE">Coupe</SelectItem>
-            <SelectItem value="SUV">SUV</SelectItem>
-            <SelectItem value="VAN">Van</SelectItem>
-            <SelectItem value="KLEINBUS">Kleinbus</SelectItem>
             <SelectItem value="CABRIO">Cabrio</SelectItem>
+            <SelectItem value="COUPE">Coupe</SelectItem>
+            
+            <SelectItem value="KLEINBUS">Kleinbus</SelectItem>
             <SelectItem value="KLEIN">Kleinwagen</SelectItem>
+            <SelectItem value="KOMBI">Kombi</SelectItem>
+            
+            
+            
+            
+           
+            
             <SelectItem value="SPORT">Sportwagen</SelectItem>
             <SelectItem value="SUPERSPORT">Supersportwagen</SelectItem>
+            <SelectItem value="SUV">SUV</SelectItem>
+
+            <SelectItem value="VAN">Van</SelectItem>
           </SelectContent>
         </Select>
       </div>

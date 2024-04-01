@@ -230,7 +230,7 @@ export const getInserate = async ({
         
         let foundInserate;
 
-        foundInserate = db.query.inserat.findMany({
+        foundInserate = await db.query.inserat.findMany({
             where: (
                 and(
                     eq(inserat.isPublished, "true"),

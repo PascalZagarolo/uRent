@@ -321,8 +321,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             <div className="w-full">
                             <Image
                                     src={thisInserat.images[0]?.url}
-                                    width={320}
-                                    height={160}
+                                    width="500"
+                                    height="500"
+                                    quality={100}
+                                    style={{ height: '160px', width: '100%' }}
                                     className="rounded-md hover:cursor-pointer  dark:border-gray-900 h-[160px] 
                                     w-full object-cover"
                                     onClick={onRedirect}

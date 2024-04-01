@@ -42,14 +42,17 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                
             </div>
             <div className="mt-4 flex w-full justify-between items-center space-x-2">
-                <div className="w-1/2 flex space-x-2">
+                <div className="w-1/3 flex space-x-2">
                      
-                    <div className="w-1/2">
+                    <div className="w-full">
                         <SelectCategoryInserat
                             thisInserat={thisInserat}
                         />
                     </div>
-                    <div className="w-1/2">
+                    
+                   
+                </div>
+                <div className="w-1/3">
                     {
                         {
                             "PKW" : <PkwExtraType thisExtraType={thisInserat?.pkwAttribute?.extraType} />,
@@ -59,9 +62,7 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                         }[thisInserat.category]
                     }
                     </div>
-                   
-                </div>
-                <div className="w-1/2">
+                <div className="w-1/3">
                      
                     <SelectLicenseInserat
                         thisInserat={thisInserat}

@@ -28,8 +28,8 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
         <div className="mt-4">
             <div className="flex w-full gap-x-8">
                 <div className="w-1/2">
-                    <LkwBrandForm
-                    thisBrand={thisInserat?.lkwAttribute?.lkwBrand}
+                    <WeightClassForm 
+                    thisWeightClass={thisInserat?.lkwAttribute?.weightClass}
                     />
                 </div>
                 <div className="w-1/2">
@@ -38,30 +38,51 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                     />
                 </div>
             </div>
+
+
+
             <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                    <LkwBrandForm
+                    thisBrand={thisInserat?.lkwAttribute?.lkwBrand}
+                    />
+                </div>
                 <div className="w-1/2">
                 <Seats
                     thisSeats={thisInserat?.lkwAttribute?.seats}
                     />
                 </div>
-                <div className="w-1/2">
-                    <WeightClassForm 
-                    thisWeightClass={thisInserat?.lkwAttribute?.weightClass}
-                    />
-                </div>
             </div>
+
+
+
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                   <LoadingForm 
-                   thisLoading={thisInserat?.lkwAttribute?.loading}
-                   />
+                    Getriebe
+                   
                 </div>
                 <div className="w-1/2">
+                    
                     <DriveForm 
                     thisDrive={thisInserat?.lkwAttribute?.drive}
                     />
                 </div>
             </div>
+
+            <div className="flex w-full gap-x-8 mt-4">
+                <div className="w-1/2">
+                <LoadingForm 
+                   thisLoading={thisInserat?.lkwAttribute?.loading}
+                   />
+                   
+                </div>
+                <div>
+                    <DriveForm 
+                    thisDrive={thisInserat?.lkwAttribute?.drive}
+                    />
+                </div>
+            </div>
+
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
                    <LkwPowerForm 

@@ -12,6 +12,7 @@ import LkwAxis from "./lkw/lkw-axis";
 import LkwLoadingVolumeForm from "./lkw/lkw-volume";
 import LkwSizeForm from "./lkw/loading-size";
 import { lkwAttribute } from '../../../../../db/schema';
+import LkwTransmission from "./lkw/lkw-transmission";
 
 
 
@@ -58,7 +59,9 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
 
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                    Getriebe
+                    <LkwTransmission 
+                    thisTransmission={thisInserat?.lkwAttribute?.transmission}
+                    />
                    
                 </div>
                 <div className="w-1/2">
@@ -76,7 +79,7 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                    />
                    
                 </div>
-                <div>
+                <div className="w-1/2">
                     <DriveForm 
                     thisDrive={thisInserat?.lkwAttribute?.drive}
                     />

@@ -51,7 +51,9 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
       setCurrentCategory(selectedValue);
 
       const values = {
-        category: selectedValue
+        category: selectedValue,
+        //@ts-ignore
+        license: selectedValue === "PKW" ? "B" : thisInserat.license
       }
 
       setIsLoading(true);

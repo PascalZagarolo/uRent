@@ -8,12 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { inserat, LicenseEnumRender } from '../../../../../db/schema';
+import { User2Icon } from "lucide-react";
 
 interface SelectLicenseInseratProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -34,6 +35,7 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
+    
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -75,20 +77,23 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
 
 
             <div className="w-full">
-                <Label>Führerscheinklasse</Label>
+            <Label className="flex justify-start items-center ">
+                        <User2Icon className="w-4 h-4" /><p className="ml-2 font-semibold"> Führerscheinklasse </p>
+                    </Label>
+                    <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80  truncate"> Benötigter Führerschein? </p>
                 <Select
                 //@ts-ignore
                     onValueChange={(selectedValue: typeof LicenseEnumRender) => {
                         onSubmit(selectedValue);
                     }}
-                    
-                    defaultValue={thisInserat.license}
+                    value={thisInserat.category === "PKW" ? "B" : thisInserat.license}
+                    defaultValue={thisInserat.category === "PKW" ? "B" : thisInserat.license}
                     disabled={isLoading}
                 >
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 
                     rounded-md w-full"
-                        disabled={isLoading} defaultValue={thisInserat.license} >
+                        disabled={isLoading || thisInserat.category === "PKW"}  >
                         <SelectValue
                             placeholder="Wähle die Kategorie aus"
                             

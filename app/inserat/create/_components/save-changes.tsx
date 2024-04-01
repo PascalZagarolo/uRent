@@ -23,11 +23,11 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
     const router = useRouter();
     const priceNumber = parseInt(currentChanges['price']);
 
-    console.log(currentChanges['price'])
+    console.log(currentChanges['description'])
     
 
     const changedTitle = currentChanges['title']?.trim() === thisInserat?.title ? false : true;
-    const changedDescription = currentChanges['description'] === thisInserat?.description ? false : true;
+    const changedDescription = currentChanges['description']?.trim() !== thisInserat?.description && currentChanges['description']  ? true : false;
     const changedPrice = currentChanges['price'] !== thisInserat?.price && currentChanges['price'] ? true : false;
 
     const onSave = async () => {
@@ -58,7 +58,7 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
 
         
     }
-
+    console.log(currentChanges['description'])
     return ( 
         <div className="w-full ml-auto">
             <Button className="dark:bg-[#0F0F0F] hover:bg-[#1c1c1c] text-gray-200 text-sm" 

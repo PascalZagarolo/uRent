@@ -30,21 +30,32 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
 
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [currentDescription, setCurrentDescription] = useState(thisInserat?.description || "")
+    const [currentDescription, setCurrentDescription] = useState(thisInserat?.description)
 
-    const {currentChanges, changeCurrent} = useUnsavedChanges()
+    const {deleteCurrent, currentChanges, changeCurrent} = useUnsavedChanges()
 
     useEffect(() => {
-        const setAmount = async () => {
-            await changeCurrent("description", currentDescription);
         
-        }
+            const setAmount = async () => {
+                if(currentDescription) {
+                    await changeCurrent("description", currentDescription);
+                } else {
 
-        setAmount();
+                    console.log("dees")
+                    deleteCurrent("description");
+                }
+            }
+            setAmount();
+        
     }, [currentDescription])
 
-    const router = useRouter();
+    useEffect(() => {
+        console.log("test")
+        changeCurrent("description", thisInserat?.description)
+    },[])
 
+    const router = useRouter();
+    
     
 
     const formSchema = z.object({

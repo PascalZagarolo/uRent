@@ -58,7 +58,7 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
 
     return (
         <div className="w-full">
-            <div className="w-1/2">
+            <div className="w-full">
                 <Label>Automarke</Label>
                 <Select
                     //@ts-ignore

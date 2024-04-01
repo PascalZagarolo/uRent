@@ -64,7 +64,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                             '5000': " {'>'} 39 t",
                         }[attributes?.weightClass]
                     }
-                    {attributes?.weightClass}
+                    
                 </div>
             )}
 

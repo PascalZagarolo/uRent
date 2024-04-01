@@ -238,6 +238,7 @@ export const getInserate = async ({
                     ...ilikeQuery,
                     start ? gte(inserat.price, start) : undefined,
                     end ? lte(inserat.price, end) : undefined,
+                    thisCategory ? eq(inserat.category, thisCategory) : undefined,
                     periodBegin ?
                         or(
                             (gte(inserat.begin, usedStart)), eq(inserat.annual, "true")

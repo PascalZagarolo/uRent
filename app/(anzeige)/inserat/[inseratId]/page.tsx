@@ -18,7 +18,7 @@ import { FaAddressCard } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
 import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute } from '../../../../db/schema';
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
 import { RiCaravanLine } from "react-icons/ri";
 
@@ -34,8 +34,8 @@ const InseratAnzeige = async ({
     const currentUser = await getCurrentUser();
 
 
-    const thisInserat = await db.query.inserat.findFirst({
-        where : eq(inserat.id, params.inseratId),
+    const findInserat = db.query.inserat.findFirst({
+        where : eq(inserat.id, sql.placeholder("inseratId")),
         with : {
             address : true,
             images : true,
@@ -49,20 +49,24 @@ const InseratAnzeige = async ({
             trailerAttribute : true,
             transportAttribute : true,
         }
-    })
+    }).prepare("findInserat")
+
+    const thisInserat = await findInserat.execute({inseratId : params.inseratId})
 
     const inseratOwnerId = thisInserat.user.id
 
-    const inseratArray = await db.query.inserat.findMany({
+    const findInseratArray = db.query.inserat.findMany({
         where : (
             and(
-                eq(inserat.userId, inseratOwnerId),
-            eq(inserat.isPublished, true)  
+                eq(inserat.userId, sql.placeholder("inseratOwnerId")),
+                eq(inserat.isPublished, true)  
             ) 
         ), with : {
             images : true
         }
-    })
+    }).prepare("findInseratArray")
+
+    const inseratArray = await findInseratArray.execute({inseratOwnerId : inseratOwnerId})
 
 
 

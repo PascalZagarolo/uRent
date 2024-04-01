@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { LuMessagesSquare } from "react-icons/lu";
 
 
 interface ProfileBarProps {
@@ -163,7 +164,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
 
                                             <Button className="flex items-center mr-4  bg-[#171923] rounded-md p-2 px-4 sm:px-8 font-semibold
                                      dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
-                                                <MailCheckIcon className="w-4 h-4 sm:mr-2" />
+                                                <LuMessagesSquare  className="w-4 h-4 sm:mr-2" />
                                                 <p className="sm:block hidden">
                                                     Kontaktieren
                                                 </p>

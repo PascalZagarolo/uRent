@@ -80,6 +80,7 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
             <SelectItem value="19">19</SelectItem>
             <SelectItem value="20">20</SelectItem>
             <SelectItem value="21">21</SelectItem>
+            <SelectItem value="22">22</SelectItem>
             <SelectItem value="23">23</SelectItem>
             <SelectItem value="24">24</SelectItem>
             <SelectItem value="25">25</SelectItem>

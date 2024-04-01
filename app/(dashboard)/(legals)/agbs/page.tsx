@@ -17,7 +17,7 @@ const AgbsPage = async () => {
                     <div className="  min-h-screen">
                         <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                Allgemeinen Geschäftsbedingungen der 'uRent' Plattform
+                                Allgemeinen Geschäftsbedingungen der &apos;uRent&apos; Plattform
                             </h3>
                             <div className="p-8 text-sm dark:text-gray-300/90">
 

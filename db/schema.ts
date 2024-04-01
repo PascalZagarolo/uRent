@@ -430,6 +430,7 @@ export const applicationEnum = pgEnum("application", [
     "PERSONENTRANSPORT",
     "PLANWAGEN",
     "PRITSCHENWAGEN",
+    "SATTELSCHLEPPER",
 
     "SONSTIGES"
 ])

@@ -70,9 +70,11 @@ const PkwBrandSearch = () => {
                                 Beliebig
                             </SelectItem>
           {Object.values(BrandEnumRender).map((brand, index) => (
-                            <SelectItem key={index} value={brand}>
+                            
+                              <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>
+                           
                         ))}
           </SelectContent>
         </Select>

@@ -53,6 +53,9 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             }).then(() => {
                 router.refresh();
             })
+            setTimeout(() => {
+                router.refresh();
+            })
         } catch {
             toast.error("Fehler beim Reorder")
         } finally {
@@ -81,7 +84,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             <p className="flex text-sm justify-start text-gray-900/50  dark:text-gray-100"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
 
-        thisImages.length > 0 ? (
+       
                     <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#0F0F0F] w-full">
                         <ImageList
                             onEdit={() => {}}
@@ -89,9 +92,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                             items={thisImages || []}
                             
                         />
-                    </div>
-                ) : (
-                    <CldUploadButton
+                        <CldUploadButton
                     onUpload={handleImageUpload}
                     uploadPreset="oblbw2xl"
                     options={{ maxFiles: 1 }}
@@ -99,9 +100,12 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 >
                     <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-32 border-dashed border
                      dark:text-gray-100/80 dark:border-gray-500">
-                         Noch keine Fotos hinzugefügt... </div>
+                         Foto hinzufügen </div>
                          </CldUploadButton>
-                )
+                    </div>
+               
+                    
+               
             }
 
         </div>

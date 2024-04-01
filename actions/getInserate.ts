@@ -228,7 +228,7 @@ export const getInserate = async ({
         
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
         
-        const findInserate = await db.query.inserat.findMany({
+        const findInserate = db.query.inserat.findMany({
             where: (
                 and(
                     eq(inserat.isPublished, "true"),
@@ -310,12 +310,9 @@ export const getInserate = async ({
 
         if(location) {
             const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-       
-        
         for (const pInserat of filteredArray) {
             const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
                                                 Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
-                                                
                                                 if(distance < 50) {
                                                     returnedArray.push(pInserat);
                                                     console.log(distance)

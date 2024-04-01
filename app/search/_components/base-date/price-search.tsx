@@ -54,9 +54,9 @@ const CautionSearch = () => {
     useEffect(() => {
         const setAmount = async () => {
             await changeSearchParams("minPrice", currentMin);
-                   }
+            }
     setAmount();
-    }, [currentMin, currentMax])
+    }, [currentMin])
    
     useEffect(() => {
         const setAmount = async () => {

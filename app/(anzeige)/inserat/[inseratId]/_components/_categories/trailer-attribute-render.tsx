@@ -5,9 +5,10 @@ import { LuAxis3D } from "react-icons/lu";
 import { PiCouchFill } from "react-icons/pi";
 import { FaGears } from "react-icons/fa6";
 import {  TbCrane } from "react-icons/tb";
-import { GiStoneWheel } from "react-icons/gi";
+import { GiResize, GiStoneWheel } from "react-icons/gi";
 import { RiCaravanFill } from "react-icons/ri";
 import { trailerAttribute } from "@/db/schema";
+import { HiCubeTransparent } from "react-icons/hi";
 
 interface TrailerAttributeRenderProps {
     attributes: typeof trailerAttribute.$inferSelect
@@ -86,6 +87,17 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
                 </div>
             )}
             
+            {attributes?.loading_volume && (
+                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <HiCubeTransparent  className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
+            </div>
+            )}
+
+            {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
+                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <GiResize  className="w-4 h-4 mr-2" />    {attributes?.loading_l } x {attributes?.loading_b } x {attributes?.loading_h } m
+            </div>
+            )}
         </div>
      );
 }

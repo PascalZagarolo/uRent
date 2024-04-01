@@ -108,7 +108,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className="md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
-            mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none px-2 py-4  ">
+            mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:border-none px-2 py-4 rounded-md ">
 
 
 

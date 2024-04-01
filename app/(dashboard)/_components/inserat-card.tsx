@@ -375,8 +375,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 {/* Part2 */}
                 <div className="font-semibold text-gray-900 flex mt-2 items-center w-full">
                     <div className="flex ">
-                            <div className="flex dark:bg-emerald-800 bg-emerald-800 p-2 rounded-md 
-                              text-gray-200 dark:border-emerald-800 px-4 sm:text-sm 
+                            <div className="flex  bg-emerald-800 p-2 rounded-md 
+                              text-gray-100  px-4 sm:text-sm 
                              text-xs items-center">
                                 <div className="mr-2 flex font-bold">
 

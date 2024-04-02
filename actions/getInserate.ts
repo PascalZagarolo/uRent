@@ -314,14 +314,8 @@ export const getInserate = async ({
     } else {
         returnedArray = filteredArray;
     }
-
-        
         return returnedArray; 
         
-        
-        
-        
-
     } catch {
         return [];
     }

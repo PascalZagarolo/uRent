@@ -216,9 +216,9 @@ export const getInserate = async ({
         
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
         
-        let foundInserate;
+        
 
-        foundInserate = await db.query.inserat.findMany({
+        const findInserate = await db.query.inserat.findMany({
             where: (
                 and(
                     eq(inserat.isPublished, "true"),
@@ -258,7 +258,9 @@ export const getInserate = async ({
                 orderBy : (price, { desc }) => [desc(inserat.price)]
             }
             
-        })
+        }).prepare("findInserate");
+
+        const foundInserate = await findInserate.execute();
 
         
 

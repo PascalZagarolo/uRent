@@ -22,7 +22,7 @@ const InseratAttributes: React.FC<InseratAttributesProps> = ({
                         'PKW': <CarFrontIcon className="h-4 w-4 mr-2" />,
                         'LKW': <TruckIcon className="h-4 w-4 mr-2" />,
                         'TRANSPORT' : <PiVanFill className="h-4 w-4 mr-2" />,
-                        'TRAILOR' : <CaravanIcon className="h-4 w-4 mr-2" />
+                        'TRAILER' : <CaravanIcon className="h-4 w-4 mr-2" />
                     }[thisInserat.category]
                 }
 

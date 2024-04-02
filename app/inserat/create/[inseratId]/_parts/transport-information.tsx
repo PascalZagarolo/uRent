@@ -11,6 +11,7 @@ import TransportWeightClass from "./transport/transport-weight-class";
 import TransportPowerForm from "./transport/transport-power";
 import TransportLoadingVolumeForm from "./transport/transport-volume";
 import TransportSizeForm from "./transport/transport-size";
+import TransportBrandForm from "./transport/transport-brand";
 
 
 
@@ -43,8 +44,9 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
 
             <div className="flex w-full gap-x-8 mt-4">
                 <div className="w-1/2">
-                Marke
-                 
+                <TransportBrandForm 
+                thisBrand={thisInserat?.transportAttribute?.transportBrand}
+                />              
                 </div>
                 <div className="w-1/2">
                    

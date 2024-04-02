@@ -509,6 +509,32 @@ export const trailerAttribute = pgTable("trailerAttribute", {
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
 
+export const transportBrandEnum = pgEnum("transportBrand", [
+    "Chevrolet",
+    "Citroën",
+    "Citroën Jumper",
+    "Fiat",
+    "Ford",
+    "Ford Transit",
+    "GMC",
+    "Hyundai",
+    "Iveco",
+    "Isuzu",
+    "Mercedes_Benz",
+    "Mitsubishi",
+    "Nissan",
+    "Opel",
+    "Peugeot",
+    "Ram",
+    "Renault",
+    "Sprinter",
+    "Toyota",
+    "Volkswagen"
+
+])
+
+export const TransportBrandEnumRender = z.enum(transportBrandEnum.enumValues).Enum;
+
 export const transportAttribute = pgTable("transportAttribute", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -522,6 +548,8 @@ export const transportAttribute = pgTable("transportAttribute", {
     loading_b : decimal("loading_b"),
     loading_h : decimal("loading_h"),
     loading_size : decimal("loading_size"),
+
+    transportBrand : transportBrandEnum("transportBrand"),
 
     weightClass: integer("weightClass"),
 

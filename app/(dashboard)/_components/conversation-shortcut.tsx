@@ -13,9 +13,11 @@ const ConversationShortCut = () => {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost" onClick={() => { router.push(`/conversation`) }}>
+                    <a href="/conversation">
+                    <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost">
                         <MessageCircleMoreIcon />
                     </Button>
+                    </a>
                 </TooltipTrigger>
                 <TooltipContent className="dark:bg-[#0F0F0F] border-none">
                     <p> Konversationen </p>

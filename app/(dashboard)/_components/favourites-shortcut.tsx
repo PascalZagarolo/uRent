@@ -23,9 +23,11 @@ const FavouritesShortCut: React.FC<FavouritesShortCutProps> = ({
         <TooltipProvider>
             <Tooltip>
             <TooltipTrigger asChild>
-                <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost" onClick={() => { router.push(`/dashboard/${currentUser.id}/bookings`) }}>
+                <a href={`/dashboard/${currentUser.id}/bookings`}>
+                <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost">
                 <IoStarHalf className="w-6 h-6" />
                 </Button>
+                </a>
             </TooltipTrigger>
             <TooltipContent className="dark:bg-[#0F0F0F] border-none">
                 <p> Favouriten </p>

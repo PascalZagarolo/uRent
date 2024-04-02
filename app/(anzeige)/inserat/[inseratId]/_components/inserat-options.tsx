@@ -145,7 +145,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     
                        {ownUser && (
                          <Button className="bg-emerald-700 hover:bg-emerald-600  sm:w-[240px] w-full text-gray-200">
-                         <ThumbsUp className="h-4 w-4 mr-2" /> Interesse äußern
+                         <ThumbsUp className="h-4 w-4 mr-2" /> Fahrzeug anfragen
                      </Button>
                        )}
 

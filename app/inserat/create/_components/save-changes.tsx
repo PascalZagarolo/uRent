@@ -41,6 +41,7 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
             return(event.returnValue = '');
         }
         window.addEventListener('beforeunload', handleBeforeUnload, { capture: true });
+        
         return() => {
             window.removeEventListener('beforeunload', handleBeforeUnload, { capture: true });
         }

@@ -40,7 +40,6 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
                 if(currentDescription) {
                     await changeCurrent("description", currentDescription);
                 } else {
-
                     console.log("dees")
                     deleteCurrent("description");
                 }

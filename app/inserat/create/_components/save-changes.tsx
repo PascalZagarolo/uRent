@@ -5,6 +5,7 @@ import { inserat } from "@/db/schema";
 import { useUnsavedChanges } from "@/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 interface SaveChangesProps {
@@ -15,7 +16,7 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
     thisInserat
 }) => {
 
-    //TODO : Dialog + Apply Changes...
+    
 
     
 
@@ -26,12 +27,26 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
     console.log(currentChanges['description'])
     
 
-    const changedTitle = currentChanges['title']?.trim() === thisInserat?.title ? false : true;
+    const changedTitle = currentChanges['title']?.trim() !== thisInserat?.title && currentChanges['title'] ? true : false;
     const changedDescription = currentChanges['description']?.trim() !== thisInserat?.description && currentChanges['description']  ? true : false;
     const changedPrice = currentChanges['price'] !== thisInserat?.price && currentChanges['price'] ? true : false;
 
+    const hasChanged = changedTitle || changedDescription || changedPrice;
+    
+
+    useEffect(() => {
+        if(!hasChanged) return
+        function handleBeforeUnload(event : BeforeUnloadEvent) {
+            event.preventDefault();
+            return(event.returnValue = '');
+        }
+        window.addEventListener('beforeunload', handleBeforeUnload, { capture: true });
+        return() => {
+            window.removeEventListener('beforeunload', handleBeforeUnload, { capture: true });
+        }
+    },[hasChanged])
+
     const onSave = async () => {
-        
         try {
             const values = {
                 ...(changedTitle) && {

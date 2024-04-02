@@ -290,7 +290,7 @@ export const pkwAttribute = pgTable("pkwAttribute", {
     loading_h : decimal("loading_h"),
     loading_size : decimal("loading_size"),
 
-    
+    ahk : boolean("ahk").notNull().default(false),
 
     initial: timestamp("initial", {mode: "date"}),
     power: integer("power"),

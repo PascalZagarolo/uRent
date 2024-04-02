@@ -23,31 +23,31 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
     let shownItems = 0;
 
     return (
-        <div className="w-full grid grid-cols-2 gap-4 mt-4 text-gray-200">
+        <div className="w-full grid grid-cols-2 gap-2 mt-4 text-gray-200">
             {attributes?.lkwBrand && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <FaTruckMoving className="w-4 h-4 mr-2" />    {attributes.lkwBrand}
                 </div>
             )}
             {attributes?.application && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <LiaTruckLoadingSolid className="w-4 h-4 mr-2" />    {attributes.application.substring(0, 1)}{attributes.application.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.loading && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <TbCarCrane className="w-4 h-4 mr-2" />    {attributes.loading.substring(0, 1)}{attributes.loading.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.drive && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <GearIcon className="w-4 h-4 mr-2" />    {attributes.drive.substring(1)}
                 </div>
             )}
             {attributes?.weightClass && attributes?.weightClass != 0 && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <WeightIcon className="w-4 h-4 mr-2" />
                     {
                         {
@@ -68,13 +68,13 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
             )}
 
             {attributes?.seats && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <PiCouchFill className="w-4 h-4 mr-2" />    {attributes.seats} {attributes.seats > 1 ? 'Sitze' : 'Sitz'}
                 </div>
             )}
 
             {attributes?.axis && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <LuAxis3D className="w-4 h-4 mr-2" />    {
                         {
                             '1': "Einachser",
@@ -89,19 +89,19 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
 
             {attributes?.power && (
                 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS 
                 </div>
             )}
 
             {attributes?.loading_volume && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                 <HiCubeTransparent  className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
             </div>
             )}
 
             {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                 <GiResize  className="w-4 h-4 mr-2" />    {attributes?.loading_l } x {attributes?.loading_b } x {attributes?.loading_h } m
             </div>
             )}

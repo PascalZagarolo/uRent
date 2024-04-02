@@ -23,31 +23,31 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
     let shownItems = 0;
 
     return (
-        <div className="w-full grid grid-cols-2 gap-4 mt-4 text-gray-200">
+        <div className="w-full grid grid-cols-2 gap-2 mt-4 text-gray-200">
             {attributes?.type && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <CaravanIcon className="w-4 h-4 mr-2" />    {attributes?.type?.substring(0, 1)}{attributes?.type?.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.extraType && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <RiCaravanFill className="w-4 h-4 mr-2" />    {attributes?.extraType?.substring(0, 1)}{attributes?.extraType?.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.coupling && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <FaGears className="w-4 h-4 mr-2" />    {attributes?.coupling?.substring(0, 1)}{attributes?.coupling?.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.loading && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <TbCrane className="w-4 h-4 mr-2" />    {attributes?.loading?.substring(0, 1)}{attributes?.loading?.substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.axis && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <LuAxis3D className="w-4 h-4 mr-2" />    {
                         {
                             '1': "Einachser",
@@ -60,7 +60,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
                 </div>
             )}
             {attributes?.weightClass && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <WeightIcon className="w-4 h-4 mr-2" />
                     {
                         {
@@ -82,19 +82,19 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
 
             {attributes?.brake && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <GiStoneWheel className="w-4 h-4 mr-2" />    {String(attributes?.brake) === "true" ? "Hat Auflaufbremse" : "Keine Bremse"}
                 </div>
             )}
 
             {attributes?.loading_volume && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <HiCubeTransparent className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
                 </div>
             )}
 
             {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
                 </div>
             )}

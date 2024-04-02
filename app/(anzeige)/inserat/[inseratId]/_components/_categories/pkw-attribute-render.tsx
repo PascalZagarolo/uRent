@@ -1,7 +1,7 @@
 import { pkwAttribute } from "@/db/schema";
 import { GearIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
-import { CarFrontIcon, ConstructionIcon, DoorClosedIcon, Globe2, MapPin, MapPinned } from "lucide-react";
+import { CarFrontIcon, Check, ConstructionIcon, DoorClosedIcon, Globe2, MapPin, MapPinned } from "lucide-react";
 import { GiResize } from "react-icons/gi";
 import { HiCubeTransparent } from "react-icons/hi";
 import { PiCouchFill, PiEngine } from "react-icons/pi";
@@ -20,41 +20,41 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
     let shownItems = 0;
 
     return (
-        <div className="w-full grid grid-cols-2 gap-4 mt-4">
+        <div className="w-full gap-2 grid-cols-2 grid mt-4">
             {attributes?.brand && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <CarFrontIcon className="w-4 h-4 mr-2" />    {attributes.brand}
                 </div>
             )}
             {attributes?.power && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS
                 </div>
             )}
             {attributes?.freeMiles && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <Globe2 className="w-4 h-4 mr-2" />    {attributes.freeMiles} Freikilometer
                 </div>
             )}
             {attributes?.seats && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <PiCouchFill className="w-4 h-4 mr-2" />    {attributes.seats} Sitze
                 </div>
             )}
             {attributes?.fuel && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <RiGasStationLine className="w-4 h-4 mr-2" />    {attributes.fuel}
                 </div>
             )}
             {attributes?.doors && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <DoorClosedIcon className="w-4 h-4 mr-2" />    {attributes.doors}/{Number(attributes.doors) + 1} Türer
                 </div>
             )}
             {attributes?.transmission && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <GearIcon className="w-4 h-4 mr-2" />
 
                     {
@@ -65,20 +65,22 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
                     }
                 </div>
             )}
+            
+
             {attributes?.initial && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
                 </div>
             )}
 
             {attributes?.loading_volume && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200 ">
                     <HiCubeTransparent className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
                 </div>
             )}
 
-            {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+            {(attributes?.loading_l || attributes?.loading_b || attributes?.loading_h) && (
+                <div className=" p-4 font-semibold flex items-center  text-gray-200 bg-[#13151C]">
                     <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
                 </div>
             )}

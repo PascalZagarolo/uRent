@@ -3,7 +3,7 @@
 
 import db from "@/db/drizzle";
 
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { users } from "@/db/schema";
 
 import { auth } from "@/auth";
@@ -14,12 +14,12 @@ const getCurrentUser = async () => {
     
     const current = await auth();
     console.log(current)
-    const currentUser = await db.query.users.findFirst({
-      where: eq(users.email, current.user?.email)
-    });
 
-    const allUser = await db.query.users.findMany();
-    
+    const findUser = db.query.users.findFirst({
+      where: eq(users.email, sql.placeholder("email"))
+    }).prepare("findUser");
+
+    const currentUser = await findUser.execute({email : current.user?.email})
 
     if (!currentUser) {
       console.log("leer")

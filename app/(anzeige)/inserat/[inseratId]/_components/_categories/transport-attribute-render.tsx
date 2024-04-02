@@ -5,7 +5,7 @@ import { GearIcon } from "@radix-ui/react-icons";
 import { DoorClosedIcon, WeightIcon, } from "lucide-react";
 import { GiResize } from "react-icons/gi";
 import { HiCubeTransparent } from "react-icons/hi";
-import { PiCouchFill, PiEngine, } from "react-icons/pi";
+import { PiCouchFill, PiEngine, PiVanFill, } from "react-icons/pi";
 import { RiCaravanFill, RiGasStationLine } from "react-icons/ri";
 import { TbCarCrane } from "react-icons/tb";
 
@@ -104,6 +104,13 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
                 </div>
+            )}
+
+            {attributes?.transportBrand && (
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
+                    <PiVanFill className="w-4 h-4 mr-2" />    {attributes?.transportBrand}
+                </div>
+
             )}
         </div>
     );

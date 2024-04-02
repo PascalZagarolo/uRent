@@ -22,27 +22,27 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
     let shownItems = 0;
 
     return (
-        <div className="w-full grid grid-cols-2 gap-4 mt-4">
+        <div className="w-full grid grid-cols-2 gap-2 mt-4">
             {attributes?.loading && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <TbCarCrane className="w-4 h-4 mr-2" />    {attributes?.loading}
                 </div>
             )}
 
             {attributes?.seats && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <PiCouchFill className="w-4 h-4 mr-2" />    {attributes?.seats}
                 </div>
             )}
             {attributes?.fuel && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <RiGasStationLine className="w-4 h-4 mr-2" />    {attributes?.fuel}
                 </div>
             )}
 
             {attributes?.transmission && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <GearIcon className="w-4 h-4 mr-2" />
 
                     {
@@ -54,13 +54,13 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
                 </div>
             )}
             {Number(attributes?.doors) !== 0 && attributes?.doors && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <DoorClosedIcon className="w-4 h-4 mr-2" />    {attributes?.doors}/{Number(attributes?.doors) + 1}
                 </div>
             )}
 
             {attributes?.weightClass && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <WeightIcon className="w-4 h-4 mr-2" />
                     {
                         {
@@ -82,26 +82,26 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
             )}
 
             {attributes?.extraType && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <RiCaravanFill className="w-4 h-4 mr-2" />    {attributes?.extraType?.substring(0, 1)}{attributes?.extraType?.substring(1).toLowerCase()}
                 </div>
             )}
 
             {attributes?.power && (
 
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS
                 </div>
             )}
 
             {attributes?.loading_volume && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <HiCubeTransparent className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
                 </div>
             )}
 
             {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
-                <div className="bg-[#1D1F2B] p-4 font-semibold flex items-center rounded-md text-gray-200">
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
                     <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
                 </div>
             )}

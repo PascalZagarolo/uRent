@@ -146,11 +146,7 @@ const DashboardPage = async ({
                                    
                                 </div>
                             </div>
-                            <div className="sm:w-2/5">
-                            <div>
                             
-                                </div>
-                            </div>
                         </div>
                     </div>
 

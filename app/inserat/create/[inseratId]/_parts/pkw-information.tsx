@@ -12,6 +12,7 @@ import CarLoadingForm from "./pkw/car-loading";
 import LoadingVolumeForm from "./pkw/loading-volume";
 import LoadingSizeForm from "./pkw/loading-size";
 import { pkwAttribute } from '../../../../../db/schema';
+import PkwAhk from "./pkw/pkw-ahk";
 ;
 
 
@@ -69,7 +70,9 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     />
                 </div>
                 <div className="w-1/2">
-                    
+                    <PkwAhk 
+                    thisBrake={thisInserat?.pkwAttribute?.ahk}
+                    />
                 </div>
                 
             </div>

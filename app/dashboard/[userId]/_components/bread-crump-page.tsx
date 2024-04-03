@@ -32,6 +32,11 @@ const BreadCrumpPage = () => {
             <BreadcrumbLink>Meine Inserate</BreadcrumbLink>
           </BreadcrumbItem>
         )}
+        {pathname.includes("favourites") && (
+            <BreadcrumbItem>
+            <BreadcrumbLink>Favouriten</BreadcrumbLink>
+          </BreadcrumbItem>
+        )}
         
       </BreadcrumbList>
     </Breadcrumb>

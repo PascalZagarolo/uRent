@@ -1,13 +1,13 @@
 import { CalendarSearchIcon } from "lucide-react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
-import FavouriteRenderList from "./_components/favourite-render-list";
-import BookingRenderList from "./_components/booking-render-list";
+
 import SidebarDashboard from "../../_components/sidebar-dashboard";
 import db from "@/db/drizzle";
 import { booking, favourite } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import MenuBar from "../../_components/menu-bar";
 import BreadCrumpPage from "../../_components/bread-crump-page";
+import FavouriteRenderList from "../bookings/_components/favourite-render-list";
 
 const Bookings = async ({
     params
@@ -51,25 +51,25 @@ const Bookings = async ({
                             <BreadCrumpPage />
                         </div>
                     </div>
-                    
-
-                        <div className="md:p-4 mt-4  rounded-lg ">
+                    <div className="md:p-4 mt-4  rounded-lg ">
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center md:px-0 px-4">
-                                <CalendarSearchIcon className="mr-4" /> Meine Buchungen <p className="ml-4 text-lg"> </p>
+                                <StarFilledIcon className="mr-4" /> Meine Favouriten <p className="ml-4 text-lg"> </p>
                             </h3>
-                            <div className="md:p-4 p-2 md:pb-0 pb-4">
-                                {bookings.length > 0 ? (
-                                    <BookingRenderList 
+                            <div className="md:p-4 p-2">
+                                {favourites.length > 0 ? (
+                                    <FavouriteRenderList 
                                     //@ts-ignore
-                                    bookings={bookings}
+                                    favourites={favourites}
                                     />
                                 ) : (
                                     <div className="flex justify-center text-gray-100/70">
-                                        Noch keine Fahrzeuge gebucht...
+                                        Noch keine Anzeigen gespeichert...
                                     </div>
                                 )}
                             </div>
                         </div>
+
+                        
                         
                     </div>
                 </div>

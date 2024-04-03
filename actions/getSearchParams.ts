@@ -58,6 +58,8 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         loading_h : searchParams.get("loading_h"),
         loading_l : searchParams.get("loading_l"),
         loading_b : searchParams.get("loading_b"),
+
+        radius : searchParams.get("radius"),
         
         
 

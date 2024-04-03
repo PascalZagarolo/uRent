@@ -58,6 +58,8 @@ type GetInserate = {
     loading_l : number;
     loading_b : number;
     loading_h : number;
+
+    radius : number;
     
 }
 
@@ -117,7 +119,9 @@ export const getInserate = async ({
 
     loading_l,
     loading_b,
-    loading_h
+    loading_h,
+
+    radius
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
     
@@ -302,13 +306,16 @@ export const getInserate = async ({
         let returnedArray = [];
 
         if(location) {
+            console.log(radius)
+            const usedRadius = radius ? radius : 50;
             const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
         for (const pInserat of filteredArray) {
             const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
                                                 Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
-                                                if(distance < 50) {
+                                                if(distance < usedRadius) {
                                                     returnedArray.push(pInserat);
                                                     console.log(distance)
+                                                    
                                                 }
         }
     } else {

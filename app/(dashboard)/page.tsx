@@ -74,6 +74,8 @@ interface MainPageProps {
         loading_b : number,
         loading_h : number,
 
+        radius : number
+
     }
 }
 
@@ -120,7 +122,8 @@ const Main = async ({
                             <MainPageSideBar />
                         </div>
                         
-                    <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]"> 
+                    <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
+                        
                     <RelevanteInserate
                             title={searchParams.title}
                             thisCategory={searchParams.category}
@@ -167,6 +170,8 @@ const Main = async ({
                             loading_l={searchParams.loading_l}
                             loading_b={searchParams.loading_b}
                             loading_h={searchParams.loading_h}
+
+                            radius={searchParams.radius}
                         />
                     </div>
                     

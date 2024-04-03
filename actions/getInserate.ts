@@ -47,19 +47,21 @@ type GetInserate = {
     lkwBrand? : typeof LkwBrandEnumRender;
 
     //Trailer
-    trailerType : typeof TrailerEnumRender;
-    coupling : typeof CouplingEnumRender;
-    extraType : typeof ExtraTypeEnumRender;
-    axis : number;
-    brake : boolean;
+    trailerType? : typeof TrailerEnumRender;
+    coupling? : typeof CouplingEnumRender;
+    extraType? : typeof ExtraTypeEnumRender;
+    axis? : number;
+    brake? : boolean;
 
-    volume : number;
+    volume? : number;
 
-    loading_l : number;
-    loading_b : number;
-    loading_h : number;
+    loading_l? : number;
+    loading_b? : number;
+    loading_h? : number;
 
-    radius : number;
+    radius? : number;
+
+    userId? : string
     
 }
 
@@ -121,7 +123,8 @@ export const getInserate = async ({
     loading_b,
     loading_h,
 
-    radius
+    radius,
+    userId,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
     
@@ -213,6 +216,7 @@ export const getInserate = async ({
         && bExtraType && bVolume && bLength && bBreite && bHeight;
     }
 
+    
     try {
         const usedStart = new Date(periodBegin);
         const usedEnd = new Date(periodEnd);
@@ -269,7 +273,11 @@ export const getInserate = async ({
         
 
         const filteredArray = foundInserate.filter((pInserat) => {
-            
+            console.log("test");
+            const validateUser = userId ? pInserat.userId === userId : true;
+
+            if(!validateUser) return false;
+
             const conditions = ConditionFilter(pInserat);
 
             if(!conditions) return false;
@@ -326,8 +334,6 @@ export const getInserate = async ({
     } catch {
         return [];
     }
-
-    
 }
         
 

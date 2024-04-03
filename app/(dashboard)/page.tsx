@@ -74,7 +74,8 @@ interface MainPageProps {
         loading_b : number,
         loading_h : number,
 
-        radius : number
+        radius : number,
+        user : string,
 
     }
 }
@@ -172,6 +173,7 @@ const Main = async ({
                             loading_h={searchParams.loading_h}
 
                             radius={searchParams.radius}
+                            userId={searchParams.user}
                         />
                     </div>
                     

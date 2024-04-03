@@ -12,6 +12,8 @@ import axios from "axios";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { FaUserTie } from "react-icons/fa6";
+import { users } from "@/db/schema";
+import { Button } from "@/components/ui/button";
 
 
 const SearchItem = () => {
@@ -31,11 +33,13 @@ const SearchItem = () => {
     const [foundProfiles, setFoundProfiles] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [isSearching, setIsSearching] = useState(true);
 
-    const params = getSearchParamsFunction("title");
+    const params = getSearchParamsFunction("user");
 
 
-    const debouncedValue = useDebounce(value);
+    const debouncedValue = useDebounce(value, 100);
     /*
     useEffect(() => {
         const url = qs.stringifyUrl({
@@ -82,6 +86,23 @@ const SearchItem = () => {
         router.push(url)
     }
 
+    const onUserSearch = (selectUser : typeof users.$inferSelect) => {
+        
+        setSelectedUser(selectUser);
+        
+        console.log("sadas")
+        const url = qs.stringifyUrl({
+            url: "/",
+            query: {
+                user : selectUser.id,
+                ...params,
+            }
+        }, { skipEmptyString: true, skipNull: true });
+       setIsSearching(false);
+        setShowDropdown(false)
+       router.push(url)
+    }
+
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             onSearch();
@@ -89,31 +110,32 @@ const SearchItem = () => {
     };
 
     return (
-        <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4 ">
-
-
-
-
-<div className="w-full relative">
+        <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4" >
+            <div className="w-full relative" >
                 <Input
                     className="2xl:w-[272px] w-full border-none rounded-none dark:focus:bring-0 dark:focus-visible:ring-0 focus:border-none bg-[#1B1F2C]"
                     placeholder="Ich suche nach..."
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    onFocus={() => setShowDropdown(true)}
-                    onBlur={() => setShowDropdown(false)}
+                    onFocus={() => {setShowDropdown(true); setIsSearching(true)}}
+                    onBlur={() => {
+                        setTimeout(() => {
+                            setShowDropdown(false)
+                        }, 200)
+                    }}
                 />
                 {showDropdown && (
-                    <div className="absolute w-full bg-[#141721]    rounded-b-md space-y-2 text-sm">
-                        
-                        <ul>
-                            {foundProfiles.map((profile) => (
-                                <li className="p-4 font-semibold flex gap-x-2" key={profile.id}>
-                                  <FaUserTie className="w-4 h-4" />  {profile.name}
-                                </li>
+                    <div className="absolute w-full bg-[#141721] rounded-b-md space-y-2 text-sm" onBlur={() => {setShowDropdown(false)}}>
+
+                       
+                            {foundProfiles.map((profile : typeof users.$inferSelect) => (
+                                <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
+                                key={profile.id} onClick={() => {onUserSearch(profile)}} >
+                                    <FaUserTie className="w-4 h-4" />  {profile.name}
+                                </div>
                             ))}
-                        </ul>
+                        
                     </div>
                 )}
             </div>

@@ -17,12 +17,12 @@ import { users } from "@/db/schema";
 
 interface LoggedInBarHeaderProps {
     currentUser: typeof users.$inferSelect;
-   
+
 }
 
 const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     currentUser,
-    
+
 }) => {
 
     const router = useRouter();
@@ -50,15 +50,15 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             <div className="flex lg:gap-x-2">
                 <div className="sm:block hidden">
                     <NotificationShortCut
-                        
+
                     />
                 </div>
                 <div className="lg:block hidden">
-                    
-                                <FavouritesShortCut
-                                    currentUser={currentUser}
-                                />
-                            
+
+                    <FavouritesShortCut
+                        currentUser={currentUser}
+                    />
+
                 </div>
                 <div className="items-center mr-4 sm:block hidden">
                     <ConversationShortCut />

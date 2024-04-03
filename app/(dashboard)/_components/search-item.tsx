@@ -3,7 +3,7 @@
 import qs from "query-string"
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/hooks/use-debounce";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import { useEffect, useState } from "react";
@@ -94,13 +94,25 @@ const SearchItem = () => {
         const url = qs.stringifyUrl({
             url: "/",
             query: {
-                user : selectUser.id,
+                user : selectUser?.id || null,
                 ...params,
             }
         }, { skipEmptyString: true, skipNull: true });
        setIsSearching(false);
         setShowDropdown(false)
        router.push(url)
+    }
+
+    const onUserDelete = () => {
+        setSelectedUser(null)
+        const url = qs.stringifyUrl({
+            url : "/",
+            query : {
+                user : null,
+                ...params
+            }
+        }, { skipEmptyString: true, skipNull: true })
+        router.push(url)
     }
 
     const handleKeyDown = (e) => {
@@ -125,16 +137,27 @@ const SearchItem = () => {
                         }, 200)
                     }}
                 />
+                
+                    
+               
                 {showDropdown && (
                     <div className="absolute w-full bg-[#141721] rounded-b-md space-y-2 text-sm" onBlur={() => {setShowDropdown(false)}}>
-
-                       
-                            {foundProfiles.map((profile : typeof users.$inferSelect) => (
+                        {selectedUser ? (
+                            <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
+                            key={selectedUser.id}>
+                                <FaUserTie className="w-4 h-4" />  {selectedUser.name} 
+                                <X className="w-4 h-4 ml-auto text-rose-600" onClick={() => {onUserDelete()}} />
+                        </div>
+                        ) : (
+                            foundProfiles.map((profile : typeof users.$inferSelect) => (
                                 <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
                                 key={profile.id} onClick={() => {onUserSearch(profile)}} >
                                     <FaUserTie className="w-4 h-4" />  {profile.name}
                                 </div>
-                            ))}
+                            ))
+                        )}
+                       
+                            
                         
                     </div>
                 )}

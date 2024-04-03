@@ -31,11 +31,13 @@ export default function RootLayout({
 }) {
 
   ReactGA.initialize('G-CTJ3FVZ2R4')
-
-  ReactGA.send({
-    hitType : 'pageview',
-    page : window.location.pathname
-  })
+  if (typeof window !== "undefined") {
+    ReactGA.send({
+      hitType : 'pageview',
+      page : window?.location.pathname
+    })
+  }
+  
 
   return (
     <html lang="en">

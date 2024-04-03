@@ -46,7 +46,8 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                     {thisFavourite[0]?.inserat?.images?.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
-                            src={thisFavourite[0]?.inserat?.images[0]?.url}
+                            //@ts-ignore
+                            src={thisFavourite?.inserat[0]?.images[0]?.url}
                             width={200}
                             height={100}
                             className="w-full h-full min-h-[100px] min-w-1/4 object-cover"
@@ -58,26 +59,30 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                     )}
                 </div>
                 <div className="w-1/4 truncate ml-4 text-sm font-base mr-2">
-                    {thisFavourite[0]?.inserat?.title}
+                    {//@ts-ignore
+                    thisFavourite?.inserat?.title}
                 </div>
                 <div className="w-1/6 h-[100px]">
                     <p className={cn("text-sm flex items-start h-[100px] overflow-hidden", thisFavourite[0]?.inserat.isPublished ? 
                     "text-emerald-600 font-semibold" : "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-                         {thisFavourite[0].inserat.description}
+                      {//@ts-ignore   
+                         thisFavourite.inserat.description}
                     </p>
                 </div>
                 <div className="md:w-2/6 w-1/6 text-sm dark:text-gray-100/90 text-gray-700  font-semibold ml-4">
                     <div>
                         <div className="flex items-center">
                             <Image
-                                src={thisFavourite[0].inserat?.user?.image || "/placeholder-person.jpg"}
+                                src={//@ts-ignore   
+                                    thisFavourite?.inserat?.user?.image || "/placeholder-person.jpg"}
                                 alt="Profilbild"
                                 className="w-[30px] h-[30px] rounded-full object-cover mr-2"
                                 width={40}
                                 height={40}
                             />
                             <p className="ml-2 md:block hidden">
-                            {thisFavourite[0].inserat.user.name}
+                            {//@ts-ignore   
+                            thisFavourite?.inserat.user.name}
                                 </p>
                             
                         </div>

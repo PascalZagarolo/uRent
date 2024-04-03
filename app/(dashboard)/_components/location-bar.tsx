@@ -97,8 +97,8 @@ const AutoComplete = () => {
   };
 
   return (
-    <div className="lg:flex items-center hidden">
-      <div className="2xl:mr-16 xl:mr-8 flex items-center mt-2 w-full flex-shrink">
+    <div className="lg:flex items-center mr-4 hidden">
+      <div className="flex items-center mt-2 w-full flex-shrink">
         <div className="flex sm:pr-2">
         <Input
           ref={inputRef}
@@ -106,13 +106,13 @@ const AutoComplete = () => {
           placeholder="Standort.."
           className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none input: text-sm input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
           onChange={(e) => { setValue(e.target.value) }} />
-          
+          <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 rounded-none" onClick={onSearch}>
+          <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
+        </Button>
             <Proximity />
           
         </div>
-        <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 ml-1 " onClick={onSearch}>
-          <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
-        </Button>
+        
       </div>
       
     </div>

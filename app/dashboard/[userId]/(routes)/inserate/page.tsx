@@ -10,6 +10,8 @@ import SidebarDashboard from "../../_components/sidebar-dashboard"
 import db from "@/db/drizzle"
 import { eq } from "drizzle-orm"
 import { inserat } from "@/db/schema"
+import MenuBar from "../../_components/menu-bar"
+import BreadCrumpPage from "../../_components/bread-crump-page"
 
 
 
@@ -53,12 +55,15 @@ const InserateOverview = async ({
         
             
             <div className="flex justify-center py-8 px-4">
-            <div className="px-4 hidden md:block">
-                <SidebarDashboard />
-            </div>
+            
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
-                    <div className="  min-h-screen">
-
+                    <div className="min-h-screen">
+                    <div>
+                        <MenuBar />
+                        <div>
+                            <BreadCrumpPage />
+                        </div>
+                    </div>
 
                         <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">

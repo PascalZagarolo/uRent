@@ -65,6 +65,7 @@ interface RelevanteInserateProps {
     loading_h? : number;
 
     radius : number;
+    userId : string;
 
 }
 
@@ -114,6 +115,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
     loading_l,
 
     radius,
+    userId
 }) => {
 
     
@@ -177,6 +179,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         loading_h : loading_h,
 
         radius : radius,
+        userId : userId,
 });
 
 

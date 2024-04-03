@@ -6,6 +6,8 @@ import SidebarDashboard from "../../_components/sidebar-dashboard";
 import db from "@/db/drizzle";
 import { booking, favourite } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import MenuBar from "../../_components/menu-bar";
+import BreadCrumpPage from "../../_components/bread-crump-page";
 
 const Bookings = async ({
     params
@@ -40,12 +42,15 @@ const Bookings = async ({
     
     return (
             <div className="flex justify-center py-8 px-4 ">
-                <div className="px-4 hidden md:block">
-                <SidebarDashboard />
-            </div>
+                
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className=" min-h-screen">
-
+                    <div>
+                        <MenuBar />
+                        <div>
+                            <BreadCrumpPage />
+                        </div>
+                    </div>
                     <div className="md:p-4 mt-4  rounded-lg ">
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center md:px-0 px-4">
                                 <StarFilledIcon className="mr-4" /> Meine Favouriten <p className="ml-4 text-lg"> </p>

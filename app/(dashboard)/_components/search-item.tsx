@@ -109,7 +109,7 @@ const SearchItem = () => {
                         
                         <ul>
                             {foundProfiles.map((profile) => (
-                                <li className="p-4 font-semibold flex gap-x-2">
+                                <li className="p-4 font-semibold flex gap-x-2" key={profile.id}>
                                   <FaUserTie className="w-4 h-4" />  {profile.name}
                                 </li>
                             ))}

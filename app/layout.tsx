@@ -11,6 +11,7 @@ import ActiveStatus from '@/components/ActiveStatus'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@/components/theme-provider'
+import ReactGA from "react-ga4"
 
 
 
@@ -28,6 +29,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  ReactGA.initialize('G-CTJ3FVZ2R4')
+
+  ReactGA.send({
+    hitType : 'pageview',
+    page : window.location.pathname
+  })
+
   return (
     <html lang="en">
       <head>

@@ -31,29 +31,34 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel="icon" href="uRent.png">
+
+        <link rel="icon" href="uRent.png">
         </link>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore
-     crossorigin="anonymous"></script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore
+          crossorigin="anonymous"></script>
+
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTJ3FVZ2R4"></script>
+
       </head>
-      <body className={inter.className}>  
-      <ThemeProvider
-      attribute="class"
-      defaultTheme="dark"
-      enableSystem
-      disableTransitionOnChange> 
-      <AuthContext>
-      <ActiveStatus/>
-      
-      <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
-        </script>  
-        {children}
-      <ToasterContext/>
-    <Toaster/>
-    </AuthContext>
-    <SpeedInsights/>
-    <Analytics/>
-    </ThemeProvider>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange>
+          <AuthContext>
+            <ActiveStatus />
+
+            <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
+            </script>
+            {children}
+            <ToasterContext />
+            <Toaster />
+          </AuthContext>
+          <SpeedInsights />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )

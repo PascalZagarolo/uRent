@@ -29,7 +29,7 @@ const SearchItem = () => {
     
 
     const debouncedValue = useDebounce(value);
-
+    /*
     useEffect(() => {
         const url = qs.stringifyUrl({
             url: pathname,
@@ -41,18 +41,25 @@ const SearchItem = () => {
 
         router.push(url)
     }, [debouncedValue, router, pathname, currentLocation])
+    */
 
     const onSearch = () => {
         const url = qs.stringifyUrl({
             url: "/",
             query: {
-                title: debouncedValue,
+                title: value,
                 location : currentLocation,
             }
         }, { skipEmptyString: true, skipNull: true })
 
         router.push(url)
     }
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            onSearch();
+        }
+    };
 
     return (
         <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4 ">
@@ -66,6 +73,7 @@ const SearchItem = () => {
                 placeholder="Ich suche nach..."
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                onKeyDown={handleKeyDown}
             />
             <div className="px-2 py-2  rounded-none rounded-r-md bg-slate-800 dark:hover:bg-slate-700 hover: cursor-pointer lg:hidden xl:flex" onClick={onSearch}>
             <Search

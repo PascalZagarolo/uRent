@@ -37,7 +37,7 @@ const MenuBar = () => {
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer", isInserat && "bg-[#1C1C1C]")} href={`${baseUrl}/inserate`}>
                 Meine Inserate
             </a>
-            <a className={cn("p-4 rounded-t-md hover:cursor-pointer", isFavourite && "bg-[#1C1C1C]")} href={`${baseUrl}/bookings`}>
+            <a className={cn("p-4 rounded-t-md hover:cursor-pointer", isFavourite && "bg-[#1C1C1C]")} href={`${baseUrl}/favourites`}>
                 Favouriten
             </a>
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer", isBooking && "bg-[#1C1C1C]")} href={`${baseUrl}/bookings`}>

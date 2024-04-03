@@ -34,25 +34,26 @@ const Imprint = async () => {
                                     Angaben gemäß § 5 TMG
                                 </p>
                                 <p className="mt-2">
-                                    Max Muster
+                                    uRent
                                 </p>
                                 <p className="mt-2">
-                                    Musterweg
+                                Lützowstraße 375
                                 </p>
                                 <p className="mt-2">
-                                    42653 Musterstadt
+                                    42653 Solingen
                                 </p>
-                                <p className="mt-2">
-                                    Max Muster
-                                </p>
+                                
                                 <p className="mt-4 text-lg font-semibold">
                                     Vertreten durch:
                                 </p>
                                 <p className="mt-2">
-                                    Max Muster
+                                    Vincent Garber
                                 </p>
                                 <p className="mt-2">
-                                    Max Muster
+                                    Karl Schad
+                                </p>
+                                <p className="mt-2">
+                                    Pascal Zagarolo
                                 </p>
                                 <div>
                                     <p className="font-bold mt-4">
@@ -60,15 +61,16 @@ const Imprint = async () => {
                                     </p>
                                     <div>
                                         <p className="mt-2">
-                                            Telefon: 01234-789456
+                                            Telefon: +49(0)1636860555
                                         </p>
                                         <p className="mt-2">
-                                            Fax: 1234-56789
+                                            Telefax: +49 30 37 71 96 10
                                         </p>
                                         <p className="mt-2">
-                                            E-Mail: <a href="mailto:max@muster.de">max@muster.de</a>
+                                            E-Mail: <a href="mailto:support@urent-rental.de">support@urent-rental.de</a>
                                         </p>
                                     </div>
+                                    {/* 
                                     <div className="mt-4">
                                         <p className="font-bold">
                                             Umsatzsteuer-ID:
@@ -91,6 +93,7 @@ const Imprint = async () => {
                                             Musteraufsicht Musterstadt
                                         </p>
                                     </div>
+                                    */}
                                 </div>
                             </div>
 

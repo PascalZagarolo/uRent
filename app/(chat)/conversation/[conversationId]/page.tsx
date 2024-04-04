@@ -106,9 +106,9 @@ const ConversationPage = async ({
     let otherUserChat: typeof users.$inferSelect;
 
     return (
-        <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 min-h-screen">
+        <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 overflow-y-hidden">
             <div className="relative top-0 w-full z-50">
-                <HeaderLogo
+            <HeaderLogo
                     currentUser={currentUser}
                      />
             </div>
@@ -118,7 +118,7 @@ const ConversationPage = async ({
                 
                 />
              </div>
-            <div className="flex justify-center h-screen py-8 px-4 ">
+            <div className="flex justify-center min-h-full  px-4">
             <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] h-full hidden md:block dark:border-[#1C1C1C] border">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
@@ -136,7 +136,7 @@ const ConversationPage = async ({
                 
                 <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white">
                     <div className="rounded-lg h-full no-scrollbar">
-                        <div className="relative h-full">
+                        <div className="relative">
                             <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-md truncate sm:text-2xl flex items-center p-4 font-semibold  sticky top-0 z-10">
                                 <ReturnToChat />
                                 <Image 
@@ -155,14 +155,14 @@ const ConversationPage = async ({
                                     />
                                 </div>
                             </h3>
-                            <div className="overflow-y-auto h-full no-scrollbar">
-
+                            <div className="overflow-y-auto h-[800px] no-scrollbar">
                             <ChatComponent
                                     //@ts-ignore
                                     messages={messages}
                                     currentUser={currentUser}
                                     thisConversation={justConversation}
                                 />
+                            
                             </div>
                             <div className="sticky bottom-0 w-full flex items-center border-t border-gray-600/10 ">
                             <ChatInput />

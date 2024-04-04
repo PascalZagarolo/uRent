@@ -33,10 +33,10 @@ const Proximity = () => {
         <Select onValueChange={(e) => {
           onClick(e)
         }}>
-      <SelectTrigger className="w-[120px] bg-[#141721] border-none rounded-none rounded-r-md">
+      <SelectTrigger className="w-[120px] bg-[#141721] text-gray-200 f border-none rounded-none rounded-r-md">
         <SelectValue placeholder="Umkreis" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="font-semibold">
         <SelectGroup>
           <SelectLabel>Umkreis</SelectLabel>
           <SelectItem value="10">10 Km</SelectItem>

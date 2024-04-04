@@ -7,11 +7,17 @@ import { AuthError } from "next-auth";
 import { signIn } from "@/auth";
 
 import { getUserByEmail } from "@/data/user";
-import { sendVerificationEmail } from "@/lib/mail";
-import { generateVerificationToken } from "@/lib/tokens";
+import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/mail";
+import { generateTwoFactorToken, generateVerificationToken } from "@/lib/tokens";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/app/(main)/_components/_schemas";
 import { z } from "zod";
+import { getTwoFactorTokenByEmail } from "./two-factor-token";
+import { twoFactorToken } from "@/db/schema";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
+import { getTwoFactorConfirmationByUserId } from "./two-factor-confirmation";
+import { twoFactorConfirmation } from '../db/schema';
 
 
 
@@ -34,15 +40,18 @@ export const login = async (
 
   const existingUser = await getUserByEmail(email);
 
+
+
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "Email existiert nicht" }
   }
+
+
 
   if (!existingUser.emailVerified) {
     const verificationToken = await generateVerificationToken(
       existingUser.email,
     );
-
     await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token,
@@ -50,6 +59,51 @@ export const login = async (
 
     return { success: "Bitte bestätige deine Email-Addresse" };
   }
+  //////////////////////////////////////////////////////////////////////////////////
+  if (existingUser.usesTwoFactor && existingUser.email) {
+    if (code) {
+      const receivedTwoFactorToken = await getTwoFactorTokenByEmail(
+        existingUser.email
+      );
+
+      if (!receivedTwoFactorToken) {
+        return { error: "Ungültiger Code!" };
+      }
+
+      if (receivedTwoFactorToken.token !== code) {
+        return { error: "Ungültiger Code" };
+      }
+
+      const hasExpired = new Date(receivedTwoFactorToken.expires) < new Date();
+
+      if (hasExpired) {
+        return { error: "Code abgelaufen" };
+      }
+
+      await db.delete(twoFactorToken).where(eq(twoFactorToken.email, existingUser.email));
+
+      const existingConfirmation = await getTwoFactorConfirmationByUserId(
+        existingUser.id
+      );
+
+      if (existingConfirmation) {
+        await db.delete(twoFactorToken).where(eq(twoFactorToken.id, existingConfirmation.id));
+      }
+
+      await db.insert(twoFactorConfirmation).values({
+        userId: existingUser.id,
+      })
+    } else {
+      const generatedTwoFactorToken = await generateTwoFactorToken(existingUser.email)
+      await sendTwoFactorTokenEmail(
+        generatedTwoFactorToken.email,
+        generatedTwoFactorToken.token,
+      );
+
+      return { twoFactor: true };
+    }
+  }
+////////////////////////////////////////////////////////////////////////////
   try {
     console.log(password)
     await signIn("credentials", {

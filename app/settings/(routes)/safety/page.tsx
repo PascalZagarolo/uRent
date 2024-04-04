@@ -36,9 +36,7 @@ const SettingsPage = async () => {
                     </div>
                     <div className="min-h-screen">
                         <div>
-
                             <BreadCrumpSettings />
-
                         </div>
                         <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">

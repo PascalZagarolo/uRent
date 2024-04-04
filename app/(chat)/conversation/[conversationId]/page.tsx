@@ -157,7 +157,7 @@ const ConversationPage = async ({
                             </h3>
                             <div className="overflow-y-auto h-full no-scrollbar">
 
-                                <ChatComponent
+                            <ChatComponent
                                     //@ts-ignore
                                     messages={messages}
                                     currentUser={currentUser}

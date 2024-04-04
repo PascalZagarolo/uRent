@@ -50,21 +50,24 @@ const SettingsPage = async () => {
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
-                            <ChangePassword />
+                                    <ChangePassword />
                                 </div>
                             </div>
                             <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                 <div className="flex items-center">
-                                <LockClosedIcon className="mr-4 h-6 w-6" /> Zwei-Faktor Authentifizierung  
+                                    <LockClosedIcon className="mr-4 h-6 w-6" /> Zwei-Faktor Authentifizierung
                                 </div>
-                                <p className="ml-4 text-xs dark:text-gray-200/60 font-medium"> 
-                                Erhalte bei jedem Anmeldungsversuch eine Bestätigungs-Email.
+                                <p className="ml-4 text-xs dark:text-gray-200/60 font-medium">
+                                    Erhalte bei jedem Anmeldungsversuch eine Bestätigungs-Email.
                                 </p>
-                               
+
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
-                            <Select2Fa />
+                                    <Select2Fa 
+                                    
+                                    thisUser={findCurrentUser}
+                                    />
                                 </div>
                             </div>
                         </div>

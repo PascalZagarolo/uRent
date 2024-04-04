@@ -125,13 +125,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 </div>
                 <div className="w-3/4 px-4 text-base font-semibold h-[24px] text-ellipsis text-gray-200 sm:truncate overflow-hidden">
                     
-                        <Link
+                        <a
                         className="hover:underline h-[24px] overflow-hidden truncate whitespace-break-spaces break-words text-ellipsis"
                         href={`/inserat/${thisInserat.id}`}
                         target="_blank"
                         >
                         {thisInserat.title} 
-                        </Link>
+                        </a>
                         
                 </div>
                 <div className="ml-auto mr-4 ">

@@ -22,7 +22,7 @@ import { and, eq, sql } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
 import { RiCaravanLine } from "react-icons/ri";
 import BreadCrumbs from "./bread-crumbs";
-
+import { Helmet } from 'react-helmet';
 
 
 
@@ -108,8 +108,11 @@ const InseratAnzeige = async ({
 
 
     return (
+        <>
+        <title>
+           Mieten auf uRent
+        </title>
         <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max ">
-
             <div className="h-full sm:p-4 p-2 w-full">
                 <div className="w-full justify-end flex">
                     <BreadCrumbs
@@ -140,7 +143,7 @@ const InseratAnzeige = async ({
                             bg-[#1d1f2b] sm:px-8 rounded-lg p-4 w-3/4 truncate overflow-hidden">
                                 <div className="w-full ">
                                     <div className="text-left truncate">
-                                        {thisInserat.title} 
+                                        {thisInserat.title}
                                     </div>
                                 </div>
                             </div>
@@ -359,7 +362,7 @@ const InseratAnzeige = async ({
 
             </div>
 
-        </div>
+        </div></>
 
     );
 }

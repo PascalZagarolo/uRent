@@ -3,7 +3,7 @@
 
 import ChatMessageRender from "./_chatcomponents/chat-message-render";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { useParams } from "next/navigation";
 import { find, set } from "lodash";
@@ -36,7 +36,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
 
     useEffect(() => {
         pusherClient.subscribe(conversationId);
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        
 
         const messageHandler = (message) => {
             setMessages((current) => {
@@ -47,7 +47,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
                 return [...current, message]
             });
 
-            bottomRef?.current?.scrollIntoView({ behavior: "smooth" });
+            ;
         }
 
         const deleteMessage = (message) => {
@@ -65,7 +65,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
                 return current;
               });
 
-            bottomRef?.current?.scrollIntoView({ behavior: "smooth" });
+            
         }
 
         pusherClient.bind('messages:new', messageHandler);
@@ -78,21 +78,33 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         }
     }, )
     
+    
+
     useEffect(() => {
-        setTimeout(() => {
-            if (pMessages.length > 0) {
-                const lastMessage = document.getElementById(`message-${pMessages[pMessages.length - 1].id}`);
-                if (lastMessage) {
-                    lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
-                }
+        if (pMessages.length > 0) {
+            const lastMessage = document.getElementById(`message-${pMessages[pMessages.length - 1].id}`);
+            if (lastMessage) {
+                lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
             }
-            bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
-        }, 250)
+        }
+    
+        if (bottomRef.current) {
+            
+            const offset = 100; 
+            bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "center"});
+        }
     }, [pMessages]);
+
+    function scrollToBottom() {
+        // Use setTimeout to allow DOM updates before scrolling
+        setTimeout(() => {
+          window.scrollTo(0, document.body.scrollHeight);
+        }, 0);
+      }
 
     return ( 
         <div>
-            <div className="no-scrollbar  overflow-y-auto h-full w-full" ref={bottomRef}   >
+            <div className="no-scrollbar  overflow-y-auto h-full w-full"   ref={bottomRef} >
             <div className="dark:bg-[#1C1C1C]">
             <h3 className="flex justify-center  text-gray-900/30 px-4  dark:text-gray-100">
             Chat gestartet am {formateDate(thisConversation.createdAt)}
@@ -107,11 +119,15 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
                 />
                 
             ))}
+            
             </div>
-           
+            
             </div>
             
         </div>
+        
+
+           
         </div>
      );
 }

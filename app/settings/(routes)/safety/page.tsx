@@ -8,6 +8,9 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
 import MenuBar from "../../_components/settings-tabs";
+import ChangePassword from "./_components/change-password";
+import { LockClosedIcon } from "@radix-ui/react-icons";
+import Select2Fa from "./_components/select-2fa";
 
 
 
@@ -47,13 +50,22 @@ const SettingsPage = async () => {
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
-
+                            <ChangePassword />
                                 </div>
-
-                                <div>
-
+                            </div>
+                            <h3 className="dark:text-gray-100 text-2xl font-semibold">
+                                <div className="flex items-center">
+                                <LockClosedIcon className="mr-4 h-6 w-6" /> Zwei-Faktor Authentifizierung  
                                 </div>
-
+                                <p className="ml-4 text-xs dark:text-gray-200/60 font-medium"> 
+                                Erhalte bei jedem Anmeldungsversuch eine Bestätigungs-Email.
+                                </p>
+                               
+                            </h3>
+                            <div className="w-full p-4 mt-2 rounded-md">
+                                <div className="pb-4 px-4">
+                            <Select2Fa />
+                                </div>
                             </div>
                         </div>
                     </div>

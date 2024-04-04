@@ -2,13 +2,39 @@
 'use server';
 
 
+import FaActivation from '@/react-email-starter/emails/urent/2fa-activation';
 import ChangePassword from '@/react-email-starter/emails/urent/change-password';
 import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
+import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
 import { render } from '@react-email/components';
 import { Resend } from "resend";
 
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+export const sendTwoFactorActivating = async (
+  email: string,
+  
+) => {
+  await resend.emails.send({
+    from: "mail@u-rent-rental.de",
+    to: email,
+    subject: "2FA Aktivierung",
+    react : FaActivation()
+  });
+};
+
+export const sendTwoFactorTokenEmail = async (
+  email: string,
+  token: string
+) => {
+  await resend.emails.send({
+    from: "mail@u-rent-rental.de",
+    to: email,
+    subject: "2FA Code",
+    react : ConfirmLogin({token})
+  });
+};
 
 export const sendVerificationEmail = async (
     email: string,
@@ -21,7 +47,7 @@ export const sendVerificationEmail = async (
    
 
     await resend.emails.send({
-        from: "uRent@u-rent-rental.de",
+        from: "mail@u-rent-rental.de",
         to: email,
         subject: "Bestätige deine Anmeldung",
         react : ConfirmMail({confirmLink}) ,

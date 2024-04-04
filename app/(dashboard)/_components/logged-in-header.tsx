@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-import { LogOutIcon, MailCheck, TrendingUp, UserIcon } from "lucide-react";
+import { LogOutIcon, MailCheck, SettingsIcon, TrendingUp, UserIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ConversationShortCut from "./conversation-shortcut";
@@ -127,9 +127,18 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         </p>
                     </Button>
 
-                    <SettingsSheet
-                        currentUser={currentUser}
-                    />
+                    <Button
+                        variant="ghost"
+                        className="  bg-[#e1dfdf] 
+                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
+                        onClick={() => {router.push("/settings")}}
+                        
+                    >
+                        <SettingsIcon className="mr-4" />
+                        <p>
+                            Einstellungen
+                        </p>
+                    </Button>
 
 
                     <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2" />

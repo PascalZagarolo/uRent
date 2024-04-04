@@ -56,7 +56,9 @@ const SettingsPage = async () => {
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
-                                    <ChangePassword />
+                                    <ChangePassword 
+                                    userEmail={findCurrentUser?.email}
+                                    />
                                 </div>
                             </div>
                             {!findSocials && (

@@ -39,3 +39,24 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
 
   return { success: "Email gesendet!" };
 }
+
+export const resetClient = async (email : string) => {
+ 
+  console.log(email)
+
+  const existingUser = await getUserByEmail(email);
+
+  if (!existingUser) {
+    return { error: "Email nicht gefunden!" };
+  }
+
+  const passwordResetToken = await generatePasswordResetToken(email);
+  
+  await sendPasswordResetEmail(
+    passwordResetToken?.email,
+    passwordResetToken?.token,
+  );
+  
+
+  return { success: "Email gesendet!" };
+}

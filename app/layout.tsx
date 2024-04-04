@@ -12,7 +12,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@/components/theme-provider'
 import ReactGA from "react-ga4"
-
+import { Helmet } from 'react-helmet';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -31,19 +31,28 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  ReactGA.initialize('G-CTJ3FVZ2R4')
-  if (typeof window !== "undefined") {
-    ReactGA.send({
-      hitType : 'pageview',
-      page : window?.location.pathname
-    })
-  }
+  
   
 
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/uRent.png"/>
+        
+
+        
+        <title>Mieten auf uRent</title>
+        <meta name="description" content="PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
+  Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent." />
+        <meta name="keywords" content="mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger" />
+        <meta name="author" content="Mieten auf uRent" />
+        <meta property="og:title" content="uRent" />
+        <meta property="og:description" content="PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
+  Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent." />
+        <meta property="og:image" content="/uRent.png" />
+        <meta property="og:url" content="https://urent-rental.de" />
+        
+
         
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTJ3FVZ2R4"></script>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore

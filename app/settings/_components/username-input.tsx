@@ -46,7 +46,8 @@ const Username: React.FC<UsernameProps> = ({
                     {isEditing ? (
                         <Input 
                         ref={inputRef}
-                        className="border-none bg-[#141414] w-full"
+                        className="border-none dark:bg-[#141414] w-full border dark:border-none bg-gray-200 
+                        focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none"
                         value={username}
                         placeholder="Nutzername hinzufügen..."
                         onBlur={() => {setIsEditing(false)}}
@@ -54,7 +55,7 @@ const Username: React.FC<UsernameProps> = ({
                         />
                     ) : (
                         <div className="w-full">
-                            <div className="pl-3 p-2.5 bg-[#141414] text-sm rounded-md">
+                            <div className="pl-3 p-2.5 dark:bg-[#141414] border dark:border-none bg-gray-200 text-sm rounded-md">
                             {username ? username : "Nutzername hinzufügen..."}
                         </div>
                         <p className="ml-auto flex justify-end p-1 w-full text-xs font-semibold hover:underline hover:cursor-pointer"

@@ -66,9 +66,12 @@ export const LoginForm = () => {
             setSuccess(data.success);
           }
 
+          if (data?.twoFactor) {
+            setShowTwoFactor(true);
+          }
           
         })
-        .catch(() => setError("Something went wrong"));
+        .catch(() => setError("Etwas ist schief gelaufen.."));
     });
   };
 
@@ -101,7 +104,7 @@ export const LoginForm = () => {
                 name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormLabel>2FA Code</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -186,7 +189,7 @@ export const LoginForm = () => {
             type="submit"
             className="w-full"
           >
-            {showTwoFactor ? "Confirm" : "Login"}
+            {showTwoFactor ? "Bestätigen" : "Login"}
           </Button>
         </form>
       </Form>

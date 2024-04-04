@@ -3,7 +3,7 @@ import { Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
 
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { users } from "@/db/schema";
+import { accounts, users } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
@@ -23,6 +23,12 @@ const SettingsPage = async () => {
     const findCurrentUser = await db.query.users.findFirst({
         where: (
             eq(users.id, currentUser?.id)
+        )
+    })
+
+    const findSocials = await db.query.accounts.findFirst({
+        where : (
+            eq(accounts.userId, currentUser?.id)
         )
     })
 
@@ -53,7 +59,9 @@ const SettingsPage = async () => {
                                     <ChangePassword />
                                 </div>
                             </div>
-                            <h3 className="dark:text-gray-100 text-2xl font-semibold">
+                            {!findSocials && (
+                                <>
+                                <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                 <div className="flex items-center">
                                     <LockClosedIcon className="mr-4 h-6 w-6" /> Zwei-Faktor Authentifizierung
                                 </div>
@@ -70,6 +78,8 @@ const SettingsPage = async () => {
                                     />
                                 </div>
                             </div>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

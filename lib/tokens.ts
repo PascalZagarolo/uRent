@@ -19,11 +19,11 @@ export const generateTwoFactorToken = async (email: string) => {
     await db.delete(twoFactorToken).where(eq(twoFactorToken.id, existingToken.id))
   }
 
-  const createdTwoFactorToken = await db.insert(twoFactorToken).values({
+  const [createdTwoFactorToken] = await db.insert(twoFactorToken).values({
     email : email,
     token : token,
     expires : expires,
-  })
+  }).returning();
 
   return createdTwoFactorToken;
 }

@@ -136,4 +136,34 @@ export const useUnsavedChanges = create<unsavedChanges>((set) => ({
     }
 }))
 
+type unsavedChangesSettings = {
+    currentChanges : Object,
+    changeCurrent: (newChange : Object, value : string | number) => void;
+    deleteCurrent : (newChange : Object) => void;
+    getState: () => Object;
+}
+
+export const useUnsavedChangesSettings = create<unsavedChanges>((set) => ({
+    currentChanges : {},
+    changeCurrent(newChange, value) {
+        set((state) => ({
+            currentChanges: {
+                ...state.currentChanges,
+                [newChange.toString().trim()]: value
+            }   
+        }));
+        
+    },
+    deleteCurrent(newChange) {
+        set((state) => {
+            const updatedNewChange = { ...state.currentChanges };
+            delete updatedNewChange[newChange.toString().trim()];
+            return { currentChanges: updatedNewChange };
+        });
+    },
+    getState() {
+        return this.currentChanges;
+    }
+}))
+
 

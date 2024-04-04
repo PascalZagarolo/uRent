@@ -1,0 +1,2523 @@
+{
+  "id": "ddd1aeb5-2a54-4603-900f-9bf2dc7b55d4",
+  "prevId": "67b2d353-d713-41a2-b1ce-ae29db556fed",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "account": {
+      "name": "account",
+      "schema": "",
+      "columns": {
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "account_provider_providerAccountId_pk": {
+          "name": "account_provider_providerAccountId_pk",
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "address": {
+      "name": "address",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "postalCode": {
+          "name": "postalCode",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "state": {
+          "name": "state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locationString": {
+          "name": "locationString",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "longitude": {
+          "name": "longitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "latitude": {
+          "name": "latitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "address_inseratId_inserat_id_fk": {
+          "name": "address_inseratId_inserat_id_fk",
+          "tableFrom": "address",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "booking": {
+      "name": "booking",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vehicleId": {
+          "name": "vehicleId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "endDate": {
+          "name": "endDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "booking_inseratId_inserat_id_fk": {
+          "name": "booking_inseratId_inserat_id_fk",
+          "tableFrom": "booking",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "booking_userId_user_id_fk": {
+          "name": "booking_userId_user_id_fk",
+          "tableFrom": "booking",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "booking_vehicleId_vehicle_id_fk": {
+          "name": "booking_vehicleId_vehicle_id_fk",
+          "tableFrom": "booking",
+          "tableTo": "vehicle",
+          "columnsFrom": [
+            "vehicleId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "bookingRequest": {
+      "name": "bookingRequest",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "endDate": {
+          "name": "endDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "bookingRequest_inseratId_inserat_id_fk": {
+          "name": "bookingRequest_inseratId_inserat_id_fk",
+          "tableFrom": "bookingRequest",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "bookingRequest_userId_user_id_fk": {
+          "name": "bookingRequest_userId_user_id_fk",
+          "tableFrom": "bookingRequest",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "contactOptions": {
+      "name": "contactOptions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "emailAddress": {
+          "name": "emailAddress",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "website": {
+          "name": "website",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "websiteAddress": {
+          "name": "websiteAddress",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "phoneNumber": {
+          "name": "phoneNumber",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "userAddressId": {
+          "name": "userAddressId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "contactOptions_userId_user_id_fk": {
+          "name": "contactOptions_userId_user_id_fk",
+          "tableFrom": "contactOptions",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "contactOptions_userAddressId_userAddress_id_fk": {
+          "name": "contactOptions_userAddressId_userAddress_id_fk",
+          "tableFrom": "contactOptions",
+          "tableTo": "userAddress",
+          "columnsFrom": [
+            "userAddressId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "conversation": {
+      "name": "conversation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "user1": {
+          "name": "user1",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user2": {
+          "name": "user2",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "conversation_user1_user_id_fk": {
+          "name": "conversation_user1_user_id_fk",
+          "tableFrom": "conversation",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user1"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "conversation_user2_user_id_fk": {
+          "name": "conversation_user2_user_id_fk",
+          "tableFrom": "conversation",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user2"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "favourite": {
+      "name": "favourite",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "favourite_userId_user_id_fk": {
+          "name": "favourite_userId_user_id_fk",
+          "tableFrom": "favourite",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "favourite_inseratId_inserat_id_fk": {
+          "name": "favourite_inseratId_inserat_id_fk",
+          "tableFrom": "favourite",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "images": {
+      "name": "images",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "images_inseratId_inserat_id_fk": {
+          "name": "images_inseratId_inserat_id_fk",
+          "tableFrom": "images",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "inserat": {
+      "name": "inserat",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "category": {
+          "name": "category",
+          "type": "category",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price": {
+          "name": "price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isPublished": {
+          "name": "isPublished",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "multi": {
+          "name": "multi",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "emailAddress": {
+          "name": "emailAddress",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phoneNumber": {
+          "name": "phoneNumber",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "begin": {
+          "name": "begin",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "end": {
+          "name": "end",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annual": {
+          "name": "annual",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "dailyPrice": {
+          "name": "dailyPrice",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "license": {
+          "name": "license",
+          "type": "license",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "caution": {
+          "name": "caution",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reqAge": {
+          "name": "reqAge",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "views": {
+          "name": "views",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "addressId": {
+          "name": "addressId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pkwId": {
+          "name": "pkwId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lkwId": {
+          "name": "lkwId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "trailerId": {
+          "name": "trailerId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transportId": {
+          "name": "transportId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "inserat_userId_user_id_fk": {
+          "name": "inserat_userId_user_id_fk",
+          "tableFrom": "inserat",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "inserat_addressId_address_id_fk": {
+          "name": "inserat_addressId_address_id_fk",
+          "tableFrom": "inserat",
+          "tableTo": "address",
+          "columnsFrom": [
+            "addressId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "inserat_pkwId_pkwAttribute_id_fk": {
+          "name": "inserat_pkwId_pkwAttribute_id_fk",
+          "tableFrom": "inserat",
+          "tableTo": "pkwAttribute",
+          "columnsFrom": [
+            "pkwId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "inserat_lkwId_lkwAttribute_id_fk": {
+          "name": "inserat_lkwId_lkwAttribute_id_fk",
+          "tableFrom": "inserat",
+          "tableTo": "lkwAttribute",
+          "columnsFrom": [
+            "lkwId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "inserat_trailerId_trailerAttribute_id_fk": {
+          "name": "inserat_trailerId_trailerAttribute_id_fk",
+          "tableFrom": "inserat",
+          "tableTo": "trailerAttribute",
+          "columnsFrom": [
+            "trailerId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "inserat_transportId_transportAttribute_id_fk": {
+          "name": "inserat_transportId_transportAttribute_id_fk",
+          "tableFrom": "inserat",
+          "tableTo": "transportAttribute",
+          "columnsFrom": [
+            "transportId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "lkwAttribute": {
+      "name": "lkwAttribute",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "lkwBrand": {
+          "name": "lkwBrand",
+          "type": "lkwBrand",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "model": {
+          "name": "model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seats": {
+          "name": "seats",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "axis": {
+          "name": "axis",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "power": {
+          "name": "power",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_volume": {
+          "name": "loading_volume",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transmission": {
+          "name": "transmission",
+          "type": "transmission",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_l": {
+          "name": "loading_l",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_b": {
+          "name": "loading_b",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_h": {
+          "name": "loading_h",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_size": {
+          "name": "loading_size",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "weightClass": {
+          "name": "weightClass",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "drive": {
+          "name": "drive",
+          "type": "drive",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading": {
+          "name": "loading",
+          "type": "loading",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "application": {
+          "name": "application",
+          "type": "application",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "lkwAttribute_inseratId_inserat_id_fk": {
+          "name": "lkwAttribute_inseratId_inserat_id_fk",
+          "tableFrom": "lkwAttribute",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "message": {
+      "name": "message",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isInterest": {
+          "name": "isInterest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "senderId": {
+          "name": "senderId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "conversationId": {
+          "name": "conversationId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "message_inseratId_inserat_id_fk": {
+          "name": "message_inseratId_inserat_id_fk",
+          "tableFrom": "message",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "message_senderId_user_id_fk": {
+          "name": "message_senderId_user_id_fk",
+          "tableFrom": "message",
+          "tableTo": "user",
+          "columnsFrom": [
+            "senderId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "message_conversationId_conversation_id_fk": {
+          "name": "message_conversationId_conversation_id_fk",
+          "tableFrom": "message",
+          "tableTo": "conversation",
+          "columnsFrom": [
+            "conversationId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "pkwAttribute": {
+      "name": "pkwAttribute",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "brand": {
+          "name": "brand",
+          "type": "brand",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "model": {
+          "name": "model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seats": {
+          "name": "seats",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "doors": {
+          "name": "doors",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "freeMiles": {
+          "name": "freeMiles",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "extraCost": {
+          "name": "extraCost",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading": {
+          "name": "loading",
+          "type": "loading",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "extraType": {
+          "name": "extraType",
+          "type": "extraType",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "weightClass": {
+          "name": "weightClass",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transmission": {
+          "name": "transmission",
+          "type": "transmission",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "name": "type",
+          "type": "carType",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fuel": {
+          "name": "fuel",
+          "type": "fuelType",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_volume": {
+          "name": "loading_volume",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_l": {
+          "name": "loading_l",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_b": {
+          "name": "loading_b",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_h": {
+          "name": "loading_h",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_size": {
+          "name": "loading_size",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ahk": {
+          "name": "ahk",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "initial": {
+          "name": "initial",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "power": {
+          "name": "power",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pkwAttribute_inseratId_inserat_id_fk": {
+          "name": "pkwAttribute_inseratId_inserat_id_fk",
+          "tableFrom": "pkwAttribute",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "purchase": {
+      "name": "purchase",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "purchase_userId_user_id_fk": {
+          "name": "purchase_userId_user_id_fk",
+          "tableFrom": "purchase",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "purchase_inseratId_inserat_id_fk": {
+          "name": "purchase_inseratId_inserat_id_fk",
+          "tableFrom": "purchase",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "resetPasswordToken": {
+      "name": "resetPasswordToken",
+      "schema": "",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "resetPasswordToken_email_token_pk": {
+          "name": "resetPasswordToken_email_token_pk",
+          "columns": [
+            "email",
+            "token"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "rezension": {
+      "name": "rezension",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rating": {
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "editedAt": {
+          "name": "editedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isEdited": {
+          "name": "isEdited",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "receiverId": {
+          "name": "receiverId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "senderId": {
+          "name": "senderId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "rezension_receiverId_user_id_fk": {
+          "name": "rezension_receiverId_user_id_fk",
+          "tableFrom": "rezension",
+          "tableTo": "user",
+          "columnsFrom": [
+            "receiverId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "rezension_senderId_user_id_fk": {
+          "name": "rezension_senderId_user_id_fk",
+          "tableFrom": "rezension",
+          "tableTo": "user",
+          "columnsFrom": [
+            "senderId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "sessionToken": {
+          "name": "sessionToken",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_userId_user_id_fk": {
+          "name": "session_userId_user_id_fk",
+          "tableFrom": "session",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "stripeCustomer": {
+      "name": "stripeCustomer",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stripeCustomerId": {
+          "name": "stripeCustomerId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "stripeCustomer_userId_user_id_fk": {
+          "name": "stripeCustomer_userId_user_id_fk",
+          "tableFrom": "stripeCustomer",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "stripeCustomer_stripeCustomerId_unique": {
+          "name": "stripeCustomer_stripeCustomerId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "stripeCustomerId"
+          ]
+        }
+      }
+    },
+    "trailerAttribute": {
+      "name": "trailerAttribute",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "type": {
+          "name": "type",
+          "type": "trailer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coupling": {
+          "name": "coupling",
+          "type": "coupling",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading": {
+          "name": "loading",
+          "type": "loading",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "extraType": {
+          "name": "extraType",
+          "type": "extraType",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_volume": {
+          "name": "loading_volume",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_l": {
+          "name": "loading_l",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_b": {
+          "name": "loading_b",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_h": {
+          "name": "loading_h",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_size": {
+          "name": "loading_size",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "axis": {
+          "name": "axis",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "brake": {
+          "name": "brake",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "trailerAttribute_inseratId_inserat_id_fk": {
+          "name": "trailerAttribute_inseratId_inserat_id_fk",
+          "tableFrom": "trailerAttribute",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "transportAttribute": {
+      "name": "transportAttribute",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "loading": {
+          "name": "loading",
+          "type": "loading",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transmission": {
+          "name": "transmission",
+          "type": "transmission",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "extraType": {
+          "name": "extraType",
+          "type": "extraType",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_volume": {
+          "name": "loading_volume",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_l": {
+          "name": "loading_l",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_b": {
+          "name": "loading_b",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_h": {
+          "name": "loading_h",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loading_size": {
+          "name": "loading_size",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transportBrand": {
+          "name": "transportBrand",
+          "type": "transportBrand",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "weightClass": {
+          "name": "weightClass",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "power": {
+          "name": "power",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seats": {
+          "name": "seats",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "doors": {
+          "name": "doors",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fuel": {
+          "name": "fuel",
+          "type": "fuelType",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "transportAttribute_inseratId_inserat_id_fk": {
+          "name": "transportAttribute_inseratId_inserat_id_fk",
+          "tableFrom": "transportAttribute",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "userAddress": {
+      "name": "userAddress",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contactOptionsId": {
+          "name": "contactOptionsId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "postalCode": {
+          "name": "postalCode",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "city": {
+          "name": "city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "street": {
+          "name": "street",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "houseNumber": {
+          "name": "houseNumber",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locationString": {
+          "name": "locationString",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "longitude": {
+          "name": "longitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "latitude": {
+          "name": "latitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "userAddress_userId_user_id_fk": {
+          "name": "userAddress_userId_user_id_fk",
+          "tableFrom": "userAddress",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "userAddress_contactOptionsId_contactOptions_id_fk": {
+          "name": "userAddress_contactOptionsId_contactOptions_id_fk",
+          "tableFrom": "userAddress",
+          "tableTo": "contactOptions",
+          "columnsFrom": [
+            "contactOptionsId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "userAddress_userId_unique": {
+          "name": "userAddress_userId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "userId"
+          ]
+        },
+        "userAddress_contactOptionsId_unique": {
+          "name": "userAddress_contactOptionsId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "contactOptionsId"
+          ]
+        }
+      }
+    },
+    "user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "confirmedMail": {
+          "name": "confirmedMail",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sharesEmail": {
+          "name": "sharesEmail",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "usesTwoFactor": {
+          "name": "usesTwoFactor",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "twoFactorConfirmationId": {
+          "name": "twoFactorConfirmationId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contactId": {
+          "name": "contactId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "userAddressId": {
+          "name": "userAddressId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_twoFactorConfirmationId_twoFactorConfirmation_id_fk": {
+          "name": "user_twoFactorConfirmationId_twoFactorConfirmation_id_fk",
+          "tableFrom": "user",
+          "tableTo": "twoFactorConfirmation",
+          "columnsFrom": [
+            "twoFactorConfirmationId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "user_contactId_contactOptions_id_fk": {
+          "name": "user_contactId_contactOptions_id_fk",
+          "tableFrom": "user",
+          "tableTo": "contactOptions",
+          "columnsFrom": [
+            "contactId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "user_userAddressId_userAddress_id_fk": {
+          "name": "user_userAddressId_userAddress_id_fk",
+          "tableFrom": "user",
+          "tableTo": "userAddress",
+          "columnsFrom": [
+            "userAddressId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "vehicle": {
+      "name": "vehicle",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "inseratId": {
+          "name": "inseratId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "registration": {
+          "name": "registration",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "vehicle_inseratId_inserat_id_fk": {
+          "name": "vehicle_inseratId_inserat_id_fk",
+          "tableFrom": "vehicle",
+          "tableTo": "inserat",
+          "columnsFrom": [
+            "inseratId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "verificationToken": {
+      "name": "verificationToken",
+      "schema": "",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "verificationToken_identifier_token_pk": {
+          "name": "verificationToken_identifier_token_pk",
+          "columns": [
+            "identifier",
+            "token"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "application": {
+      "name": "application",
+      "values": {
+        "CONTAINERTRANSPORT": "CONTAINERTRANSPORT",
+        "DEICHSELANHAENGER": "DEICHSELANHAENGER",
+        "FAHRZEUGTRANSPORT": "FAHRZEUGTRANSPORT",
+        "FLUESSIGKEITSTRANSPORT": "FLUESSIGKEITSTRANSPORT",
+        "KASTENWAGEN": "KASTENWAGEN",
+        "KOFFERAUFBAU": "KOFFERAUFBAU",
+        "KIPPER": "KIPPER",
+        "KUEHLWAGEN": "KUEHLWAGEN",
+        "MOEBELTRANSPORT": "MOEBELTRANSPORT",
+        "PERSONENTRANSPORT": "PERSONENTRANSPORT",
+        "PLANWAGEN": "PLANWAGEN",
+        "PRITSCHENWAGEN": "PRITSCHENWAGEN",
+        "SATTELSCHLEPPER": "SATTELSCHLEPPER",
+        "SONSTIGES": "SONSTIGES"
+      }
+    },
+    "brand": {
+      "name": "brand",
+      "values": {
+        "Acura": "Acura",
+        "Alfa_Romeo": "Alfa_Romeo",
+        "Alpha_Motor_Corporation": "Alpha_Motor_Corporation",
+        "Arcimoto": "Arcimoto",
+        "Arrinera_Automotive": "Arrinera_Automotive",
+        "Aptera_Motors": "Aptera_Motors",
+        "Aston_Martin": "Aston_Martin",
+        "Atlis_Motor_Vehicles": "Atlis_Motor_Vehicles",
+        "Audi": "Audi",
+        "BMW": "BMW",
+        "Bentley": "Bentley",
+        "Bollinger_Motors": "Bollinger_Motors",
+        " Bugatti ": " Bugatti ",
+        "Buick": "Buick",
+        "BYD": "BYD",
+        "BYTON": "BYTON",
+        "Cadillac": "Cadillac",
+        "Canoo": "Canoo",
+        "Chery": "Chery",
+        "Chevrolet": "Chevrolet",
+        "Chrysler": "Chrysler",
+        "Citroen": "Citroen",
+        "Dacia": "Dacia",
+        "Daihatsu": "Daihatsu",
+        "Dodge": "Dodge",
+        "Electra_Meccanica": "Electra_Meccanica",
+        "Electrameccanica_Vehicles_Corp": "Electrameccanica_Vehicles_Corp",
+        "Elio_Motors": "Elio_Motors",
+        "Faraday_Future": "Faraday_Future",
+        "Ferrari": "Ferrari",
+        "Fiat": "Fiat",
+        "Fisker_Inc": "Fisker_Inc",
+        "Ford": "Ford",
+        "Genesis": "Genesis",
+        "Geely": "Geely",
+        "GMC": "GMC",
+        "Great_Wall": "Great_Wall",
+        "Haval": "Haval",
+        "Honda": "Honda",
+        "Hummer": "Hummer",
+        "Hyundai": "Hyundai",
+        "Infiniti": "Infiniti",
+        "Isuzu": "Isuzu",
+        "JAC": "JAC",
+        "Jaguar": "Jaguar",
+        "Jeep": "Jeep",
+        "Karma_Automotive": "Karma_Automotive",
+        "Kia": "Kia",
+        "Kreisel_Electric": "Kreisel_Electric",
+        "Land_Rover": "Land_Rover",
+        " Lamborghini ": " Lamborghini ",
+        " Lexus ": " Lexus ",
+        " Lincoln ": " Lincoln ",
+        " Local_Motors ": " Local_Motors ",
+        "Lordstown_Motors": "Lordstown_Motors",
+        "Lotus": "Lotus",
+        "Lucid_Motors": "Lucid_Motors",
+        "Mahindra": "Mahindra",
+        "Maserati": "Maserati",
+        "Mazda": "Mazda",
+        "McLaren": "McLaren",
+        "Mercedes_Benz": "Mercedes_Benz",
+        "MG": "MG",
+        "Micro_Mobility_Systems ": "Micro_Mobility_Systems ",
+        "Mini": "Mini",
+        "Mitsubishi": "Mitsubishi",
+        "NIO": "NIO",
+        "Nikola_Corporation": "Nikola_Corporation",
+        "Nissan": "Nissan",
+        "Opel": "Opel",
+        "Peugeot": "Peugeot",
+        "Polestar": "Polestar",
+        "Porsche": "Porsche",
+        "Proton": "Proton",
+        "RAM": "RAM",
+        "Renault": "Renault",
+        "Rimac": "Rimac",
+        "Rivian": "Rivian",
+        "Rolls_Royce": "Rolls_Royce",
+        "Saab": "Saab",
+        "SEAT": "SEAT",
+        "Smart": "Smart",
+        "SsangYong": "SsangYong",
+        "Subaru": "Subaru",
+        "Suzuki": "Suzuki",
+        "Skoda": "Skoda",
+        "Tesla": "Tesla",
+        "Terrafugia": "Terrafugia",
+        "Toyota": "Toyota",
+        "Vanderhall_Motor_Works": "Vanderhall_Motor_Works",
+        "Vauxhall": "Vauxhall",
+        "VinFast": "VinFast",
+        "Volkswagen": "Volkswagen",
+        "Volvo": "Volvo",
+        "Workhorse_Group_Inc": "Workhorse_Group_Inc",
+        "Wuling": "Wuling",
+        "Zoyte": "Zoyte"
+      }
+    },
+    "carType": {
+      "name": "carType",
+      "values": {
+        "KOMBI": "KOMBI",
+        "COUPE": "COUPE",
+        "SUV": "SUV",
+        "LIMOUSINE": "LIMOUSINE",
+        "VAN": "VAN",
+        "KLEINBUS": "KLEINBUS",
+        "CABRIO": "CABRIO",
+        "KLEIN": "KLEIN",
+        "SPORT": "SPORT",
+        "SUPERSPORT": "SUPERSPORT"
+      }
+    },
+    "category": {
+      "name": "category",
+      "values": {
+        "PKW": "PKW",
+        "LKW": "LKW",
+        "TRAILER": "TRAILER",
+        "TRANSPORT": "TRANSPORT"
+      }
+    },
+    "coupling": {
+      "name": "coupling",
+      "values": {
+        "KUGELKOPFKUPPLUNG": "KUGELKOPFKUPPLUNG",
+        "MAULKUPPLUNG": "MAULKUPPLUNG"
+      }
+    },
+    "drive": {
+      "name": "drive",
+      "values": {
+        "D4x2": "D4x2",
+        "D4x4": "D4x4",
+        "D6x2": "D6x2",
+        "D6x4": "D6x4",
+        "D6x6": "D6x6",
+        "D8x4": "D8x4",
+        "D8x6": "D8x6",
+        "D8x8": "D8x8"
+      }
+    },
+    "extraType": {
+      "name": "extraType",
+      "values": {
+        "CONTAINERTRANSPORT": "CONTAINERTRANSPORT",
+        "FAHRZEUGTRANSPORT": "FAHRZEUGTRANSPORT",
+        "FLUESSIGKEITSTRANSPORT": "FLUESSIGKEITSTRANSPORT",
+        "KASTENWAGEN": "KASTENWAGEN",
+        "KIPPER": "KIPPER",
+        "KOFFERAUFBAU": "KOFFERAUFBAU",
+        "KUEHLAUFBAU": "KUEHLAUFBAU",
+        "MOEBELTRANSPORT": "MOEBELTRANSPORT",
+        "MULDENKIPPER": "MULDENKIPPER",
+        "PERSONENTRANSPORT": "PERSONENTRANSPORT",
+        "PLANE": "PLANE",
+        "PRITSCHE": "PRITSCHE"
+      }
+    },
+    "fuelType": {
+      "name": "fuelType",
+      "values": {
+        "ELEKTRISCH": "ELEKTRISCH",
+        "DIESEL": "DIESEL",
+        "BENZIN": "BENZIN",
+        "HYBRID": "HYBRID"
+      }
+    },
+    "license": {
+      "name": "license",
+      "values": {
+        "A1": "A1",
+        "A2": "A2",
+        "A": "A",
+        "AM": "AM",
+        "B": "B",
+        "B17": "B17",
+        "B96": "B96",
+        "B196": "B196",
+        "B197": "B197",
+        "BE": "BE",
+        "C1": "C1",
+        "C1E": "C1E",
+        "C": "C",
+        "CE": "CE",
+        "D1": "D1",
+        "D1E": "D1E",
+        "DE": "DE",
+        "L": "L",
+        "T": "T"
+      }
+    },
+    "lkwBrand": {
+      "name": "lkwBrand",
+      "values": {
+        "Anhui_Jianghuai_Automobile": "Anhui_Jianghuai_Automobile",
+        "Ashok_Leyland": "Ashok_Leyland",
+        "Beiben_Trucks": "Beiben_Trucks",
+        "Bedford_Vehicles": "Bedford_Vehicles",
+        "Beiqi_Foton": "Beiqi_Foton",
+        "BYD_Auto": "BYD_Auto",
+        "Changan_Automobile": "Changan_Automobile",
+        "Changan_Motors": "Changan_Motors",
+        "Changfeng_Group": "Changfeng_Group",
+        "Changhe": "Changhe",
+        "Chery_Automobile": "Chery_Automobile",
+        "Chevrolet_Trucks": "Chevrolet_Trucks",
+        "Daihatsu": "Daihatsu",
+        "DAF_Trucks": "DAF_Trucks",
+        "Dongfeng_Liuzhou_Motor": "Dongfeng_Liuzhou_Motor",
+        "Dongfeng_Motor_Corporation": "Dongfeng_Motor_Corporation",
+        "Dodge_Trucks": "Dodge_Trucks",
+        "Eicher_Motors": "Eicher_Motors",
+        "FAW_Group": "FAW_Group",
+        "FAW_Group_Corporation": "FAW_Group_Corporation",
+        "FAW_Jiefang": "FAW_Jiefang",
+        "FAW_Jilin_Automobile": "FAW_Jilin_Automobile",
+        "Fiat_Professional": "Fiat_Professional",
+        "Ford_Trucks": "Ford_Trucks",
+        "Freightliner_Trucks": "Freightliner_Trucks",
+        "Fuso": "Fuso",
+        "GAC_Group": "GAC_Group",
+        "GAZ_Group": "GAZ_Group",
+        "Geely_Auto": "Geely_Auto",
+        "GMC_Trucks": "GMC_Trucks",
+        "Great_Wall_Motors": "Great_Wall_Motors",
+        "Hafei": "Hafei",
+        "Haima_Automobile": "Haima_Automobile",
+        "Haval": "Haval",
+        "Hawtai": "Hawtai",
+        "Higer_Bus": "Higer_Bus",
+        "Hino_Motors": "Hino_Motors",
+        "Hyundai_Trucks": "Hyundai_Trucks",
+        "International_Trucks": "International_Trucks",
+        "Isuzu_Motors": "Isuzu_Motors",
+        "Iveco": "Iveco",
+        "JAC_Motors": "JAC_Motors",
+        "Jiefang": "Jiefang",
+        "Jinhua_Youngman_Vehicle": "Jinhua_Youngman_Vehicle",
+        "Jinbei": "Jinbei",
+        "Kamaz": "Kamaz",
+        "Kenworth": "Kenworth",
+        "King_Long": "King_Long",
+        "KrAZ": "KrAZ",
+        "Land_Rover": "Land_Rover",
+        "Landwind": "Landwind",
+        "Leyland_Trucks": "Leyland_Trucks",
+        "Lifan_Group": "Lifan_Group",
+        "Mack_Trucks": "Mack_Trucks",
+        "MAN_Truck_Bus": "MAN_Truck_Bus",
+        "Maruti_Suzuki": "Maruti_Suzuki",
+        "Mazda_Trucks": "Mazda_Trucks",
+        "Maxus": "Maxus",
+        "Mercedes_Benz_Trucks": "Mercedes_Benz_Trucks",
+        "Mitsubishi_Fuso_Truck_and_Bus_Corporation": "Mitsubishi_Fuso_Truck_and_Bus_Corporation",
+        "Navistar_International": "Navistar_International",
+        "Nissan_Trucks": "Nissan_Trucks",
+        "Peterbilt": "Peterbilt",
+        "Piaggio_Commercial_Vehicles": "Piaggio_Commercial_Vehicles",
+        "Renault_Trucks": "Renault_Trucks",
+        "SAF_HOLLAND": "SAF_HOLLAND",
+        "SAIC_Motor": "SAIC_Motor",
+        "Scania": "Scania",
+        "Shaanxi_Automobile_Group": "Shaanxi_Automobile_Group",
+        "Shacman": "Shacman",
+        "Shandong_Tangjun_Ouling_Automobile_Manufacture": "Shandong_Tangjun_Ouling_Automobile_Manufacture",
+        "Sichuan_Tengzhong": "Sichuan_Tengzhong",
+        "Sinotruk": "Sinotruk",
+        "Sisu_Auto": "Sisu_Auto",
+        "Tata_Motors": "Tata_Motors",
+        "Tatra_Trucks": "Tatra_Trucks",
+        "Toyota_Trucks": "Toyota_Trucks",
+        "UD_Trucks": "UD_Trucks",
+        "Ural_Automotive_Plant": "Ural_Automotive_Plant",
+        "Volkswagen_Commercial_Vehicles": "Volkswagen_Commercial_Vehicles",
+        "Volvo_Trucks": "Volvo_Trucks",
+        "Western_Star_Trucks": "Western_Star_Trucks",
+        "Wuling_Motors": "Wuling_Motors",
+        "Xiamen_Golden_Dragon_Bus": "Xiamen_Golden_Dragon_Bus",
+        "Yutong_Group": "Yutong_Group",
+        "Zotye_Auto": "Zotye_Auto",
+        "Zhejiang_Geely_Holding_Group": "Zhejiang_Geely_Holding_Group",
+        "ZIL": "ZIL"
+      }
+    },
+    "loading": {
+      "name": "loading",
+      "values": {
+        "AUFFAHRRAMPE": "AUFFAHRRAMPE",
+        "LADERAMPE": "LADERAMPE",
+        "LADEBORDWAND": "LADEBORDWAND",
+        "KRAN": "KRAN",
+        "MITNAHMESTAPLER": "MITNAHMESTAPLER"
+      }
+    },
+    "trailer": {
+      "name": "trailer",
+      "values": {
+        "KLEIN": "KLEIN",
+        "SATTEL": "SATTEL",
+        "ANHAENGER": "ANHAENGER"
+      }
+    },
+    "transmission": {
+      "name": "transmission",
+      "values": {
+        "MANUAL": "MANUAL",
+        "AUTOMATIC": "AUTOMATIC",
+        "SEMI_AUTOMATIC": "SEMI_AUTOMATIC"
+      }
+    },
+    "transportBrand": {
+      "name": "transportBrand",
+      "values": {
+        "Chevrolet": "Chevrolet",
+        "Citroën": "Citroën",
+        "Citroën Jumper": "Citroën Jumper",
+        "Fiat": "Fiat",
+        "Ford": "Ford",
+        "Ford Transit": "Ford Transit",
+        "GMC": "GMC",
+        "Hyundai": "Hyundai",
+        "Iveco": "Iveco",
+        "Isuzu": "Isuzu",
+        "Mercedes_Benz": "Mercedes_Benz",
+        "Mitsubishi": "Mitsubishi",
+        "Nissan": "Nissan",
+        "Opel": "Opel",
+        "Peugeot": "Peugeot",
+        "Ram": "Ram",
+        "Renault": "Renault",
+        "Sprinter": "Sprinter",
+        "Toyota": "Toyota",
+        "Volkswagen": "Volkswagen"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

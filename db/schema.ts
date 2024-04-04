@@ -1,6 +1,8 @@
 
 
 
+
+
 import {
     timestamp,
     pgTable,
@@ -35,11 +37,22 @@ export const users = pgTable("user", {
     confirmedMail: boolean("confirmedMail").notNull().default(false),
     description: text("description"),
     sharesEmail: boolean("sharesEmail").notNull().default(false),
+    usesTwoFactor : boolean("usesTwoFactor").notNull().default(false),
+    
     contactId : uuid("contactId")
         .references(() => contactOptions.id, { onDelete: "cascade" }),
     userAddressId : uuid("userAddressId")
                     .references(() => userAddress.id, { onDelete: "cascade" }),
+    twoFactorConfirmationId : uuid("twoFactorConfirmationId")
+                                .references(() => twoFactorConfirmation.id, { onDelete: "cascade" }),
 })
+
+export const twoFactorConfirmation = pgTable("twoFactorConfirmation", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    userId: uuid("userId")
+        .references(() => users.id, { onDelete: "cascade" }),
+})
+
 
 
 
@@ -801,6 +814,7 @@ export const sessionRelations =  relations(sessions, ({ one }) => ({
         references : [users.id]
     })
 }))
+
 export const userRelations = relations(users, ({ one, many }) => ({
 
     userAddress : one(userAddress, {
@@ -824,11 +838,30 @@ export const userRelations = relations(users, ({ one, many }) => ({
         fields : [users.contactId],
         references : [contactOptions.id]
     }),
-
+    twoFactorConfirmation : one(twoFactorConfirmation, {
+        fields : [users.twoFactorConfirmationId],
+        references : [twoFactorConfirmation.id]
+    }),
+    
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
     
 }));
+
+export const twoFactorToken = pgTable("twoFactorToken", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    email : text("email"),
+    token : text("token"),
+    expires : timestamp("expires", { mode: "date" }).notNull(),
+})
+
+export const twoFactorConfirmationRelations = relations(twoFactorConfirmation, ({ one }) => ({
+    users : one(users, {
+        fields : [twoFactorConfirmation.userId],
+        references : [users.id]
+    })
+
+}))
 
 export const inseratRelations = relations(inserat, ({ one, many }) => ({
     user: one(users, {
@@ -1003,3 +1036,6 @@ export const conversationRelations = relations(conversation, ({ one, many }) => 
     }),
     messages : many(message)
 }))
+
+
+

@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { eq, or } from "drizzle-orm";
-import { conversation } from '../../../db/schema';
+import { conversation, notification } from '../../../db/schema';
 
 
 
@@ -37,6 +37,14 @@ const ConversationPage = async () => {
     } else {
         startedConversations = [];
     }
+    
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    
+    })
+
 
    
 
@@ -50,7 +58,7 @@ const ConversationPage = async () => {
             <div className="sm:hidden">
                 <MobileHeader
                 currentUser={currentUser}
-                
+                foundNotifications={foundNotifications}
                 />
              </div>
             <div className="flex justify-center h-screen py-8 px-4 ">

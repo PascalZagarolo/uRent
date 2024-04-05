@@ -25,6 +25,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { de } from "date-fns/locale";
 
 
 const DateFormFilter = () => {
@@ -178,6 +179,7 @@ const DateFormFilter = () => {
                                 field.onChange(date);
                                 setPeriodBegin(date);
                               }}
+                              locale={de}
                               disabled={(date) =>
                                 date < new Date() || date < new Date("1900-01-01")
                               }
@@ -229,6 +231,7 @@ const DateFormFilter = () => {
                               disabled={(date) =>
                                 date < periodBegin || date < new Date("1900-01-01")
                               }
+                              locale={de}
                               initialFocus
                               className="dark:bg-[#0F0F0F] border-none"
                             />

@@ -13,16 +13,16 @@ import { usePathname } from "next/navigation";
 import DashboardSheet from "./dashboard-sheet";
 
 import MobileLoginButton from "./mobile-login-button";
-import { users } from '../../../db/schema';
+import { notification, users } from '../../../db/schema';
 
 interface MobileHeaderProps {
     currentUser: typeof users.$inferSelect;
-    
+    foundNotifications : typeof notification.$inferSelect[];
 }
 
 const MobileHeader: React.FC<MobileHeaderProps> = ({
     currentUser,
-    
+    foundNotifications,
 }) => {
 
 
@@ -60,7 +60,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                                 <div className="flex w-full ml-auto ">
                                     <LoggedInBarHeader
                                         currentUser={currentUser}
-                                        
+                                        foundNotifications={foundNotifications}
                                     />
 
                                 </div>

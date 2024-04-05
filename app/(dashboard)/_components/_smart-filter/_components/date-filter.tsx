@@ -150,7 +150,7 @@ const DateFormFilter = () => {
                     name="start"
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-1/2">
-                        <FormLabel className="text-gray-100/80">Beginn</FormLabel>
+                        <FormLabel className="text-gray-100/80">Mietbeginn</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -199,7 +199,7 @@ const DateFormFilter = () => {
                     name="end"
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-1/2">
-                        <FormLabel className="text-gray-100/70">Ablauf</FormLabel>
+                        <FormLabel className="text-gray-100/70">Mietende</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>

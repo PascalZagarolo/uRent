@@ -178,7 +178,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                             thisInserat={thisInserat}
                                         />
                                     ) : (
-                                        <div className="flex justify-center py-40 text-sm">
+                                        <div className="flex justify-center py-40 text-sm border dark:border-none">
                                             <p className="py-1">
                                             Wähle ein Inserat aus...
                                             </p>

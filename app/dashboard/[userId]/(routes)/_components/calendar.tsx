@@ -17,6 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import qs from "query-string";
 import { usePathname, useRouter } from "next/navigation";
 import { booking,  inserat } from "@/db/schema";
+import { de } from 'date-fns/locale';
 
 const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
@@ -90,7 +91,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                     <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
 
-                <h2 className="text-center font-semibold w-[160px]">{format(currentDate, "MMMM yyyy")}</h2>
+                <h2 className="text-center font-semibold w-[160px]">{format(currentDate, "MMMM yyyy", { locale : de })}</h2>
                 <Button onClick={increaseMonth} className="" variant="ghost">
                     <ArrowRightCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>

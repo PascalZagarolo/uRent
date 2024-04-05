@@ -46,6 +46,7 @@ const Header: React.FC<HeaderProps>  = async ({
 
     foundNotifications = await findNotifications.execute({userId : currentUser?.id})
    
+    console.log(foundNotifications)
 
     return (
         <div className="bg-[#1f2332] h-[90px]  flex-shrink-1 hidden sm:block">
@@ -84,7 +85,7 @@ const Header: React.FC<HeaderProps>  = async ({
                             <div className="items-center flex ml-auto mr-8">
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
-                                    
+                                    foundNotifications={foundNotifications}
                                 />
 
                             </div>

@@ -1,6 +1,7 @@
 
 import db from "@/db/drizzle";
-import { booking, notification } from "@/db/schema";
+import { booking, inserat, notification } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -27,9 +28,16 @@ export async function POST(
             content : values.content,
         }).returning();
 
+        const thisInserat = await db.query.inserat.findFirst({
+            where : (
+                eq(inserat.id, params.inseratId)
+            )
+        })
+
         const [sendNotification] = await db.insert(notification).values({
             userId : values.userId,
-            content : `Hat dich zu einer Buchung hinzugefügt`,
+            content : thisInserat?.title,
+            inseratId : params.inseratId,
             notificationType : "BOOKING",
         }).returning();
 

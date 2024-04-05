@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { booking } from "@/db/schema";
+import { cn } from "@/lib/utils";
 
 import clsx from "clsx";
 import { format, isToday } from "date-fns";
@@ -52,59 +53,14 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
       key={index}
       className={clsx("dark:bg-[#0F0F0F]  p-4 text-center ", {
         "bg-gray-200": isToday(day),
-        "text-emerald-400 font-semibold": isToday(day),
+        "text-emerald-400 font-bold": isToday(day),
+        "dark:bg-rose-900 bg-rose-900" : (bookings.length > 0),
       })}
     >
       {format(day, "d")}
-      {bookings?.map((pBooking) => {
-        return (
-
-          <>
-          {isShowing(pBooking.inseratId, pBooking?.vehicleId) && 
-          <div
-          key={pBooking.id}
-          className="   bg-blue-600 rounded-md py-2  flex justify-center mt-2"
-        >
-          {inseratFilter ? (
-            <X className="text-gray-900 w-4 h-4" />
-          ) : (
-            <HoverCard>
-              <HoverCardTrigger><CarIcon className="text-gray-200 w-4 h-4" /></HoverCardTrigger>
-              <HoverCardContent className="dark:bg-[#1C1C1C] border-none">
-                <h3 className="font-semibold flex justify-start">
-                  {//@ts-ignore
-                  pBooking.inserat.title}
-                </h3>
-                <div className="flex items-center justify-start hover:underline hover:cursor-pointer" 
-                onClick={() => {router.push(`/profile/${booking.userId}`)}}>
-                  <UserIcon className="h-4 w-4 mr-2" /> {//@ts-ignore
-                  pBooking?.user?.name} 
-                  <div className="ml-auto">
-                  <Image 
-                  alt="Mieter-Bild"
-                  src={//@ts-ignore
-                    pBooking?.user?.image || "/placeholder-person.jpg"}
-                  width={100}
-                  height={100}
-                  className="w-[32px] h-[32px] rounded-full"
-                  />
-                  </div>
-                </div>
-                <div className="flex items-center justify-start">
-                <CalendarSearchIcon className="h-4 w-4 mr-2" />
-                {format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-          )}
-        </div>
-          }
-          </>
-            
-          
-
-        );
-      })}
+      
+        
+      
     </div>
 
 

@@ -4,6 +4,7 @@ import { booking, inserat } from "@/db/schema";
 
 import { CalendarCheck, CalendarClock, CheckCheckIcon, CheckIcon } from "lucide-react";
 import BookingCalendar from "./booking-calendar";
+import { FaCalendarCheck, FaRegCalendarCheck } from "react-icons/fa6";
 
 
 interface BookingsOverviewProps{
@@ -55,7 +56,10 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
             </DialogTrigger>
             <DialogContent  className="dark:bg-[#0F0F0F] border-none">
                 <div>
-                    <h1 className="flex font-semibold mb-2 "> Termine ({receivedBookings?.length}) </h1>
+                    <h1 className="flex font-semibold mb-2 ">
+                    <FaCalendarCheck className="w-4 h-4 mr-2 hidden dark:block" />
+                    <FaRegCalendarCheck  className="w-4 h-4 mr-2 block dark:hidden"/>
+                         Verfügbarkeit prüfen</h1>
                     <div className=" overflow-y-auto no-scrollbar">
                         
                         <BookingCalendar 

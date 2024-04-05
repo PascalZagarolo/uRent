@@ -672,30 +672,26 @@ export const vehicle = pgTable("vehicle", {
     image : text("image")
 })
 
-/*
+
 export const notificationTypeEnum = pgEnum("notificationType", [
     "MESSAGE",
     "BOOKING",
+    "BOOKING_REQUEST",
     "EMAIL",
     "FAVOURITE"
 ])
 
-export const notifications = pgTable("notification", {
-    id: serial("id").primaryKey(),
+export const notification = pgTable("notification", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    userId: integer("userId").
-        notNull().
-        references(() => users.id, { onDelete: "cascade" }),
-
-    notificationType : text("notificationType").notNull(),
-
-    content: text("content"),
+    notificationType: notificationTypeEnum("notificationType"),
+    content : text("content"),
+    userId : uuid("userId")
+                .references(() => users.id, { onDelete: "cascade" }),
 
     createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
-    readAt : timestamp("readAt", { mode: "date" }),
-
 })
-*/
+
 //every array of a user => e.g liked posts etc..
 
 export const accountRelations = relations(accounts, ({ one }) => ({
@@ -742,6 +738,7 @@ export const userRelations = relations(users, ({ one, many }) => ({
     
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
+    notifications : many(notification)
     
 }));
 
@@ -932,6 +929,13 @@ export const conversationRelations = relations(conversation, ({ one, many }) => 
         relationName : "conversation_user2"
     }),
     messages : many(message)
+}))
+
+export const notificationRelations = relations(notification, ({ one }) => ({
+    user : one(users, {
+        fields : [notification.userId],
+        references : [users.id]
+    })
 }))
 
 

@@ -1,19 +1,15 @@
-'use client'
+
 
 
 import LoginBarHeader from "./login-bar-header";
 
 import { useSession } from "next-auth/react";
 
-
-
-
-
 import Inserat from "./add-inserat";
 import SearchItem from "./search-item";
 
 import { Truck } from "lucide-react";
-import { useRouter } from "next/navigation";
+
 
 
 import { cn } from "@/lib/utils";
@@ -23,6 +19,9 @@ import LocationBar from "./location-bar";
 
 import LoggedInBarHeader from "./logged-in-header";
 import { users } from "@/db/schema";
+import { notification } from '../../../db/schema';
+import { eq, sql } from "drizzle-orm";
+import db from "@/db/drizzle";
 
 
 
@@ -31,33 +30,37 @@ interface HeaderProps {
     
 }
 
-const Header: React.FC<HeaderProps> = ({
+const Header: React.FC<HeaderProps>  = async ({
     currentUser,
     
 }) => {
 
+    let foundNotifications = [];
 
-    
-    const { data: session, status } = useSession();
+    const findNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, sql.placeholder("userId"))
+        )
+    }).prepare("findNotifications")
 
-    const router = useRouter();
 
+    foundNotifications = await findNotifications.execute({userId : currentUser.id})
    
 
     return (
         <div className="bg-[#1f2332] h-[90px]  flex-shrink-1 hidden sm:block">
             <div className="flex 2xl:justify-start md:justify-evenly">
-                <a className="flex justify-start items-center py-6 ml-8 sm:text-3xl font-semibold text-white hover:cursor-pointer" href="/">
+            <a className="flex justify-start items-center py-6 ml-8 sm:text-3xl font-semibold text-white hover:cursor-pointer" href="/">
                 <Truck className="sm:ml-1 mr-2" />
                     <div className="text-[#3e466c]  font-font-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</div>
-                    <p className="text-[#eaebf0]  ">Rent</p>
+                    <p className="text-[#eaebf0]">Rent</p>
                 </a>
 
                 <div className="flex w-full">
-                    <div className={cn("flex items-center justify-center ", status === 'authenticated' ? "ml-auto" : "w-full")}>
+                    <div className={cn("flex items-center justify-center ", currentUser ? "ml-auto" : "w-full")}>
                         <div className="2xl:mr-32 items-center sm:mr-8">
 
-                            {status === 'authenticated' && currentUser && (
+                        {currentUser && (
                                 <Inserat
                                     currentUser={currentUser}
                                 />
@@ -75,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({
                         </div>
                     </div>
                     {
-                        status === 'unauthenticated' || !currentUser ? (
+                        !currentUser ? (
                             <LoginBarHeader/>
                         ) : (
                             <div className="items-center flex ml-auto mr-8">

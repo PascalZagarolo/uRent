@@ -86,24 +86,19 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
     
 
     return (
-        <div className="container mx-auto p-4 border dark:border-none">
-            
+        <div className="container mx-auto p-4 border dark:border-none h-[500px]">        
             <div className="mb-4 flex items-center">
                 <Button onClick={decreaseMonth} className="" variant="ghost">
                     <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
-
                 <h2 className="text-center font-semibold w-[160px]">{format(currentDate, "MMMM yyyy", { locale : de })}</h2>
                 <Button onClick={increaseMonth} className="" variant="ghost">
                     <ArrowRightCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
-
-
-                <div className="ml-auto">
-                    
+                <div className="ml-auto"> 
                 </div>
             </div>
-            <div className="grid grid-cols-7 gap-2">
+            <div className="grid grid-cols-7 gap-2 ">
                 {WEEKDAYS.map((day) => {
                     return (
                         <div key={day} className="font-bold text-center bg-gray-200 dark:bg-[#0F0F0F]">
@@ -115,7 +110,7 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
                     return (
                         <div
                             key={`empty-${index}`}
-                            className="  p-2 text-center dark:bg-[#202020]"
+                            className="  p-2 text-center dark:bg-[#171717]"
                         />
                     );
                 })}
@@ -130,7 +125,6 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
                                 key={dateKey}
                                 bookings={todaysEvents}
                             />
-
                         </div>
                     );
                 })}

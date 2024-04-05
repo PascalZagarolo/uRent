@@ -1,16 +1,35 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import HeaderLogo from "../../_components/header-logo";
+import { eq } from "drizzle-orm";
+import { notification } from "@/db/schema";
+import db from "@/db/drizzle";
+import MobileHeader from "../../_components/mobile-header";
 
 const AgbsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    
+    })
+
     return (
         <div>
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser} />
+                    currentUser={currentUser} 
+                    foundNotifications={foundNotifications}
+                    />
             </div>
+            <div className="sm:hidden">
+                <MobileHeader
+                currentUser={currentUser}
+                foundNotifications = {foundNotifications}
+                />  
+             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10">
 
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">

@@ -104,9 +104,6 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                             <SelectItem value="Mercedes-Benz">Mercedes-Benz</SelectItem>
                             <SelectItem value="Scania">Scania</SelectItem>
                             <SelectItem value="Volvo">Volvo</SelectItem>
-                            
-                            
-                            
                             <SelectLabel>
                                 <Separator className="w-full"/>
                             </SelectLabel>

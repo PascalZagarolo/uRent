@@ -27,26 +27,15 @@ import db from "@/db/drizzle";
 
 interface HeaderProps {
     currentUser: typeof users.$inferSelect;
-    
+    foundNotifications : typeof notification.$inferSelect[];
 }
 
 const Header: React.FC<HeaderProps>  = async ({
     currentUser,
-    
+    foundNotifications
 }) => {
 
-    let foundNotifications = [];
-
-    const findNotifications = await db.query.notification.findMany({
-        where : (
-            eq(notification.userId, sql.placeholder("userId"))
-        )
-    }).prepare("findNotifications")
-
-
-   foundNotifications = await findNotifications.execute({userId : currentUser?.id})
-   
-    console.log(foundNotifications)
+    
 
     return (
         <div className="bg-[#1f2332] h-[90px]  flex-shrink-1 hidden sm:block">

@@ -18,7 +18,7 @@ import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { eq, sql } from "drizzle-orm";
-import { address, images, inserat, lkwAttribute, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
+import { address, images, inserat, lkwAttribute, notification, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,11 @@ const InseratCreation = async ({
 }: { params: { inseratId: string } }) => {
 
     const currentUser = await getCurrentUser();
+
+    const foundNotifications = await db.query.notification.findMany({
+        where: eq(notification.userId, currentUser?.id)
+    
+    })
 
     const findInserat = db.query.inserat.findFirst({
         with: {
@@ -87,6 +92,7 @@ const InseratCreation = async ({
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
+                    foundNotifications={foundNotifications}
                 />
             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10 h-full">

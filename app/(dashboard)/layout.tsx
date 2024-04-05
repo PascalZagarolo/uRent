@@ -5,6 +5,7 @@ import CookiesDialog from "@/components/cookies";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
+import HeaderLogo from "./_components/header-logo";
 
 
 const DashboardLayout = async (
@@ -35,6 +36,13 @@ const DashboardLayout = async (
                 foundNotifications = {foundNotifications}
                 />  
              </div>
+             <div className="relative top-0 w-full z-50">
+               
+                <HeaderLogo
+                    currentUser={currentUser}
+                    foundNotifications={foundNotifications}
+                     />
+            </div>
              <div>
                 {children} 
                 

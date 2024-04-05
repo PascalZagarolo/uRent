@@ -120,6 +120,7 @@ const ConversationPage = async ({
             <div className="relative top-0 w-full z-50">
             <HeaderLogo
                     currentUser={currentUser}
+                    foundNotifications={foundNotifications}
                      />
             </div>
             <div className="sm:hidden">

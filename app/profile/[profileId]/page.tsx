@@ -8,7 +8,7 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import { contactOptions, inserat, rezension, users } from "@/db/schema";
+import { contactOptions, inserat, notification, rezension, users } from "@/db/schema";
 
 
 
@@ -21,7 +21,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     const currentUser = await getCurrentUser();
 
-    
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    })
 
     const foundInserate = await db.query.inserat.findMany({
         where : (
@@ -64,11 +68,13 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
+                    foundNotifications={foundNotifications}
                      />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
+                    foundNotifications={foundNotifications}
                 />
             </div>
             <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">

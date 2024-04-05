@@ -239,6 +239,7 @@ export const carTypeEnum = pgEnum("carType", [
     "SUV",
     "LIMOUSINE",
     "VAN",
+    "KASTENWAGEN",
     "KLEINBUS",
     "CABRIO",
     "KLEIN",

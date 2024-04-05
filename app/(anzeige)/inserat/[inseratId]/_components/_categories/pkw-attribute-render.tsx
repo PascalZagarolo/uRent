@@ -45,7 +45,7 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
             )}
             {attributes?.fuel && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <RiGasStationLine className="w-4 h-4 mr-2" />    {attributes.fuel}
+                    <RiGasStationLine className="w-4 h-4 mr-2" />    {(attributes.fuel).substring(0,1)}{(attributes.fuel).substring(1).toLowerCase()}
                 </div>
             )}
             {attributes?.doors && (

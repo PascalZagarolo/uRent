@@ -39,10 +39,10 @@ import { Inter } from "next/font/google";
             />
             <Hr style={hr} />
             <Text style={paragraph}>
-              Vielen Dank für die Erstellung eines Accounts auf uRent.
+              Du hast dich gerade versucht einzuloggen, benutze folgenden Code um deinen Login zu bestätigen
             </Text>
             <Text style={paragraph}>
-              Folgender Code
+              2FA Code :
             </Text>
             <Text style={paragraph}>
               {token}

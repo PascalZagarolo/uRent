@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 
 import { format } from "date-fns";
+import { de } from "date-fns/locale";
 
 import { AlertCircle, CalendarClockIcon, CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -205,7 +206,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                             disabled={isDateless}
                                                         >
                                                             {currentStart ? (
-                                                                format(currentStart, "PPP")
+                                                                format(currentStart, "PPP", { locale: de })
                                                             ) : (
                                                                 <span>Wähle einen Startpunkt</span>
                                                             )}
@@ -217,7 +218,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                 <PopoverContent className="w-auto p-0" align="start">
                                                     <Calendar
                                                         mode="single"
-                                                
+                                                        locale={de}
                                                         selected={currentStart}
                                                         onSelect={(e) => {setCurrentStart(e); console.log(currentStart)}}
                                                         className="dark:bg-[#0B0B0B] dark:border-none"
@@ -250,7 +251,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                             )}
                                                         >
                                                             {currentEnd ? (
-                                                                format(currentEnd, "PPP" )
+                                                                format(currentEnd, "PPP", { locale: de })
                                                             ) : (
                                                                 <span>Wähle deinen Endpunkt</span>
                                                             )}
@@ -263,6 +264,7 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                                                     <Calendar
                                                         mode="single"
                                                         className="dark:bg-[#0B0B0B] dark:border-none"
+                                                        locale={de}
                                                         selected={currentEnd}
                                                         onSelect={(e) => {setCurrentEnd(e)}}
                                                         disabled={(date) =>

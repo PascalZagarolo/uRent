@@ -3,7 +3,7 @@ import { Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
 
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { accounts, users } from "@/db/schema";
+import { accounts, notification, users } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
@@ -32,11 +32,20 @@ const SettingsPage = async () => {
         )
     })
 
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    
+    })
+
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser} />
+                    currentUser={currentUser}
+                    foundNotifications={foundNotifications}
+                    />
             </div>
             <div className="flex justify-center py-8 px-4">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">

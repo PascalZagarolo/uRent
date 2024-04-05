@@ -18,23 +18,13 @@ const LoginLayout = async (
                 <HeaderRedirect />
 
                 <div className="flex w-full">
-                   
-                    
+                     
                 </div>
             </div>
-
-
-
-
-
         </div>
     </div>
-
-
     <div className="mt-8 flex-grow h-full items-center">
-       
         {children}
-        
     </div>
 </div>
 

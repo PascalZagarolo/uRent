@@ -2,6 +2,9 @@ import React from "react";
 import getCurrentUser from "../../actions/getCurrentUser";
 import MobileHeader from "./_components/mobile-header";
 import CookiesDialog from "@/components/cookies";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
+import { notification } from "@/db/schema";
 
 
 const DashboardLayout = async (
@@ -16,14 +19,20 @@ const DashboardLayout = async (
 
 
     const currentUser = await getCurrentUser();
- 
+    
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    
+    })
 
     return ( 
-        <div className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar ">
+        <div className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar">
                         <div className="sm:hidden">
                 <MobileHeader
                 currentUser={currentUser}
-                
+                foundNotifications = {foundNotifications}
                 />  
              </div>
              <div>

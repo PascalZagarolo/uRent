@@ -167,8 +167,6 @@ const Bookings = () => {
                       </FormItem>
                     )}
                   />
-
-
                   <FormField
                     control={form.control}
                     name="end"
@@ -212,10 +210,7 @@ const Bookings = () => {
                       </FormItem>
                     )}
                   />
-
-
                 </div>
-                
                 <div>
                   <span className="font-semibold text-base flex">
                     <BookOpenCheck className="mr-2" />  Anmerkungen:
@@ -233,7 +228,6 @@ const Bookings = () => {
                     )}
                   />
                 </div>
-                
                 <DialogTrigger asChild>
                 <Button 
                   className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200
@@ -245,8 +239,7 @@ const Bookings = () => {
                 
                 </DialogTrigger>
               </form>
-            </Form>
-            
+            </Form>    
           </div>
         </div>
       </DialogContent>

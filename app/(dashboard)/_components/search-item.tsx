@@ -86,6 +86,23 @@ const SearchItem = () => {
         router.push(url)
     }
 
+    
+    /*
+    useEffect(() => {
+        if(!value && pathname === "/") {
+            const url = qs.stringifyUrl({
+                url: "/",
+                query: {
+                    title: null,
+                    location: currentLocation,
+                }
+            }, { skipEmptyString: true, skipNull: true })
+    
+            router.push(url)
+        }
+    }, [debouncedValue])
+    */
+
     const onUserSearch = (selectUser : typeof users.$inferSelect) => {
         
         setSelectedUser(selectUser);

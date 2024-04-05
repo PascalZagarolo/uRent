@@ -103,7 +103,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
             <div className="grid grid-cols-7 gap-2">
                 {WEEKDAYS.map((day) => {
                     return (
-                        <div key={day} className="font-bold text-center bg-[#0F0F0F]">
+                        <div key={day} className="font-bold text-center bg-gray-200 dark:bg-[#0F0F0F]">
                             {day}
                         </div>
                     );

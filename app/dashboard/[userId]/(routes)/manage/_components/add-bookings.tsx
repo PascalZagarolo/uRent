@@ -109,9 +109,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
     return (
         <Dialog>
 
-            <div className="bg-[#0F0F0F] w-full">
+            <div className="dark:bg-[#0F0F0F] bg-gray-200  w-full">
                 <DialogTrigger asChild className="w-full">
-                    <Button className=" text-gray-200  hover:bg-[#141414] rounded-none" variant="ghost">
+                    <Button className=" text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-[#141414] rounded-none" variant="ghost">
                         <PlusSquare className="mr-2 h-4 w-4" /> Buchungen hinzufügen
                     </Button>
                 </DialogTrigger>

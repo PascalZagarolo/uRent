@@ -208,19 +208,14 @@ export const loadingEnum = pgEnum("loading", [
 export const LoadingEnumRender = z.enum(loadingEnum.enumValues).Enum;
 
 export const brandEnum = pgEnum("brand", [
-    'Acura' , 'Alfa_Romeo', 'Alpha_Motor_Corporation', 'Arcimoto', 'Arrinera_Automotive', 'Aptera_Motors',
-    'Aston_Martin', 'Atlis_Motor_Vehicles', 'Audi', 'BMW', 'Bentley', 'Bollinger_Motors', ' Bugatti ',
-    'Buick', 'BYD', 'BYTON', 'Cadillac', 'Canoo', 'Chery', 'Chevrolet', 'Chrysler', 'Citroen',
-    'Dacia', 'Daihatsu', 'Dodge', 'Electra_Meccanica', 'Electrameccanica_Vehicles_Corp', 'Elio_Motors',
-    'Faraday_Future', 'Ferrari' , 'Fiat', 'Fisker_Inc', 'Ford', 'Genesis', 'Geely', 'GMC', 'Great_Wall',
-    'Haval', 'Honda', 'Hummer', 'Hyundai', 'Infiniti', 'Isuzu', 'JAC', 'Jaguar',  'Jeep', 'Karma_Automotive',
-    'Kia', 'Kreisel_Electric', 'Land_Rover', ' Lamborghini ', ' Lexus ', ' Lincoln ', ' Local_Motors ', 'Lordstown_Motors',
-    'Lotus', 'Lucid_Motors', 'Mahindra', 'Maserati', 'Mazda', 'McLaren', 'Mercedes_Benz', 'MG',
-    'Micro_Mobility_Systems ', 'Mini', 'Mitsubishi', 'NIO', 'Nikola_Corporation', 'Nissan', 'Opel',
-    'Peugeot', 'Polestar',  'Porsche', 'Proton', 'RAM', 'Renault', 'Rimac', 'Rivian', 'Rolls_Royce',
-    'Saab', 'SEAT', 'Smart', 'SsangYong', 'Subaru', 'Suzuki', 'Skoda', 'Tesla', 'Terrafugia', 'Toyota',
-    'Vanderhall_Motor_Works',
-    'Vauxhall', 'VinFast', 'Volkswagen', 'Volvo', 'Workhorse_Group_Inc', 'Wuling', 'Zoyte'
+    "Abarth", "Acura", "Audi", "Alfa Romeo", "Alpina", "Alpine", 
+    "Aston Martin", "Bentley", "BMW", "Bugatti", "Buick", "BYD", "Cadillac", "Chevrolet", 
+    "Chrysler", "Citroën", "Corvette", "Cupra", "Dacia", "Daihatsu", "Ferrari", "Fiat", "Ford", 
+    "GMC", "Honda", "Hummer", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", "Koenigsegg", "KTM", 
+    "Lada", "Lancia", "Land Rover", "Lamborghini", "Lexus", "Lincoln", "Lotus", "Maserati", "Mazda", "McLaren", 
+    "Mercedes-Benz", "MG", "Mini", "Mitsubishi", "NIO", "Nissan", "Opel", "Pagani", "Peugeot", "Plymouth", "Polestar", 
+    "Pontiac", "Porsche", "RAM", "Renault", "Rolls Royce", "Rover", "Saab", "Seat", "Škoda", 
+    "Smart", "Subaru", "Suzuki", "Tesla", "Volkswagen", "Volvo", "Sonstige"
 ])
 
 export const BrandEnumRender = z.enum(brandEnum.enumValues).Enum;
@@ -316,95 +311,11 @@ export const pkwAttribute = pgTable("pkwAttribute", {
 
 
 export const lkwBrandEnum = pgEnum("lkwBrand", [
-    "Anhui_Jianghuai_Automobile",
-    "Ashok_Leyland",
-    "Beiben_Trucks",
-    "Bedford_Vehicles",
-    "Beiqi_Foton",
-    "BYD_Auto",
-    "Changan_Automobile",
-    "Changan_Motors",
-    "Changfeng_Group",
-    "Changhe",
-    "Chery_Automobile",
-    "Chevrolet_Trucks",
-    "Daihatsu",
-    "DAF_Trucks",
-    "Dongfeng_Liuzhou_Motor",
-    "Dongfeng_Motor_Corporation",
-    "Dodge_Trucks",
-    "Eicher_Motors",
-    "FAW_Group",
-    "FAW_Group_Corporation",
-    "FAW_Jiefang",
-    "FAW_Jilin_Automobile",
-    "Fiat_Professional",
-    "Ford_Trucks",
-    "Freightliner_Trucks",
-    "Fuso",
-    "GAC_Group",
-    "GAZ_Group",
-    "Geely_Auto",
-    "GMC_Trucks",
-    "Great_Wall_Motors",
-    "Hafei",
-    "Haima_Automobile",
-    "Haval",
-    "Hawtai",
-    "Higer_Bus",
-    "Hino_Motors",
-    "Hyundai_Trucks",
-    "International_Trucks",
-    "Isuzu_Motors",
-    "Iveco",
-    "JAC_Motors",
-    "Jiefang",
-    "Jinhua_Youngman_Vehicle",
-    "Jinbei",
-    "Kamaz",
-    "Kenworth",
-    "King_Long",
-    "KrAZ",
-    "Land_Rover",
-    "Landwind",
-    "Leyland_Trucks",
-    "Lifan_Group",
-    "Mack_Trucks",
-    "MAN_Truck_Bus",
-    "Maruti_Suzuki",
-    "Mazda_Trucks",
-    "Maxus",
-    "Mercedes_Benz_Trucks",
-    "Mitsubishi_Fuso_Truck_and_Bus_Corporation",
-    "Navistar_International",
-    "Nissan_Trucks",
-    "Peterbilt",
-    "Piaggio_Commercial_Vehicles",
-    "Renault_Trucks",
-    "SAF_HOLLAND",
-    "SAIC_Motor",
-    "Scania",
-    "Shaanxi_Automobile_Group",
-    "Shacman",
-    "Shandong_Tangjun_Ouling_Automobile_Manufacture",
-    "Sichuan_Tengzhong",
-    "Sinotruk",
-    "Sisu_Auto",
-    "Tata_Motors",
-    "Tatra_Trucks",
-    "Toyota_Trucks",
-    "UD_Trucks",
-    "Ural_Automotive_Plant",
-    "Volkswagen_Commercial_Vehicles",
-    "Volvo_Trucks",
-    "Western_Star_Trucks",
-    "Wuling_Motors",
-    "Xiamen_Golden_Dragon_Bus",
-    "Yutong_Group",
-    "Zotye_Auto",
-    "Zhejiang_Geely_Holding_Group",
-    "ZIL"
-
+    "DAF", "Demag", "Ford", "Iveco", "Liebherr", 
+    "Magirus Deutz", "MAN", "Meiller", "Mercedes-Benz", 
+    "Mitsubishi", "Nissan", "Opel", "Palfinger", "Peugeot", 
+    "Renault", "Scania", "Skoda", "Steyr", "Tatra", "Toyota", 
+    "Volkswagen", "Volvo", "Sonstige"
 ])
 
 export const LkwBrandEnumRender = z.enum(lkwBrandEnum.enumValues).Enum;
@@ -524,30 +435,15 @@ export const trailerAttribute = pgTable("trailerAttribute", {
 })
 
 export const transportBrandEnum = pgEnum("transportBrand", [
-    "Chevrolet",
-    "Citroën",
-    "Citroën Jumper",
-    "Fiat",
-    "Ford",
-    "Ford Transit",
-    "GMC",
-    "Hyundai",
-    "Iveco",
-    "Isuzu",
-    "Mercedes_Benz",
-    "Mitsubishi",
-    "Nissan",
-    "Opel",
-    "Peugeot",
-    "Ram",
-    "Renault",
-    "Sprinter",
-    "Toyota",
-    "Volkswagen"
-
+    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco", "Mazda", 
+    "Maxus", "Mercedes-Benz", "Mitsubishi", "Multicar", "Nissan", "Opel", 
+    "Peugeot", "Renault", "SEAT", "Škoda", "Suzuki", "Toyota", "Volkswagen",
+     "Volvo", "Sonstige"
 ])
 
 export const TransportBrandEnumRender = z.enum(transportBrandEnum.enumValues).Enum;
+
+
 
 export const transportAttribute = pgTable("transportAttribute", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),

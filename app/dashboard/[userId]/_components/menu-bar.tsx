@@ -33,7 +33,7 @@ const MenuBar = () => {
             </a>
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer dark:text-gray-200/70 text-gray-700/60", 
             isManage && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/manage`}>
-                Meine Fahrzeuge
+                Buchungen
             </a>
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isInserat && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/inserate`}>
@@ -45,7 +45,7 @@ const MenuBar = () => {
             </a>
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isBooking && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/bookings`}>
-                Buchungen
+                Meine Mietungen
             </a>
             </div>
         </div>

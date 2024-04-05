@@ -31,8 +31,10 @@ import { TbCrane } from "react-icons/tb";
 import { inserat, users } from "@/db/schema";
 import Link from "next/link";
 import { RiCaravanLine } from "react-icons/ri";
-import { BsTools } from "react-icons/bs";
-
+import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
+import { SiRubygems } from "react-icons/si";
+import { BiMoneyWithdraw } from "react-icons/bi";
+import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
     profileId: string,
@@ -354,10 +356,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="flex justify-center bg-[#1e2332] p-2  text-gray-100  dark:border-[#1e2332]  
                     drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27]">
                     <p className="text-gray-100 font-bold mr-4 flex">
-                        <CalendarCheck2 className="mr-2" />  {thisInserat.annual ? "" : "Zeitraum :"}
+                    <BsCalendarWeekFill className="w-4 h-4" />  {thisInserat.annual ? "" : "Zeitraum :"}
                     </p>
                     {thisInserat.annual ? (
-                        <p className="font-semibold  text-sm items-center"> Datumsunabhängig verfügbar </p>
+                        <p className="font-semibold  text-sm items-center"> Dauerhaftes Inserat </p>
                     ) : (
                         <>
                             <p className="font-semibold text-gray-200">
@@ -382,7 +384,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                              text-xs items-center">
                                 <div className="mr-2 flex font-bold">
 
-                                <Banknote className="mr-1 sm:block hidden" />
+                                <LiaMoneyBillWaveSolid   className="mr-1 sm:block hidden w-4 h-4" />
                                 </div>
                                 {thisInserat.price} €  {thisInserat.dailyPrice ? (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)
                                                                             : (<div className="text-[10px] ml-1 mr-1" > / Zeitraum</div>)}

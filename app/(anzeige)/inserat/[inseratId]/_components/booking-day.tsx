@@ -34,35 +34,36 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   const inseratFilter = searchParams.get("inseratId");
   const vehicleFilter = searchParams.get("vehicleId");
   const router = useRouter();
-  
-  const isShowing = (id : string, vehicleId? : string) => {
-    if(inseratFilter){
-        if(vehicleFilter){
-          
-          return vehicleId === vehicleFilter && id === inseratFilter;
-        }
+
+  const isShowing = (id: string, vehicleId?: string) => {
+    if (inseratFilter) {
+      if (vehicleFilter) {
+
+        return vehicleId === vehicleFilter && id === inseratFilter;
+      }
       return id === inseratFilter;
     }
     return true;
   }
 
   return (
-
-
-    <div
-      key={index}
-      className={clsx("dark:bg-[#0F0F0F]  p-4 text-center ", {
-        "bg-gray-200": isToday(day),
-        "text-emerald-400 font-bold": isToday(day),
-        "dark:bg-rose-900 bg-rose-900" : (bookings.length > 0),
-      })}
-    >
-      {format(day, "d")}
+    <>
       
-        
-      
-    </div>
 
+      <div
+        key={index}
+        className={clsx("dark:bg-[#0F0F0F]  p-4 text-center ", {
+          "bg-gray-200": isToday(day),
+          "text-emerald-400 font-bold": isToday(day),
+          "dark:bg-rose-900 bg-rose-900": (bookings.length > 0),
+        })}
+      >
+        {format(day, "d")}
+
+
+
+      </div>
+    </>
 
   );
 }

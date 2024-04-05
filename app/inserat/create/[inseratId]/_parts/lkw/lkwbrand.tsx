@@ -96,8 +96,23 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     <SelectItem value={null}>
                                 Beliebig
                             </SelectItem>
+                            <SelectGroup>
+                            <SelectLabel>
+                                Häufigsten
+                            </SelectLabel>
+                            <SelectItem value="MAN">MAN</SelectItem>
+                            <SelectItem value="Mercedes-Benz">Mercedes-Benz</SelectItem>
+                            <SelectItem value="Scania">Scania</SelectItem>
+                            <SelectItem value="Volvo">Volvo</SelectItem>
+                            
+                            
+                            
+                            <SelectLabel>
+                                <Separator className="w-full"/>
+                            </SelectLabel>
+                        </SelectGroup>
                         {Object.values(LkwBrandEnumRender).map((brand, index) => (
-                            !(brand === "MAN_Truck_Bus" || brand === "Scania" || brand === "Toyota_Trucks" || brand === "Volvo_Trucks") 
+                            !(brand === "MAN" || brand === "Scania" || brand === "Mercedes-Benz" || brand === "Volvo") 
                             && (
                                 <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

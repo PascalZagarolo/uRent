@@ -19,7 +19,7 @@ import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import ReturnToChat from "./_components/return-to-chat";
 import db from "@/db/drizzle";
 import { and, eq, is, isNotNull, or } from "drizzle-orm";
-import { conversation } from "@/db/schema";
+import { conversation, notification } from "@/db/schema";
 import { users, message } from '../../../../db/schema';
 
 
@@ -105,6 +105,16 @@ const ConversationPage = async ({
 
     let otherUserChat: typeof users.$inferSelect;
 
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    
+    })
+
+
+
+
     return (
         <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 overflow-y-hidden">
             <div className="relative top-0 w-full z-50">
@@ -115,7 +125,7 @@ const ConversationPage = async ({
             <div className="sm:hidden">
                 <MobileHeader
                 currentUser={currentUser}
-                
+                foundNotifications={foundNotifications}
                 />
              </div>
             <div className="flex justify-center min-h-full  px-4">

@@ -149,8 +149,9 @@ const InseratAnzeige = async ({
                             </div>
 
                             <div className="flex justify-end ml-2 sm:ml-2 bg-[#1d1f2b] w-1/8  p-4 rounded-lg sm:p-4">
-                                <BookingsOverview
-                                    bookings={inseratBookings}
+                            <BookingsOverview
+                                    receivedBookings={inseratBookings}
+                                    thisInserat={thisInserat}
                                 />
                             </div>
                         </div>

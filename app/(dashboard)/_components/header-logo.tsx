@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps>  = async ({
     }).prepare("findNotifications")
 
 
-    foundNotifications = await findNotifications.execute({userId : currentUser.id})
+    foundNotifications = await findNotifications.execute({userId : currentUser?.id})
    
 
     return (

@@ -20,6 +20,7 @@ import ManageBookings from "./manage-bookings";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import BookingRequest from "./booking-request";
 import { booking, contactOptions, users } from "@/db/schema";
+import GoToDashboard from "./go-to-dashboard";
 
 
 interface InseratOptionsProps {
@@ -135,7 +136,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         <div className="w-full">
             {ownSite ? (
                 <div className="mt-4">
-                    <Bookings />
+                    <GoToDashboard //@ts-ignore
+                    userId={thisUser.id} inseratId={params.inseratId} />
 
                 </div>
 
@@ -215,9 +217,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                 </>
             ) : (
 
-                <ManageBookings
-                    bookings={bookings}
-                />
+                <></>
 
             )}
 

@@ -1,6 +1,6 @@
 
 import db from "@/db/drizzle";
-import { booking } from "@/db/schema";
+import { booking, notification } from "@/db/schema";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -27,9 +27,15 @@ export async function POST(
             content : values.content,
         }).returning();
 
+        const [sendNotification] = await db.insert(notification).values({
+            userId : values.userId,
+            content : `Hat dich zu einer Buchung hinzugefügt`,
+            notificationType : "BOOKING",
+        }).returning();
+
         console.log(createdBooking);
 
-        return NextResponse.json(createdBooking)
+        return NextResponse.json({createdBooking, sendNotification})
 
 
     } catch (error) {

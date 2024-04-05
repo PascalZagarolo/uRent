@@ -6,11 +6,19 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 import { BellDotIcon, BellPlus, MessageCircle, MessageCircleMoreIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { notification } from '../../../db/schema';
+import { CiBookmark } from "react-icons/ci";
 
 
 
+interface NotificationShortCutProps {
+    foundNotifications : typeof notification.$inferSelect[];
+}
 
-const NotificationShortCut = () => {
+
+const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
+    foundNotifications
+}) => {
 
     const router = useRouter();
 
@@ -18,7 +26,7 @@ const NotificationShortCut = () => {
         <Popover>
             <PopoverTrigger asChild>
                 <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost" >
-                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">0</p>
+                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">{foundNotifications?.length}</p>
                                     
                 </Button>
             </PopoverTrigger>
@@ -30,7 +38,38 @@ const NotificationShortCut = () => {
                     </h3>
                 </div>
                 <div className="mt-4">
-                    <p className="text-gray-900/80 dark:text-gray-100/80 text-xs italic"> Du bist auf dem neuesten Stand...</p>
+                    {foundNotifications?.length === 0 ? (
+                        <p className="text-gray-900/80 dark:text-gray-100/80 text-xs italic"> Du bist auf dem neuesten Stand...</p>
+                    ) : (
+                        foundNotifications?.map((notification) => (
+                            <div className="w-full flex" key={notification.id}>
+                                <div className="w-1/8 px-2">
+                                    {
+                                        {
+                                            "BOOKING" : <CiBookmark className="w-4 h-4" />
+                                        }[notification.notificationType]
+                                    }
+                                </div>
+                                <div className="text-xs font-semibold">
+                                    {
+                                        {
+                                            "BOOKING" : (
+                                                <div className="w-full">
+                                                    <a className="truncate w-[240px] text-blue-900 font-bold underline-offset-1 
+                                                    hover:underline"
+                                                    href={`/inserat/${notification.inseratId}`}
+                                                    >
+                                                        {notification?.content}
+                                                    </a>
+                                                    Du wurdest zu einer Buchung hinzugefügt
+                                                </div>
+                                            )
+                                        }[notification.notificationType]
+                                    }
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </div>
             </PopoverContent>
         </Popover>

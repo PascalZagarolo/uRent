@@ -12,17 +12,17 @@ import NotificationShortCut from "./notification-shortcut";
 import SettingsSheet from "./settings-sheet";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { users } from "@/db/schema";
+import { notification, users } from "@/db/schema";
 
 
 interface LoggedInBarHeaderProps {
     currentUser: typeof users.$inferSelect;
-
+    foundNotifications : typeof notification.$inferSelect[];
 }
 
 const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     currentUser,
-
+    foundNotifications
 }) => {
 
     const router = useRouter();
@@ -50,7 +50,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             <div className="flex lg:gap-x-2">
                 <div className="sm:block hidden">
                     <NotificationShortCut
-
+                    foundNotifications={foundNotifications}
                     />
                 </div>
                 <div className="lg:block hidden">

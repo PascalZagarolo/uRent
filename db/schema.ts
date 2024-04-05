@@ -685,9 +685,15 @@ export const notification = pgTable("notification", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
     notificationType: notificationTypeEnum("notificationType"),
+    //save Inserattitle, username that sent the message etc...
     content : text("content"),
+
     userId : uuid("userId")
                 .references(() => users.id, { onDelete: "cascade" }),
+
+    conversationId : text("conversationId"),
+    inseratId : text("inseratId"),
+
 
     createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
 })

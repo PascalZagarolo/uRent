@@ -35,6 +35,7 @@ import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { users } from "@/db/schema";
+import { de } from "date-fns/locale";
 
 interface BookingsProps {
   user: typeof users.$inferSelect[];
@@ -140,7 +141,7 @@ const Bookings = () => {
                                 )}
                               >
                                 {currentStart ? (
-                                  format(currentStart, "PPP") 
+                                  format(currentStart, "PPP", {locale: de}) 
                                 ) : (
                                   <span>Pick a date</span>
                                 )}
@@ -151,7 +152,7 @@ const Bookings = () => {
                           <PopoverContent className="w-auto p-0 border-none" align="start">
                             <Calendar
                               mode="single"
-                              
+                              locale={de}
                               className="dark:bg-[#0a0a0a] border-none"
                               selected={currentStart}
                               onSelect={(e) => {setCurrentStart(e); console.log(currentStart)}}
@@ -185,7 +186,7 @@ const Bookings = () => {
                                 )}
                               >
                                 {currentEnd ? (
-                                  format(currentEnd, "PPP")
+                                  format(currentEnd, "PPP", {locale: de})
                                 ) : (
                                   <span>Pick a date</span>
                                 )}
@@ -196,7 +197,7 @@ const Bookings = () => {
                           <PopoverContent className="w-auto p-0 border-none" align="start">
                             <Calendar
                               mode="single"
-                              
+                              locale={de}
                               className="dark:bg-[#0a0a0a] border-none"
                               selected={currentEnd}
                               onSelect={(e) => {setCurrentEnd(e)}}

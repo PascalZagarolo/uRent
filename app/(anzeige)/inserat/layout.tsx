@@ -23,6 +23,7 @@ const InseratLayout = async ({
         <div className=" bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen">
             <HeaderLogo 
             currentUser={currentUser} 
+            foundNotifications={foundNotifications}
             />
             <div className="sm:hidden">
                 <MobileHeader

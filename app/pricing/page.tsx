@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FaCheck, FaFireFlameCurved } from "react-icons/fa6";
 import { Separator } from "@/components/ui/separator";
-import { inserat } from "@/db/schema";
+import { inserat, notification } from "@/db/schema";
 import db from "@/db/drizzle";
 import { and, eq } from "drizzle-orm";
 
@@ -13,6 +13,12 @@ const PricingPage = async () => {
     const currentUser = await getCurrentUser();
 
     let foundInserate: typeof inserat.$inferSelect[] = [];
+
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    })
 
     if(currentUser) {
         foundInserate = await db.query.inserat.findMany({
@@ -29,7 +35,9 @@ const PricingPage = async () => {
         <div>
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser} />
+                    currentUser={currentUser} 
+                    foundNotifications={foundNotifications}
+                    />
             </div>
             <div className="flex justify-center p-8 bg-[#404040]/10">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">

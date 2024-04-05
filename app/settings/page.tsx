@@ -5,13 +5,14 @@ import MenuBar from "./_components/settings-tabs";
 import BreadCrumpSettings from "./_components/bread-crump-settings";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { users } from "@/db/schema";
+import { notification, users } from "@/db/schema";
 import Body from "./_components/username-input";
 import Username from "./_components/username-input";
 import SaveChangesSettings from "./_components/save-changes";
 import ChangeProfilePic from "./_components/change-profile-pic";
 import ProfilePicSettings from "./_components/profilepic-settings";
 import EmailSettings from "./_components/e-mail-settings";
+import MobileHeader from "../(dashboard)/_components/mobile-header";
 
 
 const SettingsPage = async () => {
@@ -24,11 +25,25 @@ const SettingsPage = async () => {
         )
     })
 
+    const foundNotifications = await db.query.notification.findMany({
+        where : (
+            eq(notification.userId, currentUser?.id)
+        )
+    })
+
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser} />
+                    currentUser={currentUser} 
+                    foundNotifications={foundNotifications}
+                    />
+            </div>
+            <div className="sm:hidden">
+                <MobileHeader
+                    currentUser={currentUser}
+                    foundNotifications={foundNotifications}
+                />
             </div>
             <div className="flex justify-center py-8 px-4">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">

@@ -23,11 +23,14 @@ export async function POST(
             ...values
         }).returning();
 
+
+        //send the receiver only one notification that is unseen, if sees it => send new one in case
         const existingNotication = await db.query.notification.findFirst({
             where : (
             and(
                 eq(notification.userId, otherUser),
-                eq(notification.conversationId, params.conversationId)
+                eq(notification.conversationId, params.conversationId),
+                eq(notification.seen, false)
             )
             )
         })

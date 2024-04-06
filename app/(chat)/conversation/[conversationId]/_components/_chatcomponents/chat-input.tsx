@@ -12,20 +12,30 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import UploadImage from "../upload-image";
 
-const ChatInput = () => {
+interface ChatInputProps {
+    otherUser : string;
+    otherUserName : string;
+}
+
+const ChatInput: React.FC<ChatInputProps> = ({
+    otherUser,
+    otherUserName
+}) => {
 
     const params = useParams();
 
     const formSchema = z.object({
         content: z.string().min(1, {
             message: "Kommentar ist zu kurz"
-        })
+        }),
+        
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            content: ""
+            content: "",
+            
         }
     })
     
@@ -33,8 +43,15 @@ const ChatInput = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
+
+            const values = {
+                content : value.content,
+                otherUser : otherUser,
+                otherUserName : otherUserName
+            }
+
             setIsLoading(true);
             axios.post(`/api/message/${params.conversationId}`, values);
             

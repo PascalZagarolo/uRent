@@ -3,7 +3,8 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import { pusherServer } from "@/lib/pusher";
 import db from "@/db/drizzle";
-import { message } from "@/db/schema";
+import { conversation, message, notification } from "@/db/schema";
+import { and, eq } from "drizzle-orm";
 
 export async function POST(
     req : Request,
@@ -13,7 +14,7 @@ export async function POST(
 
         const currentUser = await getCurrentUser();
 
-        const values = await req.json();
+        const {otherUser, otherUserName, ...values} = await req.json();
 
 
         const [newMessage] = await db.insert(message).values({
@@ -22,9 +23,35 @@ export async function POST(
             ...values
         }).returning();
 
+        const existingNotication = await db.query.notification.findFirst({
+            where : (
+            and(
+                eq(notification.userId, otherUser),
+                eq(notification.conversationId, params.conversationId)
+            )
+            )
+        })
+
         await pusherServer.trigger(params.conversationId, 'messages:new', newMessage);
 
-        return NextResponse.json(newMessage)
+        if(!existingNotication) {
+            const [createdNotification] = await db.insert(notification).values({
+                userId : otherUser,
+                conversationId : params.conversationId,
+                notificationType : "MESSAGE",
+                content : otherUserName
+            }).returning()
+
+            return NextResponse.json({newMessage, createdNotification})
+        } else {
+            
+
+            return NextResponse.json(newMessage)
+        }
+
+        
+
+        
 
     } catch (error) {
         console.log("Fehler beim erstellen einer Nachricht" , error);

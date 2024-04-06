@@ -22,6 +22,8 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
 
     const router = useRouter();
 
+    
+
     return (
         <Popover>
             <PopoverTrigger asChild>
@@ -42,7 +44,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
                         <p className="text-gray-900/80 dark:text-gray-100/80 text-xs italic"> Du bist auf dem neuesten Stand...</p>
                     ) : (
                         foundNotifications?.map((notification) => (
-                            <div className="w-full flex" key={notification.id}>
+                            <div className="dark:bg-[#161616] p-2 w-full flex" key={notification.id}>
                                 <div className="w-1/8 px-2">
                                     {
                                         {
@@ -55,12 +57,12 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
                                         {
                                             "BOOKING" : (
                                                 <div className="w-full">
-                                                    <a className="truncate w-[240px] text-blue-900 font-bold underline-offset-1 
+                                                    <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 
                                                     hover:underline"
                                                     href={`/inserat/${notification.inseratId}`}
                                                     >
                                                         {notification?.content}
-                                                    </a>
+                                                    </a> <br/>
                                                     Du wurdest zu einer Buchung hinzugefügt
                                                 </div>
                                             )

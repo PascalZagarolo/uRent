@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 import { BellDotIcon, BellPlus, MessageCircle, MessageCircleMoreIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { notification } from '../../../db/schema';
+import { conversation, notification } from '../../../db/schema';
 import { CiBookmark } from "react-icons/ci";
 
 
@@ -48,7 +48,8 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
                                 <div className="w-1/8 px-2">
                                     {
                                         {
-                                            "BOOKING" : <CiBookmark className="w-4 h-4" />
+                                            "BOOKING" : <CiBookmark className="w-4 h-4" />,
+                                            "MESSAGE" : <MessageCircle className="w-4 h-4" />
                                         }[notification.notificationType]
                                     }
                                 </div>
@@ -64,7 +65,18 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
                                                         {notification?.content}
                                                     </a> <br/>
                                                     Du wurdest zu einer Buchung hinzugefügt
-                                                </div>
+                                                </div>),
+                                                "MESSAGE" : (
+                                                    <div className="w-full">
+                                                        <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 
+                                                        hover:underline"
+                                                        href={`/inserat/${notification?.conversationId}`}
+                                                        >
+                                                            {notification?.content}
+                                                        </a> <br/>
+                                                        Hat dir eine Nachricht gesendet
+                                                    </div>
+                                                
                                             )
                                         }[notification.notificationType]
                                     }

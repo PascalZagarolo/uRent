@@ -21,6 +21,8 @@ import type { AdapterAccount } from '@auth/core/adapters'
 
 import { InferModel, relations, sql } from "drizzle-orm"
 import { z } from "zod"
+import { stripe } from "@/lib/stripe"
+
 
 
 
@@ -144,6 +146,13 @@ export const categoryEnum = pgEnum("category", [
 
 export const CategoryEnumRender = z.enum(categoryEnum.enumValues).Enum;
 
+export const inseratPriceType = pgEnum("priceType", [
+    "FREE",
+    "BASIS",
+    "PRO",
+    "ENTERPRISE"
+])
+
 export const inserat = pgTable("inserat", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     title: text("title").notNull(),
@@ -156,6 +165,8 @@ export const inserat = pgTable("inserat", {
 
     emailAddress: text("emailAddress"),
     phoneNumber: text("phoneNumber"),
+
+    priceType : inseratPriceType("priceType").default("FREE"),
     
     begin: timestamp("begin", {mode: "date"}),
     end: timestamp("end", {mode: "date"}),
@@ -165,6 +176,9 @@ export const inserat = pgTable("inserat", {
     license: licenseEnum("license"),
     caution: decimal("caution"),
     reqAge: integer("reqAge"),
+
+
+    
 
     views: integer("views").notNull().default(0),
 
@@ -191,6 +205,18 @@ export const inserat = pgTable("inserat", {
             .references(() => transportAttribute.id, { onDelete: "cascade" }),
     
     
+})
+
+export const inseratSubscription = pgTable("inseratSubscription" , {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    inseratId : text("inseratId"),
+
+    subscriptionType : inseratPriceType("subscriptionType"),
+
+    stripe_customer_id : text("stripe_customer_id"),
+    stripe_subscription_id : text("stripe_subscription_id"),
+    stripe_price_id : text("stripe_price_id"),
+    stripe_current_period_end : timestamp("stripe_current_period_end", { mode: "date" }),
 })
 
 export const loadingEnum = pgEnum("loading", [

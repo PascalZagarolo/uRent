@@ -112,11 +112,7 @@ export const resetPasswordToken = pgTable(
 
 export const licenseEnum = pgEnum(
     "license", [
-    "A1",
-    "A2",
-    "A",
-    "AM",
-
+    
     "B",
     "B17",
     "B96",

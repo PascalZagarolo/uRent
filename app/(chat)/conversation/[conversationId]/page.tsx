@@ -80,6 +80,16 @@ const ConversationPage = async ({
         }
     })
 
+    //if user clicks on chat, mark all chat notifications as seen
+    const patchNotifications = await db.update(notification).set({
+        seen : true
+    }).where(
+        and(
+            eq(notification.conversationId, params.conversationId),
+            eq(notification.userId, currentUser.id)
+        )
+    )
+
     const otherUserId = thisConversation?.user1Id === currentUser.id ? thisConversation?.user2Id : thisConversation?.user1Id;
 
     console.log(otherUserId)

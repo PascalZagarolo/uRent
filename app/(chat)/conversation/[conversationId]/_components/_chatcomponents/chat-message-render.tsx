@@ -49,11 +49,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                 <div className={cn("rounded-lg flex p-2 w-1/2", isOwn ? " mr-2 ml-auto" : " mr-auto")}>
 
                     <div className={cn("min-w-[50px]", isOwn ? "ml-auto" : "mr-auto")}>
-                        {isOwn && (
-                            <DeleteMessage
-                                messageId={messages.id}
-                            />
-                        )}
+                        
                         <div className={cn("p-4 rounded-lg mt-2   flex ",
                             isOwn ? "bg-emerald-400 ml-auto" : "bg-[#2a304b] border-gray-900 text-gray-100 mr-auto",
                             messages.isInterest && "bg-[#ECECEC] text-gray-900 border border-emerald-600 dark:bg-[#0F0F0F]  dark:border-none dark:text-gray-100")}>

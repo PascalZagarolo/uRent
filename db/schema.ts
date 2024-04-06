@@ -694,6 +694,8 @@ export const notification = pgTable("notification", {
     conversationId : text("conversationId"),
     inseratId : text("inseratId"),
 
+    seen : boolean("seen").default(false),
+
 
     createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
 })

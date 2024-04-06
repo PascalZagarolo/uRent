@@ -8,6 +8,8 @@ import { BellDotIcon, BellPlus, MessageCircle, MessageCircleMoreIcon } from "luc
 import { useRouter } from "next/navigation";
 import { conversation, notification } from '../../../db/schema';
 import { CiBookmark } from "react-icons/ci";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
 
 
 
@@ -44,7 +46,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
                         <p className="text-gray-900/80 dark:text-gray-100/80 text-xs italic"> Du bist auf dem neuesten Stand...</p>
                     ) : (
                         foundNotifications?.map((notification) => (
-                            <div className="dark:bg-[#161616] p-2 w-full flex" key={notification.id}>
+                            <div className="dark:bg-[#161616] p-2 mt-1 w-full flex" key={notification.id}>
                                 <div className="w-1/8 px-2">
                                     {
                                         {
@@ -64,17 +66,23 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
                                                     >
                                                         {notification?.content}
                                                     </a> <br/>
-                                                    Du wurdest zu einer Buchung hinzugefügt
+                                                    Du wurdest zu einer Buchung hinzugefügt <br/>
+                                                    <div className="text-xs font-light font-size: 0.6rem">
+                                                        {format(new Date(notification.createdAt), "HH:mm", {locale : de})} Uhr
+                                                        </div>
                                                 </div>),
                                                 "MESSAGE" : (
                                                     <div className="w-full">
                                                         <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 
                                                         hover:underline"
-                                                        href={`/inserat/${notification?.conversationId}`}
+                                                        href={`/conversation/${notification?.conversationId}`}
                                                         >
                                                             {notification?.content}
                                                         </a> <br/>
-                                                        Hat dir eine Nachricht gesendet
+                                                        Hat dir eine Nachricht gesendet <br/>
+                                                        <div className="text-xs font-light font-size: 0.6rem">
+                                                        {format(new Date(notification.createdAt), "HH:mm", {locale : de})} Uhr
+                                                        </div>
                                                     </div>
                                                 
                                             )

@@ -11,6 +11,8 @@ import { CiBookmark } from "react-icons/ci";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { LuMailWarning } from "react-icons/lu";
+import { MdOutlineNewReleases } from "react-icons/md";
+import axios from "axios";
 
 
 
@@ -29,15 +31,28 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     })
 
+    const unseenNotifications = foundNotifications.filter((notification) => !notification.seen);
+
+    const onBlur = async () => {
+        if(unseenNotifications.length > 0) {
+            const patchedNotifications = await axios.patch("/api/notifications")
+            .then(() => {
+                router.refresh();
+            })
+        } else {
+            return;
+        }
+    }
+
     return (
-        <Popover>
+        <Popover >
             <PopoverTrigger asChild>
                 <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost" >
-                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">{foundNotifications?.length}</p>
+                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">{unseenNotifications?.length}</p>
 
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="dark:bg-[#0F0F0F] dark:border-gray-800 border-none">
+            <PopoverContent className="dark:bg-[#0F0F0F] dark:border-gray-800 border-none" onBlur={onBlur}>
                 <div>
                     <h3 className="flex">
                         <BellPlus className="h-4 w-4 " />
@@ -84,8 +99,13 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                         {notification?.content}
                                                     </a> <br />
                                                     Hat dir eine Nachricht gesendet <br />
-                                                    <div className="text-xs font-light font-size: 0.6rem">
+                                                    <div className="text-xs font-light font-size: 0.6rem flex w-full">
                                                         {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                                                        {!notification.seen && (
+                                                        <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
+                                                            Neu
+                                                        </div>
+                                                    )}
                                                     </div>
                                                 </div>
                                             ),
@@ -98,8 +118,13 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                         {notification?.content}
                                                     </a> <br/>
                                                     Dir wurde eine Anfrage gesendet <br/>
-                                                    <div className="text-xs font-light font-size: 0.6rem">
+                                                    <div className="text-xs font-light font-size: 0.6rem flex">
                                                     {format(new Date(notification.createdAt), "HH:mm", {locale : de})} Uhr
+                                                    {!notification.seen && (
+                                                        <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
+                                                            Neu
+                                                        </div>
+                                                    )}
                                                     </div>
                                                 </div>
                                             

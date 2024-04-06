@@ -22,11 +22,11 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
 
    
 
-    const thisInserat = await db.query.inserat.findMany({
+    const thisInserat = await db.query.inserat.findFirst({
         where : eq(inserat.id, inseratId)
     })
 
-    console.log(thisInserat)
+    
 
     return (
         <div>
@@ -39,7 +39,9 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                         Das Basis Paket für den Einstieg in die Welt von uRent.
                     </p>
                     <div className="w-full ">
-                        <BasisButton />
+                        <BasisButton 
+                        inseratId={thisInserat.id}
+                        />
                         <div className="w-full flex mt-2">
                             <div className="flex">
                                 <div className="text-4xl font-bold">25 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>

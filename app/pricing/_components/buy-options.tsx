@@ -6,6 +6,9 @@ import db from "@/db/drizzle";
 import { inserat, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { FaCheck, FaFireFlameCurved } from "react-icons/fa6";
+import BasisButton from "./buy-buttons.tsx/basis-button";
+import PremiumButton from "./buy-buttons.tsx/premium-button";
+import EnterpriseButton from "./buy-buttons.tsx/enterprise-button";
 
 interface BuyOptionsProps {
     inseratId : string
@@ -36,12 +39,10 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                         Das Basis Paket für den Einstieg in die Welt von uRent.
                     </p>
                     <div className="w-full ">
-                        <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2">
-                            Jetzt starten
-                        </Button>
+                        <BasisButton />
                         <div className="w-full flex mt-2">
                             <div className="flex">
-                                <div className="text-4xl font-bold">25 €</div><div className="text-xs text-gray-200/70">/Monat</div>
+                                <div className="text-4xl font-bold">25 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
                             </div>
                         </div>
 
@@ -71,12 +72,10 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <p className="text-xs dark:text-gray-200/70 h-[32px]">
                         Für den ambitionierten Vermieter. Mehr Funktionen, mehr Möglichkeiten, mehr Kunden.
                     </p>
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2">
-                        Jetzt starten
-                    </Button>
+                    <PremiumButton />
                     <div className="w-full flex mt-2">
                         <div className="flex">
-                            <div className="text-4xl font-bold">39 €</div><div className="text-xs text-gray-200/70">/Monat</div>
+                            <div className="text-4xl font-bold">39 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
                         </div>
                     </div>
 
@@ -110,13 +109,11 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <p className="text-xs dark:text-gray-200/70">
                         Die All-in-One Lösung für ihr Unternehmen. Vermieten war noch nie so einfach.
                     </p>
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2">
-                        Jetzt starten
-                    </Button>
+                    <EnterpriseButton/>
                     <div className="w-full flex mt-2">
                         <div className="flex">
 
-                            <div className="text-4xl font-bold">49 €</div><div className="text-xs text-gray-200/70">/Monat</div>
+                            <div className="text-4xl font-bold">49 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
                         </div>
                     </div>
 

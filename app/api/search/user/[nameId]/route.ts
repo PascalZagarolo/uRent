@@ -11,11 +11,13 @@ export async function PATCH(
     try {
 
        
-        const foundUsers = await db.query.users.findMany({
+        const findUsers = db.query.users.findMany({
             where : (
                 ilike(users.name, `%${params.nameId}%`)
             )
-        })
+        }).prepare("findUsers")
+
+        const foundUsers = await findUsers.execute();
        
 
         return NextResponse.json(foundUsers)

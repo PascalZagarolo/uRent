@@ -29,7 +29,7 @@ const SearchRent: React.FC<SearchRentProps> =  ({
     const [matchingUsers , setMatchingUsers] = useState<typeof users[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const debouncedValue = useDebounce(currentValue);
+    const debouncedValue = useDebounce(currentValue, 200);
 
     const changeUser = usesearchUserByBookingStore((user) => user.changeUser);
     const selectedUser = usesearchUserByBookingStore((user) => user.user);
@@ -95,15 +95,13 @@ const SearchRent: React.FC<SearchRentProps> =  ({
                         <div className="w-[30px] h-[30px] rounded-md mr-4 ">
                             <img 
                             src={pUser.image ? pUser.image : "/placeholder-person.jpg"}
-                            className="object-fill rounded-full  "
+                            className="object-fill rounded-full w-[30px] h-[30px]"
                             />
                         </div>
                         <div className="flex justify-center font-semibold text-medium">
                             <p>{pUser.name}</p>
                         </div>
-                        <div className="ml-auto text-xs font-semibold italic text-gray-900/50 dark:text-gray-100/90">
-                            {pUser.email}
-                        </div>
+                       
                     </div>
                     </span>
                 ))}

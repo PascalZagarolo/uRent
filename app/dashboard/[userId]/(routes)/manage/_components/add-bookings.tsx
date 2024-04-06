@@ -56,7 +56,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
-    console.log(currentInserat?.vehicles)
+    
 
     const params = useParams();
     const router = useRouter();

@@ -1,6 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
-import { bookingRequest } from "@/db/schema";
+import { bookingRequest, inserat, notification, users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 import { NextResponse } from "next/server";
 
@@ -17,6 +18,18 @@ export async function POST(
         const usedStart = new Date(startDate);
         const usedEnd = new Date(endDate);
 
+        const findUser = await db.query.users.findFirst({
+            where : (
+                eq(users.id, currentUser?.id)
+            )
+        })
+
+        const findInserat = await db.query.inserat.findFirst({
+            where : (
+                eq(inserat.id, params.inseratId)
+            )
+        })
+
         const request = await db.insert(bookingRequest).values({
             ...(startDate) && {
                 startDate : usedStart
@@ -28,7 +41,14 @@ export async function POST(
             ...values,
         })
 
-        return NextResponse.json(request);
+        const [createNotification] = await db.insert(notification).values({
+            userId : findInserat.userId,
+            inseratId : params.inseratId,
+            content : findInserat?.title,
+            notificationType : "BOOKING_REQUEST",
+        }).returning();
+
+        return NextResponse.json({request, createNotification});
 
     } catch(error) {
         console.log(error);

@@ -8,21 +8,27 @@ import { NextResponse } from "next/server";
 
 
 export async function PATCH(
-    { params } : { params : { inseratId : string }}
+    req : Request,
+    { params } : { params: { inseratId : string }}
 ) {
     try {
-
+        
         const currentUser = await getCurrentUser();
+        console.log(params.inseratId + "dsasd")
 
         if(!currentUser) {
             return new NextResponse("Nicht autorisiert : Kein Login", {status: 401})
         }
+
+        console.log("testt")
 
         const existingSubscription = await db.query.inseratSubscription.findFirst({
             where : (
                 eq(inseratSubscription.inseratId, params.inseratId)
             )
         })
+        console.log("testt")
+        
 
         if(existingSubscription && existingSubscription.stripe_customer_id) {
             //change redirectUrl
@@ -33,7 +39,7 @@ export async function PATCH(
 
             return new NextResponse(JSON.stringify({url : stripeSession.url}))
         }
-
+        console.log("testt")
         //change success && cancel url
         const stripeSesison = await stripe.checkout.sessions.create({
             success_url : `${process.env.NEXT_PUBLIC_BASE_URL}/app/inserate/${params.inseratId}`,
@@ -60,9 +66,11 @@ export async function PATCH(
             metadata : {
                 inseratId : params.inseratId,
                 userId : currentUser.id,
-                subscription : "Basis"
+                subscription : "BASIS"
             }
         })
+
+        console.log(stripeSesison.url)
 
         return new NextResponse(JSON.stringify({ url : stripeSesison.url }))
 

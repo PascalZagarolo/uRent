@@ -12,7 +12,7 @@ const ComparisonPlans = () => {
                         <tr className="dark:bg-[#171717]">
                             <th className="px-4 py-2 text-left"></th>
                             <th className="px-4 py-2 text-left font-medium">Basis</th>
-                            <th className="px-4 py-2 text-left">Pro</th>
+                            <th className="px-4 py-2 text-left">Premium</th>
                             <th className="px-4 py-2 text-left">Enterprise</th>
                         </tr>
                     </thead>

@@ -24,7 +24,9 @@ const NotificationShortCut: React.FC<NotificationShortCutProps>= ({
 
     const router = useRouter();
 
-    
+    foundNotifications.sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    })
 
     return (
         <Popover>

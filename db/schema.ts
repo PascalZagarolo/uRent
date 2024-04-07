@@ -189,6 +189,9 @@ export const inserat = pgTable("inserat", {
         .notNull()
         .references(() => users.id, { onDelete: "cascade" }),
 
+    subscriptionId : uuid("subscriptionId")
+        .references(() => inseratSubscription.id, { onDelete: "cascade" }),
+
     addressId : uuid("addressId")
         .references(() => address.id, { onDelete: "cascade" }),
 
@@ -812,6 +815,10 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     address : one(address, {
         fields : [inserat.addressId],
         references : [address.id]
+    }),
+    inseratSubscription : one(inseratSubscription, {
+        fields : [inserat.subscriptionId],
+        references : [inseratSubscription.id]
     }),
 
     message : many(message),

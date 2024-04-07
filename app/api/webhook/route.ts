@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { inseratSubscription } from "@/db/schema";
+import { inserat, inseratSubscription } from "@/db/schema";
 import { stripe } from "@/lib/stripe";
 import { eq } from "drizzle-orm/sql";
 import { headers } from "next/headers";
@@ -51,7 +51,7 @@ export async function POST(
         }
 
         //@ts-ignore
-        await db.insert(inseratSubscription).values({
+        const [createdSubscription] = await db.insert(inseratSubscription).values({
             inseratId : session?.metadata?.inseratId,
             userId : session?.metadata?.userId,
             subscriptionType : session?.metadata?.subscriptionType,
@@ -63,7 +63,11 @@ export async function POST(
             
             )
         }).returning()
-        console.log("eventtype ende")
+
+        await db.update(inserat).set({
+            subscriptionId : createdSubscription.id
+        }).where(eq(inserat.id, session?.metadata?.inseratId))
+        
     }
     
     if(event.type === "invoice.payment_succeeded") {

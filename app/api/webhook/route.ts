@@ -46,12 +46,14 @@ export async function POST(
             return new NextResponse("UserId nicht gefunden", {status : 400})
         }
 
-        if(!session?.metadata?.subscription) {
+        if(!session?.metadata?.subscriptionType) {
             return new NextResponse("Subscription nicht gefunden", {status : 400})
         }
 
+        //@ts-ignore
         await db.insert(inseratSubscription).values({
             inseratId : session?.metadata?.inseratId,
+            subscriptionType : session?.metadata?.subscriptionType,
             stripe_subscription_id : subscription.id,
             stripe_customer_id : subscription.customer as string,
             stripe_price_id : subscription.items.data[0].price.id,

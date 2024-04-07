@@ -178,7 +178,7 @@ export const inserat = pgTable("inserat", {
     reqAge: integer("reqAge"),
 
 
-    
+    firstRelease : timestamp("firstRelease", {mode: "date"}),
 
     views: integer("views").notNull().default(0),
 

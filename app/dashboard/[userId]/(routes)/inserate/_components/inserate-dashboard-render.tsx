@@ -30,6 +30,9 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
     const onDelete = () => {
         try {
+
+            
+
             setIsLoading(true);
             axios.delete(`/api/inserat/${thisInserat.id}/delete`).then(() => {
                 toast.success("Inserat erfolgreich gelöscht");
@@ -40,6 +43,19 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
             toast.error("Fehler beim Löschen des Inserats")
         } finally {
             setIsLoading(false);
+        }
+    }
+
+    const onBillingInformation = async () => {
+        try {
+            setIsLoading(true);
+            const values = {}
+            const res = await axios.patch(`/api/stripe/inserat/${thisInserat.id}`, values);
+            window.location.href = res.data.url
+        } catch {
+            toast.error("Etwas ist schief gelaufen")
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -78,13 +94,23 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         </p>
                         <div>
                             {purchasedPlan ? (
-                                <p className="py-4 text-blue-600 font-bold">
+                                <p className="mt-2 text-blue-600 font-semibold">
                                     {purchasedPlan?.subscriptionType}
                                 </p>
                             ) : (
-                                <p className="py-4 dark:text-gray-200 font-semibold">
+                                <p className="mt-2 dark:text-gray-200 font-semibold">
                                     Gratis
                                 </p>
+                            )}
+                            {purchasedPlan ? (
+                                <a className=" dark:text-gray-200 text-xs hover:underline hover:cursor-pointer" onClick={onBillingInformation}>
+                                    Plan verwalten
+                                </a>
+                            ) : (
+                                <a className=" dark:text-gray-200 text-xs hover:underline" 
+                                href={`/pricing/${thisInserat.id}`}>
+                                    Upgraden
+                                </a>
                             )}
                         </div>
                     </div>

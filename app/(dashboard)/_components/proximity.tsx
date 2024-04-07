@@ -44,6 +44,8 @@ const Proximity = () => {
           <SelectItem value="25">25 Km</SelectItem>
           <SelectItem value="50">50 Km</SelectItem>
           <SelectItem value="100">100 Km</SelectItem>
+          <SelectItem value="250">250 Km</SelectItem>
+          <SelectItem value="500">500 Km</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

@@ -74,7 +74,9 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <p className="text-xs dark:text-gray-200/70 h-[32px]">
                         Für den ambitionierten Vermieter. Mehr Funktionen, mehr Möglichkeiten, mehr Kunden.
                     </p>
-                    <PremiumButton />
+                    <PremiumButton 
+                    inseratId={thisInserat.id}
+                    />
                     <div className="w-full flex mt-2">
                         <div className="flex">
                             <div className="text-4xl font-bold">39 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
@@ -111,7 +113,9 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <p className="text-xs dark:text-gray-200/70">
                         Die All-in-One Lösung für ihr Unternehmen. Vermieten war noch nie so einfach.
                     </p>
-                    <EnterpriseButton/>
+                    <EnterpriseButton
+                    inseratId={thisInserat.id}
+                    />
                     <div className="w-full flex mt-2">
                         <div className="flex">
 

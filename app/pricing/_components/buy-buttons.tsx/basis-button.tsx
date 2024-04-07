@@ -19,9 +19,12 @@ const BasisButton = ({
 
     const onSubscribe = async () => {
         try {
-            console.log(`/api/stripe/${inseratId}`)
             setIsLoading(true);
-            const res = await axios.patch(`/api/stripe/inserat/${inseratId}`);
+            const values = {
+                subscription : "BASIS",
+                price : 2500
+            }
+            const res = await axios.patch(`/api/stripe/inserat/${inseratId}`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")

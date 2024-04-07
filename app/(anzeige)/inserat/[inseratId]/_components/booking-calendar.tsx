@@ -8,7 +8,7 @@ import {
     getDay,
     startOfMonth,
 } from "date-fns";
-import {  ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
+import {  ArrowLeftCircleIcon, ArrowRightCircleIcon, SquareIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { de } from 'date-fns/locale';
 import CalendarDay from "./booking-day";
 import { booking, inserat } from "@/db/schema";
+import { FaSquare } from "react-icons/fa6";
 
 const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
@@ -128,6 +129,11 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
                         </div>
                     );
                 })}
+            </div>
+            <div>
+                <h1 className="flex text-xs dark:text-gray-200/80 text-gray-700/70 gap-x-2">
+                <SquareIcon className="w-4 h-4 text-rose-900 bg-rose-900" /> Belegte Tage   
+                </h1>
             </div>
         </div>
     );

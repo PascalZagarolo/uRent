@@ -16,8 +16,17 @@ export async function PATCH(
 
         const { publish } = await req.json();
 
+        const findInserat = await db.query.inserat.findFirst({
+            where : (
+                eq(inserat.id, params.inseratId)
+            )
+        })
+
+        const createDate = findInserat?.firstRelease ? findInserat.firstRelease : new Date();
+
         const patchedInserat = await db.update(inserat).set({
-            isPublished : publish
+            isPublished : publish,
+            firstRelease : createDate,
         }).where(eq(inserat.id, params.inseratId)).returning();
 
         const addressInserat = await db.query.address.findFirst({

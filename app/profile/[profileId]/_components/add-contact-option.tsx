@@ -27,12 +27,12 @@ const AddContactOption = ({
     const router = useRouter()
     const params = useParams();
 
-    const [currentWebsite, setCurrentWebsite] = useState(thisContactOptions.websiteAddress);
-    const [currentEmail, setCurrentEmail] = useState(thisContactOptions.emailAddress);
-    const [currentStreet, setCurrentStreet] = useState(thisContactOptions.userAddress?.street);
-    const [currentHouseNumber, setCurrentHouseNumber] = useState(thisContactOptions.userAddress?.houseNumber);
-    const [currentPlz, setCurrentPlz] = useState(thisContactOptions.userAddress?.postalCode);
-    const [currentCity, setCurrentCity] = useState(thisContactOptions.userAddress?.city);
+    const [currentWebsite, setCurrentWebsite] = useState(thisContactOptions?.websiteAddress);
+    const [currentEmail, setCurrentEmail] = useState(thisContactOptions?.emailAddress);
+    const [currentStreet, setCurrentStreet] = useState(thisContactOptions?.userAddress?.street);
+    const [currentHouseNumber, setCurrentHouseNumber] = useState(thisContactOptions?.userAddress?.houseNumber);
+    const [currentPlz, setCurrentPlz] = useState(thisContactOptions?.userAddress?.postalCode);
+    const [currentCity, setCurrentCity] = useState(thisContactOptions?.userAddress?.city);
     
 
     const formSchema = z.object({

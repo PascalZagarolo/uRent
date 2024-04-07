@@ -148,7 +148,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </a>
                     <div className="ml-auto w-1/4">
                         {!olderThan24Hours && (
-                            <Badge className="bg-indigo-800 text-gray-200 gap-x-1">
+                            <Badge className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 gap-x-1">
                             Neu <FlameIcon className="w-4 h-4" />
                         </Badge>
                         )}

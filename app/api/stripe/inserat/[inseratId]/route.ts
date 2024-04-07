@@ -12,6 +12,8 @@ export async function PATCH(
     { params } : { params: { inseratId : string }}
 ) {
     try {
+
+        const values = await req.json();
         
         const currentUser = await getCurrentUser();
         console.log(params.inseratId + "dsasd")
@@ -20,14 +22,14 @@ export async function PATCH(
             return new NextResponse("Nicht autorisiert : Kein Login", {status: 401})
         }
 
-        console.log("testt")
+        
 
         const existingSubscription = await db.query.inseratSubscription.findFirst({
             where : (
                 eq(inseratSubscription.inseratId, params.inseratId)
             )
         })
-        console.log("testt")
+        
         
 
         if(existingSubscription && existingSubscription.stripe_customer_id) {
@@ -39,7 +41,7 @@ export async function PATCH(
 
             return new NextResponse(JSON.stringify({url : stripeSession.url}))
         }
-        console.log("testt")
+        
         //change success && cancel url
         const stripeSesison = await stripe.checkout.sessions.create({
             success_url : `${process.env.NEXT_PUBLIC_BASE_URL}/app/inserate/${params.inseratId}`,
@@ -55,7 +57,7 @@ export async function PATCH(
                             name : "Basis",
                             description : "Basis...",
                         },
-                        unit_amount : 2500,
+                        unit_amount : values.price,
                         recurring : {
                             interval : "month"
                         }
@@ -66,7 +68,7 @@ export async function PATCH(
             metadata : {
                 inseratId : params.inseratId,
                 userId : currentUser.id,
-                subscription : "BASIS"
+                subscription : values.subscription
             }
         })
 

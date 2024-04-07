@@ -10,26 +10,32 @@ export async function POST(
     req : Request
 ) {
 
-    const body = await req.json();
+    const body = await req.text();
+    console.log(body)
     const signature = headers().get("Stripe-Signature") as string
+
+    const sig = signature.toString();
 
     let event: Stripe.Event;
 
-    
+    console.log("ja")
     try {
+        console.log("2")
         event = stripe.webhooks.constructEvent(
             body,
             signature,
-            process.env.STRIPE_WEBHOOK_SECRET
+            process.env.STRIPE_WEBHOOK_SECRET!
         )
+        console.log("try fertig")
     } catch(error : any) {
+        console.log(error)
         return new NextResponse(`Webhook Error : ${error.message}` , { status : 400 })
     }
-
+    
     const session = event.data.object as Stripe.Checkout.Session
-
+    
     if(event.type === "checkout.session.completed") {
-
+        
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
         if(!session?.metadata?.inseratId) {
@@ -53,9 +59,10 @@ export async function POST(
                 subscription.current_period_end * 1000
             
             )
-        })
+        }).returning()
+        console.log("eventtype ende")
     }
-
+    
     if(event.type === "invoice.payment_succeeded") {
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 

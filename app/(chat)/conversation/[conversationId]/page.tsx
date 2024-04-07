@@ -188,7 +188,7 @@ const ConversationPage = async ({
                             <div className="sticky bottom-0 w-full flex items-center border-t border-gray-600/10 ">
                             <ChatInput 
                             otherUser={otherUserDetails.id}
-                            otherUserName = {otherUserDetails.name}
+                            otherUserName = {currentUser?.name}
                             />
                             </div>
                         </div>

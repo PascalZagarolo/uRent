@@ -23,6 +23,7 @@ import { convertState } from "@/actions/convert-states";
 import { RiCaravanLine } from "react-icons/ri";
 import BreadCrumbs from "./bread-crumbs";
 import { Helmet } from 'react-helmet';
+import ReportModal from "./_components/report/report-modal";
 
 
 
@@ -155,9 +156,12 @@ const InseratAnzeige = async ({
                                 />
                             </div>
                         </div>
-                        <div className="flex items-center gap-x-2 mt-1 sm:text-sm text-xs">
+                        <div className="flex items-center gap-x-1 mt-1 sm:text-sm text-xs">
                             <p className="text-xs text-gray-200  ">erstellt am :</p>
-                            <p className="font-semibold sm:text-sm text-xs">{format(new Date(thisInserat.createdAt), "dd.MM")}</p>
+                            <p className="font-semibold text-xs">{format(new Date(thisInserat.createdAt), "dd.MM")}</p>
+                            <div className="ml-auto">
+                                <ReportModal />
+                            </div>
                         </div>
 
                         <div className="mt-4 rounded-md  text-gray-100   flex justify-center ">

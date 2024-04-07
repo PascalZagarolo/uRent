@@ -59,7 +59,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                         <span className="ml-2 text-sm">Meine Benachrichtigungen</span>
                     </h3>
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 max-h-[240px] overflow-scroll no-scrollbar">
                     {foundNotifications?.length === 0 ? (
                         <p className="text-gray-900/80 dark:text-gray-100/80 text-xs italic"> Du bist auf dem neuesten Stand...</p>
                     ) : (

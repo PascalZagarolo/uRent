@@ -27,6 +27,11 @@ const BreadCrumpPage = () => {
             <BreadcrumbLink>Meine Inserate</BreadcrumbLink>
           </BreadcrumbItem>
         )}
+        {pathname.includes("payments") && (
+            <BreadcrumbItem>
+            <BreadcrumbLink>Zahlungsverkehr</BreadcrumbLink>
+          </BreadcrumbItem>
+        )}
         {pathname.includes("bookings") && (
             <BreadcrumbItem>
             <BreadcrumbLink>Meine Inserate</BreadcrumbLink>

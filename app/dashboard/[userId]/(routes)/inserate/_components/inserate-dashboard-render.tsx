@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
-import { inserat } from "@/db/schema";
+import { inserat, inseratSubscription } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 import axios from "axios";
@@ -13,10 +13,12 @@ import toast from "react-hot-toast";
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect;
+    purchasedPlan? : typeof inseratSubscription.$inferSelect;
 }
 
 const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
-    thisInserat
+    thisInserat,
+    purchasedPlan
 }) => {
     const router = useRouter();
 
@@ -74,7 +76,19 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         <p className="dark:text-gray-100 text-gray-800">
                             erstellt am
                         </p>
+                        <div>
+                            {purchasedPlan ? (
+                                <p className="py-4 text-blue-600 font-bold">
+                                    {purchasedPlan?.subscriptionType}
+                                </p>
+                            ) : (
+                                <p className="py-4 dark:text-gray-200 font-semibold">
+                                    Gratis
+                                </p>
+                            )}
+                        </div>
                     </div>
+                    
                 </div>
                 <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">
                     <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" onClick={onEdit}>

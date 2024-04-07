@@ -45,8 +45,8 @@ export async function PATCH(
         
         //change success && cancel url
         const stripeSesison = await stripe.checkout.sessions.create({
-            success_url : `${process.env.NEXT_PUBLIC_BASE_URL}/inserate/${params.inseratId}`,
-            cancel_url : `${process.env.NEXT_PUBLIC_BASE_URL}/inserate/${params.inseratId}`,
+            success_url : `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.inseratId}`,
+            cancel_url : `${process.env.NEXT_PUBLIC_BASE_URL}/pricing/${params.inseratId}`,
             payment_method_types : ['card', 'paypal', 'sofort'],
             
             mode : "subscription",

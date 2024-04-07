@@ -2,36 +2,44 @@
 
 import InserateDashboardRender from "./inserate-dashboard-render";
 import { useState } from "react";
-import { inserat } from "@/db/schema";
+import { inserat, inseratSubscription } from "@/db/schema";
 
 interface InserateRenderListProps {
-    inserateArray : typeof inserat.$inferSelect
+    inserateArray: typeof inserat.$inferSelect;
+    existingPurchases: typeof inseratSubscription.$inferSelect[];
 }
 
 const InserateRenderList: React.FC<InserateRenderListProps> = ({
-    inserateArray
+    inserateArray,
+    existingPurchases
 }) => {
 
     //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
-    const [renderAmount, setRenderAmount] = useState(5); 
+    const [renderAmount, setRenderAmount] = useState(5);
 
-    return ( 
+
+    return (
         <div>
-            {inserateArray.slice(0,renderAmount).map((inserat) => (
+            {inserateArray.slice(0, renderAmount).map((inserat) => (
                 inserateArray.length > 0 && (
-                <InserateDashboardRender 
-                thisInserat = {inserat}
-                key={inserat.id}
-                />
-            )
-        ))}
-        {inserateArray.length > 5 && (
-            <p className="mt-2 text-xs  underline hover:cursor-pointer" onClick={() => {setRenderAmount(renderAmount + 5)}}>
-                Mehr anzeigen...
-            </p>
-        )}
+                    
+                        <InserateDashboardRender
+                            thisInserat={inserat}
+                            purchasedPlan = {existingPurchases?.find((purchase) => purchase.inseratId === inserat.id)}
+                            key={inserat.id}
+                        />
+                    
+
+
+                )
+            ))}
+            {inserateArray.length > 5 && (
+                <p className="mt-2 text-xs  underline hover:cursor-pointer" onClick={() => { setRenderAmount(renderAmount + 5) }}>
+                    Mehr anzeigen...
+                </p>
+            )}
         </div>
-     );
+    );
 }
- 
+
 export default InserateRenderList;

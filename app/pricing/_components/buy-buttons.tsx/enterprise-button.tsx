@@ -8,14 +8,17 @@ import { useState } from "react";
 import toast, { CheckmarkIcon } from "react-hot-toast";
 
 
+
 interface EnterpriseButtonProps {
     inseratId?: string,
+    inseratTitle: string,
     existingSubscription?: typeof inseratSubscription;
 }
 
 const EnterpriseButton = ({
     inseratId,
-    existingSubscription
+    existingSubscription,
+    inseratTitle
 }) => {
 
     const [isLoading, setIsLoading] = useState(false)
@@ -25,7 +28,11 @@ const EnterpriseButton = ({
             setIsLoading(true);
             const values = {
                 subscription: "ENTERPRISE",
-                price: 4900
+                price: 4900,
+                ...existingSubscription?.stripe_customer_id && {
+                    stripe_customer_id : existingSubscription.stripe_customer_id
+                },
+                inseratTitle : inseratTitle
             }
             const res = await axios.patch(`/api/stripe/inserat/${inseratId}`, values);
             window.location.href = res.data.url
@@ -39,11 +46,12 @@ const EnterpriseButton = ({
     return (
         <>
             {existingSubscription?.subscriptionType !== "ENTERPRISE" ? (
-                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" disabled={!inseratId} onClick={onSubscribe}>
+                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" disabled={!inseratId} 
+                onClick={onSubscribe}>
                     Jetzt starten
                 </Button>
             ) : (
-                <Button className="w-full text-sm bg-blue-600 hover:bg-blue-700 text-gray-200 mt-2 mb-2" >
+                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onSubscribe}>
                     <CheckIcon className="mr-2" />im Besitz
                 </Button>
             )}

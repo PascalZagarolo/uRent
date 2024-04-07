@@ -33,6 +33,7 @@ export async function PATCH(
         
 
         if(existingSubscription && existingSubscription.stripe_customer_id) {
+            console.log("yolo")
             //change redirectUrl
             const stripeSession = await stripe.billingPortal.sessions.create({
                 customer : existingSubscription.stripe_customer_id,
@@ -44,17 +45,21 @@ export async function PATCH(
         
         //change success && cancel url
         const stripeSesison = await stripe.checkout.sessions.create({
-            success_url : `${process.env.NEXT_PUBLIC_BASE_URL}/app/inserate/${params.inseratId}`,
-            cancel_url : `${process.env.NEXT_PUBLIC_BASE_URL}/app/inserate/${params.inseratId}`,
+            success_url : `${process.env.NEXT_PUBLIC_BASE_URL}/inserate/${params.inseratId}`,
+            cancel_url : `${process.env.NEXT_PUBLIC_BASE_URL}/inserate/${params.inseratId}`,
             payment_method_types : ['card', 'paypal', 'sofort'],
+            
             mode : "subscription",
+            
+           
             customer_email : currentUser.email,
+           
             line_items : [
                 {
                     price_data : {
                         currency : "eur",
                         product_data : {
-                            name : values.subscription,
+                            name : values.inseratTitle + values.subscription,
                             description : values.subscription,
                         },
                         unit_amount : values.price,

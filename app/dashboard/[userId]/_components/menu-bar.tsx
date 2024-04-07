@@ -19,7 +19,8 @@ const MenuBar = () => {
     const isFavourite = pathname.includes("favourite");
     const isInserat = pathname.includes("inserat");
     const isBooking = pathname.includes("bookings");
-    const isDashboard = !isManage && !isFavourite && !isInserat && !isBooking;
+    const isPayment = pathname.includes("payments");
+    const isDashboard = !isManage && !isFavourite && !isInserat && !isBooking && !isPayment;
 
     const baseUrl = "/dashboard/" + params.userId;
 
@@ -38,6 +39,10 @@ const MenuBar = () => {
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isInserat && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/inserate`}>
                 Meine Inserate
+            </a>
+            <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
+            isPayment && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/payments`}>
+                Zahlungsverkehr
             </a>
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isFavourite && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/favourites`}>

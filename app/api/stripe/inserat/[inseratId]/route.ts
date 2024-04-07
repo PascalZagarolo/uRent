@@ -13,10 +13,10 @@ export async function PATCH(
 ) {
     try {
 
-        const values = await req.json();
+        const values = await req?.json();
         
         const currentUser = await getCurrentUser();
-        console.log(params.inseratId + "dsasd")
+        
 
         if(!currentUser) {
             return new NextResponse("Nicht autorisiert : Kein Login", {status: 401})

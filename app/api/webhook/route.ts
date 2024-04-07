@@ -53,6 +53,7 @@ export async function POST(
         //@ts-ignore
         await db.insert(inseratSubscription).values({
             inseratId : session?.metadata?.inseratId,
+            userId : session?.metadata?.userId,
             subscriptionType : session?.metadata?.subscriptionType,
             stripe_subscription_id : subscription.id,
             stripe_customer_id : subscription.customer as string,

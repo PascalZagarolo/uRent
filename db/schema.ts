@@ -210,6 +210,7 @@ export const inserat = pgTable("inserat", {
 export const inseratSubscription = pgTable("inseratSubscription" , {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     inseratId : text("inseratId"),
+    userId : text("userId"),
 
     subscriptionType : inseratPriceType("subscriptionType"),
 

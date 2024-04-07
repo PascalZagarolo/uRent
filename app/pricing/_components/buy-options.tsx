@@ -46,6 +46,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                         <BasisButton 
                         inseratId={thisInserat.id}
                         existingSubscription={existingSubscription}
+                        inseratTitle={thisInserat.title}
                         />
                         <div className="w-full flex mt-2">
                             <div className="flex">
@@ -82,7 +83,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <PremiumButton 
                     inseratId={thisInserat.id}
                     existingSubscription={existingSubscription}
-                    
+                    inseratTitle={thisInserat.title}
                     />
                     <div className="w-full flex mt-2">
                         <div className="flex">
@@ -123,6 +124,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <EnterpriseButton
                     inseratId={thisInserat.id}
                     existingSubscription={existingSubscription}
+                    inseratTitle={thisInserat.title}
                     />
                     <div className="w-full flex mt-2">
                         <div className="flex">

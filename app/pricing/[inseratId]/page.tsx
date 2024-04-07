@@ -31,7 +31,7 @@ const InseratPricingPage = async ({
                 <div>
                     <ComparisonPlans />
                 </div>
-                <div className="mt-8 pb-16">
+                <div className="mt-16 pb-16">
                     <Faq/>
                 </div>
             </div>

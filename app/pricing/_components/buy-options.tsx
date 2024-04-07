@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import db from "@/db/drizzle";
-import { inserat, users } from "@/db/schema";
+import { inserat, inseratSubscription, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { FaCheck, FaFireFlameCurved } from "react-icons/fa6";
 import BasisButton from "./buy-buttons.tsx/basis-button";
@@ -26,6 +26,10 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
         where : eq(inserat.id, inseratId)
     })
 
+    const existingSubscription = await db.query.inseratSubscription.findFirst({
+        where : eq(inseratSubscription.inseratId, inseratId)
+    })
+
     
 
     return (
@@ -41,6 +45,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <div className="w-full ">
                         <BasisButton 
                         inseratId={thisInserat.id}
+                        existingSubscription={existingSubscription}
                         />
                         <div className="w-full flex mt-2">
                             <div className="flex">
@@ -76,6 +81,8 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     </p>
                     <PremiumButton 
                     inseratId={thisInserat.id}
+                    existingSubscription={existingSubscription}
+                    
                     />
                     <div className="w-full flex mt-2">
                         <div className="flex">
@@ -115,6 +122,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     </p>
                     <EnterpriseButton
                     inseratId={thisInserat.id}
+                    existingSubscription={existingSubscription}
                     />
                     <div className="w-full flex mt-2">
                         <div className="flex">

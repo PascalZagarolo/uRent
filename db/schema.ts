@@ -149,7 +149,7 @@ export const CategoryEnumRender = z.enum(categoryEnum.enumValues).Enum;
 export const inseratPriceType = pgEnum("priceType", [
     "FREE",
     "BASIS",
-    "PRO",
+    "PREMIUM",
     "ENTERPRISE"
 ])
 

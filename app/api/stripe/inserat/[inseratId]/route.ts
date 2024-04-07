@@ -54,8 +54,8 @@ export async function PATCH(
                     price_data : {
                         currency : "eur",
                         product_data : {
-                            name : "Basis",
-                            description : "Basis...",
+                            name : values.subscription,
+                            description : values.subscription,
                         },
                         unit_amount : values.price,
                         recurring : {
@@ -68,7 +68,7 @@ export async function PATCH(
             metadata : {
                 inseratId : params.inseratId,
                 userId : currentUser.id,
-                subscription : values.subscription
+                subscriptionType : values.subscription
             }
         })
 

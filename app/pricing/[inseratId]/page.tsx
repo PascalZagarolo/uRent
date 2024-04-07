@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import RevenuePreview from "./_components/revenue";
 import BuyOptions from "../_components/buy-options";
 import ComparisonPlans from "../_components/comparison-plans";
+import Faq from "./_components/faq";
 
 const InseratPricingPage = async ({
     params
@@ -29,6 +30,9 @@ const InseratPricingPage = async ({
                 </div>
                 <div>
                     <ComparisonPlans />
+                </div>
+                <div className="mt-8 pb-16">
+                    <Faq/>
                 </div>
             </div>
         </div>

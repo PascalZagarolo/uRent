@@ -157,7 +157,12 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                     foundInserate={foundInserate}
                                 />
                             </div>
+                            
                         </h3>
+                        <p className="text-xs dark:text-gray-200/60 ">
+                                Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, habe behalte
+                                <br/> vollen Überblick über deine Inserate und Fahrzeuge.
+                            </p>
                         <div className="pt-4">
                             <AddAvailability 
                             foundInserate={foundInserate}

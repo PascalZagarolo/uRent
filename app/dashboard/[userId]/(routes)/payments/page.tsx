@@ -3,8 +3,29 @@ import BreadCrumpPage from "../../_components/bread-crump-page";
 import MenuBar from "../../_components/menu-bar";
 import { CardStackPlusIcon } from "@radix-ui/react-icons";
 import { BiCreditCardAlt } from "react-icons/bi";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
+import { inserat, inseratSubscription } from "@/db/schema";
+import getCurrentUser from "@/actions/getCurrentUser";
+import { render } from '@react-email/components';
+import SubscriptionsRenderList from "./_components/subscriptions-render-list";
 
-const PaymentsPage = () => {
+const PaymentsPage = async () => {
+
+    const currentUser = await getCurrentUser();
+
+    const signedSubscriptions = await db.query.inserat.findMany({
+        where : (
+            eq(inserat.userId, currentUser.id)
+        ), with : {
+            inseratSubscription : true
+        }
+    })
+
+    const renderedSubscriptions = signedSubscriptions.filter((subscription) => subscription?.inseratSubscription !== null)
+
+    console.log(renderedSubscriptions)
+
     return ( 
         <div className="flex justify-center py-8 px-4  ">
             
@@ -22,10 +43,11 @@ const PaymentsPage = () => {
                                 <BiCreditCardAlt className="mr-4" /> Zahlungsverkehr
                             </div>
                         </h3>
-                            
-
-                        
-
+                            <div className="mt-8">
+                                <SubscriptionsRenderList 
+                                subscriptions={renderedSubscriptions}
+                                />
+                            </div>
                     </div>
                     </div>
             </div>

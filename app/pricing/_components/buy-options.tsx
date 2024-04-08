@@ -92,7 +92,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                         <div className="flex">
                             <div className="text-4xl font-bold">
                                {newPremium ? (newPremium) : (39)}€</div>
-                            <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                            <div className="text-xs text-gray-200/70 px-1">{(!newPremium && !newEnterprise) && "/Monat" }</div>
                         </div>
                     </div>
 

@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 interface PremiumButtonProps {
     inseratId?: string;
-    inseratTitle : string;
+    inseratTitle: string;
     existingSubscription?: typeof inseratSubscription;
 
 }
@@ -30,9 +30,9 @@ const PremiumButton = ({
                 subscription: "PREMIUM",
                 price: 3900,
                 ...existingSubscription?.stripe_customer_id && {
-                    stripe_customer_id : existingSubscription.stripe_customer_id
+                    stripe_customer_id: existingSubscription.stripe_customer_id
                 },
-                inseratTitle : inseratTitle
+                inseratTitle: inseratTitle
             }
             const res = await axios.patch(`/api/stripe/inserat/${inseratId}`, values);
             window.location.href = res.data.url
@@ -47,21 +47,28 @@ const PremiumButton = ({
         <>
             {existingSubscription?.subscriptionType !== "PREMIUM" ? (
                 existingSubscription ? (
-                    <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" disabled
+                    existingSubscription.subscriptionType === "BASIS" ? (
+                        <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" disabled
                         >
-                     <CheckIcon className="mr-2 w-4 h-4" />   im Besitz
-                    </Button >
+                            <CheckIcon className="mr-2 w-4 h-4" />   Upgraden
+                        </Button >
+                    ) : (
+                        <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" disabled
+                        >
+                            <CheckIcon className="mr-2 w-4 h-4" />   im Besitz
+                        </Button >
+                    )
                 ) : (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
                         disabled={!inseratId || existingSubscription} onClick={onSubscribe}>
-                        Jetzt starten 
+                        Jetzt starten
                     </Button >
                 )
             ) : (
-                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" >
+                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" disabled >
                     <CheckIcon className="mr-2" />im Besitz
                 </Button>
-            
+
             )}
         </>
     );

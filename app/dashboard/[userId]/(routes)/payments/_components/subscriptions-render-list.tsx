@@ -1,3 +1,5 @@
+'use client'
+
 import { inserat } from "@/db/schema";
 import {
     Table,
@@ -10,6 +12,7 @@ import {
 } from "@/components/ui/table"
 import { de } from "date-fns/locale";
 import { format } from "date-fns";
+import axios from "axios";
 
 interface SubscriptionsRenderListProps {
     subscriptions: typeof inserat.$inferSelect[]
@@ -20,6 +23,16 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
 }) => {
 
     const currentDate = new Date();
+
+    const onAdvocateSubscription = async (usedId : string) => {
+        try {
+            const values = {}
+        const res = await axios.patch(`/api/stripe/inserat/${usedId}`, values);
+            window.location.href = res.data.url
+        } catch {
+            console.log("error")
+        }
+    }
 
     return (
         <div>
@@ -60,16 +73,16 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                         }
                                         </TableCell>
                                     <TableCell>
-                                    <div className="hover:underline hover:cursor-pointer">
+                                    <div className="hover:underline hover:cursor-pointer" onClick={() => {onAdvocateSubscription(subscription.id)}}>
                                             Abo verwalten
                                         </div>
                                     </TableCell>
                                     
                                     <TableCell>
                                        {subscription.inseratSubscription?.subscriptionType !== "ENTERPRISE" && (
-                                        <div className="hover:underline hover:cursor-pointer">
+                                        <a className="hover:underline hover:cursor-pointer" href={`/pricing/${subscription.id}`}>
                                             Upgraden
-                                        </div>
+                                        </a>
                                        )}
                                     </TableCell>
                                     <TableCell className="text-indigo-800 font-bold">

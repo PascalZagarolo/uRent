@@ -24,7 +24,7 @@ const PaymentsPage = async () => {
 
     const renderedSubscriptions = signedSubscriptions.filter((subscription) => subscription?.inseratSubscription !== null)
 
-    console.log(renderedSubscriptions)
+    
 
     return ( 
         <div className="flex justify-center py-8 px-4  ">

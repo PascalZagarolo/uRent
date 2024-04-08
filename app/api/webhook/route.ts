@@ -67,6 +67,7 @@ export async function POST(
         await db.update(inserat).set({
             subscriptionId : createdSubscription.id,
             isPublished : true,
+            firstRelease : new Date()
         }).where(eq(inserat.id, session?.metadata?.inseratId))
         
     }

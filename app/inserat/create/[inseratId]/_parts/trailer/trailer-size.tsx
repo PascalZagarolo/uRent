@@ -168,7 +168,7 @@ const TrailerSizeForm: React.FC<TrailerSizeFormProps> = ({
                     || (currentLength == thisLength) && (currentWidth == thisWidth) && (currentHeight == thisHeight)
                     }
             >
-                <span className="">Laderaumangeben</span>
+                <span className="">Laderaum angeben</span>
             </Button>
         </div>
     );

@@ -168,7 +168,7 @@ const LkwSizeForm: React.FC<LkwSizeFormProps> = ({
                     || (currentLength == thisLength) && (currentWidth == thisWidth) && (currentHeight == thisHeight)
                     }
             >
-                <span className="">Laderaumangeben</span>
+                <span className="">Laderaum angeben</span>
             </Button>
         </div>
     );

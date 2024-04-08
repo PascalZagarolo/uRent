@@ -26,6 +26,7 @@ export async function POST(
             vehicleId : values.vehicleId,
             endDate : usedEnd,
             content : values.content,
+            isAvailability : values.isAvailability,
         }).returning();
 
         const thisInserat = await db.query.inserat.findFirst({

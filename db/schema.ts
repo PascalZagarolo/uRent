@@ -190,22 +190,22 @@ export const inserat = pgTable("inserat", {
         .references(() => users.id, { onDelete: "cascade" }),
 
     subscriptionId : uuid("subscriptionId")
-        .references(() => inseratSubscription.id, { onDelete: "cascade" }),
+        .references(() => inseratSubscription.id, { onDelete : "set null"}),
 
     addressId : uuid("addressId")
-        .references(() => address.id, { onDelete: "cascade" }),
+        .references(() => address.id),
 
     pkwId: uuid("pkwId")
-        .references(() => pkwAttribute.id, { onDelete: "cascade" }),
+        .references(() => pkwAttribute.id),
 
     lkwId: uuid("lkwId")
-        .references(() => lkwAttribute.id, { onDelete: "cascade" }),
+        .references(() => lkwAttribute.id),
 
     trailerId: uuid("trailerId")
-        .references(() => trailerAttribute.id, { onDelete: "cascade" }),
+        .references(() => trailerAttribute.id),
 
     transportId : uuid("transportId")
-            .references(() => transportAttribute.id, { onDelete: "cascade" }),
+            .references(() => transportAttribute.id),
     
     
 })
@@ -726,6 +726,23 @@ export const notification = pgTable("notification", {
     createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
 })
 
+export const report = pgTable("report", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+
+    userId : uuid("userId")
+                .references(() => users.id, { onDelete: "cascade" }),
+
+    inseratId : uuid("inseratId")
+                .references(() => inserat.id, { onDelete: "cascade" }),
+
+    messageId : uuid("messageId")
+                .references(() => message.id, { onDelete: "cascade" }),
+
+    reportType : text("reportType"),
+    
+    content : text("content"),
+})
+
 //every array of a user => e.g liked posts etc..
 
 export const accountRelations = relations(accounts, ({ one }) => ({
@@ -973,6 +990,21 @@ export const notificationRelations = relations(notification, ({ one }) => ({
     user : one(users, {
         fields : [notification.userId],
         references : [users.id]
+    })
+}))
+
+export const reportRelations = relations(report, ({ one }) => ({
+    user : one(users, {
+        fields : [report.userId],
+        references : [users.id]
+    }),
+   inserat : one(inserat, {
+    fields : [report.inseratId],
+    references : [inserat.id]
+   }),
+    message : one(message, {
+     fields : [report.messageId],
+     references : [message.id]
     })
 }))
 

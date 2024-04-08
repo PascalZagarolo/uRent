@@ -5,6 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import { useParams } from "next/navigation";
 
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -12,12 +14,26 @@ import { MdOutlineReportProblem } from "react-icons/md";
 
 const ReportModal = () => {
 
+    const params = useParams();
+
     const [reportCause, setReportCause] = useState<"BELEIDIGUNG" | "DISKRIMINIERUNG" | "BETRUG" | "SPAM" | "SONSTIGES" >(null);
     const [moreContent, setMoreContent] = useState<string>("");
 
-    const onReport = () => {
-        toast.success("Inserat wurde gemeldet");
-        //Todo set Api Route
+    const onReport = async () => {
+        try {
+            const values = {
+                reportType : reportCause,
+                content : moreContent,
+            }
+
+            await axios.post(`/api/report/${params.inseratId}/inserat`, values)
+                .then(() => {
+                    toast.success("Anzeige wurde erfolgreich gemeldet.")
+                })
+        } catch {
+            toast.error("Fehler beim melden der Anzeige.")
+        }
+
     }
 
 

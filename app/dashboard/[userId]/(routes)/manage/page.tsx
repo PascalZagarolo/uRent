@@ -14,6 +14,7 @@ import EventCalendar from "../_components/calendar";
 import RenderedVehicle from "./_components/rendered-vehicle";
 import MenuBar from "../../_components/menu-bar";
 import BreadCrumpPage from "../../_components/bread-crump-page";
+import AddAvailability from "./_components/add-availability";
 
 interface ManagePageProps {
     searchParams: {
@@ -157,7 +158,12 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                 />
                             </div>
                         </h3>
-                        <div className="py-4">
+                        <div className="pt-4">
+                            <AddAvailability 
+                            foundInserate={foundInserate}
+                            />
+                        </div>
+                        <div className="pb-4 pt-2">
                             <AddBooking 
                             foundInserate={foundInserate}
                             />

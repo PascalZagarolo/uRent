@@ -652,7 +652,6 @@ export const booking = pgTable("booking", {
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
     userId: uuid("userId").
-        notNull().
         references(() => users.id, { onDelete: "cascade" }),
     
     vehicleId : uuid("vehicleId")
@@ -662,6 +661,8 @@ export const booking = pgTable("booking", {
 
     startDate: timestamp("startDate", {mode: "date"}),
     endDate: timestamp("endDate", {mode: "date"}),
+
+    isAvailability : boolean("isAvailability").default(false),
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 

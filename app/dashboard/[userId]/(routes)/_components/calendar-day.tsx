@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { booking } from "@/db/schema";
+import { cn } from "@/lib/utils";
 
 import clsx from "clsx";
 import { format, isToday } from "date-fns";
@@ -63,7 +64,8 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           {isShowing(pBooking.inseratId, pBooking?.vehicleId) && 
           <div
           key={pBooking.id}
-          className="   bg-blue-600 rounded-md py-2  flex justify-center mt-2"
+          className={cn("bg-blue-600 rounded-md py-2  flex justify-center mt-2",
+                          pBooking.isAvailability && "bg-rose-700")}
         >
           {inseratFilter ? (
             <X className="text-gray-900 w-4 h-4" />
@@ -71,7 +73,26 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
             <HoverCard>
               <HoverCardTrigger><CarIcon className="text-gray-200 w-4 h-4" /></HoverCardTrigger>
               <HoverCardContent className="dark:bg-[#1C1C1C] border-none">
-                <h3 className="font-semibold flex justify-start">
+                <>
+                {pBooking.isAvailability ? (
+                  <div className="text-xs flex justify-start">
+                    <div>
+                    <div className="flex justify-start text-sm font-semibold">
+                    <X className="w-4 h-4 mr-2" />{format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
+                    </div>
+                    Als nicht verfügbar markiert
+                    <div className="flex justify-start mt-2 font-semibold">
+                      {pBooking.content ? (
+                        pBooking.content
+                      ) : (
+                        "Keine Notiz angegeben"
+                      )}
+                    </div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                  <h3 className="font-semibold flex justify-start">
                   {//@ts-ignore
                   pBooking.inserat.title}
                 </h3>
@@ -94,6 +115,9 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                 <CalendarSearchIcon className="h-4 w-4 mr-2" />
                 {format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
                 </div>
+                  </>
+                )}
+                </>
               </HoverCardContent>
             </HoverCard>
           )}

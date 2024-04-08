@@ -77,6 +77,8 @@ const TransportBrandForm: React.FC<CarBrandFormProps> = ({
                             className="placeholder:text-gray-100"
                         />
                     </SelectTrigger>
+                    
+                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
                     <SelectGroup>
                             <SelectLabel>
                                 Häufigsten
@@ -89,8 +91,6 @@ const TransportBrandForm: React.FC<CarBrandFormProps> = ({
                                 <Separator className="w-full"/>
                             </SelectLabel>
                         </SelectGroup>
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        
                         
                         <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(TransportBrandEnumRender).map((brand, index) => (

@@ -18,9 +18,9 @@ export async function POST(
 
     let event: Stripe.Event;
 
-    console.log("ja")
+    
     try {
-        console.log("2")
+        
         event = stripe.webhooks.constructEvent(
             body,
             signature,

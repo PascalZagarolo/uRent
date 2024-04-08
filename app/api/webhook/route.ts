@@ -62,7 +62,7 @@ export async function POST(
                 subscription.current_period_end * 1000
             
             )
-        }).returning()
+        }).returning();
 
         await db.update(inserat).set({
             subscriptionId : createdSubscription.id,

@@ -123,7 +123,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
     return (
         <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
         mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border-[#171923] px-2 py-4 rounded-md`,
-        thisInserat?.inseratSubscription?.subscriptionType === "ENTERPRISE" && "dark:border border border-indigo-900"
+        thisInserat?.inseratSubscription?.subscriptionType === "ENTERPRISE" && "dark:border border border-indigo-900",
+        thisInserat?.inseratSubscription?.subscriptionType === "PREMIUM" && "dark:border border border-indigo-900",
         
         )}>
 

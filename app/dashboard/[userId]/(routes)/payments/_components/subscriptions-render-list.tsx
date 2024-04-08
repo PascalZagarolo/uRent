@@ -48,7 +48,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                         </TableHeader>
                         <TableBody>
                             {subscriptions.map((subscription) => (
-                                <TableRow>
+                                <TableRow key={subscription.id}>
                                     <TableCell className="font-medium">{subscription.id}</TableCell>
                                     <TableCell className="font-bold max-w-[160px] truncate">{subscription.title}</TableCell>
                                     <TableCell>{format(new Date(subscription.inseratSubscription?.stripe_current_period_end),

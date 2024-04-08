@@ -43,7 +43,7 @@ const RevenuePreview : React.FC<RevenuePreviewProps> = ({
                     fange noch heute an und verdiene bis zu
                     </div> 
                     <div className="text-4xl px-2 text-gray-200 font-semibold">
-                        {formatIntegerWithDot(estimatedRevenue)} € 
+                        {formatIntegerWithDot(Math.round(estimatedRevenue))} € 
                     </div>
                     <div className="text-sm mb-auto">
                         /Monat *

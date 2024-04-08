@@ -30,8 +30,11 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
         where : eq(inseratSubscription.inseratId, inseratId)
     })
 
-    
-
+    const newPremium =  existingSubscription?.subscriptionType === "BASIS" && 14 
+    const newEnterprise = existingSubscription ? 
+    (existingSubscription.subscriptionType === "BASIS" ? 24 :
+    (existingSubscription.subscriptionType === "PREMIUM" ? 10 : null)) : null
+    console.log(newEnterprise)
     return (
         <div>
             <div className="w-full flex space-x-4 p-4 ">
@@ -87,7 +90,9 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     />
                     <div className="w-full flex mt-2">
                         <div className="flex">
-                            <div className="text-4xl font-bold">39 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                            <div className="text-4xl font-bold">
+                               {newPremium ? (newPremium) : (39)}€</div>
+                            <div className="text-xs text-gray-200/70 px-1">/Monat</div>
                         </div>
                     </div>
 
@@ -129,7 +134,8 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <div className="w-full flex mt-2">
                         <div className="flex">
 
-                            <div className="text-4xl font-bold">49 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                            <div className="text-4xl font-bold">{newEnterprise ? (newEnterprise) : (49)} €</div>
+                            <div className="text-xs text-gray-200/70 px-1">{(!newEnterprise && !newPremium) && "/Monat"}</div>
                         </div>
                     </div>
 

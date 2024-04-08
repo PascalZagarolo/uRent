@@ -18,7 +18,7 @@ import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { eq, sql } from "drizzle-orm";
-import { address, images, inserat, lkwAttribute, notification, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
+import { address, images, inserat, inseratSubscription, lkwAttribute, notification, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
@@ -44,7 +44,8 @@ const InseratCreation = async ({
             pkwAttribute: true,
             lkwAttribute: true,
             trailerAttribute: true,
-            transportAttribute: true
+            transportAttribute: true,
+            inseratSubscription: true
         },
         where: eq(inserat.id, sql.placeholder("inseratId"))
     }).prepare("findInserat")
@@ -68,7 +69,7 @@ const InseratCreation = async ({
     const isPublishable = {
         title: thisInserat.title.length > 0,
         description: thisInserat.description?.length > 0 || false,
-        price: thisInserat.price !== 0,
+        price: thisInserat.price !== 0 && thisInserat.price,
         images: thisInserat.images?.length > 0,
         date: (thisInserat.end && thisInserat.begin) !== null || thisInserat.annual,
         postalCode: thisInserat.address?.postalCode != null,
@@ -226,6 +227,7 @@ const InseratCreation = async ({
                                 <PublishInserat
                                     isPublishable={isPublishable}
                                     thisInserat={thisInserat}
+
                                 />
 
                             </div>

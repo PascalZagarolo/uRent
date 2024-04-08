@@ -6,31 +6,38 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-import { inserat } from "@/db/schema";
+import { inserat, inseratSubscription } from "@/db/schema";
 
 interface PublishInseratProps {
     
-    
-    isPublishable : object;
-    thisInserat : typeof inserat.$inferSelect;
+    isPublishable: object;
+    thisInserat: typeof inserat.$inferSelect;
 }
 
 const PublishInserat: React.FC<PublishInseratProps> = ({
     isPublishable,
-    thisInserat
-}) => {
+    thisInserat,
     
+}) => {
+
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    
+    const currentDate = new Date();
+
+
+    const expirationDate = new Date(thisInserat?.existingSubscription?.stripe_current_period_end);
 
     const onPublish = () => {
         try {
-            setIsLoading(true);
-            axios.patch(`/api/inserat/${thisInserat.id}/publish` , { publish : true });
-            toast.success("Anzeige erfolgreich veröffentlicht");
-            router.push('/')
+            if (expirationDate < currentDate || !thisInserat?.existingSubscription) {
+                router.push(`/pricing/${thisInserat.id}`)
+            } else {
+                setIsLoading(true);
+                axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish: true });
+                toast.success("Anzeige erfolgreich veröffentlicht");
+                router.push('/')
+            }
         } catch {
             toast.error("Etwas ist schief gelaufen...")
         } finally {
@@ -41,7 +48,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     const onPrivate = () => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/inserat/${thisInserat.id}/publish` , { publish : false} );
+            axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish: false });
             toast.success("Anzeige erfolgreich privat gestellt");
             setTimeout(() => {
                 router.refresh();
@@ -60,62 +67,62 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
     for (let key in isPublishable) {
         if (!isPublishable[key]) {
-          canPublish = false;
-          break;
+            canPublish = false;
+            break;
         }
-      }
+    }
 
 
     useEffect(() => {
-        if(thisInserat.images.length === 0 && !firstUpdate.current && thisInserat.isPublished) {  
+        if (thisInserat.images.length === 0 && !firstUpdate.current && thisInserat.isPublished) {
             onPrivate();
         }
 
-        if(firstUpdate.current) {   
+        if (firstUpdate.current) {
             firstUpdate.current = false;
         }
-    },[thisInserat.images.length])
+    }, [thisInserat.images.length])
 
     useEffect(() => {
         for (let key in isPublishable) {
             if (!isPublishable[key]) {
-              canPublish = false;
-              break;
+                canPublish = false;
+                break;
             }
-          }
+        }
 
-          if(!firstUpdate2.current) {
+        if (!firstUpdate2.current) {
             setTimeout(() => {
                 firstUpdate2.current = true;
             }, 100)
             router.refresh();
-          }
-
-          if(firstUpdate2.current) {
-            
-            firstUpdate2.current = false; 
         }
 
-          
+        if (firstUpdate2.current) {
+
+            firstUpdate2.current = false;
+        }
+
+
     }, [isPublishable])
 
-    
 
-    return ( 
+
+    return (
         <div className="w-full mt-auto">
             <p className="flex justify-center text-xs dark:text-gray-100/80  text-gray-900/50"> Pflichtfelder sind mit einem  *  markiert.</p>
-            {!thisInserat.isPublished   ? (
-            <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full"disabled={!canPublish} onClick={onPublish}>
-                Anzeige veröffentlichen
-            </Button>
-        ) : (
-            <Button variant="ghost" size="sm" className="dark:bg-blue-800 hover:dark:bg-blue-700 w-full" onClick={onPrivate}>
-                Anzeige privat schalten
-            </Button>
-        )}
-        
+            {!thisInserat.isPublished ? (
+                <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full" disabled={!canPublish} onClick={onPublish}>
+                    Anzeige veröffentlichen
+                </Button>
+            ) : (
+                <Button variant="ghost" size="sm" className="dark:bg-blue-800 hover:dark:bg-blue-700 w-full" onClick={onPrivate}>
+                    Anzeige privat schalten
+                </Button>
+            )}
+
         </div>
-     );
+    );
 }
- 
+
 export default PublishInserat;

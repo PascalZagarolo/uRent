@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { inserat, vehicle } from '../../../../../../db/schema';
 import qs from "query-string";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Label } from "@/components/ui/label";
 
 interface SelectInseratProps {
     foundInserate: typeof inserat.$inferSelect[]
@@ -26,7 +27,6 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
         if(id) {
              [firstPart, secondPart] = id?.split("++");
         }
-
         console.log("First part:", firstPart);
         console.log("Second part:", secondPart);
         const url = qs.stringifyUrl({
@@ -51,12 +51,10 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                 value={
                     currentVehicle ? currentInserat + "++" + currentVehicle : currentInserat
                 }
-
+                
             >
-
-                <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F]" >
+                <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F]">
                     <SelectValue>
-
                     </SelectValue>
                     <SelectContent className="dark:bg-[#0F0F0F] dark:border-none">
                         <SelectItem value={null}>
@@ -78,13 +76,10 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                                     </SelectItem>
                                 ))}
                             </>
-
                         ))}
                     </SelectContent>
                 </SelectTrigger>
             </Select>
-
-
         </>
     );
 }

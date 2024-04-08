@@ -1,6 +1,7 @@
 
 import db from "@/db/drizzle";
 import { address, inserat } from "@/db/schema";
+import axios from "axios";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -13,6 +14,17 @@ export async function PATCH(
         const values = await req.json();
 
         console.log(values);
+
+        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${values.locationString}&api_key=65db7269a0101559750093uena07e08`);
+
+        console.log("test")
+       
+        console.log(addressObject.data[0]);
+
+        const pAddress: string[] = addressObject.data[0].display_name.split(",");
+        console.log(pAddress[address.length -3])
+        console.log(addressObject.data[0].lat)
+        console.log(addressObject.data[0].lon)
 
         const existingAddressObject = await db.query.address.findFirst({
             where : eq(address.inseratId, params.inseratId)
@@ -33,6 +45,8 @@ export async function PATCH(
             
         } else {
             const patchedAddress = await db.update(address).set({
+                longitude : addressObject.data[0].lon,
+                latitude : addressObject.data[0].lat,
                 ...values
             }).where(eq(address.inseratId, params.inseratId)).returning();
             return NextResponse.json(patchedAddress[0]);

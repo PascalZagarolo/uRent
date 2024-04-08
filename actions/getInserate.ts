@@ -3,7 +3,7 @@
 
 import db from "@/db/drizzle";
 import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender, 
-    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, lkwAttribute, LkwBrandEnumRender, 
+    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, inseratSubscription, lkwAttribute, LkwBrandEnumRender, 
     LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender, 
     transportAttribute} from "@/db/schema";
 import axios from "axios";
@@ -255,6 +255,7 @@ export const getInserate = async ({
                 pkwAttribute: true,
                 trailerAttribute: true,
                 transportAttribute: true,
+                inseratSubscription : true,
             },
             ...(filter === "relevance") && {
                 orderBy : (views, { desc }) => [desc(inserat.views)]

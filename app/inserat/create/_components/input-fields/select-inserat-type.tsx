@@ -47,7 +47,7 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ thisInserat }) =>
             };
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
-            toast.success("Mehrfachanzeige : " + values.multi);
+            toast.success(values.multi ? "Auf Mehrfachinserat gewechselt." : "Auf Einzelinserat gewechselt.");
             setTimeout(() => {
                 router.refresh();
             }, 400);

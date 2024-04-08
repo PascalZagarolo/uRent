@@ -52,7 +52,7 @@ const InseratCreation = async ({
 
     const thisInserat = await findInserat.execute({ inseratId: params.inseratId })
 
-    console.log(thisInserat)
+    console.log(thisInserat?.inseratSubscription)
 
     const relatedImages = await db.query.images.findMany({
         where: eq(images.inseratId, thisInserat.id)

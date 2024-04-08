@@ -28,9 +28,11 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
     const expirationDate = new Date(thisInserat?.existingSubscription?.stripe_current_period_end);
 
+    console.log(thisInserat?.inseratSubscription)
+
     const onPublish = () => {
         try {
-            if (expirationDate < currentDate || !thisInserat?.existingSubscription) {
+            if (expirationDate < currentDate || !thisInserat?.inseratSubscription) {
                 router.push(`/pricing/${thisInserat.id}`)
             } else {
                 setIsLoading(true);

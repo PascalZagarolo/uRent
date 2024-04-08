@@ -34,7 +34,7 @@ const InseratAttributes: React.FC<InseratAttributesProps> = ({
                         'PKW': <PkwAttributeRender attributes = {thisInserat?.pkwAttribute} />,
                         'LKW' : <LkwAttributeRender attributes = {thisInserat?.lkwAttribute} />,
                         'TRANSPORT' : <TransportAttributeRender attributes={thisInserat?.transportAttribute} />,
-                        'TRAILOR' : <TrailerAttributeRender attributes={thisInserat?.trailerAttribute} />                        
+                        'TRAILER' : <TrailerAttributeRender attributes={thisInserat?.trailerAttribute} />                        
                     }[thisInserat.category]
                 }
             </div>

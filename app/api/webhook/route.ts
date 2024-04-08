@@ -1,6 +1,7 @@
 import db from "@/db/drizzle";
 import { inserat, inseratSubscription } from "@/db/schema";
 import { stripe } from "@/lib/stripe";
+import axios from "axios";
 import { eq } from "drizzle-orm/sql";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -66,9 +67,14 @@ export async function POST(
 
         await db.update(inserat).set({
             subscriptionId : createdSubscription.id,
-            isPublished : true,
             firstRelease : new Date()
         }).where(eq(inserat.id, session?.metadata?.inseratId))
+
+        const values = {
+            publish : true
+        }
+
+        axios.patch(`/api/inserat/${session?.metadata?.inseratId}/publish`, values)
         
     }
     

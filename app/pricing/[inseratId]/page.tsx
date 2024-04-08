@@ -5,6 +5,7 @@ import RevenuePreview from "./_components/revenue";
 import BuyOptions from "../_components/buy-options";
 import ComparisonPlans from "../_components/comparison-plans";
 import Faq from "./_components/faq";
+import RedeemCode from "../_components/redeem-code";
 
 const InseratPricingPage = async ({
     params
@@ -23,7 +24,10 @@ const InseratPricingPage = async ({
                 <BuyOptions 
                 inseratId={params.inseratId}
                 />
-                <div>
+                <div className="mt-2">
+                    <RedeemCode />
+                </div>
+                <div className="mt-4">
                     <RevenuePreview 
                     thisInserat={thisInserat}
                     />

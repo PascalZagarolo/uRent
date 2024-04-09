@@ -130,6 +130,10 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                                                     if(isNaN(Number(formattedValue))){
                                                         formattedValue = null;
                                                     }
+
+                                                    if(Number(formattedValue) >= 1_000_000) {
+                                                        formattedValue = "999999";
+                                                    }
                                                     e.currentTarget.value = formattedValue;
 
                                                     setCurrentValue(Number(formattedValue));
@@ -151,10 +155,11 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            type="submit" disabled={!isValid || isSubmitting || currentValue == thisInserat.price}
+                            type="submit" disabled={!isValid || isSubmitting || currentValue == thisInserat.price || currentValue > 1_000_000}
                         >
                             Preis festlegen
                         </Button>
+                        
                         <div className="ml-auto space-x-2">
                         <Label>
                             Preis pro Tag

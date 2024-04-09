@@ -43,6 +43,24 @@ const PremiumButton = ({
         }
     }
 
+    const onUpgrade = async () => {
+        try {
+            setIsLoading(true);
+            const price = 1400;
+            const values = {
+                subscription: "PREMIUM",
+                price : price,
+                stripe_customer_id : existingSubscription.stripe_customer_id,
+                inseratTitle : inseratTitle
+            }
+
+        } catch {
+            toast.error("Etwas ist schief gelaufen")
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <>
             {existingSubscription?.subscriptionType !== "PREMIUM" ? (

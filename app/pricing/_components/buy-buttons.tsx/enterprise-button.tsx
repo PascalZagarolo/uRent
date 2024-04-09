@@ -43,12 +43,38 @@ const EnterpriseButton = ({
         }
     }
 
+    const onUpgrade = async () => {
+        try {
+            setIsLoading(true);
+            let price;
+
+            if(existingSubscription.subscriptionType === "BASIS") {
+                price = 2400
+            } else {
+                price = 1000
+            }
+            
+            const values = {
+                subscription: "ENTERPRISE",
+                price : price,
+                stripe_customer_id : existingSubscription.stripe_customer_id,
+                inseratTitle : inseratTitle
+            }
+            const res = await axios.patch(`/api/stripe/upgrade/${inseratId}`, values);
+            window.location.href = res.data.url
+        } catch {
+            toast.error("Etwas ist schief gelaufen")
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <>
             {existingSubscription?.subscriptionType !== "ENTERPRISE" ? (
                 existingSubscription ? (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" disabled={!inseratId}
-                        onClick={onSubscribe}>
+                        onClick={onUpgrade}>
                         Upgraden
                     </Button >
                 ) : (

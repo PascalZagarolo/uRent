@@ -43,14 +43,11 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
             </div>
             <div className="mt-4 flex w-full justify-between items-center space-x-2">
                 <div className="w-1/2 flex space-x-2">
-                     
                     <div className="w-full">
                         <SelectCategoryInserat
                             thisInserat={thisInserat}
                         />
-                    </div>
-                    
-                   
+                    </div>     
                 </div>
                 <div className="w-1/2">
                     {
@@ -62,44 +59,31 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                         }[thisInserat.category]
                     }
                     </div>
-                
-
             </div>
             <div className="mt-8">
-               
                 <InseratImageUpload
                     thisImages={thisImages}
-                />
-                
+                />    
             </div>
             <div className="mt-4 w-full flex gap-x-4">
-
                 <div className="w-1/2">
-                   
                     <SelectPrice
                         thisInserat={thisInserat}
                     />
-                    
                 </div>
                 <div className="w-1/2 flex gap-x-2">
-                    <div className="w-1/2">
-                       
+                    <div className="w-1/2">  
                         <SelectInseratType 
                         thisInserat={thisInserat}
                         />
-                        
                     </div>
                     <div className="w-1/2">
-                        
                         <SelectVehicleAmount
                         thisInserat = {thisInserat}
                         />
-                        
                     </div>
                 </div>
-
             </div>
-
         </div>
     );
 }

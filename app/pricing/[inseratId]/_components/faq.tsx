@@ -20,7 +20,7 @@ const Faq = () => {
                         </AccordionContent>
                     </AccordionItem>
 
-                <AccordionItem value="item-1">
+                <AccordionItem value="item-2">
                         <AccordionTrigger>Wie funktioniert die Abrechnung?</AccordionTrigger>
                         <AccordionContent>
                         Die Abrechnung erfolgt monatlich. 
@@ -29,7 +29,7 @@ const Faq = () => {
                         </AccordionContent>
                     </AccordionItem>
                     
-                    <AccordionItem value="item-2">
+                    <AccordionItem value="item-3">
                         <AccordionTrigger>Kann ich mein Abonnement jederzeit kündigen?</AccordionTrigger>
                         <AccordionContent>
                         Ja, Sie können Ihr Abonnement jederzeit kündigen. Die Kündigung tritt zum Ende des aktuellen Abrechnungszeitraums in Kraft. 
@@ -37,7 +37,7 @@ const Faq = () => {
                         </AccordionContent>
                     </AccordionItem>
 
-                    <AccordionItem value="item-3">
+                    <AccordionItem value="item-4">
                         <AccordionTrigger>Gibt es eine Kündigungsfrist für mein Abonnement?</AccordionTrigger>
                         <AccordionContent>
                         Nein, es gibt keine Kündigungsfrist für Ihr Abonnement. 

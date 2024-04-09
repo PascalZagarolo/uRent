@@ -95,6 +95,9 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
                                                     if(isNaN(Number(formattedValue))){
                                                         formattedValue = String(0);
                                                     }
+                                                    if(Number(formattedValue) >= 1_000_000){
+                                                        formattedValue = "999999";
+                                                    }
                                                     e.currentTarget.value = formattedValue;
 
                                                     setCurrentValue(Number(formattedValue));

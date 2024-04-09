@@ -75,10 +75,23 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
     return (
         <Popover >
             <PopoverTrigger asChild>
+                
                 <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost" >
-                    <BellDotIcon className="w-6 h-6" /> <p className="text-xs">{unseenNotifications?.length}</p>
-
+                    <BellDotIcon className="w-6 h-6" /> 
+                    {unseenNotifications.length > 0 ? (
+                        <span className="bg-rose-600 text-xs font-bold px-1 flex rounded-md text-gray-200">
+                            {unseenNotifications.length}
+                        </span>
+                    ) : 
+                    <span className=" text-xs font-bold px-1 flex rounded-md text-gray-200">
+                            0
+                        </span>
+                    }
                 </Button>
+               
+                    
+                
+                
             </PopoverTrigger>
             <PopoverContent className="dark:bg-[#0F0F0F] w-[400px] dark:border-gray-800 border-none" onBlur={onBlur}>
                 <div>

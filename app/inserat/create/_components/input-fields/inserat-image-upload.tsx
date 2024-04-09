@@ -68,13 +68,15 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             <h3 className="flex justify-center font-semibold text-md items-center">
                 <ImageIcon className="mr-2 h-4 w-4" />
                 Fotos und Anhänge *
-                <CldUploadButton
+                {thisImages.length < 8 && (
+                    <CldUploadButton
                     onUpload={handleImageUpload}
                     uploadPreset="oblbw2xl"
                     options={{ maxFiles: 1 }}
                 >
                     <PlusCircleIcon className="ml-4 h-4 w-4" />
                 </CldUploadButton>
+                )}
                 <div className="ml-auto">
                     <DeleteImageForm 
                     thisImages = { thisImages }

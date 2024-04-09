@@ -80,9 +80,7 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                    
                 </div>
                 <div className="w-1/2">
-                    <DriveForm 
-                    thisDrive={thisInserat?.lkwAttribute?.drive}
-                    />
+                    
                 </div>
             </div>
 

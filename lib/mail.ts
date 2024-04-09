@@ -17,7 +17,7 @@ export const sendTwoFactorActivating = async (
   
 ) => {
   await resend.emails.send({
-    from: "mail@u-rent-rental.de",
+    from: "mail@urent-rental.de",
     to: email,
     subject: "2FA Aktivierung",
     react : FaActivation()
@@ -29,7 +29,7 @@ export const sendTwoFactorTokenEmail = async (
   token: string
 ) => {
   await resend.emails.send({
-    from: "mail@u-rent-rental.de",
+    from: "mail@urent-rental.de",
     to: email,
     subject: "2FA Code",
     react : ConfirmLogin({token})
@@ -47,7 +47,7 @@ export const sendVerificationEmail = async (
    
 
     await resend.emails.send({
-        from: "mail@u-rent-rental.de",
+        from: "mail@urent-rental.de",
         to: email,
         subject: "Bestätige deine Anmeldung",
         react : ConfirmMail({confirmLink}) ,
@@ -61,7 +61,7 @@ export const sendPasswordResetEmail = async (
     const resetLink = `${process.env.NEXT_PUBLIC_BASE_URL}/new-password?token=${token}`
   
     await resend.emails.send({
-      from: "mail@u-rent-rental.de",
+      from: "mail@urent-rental.de",
       to: email,
       subject: "Zurücksetzen deines Passworts",
       react: ChangePassword({ confirmLink : resetLink }),

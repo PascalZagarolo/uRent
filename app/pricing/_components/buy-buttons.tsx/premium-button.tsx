@@ -53,7 +53,8 @@ const PremiumButton = ({
                 stripe_customer_id : existingSubscription.stripe_customer_id,
                 inseratTitle : inseratTitle
             }
-
+            const res = await axios.patch(`/api/stripe/upgrade/${inseratId}`, values);
+            window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")
         } finally {
@@ -66,7 +67,7 @@ const PremiumButton = ({
             {existingSubscription?.subscriptionType !== "PREMIUM" ? (
                 existingSubscription ? (
                     existingSubscription.subscriptionType === "BASIS" ? (
-                        <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" 
+                        <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onUpgrade}
                         >
                                Upgraden
                         </Button >

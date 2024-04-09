@@ -34,6 +34,43 @@ export async function POST(
     }
     
     const session = event.data.object as Stripe.Checkout.Session
+
+    if(session?.metadata?.upgrade === "true" && event.type === "checkout.session.completed") {
+
+        const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+
+        if(!session?.metadata?.inseratId) {
+            return new NextResponse("InseratId nicht gefunden", {status : 400})
+        }
+
+        if(!session?.metadata?.userId) {
+            return new NextResponse("UserId nicht gefunden", {status : 400})
+        }
+
+        const newPrice = session?.metadata?.subscriptionType === "PREMIUM" ? 3900 : 4900;
+        
+        const [patchSubscription] = await db.update(inseratSubscription).set({
+            //@ts-ignore
+            subscriptionType : session?.metadata?.subscriptionType,
+        }).where(eq(inseratSubscription.inseratId, session?.metadata?.inseratId)).returning();
+
+        const subscriptions = await stripe.subscriptions.list({
+            customer: patchSubscription.stripe_customer_id,
+          });
+
+        const stripeSubscription = await stripe.subscriptions.update(
+            patchSubscription.stripe_subscription_id,
+            {
+                items : [
+                    {
+                        id : subscriptions.data[0].items.data[0].id,
+                    }
+                ]
+            }
+        )
+
+        return new NextResponse(null, {status : 200})
+    }
     
     if(event.type === "checkout.session.completed") {
         

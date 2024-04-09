@@ -20,18 +20,8 @@ const Imprint = async () => {
 
     return (
         <div>
-            <div className="relative top-0 w-full z-50">
-                <HeaderLogo
-                    currentUser={currentUser} 
-                    foundNotifications={foundNotifications}
-                    />
-            </div>
-            <div className="sm:hidden">
-                <MobileHeader
-                currentUser={currentUser}
-                foundNotifications = {foundNotifications}
-                />  
-             </div>
+            
+            
             <div className="flex justify-center p-8 bg-[#404040]/10">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">

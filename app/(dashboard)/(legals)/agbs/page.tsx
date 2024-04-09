@@ -29,7 +29,6 @@ const AgbsPage = async () => {
                                 Allgemeinen Geschäftsbedingungen der &apos;uRent&apos; Plattform
                             </h3>
                             <div className="p-8 text-sm dark:text-gray-300/90">
-
                                 <h1 className="font-semibold text-lg ">
                                     Geltungsbereich
                                 </h1>

@@ -39,6 +39,7 @@ const Proximity = () => {
       <SelectContent className="font-semibold">
         <SelectGroup>
           <SelectLabel>Umkreis</SelectLabel>
+          <SelectItem value="1">Nur Ort</SelectItem>
           <SelectItem value="10">10 Km</SelectItem>
           <SelectItem value="15">15 Km</SelectItem>
           <SelectItem value="25">25 Km</SelectItem>

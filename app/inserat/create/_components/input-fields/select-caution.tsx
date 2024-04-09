@@ -97,6 +97,9 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
                                                     if(isNaN(Number(formattedValue))){
                                                         formattedValue = null;
                                                     }
+                                                    if(Number(formattedValue) >= 1_000_000){
+                                                        formattedValue = "999999";
+                                                    }
                                                     e.currentTarget.value = formattedValue;
 
                                                     setCurrentValue(Number(formattedValue));

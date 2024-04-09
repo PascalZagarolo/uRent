@@ -96,6 +96,9 @@ const ExtraCost: React.FC<ExtraCostProps> = ({
                                                     if(isNaN(Number(formattedValue))){
                                                         formattedValue = String(2);
                                                     }
+                                                    if(Number(formattedValue) >= 1_000_000){
+                                                        formattedValue = "999999";
+                                                    }
                                                     e.currentTarget.value = formattedValue;
 
                                                     setCurrentValue(Number(formattedValue));

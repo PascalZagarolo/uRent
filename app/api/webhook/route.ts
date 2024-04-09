@@ -36,39 +36,40 @@ export async function POST(
     const session = event.data.object as Stripe.Checkout.Session
 
     if(session?.metadata?.upgrade === "true" && event.type === "checkout.session.completed") {
-
-        const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
-
+        console.log("upgrade")
+        
+        
         if(!session?.metadata?.inseratId) {
             return new NextResponse("InseratId nicht gefunden", {status : 400})
         }
-
+        console.log("1")
         if(!session?.metadata?.userId) {
             return new NextResponse("UserId nicht gefunden", {status : 400})
         }
-
-        const newPrice = session?.metadata?.subscriptionType === "PREMIUM" ? 3900 : 4900;
-        
+        console.log("2")
+        const newPrice = session?.metadata?.subscriptionType === "PREMIUM" ? "price_1P3eHLGRyqashQ2w8G7MmOmc" : "price_1P3eHXGRyqashQ2wzUh5fehI";
+        console.log("3")
         const [patchSubscription] = await db.update(inseratSubscription).set({
             //@ts-ignore
             subscriptionType : session?.metadata?.subscriptionType,
         }).where(eq(inseratSubscription.inseratId, session?.metadata?.inseratId)).returning();
-
+        console.log("4")
         const subscriptions = await stripe.subscriptions.list({
             customer: patchSubscription.stripe_customer_id,
           });
-
+          console.log("5")
         const stripeSubscription = await stripe.subscriptions.update(
             patchSubscription.stripe_subscription_id,
             {
                 items : [
                     {
                         id : subscriptions.data[0].items.data[0].id,
+                        price : newPrice
                     }
-                ]
+                ],proration_behavior: 'none'
             }
         )
-
+        console.log("6")
         return new NextResponse(null, {status : 200})
     }
     

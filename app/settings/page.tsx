@@ -13,6 +13,8 @@ import ChangeProfilePic from "./_components/change-profile-pic";
 import ProfilePicSettings from "./_components/profilepic-settings";
 import EmailSettings from "./_components/e-mail-settings";
 import MobileHeader from "../(dashboard)/_components/mobile-header";
+import Vorname from "./_components/change-vorname";
+import Nachname from "./_components/change-nachname";
 
 
 const SettingsPage = async () => {
@@ -70,9 +72,17 @@ const SettingsPage = async () => {
                                     thisUserId = {findCurrentUser?.id}
                                     />
                                 </div>
+                                <div>
                                 <Username 
                                 thisUser = {findCurrentUser}
                                 />
+                                <Vorname 
+                                thisUser = {findCurrentUser}
+                                />
+                                <Nachname 
+                                thisUser = {findCurrentUser}
+                                />
+                                </div>
                                 <div>
                                     <EmailSettings 
                                     usedEmail={findCurrentUser?.email}

@@ -13,7 +13,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,  
+  FormMessage,
 } from "@/components/ui/form";
 import { CardWrapper } from "./card-wrapper";
 import { Button } from "@/components/ui/button";
@@ -45,19 +45,19 @@ export const RegisterForm = () => {
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
     setSuccess("");
-    
+
     startTransition(() => {
       register(values)
         .then((data) => {
           setError(data.error);
           setSuccess(data.success);
-          if(data.success) {
+          if (data.success) {
             setTimeout(() => {
               router.push("/login")
-            },1000)
+            }, 1000)
           }
         });
-        
+
     });
   };
 
@@ -79,7 +79,7 @@ export const RegisterForm = () => {
       showSocial
     >
       <Form {...form}>
-        <form 
+        <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-6"
         >
@@ -89,7 +89,7 @@ export const RegisterForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nutzername</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -102,6 +102,7 @@ export const RegisterForm = () => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="email"
@@ -128,29 +129,29 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Passwort</FormLabel>
                   <div className="flex gap-x-1">
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="**********"
-                      type={showPassword ? "text" : "password"}
-                      className="rounded-none bg-[#1a1c2c] border-none"
-                    />
-                  </FormControl>
-                  <Button variant="ghost" className="bg-[#1a1c2c] rounded-none " 
-                      onMouseDown={onHold} 
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="**********"
+                        type={showPassword ? "text" : "password"}
+                        className="rounded-none bg-[#1a1c2c] border-none"
+                      />
+                    </FormControl>
+                    <Button variant="ghost" className="bg-[#1a1c2c] rounded-none "
+                      onMouseDown={onHold}
                       onMouseUp={onRelease}
                       type="button"
-                      onClick={() => {}}
-                      >
-                          <EyeIcon className="h-4 w-4"/>
-                        </Button>
+                      onClick={() => { }}
+                    >
+                      <EyeIcon className="h-4 w-4" />
+                    </Button>
                   </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
-           
+
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />

@@ -11,6 +11,16 @@ const Faq = () => {
                 <Accordion type="single" collapsible>
 
                 <AccordionItem value="item-1">
+                        <AccordionTrigger>Kann ich mein Abonnement später aufwerten?</AccordionTrigger>
+                        <AccordionContent>
+                        Absolut! Wir unterstützen Flexibilität und verstehen, dass deine Bedürfnisse sich mit der Zeit ändern können. 
+                        Das Upgrade deines Abonnements ist ein einfacher Prozess. Du musst lediglich die Differenz zwischen deinem aktuellen Plan und 
+                        dem gewünschten Plan zahlen. Das bedeutet, dass du nahtlos zu einem umfangreicheren Service wechseln kannst, 
+                        um noch mehr von unseren exklusiven Angeboten zu profitieren.
+                        </AccordionContent>
+                    </AccordionItem>
+
+                <AccordionItem value="item-1">
                         <AccordionTrigger>Wie funktioniert die Abrechnung?</AccordionTrigger>
                         <AccordionContent>
                         Die Abrechnung erfolgt monatlich. 

@@ -25,6 +25,11 @@ const Footer = () => {
           <a className="hover:underline hover:cursor-pointer text-sm sm:text-base" href="/agbs">
             AGBs
           </a>
+          
+          <a className="hover:underline hover:cursor-pointer text-sm sm:text-base" href="/faqs">
+            FAQs
+          </a>
+          
         </div>
         </div>
     </div>

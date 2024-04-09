@@ -31,6 +31,7 @@ export async function PATCH(
                 }
             ],
             metadata : {
+                upgrade : "true",
                 inseratId : params.inseratId,
                 userId : currentUser.id,
                 subscriptionType : values.subscription

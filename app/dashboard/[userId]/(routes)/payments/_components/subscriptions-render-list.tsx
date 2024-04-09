@@ -91,7 +91,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                     <TableCell className="text-right">
                                         {
                                             {
-                                                "BASIC": "25 €",
+                                                "BASIS": "25 €",
                                                 "PREMIUM": "39 €",
                                                 "ENTERPRISE": "49 €",
                                             }[subscription.inseratSubscription?.subscriptionType]

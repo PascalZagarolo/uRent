@@ -28,9 +28,11 @@ const SaveChangesSettings: React.FC<SaveChangesSettingsProps> = ({
     
 
     const changedUsername = currentChanges['username']?.trim() !== thisUser?.name && currentChanges['username'] ? true : false;
+    const changedVorname = currentChanges['vorname']?.trim() !== thisUser?.vorname && currentChanges['vorname'] ? true : false;
+    const changedNachname = currentChanges['nachname']?.trim() !== thisUser?.vorname && currentChanges['nachname'] ? true : false;
     
 
-    const hasChanged = changedUsername;
+    const hasChanged = changedUsername || changedVorname || changedNachname;
 
     useEffect(() => {
         if(!hasChanged) return
@@ -50,7 +52,13 @@ const SaveChangesSettings: React.FC<SaveChangesSettingsProps> = ({
             const values = {
                 ...(changedUsername) && {
                     name : currentChanges['username']
-                }
+                },
+                ...(changedVorname) && {
+                    vorname : currentChanges['vorname']
+                },
+                ...(changedNachname) && {
+                    nachname : currentChanges['nachname']
+                },
                 
             } 
 

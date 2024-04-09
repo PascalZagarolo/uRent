@@ -1,6 +1,5 @@
 import { TrendingUp, UserPlus2 } from "lucide-react";
-import SidebarDashboard from "../../_components/sidebar-dashboard";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
+
 import { MdManageSearch } from "react-icons/md";
 import db from "@/db/drizzle";
 import getCurrentUser from "@/actions/getCurrentUser";

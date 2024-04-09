@@ -30,6 +30,8 @@ import { stripe } from "@/lib/stripe"
 export const users = pgTable("user", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     name: text("name"),
+    vorname : text("vorname"),
+    nachname : text("lastname"),
     email: text("email").notNull(),
     emailVerified: timestamp("emailVerified", { mode: "date" }),
     image: text("image"),

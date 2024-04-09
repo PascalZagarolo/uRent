@@ -3,6 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { users } from "@/db/schema";
+import { cn } from "@/lib/utils";
 import { useUnsavedChangesSettings } from "@/store";
 import { set } from 'date-fns';
 import { useEffect, useRef, useState } from "react";
@@ -11,12 +12,12 @@ interface UsernameProps {
     thisUser : typeof users.$inferSelect
 }
 
-const Username: React.FC<UsernameProps> = ({
+const Vorname: React.FC<UsernameProps> = ({
     thisUser
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
-    const [username, setUserName] = useState(thisUser.name);
+    const [username, setUserName] = useState(thisUser.vorname);
     const inputRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
         if (isEditing && inputRef.current) {
@@ -28,7 +29,7 @@ const Username: React.FC<UsernameProps> = ({
 
     useEffect(() => {
         const setAmount = async () => {
-            await changeCurrent("username", username);
+            await changeCurrent("vorname", username);
         
         }
 
@@ -41,16 +42,16 @@ const Username: React.FC<UsernameProps> = ({
             <div>
                 <div className="w-1/2">
                     <Label className="text-sm font-semibold p-2">
-                        Nutzername
+                        Vorname
                     </Label>
                     {isEditing ? (
                         <>
                         <Input 
                         ref={inputRef}
-                        className="border-none dark:bg-[#141414] w-full border dark:border-none bg-gray-200 
-                        focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none"
+                        className={cn(`border-none dark:bg-[#141414] w-full border dark:border-none bg-gray-200 
+                        focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none`)}
                         value={username}
-                        placeholder="Nutzername hinzufügen..."
+                        placeholder="Vorname hinzufügen..."
                         onBlur={() => {setIsEditing(false)}}
                         onChange={(e) => setUserName(e.target.value)}
                         />
@@ -62,8 +63,10 @@ const Username: React.FC<UsernameProps> = ({
                         </>
                     ) : (
                         <div className="w-full">
-                            <div className="pl-3 p-2.5 dark:bg-[#141414] border dark:border-none bg-gray-200 text-sm rounded-md">
-                            {username ? username : "Nutzername hinzufügen..."}
+                            <div className=
+                            {cn("pl-3 p-2.5 dark:bg-[#141414] border dark:border-none bg-gray-200 text-sm rounded-md",
+                            !username && "dark:text-gray-200/70")}>
+                            {username ? username : "Vorname hinzufügen..."}
                         </div>
                         <p className="ml-auto flex justify-end p-1  text-xs font-semibold hover:underline hover:cursor-pointer"
                         onClick={() => setIsEditing(true)}
@@ -78,4 +81,4 @@ const Username: React.FC<UsernameProps> = ({
      );
 }
  
-export default Username;
+export default Vorname;

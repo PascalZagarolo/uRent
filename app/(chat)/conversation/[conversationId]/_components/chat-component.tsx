@@ -106,7 +106,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         <div>
             <div className="no-scrollbar  overflow-y-auto h-full w-full"   ref={bottomRef} >
             <div className="dark:bg-[#1C1C1C]">
-            <h3 className="flex justify-center  text-gray-900/30 px-4  dark:text-gray-100">
+            <h3 className="flex justify-center  text-gray-900/30 px-4  dark:text-gray-100 text-sm ">
             Chat gestartet am {formateDate(thisConversation.createdAt)}
             </h3>
             <div className="no-scrollbar h-full">

@@ -67,14 +67,14 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
             <div className="flex w-full  ">
 
-                <div className="flex rounded-md w-1/2">
-                    <div className="">
-                        <div className=" dark:text-gray-100">
-                            <div className=" text-md flex gap-x-4">
-                                Name: <p className="font-semibold"> {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}</p>
+                <div className="flex rounded-md w-2/5">
+                    <div className="w-full">
+                        <div className=" dark:text-gray-100 w-full">
+                            <div className="w-full text-lg  font-semibold line-clamp-1 whitespace-break-spaces break-all">
+                                {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}
                             </div>
-                            <div className=" text-md flex sm:gap-x-0 gap-x-4">
-                                Email<p className="hidden sm:block mr-2">-Adresse</p> : <div className="font-semibold flex sm:ml-4"> {user.email} {user.emailVerified && <CheckmarkIcon className="ml-1 h-2 w-2" />}</div>
+                            <div className="text-sm w-full line-clamp-1 whitespace-break-spaces break-all font-normal">
+                                {user.email}
                             </div>
                         </div>
                         <div className="flex mt-4">
@@ -93,7 +93,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     </div>
 
                 </div>
-                <div className="w-1/2 flex justify-end h-[240px] gap-x-2">
+                <div className="w-3/5 flex justify-end h-[240px] gap-x-2">
                     <div className="w-1/2 p-8 h-full dark:bg-[#191919] ">
                         1
                     </div>
@@ -111,7 +111,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             {user.isBusiness ? (
                 <>
                     <div className="mt-8 text-md font-semibold ml-2 flex items-center">
-                    <BiSolidBusiness className="flex w-4 h-4 mr-2" /> über uRent
+                        <BiSolidBusiness className="flex w-4 h-4 mr-2" /> über uRent
                     </div>
                     <div>
                         <BusinessDescription
@@ -124,11 +124,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
                 <>
                     <div className="mt-8 text-md font-semibold ml-2 flex ">
-                    
-                    <UserCircle2 className="mr-2 h-4 w-4" /> Über mich
+
+                        <UserCircle2 className="mr-2 h-4 w-4" /> Über mich
                     </div>
                     <div>
-                    <ProfileDescription
+                        <ProfileDescription
                             ownProfile={ownProfile}
                             user={user}
                         />

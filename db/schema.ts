@@ -69,6 +69,7 @@ export const businessAddress = pgTable("businessAddress", {
     businessId : uuid("businessId")
         .references(() => business.id, { onDelete: "cascade" }),
     postalCode: integer("postalCode"),
+    image : text("image"),
     state: text("state"),
     city : text("city"),
     street : text("street"),

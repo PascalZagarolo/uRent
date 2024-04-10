@@ -18,6 +18,7 @@ import StandortRender from "./standort-render";
 import ContactRender from "./contact-render";
 import BusinessDescription from "./business-description";
 import { BiSolidBusiness } from "react-icons/bi";
+import { MdOutlineCardMembership } from "react-icons/md";
 
 
 interface ProfileHeaderProps {
@@ -64,7 +65,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
 
 
-            <div className="flex w-full gap-x-4">
+            <div className="flex w-full  ">
 
                 <div className="flex rounded-md w-1/2">
                     <div className="">
@@ -84,16 +85,16 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                 {ownProfile && (
                                     <UploadProfilePic />
                                 )}
-                                <div className="text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] mt-2 flex dark:text-gray-300">
-                                    <UserCircle2 className="mr-1" /> Mitglied seit : {convertDateTimeToString(user?.createdAt)}
+                                <div className="text-gray-900 text-sm mt-2 font-semibold flex dark:text-gray-300">
+                                    <MdOutlineCardMembership className="mr-1" /> Mitglied seit : {convertDateTimeToString(user?.createdAt)}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div className="w-1/2 flex justify-end gap-4">
-                    <div className="w-1/2 p-8 h-full dark:bg-[#191919]">
+                <div className="w-1/2 flex justify-end h-[240px] gap-x-2">
+                    <div className="w-1/2 p-8 h-full dark:bg-[#191919] ">
                         1
                     </div>
                     <div className="w-1/2">

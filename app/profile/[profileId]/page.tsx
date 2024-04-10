@@ -10,6 +10,8 @@ import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
 import { contactOptions, inserat, notification, rezension, users } from "@/db/schema";
 import RegisterBusiness from "./_components/register-business";
+import { FaBuilding, FaKey } from "react-icons/fa6";
+import Openhours from "./_components/openhours";
 
 
 
@@ -23,41 +25,41 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
     const currentUser = await getCurrentUser();
 
     const foundNotifications = await db.query.notification.findMany({
-        where : (
+        where: (
             eq(notification.userId, currentUser?.id)
         )
     })
 
     const foundInserate = await db.query.inserat.findMany({
-        where : (
+        where: (
             and(
                 eq(inserat.userId, params.profileId),
                 eq(inserat.isPublished, true)
             )
-        ), with : {
-            images : true,
-            user : true,
-            address : true
+        ), with: {
+            images: true,
+            user: true,
+            address: true
         }
     })
 
     const thisContactoptions = await db.query.contactOptions.findFirst({
-        where : (
-            eq(contactOptions.userId , pageOwnerId)
-        ), with : {
-            userAddress : true
+        where: (
+            eq(contactOptions.userId, pageOwnerId)
+        ), with: {
+            userAddress: true
         }
     })
 
 
     const thisUser = await db.query.users.findFirst({
-        where : eq(users.id, pageOwnerId)
+        where: eq(users.id, pageOwnerId)
     })
-    
+
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
     const rezensionen = await db.query.rezension.findMany({
-        where : (
+        where: (
             eq(rezension.receiverId, pageOwnerId)
         )
     })
@@ -70,7 +72,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 <HeaderLogo
                     currentUser={currentUser}
                     foundNotifications={foundNotifications}
-                     />
+                />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
@@ -83,39 +85,56 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     <div className="min-h-screen">
                         <div className="sm:p-4 p-2">
                             <div>
-                                <h3 className="text-2xl flex font-bold ">
-                                    <UsersIcon className="mr-2" />  Profilübersicht
-                                </h3>
+                                {
+                                    thisUser.isBusiness ? (
+                                        <h3 className="text-2xl flex font-bold ">
+                                            <FaBuilding className="mr-2" />  Geschäftsprofil
+                                        </h3>
+                                    ) : (
+                                        <h3 className="text-2xl flex font-bold ">
+                                            <UsersIcon className="mr-2" />  Profilübersicht
+                                        </h3>
+                                    )
+                                }
                             </div>
-                            {ownProfile && (
+                            {(ownProfile && !thisUser.isBusiness) && (
                                 <RegisterBusiness />
                             )}
-                            <div className="mt-8">
-                                <h1 className="text-lg font-semibold flex">
-                                    <Contact2Icon className="mr-2" />Profildetails
-                                </h1>
+                            <div className="mt-8 items-center">
+                                {thisUser.isBusiness ? (
+                                    <h1 className="text-lg font-semibold flex items-center">
+                                        <FaKey className="w-4 h-4 mr-2" />Vermieterdetails
+                                    </h1>
+                                ) : (
+                                    <h1 className="text-lg font-semibold flex">
+                                        <Contact2Icon className="mr-2" />Profildetails
+                                    </h1>
+                                )}
                             </div>
-                            
+
                             <ProfileHeader
                                 user={thisUser}
                                 currentUser={currentUser}
-                                thisContactOptions = {thisContactoptions}
+                                thisContactOptions={thisContactoptions}
 
                             />
+                            <div className="p-4">
+                                <Openhours/>
+                            </div>
                             <div>
                                 <div className="mt-8 px-4">
-                                    <h1 className="text-lg font-semibold flex items-center">
-                                        <TruckIcon className="mr-2" />Weitere Inhalte <p className=" ml-2 text-sm">{foundInserate.length}</p>
+                                    <h1 className="text-md font-semibold flex items-center">
+                                        <TruckIcon className="mr-2 w-4 h-4" />Weitere Inhalte <p className=" ml-2 text-sm">{foundInserate.length}</p>
                                     </h1>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="p-2">
-                        <OwnContentSlide
-                            foundInserate={foundInserate}
-                            currentUser={currentUser}
-                        />
+                            <OwnContentSlide
+                                foundInserate={foundInserate}
+                                currentUser={currentUser}
+                            />
                         </div>
 
                     </div>

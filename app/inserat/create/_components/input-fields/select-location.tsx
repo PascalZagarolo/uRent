@@ -11,18 +11,23 @@ import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
-import { address, inserat } from "@/db/schema";
+import { address, contactOptions, inserat } from "@/db/schema";
 
 
 interface SelectLocationProps {
   thisInserat: typeof inserat.$inferSelect;
   thisAddressComponent?: typeof address.$inferSelect;
+  usedContactOptions: typeof contactOptions.$inferSelect;
 }
 
 const SelectLocation: React.FC<SelectLocationProps> = ({
   thisInserat,
-  thisAddressComponent
+  thisAddressComponent,
+  usedContactOptions
 }) => {
+
+  
+
   const autoCompleteRef = useRef();
   const inputRef = useRef();
   const options = {
@@ -39,7 +44,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   const currentLocation = searchParams.get("location");
 
   const [currentAddress, setCurrentAddress] = useState(thisAddressComponent?.locationString || "");
-  const [currentZipCode, setCurrentZipCode] = useState<null | number>(thisAddressComponent?.postalCode || null);
+  const [currentZipCode, setCurrentZipCode] = useState<null | number | string>(thisAddressComponent?.postalCode || null);
   const [currentState, setCurrentState] = useState(thisAddressComponent?.state || "");
 
   useEffect(() => {
@@ -50,6 +55,24 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     );
 
   }, [currentLocation]);
+
+  const onPrefill = (e : boolean) => {
+    if(e) {
+      setCurrentZipCode(usedContactOptions?.userAddress?.postalCode)
+    let usedString = usedContactOptions?.userAddress?.street + ", " + usedContactOptions?.userAddress?.postalCode + ", "
+    + usedContactOptions?.userAddress?.city
+
+    usedString = usedString.trim();
+    //@ts-ignore
+    inputRef.current.value = usedString;
+    setCurrentAddress(usedString);
+    } else {
+      setCurrentZipCode(thisAddressComponent?.postalCode || "")
+      setCurrentAddress(thisAddressComponent?.locationString || "")
+      //@ts-ignore
+      inputRef.current.value = thisAddressComponent?.locationString || "";
+    }
+  }
 
 
   //automatically converts the inputAddress to a zip code with the help of geocode maps api, and sets the currentZipCode state
@@ -122,6 +145,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   return (
     <div className="items-center w-full">
       <h3 className="text-md font-semibold items-center flex">
+        
         <MapPin className="h-4 w-4 mr-2" /> Adresse *
         <TooltipProvider>
           <Tooltip>
@@ -161,10 +185,11 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:block hidden"> 5-Stellige Plz </p>
           <p className="text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:hidden block"> 5-Stellig </p>
           <Input
-            className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md text-sm border mt-2 border-black dark:bg-[#151515] justify-start dark:focus-visible:ring-0"
+            className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md text-sm border mt-2 border-black dark:bg-[#151515] 
+            justify-start dark:focus-visible:ring-0"
             type="text"
             pattern="[0-9]{5}"
-            onChange={(e) => { setCurrentZipCode(Number(e.target.value)) }}
+            onChange={(e) => { setCurrentZipCode(e.target.value) }}
             value={currentZipCode}
 
           />
@@ -174,7 +199,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       <div className="flex mt-2">
       <Checkbox 
       className="sm:h-4 sm:w-4 mr-2"
-      onCheckedChange={() => {}}
+      onCheckedChange={(e) => {onPrefill(Boolean(e))}}
       />
       <Label className="sm:block hidden">
         Informationen aus Profil verwenden
@@ -186,7 +211,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
    
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
         disabled={!inputRef?.current?.value || (thisAddressComponent?.locationString === inputRef?.current?.value && currentZipCode === thisAddressComponent?.postalCode) || !inputRef?.current?.value.length ||
-          String(currentZipCode).length !== 5
+          String(currentZipCode).length !== 5 || isNaN(Number(currentZipCode))
         }
       >
         <span className="">Addresse angeben</span>

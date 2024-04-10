@@ -78,6 +78,16 @@ const AddContactOption = ({
         }
     }
 
+    const onDelete = () => {
+        try {
+            axios.delete(`/api/contact/${params.profileId}`).then((res) => {
+                router.refresh();
+            })
+        } catch {
+            console.log("Fehler beim Löschen")
+        }
+    } 
+
     const { isValid , isSubmitting } = form.formState;
 
     return (

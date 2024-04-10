@@ -44,11 +44,11 @@ export const users = pgTable("user", {
     usesTwoFactor : boolean("usesTwoFactor").notNull().default(false),
     
     contactId : uuid("contactId")
-        .references(() => contactOptions.id, { onDelete: "cascade" }),
+        .references(() => contactOptions.id, { onDelete : "set null"}),
     userAddressId : uuid("userAddressId")
-                    .references(() => userAddress.id, { onDelete: "cascade" }),
+                    .references(() => userAddress.id , { onDelete : "set null"}),
     twoFactorConfirmationId : uuid("twoFactorConfirmationId")
-                                .references(() => twoFactorConfirmation.id, { onDelete: "cascade" }),
+                                .references(() => twoFactorConfirmation.id, { onDelete: "set null" }),
 })
 
 export const twoFactorConfirmation = pgTable("twoFactorConfirmation", {
@@ -626,7 +626,7 @@ export const contactOptions = pgTable("contactOptions", {
     phoneNumber: text("phoneNumber"),
 
     userAddressId: uuid("userAddressId").
-        references(() => userAddress.id, { onDelete: "cascade" }),
+        references(() => userAddress.id, { onDelete : "set null"}),
 })
 
 export const userAddress = pgTable("userAddress", {
@@ -634,10 +634,10 @@ export const userAddress = pgTable("userAddress", {
 
     userId: uuid("userId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }).unique(),
+        references(() => users.id).unique(),
 
     contactOptionsId: uuid("contactOptionsId").
-        references(() => contactOptions.id, { onDelete: "cascade" }).unique(),
+        references(() => contactOptions.id).unique(),
 
     postalCode: integer("postalCode"),
     city : text("city"),
@@ -945,6 +945,18 @@ export const contactOptionsRelation = relations(contactOptions, ({ one }) => ({
     userAddress : one(userAddress, {
         fields : [contactOptions.userAddressId],
         references: [userAddress.id]
+    }),
+    user : one(users, {
+        fields : [contactOptions.userId],
+        references : [users.id]
+    
+    })
+}))
+
+export const userAddressRelations = relations(userAddress, ({ one }) => ({
+    contactOptions : one(contactOptions, {
+        fields : [userAddress.contactOptionsId],
+        references : [contactOptions.id]
     })
 }))
 

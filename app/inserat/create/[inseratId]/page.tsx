@@ -18,7 +18,7 @@ import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { eq, sql } from "drizzle-orm";
-import { address, images, inserat, inseratSubscription, lkwAttribute, notification, pkwAttribute, trailerAttribute, transportAttribute } from "@/db/schema";
+import { address, contactOptions, images, inserat, inseratSubscription, lkwAttribute, notification, pkwAttribute, trailerAttribute, transportAttribute, userAddress, users } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
@@ -31,6 +31,20 @@ const InseratCreation = async ({
 
     const currentUser = await getCurrentUser();
 
+    const currentUserWithContactOptions = await db.query.users.findFirst({
+        where : eq(users.id, currentUser?.id),
+        with : {
+            contactOptions: {
+                with : {
+                    userAddress : true
+                }
+            },
+            
+        }
+    })
+
+    
+
     const foundNotifications = await db.query.notification.findMany({
         where: eq(notification.userId, currentUser?.id)
     
@@ -40,7 +54,7 @@ const InseratCreation = async ({
         with: {
             images: true,
             address: true,
-            user: true,
+            user : true,
             pkwAttribute: true,
             lkwAttribute: true,
             trailerAttribute: true,
@@ -52,7 +66,7 @@ const InseratCreation = async ({
 
     const thisInserat = await findInserat.execute({ inseratId: params.inseratId })
 
-    console.log(thisInserat?.inseratSubscription)
+    console.log(thisInserat?.user?.contactOptions)
 
     const relatedImages = await db.query.images.findMany({
         where: eq(images.inseratId, thisInserat.id)
@@ -63,7 +77,7 @@ const InseratCreation = async ({
     })
 
     const thisAddressComponent = await db.query.address.findFirst({
-        where: eq(address.id, thisInserat.addressId)
+        where: eq(address.id, thisInserat.addressId),
     })
 
     const isPublishable = {
@@ -219,6 +233,7 @@ const InseratCreation = async ({
                                 <ContactInformation
                                     thisInserat={thisInserat}
                                     thisAddressComponent={thisAddressComponent}
+                                    currentUserWithContactOptions={currentUserWithContactOptions}
                                 />
 
                             </div>

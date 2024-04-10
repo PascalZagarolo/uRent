@@ -36,8 +36,9 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
         images : thisInserat.images?.length > 0,
         title : thisInserat.title.length > 0,
         category : thisInserat.category != null,
-        postalCode : thisInserat.address?.postalCode != null,
         location : thisInserat.address?.locationString != null,
+        postalCode : thisInserat.address?.postalCode != null,
+        
     }
 
     

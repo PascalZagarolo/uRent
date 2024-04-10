@@ -29,6 +29,34 @@
       "when": 1712241965427,
       "tag": "0003_natural_vivisector",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1712759765385,
+      "tag": "0004_deep_glorian",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1712760036656,
+      "tag": "0005_rich_shotgun",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1712761136509,
+      "tag": "0006_icy_northstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1712762546486,
+      "tag": "0007_adorable_stellaris",
+      "breakpoints": true
     }
   ]
 }

@@ -2,12 +2,33 @@
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import axios from "axios";
 import { RocketIcon } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { BsBuildingsFill } from "react-icons/bs";
 import { FaBusinessTime } from "react-icons/fa6";
 import { MdSwapHoriz } from "react-icons/md";
 
+
 const RegisterBusiness = () => {
+
+    const params = useParams();
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const onBusinessRegister = async () => {
+        try {
+            setIsLoading(true);
+            const res = await axios.patch(`/api/profile/${params.profileId}/register-business`);
+        } catch {
+            toast.error("Fehler beim Umwandeln des Kontos");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <div className="mt-4">
             <AlertDialog>
@@ -24,7 +45,6 @@ const RegisterBusiness = () => {
                         <MdSwapHoriz className="w-4 h-4 mr-2" />  Konto umwandeln ?
                         </h3>
                         <div className="text-xs dark:text-gray-200/70">
-
                             <p>Ein gewerbliches Konto bietet dir zusätzliche Funktionen wie die Möglichkeit, deinen Auftritt, weiter zu personalisieren,
                                 und die Möglichkeit ein Impressum, Standorte und Öffnungszeiten hinzuzufügen.
                             </p>
@@ -32,7 +52,10 @@ const RegisterBusiness = () => {
                         </div>
                         <AlertDialogFooter className="mt-2">
                             <AlertDialogCancel className="dark:border-none">Abbrechen</AlertDialogCancel>
-                            <AlertDialogAction className="dark:bg-[#121212] dark:hover:bg-[#171717] dark:text-gray-200">Umwandeln</AlertDialogAction>
+                            <AlertDialogAction className="dark:bg-[#121212] dark:hover:bg-[#171717] dark:text-gray-200"
+                            onClick={onBusinessRegister} disabled={isLoading}>
+                            Umwandeln
+                            </AlertDialogAction>
                         </AlertDialogFooter>
                     </div>
                 </AlertDialogContent>

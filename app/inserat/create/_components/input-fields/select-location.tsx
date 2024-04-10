@@ -145,23 +145,18 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   return (
     <div className="items-center w-full">
       <h3 className="text-md font-semibold items-center flex">
-        
         <MapPin className="h-4 w-4 mr-2" /> Adresse *
         <TooltipProvider>
           <Tooltip>
-
             <TooltipTrigger>
               <AlertCircle className="w-4 h-4 ml-2" />
             </TooltipTrigger>
             <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
-
               Beim automatischen erzeugen der Postleitzahl, kann es vereinzelt zu Fehlern kommen. Bitte prüfe deine PLZ bevor du sie einschickst.
-
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </h3>
-
       <div className="flex mt-4 w-full">
         <div className="  items-center  ">
           <Label className="flex justify-start items-center">
@@ -191,7 +186,6 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
             pattern="[0-9]{5}"
             onChange={(e) => { setCurrentZipCode(e.target.value) }}
             value={currentZipCode}
-
           />
         </div>
       </div>
@@ -208,7 +202,6 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         aus dem Profil
       </Label>
     </div>
-   
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
         disabled={!inputRef?.current?.value || (thisAddressComponent?.locationString === inputRef?.current?.value && currentZipCode === thisAddressComponent?.postalCode) || !inputRef?.current?.value.length ||
           String(currentZipCode).length !== 5 || isNaN(Number(currentZipCode))

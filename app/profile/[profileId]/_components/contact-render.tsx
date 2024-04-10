@@ -15,7 +15,7 @@ const ContactRender = () => {
                     <MailIcon className="w-4 h-4" /> support@urent-rental.de
                 </div>
                 <div className="font-semibold text-sm flex gap-x-2">
-                    <PhoneIcon className="w-4 h-4" />Tel. +49 17231823 3
+                    <PhoneIcon className="w-4 h-4" />Tel. +49 17231823 33
                 </div>
             </div>
         </div>

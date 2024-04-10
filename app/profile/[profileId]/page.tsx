@@ -12,6 +12,7 @@ import { contactOptions, inserat, notification, rezension, users } from "@/db/sc
 import RegisterBusiness from "./_components/register-business";
 import { FaBuilding, FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
+import MessageButton from "./_components/message-button";
 
 
 
@@ -89,10 +90,14 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                     thisUser.isBusiness ? (
                                         <h3 className="text-2xl flex font-bold ">
                                             <FaBuilding className="mr-2" />  Geschäftsprofil
+                                            <div className="ml-auto">
+                                            <MessageButton />
+                                            </div>
                                         </h3>
                                     ) : (
                                         <h3 className="text-2xl flex font-bold ">
-                                            <UsersIcon className="mr-2" />  Profilübersicht
+                                            <UsersIcon className="mr-2" />  Profilübersicht 
+                                            
                                         </h3>
                                     )
                                 }
@@ -100,7 +105,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             {(ownProfile && !thisUser.isBusiness) && (
                                 <RegisterBusiness />
                             )}
-                            <div className="mt-8 items-center">
+                            <div className="mt-4 items-center">
                                 {thisUser.isBusiness ? (
                                     <h1 className="text-lg font-semibold flex items-center">
                                         <FaKey className="w-4 h-4 mr-2" />Vermieterdetails

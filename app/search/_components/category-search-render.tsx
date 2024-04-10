@@ -23,7 +23,7 @@ const CategorySearchRender = () => {
                     }[currentParams['thisCategory']] 
                 } Details
                 <Separator
-                    className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
+                    className="h-[0.5px] dark:bg-gray-100/20  w-1/3 sm:w-2/3 ml-6"
 
                 />
             </h3>

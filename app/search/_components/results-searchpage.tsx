@@ -49,7 +49,7 @@ const ResultsSearchPage = () => {
     }
 
     return ( 
-        <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-base p-8" onClick={onRedirect}>
+        <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-base sm:p-8 text-xs sm:text-sm" onClick={onRedirect}>
              <p className="font-bold px-1"> {currentResults} </p> Ergebnisse <BiArrowToRight   className="w-4 h-4 ml-2" />
 
         </Button>

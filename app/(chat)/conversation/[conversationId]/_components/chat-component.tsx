@@ -115,19 +115,11 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
                 key={message.id}
                 messages={message}
                 isOwn={message.senderId === currentUser.id}
-                
                 />
-                
             ))}
-            
             </div>
-            
             </div>
-            
         </div>
-        
-
-           
         </div>
      );
 }

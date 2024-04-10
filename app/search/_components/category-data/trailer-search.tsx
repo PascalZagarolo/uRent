@@ -22,47 +22,47 @@ const TrailerSearch = () => {
 
     return (
         <div className="w-full">
-            <div className="w-full flex gap-x-2">
-                <div className="w-1/3">
+            <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0">
+                <div className="sm:w-1/3">
                     <TrailerTypeSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <TrailerExtraTypeSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <LkwLoadingSearch />
                 </div>
             </div>
-            <div className="w-full flex gap-x-2 mt-4">
-                <div className="w-1/3">
+            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
+                <div className="sm:w-1/3">
                     <TrailerWeightClassSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <TrailerCouplingSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <TrailerAxisSearch />
                 </div>
             </div>
-            <div className="w-full flex gap-x-2 mt-4">
-                <div className="w-1/3">
+            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
+                <div className="sm:w-1/3">
                     <TrailerBrakeSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
 
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
 
                 </div>
             </div>
-            <div className="w-full flex gap-x-2 mt-4">
-                <div className="w-1/3">
+            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-4 sm:space-y-0">
+                <div className="sm:w-1/3">
                     <LoadingVolumeSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <LoadingSizeSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
 
                 </div>
             </div>

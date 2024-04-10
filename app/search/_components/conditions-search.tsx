@@ -17,26 +17,26 @@ const ConditionsSearch = () => {
 
                 />
             </h3>
-            <div className="w-full flex mt-4 space-x-4">
-                <div className="w-1/3">
+            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2">
+                <div className="sm:w-1/3">
                     <LicenseSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <CautionSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <RequiredAgeSearch />
                 </div>
 
             </div>
-            <div className="w-full flex mt-4 space-x-4">
-            <div className="w-1/3">
+            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2">
+            <div className="sm:w-1/3">
                     <AmountSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <FreeMilesSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
                     <ExtraMilesSearch />
                 </div>
 

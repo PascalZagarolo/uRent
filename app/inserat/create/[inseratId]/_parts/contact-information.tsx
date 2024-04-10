@@ -2,18 +2,24 @@
 import SelectLocation from "../../_components/input-fields/select-location";
 import SelectEmail from "../../_components/input-fields/select-email";
 import PhoneNumber from "../../_components/input-fields/phone-number";
-import { address, inserat } from "@/db/schema";
+import { address, inserat, users } from "@/db/schema";
+import { contactOptions, userAddress } from '../../../../../db/schema';
 
 interface ContactInformationProps {
     thisInserat : typeof inserat.$inferSelect;
     thisAddressComponent? : typeof address.$inferSelect;
+    currentUserWithContactOptions : typeof users.$inferSelect;
 }
 
 
-const ContactInformation: React.FC<ContactInformationProps> = ({
+const ContactInformation: React.FC<ContactInformationProps> = async ({
     thisInserat,
-    thisAddressComponent
+    thisAddressComponent,
+    currentUserWithContactOptions,
+
 }) => {
+
+    
     return ( 
         <div className="mt-8">
             <div className="w-full flex gap-x-4">
@@ -21,11 +27,13 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
                 <SelectLocation
                 thisInserat={thisInserat}
                 thisAddressComponent={thisAddressComponent}
+                usedContactOptions = {currentUserWithContactOptions.contactOptions}
                 />
             </div>
             <div className="w-1/2">
                 <SelectEmail
                 thisInserat = {thisInserat}
+                usedContactOptions = {currentUserWithContactOptions.contactOptions}
                 />
             </div>
             </div>

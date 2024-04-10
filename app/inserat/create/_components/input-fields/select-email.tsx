@@ -14,13 +14,16 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { contactOptions } from '../../../../../db/schema';
 
 interface SelectEmailProps {
     thisInserat : typeof inserat.$inferSelect;
+    usedContactOptions : typeof contactOptions.$inferSelect;
 }
 
 const SelectEmail: React.FC<SelectEmailProps> = ({
-  thisInserat
+  thisInserat,
+  usedContactOptions
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -50,11 +53,13 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
         }
     } 
 
+    console.log(thisInserat.user)
+
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     const onPrefill = () => {
         if(!isPrefill) {
-            setCurrentAddress(thisInserat.user.email);
+            setCurrentAddress(usedContactOptions?.emailAddress || thisInserat.user?.email);
             setIsPrefill(true);
         } else if(isPrefill) {
             setCurrentAddress("");

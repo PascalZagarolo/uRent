@@ -9,6 +9,7 @@ import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
 import { contactOptions, inserat, notification, rezension, users } from "@/db/schema";
+import RegisterBusiness from "./_components/register-business";
 
 
 
@@ -86,7 +87,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                     <UsersIcon className="mr-2" />  Profilübersicht
                                 </h3>
                             </div>
-
+                            {ownProfile && (
+                                <RegisterBusiness />
+                            )}
                             <div className="mt-8">
                                 <h1 className="text-lg font-semibold flex">
                                     <Contact2Icon className="mr-2" />Profildetails

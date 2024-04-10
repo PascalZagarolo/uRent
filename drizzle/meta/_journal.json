@@ -57,6 +57,13 @@
       "when": 1712762546486,
       "tag": "0007_adorable_stellaris",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1712772397661,
+      "tag": "0008_cool_jigsaw",
+      "breakpoints": true
     }
   ]
 }

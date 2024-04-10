@@ -20,7 +20,7 @@ import {
 import type { AdapterAccount } from '@auth/core/adapters'
 
 import { InferModel, relations, sql } from "drizzle-orm"
-import { z } from "zod"
+import { array, z } from "zod"
 import { stripe } from "@/lib/stripe"
 
 
@@ -40,15 +40,47 @@ export const users = pgTable("user", {
     updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
     confirmedMail: boolean("confirmedMail").notNull().default(false),
     description: text("description"),
+
     sharesEmail: boolean("sharesEmail").notNull().default(false),
     usesTwoFactor : boolean("usesTwoFactor").notNull().default(false),
+    isBusiness : boolean("isBusiness").default(false),
     
+    businessId : uuid("businessId")
+            .references(() => business.id, { onDelete : "set null"}),
     contactId : uuid("contactId")
         .references(() => contactOptions.id, { onDelete : "set null"}),
     userAddressId : uuid("userAddressId")
                     .references(() => userAddress.id , { onDelete : "set null"}),
     twoFactorConfirmationId : uuid("twoFactorConfirmationId")
                                 .references(() => twoFactorConfirmation.id, { onDelete: "set null" }),
+})
+
+export const business = pgTable("business", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    userId: uuid("userId")
+        .references(() => users.id, { onDelete: "cascade" }),
+    description: text("description"),
+    openingHours : text("openingHours"),
+    telephone_number : text("telephone_number"),
+})
+
+export const businessAddress = pgTable("businessAddress", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    businessId : uuid("businessId")
+        .references(() => business.id, { onDelete: "cascade" }),
+    postalCode: integer("postalCode"),
+    state: text("state"),
+    city : text("city"),
+    street : text("street"),
+})
+
+export const businessImages = pgTable("businessImages", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    position: integer("position"),
+    url: text("url"),
+    businessId: uuid("businessId")
+        .references(() => inserat.id, { onDelete: "cascade" }),
+
 })
 
 export const twoFactorConfirmation = pgTable("twoFactorConfirmation", {
@@ -522,9 +554,11 @@ export const images = pgTable("images", {
     position: integer("position"),
     url: text("url").notNull(),
     inseratId: uuid("inseratId")
-        .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
+        .references(() => inserat.id, { onDelete: "cascade" }),
 
 })
+
+
 
 export const favourite = pgTable("favourite", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
@@ -634,7 +668,7 @@ export const userAddress = pgTable("userAddress", {
 
     userId: uuid("userId").
         notNull().
-        references(() => users.id).unique(),
+        references(() => users.id, {onDelete : "cascade"}).unique(),
 
     contactOptionsId: uuid("contactOptionsId").
         references(() => contactOptions.id).unique(),
@@ -790,6 +824,11 @@ export const userRelations = relations(users, ({ one, many }) => ({
         fields : [users.twoFactorConfirmationId],
         references : [twoFactorConfirmation.id]
     }),
+    business : one(business, {
+        fields : [users.businessId],
+        references : [business.id]
+    }),
+    
     
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
@@ -841,6 +880,7 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
         fields : [inserat.subscriptionId],
         references : [inseratSubscription.id]
     }),
+    
 
     message : many(message),
 
@@ -852,6 +892,22 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     favourites : many(favourite),
 
     vehicles : many(vehicle),
+}))
+
+export const businessRelations = relations(business, ({ one, many}) => ({
+    user : one(users, {
+        fields : [business.userId],
+        references : [users.id]
+    }),
+    businessAddresses : many(businessAddress),
+    images : many(businessImages)
+}))
+
+export const businessAddressRelations = relations(businessAddress, ({ one }) => ({
+    business : one(business, {
+        fields : [businessAddress.businessId],
+        references : [business.id]
+    })
 }))
 
 export const vehicleRelations = relations(vehicle, ({ one, many }) => ({
@@ -866,6 +922,13 @@ export const imageRelations = relations(images, ({ one }) => ({
     inserat : one(inserat, {
         fields : [images.inseratId],
         references: [inserat.id]
+    })
+}))
+
+export const businessImagesRelations = relations(businessImages, ({ one }) => ({
+    business : one(business, {
+        fields : [businessImages.businessId],
+        references : [business.id]
     })
 }))
 

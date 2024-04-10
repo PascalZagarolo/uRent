@@ -132,7 +132,7 @@ const MobileFilterSheet = () => {
                     justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                     dark:text-gray-100 dark:hover:bg-sky-700 
                     ">
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> 426 </p> Ergebnisse
+                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
                     </Button>
                 </div>
                 </div>

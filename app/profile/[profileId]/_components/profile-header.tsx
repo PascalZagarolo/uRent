@@ -94,7 +94,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
                 </div>
                 <div className="w-3/5 flex justify-end h-[240px] gap-x-2">
-                    <div className="w-1/2 p-8 h-full dark:bg-[#191919] ">
+                    <div className="w-1/2 p-8 h-full dark:bg-[#191919] rounded-md">
                         1
                     </div>
                     <div className="w-1/2">

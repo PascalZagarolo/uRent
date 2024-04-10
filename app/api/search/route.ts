@@ -24,9 +24,6 @@ export async function PATCH(
     
 
     try {
-
-        
-
         const values = await req.json();
        
         const { location, amount, thisCategory, reqAge, freeMiles, reqLicense, minPrice, maxPrice,

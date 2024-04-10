@@ -28,12 +28,12 @@ const PkwBrandSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
-        changeSearchParams("brand" , selectedValue);
+        changeSearchParams("thisBrand" , selectedValue);
         console.log(selectedValue)
     }
 
     const deleteBrand = () => {
-      deleteSearchParams("brand")
+      deleteSearchParams("thisBrand")
     }
 
     function removeUnderscore(inputString: string): string {

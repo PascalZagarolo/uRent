@@ -15,14 +15,14 @@ const BaseDataSearch = () => {
                 
                 />
             </h3>
-            <div className="w-full flex mt-4 space-x-4">
-                <div className="w-1/3">
+            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2">
+                <div className="sm:w-1/3">
 <LocationSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
 <DateSearch />
                 </div>
-                <div className="w-1/3">
+                <div className="sm:w-1/3">
 <PriceSearch />
                 </div>
             </div>

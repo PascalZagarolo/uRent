@@ -17,12 +17,7 @@ import { Helmet } from 'react-helmet';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Mieten mit uRent',
-  description: `PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
-  Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent.`
-  
-}
+
 
 
 export default function RootLayout({
@@ -41,16 +36,7 @@ export default function RootLayout({
         
 
         
-        <title>Mieten auf uRent</title>
-        <meta name="description" content="PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
-  Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent." />
-        <meta name="keywords" content="mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger" />
-        <meta name="author" content="Mieten auf uRent" />
-        <meta property="og:title" content="uRent" />
-        <meta property="og:description" content="PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
-  Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent." />
-        <meta property="og:image" content="/uRent.png" />
-        <meta property="og:url" content="https://urent-rental.de" />
+        
         
 
         

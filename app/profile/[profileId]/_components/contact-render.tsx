@@ -1,6 +1,11 @@
 import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
 
 
+interface ContactRenderProps {
+    
+    ownProfile : boolean
+}
+
 const ContactRender = () => {
     return (
         <div className="p-4 dark:bg-[#191919] rounded-md">

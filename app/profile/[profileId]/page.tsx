@@ -15,6 +15,7 @@ import Openhours from "./_components/openhours";
 import MessageButton from "./_components/message-button";
 import { business } from '../../../db/schema';
 import { Metadata, ResolvingMetadata } from "next";
+import AddImpressum from "./_components/add-impressum";
 
 
 
@@ -165,6 +166,14 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             {thisUser.isBusiness && (
                                 <div className="p-4">
                                 <Openhours/>
+                            </div>
+                            )}
+                            {thisUser.isBusiness && (
+                                <div className="p-4">
+                                <AddImpressum
+                                ownProfile={ownProfile}
+                                user={thisUser}
+                                />
                             </div>
                             )}
                             <div>

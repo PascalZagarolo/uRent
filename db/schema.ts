@@ -62,6 +62,8 @@ export const business = pgTable("business", {
     description: text("description"),
     openingHours : text("openingHours"),
     telephone_number : text("telephone_number"),
+    email : text("telephone_number"),
+    website : text("telephone_number"),
 })
 
 export const businessAddress = pgTable("businessAddress", {

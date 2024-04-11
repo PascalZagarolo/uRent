@@ -6,18 +6,18 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useEffect, useRef, useState } from "react";
-
-
+import { GoLaw } from "react-icons/go";
+import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-
+import { PencilIcon } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import toast from "react-hot-toast";
-
+import { set } from "lodash";
 import { cn } from "@/lib/utils";
 import { users } from "@/db/schema";
 import { useRouter } from "next/navigation";
-
 
 
 interface ProfileDescriptionProps { 
@@ -26,18 +26,18 @@ interface ProfileDescriptionProps {
 }
 
 
-const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
+const AddImpressum: React.FC<ProfileDescriptionProps> = ({
     ownProfile,
     user
 }) => {
     
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [currentContent, setCurrentContent] = useState(user.business?.description);
+    const [currentContent, setCurrentContent] = useState(user.business?.impressum);
     const router = useRouter();
 
     const formSchema = z.object({
-        description: z.string().min(1, {
+        impressum: z.string().min(1, {
             message: "Beschreibung zu kurz"
         })
     })
@@ -54,7 +54,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            description: user.description
+            impressum: user.business?.impressum
         }
     })
 
@@ -68,11 +68,10 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
 
     const onChange = () => {
         try {
-
-            setIsLoading(true);
             const values = {
-                description : currentContent
+                impressum : currentContent
             }
+            setIsLoading(true);
             axios.patch(`/api/business/${user.business.id}`, values);
             toast.success("Beschreibung erfolgreich geändert");
             router.refresh()
@@ -92,15 +91,15 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                         <div className=" flex items-center" >
                         
                         <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
-                            Beschreibung 
+                        <GoLaw className="w-4 h-4 mr-2" /> Impressum 
                         </p>
                         {ownProfile && (
                             <div className="ml-auto"> 
                             <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
-                                      dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" type="submit" onClick={onChange}
-                                      disabled={!currentContent || currentContent === user.business?.description}
+                                      dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" onClick={onChange}
+                                      disabled={!currentContent || currentContent === user.business?.impressum}
                                       >
-                                         Beschreibung speichern
+                                         Impressum speichern
                                      </Button>
                                 </div>
                         )}
@@ -112,7 +111,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                              <form onSubmit={form.handleSubmit(onChange)}>
                                  <FormField
                                      control={form.control}
-                                     name="description"
+                                     name="impressum"
                                      render={({ field }) => (
                                          <FormItem>
                                              <FormControl>
@@ -139,7 +138,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                         ) : (
                             <div className="mt-2 text-sm font-medium">
                             
-                        {user.business?.description ? (
+                        {user.business?.impressum ? (
                             
 
                             <div>
@@ -147,10 +146,10 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                                 isUnfolded ? "h-full" : "max-h-[72px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                 onClick={() => {ownProfile && onEdit()}}
                                 >
-                                {user.business?.description} 
+                                {user.business?.impressum} 
 
                             </div>
-                            {user?.business.description.length > 400 && (
+                            {user?.business?.impressum.length > 400 && (
                                 <Button className=" w-full bg-gray-200 
                                 focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
                                 " variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
@@ -159,7 +158,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                             )}
                             </div>
                            ) : (
-                            <div className=" font-base text-gray-900/50  dark:text-gray-200/70">
+                            <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => {ownProfile && onEdit()}}>
                                 Das Unternehmen hat noch nichts über sich geteilt..
                             </div>
                            )}
@@ -174,4 +173,4 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
     );
 }
 
-export default BusinessDescription;
+export default AddImpressum;

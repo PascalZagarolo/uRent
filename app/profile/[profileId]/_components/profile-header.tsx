@@ -146,6 +146,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     <div className="w-1/2 ">
                         <StandortRender 
                         ownProfile={ownProfile}
+                        businessId={user?.business?.id}
+                        foundAddress={user?.business?.businessAddresses}
                         />
                     </div>
                     <div className="w-1/2 ">

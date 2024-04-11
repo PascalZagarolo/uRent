@@ -4,38 +4,110 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ImageIcon, MapPinIcon, MapPinOffIcon, PlusSquareIcon } from "lucide-react";
+import { CheckIcon, ImageIcon, MapPinIcon, MapPinOffIcon, PlusSquareIcon } from "lucide-react";
+import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BiLandscape } from "react-icons/bi";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { businessAddress } from "@/db/schema";
+import Standort from "./standort";
 
 interface StandortRenderProps {
-    ownProfile: boolean
+    ownProfile: boolean;
+    businessId: string;
+    foundAddress: typeof businessAddress.$inferSelect[];
 }
 
 const StandortRender: React.FC<StandortRenderProps> = ({
-    ownProfile
+    ownProfile,
+    businessId,
+    foundAddress
 }) => {
 
-    const [currentLocation, setCurrentLocation] = useState("");
-    const [value, setValue] = useState("");
+
+    const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+        acceptedFiles.forEach((file) => {
+            setSelectedImages((prevState) => [...prevState, file]);
+        });
+
+
+    }, []);
+
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [isUploaded, setIsUploaded] = useState(false);
+
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject,
+    } = useDropzone({ onDrop, maxFiles: 1 });
+
+    const handleUpload = () => {
+        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+        const formData = new FormData();
+        let file = selectedImages[0];
+        formData.append("file", file);
+        formData.append("upload_preset", "oblbw2xl");
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setCurrentUrl(data.secure_url);
+                setIsUploaded(true);
+            });
+    };
+
 
     const [currentStreet, setCurrentStreet] = useState("");
     const [currentCity, setCurrentCity] = useState("");
     const [currentPostalCode, setCurrentPostalCode] = useState("");
-    
-    
+    const [isLoading, setIsLoading] = useState(false);
 
-    const autoCompleteRef = useRef();
-    const inputRef = useRef();
-    
+    const [currentUrl, setCurrentUrl] = useState("")
+
+    const router = useRouter();
+
+
+
+    const onCreate = async () => {
+        try {
+            setIsLoading(true);
+            const values = {
+                street: currentStreet,
+                city: currentCity,
+                postalCode: currentPostalCode,
+                image: currentUrl
+            }
+
+            await axios.post(`/api/business/${businessId}/businessAddress`, values);
+            toast.success("Standort hinzugefügt");
+            router.refresh();
+        } catch {
+            toast.error("Fehler beim Hinzufügen des Standorts");
+
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
 
     return (
         <Dialog>
             <div>
                 <div className="dark:bg-[#191919] p-4">
                     <h1 className="text-md font-semibold flex items-center">
-                        <BiLandscape className="w-4 h-4 mr-2" />  Standort
+                        <BiLandscape className="w-4 h-4 mr-2" />  Standort {foundAddress?.length}
                         {ownProfile && (
                             <div className="ml-auto">
                                 <DialogTrigger asChild>
@@ -47,22 +119,19 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                         )}
                     </h1>
                 </div>
-                <div className="dark:bg-[#191919]  rounded-t-md ">
-                    <div className="gap-4 flex p-4 mt-4">
-                        <MapPinIcon className="h-4 w-4" />
-                        <div className="text-sm font-semibold">
-                            Mittestraße 12, 42659 Solingen, Deutschland
+                <div>
+                    {foundAddress?.length > 0 ? (
+                        foundAddress.map((address, index) => (
+                            <Standort 
+                            thisStandort={address}
+                            key={index}
+                            />
+                        ))
+                    ) : (
+                        <div>
+                            ..
                         </div>
-                    </div>
-                    <div className="w-full h-[100px] px-2 pb-2">
-                        <Image
-                            alt="map"
-                            src="/example.jpg"
-                            width={500}
-                            height={300}
-                            className="w-full object-cover h-[100px]"
-                        />
-                    </div>
+                    )}
                 </div>
             </div>
             <DialogContent className="dark:bg-[#191919] dark:border-none">
@@ -73,70 +142,102 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                     <div className="mt-4">
                         <div>
                             <Label className="flex gap-x-2">
-                              <ImageIcon className="w-4 h-4" />  Foto
+                                <ImageIcon className="w-4 h-4" />  Foto
                             </Label>
                             <p className="text-xs dark:text-gray-200/70">
                                 Lade, falls gewünscht ein Bild von deinem Standort hoch
                             </p>
-                            <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
-                             dark:text-gray-200/90 items-center text-xs flex w-full justify-center">
-                                
-                                Bild hochladen..
-                                
-                            </div>
+
+
+                            {selectedImages.length > 0 ? (
+                                <>
+                                    {selectedImages.map((image, index) => (
+                                        <Image src={`${URL.createObjectURL(image)}`} key={index}
+                                            alt=""
+                                            width={500}
+                                            height={500}
+                                            className="w-full object-cover h-[160px] mt-2"
+                                        />
+                                    ))}
+                                    {isUploaded ? (
+                                        <div className="text-xs gap-1 flex mt-2">
+
+                                            <CheckIcon className="w-4 h-4 text-green-600" /> Hochgeladen
+                                        </div>
+                                    ) : (
+                                        <Button onClick={handleUpload} variant="ghost" size="sm">
+                                            Verwenden
+                                        </Button>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
+                             dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    {isDragActive ? (
+                                        <p>Drop file(s) here ...</p>
+                                    ) : (
+                                        <p>Drag and drop file(s) here, or click to select files</p>
+                                    )}
+                                </div>
+                            )}
+
+
                         </div>
 
                         <div className="mt-4">
                             <Label className="font-semibold text-sm flex gap-x-2 items-center">
-                               <MapPinIcon className="w-4 h-4" /> Addresse
+                                <MapPinIcon className="w-4 h-4" /> Addresse
                             </Label>
                             <div>
-                            <div className="w-full flex gap-4">
+                                <div className="w-full flex gap-4">
                                     <div className="w-full mt-2">
                                         <Label className="font-semibold">
-                                        Straße
+                                            Straße
                                         </Label>
-                                        <Input 
-                                         className="dark:bg-[#1C1C1C] border-none"
-                                         onChange={(e) => setCurrentStreet(e.target.value)}
-                                         placeholder="Musterstraße 13"
+                                        <Input
+                                            className="dark:bg-[#1C1C1C] border-none"
+                                            onChange={(e) => setCurrentStreet(e.target.value)}
+                                            placeholder="Musterstraße 13"
                                         />
                                     </div>
-                                    
+
                                 </div>
                                 <div className="w-full flex gap-4">
                                     <div className="w-1/2 mt-2">
                                         <Label className="font-semibold">
-                                        Stadt
+                                            Stadt
                                         </Label>
-                                        <Input 
-                                         className="dark:bg-[#1C1C1C] border-none"
-                                         onChange={(e) => setCurrentCity(e.target.value)}
-                                         placeholder="Musterstadt"
+                                        <Input
+                                            className="dark:bg-[#1C1C1C] border-none"
+                                            onChange={(e) => setCurrentCity(e.target.value)}
+                                            placeholder="Musterstadt"
                                         />
                                     </div>
                                     <div className="w-1/2 mt-2">
                                         <Label className="font-semibold">
-                                        PLZ
+                                            PLZ
                                         </Label>
-                                        <Input 
-                                         className="dark:bg-[#1C1C1C] border-none"
-                                         
-                                         onChange={(e) => setCurrentPostalCode(e.target.value)}
-                                         placeholder="10100"
+                                        <Input
+                                            className="dark:bg-[#1C1C1C] border-none"
+
+                                            onChange={(e) => setCurrentPostalCode(e.target.value)}
+                                            placeholder="10100"
                                         />
                                     </div>
                                 </div>
                             </div>
                             <div className="mt-4 w-full" >
-                                <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]"
-                                
-                                disabled={currentStreet.trim() === "" || currentPostalCode === "" || currentCity.trim() === "" ||
-                                currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode))}
-                           
-                                >
-                                    Standort hinzufügen
-                                </Button>
+                                <DialogTrigger asChild>
+                                    <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]"
+                                        onClick={onCreate}
+                                        disabled={currentStreet.trim() === "" || currentPostalCode === "" || currentCity.trim() === "" ||
+                                            currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode))}
+
+                                    >
+                                        Standort hinzufügen
+                                    </Button>
+                                </DialogTrigger>
                             </div>
                         </div>
                     </div>

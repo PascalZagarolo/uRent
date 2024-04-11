@@ -45,7 +45,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     return (
         <div className="w-full flex gap-0.5">
             
-                {usedImages.length > 0 ? (
+                {usedImages?.length > 0 ? (
                     <div className="w-1/2 p-0.5 h-full dark:bg-[#191919] rounded-md">
                         <Image 
                         alt="1. Bild"
@@ -77,7 +77,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 )}
             
             <div className="w-1/2 space-y-0.5">
-                {usedImages.length > 1 ? (
+                {usedImages?.length > 1 ? (
                     <div className="h-1/2 p-0.5 dark:bg-[#191919]">
                 <Image 
                         alt="1. Bild"
@@ -109,7 +109,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 )}
                 <>
                 
-                {usedImages.length > 2 ? (
+                {usedImages?.length > 2 ? (
                     <div className="h-1/2 p-0.5 dark:bg-[#191919]">
                     <Image 
                     alt="1. Bild"

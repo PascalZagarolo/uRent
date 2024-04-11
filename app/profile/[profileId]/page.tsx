@@ -162,9 +162,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                 thisContactOptions={thisContactoptions}
 
                             />
-                            <div className="p-4">
+                            {thisUser.isBusiness && (
+                                <div className="p-4">
                                 <Openhours/>
                             </div>
+                            )}
                             <div>
                                 <div className="mt-8 px-4">
                                     <h1 className="text-md font-semibold flex items-center">

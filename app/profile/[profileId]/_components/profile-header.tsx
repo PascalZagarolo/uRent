@@ -95,13 +95,15 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     </div>
 
                 </div>
-                <div className="w-3/5 flex justify-end h-[240px] gap-x-2">
+                {user.isBusiness && (
+                    <div className="w-3/5 flex justify-end h-[240px] gap-x-2">
                     <UploadBusinessPics 
                     usedImages={user?.business?.businessImages}
                     businessId={user?.business?.id}
                     ownProfile={ownProfile}
                     />
                 </div>
+                )}
 
             </div>
             {user.isBusiness ? (

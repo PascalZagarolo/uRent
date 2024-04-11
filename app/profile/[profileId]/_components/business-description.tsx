@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { set } from "lodash";
 import { cn } from "@/lib/utils";
 import { users } from "@/db/schema";
+import { useRouter } from "next/navigation";
 
 
 interface ProfileDescriptionProps { 
@@ -32,12 +33,23 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
     
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentContent, setCurrentContent] = useState(user.business?.description);
+    const router = useRouter();
 
     const formSchema = z.object({
         description: z.string().min(1, {
             message: "Beschreibung zu kurz"
         })
     })
+
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        // Focus on the textarea when isEditing becomes true
+        if (isEditing && textareaRef.current) {
+            textareaRef.current.focus();
+        }
+    }, [isEditing]);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -57,8 +69,9 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
     const onChange = (values : z.infer<typeof formSchema>) => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/profile/${user.id}`, values);
+            axios.patch(`/api/business/${user.business.id}`, values);
             toast.success("Beschreibung erfolgreich geändert");
+            router.refresh()
             setIsEditing(false);
         } catch {
             toast.error("Fehler beim Ändern der Beschreibung")
@@ -72,20 +85,22 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
 
                     <div className="  p-4  bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
                      w-full">
-                        <div className=" flex items-center">
+                        <div className=" flex items-center" >
                         
-                        <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md">
-                            Beschreibung
+                        <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
+                            Beschreibung 
                         </p>
+                        <div className="ml-auto"> 
+                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
+                                      dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" type="submit"
+                                      disabled={!currentContent || currentContent === user.business?.description}
+                                      >
+                                         Beschreibung speichern
+                                     </Button>
+                                </div>
                         
-                        {ownProfile && !isEditing && (
-                            <Button className="ml-auto flex
-                              dark:hover:bg-[#1f1f1f]" variant="ghost" size="sm" onClick={onEdit}>
-                            <PencilIcon className="h-4 w-4 dark:text-gray-100"/>
-                        </Button>
-                        )}
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-4" >
                         {isEditing ? (
                              <Form {...form}>
                              <form onSubmit={form.handleSubmit(onChange)}>
@@ -100,6 +115,9 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                                                      onBlur={() => {
                                                         setIsEditing(false);
                                                      }}
+                                                     onChange={(e) => {setCurrentContent(e.target.value)}}
+                                                     value={currentContent}
+                                                     ref={textareaRef}
                                                  />
                                              </FormControl>
                                              <FormMessage/>
@@ -108,25 +126,25 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
              
                                  />
                                  <div>
-                                     <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
-                                      dark:bg-[#171717] hover:bg-gray-100 mt-2"  type="submit">
-                                         Beschreibung ändern
-                                     </Button>
+                                     
                                  </div>
                              </form>
                          </Form>
                         ) : (
-                            <div className="mt-2 text-sm">
+                            <div className="mt-2 text-sm font-medium">
                             
-                        {user.description ? (
+                        {user.business?.description ? (
                             
 
                             <div>
-                                <div className={cn("dark:text-gray-200 whitespace-pre-wrap break-words", isUnfolded ? "h-full" : "max-h-[72px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
-                                {user.description} 
+                                <div className={cn("dark:text-gray-200 whitespace-pre-wrap break-words", 
+                                isUnfolded ? "h-full" : "max-h-[72px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                onClick={() => {ownProfile && onEdit()}}
+                                >
+                                {user.business?.description} 
 
                             </div>
-                            {user.description.length > 400 && (
+                            {user?.business.description.length > 400 && (
                                 <Button className=" w-full bg-gray-200 
                                 focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
                                 " variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
@@ -136,7 +154,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                             </div>
                            ) : (
                             <div className=" font-base text-gray-900/50  dark:text-gray-200/70">
-                                Es wurde noch nichts geteilt
+                                Das Unternehmen hat noch nichts über sich geteilt..
                             </div>
                            )}
                            

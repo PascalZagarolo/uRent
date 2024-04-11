@@ -87,7 +87,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-2 ">
 
-                    <div className="  p-4  bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
+                    <div className="p-4 bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
                      w-full">
                         <div className=" flex items-center" >
                         
@@ -98,7 +98,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                             <div className="ml-auto"> 
                             <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
                                       dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" type="submit" onClick={onChange}
-                                      disabled={!currentContent || currentContent === user.business?.description}
+                                      disabled={!currentContent || currentContent === user.business?.description || currentContent.trim() === ""}
                                       >
                                          Beschreibung speichern
                                      </Button>
@@ -139,7 +139,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                         ) : (
                             <div className="mt-2 text-sm font-medium">
                             
-                        {user.business?.description ? (
+                        {currentContent.trim() !== "" ? (
                             
 
                             <div>
@@ -147,7 +147,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                                 isUnfolded ? "h-full" : "max-h-[72px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                 onClick={() => {ownProfile && onEdit()}}
                                 >
-                                {user.business?.description} 
+                                {currentContent} 
 
                             </div>
                             {user?.business.description.length > 400 && (
@@ -159,9 +159,15 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                             )}
                             </div>
                            ) : (
-                            <div className=" font-base text-gray-900/50  dark:text-gray-200/70">
+                            (user?.business?.description && ownProfile) ? (
+                                <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => {ownProfile && onEdit()}}>
+                                Erzähle potentiellen Kunden etwas über dich und dein Unternehmen..
+                            </div>
+                            ) : (
+                                <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => {ownProfile && onEdit()}}>
                                 Das Unternehmen hat noch nichts über sich geteilt..
                             </div>
+                            )
                            )}
                            
                         </div>

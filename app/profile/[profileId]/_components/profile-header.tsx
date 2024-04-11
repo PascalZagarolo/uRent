@@ -144,7 +144,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             {user.isBusiness ? (
                 <div className="w-full flex gap-4 mt-4">
                     <div className="w-1/2 ">
-                        <StandortRender />
+                        <StandortRender 
+                        ownProfile={ownProfile}
+                        />
                     </div>
                     <div className="w-1/2 ">
                         <ContactRender />

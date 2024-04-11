@@ -97,7 +97,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                             <div className="ml-auto"> 
                             <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
                                       dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" onClick={onChange}
-                                      disabled={!currentContent || currentContent === user.business?.impressum}
+                                      disabled={!currentContent || currentContent === user.business?.impressum || currentContent.trim() === ""}
                                       >
                                          Impressum speichern
                                      </Button>
@@ -138,7 +138,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                         ) : (
                             <div className="mt-2 text-sm font-medium">
                             
-                        {user.business?.impressum ? (
+                        {currentContent.trim() !== ""? (
                             
 
                             <div>
@@ -146,7 +146,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                                 isUnfolded ? "h-full" : "max-h-[72px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                 onClick={() => {ownProfile && onEdit()}}
                                 >
-                                {user.business?.impressum} 
+                                {currentContent} 
 
                             </div>
                             {user?.business?.impressum.length > 400 && (

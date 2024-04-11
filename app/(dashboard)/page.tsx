@@ -109,7 +109,9 @@ const Main = async ({
 
     return (
         <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
-            
+            <head>
+            <meta property="og:url" content="https://urent-rental.de" />
+            </head>
             
             <div>
                 <div className="relative flex justify-center mt-4">

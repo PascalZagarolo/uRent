@@ -20,7 +20,10 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     const [currentLocation, setCurrentLocation] = useState("");
     const [value, setValue] = useState("");
 
+    const [currentStreet, setCurrentStreet] = useState("");
+    const [currentCity, setCurrentCity] = useState("");
     const [currentPostalCode, setCurrentPostalCode] = useState("");
+    
     
 
     const autoCompleteRef = useRef();
@@ -95,6 +98,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                         </Label>
                                         <Input 
                                          className="dark:bg-[#1C1C1C] border-none"
+                                         onChange={(e) => setCurrentStreet(e.target.value)}
                                          placeholder="Musterstraße 13"
                                         />
                                     </div>
@@ -107,6 +111,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                         </Label>
                                         <Input 
                                          className="dark:bg-[#1C1C1C] border-none"
+                                         onChange={(e) => setCurrentCity(e.target.value)}
                                          placeholder="Musterstadt"
                                         />
                                     </div>
@@ -116,6 +121,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                         </Label>
                                         <Input 
                                          className="dark:bg-[#1C1C1C] border-none"
+                                         
                                          onChange={(e) => setCurrentPostalCode(e.target.value)}
                                          placeholder="10100"
                                         />
@@ -123,7 +129,12 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                 </div>
                             </div>
                             <div className="mt-4 w-full" >
-                                <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]">
+                                <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]"
+                                
+                                disabled={currentStreet.trim() === "" || currentPostalCode === "" || currentCity.trim() === "" ||
+                                currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode))}
+                           
+                                >
                                     Standort hinzufügen
                                 </Button>
                             </div>

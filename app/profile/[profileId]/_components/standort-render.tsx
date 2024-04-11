@@ -124,6 +124,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                         foundAddress.map((address, index) => (
                             <Standort 
                             thisStandort={address}
+                            ownProfile={ownProfile}
                             key={index}
                             />
                         ))
@@ -175,9 +176,9 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                              dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
                                     <input {...getInputProps()} />
                                     {isDragActive ? (
-                                        <p>Drop file(s) here ...</p>
+                                        <p>Ziehe hier rein</p>
                                     ) : (
-                                        <p>Drag and drop file(s) here, or click to select files</p>
+                                        <p>Ziehe Bilder rein oder klicke hier</p>
                                     )}
                                 </div>
                             )}

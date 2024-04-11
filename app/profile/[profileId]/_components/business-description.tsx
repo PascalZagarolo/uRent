@@ -90,7 +90,8 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                         <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
                             Beschreibung 
                         </p>
-                        <div className="ml-auto"> 
+                        {ownProfile && (
+                            <div className="ml-auto"> 
                             <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
                                       dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" type="submit"
                                       disabled={!currentContent || currentContent === user.business?.description}
@@ -98,6 +99,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                                          Beschreibung speichern
                                      </Button>
                                 </div>
+                        )}
                         
                         </div>
                         <div className="mt-4" >

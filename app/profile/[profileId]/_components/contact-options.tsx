@@ -6,8 +6,9 @@ import AddContactOption from "./add-contact-option";
 
 import { cn } from "@/lib/utils";
 import { contactOptions } from "@/db/schema";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
+import { userAddress } from '../../../../db/schema';
 
 interface ContactOptionsProps {
     thisContactOptions: typeof contactOptions.$inferSelect;

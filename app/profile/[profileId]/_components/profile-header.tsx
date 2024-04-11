@@ -99,6 +99,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     <UploadBusinessPics 
                     usedImages={user?.business?.businessImages}
                     businessId={user?.business?.id}
+                    ownProfile={ownProfile}
                     />
                 </div>
 

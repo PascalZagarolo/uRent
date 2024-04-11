@@ -14,10 +14,39 @@ import { FaBuilding, FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
 import MessageButton from "./_components/message-button";
 import { business } from '../../../db/schema';
+import { Metadata, ResolvingMetadata } from "next";
 
 
 
+type Props = {
+    params: { profileId: string }
 
+}
+
+export async function generateMetadata({ params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    try {
+        const res = await db.query.users.findFirst({
+            where: eq(users.id, params.profileId),
+            with : {
+                business : true
+            }
+            
+        })
+        return {
+            title: res.name,
+            openGraph: {
+                description: res.business?.description,
+            },
+        }
+    } catch (error) {
+        return {
+            title: "Mieten auf uRent",
+            description: "Vermiete dein Fahrzeug auf uRent und verdiene Geld damit."
+        }
+    }
+}
 
 
 const ProfilePage = async ({ params }: { params: { profileId: string } }) => {

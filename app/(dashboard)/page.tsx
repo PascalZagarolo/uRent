@@ -84,6 +84,7 @@ export const metadata: Metadata = {
     title: 'Mieten auf uRent',
     description: `PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
     Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent.`,
+    keywords: "mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger",
 }
 
 const Main = async ({
@@ -108,10 +109,11 @@ const Main = async ({
     
 
     return (
+  
+        
+        
         <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
-            <head>
-            <meta property="og:url" content="https://urent-rental.de" />
-            </head>
+            
             
             <div>
                 <div className="relative flex justify-center mt-4">
@@ -182,7 +184,7 @@ const Main = async ({
             <Footer />
             
         </div>
-
+       
 
     );
 }

@@ -38,17 +38,12 @@ export async function generateMetadata({ params }: Props,
         const res = await db.query.inserat.findFirst({
             where: eq(inserat.id, params.inseratId),
         })
-
-
-
-
         return {
             title: res.title,
             openGraph: {
                 description: res.description,
             },
         }
-
     } catch (error) {
         return {
             title: "Mieten auf uRent",

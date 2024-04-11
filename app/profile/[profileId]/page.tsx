@@ -8,11 +8,12 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import { contactOptions, inserat, notification, rezension, users } from "@/db/schema";
+import { businessImages, contactOptions, inserat, notification, rezension, users } from "@/db/schema";
 import RegisterBusiness from "./_components/register-business";
 import { FaBuilding, FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
 import MessageButton from "./_components/message-button";
+import { business } from '../../../db/schema';
 
 
 
@@ -54,7 +55,15 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
 
     const thisUser = await db.query.users.findFirst({
-        where: eq(users.id, pageOwnerId)
+        where: eq(users.id, pageOwnerId),
+        with : {
+            business : {
+                with : {
+                    businessAddresses : true,
+                    businessImages : true,
+                }
+            }
+        }
     })
 
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
@@ -65,6 +74,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
         )
     })
 
+    
 
 
     return (

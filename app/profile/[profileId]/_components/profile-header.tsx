@@ -19,6 +19,8 @@ import ContactRender from "./contact-render";
 import BusinessDescription from "./business-description";
 import { BiSolidBusiness } from "react-icons/bi";
 import { MdOutlineCardMembership } from "react-icons/md";
+import UploadBusinessPics from "./upload-business-pics";
+import { business } from '../../../../db/schema';
 
 
 interface ProfileHeaderProps {
@@ -94,17 +96,10 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
                 </div>
                 <div className="w-3/5 flex justify-end h-[240px] gap-x-2">
-                    <div className="w-1/2 p-8 h-full dark:bg-[#191919] rounded-md">
-                        1
-                    </div>
-                    <div className="w-1/2">
-                        <div className="h-1/2 p-8 dark:bg-[#191919]">
-                            2
-                        </div>
-                        <div className="h-1/2 p-8 dark:bg-[#191919]">
-                            3
-                        </div>
-                    </div>
+                    <UploadBusinessPics 
+                    usedImages={user?.business?.businessImages}
+                    businessId={user?.business?.id}
+                    />
                 </div>
 
             </div>

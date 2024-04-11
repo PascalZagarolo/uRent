@@ -80,7 +80,7 @@ export const businessImages = pgTable("businessImages", {
     position: integer("position"),
     url: text("url"),
     businessId: uuid("businessId")
-        .references(() => inserat.id, { onDelete: "cascade" }),
+        .references(() => business.id, { onDelete: "cascade" }),
 
 })
 
@@ -901,7 +901,7 @@ export const businessRelations = relations(business, ({ one, many}) => ({
         references : [users.id]
     }),
     businessAddresses : many(businessAddress),
-    images : many(businessImages)
+    businessImages : many(businessImages)
 }))
 
 export const businessAddressRelations = relations(businessAddress, ({ one }) => ({

@@ -34,7 +34,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     
     useGetFilterAmount.setState({ amount: inserateArray.length })
 
-    useEffect(() => {
+    useMemo(() => {
         useGetFilterAmount.setState({ amount: inserateArray.length })
     }, [inserateArray])
 

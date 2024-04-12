@@ -107,11 +107,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
-    const rezensionen = await db.query.rezension.findMany({
-        where: (
-            eq(rezension.receiverId, pageOwnerId)
-        )
-    })
+   
 
     
 

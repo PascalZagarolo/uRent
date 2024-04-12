@@ -39,6 +39,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
 
     const [selectedImages, setSelectedImages] = useState([]);
     const [isUploaded, setIsUploaded] = useState(false);
+    
 
     const {
         getRootProps,
@@ -129,8 +130,8 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                             />
                         ))
                     ) : (
-                        <div>
-                            ..
+                        <div className="p-4 flex items-center justify-center text-sm dark:text-gray-200/70 text-gray-700/70">
+                            Es wurden noch keine Standorte hinzugefügt..
                         </div>
                     )}
                 </div>

@@ -151,7 +151,10 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                         />
                     </div>
                     <div className="w-1/2 ">
-                        <ContactRender />
+                        <ContactRender 
+                        thisBusiness={user?.business}
+                        ownProfile={ownProfile}
+                        />
                     </div>
                 </div>
             ) : (

@@ -109,7 +109,7 @@ const InseratAnzeige = async ({
 
 
 
-    const inseratBookings = await db.query.booking.findMany({
+    const findInseratBookings = await db.query.booking.findMany({
         where: (
             eq(booking.inseratId, thisInserat.id)
         ),
@@ -117,7 +117,9 @@ const InseratAnzeige = async ({
             user: true,
 
         }, orderBy: (booking, { asc }) => [asc(booking.startDate)]
-    })
+    }).prepare("inseratBookings")
+
+    const inseratBookings = await findInseratBookings.execute()
 
     const LazyInseratImageCarousel = lazy(() => import("./_components/inserat-image"));
 

@@ -87,13 +87,13 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
                 </div>
             )}
 
-            {attributes?.loading_volume && (
+{attributes?.loading_volume && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <HiCubeTransparent className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
                 </div>
             )}
 
-            {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
+            {(attributes?.loading_l || attributes?.loading_b || attributes?.loading_h) && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
                 </div>

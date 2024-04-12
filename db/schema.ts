@@ -917,6 +917,10 @@ export const businessRelations = relations(business, ({ one, many}) => ({
         fields : [business.userId],
         references : [users.id]
     }),
+    openingTimes : one(openingTimes, {
+        fields : [business.id],
+        references : [openingTimes.businessId]
+    }),
     businessAddresses : many(businessAddress),
     businessImages : many(businessImages)
 }))

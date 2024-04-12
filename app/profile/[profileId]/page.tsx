@@ -13,7 +13,7 @@ import RegisterBusiness from "./_components/register-business";
 import { FaBuilding, FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
 import MessageButton from "./_components/message-button";
-import { business } from '../../../db/schema';
+import { business, openingTimes } from '../../../db/schema';
 import { Metadata, ResolvingMetadata } from "next";
 import AddImpressum from "./_components/add-impressum";
 
@@ -91,6 +91,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 with : {
                     businessAddresses : true,
                     businessImages : true,
+                    openingTimes : true
                 }
             }
         }
@@ -165,7 +166,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             />
                             {thisUser.isBusiness && (
                                 <div className="p-4">
-                                <Openhours/>
+                                <Openhours
+                                thisBusiness={thisUser.business}
+                                />
                             </div>
                             )}
                             {thisUser.isBusiness && (

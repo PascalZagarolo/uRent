@@ -295,7 +295,9 @@ const Standort: React.FC<StandortProps> = ({
                                         </div>
                                     </div>
                                     <div className="mt-4 flex items-centerg gap-x-2">
-                                        <Checkbox/> <Label>
+                                        <Checkbox
+                                        checked={thisStandort.isPrimary}
+                                        /> <Label>
                                             Primärer Standort 
                                             <Popover>
                                                 <PopoverTrigger className="ml-2">

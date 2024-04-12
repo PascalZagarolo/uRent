@@ -5,15 +5,18 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { businessAddress } from "@/db/schema";
+import axios from "axios";
 import { CheckIcon, ImageIcon, MapPinIcon, PencilLineIcon, X } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import toast from "react-hot-toast";
 import { FaRegEdit } from "react-icons/fa";
 
 interface StandortProps {
-    thisStandort : typeof businessAddress.$inferSelect;
-    ownProfile : boolean;
+    thisStandort: typeof businessAddress.$inferSelect;
+    ownProfile: boolean;
 }
 
 const Standort: React.FC<StandortProps> = ({
@@ -39,6 +42,8 @@ const Standort: React.FC<StandortProps> = ({
 
     const [shownImage, setShownImage] = useState<string>(thisStandort?.image);
 
+    const router = useRouter();
+
     const {
         getRootProps,
         getInputProps,
@@ -47,7 +52,7 @@ const Standort: React.FC<StandortProps> = ({
         isDragReject,
     } = useDropzone({ onDrop, maxFiles: 1 });
 
-    
+
 
     const handleUpload = () => {
         const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
@@ -69,39 +74,62 @@ const Standort: React.FC<StandortProps> = ({
             });
     };
 
-    const onEdit = () => {
+    const onEdit = async () => {
+        try {
+            const values = {
+                street: currentStreet,
+                city: currentCity,
+                postalCode: Number(currentPostalCode),
+                image: currentUrl
+            }
 
+            await axios.patch(`/api/businessAddress/${thisStandort.id}`, values).then(() => {
+                router.refresh();
+            })
+            toast.success("Standort erfolgreich geändert");
+            
+        } catch {
+            toast.error("Fehler beim Speichern");
+        }
     }
 
-    return ( 
+    return (
         <Dialog>
             <div className="dark:bg-[#191919]  rounded-t-md ">
-                    <div className="gap-4 flex p-4 mt-4 items-center">
-                        <MapPinIcon className="h-4 w-4" />
-                        <div className="text-sm font-semibold">
-                            {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
-                        </div>
-                        {ownProfile && (
-                            
-                            <DialogTrigger asChild>
-                                <Button className="" variant="ghost" size="sm">
+                <div className="gap-4 flex p-4 mt-4 items-center">
+                    <MapPinIcon className="h-4 w-4" />
+                    <div className="text-sm font-semibold">
+                        {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
+                    </div>
+                    {ownProfile && (
+
+                        <DialogTrigger asChild>
+                            <Button className="" variant="ghost" size="sm">
                                 <FaRegEdit className="w-4 h-4" />
-                                </Button>
-                            </DialogTrigger>
-                        
-                        )}
-                    </div>
-                    <div className="w-full h-[100px] px-2 pb-2">
-                        <Image
-                            alt="map"
-                            src={thisStandort?.image}
-                            width={500}
-                            height={300}
-                            className="w-full object-cover h-[100px]"
-                        />
-                    </div>
+                            </Button>
+                        </DialogTrigger>
+
+                    )}
                 </div>
-                <DialogContent className="dark:bg-[#191919] dark:border-none">
+                {thisStandort?.image ? (
+                    <div className="w-full h-[100px] px-2 pb-2">
+                    <Image
+                        alt="map"
+                        src={thisStandort?.image}
+                        width={500}
+                        height={300}
+                        className="w-full object-cover h-[100px]"
+                    />
+                </div>
+                ) : (
+                    <div className="px-2 pb-2 text-xs flex justify-center ">
+                        <div className="dark:bg-[#1C1C1C] w-full p-8 dark:text-gray-200/70 flex justify-center">
+                            Kein Bild vorhanden..
+                        </div>
+                    </div>
+                )}
+            </div>
+            <DialogContent className="dark:bg-[#191919] dark:border-none">
                 <div>
                     <h1 className="font-semibold">
                         Standort hinzufügen
@@ -116,7 +144,7 @@ const Standort: React.FC<StandortProps> = ({
                             </p>
 
 
-                            {selectedImages.length > 0? (
+                            {selectedImages.length > 0 ? (
                                 <>
                                     {selectedImages.map((image, index) => (
                                         <Image src={`${URL.createObjectURL(image)}`} key={index}
@@ -127,9 +155,10 @@ const Standort: React.FC<StandortProps> = ({
                                         />
                                     ))}
                                     {isUploaded ? (
-                                        <div className="text-xs gap-1 flex mt-2">
+                                        <div className="text-xs gap-1 flex mt-2 items-center">
 
                                             <CheckIcon className="w-4 h-4 text-green-600" /> Hochgeladen
+
                                         </div>
                                     ) : (
                                         <Button onClick={handleUpload} variant="ghost" size="sm">
@@ -139,31 +168,31 @@ const Standort: React.FC<StandortProps> = ({
                                 </>
                             ) : (
                                 shownImage ? (
-                                    <Image src={shownImage} 
-                                    alt=""
-                                    width={500}
-                                    height={500}
-                                    className="w-full object-cover h-[160px] mt-2"
-                                />
+                                    <Image src={shownImage}
+                                        alt=""
+                                        width={500}
+                                        height={500}
+                                        className="w-full object-cover h-[160px] mt-2"
+                                    />
                                 ) : (
                                     <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
                              dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    {isDragActive ? (
-                                        <p>Ziehe hier rein</p>
-                                    ) : (
-                                        <p>Ziehe Bilder rein oder klicke hier</p>
-                                    )}
-                                </div>
+                                        <input {...getInputProps()} />
+                                        {isDragActive ? (
+                                            <p>Ziehe hier rein</p>
+                                        ) : (
+                                            <p>Ziehe Bilder rein oder klicke hier</p>
+                                        )}
+                                    </div>
                                 )
                             )}
 
-                            {(selectedImages.length > 0 || shownImage) && (
+                            {(currentUrl || shownImage) && (
                                 <div className="ml-auto w-full flex justify-end">
-                                <Button size="sm" variant="ghost">
-                                    <X className="w-4 h-4" /> Entfernen
-                                </Button>
-                            </div>
+                                    <Button size="sm" variant="ghost" onClick={() => { setShownImage(""); setSelectedImages([]); setCurrentUrl(""); }}>
+                                        <X className="w-4 h-4" /> Entfernen
+                                    </Button>
+                                </div>
                             )}
 
 
@@ -195,7 +224,7 @@ const Standort: React.FC<StandortProps> = ({
                                             Stadt
                                         </Label>
                                         <Input
-                                        value={currentCity}
+                                            value={currentCity}
                                             className="dark:bg-[#1C1C1C] border-none"
                                             onChange={(e) => setCurrentCity(e.target.value)}
                                             placeholder="Musterstadt"
@@ -230,9 +259,9 @@ const Standort: React.FC<StandortProps> = ({
                     </div>
                 </div>
             </DialogContent>
-            
+
         </Dialog>
-     );
+    );
 }
- 
+
 export default Standort;

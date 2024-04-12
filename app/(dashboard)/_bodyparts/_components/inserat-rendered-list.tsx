@@ -27,7 +27,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     const currentPage = searchParams.get("page");
     const [renderedList, setRenderedList] = useState(inserateArray);
 
-    useEffect(() => {
+    useMemo(() => {
         setRenderedList(inserateArray)
     }, [inserateArray])
 

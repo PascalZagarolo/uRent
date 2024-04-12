@@ -3,10 +3,14 @@
 import { Alert } from "@/components/ui/alert";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { businessAddress } from "@/db/schema";
+import { cn } from "@/lib/utils";
+
 import axios from "axios";
 import { CheckIcon, ImageIcon, MapPinIcon, PencilLineIcon, TrashIcon, X } from "lucide-react";
 import Image from "next/image";
@@ -15,6 +19,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import { FaRegEdit } from "react-icons/fa";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 interface StandortProps {
     thisStandort: typeof businessAddress.$inferSelect;
@@ -112,10 +117,10 @@ const Standort: React.FC<StandortProps> = ({
     return (
         <Dialog>
             <AlertDialog>
-                <div className="dark:bg-[#191919]  rounded-t-md ">
-                    <div className="sm:flex py-4 px-2 mt-4 items-center">
+                <div className={cn("dark:bg-[#191919] mt-4 rounded-t-md", thisStandort.isPrimary && "border-rose-800 border-2")}>
+                    <div className="sm:flex py-2 px-2  items-center" >
                         <div className="flex">
-                        <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2" />
+                        <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
                         <div className="sm:text-sm text-xs font-semibold">
                             {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
                         </div>
@@ -223,7 +228,7 @@ const Standort: React.FC<StandortProps> = ({
                                         />
                                     ) : (
                                         <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
-                             dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
+                                        dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
                                             <input {...getInputProps()} />
                                             {isDragActive ? (
                                                 <p>Ziehe hier rein</p>
@@ -288,6 +293,21 @@ const Standort: React.FC<StandortProps> = ({
                                                 placeholder="10100"
                                             />
                                         </div>
+                                    </div>
+                                    <div className="mt-4 flex items-centerg gap-x-2">
+                                        <Checkbox/> <Label>
+                                            Primärer Standort 
+                                            <Popover>
+                                                <PopoverTrigger className="ml-2">
+                                                <IoMdInformationCircleOutline />
+                                                </PopoverTrigger>
+                                                <PopoverContent className="dark:bg-indigo-950 text-sm  dark:text-gray-200 flex ">
+                                                    Falls du mehrere Standorte hast, kannst du einen primären Standort festlegen.
+                                                    Dieser wird neben deinen Inseraten angezeigt, sowie in deinem Profil hervorgehoben. 
+
+                                                </PopoverContent>
+                                            </Popover>
+                                        </Label>
                                     </div>
                                 </div>
                                 <div className="mt-4 w-full" >

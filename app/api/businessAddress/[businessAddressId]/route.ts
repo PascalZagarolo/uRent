@@ -1,7 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
 import { businessAddress } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq, ne } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -47,6 +47,23 @@ export async function DELETE(
         if(!findBusinessAddress) {
             return new NextResponse("Standort nicht gefunden", { status : 404})
         }
+
+        const otherAddress = await db.query.businessAddress.findFirst({
+            where : (
+                and(
+                    eq(businessAddress.businessId, findBusinessAddress.businessId),
+                    ne(businessAddress.id, findBusinessAddress.id)
+                
+                )
+            )
+        })
+
+        if(otherAddress) {
+            await db.update(businessAddress).set({
+                isPrimary : true
+            }).where(eq(businessAddress.id, otherAddress.id))
+        }
+        
 
         const [deletedAddress] = await db.delete(businessAddress).where(eq(businessAddress.id, params.businessAddressId)).returning();
 

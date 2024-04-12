@@ -229,6 +229,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                             placeholder="10100"
                                         />
                                     </div>
+                                   
                                 </div>
                             </div>
                             <div className="mt-4 w-full" >

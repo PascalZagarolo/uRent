@@ -18,8 +18,18 @@ export async function POST(
 
         const values = await req.json();
 
+        const existingBusinessAddress = await db.query.businessAddress.findFirst({
+            where : (
+                eq(businessAddress.businessId, params.businessId)
+            )
+        })
+
+        //if first location, set as primary location
+        const primary = existingBusinessAddress ? false : true;
+
         const [createdBusinessAddress] = await db.insert(businessAddress).values({
             businessId : params.businessId,
+            isPrimary : primary,
             ...values
         }).returning();
 

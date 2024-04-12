@@ -1,4 +1,6 @@
-import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { GlobeIcon, MailIcon, PhoneIcon, Share2Icon } from "lucide-react";
+import EditContactsDialog from "./edit-contacts-dialog";
 
 
 interface ContactRenderProps {
@@ -9,8 +11,11 @@ interface ContactRenderProps {
 const ContactRender = () => {
     return (
         <div className="p-4 dark:bg-[#191919] rounded-md">
-            <h1 className="font-semibold">
+            <h1 className="font-semibold flex items-center">
                 Kontakt
+                <div className="ml-auto">
+                    <EditContactsDialog />
+                </div>
             </h1>
             <div className="mt-10 space-y-2">
             <div className="font-semibold text-sm flex gap-x-2">

@@ -97,12 +97,13 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 </div>
                 {user.isBusiness && (
                     <div className="sm:w-3/5 w-full flex justify-end h-[240px] gap-x-2">
-                    <UploadBusinessPics 
-                    usedImages={user?.business?.businessImages}
-                    businessId={user?.business?.id}
-                    ownProfile={ownProfile}
-                    />
-                </div>
+                        <UploadBusinessPics
+                            usedImages={user?.business?.businessImages}
+                            businessId={user?.business?.id}
+                            ownProfile={ownProfile}
+                        />
+                        
+                    </div>
                 )}
 
             </div>
@@ -144,16 +145,16 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             {user.isBusiness ? (
                 <div className="w-full flex gap-4 mt-4">
                     <div className="w-1/2 ">
-                        <StandortRender 
-                        ownProfile={ownProfile}
-                        businessId={user?.business?.id}
-                        foundAddress={user?.business?.businessAddresses}
+                        <StandortRender
+                            ownProfile={ownProfile}
+                            businessId={user?.business?.id}
+                            foundAddress={user?.business?.businessAddresses}
                         />
                     </div>
                     <div className="w-1/2 ">
-                        <ContactRender 
-                        thisBusiness={user?.business}
-                        ownProfile={ownProfile}
+                        <ContactRender
+                            thisBusiness={user?.business}
+                            ownProfile={ownProfile}
                         />
                     </div>
                 </div>

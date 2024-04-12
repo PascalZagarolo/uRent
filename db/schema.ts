@@ -77,6 +77,8 @@ export const businessAddress = pgTable("businessAddress", {
     state: text("state"),
     city : text("city"),
     street : text("street"),
+
+    isPrimary : boolean("isPrimary").notNull().default(false),
 })
 
 export const openingTimes = pgTable("openingTimes" , {

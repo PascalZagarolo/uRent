@@ -55,7 +55,7 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="text-xs hover:underline" variant="ghost" size="sm">
+                <Button className="text-xs hover:underline flex sm:justify-end justify-center w-full" variant="ghost" size="sm">
                     <Share2Icon className="w-4 h-4 mr-2" />  Kontakte verwalten
                 </Button>
             </DialogTrigger>

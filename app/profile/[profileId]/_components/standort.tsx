@@ -113,10 +113,12 @@ const Standort: React.FC<StandortProps> = ({
         <Dialog>
             <AlertDialog>
                 <div className="dark:bg-[#191919]  rounded-t-md ">
-                    <div className="flex py-4 px-2 mt-4 items-center">
-                        <MapPinIcon className="h-4 w-4 mr-2" />
-                        <div className="text-sm font-semibold">
+                    <div className="sm:flex py-4 px-2 mt-4 items-center">
+                        <div className="flex">
+                        <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2" />
+                        <div className="sm:text-sm text-xs font-semibold">
                             {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
+                        </div>
                         </div>
                         {ownProfile && (
                             <div className="flex space-0 justify-end ml-auto">

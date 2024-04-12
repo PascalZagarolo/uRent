@@ -1,4 +1,6 @@
-import { CalendarIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon, Clock6Icon, Clock7Icon } from "lucide-react";
+import EditOpenhours from "./edit-openhours";
 
 const Openhours = () => {
     return (
@@ -6,6 +8,9 @@ const Openhours = () => {
             <div>
                 <h1 className="font-medium flex items-center">
                     <CalendarIcon className="w-4 h-4 mr-2" /> Öffnungszeiten
+                    <div className="ml-auto">
+                    <EditOpenhours />
+                    </div>
                 </h1>
                 <div>
                     <div className="grid grid-cols-6 grid-rows-2 gap-2 mt-4">

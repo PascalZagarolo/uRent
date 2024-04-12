@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import EditBusinessPics from "./edit-business-pics";
+import { ImageIcon } from "lucide-react";
 
 interface UploadBusinessPicsProps {
     usedImages: typeof businessImages.$inferSelect[];
@@ -105,7 +106,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                             </CldUploadButton>
                         ) : (
                             <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                                Noch keine Bilder hinzugefügt..
+                               <ImageIcon className="w-4 h-4" />
                             </p>
                         )}
                     </div>
@@ -138,15 +139,15 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                 </CldUploadButton>
                             </div>
                         ) : (
-                            <div className="h-1/2 p-8 dark:bg-[#191919]">
+                            <div className="h-1/2 p-8 dark:bg-[#191919] ">
                                 <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                                    Noch keine Bilder hinzugefügt..
+                                    <ImageIcon className="w-4 h-4" />
                                 </p>
                             </div>
                         )
 
                     )}
-                    {usedImages?.length > 0 && (
+                    {(usedImages?.length > 0 && ownProfile)&& (
                         <div className="w-full ml-auto flex justify-end">
                             <EditBusinessPics 
                             usedImages={usedImages}

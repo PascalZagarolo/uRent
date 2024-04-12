@@ -79,6 +79,19 @@ export const businessAddress = pgTable("businessAddress", {
     street : text("street"),
 })
 
+export const openingTimes = pgTable("openingTimes" , {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    businessId : uuid("businessId")
+        .references(() => business.id, { onDelete: "cascade" }),
+    
+    monday : text("monday"),
+    tuesday : text("tuesday"),
+    wednesday : text("wednesday"),
+    thursday : text("thursday"),
+    friday : text("friday"),
+    saturday : text("saturday"),
+})
+
 export const businessImages = pgTable("businessImages", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     position: integer("position"),

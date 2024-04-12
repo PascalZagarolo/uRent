@@ -26,6 +26,20 @@ export async function DELETE(
             return new NextResponse("Bild nicht gefunden", { status: 404 });
         }
 
+        const affectedImages = await db.query.businessImages.findMany({
+            where : (
+                eq(businessImages.businessId, findImage.businessId)
+            )
+        })
+
+        for (const image of affectedImages) {
+            if(image.position > findImage.position) {
+                await db.update(businessImages).set({
+                    position: image.position - 1
+                }).where(eq(businessImages.id, image.id))
+            }
+        }
+
         const [deletedImage] = await db.delete(businessImages).where(
             eq(businessImages.id, params.imageId)
         ).returning();
@@ -37,3 +51,4 @@ export async function DELETE(
         return new NextResponse("Fehler beim Löschen", { status: 500 });
     }
 }
+

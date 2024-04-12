@@ -7,7 +7,7 @@ import axios from "axios";
 import { CldUploadButton } from "next-cloudinary";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import EditBusinessPics from "./edit-business-pics";
 import { ImageIcon } from "lucide-react";
@@ -24,6 +24,9 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     ownProfile
 }) => {
 
+    
+
+    const [rightImages, setRightImages] = useState(usedImages);
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -44,6 +47,12 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
         }
     }
 
+    
+    
+
+    useEffect(() => {
+        setRightImages(usedImages)
+    },[usedImages])
 
 
     return (
@@ -55,7 +64,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                         alt="1. Bild"
                         width={1000}
                         height={1000}
-                        src={usedImages[0].url}
+                        src={rightImages[0]?.url}
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -87,7 +96,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                             alt="1. Bild"
                             width={1000}
                             height={1000}
-                            src={usedImages[1].url}
+                            src={rightImages[1]?.url}
                             className="w-full h-full object-cover"
                         />
                     </div>
@@ -119,7 +128,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                 alt="1. Bild"
                                 width={1000}
                                 height={1000}
-                                src={usedImages[2].url}
+                                src={rightImages[2]?.url}
                                 className="w-full h-full object-cover"
                             />
 
@@ -148,10 +157,14 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
                     )}
                     {(usedImages?.length > 0 && ownProfile)&& (
-                        <div className="w-full ml-auto flex justify-end">
+                        <div>
+                            
+                            <div className="w-full ml-auto flex justify-end">
                             <EditBusinessPics 
-                            usedImages={usedImages}
+                            usedImages={rightImages}
+                            businessId={businessId}
                             />
+                        </div>
                         </div>
                     )}
                 </>

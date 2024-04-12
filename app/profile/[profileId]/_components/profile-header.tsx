@@ -11,7 +11,7 @@ import ProfileDescription from "./profile-description";
 import ContactOptionsRender from "./contact-options";
 
 import { CheckmarkIcon } from "react-hot-toast";
-import { contactOptions, users } from "@/db/schema";
+import { businessImages, contactOptions, users } from "@/db/schema";
 import db from "@/db/drizzle";
 import { eq, is } from 'drizzle-orm';
 import StandortRender from "./standort-render";
@@ -27,6 +27,7 @@ interface ProfileHeaderProps {
     currentUser: typeof users.$inferSelect;
     user: typeof users.$inferSelect;
     thisContactOptions: typeof contactOptions.$inferSelect;
+    thisImages: typeof businessImages.$inferSelect[];
 }
 
 
@@ -34,6 +35,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     currentUser,
     user,
     thisContactOptions,
+    thisImages
 }) => {
 
     const convertDateTimeToString = (dateTime: Date): string => {
@@ -98,7 +100,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 {user.isBusiness && (
                     <div className="sm:w-3/5 w-full flex justify-end h-[240px] gap-x-2">
                         <UploadBusinessPics
-                            usedImages={user?.business?.businessImages}
+                            usedImages={thisImages}
                             businessId={user?.business?.id}
                             ownProfile={ownProfile}
                         />

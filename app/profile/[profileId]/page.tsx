@@ -97,6 +97,14 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
         }
     })
 
+    const thisBusinessImages = await db.query.businessImages.findMany({
+        where: (
+            eq(businessImages.businessId, thisUser?.business?.id)
+        ),
+        orderBy : (position, { asc }) => [asc(businessImages.position)]
+    
+    })
+
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
     const rezensionen = await db.query.rezension.findMany({
@@ -162,6 +170,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                 user={thisUser}
                                 currentUser={currentUser}
                                 thisContactOptions={thisContactoptions}
+                                thisImages = {thisBusinessImages}
 
                             />
                             {thisUser.isBusiness && (

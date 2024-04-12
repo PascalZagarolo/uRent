@@ -9,7 +9,10 @@ export async function PATCH(
 ) {
     try {
 
+        
         const values = await req.json();
+
+        console.log(values)
 
         const updatedBusiness = await db.update(business).set({
             ...values

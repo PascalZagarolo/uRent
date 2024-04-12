@@ -31,7 +31,7 @@ const UploadProfilePic = () => {
     }
 
     return ( 
-        <div className="p-4 rounded-md bg-white flex justify-center border-2 border-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+        <div className="p-4 rounded-md bg-white flex justify-center border-2 border-black ">
             <CldUploadButton
             onUpload={handleImageUpload}
             uploadPreset="oblbw2xl"

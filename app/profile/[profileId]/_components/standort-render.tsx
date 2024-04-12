@@ -107,10 +107,12 @@ const StandortRender: React.FC<StandortRenderProps> = ({
         <Dialog>
             <div>
                 <div className="dark:bg-[#191919] p-4">
-                    <h1 className="text-md font-semibold flex items-center">
-                        <BiLandscape className="w-4 h-4 mr-2" />  Standort {foundAddress?.length}
+                    <h1 className="text-md font-semibold sm:flex items-center">
+                        <div className="flex">
+                        <BiLandscape className="w-4 h-4 mr-2" />  Standort
+                        </div>
                         {ownProfile && (
-                            <div className="ml-auto">
+                            <div className="sm:ml-auto w-full flex sm:justify-end justify-center">
                                 <DialogTrigger asChild>
                                     <Button className="text-xs hover:underline" variant="ghost" size="sm">
                                         <PlusSquareIcon className="w-4 h-4 mr-2" />   Standort hinzufügen

@@ -16,9 +16,9 @@ const ContactRender : React.FC<ContactRenderProps> = ({
 }) => {
     return (
         <div className="p-4 dark:bg-[#191919] rounded-md">
-            <h1 className="font-semibold flex items-center">
+            <h1 className="font-semibold sm:flex items-center">
                 Kontakt
-                <div className="ml-auto">
+                <div className="sm:ml-auto w-full flex sm:justify-end justify-center">
                     <EditContactsDialog 
                     thisBusiness={thisBusiness}
                     />
@@ -26,22 +26,22 @@ const ContactRender : React.FC<ContactRenderProps> = ({
             </h1>
             <div className="mt-10 space-y-2">
             {thisBusiness?.website && (
-                <div className="font-semibold text-sm flex gap-x-2">
+                <div className="font-semibold text-xs sm:text-sm sm:flex gap-x-2">
                 <GlobeIcon className="w-4 h-4" />{thisBusiness?.website}
             </div>
             )}
             {thisBusiness?.email && (
-                <div className="font-semibold text-sm flex gap-x-2">
+                <div className="font-semibold text-xs sm:text-sm sm:flex gap-x-2">
                 <MailIcon className="w-4 h-4" /> {thisBusiness?.email}
             </div>
             )}
             {thisBusiness?.telephone_number && (
-                <div className="font-semibold text-sm flex gap-x-2">
+                <div className="font-semibold text-xs sm:text-sm sm:flex gap-x-2">
                 <PhoneIcon className="w-4 h-4" />Tel. {thisBusiness?.telephone_number}
             </div>
             )}
             {thisBusiness?.fax && (
-                <div className="font-semibold text-sm flex gap-x-2">
+                <div className="font-semibold text-xs sm:text-sm sm:flex gap-x-2">
                 <FaFax className="w-4 h-4" />Fax : {thisBusiness?.fax}
             </div>
             )}

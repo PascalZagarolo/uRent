@@ -67,9 +67,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
 
 
-            <div className="flex w-full  ">
+            <div className="sm:flex w-full  ">
 
-                <div className="flex rounded-md w-2/5">
+                <div className="flex rounded-md w-full pb-8 sm:pb-0 sm:w-2/5">
                     <div className="w-full">
                         <div className=" dark:text-gray-100 w-full">
                             <div className="w-full text-lg  font-semibold line-clamp-1 whitespace-break-spaces break-all">
@@ -96,7 +96,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
                 </div>
                 {user.isBusiness && (
-                    <div className="w-3/5 flex justify-end h-[240px] gap-x-2">
+                    <div className="sm:w-3/5 w-full flex justify-end h-[240px] gap-x-2">
                     <UploadBusinessPics 
                     usedImages={user?.business?.businessImages}
                     businessId={user?.business?.id}

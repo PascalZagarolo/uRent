@@ -31,14 +31,14 @@ const UploadProfilePic = () => {
     }
 
     return ( 
-        <div className="p-4 rounded-md bg-white flex justify-center border-2 border-black ">
+        <div className="p-4 rounded-md dark:bg-[#191919] dark:border-none dark:text-gray-200 flex justify-center border-2 border-black ">
             <CldUploadButton
             onUpload={handleImageUpload}
             uploadPreset="oblbw2xl"
             options={{ maxFiles : 1}}
             >
-            <p className="flex justify-center text-sm font-bold text-gray-900/90  "> 
-            <UploadCloudIcon className="mr-2"/> Profilbild bearbeiten </p>
+            <p className="flex justify-center text-xs font-bold text-gray-900/90 dark:text-gray-200  "> 
+            <UploadCloudIcon className="h-4 w-4 mr-2"/> Profilbild bearbeiten </p>
             </CldUploadButton>
         </div>
      );

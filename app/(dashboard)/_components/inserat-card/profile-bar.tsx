@@ -85,6 +85,12 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         }
     }
 
+    const onOpen = () => {
+        if(!currentUser) {
+            router.push(`/login`);
+        }
+    }
+
     const onEdit = () => {
         router.push(`/inserat/create/${thisInserat.id}`);
     }
@@ -126,7 +132,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                                 <DialogTrigger className="" asChild>
 
                                                     <Button className="flex items-center mr-4 ml-auto bg-[#171923] rounded-md p-2  font-semibold
-                                                 dark:text-gray-100 dark:hover:bg-[#181818]/60 px-4 sm:px-8">
+                                                 dark:text-gray-100 dark:hover:bg-[#181818]/60 px-4 sm:px-8" onClick={onOpen}>
                                                         <ThumbsUpIcon className="w-4 h-4 sm:mr-2" />
                                                         <p className="sm:block hidden">
                                                             Anfragen

@@ -157,7 +157,9 @@ const InseratCreation = async ({
 
                                     </div>
                                     <div className="mt-4">
-                                        <PriceProfiles />
+                                        <PriceProfiles 
+                                        thisInserat={thisInserat}
+                                        />
                                     </div>
                                 </div>
                             </div>

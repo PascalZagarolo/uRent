@@ -75,7 +75,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
         try {
 
             const values = {
-                description : currentDescription
+                description : currentDescription?.trim()
             }
 
             setIsLoading(true);

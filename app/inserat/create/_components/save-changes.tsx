@@ -51,13 +51,13 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
         try {
             const values = {
                 ...(changedTitle) && {
-                    title : currentChanges['title']
+                    title : currentChanges['title']?.trim()
                 },
                 ...(changedDescription) && {
-                    description : currentChanges['description']
+                    description : currentChanges['description']?.trim()
                 },
                 ...(changedPrice) && {
-                    price : currentChanges['price']
+                    price : currentChanges['price']?.trim()
                 }
             }
 

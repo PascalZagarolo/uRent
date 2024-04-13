@@ -5,18 +5,19 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { Separator } from "@/components/ui/separator";
+
 import { Button } from "@/components/ui/button";
-import { PencilIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
+
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { set } from "lodash";
+
 import { cn } from "@/lib/utils";
 import { users } from "@/db/schema";
+import { useRouter } from "next/navigation";
+
 
 
 interface ProfileDescriptionProps { 
@@ -25,19 +26,30 @@ interface ProfileDescriptionProps {
 }
 
 
-const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
+const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
     ownProfile,
     user
 }) => {
     
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [currentContent, setCurrentContent] = useState(user.description);
+    const router = useRouter();
 
     const formSchema = z.object({
         description: z.string().min(1, {
             message: "Beschreibung zu kurz"
         })
     })
+
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        // Focus on the textarea when isEditing becomes true
+        if (isEditing && textareaRef.current) {
+            textareaRef.current.focus();
+        }
+    }, [isEditing]);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -54,11 +66,16 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
         setIsEditing(isEditing => !isEditing)
     }
 
-    const onChange = (values : z.infer<typeof formSchema>) => {
+    const onChange = () => {
         try {
+
             setIsLoading(true);
+            const values = {
+                description : currentContent.trim()
+            }
             axios.patch(`/api/profile/${user.id}`, values);
             toast.success("Beschreibung erfolgreich geändert");
+            router.refresh()
             setIsEditing(false);
         } catch {
             toast.error("Fehler beim Ändern der Beschreibung")
@@ -70,25 +87,26 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-2 ">
 
-                    <div className="mt-1  p-4  bg-white dark:bg-[#191919]  dark:border-[#191919] border border-gray-200    
+                    <div className="p-4 bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
                      w-full">
-                        <div className=" flex items-center">
-                        <Separator
-                         className="sm:w-1/4 w-1/10 mr-8 bg-gray-700 dark:bg-gray-200"
-                        />
-                        <p className="text-gray-900 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:text-gray-100">
-                            Beschreibung
+                        <div className=" flex items-center" >
+                        
+                        <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
+                            Beschreibung 
                         </p>
-                        <Separator
-                         className="sm:w-1/4 w-1/10 ml-8 bg-gray-700 dark:bg-gray-200"
-                        />
-                        {ownProfile && !isEditing && (
-                            <Button className="ml-auto flex bg-gray-200 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]" variant="ghost" onClick={onEdit}>
-                            <PencilIcon className="h-4 w-4 dark:text-gray-100"/>
-                        </Button>
+                        {ownProfile && (
+                            <div className="ml-auto"> 
+                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
+                                      dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" type="submit" onClick={onChange}
+                                      disabled={!currentContent || currentContent === user.description || currentContent.trim() === ""}
+                                      >
+                                         Beschreibung speichern
+                                     </Button>
+                                </div>
                         )}
+                        
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-4" >
                         {isEditing ? (
                              <Form {...form}>
                              <form onSubmit={form.handleSubmit(onChange)}>
@@ -103,6 +121,9 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                                                      onBlur={() => {
                                                         setIsEditing(false);
                                                      }}
+                                                     onChange={(e) => {setCurrentContent(e.target.value)}}
+                                                     value={currentContent}
+                                                     ref={textareaRef}
                                                  />
                                              </FormControl>
                                              <FormMessage/>
@@ -111,26 +132,26 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
              
                                  />
                                  <div>
-                                     <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
-                                      dark:bg-[#171717] hover:bg-gray-100 mt-2"  type="submit">
-                                         Beschreibung ändern
-                                     </Button>
+                                     
                                  </div>
                              </form>
                          </Form>
                         ) : (
-                            <div className="mt-2 ">
+                            <div className="mt-2 text-sm font-medium">
                             
-                        {user.description ? (
+                        {(currentContent && currentContent?.trim() !== "") ? (
                             
 
                             <div>
-                                <div className={cn("dark:text-gray-100 whitespace-pre-wrap break-words", isUnfolded ? "h-full" : "max-h-[72px]")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}>
-                                {user.description} 
+                                <div className={cn("dark:text-gray-200 whitespace-pre-wrap break-words", 
+                                isUnfolded ? "h-full" : "max-h-[72px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                onClick={() => {ownProfile && onEdit()}}
+                                >
+                                {currentContent} 
 
                             </div>
-                            {user.description.length > 400 && (
-                                <Button className="mt-2 w-full bg-gray-200 
+                            {user.description?.length > 400 && (
+                                <Button className=" w-full bg-gray-200 
                                 focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
                                 " variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
                                     {isUnfolded ? "Weniger anzeigen" : "Mehr anzeigen"}
@@ -138,9 +159,15 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                             )}
                             </div>
                            ) : (
-                            <div className="mt-2 font-base text-gray-900/50 italic dark:text-gray-100/70">
-                                Es wurde noch nichts geteilt
+                            (!user?.description && ownProfile) ? (
+                                <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => {ownProfile && onEdit()}}>
+                                Du hast noch nichts über dich geteilt..
                             </div>
+                            ) : (
+                                <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => {ownProfile && onEdit()}}>
+                                Es wurde noch nichts geteilt..
+                            </div>
+                            )
                            )}
                            
                         </div>
@@ -153,4 +180,4 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
     );
 }
 
-export default ProfileDescription;
+export default BusinessDescription;

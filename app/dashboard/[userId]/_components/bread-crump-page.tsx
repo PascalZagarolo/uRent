@@ -39,7 +39,7 @@ const BreadCrumpPage = () => {
         )}
         {pathname.includes("favourites") && (
             <BreadcrumbItem>
-            <BreadcrumbLink>Favouriten</BreadcrumbLink>
+            <BreadcrumbLink>Favoriten</BreadcrumbLink>
           </BreadcrumbItem>
         )}
         

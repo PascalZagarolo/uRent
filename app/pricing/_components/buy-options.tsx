@@ -1,43 +1,128 @@
-import getCurrentUser from "@/actions/getCurrentUser";
+'use client'
+
+
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
 import { Separator } from "@/components/ui/separator";
-import db from "@/db/drizzle";
-import { inserat, inseratSubscription, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+
+import { inserat, inseratSubscription} from "@/db/schema";
+
 import { FaCheck, FaFireFlameCurved } from "react-icons/fa6";
-import BasisButton from "./buy-buttons.tsx/basis-button";
-import PremiumButton from "./buy-buttons.tsx/premium-button";
+
+import { useEffect, useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import EnterpriseButton from "./buy-buttons.tsx/enterprise-button";
+import PremiumButton from "./buy-buttons.tsx/premium-button";
+import BasisButton from "./buy-buttons.tsx/basis-button";
 
 interface BuyOptionsProps {
-    inseratId : string
+    thisInserat: typeof inserat.$inferSelect;
+    existingSubscription: typeof inseratSubscription.$inferSelect;
 }
 
-const BuyOptions: React.FC<BuyOptionsProps> = async ({
-    inseratId
+const BuyOptions: React.FC<BuyOptionsProps> =  ({
+    thisInserat,
+    existingSubscription
 }) => {
 
-    const currentUser = await getCurrentUser();
+    const [amountInserat, setAmountInserat] = useState(1)
+    const [basisPrice, setBasisPrice] = useState(25); 
+    const [premiumPrice, setPremiumPrice] = useState(25); 
+    const [enterprisePrice, setEnterprisePrice] = useState(25); 
 
-   
+    useEffect(() => {
+      // Function to calculate basis price based on amountInserat
+      const calculateBasisPrice = () => {
+        switch (amountInserat) {
+          case 1:
+            return 29;
+          case 5:
+            return 44;
+          case 10:
+            return 50;
+          case 15:
+            return 58;
+          case 25:
+            return 73;
+          case 40:
+            return 87;
+          default:
+            return /* Default calculation */;
+        }
+      };
 
-    const thisInserat = await db.query.inserat.findFirst({
-        where : eq(inserat.id, inseratId)
-    })
+      const calculatePremiumPrice = () => {
+        switch (amountInserat) {
+          case 1:
+            return 35;
+          case 5:
+            return 53;
+          case 10:
+            return 59;
+          case 15:
+            return 70;
+          case 25:
+            return 88;
+          case 40:
+            return 105;
+          default:
+            return /* Default calculation */;
+        }
+      };
 
-    const existingSubscription = await db.query.inseratSubscription.findFirst({
-        where : eq(inseratSubscription.inseratId, inseratId)
-    })
+      const calculateEnterprisePrice = () => {
+        switch (amountInserat) {
+          case 1:
+            return 49;
+          case 5:
+            return 74;
+          case 10:
+            return 84;
+          case 15:
+            return 90;
+          case 25:
+            return 123;
+          case 40:
+            return 147;
+          default:
+            return /* Default calculation */;
+        }
+      };
+  
+  
+      
+      setBasisPrice(calculateBasisPrice());
+      setPremiumPrice(calculatePremiumPrice());
+      setEnterprisePrice(calculateEnterprisePrice());
+    }, [amountInserat]);
 
-    const newPremium =  existingSubscription?.subscriptionType === "BASIS" && 14 
-    const newEnterprise = existingSubscription ? 
-    (existingSubscription.subscriptionType === "BASIS" ? 24 :
-    (existingSubscription.subscriptionType === "PREMIUM" ? 10 : null)) : null
-    console.log(newEnterprise)
+ 
     return (
         <div>
+            <div className="w-full flex space-x-4 items-center">
+                <div className="ml-auto flex justify-end text-sm font-medium">
+                    Wie viele Inserate möchtest du schalten?
+                </div>
+                <div className="">
+                    <Select onValueChange={(value) => setAmountInserat(Number(value))}>
+                        <SelectTrigger className="w-[180px] dark:bg-[#171717] dark:border-none"
+                        
+                        >
+                            <SelectValue placeholder="Anzahl Inserate" />
+                        </SelectTrigger>
+                        <SelectContent className="dark:bg-[#171717] dark:border-none">
+                            <SelectItem value="1">bis zu 1 Inserat</SelectItem>
+                            <SelectItem value="5">bis zu 5 Inserate</SelectItem>
+                            <SelectItem value="10">bis zu 10 Inserate</SelectItem>
+                            <SelectItem value="15">bis zu 15 Inserate</SelectItem>
+                            <SelectItem value="25">bis zu 25 Inserate</SelectItem>
+                            <SelectItem value="40">über 25 Inserate</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
             <div className="w-full flex space-x-4 p-4 ">
+
                 <div className="w-1/3 border-r dark:border-[#1C1C1C] dark:bg-[#232323] p-4 rounded-md">
                     <h3 className="text-md ">
                         Basis
@@ -46,14 +131,16 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                         Das Basis Paket für den Einstieg in die Welt von uRent.
                     </p>
                     <div className="w-full ">
-                        <BasisButton 
-                        inseratId={thisInserat.id}
-                        existingSubscription={existingSubscription}
-                        inseratTitle={thisInserat.title}
+                        
+                        <BasisButton
+                            inseratId={thisInserat.id}
+                            existingSubscription={existingSubscription}
+                            inseratTitle={thisInserat.title}
                         />
+    
                         <div className="w-full flex mt-2">
                             <div className="flex">
-                                <div className="text-4xl font-bold">25 €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                                <div className="text-4xl font-bold">{basisPrice} €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
                             </div>
                         </div>
 
@@ -83,16 +170,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <p className="text-xs dark:text-gray-200/70 h-[32px]">
                         Für den ambitionierten Vermieter. Mehr Funktionen, mehr Möglichkeiten, mehr Kunden.
                     </p>
-                    <PremiumButton 
-                    inseratId={thisInserat.id}
-                    existingSubscription={existingSubscription}
-                    inseratTitle={thisInserat.title}
+                    
+                    <PremiumButton
+                        inseratId={thisInserat.id}
+                        existingSubscription={existingSubscription}
+                        inseratTitle={thisInserat.title}
                     />
+                       
                     <div className="w-full flex mt-2">
                         <div className="flex">
                             <div className="text-4xl font-bold">
-                               {newPremium ? (newPremium) : (39)}€</div>
-                            <div className="text-xs text-gray-200/70 px-1">{(!newPremium && !newEnterprise) && "/Monat" }</div>
+                                {premiumPrice}   €</div>
+                            <div className="text-xs text-gray-200/70 px-1">/Monat</div>
                         </div>
                     </div>
 
@@ -126,16 +215,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = async ({
                     <p className="text-xs dark:text-gray-200/70">
                         Die All-in-One Lösung für ihr Unternehmen. Vermieten war noch nie so einfach.
                     </p>
+                   
                     <EnterpriseButton
-                    inseratId={thisInserat.id}
-                    existingSubscription={existingSubscription}
-                    inseratTitle={thisInserat.title}
+                        inseratId={thisInserat.id}
+                        existingSubscription={existingSubscription}
+                        inseratTitle={thisInserat.title}
                     />
+                    
                     <div className="w-full flex mt-2">
                         <div className="flex">
 
-                            <div className="text-4xl font-bold">{newEnterprise ? (newEnterprise) : (49)} €</div>
-                            <div className="text-xs text-gray-200/70 px-1">{(!newEnterprise && !newPremium) && "/Monat"}</div>
+                            <div className="text-4xl font-bold">{enterprisePrice} €</div>
+                            <div className="text-xs text-gray-200/70 px-1">/Monat</div>
                         </div>
                     </div>
 

@@ -1,6 +1,6 @@
 
 
-import { AlignLeft, BookAIcon, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, Globe2, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck, UserCircleIcon } from "lucide-react";
+import { AlignLeft, BookAIcon, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, Globe2, HourglassIcon, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck, UserCircleIcon } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from 'next'
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
@@ -10,7 +10,7 @@ import BookingsOverview from "./_components/bookings-overview";
 import { format } from "date-fns";
 import { lazy } from "react";
 import InseratAttributes from "./_components/inserat-attributes";
-import { TbPigMoney } from "react-icons/tb";
+import { TbPigMoney, TbZoomMoney } from "react-icons/tb";
 import { PiSteeringWheel, PiVanFill } from "react-icons/pi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { CiBookmark } from "react-icons/ci";
@@ -20,7 +20,7 @@ import db from "@/db/drizzle";
 import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute, business, businessAddress } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
-import { RiCaravanLine } from "react-icons/ri";
+import { Ri24HoursLine, RiCaravanLine } from "react-icons/ri";
 import BreadCrumbs from "./bread-crumbs";
 import { Helmet } from 'react-helmet';
 import ReportModal from "./_components/report/report-modal";
@@ -237,7 +237,33 @@ const InseratAnzeige = async ({
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-2">
+
+                            {(thisInserat?.priceHour || thisInserat?.priceWeekend) && (
+                                <>
+                                <div className="mt-4">
+                                <p className="flex text-lg sm:text-lg  items-center"><TbZoomMoney  className="mr-2 h-4 w-4" />
+                                    Weitere Preisprofile</p>
+                            </div>
+                            <div className="w-full flex flex-row mt-2">
+                            {thisInserat?.priceHour && (
+                                    <div className="w-1/2 truncate font-semibold text-sm flex">
+                                        <Ri24HoursLine  className="w-4 h-4 mr-2 text-gray-200" />
+                                        {thisInserat?.priceHour} € <p className="text-xs mb-auto px-1">/Stunde</p>
+                                    </div>
+                                )}
+                                {thisInserat?.priceWeekend && (
+                                    <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                        <>
+                                            <HourglassIcon className="w-4 h-4 mr-2 text-indigo-800" />
+                                            {thisInserat?.priceWeekend} € pro Wochenende
+                                        </>
+                                    </div>
+                                )}
+                            </div>
+                                </>
+                            )}
+
+                            <div className="mt-4">
                                 <p className="flex text-lg sm:text-lg  items-center"><CiBookmark className="mr-2 h-4 w-4" />
                                     Rahmenbedingungen</p>
                             </div>

@@ -120,7 +120,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             {thisBusiness && (
                 <div className="bg-[#1b1d28] p-4 w-full rounded-md mt-2">
                     <h1 className="w-full text-sm font-medium flex">
-                        Weitere Kontaktdaten
+                        Weitere Kontaktdaten 
                     </h1>
                     <Separator
                      className="w-full bg-[#1b1d28] py-1 h-[0.5px]"
@@ -154,7 +154,9 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                             {thisBusiness?.fax}
                         </div>
                     </div>
-                        
+                        <div className="text-xs text-gray-200/60 mt-2">
+                           * Kontaktdaten aus dem Profil können von den Kontakdaten des Inserats abweichen.
+                        </div>
                     </div>
                 </div>
             )}

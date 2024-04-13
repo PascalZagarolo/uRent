@@ -70,7 +70,7 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                     </p>
                     <div className="w-full space-y-4 ">
 
-                        <div className="w-full mt-4 ">
+                        <div className="w-full mt-4">
                             <Label className="font-semibold flex items-center">
                                 <GlobeIcon className="w-4 h-4 mr-2" /> Website
                             </Label>

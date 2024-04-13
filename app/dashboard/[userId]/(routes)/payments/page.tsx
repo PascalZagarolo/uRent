@@ -43,6 +43,10 @@ const PaymentsPage = async () => {
                                 <BiCreditCardAlt className="mr-4" /> Zahlungsverkehr
                             </div>
                         </h3>
+                        <p className="text-xs dark:text-gray-200/60 ">
+                            Behalte den Überblick über deine Zahlungen und Abonnements.
+                            <br/> Hier kannst du deine Abonnements verwalten, einsehen und upgraden.
+                            </p>
                             <div className="mt-8">
                                 <SubscriptionsRenderList 
                                 subscriptions={renderedSubscriptions}

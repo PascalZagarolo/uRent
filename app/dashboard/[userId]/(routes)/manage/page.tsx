@@ -159,7 +159,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             
                         </h3>
                         <p className="text-xs dark:text-gray-200/60 ">
-                                Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, habe behalte
+                                Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
                                 <br/> vollen Überblick über deine Inserate und Fahrzeuge.
                             </p>
                         <div className="pt-4">

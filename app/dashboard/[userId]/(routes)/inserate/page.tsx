@@ -75,6 +75,10 @@ const InserateOverview = async ({
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 <FilePieChartIcon className="mr-4" /> Meine Inserate <p className="ml-4 text-lg"> {inserateArray.length}</p>
                             </h3>
+                            <p className="text-xs dark:text-gray-200/60 ">
+                            Verwalte deine Anzeigen, indem du Inhalte änderst, löscht, bearbeitest oder ihre Sichtbarkeit anpasst. 
+                            <br/> Darüber hinaus kannst du hier ganz einfach die Verfügbarkeit deiner Fahrzeuge aktualisieren.
+                            </p>
                             <div className="p-4 ">
                                 {inserateArray.length > 0 ? (
                                     <InserateRenderList 

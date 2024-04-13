@@ -55,6 +55,10 @@ const Bookings = async ({
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center md:px-0 px-4">
                                 <StarFilledIcon className="mr-4" /> Meine Favouriten <p className="ml-4 text-lg"> </p>
                             </h3>
+                            <p className="text-xs dark:text-gray-200/60 ">
+                            Deine favorisierten und gespeicherten Fahrzeuge, damit du sie später einfacher wieder finden kannst.
+                            
+                            </p>
                             <div className="md:p-4 p-2">
                                 {favourites.length > 0 ? (
                                     <FavouriteRenderList 
@@ -68,7 +72,7 @@ const Bookings = async ({
                                 )}
                             </div>
                         </div>
-
+                        
                         
                         
                     </div>

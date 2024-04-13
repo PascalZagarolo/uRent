@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button";
 import { business, users } from "@/db/schema";
 import axios from "axios";
 import { format } from "date-fns";
-import { AlignCenter, BuildingIcon, CarIcon, MapPinIcon, User2 } from "lucide-react";
+import { AlignCenter, BuildingIcon, CarIcon, Contact2Icon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2 } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MdCardMembership } from "react-icons/md";
 import { businessAddress } from '../../../../../db/schema';
 import { GiTargetPoster } from "react-icons/gi";
+import { FaFax } from "react-icons/fa6";
+import { Separator } from "@radix-ui/react-separator";
 
 interface ProfileViewProps {
     thisUser: typeof users.$inferSelect;
@@ -111,6 +113,48 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                                 </div>
                             )
                         ))}
+                    </div>
+                </div>
+            )}
+
+            {thisBusiness && (
+                <div className="bg-[#1b1d28] p-4 w-full rounded-md mt-2">
+                    <h1 className="w-full text-sm font-medium flex">
+                        Weitere Kontaktdaten
+                    </h1>
+                    <Separator
+                     className="w-full bg-[#1b1d28] py-1 h-[0.5px]"
+                    />
+                    <div>
+
+                    <div className="w-full flex text-xs items-center">
+                       <Globe2Icon className="w-4 h-4 mr-2" /> Website  
+                    <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
+                            {thisBusiness?.website}
+                        </div>
+                    </div>
+
+                    <div className="w-full flex text-xs items-center">
+                       <MailIcon className="w-4 h-4 mr-2" /> Email  
+                    <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
+                            {thisBusiness?.email}
+                        </div>
+                    </div>
+
+                    <div className="w-full flex text-xs items-center">
+                       <PhoneIcon className="w-4 h-4 mr-2" /> Tel.  
+                    <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
+                            {thisBusiness?.telephone_number}
+                        </div>
+                    </div>
+
+                    <div className="w-full flex text-xs items-center">
+                       <FaFax  className="w-4 h-4 mr-2" /> Fax  
+                    <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
+                            {thisBusiness?.fax}
+                        </div>
+                    </div>
+                        
                     </div>
                 </div>
             )}

@@ -172,6 +172,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             {thisUser.isBusiness && (
                                 <div className="p-4">
                                 <Openhours
+                                ownProfile={ownProfile}
                                 thisBusiness={thisUser.business}
                                 />
                             </div>

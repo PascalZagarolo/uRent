@@ -17,7 +17,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FaAddressCard } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute } from '../../../../db/schema';
+import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute, business, businessAddress } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
 import { RiCaravanLine } from "react-icons/ri";
@@ -97,15 +97,18 @@ const InseratAnzeige = async ({
 
     const inseratArray = await findInseratArray.execute({ inseratOwnerId: inseratOwnerId })
 
-
-
-
-
-    const rezensionen = await db.query.rezension.findMany({
-        where: (
-            eq(rezension.receiverId, thisInserat.user.id)
-        )
+    const thisBusiness = await db.query.business.findFirst({
+        where : (
+            eq(business.userId, inseratOwnerId)
+        ),
+        with : {
+            businessAddresses : true,
+        }
     })
+
+
+
+
 
 
 
@@ -131,7 +134,7 @@ const InseratAnzeige = async ({
             return input; // No comma found, return the original input
         }
     }
-    
+
 
 
 
@@ -139,7 +142,7 @@ const InseratAnzeige = async ({
 
     return (
         <>
-            
+
             <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max ">
                 <div className="h-full sm:p-4 p-2 w-full">
                     <div className="w-full justify-end flex">
@@ -358,7 +361,7 @@ const InseratAnzeige = async ({
                                 thisUser={thisInserat.user}
                                 inseratArray={inseratArray.length}
                                 inseratOwner={thisInserat.user}
-                                averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
+                                thisBusiness={thisBusiness}
                             />
 
                         </div>
@@ -378,7 +381,7 @@ const InseratAnzeige = async ({
                                 thisUser={thisInserat.user}
                                 inseratArray={inseratArray.length}
                                 inseratOwner={thisInserat.user}
-                                averageRating={rezensionen.reduce((a, b) => a + b.rating, 0) / rezensionen.length}
+                                thisBusiness={thisBusiness}
                             />
 
                         </div>

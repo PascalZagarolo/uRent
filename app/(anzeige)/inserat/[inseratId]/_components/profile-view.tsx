@@ -92,7 +92,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     <div >
                         {thisBusiness?.businessAddresses?.map((business) => (
                             business.isPrimary && (
-                                <div >
+                                <div key={business.id}>
 
                                     <div className="mt-2">
                                         <Image

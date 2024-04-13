@@ -138,7 +138,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                         ) : (
                             <div className="mt-2 text-sm font-medium">
                             
-                        {currentContent.trim() !== ""? (
+                        {currentContent?.trim() !== ""? (
                             
 
                             <div>
@@ -149,7 +149,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                                 {currentContent} 
 
                             </div>
-                            {user?.business?.impressum.length > 400 && (
+                            {user?.business?.impressum?.length > 400 && (
                                 <Button className=" w-full bg-gray-200 
                                 focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
                                 " variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>

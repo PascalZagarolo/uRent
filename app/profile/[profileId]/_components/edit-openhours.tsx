@@ -20,12 +20,12 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
     openTimes
 }) => {
 
-    const [sMon, eMon]: string[] = openTimes?.monday?.split('-');
-    const [sTue, eTue]: string[] = openTimes?.tuesday?.split('-');
-    const [sWed, eWed]: string[] = openTimes?.wednesday?.split('-');
-    const [sThu, eThu]: string[] = openTimes?.thursday?.split('-');
-    const [sFri, eFri]: string[] = openTimes?.friday?.split('-');
-    const [sSat, eSat]: string[] = openTimes?.saturday?.split('-');
+    const [sMon, eMon]: string[] = openTimes?.monday?.split('-') || ["", ""];
+    const [sTue, eTue]: string[] = openTimes?.tuesday?.split('-') || ["", ""];
+    const [sWed, eWed]: string[] = openTimes?.wednesday?.split('-') || ["", ""];
+    const [sThu, eThu]: string[] = openTimes?.thursday?.split('-') || ["", ""];
+    const [sFri, eFri]: string[] = openTimes?.friday?.split('-') || ["", ""];
+    const [sSat, eSat]: string[] = openTimes?.saturday?.split('-') || ["", ""];
 
     
 

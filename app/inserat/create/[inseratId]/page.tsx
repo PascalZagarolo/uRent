@@ -23,6 +23,7 @@ import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
 import SaveChanges from "../_components/save-changes";
+import PriceProfiles from "./_parts/price-profiles";
 
 
 const InseratCreation = async ({
@@ -154,6 +155,9 @@ const InseratCreation = async ({
                                             thisImages={relatedImages}
                                         />
 
+                                    </div>
+                                    <div className="mt-4">
+                                        <PriceProfiles />
                                     </div>
                                 </div>
                             </div>

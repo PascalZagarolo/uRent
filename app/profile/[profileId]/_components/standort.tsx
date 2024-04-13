@@ -46,6 +46,7 @@ const Standort: React.FC<StandortProps> = ({
     const [currentCity, setCurrentCity] = useState(thisStandort?.city);
     const [currentPostalCode, setCurrentPostalCode] = useState<string>(String(thisStandort?.postalCode));
     const [isLoading, setIsLoading] = useState(false);
+    const [isPrimary, setIsPrimary] = useState(thisStandort?.isPrimary);
 
     const [shownImage, setShownImage] = useState<string>(thisStandort?.image);
 
@@ -109,6 +110,21 @@ const Standort: React.FC<StandortProps> = ({
             toast.success("Standort erfolgreich gelöscht");
         } catch {
             toast.error("Fehler beim Löschen");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const onPrimary = async () => {
+        try {
+            setIsLoading(true);
+            await axios.patch(`/api/businessAddress/${thisStandort.id}/primary`).then(() => {
+                router.refresh();
+            })
+            setIsPrimary(true);
+            toast.success("Standort erfolgreich als primär festgelegt");
+        } catch {
+            toast.success("Fehler beim festlegen des primären Standortes");
         } finally {
             setIsLoading(false);
         }
@@ -296,7 +312,8 @@ const Standort: React.FC<StandortProps> = ({
                                     </div>
                                     <div className="mt-4 flex items-centerg gap-x-2">
                                         <Checkbox
-                                        checked={thisStandort.isPrimary}
+                                        checked={isPrimary}
+                                        onClick={onPrimary}
                                         /> <Label>
                                             Primärer Standort 
                                             <Popover>

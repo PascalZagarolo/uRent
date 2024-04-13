@@ -39,7 +39,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
 
     const [selectedImages, setSelectedImages] = useState([]);
     const [isUploaded, setIsUploaded] = useState(false);
-    
+
 
     const {
         getRootProps,
@@ -109,7 +109,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                 <div className="dark:bg-[#191919] p-4">
                     <h1 className="text-md font-semibold sm:flex items-center">
                         <div className="flex">
-                        <BiLandscape className="w-4 h-4 mr-2" />  Standort
+                            <BiLandscape className="w-4 h-4 mr-2" />  Standort
                         </div>
                         {ownProfile && (
                             <div className="sm:ml-auto w-full flex sm:justify-end justify-center">
@@ -124,13 +124,15 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                 </div>
                 <div>
                     {foundAddress?.length > 0 ? (
-                        foundAddress.map((address, index) => (
-                            <Standort 
-                            thisStandort={address}
-                            ownProfile={ownProfile}
-                            key={index}
-                            />
-                        ))
+                        foundAddress
+                            .sort((a, b) => (a.isPrimary === b.isPrimary ? 0 : a.isPrimary ? -1 : 1)) // Sort addresses with primary first
+                            .map((address, index) => (
+                                <Standort
+                                    thisStandort={address}
+                                    ownProfile={ownProfile}
+                                    key={index}
+                                />
+                            ))
                     ) : (
                         <div className="p-4 flex items-center justify-center text-sm dark:text-gray-200/70 text-gray-700/70">
                             Es wurden noch keine Standorte hinzugefügt..
@@ -229,7 +231,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                             placeholder="10100"
                                         />
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <div className="mt-4 w-full" >

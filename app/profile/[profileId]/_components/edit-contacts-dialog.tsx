@@ -23,10 +23,10 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentWebsite, setCurrentWebsite] = useState("");
-    const [currentEmail, setCurrentEmail] = useState("");
-    const [currentNumber, setCurrentNumber] = useState("");
-    const [currentFax, setCurrentFax] = useState("");
+    const [currentWebsite, setCurrentWebsite] = useState(thisBusiness.website);
+    const [currentEmail, setCurrentEmail] = useState(thisBusiness.email);
+    const [currentNumber, setCurrentNumber] = useState(thisBusiness.telephone_number);
+    const [currentFax, setCurrentFax] = useState(thisBusiness.fax);
 
     const router = useRouter();
 
@@ -65,17 +65,19 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                         <Contact2Icon className="w-4 h-4 mr-2" /> Kontakte verwalten
                     </h1>
                     <p className="text-xs dark:text-gray-200/70">
-                        Verwalte deine Kontaktdaten. Angegebene Kontaktdaten werden öffentlich auf deinem Profil angezeigt.
+                        Verwalte deine Kontaktdaten. Angegebene Kontaktdaten werden öffentlich auf deinem 
+                        Profil sowie neben deinen Inseraten angezeigt.
                     </p>
-                    <div className="w-full space-y-4">
+                    <div className="w-full space-y-4 ">
 
-                        <div className="w-full mt-2 ">
+                        <div className="w-full mt-4 ">
                             <Label className="font-semibold flex items-center">
                                 <GlobeIcon className="w-4 h-4 mr-2" /> Website
                             </Label>
                             <Input
                                 className="dark:bg-[#1C1C1C] border-none"
                                 onChange={(e) => setCurrentWebsite(e.target.value)}
+                                value={currentWebsite}
                                 placeholder="www.urent-rental.de"
                             />
                         </div>
@@ -87,6 +89,7 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                             <Input
                                 className="dark:bg-[#1C1C1C] border-none"
                                 onChange={(e) => setCurrentEmail(e.target.value)}
+                                value={currentEmail}
                                 placeholder="test@urent-rental.de"
                             />
                         </div>
@@ -98,6 +101,7 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                             <Input
                                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                                 className="dark:bg-[#1C1C1C] border-none"
+                                value={currentNumber}
                                 onChange={(e) => setCurrentNumber(e.target.value)}
                                 placeholder="+49 123456789"
                             />
@@ -110,6 +114,7 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                             <Input
                                 className="dark:bg-[#1C1C1C] border-none"
                                 onChange={(e) => setCurrentFax(e.target.value)}
+                                value={currentFax}
                                 placeholder="040-999 8888"
                             />
                         </div>

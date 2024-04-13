@@ -1,11 +1,12 @@
 import db from "@/db/drizzle";
-import { inserat, users } from "@/db/schema";
+import { inserat, inseratSubscription, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import RevenuePreview from "./_components/revenue";
 import BuyOptions from "../_components/buy-options";
 import ComparisonPlans from "../_components/comparison-plans";
 import Faq from "./_components/faq";
 import RedeemCode from "../_components/redeem-code";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const InseratPricingPage = async ({
     params
@@ -18,11 +19,22 @@ const InseratPricingPage = async ({
     )
    })
 
+   const currentUser = await getCurrentUser();
+
+   
+
+    
+
+    const existingSubscription = await db.query.inseratSubscription.findFirst({
+        where : eq(inseratSubscription.inseratId, params.inseratId)
+    })
+
     return (
         <div>
             <div className="w-full">
-                <BuyOptions 
-                inseratId={params.inseratId}
+            <BuyOptions 
+                thisInserat = {thisInserat}
+                existingSubscription={existingSubscription}
                 />
                 <div className="mt-2">
                     <RedeemCode />

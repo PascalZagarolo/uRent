@@ -231,6 +231,9 @@ export const inserat = pgTable("inserat", {
     caution: decimal("caution"),
     reqAge: integer("reqAge"),
 
+    priceHour : decimal("priceHour"),
+    priceWeekend : decimal("priceWeekend"),
+
 
     firstRelease : timestamp("firstRelease", {mode: "date"}),
 

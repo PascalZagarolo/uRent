@@ -6,22 +6,26 @@ import { openingTimes } from '../../../../db/schema';
 
 interface OpenhoursProps {
     thisBusiness : typeof business.$inferSelect;
+    ownProfile : boolean;
 }
 
 const Openhours : React.FC<OpenhoursProps> = ({
-    thisBusiness
+    thisBusiness,
+    ownProfile
 }) => {
     return (
         <div className="dark:bg-[#191919] p-4">
             <div>
                 <h1 className="font-medium flex items-center">
                     <CalendarIcon className="w-4 h-4 mr-2" /> Öffnungszeiten
-                    <div className="ml-auto">
-                    <EditOpenhours 
-                    businessId={thisBusiness.id}
-                    openTimes={thisBusiness.openingTimes}
-                    />
-                    </div>
+                    {ownProfile && (
+                        <div className="ml-auto">
+                        <EditOpenhours 
+                        businessId={thisBusiness.id}
+                        openTimes={thisBusiness.openingTimes}
+                        />
+                        </div>
+                    )}
                 </h1>
                 <div>
                     {thisBusiness.openingTimes ? (

@@ -5,15 +5,35 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { inserat } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { Banknote, PlusSquareIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
-const AddPriceProfile = () => {
+
+interface AddPriceProfileProps {
+    thisInserat : typeof inserat.$inferSelect;
+}
+
+const AddPriceProfile : React.FC<AddPriceProfileProps> = ({
+    thisInserat
+}) => {
+
+
+    const params = useParams();
+    const router = useRouter();
+
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [currentValue, setCurrentValue] = useState(null);
+    const [currentType, setCurrentType] = useState(null);
+
 
     const formSchema = z.object({
         price: z.preprocess(
@@ -34,8 +54,24 @@ const AddPriceProfile = () => {
 
     const { isSubmitting, isValid } = form.formState
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
+        try {
+            setIsLoading(true);
+            const values = {
+                type : currentType,
+                price : currentValue
+            }
+            await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
+                .then(() => {
+                    router.refresh();
+                })
 
+            toast.success("Preisprofil hinzugefügt")
+        } catch {
+            toast.error("Fehler beim hinzufügen des Preisprofils")
+        } finally{
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -54,17 +90,31 @@ const AddPriceProfile = () => {
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             
-                            
-                            <div className="w-full flex items-center space-x-4">
+                            <div className="w-full flex gap-x-4">
+                                <h1 className="w-1/2 font-semibold text-sm">
+                                    Zeitraum
+                                </h1>
+
+                                <h1 className="w-1/2 font-semibold text-sm">
+                                    Preis
+                                </h1>
+                            </div>
+                            <div className="w-full flex items-center space-x-4 mt-2">
                                 <div className="w-1/2">
-                                    <Select>
-                                        <SelectTrigger className="w-full dark:bg-[#131313] dark:border-none">
+                                    <Select
+                                    onValueChange={(value) => {setCurrentType(value)}}
+                                    >
+                                        <SelectTrigger className="w-full dark:bg-[#131313] dark:border-none"
+                                        
+                                        >
                                             <SelectValue placeholder="Wähle deinen Zeitraum" />
                                         </SelectTrigger>
                                         <SelectContent className="dark:bg-[#131313] dark:border-none">
                                             <SelectGroup>
-                                                <SelectLabel>Fruits</SelectLabel>
-                                                <SelectItem value="hours">pro Stunde</SelectItem>
+                                                <SelectLabel>Zeiträume</SelectLabel>
+                                                <SelectItem value="hours"
+                                                disabled={thisInserat?.priceHour ? true : false}
+                                                >pro Stunde</SelectItem>
                                                 <SelectItem value="weekend">Wochende</SelectItem>
                                                 
                                             </SelectGroup>
@@ -84,7 +134,7 @@ const AddPriceProfile = () => {
                                                         {...field}
                                                         name="price"
                                                         className=" dark:bg-[#131313] dark:border-none"
-                                                        placeholder="Mietpreis hinzufügen"
+                                                        placeholder="Preis pro Zeitraum.."
                                                         onBlur={(e) => {
                                                             const rawValue = e.currentTarget.value;
 
@@ -119,14 +169,17 @@ const AddPriceProfile = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="w-full flex items-center">
+                            <div className="w-full ml-auto justify-end flex items-center">
+                                <DialogTrigger asChild>
                                 <Button
                                     className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                                    type="submit" disabled={!isValid || isSubmitting || currentValue > 1_000_000}
+                                    type="submit" disabled={!isValid || isSubmitting || currentValue > 1_000_000
+                                    || !currentType}
                                 >
                                     Profil hinzufügen
                                 </Button>
+                                </DialogTrigger>
 
 
                             </div>

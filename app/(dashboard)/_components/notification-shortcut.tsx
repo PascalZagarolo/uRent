@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 import { BellDotIcon, BellPlus, MessageCircle, MessageCircleMoreIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { conversation, notification } from '../../../db/schema';
+import { conversation, notification,  notificationTypeEnum } from '../../../db/schema';
 import { CiBookmark } from "react-icons/ci";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
@@ -72,6 +72,8 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         }
     }, [usedFilter])
 
+    let usedNotificationType : typeof notificationTypeEnum;
+
     return (
         <Popover >
             <PopoverTrigger asChild>
@@ -105,7 +107,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                         <p className="text-gray-900/80 dark:text-gray-100/80 text-xs italic"> Du bist auf dem neuesten Stand...</p>
                     ) : (
 
-                        <>
+                        <div>
                             <div className="flex justify-between">
                                 <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md", 
                                 usedFilter === "ALL" ? "border border-blue-900" : "border border-[#161616]")}
@@ -132,25 +134,27 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
 
                             {renderedNotifications.length > 0 ? (
-                                renderedNotifications?.map((notification) => (
-
+                                renderedNotifications?.map((notification : any) => (
+                                    usedNotificationType = notification.notificationType,
                                     <div className="dark:bg-[#161616] p-2 mt-1 w-full flex" key={notification.id}>
                                         <div className="w-1/8 px-2">
                                             {
-                                                {
+                                                {   
                                                     "BOOKING": <CiBookmark className="w-4 h-4" />,
+                                                    
                                                     "MESSAGE": <MessageCircle className="w-4 h-4" />,
+                                                    
                                                     "BOOKING_REQUEST": <LuMailWarning className="w-4 h-4" />
-                                                }[notification.notificationType]
+                                                    //@ts-ignore
+                                                }[usedNotificationType] 
                                             }
                                         </div>
                                         <div className="text-xs font-semibold">
                                             {
-                                                {
+                                                { 
                                                     "BOOKING": (
                                                         <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 
-                        hover:underline"
+                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
                                                                 href={`/inserat/${notification.inseratId}`}
                                                             >
                                                                 {notification?.content}
@@ -162,8 +166,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                         </div>),
                                                     "MESSAGE": (
                                                         <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 
-                            hover:underline"
+                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
                                                                 href={`/conversation/${notification?.conversationId}`}
                                                             >
                                                                 {notification?.content}
@@ -181,8 +184,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                     ),
                                                     "BOOKING_REQUEST": (
                                                         <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 
-                        hover:underline"
+                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
                                                                 href={`/inserat/${notification?.inseratId}`}
                                                             >
                                                                 {notification?.content}
@@ -199,10 +201,12 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                         </div>
 
                                                     )
-                                                }[notification.notificationType]
+                                                    //@ts-ignore
+                                                }[usedNotificationType]
                                             }
                                         </div>
                                     </div>
+                                    
                                 ))
                             ) : (
                                 <div className="p-4 dark:bg-[#161616] mt-2 rounded-md">
@@ -210,11 +214,12 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                 </div>
                             )}
 
+                    </div>
 
-
-                        </>
+                      
                     )}
                 </div>
+               
             </PopoverContent>
         </Popover>
     );

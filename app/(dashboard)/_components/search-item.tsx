@@ -132,7 +132,7 @@ const SearchItem = () => {
         router.push(url)
     }
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e : any) => {
         if (e.key === "Enter") {
             onSearch();
         }

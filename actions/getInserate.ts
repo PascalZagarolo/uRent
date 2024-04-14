@@ -66,7 +66,7 @@ type GetInserate = {
 }
 
 //returns km
-function calculateDistance(lat1, lon1, lat2, lon2) {
+function calculateDistance(lat1 : number, lon1 : number, lat2 : number, lon2 : number) {
     const r = 6371;
     const p = Math.PI / 180;
 

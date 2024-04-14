@@ -5,7 +5,7 @@ import { CardStackPlusIcon } from "@radix-ui/react-icons";
 import { BiCreditCardAlt } from "react-icons/bi";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { inserat, inseratSubscription } from "@/db/schema";
+import { inserat } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { render } from '@react-email/components';
 import SubscriptionsRenderList from "./_components/subscriptions-render-list";

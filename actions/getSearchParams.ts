@@ -67,8 +67,10 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
 
     }
     if (currentCategory && params.hasOwnProperty(currentCategory)) {
+        //@ts-ignore
         delete params[currentCategory];
         if (currentCategory2 && params.hasOwnProperty(currentCategory2)) {
+            //@ts-ignore
             delete params[currentCategory2];
           } 
       }

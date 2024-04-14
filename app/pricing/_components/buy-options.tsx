@@ -11,9 +11,9 @@ import { FaCheck, FaFireFlameCurved } from "react-icons/fa6";
 
 import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import EnterpriseButton from "./buy-buttons.tsx/enterprise-button";
-import PremiumButton from "./buy-buttons.tsx/premium-button";
-import BasisButton from "./buy-buttons.tsx/basis-button";
+import EnterpriseButton from "./_buy-buttons.tsx/enterprise-button";
+import PremiumButton from "./_buy-buttons.tsx/premium-button";
+import BasisButton from "./_buy-buttons.tsx/basis-button";
 
 interface BuyOptionsProps {
     currentUserId : string;

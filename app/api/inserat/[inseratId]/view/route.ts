@@ -22,8 +22,8 @@ export async function PATCH(
         
        await updateInserat.execute({ id: params.inseratId })
         return NextResponse.json(updateInserat)
-    } catch(error) {
-        console.log(error)
+    } catch(error : any) {
+        console.log(error )
         return new NextResponse(error, { status: 500 });
     }
 }

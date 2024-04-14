@@ -13,7 +13,7 @@ export async function PATCH(
 
         const image = body.image
 
-        const patchedProfile = await db.update(users).set({
+        const patchedProfile : any = await db.update(users).set({
             image : image
         }).where(eq(users.id, params.profileId)).returning();
         console.log(patchedProfile)

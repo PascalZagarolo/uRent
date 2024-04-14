@@ -18,7 +18,7 @@ export async function PATCH(
         });
 
         if(!findBusiness) {
-            const createdBusiness = await db.insert(business).values({
+            const createdBusiness : any = await db.insert(business).values({
                 userId : params.profileId
             }).returning();
 

@@ -81,6 +81,7 @@ export const useSavedSearchParams = create<savedSearchParams>((set) => ({
     deleteSearchParams(newSearchParams) {
         set((state) => {
             const updatedSearchParams = { ...state.searchParams };
+            //@ts-ignore
             delete updatedSearchParams[newSearchParams.toString().trim()];
             return { searchParams: updatedSearchParams };
         });
@@ -127,6 +128,7 @@ export const useUnsavedChanges = create<unsavedChanges>((set) => ({
     deleteCurrent(newChange) {
         set((state) => {
             const updatedNewChange = { ...state.currentChanges };
+            //@ts-ignore
             delete updatedNewChange[newChange.toString().trim()];
             return { currentChanges: updatedNewChange };
         });
@@ -157,6 +159,7 @@ export const useUnsavedChangesSettings = create<unsavedChanges>((set) => ({
     deleteCurrent(newChange) {
         set((state) => {
             const updatedNewChange = { ...state.currentChanges };
+            //@ts-ignore
             delete updatedNewChange[newChange.toString().trim()];
             return { currentChanges: updatedNewChange };
         });

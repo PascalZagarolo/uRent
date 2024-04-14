@@ -1,16 +1,15 @@
 import getCurrentUser from "@/actions/getCurrentUser";
+import db from "@/db/drizzle";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import BuyOptions from "./_components/buy-options";
 import RedeemCode from "./_components/redeem-code";
-import db from "@/db/drizzle";
-import { eq } from "drizzle-orm";
-import { users } from "@/db/schema";
 import ComparisonPlans from "./_components/comparison-plans";
 import Faq from "./_components/faq";
 
-
-const PricingPage = async () => {
-
-       const currentUser = await getCurrentUser();
+const PricingMainPage = async () => {
+    
+        const currentUser = await getCurrentUser();
     
        
         const existingSubscription = await db.query.userSubscription.findFirst({
@@ -42,7 +41,7 @@ const PricingPage = async () => {
                 </div>
             </div>
         );
-    }
-
-
-export default PricingPage;
+    
+}
+ 
+export default PricingMainPage;

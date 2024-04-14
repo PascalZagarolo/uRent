@@ -13,7 +13,7 @@ export async function DELETE(
 
         return NextResponse.json(deletedFavourite);
         
-    } catch(error) {
+    } catch(error : any) {
         console.log(error);
         return new NextResponse(error, { status: 500 });
     }

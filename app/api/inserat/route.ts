@@ -13,7 +13,7 @@ export async function POST(
 
         console.log(values)
 
-        const data = await db.insert(inserat)
+        const data : typeof inserat = await db.insert(inserat)
                                 .values({
                                     category : "PKW",
                                     annual : true,

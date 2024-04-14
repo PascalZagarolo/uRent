@@ -49,9 +49,7 @@ const AmountSearch = () => {
         }
     })
     
-    useEffect(() => {
-        console.log(savedParams['caution']);
-    }, [savedParams]);
+   
     
 
     const { isSubmitting, isValid } = form.formState

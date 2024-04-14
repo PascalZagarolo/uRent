@@ -47,7 +47,7 @@ const TransportSearch = () => {
 
                 </div>
             </div>
-            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-4 sm:space-y-0 sm:space-y-0">
+            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-4  sm:space-y-0">
                 <div className="sm:w-1/3">
                     <PkwPowerSearch />
                 </div>

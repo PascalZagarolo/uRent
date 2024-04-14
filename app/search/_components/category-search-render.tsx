@@ -6,10 +6,12 @@ import LkwSearch from './category-data/lkw-search';
 import PkwSearch from './category-data/pkw-search';
 import TransportSearch from './category-data/transport-search';
 import TrailerSearch from './category-data/trailer-search';
+import { CategoryEnumRender } from '@/db/schema';
 const CategorySearchRender = () => {
 
     const currentParams = useSavedSearchParams((state) => state.searchParams)
-    
+//@ts-ignore
+   const currentCategory : typeof CategoryEnumRender = currentParams['thisCategory'] 
     return (
         <div className="w-full">
             <h3 className="font-semibold text-md flex items-center dark:text-gray-100">
@@ -19,8 +21,8 @@ const CategorySearchRender = () => {
                         'LKW' : "Lkw - ",
                         'TRAILOR' : "Anhänger - ",
                         'TRANSPORT' : "Transporter - "
-
-                    }[currentParams['thisCategory']] 
+//@ts-ignore
+                    }[currentCategory] 
                 } Details
                 <Separator
                     className="h-[0.5px] dark:bg-gray-100/20  w-1/3 sm:w-2/3 ml-6"
@@ -34,11 +36,12 @@ const CategorySearchRender = () => {
                         'LKW' : <LkwSearch />,   
                         'TRAILER' : <TrailerSearch />,
                         'TRANSPORT' : <TransportSearch />
-
-                    }[currentParams['thisCategory']] 
+//@ts-ignore
+                    }[currentCategory] 
                 }
 
-                {!currentParams['thisCategory'] && (
+                {//@ts-ignore
+                !currentParams['thisCategory'] && (
                     <div className='flex justify-center text-md font-semibold'>
                         Noch keine Kategorie ausgewählt..
                     </div>

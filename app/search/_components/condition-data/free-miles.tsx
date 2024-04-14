@@ -70,7 +70,8 @@ const FreeMilesSearch = () => {
                                                 type="text"
                                                 {...field}
                                                 name="price"
-                                                disabled = {searchParams['category'] !== "PKW"}
+                                                disabled = {//@ts-ignore
+                                                    searchParams['category'] !== "PKW"}
                                                 className=" dark:bg-[#151515] dark:border-none"
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;

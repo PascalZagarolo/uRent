@@ -26,9 +26,7 @@ const ExtraMilesSearch = () => {
         await changeSearchParams("extraCost", currentCaution);
     }
 
-    useEffect(() => {
-        console.log(savedParams['caution']);
-    }, [savedParams]);
+    
 
     const deleteCaution = () => {
         deleteSearchParams("extraCost")
@@ -82,7 +80,8 @@ const ExtraMilesSearch = () => {
                                                 name="price"
                                                 className="dark:bg-[#151515] dark:border-none"
                                                 placeholder="Preis pro/Km"
-                                                disabled={savedParams['category'] !== 'PKW'}
+                                                disabled={//@ts-ignore
+                                                    savedParams['category'] !== 'PKW'}
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
                                                     const cleanedValue = rawValue.replace(/[^0-9.]/g, '');

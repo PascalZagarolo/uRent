@@ -17,7 +17,8 @@ const CategorySearch = () => {
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
-    const setCategory = (category) => {
+    const setCategory = (category : typeof CategoryEnumRender) => {
+        //@ts-ignore
         changeSearchParams("thisCategory", category);
         console.log('thisCategory' in searchParams && searchParams['thisCategory'] === "PKW")
     }
@@ -42,9 +43,11 @@ const CategorySearch = () => {
                     value={category} 
                     className={cn(
                         "dark:bg-[#141414] dark:hover:bg-[#1d1d1d] dark:text-gray-100 py-6 border-2 dark:border-[#141414]", 
+                        //@ts-ignore
                         currentObject["thisCategory"] === category && "border-2 dark:border-blue-800"
                     )}
-                    onClick={() => currentObject["thisCategory"] === category ? deleteCategory() : setCategory(category)}
+                    onClick={//@ts-ignore
+                        () => currentObject["thisCategory"] === category ? deleteCategory() : setCategory(category)}
                 >
                     
                     {
@@ -56,7 +59,8 @@ const CategorySearch = () => {
                         }[category]
                     }   
                 </Button>
-                <span className={cn("text-sm mt-2  dark:text-gray-100", currentObject["thisCategory"] === category && " font-semibold")}>{
+                <span className={cn("text-sm mt-2  dark:text-gray-100", //@ts-ignore
+                currentObject["thisCategory"] === category && " font-semibold")}>{
                         {
                             'PKW': "Pkw",
                             'LKW': "Lkw",

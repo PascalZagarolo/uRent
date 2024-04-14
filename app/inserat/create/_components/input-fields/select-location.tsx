@@ -12,6 +12,7 @@ import axios from "axios";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
 import { address, contactOptions, inserat } from "@/db/schema";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 
 interface SelectLocationProps {
@@ -146,16 +147,16 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     <div className="items-center w-full">
       <h3 className="text-md font-semibold items-center flex">
         <MapPin className="h-4 w-4 mr-2" /> Adresse *
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
+      
+          <Popover>
+            <PopoverTrigger>
               <AlertCircle className="w-4 h-4 ml-2" />
-            </TooltipTrigger>
-            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+            </PopoverTrigger>
+            <PopoverContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
               Beim automatischen erzeugen der Postleitzahl, kann es vereinzelt zu Fehlern kommen. Bitte prüfe deine PLZ bevor du sie einschickst.
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+            </PopoverContent>
+          </Popover>
+        
       </h3>
       <div className="flex mt-4 w-full">
         <div className="  items-center  ">

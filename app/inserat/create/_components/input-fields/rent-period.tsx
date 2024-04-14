@@ -130,18 +130,15 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                     <p className="ml-2 font-semibold  text-sm ">
                         Dauerhaftes Inserat
                     </p>
-                    <TooltipProvider>
-                        <Tooltip>
-
-                            <TooltipTrigger>
+                    <Popover>
+                            <PopoverTrigger>
                                 <AlertCircle className="w-4 h-4 ml-2" />
-                            </TooltipTrigger>
-                            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+                            </PopoverTrigger>
+                            <PopoverContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
                                 Dauerhafte Inserate bleiben immer online und sind nicht an ein Datum gebunden. <br/>
                                 Du kannst diese dann manuell selber als belegt oder als verfügbar markieren.
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                            </PopoverContent>
+                    </Popover>
                 </div>
         </div>
 
@@ -159,18 +156,18 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
                     <p className="ml-2 font-semibold  text-sm ">
                         Zeitlich begrenztes Inserat
                     </p>
-                    <TooltipProvider>
-                        <Tooltip>
+                    
+                        <Popover>
 
-                            <TooltipTrigger>
+                            <PopoverTrigger>
                                 <AlertCircle className="w-4 h-4 ml-2" />
-                            </TooltipTrigger>
-                            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+                            </PopoverTrigger>
+                            <PopoverContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
                                 Zeitlich begrenzte Inserate werden automatisch nach dem Ablaufen des Datums privat gestellt. <br/>
                                 Du kannst das Datum jederzeit ändern.
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                            </PopoverContent>
+                        </Popover>
+                    
                 </div>
         </div>
 

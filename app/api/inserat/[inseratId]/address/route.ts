@@ -32,7 +32,7 @@ export async function PATCH(
 
         if(!existingAddressObject) {
 
-            const patchedAddress = await db.insert(address).values({
+            const patchedAddress : typeof address= await db.insert(address).values({
                 inseratId : params.inseratId,
                 ...values,
             }).returning()
@@ -44,7 +44,7 @@ export async function PATCH(
             return NextResponse.json({patchedAddress, patchedOrigin});
             
         } else {
-            const patchedAddress = await db.update(address).set({
+            const patchedAddress : typeof address = await db.update(address).set({
                 longitude : addressObject.data[0].lon,
                 latitude : addressObject.data[0].lat,
                 ...values
@@ -54,7 +54,7 @@ export async function PATCH(
 
         
 
-    } catch (error) {
+    } catch (error : any) {
         console.log(error);
         return new NextResponse(error, { status: 500 });
         

@@ -10,7 +10,7 @@ export async function DELETE(
 ) {
     try {
 
-        const deletedInserat = await db.delete(inserat).where(eq(inserat.id, params.inseratId)).returning()
+        const deletedInserat : typeof inserat = await db.delete(inserat).where(eq(inserat.id, params.inseratId)).returning()
 
         return NextResponse.json(deletedInserat[0])
 

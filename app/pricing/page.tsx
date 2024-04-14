@@ -28,7 +28,7 @@ const PricingPage = async () => {
             <div>
                 <div className="w-full">
                 <BuyOptions 
-                    
+                    currentUserId={currentUser.id}
                     existingSubscription={existingSubscription}
                     />
                     <div className="mt-2">

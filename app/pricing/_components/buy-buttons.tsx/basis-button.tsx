@@ -13,13 +13,13 @@ import toast from "react-hot-toast";
 interface BasisButtonProps {
    selectedAmount : number;
     existingSubscription? : typeof userSubscription;
-
+    userId : string;
 }
 
 const BasisButton = ({
     selectedAmount,
     existingSubscription,
-  
+    userId
 }) => {
 
     const [isLoading , setIsLoading] = useState(false);
@@ -59,7 +59,7 @@ const BasisButton = ({
                 },
                 
             }
-            const res = await axios.patch(`/api/stripe/user/`, values);
+            const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")

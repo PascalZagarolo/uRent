@@ -11,13 +11,14 @@ import toast from "react-hot-toast";
 
 interface PremiumButtonProps {
     selectedAmount : number;
-    existingSubscription?: typeof userSubscription
+    existingSubscription?: typeof userSubscription;
+    userId : string;
 }
 
 const PremiumButton = ({
 selectedAmount,
     existingSubscription,
-   
+    userId
 }) => {
 
     const calculatePremiumPrice = () => {
@@ -55,7 +56,7 @@ selectedAmount,
                 },
                 
             }
-            const res = await axios.patch(`/api/stripe/user/`, values);
+            const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")

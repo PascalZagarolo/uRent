@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-import { inserat, inseratSubscription } from "@/db/schema";
+import { inserat } from "@/db/schema";
 
 interface PublishInseratProps {
     

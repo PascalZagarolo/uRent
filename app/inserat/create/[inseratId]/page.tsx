@@ -18,7 +18,8 @@ import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { eq, sql } from "drizzle-orm";
-import { address, contactOptions, images, inserat, inseratSubscription, lkwAttribute, notification, pkwAttribute, trailerAttribute, transportAttribute, userAddress, users } from "@/db/schema";
+import { address, contactOptions, images, inserat, lkwAttribute, notification, 
+    pkwAttribute, trailerAttribute, transportAttribute, userAddress, users } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
@@ -60,7 +61,7 @@ const InseratCreation = async ({
             lkwAttribute: true,
             trailerAttribute: true,
             transportAttribute: true,
-            inseratSubscription: true
+           
         },
         where: eq(inserat.id, sql.placeholder("inseratId"))
     }).prepare("findInserat")

@@ -42,8 +42,10 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] p-4 mt-2 border dark:border-none rounded-md">
             <div className="flex">
-            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${favourite[0].inserat.id}`)}}>
-                    {thisFavourite[0]?.inserat?.images?.length > 0 ? (
+            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {//@ts-ignore
+                router.push(`/inserat/${favourite[0].inserat.id}`)}}>
+                    {//@ts-ignore
+                    thisFavourite[0]?.inserat?.images?.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
                             //@ts-ignore
@@ -63,7 +65,8 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                     thisFavourite?.inserat?.title}
                 </div>
                 <div className="w-1/6 h-[100px]">
-                    <p className={cn("text-sm flex items-start h-[100px] overflow-hidden", thisFavourite[0]?.inserat.isPublished ? 
+                    <p className={cn("text-sm flex items-start h-[100px] overflow-hidden", //@ts-ignore
+                    thisFavourite[0]?.inserat.isPublished ? 
                     "text-emerald-600 font-semibold" : "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
                       {//@ts-ignore   
                          thisFavourite.inserat.description}

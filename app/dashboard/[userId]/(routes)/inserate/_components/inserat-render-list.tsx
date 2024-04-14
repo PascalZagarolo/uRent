@@ -20,7 +20,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
     return (
         <div>
-            {inserateArray.slice(0, renderAmount).map((inserat) => (
+            {inserateArray.slice(0, renderAmount).map((inserat : any) => (
                 inserateArray.length > 0 && (
                     
                         <InserateDashboardRender

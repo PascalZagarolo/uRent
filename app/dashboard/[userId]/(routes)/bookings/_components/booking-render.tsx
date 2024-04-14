@@ -43,7 +43,8 @@ const BookingDashboardRender: React.FC<BookingDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
-            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {router.push(`/inserat/${thisBooking[0].inserat.id}`)}}>
+            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {//@ts-ignore
+                router.push(`/inserat/${thisBooking[0].inserat.id}`)}}>
                     {//@ts-ignore
                     thisBooking?.inserat?.images?.length > 0 ? (
                         <Image

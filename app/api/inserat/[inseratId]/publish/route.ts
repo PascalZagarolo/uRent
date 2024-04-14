@@ -24,7 +24,7 @@ export async function PATCH(
 
         const createDate = findInserat?.firstRelease ? findInserat.firstRelease : new Date();
 
-        const patchedInserat = await db.update(inserat).set({
+        const patchedInserat : any = await db.update(inserat).set({
             isPublished : publish,
             firstRelease : createDate,
         }).where(eq(inserat.id, params.inseratId)).returning();
@@ -45,7 +45,7 @@ export async function PATCH(
         console.log(addressObject.data[0].lon) 
 
         if(publish) {
-                const patchedAddress = await db.update(address).set({
+                const patchedAddress : any = await db.update(address).set({
                     longitude: String(addressObject.data[0].lon),
                     latitude: String(addressObject.data[0].lat),
                     state : address[address.length -3],
@@ -54,7 +54,7 @@ export async function PATCH(
             if(patchedAddress) {
                 return NextResponse.json(patchedInserat[0]);
             } else {
-                const createdAddress = await db.insert(address).values({
+                const createdAddress : any = await db.insert(address).values({
                     inseratId : params.inseratId,
                     longitude: String(addressObject.data[0].lon),
                     latitude: String(addressObject.data[0].lat),

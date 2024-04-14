@@ -13,12 +13,13 @@ import toast, { CheckmarkIcon } from "react-hot-toast";
 interface EnterpriseButtonProps {
     selectedAmount : number;
     existingSubscription?: typeof userSubscription;
+    userId : string;
 }
 
 const EnterpriseButton = ({
     selectedAmount,
     existingSubscription,
-    
+    userId
 }) => {
 
     const calculateEnterprisePrice = () => {
@@ -55,7 +56,7 @@ const EnterpriseButton = ({
                 },
                 
             }
-            const res = await axios.patch(`/api/stripe/user/`, values);
+            const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")

@@ -16,12 +16,12 @@ import PremiumButton from "./buy-buttons.tsx/premium-button";
 import BasisButton from "./buy-buttons.tsx/basis-button";
 
 interface BuyOptionsProps {
-    
+    currentUserId : string;
     existingSubscription: typeof userSubscription.$inferSelect;
 }
 
 const BuyOptions: React.FC<BuyOptionsProps> =  ({
-  
+    currentUserId,
     existingSubscription
 }) => {
 
@@ -135,7 +135,7 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                         <BasisButton
                             selectedAmount={amountInserat}
                             existingSubscription={existingSubscription}
-                            
+                            userId={currentUserId}
                         />
     
                         <div className="w-full flex mt-2">
@@ -174,7 +174,7 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     <PremiumButton
                         selectedAmount={amountInserat}
                         existingSubscription={existingSubscription}
-                        
+                        userId={currentUserId}
                     />
                        
                     <div className="w-full flex mt-2">
@@ -219,6 +219,7 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     <EnterpriseButton
                         selectedAmount={amountInserat}
                         existingSubscription={existingSubscription}
+                        userId={currentUserId}
                     />
                     
                     <div className="w-full flex mt-2">

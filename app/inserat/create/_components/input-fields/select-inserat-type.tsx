@@ -65,9 +65,7 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ thisInserat }) =>
                 <Label className="flex justify-start items-center">
                     <BiSolidCategory className="w-4 h-4 mr-2" />
                     <p className="ml-2 font-semibold">Art des Inserats *</p>
-                   
                         <Popover>
-
                             <PopoverTrigger>
                                 <AlertCircle className="w-4 h-4 ml-2" />
                             </PopoverTrigger>

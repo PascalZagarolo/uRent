@@ -49,6 +49,8 @@ export const users = pgTable("user", {
             .references(() => business.id, { onDelete : "set null"}),
     contactId : uuid("contactId")
         .references(() => contactOptions.id, { onDelete : "set null"}),
+    subscriptionId : uuid("subscriptionId")
+        .references(() => userSubscription.id, { onDelete : "set null"}),
     userAddressId : uuid("userAddressId")
                     .references(() => userAddress.id , { onDelete : "set null"}),
     twoFactorConfirmationId : uuid("twoFactorConfirmationId")
@@ -246,8 +248,7 @@ export const inserat = pgTable("inserat", {
         .notNull()
         .references(() => users.id, { onDelete: "cascade" }),
 
-    subscriptionId : uuid("subscriptionId")
-        .references(() => inseratSubscription.id, { onDelete : "set null"}),
+  
 
     addressId : uuid("addressId")
         .references(() => address.id),
@@ -267,12 +268,13 @@ export const inserat = pgTable("inserat", {
     
 })
 
-export const inseratSubscription = pgTable("inseratSubscription" , {
+export const userSubscription = pgTable("userSubscription" , {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
-    inseratId : text("inseratId"),
+    
     userId : text("userId"),
 
     subscriptionType : inseratPriceType("subscriptionType"),
+    amount : integer("amount").notNull().default(0),
 
     stripe_customer_id : text("stripe_customer_id"),
     stripe_subscription_id : text("stripe_subscription_id"),
@@ -851,7 +853,10 @@ export const userRelations = relations(users, ({ one, many }) => ({
         fields : [users.businessId],
         references : [business.id]
     }),
-    
+    subscription : one(userSubscription, {
+        fields : [users.subscriptionId],
+        references : [userSubscription.id]
+    }),
     
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
@@ -899,10 +904,7 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
         fields : [inserat.addressId],
         references : [address.id]
     }),
-    inseratSubscription : one(inseratSubscription, {
-        fields : [inserat.subscriptionId],
-        references : [inseratSubscription.id]
-    }),
+    
     
 
     message : many(message),

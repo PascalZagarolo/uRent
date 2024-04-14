@@ -224,7 +224,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                 </div>
             )}
             <div className="flex justify-center w-full">
-                <Suspense fallback={<LoadingComponent />}>
+                
                 <InseratRenderedList
                         inserateArray={foundInserate}
                         currentUser={currentUser}
@@ -232,7 +232,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
                         favedInserate={favedInserate}
 
                     />
-                </Suspense>
+                
             </div>
         </div>
 

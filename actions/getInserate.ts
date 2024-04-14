@@ -3,7 +3,7 @@
 
 import db from "@/db/drizzle";
 import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender, 
-    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, inseratSubscription, lkwAttribute, LkwBrandEnumRender, 
+    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat,  lkwAttribute, LkwBrandEnumRender, 
     LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender, 
     transportAttribute} from "@/db/schema";
 import axios from "axios";
@@ -255,7 +255,7 @@ export const getInserate = async ({
                 pkwAttribute: true,
                 trailerAttribute: true,
                 transportAttribute: true,
-                inseratSubscription : true,
+                
             },
             ...(filter === "relevance") && {
                 orderBy : (views, { desc }) => [desc(inserat.views)]
@@ -274,7 +274,7 @@ export const getInserate = async ({
         
 
         const filteredArray = foundInserate.filter((pInserat) => {
-            console.log("test");
+           
             const validateUser = userId ? pInserat.userId === userId : true;
 
             if(!validateUser) return false;
@@ -315,7 +315,7 @@ export const getInserate = async ({
         let returnedArray = [];
 
         if(location) {
-            console.log(radius)
+           
             const usedRadius = radius ? radius : 50;
             const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
         for (const pInserat of filteredArray) {
@@ -323,7 +323,7 @@ export const getInserate = async ({
                                                 Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
                                                 if(distance < usedRadius) {
                                                     returnedArray.push(pInserat);
-                                                    console.log(distance)
+                                                    
                                                     
                                                 }
         }

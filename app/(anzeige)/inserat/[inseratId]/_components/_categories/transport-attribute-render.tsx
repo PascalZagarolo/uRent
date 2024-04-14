@@ -48,6 +48,7 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
                     {
                         {
                             'MANUAL': 'Schaltgetriebe',
+                            'SEMI_AUTOMATIC': 'Schaltgetriebe',
                             'AUTOMATIC': 'Automatikgetriebe'
                         }[attributes?.transmission]
                     }

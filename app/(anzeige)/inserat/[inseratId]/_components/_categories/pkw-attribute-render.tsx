@@ -60,6 +60,7 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
                     {
                         {
                             'MANUAL': 'Schaltgetriebe',
+                            'SEMI_AUTOMATIC': 'Halbautomatikgetriebe',
                             'AUTOMATIC': 'Automatikgetriebe'
                         }[attributes.transmission]
                     }

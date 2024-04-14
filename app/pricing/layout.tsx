@@ -59,10 +59,6 @@ const PricingPageLayout = async ({
                                 </p>
                             </div>
                             <div className="p-4 items-center">
-
-                                
-                                       
-                                
                                 <div>
                                     {children}
                                 </div>

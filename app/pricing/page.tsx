@@ -2,13 +2,10 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import BuyOptions from "./_components/buy-options";
-import RedeemCode from "./_components/redeem-code";
-import ComparisonPlans from "./_components/comparison-plans";
-import Faq from "./_components/faq";
+
 
 const PricingMainPage = async () => {
-    
+        /*
         const currentUser = await getCurrentUser();
     
        
@@ -17,7 +14,7 @@ const PricingMainPage = async () => {
                 eq(users.id, currentUser.id)
             )
         })
-        
+        */
     
        
     

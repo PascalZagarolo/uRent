@@ -58,7 +58,7 @@ const AutoComplete = () => {
 
   const getCurrentLocation = () => {
     const status = document.querySelector('status');
-    const success = async (position) => {
+    const success = async (position : any) => {
       console.log(position.coords.latitude, position.coords.longitude);
       const addressObject = await axios.get(`https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&api_key=65db7269a0101559750093uena07e08`);
       const addressString = addressObject.data?.address?.road + " " + addressObject.data?.address?.city + ", "  + (addressObject.data?.address?.country === "Germany" ? 

@@ -28,7 +28,7 @@ import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill, PiVanFill } from "react-icons/pi";
 import ProfileBar from "./inserat-card/profile-bar";
 import { TbCrane } from "react-icons/tb";
-import { inserat, users } from "@/db/schema";
+import { CategoryEnumRender, inserat, users } from "@/db/schema";
 import Link from "next/link";
 import { RiCaravanLine } from "react-icons/ri";
 import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
@@ -103,7 +103,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
         }
     }
 
-    const handleTextChange = (event) => {
+    const handleTextChange = (event : any) => {
         setText(event.target.value);
     };
 
@@ -117,8 +117,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
     };
 
 
-
-    console.log(thisInserat?.inseratSubscription?.subscriptionType === "ENTERPRISE")
+    const usedCategory : typeof CategoryEnumRender = thisInserat.category;
+  
 
     return (
         <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
@@ -138,7 +138,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             'LKW': <Truck className=" text-gray-300 h-6 w-6 " />,
                             'TRANSPORT': <PiVanFill className=" text-gray-300 h-6 w-6 " />,
                             'TRAILER': <RiCaravanLine className="text-gray-300 w-6 h-6" />
-                        }[thisInserat.category]
+                            //@ts-ignore
+                        }[usedCategory]
                     }
                 </div>
                 <div className="w-full ml-4 mr-4 text-base font-semibold h-[24px]  text-gray-200 flex items-center ">
@@ -306,7 +307,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                             </Badge>
                                         )}
                                     </div>,
-                                }[thisInserat.category]
+                                    //@ts-ignore
+                                }[usedCategory]
                             }
 
 

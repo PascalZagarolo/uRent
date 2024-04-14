@@ -18,7 +18,7 @@ const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchP
 const currentObject = useSavedSearchParams((state) => state.searchParams)
   
  
-  
+  //@ts-ignore
   const [value, setValue] = useState(currentObject["location"] || "")
   const [count, setCount] = useState(0);
   

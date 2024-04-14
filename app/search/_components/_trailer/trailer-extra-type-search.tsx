@@ -50,7 +50,8 @@ const TrailerExtraTypeSearch = () => {
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteType() : onSubmit(brand)
                     }}
-                    value={searchParams['extraType']}
+                    value={//@ts-ignore
+                        searchParams['extraType']}
                     disabled={isLoading}
                 >
 

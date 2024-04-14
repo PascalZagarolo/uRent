@@ -5,13 +5,11 @@ import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { users } from "@/db/schema";
 import ComparisonPlans from "./_components/comparison-plans";
-import Faq from "./[inseratId]/_components/faq";
+import Faq from "./_components/faq";
 
 
 const PricingPage = async () => {
 
-   
-    
        const currentUser = await getCurrentUser();
     
        

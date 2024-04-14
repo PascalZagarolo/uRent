@@ -5,13 +5,15 @@ import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
 import db from "@/db/drizzle";
 
-const PricingLayout = async ({ children }: { children: React.ReactNode }) => {
+const PricingLayout = async  (
+    { children }: { children: React.ReactNode }
+) =>  {
 
     const currentUser = await getCurrentUser();
 
     const foundNotifications = await db.query.notification.findMany({
         where: (
-            eq(notification.userId, currentUser?.id)
+            eq(notification.userId, "0648aba6-e152-464d-8746-77a65958aa12")
         )
     })
 

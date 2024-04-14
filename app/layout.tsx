@@ -11,8 +11,6 @@ import ActiveStatus from '@/components/ActiveStatus'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@/components/theme-provider'
-import ReactGA from "react-ga4"
-import { Helmet } from 'react-helmet';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -41,8 +39,8 @@ export default function RootLayout({
 
         
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTJ3FVZ2R4"></script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore
-     crossorigin="anonymous"></script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" 
+     crossOrigin="anonymous"></script>
       </head>
       <body className={inter.className}>
         <ThemeProvider

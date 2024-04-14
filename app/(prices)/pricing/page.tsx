@@ -11,18 +11,18 @@ import Faq from "./_components/faq";
 
 const PricingMainPage = async () => {
 
-    const currentUser = await getCurrentUser();
+    
 
 
     const existingSubscription = await db.query.userSubscription.findFirst({
         where: (
-            eq(users.id, currentUser.id)
+            eq(users.id, "0648aba6-e152-464d-8746-77a65958aa12")
         )
     })
 
     const foundNotifications = await db.query.notification.findMany({
         where: (
-            eq(users.id, currentUser.id)
+            eq(users.id, "0648aba6-e152-464d-8746-77a65958aa12")
         )
     })
 
@@ -33,16 +33,14 @@ const PricingMainPage = async () => {
         <div>
             <div className="p-4 items-center">
             <div>
-
                 <div className="w-full">
                     <BuyOptions
-                        currentUserId={currentUser.id}
+                        currentUserId={"0648aba6-e152-464d-8746-77a65958aa12"}
                         existingSubscription={existingSubscription}
                     />
                     <div className="mt-2">
                         <RedeemCode />
                     </div>
-
                     <div>
                         <ComparisonPlans />
                     </div>

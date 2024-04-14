@@ -48,7 +48,7 @@ const EditBusinessPics: React.FC<EditBusinessPicsProps> = ({
         }, [usedImages])
   
 
-    const onPositionChange = async (newPosition, action, imageId) => {
+    const onPositionChange = async (newPosition : number, action : string, imageId : string) => {
         try {
             setIsLoading(true);
             const values = {

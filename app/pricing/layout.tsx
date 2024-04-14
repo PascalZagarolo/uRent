@@ -1,9 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser"
 import HeaderLogo from "../(dashboard)/_components/header-logo";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { FaCheck, FaFireFlameCurved } from "react-icons/fa6";
-import { Separator } from "@/components/ui/separator";
+
 import { inserat, notification } from "@/db/schema";
 import db from "@/db/drizzle";
 import { and, eq } from "drizzle-orm";

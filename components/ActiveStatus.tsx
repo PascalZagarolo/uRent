@@ -2,7 +2,7 @@
 
 import useActiveChannel from "@/hooks/useActiveChannel";
 
-const ActiveStatus = () => {
+const ActiveStatus  = () : any => {
     useActiveChannel();
     return null;
 }

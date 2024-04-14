@@ -26,14 +26,14 @@ export async function PATCH(
 
         if (!findOptions) {
             console.log(1)
-            const patchedOptions = await db.insert(contactOptions).values({
+            const patchedOptions : typeof contactOptions = await db.insert(contactOptions).values({
                 userId: params.userId,
                 emailAddress: values?.email || "",
                 websiteAddress: values?.website || "",
             }).returning()
             console.log(2)
 
-            const patchedUserAddress = await db.insert(userAddress).values({
+            const patchedUserAddress : typeof userAddress = await db.insert(userAddress).values({
                 userId: params.userId,
                 contactOptionsId: patchedOptions[0].id,
                 city: values?.city,
@@ -56,7 +56,7 @@ export async function PATCH(
         } else {
 
             if (!findUserAddress) {
-                const patchedUserAddress = await db.insert(userAddress).values({
+                const patchedUserAddress : typeof userAddress.$inferSelect = await db.insert(userAddress).values({
                     userId: params.userId,
                     city: values?.city,
                     houseNumber: values?.houseNumber ? Number(values?.houseNumber) : null,
@@ -77,7 +77,7 @@ export async function PATCH(
                 return NextResponse.json({ patchedOptions, patchedUserAddress, patchedUser });
             }
 
-            const patchedOptions = await db.update(contactOptions).set({
+            const patchedOptions : typeof contactOptions = await db.update(contactOptions).set({
                 emailAddress: values?.email,
                 websiteAddress: values?.website,
             }).where(eq(contactOptions.userId, params.userId)).returning()
@@ -96,7 +96,7 @@ export async function PATCH(
 
 
 
-    } catch (error) {
+    } catch (error : any) {
         console.log(error);
         return new NextResponse(error, { status: 500 });
     }

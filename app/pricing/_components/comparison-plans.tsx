@@ -1,3 +1,5 @@
+'use client'
+
 import { FaFileContract } from "react-icons/fa6";
 
 const ComparisonPlans = () => {

@@ -4,7 +4,7 @@ import PkwInformation from "./pkw-information";
 import LkwInformation from "./lkw-information";
 import TrailorInformation from "./trailor-information";
 import TransportInformation from "./transport-information";
-import { inserat } from "@/db/schema";
+import { CategoryEnumRender, inserat } from "@/db/schema";
 
 interface CategoryInformationProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -13,6 +13,9 @@ interface CategoryInformationProps {
 const CategoryInformation: React.FC<CategoryInformationProps> = ({
     thisInserat
 }) => {
+
+    const usedCategory : typeof CategoryEnumRender = thisInserat.category;
+
     return (
         <div>
             <div className="flex justify-evenly items-center">
@@ -26,7 +29,8 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                             'LKW' : 'LKW',
                             'TRAILER' : 'Anhänger',
                             'TRANSPORT' : 'Transporter'
-                        }[thisInserat.category]
+                            //@ts-ignore
+                        }[usedCategory]
                     } - Details
                 </h1>
                 <Separator
@@ -51,7 +55,8 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                         'TRANSPORT' : <TransportInformation 
                         thisInserat = { thisInserat }
                         />
-                    }[thisInserat.category]
+                        //@ts-ignore
+                    }[usedCategory]
                 }
             </div>
         </div>

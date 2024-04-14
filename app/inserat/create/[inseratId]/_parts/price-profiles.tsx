@@ -43,6 +43,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
             setIsLoading(true);
             const values = {
                 type : priceType,
+                //@ts-ignore
                 price : null
             }
             console.log(values)

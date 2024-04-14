@@ -9,7 +9,7 @@ import SelectPrice from "../../_components/input-fields/rent-price";
 import SelectLicenseInserat from "../../_components/input-fields/select-license";
 import SelectInseratType from "../../_components/input-fields/select-inserat-type";
 import SelectVehicleAmount from "../../_components/input-fields/select-vehicle-amount";
-import { images, inserat } from "@/db/schema";
+import { CategoryEnumRender, images, inserat } from "@/db/schema";
 import PkwExtraType from "./pkw/pkw-extra-type";
 import { pkwAttribute } from '../../../../../db/schema';
 import TransportExtraType from "./transport/transport-extra-type";
@@ -27,6 +27,9 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
     thisInserat,
     thisImages
 }) => {
+
+    const usedCategory : typeof CategoryEnumRender = thisInserat.category;
+
     return (
         <div>
             <div> 
@@ -56,7 +59,8 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                             "TRANSPORT" : <TransportExtraType thisExtraType={thisInserat?.transportAttribute?.extraType} />,
                             "LKW" : <ApplicationForm thisApplication={thisInserat?.lkwAttribute?.application} />,
                             "TRAILER" : <TrailerExtraType thisExtraType={thisInserat?.trailerAttribute?.extraType} />
-                        }[thisInserat.category]
+                            //@ts-ignore
+                        }[usedCategory]
                     }
                     </div>
             </div>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
-import { inserat, inseratSubscription } from "@/db/schema";
+import { inserat } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 import axios from "axios";
@@ -13,12 +13,12 @@ import toast from "react-hot-toast";
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect;
-    purchasedPlan? : typeof inseratSubscription.$inferSelect;
+    
 }
 
 const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     thisInserat,
-    purchasedPlan
+   
 }) => {
     const router = useRouter();
 
@@ -92,27 +92,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         <p className="dark:text-gray-100 text-gray-800">
                             erstellt am
                         </p>
-                        <div>
-                            {purchasedPlan ? (
-                                <p className="mt-2 text-blue-600 font-semibold">
-                                    {purchasedPlan?.subscriptionType}
-                                </p>
-                            ) : (
-                                <p className="mt-2 dark:text-gray-200 font-semibold">
-                                    Gratis
-                                </p>
-                            )}
-                            {purchasedPlan ? (
-                                <a className=" dark:text-gray-200 text-xs hover:underline hover:cursor-pointer" onClick={onBillingInformation}>
-                                    Plan verwalten
-                                </a>
-                            ) : (
-                                <a className=" dark:text-gray-200 text-xs hover:underline" 
-                                href={`/pricing/${thisInserat.id}`}>
-                                    Upgraden
-                                </a>
-                            )}
-                        </div>
+                        
                     </div>
                     
                 </div>

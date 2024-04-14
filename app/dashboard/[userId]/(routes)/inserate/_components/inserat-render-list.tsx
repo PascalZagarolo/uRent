@@ -2,16 +2,16 @@
 
 import InserateDashboardRender from "./inserate-dashboard-render";
 import { useState } from "react";
-import { inserat, inseratSubscription } from "@/db/schema";
+import { inserat } from "@/db/schema";
 
 interface InserateRenderListProps {
     inserateArray: typeof inserat.$inferSelect;
-    existingPurchases: typeof inseratSubscription.$inferSelect[];
+    
 }
 
 const InserateRenderList: React.FC<InserateRenderListProps> = ({
     inserateArray,
-    existingPurchases
+    
 }) => {
 
     //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
@@ -25,7 +25,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                     
                         <InserateDashboardRender
                             thisInserat={inserat}
-                            purchasedPlan = {existingPurchases?.find((purchase) => purchase.inseratId === inserat.id)}
+                            
                             key={inserat.id}
                         />
                     

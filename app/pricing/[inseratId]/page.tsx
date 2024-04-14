@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { inserat, inseratSubscription, users } from "@/db/schema";
+import { inserat, } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import RevenuePreview from "./_components/revenue";
 import BuyOptions from "../_components/buy-options";
@@ -25,32 +25,11 @@ const InseratPricingPage = async ({
 
     
 
-    const existingSubscription = await db.query.inseratSubscription.findFirst({
-        where : eq(inseratSubscription.inseratId, params.inseratId)
-    })
+   
 
     return (
         <div>
-            <div className="w-full">
-            <BuyOptions 
-                thisInserat = {thisInserat}
-                existingSubscription={existingSubscription}
-                />
-                <div className="mt-2">
-                    <RedeemCode />
-                </div>
-                <div className="mt-4">
-                    <RevenuePreview 
-                    thisInserat={thisInserat}
-                    />
-                </div>
-                <div>
-                    <ComparisonPlans />
-                </div>
-                <div className="mt-16 pb-16">
-                    <Faq/>
-                </div>
-            </div>
+            Hier ist nichts..
         </div>
     );
 }

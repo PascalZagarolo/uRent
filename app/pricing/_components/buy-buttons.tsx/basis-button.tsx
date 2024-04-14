@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { inseratSubscription } from "@/db/schema";
+import { userSubscription } from "@/db/schema";
+
 import axios from "axios";
 
 import { CheckIcon } from "lucide-react";
@@ -10,32 +11,55 @@ import toast from "react-hot-toast";
 
 
 interface BasisButtonProps {
-    inseratId? : string;
-    inseratTitle : string;
-    existingSubscription? : typeof inseratSubscription;
+   selectedAmount : number;
+    existingSubscription? : typeof userSubscription;
 
 }
 
 const BasisButton = ({
-    inseratId,
+    selectedAmount,
     existingSubscription,
-    inseratTitle
+  
 }) => {
 
-    const [isLoading , setIsLoading] = useState(false)
+    const [isLoading , setIsLoading] = useState(false);
+
+
+    const calculateBasisPrice = () => {
+        switch (selectedAmount) {
+          case 1:
+            return "price_1P3eG6GRyqashQ2wBDASbuB2";
+          case 5:
+            return "price_1P5E0LGRyqashQ2wXzg5W52S";
+          case 10:
+            return "price_1P5E1oGRyqashQ2wbqv21JvN";
+          case 15:
+            return "price_1P5E2KGRyqashQ2wF1wRau9d";
+          case 25:
+            return "price_1P5E2uGRyqashQ2w0qaANMgy";
+          case 40:
+            return "price_1P5E3JGRyqashQ2wvCzqhZiD";
+            default:
+                return ""
+        }
+      };
+
+      const subscriptionId = calculateBasisPrice();
+
+      console.log(subscriptionId)
 
     const onSubscribe = async () => {
         try {
             setIsLoading(true);
             const values = {
                 subscription : "BASIS",
-                price : 2500,
+                subscriptionId: subscriptionId,
                 ...existingSubscription?.stripe_customer_id && {
                     stripe_customer_id : existingSubscription.stripe_customer_id
                 },
-                inseratTitle : inseratTitle
+                
             }
-            const res = await axios.patch(`/api/stripe/inserat/${inseratId}`, values);
+            const res = await axios.patch(`/api/stripe/user/`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")
@@ -56,7 +80,7 @@ const BasisButton = ({
                     </Button >
                 ) : (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
-                        disabled={!inseratId || existingSubscription} onClick={onSubscribe}>
+                        disabled={existingSubscription} onClick={onSubscribe}>
                         Jetzt starten
                     </Button >
                 )

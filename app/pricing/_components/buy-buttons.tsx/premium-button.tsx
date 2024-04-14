@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { inseratSubscription } from "@/db/schema";
+import { userSubscription } from "@/db/schema";
+
 import axios from "axios";
 import { CheckIcon } from "lucide-react";
 import { useState } from "react";
@@ -9,17 +10,37 @@ import toast from "react-hot-toast";
 
 
 interface PremiumButtonProps {
-    inseratId?: string;
-    inseratTitle: string;
-    existingSubscription?: typeof inseratSubscription;
-
+    selectedAmount : number;
+    existingSubscription?: typeof userSubscription
 }
 
 const PremiumButton = ({
-    inseratId,
+selectedAmount,
     existingSubscription,
-    inseratTitle
+   
 }) => {
+
+    const calculatePremiumPrice = () => {
+        switch (selectedAmount) {
+          case 1:
+            return "price_1P3eHLGRyqashQ2w8G7MmOmc";
+          case 5:
+            return "price_1P5E48GRyqashQ2wW54x1VXw";
+          case 10:
+            return "price_1P5E5UGRyqashQ2wqixSVCr4";
+          case 15:
+            return "price_1P5E5qGRyqashQ2wV8bKWoJc";
+          case 25:
+            return "price_1P5E6HGRyqashQ2wjNsejMwm";
+          case 40:
+            return "price_1P5E6bGRyqashQ2wxVBfknqg";
+        default:
+            return ""
+          
+        }
+      };
+
+      const subscriptionId = calculatePremiumPrice();
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -28,13 +49,13 @@ const PremiumButton = ({
             setIsLoading(true);
             const values = {
                 subscription: "PREMIUM",
-                price: 3900,
+                subscriptionId: subscriptionId,
                 ...existingSubscription?.stripe_customer_id && {
                     stripe_customer_id: existingSubscription.stripe_customer_id
                 },
-                inseratTitle: inseratTitle
+                
             }
-            const res = await axios.patch(`/api/stripe/inserat/${inseratId}`, values);
+            const res = await axios.patch(`/api/stripe/user/`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")
@@ -51,9 +72,9 @@ const PremiumButton = ({
                 subscription: "PREMIUM",
                 price : price,
                 stripe_customer_id : existingSubscription.stripe_customer_id,
-                inseratTitle : inseratTitle
+               
             }
-            const res = await axios.patch(`/api/stripe/upgrade/${inseratId}`, values);
+            const res = await axios.patch(`/api/stripe/upgrade/`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")
@@ -79,7 +100,7 @@ const PremiumButton = ({
                     )
                 ) : (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
-                        disabled={!inseratId || existingSubscription} onClick={onSubscribe}>
+                        disabled={ existingSubscription} onClick={onSubscribe}>
                         Jetzt starten
                     </Button >
                 )

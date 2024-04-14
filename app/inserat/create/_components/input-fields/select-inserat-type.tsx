@@ -13,8 +13,9 @@ import { Label } from "@/components/ui/label";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { inserat } from "@/db/schema";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 import { AlertCircle } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface SelectInseratTypeProps {
     thisInserat: typeof inserat.$inferSelect;
@@ -64,18 +65,18 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ thisInserat }) =>
                 <Label className="flex justify-start items-center">
                     <BiSolidCategory className="w-4 h-4 mr-2" />
                     <p className="ml-2 font-semibold">Art des Inserats *</p>
-                    <TooltipProvider>
-                        <Tooltip>
+                   
+                        <Popover>
 
-                            <TooltipTrigger>
+                            <PopoverTrigger>
                                 <AlertCircle className="w-4 h-4 ml-2" />
-                            </TooltipTrigger>
-                            <TooltipContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+                            </PopoverTrigger>
+                            <PopoverContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
                                 Falls du mehrere identische Fahrzeuge dieser Art hast, wähle &quot;Flotte&quot;,
                                 falls du nur ein Fahrzeug dieser Art hast, wähle &quot;Einzel&quot;.
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                            </PopoverContent>
+                        </Popover>
+                   
                 </Label>
                 <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80">
                     Hast du mehrere identische Fahrzeuge ?

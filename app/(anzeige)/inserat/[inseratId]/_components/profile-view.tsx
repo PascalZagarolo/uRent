@@ -3,7 +3,7 @@
 
 
 import { Button } from "@/components/ui/button";
-import { business, users } from "@/db/schema";
+import { business,  users } from "@/db/schema";
 import axios from "axios";
 import { format } from "date-fns";
 import { AlignCenter, BuildingIcon, CarIcon, Contact2Icon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2 } from "lucide-react";
@@ -92,7 +92,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                         <MapPinIcon className="w-4 h-4 text-rose-600" />Firmenstandort
                     </h1>
                     <div >
-                        {thisBusiness?.businessAddresses?.map((business) => (
+                        {thisBusiness?.businessAddresses?.map((business : typeof businessAddress.$inferSelect) => (
                             business.isPrimary && (
                                 <div key={business.id}>
 

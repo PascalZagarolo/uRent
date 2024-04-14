@@ -21,7 +21,7 @@ const InitialForm: React.FC<InitialFormProps> = ({
     thisInitial
 }) => {
 
-    function formatDateToMMYYYY(date) {
+    function formatDateToMMYYYY(date : Date) {
         
         const month = date?.getMonth() + 1; 
         const year = date?.getFullYear();
@@ -72,7 +72,7 @@ const InitialForm: React.FC<InitialFormProps> = ({
     }
 
     //! fix cant copy values in handleInputChange
-    const handleInputChange = (event) => {
+    const handleInputChange = (event : any) => {
         const { value } = event.target;
     
         setInputValue(value);

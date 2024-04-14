@@ -39,6 +39,7 @@ const PricingLayout = async  (
                                     Fange noch heute an. Vermiete, erreiche und verwalte deine Fahrzeuge so einfach wie noch nie.
                                 </p>
                             </div>
+                            {children}
                         </div>
                     </div>
                 </div>

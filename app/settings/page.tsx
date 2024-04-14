@@ -6,10 +6,10 @@ import BreadCrumpSettings from "./_components/bread-crump-settings";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { notification, users } from "@/db/schema";
-import Body from "./_components/username-input";
+
 import Username from "./_components/username-input";
 import SaveChangesSettings from "./_components/save-changes";
-import ChangeProfilePic from "./_components/change-profile-pic";
+
 import ProfilePicSettings from "./_components/profilepic-settings";
 import EmailSettings from "./_components/e-mail-settings";
 import MobileHeader from "../(dashboard)/_components/mobile-header";

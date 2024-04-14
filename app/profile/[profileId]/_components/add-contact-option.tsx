@@ -22,6 +22,7 @@ interface AddContactOptionProps {
  }
 
 const AddContactOption = ({
+    //@ts-ignore
     thisContactOptions
 }) => {
     const router = useRouter()

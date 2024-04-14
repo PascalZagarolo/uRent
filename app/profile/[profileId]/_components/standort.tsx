@@ -31,8 +31,8 @@ const Standort: React.FC<StandortProps> = ({
     ownProfile
 }) => {
 
-    const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-        acceptedFiles.forEach((file) => {
+    const onDrop = useCallback((acceptedFiles : any, rejectedFiles : any) => {
+        acceptedFiles.forEach((file : any) => {
             setSelectedImages((prevState) => [...prevState, file]);
         });
 

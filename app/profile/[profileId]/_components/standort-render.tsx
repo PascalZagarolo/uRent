@@ -29,8 +29,8 @@ const StandortRender: React.FC<StandortRenderProps> = ({
 }) => {
 
 
-    const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-        acceptedFiles.forEach((file) => {
+    const onDrop = useCallback((acceptedFiles : any, rejectedFiles : any) => {
+        acceptedFiles.forEach((file : any) => {
             setSelectedImages((prevState) => [...prevState, file]);
         });
 

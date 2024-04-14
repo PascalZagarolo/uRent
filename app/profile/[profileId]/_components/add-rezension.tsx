@@ -51,7 +51,8 @@ const AddRezension: React.FC<AddRezensionProps> = ({
         setRating(index);
     };
 
-    const onSubmit = (values : z.infer<typeof formSchema>) => {
+    //@ts-ignore
+    const onSubmit = (values : z.infer<typeof formSchema> ) => {
         try {
             
             if(!rating) {
@@ -62,6 +63,7 @@ const AddRezension: React.FC<AddRezensionProps> = ({
         } catch {
             toast.error("Es ist ein Fehler aufgetreten");
         } 
+        
     };
 
     const { isSubmitting, isValid } = form.formState;

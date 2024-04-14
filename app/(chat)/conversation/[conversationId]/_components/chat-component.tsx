@@ -38,7 +38,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         pusherClient.subscribe(conversationId);
         
 
-        const messageHandler = (message) => {
+        const messageHandler = (message : any) => {
             setMessages((current) => {
                 if(find(current, {id : message.id})) {
                     current
@@ -50,7 +50,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             ;
         }
 
-        const deleteMessage = (message) => {
+        const deleteMessage = (message : any) => {
             setMessages((current) => {
                 
                 const index = current.findIndex((m) => m.id === message.id);

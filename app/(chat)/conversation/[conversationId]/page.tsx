@@ -30,7 +30,7 @@ const ConversationPage = async ({
 
     const currentUser = await getCurrentUser();
 
-    let startedConversations;
+    let startedConversations: typeof conversation.$inferSelect[] = [];;
 
     if(currentUser) {
         startedConversations = await db.query.conversation.findMany({

@@ -95,7 +95,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         router.push(`/inserat/create/${thisInserat.id}`);
     }
 
-    const handleTextChange = (event) => {
+    const handleTextChange = (event : any) => {
         setText(event.target.value);
     };
 

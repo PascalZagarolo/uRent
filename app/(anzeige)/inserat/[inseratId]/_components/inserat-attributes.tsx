@@ -6,6 +6,7 @@ import TransportAttributeRender from "./_categories/transport-attribute-render";
 import { PiVanFill } from "react-icons/pi";
 import TrailerAttributeRender from "./_categories/trailer-attribute-render";
 import { inserat } from "@/db/schema";
+import { CategoryEnumRender } from '../../../../../db/schema';
 
 interface InseratAttributesProps {
     thisInserat : typeof inserat.$inferSelect
@@ -14,6 +15,9 @@ interface InseratAttributesProps {
 const InseratAttributes: React.FC<InseratAttributesProps> = ({
     thisInserat
 }) => {
+
+    const usedCategory : typeof CategoryEnumRender = thisInserat.category;
+
     return (
         <div className="bg-[#161923]  rounded-md w-full p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200">
             <h3 className="font-semibold flex items-center">
@@ -23,7 +27,8 @@ const InseratAttributes: React.FC<InseratAttributesProps> = ({
                         'LKW': <TruckIcon className="h-4 w-4 mr-2" />,
                         'TRANSPORT' : <PiVanFill className="h-4 w-4 mr-2" />,
                         'TRAILER' : <CaravanIcon className="h-4 w-4 mr-2" />
-                    }[thisInserat.category]
+                        //@ts-ignore
+                    }[usedCategory]
                 }
 
                 Fahrzeugattribute
@@ -34,8 +39,9 @@ const InseratAttributes: React.FC<InseratAttributesProps> = ({
                         'PKW': <PkwAttributeRender attributes = {thisInserat?.pkwAttribute} />,
                         'LKW' : <LkwAttributeRender attributes = {thisInserat?.lkwAttribute} />,
                         'TRANSPORT' : <TransportAttributeRender attributes={thisInserat?.transportAttribute} />,
-                        'TRAILER' : <TrailerAttributeRender attributes={thisInserat?.trailerAttribute} />                        
-                    }[thisInserat.category]
+                        'TRAILER' : <TrailerAttributeRender attributes={thisInserat?.trailerAttribute} />  
+                        //@ts-ignore                      
+                    }[usedCategory]
                 }
             </div>
         </div>

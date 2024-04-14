@@ -32,7 +32,7 @@ export async function PATCH(
 
         return NextResponse.json(editedBooking);
 
-    } catch(error) {
+    } catch(error : any) {
         console.log(error);
         return new NextResponse(error , { status : 500 })
         

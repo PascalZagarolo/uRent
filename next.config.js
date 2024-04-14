@@ -8,6 +8,8 @@ const nextConfig = {
         ],
         missingSuspenseWithCSRBailout : false,
     },
+    transpilePackages: ['next-auth'],
+    
     images : {
         domains : [
             "www.dropbox.com",

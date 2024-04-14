@@ -1,5 +1,6 @@
 import db from "@/db/drizzle";
-import { inserat, inseratSubscription } from "@/db/schema";
+import { users, userSubscription } from "@/db/schema";
+
 import { stripe } from "@/lib/stripe";
 import axios from "axios";
 import { eq } from "drizzle-orm/sql";
@@ -49,10 +50,10 @@ export async function POST(
         console.log("2")
         const newPrice = session?.metadata?.subscriptionType === "PREMIUM" ? "price_1P3eHLGRyqashQ2w8G7MmOmc" : "price_1P3eHXGRyqashQ2wzUh5fehI";
         console.log("3")
-        const [patchSubscription] = await db.update(inseratSubscription).set({
+        const [patchSubscription] = await db.update(userSubscription).set({
             //@ts-ignore
             subscriptionType : session?.metadata?.subscriptionType,
-        }).where(eq(inseratSubscription.inseratId, session?.metadata?.inseratId)).returning();
+        }).where(eq(userSubscription.userId, session?.metadata?.userId)).returning();
         console.log("4")
         const subscriptions = await stripe.subscriptions.list({
             customer: patchSubscription.stripe_customer_id,
@@ -103,10 +104,10 @@ export async function POST(
             )
         }).returning();
 
-        await db.update(inserat).set({
+        await db.update(users).set({
             subscriptionId : createdSubscription.id,
-            isPublished : true
-        }).where(eq(inserat.id, session?.metadata?.inseratId))
+            
+        }).where(eq(users.id, session?.metadata?.userId))
 
         const values = {
             isPublished : true
@@ -119,14 +120,14 @@ export async function POST(
     if(event.type === "invoice.payment_succeeded") {
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
-        await db.update(inseratSubscription).set({
+        await db.update(userSubscription).set({
             stripe_price_id : subscription.items.data[0].price.id,
             stripe_current_period_end : new Date(
                 subscription.current_period_end * 1000
             )
 
         }).where(
-            eq(inseratSubscription.stripe_subscription_id, subscription.id)
+            eq(userSubscription.stripe_subscription_id, subscription.id)
         )
     }
 

@@ -85,7 +85,9 @@ const RentPeriod: React.FC<RentPeriodProps> = ({
             setIsLoading(true);
             setIsDateless(checked);
             const values = {
+                //@ts-ignore
                 begin: null,
+                //@ts-ignore
                 end : null,
                 annual: checked,
                 dailyPrice : true,

@@ -86,7 +86,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     console.log(addressObject.data[0])
     const addressString = addressObject.data[0]?.display_name;
     const numberOfCommas = (addressString?.split(",").length - 1) > 2 ? 3 : 2;
-    const extractedState = addressString?.split(",").map(item => item.trim());
+    const extractedState = addressString?.split(",").map((item : any) => item.trim());
     const newState = extractedState?.[extractedState?.length - numberOfCommas]
     console.log(newState);
     //?retrieve data until state is delivered..

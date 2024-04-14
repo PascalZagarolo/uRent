@@ -77,7 +77,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
         }
     }
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e : any) => {
         const inputValue = e.target.value;
         let numericInput = inputValue.replace(/[^0-9]/g, ''); 
         

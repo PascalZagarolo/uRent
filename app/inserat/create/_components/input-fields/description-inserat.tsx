@@ -93,7 +93,7 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
     }
 
     
-    function handleKeyPress(event) {
+    function handleKeyPress(event : any) {
         if ((event.key === 'Escape' || event.button === 0) && isEditing) {
             setIsEditing(false); 
 

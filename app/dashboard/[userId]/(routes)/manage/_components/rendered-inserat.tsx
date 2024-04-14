@@ -1,4 +1,4 @@
-import { inserat } from "@/db/schema";
+import { CategoryEnumRender, inserat } from "@/db/schema";
 import { format } from "date-fns";
 import { CalendarCheck2Icon, CarFront, MapPinIcon, Truck } from "lucide-react";
 import Image from "next/image";
@@ -17,6 +17,9 @@ interface RenderedInseratProps {
 const RenderedInserat: React.FC<RenderedInseratProps> = ({
     thisInserat
 }) => {
+
+    const usedCategory : typeof CategoryEnumRender = thisInserat.category;
+
     return (
         <div className="w-full">
             <div className="p-4">
@@ -29,7 +32,8 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                                     'LKW': <Truck className=" text-gray-100 h-4 w-4 " />,
                                     'TRANSPORT': <PiVanFill className=" text-gray-100 h-4 w-4 " />,
                                     'TRAILER': <RiCaravanLine className="text-gray-100 w-4 h-4" />
-                                }[thisInserat.category]
+                                    //@ts-ignore
+                                }[usedCategory]
                             }
                         </Button>
                     </div>

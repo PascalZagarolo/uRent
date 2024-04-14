@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat } from "@/db/schema";
+import { inserat, inseratPriceType } from "@/db/schema";
 import {
     Table,
     TableBody,
@@ -34,6 +34,8 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
         }
     }
 
+    let usedType : typeof inseratPriceType;
+
     return (
         <div>
             <h1 className="text-md font-semibold">
@@ -61,6 +63,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                         </TableHeader>
                         <TableBody>
                             {subscriptions.map((subscription) => (
+                            usedType = subscription.inseratSubscription?.subscriptionType,
                                 <TableRow key={subscription.id}>
                                     <TableCell className="font-medium">{subscription.id}</TableCell>
                                     <TableCell className="font-bold max-w-[160px] truncate">{subscription.title}</TableCell>
@@ -94,7 +97,8 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                                 "BASIS": "25 €",
                                                 "PREMIUM": "39 €",
                                                 "ENTERPRISE": "49 €",
-                                            }[subscription.inseratSubscription?.subscriptionType]
+                                                //@ts-ignore
+                                            }[usedType]
                                         }
                                     </TableCell>
                                 </TableRow>

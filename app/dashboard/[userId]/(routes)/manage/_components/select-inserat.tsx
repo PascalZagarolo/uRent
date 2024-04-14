@@ -1,7 +1,7 @@
 'use client';
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { inserat, vehicle } from '../../../../../../db/schema';
+import { inserat, vehicle,  } from '../../../../../../db/schema';
 import qs from "query-string";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
@@ -23,6 +23,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     const currentVehicle = searchParams.get("vehicleId")
 
     const onClick = (id: string) => {
+        //@ts-ignore
         let [firstPart, secondPart] = [null, null]
         if(id) {
              [firstPart, secondPart] = id?.split("++");
@@ -65,7 +66,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                                 <SelectItem value={thisInserat.id} key={thisInserat.id}>
                                     {thisInserat.title}
                                 </SelectItem>
-                                {thisInserat.vehicles.map((vehicle) => (
+                                {thisInserat.vehicles.map((vehicle : any) => (
                                     <SelectItem value={thisInserat.id + "++" + vehicle.id} key={vehicle.id} className="text-xs ml-8"
                                         onClick={(selectedValue) => {
 

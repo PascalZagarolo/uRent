@@ -187,7 +187,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 
                                     {currentInserat?.vehicles.length > 0 ? (
                                         
-                                        currentInserat?.vehicles?.map((thisVehicle) => (
+                                        currentInserat?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
                                             <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
                                                 {thisVehicle.title}
                                             </SelectItem>

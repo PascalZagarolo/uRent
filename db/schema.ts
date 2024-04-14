@@ -26,7 +26,7 @@ import { stripe } from "@/lib/stripe"
 
 
 
-
+//@ts-ignore
 export const users = pgTable("user", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     name: text("name"),
@@ -57,6 +57,7 @@ export const users = pgTable("user", {
                                 .references(() => twoFactorConfirmation.id, { onDelete: "set null" }),
 })
 
+//@ts-ignore
 export const business = pgTable("business", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     userId: uuid("userId")
@@ -209,6 +210,7 @@ export const inseratPriceType = pgEnum("priceType", [
     "ENTERPRISE"
 ])
 
+//@ts-ignore
 export const inserat = pgTable("inserat", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     title: text("title").notNull(),
@@ -560,6 +562,7 @@ export const transportAttribute = pgTable("transportAttribute", {
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 })
 
+//@ts-ignore
 export const address = pgTable("address", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -668,6 +671,7 @@ export const rezension = pgTable("rezension", {
         references(() => users.id, { onDelete: "cascade" }),
 })
 
+//@ts-ignore
 export const contactOptions = pgTable("contactOptions", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -688,6 +692,7 @@ export const contactOptions = pgTable("contactOptions", {
         references(() => userAddress.id, { onDelete : "set null"}),
 })
 
+//@ts-ignore
 export const userAddress = pgTable("userAddress", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 

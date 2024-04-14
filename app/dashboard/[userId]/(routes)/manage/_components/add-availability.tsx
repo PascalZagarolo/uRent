@@ -191,7 +191,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                 
                                     {currentInserat?.vehicles.length > 0 ? (
                                         
-                                        currentInserat?.vehicles?.map((thisVehicle) => (
+                                        currentInserat?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
                                             <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
                                                 {thisVehicle.title}
                                             </SelectItem>

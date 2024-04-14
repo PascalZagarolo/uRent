@@ -6,16 +6,14 @@ import BreadCrumpSettings from "./_components/bread-crump-settings";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { notification, users } from "@/db/schema";
-
-
 import SaveChangesSettings from "./_components/save-changes";
-
 import ProfilePicSettings from "./_components/profilepic-settings";
 import EmailSettings from "./_components/e-mail-settings";
 import MobileHeader from "../(dashboard)/_components/mobile-header";
 import Vorname from "./_components/change-vorname";
 import Nachname from "./_components/change-nachname";
-import Username from "./_components/username-input";
+import UsernameInput from "./_components/username-input";
+
 
 
 const SettingsPage = async () => {
@@ -74,7 +72,7 @@ const SettingsPage = async () => {
                                     />
                                 </div>
                                 <div>
-                                <Username 
+                                <UsernameInput 
                                 thisUser = {findCurrentUser}
                                 />
                                 <Vorname 

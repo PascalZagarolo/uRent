@@ -39,7 +39,7 @@ const SitzeDetailForm = () => {
     
 
 
-    const onClick = (sitze) => {
+    const onClick = (sitze : string) => {
 
         
 

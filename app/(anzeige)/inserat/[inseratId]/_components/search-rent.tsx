@@ -34,7 +34,7 @@ const SearchRent: React.FC<SearchRentProps> =  ({
     const changeUser = usesearchUserByBookingStore((user) => user.changeUser);
     const selectedUser = usesearchUserByBookingStore((user) => user.user);
 
-    const onChange = (value) => {
+    const onChange = (value : string) => {
         setCurrentValue(value);
     }
 

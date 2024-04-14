@@ -126,7 +126,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
 
 
 
-    let favedInserate = [];
+    let favedInserate : typeof favourite.$inferSelect[] = [];
 
     if(currentUser) {
         favedInserate = await db.query.favourite.findMany({

@@ -15,7 +15,7 @@ const getCurrentUser = async () => {
     const current = await auth();
    
 
-    const findUser = db.query.users.findFirst({
+    const findUser : typeof users.$inferSelect = db.query.users.findFirst({
       where: eq(users.email, sql.placeholder("email"))
     }).prepare("findUser");
 

@@ -22,7 +22,7 @@ const ConversationPage = async () => {
         redirect("/login")
     }
 
-    let startedConversations;
+    let startedConversations : typeof conversation.$inferSelect[] = [];
 
     if(currentUser) {
         startedConversations = await db.query.conversation.findMany({

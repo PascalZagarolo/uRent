@@ -17,12 +17,12 @@ import { CiBookmark } from "react-icons/ci";
 import { FaAddressCard } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute, business, businessAddress } from '../../../../db/schema';
+import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute, business, businessAddress, CategoryEnumRender } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
 import { Ri24HoursLine, RiCaravanLine } from "react-icons/ri";
 import BreadCrumbs from "./bread-crumbs";
-import { Helmet } from 'react-helmet';
+
 import ReportModal from "./_components/report/report-modal";
 import { metadata } from '../../../(dashboard)/page';
 
@@ -135,7 +135,7 @@ const InseratAnzeige = async ({
         }
     }
 
-
+    const usedCategory : typeof CategoryEnumRender = thisInserat.category
 
 
 
@@ -164,7 +164,8 @@ const InseratAnzeige = async ({
                                             'LKW': <Truck className=" text-gray-100 h-6 w-6 " />,
                                             'TRANSPORT': <PiVanFill className=" text-gray-100 h-6 w-6 " />,
                                             'TRAILER': <RiCaravanLine className=" text-gray-100 h-6 w-6 " />
-                                        }[thisInserat.category]
+                                            //@ts-ignore
+                                        }[usedCategory]
                                     }
                                 </div>
 

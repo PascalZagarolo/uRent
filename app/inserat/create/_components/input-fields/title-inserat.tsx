@@ -80,7 +80,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
         }
     }
 
-    function handleKeyPress(event) {
+    function handleKeyPress(event : any) {
         if ((event.key === 'Escape' || event.button === 0) && isEditing) {
             setIsEditing(false); 
 

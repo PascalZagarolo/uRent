@@ -68,6 +68,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     let canPublish = true;
 
     for (let key in isPublishable) {
+        //@ts-ignore
         if (!isPublishable[key]) {
             canPublish = false;
             break;
@@ -87,6 +88,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
     useEffect(() => {
         for (let key in isPublishable) {
+            //@ts-ignore
             if (!isPublishable[key]) {
                 canPublish = false;
                 break;

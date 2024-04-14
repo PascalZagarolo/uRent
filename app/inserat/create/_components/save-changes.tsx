@@ -22,13 +22,16 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
 
     const currentChanges = useUnsavedChanges((state) => state.currentChanges);
     const router = useRouter();
+    //@ts-ignore
     const priceNumber = parseInt(currentChanges['price']);
-
+//@ts-ignore
     console.log(currentChanges['description'])
     
-
+//@ts-ignore
     const changedTitle = currentChanges['title']?.trim() !== thisInserat?.title && currentChanges['title'] ? true : false;
+    //@ts-ignore
     const changedDescription = currentChanges['description']?.trim() !== thisInserat?.description && currentChanges['description']  ? true : false;
+    //@ts-ignore
     const changedPrice = currentChanges['price'] !== thisInserat?.price && currentChanges['price'] ? true : false;
 
     const hasChanged = changedTitle || changedDescription || changedPrice;
@@ -51,12 +54,15 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
         try {
             const values = {
                 ...(changedTitle) && {
+                    //@ts-ignore
                     title : currentChanges['title']?.trim()
                 },
                 ...(changedDescription) && {
+                    //@ts-ignore
                     description : currentChanges['description']?.trim()
                 },
                 ...(changedPrice) && {
+                    //@ts-ignore
                     price : currentChanges['price']?.trim()
                 }
             }
@@ -74,7 +80,7 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
 
         
     }
-    console.log(currentChanges['description'])
+    
     return ( 
         <div className="w-full ml-auto">
             <Button className="dark:bg-[#0F0F0F] hover:bg-[#1c1c1c] text-gray-200 text-sm" 

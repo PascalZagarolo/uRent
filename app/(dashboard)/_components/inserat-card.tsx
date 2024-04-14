@@ -35,7 +35,7 @@ import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
 import { SiRubygems } from "react-icons/si";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
-import { inseratSubscription } from '../../../db/schema';
+
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
     profileId: string,

@@ -15,7 +15,7 @@ interface PremiumButtonProps {
     userId : string;
 }
 
-const PremiumButton = ({
+const PremiumButton : React.FC<PremiumButtonProps> = ({
 selectedAmount,
     existingSubscription,
     userId
@@ -86,8 +86,10 @@ selectedAmount,
 
     return (
         <>
-            {existingSubscription?.subscriptionType !== "PREMIUM" ? (
+            {//@ts-ignore
+            existingSubscription?.subscriptionType !== "PREMIUM" ? (
                 existingSubscription ? (
+                    //@ts-ignore
                     existingSubscription.subscriptionType === "BASIS" ? (
                         <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onUpgrade}
                         >
@@ -101,7 +103,7 @@ selectedAmount,
                     )
                 ) : (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
-                        disabled={ existingSubscription} onClick={onSubscribe}>
+                         onClick={onSubscribe}>
                         Jetzt starten
                     </Button >
                 )

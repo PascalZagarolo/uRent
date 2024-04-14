@@ -134,6 +134,7 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                         
                         <BasisButton
                             selectedAmount={amountInserat}
+                            //@ts-ignore
                             existingSubscription={existingSubscription}
                             userId={currentUserId}
                         />
@@ -173,6 +174,7 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     
                     <PremiumButton
                         selectedAmount={amountInserat}
+                        //@ts-ignore
                         existingSubscription={existingSubscription}
                         userId={currentUserId}
                     />
@@ -218,6 +220,7 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                    
                     <EnterpriseButton
                         selectedAmount={amountInserat}
+                        //@ts-ignore
                         existingSubscription={existingSubscription}
                         userId={currentUserId}
                     />

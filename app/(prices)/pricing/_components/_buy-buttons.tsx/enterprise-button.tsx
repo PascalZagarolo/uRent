@@ -16,7 +16,7 @@ interface EnterpriseButtonProps {
     userId : string;
 }
 
-const EnterpriseButton = ({
+const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
     selectedAmount,
     existingSubscription,
     userId
@@ -69,7 +69,7 @@ const EnterpriseButton = ({
         try {
             setIsLoading(true);
             let price;
-
+            //@ts-ignore
             if(existingSubscription.subscriptionType === "BASIS") {
                 price = 2400
             } else {
@@ -93,7 +93,8 @@ const EnterpriseButton = ({
 
     return (
         <>
-            {existingSubscription?.subscriptionType !== "ENTERPRISE" ? (
+            {//@ts-ignore
+            existingSubscription?.subscriptionType !== "ENTERPRISE" ? (
                 existingSubscription ? (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" 
                         onClick={onUpgrade}>

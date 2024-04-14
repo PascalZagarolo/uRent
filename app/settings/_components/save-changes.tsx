@@ -24,11 +24,12 @@ const SaveChangesSettings: React.FC<SaveChangesSettingsProps> = ({
     
     
 
-    console.log(currentChanges['username'])
     
-
+//@ts-ignore
     const changedUsername = currentChanges['username']?.trim() !== thisUser?.name && currentChanges['username'] ? true : false;
+    //@ts-ignore
     const changedVorname = currentChanges['vorname']?.trim() !== thisUser?.vorname && currentChanges['vorname'] ? true : false;
+    //@ts-ignore
     const changedNachname = currentChanges['nachname']?.trim() !== thisUser?.nachname && currentChanges['nachname'] ? true : false;
     
     
@@ -51,12 +52,15 @@ const SaveChangesSettings: React.FC<SaveChangesSettingsProps> = ({
         try {
             const values = {
                 ...(changedUsername) && {
+                    //@ts-ignore
                     name : currentChanges['username'].trim()
                 },
                 ...(changedVorname) && {
+                    //@ts-ignore
                     vorname : currentChanges['vorname'].trim()
                 },
                 ...(changedNachname) && {
+                    //@ts-ignore
                     nachname : currentChanges['nachname'].trim()
                 },
                 

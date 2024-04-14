@@ -9,7 +9,7 @@ import InserateRenderList from "./_components/inserat-render-list"
 import SidebarDashboard from "../../_components/sidebar-dashboard"
 import db from "@/db/drizzle"
 import { eq } from "drizzle-orm"
-import { inserat, inseratSubscription } from "@/db/schema"
+import { inserat, userSubscription } from "@/db/schema"
 import MenuBar from "../../_components/menu-bar"
 import BreadCrumpPage from "../../_components/bread-crump-page"
 
@@ -37,9 +37,9 @@ const InserateOverview = async ({
        
     })
 
-    const existingPurchases = await db.query.inseratSubscription.findMany({
+    const existingPurchases = await db.query.userSubscription.findMany({
         where : (
-            eq(inseratSubscription.userId, currentUser?.id)
+            eq(userSubscription.userId, currentUser?.id)
         )
     })
 
@@ -82,7 +82,7 @@ const InserateOverview = async ({
                             <div className="p-4 ">
                                 {inserateArray.length > 0 ? (
                                     <InserateRenderList 
-                                    existingPurchases = {existingPurchases}
+                                    
                                     inserateArray={inserateArray}
                                     />
                                 ) : (

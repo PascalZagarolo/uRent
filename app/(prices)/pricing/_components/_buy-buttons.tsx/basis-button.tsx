@@ -11,12 +11,12 @@ import toast from "react-hot-toast";
 
 
 interface BasisButtonProps {
-   selectedAmount : number;
+    selectedAmount : number;
     existingSubscription? : typeof userSubscription;
     userId : string;
 }
 
-const BasisButton = ({
+const BasisButton : React.FC<BasisButtonProps> = ({
     selectedAmount,
     existingSubscription,
     userId
@@ -71,15 +71,17 @@ const BasisButton = ({
     
 
     return ( 
-        <>
-            {existingSubscription?.subscriptionType !== "BASIS" ? (
+        <>  
+            {
+            //@ts-ignore
+            existingSubscription?.subscriptionType !== "BASIS" ? (
                 existingSubscription ? (
                     <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" disabled
                         >
                      <CheckIcon className="mr-2 w-4 h-4" />   Bereits enthalten
                     </Button >
                 ) : (
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
+                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" //@ts-ignore
                         disabled={existingSubscription} onClick={onSubscribe}>
                         Jetzt starten
                     </Button >

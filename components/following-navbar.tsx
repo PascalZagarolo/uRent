@@ -44,6 +44,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
     
     function getMissing() : string {
         for (const key in necessaryFields) {
+            //@ts-ignore
             if (necessaryFields[key] === false) {
                 
                 return key;
@@ -55,6 +56,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({
     let trueAttributes = 0;
 
 for (const key in necessaryFields) {
+    //@ts-ignore
     if (necessaryFields[key] === true) {
         trueAttributes++;
     }

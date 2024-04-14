@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { inseratSubscription } from "@/db/schema";
+import { userSubscription } from "@/db/schema";
+
 import { CheckIcon } from "@radix-ui/react-icons";
 import axios from "axios";
 import { useState } from "react";
@@ -10,16 +11,36 @@ import toast, { CheckmarkIcon } from "react-hot-toast";
 
 
 interface EnterpriseButtonProps {
-    inseratId?: string,
-    inseratTitle: string,
-    existingSubscription?: typeof inseratSubscription;
+    selectedAmount : number;
+    existingSubscription?: typeof userSubscription;
 }
 
 const EnterpriseButton = ({
-    inseratId,
+    selectedAmount,
     existingSubscription,
-    inseratTitle
+    
 }) => {
+
+    const calculateEnterprisePrice = () => {
+        switch (selectedAmount) {
+          case 1:
+            return "price_1P3eHXGRyqashQ2wzUh5fehI";
+          case 5:
+            return "price_1P5E6yGRyqashQ2wJSwAp5cB";
+          case 10:
+            return "price_1P5E7BGRyqashQ2wEBbmiQz3";
+          case 15:
+            return "price_1P5E7MGRyqashQ2wrAQ0tmeX";
+          case 25:
+            return "price_1P5E7YGRyqashQ2woyHdoCwQ";
+          case 40:
+            return "price_1P5E7lGRyqashQ2wOgJJogaN";
+            default:
+                return ""
+        }
+      };
+
+      const subscriptionId = calculateEnterprisePrice();
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -28,13 +49,13 @@ const EnterpriseButton = ({
             setIsLoading(true);
             const values = {
                 subscription: "ENTERPRISE",
-                price: 4900,
+                subscriptionId: subscriptionId,
                 ...existingSubscription?.stripe_customer_id && {
                     stripe_customer_id: existingSubscription.stripe_customer_id
                 },
-                inseratTitle: inseratTitle
+                
             }
-            const res = await axios.patch(`/api/stripe/inserat/${inseratId}`, values);
+            const res = await axios.patch(`/api/stripe/user/`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")
@@ -58,9 +79,9 @@ const EnterpriseButton = ({
                 subscription: "ENTERPRISE",
                 price : price,
                 stripe_customer_id : existingSubscription.stripe_customer_id,
-                inseratTitle : inseratTitle
+                
             }
-            const res = await axios.patch(`/api/stripe/upgrade/${inseratId}`, values);
+            const res = await axios.patch(`/api/stripe/upgrade/`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")
@@ -73,12 +94,12 @@ const EnterpriseButton = ({
         <>
             {existingSubscription?.subscriptionType !== "ENTERPRISE" ? (
                 existingSubscription ? (
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" disabled={!inseratId}
+                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" 
                         onClick={onUpgrade}>
                         Upgraden
                     </Button >
                 ) : (
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" disabled={!inseratId}
+                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" 
                         onClick={onSubscribe}>
                         Jetzt starten
                     </Button >

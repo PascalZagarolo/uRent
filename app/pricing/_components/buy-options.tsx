@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { Separator } from "@/components/ui/separator";
 
-import { inserat, inseratSubscription} from "@/db/schema";
+import { inserat, userSubscription } from "@/db/schema";
 
 import { FaCheck, FaFireFlameCurved } from "react-icons/fa6";
 
@@ -16,12 +16,12 @@ import PremiumButton from "./buy-buttons.tsx/premium-button";
 import BasisButton from "./buy-buttons.tsx/basis-button";
 
 interface BuyOptionsProps {
-    thisInserat: typeof inserat.$inferSelect;
-    existingSubscription: typeof inseratSubscription.$inferSelect;
+    
+    existingSubscription: typeof userSubscription.$inferSelect;
 }
 
 const BuyOptions: React.FC<BuyOptionsProps> =  ({
-    thisInserat,
+  
     existingSubscription
 }) => {
 
@@ -133,9 +133,9 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     <div className="w-full ">
                         
                         <BasisButton
-                            inseratId={thisInserat.id}
+                            selectedAmount={amountInserat}
                             existingSubscription={existingSubscription}
-                            inseratTitle={thisInserat.title}
+                            
                         />
     
                         <div className="w-full flex mt-2">
@@ -172,9 +172,9 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     </p>
                     
                     <PremiumButton
-                        inseratId={thisInserat.id}
+                        selectedAmount={amountInserat}
                         existingSubscription={existingSubscription}
-                        inseratTitle={thisInserat.title}
+                        
                     />
                        
                     <div className="w-full flex mt-2">
@@ -217,9 +217,8 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     </p>
                    
                     <EnterpriseButton
-                        inseratId={thisInserat.id}
+                        selectedAmount={amountInserat}
                         existingSubscription={existingSubscription}
-                        inseratTitle={thisInserat.title}
                     />
                     
                     <div className="w-full flex mt-2">

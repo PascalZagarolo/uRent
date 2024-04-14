@@ -49,7 +49,9 @@ const PkwBrandBar = () => {
   for (const brand in BrandEnumRender) {
     if (BrandEnumRender.hasOwnProperty(brand)) {
       OPTIONS.push({
+        //@ts-ignore
         value: BrandEnumRender[brand],
+        //@ts-ignore
         label: removeUnderscore(BrandEnumRender[brand])
       });
     }

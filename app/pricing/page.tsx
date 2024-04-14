@@ -23,6 +23,7 @@ const PricingMainPage = async () => {
     
         return (
             <div>
+                {/* 
                 <div className="w-full">
                 <BuyOptions 
                     currentUserId={currentUser.id}
@@ -39,6 +40,7 @@ const PricingMainPage = async () => {
                         <Faq/>
                     </div>
                 </div>
+                */}
             </div>
         );
     

@@ -37,7 +37,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
             if (
                 expirationDate < currentDate || publishedLength >= existingSubscription?.amount || !existingSubscription
                 ) {
-                router.push(`/pricing/${thisInserat.id}`)
+                router.push(`/pricing`)
             } else {
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish: true });
@@ -120,7 +120,8 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
         <div className="w-full mt-auto">
             <p className="flex justify-center text-xs dark:text-gray-100/80  text-gray-900/50"> Pflichtfelder sind mit einem  *  markiert.</p>
             {!thisInserat.isPublished ? (
-                <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full" disabled={!canPublish} onClick={onPublish}>
+                <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full" 
+                disabled={!canPublish} onClick={onPublish}>
                     Anzeige veröffentlichen
                 </Button>
             ) : (

@@ -37,7 +37,7 @@ const MieterFaq = () => {
                                     </BreadcrumbList>
                                 </Breadcrumb>
                             </div>
-                            <div>
+                            <div className="p-4"> 
                                 <Accordion type="single" collapsible>
 
                                     <AccordionItem value="item-1">

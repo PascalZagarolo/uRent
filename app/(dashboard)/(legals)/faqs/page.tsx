@@ -20,6 +20,13 @@ const Faqs = () => {
                                 Themen
                             </h1>
                             <div className="w-full flex justify-center mt-8 gap-8">
+                                <a className="w-full flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
+                                hover:underline hover:cursor-pointer" href="/faqs/bedienung">
+                                    Bedienungshilfe
+                                </a>
+                                
+                            </div>
+                            <div className="w-full flex justify-center mt-8 gap-8">
                                 <a className="w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
                                 hover:underline hover:cursor-pointer" href="/faqs/mieter">
                                     FAQ - Mieter

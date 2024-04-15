@@ -113,11 +113,12 @@ export async function POST(
         }).where(eq(users.id, session?.metadata?.userId))
 
         
-
+        return new NextResponse(null, {status : 200})
        
         
     }
     
+    //renew subscription
     if(event.type === "invoice.payment_succeeded") {
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 

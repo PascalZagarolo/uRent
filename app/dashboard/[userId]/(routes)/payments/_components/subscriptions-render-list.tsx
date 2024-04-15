@@ -66,16 +66,16 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                 <TableRow>
                                     <TableCell className="font-medium">{subscriptions.subscription?.id}</TableCell>
                                     <TableCell className="font-medium max-w-[160px] truncate">{subscriptions.subscription?.amount}</TableCell>
-                                    <TableCell>{format(new Date(subscriptions.subscription?.stripe_current_period_end), "dd.MM.yyyy", { locale: de })}
+                                    <TableCell>{format(new Date(subscriptions?.subscription?.stripe_current_period_end), "dd.MM.yyyy", { locale: de })}
                                         {
-                                            new Date(subscriptions.subscription?.stripe_current_period_end) < currentDate && (
+                                            new Date(subscriptions?.subscription?.stripe_current_period_end) < currentDate && (
                                                 <span className="text-red-600"> (Abgelaufen)</span>
                                             )
                                         }
                                         </TableCell>
                                     <TableCell>
                                     <div className="hover:underline hover:cursor-pointer" onClick={() => 
-                                        {onAdvocateSubscription(subscriptions.subscription?.id)}}>
+                                        {onAdvocateSubscription(subscriptions?.subscription?.id)}}>
                                             Abo verwalten
                                         </div>
                                     </TableCell>

@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat, inseratPriceType } from "@/db/schema";
+import { inserat, inseratPriceType, users } from "@/db/schema";
 import {
     Table,
     TableBody,
@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import axios from "axios";
 
 interface SubscriptionsRenderListProps {
-    subscriptions: typeof inserat.$inferSelect[]
+    subscriptions: typeof users.$inferSelect;
 }
 
 const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
@@ -62,34 +62,33 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {subscriptions.map((subscription) => (
-                            usedType = subscription.inseratSubscription?.subscriptionType,
-                                <TableRow key={subscription.id}>
-                                    <TableCell className="font-medium">{subscription.id}</TableCell>
-                                    <TableCell className="font-bold max-w-[160px] truncate">{subscription.title}</TableCell>
-                                    <TableCell>{format(new Date(subscription.inseratSubscription?.stripe_current_period_end),
-                                        "dd.MM.yy", { locale: de })} 
+                           
+                                <TableRow>
+                                    <TableCell className="font-medium">{subscriptions.subscriptions?.id}</TableCell>
+                                    <TableCell className="font-bold max-w-[160px] truncate">{subscriptions.subscription?.amount}</TableCell>
+                                    <TableCell>
                                         {
-                                            new Date(subscription.inseratSubscription?.stripe_current_period_end) < currentDate && (
+                                            new Date(subscriptions.subscription?.stripe_current_period_end) < currentDate && (
                                                 <span className="text-red-600"> (Abgelaufen)</span>
                                             )
                                         }
                                         </TableCell>
                                     <TableCell>
-                                    <div className="hover:underline hover:cursor-pointer" onClick={() => {onAdvocateSubscription(subscription.id)}}>
+                                    <div className="hover:underline hover:cursor-pointer" onClick={() => 
+                                        {onAdvocateSubscription(subscriptions.subscription?.id)}}>
                                             Abo verwalten
                                         </div>
                                     </TableCell>
                                     
                                     <TableCell>
-                                       {subscription.inseratSubscription?.subscriptionType !== "ENTERPRISE" && (
-                                        <a className="hover:underline hover:cursor-pointer" href={`/pricing/${subscription.id}`}>
+                                       
+                                        <a className="hover:underline hover:cursor-pointer" href={`/pricing`}>
                                             Upgraden
                                         </a>
-                                       )}
+                                    
                                     </TableCell>
                                     <TableCell className="text-indigo-800 font-bold">
-                                        {subscription.inseratSubscription?.subscriptionType}
+                                        {subscriptions.subscription?.subscriptionType}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         {
@@ -102,7 +101,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                         }
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                       
                         </TableBody>
                     </Table>
                 </div>

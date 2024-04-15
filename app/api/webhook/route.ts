@@ -49,7 +49,7 @@ export async function POST(
         }
         console.log("2")
         const newPrice = session?.metadata?.subscriptionType === "PREMIUM" ? "price_1P3eHLGRyqashQ2w8G7MmOmc" : "price_1P3eHXGRyqashQ2wzUh5fehI";
-        console.log("3")
+
         const [patchSubscription] = await db.update(userSubscription).set({
             //@ts-ignore
             subscriptionType : session?.metadata?.subscriptionType,
@@ -75,29 +75,32 @@ export async function POST(
     }
     
     if(event.type === "checkout.session.completed") {
-        
+        console.log(1)
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
-        if(!session?.metadata?.inseratId) {
-            return new NextResponse("InseratId nicht gefunden", {status : 400})
-        }
-
+        
+        console.log(2)
         if(!session?.metadata?.userId) {
             return new NextResponse("UserId nicht gefunden", {status : 400})
         }
-
+        console.log(3)
         if(!session?.metadata?.subscriptionType) {
             return new NextResponse("Subscription nicht gefunden", {status : 400})
         }
+        console.log(4)
+        if(!session?.metadata?.amount) {
+            return new NextResponse("Keine Anzahl angegeben", {status : 400})
+        }
 
-        //@ts-ignore
-        const [createdSubscription] = await db.insert(inseratSubscription).values({
-            inseratId : session?.metadata?.inseratId,
+        
+        const [createdSubscription] = await db.insert(userSubscription).values({
+            //@ts-ignore
             userId : session?.metadata?.userId,
             subscriptionType : session?.metadata?.subscriptionType,
             stripe_subscription_id : subscription.id,
             stripe_customer_id : subscription.customer as string,
             stripe_price_id : subscription.items.data[0].price.id,
+            amount : session?.metadata?.amount,
             stripe_current_period_end : new Date(
                 subscription.current_period_end * 1000
             
@@ -109,11 +112,9 @@ export async function POST(
             
         }).where(eq(users.id, session?.metadata?.userId))
 
-        const values = {
-            isPublished : true
-        }
+        
 
-        axios.patch(`/api/inserat/${session?.metadata?.inseratId}/publish`, values)
+       
         
     }
     

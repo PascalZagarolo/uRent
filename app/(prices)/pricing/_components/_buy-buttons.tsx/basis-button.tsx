@@ -52,11 +52,9 @@ const BasisButton : React.FC<BasisButtonProps> = ({
         try {
             setIsLoading(true);
             const values = {
-                subscription : "BASIS",
+                subscriptionType : "BASIS",
                 subscriptionId: subscriptionId,
-                ...existingSubscription?.stripe_customer_id && {
-                    stripe_customer_id : existingSubscription.stripe_customer_id
-                },
+                amount : selectedAmount,
                 
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
@@ -83,7 +81,7 @@ const BasisButton : React.FC<BasisButtonProps> = ({
                 ) : (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" //@ts-ignore
                         disabled={existingSubscription} onClick={onSubscribe}>
-                        Jetzt starten
+                        Vorteile sichern
                     </Button >
                 )
             ) : (

@@ -49,11 +49,9 @@ selectedAmount,
         try {
             setIsLoading(true);
             const values = {
-                subscription: "PREMIUM",
+                subscriptionType: "PREMIUM",
                 subscriptionId: subscriptionId,
-                ...existingSubscription?.stripe_customer_id && {
-                    stripe_customer_id: existingSubscription.stripe_customer_id
-                },
+                amount : selectedAmount,
                 
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);

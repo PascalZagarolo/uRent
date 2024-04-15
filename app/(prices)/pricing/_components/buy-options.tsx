@@ -16,87 +16,87 @@ import PremiumButton from "./_buy-buttons.tsx/premium-button";
 import BasisButton from "./_buy-buttons.tsx/basis-button";
 
 interface BuyOptionsProps {
-    currentUserId : string;
+    currentUserId: string;
     existingSubscription: typeof userSubscription.$inferSelect;
 }
 
-const BuyOptions: React.FC<BuyOptionsProps> =  ({
+const BuyOptions: React.FC<BuyOptionsProps> = ({
     currentUserId,
     existingSubscription
 }) => {
 
     const [amountInserat, setAmountInserat] = useState(1)
-    const [basisPrice, setBasisPrice] = useState(25); 
-    const [premiumPrice, setPremiumPrice] = useState(25); 
-    const [enterprisePrice, setEnterprisePrice] = useState(25); 
+    const [basisPrice, setBasisPrice] = useState(25);
+    const [premiumPrice, setPremiumPrice] = useState(25);
+    const [enterprisePrice, setEnterprisePrice] = useState(25);
 
     useEffect(() => {
-      // Function to calculate basis price based on amountInserat
-      const calculateBasisPrice = () => {
-        switch (amountInserat) {
-          case 1:
-            return 29;
-          case 5:
-            return 44;
-          case 10:
-            return 50;
-          case 15:
-            return 58;
-          case 25:
-            return 73;
-          case 40:
-            return 87;
-          default:
-            return /* Default calculation */;
-        }
-      };
+        // Function to calculate basis price based on amountInserat
+        const calculateBasisPrice = () => {
+            switch (amountInserat) {
+                case 1:
+                    return 29;
+                case 5:
+                    return 44;
+                case 10:
+                    return 50;
+                case 15:
+                    return 58;
+                case 25:
+                    return 73;
+                case 40:
+                    return 87;
+                default:
+                    return /* Default calculation */;
+            }
+        };
 
-      const calculatePremiumPrice = () => {
-        switch (amountInserat) {
-          case 1:
-            return 35;
-          case 5:
-            return 53;
-          case 10:
-            return 59;
-          case 15:
-            return 70;
-          case 25:
-            return 88;
-          case 40:
-            return 105;
-          default:
-            return /* Default calculation */;
-        }
-      };
+        const calculatePremiumPrice = () => {
+            switch (amountInserat) {
+                case 1:
+                    return 35;
+                case 5:
+                    return 53;
+                case 10:
+                    return 59;
+                case 15:
+                    return 70;
+                case 25:
+                    return 88;
+                case 40:
+                    return 105;
+                default:
+                    return /* Default calculation */;
+            }
+        };
 
-      const calculateEnterprisePrice = () => {
-        switch (amountInserat) {
-          case 1:
-            return 49;
-          case 5:
-            return 74;
-          case 10:
-            return 84;
-          case 15:
-            return 90;
-          case 25:
-            return 123;
-          case 40:
-            return 147;
-          default:
-            return /* Default calculation */;
-        }
-      };
-  
-  
-      
-      setBasisPrice(calculateBasisPrice());
-      setPremiumPrice(calculatePremiumPrice());
-      setEnterprisePrice(calculateEnterprisePrice());
+        const calculateEnterprisePrice = () => {
+            switch (amountInserat) {
+                case 1:
+                    return 49;
+                case 5:
+                    return 74;
+                case 10:
+                    return 84;
+                case 15:
+                    return 90;
+                case 25:
+                    return 123;
+                case 40:
+                    return 147;
+                default:
+                    return /* Default calculation */;
+            }
+        };
+
+
+
+        setBasisPrice(calculateBasisPrice());
+        setPremiumPrice(calculatePremiumPrice());
+        setEnterprisePrice(calculateEnterprisePrice());
     }, [amountInserat]);
 
- 
+
     return (
         <div>
             <div className="w-full flex space-x-4 items-center">
@@ -106,7 +106,7 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                 <div className="">
                     <Select onValueChange={(value) => setAmountInserat(Number(value))}>
                         <SelectTrigger className="w-[180px] dark:bg-[#171717] dark:border-none"
-                        
+
                         >
                             <SelectValue placeholder="Anzahl Inserate" />
                         </SelectTrigger>
@@ -131,14 +131,14 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                         Das Basis Paket für den Einstieg in die Welt von uRent.
                     </p>
                     <div className="w-full ">
-                        
+
                         <BasisButton
                             selectedAmount={amountInserat}
                             //@ts-ignore
                             existingSubscription={existingSubscription}
                             userId={currentUserId}
                         />
-    
+
                         <div className="w-full flex mt-2">
                             <div className="flex">
                                 <div className="text-4xl font-bold">{basisPrice} €</div><div className="text-xs text-gray-200/70 px-1">/Monat</div>
@@ -154,9 +154,11 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                                 <div className="mt-4">
                                     <ol className="space-y-1 font-semibold">
                                         <li className="flex text-sm">
-                                            <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Basispaket
+                                        <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Basispaket
                                         </li>
-
+                                        <li className="flex text-sm">
+                                        <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Fahrzeuge und Verfügbarkeiten verwalten
+                                        </li>
                                     </ol>
                                 </div>
                             </div>
@@ -171,14 +173,14 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     <p className="text-xs dark:text-gray-200/70 h-[32px]">
                         Für den ambitionierten Vermieter. Mehr Funktionen, mehr Möglichkeiten, mehr Kunden.
                     </p>
-                    
+
                     <PremiumButton
                         selectedAmount={amountInserat}
                         //@ts-ignore
                         existingSubscription={existingSubscription}
                         userId={currentUserId}
                     />
-                       
+
                     <div className="w-full flex mt-2">
                         <div className="flex">
                             <div className="text-4xl font-bold">
@@ -194,15 +196,20 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                                 Enthält:
                             </h1>
                             <div className="mt-4">
-                                <ol className="space-y-1 font-semibold">
+                                <ol className="space-y-2 font-medium break-words">
                                     <li className="flex text-sm">
-                                        <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Basispaket
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Basispaket
                                     </li>
                                     <li className="flex text-sm">
-                                        <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Erste-Seite Inserat
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div>Fahrzeuge und Verfügbarkeiten verwalten
                                     </li>
                                     <li className="flex text-sm">
-                                        <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Farbliche Hervorhebung
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Erste-Seite Inserat von bis zu
+                                        1 Inserat für 10 Tage im Monat
+                                    </li>
+                                    <li className="flex text-sm">
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Farbliche Hervorhebung von
+                                        bis zu 1 Inserat für 10 Tage pro Monat
                                     </li>
 
                                 </ol>
@@ -217,14 +224,14 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                     <p className="text-xs dark:text-gray-200/70">
                         Die All-in-One Lösung für ihr Unternehmen. Vermieten war noch nie so einfach.
                     </p>
-                   
+
                     <EnterpriseButton
                         selectedAmount={amountInserat}
                         //@ts-ignore
                         existingSubscription={existingSubscription}
                         userId={currentUserId}
                     />
-                    
+
                     <div className="w-full flex mt-2">
                         <div className="flex">
 
@@ -240,30 +247,30 @@ const BuyOptions: React.FC<BuyOptionsProps> =  ({
                                 Enthält:
                             </h1>
                             <div className="mt-4">
-                                <ol className="space-y-1 font-semibold">
+                                <div className="space-y-2 font-medium break-words">
                                     <li className="flex text-sm">
-                                        <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Basispaket
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Basispaket
                                     </li>
                                     <li className="flex text-sm">
-                                        <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Erste-Seite Inserat
+                                    <div> <FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Fahrzeuge und Verfügbarkeiten verwalten
                                     </li>
                                     <li className="flex text-sm">
-                                        <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Farbliche Hervorhebung
+                                        <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Erste-Seite Inserat von bis zu
+                                        1 Inserat für 15 Tage im Monat
                                     </li>
                                     <li className="flex text-sm">
-                                        <FaCheck className="text-blue-900 w-4 h-4 mr-2" /> Echtzeit Analytiken
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div>
+                                        Farbliche Hervorhebung von
+                                        2 Inseraten für bis zu 12 Tagen pro Monat
                                     </li>
-                                </ol>
-                                <div className="mt-2">
-                                    <div className="w-full text-4xl justify-center flex">
-                                        +
-                                    </div>
+                                    <li className="flex text-sm">
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> uRent Mieter- & Buchungsverwaltungssystem
+                                    </li>
+                                    <li className="flex text-sm">
+                                    <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Enterprise Betriebsstempel
+                                    </li>
                                 </div>
-                                <div className="rounded-md flex w-full justify-center mt-2  dark:bg-[#1C1C1C]">
-                                    <div className="text-lg py-4 font-semibold">
-                                        uRent - RMS
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>

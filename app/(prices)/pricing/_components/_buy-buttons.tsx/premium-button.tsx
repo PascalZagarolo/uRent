@@ -82,13 +82,18 @@ selectedAmount,
         }
     }
 
+    const canUpgrade = (existingSubscription && selectedAmount > Number(existingSubscription?.amount) ||
+    //@ts-ignore
+    (existingSubscription && selectedAmount === Number(existingSubscription?.amount) && existingSubscription?.subscriptionType  === "BASIS")
+    )
+
     return (
         <>
             {//@ts-ignore
-            existingSubscription?.subscriptionType !== "PREMIUM" ? (
-                existingSubscription ? (
+            existingSubscription ? (
+                canUpgrade ? (
                     //@ts-ignore
-                    (existingSubscription.subscriptionType === "BASIS" && Number(existingSubscription.amount) < selectedAmount) ? (
+                    
                         <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onUpgrade}
                         >
                                Upgraden
@@ -99,16 +104,12 @@ selectedAmount,
                             <CheckIcon className="mr-2 w-4 h-4" />   im Besitz
                         </Button >
                     )
-                ) : (
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
+                
+            ) : (
+                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
                          onClick={onSubscribe}>
                         Vorteile sichern
                     </Button >
-                )
-            ) : (
-                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" disabled >
-                    <CheckIcon className="mr-2" />im Besitz
-                </Button>
 
             )}
         </>

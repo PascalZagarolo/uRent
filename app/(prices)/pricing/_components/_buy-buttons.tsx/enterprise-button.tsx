@@ -89,25 +89,32 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
         }
     }
 
+    const canUpgrade = (
+        existingSubscription && selectedAmount > Number(existingSubscription?.amount) ||
+        //@ts-ignore
+        (existingSubscription && selectedAmount === Number(existingSubscription?.amount) && existingSubscription?.subscriptionType !== "ENTERPRISE")
+    )
+
     return (
         <>
             {//@ts-ignore
-            existingSubscription?.subscriptionType !== "ENTERPRISE" ? (
-                existingSubscription ? (
+            existingSubscription ? (
+                canUpgrade ? (
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" 
                         onClick={onUpgrade}>
                         Upgraden
                     </Button >
                 ) : (
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" 
-                        onClick={onSubscribe}>
-                        Vorteile sichern
-                    </Button >
-                )
-            ) : (
-                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onSubscribe}>
+                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onSubscribe} disabled>
                     <CheckIcon className="mr-2" />im Besitz
                 </Button>
+                )
+            ) : (
+                
+                <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" 
+                onClick={onSubscribe}>
+                Vorteile sichern
+            </Button >
             )}
         </>
     );

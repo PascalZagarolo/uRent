@@ -18,27 +18,27 @@ const PaymentsPage = async () => {
     const currentUser = await getCurrentUser();
 
     const existingSubscription = await db.query.users.findFirst({
-        where : (
+        where: (
             eq(users.id, currentUser.id)
-        ), with : {
-            subscription : true
+        ), with: {
+            subscription: true
         }
     })
 
-    
-    const countInserate = await db.select({ count : count()})
-                            .from(inserat)
-                            .where(
-                                and(
-                                    eq(inserat.userId, currentUser.id),
-                                    eq(inserat.isPublished, true)
-                                )
-                            )
-    
 
-    return ( 
+    const countInserate = await db.select({ count: count() })
+        .from(inserat)
+        .where(
+            and(
+                eq(inserat.userId, currentUser.id),
+                eq(inserat.isPublished, true)
+            )
+        )
+
+
+    return (
         <div className="flex justify-center py-8 px-4  ">
-            
+
             <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen w-full">
                     <div>
@@ -53,34 +53,56 @@ const PaymentsPage = async () => {
                                 <BiCreditCardAlt className="mr-4" /> Zahlungsverkehr
                             </div>
                         </h3>
-                        
+
                         <p className="text-xs dark:text-gray-200/60 ">
                             Behalte den Überblick über deine Zahlungen und Abonnements.
-                            <br/> Hier kannst du deine Abonnements verwalten, einsehen und upgraden.
-                            </p>
-                            <div className="mt-8">
-                            <h1 className="font-semibold">
-                            Verfügbare Inserate
-                            </h1>
-                            <p className="text-xs dark:text-gray-200/60 ">
-                                Gezählt werden nur veröffentlichte Inserate.
-                            </p>
-                            <div className="text-2xl font-semibold flex gap-x-1 mt-2">
-                            <p className={cn("font-medium",
-                            countInserate[0]?.count !== existingSubscription?.subscription.amount ? "text-green-500" : "text-red-500"
-                            )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription.amount}
+                            <br /> Hier kannst du deine Abonnements verwalten, einsehen und upgraden.
+                        </p>
+
+                        <div className="w-full flex flex-row mt-8">
+
+                            <div className="w-1/2">
+                                <h1 className="font-semibold">
+                                    Verfügbare Inserate
+                                </h1>
+                                <p className="text-xs dark:text-gray-200/60 ">
+                                    Gezählt werden nur veröffentlichte Inserate.
+                                </p>
+                                <div className="text-2xl font-semibold flex gap-x-1 mt-2">
+                                    <p className={cn("font-medium",
+                                        countInserate[0]?.count !== existingSubscription?.subscription.amount ? "text-green-500" : "text-red-500"
+                                    )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription.amount}
+                                </div>
+                            </div>
+
+                            <div className="w-1/2">
+                                <h1 className="font-semibold">
+                                    Laufendes Abonnement
+                                </h1>
+                                <p className="text-xs dark:text-gray-200/60 ">
+                                    Dein laufender Plan.
+                                </p>
+                                <div className="text-2xl font-semibold flex gap-x-1 mt-2">
+                                    <p className="font-medium text-indigo-800">
+                                        {existingSubscription?.subscription.subscriptionType}
+                                    </p>
+                                </div>
+
+
                             </div>
                         </div>
-                            <div className="mt-8">
-                                <SubscriptionsRenderList 
+
+
+                        <div className="mt-8">
+                            <SubscriptionsRenderList
                                 subscriptions={existingSubscription}
-                                />
-                            </div>
+                            />
+                        </div>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default PaymentsPage;

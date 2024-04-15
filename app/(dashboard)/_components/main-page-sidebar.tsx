@@ -15,6 +15,7 @@ import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
 import { useGetFilterAmount } from "@/store";
+import { MdCancelPresentation, MdOutlineCancel } from "react-icons/md";
 
 const MainPageSideBar= () => {
     const pathname = usePathname();
@@ -55,11 +56,16 @@ const MainPageSideBar= () => {
     
     return (
         <div className=" no-scrollbar w-[280px] rounded-md hidden xl:block bg-[#202336]  sm:overflow-auto    ">
-            <h3 className="text-bold text-2xl p-2  mt-4 flex justify-center text-gray-100 items-center  bg-[#1b1e2c]">
-                <FilterIcon className="mr-4" /> Suchfilter <X className="h-4 w-4 mb-2 ml-2 hover:cursor-pointer" onClick={onReset} />
+            <h3 className="text-bold text-2xl p-4 font-medium  flex justify-center text-gray-100 items-center  bg-[#1b1e2c]">
+                <FilterIcon className="mr-4" /> Suchfilter 
+                
+
             </h3>
-            <div className="mt-4 ">
-                <h3 className="text-gray-100 font-semibold  rounded-md  p-2 flex justify-center ml-2 mr-2 bg-[#1b1f2c] dark:border-[#1f2332]">
+            <p className="w-full flex bg-[#1b1e2c] justify-center items-center text-xs pb-2 hover:underline hover:cursor-pointer" onClick={onReset}>
+            <MdOutlineCancel  className="w-4 h-4 mr-2 text-rose-600" />  Filter zurücksetzen
+            </p>
+            <div className="mt-4">
+                <h3 className="text-gray-100 font-semibold    p-2 flex justify-center  bg-[#1b1f2c] dark:border-[#1f2332]">
                     Fahrzeugkategorie
                 </h3>
                 <div className="flex justify-between ml-12 mr-12 mt-8 ">
@@ -130,6 +136,7 @@ const MainPageSideBar= () => {
                         <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
                     </Button>
                 </div>
+                
             </div>
         </div>
     );

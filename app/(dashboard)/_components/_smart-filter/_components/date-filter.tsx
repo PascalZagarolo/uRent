@@ -134,14 +134,14 @@ const DateFormFilter = () => {
     }
 
     return (
-        <div className="mb-2 w-full xl:ml-2 xl:mr-2">
-            <h3 className="flex justify-start text-lg text-gray-100 items-center rounded-md border-2  bg-[#1b1f2c] p-2 border-[#1f2332] ">
+        <div className="mb-2 w-full ">
+            <h3 className="flex justify-start text-lg text-gray-100 items-center    bg-[#1b1f2c] p-2 border-[#1f2332] ">
                 <Clock12 className="mr-4" /> Zeitraum
             </h3>
             <div className="flex gap-x-4 mt-2 w-full">
             <div className="w-full">
           
-          <div className="flex w-full">
+          <div className="flex w-full px-2">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                 <div className="flex gap-x-4 w-full">
@@ -157,7 +157,7 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "xl:w-[120px] pl-3 text-left w-full font-semibold dark:bg-[#0F0F0F]",
+                                  " pl-3 text-left w-full font-semibold dark:bg-[#0F0F0F]",
                                   !field.value && "text-muted-foreground  dark:border-none"
                                 )}
                               >
@@ -205,7 +205,7 @@ const DateFormFilter = () => {
                               <Button
                                 variant={"outline"}
                                 className={cn(
-                                  "xl:w-[120px] w-full pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
+                                  " w-full pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >

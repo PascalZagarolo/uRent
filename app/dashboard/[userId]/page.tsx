@@ -7,7 +7,7 @@ import BookingRequestRender from "./(routes)/_components/booking-request";
 import { forEach } from "lodash";
 import SidebarDashboard from "./_components/sidebar-dashboard";
 import db from "@/db/drizzle";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { booking, bookingRequest, inserat } from "@/db/schema";
 import MenuBar from "./_components/menu-bar";
 import BreadCrumpPage from "./_components/bread-crump-page";
@@ -28,15 +28,17 @@ const DashboardPage = async ({
         where : eq(inserat.userId , currentUser?.id)
     })
 
-    const foundInserate = await db.query.inserat.findMany({
+    const findInserate = db.query.inserat.findMany({
         where : (
             and(
-                eq(inserat.userId, currentUser?.id),
+                eq(inserat.userId, sql.placeholder("currentUserId")),
                 eq(inserat.isPublished, "true")
             )
             
         )  
-    })
+    }).prepare("findInserate")
+
+    const foundInserate = await findInserate.execute({currentUserId: currentUser?.id})
 
     let involvedBookings : typeof booking[] = [];
 

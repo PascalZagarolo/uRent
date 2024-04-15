@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { booking } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
@@ -70,9 +71,9 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           {inseratFilter ? (
             <X className="text-gray-900 w-4 h-4" />
           ) : (
-            <HoverCard>
-              <HoverCardTrigger><CarIcon className="text-gray-200 w-4 h-4" /></HoverCardTrigger>
-              <HoverCardContent className="dark:bg-[#1C1C1C] border-none">
+            <Popover>
+              <PopoverTrigger><CarIcon className="text-gray-200 w-4 h-4" /></PopoverTrigger>
+              <PopoverContent className="dark:bg-[#1C1C1C] border-none">
                 <>
                 {pBooking.isAvailability ? (
                   <div className="text-xs flex justify-start">
@@ -118,8 +119,8 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                   </>
                 )}
                 </>
-              </HoverCardContent>
-            </HoverCard>
+              </PopoverContent>
+            </Popover>
           )}
         </div>
           }

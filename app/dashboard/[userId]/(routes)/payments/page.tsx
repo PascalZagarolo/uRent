@@ -25,6 +25,7 @@ const PaymentsPage = async () => {
 
     
     
+    
 
     return ( 
         <div className="flex justify-center py-8 px-4  ">

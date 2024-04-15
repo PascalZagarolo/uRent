@@ -42,7 +42,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                 Laufende Abonnements
             </h1>
             <div className="mt-2">
-                {subscriptions.length === 0 && (
+                {!subscriptions.subscription && (
                     <div className="text-sm dark:text-gray-200/70">
                         Keine laufenden Abonnements vorhanden..
                     </div>
@@ -53,7 +53,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-[120px]">Invoice</TableHead>
-                                <TableHead className="">Inserat</TableHead>
+                                <TableHead className="">Anz. Inserate</TableHead>
                                 <TableHead>Ablaufdatum</TableHead>
                                 <TableHead>Verwalten</TableHead>
                                 <TableHead></TableHead>
@@ -64,9 +64,9 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                         <TableBody>
                            
                                 <TableRow>
-                                    <TableCell className="font-medium">{subscriptions.subscriptions?.id}</TableCell>
-                                    <TableCell className="font-bold max-w-[160px] truncate">{subscriptions.subscription?.amount}</TableCell>
-                                    <TableCell>
+                                    <TableCell className="font-medium">{subscriptions.subscription?.id}</TableCell>
+                                    <TableCell className="font-medium max-w-[160px] truncate">{subscriptions.subscription?.amount}</TableCell>
+                                    <TableCell>{format(new Date(subscriptions.subscription?.stripe_current_period_end), "dd.MM.yyyy", { locale: de })}
                                         {
                                             new Date(subscriptions.subscription?.stripe_current_period_end) < currentDate && (
                                                 <span className="text-red-600"> (Abgelaufen)</span>

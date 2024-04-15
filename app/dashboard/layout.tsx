@@ -5,6 +5,7 @@ import MobileHeader from "../(dashboard)/_components/mobile-header";
 import { eq } from "drizzle-orm";
 import db from "@/db/drizzle";
 import { notification } from "@/db/schema";
+import Footer from "../(dashboard)/_components/footer";
 
 const DashboardLayout = async (
     { children }: { children: React.ReactNode },
@@ -36,6 +37,9 @@ const DashboardLayout = async (
              </div>
             <div >       
                 {children}
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );

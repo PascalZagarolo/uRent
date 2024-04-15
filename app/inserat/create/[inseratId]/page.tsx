@@ -25,6 +25,8 @@ import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
 import SaveChanges from "../_components/save-changes";
 import PriceProfiles from "./_parts/price-profiles";
+import { redirect } from "next/navigation";
+
 
 
 
@@ -33,6 +35,10 @@ const InseratCreation = async ({
 }: { params: { inseratId: string } }) => {
 
     const currentUser = await getCurrentUser();
+
+    if(!currentUser) {
+        redirect("/")
+    }
 
     const currentUserWithContactOptions = await db.query.users.findFirst({
         where : eq(users.id, currentUser?.id),
@@ -74,11 +80,15 @@ const InseratCreation = async ({
            
         },
         where: eq(inserat.id, sql.placeholder("inseratId"))
-    }).prepare("findInserat")
+    }).prepare("findInserat");
+
+    
 
     const thisInserat = await findInserat.execute({ inseratId: params.inseratId })
 
-    console.log(countInserate[0].count)
+    if(currentUser?.id !== thisInserat?.userId || !thisInserat) {
+        redirect("/")
+    }
 
     const relatedImages = await db.query.images.findMany({
         where: eq(images.inseratId, thisInserat.id)

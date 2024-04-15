@@ -9,7 +9,8 @@ import toast from "react-hot-toast";
 import { inserat } from "@/db/schema";
 
 interface PublishInseratProps {
-    
+    publishedLength : number;
+    existingSubscription : typeof inserat.$inferSelect;
     isPublishable: object;
     thisInserat: typeof inserat.$inferSelect;
 }
@@ -17,7 +18,8 @@ interface PublishInseratProps {
 const PublishInserat: React.FC<PublishInseratProps> = ({
     isPublishable,
     thisInserat,
-    
+    publishedLength,
+    existingSubscription
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -26,13 +28,15 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
     const currentDate = new Date();
 
 
-    const expirationDate = new Date(thisInserat?.existingSubscription?.stripe_current_period_end);
+    const expirationDate = new Date(existingSubscription?.stripe_current_period_end);
 
-    console.log(thisInserat?.inseratSubscription)
+    console.log(!existingSubscription)
 
     const onPublish = () => {
         try {
-            if (expirationDate < currentDate || !thisInserat?.inseratSubscription) {
+            if (
+                expirationDate < currentDate || publishedLength >= existingSubscription?.amount || !existingSubscription
+                ) {
                 router.push(`/pricing/${thisInserat.id}`)
             } else {
                 setIsLoading(true);

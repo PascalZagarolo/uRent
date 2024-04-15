@@ -4,11 +4,13 @@ import MenuBar from "../../_components/menu-bar";
 import { CardStackPlusIcon } from "@radix-ui/react-icons";
 import { BiCreditCardAlt } from "react-icons/bi";
 import db from "@/db/drizzle";
-import { eq } from "drizzle-orm";
+import { and, count, eq } from "drizzle-orm";
 import { inserat, users, userSubscription } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { render } from '@react-email/components';
 import SubscriptionsRenderList from "./_components/subscriptions-render-list";
+import { cn } from "@/lib/utils";
+
 
 
 const PaymentsPage = async () => {
@@ -24,7 +26,14 @@ const PaymentsPage = async () => {
     })
 
     
-    
+    const countInserate = await db.select({ count : count()})
+                            .from(inserat)
+                            .where(
+                                and(
+                                    eq(inserat.userId, currentUser.id),
+                                    eq(inserat.isPublished, true)
+                                )
+                            )
     
 
     return ( 
@@ -44,10 +53,24 @@ const PaymentsPage = async () => {
                                 <BiCreditCardAlt className="mr-4" /> Zahlungsverkehr
                             </div>
                         </h3>
+                        
                         <p className="text-xs dark:text-gray-200/60 ">
                             Behalte den Überblick über deine Zahlungen und Abonnements.
                             <br/> Hier kannst du deine Abonnements verwalten, einsehen und upgraden.
                             </p>
+                            <div className="mt-8">
+                            <h1 className="font-semibold">
+                            Verfügbare Inserate
+                            </h1>
+                            <p className="text-xs dark:text-gray-200/60 ">
+                                Gezählt werden nur veröffentlichte Inserate.
+                            </p>
+                            <div className="text-2xl font-semibold flex gap-x-1 mt-2">
+                            <p className={cn("font-medium",
+                            countInserate[0]?.count !== existingSubscription?.subscription.amount ? "text-green-500" : "text-red-500"
+                            )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription.amount}
+                            </div>
+                        </div>
                             <div className="mt-8">
                                 <SubscriptionsRenderList 
                                 subscriptions={existingSubscription}

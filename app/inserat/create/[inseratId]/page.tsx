@@ -17,7 +17,7 @@ import CategoryInformation from "./_parts/category-information";
 import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
-import { eq, sql } from "drizzle-orm";
+import { and, count, eq, sql } from "drizzle-orm";
 import { address, contactOptions, images, inserat, lkwAttribute, notification, 
     pkwAttribute, trailerAttribute, transportAttribute, userAddress, users } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
@@ -25,6 +25,7 @@ import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
 import SaveChanges from "../_components/save-changes";
 import PriceProfiles from "./_parts/price-profiles";
+
 
 
 const InseratCreation = async ({
@@ -41,7 +42,7 @@ const InseratCreation = async ({
                     userAddress : true
                 }
             },
-            
+            subscription : true
         }
     })
 
@@ -51,6 +52,15 @@ const InseratCreation = async ({
         where: eq(notification.userId, currentUser?.id)
     
     })
+
+    const countInserate = await db.select({ count : count()})
+                            .from(inserat)
+                            .where(
+                                and(
+                                    eq(inserat.userId, currentUser.id),
+                                    eq(inserat.isPublished, true)
+                                )
+                            )
 
     const findInserat = db.query.inserat.findFirst({
         with: {
@@ -68,7 +78,7 @@ const InseratCreation = async ({
 
     const thisInserat = await findInserat.execute({ inseratId: params.inseratId })
 
-    console.log(thisInserat?.user?.contactOptions)
+    console.log(countInserate[0].count)
 
     const relatedImages = await db.query.images.findMany({
         where: eq(images.inseratId, thisInserat.id)
@@ -251,7 +261,8 @@ const InseratCreation = async ({
                                 <PublishInserat
                                     isPublishable={isPublishable}
                                     thisInserat={thisInserat}
-
+                                    publishedLength={countInserate[0].count}
+                                    existingSubscription={currentUserWithContactOptions.subscription}
                                 />
 
                             </div>

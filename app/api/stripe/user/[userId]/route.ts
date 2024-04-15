@@ -18,7 +18,7 @@ export async function PATCH(
 
         const currentUser = await getCurrentUser();
 
-        
+
 
 
         if (!currentUser) {
@@ -36,7 +36,7 @@ export async function PATCH(
 
 
         if (existingSubscription && existingSubscription.stripe_customer_id) {
-            console.log("yolo")
+
             //change redirectUrl
             const stripeSession = await stripe.billingPortal.sessions.create({
                 customer: existingSubscription.stripe_customer_id,
@@ -59,14 +59,14 @@ export async function PATCH(
 
             line_items: [
                 {
-                    price : values.subscriptionId,
-                    quantity : 1
+                    price: values.subscriptionId,
+                    quantity: 1
                 }
             ],
             metadata: {
                 userId: params.userId,
-                
-                subscriptionType: values.subscription
+                amount: values.amount,
+                subscriptionType: values.subscriptionType
             }
         })
 

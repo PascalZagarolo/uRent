@@ -176,7 +176,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
     let existingSubscriptionWorth;
 
-    switch (existingSubscription.subscriptionType) {
+    switch (existingSubscription?.subscriptionType) {
         case "BASIS":
             existingSubscriptionWorth = calculateBasisPrice(existingSubscription.amount);
             break;

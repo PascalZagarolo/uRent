@@ -49,7 +49,7 @@ const BasisButton: React.FC<BasisButtonProps> = ({
 
     const productId = calculateBasisPrice();
 
-    console.log(productId)
+    
 
     const onSubscribe = async () => {
         try {
@@ -80,27 +80,28 @@ const BasisButton: React.FC<BasisButtonProps> = ({
 
     }
 
+    const canUpgrade = (existingSubscription && selectedAmount > Number(existingSubscription?.amount))
 
 
     return (
         <>
             {
                 //@ts-ignore
-                existingSubscription?.subscriptionType !== "BASIS" ? (
-                    (existingSubscription && selectedAmount <= Number(existingSubscription?.amount)) ? (
+                existingSubscription ? (
+                    !canUpgrade ? (
                         <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" disabled
                         >
                             <CheckIcon className="mr-2 w-4 h-4" />   Bereits enthalten
                         </Button >
                     ) : (
                         <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" //@ts-ignore
-                            disabled={(existingSubscription && selectedAmount <= Number(existingSubscription?.amount))} onClick={onTest}>
+                             onClick={onTest}>
                             Upgraden
                         </Button>
                     )
                 ) : (
-                    <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" disabled>
-                        <CheckIcon className="mr-2 w-4 h-4" />im Besitz
+                    <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" onClick={onSubscribe}>
+                        <CheckIcon className="mr-2 w-4 h-4" /> Jetzt loslegen
                     </Button>
                 )}
         </>

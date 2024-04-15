@@ -10,7 +10,7 @@ const AccountPrivacy = () => {
             </h1>
             <div className="mt-4 space-y-4">
                 <div className="flex items-center gap-x-2">
-                    <Checkbox className="w-4 h-4"/> <Label className="font-semibold"> E-Mail teilen</Label>
+                    <Checkbox className="w-4 h-4"/> <Label className="font-semibold"> E-Mail im Profil teilen</Label>
                 </div>
                 <div className="flex items-center gap-x-2">
                     <Checkbox className="w-4 h-4"/> <Label className="font-semibold"> Echten Namen teilen</Label>

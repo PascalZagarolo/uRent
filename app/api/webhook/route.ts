@@ -75,19 +75,19 @@ export async function POST(
     }
     
     if(event.type === "checkout.session.completed") {
-        console.log(1)
+        
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
         
-        console.log(2)
+        
         if(!session?.metadata?.userId) {
             return new NextResponse("UserId nicht gefunden", {status : 400})
         }
-        console.log(3)
+        
         if(!session?.metadata?.subscriptionType) {
             return new NextResponse("Subscription nicht gefunden", {status : 400})
         }
-        console.log(4)
+        
         if(!session?.metadata?.amount) {
             return new NextResponse("Keine Anzahl angegeben", {status : 400})
         }

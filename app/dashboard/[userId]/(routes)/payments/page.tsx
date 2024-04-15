@@ -68,8 +68,8 @@ const PaymentsPage = async () => {
                                 <p className="text-xs dark:text-gray-200/60 ">
                                     Gezählt werden nur veröffentlichte Inserate.
                                 </p>
-                                <div className="text-2xl font-semibold flex gap-x-1 mt-2">
-                                    <p className={cn("font-medium",
+                                <div className="text-2xl font-medium flex gap-x-1 mt-2">
+                                    <p className={cn("font-bold",
                                         countInserate[0]?.count !== existingSubscription?.subscription.amount ? "text-green-500" : "text-red-500"
                                     )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription.amount}
                                 </div>
@@ -83,16 +83,12 @@ const PaymentsPage = async () => {
                                     Dein laufender Plan.
                                 </p>
                                 <div className="text-2xl font-semibold flex gap-x-1 mt-2">
-                                    <p className="font-medium text-indigo-800">
+                                    <p className="font-semibold text-indigo-800">
                                         {existingSubscription?.subscription.subscriptionType}
                                     </p>
                                 </div>
-
-
                             </div>
                         </div>
-
-
                         <div className="mt-8">
                             <SubscriptionsRenderList
                                 subscriptions={existingSubscription}

@@ -5,25 +5,25 @@ import { CardStackPlusIcon } from "@radix-ui/react-icons";
 import { BiCreditCardAlt } from "react-icons/bi";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { inserat } from "@/db/schema";
+import { inserat, users, userSubscription } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { render } from '@react-email/components';
 import SubscriptionsRenderList from "./_components/subscriptions-render-list";
+
 
 const PaymentsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const signedSubscriptions = await db.query.inserat.findMany({
+    const existingSubscription = await db.query.users.findFirst({
         where : (
-            eq(inserat.userId, currentUser.id)
+            eq(users.id, currentUser.id)
         ), with : {
-            inseratSubscription : true
+            subscription : true
         }
     })
 
-    const renderedSubscriptions = signedSubscriptions.filter((subscription) => subscription?.inseratSubscription !== null)
-
+    
     
 
     return ( 
@@ -49,7 +49,7 @@ const PaymentsPage = async () => {
                             </p>
                             <div className="mt-8">
                                 <SubscriptionsRenderList 
-                                subscriptions={renderedSubscriptions}
+                                subscriptions={existingSubscription}
                                 />
                             </div>
                     </div>

@@ -68,11 +68,17 @@ const PaymentsPage = async () => {
                                 <p className="text-xs dark:text-gray-200/60 ">
                                     Gezählt werden nur veröffentlichte Inserate.
                                 </p>
-                                <div className="text-2xl font-medium flex gap-x-1 mt-2">
+                                {existingSubscription.subscription ? (
+                                    <div className="text-2xl font-medium flex gap-x-1 mt-2">
                                     <p className={cn("font-bold",
-                                        countInserate[0]?.count !== existingSubscription?.subscription.amount ? "text-green-500" : "text-red-500"
-                                    )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription.amount}
+                                        countInserate[0]?.count !== existingSubscription?.subscription?.amount ? "text-green-500" : "text-red-500"
+                                    )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription?.amount}
                                 </div>
+                                ) : (
+                                    <div className="text-2xl font-medium flex gap-x-1 mt-2">
+                                    Noch kein Plan ausgewählt
+                                </div>
+                                )}
                             </div>
 
                             <div className="w-1/2">
@@ -82,17 +88,34 @@ const PaymentsPage = async () => {
                                 <p className="text-xs dark:text-gray-200/60 ">
                                     Dein laufender Plan.
                                 </p>
-                                <div className="text-2xl font-semibold flex gap-x-1 mt-2">
+                                {existingSubscription.subscription ? (
+                                    <div className="text-2xl font-semibold flex gap-x-1 mt-2">
                                     <p className="font-semibold text-indigo-800">
-                                        {existingSubscription?.subscription.subscriptionType}
+                                        {existingSubscription?.subscription?.subscriptionType}
                                     </p>
                                 </div>
+                                ) : (
+                                    <div className="text-2xl font-medium flex gap-x-1 mt-2">
+                                  Gratis
+                                </div>
+                                )}
                             </div>
                         </div>
                         <div className="mt-8">
-                            <SubscriptionsRenderList
+                            {existingSubscription.subscription ? (
+                                <SubscriptionsRenderList
                                 subscriptions={existingSubscription}
                             />
+                            ) : (
+                                <div>
+                                    <div className="text-sm dark:text-gray-200/70 gap-y-2">
+                                        <h3 className="text-lg dark:text-gray-200">
+                                            Laufende Abonnements
+                                        </h3>
+                                        Keine laufenden Abonnements vorhanden..
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

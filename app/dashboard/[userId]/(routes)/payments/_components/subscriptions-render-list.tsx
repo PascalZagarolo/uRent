@@ -27,7 +27,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
     const onAdvocateSubscription = async (usedId : string) => {
         try {
             const values = {}
-        const res = await axios.patch(`/api/stripe/inserat/${usedId}`, values);
+        const res = await axios.patch(`/api/stripe/user/${usedId}`, values);
             window.location.href = res.data.url
         } catch {
             console.log("error")
@@ -75,7 +75,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                         </TableCell>
                                     <TableCell>
                                     <div className="hover:underline hover:cursor-pointer" onClick={() => 
-                                        {onAdvocateSubscription(subscriptions?.subscription?.id)}}>
+                                        {onAdvocateSubscription(subscriptions?.subscription?.userId)}}>
                                             Abo verwalten
                                         </div>
                                     </TableCell>

@@ -24,24 +24,24 @@ selectedAmount,
     const calculatePremiumPrice = () => {
         switch (selectedAmount) {
           case 1:
-            return "price_1P3eHLGRyqashQ2w8G7MmOmc";
+            return "prod_PtR9WSahLFPqOD";
           case 5:
-            return "price_1P5E48GRyqashQ2wW54x1VXw";
+            return "prod_Pv4Cwyv4F8cO4D";
           case 10:
-            return "price_1P5E5UGRyqashQ2wqixSVCr4";
+            return "prod_Pv4DPuk8W4aRCZ";
           case 15:
-            return "price_1P5E5qGRyqashQ2wV8bKWoJc";
+            return "prod_Pv4E0Xe7Y8qKng";
           case 25:
-            return "price_1P5E6HGRyqashQ2wjNsejMwm";
+            return "prod_Pv4EsXYyaMgfSi";
           case 40:
-            return "price_1P5E6bGRyqashQ2wxVBfknqg";
+            return "prod_Pv4FJEde6W2ReF";
         default:
             return ""
           
         }
       };
 
-      const subscriptionId = calculatePremiumPrice();
+      const productId = calculatePremiumPrice();
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -50,7 +50,7 @@ selectedAmount,
             setIsLoading(true);
             const values = {
                 subscriptionType: "PREMIUM",
-                subscriptionId: subscriptionId,
+                productId: productId,
                 amount : selectedAmount,
                 
             }
@@ -88,7 +88,7 @@ selectedAmount,
             existingSubscription?.subscriptionType !== "PREMIUM" ? (
                 existingSubscription ? (
                     //@ts-ignore
-                    existingSubscription.subscriptionType === "BASIS" ? (
+                    (existingSubscription.subscriptionType === "BASIS" && Number(existingSubscription.amount) < selectedAmount) ? (
                         <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onUpgrade}
                         >
                                Upgraden

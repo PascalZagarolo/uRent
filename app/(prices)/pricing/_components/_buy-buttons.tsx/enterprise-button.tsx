@@ -25,23 +25,23 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
     const calculateEnterprisePrice = () => {
         switch (selectedAmount) {
           case 1:
-            return "price_1P3eHXGRyqashQ2wzUh5fehI";
+            return "prod_PtR9L9XRjwzC0N";
           case 5:
-            return "price_1P5E6yGRyqashQ2wJSwAp5cB";
+            return "prod_Pv4FF7MAUT1wGI";
           case 10:
-            return "price_1P5E7BGRyqashQ2wEBbmiQz3";
+            return "prod_Pv4FiNttsprGyN";
           case 15:
-            return "price_1P5E7MGRyqashQ2wrAQ0tmeX";
+            return "prod_Pv4Fl9cfjK2RqC";
           case 25:
-            return "price_1P5E7YGRyqashQ2woyHdoCwQ";
+            return "prod_Pv4GtxdFiRuu1P";
           case 40:
-            return "price_1P5E7lGRyqashQ2wOgJJogaN";
+            return "prod_Pv4Gh88pCZq6ao";
             default:
                 return ""
         }
       };
 
-      const subscriptionId = calculateEnterprisePrice();
+      const productId = calculateEnterprisePrice();
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -50,7 +50,7 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
             setIsLoading(true);
             const values = {
                 subscriptionType: "ENTERPRISE",
-                subscriptionId: subscriptionId,
+                productId: productId,
                 amount : selectedAmount,
                 
             }

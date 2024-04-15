@@ -28,7 +28,7 @@ export async function POST(
             signature,
             process.env.STRIPE_WEBHOOK_SECRET!
         )
-        console.log("try fertig")
+        
     } catch(error : any) {
         console.log(error)
         return new NextResponse(`Webhook Error : ${error.message}` , { status : 400 })
@@ -92,6 +92,9 @@ export async function POST(
             return new NextResponse("Keine Anzahl angegeben", {status : 400})
         }
 
+        if(!session?.metadata?.productId) {
+            return new NextResponse("Keine ProduktId hinterlegt", {status : 400})
+        }
         
         const [createdSubscription] = await db.insert(userSubscription).values({
             //@ts-ignore
@@ -101,6 +104,7 @@ export async function POST(
             stripe_customer_id : subscription.customer as string,
             stripe_price_id : subscription.items.data[0].price.id,
             amount : session?.metadata?.amount,
+            stripe_product_id : session?.metadata?.productId,
             stripe_current_period_end : new Date(
                 subscription.current_period_end * 1000
             
@@ -120,13 +124,27 @@ export async function POST(
     
     //renew subscription
     if(event.type === "invoice.payment_succeeded") {
+        //get priceId of subscription
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+
+        //get new amount and subscriptionType in case user downgraded
+        require('stripe')('sk_test_51OXL4bGRyqashQ2wAaNYkzVV68vGMgReR45Ct3q8BfZO6KCXnZ2BNhiotRuYCwAAOwQxy4iZy2B8WEgRQa2PIG2I00tApjW5eR');
+
+        //query for price to get matching productId
+        const connectedPrice = await stripe.prices.retrieve(subscription.items.data[0].price.id);
+
+        //get product id, to change amount and subscriptionType if changed
+        const product = await stripe.products.retrieve(connectedPrice.product as string);
 
         await db.update(userSubscription).set({
             stripe_price_id : subscription.items.data[0].price.id,
             stripe_current_period_end : new Date(
                 subscription.current_period_end * 1000
-            )
+            ),
+            //@ts-ignore
+            amount : product?.metadata?.amount,
+            //@ts-ignore
+            subscriptionType : product?.metadata?.type as string,
 
         }).where(
             eq(userSubscription.stripe_subscription_id, subscription.id)

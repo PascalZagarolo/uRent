@@ -14,7 +14,7 @@ import { TbPigMoney, TbZoomMoney } from "react-icons/tb";
 import { PiSteeringWheel, PiVanFill } from "react-icons/pi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { CiBookmark } from "react-icons/ci";
-import { FaAddressCard } from "react-icons/fa";
+import { FaAddressCard, FaCarCrash } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
 import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute, business, businessAddress, CategoryEnumRender } from '../../../../db/schema';
@@ -25,6 +25,7 @@ import BreadCrumbs from "./bread-crumbs";
 
 import ReportModal from "./_components/report/report-modal";
 import { metadata } from '../../../(dashboard)/page';
+
 
 type Props = {
     params: { inseratId: string }
@@ -80,7 +81,55 @@ const InseratAnzeige = async ({
         }
     }).prepare("findInserat")
 
-    const thisInserat = await findInserat.execute({ inseratId: params.inseratId })
+   let thisInserat;
+
+    try {
+        thisInserat = await findInserat.execute({ inseratId: params?.inseratId })
+
+        if (!thisInserat) {
+            return (
+                <div className="w-full h-dvh flex justify-center items-center">
+                <h1 className="text-2xl dark:text-gray-200 font-semibold">
+                <FaCarCrash
+                    className="w-8 h-8"
+                    />
+                    Error 404 - Inserat nicht gefunden
+                    <p className="flex justify-center items-center font-medium text-sm">
+                    Das gesuchte Inserat konnte nicht gefunden werden.
+                    Entweder wurde es gelöscht, privat gestellt oder hat nie existiert.
+                </p>
+                </h1>
+                
+            </div>
+            )
+        }
+    } catch {
+        return (
+            <div className="w-full h-dvh flex justify-center items-center">
+                <h1 className="text-2xl dark:text-gray-200 font-semibold">
+                <FaCarCrash
+                    className="w-8 h-8"
+                    />
+                    Error 404 - Inserat nicht gefunden
+                    <p className="flex justify-center items-center font-medium text-sm">
+                    Das gesuchte Inserat konnte nicht gefunden werden.
+                    Entweder wurde es gelöscht, privat gestellt oder hat nie existiert.
+                </p>
+                </h1>
+                
+            </div>
+        )
+    }
+
+    if (!thisInserat) {
+        return (
+            <div className="w-full flex justify-center items-center">
+                <h1 className="text-2xl dark:text-gray-200 font-semibold">
+                    Error 404 - Inserat nicht gefunden
+                </h1>
+            </div>
+        )
+    }
 
     const inseratOwnerId = thisInserat.user.id
 
@@ -98,17 +147,13 @@ const InseratAnzeige = async ({
     const inseratArray = await findInseratArray.execute({ inseratOwnerId: inseratOwnerId })
 
     const thisBusiness = await db.query.business.findFirst({
-        where : (
+        where: (
             eq(business.userId, inseratOwnerId)
         ),
-        with : {
-            businessAddresses : true,
+        with: {
+            businessAddresses: true,
         }
     })
-
-
-
-
 
 
 
@@ -135,7 +180,7 @@ const InseratAnzeige = async ({
         }
     }
 
-    const usedCategory : typeof CategoryEnumRender = thisInserat.category
+    const usedCategory: typeof CategoryEnumRender = thisInserat.category
 
 
 
@@ -241,26 +286,26 @@ const InseratAnzeige = async ({
 
                             {(thisInserat?.priceHour || thisInserat?.priceWeekend) && (
                                 <>
-                                <div className="mt-4">
-                                <p className="flex text-lg sm:text-lg  items-center"><TbZoomMoney  className="mr-2 h-4 w-4" />
-                                    Weitere Preisprofile</p>
-                            </div>
-                            <div className="w-full flex flex-row mt-2">
-                            {thisInserat?.priceHour && (
-                                    <div className="w-1/2 truncate font-semibold text-sm flex">
-                                        <Ri24HoursLine  className="w-4 h-4 mr-2 text-gray-200" />
-                                        {thisInserat?.priceHour} € <p className="text-xs mb-auto px-1">/Stunde</p>
+                                    <div className="mt-4">
+                                        <p className="flex text-lg sm:text-lg  items-center"><TbZoomMoney className="mr-2 h-4 w-4" />
+                                            Weitere Preisprofile</p>
                                     </div>
-                                )}
-                                {thisInserat?.priceWeekend && (
-                                    <div className="w-1/2 truncate flex font-semibold text-sm ">
-                                        <>
-                                            <HourglassIcon className="w-4 h-4 mr-2 text-indigo-800" />
-                                            {thisInserat?.priceWeekend} € pro Wochenende
-                                        </>
+                                    <div className="w-full flex flex-row mt-2">
+                                        {thisInserat?.priceHour && (
+                                            <div className="w-1/2 truncate font-semibold text-sm flex">
+                                                <Ri24HoursLine className="w-4 h-4 mr-2 text-gray-200" />
+                                                {thisInserat?.priceHour} € <p className="text-xs mb-auto px-1">/Stunde</p>
+                                            </div>
+                                        )}
+                                        {thisInserat?.priceWeekend && (
+                                            <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                                <>
+                                                    <HourglassIcon className="w-4 h-4 mr-2 text-indigo-800" />
+                                                    {thisInserat?.priceWeekend} € pro Wochenende
+                                                </>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                            </div>
                                 </>
                             )}
 

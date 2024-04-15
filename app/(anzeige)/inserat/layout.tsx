@@ -4,6 +4,7 @@ import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 const InseratLayout = async ({
@@ -34,6 +35,9 @@ const InseratLayout = async ({
 
             <div className="h-full">
                 {children}
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );

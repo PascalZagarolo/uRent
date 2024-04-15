@@ -4,14 +4,16 @@ import { CheckIcon, X } from "lucide-react";
 import { CheckmarkIcon } from "react-hot-toast";
 import { FaFileContract } from "react-icons/fa6";
 
+
+
 const ComparisonPlans = () => {
     return (
         <div className="mt-4">
             <h3 className="text-md font-bold flex gap-x-2">
             <FaFileContract />    Vergleich der Pläne
             </h3>
-            <div className="w-full mx-auto mt-2">
-                <table className="w-full table-auto text-md">
+            <div className="w-full space-y-2 p-2 mt-2">
+                <table className="w-full table-auto text-sm ">
                     <thead>
                         <tr className="dark:bg-[#171717]">
                             <th className="px-4 py-2 text-left"></th>
@@ -20,15 +22,7 @@ const ComparisonPlans = () => {
                             <th className="px-4 py-2 text-left">Enterprise</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr className="border-t border-[#232323] font-semibold">
-                            <td className="px-4 py-2 font-medium max-w-[200px]">Preis</td>
-                            <td className="px-4 py-2 text-left font-medium">29 €</td>
-                            <td className="px-4 py-2 text-left">39 €</td>
-                            <td className="px-4 py-2 text-left">49 €</td>
-                        </tr>
-                        
-                    </tbody>
+                    
 
                     <tbody>
                         <tr className="border-t border-[#232323] font-semibold">

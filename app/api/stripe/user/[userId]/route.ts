@@ -6,6 +6,7 @@ import { stripe } from "@/lib/stripe";
 import { eq } from "drizzle-orm";
 
 import { NextResponse } from "next/server";
+import { metadata } from '../../../../(dashboard)/page';
 
 
 export async function PATCH(
@@ -14,11 +15,22 @@ export async function PATCH(
 ) {
     try {
 
+        const stripe = 
+        require('stripe')('sk_test_51OXL4bGRyqashQ2wAaNYkzVV68vGMgReR45Ct3q8BfZO6KCXnZ2BNhiotRuYCwAAOwQxy4iZy2B8WEgRQa2PIG2I00tApjW5eR');
+
         const values = await req?.json();
 
         const currentUser = await getCurrentUser();
 
+        
 
+        const product = await stripe.products.retrieve(values.productId);
+        
+        const receivedPrice = await stripe.prices.retrieve(product.default_price);
+
+        
+
+        
 
 
         if (!currentUser) {
@@ -33,7 +45,7 @@ export async function PATCH(
             )
         })
 
-
+        
 
         if (existingSubscription && existingSubscription.stripe_customer_id) {
 
@@ -45,6 +57,8 @@ export async function PATCH(
 
             return new NextResponse(JSON.stringify({ url: stripeSession.url }))
         }
+
+       
 
         //change success && cancel url
         const stripeSesison = await stripe.checkout.sessions.create({
@@ -59,14 +73,15 @@ export async function PATCH(
 
             line_items: [
                 {
-                    price: values.subscriptionId,
+                    price: receivedPrice.id,
                     quantity: 1
                 }
             ],
             metadata: {
                 userId: params.userId,
-                amount: values.amount,
-                subscriptionType: values.subscriptionType
+                amount: product.metadata.amount,
+                subscriptionType: product.metadata.type,
+                productId : values.productId
             }
         })
 

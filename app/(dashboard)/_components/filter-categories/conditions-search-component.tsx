@@ -6,14 +6,14 @@ import AmountBar from "./conditions/conditions-amount";
 
 const ConditionsSearchComponent = () => {
     return (
-        <div className="  mr-2 ml-2 space-y-4">
-            <div className="p-2 bg-[#1B1F2C] rounded-md">
+        <div className="  space-y-4">
+            <div className="p-2 bg-[#1B1F2C] ">
 
                 <div className="w-full flex justify-start items-center text-lg text-gray-200">
                     <IoIosPaper className="h-6 w-6 mr-4"/>    Mietkonditionen
                 </div>
             </div>
-            <div className="w-full flex gap-x-4">
+            <div className="w-full flex gap-x-4 px-2">
                 <div className="w-1/2">
                     <LicenseBar />
                 </div>
@@ -21,7 +21,9 @@ const ConditionsSearchComponent = () => {
                     <RequiredAgeBar />
                 </div>
             </div>
+            <div className="px-2">
             <AmountBar/>
+            </div>
         </div>
     );
 }

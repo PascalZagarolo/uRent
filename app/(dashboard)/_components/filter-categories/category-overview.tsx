@@ -27,7 +27,7 @@ const CategoryOverview = () => {
         )}
         {currentCategory && (
             
-            <div className="p-2 mr-2 ml-2 bg-[#1B1F2C] rounded-md mt-4 text-gray-200">
+            <div className="p-2  bg-[#1B1F2C]  mt-4 text-gray-200">
                 
                 <div className="w-full flex justify-start items-center">
                 {

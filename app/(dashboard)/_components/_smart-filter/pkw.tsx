@@ -7,7 +7,7 @@ const PKW = () => {
     return ( 
         <div className="w-full">
             <div className="mt-4 flex justify-center">
-                <PriceFormFilter/>
+            <PriceFormFilter/>
             </div>
             <div className="mt-4 flex justify-center">
                 <DateFormFilter/>

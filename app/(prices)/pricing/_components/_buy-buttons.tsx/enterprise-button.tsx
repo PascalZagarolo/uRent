@@ -56,6 +56,8 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
                 amount : selectedAmount,
                 
             }
+
+            
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
         } catch {

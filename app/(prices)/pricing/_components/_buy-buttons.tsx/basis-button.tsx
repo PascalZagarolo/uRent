@@ -43,7 +43,7 @@ const BasisButton: React.FC<BasisButtonProps> = ({
             case 25:
                 return "prod_Pv4B2zmZ19Apen";
             case 40:
-                return "prod_Pv4B2zmZ19Apen";
+                return "prod_Pv4BipnesUBoNJ";
             default:
                 return ""
         }
@@ -57,9 +57,10 @@ const BasisButton: React.FC<BasisButtonProps> = ({
         try {
             setIsLoading(true);
             const values = {
-                diffrence : diffrence,
+                subscriptionType: "BASIS",
                 productId: productId,
-                subscriptionType : "BASIS",
+                amount : selectedAmount,
+                
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
@@ -70,15 +71,23 @@ const BasisButton: React.FC<BasisButtonProps> = ({
         }
     }
 
-    const onTest = async () => {
-        
+    const onUpgrade = async () => {
+        try {
+            setIsLoading(true);
 
-        const stripe = 
-        require('stripe')('sk_test_51OXL4bGRyqashQ2wAaNYkzVV68vGMgReR45Ct3q8BfZO6KCXnZ2BNhiotRuYCwAAOwQxy4iZy2B8WEgRQa2PIG2I00tApjW5eR');
-        const product = await stripe.products.retrieve('prod_Pv4DPuk8W4aRCZ');
+            const values = {
+                diffrence : diffrence * 100,
+                productId: productId,
+                subscriptionType : "ENTERPRISE",
+            }
 
-        console.log(product)
-
+            const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);
+            window.location.href = res.data.url
+        } catch {
+            toast.error("Etwas ist schief gelaufen")
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const canUpgrade = (existingSubscription && selectedAmount > Number(existingSubscription?.amount))
@@ -96,7 +105,7 @@ const BasisButton: React.FC<BasisButtonProps> = ({
                         </Button >
                     ) : (
                         <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" //@ts-ignore
-                             onClick={onTest}>
+                             onClick={onUpgrade}>
                             Upgraden
                         </Button>
                     )

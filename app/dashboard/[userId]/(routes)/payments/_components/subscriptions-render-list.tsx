@@ -26,7 +26,9 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
 
     const onAdvocateSubscription = async (usedId : string) => {
         try {
-            const values = {}
+            const values = {
+                
+            }
         const res = await axios.patch(`/api/stripe/user/${usedId}`, values);
             window.location.href = res.data.url
         } catch {

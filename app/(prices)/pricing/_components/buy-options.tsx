@@ -99,9 +99,9 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
         setPremiumPrice(calculatePremiumPrice());
         setEnterprisePrice(calculateEnterprisePrice());
 
-        setBasisDiffrence((calculateBasisPrice() - existingSubscriptionWorth) > 0 ? (calculateBasisPrice() - existingSubscriptionWorth) : 10);
-        setPremiumDiffrence((calculatePremiumPrice() - existingSubscriptionWorth) > 0 ? (calculatePremiumPrice() - existingSubscriptionWorth) : 10);
-        setEnterpriseDiffrence((calculateEnterprisePrice() - existingSubscriptionWorth) > 0 ? (calculateEnterprisePrice() - existingSubscriptionWorth) : 10);
+        setBasisDiffrence((calculateBasisPrice() - existingSubscriptionWorth) > 10 ? (calculateBasisPrice() - existingSubscriptionWorth) : 10);
+        setPremiumDiffrence((calculatePremiumPrice() - existingSubscriptionWorth) > 10 ? (calculatePremiumPrice() - existingSubscriptionWorth) : 10);
+        setEnterpriseDiffrence((calculateEnterprisePrice() - existingSubscriptionWorth) > 10 ? (calculateEnterprisePrice() - existingSubscriptionWorth) : 10);
     }, [amountInserat]);
 
     const calculateBasisPrice = (amount: number) => {
@@ -230,6 +230,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                             //@ts-ignore
                             existingSubscription={existingSubscription}
                             userId={currentUserId}
+                            diffrence={basisDiffrence}
                         />
 
                         <div className="w-full flex mt-2">
@@ -280,6 +281,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                         //@ts-ignore
                         existingSubscription={existingSubscription}
                         userId={currentUserId}
+                        diffrence={premiumDiffrence}
                     />
 
                     <div className="w-full flex mt-2">

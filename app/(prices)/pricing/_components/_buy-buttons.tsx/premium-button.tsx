@@ -51,9 +51,10 @@ const PremiumButton : React.FC<PremiumButtonProps> = ({
         try {
             setIsLoading(true);
             const values = {
-                diffrence : diffrence,
+                subscriptionType: "PREMIUM",
                 productId: productId,
-                subscriptionType : "PREMIUM",
+                amount : selectedAmount,
+                
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
@@ -67,14 +68,14 @@ const PremiumButton : React.FC<PremiumButtonProps> = ({
     const onUpgrade = async () => {
         try {
             setIsLoading(true);
-            const price = 1400;
+            
             const values = {
-                subscription: "PREMIUM",
-                price : price,
-                stripe_customer_id : existingSubscription.stripe_customer_id,
-               
+                diffrence : diffrence * 100,
+                productId: productId,
+                subscriptionType : "PREMIUM",
             }
-            const res = await axios.patch(`/api/stripe/upgrade/`, values);
+            console.log(values)
+            const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")

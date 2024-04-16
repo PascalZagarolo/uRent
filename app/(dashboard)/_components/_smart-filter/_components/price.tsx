@@ -21,6 +21,7 @@ import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { IoIosPricetags } from "react-icons/io";
 
 
 const PriceFormFilter = () => {
@@ -94,7 +95,7 @@ const PriceFormFilter = () => {
         <div className="w-full "> 
             <h3 className="flex justify-start text-lg text-gray-100 items-center   w-full bg-[#1b1f2c] 
             p-2 border-[#1f2332]">
-                <Banknote className="mr-4" /> Preis
+                <IoIosPricetags  className="mr-4" /> Preisrahmen
             </h3>
             <div className="flex gap-x-4 mt-2 w-full px-2">
                 <div className="w-1/2">

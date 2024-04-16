@@ -13,12 +13,14 @@ interface PremiumButtonProps {
     selectedAmount : number;
     existingSubscription?: typeof userSubscription;
     userId : string;
+    diffrence : number;
 }
 
 const PremiumButton : React.FC<PremiumButtonProps> = ({
-selectedAmount,
+    selectedAmount,
     existingSubscription,
-    userId
+    userId,
+    diffrence
 }) => {
 
     const calculatePremiumPrice = () => {
@@ -49,10 +51,9 @@ selectedAmount,
         try {
             setIsLoading(true);
             const values = {
-                subscriptionType: "PREMIUM",
+                diffrence : diffrence,
                 productId: productId,
-                amount : selectedAmount,
-                
+                subscriptionType : "PREMIUM",
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url

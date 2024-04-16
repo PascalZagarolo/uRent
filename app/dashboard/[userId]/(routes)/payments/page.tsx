@@ -25,6 +25,9 @@ const PaymentsPage = async () => {
         }
     })
 
+    
+
+
 
     const countInserate = await db.select({ count: count() })
         .from(inserat)

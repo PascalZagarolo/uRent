@@ -40,19 +40,25 @@ export async function POST(
         console.log("upgrade")
         
         
-        if(!session?.metadata?.inseratId) {
-            return new NextResponse("InseratId nicht gefunden", {status : 400})
-        }
+        
         console.log("1")
         if(!session?.metadata?.userId) {
             return new NextResponse("UserId nicht gefunden", {status : 400})
         }
         console.log("2")
-        const newPrice = session?.metadata?.subscriptionType === "PREMIUM" ? "price_1P3eHLGRyqashQ2w8G7MmOmc" : "price_1P3eHXGRyqashQ2wzUh5fehI";
+        if(!session?.metadata?.amount) {
+            return new NextResponse("Keine Anzahl gefunden", {status : 400})
+        }
+        console.log("212")
+        if(!session?.metadata?.subscriptionType) {
+            return new NextResponse("Keinen Typ gefunden", {status : 400})
+        }
 
         const [patchSubscription] = await db.update(userSubscription).set({
             //@ts-ignore
             subscriptionType : session?.metadata?.subscriptionType,
+            //@ts-ignore
+            amount : session?.metadata?.amount,
         }).where(eq(userSubscription.userId, session?.metadata?.userId)).returning();
         console.log("4")
         const subscriptions = await stripe.subscriptions.list({
@@ -65,7 +71,7 @@ export async function POST(
                 items : [
                     {
                         id : subscriptions.data[0].items.data[0].id,
-                        price : newPrice
+                        price : session?.metadata?.priceId
                     }
                 ],proration_behavior: 'none'
             }

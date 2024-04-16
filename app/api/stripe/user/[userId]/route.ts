@@ -22,23 +22,6 @@ export async function PATCH(
 
         const currentUser = await getCurrentUser();
 
-        
-
-        const product = await stripe.products.retrieve(values.productId);
-        
-        const receivedPrice = await stripe.prices.retrieve(product.default_price);
-
-        
-
-        
-
-
-        if (!currentUser) {
-            return new NextResponse("Nicht autorisiert : Kein Login", { status: 401 })
-        }
-
-
-
         const existingSubscription = await db.query.userSubscription.findFirst({
             where: (
                 eq(userSubscription.userId, params.userId)
@@ -57,6 +40,25 @@ export async function PATCH(
 
             return new NextResponse(JSON.stringify({ url: stripeSession.url }))
         }
+
+        
+
+        const product = await stripe.products.retrieve(values.productId);
+        
+        const receivedPrice = await stripe.prices.retrieve(product.default_price);
+
+        
+
+        
+
+
+        if (!currentUser) {
+            return new NextResponse("Nicht autorisiert : Kein Login", { status: 401 })
+        }
+
+
+
+        
 
        
 

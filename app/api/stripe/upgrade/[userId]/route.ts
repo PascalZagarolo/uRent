@@ -12,23 +12,23 @@ export async function PATCH(
     { params } : { params : { userId : string }}
 ) {
     try {
-        console.log(1)
+        
         const currentUser = await getCurrentUser();
-        console.log(1)
+        
         if(!currentUser) {
             return new NextResponse("Nicht autorisiert", { status : 401 })
         }
-        console.log(1)
+        
         
 
         const values = await req.json();
 
         const product = await stripe.products.retrieve(values.productId);
-        console.log(1)
+        
         if(!product) {
             return new NextResponse("Kein zugehöriges Produkt gefunden", { status : 404 })
         }
-        console.log(2)
+       
         const price = await stripe.prices.retrieve(product.default_price as string);
 
         const findExistingSubscription = await db.query.userSubscription.findFirst({
@@ -36,11 +36,11 @@ export async function PATCH(
                 eq(userSubscription.userId, params.userId)
             )
         })
-        console.log(3)
+        
         if(!findExistingSubscription) {
             return new NextResponse("Kein Abonnement gefunden", { status : 404 })
         }
-        console.log(4)
+        
         //pay one time fee to upgrade => database update is performed in the webhook
         const stripeSession = await stripe.checkout.sessions.create({
             success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.userId}`,

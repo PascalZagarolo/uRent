@@ -17,12 +17,14 @@ interface BasisButtonProps {
     selectedAmount: number;
     existingSubscription?: typeof userSubscription;
     userId: string;
+    diffrence : number;
 }
 
 const BasisButton: React.FC<BasisButtonProps> = ({
     selectedAmount,
     existingSubscription,
-    userId
+    userId,
+    diffrence
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -55,10 +57,9 @@ const BasisButton: React.FC<BasisButtonProps> = ({
         try {
             setIsLoading(true);
             const values = {
-                subscriptionType: "BASIS",
+                diffrence : diffrence,
                 productId: productId,
-                amount: selectedAmount,
-
+                subscriptionType : "BASIS",
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url

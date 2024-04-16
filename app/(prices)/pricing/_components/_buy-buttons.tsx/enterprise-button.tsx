@@ -14,12 +14,14 @@ interface EnterpriseButtonProps {
     selectedAmount : number;
     existingSubscription?: typeof userSubscription;
     userId : string;
+    diffrence : number;
 }
 
 const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
     selectedAmount,
     existingSubscription,
-    userId
+    userId,
+    diffrence
 }) => {
 
     const calculateEnterprisePrice = () => {
@@ -66,21 +68,14 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
     const onUpgrade = async () => {
         try {
             setIsLoading(true);
-            let price;
-            //@ts-ignore
-            if(existingSubscription.subscriptionType === "BASIS") {
-                price = 2400
-            } else {
-                price = 1000
-            }
-            
+
             const values = {
-                subscription: "ENTERPRISE",
-                price : price,
-                stripe_customer_id : existingSubscription.stripe_customer_id,
-                
+                diffrence : diffrence * 100,
+                productId: productId,
+                subscriptionType : "ENTERPRISE",
             }
-            const res = await axios.patch(`/api/stripe/upgrade/`, values);
+
+            const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);
             window.location.href = res.data.url
         } catch {
             toast.error("Etwas ist schief gelaufen")

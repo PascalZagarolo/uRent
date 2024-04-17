@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { business, users } from "@/db/schema";
+import { business, userTable  } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -9,9 +9,9 @@ export async function PATCH(
 ) {
     try {
         
-        const updatedProfile = await db.update(users).set({
+        const updatedProfile = await db.update(userTable).set({
             isBusiness : true
-        }).where(eq(users.id, params.profileId)).returning();
+        }).where(eq(userTable.id, params.profileId)).returning();
 
         const findBusiness = await db.query.business.findFirst({
             where : eq(business.userId, params.profileId)
@@ -22,9 +22,9 @@ export async function PATCH(
                 userId : params.profileId
             }).returning();
 
-            const patchedUser = await db.update(users).set({
+            const patchedUser = await db.update(userTable).set({
                 businessId : createdBusiness[0].id
-            }).where(eq(users.id, params.profileId)).returning();
+            }).where(eq(userTable.id, params.profileId)).returning();
 
             return NextResponse.json({
                 patchedUser, createdBusiness

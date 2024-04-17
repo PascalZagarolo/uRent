@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
 import db from "@/db/drizzle";
-import { resetPasswordToken, users } from '../db/schema';
+import { resetPasswordToken, userTable } from '../db/schema';
 import { eq } from "drizzle-orm";
 
 
@@ -53,9 +53,9 @@ export const newPassword = async (
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  await db.update(users).set({
+  await db.update(userTable).set({
     password : hashedPassword
-  }).where(eq(users.id, existingUser.id))
+  }).where(eq(userTable.id, existingUser.id))
 
   await db.delete(resetPasswordToken).where(eq(resetPasswordToken.identifier, existingToken.identifier))
 

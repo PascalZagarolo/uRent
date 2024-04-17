@@ -13,12 +13,12 @@ import toast from "react-hot-toast";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 
 
 
 interface AddRezensionProps {
-    currentUser : typeof users.$inferSelect;
+    currentUser : typeof userTable.$inferSelect;
 }
 
 const AddRezension: React.FC<AddRezensionProps> = ({

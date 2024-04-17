@@ -16,13 +16,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { set } from "lodash";
 import { cn } from "@/lib/utils";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { useRouter } from "next/navigation";
 
 
 interface ProfileDescriptionProps { 
     ownProfile : boolean;
-    user : typeof users.$inferSelect;
+    user : typeof userTable.$inferSelect;
 }
 
 

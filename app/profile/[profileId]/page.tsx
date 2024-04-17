@@ -8,7 +8,7 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import { businessImages, contactOptions, inserat, notification, rezension, users } from "@/db/schema";
+import { businessImages, contactOptions, inserat, notification, rezension, userTable } from "@/db/schema";
 import RegisterBusiness from "./_components/register-business";
 import { FaBuilding, FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
@@ -28,8 +28,8 @@ export async function generateMetadata({ params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     try {
-        const res = await db.query.users.findFirst({
-            where: eq(users.id, params.profileId),
+        const res = await db.query.userTable.findFirst({
+            where: eq(userTable.id, params.profileId),
             with : {
                 business : true
             }
@@ -84,8 +84,8 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
     })
 
 
-    const thisUser = await db.query.users.findFirst({
-        where: eq(users.id, pageOwnerId),
+    const thisUser = await db.query.userTable.findFirst({
+        where: eq(userTable.id, pageOwnerId),
         with : {
             business : {
                 with : {

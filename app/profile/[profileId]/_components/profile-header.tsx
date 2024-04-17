@@ -11,7 +11,7 @@ import ProfileDescription from "./profile-description";
 import ContactOptionsRender from "./contact-options";
 
 import { CheckmarkIcon } from "react-hot-toast";
-import { businessImages, contactOptions, users } from "@/db/schema";
+import { businessImages, contactOptions, userTable } from "@/db/schema";
 import db from "@/db/drizzle";
 import { eq, is } from 'drizzle-orm';
 import StandortRender from "./standort-render";
@@ -24,8 +24,8 @@ import { business } from '../../../../db/schema';
 
 
 interface ProfileHeaderProps {
-    currentUser: typeof users.$inferSelect;
-    user: typeof users.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
+    user: typeof userTable.$inferSelect;
     thisContactOptions: typeof contactOptions.$inferSelect;
     thisImages: typeof businessImages.$inferSelect[];
 }

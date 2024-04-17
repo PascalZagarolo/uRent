@@ -11,13 +11,13 @@ import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
 import InseratCard from "@/app/(dashboard)/_components/inserat-card"
-import { inserat, users } from "@/db/schema"
+import { inserat, userTable } from "@/db/schema"
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/carousel"
 
 
 interface OwnContentSlideProps {
   foundInserate: typeof inserat.$inferSelect[];
-  currentUser : typeof users.$inferSelect
+  currentUser : typeof userTable.$inferSelect
 }
 
 const OwnContentSlide: React.FC<OwnContentSlideProps> = ({

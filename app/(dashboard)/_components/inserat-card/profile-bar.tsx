@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { inserat, inseratRelations, users } from "@/db/schema";
+import { inserat, inseratRelations, userTable } from "@/db/schema";
 
 import axios from "axios";
 import { Check, Lightbulb, MailCheckIcon, Settings2Icon, ThumbsUpIcon } from "lucide-react";
@@ -18,7 +18,7 @@ import { LuMessagesSquare } from "react-icons/lu";
 
 interface ProfileBarProps {
     thisInserat : typeof inserat.$inferSelect.users,
-    currentUser : typeof users.$inferSelect
+    currentUser : typeof userTable.$inferSelect
 }
 
 const ProfileBar: React.FC<ProfileBarProps> = ({

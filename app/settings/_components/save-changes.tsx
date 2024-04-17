@@ -2,7 +2,7 @@
 
 
 import { Button } from "@/components/ui/button";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { useUnsavedChangesSettings } from "@/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 
 
 interface SaveChangesSettingsProps {
-    thisUser : typeof users.$inferSelect
+    thisUser : typeof userTable.$inferSelect
 }
 
 const SaveChangesSettings: React.FC<SaveChangesSettingsProps> = ({

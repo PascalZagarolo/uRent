@@ -20,7 +20,7 @@ import ReturnToChat from "./_components/return-to-chat";
 import db from "@/db/drizzle";
 import { and, eq, is, isNotNull, or } from "drizzle-orm";
 import { conversation, notification } from "@/db/schema";
-import { users, message } from '../../../../db/schema';
+import { userTable, message } from '../../../../db/schema';
 
 
 
@@ -94,9 +94,9 @@ const ConversationPage = async ({
 
     console.log(otherUserId)
 
-    const otherUserDetails = await db.query.users.findFirst({
+    const otherUserDetails = await db.query.userTable.findFirst({
         where : eq(
-            users.id, otherUserId
+            userTable.id, otherUserId
         )
     })
 
@@ -113,7 +113,7 @@ const ConversationPage = async ({
         
     })
 
-    let otherUserChat: typeof users.$inferSelect;
+    let otherUserChat: typeof userTable.$inferSelect;
 
     const foundNotifications = await db.query.notification.findMany({
         where : (

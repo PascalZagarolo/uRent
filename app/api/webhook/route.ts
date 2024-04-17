@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { users, userSubscription } from "@/db/schema";
+import { userTable, userSubscription } from "@/db/schema";
 
 import { stripe } from "@/lib/stripe";
 import axios from "axios";
@@ -117,10 +117,10 @@ export async function POST(
             )
         }).returning();
 
-        await db.update(users).set({
+        await db.update(userTable).set({
             subscriptionId : createdSubscription.id,
             
-        }).where(eq(users.id, session?.metadata?.userId))
+        }).where(eq(userTable.id, session?.metadata?.userId))
 
         
         return new NextResponse(null, {status : 200})

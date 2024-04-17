@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
-import { users, userSubscription } from "@/db/schema";
+import { userTable, userSubscription } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import BuyOptions from "./_components/buy-options";
 import RedeemCode from "./_components/redeem-code";
@@ -24,7 +24,7 @@ const PricingMainPage = async () => {
 
     const foundNotifications = await db.query.notification.findMany({
         where: (
-            eq(users.id, currentUser?.id)
+            eq(userTable.id, currentUser?.id)
         )
     })
 

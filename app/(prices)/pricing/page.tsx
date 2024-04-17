@@ -31,7 +31,6 @@ const PricingMainPage = async () => {
 
     return (
 
-
         <div>
             <div className="p-4 items-center">
             <div>

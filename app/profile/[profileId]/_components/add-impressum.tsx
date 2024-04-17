@@ -138,7 +138,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                         ) : (
                             <div className="mt-2 text-sm font-medium">
                             
-                        {currentContent?.trim() !== ""? (
+                        {(currentContent?.trim() !== "" && currentContent)? (
                             
 
                             <div>

@@ -13,6 +13,7 @@ import MobileHeader from "../(dashboard)/_components/mobile-header";
 import Vorname from "./_components/change-vorname";
 import Nachname from "./_components/change-nachname";
 import UsernameInput from "./_components/username-input";
+import ChangeEmail from "./_components/change-email";
 
 
 
@@ -83,8 +84,8 @@ const SettingsPage = async () => {
                                 />
                                 </div>
                                 <div>
-                                    <EmailSettings 
-                                    usedEmail={findCurrentUser?.email}
+                                    <ChangeEmail 
+                                    thisUser = {findCurrentUser}
                                     />
                                 </div>
 

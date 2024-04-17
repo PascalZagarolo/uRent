@@ -2,10 +2,10 @@ import { Separator } from "@/components/ui/separator";
 
 import { IoIosPaper } from "react-icons/io";
 import OtherInserateRender from "./other-inserate-render";
-import { inserat, users } from "@/db/schema";
+import { inserat, userTable } from "@/db/schema";
 
 interface OtherInserateProps {
-    thisUser: typeof users.$inferSelect,
+    thisUser: typeof userTable.$inferSelect,
     inserateArray: typeof inserat.$inferSelect[];
 }
 

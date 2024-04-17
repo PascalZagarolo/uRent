@@ -1,5 +1,6 @@
 import db from "@/db/drizzle";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
+
 import { ilike } from "drizzle-orm";
 
 
@@ -9,12 +10,12 @@ type getUser = {
 
 export const getUserByName = async ({
     username
-}: getUser) : Promise<typeof users.$inferSelect[]> => {
+}: getUser) : Promise<typeof userTable.$inferSelect[]> => {
 
     try {
-        const user = await db.query.users.findMany({
+        const user = await db.query.userTable.findMany({
             where : (
-                ilike(users.username, `%${username}%`)
+                ilike(userTable.username, `%${username}%`)
             )
         })
 

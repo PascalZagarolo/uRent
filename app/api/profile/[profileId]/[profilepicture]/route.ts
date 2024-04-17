@@ -1,6 +1,7 @@
 
 import db from "@/db/drizzle";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -13,9 +14,9 @@ export async function PATCH(
 
         const image = body.image
 
-        const patchedProfile : any = await db.update(users).set({
+        const patchedProfile : any = await db.update(userTable).set({
             image : image
-        }).where(eq(users.id, params.profileId)).returning();
+        }).where(eq(userTable.id, params.profileId)).returning();
         console.log(patchedProfile)
         return NextResponse.json(patchedProfile[0]);
     } catch (error) {

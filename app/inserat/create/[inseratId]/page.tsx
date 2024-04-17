@@ -19,7 +19,7 @@ import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { and, count, eq, sql } from "drizzle-orm";
 import { address, contactOptions, images, inserat, lkwAttribute, notification, 
-    pkwAttribute, trailerAttribute, transportAttribute, userAddress, users } from "@/db/schema";
+    pkwAttribute, trailerAttribute, transportAttribute, userAddress, userTable } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
@@ -40,8 +40,8 @@ const InseratCreation = async ({
         redirect("/")
     }
 
-    const currentUserWithContactOptions = await db.query.users.findFirst({
-        where : eq(users.id, currentUser?.id),
+    const currentUserWithContactOptions = await db.query.userTable.findFirst({
+        where : eq(userTable.id, currentUser?.id),
         with : {
             contactOptions: {
                 with : {
@@ -72,7 +72,7 @@ const InseratCreation = async ({
         with: {
             images: true,
             address: true,
-            user : true,
+            userTable : true,
             pkwAttribute: true,
             lkwAttribute: true,
             trailerAttribute: true,

@@ -4,7 +4,7 @@
 import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import db from "@/db/drizzle";
-import { users, verificationTokens } from "@/db/schema";
+import { userTable, verificationTokens } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 
@@ -29,11 +29,11 @@ export const newVerification = async (token: string) => {
     return { error: "Account existiert nicht." };
   }
 
- await db.update(users).set({
+ await db.update(userTable).set({
   emailVerified : new Date(),
   email : existingToken.email,
   confirmedMail : true
- }).where(eq(users.id, existingUser.id))
+ }).where(eq(userTable.id, existingUser.id))
 
   setTimeout(async () => {
     await db.delete(verificationTokens).where(eq(verificationTokens.email, existingToken.email))

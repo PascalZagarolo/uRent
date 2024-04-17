@@ -17,7 +17,7 @@ import { Metadata } from "next";
 import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import PaginationComponent from "./_components/pagination-component";
 import MainPageSideBar from "./_components/main-page-sidebar";
-import { auth } from "@/auth";
+
 import { ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, 
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender,
      LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
@@ -103,7 +103,7 @@ const Main = async ({
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)
 
-    const user = await auth();
+   
 
 
     

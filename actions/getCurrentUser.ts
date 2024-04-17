@@ -2,24 +2,28 @@
 
 
 import db from "@/db/drizzle";
+import { userTable } from "@/db/schema";
+import { validateRequest } from "@/lib/lucia";
 
 import { eq, sql } from "drizzle-orm";
-import { users } from "@/db/schema";
 
-import { auth } from "@/auth";
+
+
 
 
 const getCurrentUser = async () => {
   try {
     
-    const current = await auth();
+    const { user } = await validateRequest();
+
+    console.log(user)
    
 
-    const findUser : typeof users.$inferSelect = db.query.users.findFirst({
-      where: eq(users.email, sql.placeholder("email"))
+    const findUser : typeof userTable.$inferSelect = db.query.userTable.findFirst({
+      where: eq(userTable.id, sql.placeholder("userId"))
     }).prepare("findUser");
 
-    const currentUser = await findUser.execute({email : current.user?.email})
+    const currentUser = await findUser.execute({userId : user.id })
 
     if (!currentUser) {
       console.log("leer")

@@ -62,6 +62,7 @@ export const LoginForm = () => {
           }
 
           if (data?.success) {
+            console.log(data)
             form.reset();
             setSuccess(data.success);
           }

@@ -3,7 +3,7 @@ import { Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
 
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { accounts, notification, users } from "@/db/schema";
+import { accounts, notification, userTable } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
@@ -20,9 +20,9 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const findCurrentUser = await db.query.users.findFirst({
+    const findCurrentUser = await db.query.userTable.findFirst({
         where: (
-            eq(users.id, currentUser?.id)
+            eq(userTable.id, currentUser?.id)
         )
     })
 

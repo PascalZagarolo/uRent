@@ -1,9 +1,9 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import HeaderLogo from "../../_components/header-logo";
+
 import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
 import db from "@/db/drizzle";
-import MobileHeader from "../../_components/mobile-header";
+
 
 const AgbsPage = async () => {
 

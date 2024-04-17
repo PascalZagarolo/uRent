@@ -2,14 +2,14 @@
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { sendTwoFactorActivating } from "@/lib/mail";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface Select2FaProps {
-    thisUser : typeof users.$inferSelect;
+    thisUser : typeof userTable.$inferSelect;
 }
 
 const Select2Fa: React.FC<Select2FaProps> = ({

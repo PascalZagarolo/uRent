@@ -4,7 +4,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import axios from "axios";
 import { RocketIcon } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { BsBuildingsFill } from "react-icons/bs";
@@ -18,10 +18,13 @@ const RegisterBusiness = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const router = useRouter();
+
     const onBusinessRegister = async () => {
         try {
             setIsLoading(true);
-            const res = await axios.patch(`/api/profile/${params.profileId}/register-business`);
+            const res = await axios.patch(`/api/profile/${params.profileId}/register-business`)
+                .then(() => router.refresh())
         } catch {
             toast.error("Fehler beim Umwandeln des Kontos");
         } finally {

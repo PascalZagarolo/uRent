@@ -78,13 +78,13 @@ const Header: React.FC<HeaderProps> = async ({
                                     currentUser={currentUser}
                                     foundNotifications={foundNotifications}
                                 />
-                                {/* 
+                               
                                 <form action={signOut} className="">
                                 <Button className="mt-2" variant="ghost" size="sm">
                                     <LogOutIcon className="w-4 h-4" />
                                 </Button>
                             </form>
-                                */}
+                                
                             </div>
                 )
                     }

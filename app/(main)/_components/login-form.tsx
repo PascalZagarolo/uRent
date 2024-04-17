@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
@@ -26,6 +26,8 @@ import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 import { LoginSchema } from "./_schemas";
 import { EyeIcon } from "lucide-react";
+import toast from "react-hot-toast";
+
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -38,6 +40,8 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -55,20 +59,29 @@ export const LoginForm = () => {
     
     startTransition(() => {
       login(values, callbackUrl)
+      
         .then((data) => {
           if (data?.error) {
             form.reset();
             setError(data.error);
           }
-
-          if (data?.success) {
-            console.log(data)
+          
+          if (data?.id) {
+            
             form.reset();
+            toast.success("Erfolgreich eingeloggt");
+            setTimeout(() => {
+              router.push("/")
+            })
             setSuccess(data.success);
           }
 
           if (data?.twoFactor) {
             setShowTwoFactor(true);
+          }
+
+          if(!data?.twoFactor && !data?.id) {
+            setError("Falsche Anmeldedaten");
           }
           
         })

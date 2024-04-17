@@ -47,9 +47,9 @@ const DashboardLayout = async (
                     foundNotifications={foundNotifications}
                      />
             </div>
-            <div>
+            <section>
             {children}
-            </div>
+            </section>
              
         </div>
      );

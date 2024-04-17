@@ -34,7 +34,7 @@ export const login = async (
   callbackUrl?: string | null,
 ) => {
   
-  console.log("dions")
+  
 
   const validatedFields = LoginSchema.safeParse(values);
 
@@ -43,9 +43,7 @@ export const login = async (
   }
 
   const { email, password, code } = validatedFields.data;
-  console.log(code)
-
-  console.log(code)
+  
 
   const existingUser = await getUserByEmail(email);
 

@@ -7,8 +7,10 @@ import bcrypt from "bcrypt";
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
 import db from "@/db/drizzle";
-import { resetPasswordToken, userTable } from '../db/schema';
+import { resetPasswordToken, sessionTable, userTable } from '../db/schema';
 import { eq } from "drizzle-orm";
+import { lucia } from "@/lib/lucia";
+import { cookies } from "next/headers";
 
 
 const NewPasswordSchema = z.object({
@@ -53,11 +55,27 @@ export const newPassword = async (
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  //update Password
   await db.update(userTable).set({
     password : hashedPassword
   }).where(eq(userTable.id, existingUser.id))
 
-  await db.delete(resetPasswordToken).where(eq(resetPasswordToken.identifier, existingToken.identifier))
+  //logout all other sessions
+  await db.delete(sessionTable).where(eq(sessionTable.userId, existingUser.id));
+
+  const session = await lucia.createSession(existingUser.id, {
+    expiresIn: 60 * 60 * 24 * 30,
+  })
+
+  await db.delete(resetPasswordToken).where(eq(resetPasswordToken.identifier, existingToken.identifier));
+
+  const sessionCookie = lucia.createSessionCookie(session.id)
+
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes
+    )
 
   return { success: "Password geändert!" };
 };

@@ -12,23 +12,23 @@ import {
     boolean,
     decimal,
     pgEnum,
-    serial,
+   
     uuid,
-    date,
+ 
 
 } from "drizzle-orm/pg-core"
 import type { AdapterAccount } from '@auth/core/adapters'
 
-import { InferModel, relations, sql } from "drizzle-orm"
-import { array, z } from "zod"
-import { stripe } from "@/lib/stripe"
+import {  relations, sql } from "drizzle-orm"
+import { z } from "zod"
 
 
 
 
-//@ts-ignore
-export const users = pgTable("user", {
-    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+
+
+export const userTable = pgTable("user", {
+    id: text("id").primaryKey(),
     name: text("name"),
     vorname : text("vorname"),
     nachname : text("lastname"),
@@ -57,11 +57,11 @@ export const users = pgTable("user", {
                                 .references(() => twoFactorConfirmation.id, { onDelete: "set null" }),
 })
 
-//@ts-ignore
+
 export const business = pgTable("business", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
-    userId: uuid("userId")
-        .references(() => users.id, { onDelete: "cascade" }),
+    userId: text("userId")
+        .references(() => userTable.id, { onDelete: "cascade" }),
     description: text("description"),
     openingHours : text("openingHours"),
     telephone_number : text("telephone_number"),
@@ -108,8 +108,8 @@ export const businessImages = pgTable("businessImages", {
 
 export const twoFactorConfirmation = pgTable("twoFactorConfirmation", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
-    userId: uuid("userId")
-        .references(() => users.id, { onDelete: "cascade" }),
+    userId: text("userId")
+        .references(() => userTable.id, { onDelete: "cascade" }),
 })
 
 
@@ -118,8 +118,8 @@ export const twoFactorConfirmation = pgTable("twoFactorConfirmation", {
 export const accounts = pgTable(
     "account",
     {
-        userId: uuid("userId")
-            .references(() => users.id, { onDelete: "cascade" }).notNull(),
+        userId: text("userId")
+            .references(() => userTable.id, { onDelete: "cascade" }).notNull(),
         type: text("type").$type<AdapterAccount["type"]>().notNull(),
         provider: text("provider").notNull(),
         providerAccountId: text("providerAccountId").notNull(),
@@ -136,12 +136,17 @@ export const accounts = pgTable(
     })
 )
 
-export const sessions = pgTable("session", {
-    sessionToken: text("sessionToken").notNull().primaryKey(),
-    userId: uuid("userId")
-        .references(() => users.id, { onDelete: "cascade" }).notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
-})
+export const sessionTable = pgTable("session", {
+	id: text("id").primaryKey(),
+	userId: text("user_id")
+		.notNull()
+		.references(() => userTable.id),
+	expiresAt: timestamp("expires_at", {
+		withTimezone: true,
+		mode: "date"
+	})
+});
+
 
 export const verificationTokens = pgTable(
     "verificationToken",
@@ -246,9 +251,9 @@ export const inserat = pgTable("inserat", {
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
     updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
 
-    userId: uuid("userId")
+    userId: text("userId")
         .notNull()
-        .references(() => users.id, { onDelete: "cascade" }),
+        .references(() => userTable.id, { onDelete: "cascade" }),
 
   
 
@@ -591,17 +596,17 @@ export const images = pgTable("images", {
 
 export const favourite = pgTable("favourite", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
-    userId: uuid("userId").
-        references(() => users.id, { onDelete: "cascade" }).notNull(),
+    userId: text("userId").
+        references(() => userTable.id, { onDelete: "cascade" }).notNull(),
     inseratId: uuid("inseratId").
         references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 } )
 
 export const purchase = pgTable("purchase", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
-    userId: uuid("userId").
+    userId: text("userId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }),
+        references(() => userTable.id, { onDelete: "cascade" }),
     inseratId: uuid("inseratId")
     .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
@@ -610,9 +615,9 @@ export const purchase = pgTable("purchase", {
 
 export const stripeCustomer = pgTable("stripeCustomer", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
-    userId: uuid("userId").
+    userId: text("userId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }),
+        references(() => userTable.id, { onDelete: "cascade" }),
     stripeCustomerId: uuid("stripeCustomerId").notNull().unique(),
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
@@ -623,10 +628,10 @@ export const stripeCustomer = pgTable("stripeCustomer", {
 export const conversation = pgTable("conversation", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
-    user1Id: uuid("user1").
-        references(() => users.id, { onDelete: "cascade" }).notNull(),
-    user2Id: uuid("user2").
-        references(() => users.id, { onDelete: "cascade" }).notNull(),
+    user1Id: text("user1").
+        references(() => userTable.id, { onDelete: "cascade" }).notNull(),
+    user2Id: text("user2").
+        references(() => userTable.id, { onDelete: "cascade" }).notNull(),
 })
 
 export const message = pgTable("message", {
@@ -642,9 +647,9 @@ export const message = pgTable("message", {
 
     inseratId: uuid("inseratId").
         references(() => inserat.id, { onDelete: "cascade" }),
-    senderId: uuid("senderId").
+    senderId: text("senderId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }),
+        references(() => userTable.id, { onDelete: "cascade" }),
     conversationId: uuid("conversationId").
         notNull().
         references(() => conversation.id, { onDelete: "cascade" }),
@@ -663,22 +668,22 @@ export const rezension = pgTable("rezension", {
 
     isEdited: boolean("isEdited").notNull().default(false),
 
-    receiverId: uuid("receiverId").
+    receiverId: text("receiverId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }),
+        references(() => userTable.id, { onDelete: "cascade" }),
 
-    senderId: uuid("senderId").
+    senderId: text("senderId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }),
+        references(() => userTable.id, { onDelete: "cascade" }),
 })
 
 //@ts-ignore
 export const contactOptions = pgTable("contactOptions", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    userId: uuid("userId").
+    userId: text("userId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }),
+        references(() => userTable.id, { onDelete: "cascade" }),
 
     email: boolean("email").notNull().default(false),
     emailAddress: text("emailAddress"),
@@ -697,9 +702,9 @@ export const contactOptions = pgTable("contactOptions", {
 export const userAddress = pgTable("userAddress", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    userId: uuid("userId").
+    userId: text("userId").
         notNull().
-        references(() => users.id, {onDelete : "cascade"}).unique(),
+        references(() => userTable.id, {onDelete : "cascade"}).unique(),
 
     contactOptionsId: uuid("contactOptionsId").
         references(() => contactOptions.id).unique(),
@@ -719,8 +724,8 @@ export const booking = pgTable("booking", {
     inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
-    userId: uuid("userId").
-        references(() => users.id, { onDelete: "cascade" }),
+    userId: text("userId").
+        references(() => userTable.id, { onDelete: "cascade" }),
     
     vehicleId : uuid("vehicleId")
         .references(() => vehicle.id, { onDelete : "cascade"}),
@@ -743,9 +748,9 @@ export const bookingRequest = pgTable("bookingRequest", {
     inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
 
-    userId: uuid("userId").
+    userId: text("userId").
         notNull().
-        references(() => users.id, { onDelete: "cascade" }),
+        references(() => userTable.id, { onDelete: "cascade" }),
 
     content: text("content"),
 
@@ -783,8 +788,8 @@ export const notification = pgTable("notification", {
     //save Inserattitle, username that sent the message etc...
     content : text("content"),
 
-    userId : uuid("userId")
-                .references(() => users.id, { onDelete: "cascade" }),
+    userId : text("userId")
+                .references(() => userTable.id, { onDelete: "cascade" }),
 
     conversationId : text("conversationId"),
     inseratId : text("inseratId"),
@@ -798,8 +803,8 @@ export const notification = pgTable("notification", {
 export const report = pgTable("report", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    userId : uuid("userId")
-                .references(() => users.id, { onDelete: "cascade" }),
+    userId : text("userId")
+                .references(() => userTable.id, { onDelete: "cascade" }),
 
     inseratId : uuid("inseratId")
                 .references(() => inserat.id, { onDelete: "cascade" }),
@@ -815,23 +820,23 @@ export const report = pgTable("report", {
 //every array of a user => e.g liked posts etc..
 
 export const accountRelations = relations(accounts, ({ one }) => ({
-    users : one(users, {
+    users : one(userTable, {
         fields : [accounts.userId],
-        references : [users.id]
+        references : [userTable.id]
     })
 }))
 
-export const sessionRelations =  relations(sessions, ({ one }) => ({
-    users : one(users, {
-        fields : [sessions.userId],
-        references : [users.id]
+export const sessionRelations =  relations(sessionTable, ({ one }) => ({
+    users : one(userTable, {
+        fields : [sessionTable.userId],
+        references : [userTable.id]
     })
 }))
 
-export const userRelations = relations(users, ({ one, many }) => ({
+export const userRelations = relations(userTable, ({ one, many }) => ({
 
     userAddress : one(userAddress, {
-        fields : [users.userAddressId],
+        fields : [userTable.userAddressId],
         references : [userAddress.id]
     }),
 
@@ -842,31 +847,32 @@ export const userRelations = relations(users, ({ one, many }) => ({
 
     messages : many(message),
     accounts : many(accounts),
-    sessions : many(sessions),
+    sessions : many(sessionTable),
 
     favourites : many(favourite),
     conversation_user1 : many(conversation,{ relationName : "conversation_user1" }),
     conversation_user2 : many(conversation,{ relationName : "conversation_user2" }),
     contactOptions : one(contactOptions, {
-        fields : [users.contactId],
+        fields : [userTable.contactId],
         references : [contactOptions.id]
     }),
     twoFactorConfirmation : one(twoFactorConfirmation, {
-        fields : [users.twoFactorConfirmationId],
+        fields : [userTable.twoFactorConfirmationId],
         references : [twoFactorConfirmation.id]
     }),
     business : one(business, {
-        fields : [users.businessId],
+        fields : [userTable.businessId],
         references : [business.id]
     }),
     subscription : one(userSubscription, {
-        fields : [users.subscriptionId],
+        fields : [userTable.subscriptionId],
         references : [userSubscription.id]
     }),
     
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
-    notifications : many(notification)
+    notifications : many(notification),
+    
     
 }));
 
@@ -878,17 +884,17 @@ export const twoFactorToken = pgTable("twoFactorToken", {
 })
 
 export const twoFactorConfirmationRelations = relations(twoFactorConfirmation, ({ one }) => ({
-    users : one(users, {
+    users : one(userTable, {
         fields : [twoFactorConfirmation.userId],
-        references : [users.id]
+        references : [userTable.id]
     })
 
 }))
 
 export const inseratRelations = relations(inserat, ({ one, many }) => ({
-    user: one(users, {
+    user: one(userTable, {
         fields: [inserat.userId],
-        references: [users.id]
+        references: [userTable.id]
     }),
     pkwAttribute: one(pkwAttribute, {
         fields: [inserat.pkwId],
@@ -926,9 +932,9 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
 }))
 
 export const businessRelations = relations(business, ({ one, many}) => ({
-    user : one(users, {
+    user : one(userTable, {
         fields : [business.userId],
-        references : [users.id]
+        references : [userTable.id]
     }),
     openingTimes : one(openingTimes, {
         fields : [business.id],
@@ -1003,9 +1009,9 @@ export const transportAttributeRelations = relations(transportAttribute, ({ one 
 }))
 
 export const bookingRelations = relations(booking, ({ one }) => ({
-    user : one(users, {
+    user : one(userTable, {
         fields : [booking.userId],
-        references : [users.id]
+        references : [userTable.id]
     }),
     inserat : one(inserat, {
         fields : [booking.inseratId],
@@ -1018,9 +1024,9 @@ export const bookingRelations = relations(booking, ({ one }) => ({
 }))
 
 export const bookingRequestRelations = relations(bookingRequest, ({ one }) => ({
-    user : one(users, {
+    user : one(userTable, {
         fields : [bookingRequest.userId],
-        references : [users.id]
+        references : [userTable.id]
     }),
     inserat : one(inserat, {
         fields : [bookingRequest.inseratId],
@@ -1029,9 +1035,9 @@ export const bookingRequestRelations = relations(bookingRequest, ({ one }) => ({
 }))
 
 export const favouriteRelation = relations(favourite, ({ one }) => ({
-    user : one(users, {
+    user : one(userTable, {
         fields : [favourite.userId],
-        references : [users.id]
+        references : [userTable.id]
     }),
     inserat : one(inserat, {
         fields : [favourite.inseratId],
@@ -1044,9 +1050,9 @@ export const contactOptionsRelation = relations(contactOptions, ({ one }) => ({
         fields : [contactOptions.userAddressId],
         references: [userAddress.id]
     }),
-    user : one(users, {
+    user : one(userTable, {
         fields : [contactOptions.userId],
-        references : [users.id]
+        references : [userTable.id]
     
     })
 }))
@@ -1059,9 +1065,9 @@ export const userAddressRelations = relations(userAddress, ({ one }) => ({
 }))
 
 export const messageRelations = relations(message, ({ one }) => ({
-    sender : one(users, {
+    sender : one(userTable, {
         fields : [message.senderId],
-        references : [users.id]
+        references : [userTable.id]
     }),
     conversation : one(conversation, {
         fields : [message.conversationId],
@@ -1074,43 +1080,43 @@ export const messageRelations = relations(message, ({ one }) => ({
 }))
 
 export const rezensionRelations = relations(rezension, ({ one }) => ({
-    sender : one(users , {
+    sender : one(userTable , {
         fields : [rezension.senderId],
-        references : [users.id],
+        references : [userTable.id],
         relationName : "writtenRezensionen"
     }),
-    receiver : one(users, {
+    receiver : one(userTable, {
         fields : [rezension.receiverId],
-        references : [users.id],
+        references : [userTable.id],
         relationName : "receivedRezensionen"
     })
 }))
 
 export const conversationRelations = relations(conversation, ({ one, many }) => ({
-    user1 : one(users, {
+    user1 : one(userTable, {
         fields : [conversation.user1Id],
-        references : [users.id],
+        references : [userTable.id],
         relationName : "conversation_user1"
     }),
-    user2 : one(users, {
+    user2 : one(userTable, {
         fields : [conversation.user2Id],
-        references : [users.id],
+        references : [userTable.id],
         relationName : "conversation_user2"
     }),
     messages : many(message)
 }))
 
 export const notificationRelations = relations(notification, ({ one }) => ({
-    user : one(users, {
+    user : one(userTable, {
         fields : [notification.userId],
-        references : [users.id]
+        references : [userTable.id]
     })
 }))
 
 export const reportRelations = relations(report, ({ one }) => ({
-    user : one(users, {
+    user : one(userTable, {
         fields : [report.userId],
-        references : [users.id]
+        references : [userTable.id]
     }),
    inserat : one(inserat, {
     fields : [report.inseratId],

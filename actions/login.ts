@@ -4,7 +4,7 @@
 import { AuthError } from "next-auth";
 
 
-import { signIn } from "@/auth";
+
 
 import { getUserByEmail } from "@/data/user";
 import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/mail";
@@ -18,6 +18,12 @@ import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { getTwoFactorConfirmationByUserId } from "./two-factor-confirmation";
 import { twoFactorConfirmation } from '../db/schema';
+import { setLocalStorage } from "./setLocalStorage";
+import bcrypt from 'bcrypt';
+import { lucia } from "@/lib/lucia";
+import { cookies } from "next/headers";
+
+
 
 
 
@@ -40,7 +46,7 @@ export const login = async (
 
   const existingUser = await getUserByEmail(email);
 
-
+  console.log(existingUser)
 
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "Email existiert nicht" }
@@ -105,12 +111,45 @@ export const login = async (
   }
 ////////////////////////////////////////////////////////////////////////////
   try {
-    console.log(password)
-    await signIn("credentials", {
-      email,
-      password,
-      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
-    })
+    
+    const validatedFields = LoginSchema.safeParse(values);
+
+    if(validatedFields.success) {
+      const { email, password } = validatedFields.data;
+
+      const existingUser = await getUserByEmail(email);
+
+      if(!existingUser || !existingUser.password) return null;
+
+      const passwordsMatch = await bcrypt.compare(password, existingUser.password);
+
+      if(passwordsMatch) {
+        const session = await lucia.createSession(existingUser.id, {
+          expiresIn: 60 * 60 * 24 * 30,
+        })
+
+        const sessionCookie = lucia.createSessionCookie(session.id);
+
+        cookies().set(
+          sessionCookie.name,
+          sessionCookie.value,
+          sessionCookie.attributes
+        )
+
+        return existingUser;
+
+      }
+
+      
+
+    }
+    
+
+    
+
+    
+
+    
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

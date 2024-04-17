@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { LogOutIcon, MailCheck, SettingsIcon, TrendingUp, UserIcon } from "lucide-react";
-import { signOut } from "next-auth/react";
+
 import { useRouter } from "next/navigation";
 import ConversationShortCut from "./conversation-shortcut";
 import FavouritesShortCut from "./favourites-shortcut";
@@ -12,11 +12,13 @@ import NotificationShortCut from "./notification-shortcut";
 import SettingsSheet from "./settings-sheet";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { notification, users } from "@/db/schema";
+import { notification, userTable  } from "@/db/schema";
+import toast from "react-hot-toast";
+import { signOut } from "@/actions/signout";
 
 
 interface LoggedInBarHeaderProps {
-    currentUser: typeof users.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
     foundNotifications : typeof notification.$inferSelect[];
 }
 
@@ -40,6 +42,9 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         router.push(`/conversation`)
     }
 
+   
+
+    
 
     return (
         <div className="flex ml-auto items-center sm:mt-2">
@@ -143,7 +148,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         variant="ghost"
                         className="  bg-[#e1dfdf] 
                         border-2 border-gray-300   w-full dark:bg-[#0f0f0f] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                        onClick={() => signOut({ callbackUrl: `${window.location.origin}/login` })}
+                      
                     >
                         <LogOutIcon className="mr-4" />
                         <p>

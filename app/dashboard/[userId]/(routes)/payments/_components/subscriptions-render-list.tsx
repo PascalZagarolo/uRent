@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat, inseratPriceType, users } from "@/db/schema";
+import { inserat, inseratPriceType, userTable } from "@/db/schema";
 import {
     Table,
     TableBody,
@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import axios from "axios";
 
 interface SubscriptionsRenderListProps {
-    subscriptions: typeof users.$inferSelect;
+    subscriptions: typeof userTable.$inferSelect;
 }
 
 const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({

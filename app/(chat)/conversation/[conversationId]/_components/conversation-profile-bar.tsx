@@ -7,10 +7,10 @@ import Image from "next/image";
 import AttachmentRender from "./attachment-render";
 import ChatSettings from "./chat-settings";
 import useActiveList from "@/hooks/useActiveList";
-import { message, users } from "@/db/schema";
+import { message, userTable } from "@/db/schema";
 
 interface ConversationProfileBarProps {
-    otherUser: typeof users.$inferSelect;
+    otherUser: typeof userTable.$inferSelect;
     attachments: typeof message.$inferSelect[]
 }
 

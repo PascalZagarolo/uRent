@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 import MobileProfileSidebar from "./mobile-profile-sidebar";
 import useActiveList from "@/hooks/useActiveList";
 import { cn } from "@/lib/utils";
-import { message, users } from "@/db/schema";
+import { message, userTable } from "@/db/schema";
 
 interface MobileHeaderChatProps {
-    otherUser : typeof users.$inferSelect;
+    otherUser : typeof userTable.$inferSelect;
     attachments : typeof message.$inferSelect[]
 }
 

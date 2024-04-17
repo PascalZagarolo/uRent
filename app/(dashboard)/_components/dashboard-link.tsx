@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 
 import { BarChart3 } from "lucide-react";
 
@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 
 interface DashboardLinkProps {
-    currentUser : typeof users.$inferSelect;
+    currentUser : typeof userTable.$inferSelect;
 }
 
 const DashboardLink: React.FC<DashboardLinkProps> = ({

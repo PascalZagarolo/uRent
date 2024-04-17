@@ -2,7 +2,7 @@
 
 import LoginBarHeader from "./login-bar-header";
 
-import { useSession } from "next-auth/react";
+
 
 import Inserat from "./add-inserat";
 import SearchItem from "./search-item";

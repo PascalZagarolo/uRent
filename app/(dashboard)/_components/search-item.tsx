@@ -12,7 +12,7 @@ import axios from "axios";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { FaUserTie } from "react-icons/fa6";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 
 
@@ -103,7 +103,7 @@ const SearchItem = () => {
     }, [debouncedValue])
     */
 
-    const onUserSearch = (selectUser : typeof users.$inferSelect) => {
+    const onUserSearch = (selectUser : typeof userTable.$inferSelect) => {
         
         setSelectedUser(selectUser);
         
@@ -166,7 +166,7 @@ const SearchItem = () => {
                                 <X className="w-4 h-4 ml-auto text-rose-600" onClick={() => {onUserDelete()}} />
                         </div>
                         ) : (
-                            foundProfiles.map((profile : typeof users.$inferSelect) => (
+                            foundProfiles.map((profile : typeof userTable.$inferSelect) => (
                                 <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
                                 key={profile.id} onClick={() => {onUserSearch(profile)}} >
                                     <FaUserTie className="w-4 h-4" />  {profile.name}

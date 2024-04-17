@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 
 import { IoStarHalf } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 
 interface FavouritesShortCutProps {
 
-    currentUser: typeof users.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
 
 }
 

@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import axios from "axios";
@@ -20,7 +20,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface InseratProps {
-    currentUser: typeof users.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
 }
 
 const Inserat: React.FC<InseratProps> = ({

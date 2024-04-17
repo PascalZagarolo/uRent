@@ -11,7 +11,9 @@ import OrderBy from "../_components/_smart-filter/order-by";
 import { Suspense, lazy } from "react";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, DriveEnumRender, ExtraTypeEnumRender, favourite, FuelTypeEnumRender, LkwBrandEnumRender, LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender, users } from "@/db/schema";
+import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, 
+    CouplingEnumRender, DriveEnumRender, ExtraTypeEnumRender, favourite, FuelTypeEnumRender, 
+    LkwBrandEnumRender, LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender, userTable } from "@/db/schema";
 import { MdFilterList } from "react-icons/md";
 import InseratRenderedList from "./_components/inserat-rendered-list";
 
@@ -58,7 +60,7 @@ interface RelevanteInserateProps {
     axis: string;
     brake: string,
 
-    currentUser : typeof users.$inferSelect;
+    currentUser : typeof userTable.$inferSelect;
 
     volume? : number;
     loading_l? : number;

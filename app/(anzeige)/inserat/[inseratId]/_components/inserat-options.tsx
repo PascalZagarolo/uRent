@@ -19,14 +19,14 @@ import Bookings from "./bookings";
 import ManageBookings from "./manage-bookings";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import BookingRequest from "./booking-request";
-import { booking, contactOptions, users } from "@/db/schema";
+import { booking, contactOptions, userTable } from "@/db/schema";
 import GoToDashboard from "./go-to-dashboard";
 
 
 interface InseratOptionsProps {
-    thisUser: typeof users.$inferSelect;
+    thisUser: typeof userTable.$inferSelect;
     bookings: typeof booking.$inferSelect[];
-    ownUser: typeof users.$inferSelect;
+    ownUser: typeof userTable.$inferSelect;
     contactOptions: typeof contactOptions.$inferSelect;
 }
 

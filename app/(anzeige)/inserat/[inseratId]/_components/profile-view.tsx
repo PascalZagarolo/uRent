@@ -3,7 +3,7 @@
 
 
 import { Button } from "@/components/ui/button";
-import { business,  users } from "@/db/schema";
+import { business,  userTable } from "@/db/schema";
 import axios from "axios";
 import { format } from "date-fns";
 import { AlignCenter, BuildingIcon, CarIcon, Contact2Icon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2 } from "lucide-react";
@@ -17,9 +17,9 @@ import { FaFax } from "react-icons/fa6";
 import { Separator } from "@radix-ui/react-separator";
 
 interface ProfileViewProps {
-    thisUser: typeof users.$inferSelect;
+    thisUser: typeof userTable.$inferSelect;
     inseratArray: number;
-    inseratOwner: typeof users.$inferSelect;
+    inseratOwner: typeof userTable.$inferSelect;
     thisBusiness: typeof business.$inferSelect;
 
 }

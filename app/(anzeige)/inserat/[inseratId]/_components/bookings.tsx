@@ -34,10 +34,10 @@ import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 
 interface BookingsProps {
-  user: typeof users.$inferSelect;
+  user: typeof userTable.$inferSelect;
 }
 
 

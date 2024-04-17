@@ -12,7 +12,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { Button } from "@/components/ui/button";
 import { usesearchUserByBookingStore } from "@/store";
 import { usePathname, useSearchParams } from "next/navigation";
-import { booking, users } from "@/db/schema";
+import { booking, userTable } from "@/db/schema";
 
 interface SearchRentProps {
     thisBooking? : typeof booking.$inferSelect
@@ -26,7 +26,7 @@ const SearchRent: React.FC<SearchRentProps> =  ({
     const pathname = usePathname();
 
     const [currentValue, setCurrentValue] = useState<string>("");
-    const [matchingUsers , setMatchingUsers] = useState<typeof users[]>([]);
+    const [matchingUsers , setMatchingUsers] = useState<typeof userTable[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const debouncedValue = useDebounce(currentValue, 200);

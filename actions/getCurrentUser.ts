@@ -16,9 +16,6 @@ const getCurrentUser = async () => {
     
     const { user } = await validateRequest();
 
-    console.log(user)
-   
-
     const findUser : typeof userTable.$inferSelect = db.query.userTable.findFirst({
       where: eq(userTable.id, sql.placeholder("userId"))
     }).prepare("findUser");
@@ -26,7 +23,7 @@ const getCurrentUser = async () => {
     const currentUser = await findUser.execute({userId : user.id })
 
     if (!currentUser) {
-      console.log("leer")
+      
       return null;
     }
 

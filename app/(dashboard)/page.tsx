@@ -9,7 +9,7 @@ import getCurrentUser from "../../actions/getCurrentUser";
 
 
 
-import HeaderLogo from "./_components/header-logo";
+
 
 import Footer from "./_components/footer";
 
@@ -21,8 +21,7 @@ import MainPageSideBar from "./_components/main-page-sidebar";
 import { ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, 
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender,
      LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
-import CookiesDialog from "@/components/cookies";
-import CookiesSheet from "./_components/cookies-sheet";
+
 
 
 interface MainPageProps {
@@ -98,8 +97,6 @@ const Main = async ({
 
     const currentUser = await getCurrentUser();
 
-
-
     const start = Number(searchParams.start)
     const end = Number(searchParams.end)
 
@@ -112,9 +109,7 @@ const Main = async ({
   
         
         
-        <div className=" sm:h-full sm:overflow-y-auto no-scrollbar">
-            
-            
+        <div className="sm:h-full sm:overflow-y-auto no-scrollbar">
             <div>
                 <div className="relative flex justify-center mt-4">
                 

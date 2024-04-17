@@ -5,7 +5,7 @@ import { CardStackPlusIcon } from "@radix-ui/react-icons";
 import { BiCreditCardAlt } from "react-icons/bi";
 import db from "@/db/drizzle";
 import { and, count, eq } from "drizzle-orm";
-import { inserat, users, userSubscription } from "@/db/schema";
+import { inserat, userTable, userSubscription } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { render } from '@react-email/components';
 import SubscriptionsRenderList from "./_components/subscriptions-render-list";
@@ -17,9 +17,9 @@ const PaymentsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const existingSubscription = await db.query.users.findFirst({
+    const existingSubscription = await db.query.userTable.findFirst({
         where: (
-            eq(users.id, currentUser.id)
+            eq(userTable.id, currentUser.id)
         ), with: {
             subscription: true
         }

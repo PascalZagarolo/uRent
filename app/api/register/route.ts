@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 
 
 import { NextResponse } from "next/server";
-import { users, verificationTokens } from '../../../db/schema';
+import { userTable, verificationTokens } from '../../../db/schema';
 
 export async function POST(
   request: Request
@@ -24,7 +24,7 @@ export async function POST(
 
  
 
-  const user = await db.insert(users).values({
+  const user = await db.insert(userTable).values({
       password: hashedPassword,
       email: email as string,
       name: name,

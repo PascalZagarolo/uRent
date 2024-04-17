@@ -1,6 +1,6 @@
 
 import db from '@/db/drizzle';
-import { users } from '@/db/schema';
+import { userTable } from '@/db/schema';
 import { ilike } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
@@ -11,9 +11,9 @@ export async function PATCH(
     try {
 
        
-        const findUsers = db.query.users.findMany({
+        const findUsers = db.query.userTable.findMany({
             where : (
-                ilike(users.name, `%${params.nameId}%`)
+                ilike(userTable.name, `%${params.nameId}%`)
             )
         }).prepare("findUsers")
 

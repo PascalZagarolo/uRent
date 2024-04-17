@@ -34,6 +34,7 @@ export const login = async (
   callbackUrl?: string | null,
 ) => {
   
+  console.log("dions")
 
   const validatedFields = LoginSchema.safeParse(values);
 
@@ -42,10 +43,13 @@ export const login = async (
   }
 
   const { email, password, code } = validatedFields.data;
+  console.log(code)
+
+  console.log(code)
 
   const existingUser = await getUserByEmail(email);
 
-  console.log(existingUser)
+  
 
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "Email existiert nicht" }
@@ -66,10 +70,15 @@ export const login = async (
   }
   //////////////////////////////////////////////////////////////////////////////////
   if (existingUser.usesTwoFactor && existingUser.email) {
+
+    console.log("test")
+
     if (code) {
       const receivedTwoFactorToken = await getTwoFactorTokenByEmail(
         existingUser.email
       );
+
+      
 
       if (!receivedTwoFactorToken) {
         return { error: "Ungültiger Code!" };
@@ -113,12 +122,10 @@ export const login = async (
     
     const validatedFields = LoginSchema.safeParse(values);
 
-    if(validatedFields.success) {
-      const { email, password } = validatedFields.data;
+    
+     
 
-      const existingUser = await getUserByEmail(email);
-
-      if(!existingUser || !existingUser.password) return null;
+     
 
       const passwordsMatch = await bcrypt.compare(password, existingUser.password);
 
@@ -135,13 +142,15 @@ export const login = async (
           sessionCookie.attributes
         )
 
-        return existingUser;
+        return {
+          success : "Erfolgreich eingeloggt",
+        };
 
       }
 
       
 
-    }
+  
     
     
   } catch (error : any) {

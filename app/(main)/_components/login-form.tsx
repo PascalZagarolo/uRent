@@ -27,11 +27,12 @@ import { FormError } from "./form-error";
 import { LoginSchema } from "./_schemas";
 import { EyeIcon } from "lucide-react";
 import toast from "react-hot-toast";
+import { set } from "lodash";
 
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
+ 
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
     ? "Diese Email wurde schon mit einem anderen Account verknüpft. Bitte logge dich mit dem anderen Account ein."
     : "";
@@ -54,38 +55,42 @@ export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+
     setError("");
     setSuccess("");
     
     startTransition(() => {
-      login(values, callbackUrl)
+      
+      login(values)
       
         .then((data) => {
           if (data?.error) {
-            form.reset();
-            setError(data.error);
-          }
+            if (!showTwoFactor) { 
+                form.reset()
+            }
+            setError(data.error) 
+        } 
+
           
-          if (data?.id) {
-            
+          if (data?.success) {
+            console.log("this");
+            setSuccess(data.success);
             form.reset();
             toast.success("Erfolgreich eingeloggt");
             setTimeout(() => {
               router.push("/")
             })
-            setSuccess(data.success);
+            
           }
 
           if (data?.twoFactor) {
+            console.log("this");
             setShowTwoFactor(true);
-          }
-
-          if(!data?.twoFactor && !data?.id) {
-            setError("Falsche Anmeldedaten");
           }
           
         })
         .catch(() => setError("Etwas ist schief gelaufen.."));
+
     });
   };
 
@@ -125,6 +130,8 @@ export const LoginForm = () => {
                         disabled={isPending}
                         placeholder="123456"
                         className="bg-[#1F2332]"
+                        
+                       
                       />
                     </FormControl>
                     <FormMessage />

@@ -30,17 +30,18 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
               <div className="w-full md:h-[320px] rounded-md overflow-hidden drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
                 <Dialog>
                   <DialogTrigger asChild>
+                    <div style={{ height: '100%', width: '100%', position: 'relative' }}>
                     <Image
                       className="w-full h-full object-cover hover:cursor-pointer"
                       src={image.url}
                       alt="Inserat Image"
-                      width={1920}
-                      height={1080}
+                      fill
                     />
+                    </div>
                   </DialogTrigger>
                   <DialogContent className="dark:bg-[#0F0F0F] dark:border-none w-screen p-1">
                     <div className="flex justify-center">
-                      <Image
+                    <Image
                         className="w-full h-full object-cover flex justify-center"
                         src={image.url}
                         alt="Inserat Image"

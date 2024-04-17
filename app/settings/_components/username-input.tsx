@@ -2,13 +2,13 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { useUnsavedChangesSettings } from "@/store";
 import { set } from 'date-fns';
 import { useEffect, useRef, useState } from "react";
 
 interface UsernameProps {
-    thisUser : typeof users.$inferSelect
+    thisUser : typeof userTable.$inferSelect
 }
 
 const UsernameInput: React.FC<UsernameProps> = ({

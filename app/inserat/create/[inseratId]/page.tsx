@@ -72,7 +72,7 @@ const InseratCreation = async ({
         with: {
             images: true,
             address: true,
-            userTable : true,
+            user : true,
             pkwAttribute: true,
             lkwAttribute: true,
             trailerAttribute: true,

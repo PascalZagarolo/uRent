@@ -5,7 +5,7 @@ import MenuBar from "./_components/settings-tabs";
 import BreadCrumpSettings from "./_components/bread-crump-settings";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { notification, users } from "@/db/schema";
+import { notification, userTable } from "@/db/schema";
 import SaveChangesSettings from "./_components/save-changes";
 import ProfilePicSettings from "./_components/profilepic-settings";
 import EmailSettings from "./_components/e-mail-settings";
@@ -20,9 +20,9 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const findCurrentUser = await db.query.users.findFirst({
+    const findCurrentUser = await db.query.userTable.findFirst({
         where : (
-            eq(users.id, currentUser?.id)
+            eq(userTable.id, currentUser?.id)
         )
     })
 

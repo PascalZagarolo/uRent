@@ -26,7 +26,7 @@ import toast from "react-hot-toast";
 import { FaCar, FaGasPump } from "react-icons/fa";
 import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill, PiVanFill } from "react-icons/pi";
-import ProfileBar from "./inserat-card/profile-bar";
+
 import { TbCrane } from "react-icons/tb";
 import { CategoryEnumRender, inserat, userTable } from "@/db/schema";
 import Link from "next/link";
@@ -35,6 +35,7 @@ import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
 import { SiRubygems } from "react-icons/si";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
+import ProfileBar from "./_inserat-card/profile-bar";
 
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;

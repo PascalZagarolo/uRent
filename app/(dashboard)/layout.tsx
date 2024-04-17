@@ -1,7 +1,7 @@
 import React from "react";
 import getCurrentUser from "../../actions/getCurrentUser";
 import MobileHeader from "./_components/mobile-header";
-import CookiesDialog from "@/components/cookies";
+
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
@@ -20,6 +20,8 @@ const DashboardLayout = async (
 
 
     const currentUser = await getCurrentUser();
+
+    console.log(currentUser)
     
     const foundNotifications = await db.query.notification.findMany({
         where : (
@@ -27,6 +29,8 @@ const DashboardLayout = async (
         )
     
     })
+
+    
 
     return ( 
         <div className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar">
@@ -43,10 +47,7 @@ const DashboardLayout = async (
                     foundNotifications={foundNotifications}
                      />
             </div>
-             <div>
-                {children} 
-                
-            </div>
+             
         </div>
      );
 }

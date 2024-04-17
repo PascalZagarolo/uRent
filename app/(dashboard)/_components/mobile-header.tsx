@@ -52,7 +52,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 
                     <div className="w-full">
                         {
-                            status === 'unauthenticated' || !currentUser ? (
+                            !currentUser ? (
                                 <div className="w-full flex justify-end px-4">
                                     <MobileLoginButton />
                                 </div>

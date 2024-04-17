@@ -1,6 +1,6 @@
 
 import db from "@/db/drizzle";
-import { inserat, purchase, stripeCustomer, users } from "@/db/schema";
+import { inserat, purchase, stripeCustomer, userTable } from "@/db/schema";
 import { stripe } from "@/lib/stripe";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
@@ -13,9 +13,9 @@ export async function POST(
     try {
 
 
-        const thisUser = await db.query.users.findFirst({
+        const thisUser = await db.query.userTable.findFirst({
             where : (
-                eq(users.id, params.userId)
+                eq(userTable.id, params.userId)
             )
         })
 

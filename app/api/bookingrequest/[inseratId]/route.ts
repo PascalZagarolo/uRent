@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
-import { bookingRequest, inserat, notification, users } from "@/db/schema";
+import { bookingRequest, inserat, notification, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 import { NextResponse } from "next/server";
@@ -18,9 +18,9 @@ export async function POST(
         const usedStart = new Date(startDate);
         const usedEnd = new Date(endDate);
 
-        const findUser = await db.query.users.findFirst({
+        const findUser = await db.query.userTable.findFirst({
             where : (
-                eq(users.id, currentUser?.id)
+                eq(userTable.id, currentUser?.id)
             )
         })
 

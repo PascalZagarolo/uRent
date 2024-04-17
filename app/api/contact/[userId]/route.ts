@@ -1,6 +1,6 @@
 
 import db from "@/db/drizzle";
-import { contactOptions, userAddress, users } from "@/db/schema";
+import { contactOptions, userAddress, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 import { NextResponse } from "next/server";
@@ -43,10 +43,10 @@ export async function PATCH(
 
             }).returning();
             console.log(3)
-            const updatedUser = await db.update(users).set({
+            const updatedUser = await db.update(userTable).set({
                 contactId: patchedOptions[0].id,
                 userAddressId: patchedUserAddress[0].id
-            }).where(eq(users.id, params.userId)).returning();
+            }).where(eq(userTable.id, params.userId)).returning();
 
             const updatedContactOptions = await db.update(contactOptions).set({
                 userAddressId: patchedUserAddress[0].id
@@ -70,9 +70,9 @@ export async function PATCH(
                     userAddressId: patchedUserAddress[0].id
                 }).where(eq(contactOptions.userId, params.userId)).returning()
 
-                const patchedUser = await db.update(users).set({
+                const patchedUser = await db.update(userTable).set({
                     userAddressId : patchedUserAddress[0].id,
-                }).where(eq(users.id, params.userId)).returning();
+                }).where(eq(userTable.id, params.userId)).returning();
 
                 return NextResponse.json({ patchedOptions, patchedUserAddress, patchedUser });
             }

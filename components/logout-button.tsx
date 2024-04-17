@@ -16,7 +16,7 @@ const LogOutButton = () => {
             console.log('signing out')
             await signOut();
             router.push('/login');
-        } catch(error) {
+        } catch(error : any) {
             toast.error(error)
         }
     }

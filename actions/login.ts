@@ -143,11 +143,6 @@ export const login = async (
 
     }
     
-
-    
-
-    
-
     
   } catch (error : any) {
     if (error) {

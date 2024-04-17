@@ -1,6 +1,6 @@
 
 
-import { AlignLeft, BookAIcon, Calendar, CarFront, CaravanIcon, ConstructionIcon, Contact2, Globe2, HourglassIcon, MailIcon, MailMinus, MapPin, MapPinned, Phone, TractorIcon, TramFront, Truck, UserCircleIcon } from "lucide-react";
+import { AlignLeft,  CarFront,  Contact2, Globe2, HourglassIcon, MailIcon,  MapPinned, Phone,  Truck, UserCircleIcon } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from 'next'
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
@@ -17,7 +17,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FaAddressCard, FaCarCrash } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import { address, booking, inserat, rezension, users, contactOptions, lkwAttribute, trailerAttribute, transportAttribute, pkwAttribute, business, businessAddress, CategoryEnumRender } from '../../../../db/schema';
+import {  booking, inserat,  business,  CategoryEnumRender } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
 import { Ri24HoursLine, RiCaravanLine } from "react-icons/ri";

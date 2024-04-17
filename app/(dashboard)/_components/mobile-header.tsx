@@ -4,7 +4,7 @@
 import SearchItem from "./search-item";
 import MobileLogoDialog from "./mobile-logo-dialog";
 
-import { useSession } from "next-auth/react";
+
 import LoggedInBarHeader from "./logged-in-header";
 
 
@@ -13,10 +13,10 @@ import { usePathname } from "next/navigation";
 import DashboardSheet from "./dashboard-sheet";
 
 import MobileLoginButton from "./mobile-login-button";
-import { notification, users } from '../../../db/schema';
+import { notification, userTable } from '../../../db/schema';
 
 interface MobileHeaderProps {
-    currentUser: typeof users.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
     foundNotifications : typeof notification.$inferSelect[];
 }
 
@@ -26,7 +26,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 }) => {
 
 
-    const { data: session, status } = useSession();
+    
 
     const pathname = usePathname();
 

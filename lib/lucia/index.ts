@@ -3,6 +3,7 @@ import adapter from "./adapter"
 import { cookies } from "next/headers"
 import { cache } from "react"
 
+
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
     attributes: {

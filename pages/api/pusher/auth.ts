@@ -5,8 +5,6 @@ import { pusherServer } from "../../../lib/pusher";
 import { lucia, validateRequest } from "@/lib/lucia";
 
 
-
-
 export default async function handler(
     request : NextApiRequest,
     response : NextApiResponse,

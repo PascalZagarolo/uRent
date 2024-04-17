@@ -69,6 +69,8 @@ export const newPassword = async (
 
   await db.delete(resetPasswordToken).where(eq(resetPasswordToken.identifier, existingToken.identifier));
 
+  
+
   const sessionCookie = lucia.createSessionCookie(session.id)
 
     cookies().set(

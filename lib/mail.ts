@@ -3,6 +3,7 @@
 
 
 import FaActivation from '@/react-email-starter/emails/urent/2fa-activation';
+import ChangeMail from '@/react-email-starter/emails/urent/change-email';
 import ChangePassword from '@/react-email-starter/emails/urent/change-password';
 import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
 import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
@@ -33,6 +34,18 @@ export const sendTwoFactorTokenEmail = async (
     to: email,
     subject: "2FA Code",
     react : ConfirmLogin({token})
+  });
+};
+
+export const sendChangeEmail = async (
+  email: string,
+  token: string
+) => {
+  await resend.emails.send({
+    from: "mail@urent-rental.de",
+    to: email,
+    subject: "Email ändern",
+    react : ChangeMail({token})
   });
 };
 

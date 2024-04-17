@@ -149,7 +149,7 @@ export const login = async (
     
 
     
-  } catch (error) {
+  } catch (error : any) {
     if (error) {
       switch (error.type) {
         case "CredentialsSignin":

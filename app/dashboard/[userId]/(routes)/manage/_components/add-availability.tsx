@@ -34,7 +34,7 @@ import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { inserat, users } from "@/db/schema";
+import { inserat, userTable } from "@/db/schema";
 import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";

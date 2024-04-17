@@ -1,19 +1,19 @@
 import { create } from "zustand";
-import { users } from "./db/schema";
+import { userTable } from "./db/schema";
 
 
 
 
 
 type searchUserByBookingStore = {
-    user : typeof users.$inferSelect,
-    changeUser: (newUser : typeof users.$inferSelect) => void;
+    user : typeof userTable.$inferSelect,
+    changeUser: (newUser : typeof userTable.$inferSelect) => void;
     resetUser: () => void;
 }
 
 export const usesearchUserByBookingStore = create<searchUserByBookingStore>((set) => ({
     user : null,
-    changeUser : (newUser: typeof users.$inferSelect) => {
+    changeUser : (newUser: typeof userTable.$inferSelect) => {
         set({ user : newUser })
         console.log(newUser)
     }, resetUser : () => {
@@ -92,14 +92,14 @@ export const useSavedSearchParams = create<savedSearchParams>((set) => ({
 }))
 
 type saveCurrentUser = {
-    savedCurrentUser : typeof users.$inferSelect,
-    changeCurrentUser: (newUser : typeof users.$inferSelect) => void;
-    getSavedCurrentUser : () => typeof users.$inferSelect | null;
+    savedCurrentUser : typeof userTable.$inferSelect,
+    changeCurrentUser: (newUser : typeof userTable.$inferSelect) => void;
+    getSavedCurrentUser : () => typeof userTable.$inferSelect | null;
 }
 
 export const useSaveCurrentUser = create<saveCurrentUser>((set) => ({
     savedCurrentUser : null,
-    changeCurrentUser : (newUser: typeof users.$inferSelect) => {
+    changeCurrentUser : (newUser: typeof userTable.$inferSelect) => {
         set({ savedCurrentUser : newUser })
     },
     getSavedCurrentUser() {

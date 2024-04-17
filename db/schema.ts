@@ -26,7 +26,7 @@ import { z } from "zod"
 
 
 
-
+//@ts-ignore
 export const userTable = pgTable("user", {
     id: text("id").primaryKey(),
     name: text("name"),
@@ -57,7 +57,7 @@ export const userTable = pgTable("user", {
                                 .references(() => twoFactorConfirmation.id, { onDelete: "set null" }),
 })
 
-
+//@ts-ignore
 export const business = pgTable("business", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     userId: text("userId")

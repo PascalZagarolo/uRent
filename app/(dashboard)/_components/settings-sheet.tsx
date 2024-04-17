@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import axios from "axios";
@@ -20,7 +20,7 @@ import { ClipLoader } from "react-spinners";
 import { z } from "zod";
 
 interface SettingsSheetProps {
-    currentUser: typeof users.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
 }
 
 

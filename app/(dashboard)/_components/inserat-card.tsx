@@ -28,7 +28,7 @@ import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
 import { PiEngineFill, PiVanFill } from "react-icons/pi";
 import ProfileBar from "./inserat-card/profile-bar";
 import { TbCrane } from "react-icons/tb";
-import { CategoryEnumRender, inserat, users } from "@/db/schema";
+import { CategoryEnumRender, inserat, userTable } from "@/db/schema";
 import Link from "next/link";
 import { RiCaravanLine } from "react-icons/ri";
 import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
@@ -40,7 +40,7 @@ interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
     profileId: string,
     isFaved: boolean,
-    currentUser: typeof users.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
 
 
 }

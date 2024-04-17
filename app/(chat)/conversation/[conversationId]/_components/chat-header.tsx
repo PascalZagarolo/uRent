@@ -1,11 +1,11 @@
 'use client';
 
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import useActiveList from "@/hooks/useActiveList";
 
 
 interface ChatHeaderProps {
-    otherUser : typeof users.$inferSelect;
+    otherUser : typeof userTable.$inferSelect;
 }
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({

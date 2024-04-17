@@ -7,10 +7,10 @@ import Image from "next/image";
 
 import AttachmentRenderMobile from "./attachment-render-mobile";
 import ChatSettings from "./chat-settings";
-import { message, users } from "@/db/schema";
+import { message, userTable } from "@/db/schema";
 
 interface MobileProfileSidebarProps {
-    user : typeof users.$inferSelect;
+    user : typeof userTable.$inferSelect;
     attachments : typeof message.$inferSelect[]
 }
 

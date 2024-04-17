@@ -8,13 +8,13 @@ import { pusherClient } from "@/lib/pusher";
 import { useParams } from "next/navigation";
 import { find, set } from "lodash";
 import { format } from "date-fns";
-import { conversation, message, users } from "@/db/schema";
+import { conversation, message, userTable } from "@/db/schema";
 
 
 
 interface ChatComponentProps {
     messages : typeof message.$inferSelect[]
-    currentUser : typeof users.$inferSelect;
+    currentUser : typeof userTable.$inferSelect;
     thisConversation : typeof conversation.$inferSelect;
 }
 

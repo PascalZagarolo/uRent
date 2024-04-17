@@ -1,6 +1,6 @@
 'use client'
 
-import { users } from "@/db/schema";
+import { userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 import { UserCircle2Icon, X } from "lucide-react";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
 interface RenderedChatsProps {
-    user : typeof users.$inferSelect,
+    user : typeof userTable.$inferSelect,
     conversationId : string,
     lastMessage : string
 }

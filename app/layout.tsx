@@ -6,7 +6,7 @@ import './globals.css'
 
 import { Toaster } from '@/components/ui/toaster'
 import ToasterContext from './context/ToasterContext'
-import AuthContext from './context/AuthContext'
+
 import ActiveStatus from '@/components/ActiveStatus'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
@@ -48,14 +48,14 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange>
-          <AuthContext>
+          
             <ActiveStatus />
             <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
             </script>
             {children}
             <ToasterContext />
             <Toaster />
-          </AuthContext>
+          
           <SpeedInsights />
           <Analytics />
         </ThemeProvider>

@@ -1,7 +1,6 @@
 "use server";
 
 
-import { AuthError } from "next-auth";
 
 
 
@@ -151,7 +150,7 @@ export const login = async (
 
     
   } catch (error) {
-    if (error instanceof AuthError) {
+    if (error) {
       switch (error.type) {
         case "CredentialsSignin":
           return { error: "Ungültige Anmeldedaten" }

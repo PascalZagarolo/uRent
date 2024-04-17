@@ -1,6 +1,6 @@
 
 
-import { conversation, message, users } from "@/db/schema";
+import { conversation, message, userTable } from "@/db/schema";
 import RenderedChats from "./rendered-chats";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
@@ -9,7 +9,7 @@ import { eq } from "drizzle-orm";
 
 interface StartedChatsProps{
     conversations : typeof conversation.$inferSelect,
-    currentUser : typeof users.$inferSelect
+    currentUser : typeof userTable.$inferSelect
 }
 
 
@@ -21,8 +21,8 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
     const otherUserId = conversations.user1Id === currentUser.id ? conversations.user2Id : conversations.user1Id;
 
 
-    const userImage = await db.query.users.findFirst({
-        where : eq(users.id, otherUserId)
+    const userImage = await db.query.userTable.findFirst({
+        where : eq(userTable.id, otherUserId)
     })
 
     const lastMessage = await db.query.message.findMany({

@@ -174,7 +174,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
         (existingSubscription && amountInserat === Number(existingSubscription?.amount) && existingSubscription?.subscriptionType !== "ENTERPRISE")
     )
 
-    let existingSubscriptionWorth;
+    let existingSubscriptionWorth : any;
 
     switch (existingSubscription?.subscriptionType) {
         case "BASIS":

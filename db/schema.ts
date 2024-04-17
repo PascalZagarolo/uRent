@@ -781,6 +781,16 @@ export const notificationTypeEnum = pgEnum("notificationType", [
     "FAVOURITE"
 ])
 
+export const changeEmailToken = pgTable("changeEmailToken", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    newEmail : text("newEmail"),
+    userId : text("userId")
+                .notNull()
+                .references(() => userTable.id, { onDelete: "cascade" }),
+    token : text("token"),
+    expires : timestamp("expires", { mode: "date" }).notNull(),
+})
+
 export const notification = pgTable("notification", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -829,6 +839,13 @@ export const accountRelations = relations(accounts, ({ one }) => ({
 export const sessionRelations =  relations(sessionTable, ({ one }) => ({
     users : one(userTable, {
         fields : [sessionTable.userId],
+        references : [userTable.id]
+    })
+}))
+
+export const changeEmailTokenRelations = relations(changeEmailToken, ({ one}) => ({
+    users : one(userTable, {
+        fields : [changeEmailToken.userId],
         references : [userTable.id]
     })
 }))

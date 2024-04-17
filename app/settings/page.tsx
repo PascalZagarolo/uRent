@@ -1,4 +1,4 @@
-import { Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
+import { User2Icon } from "lucide-react";
 import HeaderLogo from "../(dashboard)/_components/header-logo";
 import getCurrentUser from '../../actions/getCurrentUser';
 import MenuBar from "./_components/settings-tabs";

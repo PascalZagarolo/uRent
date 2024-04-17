@@ -2,13 +2,13 @@
 import SelectLocation from "../../_components/input-fields/select-location";
 import SelectEmail from "../../_components/input-fields/select-email";
 import PhoneNumber from "../../_components/input-fields/phone-number";
-import { address, inserat, users } from "@/db/schema";
+import { address, inserat, userTable } from "@/db/schema";
 import { contactOptions, userAddress } from '../../../../../db/schema';
 
 interface ContactInformationProps {
     thisInserat : typeof inserat.$inferSelect;
     thisAddressComponent? : typeof address.$inferSelect;
-    currentUserWithContactOptions : typeof users.$inferSelect;
+    currentUserWithContactOptions : typeof userTable.$inferSelect;
 }
 
 

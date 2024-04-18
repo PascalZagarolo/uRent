@@ -14,6 +14,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import EnterpriseButton from "./_buy-buttons.tsx/enterprise-button";
 import PremiumButton from "./_buy-buttons.tsx/premium-button";
 import BasisButton from "./_buy-buttons.tsx/basis-button";
+import { MdUpgrade } from "react-icons/md";
+import { GiUpgrade } from "react-icons/gi";
 
 interface BuyOptionsProps {
     currentUserId: string;
@@ -214,6 +216,11 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     </Select>
                 </div>
             </div>
+            {existingSubscription && (
+                <div className="flex text-lg font-semibold items-center ">
+                <GiUpgrade  className="w-6 h-6 mr-2 text-indigo-600" />   Bestehenden Plan Upgraden
+              </div>
+            )}
             <div className="w-full flex space-x-4 p-4 ">
 
                 <div className="w-1/3 border-r dark:border-[#1C1C1C] dark:bg-[#232323] p-4 rounded-md">

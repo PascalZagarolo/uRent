@@ -1,4 +1,4 @@
-import React from "react";
+import React, { cache } from "react";
 import getCurrentUser from "../../actions/getCurrentUser";
 import MobileHeader from "./_components/mobile-header";
 
@@ -8,7 +8,7 @@ import { notification } from "@/db/schema";
 import HeaderLogo from "./_components/header-logo";
 
 
-const DashboardLayout = async (
+const DashboardLayout = cache(async (
     { children } : { children : React.ReactNode }
 ) => {
 
@@ -53,6 +53,6 @@ const DashboardLayout = async (
              
         </div>
      );
-}
+});
  
 export default DashboardLayout;

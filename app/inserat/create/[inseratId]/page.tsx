@@ -258,7 +258,9 @@ const InseratCreation = async ({
                                         className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
                                     />
                                 </div>
-
+                                <p className="text-xs dark:text-gray-200/70 flex justify-center">
+                                   * Angegebene Kontaktdaten werden öffentlich im Inserat angezeigt
+                                </p>
                                 <ContactInformation
                                     thisInserat={thisInserat}
                                     thisAddressComponent={thisAddressComponent}

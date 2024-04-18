@@ -9,7 +9,7 @@ import InserateRenderList from "./_components/inserat-render-list"
 import SidebarDashboard from "../../_components/sidebar-dashboard"
 import db from "@/db/drizzle"
 import { eq } from "drizzle-orm"
-import { inserat, userSubscription } from "@/db/schema"
+import { inserat, userSubscription, vehicle } from "@/db/schema"
 import MenuBar from "../../_components/menu-bar"
 import BreadCrumpPage from "../../_components/bread-crump-page"
 
@@ -32,7 +32,8 @@ const InserateOverview = async ({
         ),
         with : {
             images : true,
-            user : true
+            user : true,
+            vehicles : true
         }, orderBy :  (inserat, {desc}) => [desc(inserat.createdAt)]
        
     })

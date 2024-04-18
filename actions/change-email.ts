@@ -2,6 +2,7 @@
 
 import db from "@/db/drizzle"
 import { changeEmailToken, sessionTable, userTable } from "@/db/schema"
+import { confirmEmailChange } from "@/lib/mail"
 import { and, eq } from "drizzle-orm"
 import { emit } from "process"
 
@@ -40,8 +41,9 @@ export const checkOTPMail = async (pin : string, thisUser : typeof userTable.$in
         eq(userTable.id, findCode.userId)
     )
 
-    //logout
+    confirmEmailChange(findCode.newEmail)
 
+    //logout
     await db.delete(sessionTable).where(
         eq(sessionTable.userId, findCode.userId)
     )

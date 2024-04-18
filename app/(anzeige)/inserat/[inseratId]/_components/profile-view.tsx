@@ -97,13 +97,19 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                                 <div key={business.id}>
 
                                     <div className="mt-2">
-                                        <Image
+                                        {business?.image ? (
+                                            <Image
                                             src={business?.image}
                                             width={600}
                                             height={600}
                                             className="w-full rounded-none h-[80px] object-cover"
                                             alt="Business-Bild"
                                         />
+                                        ) : (
+                                            <div className="h-[80px] bg-[#161923]">
+                                                <p className="flex h-full justify-center items-center text-gray-200/70 text-xs">Kein Bild vorhanden</p>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="w-full">
                                         <div className="text-xs mt-1 w-full ml-auto flex justify-end font-semibold">

@@ -17,7 +17,7 @@ interface InseratRenderedListProps {
 }
 
 
-const InseratRenderedList: React.FC<InseratRenderedListProps> = cache(({
+const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     inserateArray,
     currentUser,
     favedInserate,
@@ -26,12 +26,8 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = cache(({
 
     const searchParams = useSearchParams();
     const currentPage = searchParams.get("page");
-    const [renderedList, setRenderedList] = useState(inserateArray);
-
-    useMemo(() => {
-        setRenderedList(inserateArray)
-    }, [inserateArray])
-
+   
+    console.log(inserateArray.length)
     
     useGetFilterAmount.setState({ amount: inserateArray.length })
 
@@ -53,7 +49,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = cache(({
     return (
         <div>{inserateArray?.length > 0 ? (
             <div className="sm:grid  sm:grid-cols-1  overflow-y-auto justify-center  ">
-                {renderedList.slice(startIndex, endIndex).map((inserat, index) => (
+                {inserateArray.slice(startIndex, endIndex).map((inserat, index) => (
                     <div className="w-full  md:w-1/4" key={inserat.id}>
                         <InseratCard
                             key={inserat.id}
@@ -75,6 +71,6 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = cache(({
 
         </div>
     );
-})
+}
 
 export default InseratRenderedList;

@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     keywords: "mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger",
 }
 
-const Main = cache(async ({
+const Main = async ({
     searchParams
 }: MainPageProps) => {
 
@@ -182,6 +182,6 @@ const Main = cache(async ({
        
 
     );
-})
+}
 
 export default Main;

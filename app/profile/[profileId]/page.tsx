@@ -16,6 +16,7 @@ import MessageButton from "./_components/message-button";
 import { business, openingTimes } from '../../../db/schema';
 import { Metadata, ResolvingMetadata } from "next";
 import AddImpressum from "./_components/add-impressum";
+import { FaCarCrash } from "react-icons/fa";
 
 
 
@@ -97,6 +98,8 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
         }
     })
 
+    
+
     const thisBusinessImages = await db.query.businessImages.findMany({
         where: (
             eq(businessImages.businessId, thisUser?.business?.id)
@@ -129,7 +132,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">
                 <div className="md:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
                     <div className="min-h-screen">
-                        <div className="sm:p-4 p-2">
+                        {thisUser ? (
+                            <>
+                            <div className="sm:p-4 p-2">
                             <div>
                                 {
                                     thisUser.isBusiness ? (
@@ -201,7 +206,16 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             />
                         </div>
 
-                    </div>
+                    
+                    </>
+                        ) : (
+                            <div className="w-full min-h-screen flex justify-center items-center">
+                                <h3 className="flex text-xl font-semibold gap-x-4">
+                                <FaCarCrash className="w-6 h-6" />    Dieser Nutzer scheint nicht zu existieren..
+                                </h3>
+                            </div>
+                        )}
+                        </div>
                 </div>
             </div>
         </div>

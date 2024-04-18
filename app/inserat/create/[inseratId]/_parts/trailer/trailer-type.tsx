@@ -52,7 +52,7 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
                     <BsTruckFlatbed className="h-6 w-6" />
                 </Button>
                 <p className={cn("text-center text-sm mt-1", //@ts-ignore
-                 thisTrailerType === "SATTEL" && "font-semibold")}>Sattelzug</p>
+                 thisTrailerType === "SATTEL" && "font-semibold")}>Auflieger</p>
             </div>
 
             <div className="flex flex-col items-center">

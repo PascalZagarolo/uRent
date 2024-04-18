@@ -8,6 +8,7 @@ import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnu
     transportAttribute} from "@/db/schema";
 import axios from "axios";
 import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
+import { cache } from "react";
 
 
 
@@ -79,7 +80,7 @@ function calculateDistance(lat1 : number, lon1 : number, lat2 : number, lon2 : n
 
 
 
-export const getInserate = async ({
+export const getInserate = cache(async ({
     title,
     thisCategory,
     filter,
@@ -335,7 +336,7 @@ export const getInserate = async ({
     } catch {
         return [];
     }
-}
+});
         
 
 

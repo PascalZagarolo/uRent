@@ -72,7 +72,7 @@ interface RelevanteInserateProps {
 
 }
 
-const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
+const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     title,
     thisCategory,
     filter,
@@ -239,6 +239,6 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = async ({
         </div>
 
     );
-}
+});
 
 export default RelevanteInserate;

@@ -21,7 +21,7 @@ import {
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { cache, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCar, FaGasPump } from "react-icons/fa";
 import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
@@ -46,7 +46,7 @@ interface InseratCardProps {
 
 }
 
-const InseratCard: React.FC<InseratCardProps> = ({
+const InseratCard: React.FC<InseratCardProps> = cache(({
     thisInserat,
     profileId,
     isFaved,
@@ -439,6 +439,6 @@ const InseratCard: React.FC<InseratCardProps> = ({
             </div>
         </div>
     );
-}
+})
 
 export default InseratCard;

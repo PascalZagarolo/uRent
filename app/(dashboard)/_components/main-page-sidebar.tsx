@@ -16,8 +16,9 @@ import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
 import { useGetFilterAmount } from "@/store";
 import { MdCancelPresentation, MdOutlineCancel } from "react-icons/md";
+import { cache } from "react";
 
-const MainPageSideBar= () => {
+const MainPageSideBar = cache(() => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const currentCategory = searchParams.get("category");
@@ -138,6 +139,6 @@ const MainPageSideBar= () => {
             </div>
         </div>
     );
-}
+});
 
 export default MainPageSideBar;

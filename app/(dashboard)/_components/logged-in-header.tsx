@@ -148,7 +148,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         variant="ghost"
                         className="  bg-[#e1dfdf] 
                         border-2 border-gray-300   w-full dark:bg-[#0f0f0f] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                      
+                      onClick={() => signOut()}
                     >
                         <LogOutIcon className="mr-4" />
                         <p>

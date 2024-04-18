@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import ManageAvailability from "./manage-availability";
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect;
@@ -87,13 +88,21 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     </div>
                 </div>
                 <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 md:flex justify-center hidden">
-                    <div>
+                    <div className="h-full">
+                    <div className="h-1/2">
                         {format(new Date(thisInserat.createdAt), "dd.MM.yyyy")}
                         <p className="dark:text-gray-100 text-gray-800">
                             erstellt am
                         </p>
                         
                     </div>
+                    <div className="h-1/2">
+                        <ManageAvailability
+                        thisInserat={thisInserat}
+                        />
+                    </div>
+                    </div>
+                    
                     
                 </div>
                 <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">

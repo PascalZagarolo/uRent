@@ -6,12 +6,13 @@ import { userTable } from "@/db/schema";
 import { validateRequest } from "@/lib/lucia";
 
 import { eq, sql } from "drizzle-orm";
+import { cache } from "react";
 
 
 
 
 
-const getCurrentUser = async () => {
+const getCurrentUser = cache(async () => {
   try {
     
     const { user } = await validateRequest();
@@ -31,6 +32,6 @@ const getCurrentUser = async () => {
   } catch (error) {
     return null;
   }
-};
+});
 
 export default getCurrentUser;

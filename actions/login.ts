@@ -66,7 +66,7 @@ export const login = async (
 
     return { success: "Bitte bestätige deine Email-Addresse" };
   }
-  //////////////////////////////////////////////////////////////////////////////////
+ 
   if (existingUser.usesTwoFactor && existingUser.email) {
 
     console.log("test")

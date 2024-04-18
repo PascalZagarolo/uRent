@@ -334,15 +334,18 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex w-full">
                             <div className="w-full">
-                                <Image
+                                <img
                                     src={thisInserat.images[0]?.url}
                                     
-                                    width={500}
-                                    height={500}
-                                    className="rounded-md hover:cursor-pointer  dark:border-gray-900 h-[160px] 
-                                    w-full object-cover"
+                                    
+                                    style={{objectFit: "cover"}}
+                                    
+                                    className="transform: translate3d(0px, 0px, 0.1px) 
+                                    rounded-md hover:cursor-pointer  dark:border-gray-900 h-[160px] 
+                                    w-full "
                                     onClick={onRedirect}
                                     alt={thisInserat.title}
+                                    loading="lazy"
                                 />
                                 <div className="text-xs justify-end text-gray-200">
                                     inseriert am:  {format(new Date(thisInserat.createdAt), "dd.MM")}

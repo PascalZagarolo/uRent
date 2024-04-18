@@ -2,7 +2,7 @@
 
 
 import InseratCard from "../../_components/inserat-card";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
 import { inserat, userTable } from "@/db/schema";
@@ -52,7 +52,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     return (
         <div>{inserateArray?.length > 0 ? (
             <div className="sm:grid  sm:grid-cols-1  overflow-y-auto justify-center  ">
-                {renderedList.slice(startIndex, endIndex).map((inserat, index) => (
+                {inserateArray.slice(startIndex, endIndex).map((inserat, index) => (
                     <div className="w-full  md:w-1/4" key={inserat.id}>
                         <InseratCard
                             key={inserat.id}

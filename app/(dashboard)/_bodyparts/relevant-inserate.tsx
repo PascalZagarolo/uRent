@@ -8,7 +8,7 @@ import OrderBy from "../_components/_smart-filter/order-by";
 
 
 
-import { Suspense, lazy } from "react";
+import { Suspense, cache, lazy } from "react";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, 

@@ -44,6 +44,7 @@ const AutoComplete = () => {
         url: pathname,
         query: {
           location: null,
+          radius : null,
           ...params
         }
       }, { skipEmptyString: true, skipNull: true });

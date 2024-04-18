@@ -2,8 +2,8 @@
 
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import qs from 'query-string';
 
 
@@ -25,9 +25,30 @@ const Proximity = () => {
             ...params,
         }
     }, { skipNull: true, skipEmptyString: true });
-
     router.push(url)
     }
+
+    const searchParams = useSearchParams();
+
+    const usedLocation = searchParams.get("location");
+
+    //delete radius if location is deleted
+    useEffect(() => {
+      
+      if(!usedLocation) {
+        const url = qs.stringifyUrl({
+          url: pathname,
+          query: {
+              radius : null,
+              ...params,
+          }
+      }, { skipNull: true, skipEmptyString: true });
+      router.push(url)
+      }
+
+      
+
+    },[usedLocation])
 
     return ( 
         <Select onValueChange={(e) => {

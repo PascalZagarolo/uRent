@@ -214,7 +214,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                 <FormLabel>Anfangsdatum</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] dark:border-gray-100">
+                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]
+                                                         dark:border-none">
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
@@ -231,11 +232,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0" align="start">
+                                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
                                                             selected={field.value}
-                                                            className="dark:bg-[#0a0a0a] dark:border-gray-100 dark:border"
+                                                            className="dark:bg-[#0a0a0a] dark:border-none"
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
                                                                 setCurrentStart(date);
@@ -261,7 +262,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                 <FormLabel>Enddatum</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] dark:border-gray-100">
+                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]">
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
@@ -278,11 +279,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0" align="start">
+                                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
                                                             selected={field.value}
-                                                            className="dark:bg-[#0a0a0a] dark:border-gray-100 dark:border"
+                                                            className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
                                                                 const nextDay = new Date(date);
                                                                 nextDay.setDate(nextDay.getDate() + 1);

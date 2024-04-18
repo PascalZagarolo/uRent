@@ -20,7 +20,7 @@ import { Inter } from "next/font/google";
   
     
 
-  export const FaActivation = () => (
+  export const ConfirmEmailChange = () => (
     <Html>
       <Head />
       <Preview>Email erfolgreich geändert</Preview>
@@ -69,7 +69,7 @@ import { Inter } from "next/font/google";
     </Html>
   );
   
-  export default FaActivation;
+  export default ConfirmEmailChange;
 
   const inter = Inter({ subsets: ['latin'] });
 

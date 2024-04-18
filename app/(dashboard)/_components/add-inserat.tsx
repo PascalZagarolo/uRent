@@ -67,10 +67,10 @@ const Inserat: React.FC<InseratProps> = ({
             
             <Dialog >
             <DialogTrigger className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center 
-            font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#1C1E2C] w-full">
+            font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161723] w-full" onClick={() => {!currentUser && router.push("/login")}}>
                     
                     
-                    <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:flex mr-1 text-sm">Neue Anzeige</p>
+                    <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:flex mr-1 text-sm">Anzeige erstellen</p>
                         
                     </DialogTrigger>
                 <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">

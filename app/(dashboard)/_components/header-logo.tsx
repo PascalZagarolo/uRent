@@ -52,11 +52,11 @@ const Header: React.FC<HeaderProps> = async ({
                     <div className={cn("flex items-center justify-center ", currentUser ? "ml-auto" : "w-full")}>
                         <div className="2xl:mr-32 items-center sm:mr-8">
 
-                            {currentUser && (
+                            
                                 <Inserat
                                     currentUser={currentUser}
                                 />
-                            )}
+                           
                         </div>
                         <div className="p-4 xl:hidden flex rounded-md mt-2  items-center">
                             <MobileFilterSheet />

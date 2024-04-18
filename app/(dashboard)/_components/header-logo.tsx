@@ -19,11 +19,9 @@ import LocationBar from "./location-bar";
 import LoggedInBarHeader from "./logged-in-header";
 
 import { notification, userTable } from '../../../db/schema';
-import { eq, sql } from "drizzle-orm";
-import db from "@/db/drizzle";
-import LogOutButton from "@/components/logout-button";
-import { Button } from "@/components/ui/button";
-import { signOut } from "@/actions/signout";
+
+
+import { cache } from "react";
 
 
 
@@ -32,7 +30,7 @@ interface HeaderProps {
     foundNotifications: typeof notification.$inferSelect[];
 }
 
-const Header: React.FC<HeaderProps> = async ({
+const Header: React.FC<HeaderProps> = cache(async ({
     currentUser,
     foundNotifications
 }) => {
@@ -90,6 +88,6 @@ const Header: React.FC<HeaderProps> = async ({
 
         </div >
     );
-}
+});
 
 export default Header;

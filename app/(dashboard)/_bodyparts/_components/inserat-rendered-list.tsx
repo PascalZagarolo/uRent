@@ -5,13 +5,14 @@ import InseratCard from "../../_components/inserat-card";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
-import { inserat, userTable } from "@/db/schema";
+import {  inserat, 
+    userTable } from "@/db/schema";
+
 
 interface InseratRenderedListProps {
     inserateArray: typeof inserat.$inferSelect[];
     currentUser: typeof userTable.$inferSelect;
     favedInserate: typeof inserat.$inferSelect[];
-
 
 }
 

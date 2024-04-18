@@ -53,7 +53,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = cache(({
     return (
         <div>{inserateArray?.length > 0 ? (
             <div className="sm:grid  sm:grid-cols-1  overflow-y-auto justify-center  ">
-                {inserateArray.slice(startIndex, endIndex).map((inserat, index) => (
+                {renderedList.slice(startIndex, endIndex).map((inserat, index) => (
                     <div className="w-full  md:w-1/4" key={inserat.id}>
                         <InseratCard
                             key={inserat.id}

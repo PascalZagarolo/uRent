@@ -130,14 +130,14 @@ export const getInserate = cache(async ({
 
     
 
-    const ConditionFilter = (pInserat : typeof inserat) => {
+    const ConditionFilter = cache((pInserat : typeof inserat) => {
         const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
         const bLicense = reqLicense ? reqLicense === pInserat.license : true;
         
         return bAge && bLicense;
-    }
+    })
     
-    const PkwFilter = (pInserat : typeof inserat) => {
+    const PkwFilter = cache((pInserat : typeof inserat) => {
         
         const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
         const bPower = power ? pInserat.pkwAttribute.power >= power : true;
@@ -161,9 +161,9 @@ export const getInserate = cache(async ({
         return bSeats && bPower && bDoors && bFreeMiles &&
          bExtraCost && bType && bTransmission && bFuel && bBrand && 
          bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
-    }
+    })
 
-    const LkwFilter = (pInserat : typeof inserat) => {
+    const LkwFilter = cache((pInserat : typeof inserat) => {
         const bSeats = seats ? pInserat.lkwAttribute.seats >= seats : true;
         const bAxis = axis ? axis === pInserat.lkwAttribute.axis : true;
         const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
@@ -179,9 +179,9 @@ export const getInserate = cache(async ({
 
         return bSeats && bWeightClass && bDrive && bLoading && bApplication 
         && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
-    } 
+    })
 
-    const TrailerFilter = (pInserat : typeof inserat) => {
+    const TrailerFilter = cache((pInserat : typeof inserat) => {
         const bType = trailerType ? trailerType === pInserat.trailerAttribute.type : true;
         const bExtraType = extraType ? extraType === pInserat.trailerAttribute.extraType : true;
         const bCoupling = coupling ? coupling === pInserat.trailerAttribute.coupling : true;
@@ -197,9 +197,9 @@ export const getInserate = cache(async ({
 
         return bType && bExtraType && bCoupling && bLoading && bAxis 
         && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight; 
-    }
+    })
 
-    const TransportFilter = (pInserat : typeof inserat) => {
+    const TransportFilter = cache((pInserat : typeof inserat) => {
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmisson = transmission ? transmission === pInserat.transportAttribute.transmission : true;
         const bPower = power ? pInserat.transportAttribute.power >= power : true;
@@ -215,7 +215,7 @@ export const getInserate = cache(async ({
 
         return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower 
         && bExtraType && bVolume && bLength && bBreite && bHeight;
-    }
+    })
 
     
     try {

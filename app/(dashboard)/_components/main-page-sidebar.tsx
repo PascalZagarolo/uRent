@@ -18,7 +18,7 @@ import { useGetFilterAmount } from "@/store";
 import { MdCancelPresentation, MdOutlineCancel } from "react-icons/md";
 import { cache, memo } from "react";
 
-const MainPageSideBar = memo(() => {
+const MainPageSideBar = cache(() => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const currentCategory = searchParams.get("category");

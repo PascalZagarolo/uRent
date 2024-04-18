@@ -2,7 +2,7 @@
 
 
 import InseratCard from "../../_components/inserat-card";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { cache, useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
 import {  inserat, 
@@ -17,7 +17,7 @@ interface InseratRenderedListProps {
 }
 
 
-const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
+const InseratRenderedList: React.FC<InseratRenderedListProps> = cache(({
     inserateArray,
     currentUser,
     favedInserate,
@@ -75,6 +75,6 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
 
         </div>
     );
-}
+})
 
 export default InseratRenderedList;

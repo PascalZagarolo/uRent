@@ -21,6 +21,7 @@ import MainPageSideBar from "./_components/main-page-sidebar";
 import { ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, 
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender,
      LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
+import { cache } from "react";
 
 
 
@@ -86,7 +87,7 @@ export const metadata: Metadata = {
     keywords: "mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger",
 }
 
-const Main = async ({
+const Main = cache(async ({
     searchParams
 }: MainPageProps) => {
 
@@ -97,8 +98,7 @@ const Main = async ({
 
     const currentUser = await getCurrentUser();
 
-    const start = Number(searchParams.start)
-    const end = Number(searchParams.end)
+  
 
    
 
@@ -182,6 +182,6 @@ const Main = async ({
        
 
     );
-}
+})
 
 export default Main;

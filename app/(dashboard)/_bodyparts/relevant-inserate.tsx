@@ -8,7 +8,7 @@ import OrderBy from "../_components/_smart-filter/order-by";
 
 
 
-import { Suspense, cache, lazy } from "react";
+import { Suspense, cache, lazy, memo } from "react";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, 
@@ -72,7 +72,7 @@ interface RelevanteInserateProps {
 
 }
 
-const RelevanteInserate: React.FC<RelevanteInserateProps> = cache( async ({
+const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     title,
     thisCategory,
     filter,
@@ -190,7 +190,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache( async ({
 
 
 
-    const LoadingComponent = () => <div>Laden...</div>
+    
 
     return (
         <div className="w-full">
@@ -226,14 +226,14 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache( async ({
                 </div>
             )}
             <div className="flex justify-center w-full">
-                
-                <InseratRenderedList
+            <InseratRenderedList
                         inserateArray={foundInserate}
                         currentUser={currentUser}
                         //@ts-ignore
                         favedInserate={favedInserate}
 
                     />
+                
                 
             </div>
         </div>

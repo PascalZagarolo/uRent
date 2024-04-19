@@ -39,14 +39,25 @@ const BlockUser: React.FC<BlockUserProps> = ({
         }
     }
 
-    const onUnBlock = () => {
-
+    const onUnBlock = async () => {
+        try {
+            setIsLoading(true);
+            await axios.delete(`/api/block/${params.conversationId}`)
+                .then(() => {
+                    toast.success("Nutzer erfolgreich freigegeben")
+                    router.refresh();
+                })
+        } catch {
+            toast.error("Nutzer konnte nicht freigegeben werden")
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
         <AlertDialog>
             {userBlocked ? (
-                <div className="text-xs flex text-gray-200 hover:underline hover:cursor-pointer" >
+                <div className="text-xs flex text-gray-200 hover:underline hover:cursor-pointer" onClick={onUnBlock}>
                     
                     <CgUnblock  className="w-4 h-4 mr-2 text-emerald-600" /> Nutzer freigeben
                     

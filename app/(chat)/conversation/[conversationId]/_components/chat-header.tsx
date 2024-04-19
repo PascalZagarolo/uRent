@@ -1,6 +1,6 @@
 'use client';
 
-import { userTable } from "@/db/schema";
+import { block, userTable } from "@/db/schema";
 import useActiveList from "@/hooks/useActiveList";
 import ReportModal from "./report-modal";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -10,10 +10,14 @@ import BlockUser from "./block-user";
 
 interface ChatHeaderProps {
     otherUser : typeof userTable.$inferSelect;
+    foundBlocks : typeof block.$inferSelect[];
+    currentUser : typeof userTable.$inferSelect;
 }
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({
-    otherUser
+    otherUser,
+    foundBlocks,
+    currentUser
 }) => {
 
     const { members } = useActiveList();
@@ -31,7 +35,10 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
                     <ReportModal/>
                     </div>
                     <div>
-                        <BlockUser />
+                        <BlockUser 
+                        foundBlocks = {foundBlocks}
+                        currentUser = {currentUser}
+                        />
                     </div>
                 </PopoverContent>
             </Popover>

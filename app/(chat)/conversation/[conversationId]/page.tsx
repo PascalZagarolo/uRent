@@ -58,6 +58,7 @@ const ConversationPage = async ({
         with : {
             user1 : true,
             user2 : true,
+            blocks : true
         }
     
     })
@@ -93,7 +94,7 @@ const ConversationPage = async ({
 
     const otherUserId = thisConversation?.user1Id === currentUser.id ? thisConversation?.user2Id : thisConversation?.user1Id;
 
-    console.log(otherUserId)
+    
 
     const otherUserDetails = await db.query.userTable.findFirst({
         where : eq(
@@ -116,13 +117,14 @@ const ConversationPage = async ({
 
     let otherUserChat: typeof userTable.$inferSelect;
 
-    const foundNotifications = await db.query.notification.findMany({
+    const findNotifications = db.query.notification.findMany({
         where : (
             eq(notification.userId, currentUser?.id)
         )
     
-    })
+    }).prepare("findNotifications")
 
+    const foundNotifications = await findNotifications.execute();
 
 
 
@@ -140,7 +142,7 @@ const ConversationPage = async ({
                 foundNotifications={foundNotifications}
                 />
              </div>
-            <div className="flex justify-center min-h-full  py-8 px-4">
+            <div className="flex justify-center min-h-full py-8  px-4">
             <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] h-full hidden md:block dark:border-[#1C1C1C] border">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
@@ -174,6 +176,9 @@ const ConversationPage = async ({
                                 <div className="ml-auto">
                                     <ChatHeader 
                                     otherUser={otherUserDetails}
+                                    // @ts-ignore
+                                    foundBlocks = {thisConversation?.blocks}
+                                    currentUser = {currentUser}
                                     />
                                 </div>
                             </h3>

@@ -90,23 +90,18 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     
         if (bottomRef.current) {
             
-            const offset = 100; 
+            
             bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "center"});
         }
     }, [pMessages]);
 
-    function scrollToBottom() {
-        // Use setTimeout to allow DOM updates before scrolling
-        setTimeout(() => {
-          window.scrollTo(0, document.body.scrollHeight);
-        }, 0);
-      }
+    
 
     return ( 
-        <div>
-            <div className="no-scrollbar  overflow-y-auto h-full w-full"   ref={bottomRef} >
-            <div className="dark:bg-[#1C1C1C]">
-            <h3 className="flex justify-center  text-gray-900/30 px-4  dark:text-gray-100 text-sm ">
+        <div> 
+            <div className="no-scrollbar  overflow-y-auto h-full w-full" ref={bottomRef}>
+            <div className="">
+            <h3 className="flex justify-center  text-gray-900/30 px-4 py-4  dark:text-gray-100 text-sm ">
             Chat gestartet am {formateDate(thisConversation.createdAt)}
             </h3>
             <div className="no-scrollbar h-full">

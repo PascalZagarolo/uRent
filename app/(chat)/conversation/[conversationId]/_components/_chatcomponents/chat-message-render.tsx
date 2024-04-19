@@ -11,6 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { message } from "@/db/schema";
+import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
+import { BsChatSquareQuoteFill } from "react-icons/bs";
 
 
 
@@ -29,7 +32,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
     const router = useRouter();
 
-    
+
     const [showDate, setShowDate] = useState(false);
 
     useEffect(() => {
@@ -37,104 +40,77 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
         setTimeout(() => {
             setShowDate(true);
         }, 500)
-    },[messages])
-    
+    }, [messages])
 
+    console.log()
 
     return (
-        <div>
+        <div className={cn("w-full p-2 flex items-center dark:text-gray-300 text-sm", isOwn && " justify-end", )}>
+            <div className="flex space-x-2 ">
+                {!isOwn && (
+                    <div className="mt-auto">
+                        <Image
+                            src={//@ts-ignore
+                                messages.sender?.image}
+                            width={60}
+                            height={60}
+                            className="w-[32px] h-[32px] rounded-full object-cover"
+                            alt="pfp"
+                        />
+                    </div>
+                )}
 
-            <div className={cn("", isOwn ? "" : "ml-2 ")}>
+                <div>
 
-                <div className={cn("rounded-lg flex p-2 w-1/2", isOwn ? " mr-2 ml-auto" : " mr-auto")}>
-
-                    <div className={cn("min-w-[50px]", isOwn ? "ml-auto" : "mr-auto")}>
-                        
-                        <div className={cn("p-4 rounded-lg mt-2   flex ",
-                            isOwn ? "bg-emerald-800 ml-auto" : "bg-indigo-900 border-gray-900 text-gray-100 mr-auto",
-                            messages.isInterest && "bg-[#ECECEC] text-gray-900 border border-emerald-600 dark:bg-[#0F0F0F]  dark:border-none dark:text-gray-100")}>
-                            {messages.image ? (
-                                <ChatImageRender
-                                    imageLink={messages.image}
-                                /> 
-                            ) : (
-                                <div className="">
-                                    {messages.isInterest && (
-                                        <div className="mb-4 hidden lg:block ">
-                                            <div className="flex items-center">
-                                                <Forward />
-                                                <p className="ml-2 font-semibold text-xs text-gray-900/50 dark:text-gray-300">
-                                                    Interesse bezüglich...</p>
-                                            </div>
-                                            <div className="p-4  bg-white dark:bg-[#1C1C1C] dark:text-gray-100 rounded-md 
-                                             hover:cursor-pointer"
-                                                onClick={
-                                                    () => { router.push(`/inserat/${messages.inseratId}`) }
-                                                }
-                                            >
-                                                <div>
-                                                    <div className="flex">
-
-                                                        <div className="rounded-md 2xl:w-1/2">
-                                                            {showDate && (
-                                                                <img
-                                                                src={//@ts-ignore
-                                                                    messages.inserat?.images[0].url}
-                                                                className=" object-cover rounded-md"
-                                                                alt="..."
-                                                                style={{ imageRendering: "auto" }}
-                                                                loading="eager"
-                                                            />
-                                                            )}
-                                                        </div>
-
-                                                        <div className="ml-4 font-semibold truncate w-[160px] mr-4">
-                                                            {//@ts-ignore
-                                                            messages.inserat.title}
-                                                            
-                                                            <Badge className="flex ml-auto mt-2 bg-emerald-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center">
-                                                                {//@ts-ignore
-                                                                messages.inserat?.price} €
-                                                            </Badge>
-                                                        </div>
-                                                        <div className="rounded-md bg-gray-100 text-xs font-medium  ml-auto w-1/2 dark:bg-[#1d1d1d] dark:border-none
-                                                        drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] p-2 max-h-[100px] overflow-hidden hidden 2xl:flex">
-                                                            <p className="overflow-hidden text-overflow-ellipsis">{//@ts-ignore
-                                                                                                                    messages.inserat?.description}</p>
-                                                        </div>
-
-
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
+                    <div className={cn("max-w-lg text-sm font-medium p-2 rounded-md ", 
+                    !isOwn ? "dark:bg-[#191919]" : "dark:bg-[#1F2332] dark:bg-opacity-100",
+                    messages.isInterest && "border "
+                    )}>
+                        <div>
+                            {messages.isInterest && (
+                                <div className="w-full h-full">
+                                    <div>
+                                        <div className="font-bold text-gray-200 flex items-center">
+                                        <BsChatSquareQuoteFill className="w-4 h-4 mr-2" /> Anfrage zu deinem Inserat
                                         </div>
-                                    )}
-                                    <div className="flex justify-center text-sm break-words">
-
-                                        {messages.content}
-
+                                        <div>
+                                            {//@ts-ignore
+                                            messages.inserat.title}
+                                        </div>
+                                        <div className="w-full py-2 ">
+                                            
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             )}
-
-
                         </div>
-
-                        {showDate && (
-                            <p className={cn(" mr-1 text-xs mt-1 text-gray-900/60  dark:text-gray-200/70", 
-                            isOwn ? "text-right" : "text-left")}>
-                            {format(new Date(messages.createdAt), "HH:mm")} Uhr
-                        </p>
+                        {messages?.image ? (
+                            <div className=" py-0.5">
+                        <Image
+                        src={messages?.image}
+                        width={200}
+                        height={200}
+                        className=""
+                        alt="image"
+                        />
+                        </div>
+                        ) : (
+                            <div className="font-medium text-gray-200 px-1 py-0.5">
+                        {messages?.content}
+                        </div>
                         )}
+                        <div className={cn("text-xs font-normal mt-0.5  text-gray-200/80", isOwn ? "flex justify-end" : "")}>
+                            {format(new Date(messages.createdAt), "HH:mm")} Uhr
+                        </div>
                     </div>
 
                 </div>
 
-
-
             </div>
+
+
+
         </div>
 
 

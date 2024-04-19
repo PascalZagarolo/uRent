@@ -11,15 +11,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import UploadImage from "../upload-image";
+import { block } from "@/db/schema";
 
 interface ChatInputProps {
     otherUser : string;
     otherUserName : string;
+    existingBlock : typeof block.$inferSelect[];
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({
     otherUser,
-    otherUserName
+    otherUserName,
+    existingBlock
 }) => {
 
     const params = useParams();
@@ -82,6 +85,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                         dark:bg-[#0F0F0F] dark:text-gray-100 focus-visible:ring-0 focus-visible:border-none  dark:border-none"
                             placeholder="Schreibe eine Nachricht..."
                             {...field}
+                        disabled={existingBlock.length > 0 ? true : false}
                         />
                     </FormControl>
                     

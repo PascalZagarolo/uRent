@@ -84,7 +84,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                         src={messages?.image}
                         width={200}
                         height={200}
-                        className=""
+                        className="object-cover"
                         alt="image"
                         />
                         </div>

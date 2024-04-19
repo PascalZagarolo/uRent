@@ -100,11 +100,11 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     return ( 
         <div> 
             <div className="no-scrollbar  overflow-y-auto h-full w-full" ref={bottomRef}>
-            <div className="">
-            <h3 className="flex justify-center  text-gray-900/30 px-4 py-4  dark:text-gray-100 text-sm ">
+            <div className="h-full">
+            <h3 className="flex justify-center  text-gray-900/30 px-4  py-4 dark:text-gray-100 text-sm ">
             Chat gestartet am {formateDate(thisConversation.createdAt)}
             </h3>
-            <div className="no-scrollbar h-full">
+            <div className="no-scrollbar p-0.5">
             {pMessages.map((message) => (
                 <ChatMessageRender
                 key={message.id}

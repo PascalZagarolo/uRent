@@ -33,14 +33,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
     const router = useRouter();
 
 
-    const [showDate, setShowDate] = useState(false);
-
-    useEffect(() => {
-        setShowDate(false);
-        setTimeout(() => {
-            setShowDate(true);
-        }, 500)
-    }, [messages])
+    
 
     console.log()
 

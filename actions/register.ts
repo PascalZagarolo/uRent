@@ -13,6 +13,9 @@ import { userTable } from "@/db/schema";
 import { generateId } from "lucia";
 import { lucia } from "@/lib/lucia";
 import { cookies } from "next/headers";
+import { generateCodeVerifier, generateState } from "arctic";
+
+import { google } from "@/lib/lucia/oauth";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -68,3 +71,37 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   return { success: "Bitte bestätige deine Email-Addresse." };
 };
+
+
+export const createAuthorizationURL = async () => {
+
+ try {
+  
+  const state = generateState();
+  const codeVerifier = generateCodeVerifier();
+
+  cookies().set("codeVerifier", codeVerifier, {
+    httpOnly: true,
+  })
+
+  cookies().set("state", state, {
+    httpOnly: true,
+  })
+
+  const authorizationURL = await google.createAuthorizationURL(state, codeVerifier, {
+    scopes: ["email", "profile"]
+  });
+
+  return {
+    success : true,
+    data : authorizationURL
+  }
+
+
+ } catch(error : any) {
+  console.log(error)
+  return { error : "Fehler beim Erstellen der Autorisierungs URL" }
+ }
+}
+
+//const tokens = await google.validateAuthorizationCode(code);

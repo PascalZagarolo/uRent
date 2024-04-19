@@ -7,13 +7,23 @@ import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { createAuthorizationURL } from "@/actions/register";
+import toast from "react-hot-toast";
 
 
 export const Social = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
  
+  const onGoogle = async () => {
+    const res = await createAuthorizationURL();
 
+    if(res.error) {
+      toast.error("Etwas ist schief gelaufen")
+    } else if (res.success) {
+      window.location.href = res.data.toString();
+    }
+  }
   
 
   return (
@@ -22,7 +32,7 @@ export const Social = () => {
         size="lg"
         className="w-full bg-[#1a1c2c] border-none"
         variant="outline"
-        onClick={() => {}}
+        onClick={onGoogle}
       >
         <FcGoogle className="h-5 w-5" />
       </Button>

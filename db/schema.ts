@@ -58,8 +58,21 @@ export const userTable = pgTable("user", {
                                 .references(() => twoFactorConfirmation.id, { onDelete: "set null" }),
 })
 
-//@ts-ignore
-export const business = pgTable("business", {
+export const oauthAccountTable = pgTable("oauth_account", {
+    id : text("id").primaryKey(),
+    userId : text("userId")
+            .references(() => userTable.id, { onDelete: "cascade" }),
+    provider : text("provider").notNull(),
+    providerUserId : text("provider_user_id").notNull(),
+    accessToken : text("accessToken"),
+    refreshToken : text("refreshToken"),
+    expiresAt : timestamp("expiresAt", { 
+        withTimezone : true, 
+        mode: "date" }).notNull(),
+})
+
+
+export const business : any = pgTable("business", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     userId: text("userId")
         .references(() => userTable.id, { onDelete: "cascade" }),
@@ -875,12 +888,10 @@ export const changeEmailTokenRelations = relations(changeEmailToken, ({ one }) =
 
 
 export const userRelations = relations(userTable, ({ one, many }) => ({
-
     userAddress : one(userAddress, {
         fields : [userTable.userAddressId],
         references : [userAddress.id]
     }),
-
     inserat: many(inserat),
 
     writtenRezensionen: many(rezension, { relationName : "writtenRezensionen" }),

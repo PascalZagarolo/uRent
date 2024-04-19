@@ -27,7 +27,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     const searchParams = useSearchParams();
     const currentPage = searchParams.get("page");
    
-    console.log(inserateArray.length)
+    
     
     useGetFilterAmount.setState({ amount: inserateArray.length })
 

@@ -63,7 +63,7 @@ const ConversationPage = async () => {
                 foundNotifications={foundNotifications}
                 />
              </div>
-            <div className="flex justify-center h-screen py-8 px-4 ">
+            <div className="flex justify-center h-full py-8 px-4 ">
             <div className="dark:bg-[#0F0F0F] mr-4 rounded-md w-[280px] h-full dark:border-[#1C1C1C] border">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
@@ -85,7 +85,7 @@ const ConversationPage = async () => {
                     )}
                 </div>
                 
-                <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
+                <div className="w-[1044px] dark:bg-[#1c1c1c] h-screen overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
                     <div className="rounded-lg h-full no-scrollbar">
                         <div className="relative h-full flex justify-center items-center font-semibold text-lg">
                             

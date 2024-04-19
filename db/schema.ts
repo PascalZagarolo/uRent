@@ -1146,6 +1146,10 @@ export const reportRelations = relations(report, ({ one }) => ({
     message : one(message, {
      fields : [report.messageId],
      references : [message.id]
+    }),
+    conversation : one(conversation, {
+        fields : [report.conversationId],
+        references : [conversation.id]
     })
 }))
 

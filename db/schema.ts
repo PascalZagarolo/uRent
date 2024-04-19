@@ -44,6 +44,7 @@ export const userTable = pgTable("user", {
     sharesEmail: boolean("sharesEmail").notNull().default(false),
     usesTwoFactor : boolean("usesTwoFactor").notNull().default(false),
     isBusiness : boolean("isBusiness").default(false),
+    newsletter : boolean("newsletter").default(false),
     
     businessId : uuid("businessId")
             .references(() => business.id, { onDelete : "set null"}),

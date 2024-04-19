@@ -831,12 +831,29 @@ export const report = pgTable("report", {
     content : text("content"),
 })
 
+export const block = pgTable("block", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+
+    userId : text("userId")
+                .references(() => userTable.id, { onDelete: "cascade" }),
+
+    conversationId : uuid("conversationId")
+                .references(() => conversation.id, { onDelete: "cascade" }),
+})
+
 //every array of a user => e.g liked posts etc..
 
 export const accountRelations = relations(accounts, ({ one }) => ({
     users : one(userTable, {
         fields : [accounts.userId],
         references : [userTable.id]
+    })
+}))
+
+export const blockRelations = relations(block , ({ one }) => ({
+    conversation : one(conversation, {
+        fields : [block.conversationId],
+        references : [conversation.id]
     })
 }))
 
@@ -847,12 +864,14 @@ export const sessionRelations =  relations(sessionTable, ({ one }) => ({
     })
 }))
 
-export const changeEmailTokenRelations = relations(changeEmailToken, ({ one}) => ({
+export const changeEmailTokenRelations = relations(changeEmailToken, ({ one }) => ({
     users : one(userTable, {
         fields : [changeEmailToken.userId],
         references : [userTable.id]
     })
 }))
+
+
 
 export const userRelations = relations(userTable, ({ one, many }) => ({
 
@@ -911,6 +930,7 @@ export const twoFactorConfirmationRelations = relations(twoFactorConfirmation, (
     })
 
 }))
+
 
 export const inseratRelations = relations(inserat, ({ one, many }) => ({
     user: one(userTable, {
@@ -1124,7 +1144,8 @@ export const conversationRelations = relations(conversation, ({ one, many }) => 
         references : [userTable.id],
         relationName : "conversation_user2"
     }),
-    messages : many(message)
+    messages : many(message),
+    blocks : many(block)
 }))
 
 export const notificationRelations = relations(notification, ({ one }) => ({

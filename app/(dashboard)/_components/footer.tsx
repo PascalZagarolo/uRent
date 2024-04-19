@@ -14,19 +14,19 @@ const Footer = () => {
         <div className="flex ">
           <TruckIcon className="w-6 h-6 dark:text-gray-200 mr-2 sm:block hidden"/>
         <p className="dark:text-gray-100 text-xl font-semibold "> uRent </p>
-        <p className="text-xs dark:text-gray-200 mr-8 ml-1"> 2024</p>
-        <div className="flex justify-evenly dark:text-gray-100/80 font-semibold w-full text-sm sm:text-base">
-          <div className="hover:underline hover:cursor-pointer" onClick={() => {router.push("/imprint")}}>
+        <p className="text-xs dark:text-gray-200 mr-2 sm:mr-8 ml-1"> 2024</p>
+        <div className="flex justify-evenly dark:text-gray-200 font-medium sm:font-semibold w-full sm:text-sm text-xs">
+          <div className="hover:underline hover:cursor-pointer sm:text-sm text-xs" onClick={() => {router.push("/imprint")}}>
             Impressum
           </div>
-          <div className="hover:underline hover:cursor-pointer text-sm sm:text-base" onClick={() => {router.push("/data-privacy")}}>
+          <div className="hover:underline hover:cursor-pointer sm:text-sm text-xs" onClick={() => {router.push("/data-privacy")}}>
             Datenschutz
           </div>
-          <a className="hover:underline hover:cursor-pointer text-sm sm:text-base" href="/agbs">
+          <a className="hover:underline hover:cursor-pointer sm:text-sm text-xs" href="/agbs">
             AGBs
           </a>
           
-          <a className="hover:underline hover:cursor-pointer text-sm sm:text-base" href="/faqs">
+          <a className="hover:underline hover:cursor-pointer  sm:text-sm text-xs" href="/faqs">
             FAQs
           </a>
           

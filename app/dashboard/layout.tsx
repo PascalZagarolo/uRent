@@ -40,9 +40,10 @@ const DashboardLayout = async (
             <div >       
                 {children}
             </div>
-            <div>
-                <Footer />
-            </div>
+           
+            
+            <Footer />
+            
         </div>
     );
 }

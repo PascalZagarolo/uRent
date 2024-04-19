@@ -21,6 +21,7 @@ import db from "@/db/drizzle";
 import { and, eq, is, isNotNull, or } from "drizzle-orm";
 import { conversation, notification } from "@/db/schema";
 import { userTable, message } from '../../../../db/schema';
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 
@@ -139,7 +140,7 @@ const ConversationPage = async ({
                 foundNotifications={foundNotifications}
                 />
              </div>
-            <div className="flex justify-center min-h-full  px-4">
+            <div className="flex justify-center min-h-full  py-8 px-4">
             <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] h-full hidden md:block dark:border-[#1C1C1C] border">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
@@ -155,8 +156,8 @@ const ConversationPage = async ({
                     </div>
                 </div>
                 
-                <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white">
-                    <div className="rounded-lg h-full no-scrollbar">
+                <div className="w-[1044px] dark:bg-[#1c1c1c] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white ">
+                    <div className="rounded-lg h-full no-scrollbar ">
                         <div className="relative">
                             <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-md truncate sm:text-2xl flex items-center p-4 font-semibold  sticky top-0 z-10">
                                 <ReturnToChat />
@@ -193,8 +194,11 @@ const ConversationPage = async ({
                             </div>
                         </div>
                     </div>
+                    
                 </div>
+                
             </div>
+            <Footer />
         </div>
 
     );

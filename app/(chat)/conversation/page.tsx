@@ -10,6 +10,7 @@ import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { eq, or } from "drizzle-orm";
 import { conversation, notification } from '../../../db/schema';
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 
@@ -99,6 +100,10 @@ const ConversationPage = async () => {
                         </div>
                     </div>
                 </div>
+                
+            </div>
+            <div>
+            <Footer />
             </div>
         </div>
      );

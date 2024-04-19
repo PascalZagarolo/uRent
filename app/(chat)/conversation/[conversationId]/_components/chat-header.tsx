@@ -2,6 +2,10 @@
 
 import { userTable } from "@/db/schema";
 import useActiveList from "@/hooks/useActiveList";
+import ReportModal from "./report-modal";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { BsThreeDots } from "react-icons/bs";
+import BlockUser from "./block-user";
 
 
 interface ChatHeaderProps {
@@ -18,15 +22,19 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
     return ( 
         <div>
             <div className="text-sm">
-            {isActive ? ( 
-                        <div>
-                            <p className="font-semibold text-emerald-600"> Online </p>
-                        </div>
-                    ) : ( 
-                        <div>
-                            <p className="font-semibold text-gray-600/50"> Offline </p>
-                        </div>
-                    )}
+            <Popover>
+                <PopoverTrigger>
+                    <BsThreeDots />
+                </PopoverTrigger>
+                <PopoverContent className="dark:bg-[#191919] dark:border-none w-[200px] space-y-2">
+                    <div>
+                    <ReportModal/>
+                    </div>
+                    <div>
+                        <BlockUser />
+                    </div>
+                </PopoverContent>
+            </Popover>
             </div>
         </div>
      );

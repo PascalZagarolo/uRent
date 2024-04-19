@@ -628,6 +628,7 @@ export const stripeCustomer = pgTable("stripeCustomer", {
 export const conversation = pgTable("conversation", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+    blocked : boolean("blocked").notNull().default(false),
     user1Id: text("user1").
         references(() => userTable.id, { onDelete: "cascade" }).notNull(),
     user2Id: text("user2").
@@ -821,6 +822,9 @@ export const report = pgTable("report", {
 
     messageId : uuid("messageId")
                 .references(() => message.id, { onDelete: "cascade" }),
+
+    conversationId : uuid("conversationId")
+                    .references(() => conversation.id, { onDelete: "cascade" }),
 
     reportType : text("reportType"),
     

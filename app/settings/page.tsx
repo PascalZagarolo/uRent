@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 import { notification, userTable } from "@/db/schema";
 import SaveChangesSettings from "./_components/save-changes";
 import ProfilePicSettings from "./_components/profilepic-settings";
-import EmailSettings from "./_components/e-mail-settings";
+
 import MobileHeader from "../(dashboard)/_components/mobile-header";
 import Vorname from "./_components/change-vorname";
 import Nachname from "./_components/change-nachname";
@@ -21,11 +21,7 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const findCurrentUser = await db.query.userTable.findFirst({
-        where : (
-            eq(userTable.id, currentUser?.id)
-        )
-    })
+    
 
     const foundNotifications = await db.query.notification.findMany({
         where : (
@@ -61,31 +57,31 @@ const SettingsPage = async () => {
                                 <User2Icon className="mr-4" /> Account verwalten  <p className="ml-4 text-lg"> </p> 
                                 <div className="ml-auto">
                                 <SaveChangesSettings 
-                                thisUser={findCurrentUser}
+                                thisUser={currentUser}
                                 />
                                 </div>
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
                                     <ProfilePicSettings 
-                                    imageUrl = {findCurrentUser?.image}
-                                    thisUserId = {findCurrentUser?.id}
+                                    imageUrl = {currentUser?.image}
+                                    thisUserId = {currentUser?.id}
                                     />
                                 </div>
                                 <div>
                                 <UsernameInput 
-                                thisUser = {findCurrentUser}
+                                thisUser = {currentUser}
                                 />
                                 <Vorname 
-                                thisUser = {findCurrentUser}
+                                thisUser = {currentUser}
                                 />
                                 <Nachname 
-                                thisUser = {findCurrentUser}
+                                thisUser = {currentUser}
                                 />
                                 </div>
                                 <div>
                                     <ChangeEmail 
-                                    thisUser = {findCurrentUser}
+                                    thisUser = {currentUser}
                                     />
                                 </div>
 

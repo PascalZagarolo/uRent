@@ -12,6 +12,7 @@ import AccountPrivacy from "./_components/account-privacy";
 import DataUsage from "./_components/data-usage";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
+import { redirect } from "next/navigation";
 
 
 
@@ -21,11 +22,9 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const findCurrentUser = await db.query.userTable.findFirst({
-        where: (
-            eq(userTable.id, currentUser?.id)
-        )
-    })
+    if(!currentUser) {
+        redirect("/login")
+    }
 
     const foundNotifications = await db.query.notification.findMany({
         where: (

@@ -16,6 +16,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { PiSignOutThin } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import { logoutAllUsers } from "@/actions/logout-all";
+import { redirect } from "next/navigation";
 
 
 
@@ -25,7 +26,9 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    
+    if(!currentUser) {
+        redirect("/login")
+    }
 
     const findSocials = await db.query.accounts.findFirst({
         where: (

@@ -9,6 +9,7 @@ import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
 import MenuBar from "../../_components/settings-tabs";
 import ToggleDarkMode from "./_components/toggle-dark-mode";
+import { redirect } from "next/navigation";
 
 
 
@@ -17,11 +18,9 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    const findCurrentUser = await db.query.userTable.findFirst({
-        where: (
-            eq(userTable.id, currentUser?.id)
-        )
-    })
+    if(!currentUser) {
+        redirect("/login")
+    }
 
     const foundNotifications = await db.query.notification.findMany({
         where : (

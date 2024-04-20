@@ -115,15 +115,9 @@ export const login = async (
       return { twoFactor: true };
     }
   }
-////////////////////////////////////////////////////////////////////////////
+
   try {
     
-    const validatedFields = LoginSchema.safeParse(values);
-
-    
-     
-
-     
 
       const passwordsMatch = await bcrypt.compare(password, existingUser.password);
 

@@ -3,7 +3,7 @@ import Avatar from "./avatar";
 import LocationProfile from "./location-rating";
 import RatingProfile from "./rating-profile";
 import UploadProfilePic from "./upload-profile-pic";
-import { AlignCenterIcon, BookUser, Contact, Contact2, UserCircle2 } from "lucide-react";
+import { AlignCenterIcon, BookUser, Contact, Contact2, MailIcon, UserCircle2 } from "lucide-react";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import NotVerifiedYet from "./not-verified-yet";
 
@@ -77,9 +77,16 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                             <div className="w-full text-lg  font-semibold line-clamp-1 whitespace-break-spaces break-all">
                                 {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}
                             </div>
-                            <div className="text-sm w-full line-clamp-1 whitespace-break-spaces break-all font-normal">
+                            {(user.sharesRealName && (user.vorname || user.nachname)) && (
+                                <div className="text-sm w-full line-clamp-1 whitespace-break-spaces break-all font-normal">
+                                {user.vorname} {user.nachname}
+                              </div>
+                            )}
+                            {user.sharesEmail && (
+                                <div className="text-sm w-full line-clamp-1 whitespace-break-spaces break-all font-normal">
                                 {user.email}
-                            </div>
+                              </div>
+                            )}
                         </div>
                         <div className="flex mt-4">
                             <Avatar

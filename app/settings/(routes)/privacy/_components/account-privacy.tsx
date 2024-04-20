@@ -73,7 +73,7 @@ const AccountPrivacy : React.FC<AccountPrivacyProps> = ({
             <div className="mt-4 space-y-4">
                 <div className="flex items-center gap-x-2">
                     <Checkbox className="w-4 h-4"
-                    onCheckedChange={(e) => shareEmail(e)}
+                    onCheckedChange={(e : any) => shareEmail(e)}
                     checked={thisUser.sharesEmail}
                     /> <Label className="font-semibold flex items-center"> E-Mail im Profil teilen 
                      <Popover>
@@ -94,7 +94,7 @@ const AccountPrivacy : React.FC<AccountPrivacyProps> = ({
                 </div>
                 <div className="flex items-center gap-x-2">
                     <Checkbox className="w-4 h-4"
-                    onCheckedChange={(e) => shareRealName(e)}
+                    onCheckedChange={(e : any) => shareRealName(e)}
                     checked={thisUser.sharesRealName}
                     /> <Label className="font-semibold flex items-center"> Echten Namen teilen
                     <Popover>

@@ -23,6 +23,10 @@ import { RegisterSchema } from "./_schemas";
 import { register } from "@/actions/register";
 import { EyeIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -152,6 +156,38 @@ export const RegisterForm = () => {
               )}
             />
 
+          </div>
+          <div className="text-xs text-gray-200">
+            <div>uRent schickt dir regelmäßig E-Mails mit Produktupdates, Angeboten und weiteren hilfreichen Informationen.</div> <br />
+            
+              
+
+              <Accordion type="single" collapsible className=" text-xs border-none">
+              
+              <AccordionItem value="item-1">
+              <div className="flex items-center gap-x-1">Du kannst dich jederzeit von diesen E-Mails
+              <AccordionTrigger>abmelden.</AccordionTrigger>
+                  </div>
+                  <AccordionContent className="border-none flex items-center gap-x-2">
+                    <Checkbox className="h-3 w-3" /> <Label className="text-xs"> Ich möchte keine Emails von uRent bekommen </Label>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+
+            
+          </div>
+
+          <div className="text-xs text-gray-200/90">
+            Durch das Erstellen eines Kontos stimmst du den Nutzungsbedingungen und Datenschutzrichtlinien zu. <br />
+            <div className="flex gap-x-0.5">Es gelten die bestimmenden uRent
+              <a href="/agbs" target="_blank" rel="noreferrer noopener"
+                className="font-semibold hover:underline">AGBs</a>
+            </div>
+            <div className="gap-x-0.5">
+              Weitere Informationen, wie uRent deine Daten verwendet, <br /> findest du in den <a href="/data-privacy" target="_blank" rel="noreferrer noopener"
+                className="font-semibold hover:underline">Datenschutzrichtlinien</a>
+            </div>
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />

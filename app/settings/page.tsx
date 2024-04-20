@@ -14,6 +14,8 @@ import Vorname from "./_components/change-vorname";
 import Nachname from "./_components/change-nachname";
 import UsernameInput from "./_components/username-input";
 import ChangeEmail from "./_components/change-email";
+import { redirect } from "next/navigation";
+
 
 
 
@@ -21,7 +23,9 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    
+    if(!currentUser) {
+        redirect("/login")
+    }
 
     const foundNotifications = await db.query.notification.findMany({
         where : (

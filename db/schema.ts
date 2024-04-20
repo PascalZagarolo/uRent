@@ -44,7 +44,7 @@ export const userTable = pgTable("user", {
     sharesEmail: boolean("sharesEmail").notNull().default(false),
     usesTwoFactor : boolean("usesTwoFactor").notNull().default(false),
     isBusiness : boolean("isBusiness").default(false),
-    enableSocialLogin : boolean("enableSocialLogin").default(false),
+    enableSocialLogin : boolean("enableSocialLogin").default(true),
     newsletter : boolean("newsletter").default(false),
     
     businessId : uuid("businessId")

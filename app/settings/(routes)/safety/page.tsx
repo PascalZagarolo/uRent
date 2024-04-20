@@ -17,6 +17,8 @@ import { PiSignOutThin } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import { logoutAllUsers } from "@/actions/logout-all";
 import { redirect } from "next/navigation";
+import EnableSocialLogin from "./_components/enable-social";
+import { FcGoogle } from "react-icons/fc";
 
 
 
@@ -76,7 +78,7 @@ const SettingsPage = async () => {
                                     />
                                 </div>
                             </div>
-                            {!findSocials && (
+                            {currentUser.password && (
                                 <>
                                     <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                         <div className="flex items-center">
@@ -92,6 +94,27 @@ const SettingsPage = async () => {
                                             <Select2Fa
 
                                                 thisUser={currentUser}
+                                            />
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                            {currentUser.password && (
+                                <>
+                                    <h3 className="dark:text-gray-100 text-2xl font-semibold">
+                                        <div className="flex items-center">
+                                            <FcGoogle  className="mr-4 h-6 w-6" /> Google-Login
+                                        </div>
+                                        <p className="ml-4 text-xs dark:text-gray-200/60 font-medium">
+                                            Falls aktiviert, kannst du dich mit deinem bestehendem Google Account anmelden.
+                                        </p>
+
+                                    </h3>
+                                    <div className="w-full p-4 mt-2 rounded-md">
+                                        <div className="pb-4 px-4">
+                                            <EnableSocialLogin
+                                                userId = {currentUser.id}
+                                                enabledSocials={currentUser.enableSocialLogin}
                                             />
                                         </div>
                                     </div>

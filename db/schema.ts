@@ -41,11 +41,14 @@ export const userTable = pgTable("user", {
     confirmedMail: boolean("confirmedMail").notNull().default(false),
     description: text("description"),
 
-    sharesEmail: boolean("sharesEmail").notNull().default(false),
+    sharesEmail: boolean("sharesEmail").notNull().default(true),
+    sharesRealName : boolean("sharesRealName").notNull().default(true),
+    newsletter : boolean("newsletter").default(false),
+
     usesTwoFactor : boolean("usesTwoFactor").notNull().default(false),
     isBusiness : boolean("isBusiness").default(false),
     enableSocialLogin : boolean("enableSocialLogin").default(true),
-    newsletter : boolean("newsletter").default(false),
+    
     
     businessId : uuid("businessId")
             .references(() => business.id, { onDelete : "set null"}),

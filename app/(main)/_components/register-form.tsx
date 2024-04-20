@@ -171,7 +171,7 @@ export const RegisterForm = () => {
                   <AccordionContent className="border-none flex items-center gap-x-2">
                     <Checkbox className="h-3 w-3" /> <Label className="text-xs"> Ich möchte keine Emails von uRent bekommen </Label>
                   </AccordionContent>
-                </AccordionItem>
+                </AccordionItem> 
               </Accordion>
 
 

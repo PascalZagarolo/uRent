@@ -61,7 +61,9 @@ const SettingsPage = async () => {
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
-                                    <AccountPrivacy />
+                                    <AccountPrivacy 
+                                    thisUser={currentUser}
+                                    />
                                 </div>
 
                                 <div className="p-4">

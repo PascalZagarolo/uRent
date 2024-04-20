@@ -3,6 +3,7 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -25,16 +26,26 @@ const EnableSocialLogin: React.FC<EnableSocialLoginProps> = ({
         try {
 
             const values = {
-               usesTwoFactor : e
+               enableSocialLogin : e
            }
 
            await axios.patch(`/api/profile/${userId}`, values).then(() => {
-               if(values.usesTwoFactor === true) {
-                   toast.success("2FA wurde aktiviert");
+               if(values.enableSocialLogin === true) {
+                   toast.success("Google-Login wurde aktiviert");
                    
                }
                router.refresh()
+            
+               
            })
+
+           if(values.enableSocialLogin === false) {
+            toast.success("Google-Login wurde deaktiviert");
+            
+            router.push("/login");
+            }
+
+
        } catch {
            toast.error("Fehler beim Aktivieren der 2FA");
        }
@@ -46,7 +57,7 @@ const EnableSocialLogin: React.FC<EnableSocialLoginProps> = ({
                 <div className="w-1/2">
                     {enabledSocials ? (
                         <AlertDialog>
-                            <AlertDialogTrigger>
+                            <AlertDialogTrigger asChild>
                                 <Checkbox
                                     
                                     checked={enabledSocials}

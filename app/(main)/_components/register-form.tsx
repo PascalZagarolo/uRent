@@ -132,17 +132,17 @@ export const RegisterForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Passwort</FormLabel>
-                  <div className="flex gap-x-1">
+                  <div className="flex ">
                     <FormControl>
                       <Input
                         {...field}
                         disabled={isPending}
                         placeholder="**********"
                         type={showPassword ? "text" : "password"}
-                        className="rounded-none bg-[#1a1c2c] border-none"
+                        className="rounded-none rounded-l-md bg-[#1a1c2c] border-none"
                       />
                     </FormControl>
-                    <Button variant="ghost" className="bg-[#1a1c2c] rounded-none "
+                    <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
                       onMouseDown={onHold}
                       onMouseUp={onRelease}
                       type="button"

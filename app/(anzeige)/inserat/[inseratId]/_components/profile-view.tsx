@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { business,  userTable } from "@/db/schema";
 import axios from "axios";
 import { format } from "date-fns";
-import { AlignCenter, BuildingIcon, CarIcon, Contact2Icon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2 } from "lucide-react";
+import { AlignCenter, BuildingIcon, CarIcon, Contact2Icon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2, UserIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -66,12 +66,20 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     />
                     <div className="font-semibold ml-2 flex items-center text-md w-3/4 truncate">
                         {thisUser.name}
-
-
                     </div>
+                    
 
                 </div>
-
+                {(thisUser?.sharesRealName && (thisUser?.vorname || thisUser?.nachname)) && (
+                    <div className="text-sm text-gray-200 font-semibold flex items-center mt-1">
+                  <UserIcon className="w-4 h-4 mr-2" />  {thisUser.vorname} {thisUser.nachname}
+                </div>
+                )}
+                {thisUser?.sharesEmail && (
+                    <div className="text-sm text-gray-200 font-medium flex items-center mt-1">
+                  <MailIcon className="w-4 h-4 mr-2" />  {thisUser.email}
+                </div>
+                )}
                 <div>
                     <div>
                         <p className="text-xs font-semibold  mt-2 flex dark:text-gray-100/90 text-gray-400">

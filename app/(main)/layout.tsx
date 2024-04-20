@@ -2,6 +2,7 @@ import { Truck } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import HeaderRedirect from "./_components/logo-redirect";
+import Footer from "../(dashboard)/_components/footer";
 
 
 const LoginLayout = async (
@@ -25,6 +26,9 @@ const LoginLayout = async (
     </div>
     <div className="mt-8 flex-grow h-full items-center">
         {children}
+    </div>
+    <div>
+        <Footer />
     </div>
 </div>
 

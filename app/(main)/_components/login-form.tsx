@@ -166,18 +166,18 @@ export const LoginForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Passwort</FormLabel>
-                      <div className="flex rounded-lg w-full gap-x-1">
+                      <div className="flex rounded-lg w-full ">
                       <FormControl>
                         <Input
                           {...field}
                           disabled={isPending}
                           placeholder="**********"
                           type={showPassword ? "text" : "password"}
-                          className="bg-[#1a1c2c] border-none rounded-none"
+                          className="bg-[#1a1c2c] border-none rounded-none rounded-l-md"
                         />
                         
                       </FormControl>
-                      <Button variant="ghost" className="bg-[#1a1c2c] rounded-none " 
+                      <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md" 
                       onMouseDown={onHold} 
                       onMouseUp={onRelease}
                       type="button"

@@ -110,6 +110,10 @@ const Main = cache(async ({
         
         
         <div className="sm:h-full sm:overflow-y-auto no-scrollbar">
+            <head>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
+     crossOrigin="anonymous"></script>
+        </head>
             <div>
                 <div className="relative flex justify-center mt-4">
                 

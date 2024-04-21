@@ -31,7 +31,8 @@ export const confirmEmailChange = async (
   
 ) => {
   await resend.emails.send({
-    from: "mail@urent-rental.de",
+    from: 'uRent <mail@urent-rental.de>',
+         
     to: email,
     subject: "2FA Aktivierung",
     react : ConfirmEmailChange()

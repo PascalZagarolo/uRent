@@ -54,21 +54,21 @@ const EditBooking: React.FC<EditBookingProps> = ({
     thisBooking
 }) => {
 
-    const usedInserat = foundInserate.filter((inserat) => inserat.id === thisBooking.inseratId);
+    
+
+    
 
     const [currentStart, setCurrentStart] = useState(new Date());
     const [currentEnd, setCurrentEnd] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
-    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(usedInserat);
+    //@ts-ignore
+    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(thisBooking?.inserat);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(thisBooking?.vehicleId);
     const [currentContent, setCurrentContent] = useState<string | null>(thisBooking?.content);
     const [currentName, setCurrentName] = useState<string | null>(thisBooking?.name);
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
-    //TODO: Add automatic select of saved user
-    useEffect(() => {
-
-    }, [])
+    
 
     const params = useParams();
     const router = useRouter();
@@ -150,12 +150,14 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                 setCurrentVehicle(null);
                             }}
                             
-                            value={currentInserat}
+                            value={//@ts-ignore
+                                thisBooking?.inserat}
                             
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2">
+                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2" value={//@ts-ignore
+                                thisBooking?.inserat}>
                                 {currentInserat ? (
-                                    <SelectValue>
+                                    <SelectValue >
                                 
                                     </SelectValue>
                                 ) : (
@@ -164,7 +166,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                     </SelectValue>
                                 )}
                                 
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
                                 
                                     {foundInserate.map((thisInserat) => (
                                         <SelectItem value={thisInserat} key={thisInserat.id}>

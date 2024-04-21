@@ -749,6 +749,8 @@ export const booking = pgTable("booking", {
     vehicleId : uuid("vehicleId")
         .references(() => vehicle.id, { onDelete : "cascade"}),
 
+    name : text("name"),
+    buchungsnummer : text("buchungsnummer"),
     content: text("content"),
 
     startDate: timestamp("startDate", {mode: "date"}),

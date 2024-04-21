@@ -23,6 +23,36 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         {
             url : `${process.env.NEXT_PUBLIC_BASE_URL}`,
         },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/search`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/imprint`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/agbs`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/data-privacy`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/faqs`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/faqs/bedienung`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/faqs/mieter`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/faqs/mieter`,
+        },
+        {
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/faqs/vermieter`,
+        },
         ...inseratSites
     ]
 

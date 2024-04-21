@@ -58,6 +58,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
     const [currentName, setCurrentName] = useState<string | null>(null);
+    const [currentContent, setCurrentContent] = useState<string | null>(null);
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
     
@@ -91,16 +92,18 @@ const AddBooking: React.FC<AddBookingProps> = ({
             console.log("getriggered")
             setIsLoading(true);
             const values = {
-                content: value.content ? value.content : "",
+                content: currentContent,
                 start: currentStart,
                 end: currentEnd,
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
-                name : currentName
+                name : currentName,
+                
             }
             axios.post(`/api/booking/${currentInserat.id}`, values)
                 .then(() => router.refresh())
             toast.success("Buchung hinzugefügt");
+            form.reset();
 
         } catch (err) {
             toast.error("Fehler beim hinzufügen der Buchung", err)
@@ -343,6 +346,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
+
+                                                onChange={(e) => {setCurrentContent(e.target.value); field.onChange(e)}}
                                                 />
                                             </FormItem>
                                         )}

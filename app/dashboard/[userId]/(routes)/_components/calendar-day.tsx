@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { booking } from "@/db/schema";
+import { booking, inserat } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 import clsx from "clsx";
@@ -12,23 +12,27 @@ import { CalendarSearchIcon, CarIcon, UserIcon, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import DeleteBooking from "../manage/_components/delete-booking";
+import EditBooking from "../manage/_components/edit-booking";
 
 interface Event {
   date: Date;
   title: string;
+  
 }
 
 interface CalendarDayProps {
   index: number;
   day: Date;
   bookings: typeof booking.$inferSelect[];
+  foundInserate : typeof inserat.$inferSelect[];
 }
 
 
 const CalendarDay: React.FC<CalendarDayProps> = ({
   index,
   day,
-  bookings
+  bookings,
+  foundInserate
 }) => {
 
   const searchParams = useSearchParams();
@@ -94,7 +98,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                   </div>
                 ) : (
                   <>
-                  <h1 className="flex w-full items-center py-1 justify-end">
+                  <h1 className="flex w-full items-center py-1 justify-end gap-x-4">
+                    <EditBooking 
+                    foundInserate={foundInserate}
+                    thisBooking={pBooking}
+                    />
                     <DeleteBooking
                     bookingId={pBooking.id}
                     />

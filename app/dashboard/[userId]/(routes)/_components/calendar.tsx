@@ -127,6 +127,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                                 day={day}
                                 key={dateKey}
                                 bookings={todaysEvents}
+                                foundInserate={everyInserat}
                             />
 
                         </div>

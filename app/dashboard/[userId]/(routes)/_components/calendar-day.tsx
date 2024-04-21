@@ -97,21 +97,26 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                   {//@ts-ignore
                   pBooking.inserat.title}
                 </h3>
-                <div className="flex items-center justify-start hover:underline hover:cursor-pointer" 
-                onClick={() => {router.push(`/profile/${booking.userId}`)}}>
-                  <UserIcon className="h-4 w-4 mr-2" /> {//@ts-ignore
-                  pBooking?.user?.name} 
-                  <div className="ml-auto">
-                  <Image 
-                  alt="Mieter-Bild"
-                  src={//@ts-ignore
-                    pBooking?.user?.image || "/placeholder-person.jpg"}
-                  width={100}
-                  height={100}
-                  className="w-[32px] h-[32px] rounded-full"
-                  />
-                  </div>
+                <div className="text-sm text-gray-200/70">
+                  {pBooking.name}
                 </div>
+                {pBooking.userId && (
+                  <div className="flex items-center justify-start hover:underline hover:cursor-pointer" 
+                  onClick={() => {router.push(`/profile/${booking.userId}`)}}>
+                    <UserIcon className="h-4 w-4 mr-2" /> {//@ts-ignore
+                    pBooking?.user?.name} 
+                    <div className="ml-auto">
+                    <Image 
+                    alt="Mieter-Bild"
+                    src={//@ts-ignore
+                      pBooking?.user?.image || "/placeholder-person.jpg"}
+                    width={100}
+                    height={100}
+                    className="w-[32px] h-[32px] rounded-full"
+                    />
+                    </div>
+                  </div>
+                )}
                 <div className="flex items-center justify-start">
                 <CalendarSearchIcon className="h-4 w-4 mr-2" />
                 {format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}

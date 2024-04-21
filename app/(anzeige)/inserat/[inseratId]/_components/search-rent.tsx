@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { usesearchUserByBookingStore } from "@/store";
 import { usePathname, useSearchParams } from "next/navigation";
 import { booking, userTable } from "@/db/schema";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 interface SearchRentProps {
     thisBooking? : typeof booking.$inferSelect
@@ -66,7 +68,24 @@ const SearchRent: React.FC<SearchRentProps> =  ({
     
     return (  
         <div>
-            <p className="flex font-semibold"> <UserCheck className="w-4 h-4 mr-2"/> Mieter </p>
+            <p className="flex font-semibold items-center"> 
+            <UserCheck className="w-4 h-4 mr-2"/> Mieter 
+            <Popover>
+                <PopoverTrigger>
+                    <IoIosInformationCircleOutline className="w-4 h-4 ml-2" />
+                </PopoverTrigger>
+                <PopoverContent className="dark:border-none dark:bg-indigo-900 text-xs">
+                    <div className="space-y-1">
+                    <IoIosInformationCircleOutline className="w-4 h-4" />
+                    <div>
+                        Falls dein Mieter einen Account auf uRent besitzt, 
+                        kannnst du ihn zur Buchung hinzufügen, damit er diese in 
+                        seinem Abschnitt {'"'}Gemietete Fahrzeuge{'"'} findet.
+                    </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
+            </p>
             <div className="w-full flex items-center">
                 {selectedUser ? <img src={selectedUser.image ? selectedUser.image : "/placeholder-person.jpg"} className="w-8 h-8 rounded-full mr-2"/> : null}
                 <Input

@@ -39,6 +39,9 @@ import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-r
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
+import { Input } from "@/components/ui/input";
+import { MdOutlinePersonPin } from "react-icons/md";
+
 
 interface AddBookingProps {
     foundInserate : typeof inserat.$inferSelect[]
@@ -54,6 +57,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
+    const [currentName, setCurrentName] = useState<string | null>(null);
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
     
@@ -66,7 +70,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
             required_error: "A date of birth is required.",
         }), end: z.date({
             required_error: "A date of birth is required.",
-        }), content: z.string().optional()
+        }), content: z.string().optional(),
+        name : z.string().optional()
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -74,7 +79,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
         defaultValues: {
             start: new Date(),
             end: new Date(),
-            content: ""
+            content: "",
+            name : ""
 
         }
     })
@@ -88,10 +94,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 content: value.content ? value.content : "",
                 start: currentStart,
                 end: currentEnd,
-                userId: selectedUser.id,
-                vehicleId: currentVehicle
+                userId: selectedUser ? selectedUser?.id : null,
+                vehicleId: currentVehicle,
+                name : currentName
             }
-            axios.post(`/api/booking/${currentInserat.id}`, values);
+            axios.post(`/api/booking/${currentInserat.id}`, values)
+                .then(() => router.refresh())
             toast.success("Buchung hinzugefügt");
 
         } catch (err) {
@@ -305,6 +313,21 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                                 </div>
                                 <div>
+                                <FormField
+                                        control={form.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem >
+                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2"/> Name</FormLabel>
+                                                <Input
+                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                                    dark:bg-[#0a0a0a]"
+                                                    onChange={(e) => {setCurrentName(e.target.value); field.onChange(e)}}
+                                                />
+                                            </FormItem>
+                                        )} />
+                                </div>
+                                <div>
                                     <SearchRent />
                                 </div>
                                 <div>
@@ -316,6 +339,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         name="content"
                                         render={({ field }) => (
                                             <FormItem className="mt-2 ">
+                                                
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
@@ -329,7 +353,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={!selectedUser || isLoading || !currentInserat || !currentStart || !currentEnd}
+                                        disabled={(!selectedUser && (!currentName || currentName.trim() === "")) || isLoading || !currentInserat || !currentStart || !currentEnd}
                                         type="submit"
                                     >
                                         Buchung hinzufügen</Button>

@@ -11,6 +11,7 @@ import { format, isToday } from "date-fns";
 import { CalendarSearchIcon, CarIcon, UserIcon, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import DeleteBooking from "../manage/_components/delete-booking";
 
 interface Event {
   date: Date;
@@ -93,7 +94,13 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                   </div>
                 ) : (
                   <>
+                  <h1 className="flex w-full items-center py-1 justify-end">
+                    <DeleteBooking
+                    bookingId={pBooking.id}
+                    />
+                  </h1>
                   <h3 className="font-semibold flex justify-start">
+                    
                   {//@ts-ignore
                   pBooking.inserat.title}
                 </h3>

@@ -14,8 +14,9 @@ export async function DELETE(
 
         return NextResponse.json(deletedBooking)
 
-    } catch(error) {
-        return new NextResponse("Interner Server Error", { status : 500})
+    } catch(error : any) {
         console.log(error);
+        return new NextResponse("Interner Server Error", { status : 500})
+        
     }
 }

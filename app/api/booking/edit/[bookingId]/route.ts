@@ -25,8 +25,7 @@ export async function PATCH(
             },...(endDate) && {
                 endDate: usedEnd
             },
-            content : values.content,
-            userId : values.userId
+            ...values,
            
         }).where(eq(booking.id, params.bookingId)).returning();
 

@@ -61,12 +61,22 @@ const EditBooking: React.FC<EditBookingProps> = ({
     const [currentStart, setCurrentStart] = useState(new Date());
     const [currentEnd, setCurrentEnd] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
-    //@ts-ignore
-    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(thisBooking?.inserat);
+    
+    const [currentInserat, setCurrentInserat] = useState<string | null>(thisBooking?.inseratId);
+    const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(thisBooking?.vehicleId);
     const [currentContent, setCurrentContent] = useState<string | null>(thisBooking?.content);
     const [currentName, setCurrentName] = useState<string | null>(thisBooking?.name);
-    const selectedUser = usesearchUserByBookingStore((user) => user.user)
+    const selectedUser = usesearchUserByBookingStore((user) => user.user);
+
+
+    useEffect(() => {
+        console.log(currentInserat)
+        const newInserat = foundInserate.find((inserat) => inserat.id === currentInserat);
+        console.log(newInserat)
+        setCurrentInseratObject(newInserat);
+        
+    },[currentInserat])
 
     
 
@@ -106,9 +116,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
                 vehicleId: currentVehicle,
                 name : currentName
             }
-            axios.post(`/api/booking/${currentInserat.id}`, values)
+            axios.patch(`/api/booking/edit/${thisBooking.id}`, values)
                 .then(() => router.refresh())
-            toast.success("Buchung hinzugefügt");
+            toast.success("Änderungen gespeichert");
 
         } catch (err) {
             toast.error("Fehler beim hinzufügen der Buchung", err)
@@ -146,35 +156,30 @@ const EditBooking: React.FC<EditBookingProps> = ({
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
+                                console.log(selectedValue)
+                                console.log(currentInserat)
                                 setCurrentInserat(selectedValue);
+                                
                                 setCurrentVehicle(null);
                             }}
                             
                             value={//@ts-ignore
-                                thisBooking?.inserat}
+                                currentInserat}
                             
                         >
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2" value={//@ts-ignore
-                                thisBooking?.inserat}>
-                                {currentInserat ? (
-                                    <SelectValue >
-                                
-                                    </SelectValue>
-                                ) : (
-                                    <SelectValue>
-                                        Bitte wähle ein Inserat aus
-                                    </SelectValue>
-                                )}
-                                
+                                currentInserat}>
+                                <SelectValue defaultValue={currentInserat} placeholder="Wähle dein Inserat"/>
+                                </SelectTrigger>
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
                                 
-                                    {foundInserate.map((thisInserat) => (
-                                        <SelectItem value={thisInserat} key={thisInserat.id}>
+                                    {foundInserate.map((thisInserat : typeof inserat.$inferSelect) => (
+                                        <SelectItem value={thisInserat.id} key={thisInserat.id}>
                                             {thisInserat.title}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
-                            </SelectTrigger>
+                            
                         </Select>
                     </div>
                     <div className="pb-8 pr-8">
@@ -190,22 +195,16 @@ const EditBooking: React.FC<EditBookingProps> = ({
                             
                         >
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]" 
-                            disabled={!currentInserat ||  currentInserat?.vehicles?.length <= 0}>
-                                {currentVehicle ? (
-                                    <SelectValue>
-                                
-                                    </SelectValue>
-                                ) : (
-                                    <SelectValue>
-                                        Wähle dein Fahrzeug
-                                    </SelectValue>
-                                )}
+                            disabled={!currentInserat ||  currentInseratObject?.vehicles?.length <= 0}>
+                                <SelectValue>
+                                    
+                                </SelectValue>
                                 
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                 
-                                    {currentInserat?.vehicles?.length > 0 ? (
+                                    {currentInseratObject?.vehicles?.length > 0 ? (
                                         
-                                        currentInserat?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
+                                        currentInseratObject?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
                                             <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
                                                 {thisVehicle.title}
                                             </SelectItem>
@@ -339,7 +338,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         )} />
                                 </div>
                                 <div>
-                                    <SearchRent />
+                                <SearchRent />
                                 </div>
                                 <div>
                                     <span className="font-semibold text-base flex">
@@ -369,7 +368,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         disabled={(!selectedUser && (!currentName || currentName.trim() === "")) || isLoading || !currentInserat || !currentStart || !currentEnd}
                                         type="submit"
                                     >
-                                        Buchung hinzufügen</Button>
+                                        Änderungen speichern</Button>
                                 </DialogTrigger>
                             </form>
                         </Form>

@@ -10,6 +10,7 @@ import BreadCrumpSettings from "../../_components/bread-crump-settings";
 import MenuBar from "../../_components/settings-tabs";
 import ToggleDarkMode from "./_components/toggle-dark-mode";
 import { redirect } from "next/navigation";
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 
@@ -18,24 +19,24 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    if(!currentUser) {
+    if (!currentUser) {
         redirect("/login")
     }
 
     const foundNotifications = await db.query.notification.findMany({
-        where : (
+        where: (
             eq(notification.userId, currentUser?.id)
         )
-    
+
     })
 
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser} 
+                    currentUser={currentUser}
                     foundNotifications={foundNotifications}
-                    />
+                />
             </div>
             <div className="flex justify-center py-8 px-4">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
@@ -61,13 +62,16 @@ const SettingsPage = async () => {
                                 </div>
 
                                 <div>
-<ToggleDarkMode />
+                                    <ToggleDarkMode />
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );

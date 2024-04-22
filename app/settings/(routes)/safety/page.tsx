@@ -19,6 +19,7 @@ import { logoutAllUsers } from "@/actions/logout-all";
 import { redirect } from "next/navigation";
 import EnableSocialLogin from "./_components/enable-social";
 import { FcGoogle } from "react-icons/fc";
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 
@@ -149,6 +150,9 @@ const SettingsPage = async () => {
                     </div>
                 </div>
             </div>
+            <div>
+                    <Footer/>
+                </div>
         </div>
     );
 }

@@ -15,6 +15,7 @@ import Nachname from "./_components/change-nachname";
 import UsernameInput from "./_components/username-input";
 import ChangeEmail from "./_components/change-email";
 import { redirect } from "next/navigation";
+import Footer from "../(dashboard)/_components/footer";
 
 
 
@@ -94,6 +95,9 @@ const SettingsPage = async () => {
                     </div>
                 </div>
             </div>
+            <div>
+                    <Footer/>
+                </div>
         </div>
     );
 }

@@ -41,7 +41,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
         }
     })
 
-    let involvedBookings : typeof booking.$inferSelect[] = [];
+    let involvedBookings : any = [];
 
     if(foundInserate.length > 0) {
         for (let i = 0; i < foundInserate.length; i++) {
@@ -60,6 +60,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
         }
     }
 
+    
+
+    
 
     let thisInserat;
 

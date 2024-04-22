@@ -24,7 +24,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { values } from "lodash"
+
 import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, PlusSquare } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
@@ -90,9 +90,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
     useEffect(() => {
-        console.log(currentInserat)
+        
         const newInserat = foundInserate.find((inserat) => inserat.id === currentInserat);
-        console.log(newInserat)
+        
         setCurrentInseratObject(newInserat);
         
     },[currentInserat])
@@ -101,6 +101,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
         try {
             console.log("getriggered")
             setIsLoading(true);
+
+            console.log(selectedUser)
+
             const values = {
                 content: currentContent,
                 start: currentStart,

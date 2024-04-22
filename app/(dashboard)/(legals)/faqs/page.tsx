@@ -37,16 +37,7 @@ const Faqs = () => {
                                 </a>
                             </div>
 
-                            <div className="w-full flex justify-center mt-8 gap-8">
-                            <a className="w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
-                                hover:underline hover:cursor-pointer" href="/faqs/account">
-                                    FAQ - Account
-                                </a>
-                                <a className="w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
-                                hover:underline hover:cursor-pointer" href="/faqs/inserat">
-                                    FAQ - Inserat
-                                </a>
-                            </div>
+                           
 
                             </div>
 

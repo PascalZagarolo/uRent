@@ -13,6 +13,7 @@ import DataUsage from "./_components/data-usage";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
 import { redirect } from "next/navigation";
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 
@@ -74,7 +75,11 @@ const SettingsPage = async () => {
                         </div>
                     </div>
                 </div>
+                
             </div>
+            <div>
+                    <Footer/>
+                </div>
         </div>
     );
 }

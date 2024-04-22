@@ -197,7 +197,7 @@ const MieterFaq = () => {
                                             <AccordionContent>
                                                 Klicken Sie auf der Startseite auf Ihr Profilbild oben 
                                                 rechts und dann auf „Einstellungen“. Dort können Sie unter 
-                                                „Sicherheit“ Ihre persönliche Datennutzung verwalten.
+                                                „Privatsphäre“ Ihre persönliche Datennutzung verwalten.
                                             </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-19">
@@ -386,14 +386,14 @@ const MieterFaq = () => {
                                             <AccordionTrigger>Wo finde ich die allgemeinen Nutzungsbedingungen? </AccordionTrigger>
                                             <AccordionContent>
                                                 Sie finden das Impressum, die allgemeinen Nutzungsbedingungen
-                                                und die Datenschutzerklärung an einem beliebigen Ort auf der Webseite.
+                                                und die Datenschutzerklärung auf jeder Seite ganz unten, im Footer.
                                             </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-36">
                                             <AccordionTrigger>Wo finde ich die Datenschutz Informationen? </AccordionTrigger>
                                             <AccordionContent>
                                                 Sie finden das Impressum, die allgemeinen Nutzungsbedingungen
-                                                und die Datenschutzerklärung an einem beliebigen Ort auf der Webseite.
+                                                und die Datenschutzerklärung auf jeder Seite ganz unten, im Footer.
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>

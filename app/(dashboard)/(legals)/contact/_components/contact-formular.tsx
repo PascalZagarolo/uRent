@@ -144,6 +144,7 @@ const ContactFormular = () => {
                         || !currentEmail  || currentEmail.trim() === ""
                         || !currentCategory 
                         || !currentContent || currentContent.trim() === ""
+                        || isLoading
                     }
                     >Absenden</Button>
                 </div>

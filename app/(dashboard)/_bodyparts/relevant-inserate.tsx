@@ -225,7 +225,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                     </div>
                 </div>
             )}
-            <div className="flex justify-center w-full">
+            <div className="sm:flex sm:justify-center w-full px-0.5">
             <InseratRenderedList
                         inserateArray={foundInserate}
                         currentUser={currentUser}

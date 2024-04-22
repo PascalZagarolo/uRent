@@ -8,28 +8,28 @@ const Footer = () => {
     const router = useRouter();
 
     return ( 
-        <div className=" bottom-0 dark:bg-[#0F0F0F] bg-[#191B27] w-full sticky border-y border-gray-300/10">
+        <div className=" bottom-0 dark:bg-[#0F0F0F] bg-[#191B27] w-full sm:sticky border-y border-gray-300/10">
  <div className="flex justify-center text-gray-200   dark:text-gray-900 mt-2    w-full">
-    <div className="w-[1044px] bg-[#0b0c13]bg-[#0b0c13] rounded-lg p-4">
+    <div className="sm:w-[1044px] w-full bg-[#0b0c13]bg-[#0b0c13] rounded-lg py-4 px-2 sm:p-4">
         <div className="flex items-center">
           <TruckIcon className="w-6 h-6 dark:text-gray-200 mr-2 sm:block hidden"/>
-        <p className="dark:text-gray-100 text-xl font-semibold "> uRent </p>
-        <p className="text-xs dark:text-gray-200 mr-2 sm:mr-8 ml-1"> 2024</p>
+        <p className="dark:text-gray-100 text-lg sm:text-xl font-semibold "> uRent </p>
+        
         <div className="flex justify-evenly dark:text-gray-200 font-medium sm:font-semibold w-full sm:text-sm text-xs">
         <div className="font-medium">
           
-          <a className="hover:underline hover:cursor-pointer  text-sm" href="/contact">
+          <a className="hover:underline hover:cursor-pointer text-xs sm:text-sm" href="/contact">
             Kontakt
           </a>
           </div>
           <div className="font-medium">
-          <div className="hover:underline hover:cursor-pointer  text-sm" onClick={() => {router.push("/imprint")}}>
+          <div className="hover:underline hover:cursor-pointer  text-xs sm:text-sm" onClick={() => {router.push("/imprint")}}>
             Impressum
           </div>
-          <div className="hover:underline hover:cursor-pointer  text-sm" onClick={() => {router.push("/data-privacy")}}>
+          <div className="hover:underline hover:cursor-pointer  text-xs sm:text-sm" onClick={() => {router.push("/data-privacy")}}>
             Datenschutz
           </div>
-          <a className="hover:underline hover:cursor-pointer  text-sm" href="/agbs">
+          <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm" href="/agbs">
             AGBs
           </a>
           </div>

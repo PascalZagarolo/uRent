@@ -53,6 +53,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
                             
                                 <Inserat
                                     currentUser={currentUser}
+                                    isntLoggedIn={currentUser ? false : true}
                                 />
                            
                         </div>

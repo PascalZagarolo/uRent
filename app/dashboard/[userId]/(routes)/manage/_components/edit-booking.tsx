@@ -70,10 +70,12 @@ const EditBooking: React.FC<EditBookingProps> = ({
     const selectedUser = usesearchUserByBookingStore((user) => user.user);
 
 
+    
+
     useEffect(() => {
-        console.log(currentInserat)
+        
         const newInserat = foundInserate.find((inserat) => inserat.id === currentInserat);
-        console.log(newInserat)
+        
         setCurrentInseratObject(newInserat);
         
     },[currentInserat])
@@ -108,8 +110,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
         try {
             console.log("getriggered")
             setIsLoading(true);
+            console.log(selectedUser)
             const values = {
-                content: value.content ? value.content : "",
+                content: currentContent,
                 start: currentStart,
                 end: currentEnd,
                 userId: selectedUser ? selectedUser?.id : null,
@@ -134,15 +137,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
     return (
         <Dialog>
-
-            
-                <DialogTrigger >
-                    
+                <DialogTrigger >    
                         <PencilIcon className="h-4 w-4" />
-                    
                 </DialogTrigger>
-         
-
             <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none">
                 <div>
                     <div>
@@ -338,7 +335,10 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         )} />
                                 </div>
                                 <div>
-                                <SearchRent />
+                                <SearchRent 
+                                //@ts-ignore
+                                initialUser={thisBooking?.user}
+                                />
                                 </div>
                                 <div>
                                     <span className="font-semibold text-base flex">

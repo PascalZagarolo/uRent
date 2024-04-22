@@ -17,15 +17,19 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
 interface SearchRentProps {
-    thisBooking? : typeof booking.$inferSelect
+    thisBooking? : typeof booking.$inferSelect;
+    initialUser? : typeof userTable.$inferSelect;
 }
 
 
 const SearchRent: React.FC<SearchRentProps> =  ({
-    thisBooking
+    thisBooking,
+    initialUser
 }) => {
 
     const pathname = usePathname();
+
+    console.log(initialUser)
 
     const [currentValue, setCurrentValue] = useState<string>("");
     const [matchingUsers , setMatchingUsers] = useState<typeof userTable[]>([]);
@@ -39,6 +43,14 @@ const SearchRent: React.FC<SearchRentProps> =  ({
     const onChange = (value : string) => {
         setCurrentValue(value);
     }
+
+    useEffect(() => {
+        if(initialUser) {
+            console.log(initialUser)
+            setCurrentValue("");
+            changeUser(initialUser);
+        }
+    },[])
 
     
     useEffect(() => {
@@ -59,7 +71,6 @@ const SearchRent: React.FC<SearchRentProps> =  ({
         if (currentValue !== "") {
             fetchMatchingUsers();
         } else {
-            
             setMatchingUsers([]);
         }
     }, [debouncedValue]);

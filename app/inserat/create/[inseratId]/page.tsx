@@ -282,7 +282,9 @@ const InseratCreation = async ({
                     </div>
                 </div>
             </div>
+            <div>
             <Footer />
+            </div>
         </div>
 
 

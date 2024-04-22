@@ -17,6 +17,7 @@ import { business, openingTimes } from '../../../db/schema';
 import { Metadata, ResolvingMetadata } from "next";
 import AddImpressum from "./_components/add-impressum";
 import { FaCarCrash } from "react-icons/fa";
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 
@@ -217,6 +218,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                         )}
                         </div>
                 </div>
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );

@@ -6,11 +6,25 @@ import { BrushIcon, Calendar } from 'lucide-react';
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useEffect, useState } from "react";
+
 
 
 const ToggleDarkMode = () => {
 
     const { theme, setTheme } = useTheme()
+
+    const darkChecked = theme === "dark";
+
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+    },[])
+    
+    if(!isMounted){
+        return null
+    }
 
     console.log(theme)
 
@@ -20,6 +34,8 @@ const ToggleDarkMode = () => {
               <BrushIcon className="w-4 h-4 mr-2" />  Themes
             </h3>
             <div className="flex space-x-4 mt-2 justify-evenly">
+            {/*
+            
             <div className={cn("w-1/4 rounded-md", theme === "light" && "")} onClick={() => { setTheme("light") }}>
                     <div>
                         <div className="bg-gray-300 p-2 space-y-2 hover:cursor-pointer rounded-t-md">
@@ -45,7 +61,9 @@ const ToggleDarkMode = () => {
                     
                 </div>
 
-                <div className={cn("w-1/4 rounded-md", theme === "dark" && "")}>
+            */ }
+
+<div className={cn("w-1/4 rounded-md", theme === "dark" && "")}>
                     <div>
                     <div className="bg-[#121212] p-2 space-y-2 hover:cursor-pointer rounded-t-md" onClick={() => { setTheme("dark") }}>
                         <div className="bg-[#191919] rounded-md p-4 space-y-1">
@@ -53,7 +71,7 @@ const ToggleDarkMode = () => {
                             <Skeleton className="w-2/3 h-[12px] bg-[#222222]" />
                         </div>
                         <div className="bg-[#191919] rounded-md p-2 space-y-1 flex item-center gap-x-2">
-                            <Skeleton className="w-4 h-4 rounded-full bg-[#191919]" />
+                            <Skeleton className="w-4 h-4 rounded-full bg-[#222222]" />
                             <Skeleton className="w-1/3 h-[12px] bg-[#222222]" />
                         </div>
                     </div>
@@ -63,9 +81,11 @@ const ToggleDarkMode = () => {
 
                 </div>
                 <div className="flex justify-center mt-2">
-                    <Checkbox onCheckedChange={(e) => {setTheme("dark")}}
-                    checked={theme === "dark"}
-                    />
+                <div>
+                <Checkbox onCheckedChange={(e) => {setTheme("dark")}}
+                    checked={darkChecked}
+                    /> <Label></Label>
+                </div>
                     </div>
                     </div>
 

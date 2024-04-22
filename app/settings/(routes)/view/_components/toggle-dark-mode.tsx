@@ -33,7 +33,7 @@ const ToggleDarkMode = () => {
             <h3 className="font-semibold flex items-center">
               <BrushIcon className="w-4 h-4 mr-2" />  Themes
             </h3>
-            <div className="flex space-x-4 mt-2 justify-evenly">
+            <div className="flex space-x-4 mt-2 justify-between">
             {/*
             
             <div className={cn("w-1/4 rounded-md", theme === "light" && "")} onClick={() => { setTheme("light") }}>

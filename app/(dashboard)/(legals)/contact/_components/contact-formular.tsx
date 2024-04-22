@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { sendSupportConfirm } from "@/lib/mail";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { GrContact } from "react-icons/gr";
@@ -24,6 +25,8 @@ const ContactFormular = () => {
 
     const [isLoading , setIsLoading] = useState(false);
 
+    const router = useRouter()
+
     const onSubmit = async () => {
         try {
             setIsLoading(true);
@@ -36,6 +39,15 @@ const ContactFormular = () => {
             }
 
             await sendSupportConfirm(values.email);
+            toast.success("Ihre Anfrage wurde erfolgreich versendet.");
+            setCurrentContent("");
+            setCurrentEmail("");
+            setCurrentName("");
+            setcurrentCategory("");
+            setAcceptedTerms(false);
+            
+            router.refresh();
+
         } catch(error : any) {
             console.log("Fehler beim Kontaktformular: ", error);
             toast.error("Fehler beim Absenden des Kontaktformulars")
@@ -86,6 +98,7 @@ const ContactFormular = () => {
                     </Label>
                     <Select
                     onValueChange={(value) => setcurrentCategory(value)}
+                    value={currentCategory}
                     >
                         <SelectTrigger className="w-full dark:border-none dark:bg-[#141414]">
                             <SelectValue placeholder="Thema" />

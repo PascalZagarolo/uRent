@@ -8,7 +8,8 @@ import ChangePassword from '@/react-email-starter/emails/urent/change-password';
 import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
 import ConfirmEmailChange from '@/react-email-starter/emails/urent/confirm-email-change';
 import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
-import { render } from '@react-email/components';
+import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';
+
 import { Resend } from "resend";
 
 
@@ -60,6 +61,18 @@ export const sendChangeEmail = async (
     to: email,
     subject: "Email ändern",
     react : ChangeMail({token})
+  });
+};
+
+export const sendSupportConfirm = async (
+  email: string,
+ 
+) => {
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to: email,
+    subject: "Support Anfrage bestätigt",
+    react : SupportConfirm(),
   });
 };
 

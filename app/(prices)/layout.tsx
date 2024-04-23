@@ -21,7 +21,7 @@ const PricingLayout = async  (
         <div>
             <div>
                 <div className="relative top-0 w-full z-50">
-                    <HeaderLogo
+                <HeaderLogo
                         currentUser={currentUser}
                         foundNotifications={foundNotifications}
                     />

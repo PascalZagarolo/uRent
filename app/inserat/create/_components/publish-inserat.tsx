@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import { inserat } from "@/db/schema";
+import qs from "query-string"
 
 interface PublishInseratProps {
     publishedLength : number;
@@ -37,7 +38,14 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
             if (
                 expirationDate < currentDate || publishedLength >= existingSubscription?.amount || !existingSubscription
                 ) {
-                router.push(`/pricing`)
+                const url = qs.stringifyUrl({
+                    url: "/pricing",
+                    query : {
+                        inseratId : thisInserat.id
+                    }
+                },{skipEmptyString: true, skipNull: true})
+
+                router.push(url)
             } else {
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish: true });

@@ -356,7 +356,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                          <div className="flex">
 
                          <div className="text-4xl font-bold">{enterprisePrice} €</div>
-                         
+                         <div className="text-xs text-gray-200/70 px-1">/Monat</div>
                      </div>
                        ) : (
                         <div className="flex">

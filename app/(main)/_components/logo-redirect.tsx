@@ -7,7 +7,7 @@ const HeaderRedirect = () => {
 
     const router = useRouter();
     return ( 
-        <h3 className="flex justify-start items-center py-6 ml-8 sm:text-3xl font-semibold text-white hover:cursor-pointer"
+        <h3 className="flex justify-start items-center py-6 mt-2 sm:mt-0 ml-8 sm:text-3xl text-2xl h-full font-semibold text-white hover:cursor-pointer"
         onClick={() => router.push("/")}
         >
                     <Truck className="sm:ml-1 mr-2" />

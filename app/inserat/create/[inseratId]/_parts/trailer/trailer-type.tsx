@@ -42,7 +42,7 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
             <h3 className="font-semibold">
                 Anhängertyp
             </h3>
-            <div className="w-full flex justify-evenly">
+            <div className="w-full flex justify-evenly mt-2 sm:mt-0">
             <div className="flex flex-col items-center">
                 <Button 
                 className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100",

@@ -18,9 +18,11 @@ import RelevanteInserate from "./_bodyparts/relevant-inserate";
 import PaginationComponent from "./_components/pagination-component";
 import MainPageSideBar from "./_components/main-page-sidebar";
 
-import { ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender, 
+import {
+    ApplicationEnumRender, CarTypeEnumRender, CategoryEnumRender, CouplingEnumRender,
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, LkwBrandEnumRender,
-     LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender } from "@/db/schema";
+    LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender
+} from "@/db/schema";
 import { cache } from "react";
 
 
@@ -69,13 +71,13 @@ interface MainPageProps {
         axis: string;
         brake: string;
 
-        volume : number,
-        loading_l : number,
-        loading_b : number,
-        loading_h : number,
+        volume: number,
+        loading_l: number,
+        loading_b: number,
+        loading_h: number,
 
-        radius : number,
-        user : string,
+        radius: number,
+        user: string,
 
     }
 }
@@ -98,29 +100,33 @@ const Main = cache(async ({
 
     const currentUser = await getCurrentUser();
 
-  
-
-   
 
 
-    
+
+
+
+
 
     return (
-  
-        
-        
+
+
+<>
+<head>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
+                    crossOrigin="anonymous"></script>
+            </head>
         <div className="sm:h-full sm:overflow-y-auto no-scrollbar">
             
             <div>
                 <div className="relative flex justify-center mt-4">
-                
-                        <div className="top-0 sm:mr-4 ">
-                            <MainPageSideBar />
-                        </div>
-                        
+
+                    <div className="top-0 sm:mr-4 ">
+                        <MainPageSideBar />
+                    </div>
+
                     <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
-                        
-                    <RelevanteInserate
+
+                        <RelevanteInserate
                             title={searchParams.title}
                             thisCategory={searchParams.category}
                             filter={searchParams.filter}
@@ -160,7 +166,7 @@ const Main = cache(async ({
                             axis={searchParams.axis}
                             brake={searchParams.brake}
 
-                            currentUser = {currentUser}
+                            currentUser={currentUser}
 
                             volume={searchParams.volume}
                             loading_l={searchParams.loading_l}
@@ -171,16 +177,17 @@ const Main = cache(async ({
                             userId={searchParams.user}
                         />
                     </div>
-                    
+
                 </div>
                 <div className="p-4 flex justify-center w-full">
                     <PaginationComponent />
                 </div>
             </div>
             <Footer />
-            
+
         </div>
-       
+        </>
+
 
     );
 });

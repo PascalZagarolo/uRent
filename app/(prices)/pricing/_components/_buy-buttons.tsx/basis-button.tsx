@@ -83,6 +83,7 @@ const BasisButton: React.FC<BasisButtonProps> = ({
                 diffrence : diffrence * 100,
                 productId: productId,
                 subscriptionType : "ENTERPRISE",
+                ...usedId && {usedId : usedId}
             }
 
             const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);

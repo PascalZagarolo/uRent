@@ -131,7 +131,7 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
 
 
 
-            <h3 className={cn("flex  font-semibold  ml-2 text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md mr-2",)} >
+            <h3 className={cn("flex  font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md mr-2",)} >
                 <div className="bg-[#181c28] p-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:w-1/10">
                     {
                         {
@@ -153,7 +153,7 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                     >
                         {thisInserat.title}
                     </a>
-                    <div className="ml-auto w-1/4">
+                    <div className="ml-auto ">
                         {!olderThan24Hours && (
                             <Badge className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 gap-x-1">
                             Neu <FlameIcon className="w-4 h-4" />
@@ -162,10 +162,8 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                     </div>
 
                 </div>
-                <div className="ml-auto mr-4 ">
-
-                </div>
-                <div className="ml-auto items-center sm:flex hidden sm:mr-4">
+                
+                <div className="ml-auto items-center sm:flex hidden ">
 
 
                     <Button variant="ghost" onClick={onFav} className="bg-[#171923] 

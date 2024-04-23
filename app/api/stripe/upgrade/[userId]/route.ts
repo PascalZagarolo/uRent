@@ -43,7 +43,9 @@ export async function PATCH(
         
         //pay one time fee to upgrade => database update is performed in the webhook
         const stripeSession = await stripe.checkout.sessions.create({
-            success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.userId}`,
+            success_url: values.usedId ? 
+            `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${values.usedId}` :
+            `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/${params.userId}/payments`,
             cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing/${params.userId}`,
             payment_method_types: ['card', 'paypal', 'sofort'],
 
@@ -69,6 +71,7 @@ export async function PATCH(
                 amount: product.metadata.amount,
                 subscriptionType: product.metadata.type,
                 productId : values.productId,
+                usedId : values.usedId,
                 priceId : price.id,
                 upgrade : "true"
             }

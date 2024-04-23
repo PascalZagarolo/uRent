@@ -97,7 +97,7 @@ const AboutUsPage = () => {
                                     </div>
 
                                 </div>
-                                <div className="w-full flex justify-evenly mt-4 sm:gap-x-0 gap-x-4">
+                                <div className="w-full sm:flex justify-evenly  mt-2 sm:mt-4 sm:space-y-0 space-y-2">
 
                                 <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
                                         <div className="flex justify-center">

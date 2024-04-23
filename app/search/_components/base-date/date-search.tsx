@@ -47,12 +47,14 @@ const DateSearch = () => {
     
 
     React.useEffect(() => {
-      changeSearchParams("begin", periodBegin);
+      
+      changeSearchParams("periodBegin", periodBegin);
     },[periodBegin])
 
     React.useEffect(() => {
-      changeSearchParams("end", periodEnd);
-    },[periodBegin])
+      
+      changeSearchParams("periodEnd", periodEnd);
+    },[periodEnd])
 
         
  
@@ -73,13 +75,7 @@ const DateSearch = () => {
     })
    
 
-    const onStartPrice = (values : z.infer<typeof formSchema>) => {
-        console.log(values);
-    }
-
-    const onEndPrice = (values : z.infer<typeof formSchema>) => {
-        console.log(values);
-    }
+    
 
     const onSubmit = () => {
         console.log("...")

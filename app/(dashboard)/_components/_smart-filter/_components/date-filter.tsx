@@ -43,8 +43,8 @@ const DateFormFilter = () => {
     const paramsPeriodBegin = searchParams.get("periodBegin");
     const paramsPeriodEnd = searchParams.get("periodEnd");
     
-    const [periodBegin, setPeriodBegin] = React.useState(null);
-    const [periodEnd, setPeriodEnd] = React.useState(null);
+    const [periodBegin, setPeriodBegin] = React.useState(paramsPeriodBegin ? new Date(paramsPeriodBegin) : null);
+    const [periodEnd, setPeriodEnd] = React.useState(paramsPeriodEnd ? new Date(paramsPeriodEnd) : null);
 
     const params = getSearchParamsFunction("periodBegin", "periodEnd");
 
@@ -68,7 +68,9 @@ const DateFormFilter = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver : zodResolver(formSchema),
         defaultValues : {
+          //@ts-ignore
             start : periodBegin || null,
+            //@ts-ignore
             end : periodEnd || null
         }
     })
@@ -102,6 +104,7 @@ const DateFormFilter = () => {
 
   React.useEffect(() => {
     
+
     const url = qs.stringifyUrl({
       url : pathname,
       query : {

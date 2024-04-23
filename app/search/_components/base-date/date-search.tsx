@@ -24,24 +24,21 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { useSavedSearchParams } from "@/store";
 
 
 const DateSearch = () => {
 
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const currentTitle = searchParams.get("title");
-    const category = searchParams.get("category");
-
+ 
+   
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
     const [periodBegin, setPeriodBegin] = React.useState(null);
     const [periodEnd, setPeriodEnd] = React.useState(null);
 
-    const currentLocation = searchParams.get("location");
-    const currentPage = searchParams.get("page");
-
-    const paramsPeriodBegin =  searchParams.get("periodBegin") ? new Date(searchParams.get("periodBegin")) : null;
-    const paramsPeriodEnd = searchParams.get("periodEnd") ? new Date(searchParams.get("periodEnd")) : null;
+  
+  
     
 
     
@@ -50,20 +47,12 @@ const DateSearch = () => {
     
 
     React.useEffect(() => {
-      const url = qs.stringifyUrl({
-          url: pathname,
-          query: {
-              title: currentTitle,
-              category: category,
-              periodBegin: periodBegin ? format(new Date(periodBegin), "dd-MM-yyyy") : null,
-              periodEnd: periodEnd ? format(new Date(periodEnd), "dd-MM-yyyy") : null,
-              location : currentLocation,
-              page : currentPage
-          }
-      }, { skipNull: true, skipEmptyString: true });
-  
-      router.push(url);
-  }, [periodBegin, periodEnd, currentTitle, category]);
+      changeSearchParams("begin", periodBegin);
+    },[periodBegin])
+
+    React.useEffect(() => {
+      changeSearchParams("end", periodEnd);
+    },[periodBegin])
 
         
  
@@ -96,19 +85,8 @@ const DateSearch = () => {
         console.log("...")
     }
 
-    //Zeitraum resetten, wenn ganzes Filterformular zurückgesetzt wird
-    React.useEffect(() => {
-        if(!paramsPeriodBegin){
-            setPeriodBegin(null)
-        }  
-    },[paramsPeriodBegin])
 
-    //Zeitraum resetten, wenn ganzes Filterformular zurückgesetzt wird
-    React.useEffect(() => {
-      if(!paramsPeriodEnd){
-          setPeriodEnd(null)
-      }  
-  },[paramsPeriodEnd])
+    
 
     
 
@@ -188,7 +166,7 @@ const DateSearch = () => {
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
-                                {periodEnd && paramsPeriodEnd ? (
+                                {periodEnd ? (
                                   format(periodEnd, "dd.MM")
                                 ) : (
                                   <span className="font-semibold text-gray-900 dark:text-gray-100/80 sm:block hidden">Ende</span>

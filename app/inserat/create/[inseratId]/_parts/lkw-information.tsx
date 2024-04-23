@@ -27,13 +27,13 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
 }) => {
     return (
         <div className="mt-4">
-            <div className="flex w-full gap-x-8">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8">
+                <div className="sm:w-1/2 w-full">
                     <WeightClassForm 
                     thisWeightClass={thisInserat?.lkwAttribute?.weightClass}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <LkwAxis 
                     thisAxis={thisInserat?.lkwAttribute?.axis}
                     />
@@ -42,13 +42,13 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
 
 
 
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     <LkwBrandForm
                     thisBrand={thisInserat?.lkwAttribute?.lkwBrand}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <Seats
                     thisSeats={thisInserat?.lkwAttribute?.seats}
                     />
@@ -57,14 +57,14 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
 
 
 
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     <LkwTransmission 
                     thisTransmission={thisInserat?.lkwAttribute?.transmission}
                     />
                    
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     
                     <DriveForm 
                     thisDrive={thisInserat?.lkwAttribute?.drive}
@@ -72,35 +72,35 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                 </div>
             </div>
 
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                 <LoadingForm 
                    thisLoading={thisInserat?.lkwAttribute?.loading}
                    />
                    
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     
                 </div>
             </div>
 
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                    <LkwPowerForm 
                    thisPower={thisInserat?.lkwAttribute?.power}
                    />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                    
                 </div>
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                    <LkwLoadingVolumeForm 
                    thisVolume={thisInserat?.lkwAttribute?.loading_volume}
                    />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                    <LkwSizeForm 
                    thisHeight={thisInserat?.lkwAttribute?.loading_h}
                    thisWidth={thisInserat?.lkwAttribute?.loading_b}

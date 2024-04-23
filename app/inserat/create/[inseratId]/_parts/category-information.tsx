@@ -38,7 +38,26 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                 />
             </div>
             <div>
-                
+            {
+                    {
+                        'PKW': <PkwInformation 
+                        thisInserat = { thisInserat }
+                        />,
+                        
+                        'LKW': <LkwInformation 
+                        thisInserat = { thisInserat }
+                        />,
+                        
+                        'TRAILER' : <TrailorInformation 
+                        thisInserat = { thisInserat }
+                        />,
+                       
+                        'TRANSPORT' : <TransportInformation 
+                        thisInserat = { thisInserat }
+                        />
+                        //@ts-ignore
+                    }[usedCategory]
+                }
             </div>
         </div>
     );

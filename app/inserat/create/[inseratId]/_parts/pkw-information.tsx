@@ -26,7 +26,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
 }) => {
     return (
         <div className="mt-4">
-            <div className="sm:flex w-full sm:gap-x-8">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8">
                 <div className="sm:w-1/2 w-full">
                     <CarBrandForm 
                     thisBrand = {thisInserat?.pkwAttribute?.brand}
@@ -38,7 +38,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     />
                 </div>
             </div>
-            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
                     <CarTypeForm
                     thisCarType = {thisInserat?.pkwAttribute?.type}
@@ -50,7 +50,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     />
                 </div>
             </div>
-            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
                     <FuelForm 
                     thisFuel={thisInserat?.pkwAttribute?.fuel}
@@ -63,7 +63,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                 </div>
             </div>
             
-            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
                     <PkwWeightClass
                     thisWeightClass={thisInserat?.pkwAttribute?.weightClass}
@@ -76,7 +76,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                 </div>
                 
             </div>
-            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
                     <PowerForm
                     thisPower={thisInserat?.pkwAttribute?.power}
@@ -87,7 +87,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     thisInitial={thisInserat?.pkwAttribute?.initial}/>
                 </div>
             </div>
-            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
                     <LoadingVolumeForm
                     thisVolume={thisInserat?.pkwAttribute?.loading_volume}

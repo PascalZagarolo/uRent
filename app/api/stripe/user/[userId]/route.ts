@@ -64,7 +64,11 @@ export async function PATCH(
 
         //change success && cancel url
         const stripeSesison = await stripe.checkout.sessions.create({
-            success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${params.userId}`,
+            success_url: 
+            values.usedId ?
+            `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${values.usedId}` :
+            `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/${params.userId}/payments`
+            ,
             cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing/${params.userId}`,
             payment_method_types: ['card', 'paypal', 'sofort'],
 
@@ -83,7 +87,8 @@ export async function PATCH(
                 userId: params.userId,
                 amount: product.metadata.amount,
                 subscriptionType: product.metadata.type,
-                productId : values.productId
+                productId : values.productId,
+                usedId : values.usedId,
             }
         })
 

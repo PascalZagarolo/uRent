@@ -20,7 +20,7 @@ const AboutUsPage = () => {
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center gap-x-1">
                                 über <div className="font-bold text-gray-200">uRent</div>
                             </h3>
-                            <div className="">
+                            <div className="mt-4 md:mt-0">
                                 <div className="px-4">
                                     
                                     <div className="w-full flex items-center">
@@ -32,7 +32,7 @@ const AboutUsPage = () => {
                                     indem wir eine vielfältige Auswahl an Fahrzeugen anbieten und den Buchungsprozess transparent gestalten.
                                     </div>
                                     </div>
-                                    <div className="w-[260px] h-[160px] flex justify-end">
+                                    <div className="w-[260px] h-[160px]  justify-end md:flex hidden">
                                         <Image
                                         src="/uRent.png" 
                                         className="rounded-md w-[160px] h-[160px]"
@@ -43,12 +43,12 @@ const AboutUsPage = () => {
                                     </div>
                                     </div>
                                 </div>
-                                <div className="font-semibold text-lg p-4">
+                                <div className="font-semibold text-lg sm:p-4 p-2">
                                     <h3> Warum uRent? </h3>
                                 </div>
 
-                                <div className="w-full flex justify-evenly">
-                                    <div className="bg-[#141414] rounded-md p-8 w-3/12">
+                                <div className="w-full sm:flex justify-evenly sm:gap-y-0 space-y-2">
+                                    <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
                                         <div className="flex justify-center">
                                             <FaRegLightbulb   className="w-8 h-8" />
                                         </div>
@@ -65,7 +65,7 @@ const AboutUsPage = () => {
                                                                                     </div>
                                     </div>
 
-                                    <div className="bg-[#141414] rounded-md p-8 w-1/4">
+                                    <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
                                         <div className="flex justify-center">
                                             <GiWeightLiftingUp  className="w-8 h-8" />
                                         </div>
@@ -80,7 +80,7 @@ const AboutUsPage = () => {
                                         </div>
                                     </div>
 
-                                    <div className="bg-[#141414] rounded-md p-8 w-1/4">
+                                    <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
                                         <div className="flex justify-center">
                                             <BsTransparency className="w-8 h-8" />
                                         </div>
@@ -97,9 +97,9 @@ const AboutUsPage = () => {
                                     </div>
 
                                 </div>
-                                <div className="w-full flex justify-evenly mt-4">
+                                <div className="w-full flex justify-evenly mt-4 sm:gap-x-0 gap-x-4">
 
-                                <div className="bg-[#141414] rounded-md p-8 w-1/4">
+                                <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
                                         <div className="flex justify-center">
                                             <MdDiversity3  className="w-8 h-8" />
                                         </div>
@@ -114,7 +114,7 @@ const AboutUsPage = () => {
                                         </div>
                                     </div>
 
-                                    <div className="bg-[#141414] rounded-md p-8 w-1/4">
+                                    <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
                                         <div className="flex justify-center">
                                             <FaHandshake   className="w-8 h-8" />
                                         </div>

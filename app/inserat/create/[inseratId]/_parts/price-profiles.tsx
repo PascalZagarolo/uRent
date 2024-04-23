@@ -113,21 +113,21 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
         <div>
             <div className="flex justify-evenly items-center">
                 <Separator
-                    className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                    className="sm:w-1/3 hidden sm:block h-[0.5px] dark:bg-gray-100/20"
                 />
                 <h1 className="flex justify-center text-lg font-semibold">
                     Weitere Preisprofile
                 </h1>
                 <Separator
-                    className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                    className="sm:w-1/3 hidden sm:block h-[0.5px] dark:bg-gray-100/20"
                 />
             </div>
-            <div className="flex flex-row mt-4 gap-x-4">
+            <div className="sm:flex sm:flex-row mt-4 sm:gap-x-4 sm:space-y-0 space-y-4">
             <Dialog>
                 <AlertDialog>
 
             {thisInserat.priceHour && (
-                <div className="w-1/2 dark:bg-[#191919] rounded-md p-2">
+                <div className="sm:w-1/2 w-full dark:bg-[#191919] rounded-md p-2">
                 <div className="p-2">
                     <div className=" text-sm font-semibold w-full flex items-center">
                     <Ri24HoursFill className="w-4 h-4 mr-2" /> <div className="mr-1 font-medium">Stundenpreis</div> 
@@ -150,7 +150,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
             )}
 
 {thisInserat.priceWeekend && (
-                <div className="w-1/2 dark:bg-[#191919] rounded-md p-2">
+                <div className="sm:w-1/2 w-full dark:bg-[#191919] rounded-md p-2">
                 <div className="p-2">
                     <div className=" text-sm font-semibold w-full flex items-center">
                     <Hourglass className="w-4 h-4 mr-2" /> <div className="mr-1 font-medium">Wochenendpreis</div> 

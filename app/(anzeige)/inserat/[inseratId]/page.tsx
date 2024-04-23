@@ -320,7 +320,7 @@ const InseratAnzeige = async ({
                                 {thisInserat?.caution && (
                                     <div className="w-1/2 truncate font-semibold text-sm flex">
                                         <TbPigMoney className="w-4 h-4 mr-2 text-rose-300" />
-                                        Kaution : {thisInserat?.caution + " €"}
+                                        Kaution : {Number((thisInserat?.caution))?.toFixed(2) + " €"}
                                     </div>
                                 )}
                                 {thisInserat?.reqAge != 0 && thisInserat?.reqAge && (
@@ -344,7 +344,8 @@ const InseratAnzeige = async ({
                                     {thisInserat?.pkwAttribute?.extraCost && (
                                         <div className="w-1/2 truncate flex font-semibold text-sm ">
                                             <GiReceiveMoney className="w-4 h-4 mr-2 text-emerald-600" />
-                                            Extrapreis /Km : {thisInserat?.pkwAttribute?.extraCost ? thisInserat?.pkwAttribute?.extraCost + " €"
+                                            Extrapreis /Km : {thisInserat?.pkwAttribute?.extraCost ? 
+                                            (thisInserat?.pkwAttribute?.extraCost).toFixed(2) + " €"
                                                 : "Keine Kosten angegeben"}
                                         </div>
                                     )}

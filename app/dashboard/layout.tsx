@@ -42,7 +42,9 @@ const DashboardLayout = async (
             </div>
            
             
+            <div>
             <Footer />
+            </div>
             
         </div>
     );

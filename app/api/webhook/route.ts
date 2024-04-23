@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { userTable, userSubscription } from "@/db/schema";
+import { userTable, userSubscription, inserat } from "@/db/schema";
 
 import { stripe } from "@/lib/stripe";
 import axios from "axios";
@@ -41,15 +41,15 @@ export async function POST(
         
         
         
-        console.log("1")
+        
         if(!session?.metadata?.userId) {
             return new NextResponse("UserId nicht gefunden", {status : 400})
         }
-        console.log("2")
+        
         if(!session?.metadata?.amount) {
             return new NextResponse("Keine Anzahl gefunden", {status : 400})
         }
-        console.log("212")
+       
         if(!session?.metadata?.subscriptionType) {
             return new NextResponse("Keinen Typ gefunden", {status : 400})
         }
@@ -60,11 +60,11 @@ export async function POST(
             //@ts-ignore
             amount : session?.metadata?.amount,
         }).where(eq(userSubscription.userId, session?.metadata?.userId)).returning();
-        console.log("4")
+       
         const subscriptions = await stripe.subscriptions.list({
             customer: patchSubscription.stripe_customer_id,
           });
-          console.log("5")
+          
         const stripeSubscription = await stripe.subscriptions.update(
             patchSubscription.stripe_subscription_id,
             {
@@ -119,9 +119,14 @@ export async function POST(
 
         await db.update(userTable).set({
             subscriptionId : createdSubscription.id,
-            
         }).where(eq(userTable.id, session?.metadata?.userId))
 
+        //publish inserat if id was in the given querystring
+        if(session?.metadata?.usedId) {
+            const patchedInserat = await db.update(inserat).set({
+                isPublished : true
+            }).where(eq(inserat.id, session?.metadata?.usedId)).returning();
+        }
         
         return new NextResponse(null, {status : 200})
        

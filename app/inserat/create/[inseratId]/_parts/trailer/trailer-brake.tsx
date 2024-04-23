@@ -44,6 +44,8 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
     }
   };
 
+  console.log()
+
   return (
     <div className="w-full">
       <div className="w-full">
@@ -53,7 +55,7 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
             onSubmit(coupling);
           }}
           disabled={isLoading}
-          value={thisBrake !== null ? String(thisBrake) : "false"}
+          value={typeof(thisBrake) === "undefined" ? "false" : String(thisBrake) }
           
           
         >

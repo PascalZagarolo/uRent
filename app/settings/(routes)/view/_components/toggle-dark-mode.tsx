@@ -26,7 +26,7 @@ const ToggleDarkMode = () => {
         return null
     }
 
-    console.log(theme)
+    
 
     return (
         <div>

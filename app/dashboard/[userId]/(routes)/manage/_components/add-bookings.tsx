@@ -302,10 +302,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                             selected={field.value}
                                                             className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
-                                                                const nextDay = new Date(date);
-                                                                nextDay.setDate(nextDay.getDate() + 1);
-                                                                field.onChange(nextDay);
-                                                                setCurrentEnd(nextDay);
+                                                                field.onChange(date);
+                                                                setCurrentStart(date);
                                                             }}
                                                             disabled={(date) =>
                                                                 date < currentStart || date < new Date("1900-01-01")

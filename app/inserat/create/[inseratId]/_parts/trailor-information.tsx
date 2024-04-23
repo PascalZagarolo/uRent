@@ -22,18 +22,18 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
 }) => {
     return (
         <div className="mt-4">
-            <div className="flex w-full gap-x-8">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8">
                 <TrailerTypeCreation 
                 thisTrailerType = {thisInserat.trailerAttribute?.type}
                 />
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                 <TrailerWeightClass 
                     thisWeightClass={thisInserat.trailerAttribute?.weightClass}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <TrailerAxis 
                     thisAxis={thisInserat.trailerAttribute?.axis}
                     />
@@ -42,38 +42,38 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
             </div>
 
 
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                 <TrailerBrake 
                  thisBrake = {thisInserat.trailerAttribute?.brake}
                  />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     
                     
                     
                 </div>
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                 <TrailerCoupling 
                  thisCoupling = {thisInserat.trailerAttribute?.coupling}
                  />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <TrailerLoading 
                  thisLoading={thisInserat.trailerAttribute?.loading}
                  />
                 
                 </div>
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                 <TrailerLoadingVolumeForm 
                     thisVolume={thisInserat.trailerAttribute?.loading_volume}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <TrailerSizeForm 
                 thisHeight={thisInserat?.trailerAttribute?.loading_h}
                 thisWidth={thisInserat?.trailerAttribute?.loading_b}

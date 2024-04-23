@@ -28,27 +28,27 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
             
             
             
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     
                  <TransportWeightClass 
                 thisWeightClass={thisInserat?.transportAttribute?.weightClass}
                 />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 
                 
                 </div>
             </div>
 
 
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                 <TransportBrandForm 
                 thisBrand={thisInserat?.transportAttribute?.transportBrand}
                 />              
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                    
                 <TransportSeats 
                     thisSeats = {thisInserat?.transportAttribute?.seats}
@@ -58,14 +58,14 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
             </div>
 
 
-            <div className="flex w-full gap-x-8  mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8  mt-4">
+                <div className="sm:w-1/2 w-full">
                     
                     <TransportTransmission 
                  thisTransmission={thisInserat?.transportAttribute?.transmission}
                  />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 
                 <TransportFuel 
                  thisFuel={thisInserat?.transportAttribute?.fuel}
@@ -74,8 +74,8 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
             </div>
 
 
-            <div className="flex w-full gap-x-8  mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8  mt-4">
+                <div className="sm:w-1/2 w-full">
                     
                 
                 <TransportDoors 
@@ -83,34 +83,34 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
                 />
                 </div>
                 
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <TransportLoading 
                  thisLoading={thisInserat?.transportAttribute?.loading}
                  />
                 </div>
             </div>
 
-            <div className="flex w-full gap-x-8  mt-4">
+            <div className="sm:flex sm:space-y-0 space-y-4w-full sm:gap-x-8  mt-4">
                 
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <TransportPowerForm 
                 thisPower={thisInserat?.transportAttribute?.power}
                 />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 
                 </div>
                 
             </div>
 
-            <div className="flex w-full gap-x-8  mt-4">
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8  mt-4">
                 
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <TransportLoadingVolumeForm
                 thisVolume={thisInserat?.transportAttribute?.loading_volume}
                 />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                 <TransportSizeForm
                 thisHeight={thisInserat?.transportAttribute?.loading_h}
                 thisWidth={thisInserat?.transportAttribute?.loading_b}

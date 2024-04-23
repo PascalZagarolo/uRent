@@ -77,6 +77,7 @@ const PremiumButton : React.FC<PremiumButtonProps> = ({
                 diffrence : diffrence * 100,
                 productId: productId,
                 subscriptionType : "PREMIUM",
+                ...usedId && {usedId : usedId}
             }
             console.log(values)
             const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);

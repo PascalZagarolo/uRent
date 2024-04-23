@@ -14,7 +14,7 @@ const ResultsSearchPage = () => {
 
     const searchParams = useSavedSearchParams((state) => state.searchParams);
 
-    
+
     const [currentResults, setCurrentResults] = useState();
     const pathname = usePathname();
     const router = useRouter();
@@ -32,28 +32,39 @@ const ResultsSearchPage = () => {
     const onRedirect = () => {
 
         const filteredValues = searchParams;
-
+        //@ts-ignore
+        const usedStart = filteredValues.periodBegin;
+        //@ts-ignore
+        const usedEnd = filteredValues.periodEnd;
+        console.log(usedStart.toISOString())
         const url = qs.stringifyUrl({
-            url : process.env.NEXT_PUBLIC_BASE_URL,
+            url: process.env.NEXT_PUBLIC_BASE_URL,
+
+
             //@ts-ignore
-            query : {
+            query: {
                 //@ts-ignore
-                category : filteredValues.thisCategory,
+                category: filteredValues.thisCategory,
                 //@ts-ignore
-                type : filteredValues.thisType,
+                periodBegin: filteredValues.periodBegin ? usedStart.toISOString() : null,
+                //@ts-ignore
+                periodEnd: filteredValues.periodEnd ? usedEnd.toISOString() : null,
+                //@ts-ignore
+                type: filteredValues.thisType,
                 ...filteredValues
-            }
-        }, {skipEmptyString: true, skipNull: true})
-        console.log(filteredValues)
+            },
+
+        }, { skipEmptyString: true, skipNull: true })
+        
         router.push(url);
     }
 
-    return ( 
+    return (
         <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-base sm:p-8 text-xs sm:text-sm" onClick={onRedirect}>
-             <p className="font-bold px-1"> {currentResults} </p> Ergebnisse <BiArrowToRight   className="w-4 h-4 ml-2" />
+            <p className="font-bold px-1"> {currentResults} </p> Ergebnisse <BiArrowToRight className="w-4 h-4 ml-2" />
 
         </Button>
-     );
+    );
 }
- 
+
 export default ResultsSearchPage;

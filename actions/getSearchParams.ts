@@ -63,7 +63,8 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
 
         user : searchParams.get("user"),
         
-        
+        //ELSE
+        inseratId : searchParams.get("inseratId"),
 
     }
     if (currentCategory && params.hasOwnProperty(currentCategory)) {

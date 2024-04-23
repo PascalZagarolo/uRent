@@ -5,6 +5,7 @@ import { userSubscription } from "@/db/schema";
 
 import axios from "axios";
 import { CheckIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -22,6 +23,9 @@ const PremiumButton : React.FC<PremiumButtonProps> = ({
     userId,
     diffrence
 }) => {
+
+    const searchParams = useSearchParams();
+    const usedId = searchParams.get("inseratId");
 
     const calculatePremiumPrice = () => {
         switch (selectedAmount) {
@@ -54,7 +58,7 @@ const PremiumButton : React.FC<PremiumButtonProps> = ({
                 subscriptionType: "PREMIUM",
                 productId: productId,
                 amount : selectedAmount,
-                
+                ...usedId && {usedId : usedId}
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url

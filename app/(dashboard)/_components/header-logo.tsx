@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
                         <div className="2xl:mr-32 items-center sm:mr-8">
 
                             
-                                <Inserat
+                        <Inserat
                                     currentUser={currentUser}
                                     isntLoggedIn={currentUser ? false : true}
                                 />
@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
                         </div>
                         <div className="flex justify-center">
 
-                            <LocationBar />
+                        <LocationBar />
                         </div>
                     </div>
                     {

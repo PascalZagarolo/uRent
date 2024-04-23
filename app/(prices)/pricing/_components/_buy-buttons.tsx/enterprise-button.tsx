@@ -5,6 +5,7 @@ import { userSubscription } from "@/db/schema";
 
 import { CheckIcon } from "@radix-ui/react-icons";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast, { CheckmarkIcon } from "react-hot-toast";
 
@@ -23,6 +24,11 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
     userId,
     diffrence
 }) => {
+
+    const searchParams = useSearchParams();
+    const usedId = searchParams.get("inseratId");
+
+    
 
     const calculateEnterprisePrice = () => {
         switch (selectedAmount) {
@@ -54,8 +60,11 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
                 subscriptionType: "ENTERPRISE",
                 productId: productId,
                 amount : selectedAmount,
+                ...usedId && {usedId : usedId}
                 
             }
+
+            console.log(values)
 
             
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);

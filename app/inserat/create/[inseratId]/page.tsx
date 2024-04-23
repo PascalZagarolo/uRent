@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import SaveChanges from "../_components/save-changes";
 import PriceProfiles from "./_parts/price-profiles";
 import { redirect } from "next/navigation";
+import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 
 
 
@@ -134,6 +135,12 @@ const InseratCreation = async ({
                     foundNotifications={foundNotifications}
                 />
             </div>
+            <div className="sm:hidden">
+                <MobileHeader
+                    currentUser={currentUser}
+                    foundNotifications={foundNotifications}
+                />
+            </div>
             <div className="flex justify-center p-8 bg-[#404040]/10 h-full">
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="min-h-screen">
@@ -141,19 +148,20 @@ const InseratCreation = async ({
 
                             <div className="flex items-center w-full">
 
-                                <div>
-                                    <h3 className="text-2xl font-bold flex items-center">
+                                <div className="w-full">
+                                    <h3 className="sm:text-2xl text-md font-bold flex items-center w-full">
                                         <MdPostAdd className="mr-2" />  Inserat bearbeiten
+                                        <div className="ml-auto">
+                                    <SaveChanges 
+                                    thisInserat={thisInserat}
+                                    />
+                                </div>
                                     </h3>
                                     <p className="text-xs dark:text-gray-100/70 mt-2">
                                         Gebe Informationen zu deinem Inserat an - desto genauer du bist, desto eher finden dich potientielle Kunden.
                                     </p>
                                 </div>
-                                <div className="ml-auto">
-                                    <SaveChanges 
-                                    thisInserat={thisInserat}
-                                    />
-                                </div>
+                                
                             </div>
                             <FloatingNav
                                 thisInserat={thisInserat}
@@ -162,13 +170,13 @@ const InseratCreation = async ({
                                 <div>
                                     <div className="flex justify-evenly items-center">
                                         <Separator
-                                            className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                            className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                         />
                                         <h1 className="flex justify-center text-lg font-semibold">
                                             Grundlegende Angaben
                                         </h1>
                                         <Separator
-                                            className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                            className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                         />
                                     </div>
                                     <div className="mt-4">
@@ -202,19 +210,19 @@ const InseratCreation = async ({
                                 <div>
                                     <div className="flex justify-evenly items-center">
                                         <Separator
-                                            className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                            className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                         />
                                         <h1 className="flex justify-center text-lg font-semibold">
                                             Rahmenbedingungen
                                         </h1>
                                         <Separator
-                                            className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                            className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                         />
                                     </div>
 
                                     <div>
 
-                                        <ConditionsInformation
+                                    <ConditionsInformation
                                             thisInserat={thisInserat}
                                             thisAddressComponent={thisAddressComponent}
                                         />
@@ -226,13 +234,13 @@ const InseratCreation = async ({
                                 <div>
                                     <div className="flex  justify-evenly items-center">
                                         <Separator
-                                            className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                            className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                         />
                                         <h1 className="flex justify-center text-lg font-semibold">
                                             Zeitraum *
                                         </h1>
                                         <Separator
-                                            className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                            className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                         />
                                     </div>
 
@@ -249,13 +257,13 @@ const InseratCreation = async ({
 
                                 <div className="flex justify-evenly items-center">
                                     <Separator
-                                        className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                        className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                     />
                                     <h1 className="flex justify-center text-lg font-semibold">
                                         Kontaktdaten
                                     </h1>
                                     <Separator
-                                        className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                                        className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                     />
                                 </div>
                                 <p className="text-xs dark:text-gray-200/70 flex justify-center">

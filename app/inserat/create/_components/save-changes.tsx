@@ -83,7 +83,7 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
     
     return ( 
         <div className="w-full ml-auto">
-            <Button className="dark:bg-[#0F0F0F] hover:bg-[#1c1c1c] text-gray-200 text-sm" 
+            <Button className="dark:bg-[#0F0F0F] hover:bg-[#1c1c1c] text-gray-200 text-xs sm:text-sm" 
             disabled={!changedTitle && !changedDescription && !changedPrice} onClick={onSave}>
                 Änderungen speichern
             </Button>

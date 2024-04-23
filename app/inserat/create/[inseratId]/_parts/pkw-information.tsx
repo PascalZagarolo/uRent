@@ -26,74 +26,74 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
 }) => {
     return (
         <div className="mt-4">
-            <div className="flex w-full gap-x-8">
-                <div className="w-1/2">
+            <div className="sm:flex w-full sm:gap-x-8">
+                <div className="sm:w-1/2 w-full">
                     <CarBrandForm 
                     thisBrand = {thisInserat?.pkwAttribute?.brand}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <Seats
                     thisSeats={thisInserat?.pkwAttribute?.seats}
                     />
                 </div>
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     <CarTypeForm
                     thisCarType = {thisInserat?.pkwAttribute?.type}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <TransmissionForm
                         thisTransmission={thisInserat.pkwAttribute?.transmission}
                     />
                 </div>
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     <FuelForm 
                     thisFuel={thisInserat?.pkwAttribute?.fuel}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <Doors 
                         thisDoors={thisInserat?.pkwAttribute?.doors}
                     />
                 </div>
             </div>
             
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     <PkwWeightClass
                     thisWeightClass={thisInserat?.pkwAttribute?.weightClass}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <PkwAhk 
                     thisBrake={thisInserat?.pkwAttribute?.ahk}
                     />
                 </div>
                 
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     <PowerForm
                     thisPower={thisInserat?.pkwAttribute?.power}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <InitialForm 
                     thisInitial={thisInserat?.pkwAttribute?.initial}/>
                 </div>
             </div>
-            <div className="flex w-full gap-x-8 mt-4">
-                <div className="w-1/2">
+            <div className="sm:flex w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                     <LoadingVolumeForm
                     thisVolume={thisInserat?.pkwAttribute?.loading_volume}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <LoadingSizeForm 
                     thisLength = {thisInserat?.pkwAttribute?.loading_l}
                     thisWidth = {thisInserat?.pkwAttribute?.loading_b}

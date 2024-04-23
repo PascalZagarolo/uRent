@@ -21,19 +21,19 @@ const ConditionsInformation: React.FC<ConditionsInformationProps> = ({
     return ( 
         <div className="mt-8">
             
-            <div className="w-full flex gap-x-4">
-            <div className="w-1/3">
+            <div className="w-full sm:flex sm:gap-x-4 space-y-4 sm:space-y-0">
+            <div className="sm:w-1/3 w-full">
                 <SelectCaution 
                 thisInserat={thisInserat}
                 />
             </div>
             
-            <div className="w-1/3">
+            <div className="sm:w-1/3 w-full">
                 <RequiredAge 
                 thisInserat={thisInserat}
                 />
             </div>
-            <div className="w-1/3">
+            <div className="sm:w-1/3 w-full">
             <SelectLicenseInserat
                         thisInserat={thisInserat}
                     />

@@ -20,7 +20,7 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
         <div>
             <div className="flex justify-evenly items-center">
                 <Separator
-                    className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                    className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                 />
                 <h1 className="flex justify-center text-lg font-semibold">
                     {
@@ -34,30 +34,11 @@ const CategoryInformation: React.FC<CategoryInformationProps> = ({
                     } - Details
                 </h1>
                 <Separator
-                    className="w-1/3 h-[0.5px] dark:bg-gray-100/20"
+                    className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                 />
             </div>
             <div>
-                {
-                    {
-                        'PKW': <PkwInformation 
-                        thisInserat = { thisInserat }
-                        />,
-                        
-                        'LKW': <LkwInformation 
-                        thisInserat = { thisInserat }
-                        />,
-                        
-                        'TRAILER' : <TrailorInformation 
-                        thisInserat = { thisInserat }
-                        />,
-                       
-                        'TRANSPORT' : <TransportInformation 
-                        thisInserat = { thisInserat }
-                        />
-                        //@ts-ignore
-                    }[usedCategory]
-                }
+                
             </div>
         </div>
     );

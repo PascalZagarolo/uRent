@@ -69,19 +69,19 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                     thisImages={thisImages}
                 />    
             </div>
-            <div className="mt-4 w-full flex gap-x-4">
-                <div className="w-1/2">
+            <div className="mt-4 w-full sm:flex gap-x-4 sm:space-y-0 space-y-4">
+                <div className="sm:w-1/2 w-full">
                     <SelectPrice
                         thisInserat={thisInserat}
                     />
                 </div>
-                <div className="w-1/2 flex gap-x-2">
-                    <div className="w-1/2">  
+                <div className="sm:w-1/2 w-full sm:flex gap-x-2 sm:space-y-0 space-y-4">
+                    <div className="sm:w-1/2 w-full">  
                         <SelectInseratType 
                         thisInserat={thisInserat}
                         />
                     </div>
-                    <div className="w-1/2">
+                    <div className="sm:w-1/2 w-full">
                         <SelectVehicleAmount
                         thisInserat = {thisInserat}
                         />

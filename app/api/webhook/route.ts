@@ -73,15 +73,17 @@ export async function POST(
             }
         )
 
+        console.log(session?.metadata?.usedId)
+
         //publish inserat if id was in the given querystring
         if(session?.metadata?.usedId) {
-
+            console.log(1);
             const findInserat = await db.query.inserat.findFirst({
                 where : (
                     eq(inserat.id, session?.metadata?.usedId)
                 )
             })
-
+            console.log(2);
             if(!findInserat){
                 return new NextResponse("Inserat nicht gefunden", {status : 404})
             }
@@ -89,7 +91,7 @@ export async function POST(
             if(findInserat.userId !== session?.metadata?.userId) {
                 return new NextResponse("Nicht autorisiert", {status : 401})
             }
-
+            console.log(3);
             const patchedInserat = await db.update(inserat).set({
                 isPublished : true
             }).where(eq(inserat.id, session?.metadata?.usedId)).returning();
@@ -140,17 +142,17 @@ export async function POST(
             subscriptionId : createdSubscription.id,
         }).where(eq(userTable.id, session?.metadata?.userId))
 
-        
+        console.log(session?.metadata?.usedId)
 
         //publish inserat if id was in the given querystring
         if(session?.metadata?.usedId) {
-
+            console.log(1);
             const findInserat = await db.query.inserat.findFirst({
                 where : (
                     eq(inserat.id, session?.metadata?.usedId)
                 )
             })
-
+            console.log(2);
             if(!findInserat){
                 return new NextResponse("Inserat nicht gefunden", {status : 404})
             }
@@ -158,7 +160,7 @@ export async function POST(
             if(findInserat.userId !== session?.metadata?.userId) {
                 return new NextResponse("Nicht autorisiert", {status : 401})
             }
-
+            console.log(3);
             const patchedInserat = await db.update(inserat).set({
                 isPublished : true
             }).where(eq(inserat.id, session?.metadata?.usedId)).returning();

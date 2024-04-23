@@ -1,6 +1,6 @@
 
 
-import { AlignLeft,  CarFront,  Contact2, Globe2, HourglassIcon, MailIcon,  MapPinned, Phone,  Truck, UserCircleIcon } from "lucide-react";
+import { AlignLeft, CarFront, Contact2, Globe2, HourglassIcon, MailIcon, MapPinned, Phone, Truck, UserCircleIcon } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from 'next'
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
@@ -17,7 +17,7 @@ import { CiBookmark } from "react-icons/ci";
 import { FaAddressCard, FaCarCrash } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import {  booking, inserat,  business,  CategoryEnumRender } from '../../../../db/schema';
+import { booking, inserat, business, CategoryEnumRender } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 import { convertState } from "@/actions/convert-states";
 import { Ri24HoursLine, RiCaravanLine } from "react-icons/ri";
@@ -81,7 +81,7 @@ const InseratAnzeige = async ({
         }
     }).prepare("findInserat")
 
-   let thisInserat;
+    let thisInserat;
 
     try {
         thisInserat = await findInserat.execute({ inseratId: params?.inseratId })
@@ -89,34 +89,34 @@ const InseratAnzeige = async ({
         if (!thisInserat) {
             return (
                 <div className="w-full h-dvh flex justify-center items-center">
-                <h1 className="text-2xl dark:text-gray-200 font-semibold">
-                <FaCarCrash
-                    className="w-8 h-8"
-                    />
-                    Error 404 - Inserat nicht gefunden
-                    <p className="flex justify-center items-center font-medium text-sm">
-                    Das gesuchte Inserat konnte nicht gefunden werden.
-                    Entweder wurde es gelöscht, privat gestellt oder hat nie existiert.
-                </p>
-                </h1>
-                
-            </div>
+                    <h1 className="text-2xl dark:text-gray-200 font-semibold">
+                        <FaCarCrash
+                            className="w-8 h-8"
+                        />
+                        Error 404 - Inserat nicht gefunden
+                        <p className="flex justify-center items-center font-medium text-sm">
+                            Das gesuchte Inserat konnte nicht gefunden werden.
+                            Entweder wurde es gelöscht, privat gestellt oder hat nie existiert.
+                        </p>
+                    </h1>
+
+                </div>
             )
         }
     } catch {
         return (
             <div className="w-full h-dvh flex justify-center items-center">
                 <h1 className="text-2xl dark:text-gray-200 font-semibold">
-                <FaCarCrash
-                    className="w-8 h-8"
+                    <FaCarCrash
+                        className="w-8 h-8"
                     />
                     Error 404 - Inserat nicht gefunden
                     <p className="flex justify-center items-center font-medium text-sm">
-                    Das gesuchte Inserat konnte nicht gefunden werden.
-                    Entweder wurde es gelöscht, privat gestellt oder hat nie existiert.
-                </p>
+                        Das gesuchte Inserat konnte nicht gefunden werden.
+                        Entweder wurde es gelöscht, privat gestellt oder hat nie existiert.
+                    </p>
                 </h1>
-                
+
             </div>
         )
     }
@@ -187,7 +187,10 @@ const InseratAnzeige = async ({
 
     return (
         <>
-
+            <head>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
+                    crossOrigin="anonymous"></script>
+            </head>
             <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max ">
                 <div className="h-full sm:p-4 p-2 w-full">
                     <div className="w-full justify-end flex">

@@ -6,6 +6,7 @@ import { eq, sql } from "drizzle-orm";
 import db from "@/db/drizzle";
 import { notification } from "@/db/schema";
 import Footer from "../(dashboard)/_components/footer";
+import { redirect } from "next/navigation";
 
 const AdminLayout = async (
     { children }: { children: React.ReactNode },
@@ -19,7 +20,15 @@ const AdminLayout = async (
             eq(notification.userId, sql.placeholder("currentUserId"))
         )
     
-    }).prepare("findNotifications")
+    }).prepare("findNotifications");
+
+    if(!currentUser) {
+        return redirect("/")
+    }
+
+    if(!currentUser.isAdmin) {
+        return redirect("/")
+    }
 
     const foundNotifications = await findNotifications.execute({currentUserId: currentUser?.id})
     

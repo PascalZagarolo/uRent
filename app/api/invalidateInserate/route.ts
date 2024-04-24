@@ -25,10 +25,9 @@ export async function PATCH(
             }
         })
 
-        
-
         const currentDate = new Date();
 
+        //privatize all inserate that are published and the user has no subscription or the subscription is expired
         for (const pInserat of findMatchingInserate) {
             if(!pInserat.user?.subscription || pInserat.user?.subscription.length === 0 || 
                 pInserat.user?.subscription?.stripe_current_period_end < currentDate) {
@@ -38,6 +37,8 @@ export async function PATCH(
                 }
         }
 
+
+        //Todo : Add checks whether capabilities are available or not
     
                
             

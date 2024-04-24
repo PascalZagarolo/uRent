@@ -40,7 +40,7 @@ const RenderCodes: React.FC<RenderCodesProps> = ({
                 </TableHeader>
                 <TableBody>
                     {existingCodes.map((code) =>(
-                        <TableRow>
+                        <TableRow key={code.id}>
                         <TableCell className="font-medium">{code?.name}</TableCell>
                         <TableCell>{code?.plan}</TableCell>
                         <TableCell>{code?.inseratAmount}</TableCell>

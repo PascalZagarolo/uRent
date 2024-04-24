@@ -15,6 +15,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { notification, userTable  } from "@/db/schema";
 import toast from "react-hot-toast";
 import { signOut } from "@/actions/signout";
+import { RiAdminFill } from "react-icons/ri";
 
 
 interface LoggedInBarHeaderProps {
@@ -48,9 +49,9 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
     return (
         <div className="flex ml-auto items-center sm:mt-2">
-            <div className="  font-semibold  lg:mr-8 text-xs text-gray-200  hidden items-center 2xl:flex">
-                🎉 Willkommen zurück
-                <p className="ml-1 font-bold hidden 2xl:flex  text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
+            <div className="  font-semibold  lg:mr-8 text-xs text-gray-200  hidden items-center xl:flex">
+                🎉 <div className="2xl:block hidden">Willkommen zurück</div>
+                <p className="ml-1 font-bold hidden xl:flex text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
             </div>
             <div className="flex lg:gap-x-2">
                 <div className="sm:block hidden">
@@ -93,6 +94,20 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                             <span className="ml-2 text-base">Mein Konto</span>
                         </h3>
                     </div>
+                    {currentUser.isAdmin && (
+                        <Button
+                        variant="ghost"
+                        className="  bg-[#e1dfdf] 
+                        border-2 border-gray-300  mb-2 w-full 
+                        dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-indigo-900 flex justify-start"
+                        onClick={() => {router.push(`/admin`)}}
+                    >
+                        <RiAdminFill  className="mr-4 w-6 h-6" />
+                        <p>
+                            Admin Dashboard
+                        </p>
+                    </Button>
+                    )}
                     <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] 

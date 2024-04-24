@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { inserat } from '../../../db/schema';
 import { eq } from "drizzle-orm";
 
-export async function PATCH(
+export async function GET(
     req : Request,
 ) {
     try {
@@ -13,19 +13,22 @@ export async function PATCH(
                 eq(inserat.isPublished, true)
             ),
             with : {
-                user : {
+                user :  {
                     with : {
-                        userSubscription : true
+                        subscription : true
                     }
                 }
             }
         })
 
+        console.log("sadas")
+
         const currentDate = new Date();
 
         //privatize every inserat where user has no subscriptions
         for (const pInserat of findMatchingInserate) {
-            if(!inserat.user.userSubscription || inserat.user.userSubscription.stripe_current_period_end < currentDate) {
+            if(!inserat.user?.subscription || inserat.user?.subscription?.stripe_current_period_end < currentDate) {
+                
                 const updateInserate = await db.update(inserat).set({
                     isPublished : false,
                 }).where(eq(inserat.userId, pInserat.userId))

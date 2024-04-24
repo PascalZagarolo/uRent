@@ -88,11 +88,11 @@ const AboutUsPage = () => {
                                             Transparenz
                                         </div>
                                         <div className="text-xs text-gray-200 mt-2 font-medium">
-                                            Wir sind Vorreiter einer neuen Ära der Mobilität.<br/>
-                                            Durch die Nutzung innovativer Technologien und einer modernen Plattformarchitektur schaffen
-                                            wir eine reibungslose und benutzerfreundliche Erfahrung für unsere Nutzer.<br/>
-                                            Wir sind ständig auf der Suche nach neuen Wegen,<br/> um deine Mobilitätsbedürfnisse
-                                            zu erfüllen und deine Reise mit uRent zu verbessern.
+                                        Bei uRent legen wir großen Wert darauf, Transparenz in jedem Schritt des Buchungsprozesses zu bieten. <br/> 
+                                        Wir bieten klare Informationen zu den Fahrzeugen, <br/> den Vermietern und den Buchungsbedingungen, 
+                                        damit du genau weißt, was dich erwartet. <br/>
+                                        Kein Schnickschnack, keine Überraschungen - nur klare und ehrliche Informationen, <br/> 
+                                        damit du die besten Entscheidungen treffen kannst.
                                         </div>
                                     </div>
 

@@ -48,6 +48,7 @@ export const userTable = pgTable("user", {
     usesTwoFactor : boolean("usesTwoFactor").notNull().default(false),
     isBusiness : boolean("isBusiness").default(false),
     enableSocialLogin : boolean("enableSocialLogin").default(true),
+    isAdmin : boolean("isAdmin").default(false),
     
     
     businessId : uuid("businessId")

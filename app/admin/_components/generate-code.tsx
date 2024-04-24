@@ -1,20 +1,66 @@
 'use client'
 
 
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { CalendarCheck2, UserIcon } from "lucide-react";
-import { FaSortAmountUpAlt } from "react-icons/fa";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
+import { CalendarCheck2, CalendarIcon, UserIcon } from "lucide-react";
+import { useState } from "react";
+import { FaSign, FaSortAmountUpAlt } from "react-icons/fa";
 import { FiCode } from "react-icons/fi";
 import { RiVipDiamondLine } from "react-icons/ri";
 
 const GenerateCode = () => {
+    const [currentName, setCurrentName] = useState(null);
+    const [currentPlan, setCurrentPlan] = useState(null);
+    const [currentAmount, setCurrentAmount] = useState(null);
+    const [currentDate, setCurrentDate] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+
+    const onCreate = () => {
+        try {
+            setIsLoading(true);
+            const values = {
+                label : currentName,
+                plan : currentPlan,
+                amount : currentAmount,
+                expirationDate : currentDate,
+                userAmount : currentUser
+            }
+        } catch {
+            console.error("Error creating code");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <div>
             <div>
                 <h3 className="text-md font-semibold flex items-center"> <FiCode className="w-4 h-4 mr-2" />  Neuen Code generieren </h3>
             </div>
-            <div> 
+            <div>
+
+            <div className="w-full flex items-center mt-4 gap-x-8">
+                    <div className="w-1/2 pr-4">
+                        <Label className="flex items-center"> <FaSign  className="w-4 h-4 mr-2" />  Name </Label>
+                        <Input 
+                        className="dark:border-none dark:bg-[#0F0F0F] mt-2"
+                        placeholder="Noch kein Name angegeben"
+                        onChange={(e) => setCurrentPlan(e.target.value)}
+                        />
+                    </div>
+                    
+                </div>
 
                 <div className="w-full flex items-center mt-4 gap-x-8">
                     <div className="w-1/2">
@@ -31,7 +77,7 @@ const GenerateCode = () => {
                         </Select>
                     </div>
                     <div className="w-1/2">
-                    <Label className="flex items-center"> <FaSortAmountUpAlt className="w-4 h-4 mr-2" />  Anzahl Inserate </Label>
+                        <Label className="flex items-center"> <FaSortAmountUpAlt className="w-4 h-4 mr-2" />  Anzahl Inserate </Label>
                         <Select>
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wieviele Inserate" />
@@ -43,8 +89,6 @@ const GenerateCode = () => {
                                 <SelectItem value="15">15</SelectItem>
                                 <SelectItem value="25">25</SelectItem>
                                 <SelectItem value="40">40</SelectItem>
-                                
-                                
                             </SelectContent>
                         </Select>
                     </div>
@@ -53,19 +97,40 @@ const GenerateCode = () => {
                 <div className="w-full flex items-center mt-4 gap-x-8">
                     <div className="w-1/2">
                         <Label className="flex items-center"> <CalendarCheck2 className="w-4 h-4 mr-2" />  Zeitraum </Label>
-                        <Select>
-                            <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
-                                <SelectValue placeholder="Wieviele Monate?" />
-                            </SelectTrigger>
-                            <SelectContent className="dark:border-none dark:bg-[#191919]">
-                                <SelectItem value="BASIS">Basis</SelectItem>
-                                <SelectItem value="PREMIUM">Premium</SelectItem>
-                                <SelectItem value="ENTERPRISE">Enterprise</SelectItem>
-                            </SelectContent>
-                        </Select>
+                            <Popover >
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant={"outline"}
+                                        className={cn(
+                                            "w-full pl-3 text-left font-normal mt-2 dark:border-none dark:bg-[#191919]",
+                                            !currentDate && "text-muted-foreground"
+                                        )}
+                                    >
+                                        {currentDate ? (
+                                            format(currentDate, "PPP", { locale : de})
+                                        ) : (
+                                            <span>Wähle dein Datum</span>
+                                        )}
+                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0 dark:border-none" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        className="dark:border-none dark:bg-[#191919]"
+                                        selected={currentDate}
+                                        onSelect={(date) => setCurrentDate(date)}
+                                        disabled={(date) =>
+                                            date < new Date() || date < new Date("1900-01-01")
+                                        }
+                                        initialFocus
+                                    />
+                                </PopoverContent>
+                            </Popover>
                     </div>
                     <div className="w-1/2">
-                    <Label className="flex items-center"> <UserIcon className="w-4 h-4 mr-2" />  Anzahl Nutzer </Label>
+                        <Label className="flex items-center"> <UserIcon className="w-4 h-4 mr-2" />  Anzahl Nutzer </Label>
                         <Select>
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wieviele Nutzer sollen den Code benutzen können?" />
@@ -84,13 +149,25 @@ const GenerateCode = () => {
                                 <SelectItem value="2500">2500</SelectItem>
                                 <SelectItem value="5000">5000</SelectItem>
                                 <SelectItem value="10000">10000</SelectItem>
-                                
-                                
+
+
                             </SelectContent>
                         </Select>
                     </div>
                 </div>
-
+                <div className="mt-4 w-full ml-auto flex justify-end">
+                    <Button className="dark:bg-indigo-800 dark:hover:bg-indigo-900 dark:hover:text-gray-300
+                     dark:text-gray-200 font-semibold"
+                     disabled={isLoading ||
+                        !currentPlan ||
+                        !currentAmount ||
+                        !currentDate ||
+                        !currentUser
+                    }
+                     >
+                        Code erstellen
+                    </Button>
+                </div>
             </div>
         </div>
     );

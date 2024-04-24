@@ -8,10 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { CalendarCheck2, CalendarIcon, UserIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaSign, FaSortAmountUpAlt } from "react-icons/fa";
 import { FiCode } from "react-icons/fi";
 import { RiVipDiamondLine } from "react-icons/ri";
@@ -25,19 +28,30 @@ const GenerateCode = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const router = useRouter();
 
-    const onCreate = () => {
+    const onCreate = async () => {
         try {
             setIsLoading(true);
             const values = {
-                label : currentName,
+                name : currentName,
                 plan : currentPlan,
-                amount : currentAmount,
+                inseratAmount : currentAmount,
+                availableAmount : currentUser,
                 expirationDate : currentDate,
                 userAmount : currentUser
             }
+
+            console.log(currentDate)
+
+            await axios.post('/api/giftcode', values)
+                .then(() => {
+                    router.refresh();
+                    toast.success("Code wurde erfolgreich erstellt");
+                })
         } catch {
             console.error("Error creating code");
+            toast.error("Etwas ist schief gelaufen");
         } finally {
             setIsLoading(false);
         }
@@ -56,7 +70,7 @@ const GenerateCode = () => {
                         <Input 
                         className="dark:border-none dark:bg-[#0F0F0F] mt-2"
                         placeholder="Noch kein Name angegeben"
-                        onChange={(e) => setCurrentPlan(e.target.value)}
+                        onChange={(e) => setCurrentName(e.target.value)}
                         />
                     </div>
                     
@@ -65,7 +79,9 @@ const GenerateCode = () => {
                 <div className="w-full flex items-center mt-4 gap-x-8">
                     <div className="w-1/2">
                         <Label className="flex items-center"> <RiVipDiamondLine className="w-4 h-4 mr-2" />  Plan </Label>
-                        <Select>
+                        <Select
+                        onValueChange={(value) => setCurrentPlan(value)}
+                        >
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wähle den gewünschten Plan" />
                             </SelectTrigger>
@@ -78,7 +94,9 @@ const GenerateCode = () => {
                     </div>
                     <div className="w-1/2">
                         <Label className="flex items-center"> <FaSortAmountUpAlt className="w-4 h-4 mr-2" />  Anzahl Inserate </Label>
-                        <Select>
+                        <Select
+                        onValueChange={(value) => setCurrentAmount(value)}
+                        >
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wieviele Inserate" />
                             </SelectTrigger>
@@ -131,7 +149,9 @@ const GenerateCode = () => {
                     </div>
                     <div className="w-1/2">
                         <Label className="flex items-center"> <UserIcon className="w-4 h-4 mr-2" />  Anzahl Nutzer </Label>
-                        <Select>
+                        <Select
+                        onValueChange={(value) => setCurrentUser(value)}
+                        >
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wieviele Nutzer sollen den Code benutzen können?" />
                             </SelectTrigger>
@@ -164,6 +184,7 @@ const GenerateCode = () => {
                         !currentDate ||
                         !currentUser
                     }
+                    onClick={onCreate}
                      >
                         Code erstellen
                     </Button>

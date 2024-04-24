@@ -77,6 +77,8 @@ export const oauthAccountTable = pgTable("oauth_account", {
 })
 
 
+
+
 export const business : any = pgTable("business", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     userId: text("userId")
@@ -642,6 +644,18 @@ export const stripeCustomer = pgTable("stripeCustomer", {
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
     updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
 
+})
+
+export const giftCode = pgTable("giftCode", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    name : text("name"),
+    plan : inseratPriceType("plan"),
+    inseratAmount : integer("inseratAmount"),
+    userAmount : integer("userAmount"),
+    availableAmount : integer("availableAmount"),
+    expirationDate : timestamp("expirationDate", { mode: "date" }),
+    code : text("code"),
+    
 })
 
 export const conversation = pgTable("conversation", {

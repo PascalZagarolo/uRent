@@ -119,9 +119,10 @@ const Main = cache(async ({
 
                 <div>
                     <div className="relative flex justify-center mt-4">
-                    <div className="hidden sm:block">
+                    <div>
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
-                                crossOrigin="anonymous"></script>
+                            //@ts-ignore
+                                crossorigin="anonymous"></script>
                             <ins className="adsbygoogle"
                                 style={{ display: "block" }}
                                 data-ad-client="ca-pub-9497499351411762"
@@ -188,9 +189,10 @@ const Main = cache(async ({
                                 userId={searchParams.user}
                             />
                         </div>
-                        <div className="hidden sm:block">
+                        <div>
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
-                                crossOrigin="anonymous"></script>
+                                //@ts-ignore
+                                crossorigin="anonymous"></script>
                             <ins className="adsbygoogle"
                                 style={{ display: "block" }}
                                 data-ad-client="ca-pub-9497499351411762"

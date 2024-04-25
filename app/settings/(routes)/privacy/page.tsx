@@ -68,7 +68,10 @@ const SettingsPage = async () => {
                                 </div>
 
                                 <div className="p-4">
-                                    <DataUsage />
+                                    <DataUsage 
+                                    usesNewsletter={currentUser?.newsletter}
+                                    currentUserId={currentUser?.id}
+                                    />
                                 </div>
 
                             </div>

@@ -44,8 +44,8 @@ const SearchPage = async () => {
                     foundNotifications={foundNotifications}
                 />
             </div>
-            <div className="flex justify-center p-8 bg-[#404040]/10">
-                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+            <div className="flex justify-center sm:p-8 bg-[#404040]/10">
+                <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
 
 

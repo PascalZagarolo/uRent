@@ -27,12 +27,12 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
           <>
 
             <CarouselItem key={index}>
-              <div className="w-full md:h-[320px] rounded-md overflow-hidden ">
+              <div className="w-full md:h-[320px] h-[240px] sm:rounded-md  overflow-hidden">
                 <Dialog>
                   <DialogTrigger asChild>
                     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
                     <Image
-                      className="w-full h-full object-cover hover:cursor-pointer"
+                      className="w-full h-full  object-cover hover:cursor-pointer"
                       src={image.url}
                       alt="Inserat Image"
                       fill

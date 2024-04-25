@@ -116,16 +116,7 @@ const Main = cache(async ({
 
             <div>
                 <div className="relative flex justify-center mt-4">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
-                        crossOrigin="anonymous"></script>
                     
-                    <ins className="adsbygoogle"
-                        style={{ display:"inline-block", width:"300px", height:"450px"}}
-                        data-ad-client="ca-pub-9497499351411762"
-                        data-ad-slot="5976079271"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
                     <div className="top-0 sm:mr-4 ">
                         <MainPageSideBar />
                     </div>
@@ -182,18 +173,7 @@ const Main = cache(async ({
                             userId={searchParams.user}
                         />
                     </div>
-                    <div>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
-                        crossOrigin="anonymous"></script>
                     
-                    <ins className="adsbygoogle"
-                        style={{ display:"inline-block", width:"300px", height:"450px"}}
-                        data-ad-client="ca-pub-9497499351411762"
-                        data-ad-slot="5976079271"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
-                    </div>
                     
                 </div>
                 <div className="sm:p-4 flex justify-center w-full">

@@ -12,6 +12,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import qs from "query-string";
 import { useGetFilterAmount } from "@/store";
+import { MdOutlineCancel } from "react-icons/md";
 
 const MobileFilterSheet = () => {
 
@@ -64,13 +65,15 @@ const MobileFilterSheet = () => {
             <SheetTrigger className="flex items-center sm:bg-[#1C1E2C] p-2 rounded-md">
                 <AlignLeft className="w-6 h-6" />
             </SheetTrigger>
-            <SheetContent side="left" className="bg-[#202336] border-none w-2/3 h-full overflow-y-scroll no-scrollbar">
-                <h3 className="text-bold text-2xl p-2 rounded-md mt-4 flex w-full justify-center text-gray-100 items-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                 bg-[#1b1e2c]">
-                    <FilterIcon className="mr-4" /> Suchfilter <X className="h-4 w-4 mb-2 ml-2 hover:cursor-pointer" onClick={onReset} />
-                </h3>
+            <SheetContent side="left" className="bg-[#202336] p-0 px-0 pb-4 border-none w-4/5 h-full overflow-y-scroll no-scrollbar">
+            <h3 className="text-bold text-2xl p-4 font-medium  flex justify-center text-gray-100 items-center  bg-[#1b1e2c]">
+                <FilterIcon className="mr-4" /> Suchfilter                 
+            </h3>
+            <p className="w-full flex bg-[#1b1e2c] justify-center items-center text-xs pb-2 hover:underline hover:cursor-pointer" onClick={onReset}>
+            <MdOutlineCancel  className="w-4 h-4 mr-2 text-rose-600" />  Filter zurücksetzen
+            </p>
 
-                <div className="mt-4 ">
+                <div className=" p-4">
                     <h3 className="text-gray-100 font-semibold  rounded-md  py-2 flex justify-center  bg-[#1b1f2c] dark:border-[#1f2332]">
                         Fahrzeugkategorie
                     </h3>

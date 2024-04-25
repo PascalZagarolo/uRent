@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import { MdOutlineRedeem } from "react-icons/md";
 import { z } from "zod";
@@ -18,9 +20,17 @@ import { z } from "zod";
 const RedeemCode = () => {
 
     const [usedCode, setUsedCode] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = () => {
-        console.log()
+        try {
+            setIsLoading(true);
+        } catch(error : any) {
+            console.log(error);
+            toast.error("Etwas ist schief gelaufen");
+        } finally {
+            setIsLoading(false);
+        }
     }
     
     const formSchema = z.object({

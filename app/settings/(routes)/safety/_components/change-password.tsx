@@ -24,7 +24,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({
     return (
         <div>
             <div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <Label className="text-sm font-semibold p-2">
                         Passwort
                     </Label>

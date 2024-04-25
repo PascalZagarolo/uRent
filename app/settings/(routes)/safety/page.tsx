@@ -20,6 +20,7 @@ import { redirect } from "next/navigation";
 import EnableSocialLogin from "./_components/enable-social";
 import { FcGoogle } from "react-icons/fc";
 import Footer from "@/app/(dashboard)/_components/footer";
+import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 
 
 
@@ -56,8 +57,14 @@ const SettingsPage = async () => {
                     foundNotifications={foundNotifications}
                 />
             </div>
-            <div className="flex justify-center py-8 px-4">
-                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+            <div className="sm:hidden">
+                <MobileHeader
+                    currentUser={currentUser}
+                    foundNotifications={foundNotifications}
+                />
+            </div>
+            <div className="flex justify-center sm:py-8  sm:px-4">
+                <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div>
                         <MenuBar />
                     </div>

@@ -104,7 +104,7 @@ const ChangeEmail: React.FC<ChangeEmailProps> = ({
         <div>
             <div>
                 <Dialog>
-                    <div className="w-1/2">
+                    <div className="sm:w-1/2 w-full">
                         <Label className="text-sm font-semibold p-2">
                             E-Mail Adresse
                         </Label>

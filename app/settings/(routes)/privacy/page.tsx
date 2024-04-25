@@ -14,6 +14,7 @@ import { MdOutlinePrivacyTip } from "react-icons/md";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
 import { redirect } from "next/navigation";
 import Footer from "@/app/(dashboard)/_components/footer";
+import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 
 
 
@@ -42,8 +43,14 @@ const SettingsPage = async () => {
                     foundNotifications={foundNotifications}
                 />
             </div>
-            <div className="flex justify-center py-8 px-4">
-                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+            <div className="sm:hidden">
+                <MobileHeader
+                    currentUser={currentUser}
+                    foundNotifications={foundNotifications}
+                />
+            </div>
+            <div className="flex justify-center sm:py-8 sm:px-4">
+                <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div>
                         <MenuBar />
                     </div>
@@ -60,7 +67,7 @@ const SettingsPage = async () => {
 
                                 </div>
                             </h3>
-                            <div className="w-full p-4 mt-2 rounded-md">
+                            <div className="w-full sm:p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
                                     <AccountPrivacy 
                                     thisUser={currentUser}

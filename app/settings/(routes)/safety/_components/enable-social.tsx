@@ -54,7 +54,7 @@ const EnableSocialLogin: React.FC<EnableSocialLoginProps> = ({
     return (
         <div>
             <div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     {enabledSocials ? (
                         <AlertDialog>
                             <AlertDialogTrigger asChild>

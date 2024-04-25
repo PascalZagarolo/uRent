@@ -1,37 +1,100 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
+
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+
 import { useState } from "react";
-import { IoMdGift } from "react-icons/io";
+import { useForm } from "react-hook-form";
+
+import { MdOutlineRedeem } from "react-icons/md";
+import { z } from "zod";
 
 
 const RedeemCode = () => {
 
     const [usedCode, setUsedCode] = useState("");
 
-    return ( 
-        <div className="sm:w-1/4">
-            <h1 className="text-sm font-semibold flex items-center">
-            <IoMdGift className="w-4 h-4 mr-2" />  Code einlösen
-            </h1>
+    const onSubmit = () => {
+        console.log()
+    }
+    
+    const formSchema = z.object({
+        pin : z.string().length(16).min(16, {
+            message : "Bitte gebe einen gültigen Gutscheincode ein."
+        })
+    })
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver : zodResolver(formSchema),
+        defaultValues : {
+            pin : ""
+        }
+    })
+
+    return (
+        <div className="w-full">
+            
             <div className="w-full mt-2">
-                <Input 
-                 placeholder="XXXX-XXXX-XXXX-XXXX"
-                 className="dark:border-none dark:bg-[#171717]"
-                 onChange={(e) => {
-                    setUsedCode(e.target.value);
-                 }}
-                />
+                
+                    
+                    <div className="dark:border-none dark:bg-[#191919] rounded-md p-4 w-full">
+                        <div>
+                            <div>
+                                <h3 className="font-semibold text-md flex items-center">
+                                    <MdOutlineRedeem className="w-4 h-4 mr-2" />  Code einlösen
+                                </h3>
+                                <p className="text-xs dark:text-gray-200/70">
+                                    Gebe hier deinen 16-stelligen Code ein, um dein Abo einzulösen.
+                                </p>
+                            </div>
+                            <div className="mt-2">
+                                <Form {...form}>
+                                    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+                                        <FormField
+                                            control={form.control}
+                                            name="pin"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel className="text-sm">Gutscheincode</FormLabel>
+                                                    <FormControl>
+                                                        <Input 
+                                                        
+                                                        name="pin"
+                                                        className="dark:bg-[#151515] sm:w-1/2 dark:border-none"
+                                                        onChange={(e) => setUsedCode(e.target.value)}
+                                                        value={usedCode}
+                                                        placeholder="xxxxxxxxxxxxxxxx"
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription className="text-xs">
+                                                        um über die neuesten Angebote und Aktionen informiert zu werden, <br/>
+                                                        melde dich unter deinem Profil für unseren Newsletter an.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <Button variant="ghost" 
+                                        className="mt-2 dark:bg-[#151515] dark:hover:text-gray-300"
+                                        disabled={!usedCode}
+                                        >
+                                            Code überprüfen</Button>
+                                    </form>
+                                </Form>
+                            </div>
+                        </div>
+                    </div>
+               
             </div>
-            <div className="ml-auto flex justify-end">
-                <Button className="" size="sm"
-                 variant="ghost" disabled={!usedCode}>
-                    Einlösen
-                </Button>
-            </div>
+
         </div>
-     );
+    );
 }
- 
+
 export default RedeemCode;

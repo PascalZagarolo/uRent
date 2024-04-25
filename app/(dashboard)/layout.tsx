@@ -14,14 +14,14 @@ const DashboardLayout = cache(async (
 
     <meta
         name="Mieten auf uRent!"
-        content="Kostenlos und schnell mieten auf uRent. Mieten Sie alles, was Sie brauchen."
+        content="Kostenlos und schnell mieten auf uRent. Mieten Sie Pkw, Lkw, Transport und Anhänger."
     />
 
 
 
     const currentUser = await getCurrentUser();
 
-    console.log(currentUser)
+    
 
     const foundNotifications = await db.query.notification.findMany({
         where: (
@@ -33,7 +33,7 @@ const DashboardLayout = cache(async (
 
 
     return (
-        <div className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar">
+        <body className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar">
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
@@ -57,7 +57,7 @@ const DashboardLayout = cache(async (
                 
             </div>
 
-        </div>
+        </body>
     );
 });
 

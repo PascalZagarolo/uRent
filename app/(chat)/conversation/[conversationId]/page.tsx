@@ -142,7 +142,7 @@ const ConversationPage = async ({
                     foundNotifications={foundNotifications}
                 />
             </div>
-            <div className="flex justify-center min-h-full py-8  px-4">
+            <div className="flex justify-center min-h-full sm:py-8  sm:px-4">
                 <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] 
             h-full hidden md:block dark:border-[#1C1C1C] border">
                     <h3 className="text-md font-semibold flex items-center p-4 ">

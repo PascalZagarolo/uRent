@@ -27,7 +27,7 @@ const Footer = () => {
               </div>
 
               <div className="font-medium flex-col">
-                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/impressum">
+                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/imprint">
                   Impressum
                 </a>
                 <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/data-privacy">

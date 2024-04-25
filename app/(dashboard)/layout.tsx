@@ -33,7 +33,7 @@ const DashboardLayout = cache(async (
 
 
     return (
-        <body className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar">
+        <div className="bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen no-scrollbar">
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
@@ -48,16 +48,16 @@ const DashboardLayout = cache(async (
                 />
             </div>
 
-            <div className="w-full">
+      
                 
                 <div className="w-full">
                     {children}
                     
                 </div>
                 
-            </div>
+          
 
-        </body>
+        </div>
     );
 });
 

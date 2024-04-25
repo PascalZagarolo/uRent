@@ -13,6 +13,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Checkbox } from "@/components/ui/checkbox";
 import { address, contactOptions, inserat } from "@/db/schema";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { businessAddress, business } from '../../../../../db/schema';
 
 
 interface SelectLocationProps {
@@ -57,9 +58,12 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   }, [currentLocation]);
 
+  
+
   const onPrefill = (e : boolean) => {
     if(e) {
-      setCurrentZipCode(usedContactOptions?.userAddress?.postalCode)
+      if(!thisInserat?.user?.business || !thisInserat?.user?.business?.businessAddresses) {
+        setCurrentZipCode(usedContactOptions?.userAddress?.postalCode)
     let usedString = usedContactOptions?.userAddress?.street + ", " + usedContactOptions?.userAddress?.postalCode + ", "
     + usedContactOptions?.userAddress?.city
 
@@ -67,6 +71,18 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     //@ts-ignore
     inputRef.current.value = usedString;
     setCurrentAddress(usedString);
+      } else {
+        console.log(thisInserat?.user?.business?.businessAddresses[0].postalCode)
+        setCurrentZipCode(thisInserat?.user?.business?.businessAddresses[0].postalCode)
+        let usedString = thisInserat?.user?.business?.businessAddresses[0]?.street + ", " + 
+        thisInserat?.user?.business?.businessAddresses[0]?.postalCode + ", "
+        + thisInserat?.user?.business?.businessAddresses[0]?.city
+        console.log(usedString)
+        usedString = usedString.trim();
+        //@ts-ignore
+        inputRef.current.value = usedString;
+        setCurrentAddress(usedString);
+      }
     } else {
       setCurrentZipCode(thisAddressComponent?.postalCode || "")
       setCurrentAddress(thisAddressComponent?.locationString || "")

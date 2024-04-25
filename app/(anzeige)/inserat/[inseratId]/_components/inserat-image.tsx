@@ -27,7 +27,7 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
           <>
 
             <CarouselItem key={index}>
-              <div className="w-full md:h-[320px] rounded-md overflow-hidden drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+              <div className="w-full md:h-[320px] rounded-md overflow-hidden ">
                 <Dialog>
                   <DialogTrigger asChild>
                     <div style={{ height: '100%', width: '100%', position: 'relative' }}>

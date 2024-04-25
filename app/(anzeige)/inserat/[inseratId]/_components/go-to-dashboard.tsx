@@ -18,7 +18,7 @@ const GoToDashboard: React.FC<GoToDashboardProps> = ({
     const router = useRouter();
 
     return (
-        <div className="w-[240px]">
+        <div className="sm:w-[240px]">
             <Button className="w-full bg-[#20222F] text-gray-200 border-none border-gray-900 hover:bg-[#20222F]"
             onClick={() => {
                 router.push(`/dashboard/${userId}/manage`);

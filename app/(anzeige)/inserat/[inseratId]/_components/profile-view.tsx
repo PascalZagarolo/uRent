@@ -45,7 +45,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
     return (
         <div className="px-4 py-4 bg-[#171923] xl:min-w-[360px] sm:w-2/5 w-full 
-          rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
+          sm:rounded-md 
          dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
          ">
 

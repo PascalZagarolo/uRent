@@ -192,8 +192,8 @@ const InseratAnzeige = async ({
                     crossOrigin="anonymous"></script>
             </head>
             <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max ">
-                <div className="h-full sm:p-4 p-2 w-full">
-                    <div className="w-full justify-end flex">
+                <div className="h-full sm:p-4  w-full">
+                    <div className="w-full justify-end flex p-2 sm:p-0">
                         <BreadCrumbs
                             thisCategory={thisInserat.category}
                             thisTitle={thisInserat.title}
@@ -201,7 +201,8 @@ const InseratAnzeige = async ({
                     </div>
                     <div className="flex xl:justify-end justify-center w-full">
 
-                        <div className="mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  
+                        <div className="sm:mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 
+                        sm:rounded-md  
                     sm:w-8/12 w-full">
 
                             <div className="flex  justify-between  w-full">
@@ -277,11 +278,11 @@ const InseratAnzeige = async ({
                                 <div className="flex w-full items-center">
                                     {thisInserat.license && (
                                         <div className=" font-semibold flex w-3/4 items-center">
-                                            <FaAddressCard className="w-4 h-4 mr-2" /><p className="font-normal px-2">
+                                            <FaAddressCard className="w-4 h-4 mr-2" /><p className="font-normal px-2 sm:block hidden">
                                                 Führerscheinklasse : </p> {thisInserat.license}
                                         </div>
                                     )}
-                                    <div className="ml-auto flex mt-2 text-xl font-semibold ">
+                                    <div className="ml-auto justify-end w-1/2 flex mt-2 text-md sm:text-xl font-semibold ">
                                         {thisInserat.price} € {thisInserat.dailyPrice && <p className="text-xs px-1">/Tag </p>}
                                     </div>
                                 </div>
@@ -415,7 +416,7 @@ const InseratAnzeige = async ({
 
                     </div>
                     <div className="flex sm:justify-center xl:justify-end">
-                        <div className="flex justify-end xl:ml-auto sm:w-8/12 mt-8">
+                        <div className="flex justify-end xl:ml-auto sm:w-8/12 sm:mt-8">
 
                             <InseratAttributes
                                 thisInserat={thisInserat}
@@ -429,7 +430,7 @@ const InseratAnzeige = async ({
 
                 <div>
 
-                    <div className=" p-2 xl:mt-8 sm:flex justify-center xl:block">
+                    <div className=" sm:p-2 xl:mt-8 sm:flex justify-center xl:block">
 
                         <div className="xl:hidden flex sm:block justify-center">
 

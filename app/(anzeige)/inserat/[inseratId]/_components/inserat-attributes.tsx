@@ -19,7 +19,7 @@ const InseratAttributes: React.FC<InseratAttributesProps> = ({
     const usedCategory : typeof CategoryEnumRender = thisInserat.category;
 
     return (
-        <div className="bg-[#161923]  rounded-md w-full p-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-gray-200">
+        <div className="bg-[#161923]  sm:rounded-md w-full p-4  text-gray-200">
             <h3 className="font-semibold flex items-center">
                 {
                     {

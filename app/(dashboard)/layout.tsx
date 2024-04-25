@@ -48,14 +48,14 @@ const DashboardLayout = cache(async (
                 />
             </div>
 
-            <section className="w-full">
+            <div className="w-full">
                 
                 <div className="w-full">
                     {children}
                     
                 </div>
                 
-            </section>
+            </div>
 
         </div>
     );

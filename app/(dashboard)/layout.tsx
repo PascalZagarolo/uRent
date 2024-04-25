@@ -48,38 +48,13 @@ const DashboardLayout = cache(async (
                 />
             </div>
 
-            <section className="flex justify-center w-full">
-                <div className="p-4 hidden sm:block">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
-                        crossOrigin="anonymous"></script>
-                   
-                    <ins className="adsbygoogle"
-                        style={{ display:"block" }}
-                        data-ad-client="ca-pub-9497499351411762"
-                        data-ad-slot="3797720061"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
-                </div>
-                <div>
+            <section className="w-full">
+                
+                <div className="w-full">
                     {children}
+                    
                 </div>
-                <div className="p-4 hidden sm:block">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
-                        crossOrigin="anonymous"></script>
-                   
-                    <ins className="adsbygoogle"
-                        style={{ display:"block" }}
-                        data-ad-client="ca-pub-9497499351411762"
-                        data-ad-slot="3797720061"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({ });
-                    </script>
-                </div>
+                
             </section>
 
         </div>

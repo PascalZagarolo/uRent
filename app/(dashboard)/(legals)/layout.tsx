@@ -2,8 +2,10 @@ import Footer from "../_components/footer";
 
 const LegalLayout = ({ children } : { children : React.ReactNode }) => {
     return ( 
-        <div className="">
+        <div>
+            <div>
             {children}
+            </div>
             <div>
                 <Footer/>
             </div>

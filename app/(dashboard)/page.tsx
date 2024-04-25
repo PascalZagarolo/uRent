@@ -110,11 +110,8 @@ const Main = cache(async ({
     return (
 
 
-        <>
-            <head>
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
-                    crossOrigin="anonymous"></script>
-            </head>
+       
+            
             <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
 
                 <div>
@@ -213,7 +210,7 @@ const Main = cache(async ({
                 </div>
             </div>
             
-        </>
+        
 
 
     );

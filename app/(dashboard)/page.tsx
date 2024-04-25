@@ -110,82 +110,106 @@ const Main = cache(async ({
     return (
 
 
-<>
-<head>
+        <>
+            <head>
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
                     crossOrigin="anonymous"></script>
             </head>
-        <div className="sm:h-full sm:overflow-y-auto no-scrollbar">
-            
-            <div>
-                <div className="relative flex justify-center mt-4">
+            <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
 
-                    <div className="top-0 sm:mr-4 ">
-                        <MainPageSideBar />
+                <div>
+                    <div className="relative flex justify-center mt-4">
+                    <body>
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
+                                crossOrigin="anonymous"></script>
+                            <ins class="adsbygoogle"
+                                style={{ display: "block" }}
+                                data-ad-client="ca-pub-9497499351411762"
+                                data-ad-slot="3797720061"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({ });
+                            </script>
+                        </body>
+                        <div className="top-0 sm:mr-4 ">
+                            <MainPageSideBar />
+                        </div>
+
+                        <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
+
+                            <RelevanteInserate
+                                title={searchParams.title}
+                                thisCategory={searchParams.category}
+                                filter={searchParams.filter}
+                                start={searchParams.start}
+                                end={searchParams.end}
+                                page={searchParams.page}
+                                periodBegin={searchParams.periodBegin}
+                                periodEnd={searchParams.periodEnd}
+                                location={searchParams.location}
+                                amount={searchParams.amount}
+
+                                reqAge={searchParams.reqAge}
+                                reqLicense={searchParams.license}
+
+                                // Car specific attributes
+                                thisBrand={searchParams.brand}
+                                doors={searchParams.doors}
+                                initial={searchParams.initial}
+                                power={searchParams.power}
+                                seats={searchParams.seats}
+                                fuel={searchParams.fuel}
+                                transmission={searchParams.transmission}
+                                thisType={searchParams.type}
+                                freeMiles={searchParams.freeMiles}
+                                extraCost={searchParams.extraCost}
+
+                                //LKW specific attributes
+                                weightClass={searchParams.weightClass}
+                                drive={searchParams.drive}
+                                loading={searchParams.loading}
+                                application={searchParams.application}
+                                lkwBrand={searchParams.lkwBrand}
+
+                                trailerType={searchParams.trailerType}
+                                coupling={searchParams.coupling}
+                                extraType={searchParams.extraType}
+                                axis={searchParams.axis}
+                                brake={searchParams.brake}
+
+                                currentUser={currentUser}
+
+                                volume={searchParams.volume}
+                                loading_l={searchParams.loading_l}
+                                loading_b={searchParams.loading_b}
+                                loading_h={searchParams.loading_h}
+
+                                radius={searchParams.radius}
+                                userId={searchParams.user}
+                            />
+                        </div>
+                        <body>
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
+                                crossOrigin="anonymous"></script>
+                            <ins class="adsbygoogle"
+                                style={{ display: "block" }}
+                                data-ad-client="ca-pub-9497499351411762"
+                                data-ad-slot="3797720061"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({ });
+                            </script>
+                        </body>
                     </div>
-
-                    <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
-
-                        <RelevanteInserate
-                            title={searchParams.title}
-                            thisCategory={searchParams.category}
-                            filter={searchParams.filter}
-                            start={searchParams.start}
-                            end={searchParams.end}
-                            page={searchParams.page}
-                            periodBegin={searchParams.periodBegin}
-                            periodEnd={searchParams.periodEnd}
-                            location={searchParams.location}
-                            amount={searchParams.amount}
-
-                            reqAge={searchParams.reqAge}
-                            reqLicense={searchParams.license}
-
-                            // Car specific attributes
-                            thisBrand={searchParams.brand}
-                            doors={searchParams.doors}
-                            initial={searchParams.initial}
-                            power={searchParams.power}
-                            seats={searchParams.seats}
-                            fuel={searchParams.fuel}
-                            transmission={searchParams.transmission}
-                            thisType={searchParams.type}
-                            freeMiles={searchParams.freeMiles}
-                            extraCost={searchParams.extraCost}
-
-                            //LKW specific attributes
-                            weightClass={searchParams.weightClass}
-                            drive={searchParams.drive}
-                            loading={searchParams.loading}
-                            application={searchParams.application}
-                            lkwBrand={searchParams.lkwBrand}
-
-                            trailerType={searchParams.trailerType}
-                            coupling={searchParams.coupling}
-                            extraType={searchParams.extraType}
-                            axis={searchParams.axis}
-                            brake={searchParams.brake}
-
-                            currentUser={currentUser}
-
-                            volume={searchParams.volume}
-                            loading_l={searchParams.loading_l}
-                            loading_b={searchParams.loading_b}
-                            loading_h={searchParams.loading_h}
-
-                            radius={searchParams.radius}
-                            userId={searchParams.user}
-                        />
+                    <div className="sm:p-4 flex justify-center w-full">
+                        <PaginationComponent />
                     </div>
+                </div>
+                <Footer />
 
-                </div>
-                <div className="sm:p-4 flex justify-center w-full">
-                    <PaginationComponent />
-                </div>
             </div>
-            <Footer />
-
-        </div>
         </>
 
 

@@ -10,6 +10,8 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { render } from '@react-email/components';
 import SubscriptionsRenderList from "./_components/subscriptions-render-list";
 import { cn } from "@/lib/utils";
+import { stripe } from "@/lib/stripe";
+import { format } from "date-fns";
 
 
 
@@ -25,7 +27,10 @@ const PaymentsPage = async () => {
         }
     })
 
-    
+    const retrievedSubscription = await stripe.subscriptions.retrieve(
+        existingSubscription.subscription.stripe_subscription_id
+    )
+
 
 
 
@@ -38,6 +43,7 @@ const PaymentsPage = async () => {
             )
         )
 
+        
 
     return (
         <div className="flex justify-center py-8 px-4  ">
@@ -73,14 +79,14 @@ const PaymentsPage = async () => {
                                 </p>
                                 {existingSubscription.subscription ? (
                                     <div className="text-2xl font-medium flex gap-x-1 mt-2">
-                                    <p className={cn("font-bold",
-                                        countInserate[0]?.count !== existingSubscription?.subscription?.amount ? "text-green-500" : "text-red-500"
-                                    )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription?.amount}
-                                </div>
+                                        <p className={cn("font-bold",
+                                            countInserate[0]?.count !== existingSubscription?.subscription?.amount ? "text-green-500" : "text-red-500"
+                                        )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription?.amount}
+                                    </div>
                                 ) : (
                                     <div className="text-2xl font-medium flex gap-x-1 mt-2">
-                                    Noch kein Plan ausgewählt
-                                </div>
+                                        Noch kein Plan ausgewählt
+                                    </div>
                                 )}
                             </div>
 
@@ -93,22 +99,58 @@ const PaymentsPage = async () => {
                                 </p>
                                 {existingSubscription.subscription ? (
                                     <div className="text-2xl font-semibold flex gap-x-1 mt-2">
-                                    <p className="font-semibold text-indigo-800">
-                                        {existingSubscription?.subscription?.subscriptionType}
-                                    </p>
-                                </div>
+                                        <p className="font-semibold text-indigo-800">
+                                            {existingSubscription?.subscription?.subscriptionType}
+                                        </p>
+                                    </div>
                                 ) : (
                                     <div className="text-2xl font-medium flex gap-x-1 mt-2">
-                                  Gratis
-                                </div>
+                                        Gratis
+                                    </div>
                                 )}
                             </div>
                         </div>
+
+                        <div className="w-full flex flex-row mt-8">
+
+                            <div className="w-1/2">
+                                <h1 className="font-semibold">
+                                    Abonnement Status
+                                </h1>
+                                <p className="text-xs dark:text-gray-200/60 ">
+                                    Gekündigt oder aktiv.
+                                </p>
+                                {existingSubscription.subscription ? (
+                                    retrievedSubscription.cancel_at_period_end ? (
+                                        <div className="font-semibold text-rose-600 gap-x-1 flex items-center text-sm">
+                                            Gekündigt 
+                                            <div className="text-gray-200 text-xs">
+                                                (Endet am {format(new Date(existingSubscription?.subscription.stripe_current_period_end), "dd.MM.yyyy")} )
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="font-semibold text-emerald-600 gap-x-1 flex items-center text-sm">
+                                            Aktiv 
+                                            <div className="text-gray-200 text-xs">
+                                                (wird verlängert am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end), "dd.MM.yyyy")} )
+                                            </div>
+                                        </div>
+                                    )
+                                ) : (
+                                    <div className="text-2xl font-medium flex gap-x-1 mt-2">
+                                        Noch kein Plan ausgewählt
+                                    </div>
+                                )}
+                            </div>
+
+                            
+                        </div>
+
                         <div className="mt-8">
                             {existingSubscription.subscription ? (
                                 <SubscriptionsRenderList
-                                subscriptions={existingSubscription}
-                            />
+                                    subscriptions={existingSubscription}
+                                />
                             ) : (
                                 <div>
                                     <div className="text-sm dark:text-gray-200/70 gap-y-2">

@@ -651,6 +651,7 @@ export const giftCode = pgTable("giftCode", {
     name : text("name"),
     plan : inseratPriceType("plan"),
     inseratAmount : integer("inseratAmount"),
+    months : integer("months"),
     userAmount : integer("userAmount"),
     availableAmount : integer("availableAmount"),
     expirationDate : timestamp("expirationDate", { mode: "date" }),

@@ -15,7 +15,7 @@ import { CalendarCheck2, CalendarIcon, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaSign, FaSortAmountUpAlt } from "react-icons/fa";
+import { FaBusinessTime, FaSign, FaSortAmountUpAlt } from "react-icons/fa";
 import { FiCode } from "react-icons/fi";
 import { RiVipDiamondLine } from "react-icons/ri";
 
@@ -25,6 +25,7 @@ const GenerateCode = () => {
     const [currentAmount, setCurrentAmount] = useState(null);
     const [currentDate, setCurrentDate] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
+    const [currentMonths, setCurrentMonths] = useState(null);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -39,6 +40,7 @@ const GenerateCode = () => {
                 inseratAmount : currentAmount,
                 availableAmount : currentUser,
                 expirationDate : currentDate,
+                months : currentMonths,
                 userAmount : currentUser
             }
 
@@ -73,7 +75,25 @@ const GenerateCode = () => {
                         onChange={(e) => setCurrentName(e.target.value)}
                         />
                     </div>
-                    
+                    <div className="w-1/2">
+                        <Label className="flex items-center"> <FaBusinessTime  className="w-4 h-4 mr-2" />  Dauer </Label>
+                        <Select
+                        onValueChange={(value) => setCurrentMonths(value)}
+                        >
+                            <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
+                                <SelectValue placeholder="Wähle die gewünschte Dauer" />
+                            </SelectTrigger>
+                            <SelectContent className="dark:border-none dark:bg-[#191919]">
+                                <SelectItem value="1">1</SelectItem>
+                                <SelectItem value="2">2</SelectItem>
+                                <SelectItem value="3">3</SelectItem>
+                                <SelectItem value="4">4</SelectItem>
+                                <SelectItem value="5">5</SelectItem>
+                                <SelectItem value="6">6</SelectItem>
+                                
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </div>
 
                 <div className="w-full flex items-center mt-4 gap-x-8">
@@ -182,7 +202,8 @@ const GenerateCode = () => {
                         !currentPlan ||
                         !currentAmount ||
                         !currentDate ||
-                        !currentUser
+                        !currentUser || 
+                        !currentMonths
                     }
                     onClick={onCreate}
                      >

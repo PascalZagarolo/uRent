@@ -51,6 +51,7 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "date-fns": "^3.0.6",
+    "date.js": "^0.3.3",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.8",
     "embla-carousel-autoplay": "^8.0.0-rc21",

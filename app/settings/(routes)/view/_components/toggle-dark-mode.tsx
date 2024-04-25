@@ -33,7 +33,7 @@ const ToggleDarkMode = () => {
             <h3 className="font-semibold flex items-center">
               <BrushIcon className="w-4 h-4 mr-2" />  Themes
             </h3>
-            <div className="flex space-x-4 mt-2 justify-between">
+            <div className="sm:flex space-x-4 mt-2 justify-between">
             {/*
             
             <div className={cn("w-1/4 rounded-md", theme === "light" && "")} onClick={() => { setTheme("light") }}>
@@ -63,7 +63,7 @@ const ToggleDarkMode = () => {
 
             */ }
 
-<div className={cn("w-1/4 rounded-md", theme === "dark" && "")}>
+<div className={cn("sm:w-1/4 w-full rounded-md", theme === "dark" && "")}>
                     <div>
                     <div className="bg-[#121212] p-2 space-y-2 hover:cursor-pointer rounded-t-md" onClick={() => { setTheme("dark") }}>
                         <div className="bg-[#191919] rounded-md p-4 space-y-1">

@@ -40,7 +40,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
     return ( 
         <div>
             <div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <Checkbox 
                     onCheckedChange={(e) => {onChange(e)}}
                     checked={thisUser.usesTwoFactor}

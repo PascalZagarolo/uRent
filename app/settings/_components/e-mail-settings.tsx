@@ -12,7 +12,7 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({
     return ( 
         <div>
             <div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full">
                     <Label className="text-sm font-semibold px-2 flex items-center gap-x-2">
                        <MailIcon className="w-4 h-4" /> E-Mail Adresse
                     </Label>

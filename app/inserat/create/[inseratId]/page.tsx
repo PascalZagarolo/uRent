@@ -18,7 +18,7 @@ import ConditionsInformation from "./_parts/conditions-information";
 import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { and, count, eq, sql } from "drizzle-orm";
-import { address, contactOptions, images, inserat, lkwAttribute, notification, 
+import { address, businessAddress, contactOptions, images, inserat, lkwAttribute, notification, 
     pkwAttribute, trailerAttribute, transportAttribute, userAddress, userTable } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
@@ -27,6 +27,7 @@ import SaveChanges from "../_components/save-changes";
 import PriceProfiles from "./_parts/price-profiles";
 import { redirect } from "next/navigation";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
+
 
 
 
@@ -49,7 +50,8 @@ const InseratCreation = async ({
                     userAddress : true
                 }
             },
-            subscription : true
+            subscription : true,
+            
         }
     })
 
@@ -73,7 +75,15 @@ const InseratCreation = async ({
         with: {
             images: true,
             address: true,
-            user : true,
+            user : {
+                with : {
+                    business : {
+                        with : {
+                            businessAddresses : true
+                        }
+                    }
+                }
+            },
             pkwAttribute: true,
             lkwAttribute: true,
             trailerAttribute: true,

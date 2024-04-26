@@ -190,7 +190,9 @@ const InseratAnzeige = async ({
             <div className='flex w-full '>
            
             <div className='w-2/12 sm:block hidden h-full  items-center'>
+            <div className='h-full flex items-center'>
                         <AdsComponent dataAdSlot='3797720061' />
+                        </div>
                         </div>
 
                     
@@ -270,7 +272,9 @@ const InseratAnzeige = async ({
 
             </div>
             <div className='w-2/12 sm:block hidden h-full  items-center'>
+                        <div className='h-full flex items-center'>
                         <AdsComponent dataAdSlot='3797720061' />
+                        </div>
                         </div>
             
             </div>

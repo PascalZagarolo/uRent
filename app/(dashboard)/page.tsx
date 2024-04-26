@@ -24,6 +24,7 @@ import {
     LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender
 } from "@/db/schema";
 import { cache } from "react";
+import HeaderInfo from "./_bodyparts/_components/header-info";
 
 
 
@@ -115,6 +116,9 @@ const Main = cache(async ({
         <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
 
             <div>
+            <div className="sm:flex hidden justify-center py-2">
+                        <HeaderInfo />
+                    </div>
                 <div className="relative flex justify-center mt-4">
                     
                     <div className="top-0 sm:mr-4 ">

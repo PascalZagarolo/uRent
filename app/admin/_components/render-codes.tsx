@@ -34,7 +34,7 @@ const RenderCodes: React.FC<RenderCodesProps> = ({
                         <TableHead className="">Name</TableHead>
                         <TableHead></TableHead>
                         <TableHead>Plan</TableHead>
-                        <TableHead>Anzahl Inserate</TableHead>
+                        <TableHead>Anz. Inserate</TableHead>
                         <TableHead>Dauer</TableHead>
                         <TableHead>Ablauf Datum</TableHead>
                         <TableHead className="text-right">Anzahl Nutzer</TableHead>

@@ -37,7 +37,7 @@ const InseratShow : React.FC<InseratShowProps> = ({
     return ( 
         <div className="sm:mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 
                         sm:rounded-md  
-                    sm:w-8/12 w-full">
+                     w-full">
 
                             <div className="flex  justify-between  w-full">
                                 <div className="bg-[#1d1f2b] w-1/8 rounded-lg p-4">

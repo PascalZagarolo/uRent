@@ -324,21 +324,32 @@ const MieterFaq = () => {
                                 <div>
                                     <Accordion type="single" collapsible className="text-sm">
                                         <AccordionItem value="item-29">
-                                            <AccordionTrigger>Wie ändere ich meine Zahlungsmethode?</AccordionTrigger>
-                                            <AccordionContent>...</AccordionContent>
+                                            <AccordionTrigger>Wo kann ich meinen Zahlungsverkehr verwalten? </AccordionTrigger>
+                                            <AccordionContent>Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und dann auf „Dashboard“. 
+                                                Sie können dort unter „Zahlungsverkehr“ alles zugehörige finden. </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-30">
-                                            <AccordionTrigger>Wie kann ich meinen Plan upgraden?</AccordionTrigger>
-                                            <AccordionContent>...</AccordionContent>
+                                            <AccordionTrigger>Wie ändere ich meine Zahlungsmethode? </AccordionTrigger>
+                                            <AccordionContent>Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und dann auf „Dashboard“. 
+                                                Sie können dort unter „Zahlungsverkehr“ in Ihrem aktuellen Plan unter „Abo verwalten“ die Zahlungsmethode ändern. </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-31">
-                                            <AccordionTrigger>Wie kann ich meinen Plan kündigen?</AccordionTrigger>
-                                            <AccordionContent>...</AccordionContent>
+                                            <AccordionTrigger>Wie kann ich meinen Plan ändern? </AccordionTrigger>
+                                            <AccordionContent>Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und dann auf „Dashboard“. 
+                                                Sie können dort unter „Zahlungsverkehr“ in Ihrem aktuellen Plan die „Plan ändern“ auswählen. </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-32">
-                                            <AccordionTrigger>Was wenn ich die dem Plan entsprechenden Funktionen 
-                                                nach dem Abonnieren nicht erhalten habe?</AccordionTrigger>
-                                            <AccordionContent>...</AccordionContent>
+                                            <AccordionTrigger>Wie kann ich meinen Plan kündigen? </AccordionTrigger>
+                                            <AccordionContent>Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und dann auf „Dashboard“. 
+                                                Sie können dort unter „Zahlungsverkehr“ 
+                                                in Ihrem aktuellen Plan unter „Abo verwalten“ Ihr Abonnementkündigen. </AccordionContent>
+                                        </AccordionItem>
+
+                                        <AccordionItem value="item-321">
+                                            <AccordionTrigger>Was wenn ich die dem Plan entsprechenden Funktionen nach dem Abonnieren nicht erhalten habe?  </AccordionTrigger>
+                                            <AccordionContent> 
+                                            Kontaktieren Sie den Kundensupport. Sie finden das Kontaktformular und unten auf der Startseite. 
+                                            Wir werden uns so schnell wie möglich mit Ihnen in Verbindung setzen.  </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>
                                 </div>
@@ -353,7 +364,8 @@ const MieterFaq = () => {
                                         <AccordionItem value="item-33">
                                             <AccordionTrigger>Wo kann ich eine Nachricht an den Support schreiben? </AccordionTrigger>
                                             <AccordionContent>
-                                                ...
+                                            Sie finden das Impressum, die allgemeinen Nutzungsbedingungen, 
+                                            das Kontaktformular und die Datenschutzerklärung unten auf der Webseite. 
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>
@@ -369,7 +381,24 @@ const MieterFaq = () => {
                                         <AccordionItem value="item-34">
                                             <AccordionTrigger>Wie kann ich einen Nutzer melden? </AccordionTrigger>
                                             <AccordionContent>
-                                                ...
+                                            Wenn Sie unter Konversationen den entsprechenden Chat ausgewählt haben, 
+                                            können Sie diesen oben rechts, 
+                                            durch klicken auf die drei Punkte, melden. 
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-341">
+                                            <AccordionTrigger>Wie kann ich einen Nutzer blockieren?  </AccordionTrigger>
+                                            <AccordionContent>
+                                            Wenn Sie unter Konversationen den entsprechenden Chat ausgewählt haben, 
+                                            können Sie diesen oben rechts, 
+                                            durch klicken auf die drei Punkte, blockieren.  
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-342">
+                                            <AccordionTrigger>Wie kann ich einen blockierten Nutzer wieder freigeben?   </AccordionTrigger>
+                                            <AccordionContent>
+                                            Wenn Sie unter Konversationen den entsprechenden blockierten Chat ausgewählt haben,
+                                             können Sie diesen oben rechts, durch klicken auf die drei Punkte, die Blockierung aufheben.  
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>

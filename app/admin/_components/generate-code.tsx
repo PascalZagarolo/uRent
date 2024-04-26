@@ -15,7 +15,7 @@ import { CalendarCheck2, CalendarIcon, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaBusinessTime, FaSign, FaSortAmountUpAlt } from "react-icons/fa";
+import { FaBarcode, FaBusinessTime, FaSign, FaSortAmountUpAlt } from "react-icons/fa";
 import { FiCode } from "react-icons/fi";
 import { RiVipDiamondLine } from "react-icons/ri";
 
@@ -26,6 +26,7 @@ const GenerateCode = () => {
     const [currentDate, setCurrentDate] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
     const [currentMonths, setCurrentMonths] = useState(null);
+    const [customCode, setCustomeCode] = useState(null);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +42,8 @@ const GenerateCode = () => {
                 availableAmount : currentUser,
                 expirationDate : currentDate,
                 months : currentMonths,
-                userAmount : currentUser
+                userAmount : currentUser,
+                ...customCode && { customCode : customCode } 
             }
 
             console.log(currentDate)
@@ -195,6 +197,20 @@ const GenerateCode = () => {
                         </Select>
                     </div>
                 </div>
+
+                <div className="w-full flex items-center mt-4 gap-x-8">
+                    <div className="w-1/2">
+                        
+                        <Label className="flex items-center"> <FaBarcode   className="w-4 h-4 mr-2" />  Eigener Code </Label>
+                        <Input 
+                        className="dark:border-none dark:bg-[#0F0F0F] mt-2"
+                        placeholder="z.B. Sommer24"
+                        onChange={(e) => setCustomeCode(e.target.value)}
+                        />
+                    </div>
+                    
+                </div>
+
                 <div className="mt-4 w-full ml-auto flex justify-end">
                     <Button className="dark:bg-indigo-800 dark:hover:bg-indigo-900 dark:hover:text-gray-300
                      dark:text-gray-200 font-semibold"

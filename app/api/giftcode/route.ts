@@ -33,7 +33,9 @@ export async function POST(
 
         const {expirationDate,...values} = await req.json();
 
-        const usedToken = generateRandomString(16);
+        
+
+        const usedToken = values?.customCode ? values.customCode : generateRandomString(16);
 
         const usedExpirationDate = new Date(expirationDate);
         console.log(usedExpirationDate);

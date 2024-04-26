@@ -137,9 +137,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     />
                 </div>
                 <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">
-                    <div className="w-full">
-                        <AdsComponent dataAdSlot='3797720061' />
-                    </div>
+                    
                     <div className="md:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
                         <div className="min-h-screen">
                             {thisUser ? (
@@ -226,9 +224,6 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                 </div>
                             )}
                         </div>
-                    </div>
-                    <div className="w-full">
-                        <AdsComponent dataAdSlot='3797720061' />
                     </div>
                 </div>
 

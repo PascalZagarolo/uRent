@@ -187,12 +187,14 @@ const InseratAnzeige = async ({
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
                     crossOrigin="anonymous"></script>
             </head>
-            <div className='flex w-full justify-center'>
+            <div className='flex w-full '>
            
+            <div className='w-2/12 sm:block hidden'>
                         <AdsComponent dataAdSlot='3797720061' />
+                        </div>
 
                     
-            <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max">
+            <div className="xl:grid xl:grid-cols-2 sm:w-8/12  justify-center sm:space-x-4 xl:mt-12 h-max">
             
                 <div className="h-full sm:p-4 w-full">
                     <div className="w-full justify-end flex p-2 sm:p-0">
@@ -208,7 +210,7 @@ const InseratAnzeige = async ({
                         />
                     </div>
                     <div className="flex sm:justify-center xl:justify-end">
-                        <div className="flex justify-end xl:ml-auto sm:w-8/12 sm:mt-8">
+                        <div className="flex justify-end xl:ml-auto w-full sm:mt-8">
 
                             <InseratAttributes
                                 thisInserat={thisInserat}
@@ -267,7 +269,9 @@ const InseratAnzeige = async ({
                 </div>
 
             </div>
-            <AdsComponent dataAdSlot='3797720061' />
+            <div className='w-2/12 sm:block hidden'>
+                        <AdsComponent dataAdSlot='3797720061' />
+                        </div>
             
             </div>
             </>

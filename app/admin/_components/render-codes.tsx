@@ -11,6 +11,9 @@ import {
 import { CiGift } from "react-icons/ci";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
+import { PencilIcon, TrashIcon } from "lucide-react";
+import DeleteCode from "./delete-code";
+
 
 interface RenderCodesProps {
     existingCodes: typeof giftCode.$inferSelect[]
@@ -50,6 +53,15 @@ const RenderCodes: React.FC<RenderCodesProps> = ({
                         <TableCell>{code?.months} {code?.months === 1 ? "Monat" : "Monate"}</TableCell>
                         <TableCell>{format(code?.expirationDate, "dd.MM.yyyy", { locale : de })}</TableCell>
                         <TableCell className="text-right">{code?.userAmount} ({code?.availableAmount})</TableCell>
+                        <div className="flex items-center mt-4 gap-x-2 px-2">
+                            <PencilIcon className="w-4 h-4" />
+                            <div>
+                                <DeleteCode
+                                
+                                codeId={code.id}
+                                />
+                            </div>
+                        </div>
                     </TableRow>
                     ))}
                 </TableBody>

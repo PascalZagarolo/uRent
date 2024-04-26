@@ -38,7 +38,7 @@ export async function POST(
         const usedToken = values?.customCode ? values.customCode : generateRandomString(16);
 
         const usedExpirationDate = new Date(expirationDate);
-        console.log(usedExpirationDate);
+        
 
         const [createdGiftcode] = await db.insert(giftCode).values({
             code : usedToken,

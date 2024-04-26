@@ -11,10 +11,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { giftCode } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { Pencil1Icon } from "@radix-ui/react-icons";
+import axios from "axios";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { CalendarCheck2, CalendarIcon, CodeIcon, UserIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaBarcode, FaBusinessTime, FaSign, FaSortAmountUpAlt } from "react-icons/fa";
 import { RiVipDiamondLine } from "react-icons/ri";
 
@@ -37,6 +40,36 @@ const EditCode : React.FC<EditCodeProps> = ({
     const [customCode, setCustomeCode] = useState(thisCode?.code);
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+
+    const onSave = async () => {
+        try {
+            setIsLoading(true);
+
+            const values = {
+                name : currentName,
+                plan : currentPlan,
+                inseratAmount : currentAmount,
+                availableAmount : currentUser,
+                expirationDate : currentDate,
+                months : currentMonths,
+                userAmount : currentUser,
+                ...customCode && { customCode : customCode } 
+            }
+
+            await axios.patch(`/api/giftcode/${thisCode.id}`, values)
+                .then(() => {
+                    router.refresh();
+                    toast.success("Code erfolgreich geändert")
+                })
+        } catch(error : any) {
+            toast.error("Fehler beim speichern des Codes");
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return ( 
         <Dialog>
@@ -208,7 +241,7 @@ const EditCode : React.FC<EditCodeProps> = ({
                         !currentUser || 
                         !currentMonths
                     }
-                    onClick={() => {}}
+                    onClick={onSave}
                      >
                         Änderungen speichern
                     </Button>

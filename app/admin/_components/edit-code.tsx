@@ -3,84 +3,72 @@
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { giftCode } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import axios from "axios";
+import { Pencil1Icon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
-import { CalendarCheck2, CalendarIcon, UserIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { CalendarCheck2, CalendarIcon, CodeIcon, UserIcon } from "lucide-react";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { FaBarcode, FaBusinessTime, FaSign, FaSortAmountUpAlt } from "react-icons/fa";
-import { FiCode } from "react-icons/fi";
 import { RiVipDiamondLine } from "react-icons/ri";
 
-const GenerateCode = () => {
-    const [currentName, setCurrentName] = useState(null);
-    const [currentPlan, setCurrentPlan] = useState(null);
-    const [currentAmount, setCurrentAmount] = useState(null);
-    const [currentDate, setCurrentDate] = useState(null);
-    const [currentUser, setCurrentUser] = useState(null);
-    const [currentMonths, setCurrentMonths] = useState(null);
-    const [customCode, setCustomeCode] = useState(null);
+
+
+interface EditCodeProps {
+    thisCode : typeof giftCode.$inferSelect
+}
+
+const EditCode : React.FC<EditCodeProps> = ({
+    thisCode
+}) => {
+
+    const [currentName, setCurrentName] = useState(thisCode?.name);
+    const [currentPlan, setCurrentPlan] = useState<string>(thisCode?.plan);
+    const [currentAmount, setCurrentAmount] = useState<string | number>(thisCode?.inseratAmount);
+    const [currentDate, setCurrentDate] = useState(thisCode?.expirationDate);
+    const [currentUser, setCurrentUser] = useState<string | number>(thisCode?.userAmount);
+    const [currentMonths, setCurrentMonths] = useState<string | number>(thisCode?.months);
+    const [customCode, setCustomeCode] = useState(thisCode?.code);
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const router = useRouter();
+    return ( 
+        <Dialog>
+            <DialogTrigger asChild>
+            <Pencil1Icon className="w-4 h-4  hover:cursor-pointer" />
+            </DialogTrigger>
+            <DialogContent className="dark:border-none dark:bg-[#191919]">
+                <div className="space-y-4">
+                    <div>
+                        <h3 className="text-md font-semibold flex items-center">
+                          <CodeIcon className="w-4 h-4 mr-2" />  Code ändern
+                        </h3>
+                        <p className="text-xs dark:text-gray-200/70">
+                            Bearbeite deinen Gutscheincode.
+                        </p>
+                    </div>
 
-    const onCreate = async () => {
-        try {
-            setIsLoading(true);
-            const values = {
-                name : currentName,
-                plan : currentPlan,
-                inseratAmount : currentAmount,
-                availableAmount : currentUser,
-                expirationDate : currentDate,
-                months : currentMonths,
-                userAmount : currentUser,
-                ...customCode && { customCode : customCode } 
-            }
-
-            console.log(currentDate)
-
-            await axios.post('/api/giftcode', values)
-                .then(() => {
-                    router.refresh();
-                    toast.success("Code wurde erfolgreich erstellt");
-                })
-        } catch {
-            console.error("Error creating code");
-            toast.error("Etwas ist schief gelaufen");
-        } finally {
-            setIsLoading(false);
-        }
-    }
-
-    return (
-        <div>
-            <div>
-                <h3 className="text-md font-semibold flex items-center"> <FiCode className="w-4 h-4 mr-2" />  Neuen Code generieren </h3>
-            </div>
-            <div>
-
-            <div className="w-full flex items-center mt-4 gap-x-8">
-                    <div className="w-1/2 ">
-                        <Label className="flex items-center"> <FaSign  className="w-4 h-4 mr-2" />  Name </Label>
+                    <div>
+                    <Label className="flex items-center"> <FaSign  className="w-4 h-4 mr-2" />  Name </Label>
                         <Input 
                         className="dark:border-none dark:bg-[#0F0F0F] mt-2"
                         placeholder="Noch kein Name angegeben"
                         onChange={(e) => setCurrentName(e.target.value)}
+                        value={currentName}
                         />
                     </div>
-                    <div className="w-1/2">
-                        <Label className="flex items-center"> <FaBusinessTime  className="w-4 h-4 mr-2" />  Dauer </Label>
+
+                    <div>
+                    <Label className="flex items-center"> <FaBusinessTime  className="w-4 h-4 mr-2" />  Dauer </Label>
                         <Select
                         onValueChange={(value) => setCurrentMonths(value)}
+                        value={String(currentMonths)}
                         >
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wähle die gewünschte Dauer" />
@@ -96,13 +84,12 @@ const GenerateCode = () => {
                             </SelectContent>
                         </Select>
                     </div>
-                </div>
 
-                <div className="w-full flex items-center mt-4 gap-x-8">
-                    <div className="w-1/2">
-                        <Label className="flex items-center"> <RiVipDiamondLine className="w-4 h-4 mr-2" />  Plan </Label>
+                    <div>
+                    <Label className="flex items-center"> <RiVipDiamondLine className="w-4 h-4 mr-2" />  Plan </Label>
                         <Select
                         onValueChange={(value) => setCurrentPlan(value)}
+                        value={currentPlan}
                         >
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wähle den gewünschten Plan" />
@@ -114,10 +101,13 @@ const GenerateCode = () => {
                             </SelectContent>
                         </Select>
                     </div>
-                    <div className="w-1/2">
-                        <Label className="flex items-center"> <FaSortAmountUpAlt className="w-4 h-4 mr-2" />  Anzahl Inserate </Label>
+
+                    <div>
+                    <Label className="flex items-center"> <FaSortAmountUpAlt className="w-4 h-4 mr-2" />  Anzahl Inserate </Label>
                         <Select
+                        
                         onValueChange={(value) => setCurrentAmount(value)}
+                        value={String(currentAmount)}
                         >
                             <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
                                 <SelectValue placeholder="Wieviele Inserate" />
@@ -132,17 +122,15 @@ const GenerateCode = () => {
                             </SelectContent>
                         </Select>
                     </div>
-                </div>
 
-                <div className="w-full flex items-center mt-4 gap-x-8">
-                    <div className="w-1/2">
-                        <Label className="flex items-center"> <CalendarCheck2 className="w-4 h-4 mr-2" />  Zeitraum </Label>
+                    <div>
+                    <Label className="flex items-center"> <CalendarCheck2 className="w-4 h-4 mr-2" />  Zeitraum </Label>
                             <Popover >
                                 <PopoverTrigger asChild>
                                     <Button
                                         variant={"outline"}
                                         className={cn(
-                                            "w-full pl-3 text-left font-normal mt-2 dark:border-none dark:bg-[#151515]",
+                                            "w-full pl-3 text-left font-normal mt-2 dark:border-none dark:bg-[#131313]",
                                             !currentDate && "text-muted-foreground"
                                         )}
                                     >
@@ -169,12 +157,16 @@ const GenerateCode = () => {
                                 </PopoverContent>
                             </Popover>
                     </div>
-                    <div className="w-1/2">
-                        <Label className="flex items-center"> <UserIcon className="w-4 h-4 mr-2" />  Anzahl Nutzer </Label>
+
+                    <div>
+                    <Label className="flex items-center"> <UserIcon className="w-4 h-4 mr-2" />  Anzahl Nutzer </Label>
                         <Select
                         onValueChange={(value) => setCurrentUser(value)}
+                        value={String(currentUser)}
                         >
-                            <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2">
+                            <SelectTrigger className="w-full dark:border-none dark:bg-[#0F0F0F] mt-2"
+                            value={currentUser}
+                            >
                                 <SelectValue placeholder="Wieviele Nutzer sollen den Code benutzen können?" />
                             </SelectTrigger>
                             <SelectContent className="dark:border-none dark:bg-[#191919]">
@@ -196,22 +188,17 @@ const GenerateCode = () => {
                             </SelectContent>
                         </Select>
                     </div>
-                </div>
 
-                <div className="w-full flex items-center mt-4 gap-x-8">
-                    <div className="w-1/2 pr-4">
-                        
-                        <Label className="flex items-center"> <FaBarcode   className="w-4 h-4 mr-2" />  Eigener Code </Label>
+                    <div>
+                    <Label className="flex items-center"> <FaBarcode   className="w-4 h-4 mr-2" />  Eigener Code </Label>
                         <Input 
-                        className="dark:border-none dark:bg-[#0F0F0F] mt-2 "
+                        className="dark:border-none dark:bg-[#0F0F0F] mt-2"
                         placeholder="z.B. Sommer24"
                         onChange={(e) => setCustomeCode(e.target.value)}
+                        value={customCode}
                         />
                     </div>
-                    
-                </div>
-
-                <div className="mt-4 w-full ml-auto flex justify-end">
+                    <div className="mt-4 w-full ml-auto flex justify-end">
                     <Button className="dark:bg-indigo-800 dark:hover:bg-indigo-900 dark:hover:text-gray-300
                      dark:text-gray-200 font-semibold"
                      disabled={isLoading ||
@@ -221,14 +208,15 @@ const GenerateCode = () => {
                         !currentUser || 
                         !currentMonths
                     }
-                    onClick={onCreate}
+                    onClick={() => {}}
                      >
-                        Code erstellen
+                        Änderungen speichern
                     </Button>
                 </div>
-            </div>
-        </div>
-    );
+                </div>
+            </DialogContent>
+        </Dialog>
+     );
 }
-
-export default GenerateCode;
+ 
+export default EditCode;

@@ -1,3 +1,5 @@
+'use client'
+
 import { giftCode } from "@/db/schema";
 import {
     Table,
@@ -11,8 +13,11 @@ import {
 import { CiGift } from "react-icons/ci";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
-import { PencilIcon, TrashIcon } from "lucide-react";
+
 import DeleteCode from "./delete-code";
+import EditCode from "./edit-code";
+import { useEffect, useState } from "react";
+
 
 
 interface RenderCodesProps {
@@ -23,6 +28,19 @@ interface RenderCodesProps {
 const RenderCodes: React.FC<RenderCodesProps> = ({
     existingCodes
 }) => {
+
+    
+
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+    },[])
+    
+    if(!isMounted){
+        return null
+    }
+
     return (
         <div>
             <div>
@@ -54,7 +72,9 @@ const RenderCodes: React.FC<RenderCodesProps> = ({
                         <TableCell>{format(code?.expirationDate, "dd.MM.yyyy", { locale : de })}</TableCell>
                         <TableCell className="text-right">{code?.userAmount} ({code?.availableAmount})</TableCell>
                         <div className="flex items-center mt-4 gap-x-2 px-2">
-                            <PencilIcon className="w-4 h-4" />
+                            <EditCode 
+                            thisCode = {code}
+                            />
                             <div>
                                 <DeleteCode
                                 

@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
-import { giftCode, userSubscription } from "@/db/schema";
+import { giftCode, userSubscription, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { addMonths } from "date-fns";
@@ -52,6 +52,10 @@ export async function PATCH(
             amount : findGiftCode.inseratAmount,
             stripe_current_period_end : usedExpiration
         }).returning();
+
+        const patchUser = await db.update(userTable).set({
+            subscriptionId : createSubscription.id
+        })
         
         if(findGiftCode.availableAmount <= 1) {
             const deleteGiftCode = await db.delete(giftCode).where(eq(giftCode.code, params.tokenId))

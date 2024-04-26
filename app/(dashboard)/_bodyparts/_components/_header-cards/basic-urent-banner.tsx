@@ -8,7 +8,7 @@ const BasicUrentBanner = () => {
         <div className="w-full">
             <div className="text-4xl w-full">
 
-                <div className="grid grid-cols-2 cols-reverse gap-4 w-full">
+                <div className="grid grid-cols-2  gap-4 w-full">
                     <div className="p-4 font-semibold">
         	            <div>
                             Pkw
@@ -38,8 +38,9 @@ const BasicUrentBanner = () => {
                             />
                         </div>
                     </div>
-                    <div className=" p-4 w-full flex justify-start h-full">
-                    <div className="w-full h-full">
+                    <div className=" w-full flex justify-end  ml-auto h-full">
+                    
+                    <div className="p-4">
                     <div className="">
                     Mieten?
                 </div>
@@ -55,6 +56,7 @@ const BasicUrentBanner = () => {
                     />
                 </div>
                     </div>
+                  
                     </div>
                 </div>
 

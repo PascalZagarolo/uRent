@@ -51,17 +51,11 @@ const DashboardLayout = cache(async (
 
       
                 
-               <div className="flex w-full">
-                <div className="sm:flex hidden w-full items-center justify-center">
-                <AdsComponent dataAdSlot='4903520816' />
-                </div>
+               
                <div className="w-full">
                     {children}
                 </div>
-                <div className="sm:flex hidden w-full items-center justify-center">
-                <AdsComponent dataAdSlot='4903520816' />
-                </div>
-               </div>
+                
                 
           
 

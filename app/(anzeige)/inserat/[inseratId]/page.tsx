@@ -20,6 +20,7 @@ import BreadCrumbs from "./bread-crumbs";
 
 
 import InseratShow from "./_components/inserat-show";
+import AdsComponent from '@/components/ad-component';
 
 
 type Props = {
@@ -186,8 +187,14 @@ const InseratAnzeige = async ({
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
                     crossOrigin="anonymous"></script>
             </head>
-            <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max ">
-                <div className="h-full sm:p-4  w-full">
+            <div className='flex w-full justify-center'>
+           
+                        <AdsComponent dataAdSlot='3797720061' />
+
+                    
+            <div className="xl:grid xl:grid-cols-2 w-full  justify-center sm:space-x-4 xl:mt-12 h-max">
+            
+                <div className="h-full sm:p-4 w-full">
                     <div className="w-full justify-end flex p-2 sm:p-0">
                         <BreadCrumbs
                             thisCategory={thisInserat.category}
@@ -259,7 +266,11 @@ const InseratAnzeige = async ({
 
                 </div>
 
-            </div></>
+            </div>
+            <AdsComponent dataAdSlot='3797720061' />
+            
+            </div>
+            </>
 
     );
 }

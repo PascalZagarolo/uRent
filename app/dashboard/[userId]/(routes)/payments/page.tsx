@@ -27,9 +27,13 @@ const PaymentsPage = async () => {
         }
     })
 
-    const retrievedSubscription = await stripe.subscriptions.retrieve(
-        existingSubscription.subscription.stripe_subscription_id
-    )
+    let retrievedSubscription;
+
+    if(existingSubscription.subscription) {
+        retrievedSubscription = await stripe.subscriptions.retrieve(
+            existingSubscription?.subscription?.stripe_subscription_id
+        )
+    }
 
 
 

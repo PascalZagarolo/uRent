@@ -29,7 +29,7 @@ const PaymentsPage = async () => {
 
     let retrievedSubscription;
 
-    if(existingSubscription.subscription) {
+    if(existingSubscription.subscription?.stripe_subscription_id) {
         retrievedSubscription = await stripe.subscriptions.retrieve(
             existingSubscription?.subscription?.stripe_subscription_id
         )
@@ -125,7 +125,7 @@ const PaymentsPage = async () => {
                                     Gekündigt oder aktiv.
                                 </p>
                                 {existingSubscription.subscription ? (
-                                    retrievedSubscription.cancel_at_period_end ? (
+                                    retrievedSubscription?.cancel_at_period_end ? (
                                         <div className="font-semibold text-rose-600 gap-x-1 flex items-center text-sm">
                                             Gekündigt 
                                             <div className="text-gray-200 text-xs">
@@ -136,7 +136,8 @@ const PaymentsPage = async () => {
                                         <div className="font-semibold text-emerald-600 gap-x-1 flex items-center text-sm">
                                             Aktiv 
                                             <div className="text-gray-200 text-xs">
-                                                (wird verlängert am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end), "dd.MM.yyyy")} )
+                                                (wird verlängert am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end), 
+                                                "dd.MM.yyyy")})
                                             </div>
                                         </div>
                                     )

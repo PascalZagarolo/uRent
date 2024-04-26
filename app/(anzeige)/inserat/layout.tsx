@@ -33,7 +33,7 @@ const InseratLayout = async ({
                 />  
              </div>
 
-            <div className="h-full">
+            <div className="h-full w-full">
                 {children}
             </div>
             <div>

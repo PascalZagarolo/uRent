@@ -45,7 +45,7 @@ const RenderCodes: React.FC<RenderCodesProps> = ({
         <div>
             <div>
                 <h3 className="font-semibold text-md flex items-center">
-                   <CiGift /> Verfügbare Codes
+                   <CiGift className="w-4 h-4 mr-2"/> Verfügbare Codes
                 </h3>
             </div>
             <Table>

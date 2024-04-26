@@ -29,8 +29,7 @@ const AdsComponent = (props: any) => {
                 data-ad-client="ca-pub-9497499351411762"
                 data-ad-slot="3797720061"
                 data-ad-format="auto"
-                data-full-width-responsive="true">
-            </ins>
+                data-full-width-responsive="true"></ins>
         </>
     );
 };

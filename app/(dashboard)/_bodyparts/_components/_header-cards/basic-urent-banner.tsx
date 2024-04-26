@@ -1,4 +1,6 @@
+import { TruckIcon } from "lucide-react";
 import Image from "next/image";
+import { FaRegWindowMinimize } from "react-icons/fa";
 import { PiCursorClickLight } from "react-icons/pi";
 
 const BasicUrentBanner = () => {
@@ -6,7 +8,7 @@ const BasicUrentBanner = () => {
         <div className="w-full">
             <div className="text-4xl w-full">
 
-                <div className="grid grid-cols-2 gap-4 w-full">
+                <div className="grid grid-cols-2 cols-reverse gap-4 w-full">
                     <div className="p-4 font-semibold">
         	            <div>
                             Pkw
@@ -23,6 +25,18 @@ const BasicUrentBanner = () => {
                         <p className="text-sm flex items-center"> 
                             nur ein paar Klicks entfernt! <PiCursorClickLight className="w-6 h-6 ml-2" />
                         </p>
+                        <div className="flex items-center">
+                            
+                        <FaRegWindowMinimize 
+                        className="w-24 h-24"
+                        />
+                        <FaRegWindowMinimize 
+                        className="w-24 h-24"
+                        />
+                            <TruckIcon
+                             className="w-24 h-24"
+                            />
+                        </div>
                     </div>
                     <div className=" p-4 w-full flex justify-start h-full">
                     <div className="w-full h-full">

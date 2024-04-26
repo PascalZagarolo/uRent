@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 
 import { useState } from "react";
@@ -22,9 +24,17 @@ const RedeemCode = () => {
     const [usedCode, setUsedCode] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = () => {
+    const router = useRouter();
+
+    const onSubmit = async () => {
         try {
             setIsLoading(true);
+            await axios.patch(`/api/redeem/giftcode/${usedCode}`)
+                .then(() => {
+                    toast.success("Gutscheincode erfolgreich eingelöst");
+                    router.refresh();
+                })
+            setUsedCode("")
         } catch(error : any) {
             console.log(error);
             toast.error("Etwas ist schief gelaufen");
@@ -34,9 +44,7 @@ const RedeemCode = () => {
     }
     
     const formSchema = z.object({
-        pin : z.string().length(16).min(16, {
-            message : "Bitte gebe einen gültigen Gutscheincode ein."
-        })
+        pin : z.string().optional()
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -92,7 +100,7 @@ const RedeemCode = () => {
 
                                         <Button variant="ghost" 
                                         className="mt-2 dark:bg-[#151515] dark:hover:text-gray-300"
-                                        disabled={!usedCode}
+                                        disabled={!usedCode || isLoading}
                                         >
                                             Code überprüfen</Button>
                                     </form>

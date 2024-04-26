@@ -174,11 +174,13 @@ const Main = cache(async ({
                         />
                     </div>
                     
-                    
+
                 </div>
+                
                 <div className="sm:p-4 flex justify-center w-full">
                     <PaginationComponent />
                 </div>
+                
             </div>
             
             <div>

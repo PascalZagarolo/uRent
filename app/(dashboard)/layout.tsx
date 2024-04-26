@@ -6,6 +6,7 @@ import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
 import HeaderLogo from "./_components/header-logo";
+import AdsComponent from "@/components/ad-component";
 
 
 const DashboardLayout = cache(async (
@@ -50,10 +51,17 @@ const DashboardLayout = cache(async (
 
       
                 
-                <div className="w-full">
-                    {children}
-                    
+               <div className="flex w-full">
+                <div className="sm:flex hidden w-full items-center justify-center">
+                <AdsComponent dataAdSlot='4903520816' />
                 </div>
+               <div className="w-full">
+                    {children}
+                </div>
+                <div className="sm:flex hidden w-full items-center justify-center">
+                <AdsComponent dataAdSlot='4903520816' />
+                </div>
+               </div>
                 
           
 

@@ -116,9 +116,12 @@ const Main = cache(async ({
         <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
 
             <div>
-            <div className="sm:flex hidden justify-center py-2">
-                        <HeaderInfo />
-                    </div>
+            {//@ts-ignore
+            (searchParams.page === "1" || !searchParams.page) && (
+                <div className="sm:flex hidden justify-center py-2">
+                <HeaderInfo />
+            </div>
+            )}
                 <div className="relative flex justify-center mt-4">
                     
                     <div className="top-0 sm:mr-4 ">

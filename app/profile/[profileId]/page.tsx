@@ -18,6 +18,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import AddImpressum from "./_components/add-impressum";
 import { FaCarCrash } from "react-icons/fa";
 import Footer from "@/app/(dashboard)/_components/footer";
+import AdsComponent from "@/components/ad-component";
 
 
 
@@ -131,6 +132,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 />
             </div>
             <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">
+                <div>
+                <AdsComponent dataAdSlot='3797720061' />
+                </div>
                 <div className="md:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
                     <div className="min-h-screen">
                         {thisUser ? (
@@ -218,7 +222,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                         )}
                         </div>
                 </div>
+                <div>
+                <AdsComponent dataAdSlot='3797720061' />
+                </div>
             </div>
+            
             <div>
                 <Footer />
             </div>

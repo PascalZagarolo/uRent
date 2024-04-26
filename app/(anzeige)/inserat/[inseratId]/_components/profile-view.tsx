@@ -44,7 +44,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const router = useRouter();
 
     return (
-        <div className="px-4 py-4 bg-[#171923] xl:min-w-[360px] sm:w-2/5 w-full 
+        <div className="px-4 py-4 bg-[#171923] xl:min-w-[360px] sm:w-3/5 w-full 
           sm:rounded-md 
          dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
          ">

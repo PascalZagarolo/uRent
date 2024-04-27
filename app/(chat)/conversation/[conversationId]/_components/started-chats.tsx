@@ -20,6 +20,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
 
     const otherUserId = conversations.user1Id === currentUser.id ? conversations.user2Id : conversations.user1Id;
 
+    const user1orUser2 = otherUserId === conversations.user1Id ? true : false;
 
     const userImage = await db.query.userTable.findFirst({
         where : eq(userTable.id, otherUserId)
@@ -34,7 +35,8 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
 
     //@ts-ignore
     const openChats = conversations.messages.filter((message) => {
-        return !message.seen && message.userId !== currentUser.id
+        
+        return !message.seen && message.senderId !== currentUser.id
     })
     
     console.log(openChats.length)

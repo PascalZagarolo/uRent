@@ -61,7 +61,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                         {lastMessage}
                     </div>
                     {openMessages > 0 && (
-                        <div className="p-0.5 bg-rose-600 w-1/8 text-xs rounded-md ml-auto">
+                        <div className="py-0.5 px-1 bg-rose-600 w-1/8 text-xs rounded-md ml-auto">
                             {openMessages > 9 ? "9+" : openMessages}
                         </div>
                     )}

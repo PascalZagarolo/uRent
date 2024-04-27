@@ -25,21 +25,26 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
         where : eq(userTable.id, otherUserId)
     })
 
-    const lastMessage = await db.query.message.findMany({
-        where : eq(message.conversationId, conversations.id),
-        orderBy : (message, {asc}) => [asc(message.createdAt)]
-    
+    //@ts-ignore
+    const lastMessage = conversations.messages.sort((a,b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     })
 
     let content = lastMessage[0]?.content ? lastMessage[0].content : "Hat ein Bild gesendet"
 
+    //@ts-ignore
+    const openChats = conversations.messages.filter((message) => {
+        return !message.seen && message.userId !== currentUser.id
+    })
     
+    console.log(openChats.length)
 
     return ( 
         <div className="flex justify-center ">
             <RenderedChats
             user = {userImage}
             conversationId={conversations.id}
+            openMessages = {openChats.length}
             lastMessage = {content}
             />
         </div>

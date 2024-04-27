@@ -110,7 +110,10 @@ for (const key in necessaryFields) {
                     <div className="w-full">
                         <Progress className="w-full dark:bg-[#1C1C1C]" 
                         value={(trueAttributes / Object.keys(necessaryFields).length) * 100} />
-                        <div className="flex justify-center w-full text-xs mt-2">
+                        <div className="text-xs dark:text-gray-200/60 flex justify-center ">
+                        Pflichtfelder sind mit einem * markiert.
+                        </div>
+                        <div className="flex justify-center w-full text-xs mt-1">
                             {trueAttributes} / {Object.keys(necessaryFields).length} Pflichtfelder ausgefüllt
                         </div>
                         {trueAttributes === Object.keys(necessaryFields).length ? (
@@ -130,8 +133,9 @@ for (const key in necessaryFields) {
                                         "images" : "Bitte füge Bilder deinem Inserat bei",
                                         "title" : "Bitte füge deinem Inserat ein Titel hinzu",
                                         "category" : "Bitte geben deinem Inserat eine Kategorie",
+                                        "postalCode" : "Bitte gebe deinem Inserat eine passende PLZ",    
                                         "location" : "Bitte füge deinem Inserat eine Addresse hinzu",
-                                        "postalCode" : "Bitte gebe deinem Inserat eine passende PLZ",         
+                                             
                                     }[getMissing()]
                                 }
                             </p>

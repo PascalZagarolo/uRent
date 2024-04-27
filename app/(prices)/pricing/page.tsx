@@ -41,7 +41,7 @@ const PricingMainPage = async () => {
                         existingSubscription={existingSubscription}
                     />
                     <div className="mt-2">
-                        <RedeemCode />
+                    <RedeemCode />
                     </div>
                     <div>
                         <ComparisonPlans 

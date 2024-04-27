@@ -66,10 +66,12 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
 
             console.log(values)
 
+            console.log(userId)
             
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
-        } catch {
+        } catch(error: any) {
+            console.log(error)
             toast.error("Etwas ist schief gelaufen")
         } finally {
             setIsLoading(false)

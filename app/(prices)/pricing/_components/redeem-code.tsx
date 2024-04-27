@@ -89,14 +89,16 @@ const RedeemCode = () => {
                                                         placeholder="xxxxxxxxxxxxxxxx"
                                                         />
                                                     </FormControl>
-                                                    <FormDescription className="text-xs">
+                                                    <div className="text-xs dark:text-gray-200/60">
+                                                        <div>
                                                         Um über die neuesten Angebote und Aktionen informiert zu werden, <br/>
                                                         melde dich unter deinem Profil für unseren Newsletter an.<br/><br/>
                                                         <div>
                                                         
                                                         Für weitere Informationen rundum das Thema Gutscheincodes klicke <a className="underline" href="/faq/giftcodes">hier</a>.
                                                         </div>
-                                                    </FormDescription>
+                                                        </div>
+                                                    </div>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}

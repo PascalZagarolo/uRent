@@ -25,6 +25,7 @@ import {
 } from "@/db/schema";
 import { cache } from "react";
 import HeaderInfo from "./_bodyparts/_components/header-info";
+import AdsComponent from "@/components/ad-component";
 
 
 
@@ -116,14 +117,20 @@ const Main = cache(async ({
         <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
 
             <div>
-            {//@ts-ignore
-            (searchParams.page === "1" || !searchParams.page) && (
-                <div className="sm:flex hidden justify-center py-2">
-                <HeaderInfo />
-            </div>
-            )}
+                {//@ts-ignore
+                    (searchParams.page === "1" || !searchParams.page) && (
+                        <div className="sm:flex hidden justify-center py-2">
+                            <HeaderInfo />
+                        </div>
+                    )}
                 <div className="relative flex justify-center mt-4">
-                    
+
+                    <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                        <div className=' w-full sm:block hidden'>
+                            <AdsComponent dataAdSlot='3797720061' />
+                        </div>
+                    </div>
+
                     <div className="top-0 sm:mr-4 ">
                         <MainPageSideBar />
                     </div>
@@ -180,16 +187,20 @@ const Main = cache(async ({
                             userId={searchParams.user}
                         />
                     </div>
-                    
 
+                    <div className='h-screen sm:flex items-center justify-center w-2/12 p-16 hidden'>
+                        <div className=' w-full sm:block hidden'>
+                            <AdsComponent dataAdSlot='3797720061' />
+                        </div>
+                    </div>
                 </div>
-                
+
                 <div className="sm:p-4 flex justify-center w-full">
                     <PaginationComponent />
                 </div>
-                
+
             </div>
-            
+
             <div>
                 <Footer />
             </div>

@@ -681,6 +681,8 @@ export const message = pgTable("message", {
     updatedAt: timestamp("updatedAt", { mode: "date" }),
     isInterest : boolean("isInterest").notNull().default(false),
 
+    seen : boolean("seen").notNull().default(false),
+
     inseratId: uuid("inseratId").
         references(() => inserat.id, { onDelete: "cascade" }),
     senderId: text("senderId").

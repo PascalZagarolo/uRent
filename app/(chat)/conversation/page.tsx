@@ -21,6 +21,10 @@ const ConversationPage = async () => {
     const currentUser = await getCurrentUser();
 
     if(!currentUser) {
+        return redirect("/")
+    }
+
+    if(!currentUser) {
         redirect("/login")
     }
 
@@ -34,7 +38,9 @@ const ConversationPage = async () => {
                     eq(conversation.user2Id, currentUser.id)
                 
                 )
-            )
+            ), with : {
+                messages : true
+            }
         })
     } else {
         startedConversations = [];

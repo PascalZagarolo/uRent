@@ -23,6 +23,7 @@ import { conversation, notification } from "@/db/schema";
 import { userTable, message } from '../../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
 import AdsComponent from "@/components/ad-component";
+import { redirect } from "next/navigation";
 
 
 
@@ -31,6 +32,10 @@ const ConversationPage = async ({
 }: { params: { conversationId: string } }) => {
 
     const currentUser = await getCurrentUser();
+
+    if(!currentUser) {
+        return redirect("/")
+    }
 
     let startedConversations: typeof conversation.$inferSelect[] = [];;
 

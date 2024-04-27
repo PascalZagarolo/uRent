@@ -19,7 +19,7 @@ const HeaderInfo = () => {
 
    
         const plugin = React.useRef(
-          Autoplay({ delay: 6000, stopOnInteraction: true }))
+          Autoplay({ delay: 5000, stopOnInteraction: false }))
         
 
     return ( 

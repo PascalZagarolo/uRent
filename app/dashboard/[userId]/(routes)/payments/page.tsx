@@ -27,6 +27,8 @@ const PaymentsPage = async () => {
         }
     })
 
+    console.log(existingSubscription.subscription)
+
     let retrievedSubscription;
 
     if(existingSubscription.subscription?.stripe_subscription_id) {

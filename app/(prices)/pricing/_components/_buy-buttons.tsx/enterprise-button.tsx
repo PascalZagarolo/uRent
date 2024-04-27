@@ -28,7 +28,7 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
     const searchParams = useSearchParams();
     const usedId = searchParams.get("inseratId");
 
-    
+    console.log(selectedAmount)
 
     const calculateEnterprisePrice = () => {
         switch (selectedAmount) {
@@ -55,6 +55,7 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
 
     const onSubscribe = async () => {
         try {
+            
             setIsLoading(true);
             const values = {
                 subscriptionType: "ENTERPRISE",
@@ -64,9 +65,7 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
                 
             }
 
-            console.log(values)
-
-            console.log(userId)
+            
             
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
@@ -82,6 +81,7 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
         try {
             setIsLoading(true);
 
+            
             const values = {
                 diffrence : diffrence * 100,
                 productId: productId,
@@ -91,7 +91,8 @@ const EnterpriseButton : React.FC<EnterpriseButtonProps>= ({
 
             const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);
             window.location.href = res.data.url
-        } catch {
+        } catch(error : any) {
+            console.log(error)
             toast.error("Etwas ist schief gelaufen")
         } finally {
             setIsLoading(false)

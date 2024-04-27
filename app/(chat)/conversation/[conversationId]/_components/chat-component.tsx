@@ -34,7 +34,8 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     const params = useParams();
     const conversationId = params!.conversationId.toString();
     const bottomRef = useRef<HTMLDivElement>(null);
-    const [pMessages, setMessages] = useState(messages);
+    //@ts-ignore
+    const [pMessages, setMessages] = useState(messages.sort((a, b) => a.createdAt - b.createdAt));
 
     useEffect(() => {
         pusherClient.subscribe(conversationId);
@@ -81,10 +82,10 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     }, )
     
 
-    const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(pMessages.length - 10, pMessages.length));
+    const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(pMessages.length - 15, pMessages.length));
     
     useEffect(() => {
-        setRenderedMessages(pMessages.slice(pMessages.length - 10, pMessages.length));
+        setRenderedMessages(pMessages.slice(pMessages.length - 15, pMessages.length));
     }
     , [pMessages]);
 
@@ -101,7 +102,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             
             bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "center"});
         }
-    }, [pMessages]);
+    }, [pMessages, renderedMessages]);
 
     
 

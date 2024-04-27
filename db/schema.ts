@@ -299,7 +299,8 @@ export const inserat = pgTable("inserat", {
 export const userSubscription = pgTable("userSubscription" , {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     
-    userId : text("userId"),
+    userId : text("userId")
+        .references(() => userTable.id, { onDelete: "cascade" }),
 
     subscriptionType : inseratPriceType("subscriptionType"),
     amount : integer("amount").notNull().default(0),
@@ -963,6 +964,13 @@ export const twoFactorConfirmationRelations = relations(twoFactorConfirmation, (
         references : [userTable.id]
     })
 
+}))
+
+export const subscriptionRelations = relations(userSubscription, ({ one }) => ({
+    user : one(userTable, {
+        fields : [userSubscription.userId],
+        references : [userTable.id]
+    })
 }))
 
 

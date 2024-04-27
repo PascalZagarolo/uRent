@@ -90,8 +90,12 @@ const RedeemCode = () => {
                                                         />
                                                     </FormControl>
                                                     <FormDescription className="text-xs">
-                                                        um über die neuesten Angebote und Aktionen informiert zu werden, <br/>
-                                                        melde dich unter deinem Profil für unseren Newsletter an.
+                                                        Um über die neuesten Angebote und Aktionen informiert zu werden, <br/>
+                                                        melde dich unter deinem Profil für unseren Newsletter an.<br/><br/>
+                                                        <div>
+                                                        
+                                                        Für weitere Informationen rundum das Thema Gutscheincodes klicke <a className="underline" href="/faq/giftcodes">hier</a>.
+                                                        </div>
                                                     </FormDescription>
                                                     <FormMessage />
                                                 </FormItem>

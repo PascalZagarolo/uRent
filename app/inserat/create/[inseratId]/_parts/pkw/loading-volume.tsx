@@ -47,7 +47,7 @@ const LoadingVolumeForm: React.FC<LoadingVolumeFormProps> = ({
                 }
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-                toast.success("Anzahl der PS gespeichert : " + values.loading_volume);
+                toast.success("Ladevolumen gespeichert: " + values.loading_volume);
                 setTimeout(() => {
                     router.refresh();
                 }, 400)

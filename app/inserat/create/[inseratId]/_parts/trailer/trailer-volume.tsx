@@ -47,7 +47,7 @@ const TrailerLoadingVolumeForm: React.FC<TrailerLoadingVolumeFormProps> = ({
                 }
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
-                toast.success("Anzahl der PS gespeichert : " + values.loading_volume);
+                toast.success("Ladevolumen gespeichert: " + values.loading_volume);
                 setTimeout(() => {
                     router.refresh();
                 }, 400)

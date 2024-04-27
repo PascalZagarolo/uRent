@@ -6,6 +6,8 @@ import { eq, sql } from "drizzle-orm";
 import db from "@/db/drizzle";
 import { notification } from "@/db/schema";
 import Footer from "../(dashboard)/_components/footer";
+import { redirect } from "next/navigation";
+
 
 const DashboardLayout = async (
     { children }: { children: React.ReactNode },
@@ -20,6 +22,10 @@ const DashboardLayout = async (
         )
     
     }).prepare("findNotifications")
+
+    if(!currentUser) {
+        redirect("/")
+    }
 
     const foundNotifications = await findNotifications.execute({currentUserId: currentUser?.id})
     
@@ -37,7 +43,7 @@ const DashboardLayout = async (
                 foundNotifications = {foundNotifications}       
                 />
              </div>
-            <div >       
+            <div>       
                 {children}
             </div>
            

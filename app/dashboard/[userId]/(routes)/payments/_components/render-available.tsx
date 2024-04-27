@@ -15,7 +15,7 @@ const RenderAvailable : React.FC<RenderAvilableProps> = ({
     return (
         <div>
             <h1 className="font-semibold">
-                Verfügbare Inserate
+                Verfügbare Inserate1
             </h1>
             <p className="text-xs dark:text-gray-200/60 ">
                 Gezählt werden nur veröffentlichte Inserate.

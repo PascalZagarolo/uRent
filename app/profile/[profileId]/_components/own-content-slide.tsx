@@ -6,9 +6,9 @@ import Autoplay from "embla-carousel-autoplay"
 import { Card, CardContent } from "@/components/ui/card"
 
 
-import { CarFront, CaravanIcon, ConstructionIcon, TractorIcon, TramFront, Truck } from "lucide-react"
+
 import { useRouter } from "next/navigation"
-import { Badge } from "@/components/ui/badge"
+
 import { format } from "date-fns"
 import InseratCard from "@/app/(dashboard)/_components/inserat-card"
 import { inserat, userTable } from "@/db/schema"

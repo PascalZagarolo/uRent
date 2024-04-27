@@ -3,8 +3,8 @@ import getCurrentUser from "@/actions/getCurrentUser";
 
 import ChatComponent from "./_components/chat-component";
 
-import { ArrowLeft, ArrowLeftCircle, MessageSquareIcon, TrendingUp, User2Icon, UserIcon } from "lucide-react";
-import MobileHeaderChat from "./_components/mobile-header";
+import { MessageSquareIcon } from "lucide-react";
+
 import ChatInput from "./_components/_chatcomponents/chat-input";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import Image from "next/image";
@@ -12,13 +12,12 @@ import Image from "next/image";
 
 import ChatHeader from "./_components/chat-header";
 
-import { find } from "lodash";
-import RenderedChats from "./_components/rendered-chats";
+
 import StartedChats from "./_components/started-chats";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import ReturnToChat from "./_components/return-to-chat";
 import db from "@/db/drizzle";
-import { and, eq, is, isNotNull, or } from "drizzle-orm";
+import { and, eq,  isNotNull, or } from "drizzle-orm";
 import { conversation, notification } from "@/db/schema";
 import { userTable, message } from '../../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
@@ -110,18 +109,7 @@ const ConversationPage = async ({
 
 
 
-    const attachments = await db.query.message.findMany({
-        where: (
-            and(
-                isNotNull(message.image),
-                eq(message.conversationId, params.conversationId)
-            )
-        ), orderBy: (message, { asc }) => [asc(message.createdAt)]
-
-
-    })
-
-    let otherUserChat: typeof userTable.$inferSelect;
+    
 
     const findNotifications = db.query.notification.findMany({
         where: (

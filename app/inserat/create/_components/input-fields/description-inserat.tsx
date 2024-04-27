@@ -120,12 +120,12 @@ const DescriptionInserat: React.FC<DescriptionInseratProps> = ({
             <h1 className="text-md flex justify-start  font-semibold    text-gray-900  dark:text-gray-100 items-center" 
             >
                <AppWindow className="mr-2 h-4 w-4"/> Beschreibung * 
-               {/* 
+             
                <Button className="ml-auto dark:bg-[#0F0F0F] dark:hover:bg-[#1a1a1a] dark:text-gray-100 text-xs font-semibold"
                onClick={onSubmit}
                disabled={currentDescription === thisInserat.description || isLoading || !currentDescription}
                > Änderungen speichern </Button>
-               */}
+               
             </h1>
             
             <div className=" mt-2 bg-white dark:bg-[#0F0F0F] hover:cursor-pointer p-4 rounded-md  h-[160px]" onClick={() => {setIsEditing(true)}} >

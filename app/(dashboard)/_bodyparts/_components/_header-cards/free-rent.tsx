@@ -19,8 +19,8 @@ const FreeRentCard = () => {
                         Vermiete 3 Monate gratis und ohne Risiko deine Fahrzeuge auf uRent
                     </h1>
                     <h2>
-                        <span className="p-4 flex justify-center mt-2 rounded-md bg-[#1F2332] text-gray-200 font-semibold text-lg">
-                            RELEASE24
+                        <span className="p-4 flex justify-center mt-2 rounded-md bg-[#1F2332] text-gray-200 font-bold text-lg ">
+                           <p className="font-medium mr-2">CODE: </p> RELEASE24
                         </span>
                         <p className="text-xs dark:text-gray-200/70">
                             Nutze den Code RELEASE24 und profitiere von 3 Monaten kostenloser Vermietung.

@@ -149,9 +149,7 @@ const ConversationPage = async ({
                             <div>
                                 <AdsComponent dataAdSlot='3797720061' />
                             </div>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
+                            
                             
                         </div>
                 </div>
@@ -227,9 +225,7 @@ const ConversationPage = async ({
                             <div>
                                 <AdsComponent dataAdSlot='3797720061' />
                             </div>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
+                            
                             
                         </div>
                 </div>

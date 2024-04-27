@@ -159,7 +159,7 @@ const ConversationPage = async ({
                         </div>
                 </div>
                 <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] 
-            h-full hidden md:block dark:border-[#1C1C1C] border">
+            min-h-full hidden md:block dark:border-[#1C1C1C] border">
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                         <MessageSquareIcon className="w-4 h-4 mr-2" />  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                     </h3>

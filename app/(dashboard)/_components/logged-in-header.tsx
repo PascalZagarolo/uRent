@@ -9,13 +9,14 @@ import { useRouter } from "next/navigation";
 import ConversationShortCut from "./conversation-shortcut";
 import FavouritesShortCut from "./favourites-shortcut";
 import NotificationShortCut from "./notification-shortcut";
-import SettingsSheet from "./settings-sheet";
+
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { notification, userTable  } from "@/db/schema";
-import toast from "react-hot-toast";
+
 import { signOut } from "@/actions/signout";
 import { RiAdminFill } from "react-icons/ri";
+import { IoIosPricetags } from "react-icons/io";
 
 
 interface LoggedInBarHeaderProps {
@@ -102,7 +103,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-indigo-900 flex justify-start"
                         onClick={() => {router.push(`/admin`)}}
                     >
-                        <RiAdminFill  className="mr-4 w-6 h-6" />
+                        <RiAdminFill  className="mr-4 w-4 h-4" />
                         <p>
                             Admin Dashboard
                         </p>
@@ -114,7 +115,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start"
                         onClick={onClick}
                     >
-                        <UserIcon className="mr-4 w-6 h-6" />
+                        <UserIcon className="mr-4 w-4 h-4" />
                         <p>
                             Mein Profil
                         </p>
@@ -126,7 +127,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={onDashboard}
                     >
-                        <TrendingUp className="mr-4" />
+                        <TrendingUp className="mr-4 w-4 h-4" />
                         <p>
                             Dashboard
                         </p>
@@ -138,9 +139,21 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                         onClick={onMessages}
                     >
-                        <MailCheck className="mr-4" />
+                        <MailCheck className="mr-4 w-4 h-4" />
                         <p>
                             Konversationen
+                        </p>
+                    </Button>
+
+                    <Button
+                        variant="ghost"
+                        className="  bg-[#e1dfdf] 
+                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
+                        onClick={() => {router.push("/pricing")}}
+                    >
+                        <IoIosPricetags  className="mr-4 w-4 h-4" />
+                        <p>
+                            Pläne und Upgrades
                         </p>
                     </Button>
 
@@ -151,7 +164,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         onClick={() => {router.push("/settings")}}
                         
                     >
-                        <SettingsIcon className="mr-4" />
+                        <SettingsIcon className="mr-4 w-4 h-4" />
                         <p>
                             Einstellungen
                         </p>
@@ -165,7 +178,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         border-2 border-gray-300   w-full dark:bg-[#0f0f0f] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
                       onClick={() => signOut()}
                     >
-                        <LogOutIcon className="mr-4" />
+                        <LogOutIcon className="mr-4 w-4 h-4" />
                         <p>
                             Abmelden
                         </p>

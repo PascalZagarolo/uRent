@@ -24,6 +24,8 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     thisConversation
 }) => {
 
+    
+
     const formateDate = (date : Date) => {
         const chatBegin = format(new Date(date), "yyyy-MM-dd");
         return chatBegin;
@@ -47,7 +49,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
                 return [...current, message]
             });
 
-            ;
+            
         }
 
         const deleteMessage = (message : any) => {
@@ -78,7 +80,13 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         }
     }, )
     
+
+    const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(pMessages.length - 10, pMessages.length));
     
+    useEffect(() => {
+        setRenderedMessages(pMessages.slice(pMessages.length - 10, pMessages.length));
+    }
+    , [pMessages]);
 
     useEffect(() => {
         if (pMessages.length > 0) {
@@ -105,7 +113,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             Chat gestartet am {formateDate(thisConversation.createdAt)}
             </h3>
             <div className="no-scrollbar p-0.5">
-            {pMessages.map((message) => (
+            {renderedMessages.map((message) => (
                 <ChatMessageRender
                 key={message.id}
                 messages={message}

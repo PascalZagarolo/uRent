@@ -37,7 +37,7 @@ const RedeemCode = () => {
             setUsedCode("")
         } catch(error : any) {
             console.log(error);
-            toast.error("Etwas ist schief gelaufen");
+            toast.error("Dieser Gutscheincode kann nicht verwendet werden.");
         } finally {
             setIsLoading(false);
         }

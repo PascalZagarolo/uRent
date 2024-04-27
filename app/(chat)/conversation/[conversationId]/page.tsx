@@ -22,6 +22,7 @@ import { and, eq, is, isNotNull, or } from "drizzle-orm";
 import { conversation, notification } from "@/db/schema";
 import { userTable, message } from '../../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
+import AdsComponent from "@/components/ad-component";
 
 
 
@@ -143,6 +144,17 @@ const ConversationPage = async ({
                 />
             </div>
             <div className="flex justify-center min-h-full sm:py-8  sm:px-4">
+            <div className='h-full sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                        <div className=' w-full sm:block hidden space-y-4'>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            
+                        </div>
+                </div>
                 <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] 
             h-full hidden md:block dark:border-[#1C1C1C] border">
                     <h3 className="text-md font-semibold flex items-center p-4 ">
@@ -210,7 +222,17 @@ const ConversationPage = async ({
                     </div>
 
                 </div>
-
+                <div className='h-full sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                        <div className=' w-full sm:block hidden space-y-4'>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            
+                        </div>
+                </div>
             </div>
             <Footer />
         </div>

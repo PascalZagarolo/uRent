@@ -2,6 +2,7 @@
 
 import { userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import { format } from "date-fns";
 
 import { UserCircle2Icon, X } from "lucide-react";
@@ -24,11 +25,13 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     lastMessageDate
 }) => {
 
-    const onClick = () => {
+    const onClick = async () => {
         if (conversationId === params.conversationId) {
             router.push(`/conversation`)
         } else {
-            router.push(`/conversation/${conversationId}`);
+            await axios.patch(`/api/conversation/seen/${conversationId}`)
+                .then(() => router.push(`/conversation/${conversationId}`))
+            
         }
     }
 

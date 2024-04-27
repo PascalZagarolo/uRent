@@ -48,10 +48,12 @@ const MenuBar = () => {
             isFavourite && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/favourites`}>
                 Favoriten
             </a>
+            {/*
             <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isBooking && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/bookings`}>
                 Gemietete Fahrzeuge
             </a>
+            */}
             </div>
         </div>
      );

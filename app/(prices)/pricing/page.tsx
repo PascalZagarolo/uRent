@@ -6,6 +6,7 @@ import BuyOptions from "./_components/buy-options";
 import RedeemCode from "./_components/redeem-code";
 import ComparisonPlans from "./_components/comparison-plans";
 import Faq from "./_components/faq";
+import Footer from "@/app/(dashboard)/_components/footer";
 
 
 
@@ -54,6 +55,7 @@ const PricingMainPage = async () => {
 
             </div>
         </div>
+        
         </div>
 
 

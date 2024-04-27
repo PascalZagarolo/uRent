@@ -4,6 +4,7 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
 import db from "@/db/drizzle";
+import Footer from "../(dashboard)/_components/footer";
 
 const PricingLayout = async  (
     { children }: { children: React.ReactNode }
@@ -44,6 +45,9 @@ const PricingLayout = async  (
                     </div>
                 </div>
             </div>
+            <div>
+            <Footer/>
+        </div>
         </div>
     );
 }

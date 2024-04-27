@@ -1,33 +1,39 @@
-import { MdManageSearch } from "react-icons/md";
+
 import BreadCrumpPage from "../../_components/bread-crump-page";
 import MenuBar from "../../_components/menu-bar";
-import { CardStackPlusIcon } from "@radix-ui/react-icons";
+
 import { BiCreditCardAlt } from "react-icons/bi";
 import db from "@/db/drizzle";
-import { and, count, eq } from "drizzle-orm";
+import { and, count, eq, sql } from "drizzle-orm";
 import { inserat, userTable, userSubscription } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
-import { render } from '@react-email/components';
+
 import SubscriptionsRenderList from "./_components/subscriptions-render-list";
-import { cn } from "@/lib/utils";
+
 import { stripe } from "@/lib/stripe";
 import { format } from "date-fns";
+import RenderAvailable from "./_components/render-available";
 
 
 
 const PaymentsPage = async () => {
 
     const currentUser = await getCurrentUser();
+    
 
-    const existingSubscription = await db.query.userTable.findFirst({
+    const usedId = currentUser.id;
+
+    const findSubscription = db.query.userTable.findFirst({
         where: (
-            eq(userTable.id, currentUser.id)
+            eq(userTable.id, sql.placeholder("usedId"))
         ), with: {
             subscription: true
         }
-    })
+    }).prepare("findSubscription")
 
-    console.log(existingSubscription.subscription)
+    const existingSubscription = await findSubscription.execute({usedId : usedId});
+
+    
 
     let retrievedSubscription;
 
@@ -77,23 +83,10 @@ const PaymentsPage = async () => {
                         <div className="w-full flex flex-row mt-8">
 
                             <div className="w-1/2">
-                                <h1 className="font-semibold">
-                                    Verfügbare Inserate
-                                </h1>
-                                <p className="text-xs dark:text-gray-200/60 ">
-                                    Gezählt werden nur veröffentlichte Inserate.
-                                </p>
-                                {existingSubscription.subscription ? (
-                                    <div className="text-2xl font-medium flex gap-x-1 mt-2">
-                                        <p className={cn("font-bold",
-                                            countInserate[0]?.count !== existingSubscription?.subscription?.amount ? "text-green-500" : "text-red-500"
-                                        )}>{countInserate[0]?.count}</p> / {existingSubscription?.subscription?.amount}
-                                    </div>
-                                ) : (
-                                    <div className="text-2xl font-medium flex gap-x-1 mt-2">
-                                        Noch kein Plan ausgewählt
-                                    </div>
-                                )}
+                                <RenderAvailable 
+                                existingSubscription={existingSubscription}
+                                countedInserate={countInserate[0]?.count}
+                                />
                             </div>
 
                             <div className="w-1/2">

@@ -11,6 +11,7 @@ import db from "@/db/drizzle";
 import { eq, or } from "drizzle-orm";
 import { conversation, notification } from '../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
+import AdsComponent from "@/components/ad-component";
 
 
 
@@ -64,6 +65,17 @@ const ConversationPage = async () => {
                 />
              </div>
             <div className="flex justify-center h-full sm:py-8 sm:px-4 ">
+            <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                        <div className=' w-full sm:block hidden space-y-4'>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            
+                        </div>
+                    </div>
             <div className="dark:bg-[#0F0F0F] sm:mr-4 sm:rounded-md sm:w-[280px] w-full min-h-screen dark:border-[#1C1C1C] border">  
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2"/>  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
@@ -100,7 +112,17 @@ const ConversationPage = async () => {
                         </div>
                     </div>
                 </div>
-                
+                <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                        <div className=' w-full sm:block hidden space-y-4'>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            
+                        </div>
+                    </div>
             </div>
             <div>
             <Footer />

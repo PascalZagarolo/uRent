@@ -39,7 +39,7 @@ const Footer = () => {
               </div>
 
               <a className="hover:underline hover:cursor-pointer  sm:text-sm text-xs" href="/faqs">
-                FAQs
+               FAQs & Hilfe
               </a>
 
             </div>

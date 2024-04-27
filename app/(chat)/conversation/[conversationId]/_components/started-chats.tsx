@@ -48,6 +48,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
             conversationId={conversations.id}
             openMessages = {openChats.length}
             lastMessage = {content}
+            lastMessageDate={lastMessage[0]?.createdAt}
             />
         </div>
      );

@@ -116,6 +116,7 @@ const AddPriceProfile : React.FC<AddPriceProfileProps> = ({
                                                 disabled={thisInserat?.priceHour ? true : false}
                                                 >pro Stunde</SelectItem>
                                                 <SelectItem value="weekend">Wochende</SelectItem>
+                                                <SelectItem value="kilometer">pro Kilometer</SelectItem>
                                                 
                                             </SelectGroup>
                                         </SelectContent>

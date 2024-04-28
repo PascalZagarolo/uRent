@@ -263,6 +263,7 @@ export const inserat = pgTable("inserat", {
 
     priceHour : decimal("priceHour"),
     priceWeekend : decimal("priceWeekend"),
+    priceKilometer : decimal("priceKilometer"),
 
 
     firstRelease : timestamp("firstRelease", {mode: "date"}),

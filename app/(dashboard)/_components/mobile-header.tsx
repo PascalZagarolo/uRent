@@ -64,7 +64,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                                     <LoggedInBarHeader
                                         currentUser={currentUser}
                                         foundNotifications={foundNotifications}
-                                        
+                                        foundConversations={0}
                                     />
 
                                 </div>

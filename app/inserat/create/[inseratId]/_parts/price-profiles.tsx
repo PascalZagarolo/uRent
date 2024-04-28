@@ -172,6 +172,29 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
             </div>
             )}
 
+{thisInserat.priceKilometer && (
+                <div className="sm:w-1/2 w-full dark:bg-[#191919] rounded-md p-2">
+                <div className="p-2">
+                    <div className=" text-sm font-semibold w-full flex items-center">
+                    <Hourglass className="w-4 h-4 mr-2" /> <div className="mr-1 font-medium">Kilometerpreis</div> 
+                    {(Number(thisInserat.priceKilometer)).toFixed(2)} €
+                        <div className="flex ml-auto">
+                        <DialogTrigger asChild>
+                        <Button size="sm" variant="ghost" onClick={() => {setPriceType("kilometer")}}>
+                                <PencilIcon className="w-4 h-4" />
+                            </Button>
+                        </DialogTrigger>
+                            <AlertDialogTrigger asChild>
+                            <Button size="sm" variant="ghost" onClick={() => {setPriceType("kilometer")}}>
+                                <Trash2Icon className="w-4 h-4" />
+                            </Button>
+                            </AlertDialogTrigger>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            )}
+
                 <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
                     <div className="">
                         <h1 className="font-semibold flex items-center">
@@ -281,7 +304,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
             </Dialog>
                 
             </div>
-            {(!thisInserat.priceWeekend || !thisInserat.priceWeekend) && (
+            {(!thisInserat.priceWeekend || !thisInserat.priceHour || !thisInserat.priceKilometer) && (
                 <div>
                 <AddPriceProfile
                     thisInserat={thisInserat}

@@ -115,8 +115,12 @@ const AddPriceProfile : React.FC<AddPriceProfileProps> = ({
                                                 <SelectItem value="hours"
                                                 disabled={thisInserat?.priceHour ? true : false}
                                                 >pro Stunde</SelectItem>
-                                                <SelectItem value="weekend">Wochende</SelectItem>
-                                                <SelectItem value="kilometer">pro Kilometer</SelectItem>
+                                                <SelectItem value="weekend"
+                                                disabled={thisInserat?.priceWeekend ? true : false}
+                                                >Wochende</SelectItem>
+                                                <SelectItem value="kilometer"
+                                                disabled={thisInserat?.priceKilometer ? true : false}
+                                                >pro Kilometer</SelectItem>
                                                 
                                             </SelectGroup>
                                         </SelectContent>

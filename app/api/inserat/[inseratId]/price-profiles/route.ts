@@ -43,6 +43,11 @@ export async function PATCH(
                         priceWeekend : values.price
                     }).where(eq(inserat.id, params.inseratId))
                     break;
+            case "kilometer":
+                        returnedInserat = await db.update(inserat).set({
+                            priceKilometer : values.price
+                        }).where(eq(inserat.id, params.inseratId))
+                        break;
             
             default:
                 return new NextResponse("Falscher Preisprofil Typ", { status: 400 })

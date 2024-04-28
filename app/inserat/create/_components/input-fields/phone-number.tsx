@@ -55,7 +55,9 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
 
     const onPrefill = () => {
         if(!isPrefill) {
-            setCurrentNumber("1234567890");
+            if(thisInserat.user?.business?.telephone_number) {
+              setCurrentNumber(thisInserat.user.business.telephone_number);
+            }
             setIsPrefill(true);
         } else if(isPrefill) {
             setCurrentNumber("");
@@ -102,7 +104,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
 
 
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!currentNumber || currentNumber === thisInserat.phoneNumber}
+        disabled={!currentNumber || currentNumber === thisInserat.phoneNumber || !thisInserat.user?.business?.telephone_number}
       >
         <span className="">Telefonnr. anzeigen</span> 
       </Button>

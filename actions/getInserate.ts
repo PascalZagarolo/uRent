@@ -222,7 +222,6 @@ export const getInserate = cache(async ({
         const usedStart = new Date(periodBegin);
         const usedEnd = new Date(periodEnd);
         
-        console.log(usedStart, usedEnd)
         
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
         

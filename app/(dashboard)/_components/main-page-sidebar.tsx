@@ -50,13 +50,13 @@ const MainPageSideBar = () => {
 
     const onReset = () => {
         const url = process.env.NEXT_PUBLIC_BASE_URL
-
+        removeAll();
         router.push(url)
     }
 
 
    
-    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    const { searchParams, changeSearchParams, deleteSearchParams, removeAll } = useSavedSearchParams();
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 

@@ -14,9 +14,9 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
-import { useGetFilterAmount, useSavedSearchParams } from "@/store";
-import { MdCancelPresentation, MdOutlineCancel } from "react-icons/md";
-import { cache, memo, useEffect } from "react";
+import {  useSavedSearchParams } from "@/store";
+import {  MdOutlineCancel } from "react-icons/md";
+import { useEffect } from "react";
 import MainPageResults from "./main-page-results";
 import { CategoryEnumRender } from "@/db/schema";
 
@@ -50,8 +50,9 @@ const MainPageSideBar = () => {
 
     const onReset = () => {
         const url = process.env.NEXT_PUBLIC_BASE_URL
-        removeAll();
+        
         router.push(url)
+        removeAll();
     }
 
 

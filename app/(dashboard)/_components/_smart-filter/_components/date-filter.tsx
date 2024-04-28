@@ -28,6 +28,7 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { de } from "date-fns/locale";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { useSavedSearchParams } from "@/store";
+import { set } from "lodash";
 
 const DateFormFilter = () => {
 
@@ -37,15 +38,18 @@ const DateFormFilter = () => {
 
 
     
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
 
-    const currentLocation = usedSearchParams.get("location");
-    const currentPage = usedSearchParams.get("page");
+   
 
     const paramsPeriodBegin = usedSearchParams.get("periodBegin");
     const paramsPeriodEnd = usedSearchParams.get("periodEnd");
     
-    const [periodBegin, setPeriodBegin] = React.useState(paramsPeriodBegin ? new Date(paramsPeriodBegin) : null);
-    const [periodEnd, setPeriodEnd] = React.useState(paramsPeriodEnd ? new Date(paramsPeriodEnd) : null);
+    const [periodBegin, setPeriodBegin] = React.useState(null);
+
+    const [periodEnd, setPeriodEnd] = React.useState(null);
+
+    
 
     const params = getSearchParamsFunction("periodBegin", "periodEnd");
 
@@ -68,17 +72,35 @@ const DateFormFilter = () => {
         if(paramsPeriodBegin){
           //@ts-ignore
             changeSearchParams("periodBegin", new Date(paramsPeriodBegin));
-        }
-
-        if(periodEnd){
+            setPeriodBegin(new Date(paramsPeriodBegin));
+        } 
+        
+        if(paramsPeriodEnd){
           //@ts-ignore
             changeSearchParams("periodEnd", new Date(paramsPeriodEnd));
+            setPeriodEnd(new Date(paramsPeriodEnd));
         }
     }, [])
 
-    const deletePrice = () => {
+    React.useEffect(() => {
+        //@ts-ignore
+        if(!currentObject["periodBegin"] && !paramsPeriodBegin){
+          setPeriodBegin(null)
+        }
+        //@ts-ignore
+        if(!currentObject["periodEnd"] && !paramsPeriodEnd){
+          setPeriodEnd(null)
+        }
+     
+    }, [currentObject, paramsPeriodBegin, paramsPeriodEnd])
+
+    
+
+    const deleteDates = () => {
         deleteSearchParams("periodBegin");
         deleteSearchParams("periodEnd");
+        setPeriodBegin(null);
+        setPeriodEnd(null);
     }
 
 
@@ -109,9 +131,7 @@ const DateFormFilter = () => {
 
    
 
-    const onSubmit = () => {
-        console.log("...")
-    }
+    
 
     
 
@@ -129,7 +149,7 @@ const DateFormFilter = () => {
           
           <div className="flex w-full px-2">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+              <form onSubmit={() => {}} className="space-y-8 w-full">
                 <div className="flex gap-x-4 w-full">
                   <FormField
                     control={form.control}
@@ -238,7 +258,9 @@ const DateFormFilter = () => {
             <div className="mt-2 flex justify-center  ">
                     <Button className="bg-[#1a1d2c] w-full border 
                     dark:text-gray-100  dark:hover:bg-[#212538]
-                    "  disabled={!periodBegin && !periodEnd && !params.periodBegin && !paramsPeriodEnd} >
+                    "  disabled={!periodBegin && !periodEnd && !params.periodBegin && !paramsPeriodEnd} 
+                    onClick={deleteDates}
+                    >
                         Filter zurücksetzen
                     </Button>
                 </div>

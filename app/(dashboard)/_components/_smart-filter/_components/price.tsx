@@ -13,35 +13,70 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Banknote, Link } from "lucide-react";
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
 import { z } from "zod";
 import { useForm, FieldValues } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { IoIosPricetags } from "react-icons/io";
+import { useSavedSearchParams } from "@/store";
 
 
 const PriceFormFilter = () => {
 
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const currentTitle = searchParams.get("title");
-    const category = searchParams.get("category");
+    const usedSearchParams = useSearchParams();
+    const currentTitle = usedSearchParams.get("title");
+    const category = usedSearchParams.get("category");
 
-    const [currentStart, setCurrentStart] = React.useState(null);
-    const [currentEnd, setCurrentEnd] = React.useState(null);
-
-    const startPrice = searchParams.get("start");
-    const endPrice = searchParams.get("end");
-
-    const params = getSearchParamsFunction("start", "end");
     
 
+    const startPrice = usedSearchParams.get("start");
+    const endPrice = usedSearchParams.get("end");
 
+    const [currentStart, setCurrentStart] = React.useState(startPrice ? startPrice : null);
+    const [currentEnd, setCurrentEnd] = React.useState(endPrice ? endPrice : null);
+
+    const params = getSearchParamsFunction("start", "end");
+
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (begin : number) => {
+        //@ts-ignore
+        changeSearchParams("start", begin);
+        
+    }
+
+    const setEnd = (end : number) => {
+        //@ts-ignore
+        console.log(end)
+        changeSearchParams("end", end);
+        
+    }
+
+    React.useEffect(() => {
+        if(startPrice){
+            changeSearchParams("start", startPrice);
+        }
+
+        if(endPrice){
+            changeSearchParams("end", endPrice);
+        }
+    }, [])
+
+    const deletePrice = () => {
+        deleteSearchParams("start");
+        deleteSearchParams("end");
+    }
+    
+
+    /*
     const onClick = (startPrice: string, endPrice: string) => {
 
         setCurrentStart(Number(startPrice) !== 0 ? Number(startPrice) : null);
@@ -58,7 +93,7 @@ const PriceFormFilter = () => {
 
         router.push(url)
     }
-
+*/
     const onPriceReset = () => {
         setCurrentStart(null);
         setCurrentEnd(null);
@@ -102,7 +137,7 @@ const PriceFormFilter = () => {
                     <h3 className="text-sm  text-gray-300  mb-1">
                         Von :
                     </h3>
-                    <Select onValueChange={(e) => onClick(e, currentEnd)} value={startPrice || "0"} defaultValue="Start">
+                    <Select onValueChange={(e) => {setStart(Number(e)); setCurrentStart(e)}} value={currentStart || "0"} defaultValue="Start">
                         <SelectTrigger className=" w-full font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
                             <SelectValue className="font-bold" placeholder="Start" />
                         </SelectTrigger>
@@ -130,7 +165,7 @@ const PriceFormFilter = () => {
                     <h3 className="text-sm  text-gray-300 mb-1">
                         Bis :
                     </h3>
-                    <Select onValueChange={(e) => onClick(currentStart, e)} value={endPrice || "max"} >
+                    <Select onValueChange={(e) => {setEnd(Number(e)); setCurrentEnd(e)}} value={currentEnd || "max"} >
                         <SelectTrigger className=" w-full font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
                             <SelectValue className="font-bold" placeholder="Ende"/>
                         </SelectTrigger>

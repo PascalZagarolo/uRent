@@ -38,11 +38,22 @@ const MainPageResults = () => {
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
 
-
         
-
+        
+        let usedEnd = null;
+        
+        
+    //@ts-ignore
+        if(filteredValues.periodEnd){
         //@ts-ignore
-        const usedEnd = filteredValues.periodEnd ;
+        usedEnd = filteredValues.periodEnd;
+        } else {
+            //@ts-ignore
+            if(filteredValues.periodBegin) {
+                //@ts-ignore
+                usedEnd = filteredValues.periodBegin;
+            }
+        }
         
         
 
@@ -55,15 +66,16 @@ const MainPageResults = () => {
                 //@ts-ignore
                 category: thisCategory,
                 //@ts-ignore
-                periodBegin: usedStart ? usedStart?.toISOString() : null,
+                periodBegin: usedStart ? usedStart : null,
                 //@ts-ignore
-                periodEnd: usedEnd ? usedEnd?.toISOString() : null,
+                periodEnd: usedEnd ? usedEnd : null,
                 //@ts-ignore
                 type: filteredValues.thisType,
                 ...filteredValues
             },
 
         }, { skipEmptyString: true, skipNull: true })
+        
         
         router.push(url);
     }

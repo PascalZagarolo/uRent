@@ -21,7 +21,7 @@ interface MobileHeaderProps {
     foundNotifications : typeof notification.$inferSelect[];
 }
 
-const MobileHeader: React.FC<MobileHeaderProps> = async ({
+const MobileHeader: React.FC<MobileHeaderProps> = ({
     currentUser,
     foundNotifications,
 }) => {
@@ -33,7 +33,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = async ({
 
     const isDashboard = pathname.includes('dashboard');
 
-    const foundConversations = await getOpenConversations(currentUser?.id)
+    
 
 
     return (
@@ -64,7 +64,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = async ({
                                     <LoggedInBarHeader
                                         currentUser={currentUser}
                                         foundNotifications={foundNotifications}
-                                        foundConversations={foundConversations}
+                                        
                                     />
 
                                 </div>

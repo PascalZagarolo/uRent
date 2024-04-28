@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { find, set } from "lodash";
 import { format } from "date-fns";
 import { conversation, message, userTable } from "@/db/schema";
+import { Separator } from "@radix-ui/react-select";
 
 
 
@@ -104,7 +105,17 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         }
     }, [pMessages, renderedMessages]);
 
-    
+    let markedDates : any = [];
+
+    const isNewDate = (createdAt : Date) => {
+        const date = format(new Date(createdAt), "yyyy-MM-dd");
+        if (markedDates.includes(date)) {
+            return false;
+        } else {
+            markedDates.push(date);
+            return true;
+        }
+    }
 
     return ( 
         <div> 
@@ -115,11 +126,26 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             </h3>
             <div className="no-scrollbar p-0.5">
             {renderedMessages.map((message) => (
-                <ChatMessageRender
+               <>
+               {isNewDate(message.createdAt) && (
+                <span className="w-full flex items-center justify-center space-x-8">
+                    <Separator 
+                     className="w-1/4 bg-gray-900/10 dark:bg-[#272727] h-[0.1px] "
+                    />
+                <div className="flex justify-center text-gray-900/30 px-4 py-2 dark:text-gray-100 text-sm">
+                {format(new Date(message.createdAt), "dd.MM.yyyy")}
+                </div>
+                <Separator 
+                     className="w-1/4 bg-gray-900/10 dark:bg-[#272727] h-[0.1px] "
+                    />
+                </span>
+               )}
+               <ChatMessageRender
                 key={message.id}
                 messages={message}
                 isOwn={message.senderId === currentUser.id}
                 />
+               </>
             ))}
             </div>
             </div>

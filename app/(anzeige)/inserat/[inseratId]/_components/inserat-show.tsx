@@ -12,6 +12,7 @@ import { PiSteeringWheel, PiVanFill } from "react-icons/pi";
 import InseratImageCarousel from "./inserat-image";
 import ReportModal from "./report/report-modal";
 import { format } from "date-fns";
+import { VscMilestone } from "react-icons/vsc";
 
 interface InseratShowProps {
     thisInserat : typeof inserat.$inferSelect
@@ -128,18 +129,26 @@ const InseratShow : React.FC<InseratShowProps> = ({
                                         <p className="flex text-lg sm:text-lg  items-center"><TbZoomMoney className="mr-2 h-4 w-4" />
                                             Weitere Preisprofile</p>
                                     </div>
-                                    <div className="w-full flex flex-row mt-2">
+                                    <div className="w-full grid grid-cols-2 gap-2 mt-2">
                                         {thisInserat?.priceHour && (
-                                            <div className="w-1/2 truncate font-semibold text-sm flex">
+                                            <div className="w-full truncate font-semibold text-sm flex">
                                                 <Ri24HoursLine className="w-4 h-4 mr-2 text-gray-200" />
                                                 {thisInserat?.priceHour} € <p className="text-xs mb-auto px-1">/Stunde</p>
                                             </div>
                                         )}
                                         {thisInserat?.priceWeekend && (
-                                            <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                            <div className="w-full truncate flex font-semibold text-sm ">
                                                 <>
                                                     <HourglassIcon className="w-4 h-4 mr-2 text-indigo-800" />
                                                     {thisInserat?.priceWeekend} € pro Wochenende
+                                                </>
+                                            </div>
+                                        )}
+                                        {thisInserat?.priceKilometer && (
+                                            <div className="w-full truncate flex font-semibold text-sm ">
+                                                <>
+                                                    <VscMilestone  className="w-4 h-4 mr-2 text-indigo-800" />
+                                                    {thisInserat?.priceKilometer} € pro Kilometer
                                                 </>
                                             </div>
                                         )}

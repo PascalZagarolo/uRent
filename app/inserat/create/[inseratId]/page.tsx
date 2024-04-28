@@ -254,7 +254,7 @@ const InseratCreation = async ({
                                         />
                                     </div>
                                     <p className="text-xs dark:text-gray-200/60 flex justify-center">
-                                    Du kannst nach dem Veröffentlichen die Verfügbarkeit deines Inserats jederzeit anpassen.
+                                    Du kannst nach dem Veröffentlichen die Verfügbarkeit deines Inserats jederzeit in deinem Dashboard anpassen.
                                     </p>
                                     <div className="mt-4">
 

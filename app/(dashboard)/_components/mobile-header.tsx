@@ -14,13 +14,14 @@ import DashboardSheet from "./dashboard-sheet";
 
 import MobileLoginButton from "./mobile-login-button";
 import { notification, userTable } from '../../../db/schema';
+import { getOpenConversations } from "@/actions/getOpenConversations";
 
 interface MobileHeaderProps {
     currentUser: typeof userTable.$inferSelect;
     foundNotifications : typeof notification.$inferSelect[];
 }
 
-const MobileHeader: React.FC<MobileHeaderProps> = ({
+const MobileHeader: React.FC<MobileHeaderProps> = async ({
     currentUser,
     foundNotifications,
 }) => {
@@ -31,6 +32,8 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
     const pathname = usePathname();
 
     const isDashboard = pathname.includes('dashboard');
+
+    const foundConversations = await getOpenConversations(currentUser?.id)
 
 
     return (
@@ -61,6 +64,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                                     <LoggedInBarHeader
                                         currentUser={currentUser}
                                         foundNotifications={foundNotifications}
+                                        foundConversations={foundConversations}
                                     />
 
                                 </div>

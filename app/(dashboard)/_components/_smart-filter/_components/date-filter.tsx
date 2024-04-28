@@ -65,12 +65,14 @@ const DateFormFilter = () => {
     }
 
     React.useEffect(() => {
-        if(periodBegin){
-            changeSearchParams("periodBegin", periodBegin?.toISOString());
+        if(paramsPeriodBegin){
+          //@ts-ignore
+            changeSearchParams("periodBegin", new Date(paramsPeriodBegin));
         }
 
         if(periodEnd){
-            changeSearchParams("periodEnd", periodEnd?.toISOString());
+          //@ts-ignore
+            changeSearchParams("periodEnd", new Date(paramsPeriodEnd));
         }
     }, [])
 

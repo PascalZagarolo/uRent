@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import qs from "query-string";
 import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { addDays } from "date-fns";
 
 const MainPageResults = () => {
 
@@ -36,9 +37,15 @@ const MainPageResults = () => {
             
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
-        //@ts-ignore
-        const usedEnd = filteredValues.periodEnd;
+
+
         
+
+        //@ts-ignore
+        const usedEnd = filteredValues.periodEnd ;
+        
+        
+
         const url = qs.stringifyUrl({
             url: process.env.NEXT_PUBLIC_BASE_URL,
 
@@ -48,9 +55,9 @@ const MainPageResults = () => {
                 //@ts-ignore
                 category: thisCategory,
                 //@ts-ignore
-                periodBegin: filteredValues.periodBegin ? usedStart?.toISOString() : null,
+                periodBegin: usedStart ? usedStart?.toISOString() : null,
                 //@ts-ignore
-                periodEnd: filteredValues.periodEnd ? usedEnd?.toISOString() : null,
+                periodEnd: usedEnd ? usedEnd?.toISOString() : null,
                 //@ts-ignore
                 type: filteredValues.thisType,
                 ...filteredValues

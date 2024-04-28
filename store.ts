@@ -64,6 +64,7 @@ type savedSearchParams = {
     changeSearchParams: (newSearchParams : Object, value : string | number) => void;
     deleteSearchParams: (newSearchParams : Object) => void;
     getState: () => Object;
+    removeAll: () => void;
 }
 
 export const useSavedSearchParams = create<savedSearchParams>((set) => ({
@@ -88,6 +89,9 @@ export const useSavedSearchParams = create<savedSearchParams>((set) => ({
     },
     getState() {
         return this.searchParams;
+    },
+    removeAll() {
+        set({ searchParams : {} })
     }
 }))
 

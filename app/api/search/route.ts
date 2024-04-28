@@ -158,8 +158,7 @@ export async function PATCH(
         }
 
 
-        const usedStart = new Date(periodBegin);
-        const usedEnd = new Date(periodEnd);
+        
 
         
 
@@ -169,16 +168,7 @@ export async function PATCH(
                 and(
                     eq(inserat.isPublished, true),
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
-                    periodBegin ?
-                        or(
-                            (gte(inserat.begin, usedStart)), eq(inserat.annual, "true")
-                        ) : undefined,
-                    periodEnd ?
-                        or(
-                            (lte(inserat.end, usedEnd)),
-                            eq(inserat.annual, "true")
-                        )
-                        : undefined,
+                    
                     begin ? gte(inserat.price, begin) : undefined,
                     end ? lte(inserat.price, end) : undefined,
 

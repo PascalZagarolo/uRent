@@ -22,6 +22,7 @@ import { notification, userTable } from '../../../db/schema';
 
 
 import { cache } from "react";
+import { getOpenConversations } from "@/actions/getOpenConversations";
 
 
 
@@ -35,6 +36,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
     foundNotifications
 }) => {
 
+    const foundConversations = await getOpenConversations(currentUser.id);
 
 
     return (
@@ -76,6 +78,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
                                     foundNotifications={foundNotifications}
+                                    foundConversations = {foundConversations}
                                 />      
                             </div>
                 )

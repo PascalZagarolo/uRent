@@ -2,20 +2,33 @@
 
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { MessageCircle, MessageCircleMoreIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-const ConversationShortCut = () => {
+import {  MessageCircleMoreIcon } from "lucide-react";
 
-    const router = useRouter();
+
+interface ConversatonShortCutProps {
+    foundConversations : number;
+}
+
+const ConversationShortCut : React.FC<ConversatonShortCutProps> = ({
+    foundConversations
+}) => {
+
+  
 
     return (
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
                     <a href="/conversation">
-                    <Button className="lg:bg-[#181b27] text-gray-200" variant="ghost">
-                        <MessageCircleMoreIcon />
+                    <Button className="lg:bg-[#181b27] text-gray-200 items-center " variant="ghost">
+                        <MessageCircleMoreIcon /> 
+                        {foundConversations > 0 && (
+                            <span className="bg-rose-600 text-xs font-bold px-1 flex rounded-md text-gray-200">
+                            {foundConversations}
+                        </span>
+                        )}
                     </Button>
                     </a>
                 </TooltipTrigger>

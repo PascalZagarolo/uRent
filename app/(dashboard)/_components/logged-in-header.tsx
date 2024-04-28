@@ -22,11 +22,13 @@ import { IoIosPricetags } from "react-icons/io";
 interface LoggedInBarHeaderProps {
     currentUser: typeof userTable.$inferSelect;
     foundNotifications : typeof notification.$inferSelect[];
+    foundConversations : number;
 }
 
 const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     currentUser,
-    foundNotifications
+    foundNotifications,
+    foundConversations
 }) => {
 
     const router = useRouter();
@@ -68,7 +70,9 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
                 </div>
                 <div className="items-center mr-4 sm:block hidden">
-                    <ConversationShortCut />
+                    <ConversationShortCut 
+                    foundConversations={foundConversations}
+                    />
                 </div>
             </div>
 

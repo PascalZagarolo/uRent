@@ -14,14 +14,16 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
-import { useGetFilterAmount } from "@/store";
+import { useGetFilterAmount, useSavedSearchParams } from "@/store";
 import { MdCancelPresentation, MdOutlineCancel } from "react-icons/md";
-import { cache, memo } from "react";
+import { cache, memo, useEffect } from "react";
+import MainPageResults from "./main-page-results";
+import { CategoryEnumRender } from "@/db/schema";
 
 const MainPageSideBar = () => {
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const currentCategory = searchParams.get("category");
+    const usedSearchParams = useSearchParams();
+    const currentCategory = usedSearchParams.get("category");
    
     const router = useRouter();
 
@@ -29,7 +31,7 @@ const MainPageSideBar = () => {
 
     const params = getSearchParamsFunction("category");
 
-   
+    
 
     const onClick = (category: string) => {
 
@@ -52,8 +54,28 @@ const MainPageSideBar = () => {
         router.push(url)
     }
    
-    const results = useGetFilterAmount((state) => state.amount);
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const setCategory = (category : typeof CategoryEnumRender) => {
+        //@ts-ignore
+        changeSearchParams("thisCategory", category);
+        console.log('thisCategory' in searchParams && searchParams['thisCategory'] === "PKW")
+    }
+
+    useEffect(() => {
+        if(currentCategory){
+            changeSearchParams("thisCategory", currentCategory);
+        }
+    }, [])
+
+    const deleteCategory = () => {
+        deleteSearchParams("thisCategory")
+    }
     
+    
+
     
     return (
         <div className=" no-scrollbar w-[280px] rounded-md hidden xl:block bg-[#202336]  sm:overflow-auto    ">
@@ -70,7 +92,10 @@ const MainPageSideBar = () => {
                 <div className="flex justify-between ml-12 mr-12 mt-8 ">
                     <div className="">
                         <p className={cn("p-4 rounded-md text-gray-200  border-2 hover:cursor-pointer bg-[#1c1f2f]",
-                            currentCategory === "PKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("PKW") }}>
+                            //@ts-ignore
+                            currentObject["thisCategory"] === "PKW" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "PKW" ? deleteCategory() : setCategory("PKW")}>
                             <CarFront />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -80,7 +105,10 @@ const MainPageSideBar = () => {
 
                     <div>
                         <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
-                            currentCategory === "LKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("LKW") }}>
+                            //@ts-ignore
+                         currentObject["thisCategory"] === "LKW" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "LKW" ? deleteCategory() : setCategory("LKW")}>
                             <Truck />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -93,7 +121,10 @@ const MainPageSideBar = () => {
                 <div className="flex justify-between ml-12 mr-12 mt-4 ">
                     <div>
                         <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
-                            currentCategory === "TRAILER" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRAILER") }}>
+                         //@ts-ignore
+                         currentObject["thisCategory"] === "TRAILER" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "TRAILER" ? deleteCategory() : setCategory("TRAILER")}>
                             <RiCaravanLine className="w-6 h-6" />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -103,7 +134,10 @@ const MainPageSideBar = () => {
 
                     <div className="w-[60px]">
                         <p className={cn("p-4 rounded-md text-gray-200 border-2   flex justify-center hover:cursor-pointer bg-[#1c1f2f]",
-                            currentCategory === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
+                            //@ts-ignore
+                         currentObject["thisCategory"] === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "TRANSPORT" ? deleteCategory() : setCategory("TRANSPORT")}>
                             <PiVanFill className="w-6 h-6" />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1 ">
@@ -128,12 +162,7 @@ const MainPageSideBar = () => {
                     <Settings2 className="mr-2 h-4 w-4" /> Erweiterte Suche
                 </div>
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
-                    <Button className="bg-blue-800 w-full h-[100px]  ml-2 mr-2  flex 
-                    justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                    dark:text-gray-100 dark:hover:bg-sky-700
-                    ">
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
-                    </Button>
+                    <MainPageResults />
                 </div>
                 
             </div>

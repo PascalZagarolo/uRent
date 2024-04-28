@@ -1,16 +1,14 @@
 'use client'
 
-
-import { Button } from "@/components/ui/button";
 import { useSavedSearchParams } from "@/store";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import qs from "query-string"
-import { BiArrowToRight } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import qs from "query-string";
+import { SearchIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-
-const ResultsSearchPage = () => {
+const MainPageResults = () => {
 
     const searchParams = useSavedSearchParams((state) => state.searchParams);
 
@@ -31,12 +29,13 @@ const ResultsSearchPage = () => {
 
     const onRedirect = () => {
 
-        const filteredValues = searchParams;
+        const {//@ts-ignore
+            thisCategory, ...filteredValues} = searchParams;
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
         //@ts-ignore
         const usedEnd = filteredValues.periodEnd;
-        
+        console.log(filteredValues)
         const url = qs.stringifyUrl({
             url: process.env.NEXT_PUBLIC_BASE_URL,
 
@@ -44,11 +43,11 @@ const ResultsSearchPage = () => {
             //@ts-ignore
             query: {
                 //@ts-ignore
-                category: filteredValues.thisCategory,
+                category: thisCategory,
                 //@ts-ignore
-                periodBegin: filteredValues.periodBegin ? usedStart.toISOString() : null,
+                periodBegin: filteredValues.periodBegin ? usedStart?.toISOString() : null,
                 //@ts-ignore
-                periodEnd: filteredValues.periodEnd ? usedEnd.toISOString() : null,
+                periodEnd: filteredValues.periodEnd ? usedEnd?.toISOString() : null,
                 //@ts-ignore
                 type: filteredValues.thisType,
                 ...filteredValues
@@ -59,12 +58,13 @@ const ResultsSearchPage = () => {
         router.push(url);
     }
 
-    return (
-        <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-base sm:p-8 text-xs sm:text-sm" onClick={onRedirect}>
-            <p className="font-bold px-1"> {currentResults} </p> Ergebnisse <BiArrowToRight className="w-4 h-4 ml-2" />
-
-        </Button>
-    );
+    return ( 
+        <Button className="bg-blue-800 w-full h-[100px]  ml-2 mr-2  flex 
+                    justify-center 
+                    dark:text-gray-100 dark:hover:bg-sky-700" onClick={onRedirect}>
+                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {currentResults} </p> Ergebnisse
+                    </Button>
+     );
 }
-
-export default ResultsSearchPage;
+ 
+export default MainPageResults;

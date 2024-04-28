@@ -253,7 +253,9 @@ const InseratCreation = async ({
                                             className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                         />
                                     </div>
-
+                                    <p className="text-xs dark:text-gray-200/60 flex justify-center">
+                                    Du kannst nach dem Veröffentlichen die Verfügbarkeit deines Inserats jederzeit anpassen.
+                                    </p>
                                     <div className="mt-4">
 
                                         <RentPeriod

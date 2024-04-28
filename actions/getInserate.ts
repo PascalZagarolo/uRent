@@ -2,10 +2,12 @@
 
 
 import db from "@/db/drizzle";
-import { ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender, 
-    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat,  lkwAttribute, LkwBrandEnumRender, 
-    LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender, 
-    transportAttribute} from "@/db/schema";
+import {
+    ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender,
+    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, lkwAttribute, LkwBrandEnumRender,
+    LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender,
+    transportAttribute
+} from "@/db/schema";
 import axios from "axios";
 import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
 import { cache } from "react";
@@ -22,7 +24,7 @@ type GetInserate = {
     periodBegin?: string;
     periodEnd?: string;
     location?: string;
-    amount? : number;
+    amount?: number;
     //conditions
 
     reqAge?: number;
@@ -41,33 +43,33 @@ type GetInserate = {
     extraCost?: number;
 
     //LKW
-    weightClass? : number;
-    drive? : typeof DriveEnumRender;
-    loading? : typeof LoadingEnumRender;
-    application? : typeof ApplicationEnumRender;
-    lkwBrand? : typeof LkwBrandEnumRender;
+    weightClass?: number;
+    drive?: typeof DriveEnumRender;
+    loading?: typeof LoadingEnumRender;
+    application?: typeof ApplicationEnumRender;
+    lkwBrand?: typeof LkwBrandEnumRender;
 
     //Trailer
-    trailerType? : typeof TrailerEnumRender;
-    coupling? : typeof CouplingEnumRender;
-    extraType? : typeof ExtraTypeEnumRender;
-    axis? : number;
-    brake? : boolean;
+    trailerType?: typeof TrailerEnumRender;
+    coupling?: typeof CouplingEnumRender;
+    extraType?: typeof ExtraTypeEnumRender;
+    axis?: number;
+    brake?: boolean;
 
-    volume? : number;
+    volume?: number;
 
-    loading_l? : number;
-    loading_b? : number;
-    loading_h? : number;
+    loading_l?: number;
+    loading_b?: number;
+    loading_h?: number;
 
-    radius? : number;
+    radius?: number;
 
-    userId? : string
-    
+    userId?: string
+
 }
 
 //returns km
-function calculateDistance(lat1 : number, lon1 : number, lat2 : number, lon2 : number) {
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     const r = 6371;
     const p = Math.PI / 180;
 
@@ -128,17 +130,17 @@ export const getInserate = cache(async ({
     userId,
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
-    
 
-    const ConditionFilter = cache((pInserat : typeof inserat) => {
+
+    const ConditionFilter = cache((pInserat: typeof inserat) => {
         const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
         const bLicense = reqLicense ? reqLicense === pInserat.license : true;
-        
+
         return bAge && bLicense;
     })
-    
-    const PkwFilter = cache((pInserat : typeof inserat) => {
-        
+
+    const PkwFilter = cache((pInserat: typeof inserat) => {
+
         const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
         const bPower = power ? pInserat.pkwAttribute.power >= power : true;
         const bDoors = doors ? pInserat.pkwAttribute.doors >= doors : true;
@@ -157,13 +159,13 @@ export const getInserate = cache(async ({
         const bLength = loading_l ? loading_l <= pInserat.pkwAttribute.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.pkwAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.pkwAttribute.loading_h : true;
-    
+
         return bSeats && bPower && bDoors && bFreeMiles &&
-         bExtraCost && bType && bTransmission && bFuel && bBrand && 
-         bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
+            bExtraCost && bType && bTransmission && bFuel && bBrand &&
+            bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
     })
 
-    const LkwFilter = cache((pInserat : typeof inserat) => {
+    const LkwFilter = cache((pInserat: typeof inserat) => {
         const bSeats = seats ? pInserat.lkwAttribute.seats >= seats : true;
         const bAxis = axis ? axis === pInserat.lkwAttribute.axis : true;
         const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
@@ -177,11 +179,11 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication 
-        && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication
+            && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 
-    const TrailerFilter = cache((pInserat : typeof inserat) => {
+    const TrailerFilter = cache((pInserat: typeof inserat) => {
         const bType = trailerType ? trailerType === pInserat.trailerAttribute.type : true;
         const bExtraType = extraType ? extraType === pInserat.trailerAttribute.extraType : true;
         const bCoupling = coupling ? coupling === pInserat.trailerAttribute.coupling : true;
@@ -195,11 +197,11 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.trailerAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.trailerAttribute.loading_h : true;
 
-        return bType && bExtraType && bCoupling && bLoading && bAxis 
-        && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight; 
+        return bType && bExtraType && bCoupling && bLoading && bAxis
+            && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight;
     })
 
-    const TransportFilter = cache((pInserat : typeof inserat) => {
+    const TransportFilter = cache((pInserat: typeof inserat) => {
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmisson = transmission ? transmission === pInserat.transportAttribute.transmission : true;
         const bPower = power ? pInserat.transportAttribute.power >= power : true;
@@ -213,19 +215,40 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.transportAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.transportAttribute.loading_h : true;
 
-        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower 
-        && bExtraType && bVolume && bLength && bBreite && bHeight;
+        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower
+            && bExtraType && bVolume && bLength && bBreite && bHeight;
     })
 
-    
+    const filterAvailability = cache((pInserat: typeof inserat) => {
+        console.log("test")
+        if (pInserat.bookings.length === 0) {
+            return true;
+        }
+
+        const usedPeriodBegin = new Date(periodBegin);
+        const usedPeriodEnd = new Date(periodEnd);
+
+
+
+        for (const booking of pInserat.bookings) {
+            if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    })
+
+
     try {
-        const usedStart = new Date(periodBegin);
-        const usedEnd = new Date(periodEnd);
-        
-        
+
+
+
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
-        
-        
+
+
 
         const findInserate = await db.query.inserat.findMany({
             where: (
@@ -236,16 +259,7 @@ export const getInserate = cache(async ({
                     start ? gte(inserat.price, start) : undefined,
                     end ? lte(inserat.price, end) : undefined,
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
-                    periodBegin ?
-                        or(
-                            (gte(inserat.begin, usedStart)), eq(inserat.annual, "true")
-                        ) : undefined,
-                    periodEnd ?
-                        or(
-                            (lte(inserat.end, usedEnd)),
-                            eq(inserat.annual, "true")
-                        )
-                        : undefined,
+
                 )
             ),
             with: {
@@ -256,35 +270,45 @@ export const getInserate = cache(async ({
                 pkwAttribute: true,
                 trailerAttribute: true,
                 transportAttribute: true,
-                
+                bookings: true
+
             },
             ...(filter === "relevance") && {
-                orderBy : (views, { desc }) => [desc(inserat.views)]
+                orderBy: (views, { desc }) => [desc(inserat.views)]
             },
             ...(filter === "asc") && {
-                orderBy : (price, { asc }) => [asc(inserat.price)]
+                orderBy: (price, { asc }) => [asc(inserat.price)]
             },
             ...(filter === "desc") && {
-                orderBy : (price, { desc }) => [desc(inserat.price)]
+                orderBy: (price, { desc }) => [desc(inserat.price)]
             }
-            
+
         }).prepare("findInserate");
 
         const foundInserate = await findInserate.execute();
 
-        
+
 
         const filteredArray = foundInserate.filter((pInserat) => {
-           
+
             const validateUser = userId ? pInserat.userId === userId : true;
 
-            if(!validateUser) return false;
+            if (!validateUser) return false;
 
             const conditions = ConditionFilter(pInserat);
 
-            if(!conditions) return false;
 
-            switch(thisCategory) {
+
+            if (!conditions) return false;
+
+            if (periodBegin && periodEnd) {
+                console.log("test")
+                const available = filterAvailability(pInserat);
+                console.log(available)
+                if (!available) return false;
+            }
+
+            switch (thisCategory) {
                 //@ts-ignore
                 case "PKW": {
                     return PkwFilter(pInserat);
@@ -307,37 +331,37 @@ export const getInserate = cache(async ({
                 } default: {
                     return true;
                 }
-                
+
             }
         });
 
-        
+
 
         let returnedArray = [];
 
-        if(location) {
-           
+        if (location) {
+
             const usedRadius = radius ? radius : 50;
             const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-        for (const pInserat of filteredArray) {
-            const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon, 
-                                                Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
-                                                if(distance < usedRadius) {
-                                                    returnedArray.push(pInserat);
-                                                    
-                                                    
-                                                }
+            for (const pInserat of filteredArray) {
+                const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
+                    Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
+                if (distance < usedRadius) {
+                    returnedArray.push(pInserat);
+
+
+                }
+            }
+        } else {
+            returnedArray = filteredArray;
         }
-    } else {
-        returnedArray = filteredArray;
-    }
-        return returnedArray; 
-        
+        return returnedArray;
+
     } catch {
         return [];
     }
 });
-        
+
 
 
 

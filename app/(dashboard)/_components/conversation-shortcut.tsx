@@ -8,7 +8,7 @@ import {  MessageCircleMoreIcon } from "lucide-react";
 
 
 interface ConversatonShortCutProps {
-    foundConversations : number;
+    foundConversations? : number;
 }
 
 const ConversationShortCut : React.FC<ConversatonShortCutProps> = ({

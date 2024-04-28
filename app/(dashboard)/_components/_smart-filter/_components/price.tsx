@@ -74,7 +74,19 @@ const PriceFormFilter = () => {
         deleteSearchParams("start");
         deleteSearchParams("end");
     }
+
+    React.useEffect(() => {
+        if(!startPrice) {
+            deleteSearchParams("start");
+            setCurrentStart(null)
+        }
+        if(!endPrice) {
+            deleteSearchParams("end");
+            setCurrentEnd(null);
+        }
+    },[startPrice, endPrice])
     
+
 
     /*
     const onClick = (startPrice: string, endPrice: string) => {

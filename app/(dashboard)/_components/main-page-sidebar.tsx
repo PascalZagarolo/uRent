@@ -53,6 +53,8 @@ const MainPageSideBar = () => {
 
         router.push(url)
     }
+
+
    
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
@@ -61,7 +63,7 @@ const MainPageSideBar = () => {
     const setCategory = (category : typeof CategoryEnumRender) => {
         //@ts-ignore
         changeSearchParams("thisCategory", category);
-        console.log('thisCategory' in searchParams && searchParams['thisCategory'] === "PKW")
+        
     }
 
     useEffect(() => {

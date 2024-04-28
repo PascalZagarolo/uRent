@@ -144,28 +144,28 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     <div className="w-full flex text-xs items-center">
                        <Globe2Icon className="w-4 h-4 mr-2" /> Website  
                     <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
-                            {thisBusiness?.website}
+                            {thisBusiness?.website ? thisBusiness?.website : "-"}
                         </div>
                     </div>
 
                     <div className="w-full flex text-xs items-center">
                        <MailIcon className="w-4 h-4 mr-2" /> Email  
                     <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
-                            {thisBusiness?.email}
+                            {thisBusiness?.email ? thisBusiness?.email : "-"}
                         </div>
                     </div>
 
                     <div className="w-full flex text-xs items-center">
                        <PhoneIcon className="w-4 h-4 mr-2" /> Tel.  
                     <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
-                            {thisBusiness?.telephone_number}
+                    {thisBusiness?.telephone_number ? thisBusiness?.telephone_number : "-"}
                         </div>
                     </div>
 
                     <div className="w-full flex text-xs items-center">
                        <FaFax  className="w-4 h-4 mr-2" /> Fax  
                     <div className="text-xs mt-2 w-full ml-auto flex justify-end font-semibold">
-                            {thisBusiness?.fax}
+                            {thisBusiness?.fax ? thisBusiness?.fax : "-"}
                         </div>
                     </div>
                         <div className="text-xs text-gray-200/60 mt-2">

@@ -220,7 +220,7 @@ export const getInserate = cache(async ({
     })
 
     const filterAvailability = cache((pInserat: typeof inserat) => {
-        console.log("test")
+        
         if (pInserat.bookings.length === 0) {
             return true;
         }
@@ -302,9 +302,9 @@ export const getInserate = cache(async ({
             if (!conditions) return false;
 
             if (periodBegin && periodEnd) {
-                console.log("test")
+                
                 const available = filterAvailability(pInserat);
-                console.log(available)
+                
                 if (!available) return false;
             }
 

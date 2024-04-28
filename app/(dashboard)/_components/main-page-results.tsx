@@ -28,14 +28,17 @@ const MainPageResults = () => {
     }, [searchParams]);
 
     const onRedirect = () => {
+        
 
         const {//@ts-ignore
             thisCategory, ...filteredValues} = searchParams;
+
+            
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
         //@ts-ignore
         const usedEnd = filteredValues.periodEnd;
-        console.log(filteredValues)
+        
         const url = qs.stringifyUrl({
             url: process.env.NEXT_PUBLIC_BASE_URL,
 

@@ -27,28 +27,57 @@ import { format } from "date-fns";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { de } from "date-fns/locale";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { useSavedSearchParams } from "@/store";
 
 const DateFormFilter = () => {
 
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
+    const usedSearchParams = useSearchParams();
 
 
     
 
-    const currentLocation = searchParams.get("location");
-    const currentPage = searchParams.get("page");
+    const currentLocation = usedSearchParams.get("location");
+    const currentPage = usedSearchParams.get("page");
 
-    const paramsPeriodBegin = searchParams.get("periodBegin");
-    const paramsPeriodEnd = searchParams.get("periodEnd");
+    const paramsPeriodBegin = usedSearchParams.get("periodBegin");
+    const paramsPeriodEnd = usedSearchParams.get("periodEnd");
     
     const [periodBegin, setPeriodBegin] = React.useState(paramsPeriodBegin ? new Date(paramsPeriodBegin) : null);
     const [periodEnd, setPeriodEnd] = React.useState(paramsPeriodEnd ? new Date(paramsPeriodEnd) : null);
 
     const params = getSearchParamsFunction("periodBegin", "periodEnd");
 
-    
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (usedDate : Date) => {
+        //@ts-ignore
+        changeSearchParams("periodBegin", usedDate);
+        
+    }
+
+    const setEnd = (usedDate : Date) => {
+        //@ts-ignore
+        
+        changeSearchParams("periodEnd", usedDate);
+        
+    }
+
+    React.useEffect(() => {
+        if(periodBegin){
+            changeSearchParams("periodBegin", periodBegin?.toISOString());
+        }
+
+        if(periodEnd){
+            changeSearchParams("periodEnd", periodEnd?.toISOString());
+        }
+    }, [])
+
+    const deletePrice = () => {
+        deleteSearchParams("periodBegin");
+        deleteSearchParams("periodEnd");
+    }
 
 
     
@@ -76,65 +105,17 @@ const DateFormFilter = () => {
     })
    
 
-    const onStartPrice = (values : z.infer<typeof formSchema>) => {
-        console.log(values);
-    }
-
-    const onEndPrice = (values : z.infer<typeof formSchema>) => {
-        console.log(values);
-    }
+   
 
     const onSubmit = () => {
         console.log("...")
     }
 
-    //Zeitraum resetten, wenn ganzes Filterformular zurückgesetzt wird
-    React.useEffect(() => {
-        if(!paramsPeriodBegin){
-            setPeriodBegin(null)
-        }  
-    },[paramsPeriodBegin])
-
-    //Zeitraum resetten, wenn ganzes Filterformular zurückgesetzt wird
-    React.useEffect(() => {
-      if(!paramsPeriodEnd){
-          setPeriodEnd(null)
-      }  
-  },[paramsPeriodEnd])
-
-  React.useEffect(() => {
     
 
-    const url = qs.stringifyUrl({
-      url : pathname,
-      query : {
-        periodBegin : periodBegin,
-        periodEnd : periodEnd,
-        ...params
-      }
-    }, { skipEmptyString : true, skipNull : true})
+    
 
-    router.push(url)
-  },[periodBegin, periodEnd])
-
-    const filterReset = () => {
-        setPeriodBegin(null);
-        setPeriodEnd(null);
-
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                
-                
-                periodBegin : null,
-                periodEnd : null,
-                ...params,
-                
-            }
-        }, { skipNull: true, skipEmptyString: true });
-
-        router.push(url)
-    }
+  
 
     return (
         <div className="mb-2 w-full ">
@@ -181,6 +162,7 @@ const DateFormFilter = () => {
                               onSelect={(date) => {
                                 field.onChange(date);
                                 setPeriodBegin(date);
+                                setStart(date);
                               }}
                               locale={de}
                               disabled={(date) =>
@@ -212,7 +194,7 @@ const DateFormFilter = () => {
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
-                                {periodEnd && paramsPeriodEnd ? (
+                                {periodEnd  ? (
                                   format(periodEnd, "dd.MM")
                                 ) : (
                                   <span className="font-semibold text-gray-900 dark:text-gray-100/80">Ende</span>
@@ -229,6 +211,7 @@ const DateFormFilter = () => {
                               onSelect={(date) => {
                                 field.onChange(date);
                                 setPeriodEnd(date);
+                                setEnd(date);
                               }}
                               disabled={(date) =>
                                 date < periodBegin || date < new Date("1900-01-01")
@@ -253,7 +236,7 @@ const DateFormFilter = () => {
             <div className="mt-2 flex justify-center  ">
                     <Button className="bg-[#1a1d2c] w-full border 
                     dark:text-gray-100  dark:hover:bg-[#212538]
-                    " onClick={filterReset} disabled={!periodBegin && !periodEnd && !params.periodBegin && !paramsPeriodEnd} >
+                    "  disabled={!periodBegin && !periodEnd && !params.periodBegin && !paramsPeriodEnd} >
                         Filter zurücksetzen
                     </Button>
                 </div>

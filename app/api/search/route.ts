@@ -5,6 +5,7 @@ import axios from "axios";
 import { and, eq, gte, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { lkwAttribute } from '../../../db/schema';
+import { cache } from "react";
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     const r = 6371;
@@ -134,11 +135,33 @@ export async function PATCH(
                 && bExtraType && bVolume && bLength && bBreite && bHeight;
         }
 
+        const filterAvailability = (pInserat: typeof inserat) => {
+        
+            if (pInserat.bookings.length === 0) {
+                return true;
+            }
+    
+            const usedPeriodBegin = new Date(periodBegin);
+            const usedPeriodEnd = new Date(periodEnd);
+    
+    
+    
+            for (const booking of pInserat.bookings) {
+                if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                    && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
+                ) {
+                    return false;
+                }
+            }
+    
+            return true;
+        }
+
 
         const usedStart = new Date(periodBegin);
         const usedEnd = new Date(periodEnd);
 
-        console.log(usedEnd)
+        
 
 
         const results = await db.query.inserat.findMany({
@@ -166,6 +189,7 @@ export async function PATCH(
                 pkwAttribute: true,
                 trailerAttribute: true,
                 transportAttribute: true,
+                bookings : true
             }
         })
 
@@ -174,6 +198,13 @@ export async function PATCH(
             const conditions = ConditionFilter(pInserat);
 
             if (!conditions) return false;
+
+            if (periodBegin && periodEnd) {
+                
+                const available = filterAvailability(pInserat);
+                
+                if (!available) return false;
+            }
 
             switch (thisCategory) {
                 //@ts-ignore

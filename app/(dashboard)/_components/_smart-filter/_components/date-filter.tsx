@@ -180,7 +180,7 @@ const DateFormFilter = () => {
                             <Calendar
                               mode="single"
                               //@ts-ignore
-                              selected={field.value}
+                              selected={periodBegin}
                               onSelect={(date) => {
                                 field.onChange(date);
                                 setPeriodBegin(date);
@@ -229,7 +229,7 @@ const DateFormFilter = () => {
                             <Calendar
                               mode="single"
                               //@ts-ignore
-                              selected={field.value}
+                              selected={periodEnd}
                               onSelect={(date) => {
                                 field.onChange(date);
                                 setPeriodEnd(date);

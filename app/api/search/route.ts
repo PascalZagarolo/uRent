@@ -26,7 +26,7 @@ export async function PATCH(
     try {
         const values = await req.json();
 
-        const { location, amount, thisCategory, reqAge, freeMiles, reqLicense, minPrice, maxPrice,
+        const { location, amount, thisCategory, reqAge, freeMiles, reqLicense, minPrice, maxPrice, end, begin,
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
@@ -156,8 +156,8 @@ export async function PATCH(
                             eq(inserat.annual, "true")
                         )
                         : undefined,
-                    minPrice ? gte(inserat.price, minPrice) : undefined,
-                    maxPrice ? lte(inserat.price, maxPrice) : undefined,
+                    begin ? gte(inserat.price, begin) : undefined,
+                    end ? lte(inserat.price, end) : undefined,
 
                 ),
             with: {

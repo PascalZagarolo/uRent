@@ -16,18 +16,18 @@ const Footer = () => {
             <p className="dark:text-gray-100 text-lg sm:text-xl font-semibold sm:block hidden"> uRent </p>
 
             <div className="flex justify-evenly gap-x-8 sm:gap-x-0 dark:text-gray-200 font-medium sm:font-semibold w-full sm:text-sm text-xs">
-              <div className="font-medium flex-col">
+            <div className="font-medium flex-col">
 
-              <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/about-us">
-                  Über uns
-                </a>
-                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/contact">
-                  Kontakt
-                </a>
-                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/contact">
-                  Karriere
-                </a>
-              </div>
+<a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/about-us">
+    Über uns
+  </a>
+  <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/contact">
+    Kontakt
+  </a>
+  <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/contact">
+    Karriere
+  </a>
+</div>
 
               <div className="font-medium flex-col">
                 <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/imprint">

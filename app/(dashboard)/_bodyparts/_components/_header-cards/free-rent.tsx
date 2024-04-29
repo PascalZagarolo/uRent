@@ -9,7 +9,7 @@ const FreeRentCard = () => {
             <div className="">
                 <div className="">
                     <h3>
-                        <h1 className="font-semibold">NUR NOCH</h1>
+                        <div className="font-semibold">NUR NOCH</div>
                         <Countdown targetDate={targetDate} />
                     </h3>
                     <h3 className="text-4xl text-gray-200 font-bold flex justify-center mt-8">

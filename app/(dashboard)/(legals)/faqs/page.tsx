@@ -8,7 +8,7 @@ const Faqs = () => {
 
                 <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
-                        <div className="p-4 mt-4  rounded-lg ">
+                        <div className="sm:p-4 p-2 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 FAQ - Häufig gestellte Fragen
                             </h3>

@@ -10,8 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -42,7 +43,32 @@ const PkwSeatsBar = () => {
         router.push(url) 
     }
 
-   
+    useEffect(() => {
+        if(seats) {
+          changeSearchParams("seats", seats);
+          setCurrentSeats(seats);
+        }
+      }, [])
+
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (seats : string) => {
+        
+         if(!seats) {
+          deleteSearchParams("seats");
+          setCurrentSeats(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("seats", seats);
+           setCurrentSeats(seats);
+         }
+          
+      }
 
     function removeUnderscore(inputString: string): string {
         const outputString = inputString.replace(/_/g, ' ');
@@ -58,7 +84,7 @@ const PkwSeatsBar = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value={currentSeats}
                     disabled={isLoading}

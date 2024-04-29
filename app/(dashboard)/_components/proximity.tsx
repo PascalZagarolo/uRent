@@ -57,7 +57,7 @@ const Proximity = () => {
       <SelectTrigger className="w-[120px] bg-[#141721] text-gray-200 f border-none rounded-none rounded-r-md">
         <SelectValue placeholder="Umkreis" />
       </SelectTrigger>
-      <SelectContent className="font-semibold">
+      <SelectContent className="font-semibold dark:border-none dark:bg-[#141721]">
         <SelectGroup>
           <SelectLabel>Umkreis</SelectLabel>
           <SelectItem value="1">Nur Ort</SelectItem>

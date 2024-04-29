@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { z } from "zod";
@@ -12,6 +12,7 @@ import qs from "query-string"
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { MdCancel } from "react-icons/md";
 import { FaLayerGroup } from "react-icons/fa";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -41,6 +42,37 @@ const AmountBar = () => {
             freeMiles: Number(amount) || null
         }
     })
+
+    useEffect(() => {
+        if(amount) {
+          changeSearchParams("amount", amount);
+          setCurrentValue(Number(amount));
+        }
+      }, [])
+
+      useEffect(() => {
+        if(currentValue) {
+          changeSearchParams("amount", currentValue);
+        }
+      },[currentValue])
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (reqAge : string) => {
+        
+         if(!reqAge) {
+          deleteSearchParams("amount");
+          setCurrentValue(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("amount", amount);
+           setCurrentValue(Number(amount));
+         }
+          
+      }
 
     const onSubmit = () => {
         const url = qs.stringifyUrl({
@@ -73,7 +105,7 @@ const AmountBar = () => {
     return (
         <div className=" ">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form onSubmit={() => {}}>
                     <FormLabel className="flex justify-start items-center">
                         <div className="ml-2 font-semibold flex items-center w-full text-gray-200"> <FaLayerGroup  className="mr-2" /> Stückzahl
                             <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} />

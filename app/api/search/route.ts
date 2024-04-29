@@ -41,7 +41,7 @@ export async function PATCH(
             ...filteredValues } = values;
 
 
-        
+
         const ConditionFilter = (pInserat: typeof inserat) => {
             const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
             const bLicense = license ? license === pInserat.license : true;
@@ -136,16 +136,16 @@ export async function PATCH(
         }
 
         const filterAvailability = (pInserat: typeof inserat) => {
-        
+
             if (pInserat.bookings.length === 0) {
                 return true;
             }
-    
-            const usedPeriodBegin = new Date(periodBegin);
-            const usedPeriodEnd = new Date(periodEnd);
-    
-    
-    
+
+            const usedPeriodBegin = new Date(periodBegin ? periodBegin : periodEnd);
+            const usedPeriodEnd = new Date(periodEnd ? periodEnd : periodBegin);
+
+
+
             for (const booking of pInserat.bookings) {
                 if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
                     && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
@@ -153,14 +153,14 @@ export async function PATCH(
                     return false;
                 }
             }
-    
+
             return true;
         }
 
 
-        
 
-        
+
+
 
 
         const results = await db.query.inserat.findMany({
@@ -168,7 +168,7 @@ export async function PATCH(
                 and(
                     eq(inserat.isPublished, true),
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
-                    
+
                     begin ? gte(inserat.price, begin) : undefined,
                     end ? lte(inserat.price, end) : undefined,
 
@@ -179,7 +179,7 @@ export async function PATCH(
                 pkwAttribute: true,
                 trailerAttribute: true,
                 transportAttribute: true,
-                bookings : true
+                bookings: true
             }
         })
 
@@ -190,9 +190,9 @@ export async function PATCH(
             if (!conditions) return false;
 
             if (periodBegin && periodEnd) {
-                
+
                 const available = filterAvailability(pInserat);
-                
+
                 if (!available) return false;
             }
 

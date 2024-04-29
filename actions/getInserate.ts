@@ -225,10 +225,10 @@ export const getInserate = cache(async ({
             return true;
         }
 
-        const usedPeriodBegin = new Date(periodBegin);
-        const usedPeriodEnd = new Date(periodEnd);
+        //set start and date to same date if the user only provides one
 
-
+        const usedPeriodBegin = new Date(periodBegin ? periodBegin : periodEnd);
+        const usedPeriodEnd = new Date(periodEnd ? periodEnd : periodBegin);
 
         for (const booking of pInserat.bookings) {
             if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
@@ -348,8 +348,6 @@ export const getInserate = cache(async ({
                     Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
                 if (distance < usedRadius) {
                     returnedArray.push(pInserat);
-
-
                 }
             }
         } else {

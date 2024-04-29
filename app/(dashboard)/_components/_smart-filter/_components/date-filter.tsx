@@ -131,9 +131,18 @@ const DateFormFilter = () => {
 
    
 
-    
+    React.useEffect(() => {
+      if(periodBegin > periodEnd){
+        setPeriodEnd(periodBegin)
+      }
+    },[periodBegin])
 
-    
+    React.useEffect(() => {
+      if(!periodBegin){
+        changeSearchParams("periodBegin", periodEnd);
+        setPeriodBegin(periodEnd)
+      }
+    },[periodEnd])
 
     
 

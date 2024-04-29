@@ -11,9 +11,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
 import { User2Icon } from "lucide-react";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -29,20 +30,34 @@ const RequiredAgeBar = () => {
     const router = useRouter();
     const pathname = usePathname();
 
+    useEffect(() => {
+        if(reqAge) {
+          changeSearchParams("reqAge", reqAge);
+          setCurrentAge(reqAge);
+        }
+      }, [])
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (reqAge : string) => {
+        
+         if(!reqAge) {
+          deleteSearchParams("reqAge");
+          setCurrentAge(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("reqAge", reqAge);
+           setCurrentAge(reqAge);
+         }
+          
+      }
 
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentAge(selectedValue)
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                reqAge: selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
 
-        router.push(url)
-    }
+    
 
 
 
@@ -60,7 +75,7 @@ const RequiredAgeBar = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}

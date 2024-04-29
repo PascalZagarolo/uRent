@@ -8,17 +8,17 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import { businessImages, contactOptions, inserat, notification, rezension, userTable } from "@/db/schema";
+import { businessImages, contactOptions, inserat, notification,  userTable } from "@/db/schema";
 import RegisterBusiness from "./_components/register-business";
 import { FaBuilding, FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
 import MessageButton from "./_components/message-button";
-import { business, openingTimes } from '../../../db/schema';
+
 import { Metadata, ResolvingMetadata } from "next";
 import AddImpressum from "./_components/add-impressum";
 import { FaCarCrash } from "react-icons/fa";
 import Footer from "@/app/(dashboard)/_components/footer";
-import AdsComponent from "@/components/ad-component";
+
 
 
 
@@ -148,9 +148,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                                 thisUser.isBusiness ? (
                                                     <h3 className="text-2xl flex font-bold p-2">
                                                         <FaBuilding className="mr-2" />  Geschäftsprofil
-                                                        <div className="ml-auto">
+                                                        {!ownProfile && (
+                                                            <div className="ml-auto">
                                                             <MessageButton />
                                                         </div>
+                                                        )}
                                                     </h3>
                                                 ) : (
                                                     <h3 className="text-2xl flex font-bold ">

@@ -10,7 +10,8 @@ import  qs from "query-string";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -25,19 +26,32 @@ const PkwTransmissionBar = () => {
 
     const params = getSearchParamsFunction("transmission");
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentTransmission(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                transmission : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+        if(transmission) {
+          changeSearchParams("transmission", transmission);
+          setCurrentTransmission(transmission);
+        }
+      }, [])
 
-        router.push(url) 
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (fuel : string) => {
         
-    }
+         if(!fuel) {
+          deleteSearchParams("transmission");
+          setCurrentTransmission(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("transmission", transmission);
+           setCurrentTransmission(transmission);
+         }
+          
+      }
 
    
 
@@ -55,7 +69,7 @@ const PkwTransmissionBar = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value={currentTransmission}
                     disabled={isLoading}

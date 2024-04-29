@@ -10,8 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -43,6 +44,32 @@ const PkwDoorsBar = () => {
     }
 
    
+    useEffect(() => {
+        if(doors) {
+          changeSearchParams("doors", doors);
+          setCurrentDoors(doors);
+        }
+      }, [])
+
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (doors : string) => {
+        
+         if(!doors) {
+          deleteSearchParams("doors");
+          setCurrentDoors(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("doors", doors);
+           setCurrentDoors(doors);
+         }
+          
+      }
 
    
 
@@ -55,7 +82,7 @@ const PkwDoorsBar = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value={currentDoors}
                     disabled={isLoading}

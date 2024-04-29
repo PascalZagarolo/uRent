@@ -1,6 +1,11 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 
 const Countdown: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
+
+  
+
   const calculateTimeLeft = () => {
     const difference = +targetDate - +new Date();
     let timeLeft = {};

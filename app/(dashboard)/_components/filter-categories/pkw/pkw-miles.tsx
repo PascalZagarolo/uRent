@@ -58,7 +58,7 @@ const FreeMilesBar = () => {
   
       useEffect(() => {
         changeSearchParams("freeMiles", currentValue);
-        if(!freeMiles || Number(freeMiles) === 0){
+        if(!currentValue || Number(currentValue) === 0){
             deleteSearchParams("freeMiles")
         }
       },[currentValue])

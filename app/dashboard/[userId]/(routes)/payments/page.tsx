@@ -58,9 +58,9 @@ const PaymentsPage = async () => {
         
 
     return (
-        <div className="flex justify-center py-8 px-4  ">
+        <div className="flex justify-center sm:py-8 sm:px-4  ">
 
-            <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+            <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen w-full">
                     <div>
                         <MenuBar />
@@ -68,7 +68,7 @@ const PaymentsPage = async () => {
                             <BreadCrumpPage />
                         </div>
                     </div>
-                    <div className="p-4 mt-4 w-full rounded-lg ">
+                    <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center w-full">
                             <div className="w-2/3 flex">
                                 <BiCreditCardAlt className="mr-4" /> Zahlungsverkehr
@@ -80,16 +80,16 @@ const PaymentsPage = async () => {
                             <br /> Hier kannst du deine Abonnements verwalten, einsehen und upgraden.
                         </p>
 
-                        <div className="w-full flex flex-row mt-8">
+                        <div className="w-full sm:flex flex-row mt-8 sm:space-y-0 space-y-4">
 
-                            <div className="w-1/2">
+                            <div className="sm:w-1/2 w-full">
                                 <RenderAvailable 
                                 existingSubscription={existingSubscription}
                                 countedInserate={countInserate[0]?.count}
                                 />
                             </div>
 
-                            <div className="w-1/2">
+                            <div className="sm:w-1/2 w-full">
                                 <h1 className="font-semibold">
                                     Laufendes Abonnement
                                 </h1>
@@ -110,9 +110,9 @@ const PaymentsPage = async () => {
                             </div>
                         </div>
 
-                        <div className="w-full flex flex-row mt-8">
+                        <div className="w-full sm:flex flex-row mt-8">
 
-                            <div className="w-1/2">
+                            <div className="sm:w-1/2 w-full">
                                 <h1 className="font-semibold">
                                     Abonnement Status
                                 </h1>

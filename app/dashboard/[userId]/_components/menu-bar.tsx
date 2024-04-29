@@ -26,25 +26,25 @@ const MenuBar = () => {
 
     return ( 
         <div className="w-full dark:bg-[#141414]">
-            <div className="pt-4 px-4 flex justify-evenly text-sm font-semibold">
-            <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isDashboard && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
+            <div className="pt-4 sm:px-4 flex justify-evenly text-xs sm:text-sm font-semibold">
+            <a className={cn("sm:p-4 py-4 px-2 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isDashboard && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
             href={`${baseUrl}`}
             >
                 Übersicht
             </a>
-            <a className={cn("p-4 rounded-t-md hover:cursor-pointer dark:text-gray-200/70 text-gray-700/60", 
+            <a className={cn("sm:p-4 py-4 px-2rounded-t-md hover:cursor-pointer dark:text-gray-200/70 text-gray-700/60", 
             isManage && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/manage`}>
                 Buchungen
             </a>
-            <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
+            <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isInserat && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/inserate`}>
-                Meine Inserate
+                Meine <br className="sm:hidden block"/>Inserate
             </a>
-            <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
+            <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isPayment && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/payments`}>
-                Zahlungsverkehr
+                Zahlungs<br className="sm:hidden block"/>verkehr
             </a>
-            <a className={cn("p-4 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
+            <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isFavourite && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/favourites`}>
                 Favoriten
             </a>

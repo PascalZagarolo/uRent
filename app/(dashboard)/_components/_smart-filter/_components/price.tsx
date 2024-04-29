@@ -88,24 +88,7 @@ const PriceFormFilter = () => {
     
 
 
-    /*
-    const onClick = (startPrice: string, endPrice: string) => {
-
-        setCurrentStart(Number(startPrice) !== 0 ? Number(startPrice) : null);
-        setCurrentEnd(Number(endPrice) !== 0 ? Number(endPrice) : null);
-
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                end: endPrice,
-                start: startPrice,
-                ...params,
-            }
-        }, { skipNull: true, skipEmptyString: true });
-
-        router.push(url)
-    }
-*/
+    
     const onPriceReset = () => {
         setCurrentStart(null);
         setCurrentEnd(null);

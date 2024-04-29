@@ -6,9 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -26,18 +27,31 @@ const TrailerAxisBar = () => {
 
 
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentWeight(selectedValue)
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                axis: selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
-
-        router.push(url)
-    }
+    useEffect(() => {
+        if(axis) {
+          changeSearchParams("axis", axis);
+          setCurrentWeight(axis);
+        }
+      }, [])
+  
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (application : string) => {
+         if(!application) {
+          deleteSearchParams("axis");
+          setCurrentWeight(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("axis", application);
+           setCurrentWeight(application);
+         }
+          
+      }
 
 
 
@@ -55,7 +69,7 @@ const TrailerAxisBar = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value={currentWeight}
                     disabled={isLoading}

@@ -113,16 +113,16 @@ const DashboardPage = async ({
     return (
 
 
-        <div className="flex justify-center py-8 px-4">
-            <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+        <div className="flex justify-center sm:py-8 sm:px-4">
+            <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen">
                 <div>
-                        <MenuBar />
+                <MenuBar />
                         <div>
                             <BreadCrumpPage />
                         </div>
                     </div>
-                    <div className="p-4 mt-4  rounded-lg ">
+                    <div className="sm:p-4 p-2 mt-4  rounded-lg ">
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                             <TrendingUp className="mr-4" /> Übersicht  <p className="ml-4 text-lg"> </p>
                         </h3>
@@ -137,9 +137,9 @@ const DashboardPage = async ({
                             </div>
 
                         </div>
-                        <div className="p-4  sm:flex">
+                        <div className="sm:p-4  sm:flex">
 
-                            <div className="sm:w-3/5 mr-4">
+                            <div className="sm:w-3/5 sm:mr-4 mt-4 sm:mt-0">
                                 <h3 className="flex text-lg font-semibold items-center">
                                     <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender 
                                 </h3>

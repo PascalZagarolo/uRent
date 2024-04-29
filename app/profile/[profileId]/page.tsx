@@ -142,11 +142,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                         <div className="min-h-screen">
                             {thisUser ? (
                                 <>
-                                    <div className="sm:p-4 p-2">
+                                    <div className="sm:p-4 p2">
                                         <div>
                                             {
                                                 thisUser.isBusiness ? (
-                                                    <h3 className="text-2xl flex font-bold ">
+                                                    <h3 className="text-2xl flex font-bold p-2">
                                                         <FaBuilding className="mr-2" />  Geschäftsprofil
                                                         <div className="ml-auto">
                                                             <MessageButton />
@@ -163,7 +163,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                         {(ownProfile && !thisUser.isBusiness) && (
                                             <RegisterBusiness />
                                         )}
-                                        <div className="mt-4 items-center">
+                                        <div className="mt-4 items-center p-2">
                                             {thisUser.isBusiness ? (
                                                 <h1 className="text-lg font-semibold flex items-center">
                                                     <FaKey className="w-4 h-4 mr-2" />Vermieterdetails
@@ -183,7 +183,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
                                         />
                                         {thisUser.isBusiness && (
-                                            <div className="p-4">
+                                            <div className="sm:p-4">
                                                 <Openhours
                                                     ownProfile={ownProfile}
                                                     thisBusiness={thisUser.business}
@@ -191,7 +191,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             </div>
                                         )}
                                         {thisUser.isBusiness && (
-                                            <div className="p-4">
+                                            <div className="sm:p-4">
                                                 <AddImpressum
                                                     ownProfile={ownProfile}
                                                     user={thisUser}
@@ -199,7 +199,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             </div>
                                         )}
                                         <div>
-                                            <div className="mt-8 px-4">
+                                            <div className="mt-8 sm:px-4 px-2">
                                                 <h1 className="text-md font-semibold flex items-center">
                                                     <TruckIcon className="mr-2 w-4 h-4" />Weitere Inhalte <p className=" ml-2 text-sm">{foundInserate.length}</p>
                                                 </h1>

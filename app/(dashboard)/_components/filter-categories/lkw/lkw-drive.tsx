@@ -6,10 +6,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { DriveEnumRender } from "@/db/schema";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -27,18 +28,32 @@ const LkwDriveBar = () => {
 
     
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentBrand(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                drive : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+      if(brand) {
+        changeSearchParams("drive", brand);
+        setCurrentBrand(brand);
+      }
+    }, [])
 
-        router.push(url)
+    
+
+    
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (application : string) => {
+       if(!application) {
+        deleteSearchParams("drive");
+        setCurrentBrand(null);
+       } else {
+         //@ts-ignore
+         changeSearchParams("drive", application);
+         setCurrentBrand(application);
+       }
+        
     }
+
 
     
 
@@ -56,7 +71,7 @@ const LkwDriveBar = () => {
                     
         <Select
           onValueChange={(brand) => {
-            onSubmit(brand)
+            setStart(brand)
           }}
           value={currentBrand}
           disabled={isLoading}

@@ -136,12 +136,12 @@ const ManagePage: React.FC<ManagePageProps> = async ({
         })
     }
 
-    console.log(thisVehicle?.inserat)
+    
 
     return (
-        <div className="flex justify-center py-8 px-4  ">
+        <div className="flex justify-center sm:py-8 sm:px-4  ">
             
-            <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+            <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen w-full">
                     <div>
                         <MenuBar />
@@ -149,8 +149,8 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             <BreadCrumpPage />
                         </div>
                     </div>
-                    <div className="p-4 mt-4 w-full rounded-lg ">
-                        <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center w-full">
+                    <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
+                        <h3 className="dark:text-gray-100 sm:text-2xl text-lg font-semibold flex items-center w-full">
                             <div className="w-2/3 flex">
                                 <MdManageSearch className="mr-4" /> Fahrzeuge verwalten
                             </div>
@@ -161,7 +161,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             </div>
                             
                         </h3>
-                        <p className="text-xs dark:text-gray-200/60 ">
+                        <p className="text-xs dark:text-gray-200/60 mt-2">
                                 Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
                                 <br/> vollen Überblick über deine Inserate und Fahrzeuge.
                             </p>
@@ -176,9 +176,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             />
                         </div>
 
-                        <div className="p-4  sm:flex">
-                            <div className="sm:w-3/5 mr-4">
-                                <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
+                        <div className="sm:p-4  sm:flex">
+                            <div className="sm:w-3/5 sm:mr-4">
+                                <div className="w-full  dark:bg-[#141414] rounded-md  sm:mt-2">
                                 {searchParams.vehicleId ? (
                                     <>
                                     <RenderedVehicle
@@ -200,7 +200,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                 )}
                                 </div>
                             </div>
-                            <div className="sm:w-2/5">
+                            <div className="sm:w-2/5 mt-4 sm:mt-0">
                                 <div>
                                     <h3 className="flex text-lg font-semibold items-center">
                                         <UserPlus2 className="w-4 h-4 mr-2" /> Offene Anfragen <p className="text-sm ml-4"> {bookingRequests.length} </p>
@@ -214,7 +214,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                             />
                                         ))}
                                         {bookingRequests.length === 0 && (
-                                            <div className="mt-8 flex justify-center text-sm  text-gray-100/60">
+                                            <div className="sm:mt-8 mt-4 flex justify-center text-sm  text-gray-100/60">
                                                 Du hast keine offenen Anfragen...
                                             </div>
                                         )}

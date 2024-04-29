@@ -3,7 +3,7 @@
 
 import {PinIcon } from "lucide-react";
 import {  usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -15,6 +15,7 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import qs from "query-string"
 import { Separator } from "@/components/ui/separator";
 import { MdCancel } from "react-icons/md";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -36,19 +37,29 @@ const PkwPowerBar = () => {
 
     const params = getSearchParamsFunction("power");
 
-    const onSubmit = () => {
-        
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                power : currentPS,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+        if(power) {
+          changeSearchParams("power", power);
+          setCurrentPS(Number(power));
+          setCurrentKW((Math.round(Number(power) * 0.735499)));
+        }
+      }, [])
 
-        router.push(url) 
-        
-    }
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      
+
+      useEffect(() => {
+        changeSearchParams("power", currentPS);
+        if(!currentPS || currentPS === 0){
+            deleteSearchParams("power")
+        }
+      },[currentPS])
 
     const onClear = () => {
         const url = qs.stringifyUrl({
@@ -130,7 +141,7 @@ const PkwPowerBar = () => {
             <Button className="mt-2 w-full bg-[#1B1F2C] hover:bg-[#222738] text-gray-100 font-semibold" disabled={
                 (!currentPS && !currentKW) || (currentPS === Number(power))
             }
-            onClick={onSubmit}
+            onClick={() => {}}
             >
                 Nach Leistung filtern
             </Button>

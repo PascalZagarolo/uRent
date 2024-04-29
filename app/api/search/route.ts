@@ -27,7 +27,7 @@ export async function PATCH(
     try {
         const values = await req.json();
 
-        const { location, amount, thisCategory, reqAge, freeMiles, reqLicense, minPrice, maxPrice, end, begin,
+        const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice, end, begin,
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
@@ -44,7 +44,7 @@ export async function PATCH(
         
         const ConditionFilter = (pInserat: typeof inserat) => {
             const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
-            const bLicense = reqLicense ? reqLicense === pInserat.license : true;
+            const bLicense = license ? license === pInserat.license : true;
 
             return bAge && bLicense;
         }

@@ -14,24 +14,24 @@ const Faqs = () => {
                             </h3>
 
 
-                            <div className="mt-8 text-lg p-8 font-semibold">
+                            <div className="sm:mt-8 mt-4 text-lg sm:p-8 p-2 font-semibold">
 
                             <h1>
                                 Themen
                             </h1>
-                            <div className="w-full flex justify-center mt-8 gap-8">
+                            <div className="w-full flex justify-center sm:mt-8 mt-2 gap-8">
                                 <a className="w-full flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
                                 hover:underline hover:cursor-pointer" href="/faqs/bedienung">
                                     Bedienungshilfe
                                 </a>
                                 
                             </div>
-                            <div className="w-full flex justify-center mt-8 gap-8">
-                                <a className="w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
+                            <div className="w-full sm:flex justify-center sm:mt-8 mt-4 gap-8 space-y-4 sm:space-y-0">
+                                <a className="w-full sm:w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
                                 hover:underline hover:cursor-pointer" href="/faqs/mieter">
                                     FAQ - Mieter
                                 </a>
-                                <a className="w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
+                                <a className="w-full sm:w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
                                 hover:underline hover:cursor-pointer" href="/faqs/vermieter">
                                     FAQ - Vermieter
                                 </a>

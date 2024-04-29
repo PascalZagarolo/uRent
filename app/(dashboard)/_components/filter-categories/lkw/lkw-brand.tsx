@@ -7,7 +7,7 @@ import { useSavedSearchParams } from "@/store";
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { LkwBrandEnumRender } from "@/db/schema";
@@ -28,17 +28,30 @@ const LkwBrandBar = () => {
 
     
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentBrand(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                lkwBrand : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+      if(brand) {
+        changeSearchParams("lkwBrand", brand);
+        setCurrentBrand(brand);
+      }
+    }, [])
 
-        router.push(url)
+    
+
+    
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (brand : string) => {
+       if(!brand) {
+        deleteSearchParams("lkwBrand");
+        setCurrentBrand(null);
+       } else {
+         //@ts-ignore
+         changeSearchParams("lkwBrand", brand);
+         setCurrentBrand(brand);
+       }
+        
     }
 
     
@@ -57,7 +70,7 @@ const LkwBrandBar = () => {
                     
         <Select
           onValueChange={(brand) => {
-            onSubmit(brand)
+            setStart(brand)
           }}
           value={currentBrand}
           disabled={isLoading}

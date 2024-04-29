@@ -9,23 +9,31 @@ import ConditionsSearchComponent from "./conditions-search-component";
 import LkwSearchComponent from "./lkw-search-component";
 import TrailerSearchComponent from "./trailer-search-component";
 import TransportSearchComponent from "./transport-search-component";
+import { useSavedSearchParams } from "@/store";
+import { CategoryEnumRender } from "@/db/schema";
 
 
 
 const CategoryOverview = () => {
 
     const params = useSearchParams();
-    const currentCategory = params.get("category");
+    
 
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    //@ts-ignore
+    const currentCategory : typeof CategoryEnumRender = params.get("category") || currentObject["thisCategory"];
 
     return ( 
         <>
-        {currentCategory && (
+        {//@ts-ignore
+        (currentCategory || currentObject["thisCategory"]) && (
             <div className="">
             <ConditionsSearchComponent />
             </div>
         )}
-        {currentCategory && (
+        {//@ts-ignore
+        (currentCategory || currentObject["thisCategory"]) && (
             
             <div className="p-2  bg-[#1B1F2C]  mt-4 text-gray-200">
                 
@@ -36,6 +44,7 @@ const CategoryOverview = () => {
                         "LKW" : <TruckIcon className="h-6 w-6 mr-2" />,
                         "TRAILER" : <RiCaravanLine className="h-6 w-6 mr-2" />,
                         "TRANSPORT" : <PiVanFill className="h-6 w-6 mr-2" />,
+                        //@ts-ignore
                     }[currentCategory]
                 }
                
@@ -46,6 +55,7 @@ const CategoryOverview = () => {
                         "LKW" : "Lkw",
                         "TRAILER" : "Anhänger",
                         "TRANSPORT" : "Transporter",
+                        //@ts-ignore
                     }[currentCategory]
                 }
                 </div>
@@ -71,7 +81,7 @@ const CategoryOverview = () => {
                        
                         "TRANSPORT" : <TransportSearchComponent />,
                        
-                        
+                        //@ts-ignore
                     }[currentCategory]
                 }
         </div>

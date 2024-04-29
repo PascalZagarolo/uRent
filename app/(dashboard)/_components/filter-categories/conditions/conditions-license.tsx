@@ -6,7 +6,7 @@ import { useSavedSearchParams } from "@/store";
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { FaRegIdCard } from "react-icons/fa";
@@ -28,20 +28,29 @@ const LicenseBar = () => {
 
     
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentLicense(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                license : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
-
-        router.push(url)
-    }
+    useEffect(() => {
+      if(license) {
+        changeSearchParams("license", license);
+        setCurrentLicense(license);
+      }
+    }, [])
 
     
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (license : string) => {
+      
+       if(!license) {
+        deleteSearchParams("license");
+       } else {
+         //@ts-ignore
+         changeSearchParams("license", license);
+       }
+        
+    }
+
 
     function removeUnderscore(inputString: string): string {
       const outputString = inputString.replace(/_/g, ' ');
@@ -57,7 +66,9 @@ const LicenseBar = () => {
                     
         <Select
           onValueChange={(brand) => {
-            onSubmit(brand)
+
+            setCurrentLicense(brand)
+            setStart(brand);
           }}
           value={currentLicense}
           disabled={isLoading}

@@ -3,7 +3,7 @@
 
 import { PinIcon } from "lucide-react";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
@@ -15,6 +15,7 @@ import { FaBoxOpen } from "react-icons/fa";
 import qs from "query-string"
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { MdCancel } from "react-icons/md";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -29,25 +30,41 @@ const LoadingVolumeBar = () => {
 
     const [currentLiter, setCurrentLiter] = useState<number | string | null>(parseFloat(volume));
     const [currentMeter, setCurrentMeter] = useState<number | string | null>(volume ? parseFloat(volume) * 0.001 : null);
-    const [error, setError] = useState("")
-    const [isLoading, setIsLoading] = useState(false);
+    
+    
 
     const pathname = usePathname();
 
 
-    const onSubmit = () => {
-        
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                volume : currentLiter,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+        if(volume && volume !== "0") {
+          changeSearchParams("volume", volume);
+          setCurrentLiter(parseFloat(volume));
+          setCurrentMeter(parseFloat(volume) * 0.001)
+        } else {
+            setCurrentLiter(0);
+            setCurrentMeter(0)
+        }
+      }, [])
 
-        router.push(url) 
-        
-    }
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      useEffect(() => {
+        changeSearchParams("volume", currentLiter);
+        if(!currentLiter || Number(currentLiter) === 0 || !currentMeter || Number(currentMeter) === 0){
+            setCurrentLiter(null);
+            setCurrentMeter(0)
+            deleteSearchParams("volume")
+        }
+      },[currentLiter, currentMeter])
+
+      
+
 
     const onClear = () => {
         const url = qs.stringifyUrl({
@@ -131,7 +148,7 @@ const LoadingVolumeBar = () => {
                 </div>
             </RadioGroup>
             
-            <Button onClick={onSubmit} className="mt-2 bg-[#1B1F2C] hover:bg-[#222738] w-full dark:text-gray-100"
+            <Button onClick={() => {}} className="mt-2 bg-[#1B1F2C] hover:bg-[#222738] w-full dark:text-gray-100"
 
                 disabled={!currentLiter  || currentLiter == 0
                     //@ts-ignore 

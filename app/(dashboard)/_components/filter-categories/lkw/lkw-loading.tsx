@@ -6,9 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -26,18 +27,32 @@ const LkwLoadingBar = () => {
 
 
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentBrand(selectedValue)
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                loading: selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+        if(brand) {
+          changeSearchParams("loading", brand);
+          setCurrentBrand(brand);
+        }
+      }, [])
 
-        router.push(url)
-    }
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (loading : string) => {
+        
+         if(!loading) {
+          deleteSearchParams("loading");
+          setCurrentBrand(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("loading", loading);
+           setCurrentBrand(loading);
+         }
+          
+      }
 
 
 
@@ -51,7 +66,7 @@ const LkwLoadingBar = () => {
                 </Label>
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value={currentBrand}
                     disabled={isLoading}

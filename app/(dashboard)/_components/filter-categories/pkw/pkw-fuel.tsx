@@ -7,8 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string"
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -25,18 +26,34 @@ const PkwFuelBar = () => {
 
     const params = getSearchParamsFunction("fuel");
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentFuel(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                fuel : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    
 
-        router.push(url) 
-    }
+    useEffect(() => {
+        if(fuel) {
+          changeSearchParams("fuel", fuel);
+          setCurrentFuel(fuel);
+        }
+      }, [])
+
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (fuel : string) => {
+        
+         if(!fuel) {
+          deleteSearchParams("fuel");
+          setCurrentFuel(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("fuel", fuel);
+           setCurrentFuel(fuel);
+         }
+          
+      }
 
 
 
@@ -54,7 +71,7 @@ const PkwFuelBar = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value = {currentFuel}
                     disabled={isLoading}

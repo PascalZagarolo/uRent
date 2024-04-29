@@ -61,7 +61,7 @@ const InserateOverview = async ({
     return ( 
         
             
-            <div className="flex justify-center py-8 px-4">
+            <div className="flex justify-center sm:py-8 sm:px-4">
             
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="min-h-screen">
@@ -72,7 +72,7 @@ const InserateOverview = async ({
                         </div>
                     </div>
 
-                        <div className="p-4 mt-4  rounded-lg ">
+                        <div className="sm:p-4 p-2 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 <FilePieChartIcon className="mr-4" /> Meine Inserate <p className="ml-4 text-lg"> {inserateArray.length}</p>
                             </h3>
@@ -80,7 +80,7 @@ const InserateOverview = async ({
                             Verwalte deine Anzeigen, indem du Inhalte änderst, löscht, bearbeitest oder ihre Sichtbarkeit anpasst. 
                             <br/> Darüber hinaus kannst du hier ganz einfach die Verfügbarkeit deiner Fahrzeuge aktualisieren.
                             </p>
-                            <div className="p-4 ">
+                            <div className="sm:p-4 ">
                                 {inserateArray.length > 0 ? (
                                     <InserateRenderList 
                                     

@@ -30,18 +30,7 @@ const PkwSeatsBar = () => {
 
     
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentSeats(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                seats : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
-
-        router.push(url) 
-    }
+    
 
     useEffect(() => {
         if(seats) {

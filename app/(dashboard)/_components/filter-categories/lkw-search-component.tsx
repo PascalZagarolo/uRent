@@ -9,6 +9,7 @@ import TrailerAxisBar from "./trailer/trailer-axis";
 import { Separator } from "@/components/ui/separator";
 import LoadingVolumeBar from "./every/loading_volume";
 import LoadingSizeBar from "./every/loading_size";
+import TrailerWeightClassBar from "./trailer/trailer-weight-class";
 
 const LkwSearchComponent = () => {
     return ( 
@@ -32,7 +33,7 @@ const LkwSearchComponent = () => {
             </div>
             <div className="w-full flex gap-x-2">
             <div className="w-1/2">
-            <LkwWeightClassBar />
+            <TrailerWeightClassBar />
             </div>
             <div className="w-1/2">
             <TrailerAxisBar />

@@ -24,6 +24,9 @@ const Footer = () => {
                 <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/contact">
                   Kontakt
                 </a>
+                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/contact">
+                  Karriere
+                </a>
               </div>
 
               <div className="font-medium flex-col">

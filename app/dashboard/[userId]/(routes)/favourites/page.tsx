@@ -41,9 +41,9 @@ const Bookings = async ({
     })
     
     return (
-            <div className="flex justify-center py-8 px-4 ">
+            <div className="flex justify-center sm:py-8  sm:px-4 ">
                 
-                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+                <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className=" min-h-screen">
                     <div>
                         <MenuBar />
@@ -51,8 +51,8 @@ const Bookings = async ({
                             <BreadCrumpPage />
                         </div>
                     </div>
-                    <div className="md:p-4 mt-4  rounded-lg ">
-                        <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center md:px-0 px-4">
+                    <div className="md:p-4 mt-4 p-2 rounded-lg ">
+                        <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center md:px-0 sm:px-4">
                                 <StarFilledIcon className="mr-4" /> Meine Favouriten <p className="ml-4 text-lg"> </p>
                             </h3>
                             <p className="text-xs dark:text-gray-200/60 ">
@@ -66,7 +66,7 @@ const Bookings = async ({
                                     favourites={favourites}
                                     />
                                 ) : (
-                                    <div className="flex justify-center text-gray-100/70">
+                                    <div className="flex justify-center sm:text-lg text-sm text-gray-100/70">
                                         Noch keine Anzeigen gespeichert...
                                     </div>
                                 )}

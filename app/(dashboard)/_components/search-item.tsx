@@ -9,25 +9,21 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import axios from "axios";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+
 import { FaUserTie } from "react-icons/fa6";
 import { userTable } from "@/db/schema";
-import { Button } from "@/components/ui/button";
+
+import { useSavedSearchParams } from "@/store";
+
 
 
 const SearchItem = () => {
 
-
-
-
-
-    const searchParams = useSearchParams();
+    const usedSearchParams = useSearchParams();
     const router = useRouter();
-    const pathname = usePathname();
-
-    const currentLocation = searchParams.get("location");
-    const currentTitle = searchParams.get("title")
+        
+    const currentTitle = usedSearchParams.get("title")
 
     const [value, setValue] = useState(currentTitle || "");
     const [foundProfiles, setFoundProfiles] = useState([]);
@@ -40,27 +36,14 @@ const SearchItem = () => {
 
 
     const debouncedValue = useDebounce(value, 100);
-    /*
+
+    
     useEffect(() => {
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                title: debouncedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
-
-        router.push(url)
-    }, [debouncedValue, router, pathname, currentLocation])
-    */
-
-    useEffect(() => {
-
         const findUser = async () => {
             if (debouncedValue) {
                 setIsLoading(true);
                 await axios.patch(`/api/search/user/${debouncedValue}`).then((res) => {
-                    console.log(res.data)
+                    
                     setFoundProfiles(res.data)
                 }).then(() => {
                     setIsLoading(false)
@@ -70,38 +53,85 @@ const SearchItem = () => {
                 setFoundProfiles([])
             }
         }
-
         findUser();
     }, [debouncedValue])
 
-    const onSearch = () => {
-        const url = qs.stringifyUrl({
-            url: "/",
-            query: {
-                title: value,
-                location: currentLocation,
-            }
-        }, { skipEmptyString: true, skipNull: true })
 
-        router.push(url)
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    useEffect(() => {
+        if(currentTitle) {
+          changeSearchParams("title", currentTitle);
+          setValue(currentTitle);
+        }
+
+        if(!currentTitle) {
+            deleteSearchParams("title");
+            setValue("");
+        }
+      }, [])
+
+      useEffect(() => {
+        changeSearchParams("title", value);
+        if(!value) {
+            deleteSearchParams("title");
+            setValue("");
+        }
+      },[value])
+
+      useEffect(() => {
+        if(!currentTitle){
+            setValue(null)
+        }
+      },[usedSearchParams])
+
+
+    const onSearch = () => {
+        const {//@ts-ignore
+            thisCategory, ...filteredValues} = searchParams;
+            
+        //@ts-ignore
+        const usedStart = filteredValues.periodBegin;
+
+        let usedEnd = null;
+        
+    //@ts-ignore
+        if(filteredValues.periodEnd){
+        //@ts-ignore
+        usedEnd = filteredValues.periodEnd;
+        } else {
+            //@ts-ignore
+            if(filteredValues.periodBegin) {
+                //@ts-ignore
+                usedEnd = filteredValues.periodBegin;
+            }
+        }
+        
+        const url = qs.stringifyUrl({
+            url: process.env.NEXT_PUBLIC_BASE_URL,
+            //@ts-ignore
+            query: {
+                //@ts-ignore
+                category: thisCategory,
+                //@ts-ignore
+                periodBegin: usedStart ? usedStart : null,
+                //@ts-ignore
+                periodEnd: usedEnd ? usedEnd : null,
+                //@ts-ignore
+                type: filteredValues.thisType,
+                ...filteredValues
+            },
+
+        }, { skipEmptyString: true, skipNull: true })
+        
+        
+        router.push(url);
     }
 
     
-    /*
-    useEffect(() => {
-        if(!value && pathname === "/") {
-            const url = qs.stringifyUrl({
-                url: "/",
-                query: {
-                    title: null,
-                    location: currentLocation,
-                }
-            }, { skipEmptyString: true, skipNull: true })
     
-            router.push(url)
-        }
-    }, [debouncedValue])
-    */
 
     const onUserSearch = (selectUser : typeof userTable.$inferSelect) => {
         

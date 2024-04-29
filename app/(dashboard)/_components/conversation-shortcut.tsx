@@ -22,7 +22,7 @@ const ConversationShortCut : React.FC<ConversatonShortCutProps> = ({
             <Tooltip>
                 <TooltipTrigger asChild>
                     <a href="/conversation">
-                    <Button className="lg:bg-[#181b27] text-gray-200 items-center " variant="ghost">
+                    <Button className=" text-gray-200 items-center " variant="ghost">
                         <MessageCircleMoreIcon /> 
                         {foundConversations > 0 && (
                             <span className="bg-rose-600 text-xs font-bold px-1 flex rounded-md text-gray-200">

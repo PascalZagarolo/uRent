@@ -4,13 +4,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TbSteeringWheel } from "react-icons/tb";
 import { z } from "zod";
 import qs from "query-string"
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { MdCancel } from "react-icons/md";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -41,17 +42,23 @@ const FreeMilesBar = () => {
         }
     })
 
-    const onSubmit = () => {
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                freeMiles: currentValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+        if(freeMiles) {
+          changeSearchParams("freeMiles", freeMiles);
+          setCurrentValue(Number(freeMiles));
+        }
+      }, [])
 
-        router.push(url)
-    }
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      useEffect(() => {
+        changeSearchParams("freeMiles", currentValue);
+      },[currentValue])
 
     const onClear = () => {
         setCurrentValue(null);
@@ -72,7 +79,7 @@ const FreeMilesBar = () => {
     return (
         <div className=" ">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form onSubmit={() => {}}>
                     <FormLabel className="flex justify-start items-center">
                         <div className="ml-2 font-semibold flex items-center w-full text-gray-200"> <TbSteeringWheel className="mr-2" /> Freikilometer
                             <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} />

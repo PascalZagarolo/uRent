@@ -3,7 +3,7 @@
 
 import { PinIcon } from "lucide-react";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
@@ -16,6 +16,7 @@ import { GiResize } from "react-icons/gi";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import qs from "query-string"
 import { MdCancel } from "react-icons/md";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -40,21 +41,51 @@ const LoadingSizeBar = () => {
 
 
 
-    const onSubmit = () => {
-        
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                loading_l : currentLength,
-                loading_b : currentWidth,
-                loading_h : currentHeight,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+        if(loading_l){
+            setCurrentLength(loading_l)
+            changeSearchParams("loading_l", loading_l);
+        }
+        if(loading_h){
+            setCurrentHeight(loading_h)
+            changeSearchParams("loading_h", loading_h);
+        }
+        if(loading_b){
+            setCurrentWidth(loading_b)
+            changeSearchParams("loading_b", loading_b);
+        }
+      }, [])
 
-        router.push(url) 
-        
-    }
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      useEffect(() => {
+        changeSearchParams("loading_l", currentLength);
+        if(!currentLength || Number(currentLength) === 0){
+            setCurrentLength(null);
+            deleteSearchParams("loading_l")
+        }
+      },[currentLength])
+
+      useEffect(() => {
+        changeSearchParams("loading_b", currentWidth);
+        if(!currentWidth || Number(currentWidth) === 0){
+            setCurrentWidth(null);
+            deleteSearchParams("loading_b")
+        }
+      },[currentWidth])
+
+      useEffect(() => {
+        changeSearchParams("loading_h", currentHeight);
+        if(!currentHeight || Number(currentHeight) === 0){
+            setCurrentHeight(null);
+            deleteSearchParams("loading_h")
+        }
+      },[currentHeight])
     
     const onClear = () => {
         
@@ -157,7 +188,7 @@ const LoadingSizeBar = () => {
                 
             </RadioGroup>
             
-            <Button onClick={onSubmit} className="w-full bg-[#1B1F2C] hover:bg-[#222738] dark:text-gray-100"
+            <Button onClick={() => {}} className="w-full bg-[#1B1F2C] hover:bg-[#222738] dark:text-gray-100"
 
                 disabled={
                     //@ts-ignore 

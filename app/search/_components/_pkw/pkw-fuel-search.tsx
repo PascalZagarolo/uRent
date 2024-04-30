@@ -16,7 +16,9 @@ import { useState } from "react";
 
 const PkwFuelSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["fuel"]);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -50,7 +52,7 @@ const PkwFuelSearch = () => {
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteFuel() : onSubmit(brand)
                     }}
-
+                    value={currentAge}
                     disabled={isLoading}
                 >
 

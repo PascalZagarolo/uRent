@@ -18,11 +18,13 @@ import { z } from "zod";
 
 const CautionSearch = () => {
 
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentMin, setCurrentMin] = useState(null);
-    const [currentMax, setCurrentMax] = useState(null);
+    const [currentMin, setCurrentMin] = useState(currentObject["start"] ? Number(currentObject["start"]) : null);
+    const [currentMax, setCurrentMax] = useState(currentObject["end"] ? Number(currentObject["end"]) : null);
 
     const formSchema = z.object({
         minPrice: z.preprocess(
@@ -44,8 +46,8 @@ const CautionSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            minPrice: null,
-            maxPrice : null,
+            minPrice: currentObject["start"] ? Number(currentObject["start"]) : null,
+            maxPrice : currentObject["end"] ? Number(currentObject["end"]) : null,
         }
     })
 

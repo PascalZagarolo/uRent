@@ -29,13 +29,14 @@ import { useSavedSearchParams } from "@/store";
 
 const DateSearch = () => {
 
-    const router = useRouter();
-    const pathname = usePathname();
+  const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+   
  
    
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-    const [periodBegin, setPeriodBegin] = React.useState(null);
-    const [periodEnd, setPeriodEnd] = React.useState(null);
+    const [periodBegin, setPeriodBegin] = React.useState(currentObject["periodBegin"]);
+    const [periodEnd, setPeriodEnd] = React.useState(currentObject["periodEnd"]);
 
   
   
@@ -127,6 +128,7 @@ const DateSearch = () => {
                             <Calendar
                               mode="single"
                               //@ts-ignore
+                              
                               selected={field.value}
                               onSelect={(date) => {
                                 field.onChange(date);

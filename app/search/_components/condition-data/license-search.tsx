@@ -16,7 +16,9 @@ import { useState } from "react";
 
 const LicenseSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+  const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["license"] ? currentObject["license"] : "");
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -26,6 +28,7 @@ const LicenseSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
+      setCurrentAge(selectedValue);
         changeSearchParams("license" , selectedValue);
         console.log(selectedValue)
     }
@@ -50,7 +53,7 @@ const LicenseSearch = () => {
           onValueChange={(brand) => {
             brand === "BELIEBIG" ? deleteBrand() : onSubmit(brand)
           }}
-          
+          value={currentAge}
           disabled={isLoading}
         >
 

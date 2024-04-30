@@ -15,9 +15,12 @@ import toast from "react-hot-toast";
 
 
 
+
 const PkwDoorsSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["doors"]);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -51,7 +54,7 @@ const PkwDoorsSearch = () => {
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteDoors() : onSubmit(brand)
                     }}
-
+                    value={currentAge}
                     disabled={isLoading}
                 >
 
@@ -69,8 +72,8 @@ const PkwDoorsSearch = () => {
                             Beliebig
                         </SelectItem>
                         <SelectItem value="2">2/3</SelectItem>
-            <SelectItem value="4">4/5</SelectItem>
-            <SelectItem value="6">6/7</SelectItem>
+                        <SelectItem value="4">4/5</SelectItem>
+                        <SelectItem value="6">6/7</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

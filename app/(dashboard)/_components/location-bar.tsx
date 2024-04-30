@@ -12,13 +12,16 @@ import Proximity from "./proximity";
 import { useSavedSearchParams } from "@/store";
 
 const AutoComplete = () => {
+  
+  const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
   const autoCompleteRef = useRef();
   const usedSearchParams = useSearchParams();
   const router = useRouter();
   
   const currentLocation = usedSearchParams.get("location");
   
-  const [value, setValue] = useState(currentLocation || "");
+  const [value, setValue] = useState(currentObject["location"] || "");
 
   const inputRef = useRef();
   const options = {
@@ -109,7 +112,7 @@ const AutoComplete = () => {
     router.push(url);
 }
 
-const currentObject = useSavedSearchParams((state) => state.searchParams)
+
   
       const {searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
@@ -123,6 +126,10 @@ useEffect(() => {
 
 const handleKeyDown = (e : any) => {
   if (e.key === "Enter") {
+    //@ts-ignore
+       inputRef.current.blur();
+       //@ts-ignore
+       setValue(inputRef.current.value);
       onSearch();
   }
 };
@@ -135,6 +142,7 @@ const handleKeyDown = (e : any) => {
           ref={inputRef}
           onKeyDown={handleKeyDown}
           defaultValue={currentLocation || ""}
+          value={value}
           placeholder="Standort.."
           className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none input: text-sm input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
           onChange={(e) => { setValue(e.target.value) }} 

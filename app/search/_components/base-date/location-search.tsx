@@ -11,7 +11,7 @@ const LocationSearch = () => {
   
   const router = useRouter();
   const pathname = usePathname();
-;
+
 
 const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
@@ -38,7 +38,7 @@ const currentObject = useSavedSearchParams((state) => state.searchParams)
         options
       );
 
-      console.log(google.maps.places.Autocomplete)
+      
     }
   }, []);
 
@@ -69,7 +69,7 @@ const currentObject = useSavedSearchParams((state) => state.searchParams)
           placeholder="Standort.."
           className=" rounded-md input: text-sm input: justify-start dark:focus-visible:ring-0 dark:bg-[#141414] dark:border-none"
           onChange={(e) => { setValue(e.target.value); console.log(e.target.value)}}
-          
+          value={value}
           onBlur={() => {
             //@ts-ignore 
             setValue(inputRef?.current?.value); 

@@ -47,7 +47,7 @@ const ExtraMilesSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: currentObject["extraCost"] ? currentObject["extraCost"] : 0
+            caution: currentObject["extraCost"] ? currentObject["extraCost"] : null
         }
     })
 

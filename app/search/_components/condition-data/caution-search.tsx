@@ -49,7 +49,7 @@ const CautionSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: currentObject["caution"] ? currentObject["caution"] : 0
+            caution: currentObject["caution"] ? currentObject["caution"] : null
         }
     })
 

@@ -17,6 +17,8 @@ import { useSavedSearchParams } from '../../../../store';
 
 const AmountSearch = () => {
 
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +47,7 @@ const AmountSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            amount: null
+            amount: currentObject["amount"] ? currentObject["amount"] : null
         }
     })
     

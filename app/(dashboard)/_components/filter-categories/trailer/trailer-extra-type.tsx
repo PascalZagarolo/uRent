@@ -4,8 +4,9 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import qs from "query-string";
+import { useSavedSearchParams } from "@/store";
 
 
 
@@ -22,18 +23,30 @@ const TrailerExtraTypeBar = () => {
 
     const params = getSearchParamsFunction("extraType");
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentType(selectedValue)
-        const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                extraType : selectedValue,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
+    useEffect(() => {
+        if(extraType) {
+          changeSearchParams("extraType", extraType);
+          setCurrentType(extraType);
+        }
+      }, [])
 
-        router.push(url) 
+      
+  
+      
+      const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+  
+      const setStart = (extraType : string) => {
         
+         if(!extraType) {
+          deleteSearchParams("extraType");
+          setCurrentType(null);
+         } else {
+           //@ts-ignore
+           changeSearchParams("extraType", extraType);
+           setCurrentType(extraType);
+         }
     }
 
     function removeUnderscore(inputString: string): string {
@@ -50,7 +63,7 @@ const TrailerExtraTypeBar = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        onSubmit(brand)
+                        setStart(brand)
                     }}
                     value={currentType}
                     disabled={isLoading}

@@ -19,6 +19,7 @@ import { useSavedSearchParams } from "@/store";
 
 const PkwPowerSearch = () => {
 
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
 
     const router = useRouter();
 
@@ -26,8 +27,8 @@ const PkwPowerSearch = () => {
 
     const [usesPS, setUsesPS] = useState(true);
 
-    const [currentKW, setCurrentKW] = useState<number | null>(null);
-    const [currentPS, setCurrentPS] = useState<number | null>(null);
+    const [currentKW, setCurrentKW] = useState<number | null>(currentObject['power'] ? Math.round(Number(currentObject['power']) * 0.735499) : null);
+    const [currentPS, setCurrentPS] = useState<number | null>(currentObject['power'] || null);
     const [isLoading, setIsLoading] = useState(false);
 
 

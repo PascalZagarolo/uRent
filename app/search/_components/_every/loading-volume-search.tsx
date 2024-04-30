@@ -22,9 +22,11 @@ const LoadingVolumeSearch = () => {
 
     const router = useRouter();
 
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
     const [isLoading, setIsLoading] = useState(false);
-    const [currentLiter, setCurrentLiter] = useState(null);
-    const [currentMeter, setCurrentMeter] = useState(null);
+    const [currentLiter, setCurrentLiter] = useState(currentObject['volume'] ? Number(currentObject['volume']) : null);
+    const [currentMeter, setCurrentMeter] = useState(currentObject['volume'] ? Number(currentObject['volume']) * 0.001 : null);
     const [usesLiter, setUsesLiter] = useState(true);
 
     const formSchema = z.object({
@@ -107,6 +109,7 @@ const LoadingVolumeSearch = () => {
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
                                                 placeholder="... l"
+                                                defaultValue={currentLiter}
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 
@@ -146,6 +149,7 @@ const LoadingVolumeSearch = () => {
                                     <FormItem className="mt-3 ">
                                         <FormControl>
                                             <Input
+                                            defaultValue={currentMeter}
                                                 type="text"
                                                 {...field}
                                                 name="price"

@@ -17,7 +17,10 @@ import toast from "react-hot-toast";
 
 const RequiredAgeSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+
+  const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["reqAge"] ? currentObject["reqAge"] : 0);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -27,10 +30,12 @@ const RequiredAgeSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: number) => {
+        setCurrentAge(selectedValue);
         changeSearchParams("reqAge" , selectedValue);
     }
 
     const deleteAge = () => {
+      setCurrentAge(0);
       deleteSearchParams("reqAge")
     }
 
@@ -45,7 +50,7 @@ const RequiredAgeSearch = () => {
           onValueChange={(reqAge) => {
             Number(reqAge) === 0 ? deleteAge() : onSubmit(Number(reqAge))
           }}
-          
+          value={String(currentAge)}
           disabled={isLoading}
         >
 

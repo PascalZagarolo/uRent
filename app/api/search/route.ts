@@ -2,7 +2,7 @@
 import db from "@/db/drizzle";
 import { inserat } from "@/db/schema";
 import axios from "axios";
-import { and, eq, gte, lte, or } from "drizzle-orm";
+import { and, eq, gte, ilike, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { lkwAttribute } from '../../../db/schema';
 import { cache } from "react";
@@ -37,7 +37,7 @@ export async function PATCH(
             //DATE
             periodBegin, periodEnd,
 
-            volume, loading_l, loading_b, loading_h,
+            volume, loading_l, loading_b, loading_h, title,
             ...filteredValues } = values;
 
 
@@ -140,12 +140,12 @@ export async function PATCH(
             if (pInserat.bookings.length === 0) {
                 return true;
             }
-
-            const usedPeriodBegin = new Date(periodBegin ? periodBegin : periodEnd);
-            const usedPeriodEnd = new Date(periodEnd ? periodEnd : periodBegin);
-
-
-
+    
+            //set start and date to same date if the user only provides one
+    
+            const usedPeriodBegin = new Date(periodBegin);
+            const usedPeriodEnd = new Date(periodEnd);
+    
             for (const booking of pInserat.bookings) {
                 if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
                     && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
@@ -153,22 +153,25 @@ export async function PATCH(
                     return false;
                 }
             }
-
+    
             return true;
+
+            
         }
 
 
 
 
 
-
+        const ilikeQuery = title ? title.split(' ').map((w : any) => ilike(inserat.title, `%${w}%`)) : "";
 
         const results = await db.query.inserat.findMany({
             where:
                 and(
                     eq(inserat.isPublished, true),
+                    //@ts-ignore
+                    ...ilikeQuery,
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
-
                     begin ? gte(inserat.price, begin) : undefined,
                     end ? lte(inserat.price, end) : undefined,
 

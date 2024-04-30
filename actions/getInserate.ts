@@ -227,8 +227,8 @@ export const getInserate = cache(async ({
 
         //set start and date to same date if the user only provides one
 
-        const usedPeriodBegin = new Date(periodBegin ? periodBegin : periodEnd);
-        const usedPeriodEnd = new Date(periodEnd ? periodEnd : periodBegin);
+        const usedPeriodBegin = new Date(periodBegin);
+        const usedPeriodEnd = new Date(periodEnd);
 
         for (const booking of pInserat.bookings) {
             if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)

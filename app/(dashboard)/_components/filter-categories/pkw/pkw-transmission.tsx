@@ -40,9 +40,9 @@ const PkwTransmissionBar = () => {
   
       const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
   
-      const setStart = (fuel : string) => {
+      const setStart = (transmission : string) => {
         
-         if(!fuel) {
+         if(!transmission) {
           deleteSearchParams("transmission");
           setCurrentTransmission(null);
          } else {

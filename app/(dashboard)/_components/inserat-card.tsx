@@ -14,26 +14,26 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { format } from "date-fns";
 import {
-    Banknote, CalendarCheck2, CarFront, CarIcon, CaravanIcon, CheckCheckIcon, ConstructionIcon, EyeIcon, FlameIcon, ImageIcon,
-    MapPinned, SofaIcon, Star, TractorIcon, TramFront, Truck,
+     CarFront,  CaravanIcon, CheckCheckIcon,  EyeIcon, FlameIcon, ImageIcon,
+    MapPinned, SofaIcon, Star,  Truck,
     WeightIcon,
 } from "lucide-react";
-import Image from "next/image";
+
 
 import { useRouter } from "next/navigation";
 import { cache, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCar, FaGasPump } from "react-icons/fa";
 import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
-import { PiEngineFill, PiVanFill } from "react-icons/pi";
+import { PiVanFill } from "react-icons/pi";
 
 import { TbCrane } from "react-icons/tb";
 import { CategoryEnumRender, inserat, userTable } from "@/db/schema";
-import Link from "next/link";
+
 import { RiCaravanLine } from "react-icons/ri";
 import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
-import { SiRubygems } from "react-icons/si";
-import { BiMoneyWithdraw } from "react-icons/bi";
+
+
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import ProfileBar from "./_inserat-card/profile-bar";
 

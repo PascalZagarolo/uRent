@@ -40,7 +40,7 @@ const FreeMilesSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            freeMiles: currentObject["freeMiles"] ? currentObject["freeMiles"] : 0
+            freeMiles: currentObject["freeMiles"] ? currentObject["freeMiles"] : null
         }
     })
 
@@ -69,6 +69,7 @@ const FreeMilesSearch = () => {
                                             <Input
                                                 type="text"
                                                 {...field}
+                                                placeholder="Freikilometer"
                                                 name="price"
                                                 disabled = {//@ts-ignore
                                                     searchParams['category'] !== "PKW"}

@@ -16,7 +16,9 @@ import { useState } from "react";
 
 const LkwLoadingSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject['loading']);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -27,6 +29,7 @@ const LkwLoadingSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("loading", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
@@ -49,6 +52,7 @@ const LkwLoadingSearch = () => {
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteLoading() : onSubmit(brand)
                     }}
+                    value={currentAge}
                     disabled={isLoading}
                 >
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "

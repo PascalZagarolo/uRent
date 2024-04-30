@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from 'query-string';
 import { Input } from "@/components/ui/input";
@@ -9,13 +9,14 @@ import { MapPinned } from "lucide-react";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import axios from "axios";
 import Proximity from "./proximity";
+import { useSavedSearchParams } from "@/store";
 
 const AutoComplete = () => {
   const autoCompleteRef = useRef();
-  const searchParams = useSearchParams();
+  const usedSearchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const currentLocation = searchParams.get("location");
+  const currentLocation = usedSearchParams.get("location");
   
   const [value, setValue] = useState(currentLocation || "");
 
@@ -37,25 +38,9 @@ const AutoComplete = () => {
     }
   }, [currentLocation, value]);
 
-  useEffect(() => {
-    //@ts-ignore
-    if (!inputRef?.current?.value) {
-      const url = qs.stringifyUrl({
-        url: pathname,
-        query: {
-          location: null,
-          radius : null,
-          ...params
-        }
-      }, { skipEmptyString: true, skipNull: true });
-      router.push(url);
-    }
-  }, [value]);
+  
 
-  useEffect(() => {
-    // Store currentLocation in session storage
-    sessionStorage.setItem("currentLocation", currentLocation);
-  }, [currentLocation]);
+  
 
   const getCurrentLocation = () => {
     const status = document.querySelector('status');
@@ -83,22 +68,64 @@ const AutoComplete = () => {
   }
 
   const onSearch = () => {
+    const {//@ts-ignore
+        thisCategory, ...filteredValues} = searchParams;
+        
     //@ts-ignore
-    if (inputRef?.current?.value) {
-      const url = qs.stringifyUrl({
-        url: "/",
-        query: {
-          //@ts-ignore
-          location: inputRef?.current?.value,
-          ...params
-        }
-      }, { skipEmptyString: true, skipNull: true });
-      
-      router.push(url);
+    const usedStart = filteredValues.periodBegin;
+
+    let usedEnd = null;
+    
+//@ts-ignore
+    if(filteredValues.periodEnd){
+    //@ts-ignore
+    usedEnd = filteredValues.periodEnd;
     } else {
-      getCurrentLocation();
+        //@ts-ignore
+        if(filteredValues.periodBegin) {
+            //@ts-ignore
+            usedEnd = filteredValues.periodBegin;
+        }
     }
-  };
+    
+    const url = qs.stringifyUrl({
+        url: process.env.NEXT_PUBLIC_BASE_URL,
+        //@ts-ignore
+        query: {
+            //@ts-ignore
+            category: thisCategory,
+            //@ts-ignore
+            periodBegin: usedStart ? usedStart : null,
+            //@ts-ignore
+            periodEnd: usedEnd ? usedEnd : null,
+            //@ts-ignore
+            type: filteredValues.thisType,
+            ...filteredValues
+        },
+
+    }, { skipEmptyString: true, skipNull: true })
+    
+    
+    router.push(url);
+}
+
+const currentObject = useSavedSearchParams((state) => state.searchParams)
+  
+      const {searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+useEffect(() => {
+  console.log(value)
+  changeSearchParams("location", value);
+  if(!value){
+    deleteSearchParams("location");
+  }
+},[value])
+
+const handleKeyDown = (e : any) => {
+  if (e.key === "Enter") {
+      onSearch();
+  }
+};
 
   return (
     <div className="lg:flex items-center mr-4 hidden">
@@ -106,10 +133,13 @@ const AutoComplete = () => {
         <div className="flex sm:pr-2">
         <Input
           ref={inputRef}
+          onKeyDown={handleKeyDown}
           defaultValue={currentLocation || ""}
           placeholder="Standort.."
           className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none input: text-sm input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
-          onChange={(e) => { setValue(e.target.value) }} />
+          onChange={(e) => { setValue(e.target.value) }} 
+          onBlur ={(e) => {setValue(e.target.value)}}
+          />
           <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 rounded-none" onClick={onSearch}>
           <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
         </Button>

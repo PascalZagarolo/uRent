@@ -13,7 +13,9 @@ import { useState } from "react";
 
 const TrailerWeightClassSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject['weightClass']);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -47,7 +49,7 @@ const TrailerWeightClassSearch = () => {
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteWeight() : onSubmit(brand)
                     }}
-
+                    value={currentAge}
                     disabled={isLoading}
                 >
 

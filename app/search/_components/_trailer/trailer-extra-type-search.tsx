@@ -16,10 +16,14 @@ import { useState } from "react";
 
 const TrailerExtraTypeSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject['extraType']);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    
 
     const router = useRouter();
 
@@ -51,7 +55,7 @@ const TrailerExtraTypeSearch = () => {
                         brand === "BELIEBIG" ? deleteType() : onSubmit(brand)
                     }}
                     value={//@ts-ignore
-                        searchParams['extraType']}
+                        currentAge}
                     disabled={isLoading}
                 >
 

@@ -16,6 +16,9 @@ import { z } from "zod";
 
 const CautionSearch = () => {
 
+
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +49,7 @@ const CautionSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: null
+            caution: currentObject["caution"] ? currentObject["caution"] : 0
         }
     })
 

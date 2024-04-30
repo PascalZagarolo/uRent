@@ -15,6 +15,8 @@ import { z } from "zod";
 
 const ExtraMilesSearch = () => {
 
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +47,7 @@ const ExtraMilesSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: 0
+            caution: currentObject["extraCost"] ? currentObject["extraCost"] : 0
         }
     })
 

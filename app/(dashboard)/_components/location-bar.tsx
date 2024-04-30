@@ -15,7 +15,7 @@ const AutoComplete = () => {
   const autoCompleteRef = useRef();
   const usedSearchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
+  
   const currentLocation = usedSearchParams.get("location");
   
   const [value, setValue] = useState(currentLocation || "");
@@ -114,7 +114,7 @@ const currentObject = useSavedSearchParams((state) => state.searchParams)
       const {searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
 useEffect(() => {
-  console.log(value)
+  
   changeSearchParams("location", value);
   if(!value){
     deleteSearchParams("location");

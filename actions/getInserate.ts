@@ -241,14 +241,8 @@ export const getInserate = cache(async ({
         return true;
     })
 
-
     try {
-
-
-
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
-
-
 
         const findInserate = await db.query.inserat.findMany({
             where: (

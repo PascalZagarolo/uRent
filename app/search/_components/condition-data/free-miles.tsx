@@ -18,10 +18,12 @@ import { useSavedSearchParams } from '../../../../store';
 
 const FreeMilesSearch = () => {
 
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(0);
+    const [currentValue, setCurrentValue] = useState(currentObject["freeMiles"] ? currentObject["freeMiles"] : 0);
 
     const searchParams = useSavedSearchParams((state) => state.searchParams)
 
@@ -38,20 +40,18 @@ const FreeMilesSearch = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            freeMiles: 0
+            freeMiles: currentObject["freeMiles"] ? currentObject["freeMiles"] : 0
         }
     })
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-       
-    }
+   
 
     const { isSubmitting, isValid } = form.formState
 
     return (
         <div className=" ">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form onSubmit={() => {}}>
                     <FormLabel className="flex justify-start items-center">
                         <CarTaxiFrontIcon className="w-4 h-4" /><p className="ml-2 font-semibold"> Freikilometer </p>
                     </FormLabel>

@@ -79,6 +79,7 @@ interface MainPageProps {
         loading_h: number,
 
         radius: number,
+        caution : number,
         user: string,
 
     }
@@ -193,6 +194,7 @@ const Main = cache(async ({
 
                             radius={searchParams.radius}
                             userId={searchParams.user}
+                            caution={searchParams.caution}
                         />
                     </div>
 

@@ -37,7 +37,7 @@ export async function PATCH(
             //DATE
             periodBegin, periodEnd,
 
-            volume, loading_l, loading_b, loading_h, title, radius,
+            volume, loading_l, loading_b, loading_h, title, radius, caution,
             ...filteredValues } = values;
 
 
@@ -45,8 +45,9 @@ export async function PATCH(
         const ConditionFilter = (pInserat: typeof inserat) => {
             const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
             const bLicense = license ? license === pInserat.license : true;
+            const bCaution = caution ? caution <= pInserat.caution : true;
 
-            return bAge && bLicense;
+            return bAge && bLicense && bCaution;
         }
 
         const PkwFilter = (pInserat: typeof inserat) => {

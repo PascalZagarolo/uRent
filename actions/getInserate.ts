@@ -63,6 +63,7 @@ type GetInserate = {
     loading_h?: number;
 
     radius?: number;
+    caution?: number;
 
     userId?: string
 
@@ -128,15 +129,17 @@ export const getInserate = cache(async ({
 
     radius,
     userId,
+    caution
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
-
+    
 
     const ConditionFilter = cache((pInserat: typeof inserat) => {
         const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
         const bLicense = reqLicense ? reqLicense === pInserat.license : true;
+        const bCaution = caution ? Number(caution) <= pInserat.caution : true;
 
-        return bAge && bLicense;
+        return bAge && bLicense && bCaution;
     })
 
     const PkwFilter = cache((pInserat: typeof inserat) => {

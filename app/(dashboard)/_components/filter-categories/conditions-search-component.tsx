@@ -3,6 +3,7 @@ import LicenseBar from "./conditions/conditions-license";
 import { IoIosPaper } from "react-icons/io";
 import RequiredAgeBar from "./conditions/conditions-req-age";
 import AmountBar from "./conditions/conditions-amount";
+import CautionBar from "./conditions/conditions-caution";
 
 const ConditionsSearchComponent = () => {
     return (
@@ -20,6 +21,9 @@ const ConditionsSearchComponent = () => {
                 <div className="w-1/2">
                     <RequiredAgeBar />
                 </div>
+            </div>
+            <div className="px-2">
+            <CautionBar/>
             </div>
             <div className="px-2">
             <AmountBar/>

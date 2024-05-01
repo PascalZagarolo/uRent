@@ -31,11 +31,13 @@ const TrailerExtraTypeSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("extraType", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteType = () => {
-        deleteSearchParams("extraType")
+        deleteSearchParams("extraType");
+        setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -52,7 +54,7 @@ const TrailerExtraTypeSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteType() : onSubmit(brand)
+                        !brand ? deleteType() : onSubmit(brand)
                     }}
                     value={//@ts-ignore
                         currentAge}

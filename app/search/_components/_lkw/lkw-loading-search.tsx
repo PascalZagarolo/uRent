@@ -34,7 +34,8 @@ const LkwLoadingSearch = () => {
     }
 
     const deleteLoading = () => {
-        deleteSearchParams("loading")
+        deleteSearchParams("loading");
+        setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {

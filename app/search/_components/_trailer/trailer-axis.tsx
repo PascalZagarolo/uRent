@@ -49,7 +49,7 @@ const TrailerAxisSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteWeight() : onSubmit(brand)
+                        !brand  ? deleteWeight() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -65,7 +65,7 @@ const TrailerAxisSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value={currentAge} className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="2">2</SelectItem>

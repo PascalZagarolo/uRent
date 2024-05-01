@@ -1,164 +1,198 @@
 'use client'
 
-import { use, useEffect, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import qs from 'query-string';
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MapPinned } from "lucide-react";
-import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import axios from "axios";
+import { Input } from "@/components/ui/input";
+import { MapPinned, PinIcon } from "lucide-react";
+import useOnclickOutside from "react-cool-onclickoutside";
+import usePlacesAutocomplete, {
+
+} from "use-places-autocomplete";
 import Proximity from "./proximity";
 import { useSavedSearchParams } from "@/store";
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useDebounce } from "@/hooks/use-debounce";
+import qs from "query-string";
 
 const AutoComplete = () => {
-  
-  const currentObject : any = useSavedSearchParams((state) => state.searchParams)
 
-  const autoCompleteRef = useRef();
   const usedSearchParams = useSearchParams();
-  const router = useRouter();
-  
-  const currentLocation = usedSearchParams.get("location");
-  
-  const [value, setValue] = useState(currentObject["location"] || "");
+  const usedLocation = usedSearchParams.get("location");
 
-  const inputRef = useRef();
-  const options = {
-    componentRestrictions: { country: "de" },
-    fields: ["address_components", "geometry", "icon", "name"],
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    callbackName: "initMap",
+    requestOptions: {
+      componentRestrictions: { country: "de" },
+
+    },
+    debounce: 300,
+  });
+
+
+  const ref = useOnclickOutside(() => {
+    // When the user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
+    clearSuggestions();
+  });
+
+  const handleSelect =
+    ({ description } : any) =>
+      () => {
+        
+        // When the user selects a place, we can replace the keyword without request data from API
+        // by setting the second parameter to "false"
+        console.log(description)
+        setValue(description, false);
+        clearSuggestions();
+        onSearch(description);
+        
+
+
+      };
+
+      const router = useRouter();
+
+      const onSearch = (keyword? : string) => {
+        const {//@ts-ignore
+            thisCategory, location, ...filteredValues} = searchParams;
+            
+        //@ts-ignore
+        const usedStart = filteredValues.periodBegin;
+    
+        let usedEnd = null;
+        
+    //@ts-ignore
+        if(filteredValues.periodEnd){
+        //@ts-ignore
+        usedEnd = filteredValues.periodEnd;
+        } else {
+            //@ts-ignore
+            if(filteredValues.periodBegin) {
+                //@ts-ignore
+                usedEnd = filteredValues.periodBegin;
+            }
+        }
+        
+        const url = qs.stringifyUrl({
+            url: process.env.NEXT_PUBLIC_BASE_URL,
+            //@ts-ignore
+            query: {
+                //@ts-ignore
+                category: thisCategory,
+                //@ts-ignore
+                periodBegin: usedStart ? usedStart : null,
+                //@ts-ignore
+                periodEnd: usedEnd ? usedEnd : null,
+                //@ts-ignore
+                type: filteredValues.thisType,
+                location : keyword || location,
+                
+                ...filteredValues
+            },
+    
+        }, { skipEmptyString: true, skipNull: true })
+        
+        
+        router.push(url);
+    }
+    
+    
+      
+      const {searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+      const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
+      const debouncedValue = useDebounce(value, 300);
+
+
+      useEffect(() => {
+  
+        changeSearchParams("location", value);
+        if(!value){
+          deleteSearchParams("location");
+        }
+        },[debouncedValue])
+    
+
+  const handleInput = (e: any) => {
+    
+    setValue(e.target.value);
   };
 
-  const params = getSearchParamsFunction("location");
+  const renderSuggestions = () =>
+    data.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
 
-  useEffect(() => {
-    if (window.google) {
-      //@ts-ignore
-      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-        inputRef.current,
-        options
-      ); 
-    }
-  }, [currentLocation, value]);
+      return (
+        <li key={place_id} onClick={handleSelect(suggestion)} className="flex pl-4 pr-2 py-4 gap-x-2 hover:cursor-pointer">
+         <div><PinIcon className="w-4 h-4  text-rose-600" /></div> <div><strong>{main_text}</strong> <small>{secondary_text}</small></div>
+        </li>
+      );
+    });
 
-  
-
-  
-
-  const getCurrentLocation = () => {
-    const status = document.querySelector('status');
-    const success = async (position : any) => {
-      console.log(position.coords.latitude, position.coords.longitude);
-      const addressObject = await axios.get(`https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&api_key=65db7269a0101559750093uena07e08`);
-      const addressString = addressObject.data?.address?.road + " " + addressObject.data?.address?.city + ", "  + (addressObject.data?.address?.country === "Germany" ? 
-      "Deutschland" : addressObject.data?.address?.country)
-      const url = qs.stringifyUrl({
-        url: "/",
-        query: {
-          //@ts-ignore
-          location: addressString,
-          ...params
-        }
-      }, { skipEmptyString: true, skipNull: true });
-      router.push(url);
-      router.refresh();
-      
-    }
-    const error = () => {
-      status.textContent = 'Unable to retrieve your location';
-    }
-    navigator.geolocation.getCurrentPosition(success, error);
-  }
-
-  const onSearch = () => {
-    const {//@ts-ignore
-        thisCategory, ...filteredValues} = searchParams;
+    const handleKeyDown = (e : any) => {
+      if (e.key === "Enter") {
         
-    //@ts-ignore
-    const usedStart = filteredValues.periodBegin;
-
-    let usedEnd = null;
+         setTimeout(() => {
+          onSearch();
+         },300)
+      }
+    };
     
-//@ts-ignore
-    if(filteredValues.periodEnd){
-    //@ts-ignore
-    usedEnd = filteredValues.periodEnd;
-    } else {
-        //@ts-ignore
-        if(filteredValues.periodBegin) {
-            //@ts-ignore
-            usedEnd = filteredValues.periodBegin;
-        }
-    }
-    
-    const url = qs.stringifyUrl({
-        url: process.env.NEXT_PUBLIC_BASE_URL,
-        //@ts-ignore
-        query: {
-            //@ts-ignore
-            category: thisCategory,
-            //@ts-ignore
-            periodBegin: usedStart ? usedStart : null,
-            //@ts-ignore
-            periodEnd: usedEnd ? usedEnd : null,
-            //@ts-ignore
-            type: filteredValues.thisType,
-            ...filteredValues
-        },
-
-    }, { skipEmptyString: true, skipNull: true })
-    
-    
-    router.push(url);
-}
-
-
-  
-      const {searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-
-useEffect(() => {
-  
-  changeSearchParams("location", value);
-  if(!value){
-    deleteSearchParams("location");
-  }
-},[value])
-
-const handleKeyDown = (e : any) => {
-  if (e.key === "Enter") {
-    //@ts-ignore
-       inputRef.current.blur();
-       //@ts-ignore
-       setValue(inputRef.current.value);
-      onSearch();
-  }
-};
+    useEffect(() => {
+      if(usedLocation){
+        setValue(usedLocation)
+        changeSearchParams("location", usedLocation)
+      }
+    },[])
 
   return (
-    <div className="lg:flex items-center mr-4 hidden">
-      <div className="flex items-center mt-2 w-full flex-shrink">
-        <div className="flex sm:pr-2">
+   
+    <div className="lg:flex items-center mr-4 hidden relative" ref={ref}> 
+  <div className="flex items-center mt-2 w-full flex-shrink" >
+    <div className="flex sm:pr-2">
+      <div className="flex">
         <Input
-          ref={inputRef}
-          onKeyDown={handleKeyDown}
-          defaultValue={currentLocation || ""}
-          value={value}
-          placeholder="Standort.."
-          className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none input: text-sm input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
-          onChange={(e) => { setValue(e.target.value) }} 
-          onBlur ={(e) => {setValue(e.target.value)}}
-          />
-          <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 rounded-none" onClick={onSearch}>
-          <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
-        </Button>
-            <Proximity />
-          
-        </div>
-        
-      </div>
+        value={value}
+        onKeyDown={handleKeyDown}
+        className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none 2xl:w-[272px]
+        input: text-sm input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
+        onChange={handleInput}
+        disabled={!ready}
+        placeholder="Standort.."
+      />
       
+      
+      <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 rounded-none" onClick={() => {onSearch()}}>
+        <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
+      </Button>
+      </div>
+      <Proximity />
     </div>
+  </div>
+  
+ 
+  <div className="absolute 2xl:w-[272px]  top-full bg-[#141721] rounded-b-md space-y-2 text-sm  z-10"> 
+    {status === "OK" && (
+      <ul className="overflow-y-auto h-full ">
+        {renderSuggestions()}
+      </ul>
+    )}
+  </div>
+</div>
+
+  
+
+    
   );
-};
+}
 
 export default AutoComplete;

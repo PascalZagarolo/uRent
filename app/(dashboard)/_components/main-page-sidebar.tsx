@@ -33,20 +33,7 @@ const MainPageSideBar = () => {
 
     
 
-    const onClick = (category: string) => {
-
-        const newCategory = currentCategory === category ? null : category;
-
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                category: newCategory,
-                ...params,
-            }
-        }, { skipNull: true, skipEmptyString: true });
-
-        router.push(url)
-    }
+    
 
     const onReset = () => {
         const url = process.env.NEXT_PUBLIC_BASE_URL

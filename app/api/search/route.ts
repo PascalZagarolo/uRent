@@ -6,6 +6,7 @@ import { and, eq, gte, ilike, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { lkwAttribute } from '../../../db/schema';
 import { cache } from "react";
+import { isSameDay } from "date-fns";
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     const r = 6371;
@@ -148,7 +149,8 @@ export async function PATCH(
             const usedPeriodEnd = new Date(periodEnd);
     
             for (const booking of pInserat.bookings) {
-                if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin) 
+                || isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
                     && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
                 ) {
                     return false;

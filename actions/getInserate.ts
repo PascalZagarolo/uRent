@@ -9,6 +9,7 @@ import {
     transportAttribute
 } from "@/db/schema";
 import axios from "axios";
+import { isSameDay } from "date-fns";
 import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
 import { cache } from "react";
 
@@ -235,6 +236,7 @@ export const getInserate = cache(async ({
 
         for (const booking of pInserat.bookings) {
             if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+            || isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
                 && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
             ) {
                 return false;

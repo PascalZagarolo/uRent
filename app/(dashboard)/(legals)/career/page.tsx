@@ -1,5 +1,7 @@
 import { TiGroup } from "react-icons/ti";
 import WorkWithUs from "./_components/work-with-us";
+import OurMission from "./_components/our-mission";
+import OpenJobs from "./_components/open-jobs";
 
 const CareerPage = () => {
     return (
@@ -17,6 +19,12 @@ const CareerPage = () => {
                             <div className="mt-4 md:mt-4">
                                 <div className="px-4">
                                     <WorkWithUs />
+                                    <div className="mt-8">
+                                        <OurMission/>
+                                    </div>
+                                    <div className="mt-8">
+                                        <OpenJobs/>
+                                    </div>
                                 </div>
                             </div>
                         </div>

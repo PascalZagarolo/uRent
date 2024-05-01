@@ -30,7 +30,7 @@ const TrailerBrakeSearch = () => {
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("brake", selectedValue);
         setCurrentAge(selectedValue)
-        console.log(selectedValue)
+        
     }
 
     const deleteType = () => {

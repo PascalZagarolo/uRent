@@ -35,7 +35,7 @@ const SearchItem = () => {
     const params = getSearchParamsFunction("user");
 
 
-    const debouncedValue = useDebounce(value, 100);
+    const debouncedValue = useDebounce(value, 250);
 
     
     useEffect(() => {
@@ -79,7 +79,7 @@ const SearchItem = () => {
             deleteSearchParams("title");
             setValue("");
         }
-      },[value])
+      },[debouncedValue])
 
       useEffect(() => {
         if(!currentTitle){

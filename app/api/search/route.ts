@@ -136,8 +136,8 @@ export async function PATCH(
                 && bExtraType && bVolume && bLength && bBreite && bHeight;
         }
 
-        const filterAvailability = (pInserat: typeof inserat) => {
-
+        const filterAvailability = cache((pInserat: typeof inserat) => {
+        
             if (pInserat.bookings.length === 0) {
                 return true;
             }
@@ -156,9 +156,7 @@ export async function PATCH(
             }
     
             return true;
-
-            
-        }
+        })
 
 
 
@@ -240,7 +238,6 @@ export async function PATCH(
                 
                 if (distance < usedRadius) {
                     filteredResult.push(pInserat);
-                    
                 }
             }
         } else {

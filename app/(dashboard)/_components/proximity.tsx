@@ -5,19 +5,35 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import qs from 'query-string';
+import { useSavedSearchParams } from "@/store";
 
 
 const Proximity = () => {
 
   const params = getSearchParamsFunction("radius");
 
+  const usedSearchParams = useSearchParams();
+  const usedRadius = usedSearchParams.get("radius");
+  
+
   const [currentRadius, setCurrentRadius] = useState(params.radius || 25)
+  const { changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    const savedParams = useSavedSearchParams((state) => state.searchParams);
 
   const pathname = usePathname();
   const router = useRouter();
 
+  useEffect(() => {
+    if(usedRadius) {
+      console.log("ja")
+      changeSearchParams("radius", usedRadius)
+      setCurrentRadius(usedRadius);
+    }
+  },[])
+
     const onClick = (newRadius : string) => {
-      setCurrentRadius(newRadius)
+      setCurrentRadius(newRadius);
+      changeSearchParams("radius", newRadius)
       const url = qs.stringifyUrl({
         url: pathname,
         query: {
@@ -46,14 +62,14 @@ const Proximity = () => {
       router.push(url)
       }
 
-      
-
     },[usedLocation])
 
     return ( 
         <Select onValueChange={(e) => {
           onClick(e)
-        }}>
+        }}
+        value={currentRadius.toString()}
+        >
       <SelectTrigger className="w-[120px] bg-[#141721] text-gray-200 f border-none rounded-none rounded-r-md">
         <SelectValue placeholder="Umkreis" />
       </SelectTrigger>

@@ -18,7 +18,9 @@ import toast from "react-hot-toast";
 
 const LkwBrandSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+  const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["lkwBrand"] ? currentObject["lkwBrand"] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -29,11 +31,13 @@ const LkwBrandSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("lkwBrand" , selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteBrand = () => {
-      deleteSearchParams("lkwBrand")
+      deleteSearchParams("lkwBrand");
+      setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -50,9 +54,9 @@ const LkwBrandSearch = () => {
                     
         <Select
           onValueChange={(brand) => {
-            brand === "BELIEBIG" ? deleteBrand() : onSubmit(brand)
+            !brand ? deleteBrand() : onSubmit(brand)
           }}
-          
+          value={currentAge}
           disabled={isLoading}
         >
 
@@ -66,7 +70,7 @@ const LkwBrandSearch = () => {
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-          <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+          <SelectItem key="beliebig" value={null} className="font-semibold">
                                 Beliebig
                             </SelectItem>
           {Object.values(LkwBrandEnumRender).map((brand, index) => (

@@ -15,7 +15,9 @@ import { useState } from "react";
 
 const LkwApplicationSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["application"] ? currentObject["application"] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -26,11 +28,15 @@ const LkwApplicationSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("application", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteApplication = () => {
-        deleteSearchParams("application")
+       
+        deleteSearchParams("application");
+        setCurrentAge("beliebig")
+        setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -47,9 +53,9 @@ const LkwApplicationSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteApplication() : onSubmit(brand)
+                        !brand ? deleteApplication() : onSubmit(brand)
                     }}
-
+                    value={currentAge}
                     disabled={isLoading}
                 >
 
@@ -63,7 +69,7 @@ const LkwApplicationSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
 

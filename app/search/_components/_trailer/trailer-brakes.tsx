@@ -16,7 +16,9 @@ import { useState } from "react";
 
 const TrailerBrakeSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject['brake'] ? currentObject['brake'] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -27,11 +29,13 @@ const TrailerBrakeSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("brake", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteType = () => {
-        deleteSearchParams("brake")
+        deleteSearchParams("brake");
+        setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -50,7 +54,7 @@ const TrailerBrakeSearch = () => {
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteType() : onSubmit(brand)
                     }}
-
+                    value={currentAge}
                     disabled={isLoading}
                 >
 
@@ -64,7 +68,7 @@ const TrailerBrakeSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="true">ja</SelectItem>

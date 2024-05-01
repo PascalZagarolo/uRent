@@ -26,11 +26,13 @@ const TrailerWeightClassSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("weightClass", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteWeight = () => {
         deleteSearchParams("weightClass")
+        setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -47,7 +49,7 @@ const TrailerWeightClassSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteWeight() : onSubmit(brand)
+                        !brand  ? deleteWeight() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -63,7 +65,7 @@ const TrailerWeightClassSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="75">0,75 t</SelectItem>

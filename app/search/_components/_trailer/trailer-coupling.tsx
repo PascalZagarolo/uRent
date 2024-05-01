@@ -16,7 +16,9 @@ import { useState } from "react";
 
 const TrailerCouplingSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject['coupling'] ? currentObject['coupling'] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -27,11 +29,13 @@ const TrailerCouplingSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("coupling", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteType = () => {
-        deleteSearchParams("coupling")
+        deleteSearchParams("coupling");
+        setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -48,9 +52,9 @@ const TrailerCouplingSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteType() : onSubmit(brand)
+                        !brand ? deleteType() : onSubmit(brand)
                     }}
-
+                    value={currentAge}
                     disabled={isLoading}
                 >
 
@@ -64,7 +68,7 @@ const TrailerCouplingSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem  value="BELIEBIG" className="font-semibold">
+                        <SelectItem  value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="KUGELKOPFKUPPLUNG">Kugelkopfkupplung</SelectItem>

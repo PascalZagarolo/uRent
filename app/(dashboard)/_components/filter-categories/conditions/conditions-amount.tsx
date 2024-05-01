@@ -54,6 +54,11 @@ const AmountBar = () => {
         if(currentValue) {
           changeSearchParams("amount", currentValue);
         }
+
+        if(!currentValue) {
+            deleteSearchParams("caution");
+          setCurrentValue(null);
+        }
       },[currentValue])
   
       

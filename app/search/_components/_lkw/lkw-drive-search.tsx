@@ -7,8 +7,7 @@ import { useSavedSearchParams } from "@/store";
 
 
 
-import axios from "axios";
-import { User2Icon } from "lucide-react";
+
 import { useParams, useRouter } from "next/navigation";
 
 import { useState } from "react";
@@ -18,7 +17,9 @@ import toast from "react-hot-toast";
 
 const LkwDriveSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+  const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["drive"] ? currentObject["drive"] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -29,11 +30,13 @@ const LkwDriveSearch = () => {
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("drive" , selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteDrive = () => {
-      deleteSearchParams("drive")
+      deleteSearchParams("drive");
+      setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -50,9 +53,9 @@ const LkwDriveSearch = () => {
                     
         <Select
           onValueChange={(brand) => {
-            brand === "BELIEBIG" ? deleteDrive() : onSubmit(brand)
+            !brand  ? deleteDrive() : onSubmit(brand)
           }}
-          
+          value={currentAge}
           disabled={isLoading}
         >
 
@@ -66,7 +69,7 @@ const LkwDriveSearch = () => {
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-          <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+          <SelectItem key="beliebig" value={null} className="font-semibold">
                                 Beliebig
          </SelectItem>
          {Object.values(DriveEnumRender).map((drive, index) => (

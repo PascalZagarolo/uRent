@@ -17,22 +17,24 @@ import toast from "react-hot-toast";
 
 const LkwSeatsSearch = () => {
 
-    const [currentAge, setCurrentAge] = useState(null);
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject['seats'] ? currentObject['seats'] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
-    const router = useRouter();
-
-    const params = useParams();
+    
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("seats", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteSeats = () => {
-        deleteSearchParams("seats")
+        deleteSearchParams("seats");
+        setCurrentAge(null)
     }
 
     function removeUnderscore(inputString: string): string {
@@ -51,7 +53,7 @@ const LkwSeatsSearch = () => {
                     onValueChange={(brand) => {
                         brand === "BELIEBIG" ? deleteSeats() : onSubmit(brand)
                     }}
-
+                    value={currentAge}
                     disabled={isLoading}
                 >
 
@@ -65,7 +67,7 @@ const LkwSeatsSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="1">1</SelectItem>

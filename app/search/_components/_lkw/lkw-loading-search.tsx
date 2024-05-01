@@ -50,7 +50,7 @@ const LkwLoadingSearch = () => {
                 </Label>
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteLoading() : onSubmit(brand)
+                        !brand  ? deleteLoading() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -62,7 +62,7 @@ const LkwLoadingSearch = () => {
                         />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>

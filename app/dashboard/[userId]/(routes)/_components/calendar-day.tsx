@@ -35,6 +35,8 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   foundInserate
 }) => {
 
+  console.log(bookings)
+
   const searchParams = useSearchParams();
 
   const inseratFilter = searchParams.get("inseratId");
@@ -48,8 +50,10 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           return vehicleId === vehicleFilter && id === inseratFilter;
         }
       return id === inseratFilter;
+    } else {
+      return true;
     }
-    return true;
+    
   }
 
   return (

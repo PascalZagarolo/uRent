@@ -124,7 +124,8 @@ const PaymentsPage = async () => {
                                         <div className="font-semibold text-rose-600 gap-x-1 flex items-center text-sm">
                                             Gekündigt 
                                             <div className="text-gray-200 text-xs">
-                                                (Endet am {format(new Date(existingSubscription?.subscription.stripe_current_period_end), "dd.MM.yyyy")} )
+                                                (Endet am {format(new Date(existingSubscription?.subscription.stripe_current_period_end), 
+                                                "dd.MM.yyyy")})
                                             </div>
                                         </div>
                                     ) : (

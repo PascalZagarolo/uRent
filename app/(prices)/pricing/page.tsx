@@ -35,6 +35,17 @@ const PricingMainPage = async () => {
         <div>
             <div className="p-4 items-center">
             <div>
+                {existingSubscription && (
+                    <div className="text-md font-semibold flex items-center gap-x-2">
+                        Dein aktuelles Abonnement:
+                        <div className="text-indigo-600 font-bold">
+                            {existingSubscription?.subscriptionType}
+                        </div>
+                        <div className="flex items-center gap-x-1">
+                            (bis zu <div className="text-indigo-600 font-bold">{existingSubscription?.amount}</div> Inserate)
+                        </div>
+                    </div>
+                )}
             <div className="w-full">
                 <BuyOptions
                         currentUserId={currentUser?.id}

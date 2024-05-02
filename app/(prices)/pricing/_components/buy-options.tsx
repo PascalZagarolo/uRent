@@ -253,6 +253,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     return (
         <div>
             <div className="w-full flex space-x-4 items-center">
+                
                 <div className="ml-auto flex justify-end text-sm font-medium">
                     Wie viele Inserate möchtest du schalten?
                 </div>

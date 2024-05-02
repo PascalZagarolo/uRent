@@ -28,7 +28,7 @@ const EnterpriseButton: React.FC<EnterpriseButtonProps> = ({
     const searchParams = useSearchParams();
     const usedId = searchParams.get("inseratId");
 
-    console.log(selectedAmount)
+   
 
     const calculateEnterprisePrice = () => {
         switch (selectedAmount) {
@@ -74,7 +74,7 @@ const EnterpriseButton: React.FC<EnterpriseButtonProps> = ({
                 ...usedId && { usedId: usedId }
 
             }
-
+            console.log("gedrückt...")
 
 
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
@@ -121,7 +121,7 @@ const EnterpriseButton: React.FC<EnterpriseButtonProps> = ({
                 existingSubscription ? (
                     canUpgrade ? (
                         <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
-                            onClick={onUpgrade}>
+                            onClick={onUpgrade} disabled={isLoading}>
                             Upgraden
                         </Button >
                     ) : (
@@ -132,7 +132,7 @@ const EnterpriseButton: React.FC<EnterpriseButtonProps> = ({
                 ) : (
 
                     <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
-                        onClick={onSubscribe}>
+                        onClick={onSubscribe} disabled={isLoading}>
                         Vorteile sichern
                     </Button >
                 )}

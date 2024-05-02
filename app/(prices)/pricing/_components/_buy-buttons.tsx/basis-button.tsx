@@ -18,7 +18,7 @@ interface BasisButtonProps {
     selectedAmount: number;
     existingSubscription?: typeof userSubscription;
     userId: string;
-    diffrence : number;
+    diffrence: number;
 }
 
 const BasisButton: React.FC<BasisButtonProps> = ({
@@ -46,8 +46,18 @@ const BasisButton: React.FC<BasisButtonProps> = ({
                 return "prod_Pv4AbOgkOYWJJt";
             case 25:
                 return "prod_Pv4B2zmZ19Apen";
-            case 40:
+            case 35:
                 return "prod_Pv4BipnesUBoNJ";
+            case 50:
+                return "prod_Q20K4v8dmCv6bn";
+            case 65:
+                return "prod_Q20KFG8pPNIG7d";
+            case 80:
+                return "prod_Q20LBBjGUKhBfC";
+            case 100:
+                return "prod_Q20MzN3iFoqH2Q";
+            case 250:
+                return "prod_Q20MuQfWTXNX7L";
             default:
                 return ""
         }
@@ -55,7 +65,7 @@ const BasisButton: React.FC<BasisButtonProps> = ({
 
     const productId = calculateBasisPrice();
 
-    
+
 
     const onSubscribe = async () => {
         try {
@@ -63,8 +73,8 @@ const BasisButton: React.FC<BasisButtonProps> = ({
             const values = {
                 subscriptionType: "BASIS",
                 productId: productId,
-                amount : selectedAmount,
-                ...usedId && {usedId : usedId}
+                amount: selectedAmount,
+                ...usedId && { usedId: usedId }
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
@@ -80,10 +90,10 @@ const BasisButton: React.FC<BasisButtonProps> = ({
             setIsLoading(true);
 
             const values = {
-                diffrence : diffrence * 100,
+                diffrence: diffrence * 100,
                 productId: productId,
-                subscriptionType : "ENTERPRISE",
-                ...usedId && {usedId : usedId}
+                subscriptionType: "ENTERPRISE",
+                ...usedId && { usedId: usedId }
             }
 
             const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);
@@ -110,7 +120,7 @@ const BasisButton: React.FC<BasisButtonProps> = ({
                         </Button >
                     ) : (
                         <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" //@ts-ignore
-                             onClick={onUpgrade}>
+                            onClick={onUpgrade}>
                             Upgraden
                         </Button>
                     )

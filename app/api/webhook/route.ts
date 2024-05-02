@@ -2,7 +2,7 @@ import db from "@/db/drizzle";
 import { userTable, userSubscription, inserat } from "@/db/schema";
 
 import { stripe } from "@/lib/stripe";
-import axios from "axios";
+
 import { eq } from "drizzle-orm/sql";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -103,6 +103,8 @@ export async function POST(
     
     if(event.type === "checkout.session.completed") {
         
+        console.log("durchlaufen")
+
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
         
@@ -123,7 +125,7 @@ export async function POST(
             return new NextResponse("Keine ProduktId hinterlegt", {status : 400})
         }
         
-        const [createdSubscription] = await db.insert(userSubscription).values({
+        const createdSubscription = await db.insert(userSubscription).values({
             //@ts-ignore
             userId : session?.metadata?.userId,
             subscriptionType : session?.metadata?.subscriptionType,
@@ -134,25 +136,24 @@ export async function POST(
             stripe_product_id : session?.metadata?.productId,
             stripe_current_period_end : new Date(
                 subscription.current_period_end * 1000
-            
             )
         }).returning();
 
         await db.update(userTable).set({
-            subscriptionId : createdSubscription.id,
+            subscriptionId : createdSubscription[0].id,
         }).where(eq(userTable.id, session?.metadata?.userId))
 
-        console.log(session?.metadata?.usedId)
+        
 
         //publish inserat if id was in the given querystring
         if(session?.metadata?.usedId) {
-            console.log(1);
+            
             const findInserat = await db.query.inserat.findFirst({
                 where : (
                     eq(inserat.id, session?.metadata?.usedId)
                 )
             })
-            console.log(2);
+            
             if(!findInserat){
                 return new NextResponse("Inserat nicht gefunden", {status : 404})
             }
@@ -160,7 +161,7 @@ export async function POST(
             if(findInserat.userId !== session?.metadata?.userId) {
                 return new NextResponse("Nicht autorisiert", {status : 401})
             }
-            console.log(3);
+            
             const patchedInserat = await db.update(inserat).set({
                 isPublished : true
             }).where(eq(inserat.id, session?.metadata?.usedId)).returning();

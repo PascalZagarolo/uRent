@@ -57,8 +57,7 @@ export async function PATCH(
         }
 
 
-
-        
+        console.log("durchlaufen")
 
        
 
@@ -92,7 +91,7 @@ export async function PATCH(
             }
         })
 
-        console.log(stripeSesison.url)
+        
 
         return new NextResponse(JSON.stringify({ url: stripeSesison.url }))
 

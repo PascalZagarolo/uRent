@@ -11,18 +11,18 @@ export async function PATCH(
 ) {
     try {
 
-        const {startDate, endDate, ...values} = await req.json();
+        const {start, end, ...values} = await req.json();
 
-        const usedStart = new Date(startDate);
-        const usedEnd = new Date(endDate);
+        const usedStart = new Date(start);
+        const usedEnd = new Date(end);
         
         console.log(values);
         
         const [editedBooking] = await db.update(booking).set({
-            ...(startDate) && {
+            ...(start) && {
                 startDate: usedStart
             
-            },...(endDate) && {
+            },...(end) && {
                 endDate: usedEnd
             },
             ...values,

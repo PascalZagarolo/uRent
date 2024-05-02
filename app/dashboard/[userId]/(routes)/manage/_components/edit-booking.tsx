@@ -109,13 +109,13 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
     const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
-            console.log("getriggered")
+           
             setIsLoading(true);
             
             const values = {
                 content: currentContent,
-                start: currentStart,
-                end: currentEnd,
+                start: new Date(currentStart),
+                end: new Date(currentEnd),
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
                 name : currentName

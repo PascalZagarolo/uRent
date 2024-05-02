@@ -114,7 +114,16 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
 
     const getAddressCity = (address: string): string => {
         const addressParts = address.split(', ');
-        return addressParts[addressParts.length - 2]
+    
+        const checkString = addressParts[addressParts.length - 2];
+
+        if(checkString === "" || checkString === " " || !checkString) {
+            return addressParts[addressParts.length - 1]
+        } else {
+            return addressParts[addressParts.length - 2]
+        }
+
+        
     };
 
 

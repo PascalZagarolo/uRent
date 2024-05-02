@@ -24,7 +24,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { values } from "lodash"
+
 import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, PencilIcon, PlusSquare } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
@@ -34,13 +34,14 @@ import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { booking, inserat, userTable } from "@/db/schema";
+import { booking, inserat } from "@/db/schema";
 import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
 import { Input } from "@/components/ui/input";
 import { MdOutlinePersonPin } from "react-icons/md";
+import { de } from "date-fns/locale";
 
 
 interface EditBookingProps {
@@ -110,7 +111,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
         try {
             console.log("getriggered")
             setIsLoading(true);
-            console.log(selectedUser)
+            
             const values = {
                 content: currentContent,
                 start: currentStart,
@@ -238,7 +239,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                    format(field.value, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -251,6 +252,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                             mode="single"
                                                             selected={field.value}
                                                             className="dark:bg-[#0a0a0a] dark:border-none"
+                                                            locale={de}
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
                                                                 setCurrentStart(date);
@@ -285,7 +287,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                    format(field.value, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -297,10 +299,11 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                         <Calendar
                                                             mode="single"
                                                             selected={field.value}
-                                                            className="dark:bg-[#0a0a0a] "
+                                                            className="dark:bg-[#0a0a0a]"
+                                                            locale={de}
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
-                                                                setCurrentStart(date);
+                                                                setCurrentEnd(date);
                                                             }}
                                                             disabled={(date) =>
                                                                 date < currentStart || date < new Date("1900-01-01")

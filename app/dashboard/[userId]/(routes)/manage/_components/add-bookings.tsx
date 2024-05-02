@@ -113,11 +113,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
             }
             axios.post(`/api/booking/${currentInserat}`, values)
-                .then(
-                    () => {
-                        form.reset();
-                        router.refresh()
-                    })
+                .then(() => {
+                    router.refresh();
+                    form.reset();
+                })
             toast.success("Buchung hinzugefügt");
 
 

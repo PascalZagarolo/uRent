@@ -50,8 +50,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     return 58;
                 case 25:
                     return 73;
-                case 40:
+                case 35:
+                    return 78;
+                case 50:
                     return 87;
+                case 65:
+                    return 93;
+                case 80:
+                    return 102;
+                case 100:
+                    return 111;
+                case 250: 
+                    return 122;
                 default:
                     return /* Default calculation */;
             }
@@ -109,19 +119,29 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     const calculateBasisPrice = (amount: number) => {
         switch (amount) {
             case 1:
-                return 29;
-            case 5:
-                return 44;
-            case 10:
-                return 50;
-            case 15:
-                return 58;
-            case 25:
-                return 73;
-            case 40:
-                return 87;
-            default:
-                return /* Default calculation */;
+                    return 29;
+                case 5:
+                    return 44;
+                case 10:
+                    return 50;
+                case 15:
+                    return 58;
+                case 25:
+                    return 73;
+                case 35:
+                    return 78;
+                case 50:
+                    return 87;
+                case 65:
+                    return 93;
+                case 80:
+                    return 102;
+                case 100:
+                    return 111;
+                case 250: 
+                    return 122;
+                default:
+                    return /* Default calculation */;
         }
     };
 
@@ -164,8 +184,8 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     };
 
     const canUpgradePremium = (existingSubscription && amountInserat > Number(existingSubscription?.amount) ||
-    //@ts-ignore
-    (existingSubscription && amountInserat === Number(existingSubscription?.amount) && existingSubscription?.subscriptionType  === "BASIS")
+        //@ts-ignore
+        (existingSubscription && amountInserat === Number(existingSubscription?.amount) && existingSubscription?.subscriptionType === "BASIS")
     )
 
     const canUpgradeBasis = (existingSubscription && amountInserat > Number(existingSubscription?.amount))
@@ -176,7 +196,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
         (existingSubscription && amountInserat === Number(existingSubscription?.amount) && existingSubscription?.subscriptionType !== "ENTERPRISE")
     )
 
-    let existingSubscriptionWorth : any;
+    let existingSubscriptionWorth: any;
 
     switch (existingSubscription?.subscriptionType) {
         case "BASIS":
@@ -190,7 +210,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
             break;
     }
 
-    
+
 
     return (
         <div>
@@ -211,15 +231,20 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                             <SelectItem value="10">bis zu 10 Inserate</SelectItem>
                             <SelectItem value="15">bis zu 15 Inserate</SelectItem>
                             <SelectItem value="25">bis zu 25 Inserate</SelectItem>
-                            <SelectItem value="40">über 25 Inserate</SelectItem>
+                            <SelectItem value="35">bis zu 35 Inserate</SelectItem>
+                            <SelectItem value="50">bis zu 50 Inserate</SelectItem>
+                            <SelectItem value="65">bis zu 65 Inserate</SelectItem>
+                            <SelectItem value="80">bis zu 80 Inserate</SelectItem>
+                            <SelectItem value="100">bis zu 100 Inserate</SelectItem>
+                            <SelectItem value="250">über 100 Inserate</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
             </div>
             {existingSubscription && (
                 <div className="flex text-lg font-semibold items-center ">
-                <GiUpgrade  className="w-6 h-6 mr-2 text-indigo-600" />   Bestehenden Plan Upgraden
-              </div>
+                    <GiUpgrade className="w-6 h-6 mr-2 text-indigo-600" />   Bestehenden Plan Upgraden
+                </div>
             )}
             <div className="w-full flex space-x-4 p-4 ">
 
@@ -243,14 +268,14 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                         <div className="w-full flex mt-2">
                             {!canUpgradeBasis ? (
                                 <div className="flex">
-                                <div className="text-4xl font-bold">{basisPrice} €</div>
-                                <div className="text-xs text-gray-200/70 px-1">/Monat</div>
-                            </div>
+                                    <div className="text-4xl font-bold">{basisPrice} €</div>
+                                    <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                                </div>
                             ) : (
                                 <div className="flex">
-                                <div className="text-4xl font-bold">{basisDiffrence} €</div>
-                                
-                            </div>
+                                    <div className="text-4xl font-bold">{basisDiffrence} €</div>
+
+                                </div>
                             )}
                         </div>
 
@@ -294,16 +319,16 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     <div className="w-full flex mt-2">
                         {!canUpgradePremium ? (
                             <div className="flex">
-                            <div className="text-4xl font-bold">
-                                {premiumPrice}   €</div>
-                            <div className="text-xs text-gray-200/70 px-1">/Monat</div>
-                        </div>
+                                <div className="text-4xl font-bold">
+                                    {premiumPrice}   €</div>
+                                <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                            </div>
                         ) : (
                             <div className="flex">
-                            <div className="text-4xl font-bold">
-                                {premiumDiffrence}   €</div>
-                            <div className="text-xs text-gray-200/70 px-1">/Monat</div>
-                        </div>
+                                <div className="text-4xl font-bold">
+                                    {premiumDiffrence}   €</div>
+                                <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                            </div>
                         )}
                     </div>
 
@@ -352,19 +377,19 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     />
 
                     <div className="w-full flex mt-2">
-                       {!canUpgradeEnterprise ? (
-                         <div className="flex">
+                        {!canUpgradeEnterprise ? (
+                            <div className="flex">
 
-                         <div className="text-4xl font-bold">{enterprisePrice} €</div>
-                         <div className="text-xs text-gray-200/70 px-1">/Monat</div>
-                     </div>
-                       ) : (
-                        <div className="flex">
+                                <div className="text-4xl font-bold">{enterprisePrice} €</div>
+                                <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                            </div>
+                        ) : (
+                            <div className="flex">
 
-                        <div className="text-4xl font-bold">{enterpriseDiffrence} €</div>
-                        
-                    </div>
-                       )}
+                                <div className="text-4xl font-bold">{enterpriseDiffrence} €</div>
+
+                            </div>
+                        )}
                     </div>
 
                     <div className="w-full mt-4">

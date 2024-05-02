@@ -60,7 +60,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     return 102;
                 case 100:
                     return 111;
-                case 250: 
+                case 250:
                     return 122;
                 default:
                     return /* Default calculation */;
@@ -79,8 +79,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     return 70;
                 case 25:
                     return 88;
-                case 40:
+                case 35:
+                    return 95;
+                case 50:
                     return 105;
+                case 65:
+                    return 112;
+                case 80:
+                    return 123;
+                case 100:
+                    return 133;
+                case 250:
+                    return 147;
                 default:
                     return /* Default calculation */;
             }
@@ -98,10 +108,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     return 90;
                 case 25:
                     return 123;
-                case 40:
+                case 35:
+                    return 132;
+                case 50:
                     return 147;
-                default:
-                    return /* Default calculation */;
+                case 65:
+                    return 157;
+                case 80:
+                    return 172;
+                case 100:
+                    return 187;
+                case 250:
+                    return 206;
             }
         };
 
@@ -119,29 +137,29 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     const calculateBasisPrice = (amount: number) => {
         switch (amount) {
             case 1:
-                    return 29;
-                case 5:
-                    return 44;
-                case 10:
-                    return 50;
-                case 15:
-                    return 58;
-                case 25:
-                    return 73;
-                case 35:
-                    return 78;
-                case 50:
-                    return 87;
-                case 65:
-                    return 93;
-                case 80:
-                    return 102;
-                case 100:
-                    return 111;
-                case 250: 
-                    return 122;
-                default:
-                    return /* Default calculation */;
+                return 29;
+            case 5:
+                return 44;
+            case 10:
+                return 50;
+            case 15:
+                return 58;
+            case 25:
+                return 73;
+            case 35:
+                return 78;
+            case 50:
+                return 87;
+            case 65:
+                return 93;
+            case 80:
+                return 102;
+            case 100:
+                return 111;
+            case 250:
+                return 122;
+            default:
+                return /* Default calculation */;
         }
     };
 
@@ -157,8 +175,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                 return 70;
             case 25:
                 return 88;
-            case 40:
+            case 35:
+                return 95;
+            case 50:
                 return 105;
+            case 65:
+                return 112;
+            case 80:
+                return 123;
+            case 100:
+                return 133;
+            case 250:
+                return 147;
             default:
                 return /* Default calculation */;
         }
@@ -176,8 +204,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                 return 90;
             case 25:
                 return 123;
-            case 40:
+            case 35:
+                return 132;
+            case 50:
                 return 147;
+            case 65:
+                return 157;
+            case 80:
+                return 172;
+            case 100:
+                return 187;
+            case 250:
+                return 206;
             default:
                 return /* Default calculation */;
         }

@@ -22,7 +22,7 @@ const CareerPage = () => {
                                     <div className="mt-8">
                                         <OurMission/>
                                     </div>
-                                    <div className="mt-8">
+                                    <div className="mt-16">
                                         <OpenJobs/>
                                     </div>
                                 </div>

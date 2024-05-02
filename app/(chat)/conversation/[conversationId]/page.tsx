@@ -174,9 +174,9 @@ const ConversationPage = async ({
                                     height={40}
                                     alt="Profile Picture"
                                 />
-                                <div className="w-2/4 truncate">
+                                <a className="w-2/4 truncate hover:underline" href={`/profile/${otherUserDetails?.id}`}>
                                     {otherUserDetails.name}
-                                </div>
+                                </a>
                                 <div className="ml-auto">
                                     <ChatHeader
                                         otherUser={otherUserDetails}

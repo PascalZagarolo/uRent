@@ -27,7 +27,7 @@ const OurMission = () => {
                     Wir setzen auf nachhaltige Praktiken und fördern eine Kultur des Vertrauens.
                     Durch Transparenz und Zuverlässigkeit schaffen wir eine vertrauenswürdige Plattform,
                     die auf Verlässlichkeit und Kundenorientierung basiert.
-                    Innovation und Zusammenarbeit
+                   
                 </div>
                 <div className="px-4 text-sm mt-2">
                     <div className="font-medium">- Innovation und Zusammenarbeit</div>

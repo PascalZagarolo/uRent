@@ -43,7 +43,7 @@ export async function POST(
 
         console.log(createdBooking);
 
-        return NextResponse.json({createdBooking, sendNotification})
+        return NextResponse.json(createdBooking)
 
 
     } catch (error) {

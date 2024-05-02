@@ -24,10 +24,10 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { values } from "lodash"
+
 import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, PlusSquare } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 import toast from "react-hot-toast";
@@ -35,7 +35,7 @@ import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { inserat, userTable } from "@/db/schema";
-import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
@@ -82,7 +82,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
     const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
-            console.log("getriggered")
+            
             setIsLoading(true);
             const values = {
                 content: value.content ? value.content : "",
@@ -134,10 +134,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
+                                //@ts-ignore
                                 setCurrentInserat(selectedValue);
                                 setCurrentVehicle(null);
                             }}
-                            
+                            //@ts-ignore
                             value={currentInserat}
                             
                         >
@@ -155,6 +156,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                 
                                     {foundInserate.map((thisInserat) => (
+                                        //@ts-ignore
                                         <SelectItem value={thisInserat} key={thisInserat.id}>
                                             {thisInserat.title}
                                         </SelectItem>
@@ -176,7 +178,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                             
                         >
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]" 
-                            disabled={!currentInserat ||  currentInserat?.vehicles.length <= 0}>
+                            disabled={//@ts-ignore
+                                !currentInserat ||  currentInserat?.vehicles.length <= 0}>
                                 {currentVehicle ? (
                                     <SelectValue>
                                 
@@ -189,8 +192,9 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                 
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                 
-                                    {currentInserat?.vehicles.length > 0 ? (
-                                        
+                                    {//@ts-ignore
+                                    currentInserat?.vehicles.length > 0 ? (
+                                        //@ts-ignore
                                         currentInserat?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
                                             <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
                                                 {thisVehicle.title}
@@ -289,7 +293,6 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                             className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
                                                                 const nextDay = new Date(date);
-                                                                nextDay.setDate(nextDay.getDate() + 1);
                                                                 field.onChange(nextDay);
                                                                 setCurrentEnd(nextDay);
                                                             }}

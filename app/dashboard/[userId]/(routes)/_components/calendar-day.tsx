@@ -35,7 +35,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   foundInserate
 }) => {
 
-  console.log(bookings)
+  console.log(bookings.length !== 0 && bookings)
 
   const searchParams = useSearchParams();
 
@@ -45,14 +45,14 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   
   const isShowing = (id : string, vehicleId? : string) => {
     if(inseratFilter){
-        if(vehicleFilter){
-          
-          return vehicleId === vehicleFilter && id === inseratFilter;
-        }
-      return id === inseratFilter;
-    } else {
-      return true;
-    }
+      if(vehicleFilter){
+        
+        return vehicleId === vehicleFilter && id === inseratFilter;
+      }
+    return id === inseratFilter;
+  } else {
+    return true;
+  }
     
   }
 
@@ -71,11 +71,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
         return (
 
           <>
-          {isShowing(pBooking.inseratId, pBooking?.vehicleId) && 
+          {(isShowing(pBooking.inseratId, pBooking?.vehicleId)) && 
           <div
           key={pBooking.id}
           className={cn("bg-blue-600 rounded-md py-2  flex justify-center mt-2",
-                          pBooking.isAvailability && "bg-rose-700")}
+          pBooking.isAvailability && "bg-rose-700")}
         >
           {inseratFilter ? (
             <X className="text-gray-900 w-4 h-4" />

@@ -34,17 +34,18 @@ import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { inserat, userTable } from "@/db/schema";
+import { booking, inserat, } from "@/db/schema";
 import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
 import { Input } from "@/components/ui/input";
 import { MdOutlinePersonPin } from "react-icons/md";
+import { de } from "date-fns/locale";
 
 
 interface AddBookingProps {
-    foundInserate : typeof inserat.$inferSelect[]
+    foundInserate: typeof inserat.$inferSelect[]
 }
 
 
@@ -63,7 +64,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
     const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null>(null);
 
-    
+
 
     const params = useParams();
     const router = useRouter();
@@ -74,7 +75,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
         }), end: z.date({
             required_error: "A date of birth is required.",
         }), content: z.string().optional(),
-        name : z.string().optional()
+        name: z.string().optional()
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -83,40 +84,42 @@ const AddBooking: React.FC<AddBookingProps> = ({
             start: new Date(),
             end: new Date(),
             content: "",
-            name : ""
+            name: ""
 
         }
     })
 
 
     useEffect(() => {
-        
+
         const newInserat = foundInserate.find((inserat) => inserat.id === currentInserat);
-        
+
         setCurrentInseratObject(newInserat);
-        
-    },[currentInserat])
+
+    }, [currentInserat])
 
     const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
-            console.log("getriggered")
+
             setIsLoading(true);
 
-            console.log(selectedUser)
-
             const values = {
-                content: currentContent,
-                start: currentStart,
-                end: currentEnd,
+                content: value.content ? value.content : "",
+                start: new Date(currentStart),
+                end: new Date(currentEnd),
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
-                name : currentName,
-                
+                name: currentName,
+
             }
             axios.post(`/api/booking/${currentInserat}`, values)
-                .then(() => router.refresh())
+                .then(
+                    () => {
+                        form.reset();
+                        router.refresh()
+                    })
             toast.success("Buchung hinzugefügt");
-            form.reset();
+
 
         } catch (err) {
             toast.error("Fehler beim hinzufügen der Buchung", err)
@@ -127,6 +130,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
             setIsLoading(false);
         }
     }
+
 
 
 
@@ -157,64 +161,66 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 setCurrentInserat(selectedValue);
                                 setCurrentVehicle(null);
                             }}
-                            
-                            
-                            
+
+
+
                         >
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2">
-                               <SelectValue placeholder="Bitte wähle dein Inserat" />
-                               </SelectTrigger>
-                                
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                
-                                    {foundInserate.map((thisInserat) => (
-                                        <SelectItem value={thisInserat.id} id="" key={thisInserat.id}>
-                                            {thisInserat.title}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            
+                                <SelectValue placeholder="Bitte wähle dein Inserat" />
+                            </SelectTrigger>
+
+                            <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+
+                                {foundInserate.map((thisInserat) => (
+                                    <SelectItem value={thisInserat.id} id="" key={thisInserat.id}>
+                                        {thisInserat.title}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+
                         </Select>
                     </div>
                     <div className="pb-8 pr-8">
                         <Label className="">
-                           Fahrzeug
+                            Fahrzeug
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
                                 setCurrentVehicle(selectedValue);
                             }}
-                            
+
                             value={currentVehicle}
-                            
+
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]" 
-                            disabled={!currentInserat ||  currentInseratObject?.vehicles?.length <= 0}>
+                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
+                                disabled={//@ts-ignore
+                                    !currentInserat || currentInseratObject?.vehicles?.length <= 0}>
                                 {currentVehicle ? (
                                     <SelectValue>
-                                
+
                                     </SelectValue>
                                 ) : (
                                     <SelectValue>
                                         Wähle dein Fahrzeug
                                     </SelectValue>
                                 )}
-                                
+
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                
-                                    {currentInseratObject?.vehicles?.length > 0 ? (
-                                        
-                                        currentInseratObject?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
-                                            <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
-                                                {thisVehicle.title}
+
+                                    {//@ts-ignore
+                                        currentInseratObject?.vehicles?.length > 0 ? (
+                                            //@ts-ignore
+                                            currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
+                                                    {thisVehicle.title}
+                                                </SelectItem>
+                                            ))
+
+                                        ) : (
+                                            <SelectItem value={null}>
+                                                Keine Fahrzeuge verfügbar
                                             </SelectItem>
-                                        ))
-                                        
-                                    ) : (
-                                        <SelectItem value={null}>
-                                            Keine Fahrzeuge verfügbar
-                                        </SelectItem>
-                                    )}
+                                        )}
                                 </SelectContent>
                             </SelectTrigger>
                         </Select>
@@ -241,7 +247,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                    format(field.value, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -252,6 +258,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
+                                                            locale={de}
                                                             selected={field.value}
                                                             className="dark:bg-[#0a0a0a] dark:border-none"
                                                             onSelect={(date) => {
@@ -288,7 +295,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                    format(field.value, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -300,10 +307,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                         <Calendar
                                                             mode="single"
                                                             selected={field.value}
-                                                            className="dark:bg-[#0a0a0a] "
+                                                            className="dark:bg-[#0a0a0a]"
+                                                            locale={de}
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
-                                                                setCurrentStart(date);
+                                                                setCurrentEnd(date);
                                                             }}
                                                             disabled={(date) =>
                                                                 date < currentStart || date < new Date("1900-01-01")
@@ -320,16 +328,16 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                                 </div>
                                 <div>
-                                <FormField
+                                    <FormField
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem >
-                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2"/> Name</FormLabel>
+                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</FormLabel>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
-                                                    onChange={(e) => {setCurrentName(e.target.value); field.onChange(e)}}
+                                                    onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
                                                 />
                                             </FormItem>
                                         )} />
@@ -346,12 +354,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         name="content"
                                         render={({ field }) => (
                                             <FormItem className="mt-2 ">
-                                                
+
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
 
-                                                onChange={(e) => {setCurrentContent(e.target.value); field.onChange(e)}}
+                                                    onChange={(e) => { setCurrentContent(e.target.value); field.onChange(e) }}
                                                 />
                                             </FormItem>
                                         )}

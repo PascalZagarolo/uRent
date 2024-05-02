@@ -13,9 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import CalendarDay from "./calendar-day";
 import { Button } from "@/components/ui/button";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import qs from "query-string";
-import { usePathname, useRouter } from "next/navigation";
+
 import { booking,  inserat } from "@/db/schema";
 import { de } from 'date-fns/locale';
 
@@ -30,16 +28,14 @@ interface EventCalendarProps {
 
 const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
 
-    const [currentFilter, setCurrentFilter] = useState<string | null>(null);
+    
     const [currentDate, setCurrentDate] = useState(new Date());
     const firstDayOfMonth = startOfMonth(currentDate);
     const lastDayOfMonth = endOfMonth(currentDate);
 
-    const [currentMonth, setCurrentMonth] = useState(0);
-
-    const pathName = usePathname();
-
-    const router = useRouter();
+    
+    
+    
 
     const daysInMonth = eachDayOfInterval({
         start: firstDayOfMonth,
@@ -60,6 +56,8 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
         setCurrentDate(newDate);
     };
 
+    
+
     const eventsByDate = useMemo(() => {
         return bookings?.reduce((acc: { [key: string]: typeof booking.$inferSelect[] }, pBooking : typeof booking.$inferSelect) => {
             const startDate = new Date(pBooking.startDate);
@@ -67,7 +65,8 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
 
             const currentDate = new Date(startDate);
             while (currentDate <= endDate) {
-                const dateKey = format(currentDate, "yyyy-MM-dd");
+                console.log(currentDate, pBooking)
+                const dateKey = format(currentDate, "dd-MM-yyyy");
                 if (!acc[dateKey]) {
                     acc[dateKey] = [];
                 }
@@ -85,21 +84,15 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
 
     return (
         <div className="container mx-auto p-4 border dark:border-none">
-            
             <div className="mb-4 flex items-center">
                 <Button onClick={decreaseMonth} className="" variant="ghost">
                     <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
-
                 <h2 className="text-center font-semibold w-[160px]">{format(currentDate, "MMMM yyyy", { locale : de })}</h2>
                 <Button onClick={increaseMonth} className="" variant="ghost">
                     <ArrowRightCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
-
-
-                <div className="ml-auto">
-                    
-                </div>
+                
             </div>
             <div className="grid grid-cols-7 gap-2">
                 {WEEKDAYS.map((day) => {
@@ -118,8 +111,9 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                     );
                 })}
                 {daysInMonth.map((day, index) => {
-                    const dateKey = format(day, "yyyy-MM-dd");
+                    const dateKey = format(day, "dd-MM-yyyy");
                     const todaysEvents = eventsByDate[dateKey] || [];
+                    
                     return (
                         <div key={index} className="">
                             <CalendarDay

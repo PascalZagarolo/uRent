@@ -130,7 +130,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
         }
     }
 
-
+    useEffect(() => {
+        if(currentStart > currentEnd){
+          setCurrentEnd(currentStart)
+        }
+      },[currentEnd, currentStart])
 
 
     return (
@@ -245,8 +249,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                     !field.value && "text-muted-foreground  "
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP", { locale : de})
+                                                                {currentStart ? (
+                                                                    format(currentStart, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -258,11 +262,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                         <Calendar
                                                             mode="single"
                                                             locale={de}
-                                                            selected={field.value}
+                                                            selected={currentStart}
                                                             className="dark:bg-[#0a0a0a] dark:border-none"
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
                                                                 setCurrentStart(date);
+                                                                
                                                             }}
                                                             disabled={(date) =>
                                                                 date < new Date() || date < new Date("1900-01-01")
@@ -293,8 +298,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                     !field.value && "text-muted-foreground"
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP", { locale : de})
+                                                                {currentEnd ? (
+                                                                    format(currentEnd, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -305,7 +310,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
-                                                            selected={field.value}
+                                                            selected={currentEnd}
                                                             className="dark:bg-[#0a0a0a]"
                                                             locale={de}
                                                             onSelect={(date) => {

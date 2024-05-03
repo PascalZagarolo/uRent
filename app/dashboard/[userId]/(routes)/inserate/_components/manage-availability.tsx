@@ -39,6 +39,7 @@ import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-r
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
+import { de } from "date-fns/locale";
 
 interface AddAvailabilityProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -106,7 +107,11 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
         }
     }
 
-
+useEffect(() => {
+    if(currentStart > currentEnd) {
+        setCurrentEnd(currentStart);
+    }
+}, [currentStart])
 
     return (
         <Dialog>
@@ -201,7 +206,7 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                         ))
                                         
                                     ) : (
-                                        <SelectItem value={null}>
+                                        <SelectItem value={null} disabled>
                                             Keine Fahrzeuge verfügbar
                                         </SelectItem>
                                     )}
@@ -221,7 +226,7 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                                 <FormLabel>Anfangsdatum</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] dark:border-gray-100">
+                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] dark:border-none">
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
@@ -229,8 +234,8 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                                                     !field.value && "text-muted-foreground  "
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                {currentStart ? (
+                                                                    format(currentStart, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -238,11 +243,11 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0" align="start">
+                                                    <PopoverContent className="w-auto p-0 dark:border-none" align="start">
                                                         <Calendar
                                                             mode="single"
-                                                            selected={field.value}
-                                                            className="dark:bg-[#0a0a0a] dark:border-gray-100 dark:border"
+                                                            selected={currentStart}
+                                                            className="dark:bg-[#0a0a0a] dark:border-none rounded-md"
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
                                                                 setCurrentStart(date);
@@ -250,6 +255,7 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                                             disabled={(date) =>
                                                                 date < new Date() || date < new Date("1900-01-01")
                                                             }
+                                                            locale={de}
                                                             initialFocus
                                                         />
                                                     </PopoverContent>
@@ -268,7 +274,8 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                                 <FormLabel>Enddatum</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] dark:border-gray-100">
+                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] 
+                                                        dark:border-none rounded-md">
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
@@ -276,8 +283,8 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                                                     !field.value && "text-muted-foreground"
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                {currentEnd ? (
+                                                                    format(currentEnd, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -285,20 +292,19 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                                             </Button>
                                                         </FormControl>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0" align="start">
+                                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
-                                                            selected={field.value}
-                                                            className="dark:bg-[#0a0a0a] dark:border-gray-100 dark:border"
+                                                            selected={currentEnd}
+                                                            className="dark:bg-[#0a0a0a]  dark:border-none rounded-md"
                                                             onSelect={(date) => {
-                                                                const nextDay = new Date(date);
-                                                                nextDay.setDate(nextDay.getDate() + 1);
-                                                                field.onChange(nextDay);
-                                                                setCurrentEnd(nextDay);
+                                                                
+                                                                setCurrentEnd(date);
                                                             }}
                                                             disabled={(date) =>
                                                                 date < currentStart || date < new Date("1900-01-01")
                                                             }
+                                                            locale={de}
                                                             initialFocus
                                                         />
                                                     </PopoverContent>

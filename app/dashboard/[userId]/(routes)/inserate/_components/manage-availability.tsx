@@ -119,9 +119,9 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                             Verfügbarkeit ändern
                        </div>
                     ) : (
-                        <div>
-                            2
-                        </div>
+                        <Button className="sm:w-[240px] w-full bg-indigo-800 text-gray-200 border-none border-gray-900 hover:bg-[#20222F]">
+                            <CalendarCheck2 className="w-4 h-4 mr-2"/>Verfügbarkeit ändern
+                        </Button>
                     )}
                 </DialogTrigger>
             </div>
@@ -179,7 +179,7 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                             
                         >
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]" 
-                            disabled={!thisInserat ||  thisInserat?.vehicles.length <= 0}>
+                            disabled={!thisInserat ||  thisInserat?.vehicles?.length <= 0}>
                                 {thisInserat ? (
                                     <SelectValue>
                                 
@@ -192,7 +192,7 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
                                 
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                 
-                                    {thisInserat?.vehicles.length > 0 ? (
+                                    {thisInserat?.vehicles?.length > 0 ? (
                                         
                                         thisInserat?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
                                             <SelectItem value={thisVehicle.id} key={thisVehicle.id}>

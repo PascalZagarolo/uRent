@@ -246,6 +246,7 @@ const InseratAnzeige = async ({
                                     bookings={inseratBookings}
                                     ownUser={currentUser}
                                     contactOptions={thisInserat.user.contactOptions}
+                                    thisInserat={thisInserat}
                                 />
 
                             </div>

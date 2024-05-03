@@ -42,11 +42,13 @@ import { vehicle } from '../../../../../../db/schema';
 
 interface AddAvailabilityProps {
     thisInserat : typeof inserat.$inferSelect;
+    inseratPage? : boolean;
 }
 
 
 const ManageAvailability: React.FC<AddAvailabilityProps> = ({
-    thisInserat
+    thisInserat,
+    inseratPage
 }) => {
 
     const [currentStart, setCurrentStart] = useState(new Date());
@@ -111,10 +113,16 @@ const ManageAvailability: React.FC<AddAvailabilityProps> = ({
 
             <div className="dark:bg-[#0F0F0F] bg-gray-200 rounded-md w-full">
                 <DialogTrigger asChild className="w-full">
-                    <div className=" text-gray-700 dark:text-gray-200
-                     hover:bg-gray-300 text-xs dark:hover:bg-[#141414] hover:cursor-pointer hover:underline">
-                         Verfügbarkeit ändern
-                    </div>
+                    {!inseratPage ? (
+                        <div className=" text-gray-700 dark:text-gray-200
+                        hover:bg-gray-300 text-xs dark:hover:bg-[#141414] hover:cursor-pointer hover:underline">
+                            Verfügbarkeit ändern
+                       </div>
+                    ) : (
+                        <div>
+                            2
+                        </div>
+                    )}
                 </DialogTrigger>
             </div>
 

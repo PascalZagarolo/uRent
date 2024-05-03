@@ -19,8 +19,9 @@ import Bookings from "./bookings";
 import ManageBookings from "./manage-bookings";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import BookingRequest from "./booking-request";
-import { booking, contactOptions, userTable } from "@/db/schema";
+import { booking, contactOptions, inserat, userTable } from "@/db/schema";
 import GoToDashboard from "./go-to-dashboard";
+import ManageAvailability from "@/app/dashboard/[userId]/(routes)/inserate/_components/manage-availability";
 
 
 interface InseratOptionsProps {
@@ -28,13 +29,15 @@ interface InseratOptionsProps {
     bookings: typeof booking.$inferSelect[];
     ownUser: typeof userTable.$inferSelect;
     contactOptions: typeof contactOptions.$inferSelect;
+    thisInserat : typeof inserat.$inferSelect;
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
     thisUser,
     bookings,
     ownUser,
-    contactOptions
+    contactOptions,
+    thisInserat
 }) => {
 
 
@@ -136,9 +139,17 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         <div className="w-full">
             {ownSite ? (
                 <div className="mt-4">
+                    
+                    <div >
+                        <ManageAvailability 
+                        thisInserat={thisInserat}
+                        inseratPage={true}
+                        />
+                    </div>
+                    <div className="mt-4">
                     <GoToDashboard //@ts-ignore
                     userId={thisUser.id} inseratId={params.inseratId} />
-
+                    </div>
                 </div>
 
             ) : (

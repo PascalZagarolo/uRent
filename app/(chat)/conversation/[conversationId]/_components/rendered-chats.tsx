@@ -3,7 +3,7 @@
 import { userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, isToday } from "date-fns";
 
 import { UserCircle2Icon, X } from "lucide-react";
 import Image from "next/image";
@@ -24,6 +24,10 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     openMessages,
     lastMessageDate
 }) => {
+
+    const currentDate = new Date();
+
+    const renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
 
     const onClick = async () => {
         if (conversationId === params.conversationId) {
@@ -64,7 +68,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                         </div>
                         {lastMessageDate && (
                             <div className="ml-auto text-xs dark:text-gray-200/60 font-normal">
-                            {format(new Date(lastMessageDate), "HH:mm")}
+                            {renderedDate}
                         </div>
                         )}
                     </div>

@@ -72,8 +72,8 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     inputRef.current.value = usedString;
     setCurrentAddress(usedString);
       } else {
-        console.log(thisInserat?.user?.business?.businessAddresses[0].postalCode)
-        setCurrentZipCode(thisInserat?.user?.business?.businessAddresses[0].postalCode)
+        
+        setCurrentZipCode(thisInserat?.user?.business?.businessAddresses[0]?.postalCode)
         let usedString = thisInserat?.user?.business?.businessAddresses[0]?.street + ", " + 
         thisInserat?.user?.business?.businessAddresses[0]?.postalCode + ", "
         + thisInserat?.user?.business?.businessAddresses[0]?.city
@@ -211,6 +211,13 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       <Checkbox 
       className="sm:h-4 sm:w-4 mr-2"
       onCheckedChange={(e) => {onPrefill(Boolean(e))}}
+      disabled={((thisInserat?.user.isBusiness && 
+        thisInserat?.user?.business?.businessAddresses[0]?.street &&
+        thisInserat?.user?.business?.businessAddresses[0]?.postalCode &&
+        thisInserat?.user?.business?.businessAddresses[0]?.city
+        ) || (thisAddressComponent?.postalCode 
+          && thisAddressComponent?.locationString && 
+          !thisInserat?.user.isBusiness)) ? false : true}
       />
       <Label className="sm:block hidden">
         Informationen aus Profil verwenden

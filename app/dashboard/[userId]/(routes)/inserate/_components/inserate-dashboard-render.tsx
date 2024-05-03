@@ -73,7 +73,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                             className="h-full w-full object-cover"
                         />
                     ) : (
-                        <div className="w-full h-full flex justify-center items-center bg-[#ECECEC] dark:bg-[#0F0F0F] text-xs truncate">
+                        <div className="w-full h-full flex justify-center items-center gap-x-1 bg-[#ECECEC] dark:bg-[#0F0F0F] text-xs truncate">
                             keine Fotos <p className="hidden sm:block"> vorhanden </p>
                         </div>
                     )}

@@ -12,7 +12,7 @@ const CareerPage = () => {
 
                 <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
-                        <div className="p-4 mt-4  rounded-lg ">
+                        <div className="sm:p-4 p-2 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-4xl justify-center font-semibold flex items-center gap-x-2">
                                 <TiGroup className="w-6 h-6" />    Karriere bei <div className="text-4xl font-bold text-indigo-800">uRent</div>
                             </h3>

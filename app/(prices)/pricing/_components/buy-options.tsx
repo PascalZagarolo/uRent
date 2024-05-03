@@ -252,14 +252,14 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
     return (
         <div>
-            <div className="w-full flex space-x-4 items-center">
+            <div className="w-full sm:flex sm:p-0 p-2  sm:space-x-4 items-center">
 
-                <div className="ml-auto flex justify-end text-sm font-medium">
+                <div className="ml-auto sm:mt-0 mt-4 flex sm:justify-end text-sm font-medium">
                     Wie viele Inserate möchtest du schalten?
                 </div>
                 <div className="">
                     <Select onValueChange={(value) => setAmountInserat(Number(value))}>
-                        <SelectTrigger className="w-[180px] dark:bg-[#171717] dark:border-none"
+                        <SelectTrigger className="sm:w-[180px] dark:bg-[#171717] dark:border-none"
 
                         >
                             <SelectValue placeholder="Anzahl Inserate" />
@@ -281,13 +281,13 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                 </div>
             </div>
             {existingSubscription && (
-                <div className="flex text-lg font-semibold items-center ">
+                <div className="flex text-lg font-semibold items-center sm:mt-0 mt-2 ">
                     <GiUpgrade className="w-6 h-6 mr-2 text-indigo-600" />   Bestehenden Plan Upgraden
                 </div>
             )}
-            <div className="w-full flex space-x-4 p-4 ">
+            <div className="w-full  sm:mt-0 sm:flex sm:space-x-4 space-y-4 sm:p-4  p-2">
 
-                <div className="w-1/3 border-r dark:border-[#1C1C1C] dark:bg-[#232323] p-4 rounded-md">
+                <div className="sm:w-1/3 w-full  sm:border-r dark:border-[#1C1C1C] dark:bg-[#232323] p-4 rounded-md">
                     <h3 className="text-md ">
                         Basis
                     </h3>
@@ -308,18 +308,18 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                             {!canUpgradeBasis ? (
                                 existingSubscription ? (
                                     <div className="flex">
-                                        <div className="text-4xl font-bold">im Besitz</div>
+                                        <div className="sm:text-4xl text-xl font-bold">im Besitz</div>
                                         
                                     </div>
                                 ) : (
                                     <div className="flex">
-                                        <div className="text-4xl font-bold">{basisPrice} €</div>
+                                        <div className="sm:text-4xl text-xl font-bold">{basisPrice} €</div>
                                         <div className="text-xs text-gray-200/70 px-1">/Monat</div>
                                     </div>
                                 )
                             ) : (
                                 <div className="">
-                                    <div className="text-4xl font-bold">{basisDiffrence} €</div>
+                                    <div className="sm:text-4xl text-xl font-bold">{basisDiffrence} €</div>
                                     <div className="text-xs dark:text-gray-200/60">
                                     danach {basisPrice} € /Monat
                                 </div>
@@ -348,7 +348,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
                     </div>
                 </div>
-                <div className="w-1/3 border-blue-900  border-2 dark:bg-[#232323] p-4 rounded-md">
+                <div className="sm:w-1/3 w-full border-blue-900  border-2 dark:bg-[#232323] p-4 rounded-md">
                     <h3 className="text-lg font-semibold w-full flex">
                         Premium <div className="ml-auto"> <Badge className="bg-blue-900 hover:bg-blue-700 text-gray-100"> Am beliebtesten <FaFireFlameCurved className="w-4 h-4 ml-2" /> </Badge> </div>
                     </h3>
@@ -369,7 +369,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
                             existingSubscription ? (
                                 <div className="flex">
-                                    <div className="text-4xl font-bold">
+                                    <div className="sm:text-4xl text-xl font-bold">
                                         im Besitz</div>
 
                                 </div>
@@ -420,7 +420,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className="w-1/3 dark:bg-[#232323] p-4 rounded-md">
+                <div className="sm:w-1/3 w-full dark:bg-[#232323] p-4 rounded-md">
                     <h3 className="text-lg font-semibold">
                         Enterprise
                     </h3>
@@ -441,20 +441,20 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                             existingSubscription ? (
                                 <div className="flex">
 
-                                <div className="text-4xl font-bold">im Besitz</div>
+                                <div className="sm:text-4xl text-xl font-bold">im Besitz</div>
                                 
                             </div>
                             ) : (
                                 <div className="flex">
 
-                                <div className="text-4xl font-bold">{enterprisePrice} €</div>
+                                <div className="sm:text-4xl text-xl font-bold">{enterprisePrice} €</div>
                                 <div className="text-xs text-gray-200/70 px-1">/Monat</div>
                             </div>
                             )
                         ) : (
                             <div className="">
 
-                                <div className="text-4xl font-bold">{enterpriseDiffrence} €</div>
+                                <div className="sm:text-4xl text-xl font-bold">{enterpriseDiffrence} €</div>
                                 <div className="text-xs dark:text-gray-200/60">
                                     danach {enterprisePrice} € /Monat
                                 </div>

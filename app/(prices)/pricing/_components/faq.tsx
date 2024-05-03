@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const Faq = () => {
     return (
-        <div>
+        <div className="sm:p-0 p-2">
             <h3 className="font-semibold">
                FAQ - Häufig gestellte Fragen
             </h3>

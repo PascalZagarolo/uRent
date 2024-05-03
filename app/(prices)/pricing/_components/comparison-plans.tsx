@@ -9,10 +9,10 @@ import { FaFileContract } from "react-icons/fa6";
 const ComparisonPlans = () => {
     return (
         <div className="mt-4">
-            <h3 className="text-md font-bold flex gap-x-2">
+            <h3 className="text-md font-bold flex gap-x-2 sm:p-0 p-2">
             <FaFileContract />    Vergleich der Pläne
             </h3>
-            <div className="w-full space-y-2 p-2 mt-2">
+            <div className="w-full space-y-2 sm:p-2 mt-2">
                 <table className="w-full table-auto text-sm ">
                     <thead>
                         <tr className="dark:bg-[#171717]">
@@ -43,8 +43,8 @@ const ComparisonPlans = () => {
                         </tr>
                     </tbody>
                     <tbody>
-                        <tr className="border-t border-[#232323] font-semibold">
-                            <td className="px-4 py-2 font-medium max-w-[200px]">Fahrzeuge und Verfügbarkeiten verwalten</td>
+                        <tr className="border-t border-[#232323] font-semibold w-full">
+                            <td className="px-4 py-2 font-medium max-w-[200px]">Fahrzeuge <br className="block sm:hidden"/> und Verfügbar<br className="block sm:hidden"/>keiten verwalten</td>
                             <td className="px-4 py-2 text-left font-medium"><CheckIcon className="w-4 h-4 text-emerald-600" /></td>
                             <td className="px-4 py-2 text-left"><CheckIcon className="w-4 h-4 text-emerald-600" /></td>
                             <td className="px-4 py-2 text-left"><CheckIcon className="w-4 h-4 text-emerald-600" /></td>
@@ -81,7 +81,7 @@ const ComparisonPlans = () => {
 
                     <tbody>
                         <tr className="border-t border-[#232323] font-semibold">
-                            <td className="px-4 py-2 font-medium max-w-[200px]">Hervorhebung von Inseraten*</td>
+                            <td className="px-4 py-2 font-medium max-w-[200px]">Hervorhebung <br className="block sm:hidden"/> von Inseraten*</td>
                             <td className="px-4 py-2 text-left font-medium"><X className="w-4 h-4 text-rose-800"/></td>
                             <td className="px-4 py-2 text-left">1</td>
                             <td className="px-4 py-2 text-left"> {'<'}2</td>
@@ -100,7 +100,8 @@ const ComparisonPlans = () => {
 
                     <tbody>
                         <tr className="border-t border-[#232323] font-semibold">
-                            <td className="px-4 py-2 font-medium max-w-[200px]">uRent Mieter- & Buchungsverwaltungssystem</td>
+                            <td className="px-4 py-2 font-medium max-w-[200px]">uRent <br className="block sm:hidden"/> Mieter- & Buchungs
+                            <br className="block sm:hidden"/>verwaltungs<br className="block sm:hidden"/>system</td>
                             <td className="px-4 py-2 text-left font-medium"><X className="w-4 h-4 text-rose-800"/></td>
                             <td className="px-4 py-2 text-left"><X className="w-4 h-4 text-rose-800"/></td>
                             <td className="px-4 py-2 text-left"><CheckIcon className="w-4 h-4 text-emerald-600" /></td>
@@ -116,9 +117,10 @@ const ComparisonPlans = () => {
                         </tr>
                     </tbody>
                 </table>
-                <div className="text-xs dark:text-gray-200/70 flex">
+                <div className="text-xs dark:text-gray-200/70  sm:p-0 p-2">
+                    <div>
                     * Die Hervorhebung von Inseraten und die Anzeige als {'"'}Ersteseite-Inserat{'"'} sind an bestimmten Bedingungen 
-                    gekoppelt. Für mehr Informationen klicke <p className="px-1 underline">hier</p>
+                    gekoppelt. </div> <div className="flex">Für mehr Informationen klicke <p className="underline px-1">hier</p></div>
                 </div>
             </div>
         </div>

@@ -90,7 +90,7 @@ const SearchRent: React.FC<SearchRentProps> =  ({
                     <IoIosInformationCircleOutline className="w-4 h-4" />
                     <div>
                         Falls dein Mieter einen Account auf uRent besitzt, 
-                        kannnst du ihn zur Buchung hinzufügen, dieser bekommt dann 
+                        kannst du ihn zur Buchung hinzufügen, dieser bekommt dann 
                         eine Benachrichtung auf sein uRent Konto.
                     </div>
                     </div>

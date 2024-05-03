@@ -85,11 +85,11 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
     return (
         <div className="container mx-auto p-4 border dark:border-none">
             <div className="mb-4 flex items-center">
-                <Button onClick={decreaseMonth} className="" variant="ghost">
+                <Button onClick={decreaseMonth} className="dark:bg-[#0F0F0F]" variant="ghost">
                     <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
-                <h2 className="text-center font-semibold w-[160px]">{format(currentDate, "MMMM yyyy", { locale : de })}</h2>
-                <Button onClick={increaseMonth} className="" variant="ghost">
+                <h2 className="text-center font-semibold w-[160px] ">{format(currentDate, "MMMM yyyy", { locale : de })}</h2>
+                <Button onClick={increaseMonth} className="dark:bg-[#0F0F0F]" variant="ghost">
                     <ArrowRightCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
                 
@@ -106,7 +106,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                     return (
                         <div
                             key={`empty-${index}`}
-                            className="  p-2 text-center dark:bg-[#202020]"
+                            className="  p-2 text-center "
                         />
                     );
                 })}
@@ -115,7 +115,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                     const todaysEvents = eventsByDate[dateKey] || [];
                     
                     return (
-                        <div key={index} className="">
+                        <div key={index} className="h-full">
                             <CalendarDay
                                 index={index}
                                 day={day}

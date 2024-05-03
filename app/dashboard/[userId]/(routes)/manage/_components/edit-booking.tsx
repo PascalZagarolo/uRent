@@ -59,8 +59,8 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
     
 
-    const [currentStart, setCurrentStart] = useState(new Date());
-    const [currentEnd, setCurrentEnd] = useState(new Date());
+    const [currentStart, setCurrentStart] = useState(new Date(thisBooking?.startDate));
+    const [currentEnd, setCurrentEnd] = useState(new Date(thisBooking?.endDate));
     const [isLoading, setIsLoading] = useState(false);
     
     const [currentInserat, setCurrentInserat] = useState<string | null>(thisBooking?.inseratId);
@@ -134,6 +134,12 @@ const EditBooking: React.FC<EditBookingProps> = ({
         }
     }
 
+    
+    useEffect(() => {
+        if(currentStart > currentEnd){
+          setCurrentEnd(currentStart)
+        }
+      },[currentEnd, currentStart])
 
 
     return (
@@ -238,8 +244,8 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                     !field.value && "text-muted-foreground  "
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP", { locale : de})
+                                                                {currentStart ? (
+                                                                    format(currentStart, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -250,7 +256,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
-                                                            selected={field.value}
+                                                            selected={currentStart}
                                                             className="dark:bg-[#0a0a0a] dark:border-none"
                                                             locale={de}
                                                             onSelect={(date) => {
@@ -286,8 +292,8 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                     !field.value && "text-muted-foreground"
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP", { locale : de})
+                                                                {currentEnd ? (
+                                                                    format(currentEnd, "PPP", { locale : de})
                                                                 ) : (
                                                                     <span>Pick a date</span>
                                                                 )}
@@ -298,7 +304,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
-                                                            selected={field.value}
+                                                            selected={currentEnd}
                                                             className="dark:bg-[#0a0a0a]"
                                                             locale={de}
                                                             onSelect={(date) => {

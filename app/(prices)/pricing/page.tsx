@@ -33,10 +33,10 @@ const PricingMainPage = async () => {
     return (
 
         <div>
-            <div className="p-4 items-center">
+            <div className="sm:p-4  items-center">
             <div>
                 {existingSubscription && (
-                    <div className="text-md font-semibold flex items-center gap-x-2">
+                    <div className="text-md font-semibold sm:flex items-center gap-x-2 sm:p-0 p-4">
                         Dein aktuelles Abonnement:
                         <div className="text-indigo-600 font-bold">
                             {existingSubscription?.subscriptionType}
@@ -51,7 +51,7 @@ const PricingMainPage = async () => {
                         currentUserId={currentUser?.id}
                         existingSubscription={existingSubscription}
                     />
-                    <div className="mt-2">
+                    <div className="mt-2 ">
                     <RedeemCode />
                     </div>
                     <div>

@@ -253,7 +253,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     return (
         <div>
             <div className="w-full flex space-x-4 items-center">
-                
+
                 <div className="ml-auto flex justify-end text-sm font-medium">
                     Wie viele Inserate möchtest du schalten?
                 </div>
@@ -306,14 +306,23 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
                         <div className="w-full flex mt-2">
                             {!canUpgradeBasis ? (
-                                <div className="flex">
-                                    <div className="text-4xl font-bold">{basisPrice} €</div>
-                                    <div className="text-xs text-gray-200/70 px-1">/Monat</div>
-                                </div>
+                                existingSubscription ? (
+                                    <div className="flex">
+                                        <div className="text-4xl font-bold">im Besitz</div>
+                                        
+                                    </div>
+                                ) : (
+                                    <div className="flex">
+                                        <div className="text-4xl font-bold">{basisPrice} €</div>
+                                        <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                                    </div>
+                                )
                             ) : (
-                                <div className="flex">
+                                <div className="">
                                     <div className="text-4xl font-bold">{basisDiffrence} €</div>
-
+                                    <div className="text-xs dark:text-gray-200/60">
+                                    danach {basisPrice} € /Monat
+                                </div>
                                 </div>
                             )}
                         </div>
@@ -357,16 +366,28 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
                     <div className="w-full flex mt-2">
                         {!canUpgradePremium ? (
-                            <div className="flex">
-                                <div className="text-4xl font-bold">
-                                    {premiumPrice}   €</div>
-                                <div className="text-xs text-gray-200/70 px-1">/Monat</div>
-                            </div>
+
+                            existingSubscription ? (
+                                <div className="flex">
+                                    <div className="text-4xl font-bold">
+                                        im Besitz</div>
+
+                                </div>
+                            ) : (
+                                <div className="flex">
+                                    <div className="text-4xl font-bold">
+                                        {premiumPrice}   €</div>
+                                    <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                                </div>
+                            )
+
                         ) : (
-                            <div className="flex">
+                            <div className="">
                                 <div className="text-4xl font-bold">
                                     {premiumDiffrence}   €</div>
-                                <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                                    <div className="text-xs dark:text-gray-200/60">
+                                    danach {premiumPrice} € /Monat
+                                </div>
                             </div>
                         )}
                     </div>
@@ -417,16 +438,26 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
                     <div className="w-full flex mt-2">
                         {!canUpgradeEnterprise ? (
-                            <div className="flex">
+                            existingSubscription ? (
+                                <div className="flex">
+
+                                <div className="text-4xl font-bold">im Besitz</div>
+                                
+                            </div>
+                            ) : (
+                                <div className="flex">
 
                                 <div className="text-4xl font-bold">{enterprisePrice} €</div>
                                 <div className="text-xs text-gray-200/70 px-1">/Monat</div>
                             </div>
+                            )
                         ) : (
-                            <div className="flex">
+                            <div className="">
 
                                 <div className="text-4xl font-bold">{enterpriseDiffrence} €</div>
-
+                                <div className="text-xs dark:text-gray-200/60">
+                                    danach {enterprisePrice} € /Monat
+                                </div>
                             </div>
                         )}
                     </div>
@@ -466,8 +497,8 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 

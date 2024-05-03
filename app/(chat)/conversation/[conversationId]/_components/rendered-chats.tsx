@@ -35,7 +35,6 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
         } else {
             await axios.patch(`/api/conversation/seen/${conversationId}`)
                 .then(() => router.push(`/conversation/${conversationId}`))
-            
         }
     }
 
@@ -49,8 +48,6 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
             !isOnSite ? "dark:bg-[#0F0F0F] bg-[#404040]/10" : "bg-white dark:bg-[#1c1c1c]")}
             onClick={onClick}
         >
-
-
             <div className="flex w-full items-center py-2 space-y-1">
                 <div>
                     <Image
@@ -85,11 +82,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     );
 }
-
 export default RenderedChats;

@@ -12,7 +12,7 @@ const WorkWithUs = () => {
                     Wieso wir?
                 </h3>
             </div>
-            <div className="mt-2 flex justify-between gap-8">
+            <div className="mt-2 sm:flex  sm:justify-between space-y-4 sm:space-y-0 sm:gap-8">
 
                 <div className="dark:bg-[#141414] p-8 rounded-md">
                     <div className="flex justify-center pb-8">

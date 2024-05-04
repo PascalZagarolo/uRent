@@ -16,7 +16,9 @@ const FullInseratDialog: React.FC<FullIsneratDialogProps> = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="dark:bg-[#1C1C1C] text-xs dark:text-gray-200 dark:hover:bg-[#1D1D1D] hover:text-gray-300">
+                <Button className="dark:bg-[#1C1C1C] text-xs dark:text-gray-200
+                 dark:hover:bg-[#1D1D1D] hover:text-gray-300"
+                 size="sm">
                     Weitere Informationen
                 </Button>
             </DialogTrigger>

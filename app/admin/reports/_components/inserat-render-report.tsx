@@ -9,6 +9,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import FullInseratDialog from "./full-inserat-dialog";
+import AcceptInseratReport from "./accept-inserat-report";
 
 
 interface InseratRenderReportProps {
@@ -70,10 +71,13 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
                 
                 <div className="w-2/12  ml-auto justify-end ">
                     <div className="w-full ml-auto flex justify-end">
-                    <Button className="bg-emerald-800 hover:bg-emerald-900 hover:text-gray-300">
-                        <CheckIcon className="w-4 h-4 text-gray-200" />
-                    </Button>
-                    <Button className="bg-rose-800 hover:bg-rose-900 hover:text-gray-300" onClick={onDelete}>
+                    <AcceptInseratReport
+                    thisReport = {thisReport}
+                    />
+                    <Button className="bg-rose-800 hover:bg-rose-900 hover:text-gray-300" 
+                    onClick={onDelete}
+                    size="sm"
+                    >
                         <X className="w-4 h-4 text-gray-200" />
                     </Button>
                     

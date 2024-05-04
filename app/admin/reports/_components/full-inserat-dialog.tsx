@@ -47,9 +47,11 @@ const FullInseratDialog: React.FC<FullIsneratDialogProps> = ({
                             </Label>
 
                             <div>
-                                {thisReport.user ? (
+                                {// @ts-ignore
+                                thisReport?.user ? (
                                     <a className="text-sm font-semibold hover:underline" href={`/profile/${thisReport.userId}`} target="_blank">
-                                        {thisReport.user.name}
+                                        {// @ts-ignore
+                                        thisReport?.user?.name}
                                     </a>
                                 ) : (
                                     <div className="text-sm font-semibold">

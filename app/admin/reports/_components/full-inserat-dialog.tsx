@@ -7,10 +7,10 @@ import { report } from "@/db/schema";
 
 
 interface FullIsneratDialogProps {
-    thisReport : typeof report.$inferSelect
+    thisReport: typeof report.$inferSelect
 }
 
-const FullInseratDialog : React.FC<FullIsneratDialogProps> = ({
+const FullInseratDialog: React.FC<FullIsneratDialogProps> = ({
     thisReport
 }) => {
     return (
@@ -31,18 +31,47 @@ const FullInseratDialog : React.FC<FullIsneratDialogProps> = ({
                         </p>
                     </div>
                     <div className="mt-4 flex items-center">
-                        <div>
-                        <Label className="text-sm font-medium">
-                            Meldeursache
-                        </Label>
-                        <div className="text-sm font-semibold text-rose-600">
-                            {thisReport.reportType}
-                        </div>
-                        </div>
-                        <div>
-                            <Label> 
-
+                        <div className="w-1/2">
+                            <Label className="text-sm font-medium">
+                                Meldeursache
                             </Label>
+                            <div className="text-sm font-semibold text-rose-600">
+                                {thisReport.reportType}
+                            </div>
+                        </div>
+                        <div className="w-1/2">
+                            <Label className="text-sm font-medium">
+                                Gemeldet von
+                            </Label>
+
+                            <div>
+                                {thisReport.user ? (
+                                    <a className="text-sm font-semibold hover:underline" href={`/profile/${thisReport.userId}`} target="_blank">
+                                        {thisReport.user.name}
+                                    </a>
+                                ) : (
+                                    <div className="text-sm font-semibold">
+                                        'Nicht verfügbar'
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className="mt-4">
+                        <Label className="text-sm font-medium">
+                            Anmerkungen
+                        </Label>
+                        <div>
+                            {!thisReport.content ? (
+                                <div className="mt-2 dark:text-gray-200/60 text-sm">
+                                    keine Amerkungen vorhanden.
+                                </div>
+                            ) : (
+                                <div className="mt-2 dark:text-gray-200/90 text-sm">
+                                    {thisReport.content}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

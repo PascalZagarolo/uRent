@@ -1,16 +1,17 @@
 'use client'
 
 import { report } from "@/db/schema";
-import Vorname from '../../../settings/_components/change-vorname';
+
 import { CheckIcon, UserIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { IoIosInformationCircleOutline } from "react-icons/io";
-import { BsInfoSquareFill } from "react-icons/bs";
-import { AiOutlineInfo } from "react-icons/ai";
-import { PiInfoBold } from "react-icons/pi";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 
 interface InseratRenderReportProps {
-    thisReport : typeof report.$inferSelect
+    thisReport : typeof report.$inferSelect 
 }
 
 
@@ -18,7 +19,26 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
     thisReport
 }) => {
 
-   console.log(thisReport)
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+
+
+   const onDelete = async () => {
+    try {
+        setIsLoading(true);
+        await axios.delete(`/api/report/delete/${thisReport[0].id}`)
+            .then(() => {
+                toast.success("Report erfolgreich gelöscht")
+                router.refresh();
+            })
+
+    } catch(error : any) {
+        console.log(error);
+        toast.error("Fehler beim löschen des Reports")
+    } finally {
+        setIsLoading(false);
+    }
+   }
 
     return ( 
         <div className="dark:bg-[#191919] p-4 rounded-md">
@@ -50,7 +70,7 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
                     <Button className="bg-emerald-800 hover:bg-emerald-900 hover:text-gray-300">
                         <CheckIcon className="w-4 h-4 text-gray-200" />
                     </Button>
-                    <Button className="bg-rose-800 hover:bg-rose-900 hover:text-gray-300">
+                    <Button className="bg-rose-800 hover:bg-rose-900 hover:text-gray-300" onClick={onDelete}>
                         <X className="w-4 h-4 text-gray-200" />
                     </Button>
                     

@@ -96,7 +96,20 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     <div className="mb-2">
                         <h3 className="flex">
 
-                            <span className="ml-2 text-base">Mein Konto</span>
+                            <span className="ml-2 text-base flex">
+                                {currentUser.isBusiness ? (
+                                    <div className="font-semibold  flex items-center text-indigo-800 gap-x-1">
+                                            Vermieter <div className="text-gray-200">Account</div>
+                                    </div>
+                                ) : (
+                                    <div className="font-semibold">
+                                        Mieter Account
+                                        <p className="text-xs font-normal">
+                                            Du bist Vermieter? <a className="text-blue-500 cursor-pointer" href={`/profile/${currentUser.id}`}>Hier klicken</a>
+                                        </p>
+                                    </div>
+                                )}
+                            </span>
                         </h3>
                     </div>
                     {currentUser.isAdmin && (

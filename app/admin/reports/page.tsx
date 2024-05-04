@@ -42,7 +42,7 @@ const ReportPage = async () => {
                             {foundReports.map((report) => (
                                 <InseratRenderReport
                                 key={report.id} 
-                                thisReport = {foundReports[0]}
+                                thisReport = {report}
                                 />
                             ))}
                         </div>

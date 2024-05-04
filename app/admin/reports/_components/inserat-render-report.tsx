@@ -91,7 +91,7 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
                 </a>
                 
                 <a className="text-sm hover:underline w-4/12 break-all line-clamp-1" href={`/inserat/${//@ts-ignore
-                    thisReport?.inserat.user.id}`} target="_blank">
+                    thisReport?.inserat?.user?.id}`} target="_blank">
                         
                     <div className="w-full flex font-semibold dark:text-gray-200  break-all line-clamp-1">
                     <UserIcon className="w-4 h-4 mr-2 " /><div className="w-full break-all line-clamp-1">

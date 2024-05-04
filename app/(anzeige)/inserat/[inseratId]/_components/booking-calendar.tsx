@@ -130,7 +130,7 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
                     );
                 })}
             </div>
-            <div>
+            <div className="mt-2">
                 <h1 className="flex text-xs dark:text-gray-200/80 text-gray-700/70 gap-x-2">
                 <SquareIcon className="w-4 h-4 text-rose-900 bg-rose-900" /> Belegte Tage   
                 </h1>

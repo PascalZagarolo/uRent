@@ -81,21 +81,8 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                    <SelectGroup>
-                            <SelectLabel>
-                                Häufigsten
-                            </SelectLabel>
-                            <SelectItem value="MAN_Truck_Bus">MAN</SelectItem>
-                            <SelectItem value="Scania">Scania</SelectItem>
-                            <SelectItem value="Toyota_Trucks">Toyota</SelectItem>
-                            <SelectItem value="Volvo_Trucks">Volvo</SelectItem>
-                            <SelectLabel>
-                                <Separator className="w-full"/>
-                            </SelectLabel>
-                        </SelectGroup>
-                    <SelectItem value={null}>
-                                Beliebig
-                            </SelectItem>
+                    
+                    
                             <SelectGroup>
                             <SelectLabel>
                                 Häufigsten
@@ -108,8 +95,11 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                                 <Separator className="w-full"/>
                             </SelectLabel>
                         </SelectGroup>
+                        <SelectItem value={null}>
+                                Beliebig
+                            </SelectItem>
                         {Object.values(LkwBrandEnumRender).map((brand, index) => (
-                            !(brand === "MAN" || brand === "Scania" || brand === "Mercedes-Benz" || brand === "Volvo") 
+                            !(brand === "MAN" || brand.trim() === "Scania" || brand === "Mercedes-Benz" || brand === "Volvo") 
                             && (
                                 <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

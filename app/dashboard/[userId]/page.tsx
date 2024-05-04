@@ -135,13 +135,11 @@ const DashboardPage = async ({
                             <div className="text-xl font-semibold flex mr-2 p-4 border dark:border-none dark:bg-[#1C1C1C] rounded-md">
                                 <EyeIcon className="h-6 w-6 mr-2" />   {views} <p className="font-medium ml-2"> Ansichten </p>
                             </div>
-
                         </div>
                         <div className="sm:p-4  sm:flex">
-
-                            <div className="sm:w-3/5 sm:mr-4 mt-4 sm:mt-0">
+                            <div className="w-full sm:mr-4 mt-4 sm:mt-0">
                                 <h3 className="flex text-lg font-semibold items-center">
-                                    <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender 
+                                    <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender
                                 </h3>
                                 <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
                                     
@@ -149,19 +147,14 @@ const DashboardPage = async ({
                                         everyInserat={everyInserat}
                                         //@ts-ignore
                                         bookings={involvedBookings}
-                                    />
-                                   
+                                    /> 
                                 </div>
-                            </div>
-                            
+                            </div>                            
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
-
     );
 }
 

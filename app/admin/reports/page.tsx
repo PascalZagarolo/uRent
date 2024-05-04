@@ -40,7 +40,8 @@ const ReportPage = async () => {
                         </h3>
                         <div className="mt-4 space-y-4">
                             {foundReports.map((report) => (
-                                <InseratRenderReport 
+                                <InseratRenderReport
+                                key={report.id} 
                                 thisReport = {foundReports}
                                 />
                             ))}

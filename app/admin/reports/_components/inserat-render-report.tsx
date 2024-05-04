@@ -49,8 +49,10 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
                     Gemeldet von
                     </div>
                     <div className="text-xs font-semibold w-full break-all line-clamp-1 ">
-                    {thisReport.user ? (
-                        thisReport.user.name
+                    {//@ts-ignore
+                    thisReport?.user ? (
+                        //@ts-ignore
+                        thisReport?.user?.name
                     ) : (
                         "Nicht angemeldet"
                     )}
@@ -83,15 +85,18 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
             <a className="text-sm hover:underline w-2/12 break-all line-clamp-1" href={`/inserat/${thisReport?.inseratId}`} target="_blank">
                     
                     <div className=" font-semibold dark:text-gray-200">
-                    {thisReport.inserat.title}
+                    {//@ts-ignore
+                    thisReport?.inserat?.title}
                     </div>
                 </a>
                 
-                <a className="text-sm hover:underline w-4/12 break-all line-clamp-1" href={`/inserat/${thisReport[0].inserat.user.id}`} target="_blank">
+                <a className="text-sm hover:underline w-4/12 break-all line-clamp-1" href={`/inserat/${//@ts-ignore
+                    thisReport?.inserat.user.id}`} target="_blank">
                         
                     <div className="w-full flex font-semibold dark:text-gray-200  break-all line-clamp-1">
                     <UserIcon className="w-4 h-4 mr-2 " /><div className="w-full break-all line-clamp-1">
-                    {thisReport.inserat.user.name}
+                    {//@ts-ignore
+                    thisReport?.inserat?.user.name}
                     </div>
                     </div>
                 </a>

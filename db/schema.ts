@@ -12,7 +12,6 @@ import {
     boolean,
     decimal,
     pgEnum,
-   
     uuid,
  
 
@@ -819,7 +818,8 @@ export const notificationTypeEnum = pgEnum("notificationType", [
     "BOOKING",
     "BOOKING_REQUEST",
     "EMAIL",
-    "FAVOURITE"
+    "FAVOURITE",
+    "REPORT_ACTION"
 ])
 
 export const changeEmailToken = pgTable("changeEmailToken", {

@@ -5,8 +5,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { report } from "@/db/schema";
+import axios from "axios";
 import { CheckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 
 interface AcceptInseratReportProps {
@@ -20,11 +23,25 @@ const AcceptInseratReport : React.FC<AcceptInseratReportProps> = ({
     const[isLoading, setIsLoading] = useState(false);
     const[actionType, setActionType] = useState<"private" | "delete">(null);
 
-    const onSubmit = () => {
-        try {
+    const router = useRouter();
 
+    const onSubmit = async () => {
+        try {
+            setIsLoading(true);
+            const values = {
+                actionType : actionType,
+                reportId : thisReport.id
+            }
+            await axios.patch(`/api/report/action/inserat/${thisReport?.inseratId}`, values)
+                .then(() => {
+                    toast.success("Report erfolgreich bearbeitet")
+                    router.refresh();
+                })
         } catch(error : any) {
             console.log(error);
+            toast.error("Fehler beim bearbeiten des Reports")
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -50,7 +67,8 @@ const AcceptInseratReport : React.FC<AcceptInseratReportProps> = ({
                         Gemeldetes Inserat
                     </div>
                     <div className=" text-rose-600 font-bold">
-                    {thisReport?.inserat?.title}
+                    {// @ts-ignore
+                    thisReport?.inserat?.title}
                     </div>
                 </div>
                 <div className="mt-4 ">
@@ -85,12 +103,20 @@ const AcceptInseratReport : React.FC<AcceptInseratReportProps> = ({
                     </div>
                 </div>
                 <div className="mt-2 w-full  flex justify-end"> 
-                    <Button className="bg-rose-600 hover:bg-rose-700 text-gray-200 font-semibold hover:text-gray-300" size="sm">
+                    <DialogTrigger asChild>
+                    <Button className="bg-rose-600 hover:bg-rose-700 text-gray-200 font-semibold hover:text-gray-300" 
+                    size="sm"
+                    onClick={onSubmit}
+                    disabled={isLoading || !actionType} 
+                    >
                         Bestätigen
                     </Button>
+                    </DialogTrigger>
+                    <DialogTrigger asChild>
                     <Button className="" variant="ghost" size="sm">
                         Abbrechen
                     </Button>
+                    </DialogTrigger>
                 </div>
                 </div>
             </DialogContent>

@@ -11,7 +11,7 @@ import { CiBookmark } from "react-icons/ci";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { LuMailWarning } from "react-icons/lu";
-import { MdOutlineNewReleases } from "react-icons/md";
+import { MdOutlineNewReleases, MdOutlineReportProblem } from "react-icons/md";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -47,7 +47,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
     }
 
     const [renderedNotifications, setRenderedNotifications] = useState<typeof notification.$inferSelect[]>(foundNotifications);
-    const [usedFilter, setUsedFilter] = useState<"ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST">("ALL");
+    const [usedFilter, setUsedFilter] = useState<"ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST" | "ANDERE">("ALL");
 
     const onAll = () => {
         setRenderedNotifications(foundNotifications);
@@ -67,6 +67,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
             case "BOOKING_REQUEST":
                 setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "BOOKING_REQUEST"));
                 break;
+            
             default:
                 setRenderedNotifications(foundNotifications);
         }
@@ -129,6 +130,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                 onClick={() => { setUsedFilter("BOOKING") }}>
                                     Buchungen
                                 </button>
+                                
                             </div>
 
 
@@ -144,7 +146,9 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                     
                                                     "MESSAGE": <MessageCircle className="w-4 h-4" />,
                                                     
-                                                    "BOOKING_REQUEST": <LuMailWarning className="w-4 h-4" />
+                                                    "BOOKING_REQUEST": <LuMailWarning className="w-4 h-4" />,
+
+                                                    "REPORT_ACTION" : <MdOutlineReportProblem className="w-4 h-4 text-rose-600" />, 
                                                     //@ts-ignore
                                                 }[usedNotificationType] 
                                             }
@@ -190,6 +194,26 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                                 {notification?.content}
                                                             </a> <br />
                                                             Dir wurde eine Anfrage gesendet <br />
+                                                            <div className="text-xs font-light font-size: 0.6rem flex">
+                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                                                                {!notification.seen && (
+                                                                    <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
+                                                                        Neu
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+
+                                                    ),
+                                                    "REPORT_ACTION": (
+                                                        <div className="w-full">
+                                                            <a className=" w-[240px] text-blue-600 break-words font-bold underline-offset-1 hover:underline"
+                                                                href={`/inserat/${notification?.inseratId}`}
+                                                            >
+                                                                {notification?.content}
+                                                            </a> <br />
+                                                            Aufgrund eines Verstoßes gegen unsere Richtlinien wurde einer deiner Inhalte verändert. <br />
+                                                            Für weitere Informationen über unsere Richtlinien, besuche unsere <a href="/agb" className="text-blue-600 font-bold underline-offset-1 hover:underline">AGB</a> <br />
                                                             <div className="text-xs font-light font-size: 0.6rem flex">
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                                 {!notification.seen && (

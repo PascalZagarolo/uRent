@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import FullInseratDialog from "./full-inserat-dialog";
 
 
 interface InseratRenderReportProps {
@@ -26,7 +27,7 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
    const onDelete = async () => {
     try {
         setIsLoading(true);
-        await axios.delete(`/api/report/delete/${thisReport[0].id}`)
+        await axios.delete(`/api/report/delete/${thisReport.id}`)
             .then(() => {
                 toast.success("Report erfolgreich gelöscht")
                 router.refresh();
@@ -48,8 +49,8 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
                     Gemeldet von
                     </div>
                     <div className="text-xs font-semibold w-full break-all line-clamp-1 ">
-                    {thisReport[0].user ? (
-                        thisReport[0].user.name
+                    {thisReport.user ? (
+                        thisReport.user.name
                     ) : (
                         "Nicht angemeldet"
                     )}
@@ -60,7 +61,7 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
                         Grund
                     </div>
                     <div className="text-xs font-semibold  text-rose-600">
-                        {thisReport[0].reportType}
+                        {thisReport.reportType}
                     </div>
                 </div>
                 
@@ -79,10 +80,10 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
             </div>
             <div className="flex items-center mt-4 gap-x-4">
                
-            <a className="text-sm hover:underline w-2/12 break-all line-clamp-1" href={`/inserat/${thisReport[0]?.inseratId}`} target="_blank">
+            <a className="text-sm hover:underline w-2/12 break-all line-clamp-1" href={`/inserat/${thisReport?.inseratId}`} target="_blank">
                     
                     <div className=" font-semibold dark:text-gray-200">
-                    {thisReport[0].inserat.title}
+                    {thisReport.inserat.title}
                     </div>
                 </a>
                 
@@ -90,15 +91,15 @@ const InseratRenderReport : React.FC<InseratRenderReportProps> = ({
                         
                     <div className="w-full flex font-semibold dark:text-gray-200  break-all line-clamp-1">
                     <UserIcon className="w-4 h-4 mr-2 " /><div className="w-full break-all line-clamp-1">
-                    {thisReport[0].inserat.user.name}
+                    {thisReport.inserat.user.name}
                     </div>
                     </div>
                 </a>
                 <div className="w-2/12  ml-auto justify-end ">
                     <div className="w-full ml-auto flex justify-end">
-                    <Button className="dark:bg-[#1C1C1C] text-xs dark:text-gray-200 dark:hover:bg-[#1D1D1D] hover:text-gray-300">
-                        Weitere Informationen
-                    </Button>
+                    <FullInseratDialog 
+                    thisReport = {thisReport}
+                    />
                     
                     
                     </div>

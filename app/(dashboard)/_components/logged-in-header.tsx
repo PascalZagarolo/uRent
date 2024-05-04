@@ -162,7 +162,8 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         </p>
                     </Button>
 
-                    <Button
+                    {currentUser.isBusiness && (
+                        <Button
                         variant="ghost"
                         className="  bg-[#e1dfdf] 
                         border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
@@ -173,6 +174,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                             Pläne und Upgrades
                         </p>
                     </Button>
+                    )}
 
                     <Button
                         variant="ghost"

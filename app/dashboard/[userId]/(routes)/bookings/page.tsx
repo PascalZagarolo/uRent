@@ -8,6 +8,7 @@ import { booking, favourite } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import MenuBar from "../../_components/menu-bar";
 import BreadCrumpPage from "../../_components/bread-crump-page";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const Bookings = async ({
     params
@@ -39,6 +40,8 @@ const Bookings = async ({
             }
         }
     })
+
+    const currentUser = await getCurrentUser();
     
     return (
             <div className="flex justify-center py-8 px-4 ">
@@ -46,7 +49,9 @@ const Bookings = async ({
                 <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className=" min-h-screen">
                     <div>
-                        <MenuBar />
+                        <MenuBar 
+                        isBusiness = {currentUser.isBusiness}
+                        />
                         <div>
                             <BreadCrumpPage />
                         </div>

@@ -117,7 +117,9 @@ const DashboardPage = async ({
             <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen">
                 <div>
-                <MenuBar />
+                <MenuBar 
+                isBusiness = {currentUser.isBusiness}
+                />
                         <div>
                             <BreadCrumpPage />
                         </div>

@@ -5,9 +5,13 @@ import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 
+interface MenuBarProps {
+    isBusiness : boolean
+}
 
-
-const MenuBar = () => {
+const MenuBar : React.FC<MenuBarProps> = ({
+    isBusiness
+}) => {
 
     const router = useRouter();
 
@@ -32,18 +36,24 @@ const MenuBar = () => {
             >
                 Übersicht
             </a>
-            <a className={cn("sm:p-4 py-4 px-2rounded-t-md hover:cursor-pointer dark:text-gray-200/70 text-gray-700/60", 
-            isManage && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/manage`}>
-                Buchungen
-            </a>
-            <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
-            isInserat && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/inserate`}>
-                Meine <br className="sm:hidden block"/>Inserate
-            </a>
-            <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
-            isPayment && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/payments`}>
-                Zahlungs<br className="sm:hidden block"/>verkehr
-            </a>
+            {isBusiness && (
+                <a className={cn("sm:p-4 py-4 px-2rounded-t-md hover:cursor-pointer dark:text-gray-200/70 text-gray-700/60", 
+                isManage && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/manage`}>
+                    Buchungen
+                </a>
+            )}
+            {isBusiness && (
+                <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
+                isInserat && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/inserate`}>
+                    Meine <br className="sm:hidden block"/>Inserate
+                </a>
+            )}
+            {isBusiness && (
+                <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
+                isPayment && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/payments`}>
+                    Zahlungs<br className="sm:hidden block"/>verkehr
+                </a>
+            )}
             <a className={cn("sm:p-4 py-4 px-2 rounded-t-md hover:cursor-pointer text-gray-700/60 dark:text-gray-200/70", 
             isFavourite && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} href={`${baseUrl}/favourites`}>
                 Favoriten

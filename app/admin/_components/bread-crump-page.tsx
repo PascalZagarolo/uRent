@@ -17,9 +17,9 @@ const BreadCrumpPage = () => {
         </BreadcrumbItem>
         
         <BreadcrumbSeparator />
-        {pathname.includes("manage") && (
+        {pathname.includes("reports") && (
             <BreadcrumbItem>
-            <BreadcrumbLink>Meine Fahrzeuge</BreadcrumbLink>
+            <BreadcrumbLink>Reports</BreadcrumbLink>
           </BreadcrumbItem>
         )}
         {pathname.includes("inserate") && (

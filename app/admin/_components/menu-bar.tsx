@@ -16,11 +16,11 @@ const MenuBar = () => {
     const params = useParams();
 
     const isManage = pathname.includes("manage");
-    const isFavourite = pathname.includes("favourite");
+    const isReports = pathname.includes("reports");
     const isInserat = pathname.includes("inserat");
     const isBooking = pathname.includes("bookings");
     const isPayment = pathname.includes("payments");
-    const isDashboard = !isManage && !isFavourite && !isInserat && !isBooking && !isPayment;
+    const isDashboard = !isManage && !isReports && !isInserat && !isBooking && !isPayment;
 
     const baseUrl = "/admin/" ;
 
@@ -32,7 +32,11 @@ const MenuBar = () => {
             >
                 Codes & Rabatte
             </a>
-            
+            <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isReports && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
+            href={`${baseUrl}/reports`}
+            >
+                Reports
+            </a>
             </div>
         </div>
      );

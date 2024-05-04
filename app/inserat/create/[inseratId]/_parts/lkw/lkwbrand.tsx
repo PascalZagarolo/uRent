@@ -70,19 +70,14 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                     value={currentBrand}
                     
                 >
-
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading} >
                         <SelectValue
                             placeholder="Wähle die Kategorie aus"
-                            
                             className="placeholder:text-gray-100"
                         />
                     </SelectTrigger>
-
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                    
-                    
                             <SelectGroup>
                             <SelectLabel>
                                 Häufigsten

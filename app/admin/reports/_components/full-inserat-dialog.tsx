@@ -53,7 +53,7 @@ const FullInseratDialog: React.FC<FullIsneratDialogProps> = ({
                                     </a>
                                 ) : (
                                     <div className="text-sm font-semibold">
-                                        'Nicht verfügbar'
+                                        {'"'}Nicht verfügbar{'"'}
                                     </div>
                                 )}
                             </div>

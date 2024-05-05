@@ -30,10 +30,7 @@ export async function DELETE(
             eq(savedSearch.id, params.savedSearchId)
         ).returning()
 
-
-        return NextResponse.json(deletedSearch);
-        
-
+        return NextResponse.json(deletedSearch);    
     } catch(error : any) {
         console.log("Fehler beim Löschen der Suche" , error);
         return new NextResponse("Fehler beim Löschen der Suche", { status: 500 })

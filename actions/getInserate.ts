@@ -352,9 +352,11 @@ export const getInserate = cache(async ({
         } else {
             returnedArray = filteredArray;
         }
+        console.log(returnedArray.length)
         return returnedArray;
 
-    } catch {
+    } catch(error : any) {
+        console.log(error)
         return [];
     }
 });

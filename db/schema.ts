@@ -855,6 +855,10 @@ export const savedSearch = pgTable("savedSearch", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     link : text("link"),
     title : text("title"),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+    receivesUpdates : boolean("receivesUpdates").notNull().default(false),
+    receiveAvailability : boolean("receiveAvailability").notNull().default(false),
+    receivedAvailability : boolean("receivedAvailability").notNull().default(false),
     userId : text("userId")
                 .references(() => userTable.id, { onDelete: "cascade" }),
 })

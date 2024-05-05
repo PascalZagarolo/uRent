@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { savedSearch } from "@/db/schema";
 import axios from "axios";
-import { X } from "lucide-react";
+import { format } from "date-fns";
+import { Trash2Icon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -44,6 +45,10 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
         }
     }
 
+    const onTest = async () => {
+        await axios.patch("/api/check/saved-searches/isAvailable")
+    }
+
     
     
     return (
@@ -65,8 +70,10 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
                     </p>
                     <div className="mt-4 block space-y-2">
                         {savedSearches?.map((search) => (
-                            <div key={search.id} className="dark:bg-[#171717] rounded-md flex items-center p-4 font-semibold text-sm">
-                                <DialogTrigger className="flex items-center">
+                            
+                            <div key={search.id} className="dark:bg-[#171717] rounded-md  items-center p-4 font-semibold text-sm">
+                               <div className="flex">
+                               <DialogTrigger className="flex items-center">
                                 <div className="font-semibold hover:cursor-pointer hover:underline" onClick={() => {onClick(search.link)}}>
                                 {search.title}
                                 </div>
@@ -78,7 +85,7 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
                                     <AlertDialog>
                                         <AlertDialogTrigger asChild>
                                             <Button variant="ghost" size="sm" className="ml-2 text-xs text-rose-600">
-                                                Löschen
+                                                <Trash2Icon className="w-4 h-4"/>
                                             </Button>
                                         </AlertDialogTrigger>
                                         <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
@@ -107,9 +114,17 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
                                         </AlertDialogContent>
                                     </AlertDialog>
                                 </div>
+                                </div>
+                               <div>
+                                </div>
+                                <div className="text-xs dark:text-gray-200/60 font-normal">
+                                    erstellt am: {format(new Date(search.createdAt), "dd.MM")}
+                                </div>
                             </div>
+                           
                         ))}
                     </div>
+                    
                 </div>
             </DialogContent>
         </Dialog>

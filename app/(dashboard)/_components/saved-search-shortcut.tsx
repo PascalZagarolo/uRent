@@ -127,11 +127,7 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
                            
                         ))}
                     </div>
-                    <div>
-                        <Button variant="ghost" size="sm" onClick={onTest}>
-                            Test
-                        </Button>
-                    </div>
+                   
                 </div>
             </DialogContent>
         </Dialog>

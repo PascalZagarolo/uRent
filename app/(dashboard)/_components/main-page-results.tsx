@@ -54,9 +54,6 @@ const MainPageResults = () => {
                 usedEnd = filteredValues.periodBegin;
             }
         }
-        
-        
-
         const url = qs.stringifyUrl({
             url: process.env.NEXT_PUBLIC_BASE_URL,
 

@@ -12,23 +12,26 @@ import NotificationShortCut from "./notification-shortcut";
 
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { notification, userTable  } from "@/db/schema";
+import { notification, savedSearch, userTable  } from "@/db/schema";
 
 import { signOut } from "@/actions/signout";
 import { RiAdminFill } from "react-icons/ri";
 import { IoIosPricetags } from "react-icons/io";
+import SavedSearchShortCut from "./saved-search-shortcut";
 
 
 interface LoggedInBarHeaderProps {
     currentUser: typeof userTable.$inferSelect;
     foundNotifications : typeof notification.$inferSelect[];
     foundConversations? : number;
+    savedSearches : typeof savedSearch.$inferSelect
 }
 
 const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     currentUser,
     foundNotifications,
-    foundConversations
+    foundConversations,
+    savedSearches
 }) => {
 
     const router = useRouter();
@@ -61,6 +64,13 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     <NotificationShortCut
                     foundNotifications={foundNotifications}
                     />
+                </div>
+                <div className="lg:block hidden">
+
+                    <SavedSearchShortCut
+                        savedSearches = {savedSearches}
+                    />
+
                 </div>
                 <div className="lg:block hidden">
 

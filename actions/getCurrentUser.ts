@@ -2,7 +2,7 @@
 
 
 import db from "@/db/drizzle";
-import { userTable } from "@/db/schema";
+import {  userTable } from "@/db/schema";
 import { validateRequest } from "@/lib/lucia";
 
 import { eq, sql } from "drizzle-orm";
@@ -17,11 +17,15 @@ const getCurrentUser = cache(async () => {
     
     const { user } = await validateRequest();
 
-    const findUser : typeof userTable.$inferSelect = db.query.userTable.findFirst({
-      where: eq(userTable.id, sql.placeholder("userId"))
+    const findUser  = db.query.userTable.findFirst({
+      where: (eq(userTable.id, sql.placeholder("userId"))),
+      
     }).prepare("findUser");
 
+    
+
     const currentUser = await findUser.execute({userId : user.id })
+    console.log(currentUser)
 
     if (!currentUser) {
       

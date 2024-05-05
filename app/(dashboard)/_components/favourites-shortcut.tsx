@@ -24,7 +24,7 @@ const FavouritesShortCut: React.FC<FavouritesShortCutProps> = ({
             <Tooltip>
             <TooltipTrigger asChild>
                 <a href={`/dashboard/${currentUser.id}/favourites`}>
-                <Button className=" text-gray-200" variant="ghost">
+                <Button className=" text-gray-200" variant="ghost" size="sm">
                 <IoStarHalf className="w-6 h-6" />
                 </Button>
                 </a>

@@ -35,7 +35,7 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
                 .then(() => {
                     toast.success("Suche erfolgreich gelöscht.")
                     router.refresh();
-                
+                    
                 })
         } catch(error : any) {
             console.log(error);
@@ -46,7 +46,10 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
     }
 
     const onTest = async () => {
-        await axios.patch("/api/check/saved-searches/isAvailable")
+        await axios.patch("/api/check/saved-searches/newly-available")
+            .then((res) => {
+                router.refresh();
+            })
     }
 
     
@@ -124,7 +127,11 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
                            
                         ))}
                     </div>
-                    
+                    <div>
+                        <Button variant="ghost" size="sm" onClick={onTest}>
+                            Test
+                        </Button>
+                    </div>
                 </div>
             </DialogContent>
         </Dialog>

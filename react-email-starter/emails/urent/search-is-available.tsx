@@ -17,9 +17,15 @@ import { Inter } from "next/font/google";
     ? `${process.env.NEXT_PUBLIC_BASE_URL}`
     : "";
   
-    
+    const link = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-  export const SupportConfirm = () => (
+    interface ConfirmMailProps {
+      link : string
+    }
+
+  export const SearchIsAvailable : React.FC<ConfirmMailProps> = ({
+    link
+  }) => (
     <Html>
       <Head />
       <Preview>Gute Neuigkeiten!</Preview>
@@ -37,11 +43,11 @@ import { Inter } from "next/font/google";
             dein passendes Inserat ist nun online und für dich erreichbar.
             </Text>
             <Text style={paragraph}>
-            Falls sie weitere Informationen oder Unterstützung benötigen, zögern Sie bitte nicht, sich an unser Support-Team zu wenden.
+            Besichtige die Ergebnisse zu deiner gespeicherten Suche.
             </Text>
-            <Text style={paragraph}>
-              
-            </Text>
+            <Button style={button} href={link}>
+              Zu den Ergebnissen
+            </Button>
             
             <Hr style={hr} />
             
@@ -67,7 +73,7 @@ import { Inter } from "next/font/google";
     </Html>
   );
   
-  export default SupportConfirm;
+  export default SearchIsAvailable;
 
   const inter = Inter({ subsets: ['latin'] });
 

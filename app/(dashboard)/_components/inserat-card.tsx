@@ -56,6 +56,11 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
 
     const isOwn = currentUser?.id === thisInserat?.userId;
 
+    const formattedViews = Intl.NumberFormat('en-US', {
+        notation: "compact",
+        maximumFractionDigits: 1
+      }).format(thisInserat.views);
+
     const formatDate = (inputDate: Date): string => {
         const day = inputDate?.getDate().toString().padStart(2, '0');
         const month = (inputDate?.getMonth() + 1).toString().padStart(2, '0');
@@ -240,7 +245,8 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                                                 </p>
                                             </Badge>
                                         )}
-                                        {thisInserat.lkwAttribute?.drive && (
+                                        {//@ts-ignore
+                                        thisInserat.lkwAttribute?.drive && (
 
                                             <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                                 dark:text-gray-100  hover:bg-yellow-600">
@@ -250,18 +256,22 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                                         )}
                                     </div>,
                                     'TRANSPORT': <div className="space-y-1">
-                                        {thisInserat.transportAttribute?.loading && (
+                                        {//@ts-ignore
+                                        thisInserat.transportAttribute?.loading && (
 
                                             <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                          dark:text-gray-100 hover:bg-gray-600">
                                                 <TbCrane className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-gray-800">
-                                                    {thisInserat.transportAttribute?.loading.substring(0, 1)}
-                                                    {thisInserat.transportAttribute?.loading.substring(1).toLowerCase()}
+                                                    {//@ts-ignore
+                                                    thisInserat.transportAttribute?.loading.substring(0, 1)}
+                                                    {//@ts-ignore
+                                                    thisInserat.transportAttribute?.loading.substring(1).toLowerCase()}
                                                 </p>
                                             </Badge>
                                         )}
-                                        {thisInserat.transportAttribute?.seats && (
+                                        {//@ts-ignore
+                                        thisInserat.transportAttribute?.seats && (
 
                                             <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                             dark:text-gray-100 hover:bg-gray-600">
@@ -270,47 +280,58 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                                                 <p className="mr-1 text-gray-800"> {thisInserat.transportAttribute?.seats} </p> Sitze
                                             </Badge>
                                         )}
-                                        {thisInserat.transportAttribute?.fuel && (
+                                        {//@ts-ignore
+                                        thisInserat.transportAttribute?.fuel && (
 
                                             <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                             dark:text-gray-100 hover:bg-gray-600">
                                                 <FaGasPump className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-gray-800">
-                                                    {thisInserat.transportAttribute?.fuel.substring(0, 1)}
-                                                    {thisInserat.transportAttribute?.fuel.substring(1).toLowerCase()}
+                                                    {//@ts-ignore
+                                                    thisInserat.transportAttribute?.fuel.substring(0, 1)}
+                                                    {//@ts-ignore
+                                                    thisInserat.transportAttribute?.fuel.substring(1).toLowerCase()}
                                                 </p>
                                             </Badge>
                                         )}
                                     </div>,
                                     'TRAILER': <div className="space-y-1">
-                                        {thisInserat.trailerAttribute?.type && (
+                                        {//@ts-ignore
+                                        thisInserat.trailerAttribute?.type && (
 
                                             <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                      dark:text-gray-100 hover:bg-rose-900  ">
                                                 <CaravanIcon className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-rose-200">
-                                                    {thisInserat.trailerAttribute?.type?.substring(0, 1)}
-                                                    {thisInserat.trailerAttribute?.type?.substring(1).toLowerCase()}
+                                                    {//@ts-ignore
+                                                    thisInserat.trailerAttribute?.type?.substring(0, 1)}
+                                                    {//@ts-ignore
+                                                    thisInserat.trailerAttribute?.type?.substring(1).toLowerCase()}
                                                 </p>
                                             </Badge>
                                         )}
-                                        {thisInserat.trailerAttribute?.loading && (
+                                        {//@ts-ignore
+                                        thisInserat.trailerAttribute?.loading && (
 
                                             <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                             dark:text-gray-100 hover:bg-rose-900">
                                                 <TbCrane className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-rose-200">
-                                                    {thisInserat.trailerAttribute?.loading.substring(0, 1)}
-                                                    {thisInserat.trailerAttribute?.loading.substring(1).toLowerCase()}
+                                                    {//@ts-ignore
+                                                    thisInserat.trailerAttribute?.loading.substring(0, 1)}
+                                                    {//@ts-ignore
+                                                    thisInserat.trailerAttribute?.loading.substring(1).toLowerCase()}
                                                 </p>
                                             </Badge>
                                         )}
-                                        {thisInserat.trailerAttribute?.weightClass && (
+                                        {//@ts-ignore
+                                        thisInserat.trailerAttribute?.weightClass && (
                                             <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
                                             dark:text-gray-100 hover:bg-rose-900">
                                                 <WeightIcon className="h-4 w-4 mr-1" />
                                                 <p className="mr-1 text-rose-200 w-full">
-                                                    {thisInserat.trailerAttribute.weightClass / 100}t
+                                                    {//@ts-ignore
+                                                    thisInserat.trailerAttribute.weightClass / 100}t
                                                 </p>
                                             </Badge>
                                         )}
@@ -326,7 +347,7 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                             <Badge className="bg-[#171923] flex  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                                 dark:text-gray-100 dark:bg-[#181818]/95  dark:hover:bg-[#181818]/60
                                 ">
-                                <EyeIcon className="w-4 h-4 mr-1" /> {thisInserat.views}
+                                <EyeIcon className="w-4 h-4 mr-1" /> {formattedViews}
                             </Badge>
                         </div>
                         <div className="mt-2 sm:block hidden">
@@ -416,18 +437,23 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                          bg-[#181c28]  
                         p-2 sm:pl-2 pl-0  text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:truncate text-sm justify-center">
                             <MapPinned className="text-rose-600 sm:mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
-                            <div className={cn("w-1/3 sm:truncate h-[20px] overflow-hidden", !thisInserat.address?.locationString && "w-full flex justify-center")}>
-                                {thisInserat.address?.locationString ?
+                            <div className={cn("w-1/3 sm:truncate h-[20px] overflow-hidden", //@ts-ignore
+                             !thisInserat.address?.locationString && "w-full flex justify-center")}>
+                                {//@ts-ignore
+                                thisInserat.address?.locationString ? //@ts-ignore
                                     getAddressCity(thisInserat.address?.locationString)
                                     : "Keine Angabe"}
                             </div>
 
 
-                            {thisInserat.address?.locationString && (
+                            {//@ts-ignore
+                            thisInserat.address?.locationString && (
                                 <div className="ml-auto gap-x-1 flex text-xs w-3/5 overflow-hidden items-center">
-                                    {thisInserat.address?.postalCode + ", "}
+                                    {//@ts-ignore
+                                    thisInserat.address?.postalCode + ", "}
                                     <div className="w-2/3 sm:truncate h-[16px]">
-                                        {thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}, Deutschland
+                                        {//@ts-ignore
+                                        thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}, Deutschland
                                     </div>
                                 </div>
                             )}

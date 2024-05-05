@@ -2,8 +2,11 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { savedSearch } from "@/db/schema";
+import axios from "axios";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 import { MdContentPasteSearch, MdManageSearch } from "react-icons/md";
 import { RiShareForward2Fill } from "react-icons/ri";
@@ -17,10 +20,28 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
     savedSearches
 }) => {
 
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     const onClick = (usedUrl : string) => {
         router.push(usedUrl);
+    }
+
+    const onDelete = async (savedSearchId : string) => {
+        try {
+            setIsLoading(true);
+            await axios.delete(`/api/saved-search/delete/${savedSearchId}`)
+                .then(() => {
+                    toast.success("Suche erfolgreich gelöscht.")
+                    router.refresh();
+                
+                })
+        } catch(error : any) {
+            console.log(error);
+            toast.error("Fehler beim Löschen der Suche.")
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     
@@ -70,7 +91,11 @@ const SavedSearchShortCut : React.FC<SavedSearchesShortCutProps> = ({
                                                         Gelöschte Suchen können nicht wiederhergestellt werden.
                                                     </p>
                                                     <div className="mt-2 flex w-full justify-end">
-                                                        <AlertDialogAction className="bg-rose-600 hover:bg-rose-700 text-gray-200 hover:text-gray-300">
+                                                        <AlertDialogAction 
+                                                        className="bg-rose-600 hover:bg-rose-700 
+                                                        text-gray-200 hover:text-gray-300"
+                                                        onClick={() => {onDelete(search.id)}}
+                                                        >
                                                             Löschen
                                                         </AlertDialogAction>
                                                         <AlertDialogCancel className="dark:border-none">

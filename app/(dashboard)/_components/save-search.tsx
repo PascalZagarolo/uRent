@@ -115,12 +115,16 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
                         <div>
             	            <Input 
                             className="dark:border-none dark:bg-[#1C1C1C] dark:text-gray-200"
+                            onChange={(e) => setCurrentTitle(e.target.value)}
                             />
                         </div>
                     </div>
                     <div className="mt-2 w-full ml-auto flex justify-end">
                         <DialogTrigger asChild>
-                        <Button  className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" onClick={onSubmit}>
+                        <Button  className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" 
+                        onClick={onSubmit}
+                        disabled={isLoading || !currentTitle || currentTitle.trim() === ""}
+                        >
                             Speichern
                         </Button>
                         </DialogTrigger>

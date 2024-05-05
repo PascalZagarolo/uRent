@@ -18,11 +18,13 @@ import LocationBar from "./location-bar";
 
 import LoggedInBarHeader from "./logged-in-header";
 
-import { notification, userTable } from '../../../db/schema';
+import { notification, savedSearch, userTable } from '../../../db/schema';
 
 
 import { cache } from "react";
 import { getOpenConversations } from "@/actions/getOpenConversations";
+import db from "@/db/drizzle";
+import { eq } from "drizzle-orm";
 
 
 
@@ -37,6 +39,14 @@ const Header: React.FC<HeaderProps> = cache(async ({
 }) => {
 
     const foundConversations = await getOpenConversations(currentUser?.id);
+
+    let savedSearches : typeof savedSearch.$inferSelect[] = [];
+
+    if(currentUser) {
+        savedSearches = await db.query.savedSearch.findMany({
+            where : eq(savedSearch.userId, currentUser.id)
+        });
+    }
 
 
     return (
@@ -72,12 +82,15 @@ const Header: React.FC<HeaderProps> = cache(async ({
                     </div>
                     {
                         !currentUser ? (
-                            <LoginBarHeader />
+                            <LoginBarHeader 
+                            
+                            />
                         ) : (
                             <div className="items-center flex ml-auto mr-8 gap-x-2">
                                 <LoggedInBarHeader
                                     currentUser={currentUser}
                                     foundNotifications={foundNotifications}
+                                    savedSearches={savedSearches}
                                     foundConversations = {foundConversations}
                                 />      
                             </div>

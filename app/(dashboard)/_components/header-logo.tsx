@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
 
     const foundConversations = await getOpenConversations(currentUser?.id);
 
-    let savedSearches : typeof savedSearch.$inferSelect[] = [];
+    let savedSearches : any = [];
 
     if(currentUser) {
         savedSearches = await db.query.savedSearch.findMany({

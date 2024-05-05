@@ -68,6 +68,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                 <div className="lg:block hidden">
 
                     <SavedSearchShortCut
+                    //@ts-ignore
                         savedSearches = {savedSearches}
                     />
 

@@ -62,6 +62,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                             ) : (
                                 <div className="flex w-full ml-auto ">
                                     <LoggedInBarHeader
+                                    savedSearches={null}
                                         currentUser={currentUser}
                                         foundNotifications={foundNotifications}
                                         foundConversations={0}

@@ -9,6 +9,8 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox";
+
 
 
 interface SaveSearchProps {
@@ -22,6 +24,8 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
     const searchParams = useSavedSearchParams((state) => state.searchParams);
     const [isLoading, setIsLoading] = useState(false);
     const [currentTitle, setCurrentTitle] = useState("");
+    const [checkAvailability, setCheckAvailability] = useState(false);
+
 
     const router = useRouter();
 
@@ -68,7 +72,8 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
             
             const values = {
                 link : url,
-                title : currentTitle
+                title : currentTitle,
+                checkAvailability : checkAvailability
             }
 
             await axios.post(`/api/saved-search/${userId}`, values)
@@ -117,6 +122,19 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
                             className="dark:border-none dark:bg-[#1C1C1C] dark:text-gray-200"
                             onChange={(e) => setCurrentTitle(e.target.value)}
                             />
+                        </div>
+                    </div>
+                    <div className="w-full flex">
+                        <div className="w-full flex items-center gap-x-2 mt-2">
+                           
+                            <Checkbox 
+                            onCheckedChange={(e : boolean) => setCheckAvailability(e)}
+                            checked={checkAvailability} />
+                            
+                            
+                            <Label className="text-xs">
+                                Benachrichtige mich, wenn neue Ergebnisse verfügbar sind
+                            </Label>
                         </div>
                     </div>
                     <div className="mt-2 w-full ml-auto flex justify-end">

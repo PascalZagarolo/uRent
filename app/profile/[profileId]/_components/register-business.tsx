@@ -37,9 +37,10 @@ const RegisterBusiness = () => {
             <AlertDialog>
                 <Alert className="dark:bg-[#191919] dark:border-none">
                     <BsBuildingsFill className="h-4 w-4" />
-                    <AlertTitle>Du hast ein Gewerbe ?</AlertTitle>
+                    <AlertTitle>Du bist Vermieter?</AlertTitle>
                     <AlertDescription>
-                        Klicke <AlertDialogTrigger className="underline px-1 hover:cursor-pointer"> hier </AlertDialogTrigger>, um dein Konto in ein gewerbliches umzuwandeln.
+                        Klicke <AlertDialogTrigger className="underline px-0.5 hover:cursor-pointer"> hier </AlertDialogTrigger>
+                        , um dein Konto kostenlos in ein Vermieterprofil umzuwandeln.
                     </AlertDescription>
                 </Alert>
                 <AlertDialogContent className="dark:bg-[#191919] dark:border-none">

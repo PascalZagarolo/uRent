@@ -851,6 +851,14 @@ export const notification = pgTable("notification", {
     createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
 })
 
+export const savedSearch = pgTable("savedSearch", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    link : text("link"),
+    title : text("title"),
+    userId : text("userId")
+                .references(() => userTable.id, { onDelete: "cascade" }),
+})
+
 export const report = pgTable("report", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -1013,6 +1021,7 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     bookingRequests : many(bookingRequest),
 
     favourites : many(favourite),
+    savedSearches : many(savedSearch),
 
     vehicles : many(vehicle),
 }))
@@ -1091,6 +1100,13 @@ export const transportAttributeRelations = relations(transportAttribute, ({ one 
     inserat : one(inserat, {
         fields : [transportAttribute.inseratId],
         references : [inserat.id]
+    })
+}))
+
+export const savedSearchRelations = relations(savedSearch, ({ one }) => ({
+    user : one(userTable, {
+        fields : [savedSearch.userId],
+        references : [userTable.id]
     })
 }))
 

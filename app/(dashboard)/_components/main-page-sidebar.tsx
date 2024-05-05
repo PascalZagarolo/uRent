@@ -19,8 +19,16 @@ import {  MdOutlineCancel } from "react-icons/md";
 import { useEffect } from "react";
 import MainPageResults from "./main-page-results";
 import { CategoryEnumRender } from "@/db/schema";
+import SaveSearch from "./save-search";
 
-const MainPageSideBar = () => {
+
+interface MainPageSideBarProps {
+    userId? : string
+}
+
+const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
+    userId
+}) => {
     const pathname = usePathname();
     const usedSearchParams = useSearchParams();
     const currentCategory = usedSearchParams.get("category");
@@ -75,7 +83,12 @@ const MainPageSideBar = () => {
             <p className="w-full flex bg-[#1b1e2c] justify-center items-center text-xs pb-2 hover:underline hover:cursor-pointer" onClick={onReset}>
             <MdOutlineCancel  className="w-4 h-4 mr-2 text-rose-600" />  Filter zurücksetzen
             </p>
-            <div className="mt-4">
+            <div className="py-2 bg-[#1b1e2c]">
+                <SaveSearch 
+                userId={userId || ""}
+                />
+            </div>
+            <div className="">
                 <h3 className="text-gray-100 font-semibold    p-2 flex justify-center  bg-[#1b1f2c] dark:border-[#1f2332]">
                     Fahrzeugkategorie
                 </h3>
@@ -149,7 +162,7 @@ const MainPageSideBar = () => {
                     
                 </div>
                 <div className="text-xs flex justify-center text-gray-100 underline hover:cursor-pointer" onClick={() => {router.push("/search")}}>
-                    <Settings2 className="mr-2 h-4 w-4" /> Erweiterte Suche
+                    <Settings2 className="mr-2 h-4 w-4" /> Zu der Erweiterten Suche
                 </div>
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
                     <MainPageResults />

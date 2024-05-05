@@ -13,7 +13,9 @@ export async function POST(
         const [createdSavedSearch] = await db.insert(savedSearch).values({
             userId : params.userId,
             title : values.title,
-            link : values.link
+            link : values.link,
+            receiveAvailability : values.checkAvailability,
+            receivesUpdates : values.checkAvailability,
         }).returning()
 
         return NextResponse.json(createdSavedSearch);

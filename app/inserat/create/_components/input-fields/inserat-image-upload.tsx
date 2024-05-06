@@ -8,9 +8,10 @@ import { CldUploadButton } from "next-cloudinary";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DeleteImageForm from "./delete-image-form";
 import { images, inserat } from "@/db/schema";
+import { useDropzone } from "react-dropzone";
 
 
 
@@ -37,7 +38,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 toast.success("Bild erfolgreich hochgeladen")
                 router.refresh();
             })
-             
+
         } catch {
             toast.error("Fehler beim Upload")
         } finally {
@@ -45,11 +46,11 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
         }
     }
 
-    const onReorder = async (updateData : { id : string; position : number}[]) => {
+    const onReorder = async (updateData: { id: string; position: number }[]) => {
         try {
             setIsLoading(true)
             await axios.put(`/api/inserat/${params.inseratId}/image/reorder`, {
-                list : updateData
+                list: updateData
             }).then(() => {
                 router.refresh();
             })
@@ -63,6 +64,59 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
         }
     }
 
+
+    const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
+        acceptedFiles.forEach((file: any) => {
+            setSelectedImages((prevState) => [...prevState, file]);
+            handleUpload2(file);
+        });
+
+
+    }, []);
+
+
+
+    const [selectedImages, setSelectedImages] = useState(thisImages);
+    const [isUploaded, setIsUploaded] = useState(false);
+
+    useEffect(() => {
+        router.refresh();
+    }, [selectedImages])
+
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject,
+    } = useDropzone({
+        onDrop, maxFiles: 8 - thisImages.length, accept: {
+            'image/png': ['.jpeg', '.png', '.webp', '.jpg'],
+        }
+    });
+
+
+    const handleUpload2 = (file: any) => {
+        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+        const formData = new FormData();
+
+        formData.append("file", file);
+        formData.append("upload_preset", "oblbw2xl");
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                axios.post(`/api/inserat/${params.inseratId}/image`, {
+                    image: data.secure_url
+                })
+
+            }).then(() => {router.refresh()})
+    };
+
     return (
         <div className="">
             <h3 className="flex justify-center font-semibold text-md items-center">
@@ -70,46 +124,42 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 Fotos und Anhänge *
                 {thisImages.length < 8 && (
                     <CldUploadButton
-                    onUpload={handleImageUpload}
-                    uploadPreset="oblbw2xl"
-                    options={{ maxFiles: 1 }}
-                >
-                    <PlusCircleIcon className="ml-4 h-4 w-4" />
-                </CldUploadButton>
+                        onUpload={handleImageUpload}
+                        uploadPreset="oblbw2xl"
+                        options={{ maxFiles: 1 }}
+                    >
+                        <PlusCircleIcon className="ml-4 h-4 w-4" />
+                    </CldUploadButton>
                 )}
                 <div className="ml-auto">
-                    <DeleteImageForm 
-                    thisImages = { thisImages }
+                    <DeleteImageForm
+                        thisImages={thisImages}
                     />
                 </div>
             </h3>
             <p className="flex text-sm justify-start text-gray-900/50  dark:text-gray-100"> Halte um die Reihenfolge der Fotos zu ändern </p>
             {
 
-       
-                    <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#0F0F0F] w-full">
-                        <ImageList
-                            onEdit={() => {}}
-                            onReorder={onReorder}
-                            items={thisImages || []}
-                            
-                        />
-                        {thisImages.length < 8 && (
-                            <CldUploadButton
-                            onUpload={handleImageUpload}
-                            uploadPreset="oblbw2xl"
-                            options={{ maxFiles: 1 }}
-                            className="w-full"
-                        >
-                            <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-20 border-dashed border
-                             dark:text-gray-100/80 dark:border-gray-500">
-                                 Foto hinzufügen </div>
-                                 </CldUploadButton>
-                        )}
-                    </div>
-               
-                    
-               
+
+                <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#0F0F0F] w-full">
+                    <ImageList
+                        onEdit={() => { }}
+                        onReorder={onReorder}
+                        items={thisImages || []}
+
+                    />
+                    {thisImages.length < 8 && (
+
+                        <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-20 border-dashed border
+                             dark:text-gray-100/80 dark:border-gray-500" {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            Fotos hinzufügen oder reinziehen.. </div>
+
+                    )}
+                </div>
+
+
+
             }
 
         </div>

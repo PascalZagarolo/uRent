@@ -63,7 +63,7 @@ const PaginationComponent = () => {
         {Array.from({length : expectedPages}, (_, index) => (
           
             <PaginationItem className={cn(`bg-[#191B27] hover:bg-[#242738]
-            text-gray-200 rounded-md hover:cursor-pointer`, currentPage == index + 1 && "bg-[#252838]")} onClick={() => {changePage(index + 1)}} key={index}>
+            text-gray-200 rounded-md hover:cursor-pointer`, Number(currentPage) == index + 1 && "bg-[#252838]")} onClick={() => {changePage(index + 1)}} key={index}>
             <PaginationLink className="hover:bg-[#242738] hover:text-gray-300">{index + 1}</PaginationLink>
           </PaginationItem>
          

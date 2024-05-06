@@ -106,7 +106,7 @@ const Main = cache(async ({
 
 
 
-    console.log(searchParams)
+    
 
 
 

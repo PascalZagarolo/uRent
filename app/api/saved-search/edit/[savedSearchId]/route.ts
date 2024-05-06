@@ -27,7 +27,7 @@ export async function PATCH(
         
 
         const patchSavedSearch = await db.update(savedSearch).set({
-            receivesUpdates : values.checkAvailability,
+            receivesUpdates : values.getUpdates,
             receiveAvailability : values.checkAvailability
         }).where(eq(savedSearch.id, params.savedSearchId)).returning();
 

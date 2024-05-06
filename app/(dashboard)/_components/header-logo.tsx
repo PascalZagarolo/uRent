@@ -44,7 +44,8 @@ const Header: React.FC<HeaderProps> = cache(async ({
 
     if(currentUser) {
         savedSearches = await db.query.savedSearch.findMany({
-            where : eq(savedSearch.userId, currentUser.id)
+            where : eq(savedSearch.userId, currentUser.id),
+            orderBy : (savedSearch, { desc }) => [desc(savedSearch.createdAt)]
         });
     }
 

@@ -47,12 +47,13 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
         }
     }
 
-    const changeSearch = async (savedSearchId : string, checkAvailability? : boolean) => {
+    const changeSearch = async (savedSearchId : string, checkAvailability? : boolean, checkUpdates? : boolean ) => {
         try {
             setIsLoading(true);
 
             const values = {
-                checkAvailability: checkAvailability
+                checkAvailability: checkAvailability,
+                getUpdates : checkUpdates
             }
 
             await axios.patch(`/api/saved-search/edit/${savedSearchId}`, values)
@@ -77,8 +78,8 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
                     <MdContentPasteSearch className="w-6 h-6" />
                 </Button>
             </DialogTrigger>
-            <DialogContent className="dark:border-none dark:bg-[#191919]">
-                <div className="">
+            <DialogContent className="dark:border-none dark:bg-[#191919] p-0">
+                <div className="p-4">
                     <div>
                         <h3 className="flex items-center text-md font-semibold">
                             <MdManageSearch className="w-4 h-4 mr-2" /> Gespeicherte Suchen
@@ -136,21 +137,40 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
                                 </div>
                                 <div>
                                 </div>
-                                <div className="flex items-center">
-                                <div className="text-xs dark:text-gray-200/60 font-normal ">
-                                    erstellt am: {format(new Date(search.createdAt), "dd.MM")}
-                                </div>
-                                <div className="ml-auto flex items-center gap-x-2">
+                                <div className="flex items-center w-full">
+                                
+                                <div className="w-full space-y-2">
+                                    <div className="">
+                                    <Label className="text-xs">
+                                        Benachrichtige mich,
+                                    </Label>
+                                    </div>
+                                    <div className="ml-auto flex  items-center gap-x-2">
+                                    
+
                                     <Checkbox
-                                        onCheckedChange={(e : boolean) => (changeSearch(search.id, e))}
+                                        onCheckedChange={(e : boolean) => (changeSearch(search.id, e, search.receivesUpdates))}
+                                        checked={search.receiveAvailability} 
+                                        disabled={isLoading}
+                                        />
+                                    <Label className="text-xs dark:text-gray-200/80">
+                                        wenn ein passendes Inserat gefunden wurde.
+                                    </Label>
+                                    
+                                </div>
+                                <div className="flex items-center gap-x-2">
+                                    
+
+                                <Checkbox
+                                        onCheckedChange={(e : boolean) => (changeSearch(search.id, search.receiveAvailability, e))}
                                         checked={search.receivesUpdates} 
                                         disabled={isLoading}
                                         />
-
-
-                                    <Label className="text-xs">
-                                        Benachrichtige mich
+                                    <Label className="text-xs dark:text-gray-200/80">
+                                        wenn neue Ergebnisse verfügbar sind.
                                     </Label>
+                                    
+                                </div>
                                 </div>
                                 </div>
                             </div>

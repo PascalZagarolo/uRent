@@ -25,6 +25,7 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [currentTitle, setCurrentTitle] = useState("");
     const [checkAvailability, setCheckAvailability] = useState(false);
+    const [getUpdates, setGetUpdates] = useState(false);
 
 
     const router = useRouter();
@@ -73,12 +74,16 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
             const values = {
                 link : url,
                 title : currentTitle,
-                checkAvailability : checkAvailability
+                checkAvailability : checkAvailability,
+                getUpdates : getUpdates
             }
 
             await axios.post(`/api/saved-search/${userId}`, values)
                 .then(() => {
                     toast.success("Suche erfolgreich gespeichert");
+                    setCurrentTitle("");
+                    setCheckAvailability(false);
+                    setGetUpdates(false);
                     router.refresh();
                 })
 
@@ -124,7 +129,11 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
                             />
                         </div>
                     </div>
-                    <div className="w-full flex">
+                    <div className="mt-4">
+                        <Label className="text-sm font-semibold">
+                        Benachrichtige mich,
+                        </Label>
+                    </div>
                         <div className="w-full flex items-center gap-x-2 mt-2">
                            
                             <Checkbox 
@@ -132,11 +141,25 @@ const SaveSearch : React.FC<SaveSearchProps> = ({
                             checked={checkAvailability} />
                             
                             
-                            <Label className="text-xs">
-                                Benachrichtige mich, wenn neue Ergebnisse verfügbar sind
+                            <Label className="text-xs hover:underline hover:cursor-pointer" onClick={() => {setCheckAvailability(!checkAvailability)}}>
+                                 wenn ein passendes Inserat gefunden wurde.
                             </Label>
                         </div>
-                    </div>
+                        
+                   
+                    <div className="w-full flex items-center gap-x-2 mt-2">
+                           
+                            <Checkbox 
+                            onCheckedChange={(e : boolean) => setGetUpdates(e)}
+                            checked={getUpdates} />
+                            
+                            
+                            <Label className="text-xs hover:underline hover:cursor-pointer"
+                            onClick={() => {setGetUpdates(!getUpdates)}}
+                            >
+                                 wenn neue Ergebnisse verfügbar sind
+                            </Label>
+                        </div>
                     <div className="mt-2 w-full ml-auto flex justify-end">
                         <DialogTrigger asChild>
                         <Button  className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" 

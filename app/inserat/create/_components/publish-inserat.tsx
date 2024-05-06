@@ -31,7 +31,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
     const expirationDate = new Date(existingSubscription?.stripe_current_period_end);
 
-    console.log(!existingSubscription)
+    
 
     const onPublish = () => {
         try {
@@ -50,7 +50,7 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish: true });
                 toast.success("Anzeige erfolgreich veröffentlicht");
-                router.push('/')
+                router.push(`/inserat/${thisInserat.id}`)
             }
         } catch {
             toast.error("Etwas ist schief gelaufen...")

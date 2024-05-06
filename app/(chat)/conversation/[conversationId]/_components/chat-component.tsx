@@ -92,8 +92,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     useEffect(() => {
         const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
         setRenderedMessages(pMessages.slice(startIndex, pMessages.length));
-    }
-    , [pMessages]);
+    }, [pMessages]);
 
     useEffect(() => {
         if (pMessages.length > 0) {

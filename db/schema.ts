@@ -198,23 +198,14 @@ export const licenseEnum = pgEnum(
     "license", [
     
     "B",
-    "B17",
-    "B96",
-    "B196",
-    "B197",
+    
     "BE",
 
     "C1",
-    "C1E",
     "C",
     "CE",
+    "CE1",
 
-    "D1",
-    "D1E",
-    "DE",
-
-    "L",
-    "T",
 ])
 
 export const LicenseEnumRender = z.enum(licenseEnum.enumValues).Enum;

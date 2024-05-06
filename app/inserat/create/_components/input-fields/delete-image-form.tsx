@@ -33,14 +33,14 @@ const DeleteImageForm: React.FC<DeleteImageFormProps> = ({
                 </DialogTrigger>
                 <DialogContent className="dark:bg-[#0F0F0F] border-none">
                     <DialogHeader>
-                        <DialogTitle className="flex items-center" >
+                        <DialogTitle className="flex items-center text-md font-medium" >
                         <ImageIcon className="mr-2"/>Fotos & Anhänge entfernen
                         </DialogTitle>
                         
                     </DialogHeader>
                     {thisImages.length === 0 ? (
                         <div>
-                            <p className="text-gray-800/50 font-bold"> Noch keine Bilder hinzugefügt </p>
+                            <p className="dark:text-gray-200/60 text-xs"> Noch keine Bilder hinzugefügt </p>
                         </div>
                     ) : (
                         <div>

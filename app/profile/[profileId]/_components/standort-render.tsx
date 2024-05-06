@@ -32,6 +32,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     const onDrop = useCallback((acceptedFiles : any, rejectedFiles : any) => {
         acceptedFiles.forEach((file : any) => {
             setSelectedImages((prevState) => [...prevState, file]);
+            handleUpload();
         });
 
 
@@ -47,7 +48,9 @@ const StandortRender: React.FC<StandortRenderProps> = ({
         isDragActive,
         isDragAccept,
         isDragReject,
-    } = useDropzone({ onDrop, maxFiles: 1 });
+    } = useDropzone({ onDrop, maxFiles: 1, accept : { 
+        'image/png': ['.jpeg', '.png', '.webp', '.jpg', ''],
+    } });
 
     const handleUpload = () => {
         const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";

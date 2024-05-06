@@ -82,11 +82,16 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         }
     }, )
     
+    const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
+    
 
-    const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(pMessages.length - 15, pMessages.length));
+    const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(startIndex, pMessages.length));
+
+    console.log(renderedMessages.length)
     
     useEffect(() => {
-        setRenderedMessages(pMessages.slice(pMessages.length - 15, pMessages.length));
+        const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
+        setRenderedMessages(pMessages.slice(startIndex, pMessages.length));
     }
     , [pMessages]);
 

@@ -137,7 +137,7 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
 
     return (
         <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
-        mt-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] border-[#171923] px-2 py-4 rounded-md `,
+        mt-4  border-[#171923]  pt-4 rounded-md `,
         thisInserat?.inseratSubscription?.subscriptionType === "ENTERPRISE" && "dark:border-2 border-2 border-indigo-900",
         thisInserat?.inseratSubscription?.subscriptionType === "PREMIUM" && "dark:border-2 border-2 border-indigo-900",
         
@@ -145,8 +145,8 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
 
 
 
-            <h3 className={cn("flex  font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md mr-2",)} >
-                <div className="bg-[#181c28] p-2 rounded-md drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:w-1/10">
+            <h3 className={cn("flex   font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md px-2",)} >
+                <div className="bg-[#181c28] p-2 rounded-md  sm:w-1/10">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-300 h-6 w-6 " />,
@@ -397,7 +397,7 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
 
 
                 <div className="flex justify-center bg-[#1e2332] p-2  text-gray-100  dark:border-[#1e2332]  
-                    drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] dark:bg-[#191B27] items-center">
+                    drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] dark:bg-[#191B27] items-center">
                     <p className="text-gray-100 font-bold mr-4 flex">
                         <BsCalendarWeekFill className="w-4 h-4 mr-2" />  {thisInserat.annual ? "" : "Zeitraum :"}
                     </p>
@@ -422,8 +422,8 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                     {/* Part2 */}
                     <div className="font-semibold text-gray-900 flex mt-2 items-center w-full">
                         <div className="flex ">
-                            <div className="flex  bg-emerald-800 p-2 rounded-md 
-                              text-gray-100  px-4 sm:text-sm 
+                            <div className="flex border-none  bg-emerald-800 p-2 rounded-r-md 
+                              text-gray-200  px-4 sm:text-sm 
                              text-xs items-center">
                                 <div className="sm:mr-2 flex font-bold">
 
@@ -435,7 +435,7 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                         </div>
                         <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923] 
                          bg-[#181c28]  
-                        p-2 sm:pl-2 pl-0  text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] sm:truncate text-sm justify-center">
+                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:truncate text-sm justify-center">
                             <MapPinned className="text-rose-600 sm:mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
                             <div className={cn("w-1/3 sm:truncate h-[20px] overflow-hidden", //@ts-ignore
                              !thisInserat.address?.locationString && "w-full flex justify-center")}>
@@ -464,10 +464,13 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
 
 
 
+                    <div className="h-full bg-blue-800">
                     <ProfileBar
                         thisInserat={thisInserat}
                         currentUser={currentUser}
                     />
+                    </div>
+                    
                 </div>
             </div>
         </div>

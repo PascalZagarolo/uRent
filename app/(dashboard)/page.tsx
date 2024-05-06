@@ -120,13 +120,13 @@ const Main = cache(async ({
             <div>
                 {//@ts-ignore
                     (searchParams.page === "1" || !searchParams.page) && (
-                        <div className="sm:flex hidden justify-center py-2">
+                        <div className="xl:flex hidden justify-center py-2">
                             <HeaderInfo />
                         </div>
                     )}
                 <div className="relative flex justify-center mt-4">
 
-                    <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                    <div className='h-screen xl:flex items-center justify-center w-2/12  p-16 hidden'>
                         <div className=' w-full sm:block hidden space-y-4'>
                             <div>
                                 <AdsComponent dataAdSlot='3797720061' />
@@ -145,7 +145,7 @@ const Main = cache(async ({
                     userId={currentUser?.id || ""}
                     />
                     </div>
-                    <div className="sm:block overflow-y-auto sm:overflow-hidden no-scrollbar flex items-center justify-center h-[100%]">
+                    <div className="sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar flex items-center justify-center h-[100%]">
 
                         <RelevanteInserate
                             title={searchParams.title}
@@ -200,7 +200,7 @@ const Main = cache(async ({
                         />
                     </div>
 
-                    <div className='h-screen sm:flex items-center justify-center w-2/12 p-16 hidden'>
+                    <div className='h-screen xl:flex items-center justify-center w-2/12 p-16 hidden'>
                         <div className=' w-full sm:block hidden space-y-4'>
                         <div>
                                 <AdsComponent dataAdSlot='3797720061' />

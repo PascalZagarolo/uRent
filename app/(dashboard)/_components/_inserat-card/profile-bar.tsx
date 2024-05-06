@@ -100,9 +100,9 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     };
 
     return ( 
-        <div className="w-full mt-2">
+        <div className="w-full h-full mt-2">
 
-                        <div className=" bg-[#1b1e2d] w-full position:absolute  dark:bg-[#13141c] dark:border-none">
+                        <div className=" bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#13141c] dark:border-none">
                             <div className="flex  items-center  w-full rounded-md p-2">
                             <div className="w-[60px]">
                             <Image
@@ -115,7 +115,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                 />
                             </div>
                             <Link href={`/profile/${thisInserat.userId}`} className="w-1/2 truncate">
-                            <div className=" font-semibold text-[#dbddf2] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.6)] items-center flex truncate">
+                            <div className=" font-semibold text-gray-200  items-center flex truncate">
                                         <div className="w-3/4 truncate">
                                         {thisInserat.user?.name}
                                         </div>   

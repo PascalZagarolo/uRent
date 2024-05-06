@@ -55,9 +55,9 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
     return (
         <div className="flex ml-auto items-center sm:mt-2">
-            <div className="  font-semibold  lg:mr-8 text-xs text-gray-200  hidden items-center xl:flex">
-                🎉 <div className="2xl:block hidden">Willkommen zurück</div>
-                <p className="ml-1 font-bold hidden xl:flex text-gray-100 mr-2">{currentUser.name.toUpperCase() || ""}</p> 🎉
+            <div className="  font-semibold  text-xs text-gray-200 2xl:mr-8 lg:mr-4  hidden items-center 2xl:flex">
+                 
+            🎉 {currentUser.name.toUpperCase() || ""} 🎉
             </div>
             <div className="flex lg:gap-x-2">
                 <div className="sm:block hidden">
@@ -65,7 +65,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                     foundNotifications={foundNotifications}
                     />
                 </div>
-                <div className="lg:block hidden">
+                <div className="xl:block hidden">
 
                     <SavedSearchShortCut
                     //@ts-ignore

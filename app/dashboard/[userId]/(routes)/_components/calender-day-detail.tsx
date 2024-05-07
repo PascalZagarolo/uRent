@@ -1,15 +1,28 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { booking } from "@/db/schema";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
+import { useState } from "react";
 import { RiCalendarEventFill } from "react-icons/ri";
 
 interface CalenderDayDetailProps {
     day_date: Date;
+    affectedBookings : typeof booking.$inferSelect[];
 }
 
 const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
-    day_date
+    day_date,
+    affectedBookings
 }) => {
+
+    const [appointedTimes, setAppointedTimes] = useState([]);
+
+    for(const pBooking of affectedBookings){
+        const startHour = Number(pBooking.startPeriod) / 60;
+
+        //TODO: Add all the time between the start and the end date ONLY if the booking on the given day or starts on the given day
+        
+    }
 
     const renderSegments = () => {
         const segments = [];

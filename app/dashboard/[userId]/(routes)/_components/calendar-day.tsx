@@ -71,6 +71,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
     >
       <CalenderDayDetail 
       day_date={day}
+      affectedBookings={bookings}
       />
       {bookings?.map((pBooking) => {
         return (

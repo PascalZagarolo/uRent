@@ -87,7 +87,7 @@ const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
                             const minute = index % 2 === 0 ? '00' : '30';
                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
                             return (
-                                <SelectGroup>
+                                <SelectGroup key={index}>
                                 {
                                     {
                                         "0" : <SelectLabel>Frühmorgen</SelectLabel>,

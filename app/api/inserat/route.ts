@@ -2,6 +2,7 @@
 import db from "@/db/drizzle";
 import { inserat } from "@/db/schema";
 import { NextResponse } from "next/server"
+import { title } from "process";
 
 export async function POST(
     req : Request,
@@ -13,12 +14,13 @@ export async function POST(
 
         console.log(values)
 
-        const data : typeof inserat = await db.insert(inserat)
+        const data : any = await db.insert(inserat)
                                 .values({
-                                    category : "PKW",
+                                    category : values.category,
                                     annual : true,
                                     isDaily : true,
-                                    ...values
+                                    title : values.title,
+                                    userId : values.userId
                                 }).returning();
 
         return NextResponse.json(data[0])

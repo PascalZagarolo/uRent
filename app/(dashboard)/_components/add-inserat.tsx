@@ -2,8 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { userTable } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,14 +16,16 @@ import axios from "axios";
 import { PlusIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { title } from "process";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { MdAddToPhotos } from "react-icons/md";
 
 import { z } from "zod";
 
 interface InseratProps {
     currentUser: typeof userTable.$inferSelect;
-    isntLoggedIn? : boolean
+    isntLoggedIn?: boolean
 }
 
 const Inserat: React.FC<InseratProps> = ({
@@ -43,94 +47,109 @@ const Inserat: React.FC<InseratProps> = ({
         }
     })
 
-    const onSubmit = (value: z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
         try {
 
             const values = {
-                title: value.title,
-                userId : currentUser.id
+                title: currentTitle,
+                category: currentCategory,
+                userId: currentUser.id
             }
 
             const res = axios.post("/api/inserat", values).
-            then((res) => {
-                toast.success("Anzeige erfolgreich erstellt");
-                router.push(`/inserat/create/${res.data.id}`);
-            
-            })
-            
+                then((res) => {
+                    toast.success("Anzeige erfolgreich erstellt");
+                    router.push(`/inserat/create/${res.data.id}`);
+
+                })
+
         } catch {
             toast.error("Fehler beim Erstellen der Anzeige")
         }
     }
 
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentCategory, setCurrentCategory] = useState("");
+
 
     return (
         <div>
-            
+
             <Dialog >
-            {isntLoggedIn ? (
+                {isntLoggedIn ? (
 
-<div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2.5 rounded-md text-sm items-center 
-                font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" onClick={() => {!currentUser && router.push("/login")}}>
-                        
-                        
+                    <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2.5 rounded-md text-sm items-center 
+                font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" onClick={() => { !currentUser && router.push("/login") }}>
+
+
                         <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Anzeige erstellen</p>
-                            
-                        </div>
 
-            ) : (
-                <DialogTrigger className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center 
-                font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161723] w-full" onClick={() => {!currentUser && router.push("/login")}}>
-                        
-                        
+                    </div>
+
+                ) : (
+                    <DialogTrigger className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center 
+                font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161723] w-full" onClick={() => { !currentUser && router.push("/login") }}>
+
+
                         <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:flex mr-1 text-sm">Anzeige erstellen</p>
-                            
-                        </DialogTrigger>
-            )}
+
+                    </DialogTrigger>
+                )}
                 <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
-                    <DialogHeader>
-                        <DialogTitle className="text-xl  text-gray-900 mr-8 ml-2 p-2 rounded-md border-gray-400 border-2 dark:border-none dark:text-gray-100">
-                            Neue Anzeige erstellen
-                            
-                        </DialogTitle>
-
-                    </DialogHeader>
                     <div>
-                        <div className="flex justify-center">
-                            <h3 className="mt-8  text-lg font-semibold flex items-center gap-x-"> <Separator className="w-16 bg-gray-700 mr-4"/> Gebe deiner Anzeige einen Titel <Separator className="w-16 bg-gray-700 ml-4"/> </h3>
-
-
+                        <div>
+                            <h3 className="font-semibold text-md flex items-center">
+                                <MdAddToPhotos className="w-4 h-4 mr-2" />Anzeige erstellen
+                            </h3>
+                            <p className="text-xs dark:text-gray-200/60">
+                                Die angegebenen Informationen können jederzeit geändert werden.
+                            </p>
                         </div>
-                        <p className="font-semibold text-xs text-gray-800/50 flex justify-center mb-8 dark:text-gray-100/70">der Titel kann jederzeit geändert werden</p>
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)}>
-                                <FormField
-                                    control={form.control}
-                                    name="title"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormControl>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Titel der Anzeige..."
-                                                    className="dark:bg-[#0a0a0a] dark:border-gray-100 focus-visible:ring-0"
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <p><Separator className="ml-auto w-8 bg-black mt-4" /></p>
-                                <div className="flex ml-auto">
-
-                                    <Button className="bg-[#202336] border-2 border-gray-300 mt-4 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                    dark:bg-[#080808] dark:border-none dark:text-gray-100 dark:hover:bg-[#0c0c0c]
-                                    " type="submit">
-                                        Anzeige erstellen
-                                    </Button>
+                        <div>
+                            <div className="mt-8">
+                                <Label className="font-medium text-sm">
+                                    Titel
+                                </Label>
+                                <div>
+                                    <Input
+                                        className="w-full dark:border-none dark:bg-[#191919] dark:text-gray-200/80"
+                                        onChange={(e) => setCurrentTitle(e.target.value)}
+                                    />
                                 </div>
-                            </form>
-                        </Form>
+                            </div>
+                            <div className="mt-4">
+                                <Label>
+                                    Fahrzeugkategorie
+                                </Label>
+                                <Select
+                                onValueChange={(value) => setCurrentCategory(value)}
+                                >
+                                    <SelectTrigger className="dark:border-none dark:bg-[#191919] w-full">
+                                        <SelectValue placeholder="Wähle eine Kategorie"  />
+                                    </SelectTrigger>
+                                    <SelectContent className="dark:bg-[#191919] dark:border-none">
+                                        <SelectGroup>
+                                            <SelectLabel>Fahrzeugkategorie</SelectLabel>
+                                            <SelectItem value="PKW">PKW</SelectItem>
+                                            <SelectItem value="LKW">LKW</SelectItem>
+                                            <SelectItem value="TRAILER">Anhänger</SelectItem>
+                                            <SelectItem value="TRANSPORT">Transporter</SelectItem>
+                                            
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="mt-4 w-full flex justify-end">
+                                <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300"
+                                onClick={onSubmit}
+                                disabled={!currentCategory || !currentTitle || currentTitle.trim() === ""}
+
+                                >
+                                    Anzeige erstellen
+                                </Button>
+                            </div>
+                        </div>
+
                     </div>
                 </DialogContent>
             </Dialog>

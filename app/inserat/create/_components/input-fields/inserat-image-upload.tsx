@@ -153,7 +153,12 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                         <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-20 border-dashed border
                              dark:text-gray-100/80 dark:border-gray-500" {...getRootProps()}>
                             <input {...getInputProps()} />
-                            Fotos hinzufügen oder reinziehen.. </div>
+                            {isDragActive ? (
+                                "Fotos hier ablegen.."
+                            ) : (
+                                "Fotos hinzufügen oder reinziehen.."
+                            ) }
+                            </div>
 
                     )}
                 </div>

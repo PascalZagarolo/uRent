@@ -15,6 +15,7 @@ import DeleteBooking from "../manage/_components/delete-booking";
 import EditBooking from "../manage/_components/edit-booking";
 import { GiHouseKeys, GiShakingHands } from "react-icons/gi";
 import { CgUnavailable } from "react-icons/cg";
+import CalenderDayDetail from "./calender-day-detail";
 
 interface Event {
   date: Date;
@@ -68,7 +69,9 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
         "text-emerald-400 font-semibold": isToday(day),
       })}
     >
-      {format(day, "d")}
+      <CalenderDayDetail 
+      day_date={day}
+      />
       {bookings?.map((pBooking) => {
         return (
 

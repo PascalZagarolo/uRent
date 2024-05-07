@@ -766,6 +766,9 @@ export const booking = pgTable("booking", {
     startDate: timestamp("startDate", {mode: "date"}),
     endDate: timestamp("endDate", {mode: "date"}),
 
+    startPeriod : text("startPeriod"),
+    endPeriod : text("endPeriod"),
+
     isAvailability : boolean("isAvailability").default(false),
 
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),

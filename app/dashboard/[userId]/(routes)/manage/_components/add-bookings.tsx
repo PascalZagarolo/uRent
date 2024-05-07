@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { format, set } from 'date-fns';
+import { format, isSameDay, set } from 'date-fns';
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -42,6 +42,8 @@ import { vehicle } from '../../../../../../db/schema';
 import { Input } from "@/components/ui/input";
 import { MdOutlinePersonPin } from "react-icons/md";
 import { de } from "date-fns/locale";
+import SelectTimeRange from "./select-time-range";
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 interface AddBookingProps {
@@ -60,6 +62,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
     const [currentName, setCurrentName] = useState<string | null>(null);
     const [currentContent, setCurrentContent] = useState<string | null>(null);
+
+    const [currentStartTime, setCurrentStartTime] = useState("");
+    const [currentEndTime, setCurrentEndTime] = useState("");
+    const [selectAllDay, setSelectAllDay] = useState(false);
+
+
     const selectedUser = usesearchUserByBookingStore((user) => user.user);
 
     const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null>(null);
@@ -105,11 +113,20 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
             const values = {
                 content: value.content ? value.content : "",
+                
+                //Days
                 start: new Date(currentStart),
                 end: new Date(currentEnd),
+
+                //Hours
+                startPeriod : currentStartTime,
+                endPeriod : currentEndTime,
+
+
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
                 name: currentName,
+                
 
             }
             axios.post(`/api/booking/${currentInserat}`, values)
@@ -252,7 +269,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                 {currentStart ? (
                                                                     format(currentStart, "PPP", { locale : de})
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>Wähle ein Datum</span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
@@ -301,7 +318,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                 {currentEnd ? (
                                                                     format(currentEnd, "PPP", { locale : de})
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>Wähle ein Datum</span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
@@ -330,6 +347,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                     />
 
 
+                                </div>
+                                
+                                <div className="">
+                                                <SelectTimeRange
+                                                isSameDay={isSameDay(currentStart, currentEnd) || false}
+                                                setStartTimeParent={setCurrentStartTime}
+                                                setEndTimeParent={setCurrentEndTime}
+                                                />
                                 </div>
                                 <div>
                                     <FormField
@@ -374,7 +399,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={(!selectedUser && (!currentName || currentName.trim() === "")) || isLoading || !currentInserat || !currentStart || !currentEnd}
+                                        disabled={(!selectedUser && (!currentName || currentName.trim() === "")) 
+                                    || isLoading || !currentInserat || !currentStart || !currentEnd
+                                    || !currentStartTime || !currentEndTime
+                                }
                                         type="submit"
                                     >
                                         Buchung hinzufügen</Button>

@@ -22,8 +22,13 @@ export async function POST(
             userId: values.userId,
             startDate : usedStart,
             vehicleId : values.vehicleId,
+            //Days
             endDate : usedEnd,
             content : values.content,
+            //Hours
+            startPeriod : values.startPeriod,
+            endPeriod : values.endPeriod,
+            
             name : values.name,
             isAvailability : values.isAvailability,
         }).returning();

@@ -35,6 +35,14 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                 for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i = i + 30) {
                     appointedTimes.push(i);
                 }
+            } else if(isSameDay(pBooking.startDate, day_date) && !isSameDay(pBooking.endDate, day_date)) {
+                for (let i = Number(pBooking.startPeriod); i <= 1440; i = i + 30) {
+                    appointedTimes.push(i);
+                }
+            } else if(!isSameDay(pBooking.startDate, day_date) && isSameDay(pBooking.endDate, day_date)) {
+                for (let i = 0; i <= Number(pBooking.endPeriod); i = i + 30) {
+                    appointedTimes.push(i);
+                }
             }
         }
 

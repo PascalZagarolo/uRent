@@ -17,7 +17,7 @@ const ConditionsSearch = () => {
 
                 />
             </h3>
-            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2">
+            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2 sm:space-y-0">
                 <div className="sm:w-1/3">
                     <LicenseSearch />
                 </div>
@@ -29,7 +29,7 @@ const ConditionsSearch = () => {
                 </div>
 
             </div>
-            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2">
+            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2 sm:space-y-0">
             <div className="sm:w-1/3">
                     <AmountSearch />
                 </div>

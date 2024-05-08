@@ -1,13 +1,14 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { booking } from "@/db/schema";
-import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { format, isSameDay } from "date-fns";
 import { de } from "date-fns/locale";
 import { useState } from "react";
 import { RiCalendarEventFill } from "react-icons/ri";
 
 interface CalenderDayDetailProps {
     day_date: Date;
-    affectedBookings : typeof booking.$inferSelect[];
+    affectedBookings: typeof booking.$inferSelect[];
 }
 
 const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
@@ -15,29 +16,53 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
     affectedBookings
 }) => {
 
+
+
     const [appointedTimes, setAppointedTimes] = useState([]);
 
-    for(const pBooking of affectedBookings){
+    for (const pBooking of affectedBookings) {
         const startHour = Number(pBooking.startPeriod) / 60;
 
+
         //TODO: Add all the time between the start and the end date ONLY if the booking on the given day or starts on the given day
-        
+
+        if (affectedBookings) {
+            if (!isSameDay(pBooking.startDate, day_date) && !isSameDay(pBooking.endDate, day_date)) {
+                for (let i = 0; i <= 1440; i = i + 30) {
+                    appointedTimes.push(i);
+                }
+            } else if(isSameDay(pBooking.startDate, day_date) && isSameDay(pBooking.endDate, day_date)) {
+                for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i = i + 30) {
+                    appointedTimes.push(i);
+                }
+            }
+        }
+
+    }
+
+    
+
+
+    const checkBooked = (number: string) => {
+        if (appointedTimes.includes(Number(number))) {
+            return true;
+        }
     }
 
     const renderSegments = () => {
         const segments = [];
         for (let hour = 8; hour <= 23; hour++) {
             segments.push(
-                <div key={hour} className="dark:bg-[#131313]  text-sm flex items-center border-dashed border-b-2 dark:border-[#1C1C1C]">
-                    <div className="p-4 w-1/4">
-                        {hour}:00 <br/>Uhr
+                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center border-dashed border-b dark:border-[#1C1C1C]">
+                    <div className="p-2 text-sm w-2/4">
+                        {hour}:00 Uhr
                     </div>
-                    <div className="h-full ml-auto w-full">
-                        <div className="h-1/2  w-full p-2">
-                            2
+                    <div className="h-full ml-auto w-2/4 flex flex-col">
+                        <div className={cn("h-full w-full p-2", checkBooked(String(hour * 60))) + (checkBooked(String(hour * 60)) ? " bg-rose-800" : "")}>
+                            1
                         </div>
-                        <div className="h-1/2 p-2 rounded-r-md bg-rose-800">
-                        ...
+                        <div className={cn("h-full w-full p-2", checkBooked(String((hour * 60) + 30))) + (checkBooked(String((hour * 60) + 30)) ? " bg-rose-800" : "")}>
+                            2
                         </div>
                     </div>
                 </div>
@@ -63,7 +88,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                     </h3>
                     <p className="px-4 text-xs dark:text-gray-200/60">
                         Finde heraus, wann das Inserat verfügbar ist, und wann nicht.
-                    </p>                    
+                    </p>
 
                     <div className="mt-4">
                         {renderSegments()}

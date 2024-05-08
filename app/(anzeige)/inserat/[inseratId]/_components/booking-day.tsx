@@ -10,6 +10,7 @@ import { format, isToday } from "date-fns";
 import { CalendarSearchIcon, CarIcon, UserIcon, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import CalenderDayDetail from '../../../../dashboard/[userId]/(routes)/_components/calender-day-detail';
 
 interface Event {
   date: Date;
@@ -58,7 +59,10 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           "dark:bg-rose-900 bg-rose-900": (bookings.length > 0),
         })}
       >
-        {format(day, "d")}
+        <CalenderDayDetail 
+        day_date={day}
+        affectedBookings={bookings}
+        />
 
 
 

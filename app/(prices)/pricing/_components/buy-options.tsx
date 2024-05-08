@@ -253,7 +253,6 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     return (
         <div>
             <div className="w-full sm:flex sm:p-0 p-2  sm:space-x-4 items-center">
-
                 <div className="ml-auto sm:mt-0 mt-4 flex sm:justify-end text-sm font-medium">
                     Wie viele Inserate möchtest du schalten?
                 </div>
@@ -285,10 +284,10 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     <GiUpgrade className="w-6 h-6 mr-2 text-indigo-600" />   Bestehenden Plan Upgraden
                 </div>
             )}
-            <div className="w-full  sm:mt-0 sm:flex sm:space-x-4 space-y-4 sm:p-4  p-2">
+            <div className="w-full  sm:mt-0 sm:flex sm:space-x-4 space-y-4 sm:space-y-0  sm:p-4  p-2">
 
-                <div className="sm:w-1/3 w-full  sm:border-r dark:border-[#1C1C1C] dark:bg-[#232323] p-4 rounded-md">
-                    <h3 className="text-md ">
+                <div className="sm:w-1/3 w-full dark:bg-[#232323] p-4 rounded-md">
+                <h3 className="text-md ">
                         Basis
                     </h3>
                     <p className="text-xs dark:text-gray-200/70 mt-1 h-[32px]">

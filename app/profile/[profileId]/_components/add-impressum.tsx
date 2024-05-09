@@ -142,13 +142,15 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                             
 
                             <div>
-                                <div className={cn("dark:text-gray-200 whitespace-pre-wrap break-words", 
-                                isUnfolded ? "h-full" : "max-h-[72px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                <div className={cn("dark:text-gray-200/90 whitespace-pre-wrap break-words", 
+                                isUnfolded ? "h-full" : "h-full", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                 onClick={() => {ownProfile && onEdit()}}
                                 >
                                 {currentContent} 
 
                             </div>
+                            {/* 
+                            
                             {user?.business?.impressum?.length > 400 && (
                                 <Button className=" w-full bg-gray-200 
                                 focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
@@ -156,6 +158,8 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                                     {isUnfolded ? "Weniger anzeigen" : "Mehr anzeigen"}
                                 </Button>
                             )}
+
+                            */}
                             </div>
                            ) : (
                             <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => {ownProfile && onEdit()}}>

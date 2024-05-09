@@ -119,7 +119,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             {user.isBusiness ? (
                 <>
                     <div className="mt-8 text-md font-semibold ml-2 flex items-center">
-                        <BiSolidBusiness className="flex w-4 h-4 mr-2" /> über uRent
+                        <BiSolidBusiness className="flex w-4 h-4 mr-2" /> über {user.name}
                     </div>
                     <div>
                         <BusinessDescription

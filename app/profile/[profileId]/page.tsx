@@ -193,7 +193,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             </div>
                                         )}
                                         {thisUser.isBusiness && (
-                                            <div className="sm:p-4">
+                                            <div className="sm:px-4">
                                                 <AddImpressum
                                                     ownProfile={ownProfile}
                                                     user={thisUser}
@@ -201,20 +201,19 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             </div>
                                         )}
                                         <div>
-                                            <div className="mt-8 sm:px-4 px-2">
-                                                <h1 className="text-md font-semibold flex items-center">
-                                                    <TruckIcon className="mr-2 w-4 h-4" />Weitere Inhalte <p className=" ml-2 text-sm">{foundInserate.length}</p>
-                                                </h1>
-                                            </div>
+                                            
                                         </div>
                                     </div>
 
-                                    <div className="p-2">
-                                        <OwnContentSlide
+                                   
+                                    <div>
+                                        
+                                    <OwnContentSlide
                                             foundInserate={foundInserate}
                                             currentUser={currentUser}
                                         />
                                     </div>
+                                    
 
 
                                 </>

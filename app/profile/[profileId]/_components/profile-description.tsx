@@ -143,8 +143,8 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                             
 
                             <div>
-                                <div className={cn("dark:text-gray-200 whitespace-pre-wrap break-words", 
-                                isUnfolded ? "h-full" : "max-h-[72px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                <div className={cn("dark:text-gray-200/90 whitespace-pre-wrap break-words", 
+                                isUnfolded ? "h-full" : "max-h-[80px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                 onClick={() => {ownProfile && onEdit()}}
                                 >
                                 {currentContent} 

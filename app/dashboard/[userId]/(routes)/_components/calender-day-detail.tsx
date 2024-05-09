@@ -66,19 +66,23 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                         {hour}:00 Uhr
                     </div>
                     <div className="h-full ml-auto w-2/4 flex flex-col">
-                        <div className={cn("h-full w-full p-2", 
+                        <div className={cn("h-[32px] w-full p-2", 
                         checkBooked(String(hour * 60)) ? " bg-rose-800" : "",
                         checkBooked(String((hour * 60) + 30)) ? "" : "rounded-b-lg",
                         checkBooked(String((hour * 60) - 30)) ? "" : "rounded-t-lg"
                         )}>
-                            1
+                            {(!checkBooked(String(hour * 60)) && checkBooked(String((hour * 60) - 30))) && (
+                                `Verfügbar ab ${hour}:00 Uhr`
+                            )}
                         </div>
-                        <div className={cn("h-full w-full p-2", 
+                        <div className={cn("h-[32px] w-full p-2 font-semibold text-xs", 
                         checkBooked(String((hour * 60) + 30)) ? " bg-rose-800" : "",
                         checkBooked(String((hour * 60) + 60)) ? "" : "rounded-b-lg",
                         checkBooked(String((hour * 60))) ? "" : "rounded-t-lg"
                         )}>
-                            2
+                            {(!checkBooked(String((hour * 60) + 30)) && checkBooked(String((hour * 60)))) && (
+                                `Verfügbar ab ${hour}:30 Uhr`
+                            )}
                         </div>
                     </div>
                 </div>

@@ -53,7 +53,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     const ownProfile = currentUser?.id === user.id
 
     return (
-        <div className="px-4">
+        <div className="sm:px-4 px-0">
 
             <div className="mt-4 mb-4">
                 {isOwnProfile && !user.confirmedMail && (
@@ -72,7 +72,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             <div className="sm:flex w-full  ">
 
                 <div className="flex rounded-md w-full pb-8 sm:pb-0 sm:w-2/5">
-                    <div className="w-full">
+                    <div className="w-full sm:px-0 px-4">
                         <div className=" dark:text-gray-100 w-full">
                             <div className="w-full text-lg  font-semibold line-clamp-1 whitespace-break-spaces break-all">
                                 {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}
@@ -146,21 +146,21 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             )}
 
             {!user.isBusiness && (
-                <div className="mt-8 text-md font-semibold ml-2 flex drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.)]">
+                <div className="mt-8 text-md font-semibold ml-2 flex ">
                     <Contact className="mr-2 h-4 w-4" /> Kontakt
                 </div>
             )}
 
             {user.isBusiness ? (
-                <div className="w-full flex gap-4 mt-4">
-                    <div className="w-1/2 ">
+                <div className="w-full sm:flex space-y-4 sm:space-y-0 sm:gap-4 mt-4">
+                    <div className="sm:w-1/2 w-full">
                         <StandortRender
                             ownProfile={ownProfile}
                             businessId={user?.business?.id}
                             foundAddress={user?.business?.businessAddresses}
                         />
                     </div>
-                    <div className="w-1/2 ">
+                    <div className="sm:w-1/2 w-full">
                         <ContactRender
                             thisBusiness={user?.business}
                             ownProfile={ownProfile}

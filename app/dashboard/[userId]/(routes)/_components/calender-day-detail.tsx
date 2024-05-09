@@ -81,7 +81,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                                 `Verfügbar ab ${hour}:00 Uhr`
                             )}
                         </div>
-                        <div className={cn("h-[32px] w-full p-2 font-semibold text-xs", 
+                        <div className={cn("h-[32px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]", 
                         checkBooked(String((hour * 60) + 30)) ? " bg-rose-800" : "",
                         checkBooked(String((hour * 60) + 60)) ? "" : "rounded-b-lg",
                         checkBooked(String((hour * 60))) ? "" : "rounded-t-lg"

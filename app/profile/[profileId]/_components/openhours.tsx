@@ -30,12 +30,12 @@ const Openhours : React.FC<OpenhoursProps> = ({
                 <div>
                     {thisBusiness.openingTimes ? (
                         <div className="grid grid-cols-6 grid-rows-2 gap-2 mt-4">
-                        <div className="col-span-1 row-span-1 font-medium text-sm">Montag</div>
-                        <div className="col-span-1 row-span-1 font-medium text-sm">Dienstag</div>
-                        <div className="col-span-1 row-span-1 font-medium text-sm">Mittwoch</div>
-                        <div className="col-span-1 row-span-1 font-medium text-sm">Donnerstag</div>
-                        <div className="col-span-1 row-span-1 font-medium text-sm">Freitag</div>
-                        <div className="col-span-1 row-span-1 font-medium text-sm">Samstag</div>
+                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Montag</div>
+                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Dienstag</div>
+                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Mittwoch</div>
+                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Donners<br className="sm:hidden block"/>tag</div>
+                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Freitag</div>
+                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Samstag</div>
 
                         <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.monday}</div>
                         <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.tuesday}</div>

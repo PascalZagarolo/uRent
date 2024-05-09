@@ -45,11 +45,11 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
             <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {//@ts-ignore
                 router.push(`/inserat/${favourite[0].inserat.id}`)}}>
                     {//@ts-ignore
-                    thisFavourite[0]?.inserat?.images?.length > 0 ? (
+                    thisFavourite?.inserat?.images?.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
                             //@ts-ignore
-                            src={thisFavourite?.inserat[0]?.images[0]?.url}
+                            src={thisFavourite?.inserat?.images[0]?.url}
                             width={200}
                             height={100}
                             className="w-full h-full min-h-[100px] min-w-1/4 object-cover"

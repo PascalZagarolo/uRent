@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils";
 
 import clsx from "clsx";
 import { format, isToday } from "date-fns";
-import { CalendarSearchIcon, CarIcon, UserIcon, X } from "lucide-react";
-import Image from "next/image";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import CalenderDayDetail from '../../../../dashboard/[userId]/(routes)/_components/calender-day-detail';
+import { useEffect, useState } from "react";
+
 
 interface Event {
   date: Date;
@@ -36,6 +37,8 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   const vehicleFilter = searchParams.get("vehicleId");
   const router = useRouter();
 
+  const [isCompletelyUnaivalable, setIsCompletelyUnaivalable] = useState(false);
+
   const isShowing = (id: string, vehicleId?: string) => {
     if (inseratFilter) {
       if (vehicleFilter) {
@@ -47,21 +50,27 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
     return true;
   }
 
+  useEffect(() => {
+    console.log(isCompletelyUnaivalable)
+  }, [isCompletelyUnaivalable])
+
   return (
     <>
       
 
       <div
         key={index}
-        className={clsx("dark:bg-[#0F0F0F]  p-4 text-center ", {
+        className={clsx("dark:bg-[#0F0F0F]  p-4 text-center rounded-md", {
           "bg-gray-200": isToday(day),
-          "text-emerald-400 font-bold": isToday(day),
-          "dark:bg-rose-900 bg-rose-900": (bookings.length > 0),
+          "font-black": isToday(day),
+          "dark:bg-rose-800 bg-rose-800": isCompletelyUnaivalable,
+          "dark:bg-indigo-800 bg-indigo-500": (bookings.length > 0) && !isCompletelyUnaivalable,
         })}
       >
         <CalenderDayDetail 
         day_date={day}
         affectedBookings={bookings}
+        setCompletelyUnaivalable={setIsCompletelyUnaivalable}
         />
 
 

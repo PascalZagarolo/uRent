@@ -9,11 +9,13 @@ import { RiCalendarEventFill } from "react-icons/ri";
 interface CalenderDayDetailProps {
     day_date: Date;
     affectedBookings: typeof booking.$inferSelect[];
+    setCompletelyUnaivalable: (value : boolean) => void;
 }
 
 const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
     day_date,
-    affectedBookings
+    affectedBookings,
+    setCompletelyUnaivalable
 }) => {
 
 
@@ -28,8 +30,9 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
         if (affectedBookings) {
             if (!isSameDay(pBooking.startDate, day_date) && !isSameDay(pBooking.endDate, day_date)) {
+                setCompletelyUnaivalable(true);
                 for (let i = 0; i <= 1440; i = i + 30) {
-                    appointedTimes.push(i);
+                    appointedTimes.push(i);   
                 }
             } else if(isSameDay(pBooking.startDate, day_date) && isSameDay(pBooking.endDate, day_date)) {
                 for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i = i + 30) {
@@ -61,7 +64,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
         const segments = [];
         for (let hour = 8; hour <= 23; hour++) {
             segments.push(
-                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center border-dashed border-b dark:border-[#1C1C1C]">
+                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center  dark:border-[#1C1C1C]">
                     <div className="p-2 text-sm w-2/4">
                         {hour}:00 Uhr
                     </div>

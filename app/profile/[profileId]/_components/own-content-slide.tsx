@@ -58,7 +58,8 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
         }),
       ]}>
         
-        <CarouselContent className="">
+        <CarouselContent className="mt-0">
+          
               {foundInserate.map((thisInserat, index) => (
                 <CarouselItem key={index} className="w-full flex justify-center flex-shrink-0">
                   
@@ -77,7 +78,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
         
       </Carousel>
       </div>
-      <div className="text-center text-sm text-muted-foreground mt-4">
+      <div className="text-center text-sm text-muted-foreground mt-2">
         Inserat {current} von {count}
       </div>
     </div>

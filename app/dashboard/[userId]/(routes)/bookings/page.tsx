@@ -73,7 +73,7 @@ const Bookings = async ({
                                     bookings={bookings}
                                     />
                                 ) : (
-                                    <div className="flex justify-center text-gray-100/70">
+                                    <div className="flex justify-center text-gray-200/60 text-sm">
                                         Noch keine Fahrzeuge gebucht...
                                     </div>
                                 )}

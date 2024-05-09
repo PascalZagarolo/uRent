@@ -71,7 +71,7 @@ const Bookings = async ({
                                     favourites={favourites}
                                     />
                                 ) : (
-                                    <div className="flex justify-center sm:text-lg text-sm text-gray-100/70">
+                                    <div className="flex justify-center  text-sm text-gray-200/60">
                                         Noch keine Anzeigen gespeichert...
                                     </div>
                                 )}

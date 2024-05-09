@@ -144,12 +144,13 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
 
                             <div>
                                 <div className={cn("dark:text-gray-200/90 whitespace-pre-wrap break-words", 
-                                isUnfolded ? "h-full" : "max-h-[80px]", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                isUnfolded ? "h-full" : "", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                 onClick={() => {ownProfile && onEdit()}}
                                 >
                                 {currentContent} 
 
                             </div>
+                            {/*
                             {user.description?.length > 400 && (
                                 <Button className=" w-full bg-gray-200 
                                 focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
@@ -157,6 +158,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                                     {isUnfolded ? "Weniger anzeigen" : "Mehr anzeigen"}
                                 </Button>
                             )}
+                            */}
                             </div>
                            ) : (
                             (!user?.description && ownProfile) ? (

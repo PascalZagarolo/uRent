@@ -16,6 +16,7 @@ import EditBooking from "../manage/_components/edit-booking";
 import { GiHouseKeys, GiShakingHands } from "react-icons/gi";
 import { CgUnavailable } from "react-icons/cg";
 import CalenderDayDetail from "./calender-day-detail";
+import { useState } from "react";
 
 interface Event {
   date: Date;
@@ -44,6 +45,10 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
 
   const inseratFilter = searchParams.get("inseratId");
   const vehicleFilter = searchParams.get("vehicleId");
+
+  const [isUnavailable, setIsUnavailable] = useState(false);
+
+
   const router = useRouter();
 
   const isShowing = (id: string, vehicleId?: string) => {
@@ -72,6 +77,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
       <CalenderDayDetail 
       day_date={day}
       affectedBookings={bookings}
+      setCompletelyUnaivalable={setIsUnavailable}
       />
       {bookings?.map((pBooking) => {
         return (

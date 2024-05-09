@@ -50,9 +50,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
     return true;
   }
 
-  useEffect(() => {
-    console.log(isCompletelyUnaivalable)
-  }, [isCompletelyUnaivalable])
+  
 
   return (
     <>
@@ -67,11 +65,15 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           "dark:bg-indigo-800 bg-indigo-500": (bookings.length > 0) && !isCompletelyUnaivalable,
         })}
       >
-        <CalenderDayDetail 
+        {isCompletelyUnaivalable ? ( 
+<>{format(new Date(day), "d")}</>
+        ) : (
+<CalenderDayDetail 
         day_date={day}
         affectedBookings={bookings}
         setCompletelyUnaivalable={setIsCompletelyUnaivalable}
         />
+        )}
 
 
 

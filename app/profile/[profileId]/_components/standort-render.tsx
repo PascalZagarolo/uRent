@@ -109,9 +109,9 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     return (
         <Dialog>
             <div>
-                <div className="dark:bg-[#191919] p-4">
+                <div className="dark:bg-[#191919] p-4 rounded-t-md">
                     <h1 className="text-md font-semibold sm:flex items-center">
-                        <div className="flex">
+                        <div className="flex items-center">
                             <BiLandscape className="w-4 h-4 mr-2" />  Standort
                         </div>
                         {ownProfile && (

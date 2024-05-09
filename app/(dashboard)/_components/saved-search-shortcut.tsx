@@ -1,3 +1,4 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -47,13 +48,13 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
         }
     }
 
-    const changeSearch = async (savedSearchId : string, checkAvailability? : boolean, checkUpdates? : boolean ) => {
+    const changeSearch = async (savedSearchId: string, checkAvailability?: boolean, checkUpdates?: boolean) => {
         try {
             setIsLoading(true);
 
             const values = {
                 checkAvailability: checkAvailability,
-                getUpdates : checkUpdates
+                getUpdates: checkUpdates
             }
 
             await axios.patch(`/api/saved-search/edit/${savedSearchId}`, values)
@@ -61,8 +62,8 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
                     toast.success("Einstellungen übernommen.")
                     router.refresh();
                 })
-        } catch(error : any) {
-            
+        } catch (error: any) {
+
             toast.error("Fehler beim Ändern der Suche.")
         } finally {
             setIsLoading(false);
@@ -137,42 +138,51 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
                                 </div>
                                 <div>
                                 </div>
-                                <div className="flex items-center w-full">
-                                
-                                <div className="w-full space-y-2">
-                                    <div className="">
-                                    <Label className="text-xs">
-                                        Benachrichtige mich,
-                                    </Label>
-                                    </div>
-                                    <div className="ml-auto flex  items-center gap-x-2">
-                                    
+                                <Accordion type="single" collapsible className="pr-4">
+                                    <AccordionItem value="item 1" className="border-none">
+                                    <AccordionTrigger className="text-xs">
+                                            Weitere Details
+                                        </AccordionTrigger>
+                                        <AccordionContent className="border-none">
+                                            <div className="flex items-center w-full">
 
-                                    <Checkbox
-                                        onCheckedChange={(e : boolean) => (changeSearch(search.id, e, search.receivesUpdates))}
-                                        checked={search.receiveAvailability} 
-                                        disabled={isLoading}
-                                        />
-                                    <Label className="text-xs dark:text-gray-200/80">
-                                        wenn ein passendes Inserat gefunden wurde.
-                                    </Label>
-                                    
-                                </div>
-                                <div className="flex items-center gap-x-2">
-                                    
+                                                <div className="w-full space-y-2">
+                                                    <div className="">
+                                                        <Label className="text-xs">
+                                                            Benachrichtige mich,
+                                                        </Label>
+                                                    </div>
+                                                    <div className="ml-auto flex  items-center gap-x-2">
 
-                                <Checkbox
-                                        onCheckedChange={(e : boolean) => (changeSearch(search.id, search.receiveAvailability, e))}
-                                        checked={search.receivesUpdates} 
-                                        disabled={isLoading}
-                                        />
-                                    <Label className="text-xs dark:text-gray-200/80">
-                                        wenn neue Ergebnisse verfügbar sind.
-                                    </Label>
-                                    
-                                </div>
-                                </div>
-                                </div>
+
+                                                        <Checkbox
+                                                            onCheckedChange={(e: boolean) => (changeSearch(search.id, e, search.receivesUpdates))}
+                                                            checked={search.receiveAvailability}
+                                                            disabled={isLoading}
+                                                        />
+                                                        <Label className="text-xs dark:text-gray-200/80">
+                                                            wenn ein passendes Inserat gefunden wurde.
+                                                        </Label>
+
+                                                    </div>
+                                                    <div className="flex items-center gap-x-2">
+
+
+                                                        <Checkbox
+                                                            onCheckedChange={(e: boolean) => (changeSearch(search.id, search.receiveAvailability, e))}
+                                                            checked={search.receivesUpdates}
+                                                            disabled={isLoading}
+                                                        />
+                                                        <Label className="text-xs dark:text-gray-200/80">
+                                                            wenn neue Ergebnisse verfügbar sind.
+                                                        </Label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
                             </div>
 
                         ))}

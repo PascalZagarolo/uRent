@@ -130,9 +130,15 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
                     );
                 })}
             </div>
-            <div className="mt-2">
+            <div className="mt-2 text-xs dark:text-gray-200/60">
+                *Klicke auf Tage um ihre vollständige Verfügbarkeit zu sehen.
+            </div>
+            <div className="mt-2 space-y-2">
                 <h1 className="flex text-xs dark:text-gray-200/80 text-gray-700/70 gap-x-2">
-                <SquareIcon className="w-4 h-4 text-rose-900 bg-rose-900" /> Belegte Tage   
+                <SquareIcon className="w-4 h-4 text-indigo-800 bg-indigo-800" /> Teilweise Belegte Tage   
+                </h1>
+                <h1 className="flex text-xs dark:text-gray-200/80 text-gray-700/70 gap-x-2">
+                <SquareIcon className="w-4 h-4 text-rose-800 bg-rose-800" /> Vollständig Belegte Tage   
                 </h1>
             </div>
         </div>

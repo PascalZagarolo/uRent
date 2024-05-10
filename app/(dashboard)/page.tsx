@@ -37,8 +37,13 @@ interface MainPageProps {
         end: string,
         filter: string,
         page: number,
+
+        //Date and Timefilter
         periodBegin: string,
         periodEnd: string,
+        startTime : number,
+        endTime : number,
+
         location: string,
         amount: string,
 
@@ -154,8 +159,12 @@ const Main = cache(async ({
                             start={searchParams.start}
                             end={searchParams.end}
                             page={searchParams.page}
+                            //Date and Time filter
                             periodBegin={searchParams.periodBegin}
                             periodEnd={searchParams.periodEnd}
+                            startTime={searchParams.startTime}
+                            endTime={searchParams.endTime}
+
                             location={searchParams.location}
                             amount={searchParams.amount}
 

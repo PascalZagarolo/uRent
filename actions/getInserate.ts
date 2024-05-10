@@ -22,8 +22,12 @@ type GetInserate = {
     start?: number;
     end?: number;
     page?: number;
+
     periodBegin?: string;
     periodEnd?: string;
+    startTime? : number;
+    endTime? : number;
+
     location?: string;
     amount?: number;
     //conditions
@@ -91,8 +95,13 @@ export const getInserate = cache(async ({
     start,
     end,
     page,
+
     periodBegin,
     periodEnd,
+    startTime,
+    endTime,
+
+
     location,
     amount,
 
@@ -130,9 +139,13 @@ export const getInserate = cache(async ({
 
     radius,
     userId,
-    caution
+    caution,
+
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
+
+    console.log(startTime);
+    console.log(endTime)
     
 
     const ConditionFilter = cache((pInserat: typeof inserat) => {

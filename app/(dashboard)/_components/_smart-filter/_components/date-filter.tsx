@@ -64,7 +64,6 @@ const DateFormFilter = () => {
 
     const setEnd = (usedDate : Date) => {
         //@ts-ignore
-        
         changeSearchParams("periodEnd", usedDate);
         
     }

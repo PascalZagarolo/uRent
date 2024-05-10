@@ -79,7 +79,7 @@ const SearchItem = () => {
             deleteSearchParams("title");
             setValue("");
         }
-      },[debouncedValue])
+      },[value])
 
       useEffect(() => {
         if(!currentTitle){

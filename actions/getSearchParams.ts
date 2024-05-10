@@ -13,6 +13,8 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         location: searchParams.get("location"),
         periodBegin: searchParams.get("periodBegin"),
         periodEnd: searchParams.get("periodEnd"),
+        startTime : searchParams.get("startTime"),
+        endTime : searchParams.get("endTime"),
         /*
         page : searchParams.get("page"),
         */

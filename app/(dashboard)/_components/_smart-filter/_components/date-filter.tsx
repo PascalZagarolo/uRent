@@ -29,6 +29,7 @@ import { de } from "date-fns/locale";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { useSavedSearchParams } from "@/store";
 import { set } from "lodash";
+import TimePeriodFormFilter from "./timeperiod";
 
 const DateFormFilter = () => {
 
@@ -254,6 +255,9 @@ const DateFormFilter = () => {
           </div>
         </div>
                 
+            </div>
+            <div className="mt-4">
+              <TimePeriodFormFilter/>
             </div>
             <div className="mt-2 flex justify-center  ">
                     <Button className="bg-[#1a1d2c] w-full border 

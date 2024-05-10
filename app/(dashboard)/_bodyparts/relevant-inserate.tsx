@@ -25,8 +25,12 @@ interface RelevanteInserateProps {
     start: string;
     end: string;
     page: number;
+
     periodBegin: string;
     periodEnd: string;
+    startTime : number,
+    endTime : number,
+
     location: string;
     amount: string;
     //conditions
@@ -80,8 +84,13 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     start,
     end,
     page,
+
+
     periodBegin,
     periodEnd,
+    startTime,
+    endTime,
+
     location,
     amount,
 
@@ -147,8 +156,13 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         start: Number(start),
         end: Number(end),
         page: Number(page),
+
+
         periodBegin: periodBegin,
         periodEnd: periodEnd,
+        startTime : startTime,
+        endTime : endTime,
+
         location: location,
         amount: Number(amount),
 

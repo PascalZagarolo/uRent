@@ -1,7 +1,9 @@
 'use client'
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { inserat } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -25,6 +27,7 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
     const [currentValue, setCurrentValue] = useState(thisInserat.pkwAttribute?.freeMiles || 0);
+    const [isUnlimited, setIsUnlimited] = useState(false);
 
     const formSchema = z.object({
         freeMiles: z.preprocess(
@@ -79,6 +82,7 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
                                     <FormItem className="mt-2 ">
                                         <FormControl>
                                             <Input
+                                                
                                                 type="text"
                                                 {...field}
                                                 name="price"
@@ -104,7 +108,7 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
                                                         
                                                     field.onChange(formattedValue);
                                                 }}
-                                                disabled={thisInserat.category ? false : true}
+                                                disabled={(thisInserat.category ? false : true) || isUnlimited}
                                             />
                                         </FormControl>
                                         
@@ -115,7 +119,8 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
                             />
                         )}
                     />
-                    <div>
+                    <div className="flex items-center gap-x-2">
+                        
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
@@ -123,7 +128,15 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
                         >
                             Freikilometer angeben
                         </Button>
-                        
+                        <div className="space-x-2 flex items-center">
+                            <Checkbox
+                            onCheckedChange={(isChecked : boolean) => {setIsUnlimited(isChecked)}}
+                            checked={isUnlimited}
+                            />
+                            <Label className="text-sm">
+                                Keine Kilometer Begrenzung
+                            </Label>
+                        </div>
                     </div>
                 </form>
             </Form>

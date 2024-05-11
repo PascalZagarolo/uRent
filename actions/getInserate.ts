@@ -10,7 +10,7 @@ import {
 } from "@/db/schema";
 import axios from "axios";
 import { isSameDay } from "date-fns";
-import { and, between, eq, gte, ilike, like, lte, or } from "drizzle-orm";
+import { and,  eq, gte, ilike, lte } from "drizzle-orm";
 import { cache } from "react";
 
 
@@ -259,8 +259,6 @@ export const getInserate = cache(async ({
                 //booking
                 && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
             ) {
-
-
                 if(isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)){
                     for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
                         startDateAppointments.add(i);

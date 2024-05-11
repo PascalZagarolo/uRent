@@ -241,7 +241,6 @@ export const getInserate = cache(async ({
         if (pInserat.bookings.length === 0) {
             return true;
         }
-
         //set start and date to same date if the user only provides one
 
         const usedPeriodBegin = new Date(periodBegin);
@@ -250,14 +249,18 @@ export const getInserate = cache(async ({
         let startDateAppointments = new Set<any>();
         let endDateAppointments = new Set<any>();
 
-        for (const booking of pInserat.bookings ) {
+        for (const booking of pInserat.bookings) {
             
-
+                //booking starts AND ends before the searched Period
             if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
-            || isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
-            || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin)
-                && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
+                //booking starts or ends on the first OR last day of the searched period
+            || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
+            || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
+                //booking
+                && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
             ) {
+
+
                 if(isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)){
                     for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
                         startDateAppointments.add(i);
@@ -265,14 +268,23 @@ export const getInserate = cache(async ({
                     if(startDateAppointments.size === 48) {
                         return false;
                     }
-                } else if(isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin) ){
+                } else if(isSameDay(booking.endDate, usedPeriodEnd) || isSameDay(booking.startDate, usedPeriodEnd) ){
                     for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
                         endDateAppointments.add(i);
                     }
                     if(endDateAppointments.size === 48) {
                         return false;
+                    } else if(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+                        console.log(booking)
+
                     }
-                } else {
+                } else if(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+                    
+                }
+                else {
+                    console.log(booking)
+                    console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
+
                     return false;
                 }
                 

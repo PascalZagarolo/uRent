@@ -247,14 +247,40 @@ export const getInserate = cache(async ({
         const usedPeriodBegin = new Date(periodBegin);
         const usedPeriodEnd = new Date(periodEnd);
 
-        for (const booking of pInserat.bookings) {
+        let startDateAppointments = new Set<any>();
+        let endDateAppointments = new Set<any>();
+
+        for (const booking of pInserat.bookings ) {
+            
+
             if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
             || isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
+            || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin)
                 && (!(booking.endDate >= usedPeriodEnd) || !(booking.startDate >= usedPeriodEnd))
             ) {
-                return false;
+                if(isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)){
+                    for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
+                        startDateAppointments.add(i);
+                    }
+                    if(startDateAppointments.size === 48) {
+                        return false;
+                    }
+                } else if(isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin) ){
+                    for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
+                        endDateAppointments.add(i);
+                    }
+                    if(endDateAppointments.size === 48) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                
+                
             }
         }
+        
+        
 
         return true;
     })

@@ -64,6 +64,8 @@ const AddPriceProfile : React.FC<AddPriceProfileProps> = ({
             await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
                 .then(() => {
                     router.refresh();
+                    setCurrentValue(undefined);
+                    form.reset();                
                 })
 
             toast.success("Preisprofil hinzugefügt")

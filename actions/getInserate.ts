@@ -250,7 +250,6 @@ export const getInserate = cache(async ({
         let endDateAppointments = new Set<any>();
 
         for (const booking of pInserat.bookings) {
-            
                 //booking starts AND ends before the searched Period
             if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
                 //booking starts or ends on the first OR last day of the searched period
@@ -259,18 +258,21 @@ export const getInserate = cache(async ({
                 //booking
                 && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
             ) {
-                if(isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)){
+                if((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)){
+                    
                     for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
                         startDateAppointments.add(i);
                     }
-                    if(startDateAppointments.size === 48) {
+                    if(startDateAppointments.has ("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
                         return false;
                     }
-                } else if(isSameDay(booking.endDate, usedPeriodEnd) || isSameDay(booking.startDate, usedPeriodEnd) ){
+                } else if((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd)) 
+                || isSameDay(booking.startDate, usedPeriodEnd)){
+                    
                     for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
                         endDateAppointments.add(i);
                     }
-                    if(endDateAppointments.size === 48) {
+                    if(endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
                         return false;
                     } else if(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
                         console.log(booking)
@@ -282,14 +284,42 @@ export const getInserate = cache(async ({
                 else {
                     console.log(booking)
                     console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
-
                     return false;
-                }
-                
-                
+                } 
             }
         }
         
+        if(startDateAppointments.size !== 0 || endDateAppointments.size !== 0 && (startTime || endTime)) {
+            if(startTime) {
+                let usedEnd;
+
+                    if(isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
+                        usedEnd = endTime;
+                    }
+                
+                for (let i = startTime; i <= endTime; i = i + 30){
+                    if(startDateAppointments.has(Number(i))) {
+                        return false;
+                    }
+                }
+            }
+            if(endTime) {
+                let usedEnd;
+
+                    if(isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
+                        usedEnd = startTime;
+                    }
+
+                
+
+                    for (let i = endTime; i >= Number(usedEnd); i = i - 30){
+                        if(endDateAppointments.has(Number(i))) {
+                            return false;
+                        }
+                    }
+            }
+        }
+
         
 
         return true;

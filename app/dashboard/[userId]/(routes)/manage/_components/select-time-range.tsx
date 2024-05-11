@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { isSameDay } from "date-fns";
+
 import { useEffect, useState } from "react";
 
 
@@ -14,6 +14,7 @@ interface SelectTimeRangeProps {
 const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
     setStartTimeParent,
     setEndTimeParent,
+    isSameDay
 }) => {
 
     const [startTime, setStartTime] = useState<string | null>(null);

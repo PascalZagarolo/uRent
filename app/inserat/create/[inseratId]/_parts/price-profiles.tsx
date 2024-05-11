@@ -217,7 +217,8 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                 <DialogContent className="dark:bg-[#191919] dark:border-none">
                     <div className="w-full">
                         <h1 className="font-semibold">
-                            Preis bearbeiten
+                            {priceType === "hours" && "Stundenpreis"} {priceType === "kilometer" && "Kilometerpreis"} {priceType === "weekend" && "Wochendpreis"} bearbeiten
+                                
                         </h1>
                         <div>
                         <Form {...form}>

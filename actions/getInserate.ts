@@ -144,8 +144,7 @@ export const getInserate = cache(async ({
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
 
-    console.log(startTime);
-    console.log(endTime)
+    
     
 
     const ConditionFilter = cache((pInserat: typeof inserat) => {
@@ -260,10 +259,19 @@ export const getInserate = cache(async ({
             ) {
                 if((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)){
                     
-                    for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
+                    let usedStart;
+
+                    if(isSameDay(booking.startDate, booking.endDate)) {
+                        usedStart = booking.startPeriod;
+                    } else {
+                        usedStart = "0"
+                    }
+
+                    for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+                        
                         startDateAppointments.add(i);
                     }
-                    if(startDateAppointments.has ("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                    if(startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
                         return false;
                     }
                 } else if((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd)) 
@@ -303,7 +311,7 @@ export const getInserate = cache(async ({
             console.log("saunoidas")
             if(startTime) {
                 let usedEnd;
-                console.log("test")
+                console.log(startDateAppointments)
                     if(isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
                         usedEnd = endTime;
                     } else {

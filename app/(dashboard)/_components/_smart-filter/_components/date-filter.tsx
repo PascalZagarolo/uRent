@@ -73,12 +73,14 @@ const DateFormFilter = () => {
           //@ts-ignore
             changeSearchParams("periodBegin", new Date(paramsPeriodBegin));
             setPeriodBegin(new Date(paramsPeriodBegin));
+            form.setValue("start", paramsPeriodBegin)
         } 
         
         if(paramsPeriodEnd){
           //@ts-ignore
             changeSearchParams("periodEnd", new Date(paramsPeriodEnd));
             setPeriodEnd(new Date(paramsPeriodEnd));
+            form.setValue("end", paramsPeriodEnd)
         }
     }, [])
 

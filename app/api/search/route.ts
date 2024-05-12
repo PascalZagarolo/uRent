@@ -161,7 +161,15 @@ export async function PATCH(
                 ) {
                     if ((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)) {
 
-                        for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
+                        let usedStart;
+
+                        if (isSameDay(booking.startDate, booking.endDate)) {
+                            usedStart = booking.startPeriod;
+                        } else {
+                            usedStart = "0"
+                        }
+
+                        for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
                             startDateAppointments.add(i);
                         }
                         if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
@@ -170,25 +178,25 @@ export async function PATCH(
                     } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
                         || isSameDay(booking.startDate, usedPeriodEnd)) {
 
-                            let usedEnd;
+                        let usedEnd;
 
-                            if(isSameDay(booking.startDate, booking.endDate)) {
-                                usedEnd = booking.endPeriod;
-                            } else {
-                                
-                                usedEnd = "1440";
-                            }
-        
-                            for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
-                                
-                                endDateAppointments.add(i);
-                            }
-                            if(endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                                return false;
-                            } else if(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
-                                console.log(booking)
-        
-                            }
+                        if (isSameDay(booking.startDate, booking.endDate)) {
+                            usedEnd = booking.endPeriod;
+                        } else {
+
+                            usedEnd = "1440";
+                        }
+
+                        for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+
+                            endDateAppointments.add(i);
+                        }
+                        if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                            return false;
+                        } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+                            console.log(booking)
+
+                        }
                     } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
 
                     }
@@ -226,7 +234,7 @@ export async function PATCH(
                         usedEnd = "0";
                     }
 
-                    
+
                     console.log(endDateAppointments)
                     for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
                         if (endDateAppointments.has(Number(i))) {

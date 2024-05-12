@@ -13,6 +13,7 @@ import InseratImageCarousel from "./inserat-image";
 import ReportModal from "./report/report-modal";
 import { format } from "date-fns";
 import { VscMilestone } from "react-icons/vsc";
+import TransferCarAdvert from "./transfer-car-advert";
 
 interface InseratShowProps {
     thisInserat : typeof inserat.$inferSelect
@@ -122,7 +123,9 @@ const InseratShow : React.FC<InseratShowProps> = ({
                                     </div>
                                 </div>
                             </div>
-
+                            <div className="mt-2">
+                                <TransferCarAdvert />
+                            </div>
                             {(thisInserat?.priceHour || thisInserat?.priceWeekend) && (
                                 <>
                                     <div className="mt-4">

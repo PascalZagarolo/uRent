@@ -96,8 +96,34 @@ const TimePeriodFormFilter = () => {
         //@ts-ignore
         if(isSameDay(currentObject["periodBegin"], currentObject["periodEnd"])){
             setUsesSameDay(true);
+            if(Number(startTime) >= Number(endTime)){
+                deleteSearchParams("startTime");
+            deleteSearchParams("endTime");
+            setStartTime(null);
+            setEndTime(null);
+            }
+        } else {
+            setUsesSameDay(false);
         }
-    },[currentObject])
+    },[currentObject["periodBegin"], currentObject["periodEnd"]])
+
+    React.useEffect(() => {
+        if(usesSameDay) {
+            if(Number(startTime) > Number(endTime)){
+                setEndTime(String(Number(startTime) + 30));
+                changeSearchParams("endTime", String(Number(startTime) + 30));
+            }
+        }
+    },[startTime])
+
+    React.useEffect(() => {
+        if(usesSameDay) {
+            if(Number(startTime) > Number(endTime)){
+                setStartTime(String(Number(endTime) - 30));
+                changeSearchParams("startTime", String(Number(endTime) - 30));
+            }
+        }
+    },[endTime])
 
 
     React.useEffect(() => {
@@ -176,10 +202,7 @@ const TimePeriodFormFilter = () => {
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(index * 30)]
                                                     }
-                                                    <SelectItem disabled={
-                                                        (isSameDay && Number(endTime) <= Number(index * 30) && !!endTime)
-
-                                                    } key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
+                                                    <SelectItem  key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
                                                 </SelectGroup>
                                             );
                                         })}

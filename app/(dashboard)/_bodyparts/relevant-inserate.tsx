@@ -229,7 +229,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                 </div>
             </div>
             ) : (
-                <div className="h-full flex sm:block sm:mt-0 items-center  border-2 border-gray-300 dark:border-gray-900 p-4 text-gray-100 bg-[#141620] ">
+                <div className="h-full flex sm:block sm:mt-0 items-center   p-4 text-gray-100 bg-[#141620] ">
                     <div className="ml-4 flex w-full items-center">
                         <div className="rounded-lg">
                             <MdManageSearch className="w-6 h-6 sm:mr-2" />

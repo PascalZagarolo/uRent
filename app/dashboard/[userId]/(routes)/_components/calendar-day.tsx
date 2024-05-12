@@ -29,6 +29,7 @@ interface CalendarDayProps {
   day: Date;
   bookings: typeof booking.$inferSelect[];
   foundInserate: typeof inserat.$inferSelect[];
+  setSelectedDateParent? : (date : Date) => void
 }
 
 
@@ -36,7 +37,8 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   index,
   day,
   bookings,
-  foundInserate
+  foundInserate,
+  setSelectedDateParent
 }) => {
 
   
@@ -74,11 +76,9 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
         "text-emerald-400 font-semibold": isToday(day),
       })}
     >
-      <CalenderDayDetail 
-      day_date={day}
-      affectedBookings={bookings}
-      setCompletelyUnaivalable={setIsUnavailable}
-      />
+      <div className="hover:cursor-pointer" onClick={() => {setSelectedDateParent(day)}}>
+        {format(day, "d")}
+      </div>
       {bookings?.map((pBooking) => {
         return (
 

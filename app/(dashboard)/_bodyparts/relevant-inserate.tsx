@@ -1,22 +1,22 @@
 
 
-import { AlignCenter, SearchCode } from "lucide-react";
-
 import { getInserate } from "@/actions/getInserate";
 
 import OrderBy from "../_components/_smart-filter/order-by";
 
 
 
-import { Suspense, cache, lazy, memo } from "react";
+import { cache } from "react";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, 
     CouplingEnumRender, DriveEnumRender, ExtraTypeEnumRender, favourite, FuelTypeEnumRender, 
     LkwBrandEnumRender, LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender, userTable } from "@/db/schema";
-import { MdFilterList, MdManageSearch } from "react-icons/md";
+
 import InseratRenderedList from "./_components/inserat-rendered-list";
-import { GrTextAlignFull } from "react-icons/gr";
+
+import { TbReportSearch } from "react-icons/tb";
+import { FaAlignLeft } from "react-icons/fa";
 
 
 interface RelevanteInserateProps {
@@ -217,7 +217,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                 <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full py-4 text-gray-100 bg-[#141620]">
                 <div className="ml-4 flex w-full items-center">
                     <div className="p-2 sm:block hidden rounded-lg">
-                        <GrTextAlignFull  className="w-6 h-6 sm:mr-2" />
+                        <FaAlignLeft   className="w-6 h-6 sm:mr-2" />
                     </div>
                     <h3 className="  flex font-semibold text-lg items-center sm:text-xl h-full w-full">
                         Relevante
@@ -232,7 +232,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                 <div className="h-full flex sm:block sm:mt-0 items-center   p-4 text-gray-100 bg-[#141620] ">
                     <div className="ml-4 flex w-full items-center">
                         <div className="rounded-lg">
-                            <MdManageSearch className="w-6 h-6 sm:mr-2" />
+                            <TbReportSearch className="w-6 h-6 sm:mr-2" />
                         </div>
                         <h3 className=" flex font-semibold  items-center text-lg sm:text-lg h-full w-full">
                             {foundInserate.length} {foundInserate.length == 1 ? "Suchergebnis" : "Suchergebnisse"}

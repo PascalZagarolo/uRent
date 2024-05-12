@@ -23,10 +23,11 @@ const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
 interface EventCalendarProps {
     everyInserat: typeof inserat.$inferSelect[],
-    bookings: typeof booking.$inferSelect[]
+    bookings: typeof booking.$inferSelect[],
+    setSelectedDateParent? : (date : Date) => void
 }
 
-const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
+const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent }: EventCalendarProps) => {
 
     
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -121,6 +122,7 @@ const EventCalendar = ({ bookings, everyInserat }: EventCalendarProps) => {
                                 day={day}
                                 key={dateKey}
                                 bookings={todaysEvents}
+                                setSelectedDateParent = {setSelectedDateParent}
                                 foundInserate={everyInserat}
                             />
 

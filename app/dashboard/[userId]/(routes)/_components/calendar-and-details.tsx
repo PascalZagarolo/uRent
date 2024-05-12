@@ -32,7 +32,7 @@ const CalendarAndDetails : React.FC<CalendarAndDetailsProps> = ({
                         <div className="mt-4 w-full">
                                 <BookingDayDetails
                                 selectedDate={selectedDate}
-                                bookings={relevantBookings}
+                                relevantBookings={relevantBookings}
                                 />
                         </div>
         </div>

@@ -31,6 +31,7 @@ const CalendarAndDetails : React.FC<CalendarAndDetailsProps> = ({
                         </div>
                         <div className="mt-4 w-full">
                                 <BookingDayDetails
+                                foundInserate = {foundInserate}
                                 selectedDate={selectedDate}
                                 relevantBookings={relevantBookings}
                                 />

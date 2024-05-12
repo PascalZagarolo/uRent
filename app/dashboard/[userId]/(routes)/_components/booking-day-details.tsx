@@ -1,28 +1,30 @@
 'use client'
 
 import { Label } from "@/components/ui/label";
-import { booking } from "@/db/schema";
+import { booking, inserat } from "@/db/schema";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 
 import React from "react";
 
 interface BookingDayDetailsProps {
-    selectedDate : Date;
-    relevantBookings : typeof booking.$inferSelect[];
+    selectedDate: Date;
+    relevantBookings: typeof booking.$inferSelect[];
+    foundInserate: typeof inserat.$inferSelect[];
 }
 
-const BookingDayDetails : React.FC<BookingDayDetailsProps> = ({
+const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     selectedDate,
-    relevantBookings   
+    relevantBookings,
+    foundInserate
 }) => {
-    return ( 
+    return (
         <div className="w-full">
             <div>
                 <Label className="text-md font-semibold">
                     Tagesansicht {selectedDate && (
                         <>
-                        - {format(selectedDate, "dd MMMM yyyy", {locale: de})}
+                            - {format(selectedDate, "dd MMMM yyyy", { locale: de })}
                         </>
                     )}
 
@@ -30,7 +32,7 @@ const BookingDayDetails : React.FC<BookingDayDetailsProps> = ({
                 <p className="text-xs dark:text-gray-200/60">
                     Detaillierte Tagesansicht für den {selectedDate && (
                         <>
-                        {format(selectedDate, "dd MMMM yyyy", {locale: de})}
+                            {format(selectedDate, "dd MMMM yyyy", { locale: de })}
                         </>
                     )}
                 </p>
@@ -41,9 +43,13 @@ const BookingDayDetails : React.FC<BookingDayDetailsProps> = ({
                         Klicke auf ein Datum um die Details einzusehen
                     </div>
                 )}
+                <div className="mt-4 dark:bg-[#0F0F0F] rounded-md">
+                    
+                </div>
+
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default BookingDayDetails;

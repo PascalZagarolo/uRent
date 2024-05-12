@@ -1,4 +1,4 @@
-import { TrendingUp, UserPlus2 } from "lucide-react";
+import { UserPlus2 } from "lucide-react";
 
 import { MdManageSearch } from "react-icons/md";
 import db from "@/db/drizzle";
@@ -14,6 +14,8 @@ import RenderedVehicle from "./_components/rendered-vehicle";
 import MenuBar from "../../_components/menu-bar";
 import BreadCrumpPage from "../../_components/bread-crump-page";
 import AddAvailability from "./_components/add-availability";
+import BookingDayDetails from "../_components/booking-day-details";
+import CalendarAndDetails from "../_components/calendar-and-details";
 
 interface ManagePageProps {
     searchParams: {
@@ -226,13 +228,11 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         </div>
 
                         <div className="w-full">
-                            <EventCalendar
-                                everyInserat={foundInserate}
-                                
-                                bookings={involvedBookings}
+                            <CalendarAndDetails 
+                            foundInserate={foundInserate}
+                            involvedBookings={involvedBookings}
                             />
                         </div>
-
                     </div>
                 </div>
 

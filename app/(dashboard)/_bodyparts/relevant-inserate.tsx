@@ -14,8 +14,9 @@ import { eq } from "drizzle-orm";
 import { ApplicationEnumRender, BrandEnumRender, CarTypeEnumRender, CategoryEnumRender, 
     CouplingEnumRender, DriveEnumRender, ExtraTypeEnumRender, favourite, FuelTypeEnumRender, 
     LkwBrandEnumRender, LoadingEnumRender, TrailerEnumRender, TransmissionEnumRender, userTable } from "@/db/schema";
-import { MdFilterList } from "react-icons/md";
+import { MdFilterList, MdManageSearch } from "react-icons/md";
 import InseratRenderedList from "./_components/inserat-rendered-list";
+import { GrTextAlignFull } from "react-icons/gr";
 
 
 interface RelevanteInserateProps {
@@ -216,9 +217,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                 <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full py-4 text-gray-100 bg-[#141620]">
                 <div className="ml-4 flex w-full items-center">
                     <div className="p-2 sm:block hidden rounded-lg">
-                        <MdFilterList className="w-6 h-6 sm:mr-2" />
+                        <GrTextAlignFull  className="w-6 h-6 sm:mr-2" />
                     </div>
-                    <h3 className="  flex font-base text-lg items-center sm:text-xl h-full w-full">
+                    <h3 className="  flex font-semibold text-lg items-center sm:text-xl h-full w-full">
                         Relevante
                         Inserate
                         <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
@@ -230,11 +231,11 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
             ) : (
                 <div className="h-full flex sm:block sm:mt-0 items-center  border-2 border-gray-300 dark:border-gray-900 p-4 text-gray-100 bg-[#141620] ">
                     <div className="ml-4 flex w-full items-center">
-                        <div className="p-2 border-2  rounded-lg">
-                            <SearchCode />
+                        <div className="rounded-lg">
+                            <MdManageSearch className="w-6 h-6 sm:mr-2" />
                         </div>
-                        <h3 className="ml-8 flex font-bold text-lg sm:text-2xl h-full w-full">
-                            ({foundInserate.length}) Ergebnisse
+                        <h3 className=" flex font-semibold  items-center text-lg sm:text-lg h-full w-full">
+                            {foundInserate.length} {foundInserate.length == 1 ? "Suchergebnis" : "Suchergebnisse"}
                             <div className="flex ml-auto mr-4 sm:mr-8 text-black">
                                 <OrderBy />
                             </div>

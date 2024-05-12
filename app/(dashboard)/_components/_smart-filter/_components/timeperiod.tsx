@@ -77,6 +77,7 @@ const TimePeriodFormFilter = () => {
         //@ts-ignore
         setEndTime(usedTime);
         changeSearchParams("endTime", usedTime);
+         
 
     }
 

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { format, set } from 'date-fns';
+import { format, isSameDay, set } from 'date-fns';
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -27,7 +27,7 @@ import {
 
 import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, PlusSquare } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 import toast from "react-hot-toast";
@@ -39,6 +39,8 @@ import { inserat, userTable } from "@/db/schema";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
+import { de } from "date-fns/locale";
+import SelectTimeRange from "./select-time-range";
 
 interface AddAvailabilityProps {
     foundInserate : typeof inserat.$inferSelect[]
@@ -51,9 +53,15 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
     const [currentStart, setCurrentStart] = useState(new Date());
     const [currentEnd, setCurrentEnd] = useState(new Date());
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+
+
     const [isLoading, setIsLoading] = useState(false);
     const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
+
+
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
     
@@ -88,6 +96,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 content: value.content ? value.content : "",
                 start: currentStart,
                 end: currentEnd,
+
+                //Hours
+                startPeriod : startTime,
+                endPeriod : endTime,
+
                 vehicleId: currentVehicle,
                 isAvailability : true,
             }
@@ -104,6 +117,13 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
         }
     }
 
+
+
+    useEffect(() => {
+        if(currentStart > currentEnd) {
+            setCurrentEnd(currentStart);
+        }
+    },[currentStart, currentEnd])
 
 
     return (
@@ -230,10 +250,10 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                                     !field.value && "text-muted-foreground  "
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                {currentStart ? (
+                                                                    format(currentStart, "PPP", { locale : de})
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>Wähle ein Datum</span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
@@ -242,15 +262,17 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
-                                                            selected={field.value}
+                                                            selected={currentStart}
                                                             className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
                                                                 setCurrentStart(date);
                                                             }}
+                                                            locale={de}
                                                             disabled={(date) =>
                                                                 date < new Date() || date < new Date("1900-01-01")
                                                             }
+                                                            
                                                             initialFocus
                                                         />
                                                     </PopoverContent>
@@ -277,10 +299,10 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                                     !field.value && "text-muted-foreground"
                                                                 )}
                                                             >
-                                                                {field.value ? (
-                                                                    format(field.value, "PPP")
+                                                                {currentEnd ? (
+                                                                    format(currentEnd, "PPP", { locale : de})
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>Wähle ein Datum</span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
@@ -289,13 +311,14 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
-                                                            selected={field.value}
+                                                            selected={currentEnd}
                                                             className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
                                                                 const nextDay = new Date(date);
                                                                 field.onChange(nextDay);
                                                                 setCurrentEnd(nextDay);
                                                             }}
+                                                            locale={de}
                                                             disabled={(date) =>
                                                                 date < currentStart || date < new Date("1900-01-01")
                                                             }
@@ -310,7 +333,13 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
 
                                 </div>
-                                
+                                <div>
+                                    <SelectTimeRange 
+                                    isSameDay={isSameDay(currentStart, currentEnd)}
+                                    setStartTimeParent={setStartTime}
+                                    setEndTimeParent={setEndTime}
+                                    />
+                                </div>
                                 <div>
                                     <span className="font-semibold text-base flex">
                                         <BookOpenCheck className="mr-2" />  Notiz
@@ -328,6 +357,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         )}
                                     />
                                 </div>
+                                
                                 <DialogTrigger asChild>
                                     <Button
                                         className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]

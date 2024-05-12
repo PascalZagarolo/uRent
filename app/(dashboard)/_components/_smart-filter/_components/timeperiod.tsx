@@ -32,7 +32,7 @@ const TimePeriodFormFilter = () => {
     const pathname = usePathname();
     const usedSearchParams = useSearchParams();
 
-
+    const [usesSameDay, setUsesSameDay] = React.useState(false);
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
@@ -68,30 +68,47 @@ const TimePeriodFormFilter = () => {
 
     const setStart = (usedTime: string) => {
         //@ts-ignore
+        setStartTime(usedTime);
         changeSearchParams("startTime", usedTime);
 
     }
 
     const setEnd = (usedTime: string) => {
         //@ts-ignore
-
+        setEndTime(usedTime);
         changeSearchParams("endTime", usedTime);
 
     }
 
+    const onDeleteStart = () => {
+        deleteSearchParams("startTime");
+        setStartTime(null);
+    }
+    
+    const onDeleteEnd = () => {
+        deleteSearchParams("endTime");
+        setEndTime(null);
+    }
+
+
+    React.useEffect(() => {
+        if(isSameDay(currentObject["periodBegin"], currentObject["periodEnd"])){
+            setUsesSameDay(true);
+        }
+    },[currentObject])
 
 
     React.useEffect(() => {
         //@ts-ignore
         if (!currentObject["startTime"] && !paramsPeriodBegin) {
             setStartTime(null);
-            console.log("ja")
+            
         }
         //@ts-ignore
         if (!currentObject["endTime"] && !paramsPeriodEnd) {
             setEndTime(null);
 
-            console.log("210")
+            
         }
 
     }, [currentObject, paramsPeriodBegin, paramsPeriodEnd])
@@ -134,8 +151,7 @@ const TimePeriodFormFilter = () => {
                                 </Label>
                                 <Select
                                     onValueChange={(value) => {
-                                        setStartTime(value);
-                                        setStart(value);
+                                        value ? setStart(value)  : onDeleteStart();
 
                                     }}
                                     value={startTime}
@@ -176,8 +192,7 @@ const TimePeriodFormFilter = () => {
                                 </Label>
                                 <Select
                                     onValueChange={(value) => {
-                                        setEndTime(value);
-                                        setEnd(value);
+                                        value ? setEnd(value)  : onDeleteEnd();
                                     }}
                                     value={endTime}
                                 >

@@ -105,6 +105,7 @@ const TimePeriodFormFilter = () => {
         } else {
             setUsesSameDay(false);
         }
+        //@ts-ignore
     },[currentObject["periodBegin"], currentObject["periodEnd"]])
 
     React.useEffect(() => {

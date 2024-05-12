@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { isSameDay } from "date-fns";
 import { and,  eq, gte, ilike, lte } from "drizzle-orm";
-import { cache } from "react";
+import { cache, use } from "react";
 
 
 
@@ -237,7 +237,7 @@ export const getInserate = cache(async ({
     })
 
     const filterAvailability = cache((pInserat: typeof inserat) => {
-        
+        console.log("test")
         if (pInserat.bookings.length === 0) {
             return true;
         }
@@ -269,7 +269,17 @@ export const getInserate = cache(async ({
                 } else if((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd)) 
                 || isSameDay(booking.startDate, usedPeriodEnd)){
                     
-                    for (let i = Number(booking.startPeriod); i <= Number(booking.endPeriod); i = i + 30) {
+                    let usedEnd;
+
+                    if(isSameDay(booking.startDate, booking.endDate)) {
+                        usedEnd = booking.endPeriod;
+                    } else {
+                        
+                        usedEnd = "1440";
+                    }
+
+                    for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+                        
                         endDateAppointments.add(i);
                     }
                     if(endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
@@ -289,34 +299,39 @@ export const getInserate = cache(async ({
             }
         }
         
-        if(startDateAppointments.size !== 0 || endDateAppointments.size !== 0 && (startTime || endTime)) {
+        if((startTime || endTime)) {
+            console.log("saunoidas")
             if(startTime) {
                 let usedEnd;
-
+                console.log("test")
                     if(isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
                         usedEnd = endTime;
+                    } else {
+                        usedEnd = "1440";
                     }
                 
-                for (let i = startTime; i <= endTime; i = i + 30){
+                for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30){
                     if(startDateAppointments.has(Number(i))) {
                         return false;
                     }
                 }
             }
             if(endTime) {
+
                 let usedEnd;
 
-                    if(isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
-                        usedEnd = startTime;
-                    }
-
+                if(isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
+                    usedEnd = startTime;
+                } else {
+                    usedEnd = "0";
+                }
                 
-
-                    for (let i = endTime; i >= Number(usedEnd); i = i - 30){
-                        if(endDateAppointments.has(Number(i))) {
-                            return false;
-                        }
+                console.log(endDateAppointments)
+                for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30){
+                    if(endDateAppointments.has(Number(i))) {
+                        return false;
                     }
+                }
             }
         }
 

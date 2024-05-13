@@ -168,7 +168,9 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         )}>
                             {checkBooked(inseratId, String(hour * 60)) && (
                                 <div className="w-full">
+                                    
                                     <BookingDayDetailsPopover
+                                    // @ts-ignore
                                     thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId
                                          && item.times.includes((hour * 60)) && item.bookingIds.includes(booking.id)))}
                                          foundInserate={foundInserate}
@@ -188,6 +190,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 <div className="w-full">
                                     <BookingDayDetailsPopover
                                     foundInserate={foundInserate}
+                                    // @ts-ignore
                                     thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId && item.times.includes((hour * 60) + 30) && item.bookingIds.includes(booking.id)))}
                                 />
                                 </div>

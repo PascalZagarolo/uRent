@@ -3,9 +3,10 @@
 import { Label } from "@/components/ui/label";
 import { booking, inserat } from "@/db/schema";
 import { cn } from "@/lib/utils";
+import { Share1Icon } from "@radix-ui/react-icons";
 import { format, isSameDay } from "date-fns";
 import { de } from "date-fns/locale";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, LinkIcon, Share2Icon } from "lucide-react";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -105,8 +106,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
             segments.push(
                 <div key={hour} className="dark:bg-[#131313] text-sm flex items-center  dark:border border-[#191919] h-[80px]">
                     <div>
-                        <div className="p-2 text-sm w-2/5">
+                        <div className="p-2 text-sm w-4/4 h-[40px]">
                             {hour}:00 Uhr
+                        </div>
+                        <div className="p-2 text-sm w-4/4 dark:text-gray-200/60 h-[40px]">
+                            {hour}:30 Uhr
                         </div>
                     </div>
 
@@ -179,7 +183,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                     <div className="w-full flex ">
 
                         <div className="w-1/4">
-                            <div className="p-8">
+                            <div className="p-4 text-sm">
                                 Uhrzeit
                             </div>
                             <div>
@@ -191,8 +195,10 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             <div className="gap-x-16 flex items-center justify-evenly">
                                 {foundInserate.map((inserat) => (
                                     <div className="">
-                                        <div className="font-medium text-md p-8">
-                                        {inserat.title}
+                                        <div className="font-medium text-sm p-4 w-[240px]  overflow-hidden">
+                                        <a className="line-clamp-1 break-all hover:underline" href={`/inserat/${inserat.id}`} target="_blank">
+                                        {inserat.title} 
+                                        </a>
                                     </div>
                                     <div>
                                     {renderAvailability(inserat.id)}

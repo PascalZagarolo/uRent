@@ -3,16 +3,13 @@
 import { cn } from "@/lib/utils";
 
 
-import ChatImageRender from "./chat-image-render";
 import { format } from "date-fns";
-import { Forward, Share, Trash, TrashIcon } from "lucide-react";
-import DeleteMessage from "./delete-message";
-import { Badge } from "@/components/ui/badge";
+
 import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+
 import { message } from "@/db/schema";
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
+
 import { BsChatSquareQuoteFill } from "react-icons/bs";
 
 
@@ -63,9 +60,12 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                             {messages.isInterest && (
                                 <div className="w-full h-full">
                                     <div>
-                                        <div className="font-bold text-gray-200 flex items-center">
+                                        <a className="font-bold text-gray-200 flex items-center hover:underline"
+                                        href={`/inserat/${messages.inseratId}`}
+                                        target="_blank"
+                                        >
                                         <BsChatSquareQuoteFill className="w-4 h-4 mr-2" /> Anfrage zu deinem Inserat
-                                        </div>
+                                        </a>
                                         <div>
                                             {//@ts-ignore
                                             messages.inserat.title}

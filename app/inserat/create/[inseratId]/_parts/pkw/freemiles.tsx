@@ -27,7 +27,7 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
     const [currentValue, setCurrentValue] = useState(thisInserat.pkwAttribute?.freeMiles || 0);
-    const [isUnlimited, setIsUnlimited] = useState(false);
+    const [isUnlimited, setIsUnlimited] = useState(Number(thisInserat?.freeMiles) >= 10000000 ? true : false);
 
     const formSchema = z.object({
         freeMiles: z.preprocess(
@@ -46,15 +46,39 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
         }
     })
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/inserat/${thisInserat.id}/pkw`, values);
-            toast.success("Preis erfolgreich gespeichert");
-            setTimeout(() => {
-                router.refresh();
-            }, 1000)
+            axios.patch(`/api/inserat/${thisInserat.id}/pkw`, values)
+                .then(() => {
+                    toast.success("Freikilometer gespeichert");
+                    router.refresh();
+                })
+           
+
         } catch {
+            toast.error("Fehler beim Speichern der Kaution");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const onUnlimited = async () => {
+        try {
+
+            const values = {
+                freeMiles : 10_000_000
+            }
+            setIsLoading(true);
+            axios.patch(`/api/inserat/${thisInserat.id}/pkw`, values)
+                .then(() => {
+                    toast.success("Freikilometer gespeichert");
+                    router.refresh();
+                
+                })
+            
+        } catch(error : any) {
+            console.log("Fehler : ", error);
             toast.error("Fehler beim Speichern der Kaution");
         } finally {
             setIsLoading(false);
@@ -130,7 +154,12 @@ const FreeMiles: React.FC<FreeMilesProps> = ({
                         </Button>
                         <div className="space-x-2 flex items-center">
                             <Checkbox
-                            onCheckedChange={(isChecked : boolean) => {setIsUnlimited(isChecked)}}
+                            onCheckedChange={(isChecked : boolean) => {
+                                setIsUnlimited(isChecked);
+                                if(isChecked){
+                                    onUnlimited();
+                                }
+                            }}
                             checked={isUnlimited}
                             />
                             <Label className="text-sm">

@@ -7,7 +7,7 @@ import { booking, inserat } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 import clsx from "clsx";
-import { format, isToday } from "date-fns";
+import { format, isSameDay, isToday } from "date-fns";
 import { CalendarSearchIcon, CarIcon, UserIcon, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -29,6 +29,8 @@ interface CalendarDayProps {
   day: Date;
   bookings: typeof booking.$inferSelect[];
   foundInserate: typeof inserat.$inferSelect[];
+  selectedDate? : Date,
+  selectDateParent? : (date : Date) => void;
   setSelectedDateParent? : (date : Date) => void;
   setRelevantBookingsParent? : (bookings : typeof booking.$inferSelect[]) => void;
 }
@@ -39,8 +41,10 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   day,
   bookings,
   foundInserate,
+  selectDateParent,
   setSelectedDateParent,
-  setRelevantBookingsParent
+  setRelevantBookingsParent,
+  selectedDate
 }) => {
 
   
@@ -51,6 +55,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   const vehicleFilter = searchParams.get("vehicleId");
 
   const [isUnavailable, setIsUnavailable] = useState(false);
+  const isSelected = isSameDay(day, selectedDate);
 
 
   const router = useRouter();
@@ -78,10 +83,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
         "text-emerald-400 font-semibold": isToday(day),
       })}
     >
-      <div className="hover:cursor-pointer" 
+      <div className={cn("hover:cursor-pointer", isSelected && "text-indigo-800 font-bold")} 
       onClick={() => {
         setSelectedDateParent(day);
         setRelevantBookingsParent(bookings);
+        selectDateParent(day);
         }}>
         {format(day, "d")}
       </div>

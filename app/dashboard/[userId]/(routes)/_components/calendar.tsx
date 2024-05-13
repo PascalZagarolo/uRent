@@ -35,7 +35,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
     const firstDayOfMonth = startOfMonth(currentDate);
     const lastDayOfMonth = endOfMonth(currentDate);
 
-    
+    const [selectedDate, setSelectedDate] = useState<Date>(null);
     
     
 
@@ -123,6 +123,8 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                                 day={day}
                                 key={dateKey}
                                 bookings={todaysEvents}
+                                selectedDate={selectedDate}
+                                selectDateParent={setSelectedDate}
                                 setSelectedDateParent = {setSelectedDateParent}
                                 setRelevantBookingsParent={setRelevantBookingsParent}
                                 foundInserate={everyInserat}

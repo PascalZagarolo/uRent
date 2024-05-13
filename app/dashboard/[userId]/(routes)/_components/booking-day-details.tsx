@@ -22,7 +22,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     foundInserate
 }) => {
 
-    const [appointedTimes, setAppointedTimes] = useState({});
+    const [appointedTimes, setAppointedTimes] = useState<{[key : string] : any[]}>({});
     const [usedBookings, setUsedBookings] = useState(relevantBookings);
 
     

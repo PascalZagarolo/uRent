@@ -956,6 +956,7 @@ export const userRelations = relations(userTable, ({ one, many }) => ({
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
     notifications : many(notification),
+    savedSearch : many(savedSearch),
     
     
 }));
@@ -1019,7 +1020,7 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     bookingRequests : many(bookingRequest),
 
     favourites : many(favourite),
-    savedSearches : many(savedSearch),
+    
 
     vehicles : many(vehicle),
 }))

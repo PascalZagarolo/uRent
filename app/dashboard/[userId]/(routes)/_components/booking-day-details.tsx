@@ -9,6 +9,7 @@ import { de } from "date-fns/locale";
 import { CheckIcon, LinkIcon, Share2Icon } from "lucide-react";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import BookingDayDetailsPopover from "./booking-day-details-popover";
 
 interface BookingDayDetailsProps {
     selectedDate: Date;
@@ -22,13 +23,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     foundInserate
 }) => {
 
-    const [appointedTimes, setAppointedTimes] = useState<{[key : string] : any[]}>({});
+    const [appointedTimes, setAppointedTimes] = useState<{[key : string] : any[]}[]>([]);
     const [usedBookings, setUsedBookings] = useState(relevantBookings);
 
     
 
     useMemo(() => {
-        setAppointedTimes({});
+        setAppointedTimes([]);
         setUsedBookings(relevantBookings);
         
         for (const pBooking of relevantBookings) {
@@ -37,24 +38,42 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                 if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
     
                     setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any = { ...prevAppointedTimes };
-                        if (!newAppointedTimes[pBooking.inseratId]) {
-                            newAppointedTimes[pBooking.inseratId] = [];
+                        const newAppointedTimes: any[] = [...prevAppointedTimes];
+                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
+                        if (existingIndex === -1) {
+                            newAppointedTimes.push({
+                                inseratId: pBooking.inseratId,
+                                bookingIds: [pBooking.id],
+                                times: []
+                            });
+                        } else {
+                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
                         }
+                        // Populate appointed times array
+                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
                         for (let i = 0; i <= 1440; i += 30) {
-                            newAppointedTimes[pBooking.inseratId].push(i);
+                            newAppointedTimes[index].times.push(i);
                         }
                         return newAppointedTimes;
                     });
                 } else if (isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
     
                     setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any = { ...prevAppointedTimes };
-                        if (!newAppointedTimes[pBooking.inseratId]) {
-                            newAppointedTimes[pBooking.inseratId] = [];
+                        const newAppointedTimes: any[] = [...prevAppointedTimes];
+                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
+                        if (existingIndex === -1) {
+                            newAppointedTimes.push({
+                                inseratId: pBooking.inseratId,
+                                bookingIds: [pBooking.id],
+                                times: []
+                            });
+                        } else {
+                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
                         }
+                        // Populate appointed times array
+                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
                         for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i = i + 30) {
-                            newAppointedTimes[pBooking.inseratId].push(i);
+                            newAppointedTimes[index].times.push(i);
                         }
                         return newAppointedTimes;
                     });
@@ -63,23 +82,41 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                 } else if (isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
     
                     setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any = { ...prevAppointedTimes };
-                        if (!newAppointedTimes[pBooking.inseratId]) {
-                            newAppointedTimes[pBooking.inseratId] = [];
+                        const newAppointedTimes: any[] = [...prevAppointedTimes];
+                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
+                        if (existingIndex === -1) {
+                            newAppointedTimes.push({
+                                inseratId: pBooking.inseratId,
+                                bookingIds: [pBooking.id],
+                                times: []
+                            });
+                        } else {
+                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
                         }
+                        // Populate appointed times array
+                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
                         for (let i = Number(pBooking.startPeriod); i <= 1440; i = i + 30) {
-                            newAppointedTimes[pBooking.inseratId].push(i);
+                            newAppointedTimes[index].times.push(i);
                         }
                         return newAppointedTimes;
                     });
                 } else if (!isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
                     setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any = { ...prevAppointedTimes };
-                        if (!newAppointedTimes[pBooking.inseratId]) {
-                            newAppointedTimes[pBooking.inseratId] = [];
+                        const newAppointedTimes: any[] = [...prevAppointedTimes];
+                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
+                        if (existingIndex === -1) {
+                            newAppointedTimes.push({
+                                inseratId: pBooking.inseratId,
+                                bookingIds: [pBooking.id],
+                                times: []
+                            });
+                        } else {
+                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
                         }
+                        // Populate appointed times array
+                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
                         for (let i = 0; i <= Number(pBooking.endPeriod); i = i + 30) {
-                            newAppointedTimes[pBooking.inseratId].push(i);
+                            newAppointedTimes[index].times.push(i);
                         }
                         return newAppointedTimes;
                     });
@@ -88,17 +125,14 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     
         }
         
-    },[selectedDate])
+    },[selectedDate]);
 
     const checkBooked = (inseratId: string, number: string) => {
-        if(appointedTimes[inseratId]) {
-            if (appointedTimes[inseratId].includes(Number(number))) {
-                return true;
-            }
-        } else {
-            return false;
-        }
+
+        //@ts-ignore
+        return appointedTimes.some(item => item.inseratId === inseratId && item.times.includes(Number(number)));
     }
+    
 
     const renderSegments = () => {
         const segments = [];
@@ -132,6 +166,14 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         checkBooked(inseratId, String((hour * 60) + 30)) ? "" : "rounded-b-lg",
                         checkBooked(inseratId, String((hour * 60) - 30)) ? "" : "rounded-t-lg"
                         )}>
+                            {checkBooked(inseratId, String(hour * 60)) && (
+                                <div className="w-full">
+                                    <BookingDayDetailsPopover
+                                    thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId
+                                         && item.times.includes((hour * 60)) && item.bookingIds.includes(booking.id)))}
+                                />
+                                </div>
+                            )}
                             {(!checkBooked(inseratId, String(hour * 60)) && checkBooked(inseratId, String((hour * 60) - 30))) && (
                                 `Verfügbar ab ${hour}:00 Uhr`
                             )}
@@ -141,6 +183,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         checkBooked(inseratId, String((hour * 60) + 60)) ? "" : "rounded-b-lg",
                         checkBooked(inseratId, String((hour * 60))) ? "" : "rounded-t-lg"
                         )}>
+                            {checkBooked(inseratId, String((hour * 60) + 30)) && (
+                                <div className="w-full">
+                                    <BookingDayDetailsPopover
+                                    thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId && item.times.includes((hour * 60) + 30) && item.bookingIds.includes(booking.id)))}
+                                />
+                                </div>
+                            )}
                             {(!checkBooked(inseratId, String((hour * 60) + 30)) && checkBooked(inseratId, String((hour * 60)))) && (
                               <div className="flex">
                               <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />  Verfügbar ab {hour}:30 Uhr

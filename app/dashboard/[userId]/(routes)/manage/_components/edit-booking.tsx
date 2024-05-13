@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { format, set } from 'date-fns';
+import { format, set, isSameDay } from 'date-fns';
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -42,6 +42,7 @@ import { vehicle } from '../../../../../../db/schema';
 import { Input } from "@/components/ui/input";
 import { MdOutlinePersonPin } from "react-icons/md";
 import { de } from "date-fns/locale";
+import SelectTimeRange from "./select-time-range";
 
 
 interface EditBookingProps {
@@ -61,6 +62,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
     const [currentStart, setCurrentStart] = useState(new Date(thisBooking?.startDate));
     const [currentEnd, setCurrentEnd] = useState(new Date(thisBooking?.endDate));
+    const [currentPeriodStart, setCurrentPeriodStart] = useState(null);
+    const [currentPeriodEnd, setCurrentPeriodEnd] = useState(null);
+
     const [isLoading, setIsLoading] = useState(false);
     
     const [currentInserat, setCurrentInserat] = useState<string | null>(thisBooking?.inseratId);
@@ -340,6 +344,13 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 />
                                             </FormItem>
                                         )} />
+                                </div>
+                                <div className="mt-2">
+                                    <SelectTimeRange 
+                                    isSameDay={isSameDay(currentStart, currentEnd)}
+                                    setStartTimeParent={setCurrentPeriodStart}
+                                    setEndTimeParent={setCurrentPeriodEnd}
+                                    />
                                 </div>
                                 <div>
                                 <SearchRent 

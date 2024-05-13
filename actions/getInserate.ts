@@ -343,8 +343,6 @@ export const getInserate = cache(async ({
             }
         }
 
-        
-
         return true;
     })
 

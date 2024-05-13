@@ -25,9 +25,10 @@ interface EventCalendarProps {
     everyInserat: typeof inserat.$inferSelect[],
     bookings: typeof booking.$inferSelect[],
     setSelectedDateParent? : (date : Date) => void
+    setRelevantBookingsParent? : (bookings : typeof booking.$inferSelect[]) => void
 }
 
-const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent }: EventCalendarProps) => {
+const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelevantBookingsParent }: EventCalendarProps) => {
 
     
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -66,7 +67,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent }: EventC
 
             const currentDate = new Date(startDate);
             while (currentDate <= endDate) {
-                console.log(currentDate, pBooking)
+                
                 const dateKey = format(currentDate, "dd-MM-yyyy");
                 if (!acc[dateKey]) {
                     acc[dateKey] = [];
@@ -123,6 +124,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent }: EventC
                                 key={dateKey}
                                 bookings={todaysEvents}
                                 setSelectedDateParent = {setSelectedDateParent}
+                                setRelevantBookingsParent={setRelevantBookingsParent}
                                 foundInserate={everyInserat}
                             />
 

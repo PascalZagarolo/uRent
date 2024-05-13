@@ -194,7 +194,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         <div className="w-full overflow-x-auto">
                             <div className="gap-x-16 flex items-center justify-evenly">
                                 {foundInserate.map((inserat) => (
-                                    <div className="">
+                                    <div className="" key={inserat.id}>
                                         <div className="font-medium text-sm p-4 w-[240px]  overflow-hidden">
                                         <a className="line-clamp-1 break-all hover:underline" href={`/inserat/${inserat.id}`} target="_blank">
                                         {inserat.title} 

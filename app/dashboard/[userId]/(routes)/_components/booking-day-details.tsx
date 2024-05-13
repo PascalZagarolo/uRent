@@ -192,7 +192,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         </div>
 
                         <div className="w-full overflow-x-auto">
-                            <div className="gap-x-16 flex items-center justify-evenly">
+                            <div className="ml-16 gap-x-16 flex items-center justify-evenly">
                                 {foundInserate.map((inserat) => (
                                     <div className="" key={inserat.id}>
                                         <div className="font-medium text-sm p-4 w-[240px]  overflow-hidden">

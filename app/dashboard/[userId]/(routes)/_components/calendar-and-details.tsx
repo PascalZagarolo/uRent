@@ -19,18 +19,19 @@ const CalendarAndDetails : React.FC<CalendarAndDetailsProps> = ({
     const [selectedDate, setSelectedDate] = useState<Date>(null);
     const [relevantBookings, setRelevantBookings] = useState([]);
 
-
+    
     return ( 
         <div>
             <div className="w-full">
                             <EventCalendar
                                 everyInserat={foundInserate}
                                 setSelectedDateParent = {setSelectedDate}
+                                setRelevantBookingsParent = {setRelevantBookings}
                                 bookings={involvedBookings}
                             />
                         </div>
                         <div className="mt-4 w-full">
-                                <BookingDayDetails
+                        <BookingDayDetails
                                 foundInserate = {foundInserate}
                                 selectedDate={selectedDate}
                                 relevantBookings={relevantBookings}

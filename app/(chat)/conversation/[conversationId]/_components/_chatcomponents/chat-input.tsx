@@ -25,12 +25,11 @@ const ChatInput: React.FC<ChatInputProps> = ({
     existingBlock
 }) => {
 
+    const [currentValue, setCurrentValue] = useState("");
     const params = useParams();
 
     const formSchema = z.object({
-        content: z.string().min(1, {
-            message: "Kommentar ist zu kurz"
-        }),
+        content: z.string().optional(),
         
     })
 
@@ -50,13 +49,14 @@ const ChatInput: React.FC<ChatInputProps> = ({
         try {
 
             const values = {
-                content : value.content,
+                content : currentValue,
                 otherUser : otherUser,
                 otherUserName : otherUserName
             }
 
             setIsLoading(true);
             axios.post(`/api/message/${params.conversationId}`, values);
+            setCurrentValue("");
             
         } catch {
             console.log("Fehler beim Kommentar absenden")
@@ -84,7 +84,8 @@ const ChatInput: React.FC<ChatInputProps> = ({
                         <Input className="mt-auto mb-4 border text-black border-gray-300 w-full
                         dark:bg-[#0F0F0F] dark:text-gray-100 focus-visible:ring-0 focus-visible:border-none  dark:border-none"
                             placeholder="Schreibe eine Nachricht..."
-                            {...field}
+                            onChange={(e) => {setCurrentValue(e.target.value)}}
+                            value={currentValue}
                         disabled={existingBlock.length > 0 ? true : false}
                         />
                     </FormControl>
@@ -94,7 +95,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
         />
     
         <div className="ml-2">
-                        <Button className="bg-white  hover:bg-gray-100 dark:bg-[#0F0F0F] dark:hover:bg-[#151515] " type="submit">
+                        <Button className="bg-white  hover:bg-gray-100 dark:bg-[#0F0F0F] dark:hover:bg-[#151515]" 
+                        disabled={currentValue.trim() === ""}
+                        type="submit">
                             <Send className="text-black dark:text-gray-100" />
                         </Button>
                     </div>

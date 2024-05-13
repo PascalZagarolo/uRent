@@ -9,7 +9,9 @@ export default defineConfig({
     },
     migrations: {
         table: "./drizzle",
-        schema: './db/schema.ts',
+        schema: '/db/schema.ts',
         
-    }
+    },
+    schema : "./db/schema.ts",
+    out : "./drizzle/"
 })

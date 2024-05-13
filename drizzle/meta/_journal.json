@@ -92,6 +92,20 @@
       "when": 1713348961280,
       "tag": "0012_simple_princess_powerful",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "6",
+      "when": 1715611278712,
+      "tag": "0013_hot_iron_lad",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "6",
+      "when": 1715611612307,
+      "tag": "0014_burly_expediter",
+      "breakpoints": true
     }
   ]
 }

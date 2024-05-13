@@ -1,10 +1,8 @@
 {
-  "id": "afa725fa-2e99-486f-9189-2f63a8e571d1",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "account": {
+    "public.account": {
       "name": "account",
       "schema": "",
       "columns": {
@@ -80,15 +78,15 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -102,7 +100,7 @@
       },
       "uniqueConstraints": {}
     },
-    "address": {
+    "public.address": {
       "name": "address",
       "schema": "",
       "columns": {
@@ -154,21 +152,21 @@
         "address_inseratId_inserat_id_fk": {
           "name": "address_inseratId_inserat_id_fk",
           "tableFrom": "address",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "booking": {
+    "public.booking": {
       "name": "booking",
       "schema": "",
       "columns": {
@@ -221,34 +219,34 @@
         "booking_inseratId_inserat_id_fk": {
           "name": "booking_inseratId_inserat_id_fk",
           "tableFrom": "booking",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "booking_userId_user_id_fk": {
           "name": "booking_userId_user_id_fk",
           "tableFrom": "booking",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "bookingRequest": {
+    "public.bookingRequest": {
       "name": "bookingRequest",
       "schema": "",
       "columns": {
@@ -301,34 +299,34 @@
         "bookingRequest_inseratId_inserat_id_fk": {
           "name": "bookingRequest_inseratId_inserat_id_fk",
           "tableFrom": "bookingRequest",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "bookingRequest_userId_user_id_fk": {
           "name": "bookingRequest_userId_user_id_fk",
           "tableFrom": "bookingRequest",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "contactOptions": {
+    "public.contactOptions": {
       "name": "contactOptions",
       "schema": "",
       "columns": {
@@ -389,34 +387,34 @@
         "contactOptions_userId_user_id_fk": {
           "name": "contactOptions_userId_user_id_fk",
           "tableFrom": "contactOptions",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "contactOptions_userAddressId_userAddress_id_fk": {
           "name": "contactOptions_userAddressId_userAddress_id_fk",
           "tableFrom": "contactOptions",
-          "tableTo": "userAddress",
           "columnsFrom": [
             "userAddressId"
           ],
+          "tableTo": "userAddress",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "conversation": {
+    "public.conversation": {
       "name": "conversation",
       "schema": "",
       "columns": {
@@ -451,34 +449,34 @@
         "conversation_userId_user_id_fk": {
           "name": "conversation_userId_user_id_fk",
           "tableFrom": "conversation",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "conversation_userId2_user_id_fk": {
           "name": "conversation_userId2_user_id_fk",
           "tableFrom": "conversation",
-          "tableTo": "user",
           "columnsFrom": [
             "userId2"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "favourite": {
+    "public.favourite": {
       "name": "favourite",
       "schema": "",
       "columns": {
@@ -500,28 +498,28 @@
         "favourite_userId_user_id_fk": {
           "name": "favourite_userId_user_id_fk",
           "tableFrom": "favourite",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "favourite_inseratId_inserat_id_fk": {
           "name": "favourite_inseratId_inserat_id_fk",
           "tableFrom": "favourite",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -535,7 +533,7 @@
       },
       "uniqueConstraints": {}
     },
-    "images": {
+    "public.images": {
       "name": "images",
       "schema": "",
       "columns": {
@@ -569,21 +567,21 @@
         "images_inseratId_inserat_id_fk": {
           "name": "images_inseratId_inserat_id_fk",
           "tableFrom": "images",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "inserat": {
+    "public.inserat": {
       "name": "inserat",
       "schema": "",
       "columns": {
@@ -726,34 +724,34 @@
         "inserat_userId_user_id_fk": {
           "name": "inserat_userId_user_id_fk",
           "tableFrom": "inserat",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "inserat_pkwId_pkwAttribute_id_fk": {
           "name": "inserat_pkwId_pkwAttribute_id_fk",
           "tableFrom": "inserat",
-          "tableTo": "pkwAttribute",
           "columnsFrom": [
             "pkwId"
           ],
+          "tableTo": "pkwAttribute",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "lkwAttribute": {
+    "public.lkwAttribute": {
       "name": "lkwAttribute",
       "schema": "",
       "columns": {
@@ -817,21 +815,21 @@
         "lkwAttribute_inseratId_inserat_id_fk": {
           "name": "lkwAttribute_inseratId_inserat_id_fk",
           "tableFrom": "lkwAttribute",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "message": {
+    "public.message": {
       "name": "message",
       "schema": "",
       "columns": {
@@ -890,47 +888,47 @@
         "message_inseratId_inserat_id_fk": {
           "name": "message_inseratId_inserat_id_fk",
           "tableFrom": "message",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "message_senderId_user_id_fk": {
           "name": "message_senderId_user_id_fk",
           "tableFrom": "message",
-          "tableTo": "user",
           "columnsFrom": [
             "senderId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "message_conversationId_conversation_id_fk": {
           "name": "message_conversationId_conversation_id_fk",
           "tableFrom": "message",
-          "tableTo": "conversation",
           "columnsFrom": [
             "conversationId"
           ],
+          "tableTo": "conversation",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "pkwAttribute": {
+    "public.pkwAttribute": {
       "name": "pkwAttribute",
       "schema": "",
       "columns": {
@@ -1018,21 +1016,21 @@
         "pkwAttribute_inseratId_inserat_id_fk": {
           "name": "pkwAttribute_inseratId_inserat_id_fk",
           "tableFrom": "pkwAttribute",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "purchase": {
+    "public.purchase": {
       "name": "purchase",
       "schema": "",
       "columns": {
@@ -1067,34 +1065,34 @@
         "purchase_userId_user_id_fk": {
           "name": "purchase_userId_user_id_fk",
           "tableFrom": "purchase",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "purchase_inseratId_inserat_id_fk": {
           "name": "purchase_inseratId_inserat_id_fk",
           "tableFrom": "purchase",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "resetPasswordToken": {
+    "public.resetPasswordToken": {
       "name": "resetPasswordToken",
       "schema": "",
       "columns": {
@@ -1136,7 +1134,7 @@
       },
       "uniqueConstraints": {}
     },
-    "rezension": {
+    "public.rezension": {
       "name": "rezension",
       "schema": "",
       "columns": {
@@ -1202,34 +1200,34 @@
         "rezension_receiverId_user_id_fk": {
           "name": "rezension_receiverId_user_id_fk",
           "tableFrom": "rezension",
-          "tableTo": "user",
           "columnsFrom": [
             "receiverId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "rezension_senderId_user_id_fk": {
           "name": "rezension_senderId_user_id_fk",
           "tableFrom": "rezension",
-          "tableTo": "user",
           "columnsFrom": [
             "senderId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "session": {
+    "public.session": {
       "name": "session",
       "schema": "",
       "columns": {
@@ -1257,21 +1255,21 @@
         "session_userId_user_id_fk": {
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "stripeCustomer": {
+    "public.stripeCustomer": {
       "name": "stripeCustomer",
       "schema": "",
       "columns": {
@@ -1313,29 +1311,29 @@
         "stripeCustomer_userId_user_id_fk": {
           "name": "stripeCustomer_userId_user_id_fk",
           "tableFrom": "stripeCustomer",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "stripeCustomer_stripeCustomerId_unique": {
           "name": "stripeCustomer_stripeCustomerId_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "stripeCustomerId"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "trailerAttribute": {
+    "public.trailerAttribute": {
       "name": "trailerAttribute",
       "schema": "",
       "columns": {
@@ -1400,21 +1398,21 @@
         "trailerAttribute_inseratId_inserat_id_fk": {
           "name": "trailerAttribute_inseratId_inserat_id_fk",
           "tableFrom": "trailerAttribute",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "transportAttribute": {
+    "public.transportAttribute": {
       "name": "transportAttribute",
       "schema": "",
       "columns": {
@@ -1466,21 +1464,21 @@
         "transportAttribute_inseratId_inserat_id_fk": {
           "name": "transportAttribute_inseratId_inserat_id_fk",
           "tableFrom": "transportAttribute",
-          "tableTo": "inserat",
           "columnsFrom": [
             "inseratId"
           ],
+          "tableTo": "inserat",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "userAddress": {
+    "public.userAddress": {
       "name": "userAddress",
       "schema": "",
       "columns": {
@@ -1532,49 +1530,49 @@
         "userAddress_userId_user_id_fk": {
           "name": "userAddress_userId_user_id_fk",
           "tableFrom": "userAddress",
-          "tableTo": "user",
           "columnsFrom": [
             "userId"
           ],
+          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "userAddress_contactOptionsId_contactOptions_userId_fk": {
           "name": "userAddress_contactOptionsId_contactOptions_userId_fk",
           "tableFrom": "userAddress",
-          "tableTo": "contactOptions",
           "columnsFrom": [
             "contactOptionsId"
           ],
+          "tableTo": "contactOptions",
           "columnsTo": [
             "userId"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "userAddress_userId_unique": {
           "name": "userAddress_userId_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "userId"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "userAddress_contactOptionsId_unique": {
           "name": "userAddress_contactOptionsId_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "contactOptionsId"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -1654,7 +1652,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "verificationToken": {
+    "public.verificationToken": {
       "name": "verificationToken",
       "schema": "",
       "columns": {
@@ -1692,339 +1690,354 @@
     }
   },
   "enums": {
-    "application": {
+    "public.application": {
       "name": "application",
-      "values": {
-        "DEICHSELANHAENGER": "DEICHSELANHAENGER",
-        "FAHRZEUGTRANSPORT": "FAHRZEUGTRANSPORT",
-        "FLUESSIGKEITSTRANSPORT": "FLUESSIGKEITSTRANSPORT",
-        "KASTENWAGEN": "KASTENWAGEN",
-        "KOFFERAUFBAU": "KOFFERAUFBAU",
-        "KUEHLWAGEN": "KUEHLWAGEN",
-        "MOEBELTRANSPORT": "MOEBELTRANSPORT",
-        "PERSONENTRANSPORT": "PERSONENTRANSPORT",
-        "PLANWAGEN": "PLANWAGEN",
-        "PRITSCHENWAGEN": "PRITSCHENWAGEN"
-      }
+      "schema": "public",
+      "values": [
+        "DEICHSELANHAENGER",
+        "FAHRZEUGTRANSPORT",
+        "FLUESSIGKEITSTRANSPORT",
+        "KASTENWAGEN",
+        "KOFFERAUFBAU",
+        "KUEHLWAGEN",
+        "MOEBELTRANSPORT",
+        "PERSONENTRANSPORT",
+        "PLANWAGEN",
+        "PRITSCHENWAGEN"
+      ]
     },
-    "brand": {
+    "public.brand": {
       "name": "brand",
-      "values": {
-        " Acura ": " Acura ",
-        " Alfa_Romeo ": " Alfa_Romeo ",
-        " Alpha_Motor_Corporation ": " Alpha_Motor_Corporation ",
-        " Arcimoto ": " Arcimoto ",
-        " Arrinera_Automotive ": " Arrinera_Automotive ",
-        " Aptera_Motors ": " Aptera_Motors ",
-        " Aston_Martin ": " Aston_Martin ",
-        " Atlis_Motor_Vehicles ": " Atlis_Motor_Vehicles ",
-        " Audi ": " Audi ",
-        " BMW ": " BMW ",
-        " Bentley ": " Bentley ",
-        " Bollinger_Motors ": " Bollinger_Motors ",
-        " Bugatti ": " Bugatti ",
-        " Buick ": " Buick ",
-        " BYD ": " BYD ",
-        " BYTON ": " BYTON ",
-        " Cadillac ": " Cadillac ",
-        " Canoo ": " Canoo ",
-        " Chery ": " Chery ",
-        " Chevrolet ": " Chevrolet ",
-        " Chrysler ": " Chrysler ",
-        " Citroen ": " Citroen ",
-        " Dacia ": " Dacia ",
-        " Daihatsu ": " Daihatsu ",
-        " Dodge ": " Dodge ",
-        " Electra_Meccanica ": " Electra_Meccanica ",
-        " Electrameccanica_Vehicles_Corp ": " Electrameccanica_Vehicles_Corp ",
-        " Elio_Motors ": " Elio_Motors ",
-        " Faraday_Future ": " Faraday_Future ",
-        " Ferrari ": " Ferrari ",
-        " Fiat ": " Fiat ",
-        " Fisker_Inc ": " Fisker_Inc ",
-        " Ford ": " Ford ",
-        " Genesis ": " Genesis ",
-        " Geely ": " Geely ",
-        " GMC ": " GMC ",
-        " Great_Wall ": " Great_Wall ",
-        " Haval ": " Haval ",
-        " Honda ": " Honda ",
-        " Hummer ": " Hummer ",
-        " Hyundai ": " Hyundai ",
-        " Infiniti ": " Infiniti ",
-        " Isuzu ": " Isuzu ",
-        " JAC ": " JAC ",
-        " Jaguar ": " Jaguar ",
-        " Jeep ": " Jeep ",
-        " Karma_Automotive ": " Karma_Automotive ",
-        " Kia ": " Kia ",
-        " Kreisel_Electric ": " Kreisel_Electric ",
-        " Land_Rover ": " Land_Rover ",
-        " Lamborghini ": " Lamborghini ",
-        " Lexus ": " Lexus ",
-        " Lincoln ": " Lincoln ",
-        " Local_Motors ": " Local_Motors ",
-        " Lordstown_Motors ": " Lordstown_Motors ",
-        " Lotus ": " Lotus ",
-        " Lucid_Motors ": " Lucid_Motors ",
-        " Mahindra ": " Mahindra ",
-        " Maserati ": " Maserati ",
-        " Mazda ": " Mazda ",
-        " McLaren ": " McLaren ",
-        " Mercedes_Benz ": " Mercedes_Benz ",
-        " MG ": " MG ",
-        " Micro_Mobility_Systems ": " Micro_Mobility_Systems ",
-        " Mini ": " Mini ",
-        " Mitsubishi ": " Mitsubishi ",
-        " NIO ": " NIO ",
-        " Nikola_Corporation ": " Nikola_Corporation ",
-        " Nissan ": " Nissan ",
-        " Opel ": " Opel ",
-        " Peugeot ": " Peugeot ",
-        " Polestar ": " Polestar ",
-        " Porsche ": " Porsche ",
-        " Proton ": " Proton ",
-        " RAM ": " RAM ",
-        " Renault ": " Renault ",
-        " Rimac ": " Rimac ",
-        " Rivian ": " Rivian ",
-        " Rolls_Royce ": " Rolls_Royce ",
-        " Saab ": " Saab ",
-        " SEAT ": " SEAT ",
-        " Smart ": " Smart ",
-        " SsangYong ": " SsangYong ",
-        " Subaru ": " Subaru ",
-        " Suzuki ": " Suzuki ",
-        " Skoda ": " Skoda ",
-        " Tesla ": " Tesla ",
-        " Terrafugia ": " Terrafugia ",
-        " Toyota ": " Toyota ",
-        " Vanderhall_Motor_Works ": " Vanderhall_Motor_Works ",
-        " Vauxhall ": " Vauxhall ",
-        " VinFast ": " VinFast ",
-        " Volkswagen ": " Volkswagen ",
-        " Volvo ": " Volvo ",
-        " Workhorse_Group_Inc ": " Workhorse_Group_Inc ",
-        " Wuling ": " Wuling ",
-        " Zoyte ": " Zoyte "
-      }
+      "schema": "public",
+      "values": [
+        " Acura ",
+        " Alfa_Romeo ",
+        " Alpha_Motor_Corporation ",
+        " Arcimoto ",
+        " Arrinera_Automotive ",
+        " Aptera_Motors ",
+        " Aston_Martin ",
+        " Atlis_Motor_Vehicles ",
+        " Audi ",
+        " BMW ",
+        " Bentley ",
+        " Bollinger_Motors ",
+        " Bugatti ",
+        " Buick ",
+        " BYD ",
+        " BYTON ",
+        " Cadillac ",
+        " Canoo ",
+        " Chery ",
+        " Chevrolet ",
+        " Chrysler ",
+        " Citroen ",
+        " Dacia ",
+        " Daihatsu ",
+        " Dodge ",
+        " Electra_Meccanica ",
+        " Electrameccanica_Vehicles_Corp ",
+        " Elio_Motors ",
+        " Faraday_Future ",
+        " Ferrari ",
+        " Fiat ",
+        " Fisker_Inc ",
+        " Ford ",
+        " Genesis ",
+        " Geely ",
+        " GMC ",
+        " Great_Wall ",
+        " Haval ",
+        " Honda ",
+        " Hummer ",
+        " Hyundai ",
+        " Infiniti ",
+        " Isuzu ",
+        " JAC ",
+        " Jaguar ",
+        " Jeep ",
+        " Karma_Automotive ",
+        " Kia ",
+        " Kreisel_Electric ",
+        " Land_Rover ",
+        " Lamborghini ",
+        " Lexus ",
+        " Lincoln ",
+        " Local_Motors ",
+        " Lordstown_Motors ",
+        " Lotus ",
+        " Lucid_Motors ",
+        " Mahindra ",
+        " Maserati ",
+        " Mazda ",
+        " McLaren ",
+        " Mercedes_Benz ",
+        " MG ",
+        " Micro_Mobility_Systems ",
+        " Mini ",
+        " Mitsubishi ",
+        " NIO ",
+        " Nikola_Corporation ",
+        " Nissan ",
+        " Opel ",
+        " Peugeot ",
+        " Polestar ",
+        " Porsche ",
+        " Proton ",
+        " RAM ",
+        " Renault ",
+        " Rimac ",
+        " Rivian ",
+        " Rolls_Royce ",
+        " Saab ",
+        " SEAT ",
+        " Smart ",
+        " SsangYong ",
+        " Subaru ",
+        " Suzuki ",
+        " Skoda ",
+        " Tesla ",
+        " Terrafugia ",
+        " Toyota ",
+        " Vanderhall_Motor_Works ",
+        " Vauxhall ",
+        " VinFast ",
+        " Volkswagen ",
+        " Volvo ",
+        " Workhorse_Group_Inc ",
+        " Wuling ",
+        " Zoyte "
+      ]
     },
-    "carType": {
+    "public.carType": {
       "name": "carType",
-      "values": {
-        "KOMBI": "KOMBI",
-        "COUPE": "COUPE",
-        "SUV": "SUV",
-        "LIMOUSINE": "LIMOUSINE",
-        "VAN": "VAN",
-        "KLEINBUS": "KLEINBUS",
-        "CABRIO": "CABRIO",
-        "KLEIN": "KLEIN",
-        "SPORT": "SPORT",
-        "SUPERSPORT": "SUPERSPORT"
-      }
+      "schema": "public",
+      "values": [
+        "KOMBI",
+        "COUPE",
+        "SUV",
+        "LIMOUSINE",
+        "VAN",
+        "KLEINBUS",
+        "CABRIO",
+        "KLEIN",
+        "SPORT",
+        "SUPERSPORT"
+      ]
     },
-    "category": {
+    "public.category": {
       "name": "category",
-      "values": {
-        "PKW": "PKW",
-        "LKW": "LKW",
-        "TRAILER": "TRAILER",
-        "TRANSPORT": "TRANSPORT"
-      }
+      "schema": "public",
+      "values": [
+        "PKW",
+        "LKW",
+        "TRAILER",
+        "TRANSPORT"
+      ]
     },
-    "coupling": {
+    "public.coupling": {
       "name": "coupling",
-      "values": {
-        "KUGELKOPFKUPPLUNG": "KUGELKOPFKUPPLUNG",
-        "MAULKUPPLUNG": "MAULKUPPLUNG"
-      }
+      "schema": "public",
+      "values": [
+        "KUGELKOPFKUPPLUNG",
+        "MAULKUPPLUNG"
+      ]
     },
-    "drive": {
+    "public.drive": {
       "name": "drive",
-      "values": {
-        "D4x2": "D4x2",
-        "D4x4": "D4x4",
-        "D6x2": "D6x2",
-        "D6x4": "D6x4",
-        "D6x6": "D6x6",
-        "D8x4": "D8x4",
-        "D8x6": "D8x6",
-        "D8x8": "D8x8"
-      }
+      "schema": "public",
+      "values": [
+        "D4x2",
+        "D4x4",
+        "D6x2",
+        "D6x4",
+        "D6x6",
+        "D8x4",
+        "D8x6",
+        "D8x8"
+      ]
     },
-    "extraType": {
+    "public.extraType": {
       "name": "extraType",
-      "values": {
-        "CONTAINERTRANSPORT": "CONTAINERTRANSPORT",
-        "FAHRZEUGTRANSPORT": "FAHRZEUGTRANSPORT",
-        "FLUESSIGKEITSTRANSPORT": "FLUESSIGKEITSTRANSPORT",
-        "KASTENWAGEN": "KASTENWAGEN",
-        "KOFFERAUFBAU": "KOFFERAUFBAU",
-        "KUEHLAUFBAU": "KUEHLAUFBAU",
-        "MOEBELTRANSPORT": "MOEBELTRANSPORT",
-        "MULDENKIPPER": "MULDENKIPPER",
-        "PERSONENTRANSPORT": "PERSONENTRANSPORT",
-        "PLANE": "PLANE",
-        "PRITSCHE": "PRITSCHE"
-      }
+      "schema": "public",
+      "values": [
+        "CONTAINERTRANSPORT",
+        "FAHRZEUGTRANSPORT",
+        "FLUESSIGKEITSTRANSPORT",
+        "KASTENWAGEN",
+        "KOFFERAUFBAU",
+        "KUEHLAUFBAU",
+        "MOEBELTRANSPORT",
+        "MULDENKIPPER",
+        "PERSONENTRANSPORT",
+        "PLANE",
+        "PRITSCHE"
+      ]
     },
-    "fuelType": {
+    "public.fuelType": {
       "name": "fuelType",
-      "values": {
-        "ELEKTRISCH": "ELEKTRISCH",
-        "DIESEL": "DIESEL",
-        "BENZIN": "BENZIN",
-        "HYBRID": "HYBRID"
-      }
+      "schema": "public",
+      "values": [
+        "ELEKTRISCH",
+        "DIESEL",
+        "BENZIN",
+        "HYBRID"
+      ]
     },
-    "license": {
+    "public.license": {
       "name": "license",
-      "values": {
-        "A1": "A1",
-        "A2": "A2",
-        "A": "A",
-        "AM": "AM",
-        "B": "B",
-        "B17": "B17",
-        "B96": "B96",
-        "B196": "B196",
-        "B197": "B197",
-        "BE": "BE",
-        "C1": "C1",
-        "C1E": "C1E",
-        "C": "C",
-        "CE": "CE",
-        "D1": "D1",
-        "D1E": "D1E",
-        "DE": "DE",
-        "L": "L",
-        "T": "T"
-      }
+      "schema": "public",
+      "values": [
+        "A1",
+        "A2",
+        "A",
+        "AM",
+        "B",
+        "B17",
+        "B96",
+        "B196",
+        "B197",
+        "BE",
+        "C1",
+        "C1E",
+        "C",
+        "CE",
+        "D1",
+        "D1E",
+        "DE",
+        "L",
+        "T"
+      ]
     },
-    "lkwBrand": {
+    "public.lkwBrand": {
       "name": "lkwBrand",
-      "values": {
-        "Anhui_Jianghuai_Automobile": "Anhui_Jianghuai_Automobile",
-        "Ashok_Leyland": "Ashok_Leyland",
-        "Beiben_Trucks": "Beiben_Trucks",
-        "Bedford_Vehicles": "Bedford_Vehicles",
-        "Beiqi_Foton": "Beiqi_Foton",
-        "BYD_Auto": "BYD_Auto",
-        "Changan_Automobile": "Changan_Automobile",
-        "Changan_Motors": "Changan_Motors",
-        "Changfeng_Group": "Changfeng_Group",
-        "Changhe": "Changhe",
-        "Chery_Automobile": "Chery_Automobile",
-        "Chevrolet_Trucks": "Chevrolet_Trucks",
-        "Daihatsu": "Daihatsu",
-        "DAF_Trucks": "DAF_Trucks",
-        "Dongfeng_Liuzhou_Motor": "Dongfeng_Liuzhou_Motor",
-        "Dongfeng_Motor_Corporation": "Dongfeng_Motor_Corporation",
-        "Dodge_Trucks": "Dodge_Trucks",
-        "Eicher_Motors": "Eicher_Motors",
-        "FAW_Group": "FAW_Group",
-        "FAW_Group_Corporation": "FAW_Group_Corporation",
-        "FAW_Jiefang": "FAW_Jiefang",
-        "FAW_Jilin_Automobile": "FAW_Jilin_Automobile",
-        "Fiat_Professional": "Fiat_Professional",
-        "Ford_Trucks": "Ford_Trucks",
-        "Freightliner_Trucks": "Freightliner_Trucks",
-        "Fuso": "Fuso",
-        "GAC_Group": "GAC_Group",
-        "GAZ_Group": "GAZ_Group",
-        "Geely_Auto": "Geely_Auto",
-        "GMC_Trucks": "GMC_Trucks",
-        "Great_Wall_Motors": "Great_Wall_Motors",
-        "Hafei": "Hafei",
-        "Haima_Automobile": "Haima_Automobile",
-        "Haval": "Haval",
-        "Hawtai": "Hawtai",
-        "Higer_Bus": "Higer_Bus",
-        "Hino_Motors": "Hino_Motors",
-        "Hyundai_Trucks": "Hyundai_Trucks",
-        "International_Trucks": "International_Trucks",
-        "Isuzu_Motors": "Isuzu_Motors",
-        "Iveco": "Iveco",
-        "JAC_Motors": "JAC_Motors",
-        "Jiefang": "Jiefang",
-        "Jinhua_Youngman_Vehicle": "Jinhua_Youngman_Vehicle",
-        "Jinbei": "Jinbei",
-        "Kamaz": "Kamaz",
-        "Kenworth": "Kenworth",
-        "King_Long": "King_Long",
-        "KrAZ": "KrAZ",
-        "Land_Rover": "Land_Rover",
-        "Landwind": "Landwind",
-        "Leyland_Trucks": "Leyland_Trucks",
-        "Lifan_Group": "Lifan_Group",
-        "Mack_Trucks": "Mack_Trucks",
-        "MAN_Truck_Bus": "MAN_Truck_Bus",
-        "Maruti_Suzuki": "Maruti_Suzuki",
-        "Mazda_Trucks": "Mazda_Trucks",
-        "Maxus": "Maxus",
-        "Mercedes_Benz_Trucks": "Mercedes_Benz_Trucks",
-        "Mitsubishi_Fuso_Truck_and_Bus_Corporation": "Mitsubishi_Fuso_Truck_and_Bus_Corporation",
-        "Navistar_International": "Navistar_International",
-        "Nissan_Trucks": "Nissan_Trucks",
-        "Peterbilt": "Peterbilt",
-        "Piaggio_Commercial_Vehicles": "Piaggio_Commercial_Vehicles",
-        "Renault_Trucks": "Renault_Trucks",
-        "SAF_HOLLAND": "SAF_HOLLAND",
-        "SAIC_Motor": "SAIC_Motor",
-        "Scania": "Scania",
-        "Shaanxi_Automobile_Group": "Shaanxi_Automobile_Group",
-        "Shacman": "Shacman",
-        "Shandong_Tangjun_Ouling_Automobile_Manufacture": "Shandong_Tangjun_Ouling_Automobile_Manufacture",
-        "Sichuan_Tengzhong": "Sichuan_Tengzhong",
-        "Sinotruk": "Sinotruk",
-        "Sisu_Auto": "Sisu_Auto",
-        "Tata_Motors": "Tata_Motors",
-        "Tatra_Trucks": "Tatra_Trucks",
-        "Toyota_Trucks": "Toyota_Trucks",
-        "UD_Trucks": "UD_Trucks",
-        "Ural_Automotive_Plant": "Ural_Automotive_Plant",
-        "Volkswagen_Commercial_Vehicles": "Volkswagen_Commercial_Vehicles",
-        "Volvo_Trucks": "Volvo_Trucks",
-        "Western_Star_Trucks": "Western_Star_Trucks",
-        "Wuling_Motors": "Wuling_Motors",
-        "Xiamen_Golden_Dragon_Bus": "Xiamen_Golden_Dragon_Bus",
-        "Yutong_Group": "Yutong_Group",
-        "Zotye_Auto": "Zotye_Auto",
-        "Zhejiang_Geely_Holding_Group": "Zhejiang_Geely_Holding_Group",
-        "ZIL": "ZIL"
-      }
+      "schema": "public",
+      "values": [
+        "Anhui_Jianghuai_Automobile",
+        "Ashok_Leyland",
+        "Beiben_Trucks",
+        "Bedford_Vehicles",
+        "Beiqi_Foton",
+        "BYD_Auto",
+        "Changan_Automobile",
+        "Changan_Motors",
+        "Changfeng_Group",
+        "Changhe",
+        "Chery_Automobile",
+        "Chevrolet_Trucks",
+        "Daihatsu",
+        "DAF_Trucks",
+        "Dongfeng_Liuzhou_Motor",
+        "Dongfeng_Motor_Corporation",
+        "Dodge_Trucks",
+        "Eicher_Motors",
+        "FAW_Group",
+        "FAW_Group_Corporation",
+        "FAW_Jiefang",
+        "FAW_Jilin_Automobile",
+        "Fiat_Professional",
+        "Ford_Trucks",
+        "Freightliner_Trucks",
+        "Fuso",
+        "GAC_Group",
+        "GAZ_Group",
+        "Geely_Auto",
+        "GMC_Trucks",
+        "Great_Wall_Motors",
+        "Hafei",
+        "Haima_Automobile",
+        "Haval",
+        "Hawtai",
+        "Higer_Bus",
+        "Hino_Motors",
+        "Hyundai_Trucks",
+        "International_Trucks",
+        "Isuzu_Motors",
+        "Iveco",
+        "JAC_Motors",
+        "Jiefang",
+        "Jinhua_Youngman_Vehicle",
+        "Jinbei",
+        "Kamaz",
+        "Kenworth",
+        "King_Long",
+        "KrAZ",
+        "Land_Rover",
+        "Landwind",
+        "Leyland_Trucks",
+        "Lifan_Group",
+        "Mack_Trucks",
+        "MAN_Truck_Bus",
+        "Maruti_Suzuki",
+        "Mazda_Trucks",
+        "Maxus",
+        "Mercedes_Benz_Trucks",
+        "Mitsubishi_Fuso_Truck_and_Bus_Corporation",
+        "Navistar_International",
+        "Nissan_Trucks",
+        "Peterbilt",
+        "Piaggio_Commercial_Vehicles",
+        "Renault_Trucks",
+        "SAF_HOLLAND",
+        "SAIC_Motor",
+        "Scania",
+        "Shaanxi_Automobile_Group",
+        "Shacman",
+        "Shandong_Tangjun_Ouling_Automobile_Manufacture",
+        "Sichuan_Tengzhong",
+        "Sinotruk",
+        "Sisu_Auto",
+        "Tata_Motors",
+        "Tatra_Trucks",
+        "Toyota_Trucks",
+        "UD_Trucks",
+        "Ural_Automotive_Plant",
+        "Volkswagen_Commercial_Vehicles",
+        "Volvo_Trucks",
+        "Western_Star_Trucks",
+        "Wuling_Motors",
+        "Xiamen_Golden_Dragon_Bus",
+        "Yutong_Group",
+        "Zotye_Auto",
+        "Zhejiang_Geely_Holding_Group",
+        "ZIL"
+      ]
     },
-    "loading": {
+    "public.loading": {
       "name": "loading",
-      "values": {
-        "AUFFAHRRAMPE": "AUFFAHRRAMPE",
-        "LADERAMPE": "LADERAMPE",
-        "KRAN": "KRAN",
-        "MITNAHMESTAPLER": "MITNAHMESTAPLER"
-      }
+      "schema": "public",
+      "values": [
+        "AUFFAHRRAMPE",
+        "LADERAMPE",
+        "KRAN",
+        "MITNAHMESTAPLER"
+      ]
     },
-    "trailer": {
+    "public.trailer": {
       "name": "trailer",
-      "values": {
-        "KLEIN": "KLEIN",
-        "SATTEL": "SATTEL",
-        "ANHAENGER": "ANHAENGER"
-      }
+      "schema": "public",
+      "values": [
+        "KLEIN",
+        "SATTEL",
+        "ANHAENGER"
+      ]
     },
-    "transmission": {
+    "public.transmission": {
       "name": "transmission",
-      "values": {
-        "MANUAL": "MANUAL",
-        "AUTOMATIC": "AUTOMATIC",
-        "SEMI_AUTOMATIC": "SEMI_AUTOMATIC"
-      }
+      "schema": "public",
+      "values": [
+        "MANUAL",
+        "AUTOMATIC",
+        "SEMI_AUTOMATIC"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "afa725fa-2e99-486f-9189-2f63a8e571d1",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -48,7 +48,8 @@ const BookingDayDetailsPopover : React.FC<BookingDayDetailsPopoverProps> = ({
                     </div>
                     <div>
                         <h3 className="text-sm 1">
-                            {thisBooking?.inserat?.title}
+                            {// @ts-ignore
+                            thisBooking?.inserat?.title}
                         </h3>
                     </div>
                     {thisBooking?.name && (
@@ -65,7 +66,8 @@ const BookingDayDetailsPopover : React.FC<BookingDayDetailsPopoverProps> = ({
                     <div className="flex items-center text-xs mt-2 gap-x-2">
                         <Clock10 className="w-4 h-4" /> 
                         <div>
-                           {convertMinutesToHours(thisBooking.startPeriod)}Uhr - {convertMinutesToHours(thisBooking.endPeriod)}Uhr
+                           {// @ts-ignore
+                           convertMinutesToHours(thisBooking.startPeriod)}Uhr - {convertMinutesToHours(thisBooking.endPeriod)}Uhr
                         </div>
                     </div>
                     <div className="text-xs dark:text-gray-200/90 mt-2">

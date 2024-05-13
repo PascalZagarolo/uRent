@@ -10,7 +10,7 @@ import DeleteBooking from "../manage/_components/delete-booking";
 interface BookingDayDetailsPopoverProps {
     thisBooking : typeof booking.$inferSelect;
     foundInserate : typeof inserat.$inferSelect[];
-    usedBookingId : string;
+    
 }
 
 const BookingDayDetailsPopover : React.FC<BookingDayDetailsPopoverProps> = ({

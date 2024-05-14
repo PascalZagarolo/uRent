@@ -272,7 +272,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                     <BookingDayDetailsPopover
                                         foundInserate={foundInserate}
                                         // @ts-ignore
-                                        thisBooking={relevantBookings.find(booking => 
+                                        thisBooking={relevantBookings.find(booking => //@ts-ignore
                                             appointedTimes.find(item => item.inseratId === inseratId 
                                                 && item.times.includes((hour * 60) + 30) && 
                                                 item.bookingIds.includes(booking.id) &&

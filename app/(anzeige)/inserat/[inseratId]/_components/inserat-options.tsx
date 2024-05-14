@@ -157,7 +157,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     <DialogTrigger className="mt-4" asChild>
                     
                        {ownUser && (
-                         <Button className="bg-emerald-700 hover:bg-emerald-600  sm:w-[240px] w-full text-gray-200">
+                         <Button className="bg-emerald-700 hover:bg-emerald-600  xl:w-[240px] w-full text-gray-200">
                          <ThumbsUp className="h-4 w-4 mr-2" /> Fahrzeug anfragen
                      </Button>
                        )}
@@ -213,7 +213,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                         )}
                     </div>
                     <div className="mt-4">
-                        <Button className="bg-[#171923] hover:bg-[#1c1f2b] sm:w-[240px]   w-full  text-gray-200" onClick={onStar}>
+                        <Button className="bg-[#171923] hover:bg-[#1c1f2b] xl:w-[240px]   w-full  text-gray-200" onClick={onStar}>
                             <Star className="h-4 w-4 mr-2" /> Anzeige vormerken
                         </Button>
                     </div>
@@ -221,7 +221,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
 
                     <div className="mt-4">
-                        <Button className="bg-[#171923] hover:bg-[#1c1f2b]  sm:w-[240px]  flex w-full text-gray-200" onClick={onConversation}>
+                        <Button className="bg-[#171923] hover:bg-[#1c1f2b]  xl:w-[240px]  flex w-full text-gray-200" onClick={onConversation}>
                             <Mail className="h-4 w-4 mr-2" />  Händler kontaktieren
                         </Button>
                     </div>
@@ -244,7 +244,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             <div className="mt-4">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="bg-[#1b1e2b] sm:w-[240px]  flex w-full
+                        <Button className="bg-[#1b1e2b] xl:w-[240px]  flex w-full
                         dark:text-gray-100  dark:hover:bg-[#161921] 
                         ">
                             <Share className="h-4 w-4 mr-2" />  Anzeige teilen

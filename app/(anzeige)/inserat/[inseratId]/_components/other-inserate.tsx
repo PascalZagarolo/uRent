@@ -18,7 +18,7 @@ const OtherInserate: React.FC<OtherInserateProps> = ({
 
 
     return (
-        <div className="sm:w-3/5 xl:min-w-[360px] bg-[#171923] px-4 py-4 rounded-md ">
+        <div className="xl:w-3/5 xl:min-w-[360px] bg-[#171923] px-4 py-4 rounded-md ">
             <h3 className=" flex gap-x-2 font-medium text-gray-200">
                 <IoIosPaper className="w-4 h-4" />Weiteres von
                 <div className="w-3/5 truncate font-semibold">{thisUser?.name}</div>

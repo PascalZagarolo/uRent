@@ -10,6 +10,7 @@ import { CheckIcon, LinkIcon, Share2Icon } from "lucide-react";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import BookingDayDetailsPopover from "./booking-day-details-popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface BookingDayDetailsProps {
     selectedDate: Date;
@@ -23,20 +24,23 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     foundInserate
 }) => {
 
-    const [appointedTimes, setAppointedTimes] = useState<{[key : string] : any[]}[]>([]);
+    const [appointedTimes, setAppointedTimes] = useState<{ [key: string]: any[] }[]>([]);
     const [usedBookings, setUsedBookings] = useState(relevantBookings);
+    const [selectedInserat, setSelectedInserat] = useState<null | string>(null);
 
-    
+    const [renderedInserate, setRenderedInserate] = useState(foundInserate);
+
+
 
     useMemo(() => {
         setAppointedTimes([]);
         setUsedBookings(relevantBookings);
-        
+
         for (const pBooking of relevantBookings) {
-            
+
             if (relevantBookings) {
                 if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
-    
+
                     setAppointedTimes(prevAppointedTimes => {
                         const newAppointedTimes: any[] = [...prevAppointedTimes];
                         const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
@@ -57,7 +61,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         return newAppointedTimes;
                     });
                 } else if (isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
-    
+
                     setAppointedTimes(prevAppointedTimes => {
                         const newAppointedTimes: any[] = [...prevAppointedTimes];
                         const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
@@ -77,10 +81,10 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         }
                         return newAppointedTimes;
                     });
-    
-    
+
+
                 } else if (isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
-    
+
                     setAppointedTimes(prevAppointedTimes => {
                         const newAppointedTimes: any[] = [...prevAppointedTimes];
                         const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
@@ -122,17 +126,17 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                     });
                 }
             }
-    
+
         }
-        
-    },[selectedDate]);
+
+    }, [selectedDate]);
 
     const checkBooked = (inseratId: string, number: string) => {
 
         //@ts-ignore
         return appointedTimes.some(item => item.inseratId === inseratId && item.times.includes(Number(number)));
     }
-    
+
 
     const renderSegments = () => {
         const segments = [];
@@ -159,50 +163,50 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         for (let hour = 8; hour <= 23; hour++) {
             segments.push(
                 <div key={hour} className="dark:bg-[#131313] text-sm flex items-center h-[80px] dark:border border-[#191919]">
-                    
+
                     <div className="h-full ml-auto w-full flex flex-col">
-                        <div className={cn("h-[40px] w-full p-2", 
-                        checkBooked(inseratId, String(hour * 60)) ? " bg-rose-800" : "",
-                        checkBooked(inseratId, String((hour * 60) + 30)) ? "" : "rounded-b-lg",
-                        checkBooked(inseratId, String((hour * 60) - 30)) ? "" : "rounded-t-lg"
+                        <div className={cn("h-[40px] w-full p-2",
+                            checkBooked(inseratId, String(hour * 60)) ? " bg-rose-800" : "",
+                            checkBooked(inseratId, String((hour * 60) + 30)) ? "" : "rounded-b-lg",
+                            checkBooked(inseratId, String((hour * 60) - 30)) ? "" : "rounded-t-lg"
                         )}>
                             {checkBooked(inseratId, String(hour * 60)) && (
                                 <div className="w-full">
-                                    
+
                                     <BookingDayDetailsPopover
-                                    // @ts-ignore
-                                    thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId
-                                         && item.times.includes((hour * 60)) && item.bookingIds.includes(booking.id)))}
-                                         foundInserate={foundInserate}
-                                />
+                                        // @ts-ignore
+                                        thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId
+                                            && item.times.includes((hour * 60)) && item.bookingIds.includes(booking.id)))}
+                                        foundInserate={foundInserate}
+                                    />
                                 </div>
                             )}
                             {(!checkBooked(inseratId, String(hour * 60)) && checkBooked(inseratId, String((hour * 60) - 30))) && (
-                            <div className="text-xs font-medium gap-x-2 flex">
-                            <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> 
-                                Verfügbar ab {hour}:00 Uhr
-                            
-                            </div>
+                                <div className="text-xs font-medium gap-x-2 flex">
+                                    <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />
+                                    Verfügbar ab {hour}:00 Uhr
+
+                                </div>
                             )}
                         </div>
-                        <div className={cn("h-[40px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]", 
-                        checkBooked(inseratId, String((hour * 60) + 30)) ? " bg-rose-800" : "",
-                        checkBooked(inseratId, String((hour * 60) + 60)) ? "" : "rounded-b-lg",
-                        checkBooked(inseratId, String((hour * 60))) ? "" : "rounded-t-lg"
+                        <div className={cn("h-[40px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]",
+                            checkBooked(inseratId, String((hour * 60) + 30)) ? " bg-rose-800" : "",
+                            checkBooked(inseratId, String((hour * 60) + 60)) ? "" : "rounded-b-lg",
+                            checkBooked(inseratId, String((hour * 60))) ? "" : "rounded-t-lg"
                         )}>
                             {checkBooked(inseratId, String((hour * 60) + 30)) && (
                                 <div className="w-full">
                                     <BookingDayDetailsPopover
-                                    foundInserate={foundInserate}
-                                    // @ts-ignore
-                                    thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId && item.times.includes((hour * 60) + 30) && item.bookingIds.includes(booking.id)))}
-                                />
+                                        foundInserate={foundInserate}
+                                        // @ts-ignore
+                                        thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId && item.times.includes((hour * 60) + 30) && item.bookingIds.includes(booking.id)))}
+                                    />
                                 </div>
                             )}
                             {(!checkBooked(inseratId, String((hour * 60) + 30)) && checkBooked(inseratId, String((hour * 60)))) && (
-                              <div className="flex text-xs font-medium">
-                              <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />  Verfügbar ab {hour}:30 Uhr
-                              </div>
+                                <div className="flex text-xs font-medium">
+                                    <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />  Verfügbar ab {hour}:30 Uhr
+                                </div>
                             )}
                         </div>
                     </div>
@@ -215,14 +219,41 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     return (
         <div className="w-full">
             <div>
-                <Label className="text-md font-semibold">
-                    Tagesansicht {selectedDate && (
-                        <>
-                            - {format(selectedDate, "dd MMMM yyyy", { locale: de })}
-                        </>
-                    )}
+                <div className="flex items-center">
+                    <Label className="text-md font-semibold">
+                        Tagesansicht {selectedDate && (
+                            <>
+                                - {format(selectedDate, "dd MMMM yyyy", { locale: de })}
+                            </>
+                        )}
 
-                </Label>
+                    </Label>
+                    <div className="ml-auto">
+                        <Select value={selectedInserat} onValueChange={(e) => {
+                            setSelectedInserat(e);
+                            if (e === null) {
+                                setRenderedInserate(foundInserate);
+                            } else {
+                                setRenderedInserate(foundInserate.filter(inserat => inserat.id === e));
+                            }
+                            
+                            }}>
+                            <SelectTrigger className="dark:bg-[#191919] w-[400px] dark:border-none">
+                                <SelectValue placeholder="Inserat auswählen" />
+                            </SelectTrigger>
+                            <SelectContent className="dark:bg-[#191919] dark:border-none ">
+                                <SelectItem value={null}>
+                                    Beliebig
+                                </SelectItem>
+                                {foundInserate.map((pInserat) => (
+                                    <SelectItem value={pInserat.id}>
+                                        {pInserat.title}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
                 <p className="text-xs dark:text-gray-200/60">
                     Detaillierte Tagesansicht für den {selectedDate && (
                         <>
@@ -250,21 +281,30 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         </div>
 
                         <div className="w-full overflow-x-auto">
-                            <div className="ml-16 gap-x-16 flex items-center justify-evenly">
-                                {foundInserate.map((inserat) => (
-                                    <div className="" key={inserat.id}>
+                            <div className={cn("gap-x-16 flex items-center justify-evenly", 
+                            (foundInserate.length > 1 && !selectedInserat) && "ml-16")}>
+                                {renderedInserate.map((inserat) => (
+                                    <div className={cn("", selectedInserat && "w-full")} key={inserat.id}>
                                         <div className="font-medium text-sm p-4 w-[240px]  overflow-hidden">
-                                        <a className="line-clamp-1 break-all hover:underline" href={`/inserat/${inserat.id}`} target="_blank">
-                                        {inserat.title} 
-                                        </a>
-                                    </div>
-                                    <div>
-                                    {renderAvailability(inserat.id)}
-                                    </div>
+                                            <a className="line-clamp-1 break-all hover:underline" href={`/inserat/${inserat.id}`} target="_blank">
+                                                {inserat.title}
+                                            </a>
+                                        </div>
+                                        {selectedDate && (
+                                            <div>
+                                                {renderAvailability(inserat.id)}
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
-                            </div>
 
+                            </div>
+                            {!selectedDate && (
+                                <div className="text-sm font-normal dark:text-gray-200/60 w-full flex justify-center">
+                                    Klicke auf ein Datum um die Details einzusehen
+                                </div>
+
+                            )}
                         </div>
 
                     </div>

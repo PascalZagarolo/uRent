@@ -68,7 +68,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     
     const [currentInserat, setCurrentInserat] = useState<string | null>(thisBooking?.inseratId);
-    const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null>(null);
+    const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null | any>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(thisBooking?.vehicleId);
     const [currentContent, setCurrentContent] = useState<string | null>(thisBooking?.content);
     const [currentName, setCurrentName] = useState<string | null>(thisBooking?.name);
@@ -120,6 +120,8 @@ const EditBooking: React.FC<EditBookingProps> = ({
                 content: currentContent,
                 start: new Date(currentStart),
                 end: new Date(currentEnd),
+                startPeriod: currentPeriodStart,
+                endPeriod: currentPeriodEnd,
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
                 name : currentName
@@ -350,6 +352,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                     isSameDay={isSameDay(currentStart, currentEnd)}
                                     setStartTimeParent={setCurrentPeriodStart}
                                     setEndTimeParent={setCurrentPeriodEnd}
+                                    prefilledStartTime={thisBooking?.startPeriod} 
+                                    prefilledEndTime={thisBooking?.endPeriod}
+                                    
                                     />
                                 </div>
                                 <div>

@@ -178,7 +178,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 </div>
                             )}
                             {(!checkBooked(inseratId, String(hour * 60)) && checkBooked(inseratId, String((hour * 60) - 30))) && (
-                                `Verfügbar ab ${hour}:00 Uhr`
+                            <div className="text-xs font-medium gap-x-2 flex">
+                            <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> 
+                                Verfügbar ab {hour}:00 Uhr
+                            
+                            </div>
                             )}
                         </div>
                         <div className={cn("h-[40px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]", 
@@ -196,7 +200,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 </div>
                             )}
                             {(!checkBooked(inseratId, String((hour * 60) + 30)) && checkBooked(inseratId, String((hour * 60)))) && (
-                              <div className="flex">
+                              <div className="flex text-xs font-medium">
                               <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />  Verfügbar ab {hour}:30 Uhr
                               </div>
                             )}

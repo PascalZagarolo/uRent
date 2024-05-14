@@ -9,16 +9,20 @@ interface SelectTimeRangeProps {
     isSameDay: boolean;
     setStartTimeParent : (time: string) => void;
     setEndTimeParent : (time: string) => void;
+    prefilledStartTime?: string;
+    prefilledEndTime?: string;
 }
 
 const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
     setStartTimeParent,
     setEndTimeParent,
-    isSameDay
+    isSameDay,
+    prefilledStartTime,
+    prefilledEndTime
 }) => {
 
-    const [startTime, setStartTime] = useState<string | null>(null);
-    const [endTime, setEndTime] = useState<string | null>(null);
+    const [startTime, setStartTime] = useState<string | null>(prefilledStartTime? prefilledStartTime : null);
+    const [endTime, setEndTime] = useState<string | null>(prefilledEndTime? prefilledEndTime : null);
     
     
     useEffect(() => {

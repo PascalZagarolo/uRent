@@ -143,6 +143,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     }
 
 
+    const checkBookedMulti = (inseratId: string, number: string, vehicleId : string) => {
+
+        //@ts-ignore
+        return appointedTimes.some(item => item.inseratId === inseratId && item.times.includes(Number(number)) && 
+        item.vehicleId.includes(vehicleId));
+    }
+
     const renderSegments = () => {
         const segments = [];
         for (let hour = 8; hour <= 23; hour++) {
@@ -229,9 +236,9 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
                     <div className="h-full ml-auto w-full flex flex-col">
                         <div className={cn("h-[40px] w-full p-2",
-                            checkBooked(inseratId, String(hour * 60)) ? " bg-rose-800" : "",
-                            checkBooked(inseratId, String((hour * 60) + 30)) ? "" : "rounded-b-lg",
-                            checkBooked(inseratId, String((hour * 60) - 30)) ? "" : "rounded-t-lg"
+                            checkBookedMulti(inseratId, String(hour * 60), vehicleId) ? " bg-rose-800" : "",
+                            checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) ? "" : "rounded-b-lg",
+                            checkBookedMulti(inseratId, String((hour * 60) - 30), vehicleId) ? "" : "rounded-t-lg"
                         )}>
                             {checkBooked(inseratId, String(hour * 60)) && (
                                 <div className="w-full">
@@ -239,7 +246,10 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                     <BookingDayDetailsPopover
                                         // @ts-ignore
                                         thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId
-                                            && item.times.includes((hour * 60)) && item.bookingIds.includes(booking.id)))}
+                                            && item.times.includes((hour * 60)) && 
+                                            item.bookingIds.includes(booking.id)
+                                            &&
+                                                item.vehicleId.includes(vehicleId)) )}
                                         foundInserate={foundInserate}
                                     />
                                 </div>
@@ -253,20 +263,25 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             )}
                         </div>
                         <div className={cn("h-[40px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]",
-                            checkBooked(inseratId, String((hour * 60) + 30)) ? " bg-rose-800" : "",
-                            checkBooked(inseratId, String((hour * 60) + 60)) ? "" : "rounded-b-lg",
-                            checkBooked(inseratId, String((hour * 60))) ? "" : "rounded-t-lg"
+                            checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) ? " bg-rose-800" : "",
+                            checkBookedMulti(inseratId, String((hour * 60) + 60), vehicleId) ? "" : "rounded-b-lg",
+                            checkBookedMulti(inseratId, String((hour * 60)), vehicleId) ? "" : "rounded-t-lg"
                         )}>
-                            {checkBooked(inseratId, String((hour * 60) + 30)) && (
+                            {checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) && (
                                 <div className="w-full">
                                     <BookingDayDetailsPopover
                                         foundInserate={foundInserate}
                                         // @ts-ignore
-                                        thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId && item.times.includes((hour * 60) + 30) && item.bookingIds.includes(booking.id)))}
+                                        thisBooking={relevantBookings.find(booking => 
+                                            appointedTimes.find(item => item.inseratId === inseratId 
+                                                && item.times.includes((hour * 60) + 30) && 
+                                                item.bookingIds.includes(booking.id) &&
+                                                item.vehicleId.includes(vehicleId)) 
+                                                )}
                                     />
                                 </div>
                             )}
-                            {(!checkBooked(inseratId, String((hour * 60) + 30)) && checkBooked(inseratId, String((hour * 60)))) && (
+                            {(!checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) && checkBooked(inseratId, String((hour * 60)))) && (
                                 <div className="flex text-xs font-medium">
                                     <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />  Verfügbar ab {hour}:30 Uhr
                                 </div>

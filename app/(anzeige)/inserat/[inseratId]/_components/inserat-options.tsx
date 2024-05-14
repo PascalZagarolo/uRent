@@ -250,15 +250,15 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                             <Share className="h-4 w-4 mr-2" />  Anzeige teilen
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="dark:bg-[#0F0F0F]">
-                        <DialogHeader className="flex">
-                            <div className="flex text-lg font-semibold">
-                                <Forward className="mr-2 " /> Anzeige teilen
+                    <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
+                        
+                            <div className="flex text-md font-semibold">
+                                <Forward className="mr-2 w-4 h-4" /> Anzeige teilen
                             </div>
-                        </DialogHeader>
+                        
                         <div>
-                            <p className="font-semibold italic flex">
-                                <Share className="mr-2" /> Soziale Netzwerke :
+                            <p className="font-medium text-sm flex items-center">
+                                <Share className="mr-2 w-4 h-4" /> Soziale Netzwerke :
                             </p>
                             <div className="flex gap-x-4 items-center mt-4 justify-evenly ">
                                 <FacebookShareButton
@@ -266,10 +266,10 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                     url={currentUrl}
                                     hashtag="#Urent"
                                 >
-                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]
+                                    <div className="p-4 bg-white rounded-md 
                                     dark:bg-[#080808]
                                     ">
-                                        <FacebookIcon size={32} className="w-6 h-6" />
+                                        <FacebookIcon size={32} className="w-4 h-4" />
                                     </div>
 
 
@@ -280,10 +280,10 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                     hashtags={["Urent", "#Mietwagen", "#Autovermietung", "#Inserat"]}
                                     url={currentUrl}
                                 >
-                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]
+                                    <div className="p-4 bg-white rounded-md 
                                     dark:bg-[#080808]
                                     ">
-                                        <TwitterIcon size={32} className="w-6 h-6" />
+                                        <TwitterIcon size={32} className="w-4 h-4" />
                                     </div>
                                 </TwitterShareButton>
                                 <EmailShareButton
@@ -292,17 +292,17 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                     subject="Dieses Produkt habe ich auf Urent gefunden, Wow!"
                                     body="Hallo, ich habe dieses Produkt auf Urent gefunden und wollte es dir zeigen."
                                 >
-                                    <div className="p-2 bg-white rounded-md border border-gray-300 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]
+                                    <div className="p-4 bg-white rounded-md 
                                     dark:bg-[#080808]
                                     ">
-                                        <Mail size={32} className="w-6 h-6 " />
+                                        <Mail size={32} className="w-4 h-4 " />
                                     </div>
                                 </EmailShareButton>
                             </div>
                             <div className="mt-2 flex">
-                                <Input
-                                    className="rounded-none border border-gray-300 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                    hover:underline hover:cursor-pointer dark:bg-[#080808]"
+                                <Input 
+                                    className="rounded-md  font-semibold  dark:border-none
+                                    hover:underline hover:cursor-pointer dark:bg-[#191919]"
                                     value={currentUrl}
                                     onClick={() => { copyToClipboard(currentUrl) }}
                                 />

@@ -69,7 +69,11 @@ export const login = async (
  
   if (existingUser.usesTwoFactor && existingUser.email) {
 
-    console.log("test")
+    const passwordsMatch = await bcrypt.compare(password, existingUser.password);
+
+    if(!passwordsMatch){
+      return { error : "Ungültige Anmeldedaten"}
+    }
 
     if (code) {
       const receivedTwoFactorToken = await getTwoFactorTokenByEmail(

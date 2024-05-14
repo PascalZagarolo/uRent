@@ -84,12 +84,22 @@ export const LoginForm = () => {
           }
 
           if (data?.twoFactor) {
-            console.log("this");
+            
             setShowTwoFactor(true);
           }
           
+          //eventually delete later
+          if(!data?.success && !data?.twoFactor) {
+            toast.error("Falsche Anmeldedaten");
+            form.reset();
+          }
+        }).catch((error) => {
+          toast.error("Fehler beim Einloggen");
         })
-        .catch(() => setError("Etwas ist schief gelaufen.."));
+          
+        
+        
+        
 
     });
   };

@@ -8,10 +8,10 @@ const TransferCarAdvert = () => {
                 <h3 className="text-md font-semibold flex items-center">
                 <MdLocalShipping className="w-4 h-4 mr-2" />    Du willst mehr Komfort?
                 </h3>
-                <div className="mt-1 text-sm">
+                <div className="mt-1 text-xs font-medium">
                     Lasse das Fahrzeug bis vor deine Haustür liefern.
                 </div>
-                <div className="text-sm mt-1  ">
+                <div className="text-sm   ">
                     
                     <div>
                     <img 
@@ -19,7 +19,7 @@ const TransferCarAdvert = () => {
                 className=" object-cover  rounded-md"
                 />
                     </div>
-                    <div className="text-xs font-medium hover:underline flex items-center hover:cursor-pointer">
+                    <div className="text-xs font-medium hover:underline flex items-center hover:cursor-pointer mt-2">
                         Zu unserem Partner <FaShare className="w-4 h-4 ml-2" />
                     </div>
                 </div>

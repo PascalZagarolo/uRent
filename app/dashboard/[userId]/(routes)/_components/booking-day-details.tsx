@@ -246,7 +246,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                     Beliebig
                                 </SelectItem>
                                 {foundInserate.map((pInserat) => (
-                                    <SelectItem value={pInserat.id}>
+                                    <SelectItem value={pInserat.id} key={pInserat.id}>
                                         {pInserat.title}
                                     </SelectItem>
                                 ))}

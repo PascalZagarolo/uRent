@@ -14,7 +14,7 @@ const DashboardLayout = cache(async (
 ) => {
 
     <meta
-        name="Mieten auf uRent!"
+        name="Mieten und Vermieten auf uRent!"
         content="Kostenlos und schnell mieten auf uRent. Mieten Sie Pkw, Lkw, Transport und Anhänger."
     />
 

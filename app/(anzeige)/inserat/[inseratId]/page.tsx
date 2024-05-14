@@ -227,7 +227,7 @@ const InseratAnzeige = async ({
 
                     <div>
 
-                        <div className=" sm:p-2 xl:mt-8 sm:flex justify-center xl:block">
+                        <div className=" sm:p-2 xl:mt-8  justify-center xl:block">
 
                             <div className="xl:hidden flex sm:block justify-center">
 
@@ -239,7 +239,7 @@ const InseratAnzeige = async ({
                                 />
 
                             </div>
-                            <div className="sm:ml-16 xl:ml-0 flex sm:block justify-center">
+                            <div className="xl:ml-0 flex sm:block justify-center w-full">
 
                                 <InseratOptions
                                     thisUser={thisInserat.user}

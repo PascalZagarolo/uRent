@@ -97,7 +97,7 @@ const Bookings = () => {
 
   return (
     <Dialog>
-      <DialogTrigger className=" w-full sm:w-[240px]">
+      <DialogTrigger className=" w-full xl:w-[240px]">
         <Button className="w-full bg-white text-gray-900 border border-gray-900 hover:bg-gray-200">
           <PlusSquare className="mr-2 h-4 w-4" /> Buchungen hinzufügen
         </Button>

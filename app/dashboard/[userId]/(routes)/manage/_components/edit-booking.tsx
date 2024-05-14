@@ -62,8 +62,8 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
     const [currentStart, setCurrentStart] = useState(new Date(thisBooking?.startDate));
     const [currentEnd, setCurrentEnd] = useState(new Date(thisBooking?.endDate));
-    const [currentPeriodStart, setCurrentPeriodStart] = useState(null);
-    const [currentPeriodEnd, setCurrentPeriodEnd] = useState(null);
+    const [currentPeriodStart, setCurrentPeriodStart] = useState(thisBooking?.startPeriod);
+    const [currentPeriodEnd, setCurrentPeriodEnd] = useState(thisBooking?.endPeriod);
 
     const [isLoading, setIsLoading] = useState(false);
     

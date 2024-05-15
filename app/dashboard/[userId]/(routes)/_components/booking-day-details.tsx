@@ -215,7 +215,20 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             checkBookedMulti(inseratId, String((hour * 60)), vehicleId) ? "" : "rounded-t-lg"
                         )}>
                             {checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) && (
-                                <div className="w-full"></div>
+                                <div className="w-full">
+                                    <BookingDayDetailsPopover
+                                        foundInserate={foundInserate}
+                                        thisBooking={relevantBookings.find(booking =>
+                                            appointedTimes.find(item =>
+                                                //@ts-ignore
+                                                item.inseratId === inseratId &&
+                                                item.times.includes((hour * 60)+30) &&
+                                                item.bookingIds.includes(booking.id) &&
+                                                item.vehicleId.includes(vehicleId)
+                                            )
+                                        )}
+                                    />
+                                </div>
                             )}
                             {!checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) &&
                             checkBookedMulti(inseratId, String((hour * 60)), vehicleId) && (

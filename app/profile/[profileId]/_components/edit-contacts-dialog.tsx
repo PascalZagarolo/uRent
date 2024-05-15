@@ -34,10 +34,10 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
         try {
             setIsLoading(true);
             const values = {
-                email: currentEmail.trim(),
-                website: currentWebsite.trim(),
-                telephone_number: currentNumber.trim(),
-                fax: currentFax.trim()
+                email: currentEmail?.trim(),
+                website: currentWebsite?.trim(),
+                telephone_number: currentNumber?.trim(),
+                fax: currentFax?.trim()
             }
 
             await axios.patch(`/api/business/${thisBusiness.id}`, values)

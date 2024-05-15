@@ -422,44 +422,45 @@ export const getInserate = cache(async ({
                 
             }
 
+            if ((startTime || endTime)) {
+
+                if (startTime) {
+                    let usedEnd;
+                    
+                    if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
+                        usedEnd = endTime;
+                    } else {
+                        usedEnd = "1440";
+                    }
+    
+                    for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                        if (startDateAppointments.has(Number(i))) {
+                            return false;
+                        }
+                    }
+                }
+                if (endTime) {
+                    let usedEnd;
+                    if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
+                        usedEnd = startTime;
+                    } else {
+                        usedEnd = "0";
+                    }
+    
+                   
+                    for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                        if (endDateAppointments.has(Number(i))) {
+                            return false;
+                        }
+                    }
+                }
+            }
 
             index++;
             
         }
 
-        if ((startTime || endTime)) {
-
-            if (startTime) {
-                let usedEnd;
-                console.log(startDateAppointments)
-                if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
-                    usedEnd = endTime;
-                } else {
-                    usedEnd = "1440";
-                }
-
-                for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
-                    if (startDateAppointments.has(Number(i))) {
-                        return false;
-                    }
-                }
-            }
-            if (endTime) {
-                let usedEnd;
-                if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
-                    usedEnd = startTime;
-                } else {
-                    usedEnd = "0";
-                }
-
-                console.log(endDateAppointments)
-                for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
-                    if (endDateAppointments.has(Number(i))) {
-                        return false;
-                    }
-                }
-            }
-        }
+        
 
         return true;
     })

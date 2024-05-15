@@ -36,105 +36,48 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     useMemo(() => {
         setAppointedTimes([]);
         setUsedBookings(relevantBookings);
-
+    
         for (const pBooking of relevantBookings) {
-
             if (relevantBookings) {
-                if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
-
-                    setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any[] = [...prevAppointedTimes];
-                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
-                        if (existingIndex === -1) {
-                            newAppointedTimes.push({
-                                inseratId: pBooking.inseratId,
-                                bookingIds: [pBooking.id],
-                                vehicleId: [pBooking?.vehicleId] || null,
-                                times: []
-                            });
-                        } else {
-                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
-                        }
-                        // Populate appointed times array
-                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
+                setAppointedTimes(prevAppointedTimes => {
+                    const newAppointedTimes: { [key: string]: any[] }[] = [...prevAppointedTimes];
+                    const existingIndex = newAppointedTimes.findIndex(item => item.bookingIds.includes(pBooking.id));
+                    if (existingIndex === -1) {
+                        newAppointedTimes.push({
+                            inseratId: pBooking.inseratId,
+                            bookingIds: [pBooking.id],
+                            vehicleId: [pBooking?.vehicleId] || null,
+                            times: []
+                        });
+                    } else {
+                        newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
+                    }
+    
+                    // Populate appointed times array based on booking dates and periods
+                    const index = newAppointedTimes.findIndex(item => item.bookingIds.includes(pBooking.id));
+                    if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
                         for (let i = 0; i <= 1440; i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
-                        return newAppointedTimes;
-                    });
-                } else if (isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
-
-                    setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any[] = [...prevAppointedTimes];
-                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
-                        if (existingIndex === -1) {
-                            newAppointedTimes.push({
-                                inseratId: pBooking.inseratId,
-                                bookingIds: [pBooking.id],
-                                vehicleId: [pBooking?.vehicleId] || null,
-                                times: []
-                            });
-                        } else {
-                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
-                        }
-                        // Populate appointed times array
-                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
-                        for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i = i + 30) {
+                    } else if (isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
+                        for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
-                        return newAppointedTimes;
-                    });
-
-
-                } else if (isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
-
-                    setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any[] = [...prevAppointedTimes];
-                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
-                        if (existingIndex === -1) {
-                            newAppointedTimes.push({
-                                inseratId: pBooking.inseratId,
-                                bookingIds: [pBooking.id],
-                                vehicleId: [pBooking?.vehicleId] || null,
-                                times: []
-                            });
-                        } else {
-                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
-                        }
-                        // Populate appointed times array
-                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
-                        for (let i = Number(pBooking.startPeriod); i <= 1440; i = i + 30) {
+                    } else if (isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
+                        for (let i = Number(pBooking.startPeriod); i <= 1440; i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
-                        return newAppointedTimes;
-                    });
-                } else if (!isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
-                    setAppointedTimes(prevAppointedTimes => {
-                        const newAppointedTimes: any[] = [...prevAppointedTimes];
-                        const existingIndex = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
-                        if (existingIndex === -1) {
-                            newAppointedTimes.push({
-                                inseratId: pBooking.inseratId,
-                                bookingIds: [pBooking.id],
-                                vehicleId: [pBooking?.vehicleId] || null,
-                                times: []
-                            });
-                        } else {
-                            newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
-                        }
-                        // Populate appointed times array
-                        const index = newAppointedTimes.findIndex(item => item.inseratId === pBooking.inseratId);
-                        for (let i = 0; i <= Number(pBooking.endPeriod); i = i + 30) {
+                    } else if (!isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
+                        for (let i = 0; i <= Number(pBooking.endPeriod); i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
-                        return newAppointedTimes;
-                    });
-                }
+                    }
+    
+                    return newAppointedTimes;
+                });
             }
-
         }
-
-    }, [selectedDate]);
+    }, [relevantBookings, selectedDate]);
 
     const checkBooked = (inseratId: string, number: string) => {
 
@@ -143,11 +86,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     }
 
 
-    const checkBookedMulti = (inseratId: string, number: string, vehicleId : string) => {
-
+    const checkBookedMulti = (inseratId: string, number: string, vehicleId: string) => {
+    
         //@ts-ignore
-        return appointedTimes.some(item => item.inseratId === inseratId && item.times.includes(Number(number)) && 
-        item.vehicleId.includes(vehicleId));
+        return appointedTimes.some(item => (item.inseratId === inseratId && item.times.includes(Number(number)) &&
+            item.vehicleId.includes(vehicleId)));
     }
 
     const renderSegments = () => {
@@ -187,8 +130,9 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
                                     <BookingDayDetailsPopover
                                         // @ts-ignore
-                                        thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId
-                                            && item.times.includes((hour * 60)) && item.bookingIds.includes(booking.id)))}
+                                        thisBooking={relevantBookings.find(booking => 
+                                            appointedTimes.find(item => item.inseratId === inseratId
+                                            && item.times.includes((hour * 60))))}
                                         foundInserate={foundInserate}
                                     />
                                 </div>
@@ -228,37 +172,37 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         return segments;
     }
 
-    const renderAvailabilityMulti = (inseratId: string, vehicleId : string) => {
+    const renderAvailabilityMulti = (inseratId: string, vehicleId: string) => {
         const segments = [];
         for (let hour = 8; hour <= 23; hour++) {
             segments.push(
-                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center h-[80px] dark:border border-[#191919]">
-
+                <div key={`${vehicleId}-${hour}`} className="dark:bg-[#131313] text-sm flex items-center h-[80px] dark:border border-[#191919]">
                     <div className="h-full ml-auto w-full flex flex-col">
                         <div className={cn("h-[40px] w-full p-2",
                             checkBookedMulti(inseratId, String(hour * 60), vehicleId) ? " bg-rose-800" : "",
                             checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) ? "" : "rounded-b-lg",
                             checkBookedMulti(inseratId, String((hour * 60) - 30), vehicleId) ? "" : "rounded-t-lg"
                         )}>
-                            {checkBooked(inseratId, String(hour * 60)) && (
+                            {checkBookedMulti(inseratId, String(hour * 60), vehicleId) && (
                                 <div className="w-full">
-
                                     <BookingDayDetailsPopover
-                                        // @ts-ignore
-                                        thisBooking={relevantBookings.find(booking => appointedTimes.find(item => item.inseratId === inseratId
-                                            && item.times.includes((hour * 60)) && 
-                                            item.bookingIds.includes(booking.id)
-                                            &&
-                                                item.vehicleId.includes(vehicleId)) )}
                                         foundInserate={foundInserate}
+                                        thisBooking={relevantBookings.find(booking =>
+                                            appointedTimes.find(item =>
+                                                item.inseratId === inseratId &&
+                                                item.times.includes(hour * 60) &&
+                                                item.bookingIds.includes(booking.id) &&
+                                                item.vehicleId.includes(vehicleId)
+                                            )
+                                        )}
                                     />
                                 </div>
                             )}
-                            {(!checkBooked(inseratId, String(hour * 60)) && checkBooked(inseratId, String((hour * 60) - 30))) && (
+                            {!checkBookedMulti(inseratId, String(hour * 60), vehicleId) &&
+                            checkBookedMulti(inseratId, String((hour * 60) - 30), vehicleId) && (
                                 <div className="text-xs font-medium gap-x-2 flex">
                                     <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />
                                     Verfügbar ab {hour}:00 Uhr
-
                                 </div>
                             )}
                         </div>
@@ -268,22 +212,12 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             checkBookedMulti(inseratId, String((hour * 60)), vehicleId) ? "" : "rounded-t-lg"
                         )}>
                             {checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) && (
-                                <div className="w-full">
-                                    <BookingDayDetailsPopover
-                                        foundInserate={foundInserate}
-                                        // @ts-ignore
-                                        thisBooking={relevantBookings.find(booking => //@ts-ignore
-                                            appointedTimes.find(item => item.inseratId === inseratId 
-                                                && item.times.includes((hour * 60) + 30) && 
-                                                item.bookingIds.includes(booking.id) &&
-                                                item.vehicleId.includes(vehicleId)) 
-                                                )}
-                                    />
-                                </div>
+                                <div className="w-full"></div>
                             )}
-                            {(!checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) && checkBooked(inseratId, String((hour * 60)))) && (
+                            {!checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) &&
+                            checkBookedMulti(inseratId, String((hour * 60)), vehicleId) && (
                                 <div className="flex text-xs font-medium">
-                                    <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />  Verfügbar ab {hour}:30 Uhr
+                                    <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> Verfügbar ab {hour}:30 Uhr
                                 </div>
                             )}
                         </div>
@@ -292,7 +226,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
             );
         }
         return segments;
-    }
+    };
 
     return (
         <div className="w-full">
@@ -370,7 +304,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
                                 {selectedInseratData?.multi ? (
                                     // @ts-ignore
-                                    selectedInseratData?.vehicles?.map((vehicle : any) => (
+                                    selectedInseratData?.vehicles?.map((vehicle) => (
                                         // @ts-ignore
                                         <div className={cn("", selectedInseratData?.vehicles?.length === 1 && "w-full")} key={vehicle.id}>
                                             <div className="font-medium text-sm p-8 w-[240px] text-left overflow-hidden">
@@ -409,6 +343,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                     Klicke auf ein Datum um die Details einzusehen
                                 </div>
 
+                            )}
+                            {selectedInseratData?.multi && selectedInseratData?.vehicles.length === 0 && (
+                                <div className="text-sm font-normal dark:text-gray-200/60 w-full justify-center h-full flex items-center">
+                                    Noch keine Fahrzeuge erstellt..
+                                </div>
                             )}
                         </div>
 

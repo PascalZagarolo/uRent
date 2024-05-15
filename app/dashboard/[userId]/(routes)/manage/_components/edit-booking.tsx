@@ -115,11 +115,12 @@ const EditBooking: React.FC<EditBookingProps> = ({
         try {
            
             setIsLoading(true);
-            
+            const usedStart = new Date(currentStart);
+            const usedEnd = new Date(currentEnd);
             const values = {
                 content: currentContent,
-                start: new Date(currentStart),
-                end: new Date(currentEnd),
+                start: usedStart,
+                end: usedEnd,
                 startPeriod: currentPeriodStart,
                 endPeriod: currentPeriodEnd,
                 userId: selectedUser ? selectedUser?.id : null,

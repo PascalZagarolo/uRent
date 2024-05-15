@@ -201,8 +201,7 @@ export async function PATCH(
 
                     }
                     else {
-                        console.log(booking)
-                        console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
+                        
                         return false;
                     }
                 }
@@ -247,6 +246,128 @@ export async function PATCH(
             return true;
         })
 
+        const filterAvailabilityMulti = cache((pInserat: typeof inserat) => {
+
+
+            if (pInserat.bookings.length === 0) {
+                return true;
+            }
+            //set start and date to same date if the user only provides one
+    
+            const usedPeriodBegin = new Date(periodBegin);
+            const usedPeriodEnd = new Date(periodEnd);
+    
+            let index = 1;
+    
+            for (const vehicle of pInserat?.vehicles) {
+    
+                const startDateAppointments = new Set<any>()
+                const endDateAppointments = new Set<any>();
+    
+                
+    
+    
+                for (const booking of vehicle?.bookings) {
+                    //booking starts AND ends before the searched Period
+                    if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                        //booking starts or ends on the first OR last day of the searched period
+                        || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
+                            || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
+                        //booking
+                        && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
+                    ) {
+                        if ((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)) {
+                            let usedStart;
+                            if (isSameDay(booking.startDate, booking.endDate)) {
+                                usedStart = booking.startPeriod;
+                            } else {
+                                usedStart = "0"
+                            }
+    
+                            for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+    
+                                startDateAppointments.add(i);
+                            }
+                            if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                                console.log("this")
+                                return false;
+                            }
+                        } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
+                            || isSameDay(booking.startDate, usedPeriodEnd)) {
+    
+                            let usedEnd;
+    
+                            if (isSameDay(booking.startDate, booking.endDate)) {
+                                usedEnd = booking.endPeriod;
+                            } else {
+    
+                                usedEnd = "1440";
+                            }
+    
+                            for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+    
+                                endDateAppointments.add(i);
+                            }
+                            if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                                console.log("this")
+                                return false;
+                            } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+                                console.log(booking)
+    
+                            }
+                        } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+    
+                        }
+                        else if(index === pInserat.vehicles.length) {
+                            
+                            return false;
+                        }
+                    }
+                    
+                }
+    
+                if ((startTime || endTime)) {
+    
+                    if (startTime) {
+                        let usedEnd;
+                        
+                        if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
+                            usedEnd = endTime;
+                        } else {
+                            usedEnd = "1440";
+                        }
+        
+                        for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                            if (startDateAppointments.has(Number(i))) {
+                                return false;
+                            }
+                        }
+                    }
+                    if (endTime) {
+                        let usedEnd;
+                        if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
+                            usedEnd = startTime;
+                        } else {
+                            usedEnd = "0";
+                        }
+        
+                       
+                        for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                            if (endDateAppointments.has(Number(i))) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+    
+                index++;
+                
+            }
+    
+            
+    
+            return true;
+        })
 
 
 
@@ -270,7 +391,12 @@ export async function PATCH(
                 pkwAttribute: true,
                 trailerAttribute: true,
                 transportAttribute: true,
-                bookings: true
+                bookings: true,
+                vehicles : {
+                    with : {
+                        bookings : true
+                    }
+                }
             }
         })
 
@@ -282,7 +408,15 @@ export async function PATCH(
 
             if (periodBegin && periodEnd) {
 
-                const available = filterAvailability(pInserat);
+
+
+                let available;
+
+                if (pInserat.multi && pInserat.vehicles.length > 0) {
+                    available = filterAvailabilityMulti(pInserat);
+                } else {
+                    available = filterAvailability(pInserat);
+                }
 
                 if (!available) return false;
             }

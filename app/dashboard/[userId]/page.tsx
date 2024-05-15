@@ -138,24 +138,7 @@ const DashboardPage = async ({
                                 <EyeIcon className="h-6 w-6 mr-2" />   {views} <p className="font-medium ml-2"> Ansichten </p>
                             </div>
                         </div>
-                        <div className="sm:p-4  sm:flex">
-                            <div className="w-full sm:mr-4 mt-4 sm:mt-0">
-                                <h3 className="flex text-lg font-semibold items-center">
-                                    <CalendarCheck2 className="w-4 h-4 mr-2" /> Mein Kalender
-                                </h3>
-                                <p className="text-xs dark:text-gray-200/60">
-                                    Falls dich andere Mieter in einer ihrer Buchung verlinken, wird diese hier angezeigt.
-                                </p>
-                                <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
-                                    
-                                    <EventCalendar
-                                        everyInserat={everyInserat}
-                                        //@ts-ignore
-                                        bookings={involvedBookings}
-                                    /> 
-                                </div>
-                            </div>                            
-                        </div>
+                       
                     </div>
                 </div>
             </div>

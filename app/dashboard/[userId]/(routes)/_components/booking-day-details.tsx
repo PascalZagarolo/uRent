@@ -44,6 +44,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                     const existingIndex = newAppointedTimes.findIndex(item => item.bookingIds.includes(pBooking.id));
                     if (existingIndex === -1) {
                         newAppointedTimes.push({
+                            //@ts-ignore
                             inseratId: pBooking.inseratId,
                             bookingIds: [pBooking.id],
                             vehicleId: [pBooking?.vehicleId] || null,
@@ -131,6 +132,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                     <BookingDayDetailsPopover
                                         // @ts-ignore
                                         thisBooking={relevantBookings.find(booking => 
+                                            //@ts-ignore
                                             appointedTimes.find(item => item.inseratId === inseratId
                                             && item.times.includes((hour * 60))))}
                                         foundInserate={foundInserate}
@@ -189,6 +191,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                         foundInserate={foundInserate}
                                         thisBooking={relevantBookings.find(booking =>
                                             appointedTimes.find(item =>
+                                                //@ts-ignore
                                                 item.inseratId === inseratId &&
                                                 item.times.includes(hour * 60) &&
                                                 item.bookingIds.includes(booking.id) &&
@@ -344,7 +347,8 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 </div>
 
                             )}
-                            {selectedInseratData?.multi && selectedInseratData?.vehicles.length === 0 && (
+                            {//@ts-ignore
+                            selectedInseratData?.multi && selectedInseratData?.vehicles.length === 0 && (
                                 <div className="text-sm font-normal dark:text-gray-200/60 w-full justify-center h-full flex items-center">
                                     Noch keine Fahrzeuge erstellt..
                                 </div>

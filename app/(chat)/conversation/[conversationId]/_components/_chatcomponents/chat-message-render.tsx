@@ -38,7 +38,8 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
         <div className={cn("w-full p-2 flex items-center dark:text-gray-300 text-sm", isOwn && " justify-end", )}>
             <div className="flex space-x-2 ">
                 {!isOwn && (
-                    <div className="mt-auto">
+                    <a className="mt-auto hover:cursor-pointer" 
+                    href={`/profile/${messages.senderId}`} target="_blank">
                         <Image
                             src={//@ts-ignore
                                 messages.sender?.image}
@@ -47,7 +48,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                             className="w-[32px] h-[32px] rounded-full object-cover"
                             alt="pfp"
                         />
-                    </div>
+                    </a>
                 )}
 
                 <div>

@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { contactOptions } from '../../../../../db/schema';
+import { contactOptions, business } from '../../../../../db/schema';
 
 interface SelectEmailProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -59,7 +59,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
     const onPrefill = () => {
         if(!isPrefill) {
-            setCurrentAddress(usedContactOptions?.emailAddress || thisInserat.user?.email);
+            setCurrentAddress(thisInserat?.user?.business?.email || thisInserat.user?.email);
             setIsPrefill(true);
         } else if(isPrefill) {
             setCurrentAddress("");

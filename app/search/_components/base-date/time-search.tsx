@@ -172,7 +172,7 @@ const TimeSearch = () => {
             <div className="flex gap-x-4  w-full">
                 <div className="w-full">
 
-                    <div className="flex w-full px-2">
+                    <div className="flex w-full ">
 
                         <div className="flex gap-x-4 w-full">
                             <div className="w-1/2">

@@ -1,9 +1,10 @@
 
 import db from "@/db/drizzle";
-import { address, inserat } from "@/db/schema";
+import { address, inserat, vehicle } from "@/db/schema";
 
 import axios from "axios";
 import { eq } from "drizzle-orm";
+
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -19,10 +20,33 @@ export async function PATCH(
         const findInserat = await db.query.inserat.findFirst({
             where : (
                 eq(inserat.id, params.inseratId)
-            )
+            ), with : {
+                vehicles : true
+            }
         })
 
         const createDate = findInserat?.firstRelease ? findInserat.firstRelease : new Date();
+
+        if(findInserat.multi) {
+            const existingVehicleLength = findInserat.vehicles.length;
+
+            if ((findInserat.amount - existingVehicleLength) > 25) {
+                return new NextResponse("Zu viele Fahrzeuge auf einmal hinzugefügt", { status : 400 })
+            }
+
+            if(existingVehicleLength < findInserat.amount) {
+                for (let i = 0; i < findInserat.amount - existingVehicleLength; i++) {
+
+                    const usedIndex = i < 10 ? "0" + (i + 1) : (i + 1);
+                    const usedTitle = "Fahrzeug" + " " + usedIndex;
+
+                    const createVehicle = await db.insert(vehicle).values({
+                        title : usedTitle,
+                        inseratId : findInserat.id,
+                    })
+                }
+            }
+        }
 
         const patchedInserat : any = await db.update(inserat).set({
             isPublished : publish,

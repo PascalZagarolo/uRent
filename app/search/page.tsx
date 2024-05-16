@@ -16,6 +16,7 @@ import db from "@/db/drizzle";
 import { notification } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import MobileHeader from "../(dashboard)/_components/mobile-header";
+import TimespanSearchRender from "./_components/timespan-search-render";
 
 const SearchPage = async () => {
 
@@ -61,6 +62,7 @@ const SearchPage = async () => {
                         </div>
                         <div className="p-8 text-sm dark:text-gray-300/90 space-y-4">
                         <BaseDataSearch />
+                        <TimespanSearchRender />
                         <ConditionsSearch />
                         <CategorySearch />
                         <CategorySearchRender />

@@ -34,6 +34,7 @@ const ContactInformation: React.FC<ContactInformationProps> = async ({
                 <SelectEmail
                 thisInserat = {thisInserat}
                 usedContactOptions = {currentUserWithContactOptions.contactOptions}
+                
                 />
             </div>
             </div>

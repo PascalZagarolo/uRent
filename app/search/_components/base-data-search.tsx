@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import LocationSearch from "./base-date/location-search";
 import DateSearch from "./base-date/date-search";
 import PriceSearch from "./base-date/price-search";
+import TitleSearch from "./base-date/title-search";
 
 const BaseDataSearch = () => {
     return (
@@ -15,12 +16,12 @@ const BaseDataSearch = () => {
 
                 />
             </h3>
-            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2">
+            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2 sm:space-y-0">
                 <div className="sm:w-1/3">
-                    <LocationSearch />
+                    <TitleSearch />
                 </div>
                 <div className="sm:w-1/3">
-                    <DateSearch />
+                <LocationSearch />
                 </div>
                 <div className="sm:w-1/3">
                     <PriceSearch />

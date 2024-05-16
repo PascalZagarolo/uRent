@@ -102,7 +102,7 @@ const DateSearch = () => {
                     name="start"
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-full">
-                        <FormLabel className="text-gray-100/80 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> 
+                        <FormLabel className="text-gray-100/80 mb-1 font-semibold flex"> <CalendarClockIcon className="h-4 w-4 mr-2" /> 
                         <div className="sm:ml-2 font-semibold flex "> Startdatum </div>
                         </FormLabel>
                         <Popover>
@@ -153,7 +153,7 @@ const DateSearch = () => {
                     name="end"
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-full">
-                        <FormLabel className="mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> 
+                        <FormLabel className="mb-1 font-semibold flex"> <CalendarClockIcon className="h-4 w-4 mr-2" /> 
                         <div className="sm:ml-2 font-semibold flex"> Enddatum </div> </FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>

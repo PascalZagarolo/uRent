@@ -190,6 +190,34 @@ export const licenseEnum = pgEnum(
 
 ])
 
+export const accounts = pgTable(
+    "account",
+    {
+        userId: text("userId")
+            .references(() => userTable.id, { onDelete: "cascade" }).notNull(),
+        type: text("type").$type<AdapterAccount["type"]>().notNull(),
+        provider: text("provider").notNull(),
+        providerAccountId: text("providerAccountId").notNull(),
+        refresh_token: text("refresh_token"),
+        access_token: text("access_token"),
+        expires_at: integer("expires_at"),
+        token_type: text("token_type"),
+        scope: text("scope"),
+        id_token: text("id_token"),
+        session_state: text("session_state"),
+    },
+    (account) => ({
+        compoundKey: primaryKey({ columns: [account.provider, account.providerAccountId] }),
+    })
+)
+
+export const accountRelations = relations(accounts, ({ one }) => ({
+    users : one(userTable, {
+        fields : [accounts.userId],
+        references : [userTable.id]
+    })
+}))
+
 export const LicenseEnumRender = z.enum(licenseEnum.enumValues).Enum;
 
 export const categoryEnum = pgEnum("category", [
@@ -877,7 +905,8 @@ export const blockRelations = relations(block , ({ one }) => ({
     conversation : one(conversation, {
         fields : [block.conversationId],
         references : [conversation.id]
-    })
+    }),
+    
 }))
 
 export const sessionRelations =  relations(sessionTable, ({ one }) => ({
@@ -934,6 +963,7 @@ export const userRelations = relations(userTable, ({ one, many }) => ({
     bookingRequests : many(bookingRequest),
     notifications : many(notification),
     savedSearch : many(savedSearch),
+    accounts : many(accounts),
     
     
 }));

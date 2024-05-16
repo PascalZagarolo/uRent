@@ -174,7 +174,7 @@ const TimeSearch = () => {
 
                     <div className="flex w-full ">
 
-                        <div className="flex gap-x-4 w-full">
+                        <div className="flex gap-x-2 w-full">
                             <div className="w-1/2">
                             <Label className="text-gray-100/80 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> 
                         <div className="sm:ml-2 font-semibold flex "> Startzeit </div>

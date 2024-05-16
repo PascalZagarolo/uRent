@@ -46,9 +46,9 @@ const DateFormFilter = () => {
     const paramsPeriodBegin = usedSearchParams.get("periodBegin");
     const paramsPeriodEnd = usedSearchParams.get("periodEnd");
     
-    const [periodBegin, setPeriodBegin] = React.useState(new Date(paramsPeriodBegin));
+    const [periodBegin, setPeriodBegin] = React.useState<any>(paramsPeriodBegin);
 
-    const [periodEnd, setPeriodEnd] = React.useState(new Date(paramsPeriodEnd));
+    const [periodEnd, setPeriodEnd] = React.useState<any>(paramsPeriodEnd);
 
     
 
@@ -72,14 +72,14 @@ const DateFormFilter = () => {
         if(paramsPeriodBegin){
           //@ts-ignore
             changeSearchParams("periodBegin", new Date(paramsPeriodBegin));
-            setPeriodBegin(new Date(paramsPeriodBegin));
+            setPeriodBegin(paramsPeriodBegin);
             form.setValue("start", paramsPeriodBegin)
         } 
         
         if(paramsPeriodEnd){
           //@ts-ignore
             changeSearchParams("periodEnd", new Date(paramsPeriodEnd));
-            setPeriodEnd(new Date(paramsPeriodEnd));
+            setPeriodEnd(paramsPeriodEnd);
             form.setValue("end", paramsPeriodEnd)
         }
     }, [])
@@ -184,7 +184,7 @@ const DateFormFilter = () => {
                             <Calendar
                               mode="single"
                               //@ts-ignore
-                              selected={periodBegin}
+                              selected={new Date(periodBegin)}
                               onSelect={(date) => {
                                 field.onChange(date);
                                 setPeriodBegin(date);
@@ -233,14 +233,14 @@ const DateFormFilter = () => {
                             <Calendar
                               mode="single"
                               //@ts-ignore
-                              selected={periodEnd}
+                              selected={new Date(periodEnd)}
                               onSelect={(date) => {
                                 field.onChange(date);
                                 setPeriodEnd(date);
                                 setEnd(date);
                               }}
                               disabled={(date) =>
-                                date < periodBegin || date < new Date("1900-01-01")
+                                date < new Date(periodBegin) || date < new Date("1900-01-01")
                               }
                               locale={de}
                               initialFocus

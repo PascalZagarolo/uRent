@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import DeleteVehicle from "./delete-vehicle";
 
 
 
@@ -57,10 +58,13 @@ const RenderedVehicle: React.FC<RenderedVehicleProps> = ({
     return (
         <div className="w-full">
             <div className="p-4">
-                <div className="flex items-center space-x-2">
-                    <div className="rounded-md bg-[#1C1C1C]">
-
-                    </div>
+                <div className="w-full flex items-center justify-end">
+                    <DeleteVehicle 
+                    vehicleId={vehicleId}
+                    />
+                </div>
+                <div className="flex items-center space-x-2 mt-2">
+                    
                     <h3 className="text-sm font-semibold flex w-full items-center space-x-2">
                         <div className="w-2/5 truncate font-semibold">
                             {thisVehicle?.title}

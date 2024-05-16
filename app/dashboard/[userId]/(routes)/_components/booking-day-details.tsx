@@ -247,20 +247,20 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     return (
         <div className="w-full">
             <div>
-                <div className="flex items-center">
-                    <Label className="text-md font-semibold flex items-center gap-x-2">
+                <div className="flex items-center w-full">
+                    <Label className="text-md font-semibold flex items-center gap-x-2 ">
                         {selectedInserat &&
-                            <div className="font-semibold text-indigo-600">
+                            <div className="font-semibold text-indigo-600 w-1/3 line-clamp-1">
                                 {foundInserate.find(inserat => inserat.id === selectedInserat)?.title}
                             </div>
                         } Tagesansicht {selectedDate && (
-                            <>
+                            <div >
                                 - {format(selectedDate, "dd MMMM yyyy", { locale: de })}
-                            </>
+                            </div>
                         )}
 
                     </Label>
-                    <div className="ml-auto">
+                    <div className="ml-auto w-1/3">
                         <Select value={selectedInserat} onValueChange={(e) => {
                             setSelectedInserat(e);
                             setSelectedInseratData(foundInserate.find(inserat => inserat.id === e) || null);
@@ -271,7 +271,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             }
 
                         }}>
-                            <SelectTrigger className="dark:bg-[#191919] w-[400px] dark:border-none">
+                            <SelectTrigger className="dark:bg-[#191919] w-full dark:border-none">
                                 <SelectValue placeholder="Inserat auswählen" />
                             </SelectTrigger>
                             <SelectContent className="dark:bg-[#191919] dark:border-none ">

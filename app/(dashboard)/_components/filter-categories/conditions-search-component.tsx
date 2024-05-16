@@ -26,7 +26,7 @@ const ConditionsSearchComponent = () => {
             <CautionBar/>
             </div>
             <div className="px-2">
-            <AmountBar/>
+           {/*Later: Add reworked amount filter */}
             </div>
         </div>
     );

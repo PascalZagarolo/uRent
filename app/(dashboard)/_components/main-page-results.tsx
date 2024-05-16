@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import qs from "query-string";
 import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { addDays } from "date-fns";
+
 
 const MainPageResults = () => {
 

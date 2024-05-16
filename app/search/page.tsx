@@ -60,7 +60,7 @@ const SearchPage = async () => {
                                 </div>
                             </h3>
                         </div>
-                        <div className="p-8 text-sm dark:text-gray-300/90 space-y-4">
+                        <div className="sm:p-8 p-4 text-sm dark:text-gray-300/90 space-y-4">
                         <BaseDataSearch />
                         <TimespanSearchRender />
                         <ConditionsSearch />

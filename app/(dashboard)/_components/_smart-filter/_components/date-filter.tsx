@@ -46,9 +46,9 @@ const DateFormFilter = () => {
     const paramsPeriodBegin = usedSearchParams.get("periodBegin");
     const paramsPeriodEnd = usedSearchParams.get("periodEnd");
     
-    const [periodBegin, setPeriodBegin] = React.useState(null);
+    const [periodBegin, setPeriodBegin] = React.useState(new Date(paramsPeriodBegin));
 
-    const [periodEnd, setPeriodEnd] = React.useState(null);
+    const [periodEnd, setPeriodEnd] = React.useState(new Date(paramsPeriodEnd));
 
     
 

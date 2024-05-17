@@ -76,7 +76,7 @@ const InserateOverview = async ({
 
                         <div className="sm:p-4 p-2 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                <FilePieChartIcon className="mr-4" /> Meine Inserate <p className="ml-4 text-lg"> {inserateArray.length}</p>
+                                <FilePieChartIcon className="mr-4" /> Meine Inserate
                             </h3>
                             <p className="text-xs dark:text-gray-200/60 ">
                             Verwalte deine Anzeigen, indem du Inhalte änderst, löscht, bearbeitest oder ihre Sichtbarkeit anpasst. 

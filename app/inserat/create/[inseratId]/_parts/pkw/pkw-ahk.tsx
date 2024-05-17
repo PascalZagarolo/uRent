@@ -33,7 +33,7 @@ const PkwAhk: React.FC<CarTypeProps> = ({ thisBrake }) => {
 
       setIsLoading(true);
       axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-      toast.success("Anzahl Türen erfolgreich gespeichert : " + values);
+      toast.success("Einstellung Anhängerkupplung gespeichert");
       setTimeout(() => {
         router.refresh();
       }, 400);

@@ -57,7 +57,7 @@ const TransportSizeForm: React.FC<TransportSizeFormProps> = ({
                 }
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
-                toast.success("Anzahl der PS gespeichert : " + values);
+                toast.success("Laderaum gespeichert");
                 setTimeout(() => {
                     router.refresh();
                 }, 400)

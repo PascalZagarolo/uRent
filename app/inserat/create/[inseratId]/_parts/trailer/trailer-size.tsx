@@ -57,7 +57,7 @@ const TrailerSizeForm: React.FC<TrailerSizeFormProps> = ({
                 }
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
-                toast.success("Anzahl der PS gespeichert : " + values);
+                toast.success("Laderaum gespeichert");
                 setTimeout(() => {
                     router.refresh();
                 }, 400)

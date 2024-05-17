@@ -9,7 +9,7 @@ export async function PATCH(
     { params } : { params : { vehicleId : string }}
 ) {
     try {
-
+        
         const findVehicle = await db.query.vehicle.findFirst({
             where : (eq(vehicle.id, params.vehicleId)),
             with : {

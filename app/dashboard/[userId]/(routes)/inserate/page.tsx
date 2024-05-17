@@ -85,7 +85,7 @@ const InserateOverview = async ({
                             <div className="sm:p-4 ">
                                 {inserateArray.length > 0 ? (
                                     <InserateRenderList 
-                                    
+                                    //@ts-ignore
                                     inserateArray={inserateArray}
                                     />
                                 ) : (

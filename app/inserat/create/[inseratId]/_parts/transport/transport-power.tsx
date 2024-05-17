@@ -45,7 +45,7 @@ const TransportPowerForm: React.FC<PowerFormProps> = ({
         try {
             setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
-          toast.success("Anzahl der PS gespeichert : " + values.power);
+          toast.success("Leistung gespeichert.");
           setTimeout(() => {
             router.refresh();
           }, 400)

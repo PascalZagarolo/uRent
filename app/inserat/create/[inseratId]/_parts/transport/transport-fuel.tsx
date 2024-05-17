@@ -39,7 +39,7 @@ const TransportFuel: React.FC<TransportFuelProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.fuel);
+          toast.success("Kraftstoff gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

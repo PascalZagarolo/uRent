@@ -62,6 +62,9 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                     </Label>
                 </div>
             </div>
+            <div className="text-xs mt-2 dark:text-gray-200/60">
+                {renderedInserate.length} {renderedInserate.length === 1 ? "Inserat" : "Inserate"} gefunden..
+            </div>
             <div>
             {renderedInserate.slice(0, renderAmount).map((inserat : any) => (
                 renderedInserate.length > 0 && (

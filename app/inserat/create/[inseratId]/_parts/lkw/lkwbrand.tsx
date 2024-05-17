@@ -40,7 +40,7 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
             }
             setIsLoading(true);
             axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-            toast.success("LKW Marke geändert.");
+            toast.success("LKW Marke gespeichert");
             setTimeout(() => {
                 router.refresh();
             }, 400)

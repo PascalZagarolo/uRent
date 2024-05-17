@@ -40,7 +40,7 @@ const TransportBrandForm: React.FC<CarBrandFormProps> = ({
             }
             setIsLoading(true);
             axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
-            toast.success("Anzahl Türen erfolgreich gespeichert : " + values.transportBrand);
+            toast.success("Transporter Marke gespeichert");
             setTimeout(() => {
                 router.refresh();
             }, 400)

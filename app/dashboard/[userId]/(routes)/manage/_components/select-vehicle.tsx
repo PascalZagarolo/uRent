@@ -114,7 +114,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
                     <SelectItem value={null}>
                         Beliebig
                     </SelectItem>
-                    {selectedInserat?.vehicles?.map((vehicle) => (
+                    {selectedInserat?.vehicles?.map((vehicle : any) => (
                         <>
                             <SelectItem value={vehicle.id} key={vehicle.id}
                                 className="w-[400px]  line-clamp-1 break-all h-[30px]">

@@ -47,7 +47,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
 
     useMemo(() => {
         if (debouncedValue) {
-            const filteredVehicles = selectedInserat?.vehicles.filter((vehicle) => {
+            const filteredVehicles = selectedInserat?.vehicles.filter((vehicle : any) => {
                 return vehicle.title.toLowerCase().includes(debouncedValue.toLowerCase())
             })
             setRenderedInserate(filteredVehicles)
@@ -95,7 +95,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
                     </div>
                     {renderedVehicles.length > 0 && (
                         <div className="absolute w-full bg-white dark:bg-[#191919] text-sm border dark:border-[#141414] rounded-b">
-                            {renderedVehicles.map((pVehicle) => (
+                            {renderedVehicles.map((pVehicle : any) => (
                                 <div key={pVehicle.id} 
                                 className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-[#2c2c2c] hover:cursor-pointer"
                                 onClick={() => {

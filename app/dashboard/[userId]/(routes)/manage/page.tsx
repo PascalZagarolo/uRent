@@ -16,6 +16,7 @@ import BreadCrumpPage from "../../_components/bread-crump-page";
 import AddAvailability from "./_components/add-availability";
 import BookingDayDetails from "../_components/booking-day-details";
 import CalendarAndDetails from "../_components/calendar-and-details";
+import SelectVehicle from "./_components/select-vehicle";
 
 interface ManagePageProps {
     searchParams: {
@@ -138,6 +139,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
         })
     }
 
+    const selectedInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
+
+    console.log(selectedInserat)
     
 
     return (
@@ -164,6 +168,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                 />
                             </div>
                             
+                            
                         </h3>
                         <p className="text-xs dark:text-gray-200/60 mt-2">
                                 Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
@@ -179,8 +184,14 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             foundInserate={foundInserate}
                             />
                         </div>
-
-                        <div className="sm:p-4  sm:flex">
+                        {selectedInserat?.multi && (
+                            <div className="sm:px-4 mt-8 sm:w-3/5">
+                            <SelectVehicle 
+                            selectedInserat={selectedInserat}
+                            />
+                        </div>
+                        )}
+                        <div className="sm:px-4  sm:flex">
                             <div className="sm:w-3/5 sm:mr-4">
                                 <div className="w-full  dark:bg-[#141414] rounded-md  sm:mt-2">
                                 {searchParams.vehicleId ? (

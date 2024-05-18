@@ -47,7 +47,7 @@ const TransportLoadingVolumeForm: React.FC<TransportLoadingVolumeFormProps> = ({
                 }
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
-                toast.success("Ladevolumen gespeichert: " + values.loading_volume);
+                toast.success("Ladevolumen gespeichert");
                 setTimeout(() => {
                     router.refresh();
                 }, 400)

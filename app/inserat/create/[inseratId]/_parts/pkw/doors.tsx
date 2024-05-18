@@ -36,7 +36,7 @@ const Doors: React.FC<DoorsProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.doors);
+          toast.success("Türen gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

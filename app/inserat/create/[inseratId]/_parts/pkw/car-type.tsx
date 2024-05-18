@@ -36,7 +36,7 @@ const CarTypeForm: React.FC<CarTypeProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.type);
+          toast.success("Fahrzeugtyp gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

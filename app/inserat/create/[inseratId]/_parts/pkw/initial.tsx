@@ -60,7 +60,7 @@ const InitialForm: React.FC<InitialFormProps> = ({
         try {
             setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Anzahl der PS gespeichert : " + values.initial.toDateString());
+          toast.success("Baujahr gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

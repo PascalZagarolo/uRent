@@ -36,7 +36,7 @@ const Seats: React.FC<SeatsProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Anzahl Sitze gespeichert");
+          toast.success("Sitze gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

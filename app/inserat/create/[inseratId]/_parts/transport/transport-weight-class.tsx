@@ -38,7 +38,7 @@ const TransportWeightClass: React.FC<CarTypeProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values);
+          toast.success("Gewichtsklasse gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

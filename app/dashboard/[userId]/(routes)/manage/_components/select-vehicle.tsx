@@ -9,15 +9,14 @@ import { Input } from "@/components/ui/input";
 ;
 import React, { use, useMemo } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
-import SelectVehicle from "./select-vehicle";
 
 
-interface SelectInseratProps {
-    foundInserate: typeof inserat.$inferSelect[]
+interface SelectVehicleProps {
+    selectedInserat : typeof inserat.$inferSelect
 }
 
-const SelectInserat: React.FC<SelectInseratProps> = ({
-    foundInserate
+const SelectVehicle: React.FC<SelectVehicleProps> = ({
+    selectedInserat
 }) => {
 
     const pathname = usePathname();
@@ -28,25 +27,19 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     const currentInserat = searchParams.get("inseratId")
     const currentVehicle = searchParams.get("vehicleId")
 
-    const [renderedInserate, setRenderedInserate] = React.useState(foundInserate)
+    const [renderedVehicles, setRenderedInserate] = React.useState(selectedInserat?.vehicles || [])
 
     const [currentTitle, setCurrentTitle] = React.useState("")
 
-    const onClick = (id: string) => {
-        //@ts-ignore
-        let [firstPart, secondPart] = [null, null]
-        if (id) {
-            [firstPart, secondPart] = id?.split("++");
-        }
-        console.log("First part:", firstPart);
-        console.log("Second part:", secondPart);
+    const onVehicleFilter = (id: string) => {
         const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                inseratId: firstPart,
-                vehicleId: secondPart
+            url : pathname,
+            query : {
+                vehicleId : id,
+                inseratId : currentInserat
             }
-        }, { skipEmptyString: true, skipNull: true })
+        })
+
         router.push(url)
     }
 
@@ -54,10 +47,10 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
 
     useMemo(() => {
         if (debouncedValue) {
-            const filteredInserate = foundInserate.filter((inserat) => {
-                return inserat.title.toLowerCase().includes(debouncedValue.toLowerCase())
+            const filteredVehicles = selectedInserat?.vehicles.filter((vehicle) => {
+                return vehicle.title.toLowerCase().includes(debouncedValue.toLowerCase())
             })
-            setRenderedInserate(filteredInserate)
+            setRenderedInserate(filteredVehicles)
         } else if(!debouncedValue){
             setRenderedInserate([]);
         }
@@ -81,11 +74,9 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
             <Select
                 onValueChange={(selectedValue) => {
                     console.log("selectedValue", selectedValue)
-                    onClick(selectedValue);
+                    onVehicleFilter(selectedValue);
                 }}
-                value={
-                    currentVehicle ? currentInserat + "++" + currentVehicle : currentInserat
-                }
+                value={currentVehicle}
 
             >
                 <div className="relative">
@@ -102,14 +93,17 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                             <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F] rounded-l-none" />
                         </div>
                     </div>
-                    {renderedInserate.length > 0 && (
+                    {renderedVehicles.length > 0 && (
                         <div className="absolute w-full bg-white dark:bg-[#191919] text-sm border dark:border-[#141414] rounded-b">
-                            {renderedInserate.map((pInserat) => (
-                                <div key={pInserat.id} 
+                            {renderedVehicles.map((pVehicle) => (
+                                <div key={pVehicle.id} 
                                 className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-[#2c2c2c] hover:cursor-pointer"
-                                onClick={() => onInseratPopoverClick(pInserat.id)}
+                                onClick={() => {
+                                    onVehicleFilter(pVehicle.id);
+                                    setCurrentTitle("")
+                                }}
                                 >
-                                    {pInserat.title}
+                                    {pVehicle.title}
                                 </div>
                             ))}
                         </div>
@@ -120,11 +114,11 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                     <SelectItem value={null}>
                         Beliebig
                     </SelectItem>
-                    {foundInserate.map((thisInserat) => (
+                    {selectedInserat?.vehicles?.map((vehicle) => (
                         <>
-                            <SelectItem value={thisInserat.id} key={thisInserat.id}
+                            <SelectItem value={vehicle.id} key={vehicle.id}
                                 className="w-[400px]  line-clamp-1 break-all h-[30px]">
-                                {thisInserat.title}
+                                {vehicle.title}
                             </SelectItem>
                             
                         </>
@@ -132,10 +126,8 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                 </SelectContent>
 
             </Select>
-            
-            
         </>
     );
 }
 
-export default SelectInserat;
+export default SelectVehicle;

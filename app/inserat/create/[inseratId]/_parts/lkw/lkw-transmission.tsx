@@ -38,7 +38,7 @@ const LkwTransmission: React.FC<TransportTransmissionProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.transmission);
+          toast.success("Getriebe gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

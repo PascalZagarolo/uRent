@@ -38,7 +38,7 @@ const TransmissionForm: React.FC<TransmissionFormProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.transmission);
+          toast.success("Getriebe gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

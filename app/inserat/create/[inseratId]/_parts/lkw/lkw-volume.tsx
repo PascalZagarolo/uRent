@@ -89,7 +89,7 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                             cleanedValue = rawValue.replace(/,/g, '.');
                             setCurrentLiter(cleanedValue)
                             if (!isNaN(parseFloat(cleanedValue))) {
-                                setCurrentMeter(parseFloat(cleanedValue) * 0.001);
+                                setCurrentMeter((Math.round((parseFloat(cleanedValue))) * 0.001).toFixed(2))
                             }
                         }}
                         disabled={!usesPS}

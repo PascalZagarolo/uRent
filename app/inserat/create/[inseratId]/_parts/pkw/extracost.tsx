@@ -48,7 +48,7 @@ const ExtraCost: React.FC<ExtraCostProps> = ({
         try {
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}/pkw`, values);
-            toast.success("Preis erfolgreich gespeichert");
+            toast.success("Zusatzkosten gespeichert");
             setTimeout(() => {
                 router.refresh();
             }, 1000)

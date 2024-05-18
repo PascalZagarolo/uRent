@@ -33,7 +33,7 @@ const PkwAhk: React.FC<CarTypeProps> = ({ thisBrake }) => {
 
       setIsLoading(true);
       axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-      toast.success("Einstellung Anhängerkupplung gespeichert");
+      toast.success("Anhängerkupplung gespeichert");
       setTimeout(() => {
         router.refresh();
       }, 400);
@@ -53,7 +53,7 @@ const PkwAhk: React.FC<CarTypeProps> = ({ thisBrake }) => {
             onSubmit(coupling);
           }}
           disabled={isLoading}
-          value={thisBrake !== null ? String(thisBrake) : "false"}
+          value={typeof(thisBrake) !== undefined ? String(thisBrake) : "false"}
           
           
         >

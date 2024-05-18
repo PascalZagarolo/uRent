@@ -38,7 +38,7 @@ const LkwAxis: React.FC<CarTypeProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-          toast.success("Anzahl Achsen erfolgreich gespeichert : " + values);
+          toast.success("Achsen gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

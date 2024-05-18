@@ -38,7 +38,7 @@ const DriveForm: React.FC<DriveFormProps> = ({
     
           setIsdrive(true);
           axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.drive);
+          toast.success("Antrieb gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

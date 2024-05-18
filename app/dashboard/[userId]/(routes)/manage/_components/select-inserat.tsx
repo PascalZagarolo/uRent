@@ -1,10 +1,13 @@
 'use client';
 
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { inserat, vehicle,  } from '../../../../../../db/schema';
 import qs from "query-string";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+;
+import React from "react";
 
 interface SelectInseratProps {
     foundInserate: typeof inserat.$inferSelect[]
@@ -21,6 +24,8 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
 
     const currentInserat = searchParams.get("inseratId")
     const currentVehicle = searchParams.get("vehicleId")
+
+    const [currentTitle, setCurrentTitle] = React.useState("")
 
     const onClick = (id: string) => {
         //@ts-ignore
@@ -54,20 +59,33 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                 }
                 
             >
-                <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F]">
-                    <SelectValue>
-                    </SelectValue>
+                <div className="flex items-center">
+                    <Input
+                     className="dark:border-none dark:bg-[#141414] rounded-r-none"
+                     placeholder="Inserat suchen..."
+                     value={currentTitle}
+                     onChange={(e) => {setCurrentTitle(e.target.value)}}
+                     />
+                <div>
+                <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F] rounded-l-none"/>
+                    
+                    
+                </div>
+                </div>
                     <SelectContent className="dark:bg-[#0F0F0F] dark:border-none">
+                        
                         <SelectItem value={null}>
                             Beliebig
                         </SelectItem>
                         {foundInserate.map((thisInserat) => (
                             <>
-                                <SelectItem value={thisInserat.id} key={thisInserat.id}>
+                                <SelectItem value={thisInserat.id} key={thisInserat.id} 
+                                className="w-[400px]  line-clamp-1 break-all h-[30px]">
                                     {thisInserat.title}
                                 </SelectItem>
                                 {thisInserat.vehicles.map((vehicle : any) => (
-                                    <SelectItem value={thisInserat.id + "++" + vehicle.id} key={vehicle.id} className="text-xs ml-8"
+                                    <SelectItem value={thisInserat.id + "++" + vehicle.id} key={vehicle.id} 
+                                    className="text-xs ml-8"
                                         onClick={(selectedValue) => {
 
                                             onClick(thisInserat.id)
@@ -79,7 +97,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                             </>
                         ))}
                     </SelectContent>
-                </SelectTrigger>
+                
             </Select>
         </>
     );

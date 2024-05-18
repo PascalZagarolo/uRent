@@ -84,7 +84,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
                         <div className="flex-grow">
                             <Input
                                 className="dark:border-none dark:bg-[#141414] rounded-r-none text-sm font-normal w-full"
-                                placeholder="Inserat suchen..."
+                                placeholder="Fahrzeug suchen..."
                                 value={currentTitle}
                                 onChange={(e) => setCurrentTitle(e.target.value)}
                             />

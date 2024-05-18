@@ -38,7 +38,7 @@ const TrailerAxis: React.FC<CarTypeProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values);
+          toast.success("Achsen gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

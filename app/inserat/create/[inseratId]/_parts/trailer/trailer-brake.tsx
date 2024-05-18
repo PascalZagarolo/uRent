@@ -33,7 +33,7 @@ const TrailerBrake: React.FC<CarTypeProps> = ({ thisBrake }) => {
 
       setIsLoading(true);
       axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
-      toast.success("Anzahl Türen erfolgreich gespeichert : " + values);
+      toast.success("Bremsvorrichtung gespeichert");
       setTimeout(() => {
         router.refresh();
       }, 400);

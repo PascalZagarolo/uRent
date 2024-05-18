@@ -39,7 +39,7 @@ const TrailerLoading: React.FC<CarTypeProps> = ({
 
             setIsLoading(true);
             axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
-            toast.success("Anzahl Türen erfolgreich gespeichert : " + values);
+            toast.success("Ladevorrichtung gespeichert");
             setTimeout(() => {
                 router.refresh();
             }, 400)

@@ -38,7 +38,7 @@ const TrailerWeightClass: React.FC<CarTypeProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values);
+          toast.success("Gewichtsklasse gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

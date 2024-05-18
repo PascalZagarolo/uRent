@@ -46,7 +46,7 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                 }
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-                toast.success("Ladevolumen gespeichert: " + values.loading_volume);
+                toast.success("Ladevolumen gespeichert");
                 setTimeout(() => {
                     router.refresh();
                 }, 400)

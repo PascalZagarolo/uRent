@@ -36,7 +36,7 @@ const LoadingForm: React.FC<LoadingFormProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.loading);
+          toast.success("Ladevorrichtung gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

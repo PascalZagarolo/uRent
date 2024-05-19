@@ -48,7 +48,7 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
         try {
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
-            toast.success("Preis erfolgreich gespeichert");
+            toast.success("Kaution gespeichert");
             setTimeout(() => {
                 router.refresh();
             }, 1000)

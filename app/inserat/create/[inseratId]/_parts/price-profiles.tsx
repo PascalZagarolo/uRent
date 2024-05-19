@@ -138,7 +138,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                                 {priceprofile?.freeMiles ? `${priceprofile?.freeMiles}Km` : "Keine Kilometerbegrenzung angegeben"}
                             </div>
                             <div className="text-sm font-medium flex justify-end w-1/4  break-all gap-x-2">
-                                <EditPriceProfile priceProfileId={priceprofile.id} />
+                                <EditPriceProfile priceprofile={priceprofile} />
                                 <DeletePriceProfile priceprofileId={priceprofile.id} />
                             </div>
                         </div>

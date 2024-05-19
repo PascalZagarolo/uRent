@@ -126,7 +126,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                     </div>
                 )}
                 {thisInserat?.priceprofiles.map((priceprofile: any) => (
-                    <div className="dark:bg-[#141414] p-4 rounded-md">
+                    <div className="dark:bg-[#141414] p-4 rounded-md" key={priceprofile.id}>
                         <div className="flex items-center gap-x-2">
                             <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
                                 {priceprofile.title}

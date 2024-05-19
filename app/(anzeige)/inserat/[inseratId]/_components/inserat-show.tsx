@@ -134,7 +134,8 @@ const InseratShow: React.FC<InseratShowProps> = ({
                         Weitere Preisprofile
                     </div>
                     <div className="space-y-2 mt-2">
-                        {thisInserat?.priceprofiles.map((priceprofile) => (
+                        {//@ts-ignore
+                        thisInserat?.priceprofiles.map((priceprofile : any) => (
                             <PriceProfileDialog
                             key={priceprofile.id}
                             thisPriceprofile={priceprofile}

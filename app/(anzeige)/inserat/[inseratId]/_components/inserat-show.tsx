@@ -136,6 +136,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
                     <div className="space-y-2 mt-2">
                         {thisInserat?.priceprofiles.map((priceprofile) => (
                             <PriceProfileDialog
+                            key={priceprofile.id}
                             thisPriceprofile={priceprofile}
                             />
                         ))}

@@ -119,14 +119,15 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                 <AddPriceProfile thisInserat={thisInserat} />
             )}
             </div>
-            <div>
+            <div >
                 {thisInserat?.priceprofiles.length > 0 &&(
                     <div className="text-md font-semibold pb-2 flex items-center">
                        <AiFillProfile className="w-4 h-4 mr-2" />  Meine Preisprofile
                     </div>
                 )}
+                <div className="space-y-2">
                 {thisInserat?.priceprofiles.map((priceprofile: any) => (
-                    <div className="dark:bg-[#141414] p-4 rounded-md" key={priceprofile.id}>
+                    <div className="dark:bg-[#141414] p-4 rounded-md " key={priceprofile.id}>
                         <div className="flex items-center gap-x-2">
                             <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
                                 {priceprofile.title}
@@ -144,6 +145,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                         </div>
                     </div>
                 ))}
+                </div>
             </div>
         </div>
     );

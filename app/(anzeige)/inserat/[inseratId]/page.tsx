@@ -74,6 +74,7 @@ const InseratAnzeige = async ({
             lkwAttribute: true,
             trailerAttribute: true,
             transportAttribute: true,
+            priceprofiles : true
         }
     }).prepare("findInserat")
 

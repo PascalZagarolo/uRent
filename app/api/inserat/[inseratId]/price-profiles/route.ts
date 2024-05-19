@@ -3,6 +3,8 @@ import db from "@/db/drizzle";
 import { inserat } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server"
+import { create } from 'zustand';
+import { priceprofile } from '../../../../../db/schema';
 
 export async function PATCH(
     req : Request,
@@ -10,51 +12,37 @@ export async function PATCH(
 ) {
     try {
 
-        const currentUser = await getCurrentUser();
-
-        if(!currentUser) {
-            return new NextResponse("Nicht authorisiert", { status: 401 })
-        }
-
-        const getInserat = await db.query.inserat.findFirst({
+        const findInserat = await db.query.inserat.findFirst({
             where : eq(inserat.id, params.inseratId)
         })
 
-        if(!getInserat) {
+        if(!findInserat) {
             return new NextResponse("Inserat nicht gefunden", { status: 404 })
         }
 
-        if(getInserat.userId !== currentUser.id) {
-            return new NextResponse("Nicht authorisiert", { status: 401 })
+        const currentUser = await getCurrentUser();
+
+        if (!currentUser || currentUser.id !== findInserat.userId) {
+            return new NextResponse("Nicht autorisiert", { status: 403 })
         }
 
         const values = await req.json();
 
-        let returnedInserat;
+        const createdPriceProfile = await db.insert(priceprofile).values({
+            title : values.title,
+            price : values.price,
+            ...values.kilometer && {
+                freeMiles : values.kilometer
+            },
+            ...values.description && {
+                description : values.description
+            },
+            inseratId : findInserat.id
+        }).returning();
 
-        switch(values.type) {
-            case "hours":
-                returnedInserat = await db.update(inserat).set({
-                    priceHour : values.price
-                }).where(eq(inserat.id, params.inseratId))
-                break;
-             case "weekend":
-                    returnedInserat = await db.update(inserat).set({
-                        priceWeekend : values.price
-                    }).where(eq(inserat.id, params.inseratId))
-                    break;
-            case "kilometer":
-                        returnedInserat = await db.update(inserat).set({
-                            priceKilometer : values.price
-                        }).where(eq(inserat.id, params.inseratId))
-                        break;
-            
-            default:
-                return new NextResponse("Falscher Preisprofil Typ", { status: 400 })
-        }
+        return NextResponse.json(createdPriceProfile)
 
 
-        return NextResponse.json(returnedInserat)
 
     } catch (error) {
         console.log("Fehler beim erstellen eines neues Preisprofils", error)

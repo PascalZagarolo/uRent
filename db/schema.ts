@@ -171,9 +171,7 @@ export const resetPasswordToken = pgTable(
         expires: timestamp("expires", { mode: "date" }).notNull(),
         email: text("email").notNull()
     },
-    (vt) => ({
-        compoundKey: primaryKey({ columns: [vt.email, vt.token] })
-    })
+    
 )
 
 export const licenseEnum = pgEnum(
@@ -217,6 +215,8 @@ export const accountRelations = relations(accounts, ({ one }) => ({
         references : [userTable.id]
     })
 }))
+
+
 
 export const LicenseEnumRender = z.enum(licenseEnum.enumValues).Enum;
 
@@ -295,6 +295,19 @@ export const inserat = pgTable("inserat", {
             .references(() => transportAttribute.id),
     
     
+})
+
+export const priceprofile = pgTable("priceprofile", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    title : text("title"),
+    description : text("description"),
+    price : decimal("price"),
+    freeMiles : integer("freeMiles"),
+    extraCost : decimal("extraCost"),
+
+    inseratId : uuid("inseratId")
+                .references(() => inserat.id, { onDelete: "cascade" }),
+
 })
 
 export const userSubscription = pgTable("userSubscription" , {
@@ -493,7 +506,7 @@ export const lkwAttribute = pgTable("lkwAttribute", {
     loading_volume : decimal("loading_volume"),
 
     transmission: transmissionEnum("transmission"),
-
+    initial: timestamp("initial", {mode: "date"}),
     loading_l : decimal("loading_l"),
     loading_b : decimal("loading_b"),
     loading_h : decimal("loading_h"),
@@ -552,7 +565,7 @@ export const trailerAttribute = pgTable("trailerAttribute", {
 })
 
 export const transportBrandEnum = pgEnum("transportBrand", [
-    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco", "MAN", "Mazda", 
+    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco", "Mazda", 
     "Maxus", "Mercedes-Benz", "Mitsubishi", "Multicar", "Nissan", "Opel", 
     "Peugeot", "Renault", "SEAT", "Škoda", "Suzuki", "Toyota", "Volkswagen",
      "Volvo", "Sonstige"
@@ -1027,9 +1040,16 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
     bookingRequests : many(bookingRequest),
 
     favourites : many(favourite),
-    
+    priceprofiles : many(priceprofile),
 
     vehicles : many(vehicle),
+}))
+
+export const priceprofileRelations = relations(priceprofile, ({ one }) => ({
+    inserat : one(inserat, {
+        fields : [priceprofile.inseratId],
+        references : [inserat.id]
+    })
 }))
 
 export const businessRelations = relations(business, ({ one, many}) => ({

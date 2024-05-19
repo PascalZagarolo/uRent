@@ -58,7 +58,7 @@ const SelectLicenseInserat: React.FC<SelectLicenseInseratProps> = ({
 
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
-            toast.success("Führerscheinklasse : " + values.license);
+            toast.success("Führerscheinklasse gespeichert");
             setTimeout(() => {
                 router.refresh();
             }, 400)

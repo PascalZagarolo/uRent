@@ -35,15 +35,15 @@ export async function PATCH(
 
         const values = await req.json();
 
-        const patchedPriceProfile = await db.update(priceprofile).set({
+        const patchedPriceProfile : any = await db.update(priceprofile).set({
             title : values.title,
             price : values.price,
             description : values?.description,
             freeMiles : values?.freeMiles,
 
-        }).where(eq(priceprofile.id, params.priceprofileId));
+        }).where(eq(priceprofile.id, params.priceprofileId)).returning();
 
-        return new NextResponse(patchedPriceProfile);
+        return NextResponse.json(patchedPriceProfile);
 
     } catch(error : any) {
         console.log(error);

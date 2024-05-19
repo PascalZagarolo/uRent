@@ -19,7 +19,7 @@ import { MdPostAdd } from "react-icons/md";
 import db from "@/db/drizzle";
 import { and, count, eq, sql } from "drizzle-orm";
 import { address, businessAddress, contactOptions, images, inserat, lkwAttribute, notification, 
-    pkwAttribute, trailerAttribute, transportAttribute, userAddress, userTable } from "@/db/schema";
+    pkwAttribute, priceprofile, trailerAttribute, transportAttribute, userAddress, userTable } from "@/db/schema";
 import { Progress } from "@/components/ui/progress";
 import { FloatingNav } from "@/components/following-navbar";
 import { Button } from "@/components/ui/button";
@@ -88,6 +88,7 @@ const InseratCreation = async ({
             lkwAttribute: true,
             trailerAttribute: true,
             transportAttribute: true,
+            priceprofiles: true
            
         },
         where: eq(inserat.id, sql.placeholder("inseratId"))

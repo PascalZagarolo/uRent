@@ -39,7 +39,7 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.reqAge);
+          toast.success("Mindestalter gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)

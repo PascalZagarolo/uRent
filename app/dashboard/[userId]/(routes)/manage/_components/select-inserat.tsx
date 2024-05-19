@@ -7,9 +7,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 ;
-import React, { use, useMemo } from "react";
+import React, { use, useMemo, useRef } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
-import SelectVehicle from "./select-vehicle";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 
 interface SelectInseratProps {
@@ -28,23 +28,28 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     const currentInserat = searchParams.get("inseratId")
     const currentVehicle = searchParams.get("vehicleId")
 
+    const inputRef = useRef(null);
+    const [isFocused, setIsFocused] = React.useState(false);
+
     const [renderedInserate, setRenderedInserate] = React.useState(foundInserate)
 
     const [currentTitle, setCurrentTitle] = React.useState("")
 
     const onClick = (id: string) => {
         //@ts-ignore
-        let [firstPart, secondPart] = [null, null]
-        if (id) {
-            [firstPart, secondPart] = id?.split("++");
+        const findInserat = foundInserate.find((inserat) => inserat.id === id);
+        if(findInserat) {
+            setCurrentTitle(findInserat.title)
+        } else {
+            setCurrentTitle("")
         }
-        console.log("First part:", firstPart);
-        console.log("Second part:", secondPart);
+        
+        
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                inseratId: firstPart,
-                vehicleId: secondPart
+                inseratId: id,
+                
             }
         }, { skipEmptyString: true, skipNull: true })
         router.push(url)
@@ -64,7 +69,9 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     }, [debouncedValue])
 
     const onInseratPopoverClick = (id : string) => {
-        setCurrentTitle("")
+        
+        const findInserat = foundInserate.find((inserat) => inserat.id === id);
+        setCurrentTitle(findInserat.title)
         const url = qs.stringifyUrl({
             url : pathname,
             query : {
@@ -73,16 +80,26 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
         }, { skipEmptyString: true, skipNull: true })
 
         router.push(url)
-
+        setIsFocused(false)
     }
 
+    
+
+
+    const ref = useOnclickOutside(() => {
+        // When the user clicks outside of the component, we can dismiss
+        // the searched suggestions by calling this method
+        setIsFocused(false);
+      });
+
     return (
-        <>
+        <div ref={ref}>
             <Select
                 onValueChange={(selectedValue) => {
                     console.log("selectedValue", selectedValue)
                     onClick(selectedValue);
                 }}
+                
                 value={
                     currentVehicle ? currentInserat + "++" + currentVehicle : currentInserat
                 }
@@ -96,14 +113,17 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                                 placeholder="Inserat suchen..."
                                 value={currentTitle}
                                 onChange={(e) => setCurrentTitle(e.target.value)}
+                                onClick={() => setIsFocused(true)}
                             />
                         </div>
                         <div>
                             <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F] rounded-l-none" />
                         </div>
                     </div>
-                    {renderedInserate.length > 0 && (
-                        <div className="absolute w-full bg-white dark:bg-[#191919] text-sm border dark:border-[#141414] rounded-b">
+                    {((renderedInserate.length) > 0  && isFocused) && (
+                        <div className="absolute w-full bg-white dark:bg-[#191919] text-sm border dark:border-[#141414] rounded-b"
+                        
+                        >
                             {renderedInserate.map((pInserat) => (
                                 <div key={pInserat.id} 
                                 className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-[#2c2c2c] hover:cursor-pointer"
@@ -134,7 +154,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
             </Select>
             
             
-        </>
+        </div>
     );
 }
 

@@ -181,7 +181,7 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                                             type="text" // Use text type to prevent default browser behavior for number input
                                             onChange={(e) => {
                                                 const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-                                                setCurrentKilometer(newValue);
+                                                setCurrentKilometer(Number(newValue));
                                             }}
                                         />
                                     </div>
@@ -206,7 +206,7 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                                         className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                                         type="submit" disabled={isSubmitting ||
-                                            currentValue > 1_000_000 ||
+                                            Number(currentValue) > 1_000_000 ||
                                             !correctPrice
                                             || !currentType}
                                     >

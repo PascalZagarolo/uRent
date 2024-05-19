@@ -40,8 +40,12 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
     const onVehicleFilter = (id: string) => {
         
         const findVehicle = selectedInserat?.vehicles.find((vehicle : any) => vehicle.id === id);
+        if(findVehicle) {
+            setCurrentTitle(findVehicle.title);
+        } else {
+            setCurrentTitle("");
+        }
         
-        setCurrentTitle(findVehicle.title);
         const url = qs.stringifyUrl({
             url : pathname,
             query : {
@@ -68,7 +72,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
     }, [debouncedValue])
 
     const onInseratPopoverClick = (id : string) => {
-        console.log("2")
+        
         const findVehicle = selectedInserat?.vehicles.find((vehicle : any) => vehicle.id === id);
         setCurrentTitle(findVehicle.title);
         const url = qs.stringifyUrl({

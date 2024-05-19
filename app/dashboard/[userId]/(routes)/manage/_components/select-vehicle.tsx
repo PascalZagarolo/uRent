@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 ;
 import React, { use, useMemo } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 
 interface SelectVehicleProps {
@@ -27,11 +28,20 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
     const currentInserat = searchParams.get("inseratId")
     const currentVehicle = searchParams.get("vehicleId")
 
-    const [renderedVehicles, setRenderedInserate] = React.useState(selectedInserat?.vehicles || [])
+    const [findVehicle, setFindVehicle] = 
+    React.useState(selectedInserat?.vehicles?.find((vehicle : any) => vehicle?.id === currentVehicle) || "");
 
-    const [currentTitle, setCurrentTitle] = React.useState("")
+
+    const [renderedVehicles, setRenderedInserate] = React.useState(selectedInserat?.vehicles || []);
+    const [isFocused, setIsFocused] = React.useState(false);
+
+    const [currentTitle, setCurrentTitle] = React.useState(findVehicle?.title || "")
 
     const onVehicleFilter = (id: string) => {
+        
+        const findVehicle = selectedInserat?.vehicles.find((vehicle : any) => vehicle.id === id);
+        
+        setCurrentTitle(findVehicle.title);
         const url = qs.stringifyUrl({
             url : pathname,
             query : {
@@ -40,7 +50,8 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
             }
         })
 
-        router.push(url)
+        router.push(url);
+        setIsFocused(false);
     }
 
     const debouncedValue = useDebounce(currentTitle, 100);
@@ -57,7 +68,9 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
     }, [debouncedValue])
 
     const onInseratPopoverClick = (id : string) => {
-        setCurrentTitle("")
+        console.log("2")
+        const findVehicle = selectedInserat?.vehicles.find((vehicle : any) => vehicle.id === id);
+        setCurrentTitle(findVehicle.title);
         const url = qs.stringifyUrl({
             url : pathname,
             query : {
@@ -65,12 +78,19 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
             }
         }, { skipEmptyString: true, skipNull: true })
 
-        router.push(url)
+        router.push(url);
+        setIsFocused(false);
 
     }
 
+    const ref = useOnclickOutside(() => {
+        // When the user clicks outside of the component, we can dismiss
+        // the searched suggestions by calling this method
+        setIsFocused(false);
+      });
+
     return (
-        <>
+        <div ref={ref}>
             <Select
                 onValueChange={(selectedValue) => {
                     console.log("selectedValue", selectedValue)
@@ -87,20 +107,21 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
                                 placeholder="Fahrzeug suchen..."
                                 value={currentTitle}
                                 onChange={(e) => setCurrentTitle(e.target.value)}
+                                onClick={() => setIsFocused(true)}
                             />
                         </div>
                         <div>
                             <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F] rounded-l-none" />
                         </div>
                     </div>
-                    {renderedVehicles.length > 0 && (
+                    {(renderedVehicles.length > 0 && isFocused) && (
                         <div className="absolute w-full bg-white dark:bg-[#191919] text-sm border dark:border-[#141414] rounded-b">
                             {renderedVehicles.map((pVehicle : any) => (
                                 <div key={pVehicle.id} 
                                 className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-[#2c2c2c] hover:cursor-pointer"
                                 onClick={() => {
                                     onVehicleFilter(pVehicle.id);
-                                    setCurrentTitle("")
+                                    
                                 }}
                                 >
                                     {pVehicle.title}
@@ -126,7 +147,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
                 </SelectContent>
 
             </Select>
-        </>
+        </div>
     );
 }
 

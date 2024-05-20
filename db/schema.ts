@@ -170,10 +170,10 @@ export const resetPasswordToken = pgTable(
         token: text("token").notNull(),
         expires: timestamp("expires", { mode: "date" }).notNull(),
         email: text("email").notNull()
-    }, ((vct) =>({
-        compoundKey: primaryKey({ columns: [vct.identifier, vct.token] }),
-    }))
-    
+    },
+    (vt) => ({
+        compoundKey: primaryKey({ columns: [vt.email, vt.token] })
+    })
 )
 
 export const licenseEnum = pgEnum(
@@ -306,6 +306,7 @@ export const priceprofile = pgTable("priceprofile", {
     price : decimal("price"),
     freeMiles : integer("freeMiles"),
     extraCost : decimal("extraCost"),
+    
 
     inseratId : uuid("inseratId")
                 .references(() => inserat.id, { onDelete: "cascade" }),
@@ -567,7 +568,7 @@ export const trailerAttribute = pgTable("trailerAttribute", {
 })
 
 export const transportBrandEnum = pgEnum("transportBrand", [
-    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco", "Mazda", 
+    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco",  "Mazda", 
     "Maxus", "Mercedes-Benz", "Mitsubishi", "Multicar", "Nissan", "Opel", 
     "Peugeot", "Renault", "SEAT", "Škoda", "Suzuki", "Toyota", "Volkswagen",
      "Volvo", "Sonstige"

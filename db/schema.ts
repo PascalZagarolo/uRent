@@ -170,7 +170,9 @@ export const resetPasswordToken = pgTable(
         token: text("token").notNull(),
         expires: timestamp("expires", { mode: "date" }).notNull(),
         email: text("email").notNull()
-    },
+    }, ((vct) =>({
+        compoundKey: primaryKey({ columns: [vct.identifier, vct.token] }),
+    }))
     
 )
 
@@ -588,6 +590,8 @@ export const transportAttribute = pgTable("transportAttribute", {
     loading_b : decimal("loading_b"),
     loading_h : decimal("loading_h"),
     loading_size : decimal("loading_size"),
+
+    
 
     transportBrand : transportBrandEnum("transportBrand"),
 

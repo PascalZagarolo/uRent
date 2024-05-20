@@ -1,6 +1,6 @@
 
 import { GearIcon } from "@radix-ui/react-icons";
-import { WeightIcon } from "lucide-react";
+import { ConstructionIcon, WeightIcon } from "lucide-react";
 import { FaTruckMoving } from "react-icons/fa";
 import { PiCouchFill, PiEngine } from "react-icons/pi";
 import { LiaTruckLoadingSolid } from "react-icons/lia";
@@ -9,6 +9,7 @@ import { lkwAttribute } from "@/db/schema";
 import { LuAxis3D } from "react-icons/lu";
 import { HiCubeTransparent } from "react-icons/hi";
 import { GiResize } from "react-icons/gi";
+import { format } from "date-fns";
 
 interface LkwAttributeRenderProps {
     attributes: typeof lkwAttribute.$inferSelect
@@ -66,7 +67,11 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     }
                 </div>
             )}
-
+            {attributes?.initial && (
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
+                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
+                </div>
+            )}
             {attributes?.seats && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <PiCouchFill className="w-4 h-4 mr-2" />    {attributes.seats} {attributes.seats > 1 ? 'Sitze' : 'Sitz'}
@@ -88,22 +93,22 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
             )}
 
             {attributes?.power && (
-                
+
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS 
+                    <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS
                 </div>
             )}
 
             {attributes?.loading_volume && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                <HiCubeTransparent  className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
-            </div>
+                    <HiCubeTransparent className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
+                </div>
             )}
 
             {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                <GiResize  className="w-4 h-4 mr-2" />    {attributes?.loading_l } x {attributes?.loading_b } x {attributes?.loading_h } m
-            </div>
+                    <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
+                </div>
             )}
 
         </div>

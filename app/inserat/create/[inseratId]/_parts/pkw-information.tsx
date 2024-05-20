@@ -93,13 +93,7 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
                     thisVolume={thisInserat?.pkwAttribute?.loading_volume}
                     />
                 </div>
-                <div className="sm:w-1/2 w-full">
-                    <LoadingSizeForm 
-                    thisLength = {thisInserat?.pkwAttribute?.loading_l}
-                    thisWidth = {thisInserat?.pkwAttribute?.loading_b}
-                    thisHeight = {thisInserat?.pkwAttribute?.loading_h}
-                    />
-                </div>
+                
             </div>
         </div>
     );

@@ -47,7 +47,7 @@ const LoadingVolumeForm: React.FC<LoadingVolumeFormProps> = ({
                 }
                 setIsLoading(true);
                 axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-                toast.success("Ladevolumen gespeichert");
+                toast.success("Kofferraumvolumen gespeichert");
                 setTimeout(() => {
                     router.refresh();
                 }, 400)
@@ -72,7 +72,7 @@ const LoadingVolumeForm: React.FC<LoadingVolumeFormProps> = ({
     return (
         <div className="items-center w-full">
             <Label className="font-semibold flex">
-            <FaBoxOpen className="w-4 h-4 mr-2" />     Ladevolumen
+            <FaBoxOpen className="w-4 h-4 mr-2" />     Kofferraumvolumen
                 </Label>
 
             <div className="flex mt-4 w-full">

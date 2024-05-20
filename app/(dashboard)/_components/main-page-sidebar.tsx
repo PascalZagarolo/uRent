@@ -1,12 +1,12 @@
 'use client';
 
-import { CarFront, FilterIcon,SearchIcon, Settings2, Truck, X } from "lucide-react";
+import { CarFront, FilterIcon, Settings2, Truck, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
 import qs from "query-string";
 import PKW from "./_smart-filter/pkw";
-import { Button } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
 
 

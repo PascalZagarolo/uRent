@@ -34,6 +34,9 @@ export async function PATCH(
             ...values.kilometer && {
                 freeMiles : values.kilometer
             },
+            ...values.extraCost && {
+                extraCost : values.extraCost
+            },
             ...values.description && {
                 description : values.description
             },

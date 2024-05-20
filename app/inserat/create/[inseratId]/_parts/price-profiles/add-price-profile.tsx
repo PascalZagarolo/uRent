@@ -5,6 +5,7 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { inserat } from "@/db/schema";
@@ -15,6 +16,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 import { z } from "zod";
 
 
@@ -43,7 +45,9 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
     const [currentValue, setCurrentValue] = useState(null);
     const [currentType, setCurrentType] = useState(null);
     const [currentKilometer, setCurrentKilometer] = useState(null);
+    const [currentExtratype, setCurrentExtratype] = useState(null);
     const [currentInfo, setCurrentInfo] = useState(null);
+
 
 
     function isValidNumber(input : any) {
@@ -52,10 +56,19 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
     }
 
     const [correctPrice, setCorrectPrice] = useState(false);
+    const [correctKilometer, setCorrectKilometer] = useState(true);
 
     useEffect(() => {
         isValidNumber(currentValue) ? setCorrectPrice(true) : setCorrectPrice(false);
     },[currentValue])
+
+    useEffect(() => {
+        if(currentExtratype) {
+            isValidNumber(currentExtratype) ? setCorrectKilometer(true) : setCorrectKilometer(false);
+        } else {
+            setCorrectKilometer(true);
+        }
+    },[currentExtratype])
 
     const formSchema = z.object({
         price: z.preprocess(
@@ -84,6 +97,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                 price: currentValue,
                 description: currentInfo,
                 kilometer: currentKilometer,
+                extraCost : currentExtratype
             }
             console.log(values)
             await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
@@ -146,7 +160,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                                 <FormControl>
                                                     <Input
                                                         type="text"
-                                                        {...field}
+                                                        value={currentValue}
                                                         name="price"
                                                         className=" dark:bg-[#131313] dark:border-none"
                                                         placeholder="Preis pro Zeitraum.."
@@ -168,8 +182,19 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                     />
                                 </div>
                                 <div className="mt-2">
-                                    <Label>
-                                        Inkludierte Kilometer
+                                    <Label className="flex items-center">
+                                        Inkludierte Kilometer 
+                                        <Popover>
+                                            <PopoverTrigger>
+                                            <IoIosInformationCircleOutline className="w-4 h-4 ml-2" /> 
+                                            </PopoverTrigger>
+                                            <PopoverContent side="right" className=" dark:bg-[#141414] border border-gray-200 text-xs">
+                                                Falls dein angegebener Mietzeitraum gratis Kilometer beinhaltet, die der Mieter fahren kann, 
+                                                kannst du diese hier angeben.<br/><br/>
+                                                Sollte die Kilometergrenze unbegrenzt sein, lasse dieses Feld leer.<br/><br/>
+                                                Sind keine Kilometer inkludiert, trage eine 0 ein.<br/>
+                                            </PopoverContent>
+                                        </Popover>
                                     </Label>
                                     <div className="mt-2">
                                         <Input
@@ -183,6 +208,26 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                             }}
                                         />
                                     </div>
+                                </div>
+                                <div className="w-full mt-2">
+                                                <Label>
+                                                    Zusatzpreis Kilometer
+                                                </Label>
+                                                
+                                                    <Input
+                                                        type="text"
+                                                        
+                                                        value={currentExtratype}
+                                                        className=" dark:bg-[#131313] dark:border-none mt-2"
+                                                        placeholder="Preis pro zusätzlichen Kilometer.., z.B 0.50"
+                                                        onChange={(e) => {
+                                                            let value = e.target.value;
+                                                            value = value.replace(/,/g, '.'); // Convert commas to periods
+                                                            
+                                                            setCurrentExtratype(value);
+                                                        }}
+
+                                                    />
                                 </div>
                                 <div className="mt-2">
                                     <Label>
@@ -205,7 +250,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                                         type="submit" disabled={isSubmitting || 
                                             currentValue > 1_000_000 ||
-                                            !correctPrice
+                                            !correctPrice || !correctKilometer
                                             || !currentType}
                                     >
                                         Profil hinzufügen

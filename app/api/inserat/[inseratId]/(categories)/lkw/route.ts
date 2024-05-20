@@ -10,7 +10,9 @@ export async function PATCH(
 ) {
     try {
 
-        const values = await req.json();
+        const {initial, ...values} = await req.json();
+
+        const usedInitial = new Date(initial);
 
         
 
@@ -22,6 +24,9 @@ export async function PATCH(
 
             const [patchedInserat] = await db.insert(lkwAttribute).values({
                 inseratId : params.inseratId,
+                ...(initial) && {
+                    initial : usedInitial
+                },
                 ...values,
             }).returning()
 
@@ -33,7 +38,11 @@ export async function PATCH(
             
         } else {
             const patchedInserat = await db.update(lkwAttribute).set({
-                ...values
+                ...(initial) && {
+                    initial : usedInitial
+                },
+                ...values,
+
             }).where(eq(lkwAttribute.inseratId, params.inseratId)).returning();
             return NextResponse.json(patchedInserat[0]);
         }

@@ -13,6 +13,7 @@ import LkwLoadingVolumeForm from "./lkw/lkw-volume";
 import LkwSizeForm from "./lkw/loading-size";
 import { lkwAttribute } from '../../../../../db/schema';
 import LkwTransmission from "./lkw/lkw-transmission";
+import LkwInitialForm from "./lkw/lkw-initial";
 
 
 
@@ -91,7 +92,9 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
                    />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                   
+                   <LkwInitialForm 
+                   thisInitial={thisInserat?.lkwAttribute?.initial}
+                   />
                 </div>
             </div>
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">

@@ -213,14 +213,7 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
                                                     <p className="mr-1 text-blue-200"> {thisInserat.pkwAttribute?.power} </p> PS
                                                 </Badge>
                                             )}
-                                            {thisInserat.pkwAttribute?.freeMiles && (
-
-                                                <Badge className="bg-blue-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                                 dark:text-gray-100  dark:hover:bg-[#181818]/60">
-                                                    <GiSteeringWheel className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-blue-200"> {thisInserat.pkwAttribute?.freeMiles} </p> KM
-                                                </Badge>
-                                            )}
+                                            
                                         </div>,
                                     'LKW': <div className="space-y-1">
                                         {thisInserat.lkwAttribute?.loading && (

@@ -40,22 +40,7 @@ const ConditionsInformation: React.FC<ConditionsInformationProps> = ({
             </div>
             </div>
 
-            <div className="w-full flex gap-x-4 mt-4">
-            <div className="w-1/2">
-            {thisInserat.category === "PKW" && (          
-                  <FreeMiles 
-                  thisInserat={thisInserat}
-                  />      
-              )}
-            </div>
-            <div className="w-1/2">
-            {thisInserat.category === "PKW" && (       
-                  <ExtraCost 
-                  thisInserat={thisInserat}
-                  />
-              )}
-            </div>
-            </div>
+            
             
 
 

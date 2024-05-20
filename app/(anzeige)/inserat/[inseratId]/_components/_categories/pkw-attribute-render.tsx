@@ -33,11 +33,7 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
                     <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS
                 </div>
             )}
-            {attributes?.freeMiles && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <Globe2 className="w-4 h-4 mr-2" />    {attributes.freeMiles} Freikilometer
-                </div>
-            )}
+            
             {attributes?.seats && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <PiCouchFill className="w-4 h-4 mr-2" />    {attributes.seats} Sitze

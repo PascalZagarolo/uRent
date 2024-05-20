@@ -47,29 +47,42 @@ const PriceProfileDialog: React.FC<PriceProfileDialogProps> = ({
                         </p>
                     </div>
                     <div className="mt-4">
-                    <div className="text-sm w-full flex items-center">
-                                {thisPriceprofile.price && (
-                                    <div className="w-1/2 text-medium">
-                                        Preis
-                                    </div>
-                                )}
-                                {thisPriceprofile.freeMiles && (
-                                    <div className="w-1/2 text-medium">
-                                        Freikilometer
-                                    </div>
-                                )}
-                            </div>
-                        <div className="flex items-center w-full">
-                            
-                        <div className="text-md font-semibold w-1/2">
-                        {((Number(thisPriceprofile.price))).toFixed(2).replace('.', ',') + ' €'}
+                        <div className="text-sm w-full flex items-center">
+                            {thisPriceprofile.price && (
+                                <div className="w-1/2 text-medium">
+                                    Preis
+                                </div>
+                            )}
+                            {thisPriceprofile.freeMiles && (
+                                <div className="w-1/2 text-medium">
+                                    Freikilometer
+                                </div>
+                            )}
                         </div>
-                        {thisPriceprofile.freeMiles && (
+                        <div className="flex items-center w-full">
+
                             <div className="text-md font-semibold w-1/2">
-                                {thisPriceprofile.freeMiles} Km
+                                {((Number(thisPriceprofile.price))).toFixed(2).replace('.', ',') + ' €'}
+                            </div>
+                            {thisPriceprofile.freeMiles && (
+                                <div className="text-md font-semibold w-1/2">
+                                    {thisPriceprofile.freeMiles} Km
+                                </div>
+                            )}
+                        </div>
+
+                        {thisPriceprofile?.extraCost && (
+                            <div className="mt-2">
+                                <Label className="text-sm font-medium">
+                                    Zusatzkosten pro KM
+                                </Label>
+                                <div className="text-md font-semibold w-full ">
+                                    {((Number(thisPriceprofile?.extraCost))).toFixed(2).replace('.', ',') + ' €'}/Km
+                                </div>
                             </div>
                         )}
-                        </div>
+
+
                         <div className="mt-2">
                             {thisPriceprofile.description && (
                                 <div>
@@ -77,10 +90,10 @@ const PriceProfileDialog: React.FC<PriceProfileDialogProps> = ({
                                         Weitere Informationen
                                     </Label>
                                     <div className="text-xs  whitespace-pre-wrap dark:text-gray-200/90">
-                                    {thisPriceprofile.description}
+                                        {thisPriceprofile.description}
+                                    </div>
                                 </div>
-                                </div>
-                            
+
                             )}
                         </div>
                     </div>

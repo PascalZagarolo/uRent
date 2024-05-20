@@ -65,14 +65,12 @@ const PkwInformation: React.FC<PkwInformationProps> = ({
             
             <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
-                    <PkwWeightClass
-                    thisWeightClass={thisInserat?.pkwAttribute?.weightClass}
+                <PkwAhk 
+                    thisBrake={thisInserat?.pkwAttribute?.ahk}
                     />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                    <PkwAhk 
-                    thisBrake={thisInserat?.pkwAttribute?.ahk}
-                    />
+                    
                 </div>
                 
             </div>

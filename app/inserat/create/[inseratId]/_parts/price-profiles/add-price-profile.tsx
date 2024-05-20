@@ -51,7 +51,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
 
 
     function isValidNumber(input : any) {
-        const regex = /^\d+(\.\d{1,2})?$/;
+        const regex = /^\d+(\.\d{2})?$/;
         return regex.test(input);
     }
 
@@ -104,6 +104,10 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                 .then(() => {
                     router.refresh();
                     setCurrentValue(undefined);
+                    setCurrentExtratype(undefined);
+                    setCorrectKilometer(undefined);
+                    setCurrentInfo(undefined);
+                    setCurrentType(undefined);
                     form.reset();
                 })
 
@@ -250,7 +254,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                                         type="submit" disabled={isSubmitting || 
                                             currentValue > 1_000_000 ||
-                                            !correctPrice || !correctKilometer
+                                            !correctPrice || !correctKilometer || !currentValue
                                             || !currentType}
                                     >
                                         Profil hinzufügen

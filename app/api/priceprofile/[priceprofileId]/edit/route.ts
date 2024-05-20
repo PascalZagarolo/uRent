@@ -40,6 +40,7 @@ export async function PATCH(
             price : values.price,
             description : values?.description,
             freeMiles : values?.freeMiles,
+            extraCost : values?.extraCost,
 
         }).where(eq(priceprofile.id, params.priceprofileId)).returning();
 

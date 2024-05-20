@@ -45,19 +45,29 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
     const [currentValue, setCurrentValue] = useState(priceprofile?.price);
     const [currentType, setCurrentType] = useState(priceprofile?.title);
     const [currentKilometer, setCurrentKilometer] = useState(priceprofile?.freeMiles);
+    const [currentExtratype, setCurrentExtratype] = useState(priceprofile?.extraCost);
     const [currentInfo, setCurrentInfo] = useState(priceprofile?.description);
 
 
     function isValidNumber(input: any) {
-        const regex = /^\d+(\.\d{1,2})?$/;
+        const regex = /^\d+(\.\d{2})?$/;
         return regex.test(input);
     }
 
     const [correctPrice, setCorrectPrice] = useState(false);
+    const [correctKilometer, setCorrectKilometer] = useState(true);
 
     useEffect(() => {
         isValidNumber(currentValue) ? setCorrectPrice(true) : setCorrectPrice(false);
     }, [currentValue])
+
+    useEffect(() => {
+        if(currentExtratype) {
+            isValidNumber(currentExtratype) ? setCorrectKilometer(true) : setCorrectKilometer(false);
+        } else {
+            setCorrectKilometer(true);
+        }
+    },[currentExtratype])
 
     const formSchema = z.object({
         price: z.preprocess(
@@ -68,6 +78,13 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                 .optional()
         ),
     })
+
+    const hasChanged =
+        currentValue != priceprofile?.price ||
+        currentType != priceprofile?.title ||
+        currentKilometer != priceprofile?.freeMiles ||
+        currentExtratype != priceprofile?.extraCost ||
+        currentInfo != priceprofile?.description;
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -86,6 +103,7 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                 price: currentValue,
                 description: currentInfo,
                 kilometer: currentKilometer,
+                extraCost : currentExtratype
             }
             console.log(values)
             await axios.patch(`/api/priceprofile/${priceprofile.id}/edit`, values)
@@ -155,6 +173,8 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                                                         onChange={(e) => {
                                                             let value = e.target.value;
                                                             value = value.replace(/,/g, '.'); // Convert commas to periods
+                                                            
+                                                           
                                                             field.onChange(value);
                                                             setCurrentValue(value);
                                                         }}
@@ -186,6 +206,26 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                                         />
                                     </div>
                                 </div>
+                                <div className="w-full mt-2">
+                                                <Label>
+                                                    Zusatzpreis Kilometer
+                                                </Label>
+                                                
+                                                    <Input
+                                                        type="text"
+                                                        
+                                                        value={currentExtratype}
+                                                        className=" dark:bg-[#131313] dark:border-none mt-2"
+                                                        placeholder="Preis pro zusätzlichen Kilometer.., z.B 0.50"
+                                                        onChange={(e) => {
+                                                            let value = e.target.value;
+                                                            value = value.replace(/,/g, '.'); // Convert commas to periods
+                                                            
+                                                            setCurrentExtratype(value);
+                                                        }}
+
+                                                    />
+                                </div>
                                 <div className="mt-2">
                                     <Label>
                                         Weitere Informationen
@@ -207,7 +247,7 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                                         type="submit" disabled={isSubmitting ||
                                             Number(currentValue) > 1_000_000 ||
-                                            !correctPrice
+                                            !correctPrice || !correctKilometer || !hasChanged
                                             || !currentType}
                                     >
                                         Änderungen speichern

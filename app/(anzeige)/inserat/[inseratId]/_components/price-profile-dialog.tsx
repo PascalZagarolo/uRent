@@ -26,7 +26,7 @@ const PriceProfileDialog: React.FC<PriceProfileDialogProps> = ({
                     </div>
                     <div className="mt-2 w-full flex items-center text-xs">
                         <div className="w-1/2 font-semibold">
-                            {((Number(thisPriceprofile.price))).toFixed(2).replace('.', ',') + ' €'}
+                            Preis: {((Number(thisPriceprofile.price))).toFixed(2).replace('.', ',') + ' €'}
                         </div>
                         {thisPriceprofile.freeMiles && (
                             <div className="w-1/2">

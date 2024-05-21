@@ -75,9 +75,11 @@ const TransportExtraType: React.FC<CarTypeProps> = ({
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
                         <SelectItem value={null}>Beliebig</SelectItem>
+                        <SelectItem value="ABSETZKIPPERAUFBAU">Absetzkipperaufbau</SelectItem>
                         <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
                         <SelectItem value="FLUESSIGKEITSTRANSPORT">Fluessigkeitstransport</SelectItem>
+                        <SelectItem value="KIPPERAUFBAU">Kipperaufbau</SelectItem>
                         <SelectItem value="KASTENWAGEN">Kastenwagen</SelectItem>
                         <SelectItem value="KOFFERAUFBAU">Kofferaufbau</SelectItem>
                         <SelectItem value="KUEHLAUFBAU">Kuehlaufbau</SelectItem>

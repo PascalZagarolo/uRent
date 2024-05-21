@@ -179,7 +179,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                                 <div className="text-xs">
                                 Als Vermieter kannst du Preisprofile erstellen, 
                                 die klare und übersichtliche Preislisten für verschiedene Zeiträume oder Entfernungen bieten, <br/>
-                                 z.B. "Pro Stunde 49€". <br/> <br/>
+                                 z.B. {`"`}Pro Stunde 49€{`"`}. <br/> <br/>
                                 So kannst du deinen Kunden einfach und transparent die besten Optionen für ihre Mietbedürfnisse präsentieren.
                                 </div>
                             </PopoverContent>

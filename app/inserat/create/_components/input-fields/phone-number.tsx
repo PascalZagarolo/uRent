@@ -32,17 +32,19 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
 
     const router = useRouter();
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         try {
           setIsLoading(true)
           const values = {
             phoneNumber : currentNumber
           }
 
-          axios.patch(`/api/inserat/${thisInserat.id}`, values);
-          setTimeout(() => {
-            router.refresh();
-          }, 250)
+          await axios.patch(`/api/inserat/${thisInserat.id}`, values)
+            .then(() => {
+              toast.success("Telefonnummer wurde erfolgreich geändert")
+              router.refresh();
+            })
+          
 
         } catch {
           toast.error("Fehler beim Versenden der E-Mail")

@@ -40,11 +40,6 @@ const ConditionsInformation: React.FC<ConditionsInformationProps> = ({
             </div>
             </div>
 
-            
-            
-
-
-            
         </div>
      );
 }

@@ -306,7 +306,7 @@ export const priceprofile = pgTable("priceprofile", {
     price : decimal("price"),
     freeMiles : integer("freeMiles"),
     extraCost : decimal("extraCost"),
-    
+    position : integer("position"),
 
     inseratId : uuid("inseratId")
                 .references(() => inserat.id, { onDelete: "cascade" }),
@@ -387,6 +387,8 @@ export const fuelTypeEnum = pgEnum("fuelType", [
 export const FuelTypeEnumRender = z.enum(fuelTypeEnum.enumValues).Enum;
 
 export const extraTypeEnum = pgEnum("extraType", [
+    "ABSETZKIPPERAUFBAU",
+
     "CONTAINERTRANSPORT",
 
     "FAHRZEUGTRANSPORT",
@@ -394,6 +396,8 @@ export const extraTypeEnum = pgEnum("extraType", [
 
     "KASTENWAGEN",
     "KIPPER",
+    "KIPPERAUFBAU",
+    
     "KOFFERAUFBAU",
     "KUEHLAUFBAU",
 
@@ -470,6 +474,8 @@ export const DriveEnumRender = z.enum(driveEnum.enumValues).Enum;
 
 
 export const applicationEnum = pgEnum("application", [
+    "ABSETZKIPPERAUFBAU",
+
     "CONTAINERTRANSPORT",
     
     "DEICHSELANHAENGER",
@@ -480,6 +486,7 @@ export const applicationEnum = pgEnum("application", [
     "KASTENWAGEN",
     "KOFFERAUFBAU",
     "KIPPER",
+    "KIPPERAUFBAU",
     "KRANWAGEN",
     "KUEHLWAGEN",
 
@@ -586,6 +593,8 @@ export const transportAttribute = pgTable("transportAttribute", {
     extraType : extraTypeEnum("extraType"),
 
     loading_volume : decimal("loading_volume"),
+
+    
 
     loading_l : decimal("loading_l"),
     loading_b : decimal("loading_b"),

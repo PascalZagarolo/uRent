@@ -34,15 +34,15 @@ export async function PATCH(
         const values = await req.json();
 
         if (values?.action === "Up") {
-            const previousId = findInserat?.priceprofiles.find((priceprofile : any) => priceprofile.id === values.priceprofileId)?.id;
+            const previousProfile = findInserat.priceprofiles.find((profile) => profile.position === values?.position - 1);
 
-            if(!previousId) {
+            if(!previousProfile) {
                 return new NextResponse("Preisprofil nicht gefunden", { status: 404 })
             }
 
             const patchPrevious = await db.update(priceprofile).set({
-                position : values?.position
-            }).where(eq(priceprofile.id, previousId)).returning();
+                position : previousProfile?.position + 1
+            }).where(eq(priceprofile.id, previousProfile.id)).returning();
 
             const patchCurrent = await db.update(priceprofile).set({
                 position : values?.position - 1

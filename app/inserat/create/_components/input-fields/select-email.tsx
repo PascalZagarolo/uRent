@@ -34,17 +34,19 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
     const router = useRouter();
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         try {
           setIsLoading(true)
           const values = {
             emailAddress : currentAddress
           }
 
-          axios.patch(`/api/inserat/${thisInserat.id}`, values);
-          setTimeout(() => {
-            router.refresh();
-          }, 250)
+          await axios.patch(`/api/inserat/${thisInserat.id}`, values)
+            .then(() => {
+              toast.success("E-Mail wurde erfolgreich geändert")
+              router.refresh();
+            })
+          
 
         } catch {
           toast.error("Fehler beim Versenden der E-Mail")
@@ -53,7 +55,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
         }
     } 
 
-    console.log(thisInserat.user)
+    
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 

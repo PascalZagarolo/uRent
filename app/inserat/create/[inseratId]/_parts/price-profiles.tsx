@@ -136,7 +136,25 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
     }
 
     const onDownwards = async (priceprofileId : string, position : number) => {
+        try {
 
+            const values = {
+                action : "Down",
+                position : position,
+                priceprofileId : priceprofileId
+            }
+
+            await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values)
+                .then(() => {
+                    router.refresh();
+                    
+                    toast.success("Preisprofil verschoben")
+                })
+
+        } catch(error : any) {
+            console.log(error);
+            toast.error("Fehler beim verschieben des Preisprofils")
+        }
     }
 
     const { isSubmitting, isValid } = form.formState
@@ -165,7 +183,11 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                             >
                             <ArrowUp className="w-4 h-4" />
                             </Button>
-                            <Button size="sm" variant="ghost" disabled={index == thisInserat?.priceprofiles.length - 1 || isLoading}>
+                            <Button size="sm" variant="ghost" 
+                            
+                            disabled={index == thisInserat?.priceprofiles.length - 1 || isLoading}
+                            onClick={() => onDownwards(priceprofile.id, priceprofile.position)}
+                            >
                             <ArrowDown className="w-4 h-4" />
                             </Button>
                         </div>

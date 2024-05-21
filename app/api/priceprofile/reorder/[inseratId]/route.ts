@@ -49,8 +49,27 @@ export async function PATCH(
             }).where(eq(priceprofile.id, values.priceprofileId)).returning();
 
             return NextResponse.json({ patchPrevious, patchCurrent})
+
+
         } else if(values?.action === "Down") {
-            return NextResponse.json({})
+
+            const nextProfile = findInserat.priceprofiles.find((profile) => profile.position === values?.position + 1);
+
+            if(!nextProfile) {
+                return new NextResponse("Preisprofil nicht gefunden", { status: 404 })
+            }
+
+            const patchNextProfile = await db.update(priceprofile).set({
+                position : nextProfile?.position - 1
+            }).where(eq(priceprofile.id, nextProfile.id)).returning();
+
+            const patchCurrent = await db.update(priceprofile).set({
+                position : values?.position + 1
+            }).where(eq(priceprofile.id, values.priceprofileId)).returning();
+
+            return NextResponse.json({ patchNextProfile, patchCurrent})
+
+            
         } else {
             return new NextResponse("Ungültige Aktion", { status: 405 })
         }

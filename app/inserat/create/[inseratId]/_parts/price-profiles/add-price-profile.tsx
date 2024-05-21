@@ -215,7 +215,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                 </div>
                                 <div className="w-full mt-2">
                                                 <Label>
-                                                    Zusatzpreis Kilometer
+                                                Freikilometer
                                                 </Label>
                                                 
                                                     <Input

@@ -20,6 +20,8 @@ import { z } from "zod";
 import { AiFillProfile } from "react-icons/ai";
 import EditPriceProfile from "./price-profiles/edit-price-profile";
 import DeletePriceProfile from "./price-profiles/delete-price-profile";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 
 
@@ -166,11 +168,25 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
             )}
             </div>
             <div >
-                {thisInserat?.priceprofiles.length > 0 &&(
+                
                     <div className="text-md font-semibold pb-2 flex items-center">
                        <AiFillProfile className="w-4 h-4 mr-2" />  Meine Preisprofile
+                        <Popover>
+                            <PopoverTrigger>
+                            <IoIosInformationCircleOutline className="w-4 h-4 ml-2" /> 
+                            </PopoverTrigger>
+                            <PopoverContent className="border-gray-600 dark:bg-[#141414]">
+                                <div className="text-xs">
+                                Als Vermieter kannst du Preisprofile erstellen, 
+                                die klare und übersichtliche Preislisten für verschiedene Zeiträume oder Entfernungen bieten, <br/>
+                                 z.B. "Pro Stunde 49€". <br/> <br/>
+                                So kannst du deinen Kunden einfach und transparent die besten Optionen für ihre Mietbedürfnisse präsentieren.
+                                </div>
+                            </PopoverContent>
+                        </Popover>
+
                     </div>
-                )}
+               
                 <div className="space-y-2">
                 {usedList.map((priceprofile: any, index) => (
                     <div className="dark:bg-[#141414] p-4 rounded-md" key={priceprofile.id}>
@@ -206,6 +222,11 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                     </div>
                 </div>
                 ))}
+                {usedList.length == 0 && (
+                    <div className="text-sm dark:text-gray-200/60">
+                        Noch keine Preisprofile erstellt..
+                    </div>
+                )}
                 </div>
             </div>
         </div>

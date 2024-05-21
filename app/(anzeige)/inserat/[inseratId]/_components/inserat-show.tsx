@@ -38,6 +38,8 @@ const InseratShow: React.FC<InseratShowProps> = ({
         }
     }
 
+    const usedListPrices = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
+
     return (
         <div className="sm:mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 
                         sm:rounded-md  
@@ -135,7 +137,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
                     </div>
                     <div className="space-y-2 mt-2">
                         {//@ts-ignore
-                        thisInserat?.priceprofiles.map((priceprofile : any) => (
+                        usedListPrices.map((priceprofile : any) => (
                             <PriceProfileDialog
                             key={priceprofile.id}
                             thisPriceprofile={priceprofile}

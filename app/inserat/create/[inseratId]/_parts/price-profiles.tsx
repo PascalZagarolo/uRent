@@ -121,10 +121,9 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                 position : position,
                 priceprofileId : priceprofileId
             }
-
             await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values)
                 .then(() => {
-                    router.refresh();
+                    
                     
                     toast.success("Preisprofil verschoben")
                 })

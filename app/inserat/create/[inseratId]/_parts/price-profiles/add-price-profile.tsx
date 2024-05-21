@@ -105,7 +105,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                     router.refresh();
                     setCurrentValue(undefined);
                     setCurrentExtratype(undefined);
-                    setCorrectKilometer(undefined);
+                    setCurrentKilometer(undefined);
                     setCurrentInfo(undefined);
                     setCurrentType(undefined);
                     form.reset();

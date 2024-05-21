@@ -13,7 +13,10 @@ export async function PATCH(
     try {
 
         const findInserat = await db.query.inserat.findFirst({
-            where : eq(inserat.id, params.inseratId)
+            where : eq(inserat.id, params.inseratId),
+            with : { 
+                priceprofiles : true
+            }
         })
 
         if(!findInserat) {
@@ -28,6 +31,8 @@ export async function PATCH(
 
         const values = await req.json();
 
+        const usedIndex = findInserat?.priceprofiles ? findInserat?.priceprofiles?.length : 0;
+
         const createdPriceProfile = await db.insert(priceprofile).values({
             title : values.title,
             price : values.price,
@@ -40,7 +45,8 @@ export async function PATCH(
             ...values.description && {
                 description : values.description
             },
-            inseratId : findInserat.id
+            inseratId : findInserat.id,
+            position : usedIndex
         }).returning();
 
         return NextResponse.json(createdPriceProfile)

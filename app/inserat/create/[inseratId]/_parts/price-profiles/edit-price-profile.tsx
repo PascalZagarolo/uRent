@@ -191,7 +191,7 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                                 </div>
                                 <div className="mt-2">
                                     <Label>
-                                        Inkludierte Kilometer
+                                        Freikilometer
                                     </Label>
                                     <div className="mt-2">
                                         <Input

@@ -29,18 +29,7 @@ const ConditionsSearch = () => {
                 </div>
 
             </div>
-            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2 sm:space-y-0">
-            <div className="sm:w-1/3">
-                    <AmountSearch />
-                </div>
-                <div className="sm:w-1/3">
-                    <FreeMilesSearch />
-                </div>
-                <div className="sm:w-1/3">
-                    <ExtraMilesSearch />
-                </div>
-
-            </div>
+            
         </div>
     );
 }

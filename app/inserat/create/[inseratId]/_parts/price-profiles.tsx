@@ -37,6 +37,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
 
     const usedList = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
     
+    const [renderedInserate, setRenderedInserate] = useState(usedList);
 
    
 
@@ -169,7 +170,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                             </Button>
                         </div>
                         <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
-                            {priceprofile.title}
+                          {priceprofile?.position}  {priceprofile.title}
                         </div>
                         <div className="text-sm font-medium dark:text-gray-200/60 w-1/12  line-clamp-1 break-all">
                             {(priceprofile.price).toFixed(2)}€ 

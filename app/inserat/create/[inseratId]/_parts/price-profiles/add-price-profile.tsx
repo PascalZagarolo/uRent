@@ -51,6 +51,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
 
 
     function isValidNumber(input : any) {
+        
         const regex = /^\d+(\.\d{2})?$/;
         return regex.test(input);
     }
@@ -187,7 +188,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                 </div>
                                 <div className="mt-2">
                                     <Label className="flex items-center">
-                                        Inkludierte Kilometer 
+                                    Freikilometer
                                         <Popover>
                                             <PopoverTrigger>
                                             <IoIosInformationCircleOutline className="w-4 h-4 ml-2" /> 
@@ -215,7 +216,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                 </div>
                                 <div className="w-full mt-2">
                                                 <Label>
-                                                Freikilometer
+                                                Preis pro zusätzlich gefahrenden Kilometer
                                                 </Label>
                                                 
                                                     <Input

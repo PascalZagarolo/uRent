@@ -58,7 +58,7 @@ const SelectCategoryInserat: React.FC<SelectCategoryInseratProps> = ({
 
       setIsLoading(true);
       axios.patch(`/api/inserat/${thisInserat.id}`, values);
-      toast.success("Kategorie erfolgreich gespeichert als : " + values.category);
+      toast.success("Kategorie gespeichert");
       setTimeout(() => {
         router.refresh();
       }, 400)

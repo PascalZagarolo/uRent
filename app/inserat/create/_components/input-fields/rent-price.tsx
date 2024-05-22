@@ -27,7 +27,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState<string | number>(thisInserat.price);
+    const [currentValue, setCurrentValue] = useState<string | number>(thisInserat?.price);
     const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
 
     const {currentChanges, changeCurrent, deleteCurrent} = useUnsavedChanges()
@@ -53,7 +53,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     
 
     function isValidNumber(input : any) {
-        if (input.startsWith("0")) {
+        if (input?.startsWith("0")) {
             return false;
         }
         const regex = /^\d+(\.\d{2})?$/;

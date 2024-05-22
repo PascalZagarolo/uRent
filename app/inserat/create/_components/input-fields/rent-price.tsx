@@ -27,7 +27,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState(thisInserat.price);
+    const [currentValue, setCurrentValue] = useState<string | number>(thisInserat.price);
     const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
 
     const {currentChanges, changeCurrent, deleteCurrent} = useUnsavedChanges()
@@ -43,28 +43,27 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
         }
         setAmount();
     }, [currentValue])
+
+    useEffect(() => {
+        isValidNumber(currentValue) ? setCorrectPrice(true) : setCorrectPrice(false);
+    },[currentValue])
  
-    const formSchema = z.object({
-        price: z.preprocess(
-            (args) => (args === '' ? undefined : args),
-            z.coerce
-                .number({ invalid_type_error: 'Preis muss eine Nummer sein' })
-                .positive('Price must be positive')
-                .optional()
-        ),
-    })
+    const [correctPrice, setCorrectPrice] = useState(false);
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            price: thisInserat.price || null
+    
+
+    function isValidNumber(input : any) {
+        if (input.startsWith("0")) {
+            return false;
         }
-    })
+        const regex = /^\d+(\.\d{2})?$/;
+        return regex.test(input);
+    }
 
-    const onSubmit = (value: z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
         try {
             const values = {
-                price : value.price.toFixed(2)
+                price : Number(currentValue).toFixed(2)
             }
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
@@ -92,70 +91,40 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
         }
     },[thisInserat.annual])
 
-    const { isSubmitting, isValid } = form.formState
+    
 
     return (
         <div className=" ">
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <FormLabel className="flex justify-start items-center">
+            
+                    <Label className="flex justify-start items-center">
                         <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Mietpreis *</p>
-                    </FormLabel>
+                    </Label>
                     <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
-                    <FormField
-                        control={form.control}
-                        name="price"
-                        render={({ field }) => (
-                            <FormField
-                                control={form.control}
-                                name="price"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2">
-                                        <FormControl>
+                    
                                             <Input
                                                 type="text"
-                                                {...field}
+                                                value={currentValue}
                                                 name="price"
-                                                className=" dark:bg-[#151515] dark:border-none"
+                                                className=" dark:bg-[#151515] dark:border-none mt-2"
                                                 placeholder="Mietpreis hinzufügen"
-                                                onBlur={(e) => {
-                                                    const rawValue = e.currentTarget.value;
-
-                                                    
-                                                    let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-                                                    cleanedValue = rawValue.replace(/,/g, '.');
-
-                                                    let formattedValue = parseFloat(cleanedValue).toFixed(2);
-
-                                                    if(isNaN(Number(formattedValue))){
-                                                        formattedValue = null;
-                                                    }
-
-                                                    if(Number(formattedValue) >= 1_000_000) {
-                                                        formattedValue = "999999";
-                                                    }
-                                                    e.currentTarget.value = formattedValue;
-
-                                                    setCurrentValue(Number(formattedValue));
-                                                        
-                                                    field.onChange(formattedValue);
+                                                onChange={(e) => {
+                                                    let value = e.target.value;
+                                                            value = value.replace(/,/g, '.'); // Convert commas to periods
+                                                            
+                                                            setCurrentValue(value);
                                                 }}
                                                 
                                             />
-                                        </FormControl>
-                                        
-                                        <FormMessage />
-                                    </FormItem>
+                                      
                                     
-                                )}
-                            />
-                        )}
-                    />
+                               
+                       
+                   
                     <div className="w-full flex items-center">
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            type="submit" disabled={!isValid || isSubmitting || currentValue == thisInserat.price || currentValue > 1_000_000}
+                            type="submit" disabled={!correctPrice || currentValue == thisInserat.price || Number(currentValue) > 1_000_000}
                         >
                             Preis festlegen
                         </Button>
@@ -172,8 +141,8 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                       
                         </div>
                     </div>
-                </form>
-            </Form>
+               
+           
         </div>
     );
 }

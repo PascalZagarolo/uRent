@@ -226,7 +226,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         aus dem Profil
       </Label>
     </div>
-      <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:text-gray-100" //@ts-ignore
+      <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
         disabled={!inputRef?.current?.value || (thisAddressComponent?.locationString === inputRef?.current?.value && currentZipCode === thisAddressComponent?.postalCode) || !inputRef?.current?.value.length ||
           String(currentZipCode).length !== 5 || isNaN(Number(currentZipCode))
         }

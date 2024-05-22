@@ -7,24 +7,42 @@ import { Button } from "@/components/ui/button";
 import { RiCaravanLine } from "react-icons/ri";
 import { PiVanFill } from "react-icons/pi";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import qs from "query-string";
-import { useGetFilterAmount } from "@/store";
+import { useGetFilterAmount, useSavedSearchParams } from "@/store";
 import { MdOutlineCancel } from "react-icons/md";
+import MainPageResults from "./main-page-results";
+import { CategoryEnumRender } from "@/db/schema";
 
 const MobileFilterSheet = () => {
 
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const currentCategory = searchParams.get("category");
-    const currentTitle = searchParams.get("title");
-    const currentLocation = searchParams.get("location")
+    const pSearchParams = useSearchParams();
+    const currentCategory = pSearchParams.get("category");
+    const currentTitle = pSearchParams.get("title");
+    const currentLocation = pSearchParams.get("location")
 
     const router = useRouter();
 
-    const [setCategory, setNewCategory] = useState<string | null>(null);
+   
+
+    const { searchParams, changeSearchParams, deleteSearchParams, removeAll } = useSavedSearchParams();
+
+    const setCategory = (category : typeof CategoryEnumRender) => {
+        //@ts-ignore
+        changeSearchParams("thisCategory", category);
+        
+    }
+
+    useEffect(() => {
+        if(currentCategory){
+            changeSearchParams("thisCategory", currentCategory);
+        }
+    }, [])
+
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
 
     const params = getSearchParamsFunction("category");
 
@@ -77,32 +95,42 @@ const MobileFilterSheet = () => {
                     <h3 className="text-gray-100 font-semibold  rounded-md  py-2 flex justify-center  bg-[#1b1f2c] dark:border-[#1f2332]">
                         Fahrzeugkategorie
                     </h3>
-                    <div className="flex justify-center space-x-16  mt-8 ">
-                        <div className="">
-                            <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                                currentCategory === "PKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("PKW") }}>
-                                <CarFront />
-                            </p>
-                            <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
-                                PKW
-                            </p>
-                        </div>
-
-                        <div>
-                            <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                                currentCategory === "LKW" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("LKW") }}>
-                                <Truck />
-                            </p>
-                            <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
-                                LKW
-                            </p>
-                        </div>
-
+                    <div className="flex justify-between ml-12 mr-12 mt-8 ">
+                    <div className="">
+                        <p className={cn("p-4 rounded-md text-gray-200  border-2 hover:cursor-pointer bg-[#1c1f2f]",
+                            //@ts-ignore
+                            currentObject["thisCategory"] === "PKW" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "PKW" ? deleteCategory() : setCategory("PKW")}>
+                            <CarFront />
+                        </p>
+                        <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
+                            PKW
+                        </p>
                     </div>
-                    <div className="flex justify-center space-x-16 mt-4 ">
+
                     <div>
-                        <p className={cn("p-4 rounded-md bg-white border-2 hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "LAND" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("LAND") }}>
+                        <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
+                            //@ts-ignore
+                         currentObject["thisCategory"] === "LKW" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "LKW" ? deleteCategory() : setCategory("LKW")}>
+                            <Truck />
+                        </p>
+                        <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
+                            LKW
+                        </p>
+                    </div>
+
+                </div>
+
+                <div className="flex justify-between ml-12 mr-12 mt-4 ">
+                    <div>
+                        <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
+                         //@ts-ignore
+                         currentObject["thisCategory"] === "TRAILER" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "TRAILER" ? deleteCategory() : setCategory("TRAILER")}>
                             <RiCaravanLine className="w-6 h-6" />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
@@ -111,8 +139,11 @@ const MobileFilterSheet = () => {
                     </div>
 
                     <div className="w-[60px]">
-                        <p className={cn("p-4 rounded-md bg-white border-2   flex justify-center hover:cursor-pointer dark:bg-[#1c1f2f]",
-                            currentCategory === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} onClick={() => { onClick("TRANSPORT") }}>
+                        <p className={cn("p-4 rounded-md text-gray-200 border-2   flex justify-center hover:cursor-pointer bg-[#1c1f2f]",
+                            //@ts-ignore
+                         currentObject["thisCategory"] === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")} 
+                            onClick={//@ts-ignore
+                                () => currentObject["thisCategory"] === "TRANSPORT" ? deleteCategory() : setCategory("TRANSPORT")}>
                             <PiVanFill className="w-6 h-6" />
                         </p>
                         <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1 ">
@@ -131,12 +162,7 @@ const MobileFilterSheet = () => {
                     <Settings2 className="mr-2 h-4 w-4" /> Zu der Erweiterten Suche
                 </div>
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
-                    <Button className="bg-blue-800 w-full h-[100px]    flex 
-                    justify-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                    dark:text-gray-100 dark:hover:bg-sky-700 
-                    ">
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {results} </p> Ergebnisse
-                    </Button>
+                    <MainPageResults />
                 </div>
                 </div>
             </SheetContent>

@@ -68,10 +68,6 @@ const WeightClassForm: React.FC<WeightClassFormProps> = ({
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
           <SelectItem value={null}>Beliebig</SelectItem>
-          <SelectItem value="75">0,75 t</SelectItem>
-            <SelectItem value="150">1,5 t</SelectItem>
-            <SelectItem value="280">2,8 t</SelectItem>
-            <SelectItem value="350">3,5 t</SelectItem>
             <SelectItem value="550">5,5 t</SelectItem>
             <SelectItem value="750">7,5 t</SelectItem>
             <SelectItem value="1200">12 t</SelectItem>

@@ -27,15 +27,13 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     businessId,
     foundAddress
 }) => {
-
-
     const onDrop = useCallback((acceptedFiles : any, rejectedFiles : any) => {
         acceptedFiles.forEach((file : any) => {
             setSelectedImages((prevState) => [...prevState, file]);
-            handleUpload();
+            
         });
-
-
+        console.log(acceptedFiles)
+        handleUpload(acceptedFiles);
     }, []);
 
     const [selectedImages, setSelectedImages] = useState([]);
@@ -52,10 +50,19 @@ const StandortRender: React.FC<StandortRenderProps> = ({
         'image/png': ['.jpeg', '.png', '.webp', '.jpg', ''],
     } });
 
-    const handleUpload = () => {
+    const handleUpload = (acceptedFiles? : any) => {
         const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
         const formData = new FormData();
-        let file = selectedImages[0];
+        
+        let file : any;
+        
+        if(acceptedFiles) {
+            file = acceptedFiles[0];
+            console.log(file)
+        } else {
+            file = selectedImages[0];
+            console.log(file)
+        }
         formData.append("file", file);
         formData.append("upload_preset", "oblbw2xl");
         fetch(url, {
@@ -66,7 +73,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
+                
                 setCurrentUrl(data.secure_url);
                 setIsUploaded(true);
             });

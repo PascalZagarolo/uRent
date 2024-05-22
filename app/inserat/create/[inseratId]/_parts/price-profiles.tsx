@@ -207,7 +207,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({
                             </Button>
                         </div>
                         <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
-                          {priceprofile?.position}  {priceprofile.title}
+                          {priceprofile.title}
                         </div>
                         <div className="text-sm font-medium dark:text-gray-200/60 w-1/12  line-clamp-1 break-all">
                             {(priceprofile.price).toFixed(2)}€ 

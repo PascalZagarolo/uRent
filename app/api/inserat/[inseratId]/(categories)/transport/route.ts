@@ -10,9 +10,9 @@ export async function PATCH(
 ) {
     try {
 
-        const values = await req.json();
+        const {initial, ...values} = await req.json();
 
-        
+        const usedInitial = new Date(initial);
 
         const findAttributes = await db.query.transportAttribute.findFirst({
             where : eq(transportAttribute.inseratId, params.inseratId)
@@ -22,6 +22,9 @@ export async function PATCH(
 
             const [patchedInserat] = await db.insert(transportAttribute).values({
                 inseratId : params.inseratId,
+                ...(initial) && {
+                    initial : usedInitial
+                },
                 ...values,
             }).returning()
 
@@ -33,6 +36,9 @@ export async function PATCH(
             
         } else {
             const patchedInserat = await db.update(transportAttribute).set({
+                ...(initial) && {
+                    initial : usedInitial
+                },
                 ...values
             }).where(eq(transportAttribute.inseratId, params.inseratId)).returning();
             return NextResponse.json(patchedInserat[0]);

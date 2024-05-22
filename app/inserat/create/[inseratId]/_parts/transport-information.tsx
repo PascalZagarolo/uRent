@@ -12,6 +12,7 @@ import TransportPowerForm from "./transport/transport-power";
 import TransportLoadingVolumeForm from "./transport/transport-volume";
 import TransportSizeForm from "./transport/transport-size";
 import TransportBrandForm from "./transport/transport-brand";
+import TransportInitialForm from "./transport/transport-initial";
 
 
 
@@ -98,7 +99,9 @@ const TransportInformation: React.FC<TransportInformationProps> = ({
                 />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                
+                <TransportInitialForm 
+                    thisInitial={thisInserat?.transportAttribute?.initial}
+                />
                 </div>
                 
             </div>

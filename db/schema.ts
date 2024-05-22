@@ -42,6 +42,7 @@ export const userTable = pgTable("user", {
 
     sharesEmail: boolean("sharesEmail").notNull().default(true),
     sharesRealName : boolean("sharesRealName").notNull().default(true),
+    sharesPhoneNumber : boolean("sharesPhoneNumber").notNull().default(true),
     
     newsletter : boolean("newsletter").default(false),
 
@@ -387,7 +388,7 @@ export const fuelTypeEnum = pgEnum("fuelType", [
 export const FuelTypeEnumRender = z.enum(fuelTypeEnum.enumValues).Enum;
 
 export const extraTypeEnum = pgEnum("extraType", [
-    "ABSETZKIPPERAUFBAU",
+    
 
     "CONTAINERTRANSPORT",
 
@@ -575,7 +576,7 @@ export const trailerAttribute = pgTable("trailerAttribute", {
 })
 
 export const transportBrandEnum = pgEnum("transportBrand", [
-    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco",  "Mazda", 
+    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco", "Man", "Mazda", 
     "Maxus", "Mercedes-Benz", "Mitsubishi", "Multicar", "Nissan", "Opel", 
     "Peugeot", "Renault", "SEAT", "Škoda", "Suzuki", "Toyota", "Volkswagen",
      "Volvo", "Sonstige"
@@ -594,7 +595,7 @@ export const transportAttribute = pgTable("transportAttribute", {
 
     loading_volume : decimal("loading_volume"),
 
-    
+    initial: timestamp("initial", {mode: "date"}),
 
     loading_l : decimal("loading_l"),
     loading_b : decimal("loading_b"),

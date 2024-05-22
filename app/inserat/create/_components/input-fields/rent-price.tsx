@@ -63,7 +63,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const onSubmit = () => {
         try {
             const values = {
-                price : Number(currentValue).toFixed(2)
+                price : Number(currentValue)
             }
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
@@ -124,7 +124,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            type="submit" disabled={!correctPrice || currentValue == thisInserat.price || Number(currentValue) > 1_000_000}
+                            onClick={onSubmit} disabled={!correctPrice || currentValue == thisInserat.price || Number(currentValue) > 1_000_000}
                         >
                             Preis festlegen
                         </Button>

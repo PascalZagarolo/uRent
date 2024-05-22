@@ -72,6 +72,7 @@ const WeightClassForm: React.FC<WeightClassFormProps> = ({
             <SelectItem value="150">1,5 t</SelectItem>
             <SelectItem value="280">2,8 t</SelectItem>
             <SelectItem value="350">3,5 t</SelectItem>
+            <SelectItem value="350">5,5 t</SelectItem>
             <SelectItem value="750">7,5 t</SelectItem>
             <SelectItem value="1200">12 t</SelectItem>
             <SelectItem value="1800">18 t</SelectItem>

@@ -77,13 +77,7 @@ const TransportWeightClass: React.FC<CarTypeProps> = ({
             <SelectItem value="150">1,5 t</SelectItem>
             <SelectItem value="280">2,8 t</SelectItem>
             <SelectItem value="350">3,5 t</SelectItem>
-            <SelectItem value="750">7,5 t</SelectItem>
-            <SelectItem value="1200">12 t</SelectItem>
-            <SelectItem value="1800">18 t</SelectItem>
-            <SelectItem value="2600">26 t</SelectItem>
-            <SelectItem value="3200">32 t</SelectItem>
-            <SelectItem value="3900">39 t</SelectItem>
-            <SelectItem value="5000">{'>'} 39 t</SelectItem>
+            <SelectItem value="350">5,5 t</SelectItem>
             <SelectItem value={null}>Beliebig</SelectItem>
           </SelectContent>
         </Select>

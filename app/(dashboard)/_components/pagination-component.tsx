@@ -40,11 +40,32 @@ const PaginationComponent = () => {
     router.push(url)
   }
 
+  let renderedPages : number[] = [];
+
   const itemsPerPage = useResultsPerPage((state) => state.results);
   const globalResults = useGetFilterAmount((state) => state.amount);
 
   const expectedPages = (Math.ceil(globalResults / itemsPerPage)) ? Math.ceil(globalResults / itemsPerPage) : 1;
   
+  if (expectedPages > 9 && Number(currentPage) > 5) {
+    const pageIndex = Number(currentPage);
+
+    const startingIndex = pageIndex - 4;
+    const endingIndex = pageIndex + 4;
+
+    for(let i = startingIndex; i < endingIndex + 1; i++) {
+      if (i > 0 && i < Number(expectedPages) + 1) {
+        renderedPages.push(i);
+      }
+    }
+
+
+
+  } else {
+    for(let i = 1; i < expectedPages + 1; i++) {
+      renderedPages.push(i);
+    }
+  }
 
     return ( 
     <>
@@ -60,11 +81,12 @@ const PaginationComponent = () => {
         )}
         
        
-        {Array.from({length : expectedPages}, (_, index) => (
+        {renderedPages.map((page) => (
           
             <PaginationItem className={cn(`bg-[#191B27] hover:bg-[#242738]
-            text-gray-200 rounded-md hover:cursor-pointer`, Number(currentPage) == index + 1 && "bg-[#252838]")} onClick={() => {changePage(index + 1)}} key={index}>
-            <PaginationLink className="hover:bg-[#242738] hover:text-gray-300">{index + 1}</PaginationLink>
+            text-gray-200 rounded-md hover:cursor-pointer`, Number(currentPage) == page && "bg-[#252838]")} 
+            onClick={() => {changePage(page)}} key={page}>
+            <PaginationLink className="hover:bg-[#242738] hover:text-gray-300">{page}</PaginationLink>
           </PaginationItem>
          
         ))}

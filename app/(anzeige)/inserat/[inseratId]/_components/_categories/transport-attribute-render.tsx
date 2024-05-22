@@ -1,8 +1,9 @@
 import { transportAttribute } from "@/db/schema";
 
 import { GearIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
 
-import { DoorClosedIcon, WeightIcon, } from "lucide-react";
+import { ConstructionIcon, DoorClosedIcon, WeightIcon, } from "lucide-react";
 import { GiResize } from "react-icons/gi";
 import { HiCubeTransparent } from "react-icons/hi";
 import { PiCouchFill, PiEngine, PiVanFill, } from "react-icons/pi";
@@ -23,10 +24,21 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
 
     return (
         <div className="w-full grid grid-cols-2 gap-2 mt-4">
+            {attributes?.transportBrand && (
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
+                    <PiVanFill className="w-4 h-4 mr-2" />    {attributes?.transportBrand}
+                </div>
+
+            )}
+            {attributes?.initial && (
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
+                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
+                </div>
+            )}
             {attributes?.loading && (
 
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
-                    <TbCarCrane className="w-4 h-4 mr-2" />    {attributes?.loading}
+                    <TbCarCrane className="w-4 h-4 mr-2" />    {(attributes?.loading).substring(0,1)}{(attributes?.loading).substring(1).toLowerCase()}
                 </div>
             )}
 
@@ -37,7 +49,7 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
             )}
             {attributes?.fuel && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
-                    <RiGasStationLine className="w-4 h-4 mr-2" />    {attributes?.fuel}
+                    <RiGasStationLine className="w-4 h-4 mr-2" />    {(attributes?.fuel).substring(0,1)}{(attributes?.fuel).substring(1).toLowerCase()}
                 </div>
             )}
 
@@ -107,12 +119,7 @@ const TransportAttributeRender: React.FC<TransportAttributeRenderProps> = ({
                 </div>
             )}
 
-            {attributes?.transportBrand && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center text-gray-200">
-                    <PiVanFill className="w-4 h-4 mr-2" />    {attributes?.transportBrand}
-                </div>
-
-            )}
+            
         </div>
     );
 }

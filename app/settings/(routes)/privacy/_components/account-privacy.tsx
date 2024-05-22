@@ -65,6 +65,27 @@ const AccountPrivacy : React.FC<AccountPrivacyProps> = ({
         }
     }
 
+    const sharePhone = async (e : any) => {
+        try {
+            setIsLoading(true);
+
+            const values = {
+                sharesPhoneNumber : e
+            }
+
+            await axios.patch(`/api/profile/${thisUser.id}`, values)
+                .then(() => {
+                    router.refresh();
+                    toast.success("Einstellungen übernommen")
+                })
+
+        } catch(error : any) {
+            toast.error("Fehler beim Teilen des echten Namens")
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return ( 
         <div>
             <h1 className="font-semibold flex items-center">
@@ -111,6 +132,24 @@ const AccountPrivacy : React.FC<AccountPrivacyProps> = ({
                     </Label>
                 </div>
                 
+                <div className="flex items-center gap-x-2">
+                    <Checkbox className="w-4 h-4"
+                    onCheckedChange={(e : any) => sharePhone(e)}
+                    checked={thisUser.sharesPhoneNumber}
+                    /> <Label className="font-semibold flex items-center"> Telefonnr. teilen
+                    <Popover>
+                        <PopoverTrigger>
+                        <IoMdInformationCircleOutline className="w-4 h-4 ml-2" />
+                        </PopoverTrigger>
+                        <PopoverContent className="dark:border-none dark:bg-indigo-900 text-gray-200 text-xs gap-y-2">
+                            
+                        <IoMdInformationCircleOutline className="w-4 h-4" />
+                            Sollte diese Option aktiviert sein, wird deine Telefonnummer, falls angegeben, 
+                            für andere Nutzer in deinem Profil und neben deinen Inseraten angezeigt.
+                        </PopoverContent>
+                     </Popover>
+                    </Label>
+                </div>
 
             </div>
         </div>

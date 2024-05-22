@@ -27,6 +27,11 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
                     <CarFrontIcon className="w-4 h-4 mr-2" />    {attributes.brand}
                 </div>
             )}
+            {attributes?.initial && (
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
+                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
+                </div>
+            )}
             {attributes?.power && (
 
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
@@ -64,11 +69,7 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
             )}
             
 
-            {attributes?.initial && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
-                </div>
-            )}
+            
 
             {attributes?.loading_volume && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200 ">

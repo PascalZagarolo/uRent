@@ -31,6 +31,11 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     <FaTruckMoving className="w-4 h-4 mr-2" />    {attributes.lkwBrand}
                 </div>
             )}
+            {attributes?.initial && (
+                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
+                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
+                </div>
+            )}
             {attributes?.application && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <LiaTruckLoadingSolid className="w-4 h-4 mr-2" />    {attributes.application.substring(0, 1)}{attributes.application.substring(1).toLowerCase()}
@@ -67,11 +72,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     }
                 </div>
             )}
-            {attributes?.initial && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
-                </div>
-            )}
+            
             {attributes?.seats && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
                     <PiCouchFill className="w-4 h-4 mr-2" />    {attributes.seats} {attributes.seats > 1 ? 'Sitze' : 'Sitz'}

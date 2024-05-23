@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     keywords: "mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger",
 }
 
-const Main = cache(async ({
+const Main = async ({
     searchParams
 }: MainPageProps) => {
 
@@ -122,7 +122,7 @@ const Main = cache(async ({
 
         <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
 
-            <div>
+<div>
                 {//@ts-ignore
                     (searchParams.page === "1" || !searchParams.page) && (
                         <div className="xl:flex hidden justify-center py-2">
@@ -130,7 +130,7 @@ const Main = cache(async ({
                         </div>
                     )}
                 <div className="relative flex justify-center mt-4">
-
+                
                     <div className='h-screen xl:flex items-center justify-center w-2/12  p-16 hidden'>
                         <div className=' w-full sm:block hidden space-y-4'>
                             <div>
@@ -152,7 +152,7 @@ const Main = cache(async ({
                     </div>
                     <div className="sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar flex items-center justify-center h-[100%]">
 
-                        <RelevanteInserate
+                    <RelevanteInserate
                             title={searchParams.title}
                             thisCategory={searchParams.category}
                             filter={searchParams.filter}
@@ -239,6 +239,6 @@ const Main = cache(async ({
 
 
     );
-});
+};
 
 export default Main;

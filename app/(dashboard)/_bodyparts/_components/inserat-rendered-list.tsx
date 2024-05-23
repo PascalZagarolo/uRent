@@ -2,7 +2,7 @@
 
 
 import InseratCard from "../../_components/inserat-card";
-import { cache, useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
 import {  inserat, 

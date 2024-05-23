@@ -46,6 +46,7 @@ const ImageList: React.FC<ImageListProps> = ({
     const router = useRouter();
 
     const onDragEnd = (result : DropResult) => {
+        
         if(!result.destination) {
             return
         }
@@ -57,6 +58,9 @@ const ImageList: React.FC<ImageListProps> = ({
         const startIndex = Math.min(result.source.index, result.destination.index);
         const endIndex = Math.max(result.source.index, result.destination.index);
 
+        console.log(startIndex)
+        console.log(endIndex)
+
         const updatedChapters = items.slice(startIndex, endIndex + 1);
         
         setChapters(items)
@@ -67,9 +71,7 @@ const ImageList: React.FC<ImageListProps> = ({
         }));
 
         onReorder(bulkUpdatedData);
-        setTimeout(() => {
-            router.refresh();
-        }, 250)
+        router.refresh();
     }
 
     useEffect(() => {
@@ -87,16 +89,17 @@ const ImageList: React.FC<ImageListProps> = ({
     }
 
     return ( 
-        <DragDropContext onDragEnd={onDragEnd} >
-            <Droppable droppableId="image">
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="image" isDropDisabled={isLoading}>
                 {(provided) => (
-                    <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
+                    <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2 w-full">
                         {chapters.map((image,index) => (
                             <Draggable key={image.id} draggableId={image.id} index={index}>
                                 {(provided) => (
                                     <div
                                     className={cn(
-                                        `flex items-center  bg-slate-200 border-slate-200 w-full h-[200px] text-slate-700 rounded-md p-2 text-sm
+                                        `flex items-center  bg-slate-200 border-slate-200  
+                                        h-[200px] text-slate-700 rounded-md p-2 text-sm
                                         dark:bg-[#202020] dark:text-gray-100 `,
                                         
                                     )}
@@ -129,6 +132,7 @@ const ImageList: React.FC<ImageListProps> = ({
             </Droppable>
 
         </DragDropContext>
+        
      );
 }
  

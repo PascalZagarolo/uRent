@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import qs from "query-string"
 import { BiArrowToRight } from "react-icons/bi";
+import NumberTicker from "@/components/magicui/number-ticker";
 
 
 const ResultsSearchPage = () => {
@@ -59,9 +60,11 @@ const ResultsSearchPage = () => {
         router.push(url);
     }
 
+    
+
     return (
         <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-base sm:p-8 text-xs sm:text-sm" onClick={onRedirect}>
-            <p className="font-bold px-1"> {currentResults} </p> Ergebnisse <BiArrowToRight className="w-4 h-4 ml-2" />
+            <p className="font-bold px-1"> <NumberTicker value={currentResults} /> </p> Ergebnisse <BiArrowToRight className="w-4 h-4 ml-2" />
 
         </Button>
     );

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import qs from "query-string";
 import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import NumberTicker from "@/components/magicui/number-ticker";
 
 
 const MainPageResults = () => {
@@ -77,11 +78,21 @@ const MainPageResults = () => {
         router.push(url);
     }
 
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, [])
+
+    if(!isMounted) return null;
+
     return ( 
         <Button className="bg-blue-800 w-full h-[100px]  ml-2 mr-2  flex 
                     justify-center 
                     dark:text-gray-100 dark:hover:bg-sky-700" onClick={onRedirect}>
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> {currentResults} </p> Ergebnisse
+                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> 
+                        <NumberTicker value={currentResults || 0} />
+                         </p> Ergebnisse
                     </Button>
      );
 }

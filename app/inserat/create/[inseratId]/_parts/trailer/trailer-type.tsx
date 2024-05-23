@@ -11,6 +11,9 @@ import axios from "axios";
 import { cn } from "@/lib/utils";
 import { RiCaravanLine } from "react-icons/ri";
 import { TrailerEnumRender } from "@/db/schema";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 interface TrailerTypeProps {
     thisTrailerType : typeof TrailerEnumRender;
@@ -20,17 +23,22 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
     thisTrailerType
 }) => {
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const params = useParams();
     const router = useRouter();
 
-    const onSelect = (type : string) => {
+    const onSelect = async (type : string) => {
         try {
             const values = {
                 type : type
             }
 
-            axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
-            router.refresh();
+            axios.patch(`/api/inserat/${params.inseratId}/trailer`, values)
+                .then(() => {
+                    toast.success("Anhängertyp gespeichert")
+                    router.refresh()
+                })
 
         } catch {
             toast.error("Fehler beim Anhängertyp");
@@ -39,63 +47,38 @@ const TrailerTypeCreation: React.FC<TrailerTypeProps> = ({
 
     return (
         <div className="w-full">
-            <h3 className="font-semibold">
-                Anhängertyp
-            </h3>
-            <div className="w-full flex justify-evenly mt-2 sm:mt-0">
-            <div className="flex flex-col items-center">
-                <Button 
-                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100",
-                //@ts-ignore 
-                thisTrailerType === "SATTEL" && "border-2 dark:border-blue-800 border-blue-800")} 
-                onClick={() => {onSelect("SATTEL")}}>
-                    <BsTruckFlatbed className="h-6 w-6" />
-                </Button>
-                <p className={cn("text-center text-sm mt-1", //@ts-ignore
-                 thisTrailerType === "SATTEL" && "font-semibold")}>Auflieger</p>
-            </div>
+        <div className="w-full">
+            <Label>Anhängertyp</Label>
+            <Select
+            //@ts-ignore
+                onValueChange={(extraType: typeof ExtraTypeEnumRender) => {
+                    onSelect(extraType);
+                }}
+                disabled={isLoading}
+                //@ts-ignore
+                value={thisTrailerType}
+            >
 
-            <div className="flex flex-col items-center">
-                <Button 
-                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100",
-                //@ts-ignore 
-                thisTrailerType === "ANHAENGER" && "border-2 dark:border-blue-800 border-blue-800")}
-                onClick={() => {onSelect("ANHAENGER")}}
-                >
-                    <RiCaravanLine   className="h-6 w-6" />
-                </Button>
-                <p //@ts-ignore 
-                className={cn("text-center text-sm mt-1", thisTrailerType === "ANHAENGER" && "font-semibold")}>Anhänger</p>
-            </div>
+                <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                    disabled={isLoading}  >
+                    <SelectValue
+                        placeholder="Wähle die Kategorie aus"
 
-            <div className="flex flex-col items-center">
-                <Button 
-                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100",
-                //@ts-ignore 
-                thisTrailerType === "KLEIN" && "border-2 dark:border-blue-800 border-blue-800")}
-                onClick={() => {onSelect("KLEIN")}}
-                >
-                    <FaTrailer  className="h-6 w-6" />
-                </Button>
-                
-                <p //@ts-ignore
-                className={cn("text-center text-sm mt-1", thisTrailerType === "KLEIN" && "font-semibold")}>Kleinanhänger</p>
-            </div>
 
-            
+                    />
+                </SelectTrigger>
 
-            <div className="flex flex-col items-center">
-                <Button 
-                className={cn("dark:bg-[#0E0E0E] dark:hover:bg-[#212121] dark:border-2 dark:border-[#0E0E0E] py-6 dark:text-gray-100", 
-                !thisTrailerType && "border-2 dark:border-blue-800 border-blue-800")}
-                onClick={() => {onSelect(null)}}
-                >
-                    <AiOutlineAlignLeft className="h-6 w-6" />
-                </Button>
-                <p className={cn("text-center text-sm mt-1", !thisTrailerType && "font-semibold")}>Sonstiges</p>
-            </div>
+                <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                    <SelectItem value="SATTEL">Auflieger</SelectItem>
+                    <SelectItem value="ANHAENGER">Anhänger</SelectItem>
+                    <SelectItem value="KLEIN">Kleinanhänger</SelectItem>
+                    <SelectItem value="VERANSTALTUNG">Freizeit & Veranstaltung</SelectItem>
+                     
+                </SelectContent>
+            </Select>
         </div>
-        </div>
+    </div>
     );
 }
 

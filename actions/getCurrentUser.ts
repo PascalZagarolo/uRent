@@ -12,7 +12,7 @@ import { cache } from "react";
 
 
 
-const getCurrentUser = cache(async () => {
+const getCurrentUser = async () => {
   try {
     
     const { user } = await validateRequest();
@@ -25,7 +25,7 @@ const getCurrentUser = cache(async () => {
     
 
     const currentUser = await findUser.execute({userId : user.id })
-    console.log(currentUser)
+    
 
     if (!currentUser) {
       
@@ -36,6 +36,6 @@ const getCurrentUser = cache(async () => {
   } catch (error) {
     return null;
   }
-});
+};
 
 export default getCurrentUser;

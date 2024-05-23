@@ -30,6 +30,8 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
 
     const usedCategory : typeof CategoryEnumRender = thisInserat.category;
 
+    const usedImages = thisImages.sort((a,b) => a.position - b.position);
+
     return (
         <div>
             <div> 
@@ -66,7 +68,7 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
             </div>
             <div className="mt-8">
                 <InseratImageUpload
-                    thisImages={thisImages}
+                    thisImages={usedImages}
                 />    
             </div>
             <div className="mt-4 w-full sm:flex gap-x-4 sm:space-y-0 space-y-4">

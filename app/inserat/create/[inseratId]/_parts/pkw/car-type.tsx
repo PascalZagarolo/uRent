@@ -72,6 +72,7 @@ const CarTypeForm: React.FC<CarTypeProps> = ({
             <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="CABRIO">Cabrio</SelectItem>
             <SelectItem value="COUPE">Coupe</SelectItem>
+            <SelectItem value="PICKUP">Geländewagen/Pickup</SelectItem>
             
             <SelectItem value="KASTENWAGEN">Kastenwagen</SelectItem>
             <SelectItem value="KLEINBUS">Kleinbus</SelectItem>

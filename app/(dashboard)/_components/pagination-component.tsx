@@ -15,6 +15,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
 import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { BsArrowRightSquareFill } from "react-icons/bs";
 
 const PaginationComponent = () => {
 
@@ -47,19 +49,19 @@ const PaginationComponent = () => {
 
   const expectedPages = (Math.ceil(globalResults / itemsPerPage)) ? Math.ceil(globalResults / itemsPerPage) : 1;
   
-  if (expectedPages > 9 && Number(currentPage) > 5) {
+  if (expectedPages > 5 && Number(currentPage) >= 3) {
     const pageIndex = Number(currentPage);
 
-    const startingIndex = pageIndex - 4;
-    const endingIndex = pageIndex + 4;
+    const startingIndex = pageIndex - 2;
+    const endingIndex = pageIndex + 2;
 
     for(let i = startingIndex; i < endingIndex + 1; i++) {
       if (i > 0 && i < Number(expectedPages) + 1) {
         renderedPages.push(i);
       }
     }
-  } else if(expectedPages > 9 && Number(currentPage) < 5) {
-    for(let i = 1; i < 10; i++) {
+  } else if(expectedPages > 5 && Number(currentPage) < 3) {
+    for(let i = 1; i < 6; i++) {
       renderedPages.push(i);
     }
     
@@ -97,7 +99,7 @@ const PaginationComponent = () => {
         
         {Number(currentPage) < expectedPages && expectedPages > 1 &&  (
           <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}} className="hover:cursor-pointer">
-          <PaginationNext />
+          <PaginationNext/>
         </PaginationItem>
         )}
       </PaginationContent>

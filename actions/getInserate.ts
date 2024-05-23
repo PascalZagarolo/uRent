@@ -1,4 +1,4 @@
-
+'use server'
 
 
 import db from "@/db/drizzle";
@@ -88,7 +88,7 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
 
 
 
-export const getInserate = cache(async ({
+export const getInserate = async ({
     title,
     thisCategory,
     filter,
@@ -591,7 +591,7 @@ export const getInserate = cache(async ({
         console.log(error)
         return [];
     }
-});
+};
 
 
 

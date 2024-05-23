@@ -46,7 +46,7 @@ interface InseratCardProps {
 
 }
 
-const InseratCard: React.FC<InseratCardProps> = cache(({
+const InseratCard: React.FC<InseratCardProps> = ({
     thisInserat,
     profileId,
     isFaved,
@@ -468,6 +468,6 @@ const InseratCard: React.FC<InseratCardProps> = cache(({
             </div>
         </div>
     );
-})
+}
 
 export default InseratCard;

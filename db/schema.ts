@@ -364,6 +364,7 @@ export const TransmissionEnumRender = z.enum(transmissionEnum.enumValues).Enum;
 export const carTypeEnum = pgEnum("carType", [
     "KOMBI",
     "COUPE",
+    "PICKUP",
     "SUV",
     "LIMOUSINE",
     "VAN",

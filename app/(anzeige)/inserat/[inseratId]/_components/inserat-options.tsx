@@ -8,10 +8,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { EmailShareButton, FacebookShareButton, TwitterShareButton } from "react-share"
 
 import axios from "axios";
-import { CopyIcon, FacebookIcon, Forward, Lightbulb, Mail, Send, Share, Star,
-     ThumbsUp, TwitterIcon } from "lucide-react";
+import {
+    CopyIcon, FacebookIcon, Forward, Lightbulb, Mail, Send, Share, Star,
+    ThumbsUp, TwitterIcon
+} from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 
@@ -29,7 +31,7 @@ interface InseratOptionsProps {
     bookings: typeof booking.$inferSelect[];
     ownUser: typeof userTable.$inferSelect;
     contactOptions: typeof contactOptions.$inferSelect;
-    thisInserat : typeof inserat.$inferSelect;
+    thisInserat: typeof inserat.$inferSelect;
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
@@ -46,9 +48,14 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
     let currentUrl;
 
-    if(window) {
-        currentUrl =  window.location.href
-    }
+
+
+    useEffect(() => {
+
+        if (window !== undefined) {
+            currentUrl = window.location.href
+        }
+    }, [])
 
     const name = contactOptions?.emailAddress
 
@@ -65,7 +72,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         "Telefon : " + (contactOptions?.phoneNumber ? contactOptions?.phoneNumber : "[Deine Telefonnummer]") + "\n"
     );
 
-    const handleTextChange = (event : any) => {
+    const handleTextChange = (event: any) => {
         setText(event.target.value);
     };
 
@@ -143,28 +150,28 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         <div className="w-full">
             {ownSite ? (
                 <div className="mt-4">
-                    
+
                     <div >
-                        <ManageAvailability 
-                        thisInserat={thisInserat}
-                        inseratPage={true}
+                        <ManageAvailability
+                            thisInserat={thisInserat}
+                            inseratPage={true}
                         />
                     </div>
                     <div className="mt-4">
-                    <GoToDashboard //@ts-ignore
-                    userId={thisUser.id} inseratId={params.inseratId} />
+                        <GoToDashboard //@ts-ignore
+                            userId={thisUser.id} inseratId={params.inseratId} />
                     </div>
                 </div>
 
             ) : (
                 <Dialog>
                     <DialogTrigger className="mt-4" asChild>
-                    
-                       {ownUser && (
-                         <Button className="bg-emerald-700 hover:bg-emerald-600  xl:w-[240px] w-full text-gray-200">
-                         <ThumbsUp className="h-4 w-4 mr-2" /> Fahrzeug anfragen
-                     </Button>
-                       )}
+
+                        {ownUser && (
+                            <Button className="bg-emerald-700 hover:bg-emerald-600  xl:w-[240px] w-full text-gray-200">
+                                <ThumbsUp className="h-4 w-4 mr-2" /> Fahrzeug anfragen
+                            </Button>
+                        )}
 
                     </DialogTrigger>
                     <DialogContent className="dark:bg-[#0F0F0F] border-none">
@@ -213,7 +220,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
                     <div className="mt-4">
                         {ownUser && (
-                            <BookingRequest/>
+                            <BookingRequest />
                         )}
                     </div>
                     <div className="mt-4">
@@ -255,11 +262,11 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
-                        
-                            <div className="flex text-md font-semibold">
-                                <Forward className="mr-2 w-4 h-4" /> Anzeige teilen
-                            </div>
-                        
+
+                        <div className="flex text-md font-semibold">
+                            <Forward className="mr-2 w-4 h-4" /> Anzeige teilen
+                        </div>
+
                         <div>
                             <p className="font-medium text-sm flex items-center">
                                 <Share className="mr-2 w-4 h-4" /> Soziale Netzwerke :
@@ -304,7 +311,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                 </EmailShareButton>
                             </div>
                             <div className="mt-2 flex">
-                                <Input 
+                                <Input
                                     className="rounded-md  font-semibold  dark:border-none
                                     hover:underline hover:cursor-pointer dark:bg-[#191919]"
                                     value={currentUrl}

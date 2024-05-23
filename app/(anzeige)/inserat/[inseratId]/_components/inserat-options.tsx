@@ -44,7 +44,11 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
 
 
-    const currentUrl = window ? window.location.href : "....";
+    let currentUrl;
+
+    if(window) {
+        currentUrl =  window.location.href
+    }
 
     const name = contactOptions?.emailAddress
 

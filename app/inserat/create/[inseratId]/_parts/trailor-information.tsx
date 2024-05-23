@@ -23,35 +23,32 @@ const TrailorInformation: React.FC<TrailorInformationProps> = ({
     return (
         <div className="mt-4">
             <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8">
+                
+            </div>
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
                 <TrailerTypeCreation 
                 thisTrailerType = {thisInserat.trailerAttribute?.type}
                 />
-            </div>
-            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                </div>
                 <div className="sm:w-1/2 w-full">
                 <TrailerWeightClass 
                     thisWeightClass={thisInserat.trailerAttribute?.weightClass}
                     />
                 </div>
-                <div className="sm:w-1/2 w-full">
-                <TrailerAxis 
-                    thisAxis={thisInserat.trailerAttribute?.axis}
-                    />
-                
-                </div>
             </div>
 
 
             <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
+                <TrailerAxis 
+                    thisAxis={thisInserat.trailerAttribute?.axis}
+                    />
+                </div>
+                <div className="sm:w-1/2 w-full">
                 <TrailerBrake 
                  thisBrake = {thisInserat.trailerAttribute?.brake}
                  />
-                </div>
-                <div className="sm:w-1/2 w-full">
-                    
-                    
-                    
                 </div>
             </div>
             <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">

@@ -409,6 +409,7 @@ export const extraTypeEnum = pgEnum("extraType", [
     "PERSONENTRANSPORT",
     "PLANE",
     "PRITSCHE",
+    "VERANSTALTUNG",
 ])
 
 export const pkwAttribute = pgTable("pkwAttribute", {
@@ -499,6 +500,8 @@ export const applicationEnum = pgEnum("application", [
     "PRITSCHENWAGEN",
     "SATTELSCHLEPPER",
 
+    "VERANSTALTUNG",
+
     "SONSTIGES"
 ])
 
@@ -536,7 +539,8 @@ export const lkwAttribute = pgTable("lkwAttribute", {
 export const trailerEnum = pgEnum("trailer", [
     "KLEIN",
     "SATTEL",
-    "ANHAENGER"
+    "ANHAENGER",
+    "VERANSTALTUNG",
 ])
 
 export const TrailerEnumRender = z.enum(trailerEnum.enumValues).Enum;

@@ -58,13 +58,17 @@ const PaginationComponent = () => {
         renderedPages.push(i);
       }
     }
-
-
-
-  } else {
-    for(let i = 1; i < expectedPages + 1; i++) {
+  } else if(expectedPages > 9 && Number(currentPage) < 5) {
+    for(let i = 1; i < 10; i++) {
       renderedPages.push(i);
     }
+    
+  } else {
+    
+      for(let i = 1; i < expectedPages + 1; i++) {
+        renderedPages.push(i);
+      }
+   
   }
 
     return ( 
@@ -90,11 +94,7 @@ const PaginationComponent = () => {
           </PaginationItem>
          
         ))}
-        {Number(expectedPages) > 5 && (
-          <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        )}
+        
         {Number(currentPage) < expectedPages && expectedPages > 1 &&  (
           <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}} className="hover:cursor-pointer">
           <PaginationNext />

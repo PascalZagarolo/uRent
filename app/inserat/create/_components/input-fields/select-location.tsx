@@ -167,7 +167,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     //@ts-ignore
   }, [inputRef?.current?.value])
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     try {
       const values = {
         //@ts-ignore
@@ -176,11 +176,11 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         state: currentState
       }
       console.log(values);
-      axios.patch(`/api/inserat/${thisInserat.id}/address`, values);
-      setTimeout(() => {
+      axios.patch(`/api/inserat/${thisInserat.id}/address`, values).
+      then(() => {
         toast.success("Standort erfolgreich hinzugefügt");
         router.refresh();
-      }, 500)
+      })
     } catch {
       toast.error("Etwas ist schief gelaufen");
     }

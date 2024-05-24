@@ -28,14 +28,14 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   usedContactOptions
 }) => {
 
-  
+
 
   const autoCompleteRef = useRef();
   const inputRef = useRef();
   const options = {
     componentRestrictions: { country: "de" },
     fields: ["address_components", "geometry", "icon", "name"],
-
+    
   };
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value);
@@ -51,32 +51,57 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
   useEffect(() => {
     //@ts-ignore
-    autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+    const autocomplete = new window.google.maps.places.Autocomplete(
       inputRef.current,
       options
     );
 
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+      console.log(autocomplete)
+      const place = autocomplete.getPlace();
+      console.log(place);
+      setCurrentZipCode("");
+      let foundZipcode;
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        
+        if (addressType === "postal_code") {
+          foundZipcode = place.address_components[i].long_name;
+          setCurrentZipCode(place.address_components[i].long_name)
+        }
+      }
+      
+      if(!foundZipcode) { 
+        console.log("no zip code found")
+        getZipCode();
+      }
+    });
+
+
+
+
+
   }, [currentLocation]);
 
-  
 
-  const onPrefill = (e : boolean) => {
-    if(e) {
-      if(!thisInserat?.user?.business || !thisInserat?.user?.business?.businessAddresses) {
+
+  const onPrefill = (e: boolean) => {
+    if (e) {
+      if (!thisInserat?.user?.business || !thisInserat?.user?.business?.businessAddresses) {
         setCurrentZipCode(usedContactOptions?.userAddress?.postalCode)
-    let usedString = usedContactOptions?.userAddress?.street + ", " + usedContactOptions?.userAddress?.postalCode + ", "
-    + usedContactOptions?.userAddress?.city
+        let usedString = usedContactOptions?.userAddress?.street + ", " + usedContactOptions?.userAddress?.postalCode + ", "
+          + usedContactOptions?.userAddress?.city
 
-    usedString = usedString.trim();
-    //@ts-ignore
-    inputRef.current.value = usedString;
-    setCurrentAddress(usedString);
+        usedString = usedString.trim();
+        //@ts-ignore
+        inputRef.current.value = usedString;
+        setCurrentAddress(usedString);
       } else {
-        
+
         setCurrentZipCode(thisInserat?.user?.business?.businessAddresses[0]?.postalCode)
-        let usedString = thisInserat?.user?.business?.businessAddresses[0]?.street + ", " + 
-        thisInserat?.user?.business?.businessAddresses[0]?.postalCode + ", "
-        + thisInserat?.user?.business?.businessAddresses[0]?.city
+        let usedString = thisInserat?.user?.business?.businessAddresses[0]?.street + ", " +
+          thisInserat?.user?.business?.businessAddresses[0]?.postalCode + ", "
+          + thisInserat?.user?.business?.businessAddresses[0]?.city
         console.log(usedString)
         usedString = usedString.trim();
         //@ts-ignore
@@ -102,7 +127,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     console.log(addressObject.data[0])
     const addressString = addressObject.data[0]?.display_name;
     const numberOfCommas = (addressString?.split(",").length - 1) > 2 ? 3 : 2;
-    const extractedState = addressString?.split(",").map((item : any) => item.trim());
+    const extractedState = addressString?.split(",").map((item: any) => item.trim());
     const newState = extractedState?.[extractedState?.length - numberOfCommas]
     console.log(newState);
     //?retrieve data until state is delivered..
@@ -165,16 +190,16 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     <div className="items-center w-full">
       <h3 className="text-md font-semibold items-center flex">
         <MapPin className="h-4 w-4 mr-2" /> Adresse *
-      
-          <Popover>
-            <PopoverTrigger>
-              <AlertCircle className="w-4 h-4 ml-2" />
-            </PopoverTrigger>
-            <PopoverContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
-              Beim automatischen erzeugen der Postleitzahl, kann es vereinzelt zu Fehlern kommen. Bitte prüfe deine PLZ bevor du sie einschickst.
-            </PopoverContent>
-          </Popover>
-        
+
+        <Popover>
+          <PopoverTrigger>
+            <AlertCircle className="w-4 h-4 ml-2" />
+          </PopoverTrigger>
+          <PopoverContent className="dark:bg-[#191919] border-none w-[200px] text-xs p-4">
+            Beim automatischen erzeugen der Postleitzahl, kann es vereinzelt zu Fehlern kommen. Bitte prüfe deine PLZ bevor du sie einschickst.
+          </PopoverContent>
+        </Popover>
+
       </h3>
       <div className="flex mt-4 w-full">
         <div className="  items-center  ">
@@ -187,13 +212,13 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
             onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
             defaultValue={thisAddressComponent?.locationString}
-            onBlur={getZipCode}
+            
           />
         </div>
         <div className="ml-4">
           <Label className="flex justify-start items-center">
-            <PinIcon className="w-4 h-4" /> 
-            <p className="ml-2  font-semibold sm:block hidden"> Postleitzahl </p> 
+            <PinIcon className="w-4 h-4" />
+            <p className="ml-2  font-semibold sm:block hidden"> Postleitzahl </p>
             <p className="ml-2 font-semibold sm:hidden block"> PLZ </p>
           </Label>
           <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:block hidden"> 5-Stellige Plz </p>
@@ -203,31 +228,32 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
             justify-start dark:focus-visible:ring-0"
             type="text"
             pattern="[0-9]{5}"
+            
             onChange={(e) => { setCurrentZipCode(e.target.value) }}
             value={currentZipCode}
           />
         </div>
       </div>
-      
+
       <div className="flex mt-2">
-      <Checkbox 
-      className="sm:h-4 sm:w-4 mr-2"
-      onCheckedChange={(e) => {onPrefill(Boolean(e))}}
-      disabled={((thisInserat?.user.isBusiness && 
-        thisInserat?.user?.business?.businessAddresses[0]?.street &&
-        thisInserat?.user?.business?.businessAddresses[0]?.postalCode &&
-        thisInserat?.user?.business?.businessAddresses[0]?.city
-        ) || (thisAddressComponent?.postalCode 
-          && thisAddressComponent?.locationString && 
-          !thisInserat?.user.isBusiness)) ? false : true}
-      />
-      <Label className="sm:block hidden">
-        Informationen aus Profil verwenden
-      </Label>
-      <Label className="sm:hidden block">
-        aus dem Profil
-      </Label>
-    </div>
+        <Checkbox
+          className="sm:h-4 sm:w-4 mr-2"
+          onCheckedChange={(e) => { onPrefill(Boolean(e)) }}
+          disabled={((thisInserat?.user.isBusiness &&
+            thisInserat?.user?.business?.businessAddresses[0]?.street &&
+            thisInserat?.user?.business?.businessAddresses[0]?.postalCode &&
+            thisInserat?.user?.business?.businessAddresses[0]?.city
+          ) || (thisAddressComponent?.postalCode
+            && thisAddressComponent?.locationString &&
+            !thisInserat?.user.isBusiness)) ? false : true}
+        />
+        <Label className="sm:block hidden">
+          Informationen aus Profil verwenden
+        </Label>
+        <Label className="sm:hidden block">
+          aus dem Profil
+        </Label>
+      </div>
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
         disabled={!inputRef?.current?.value || (thisAddressComponent?.locationString === inputRef?.current?.value && currentZipCode === thisAddressComponent?.postalCode) || !inputRef?.current?.value.length ||
           String(currentZipCode).length !== 5 || isNaN(Number(currentZipCode))

@@ -1,139 +1,101 @@
 'use client';
 
-
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-import { useState } from "react";
-import qs from "query-string";
-import { getSearchParamsFunction } from "@/actions/getSearchParams";
-
-import MultipleSelector, { Option } from '@/components/multiple-selector';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import * as React from 'react';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BrandEnumRender } from "@/db/schema";
+import { useSavedSearchParams } from "@/store";
 
 
+
+import axios from "axios";
+import { User2Icon } from "lucide-react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+
+import { use, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 
 
 const PkwBrandBar = () => {
-  const brand = useSearchParams().getAll("brand");
-  const [currentBrand, setCurrentBrand] = useState(brand[0]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const params = getSearchParamsFunction("brand")
+    const [currentAge, setCurrentAge] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const pathname = usePathname();
+    const thisSearchParams = useSearchParams();
+    const existingBrand = thisSearchParams.get("thisBrand");
 
-  const router = useRouter();
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
-  
+    const router = useRouter();
 
-  const OPTIONS: Option[] = [
+    const params = useParams();
 
-  ];
-
-  
-
-  for (const brand in BrandEnumRender) {
-    if (BrandEnumRender.hasOwnProperty(brand)) {
-      OPTIONS.push({
-        //@ts-ignore
-        value: BrandEnumRender[brand],
-        //@ts-ignore
-        label: removeUnderscore(BrandEnumRender[brand])
-      });
+    const onSubmit = (selectedValue: string) => {
+      setCurrentAge(selectedValue);
+        changeSearchParams("thisBrand" , selectedValue);
+        console.log(selectedValue)
     }
-  }
 
-  
+    const deleteBrand = () => {
+      setCurrentAge(null);
+      deleteSearchParams("thisBrand")
+    }
 
-  const onSubmits = (selectedValue: string) => {
-    setCurrentBrand(selectedValue)
-    const url = qs.stringifyUrl({
-      url: pathname,
-      query: {
-        brand: selectedValue,
-        ...params
+    useEffect(() => {
+      if(existingBrand) {
+        setCurrentAge(existingBrand);
+        changeSearchParams("thisBrand" , existingBrand);
+      } else if(!existingBrand) {
+        setCurrentAge(null);
+        deleteSearchParams("thisBrand")
       }
-    }, { skipEmptyString: true, skipNull: true })
+    },[])
 
-    router.push(url)
+    function removeUnderscore(inputString: string): string {
+      const outputString = inputString.replace(/_/g, ' ');
+      return outputString;
   }
 
-  React.useEffect(() => {
-    console.log(brand)
-  })
+    return ( 
+        <div className="w-full">
+            <div className="w-full">
+            <Label className="flex justify-start items-center ">
+                        <p className="ml-2 font-semibold"> Marke </p>
+                    </Label>
+                    
+        <Select
+          onValueChange={(brand) => {
+            !brand ? deleteBrand() : onSubmit(brand)
+          }}
+          value={currentAge}
+          disabled={isLoading}
+        >
 
-  function removeUnderscore(inputString: string): string {
-    const outputString = inputString.replace(/_/g, ' ');
-    return outputString;
-  }
+          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
+          disabled={isLoading}  >
+            <SelectValue
+              
+              
+              
+            />
+          </SelectTrigger>
 
-  const optionSchema = z.object({
-    label: z.string().optional(),
-    value: z.string().optional(),
-    disable: z.boolean().optional(),
-  });
-
-  const FormSchema = z.object({
-    brands: z.array(optionSchema).optional(),
-  });
-
-  
-    const form = useForm<z.infer<typeof FormSchema>>({
-      resolver: zodResolver(FormSchema),
-    });
+          <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+          <SelectItem key="beliebig" value={null} className="font-semibold">
+                                Beliebig
+                            </SelectItem>
+          {Object.values(BrandEnumRender).map((brand, index) => (
+                            
+                              <SelectItem key={index} value={brand}>
+                                {removeUnderscore(brand)}
+                            </SelectItem>
+                           
+                        ))}
+          </SelectContent>
+        </Select>
+      </div>
+        </div>
+     );
+}
  
-    const [loading, setLoading] = React.useState(false);
-
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-      setLoading(true);
-
-      console.log(data)
-    }
-  
-    return (
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
-          <FormField
-            control={form.control}
-            name="brands"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold">Marke</FormLabel>
-                <FormControl>
-                  <MultipleSelector
-                    defaultOptions={OPTIONS}
-                    placeholder="Filter nach Marke"
-                    category="brand"
-                    emptyIndicator={
-                      <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                        Keine Resultate gefunden.
-                      </p>
-                    }
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-        </form>
-      </Form>
-    );
-  };
-
-
-  export default PkwBrandBar;
+export default PkwBrandBar;

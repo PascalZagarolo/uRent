@@ -3,7 +3,7 @@ export function convertState(state: string): string {
     const fullState = state.trim();
 
     switch (fullState) {
-        case "North Rhine-Westphalia":
+        case "North Rhine – Westphalia":
             return "Nordrhein-Westfalen";
             break;
         case "Bavaria":

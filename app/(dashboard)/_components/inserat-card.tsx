@@ -36,6 +36,8 @@ import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
 
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import ProfileBar from "./_inserat-card/profile-bar";
+import Image from "next/image";
+
 
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
@@ -66,6 +68,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
         const month = (inputDate?.getMonth() + 1).toString().padStart(2, '0');
         return `${day}.${month}`;
     };
+
+    const usedImage = thisInserat?.images.reduce((lowest, image) => {
+        return (lowest.position < image.position) ? lowest : image;
+      })
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -355,10 +361,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex w-full">
                             <div className="w-full">
-                                <img
-                                    src={thisInserat.images[0]?.url}
-                                    
-                                    
+                                <Image
+                                    src={usedImage?.url}
+                                    width={500}
+                                    height={500}
                                     style={{objectFit: "cover"}}
                                     
                                     className="transform: translate3d(0px, 0px, 0.1px) 

@@ -130,9 +130,11 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     }
     console.log(extractedZipCode);
     if (extractedZipCode) {
+      console.log(extractedZipCode)
       setCurrentZipCode(extractedZipCode)
     } else {
-      setCurrentZipCode(null);
+      console.log(extractedZipCode)
+      setCurrentZipCode("");
     }
   }
 

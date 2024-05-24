@@ -361,10 +361,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex w-full">
                             <div className="w-full">
-                                <Image
+                                <img
                                     src={usedImage?.url}
-                                    width={500}
-                                    height={500}
+                                    
                                     style={{objectFit: "cover"}}
                                     
                                     className="transform: translate3d(0px, 0px, 0.1px) 

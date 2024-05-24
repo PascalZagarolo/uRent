@@ -42,7 +42,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
     const usedImages = thisInserat?.images?.sort((a, b) => a.position - b.position) || [];
 
-    console.log(usedImages)
+    
 
     return (
         <div className="sm:mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 

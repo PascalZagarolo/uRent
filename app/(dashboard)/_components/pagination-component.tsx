@@ -77,7 +77,7 @@ const PaginationComponent = () => {
     <>
     {expectedPages > 1 && (
       <div className=" dark:bg-[#13141C] 
-       bg-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] py-4 mt-2 sm:mt-0 sm:p-4 w-full sm:w-[1060px] flex justify-center">
+       bg-white  py-4 mt-2 sm:mt-0 sm:p-4 w-full sm:w-[1060px] flex justify-center">
       <Pagination>
       <PaginationContent>
         {Number(currentPage) > 1 && (
@@ -89,8 +89,9 @@ const PaginationComponent = () => {
        
         {renderedPages.map((page) => (
           
-            <PaginationItem className={cn(`bg-[#191B27] hover:bg-[#242738]
-            text-gray-200 rounded-md hover:cursor-pointer`, Number(currentPage) == page && "bg-[#252838]")} 
+            <PaginationItem className={cn(`bg-[##14151E]
+            text-gray-200 rounded-md hover:cursor-pointer`, 
+            Number(currentPage) == page && "bg-[#252838] border-b border-[#252838] text-gray-300")} 
             onClick={() => {changePage(page)}} key={page}>
             <PaginationLink className="hover:bg-[#242738] hover:text-gray-300">{page}</PaginationLink>
           </PaginationItem>

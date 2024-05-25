@@ -143,7 +143,7 @@ export const getInserate = cache(async ({
 
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
-
+    console.log(power)
 
 
 
@@ -158,7 +158,7 @@ export const getInserate = cache(async ({
     const PkwFilter = cache((pInserat: typeof inserat) => {
 
         const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
-        const bPower = power ? pInserat.pkwAttribute.power >= power : true;
+        
         const bDoors = doors ? pInserat.pkwAttribute.doors >= doors : true;
         const bExtraType = extraType ? extraType === pInserat.pkwAttribute.extraType : true;
         const bLoading = loading ? loading === pInserat.pkwAttribute.loading : true;
@@ -170,15 +170,15 @@ export const getInserate = cache(async ({
         const bFuel = fuel ? fuel === pInserat.pkwAttribute.fuel : true;
         const bInitial = initial.getTime() ? initial.getTime() >= pInserat.pkwAttribute.initial.getTime() : true;
         const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;
-
+        const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
         const bVolume = volume ? volume <= pInserat.pkwAttribute.loading_volume : true
         const bLength = loading_l ? loading_l <= pInserat.pkwAttribute.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.pkwAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.pkwAttribute.loading_h : true;
 
-        return bSeats && bPower && bDoors && bFreeMiles &&
+        return bSeats  && bDoors && bFreeMiles &&
             bExtraCost && bType && bTransmission && bFuel && bBrand &&
-            bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
+            bExtraType && bLoading && bWeightClass && bVolume && bPower;
     })
 
     const LkwFilter = cache((pInserat: typeof inserat) => {

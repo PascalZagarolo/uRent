@@ -53,7 +53,7 @@ const PkwSearchComponents = () => {
                 <Separator className="w-1/3 mr-2 bg-gray-200 h-[0.5px]" /> Laderaum <Separator className="w-1/3 ml-2 bg-gray-200 h-[0.5px]" />
             </h3>
             <LoadingVolumeBar />
-            <LoadingSizeBar />
+            
             </div>
         </div>
      );

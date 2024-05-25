@@ -109,7 +109,7 @@ const CautionBar = () => {
                                     <FormItem className="mt-2 ">
                                         <FormControl>
                                             <Input
-                                                placeholder="Stückzahl eingeben"
+                                                placeholder="Kautionsbetrag.."
                                                 className="p-2.5 rounded-md input: text-sm border mt-2  
                                                 border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0 w-full"
                                                 onChange={(e) => {

@@ -172,9 +172,7 @@ export const getInserate = cache(async ({
         const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;
         const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
         const bVolume = volume ? volume <= pInserat.pkwAttribute.loading_volume : true
-        const bLength = loading_l ? loading_l <= pInserat.pkwAttribute.loading_l : true;
-        const bBreite = loading_b ? loading_b <= pInserat.pkwAttribute.loading_b : true;
-        const bHeight = loading_h ? loading_h <= pInserat.pkwAttribute.loading_h : true;
+        
 
         return bSeats  && bDoors && bFreeMiles &&
             bExtraCost && bType && bTransmission && bFuel && bBrand &&

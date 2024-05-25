@@ -5,6 +5,7 @@ import { FaHandshake, FaRegLightbulb } from "react-icons/fa";
 import { GiWeightLiftingUp } from "react-icons/gi";
 import { MdDiversity3 } from "react-icons/md";
 import Image from "next/image";
+import { PiPlantFill } from "react-icons/pi";
 
 
 const AboutUsPage = () => {
@@ -111,6 +112,23 @@ const AboutUsPage = () => {
                                         Ob du ein Auto für den täglichen Gebrauch,<br/> einen Transporter für 
                                         den Umzug<br/> oder einen Anhänger für den Transport von Gütern benötigst - bei uns findest du das passende Fahrzeug. <br/>
                                         Und das Beste? Alles nur ein paar Klicks entfernt!
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
+                                        <div className="flex justify-center">
+                                            <PiPlantFill    className="w-8 h-8" />
+                                        </div>
+                                        <div className="font-semibold text-sm mt-2 flex justify-center">
+                                        Nachhaltigkeit
+                                        </div>
+                                        <div className="text-xs text-gray-200 mt-2 font-medium"> 
+                                        Nachhaltigkeit liegt uns am Herzen. <br/>
+                                        Mit uRent unterstützt du lokale Unternehmen und hilfst, den CO2-Ausstoß zu senken.<br/> 
+                                        Durch das Mieten statt Besitzen werden vorhandene Ressourcen effizienter genutzt und unnötige 
+                                        Fahrzeuge auf den Straßen reduziert. <br/>
+                                        Weniger Fahrzeuge bedeuten weniger Emissionen und eine umweltfreundlichere Mobilität. <br/>
+                                        Wähle uRent und trage zu einer nachhaltigeren Zukunft bei.<br/>
                                         </div>
                                     </div>
 

@@ -18,6 +18,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import AddImpressum from "./_components/add-impressum";
 import { FaCarCrash } from "react-icons/fa";
 import Footer from "@/app/(dashboard)/_components/footer";
+import ChangeAccountType from "./_components/change-account-type";
 
 
 

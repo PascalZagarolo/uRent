@@ -47,7 +47,7 @@ const AboutUsPage = () => {
                                     <h3> Warum uRent? </h3>
                                 </div>
 
-                                <div className="w-full sm:flex justify-evenly sm:gap-y-0 space-y-2">
+                                <div className="w-full sm:flex justify-evenly sm:gap-y-0 sm:space-y-0 space-y-2">
                                     <div className="bg-[#141414] rounded-md p-8 w-full sm:w-1/4">
                                         <div className="flex justify-center">
                                             <FaRegLightbulb   className="w-8 h-8" />

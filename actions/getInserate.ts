@@ -62,7 +62,7 @@ type GetInserate = {
     brake?: boolean;
 
     //TRANSPORT
-    transportBrand : string;
+    transportBrand? : string;
 
     volume?: number;
 
@@ -74,7 +74,7 @@ type GetInserate = {
     caution?: number;
 
     userId?: string
-    ahk : string;
+    ahk? : string;
 
 }
 

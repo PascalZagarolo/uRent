@@ -82,7 +82,7 @@ const SetInitialSearch = () => {
                 <Label className="flex items-center">
                     <MdDateRange className="w-4 h-4 mr-2" />    Baujahr wählen
                     <div className="ml-auto">
-                        1
+                        
                     </div>
                 </Label>
                 <Popover open={open} onOpenChange={setOpen}>
@@ -145,11 +145,7 @@ const SetInitialSearch = () => {
             </div>
 
 
-            <Button className="mt-2 w-full bg-[#1B1F2C] hover:bg-[#222738] text-gray-100 font-semibold"
-                onClick={() => { }}
-            >
-                Nach Baujahr filtern
-            </Button>
+            
         </div>
     );
 };

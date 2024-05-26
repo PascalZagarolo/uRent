@@ -11,6 +11,7 @@ import LoadingVolumeBar from "./every/loading_volume";
 import LoadingSizeBar from "./every/loading_size";
 import TrailerWeightClassBar from "./trailer/trailer-weight-class";
 import PkwPowerBar from "./pkw/pkw-power";
+import SetInitialSearch from "./pkw/initial";
 
 const LkwSearchComponent = () => {
     return ( 
@@ -41,6 +42,9 @@ const LkwSearchComponent = () => {
             </div>
             </div>
             <PkwPowerBar />
+            <div>
+                <SetInitialSearch/>
+            </div>
             <div className="w-full gap-x-2 space-y-4">
             <h3 className="flex justify-center text-md items-center font-semibold  mt-4 text-gray-200">
                 <Separator className="w-1/3 mr-2 bg-gray-200 h-[0.5px]" /> Laderaum <Separator className="w-1/3 ml-2 bg-gray-200 h-[0.5px]" />

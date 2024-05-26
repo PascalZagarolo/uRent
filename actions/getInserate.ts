@@ -192,6 +192,19 @@ export const getInserate = cache(async ({
     })
 
     const LkwFilter = cache((pInserat: typeof inserat) => {
+
+        const usedInitial = initial ? new Date(initial) : null;
+
+        let isValidDate;
+
+        if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
+            
+            isValidDate = true;
+          } else {
+            
+            isValidDate = false;
+        }
+
         const bSeats = seats ? pInserat.lkwAttribute.seats >= seats : true;
         const bAxis = axis ? axis === pInserat.lkwAttribute.axis : true;
         const bWeightClass = weightClass ? pInserat.lkwAttribute.weightClass === weightClass : true;
@@ -199,14 +212,15 @@ export const getInserate = cache(async ({
         const bLoading = loading ? loading === pInserat.lkwAttribute.loading : true;
         const bApplication = application ? application == pInserat.lkwAttribute.application : true;
         const bLkwBrand = lkwBrand ? lkwBrand === pInserat.lkwAttribute.lkwBrand : true;
+        const bInitial = isValidDate ? usedInitial <= pInserat?.lkwAttribute?.initial?.getTime() : true
 
         const bVolume = volume ? volume <= pInserat.lkwAttribute.loading_volume : true;
         const bLength = loading_l ? loading_l <= pInserat.lkwAttribute.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication
-            && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && 
+            bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 
     const TrailerFilter = cache((pInserat: typeof inserat) => {
@@ -228,6 +242,19 @@ export const getInserate = cache(async ({
     })
 
     const TransportFilter = cache((pInserat: typeof inserat) => {
+
+        const usedInitial = initial ? new Date(initial) : null;
+
+        let isValidDate;
+
+        if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
+            
+            isValidDate = true;
+          } else {
+            
+            isValidDate = false;
+        }
+
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmisson = transmission ? transmission === pInserat.transportAttribute.transmission : true;
         const bPower = power ? pInserat.transportAttribute.power >= power : true;
@@ -235,13 +262,14 @@ export const getInserate = cache(async ({
         const bSeats = seats ? seats <= pInserat.transportAttribute.seats : true;
         const bDoors = doors ? doors === pInserat.transportAttribute.doors : true;
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
+        const bInitial = isValidDate ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true
 
         const bVolume = volume ? volume <= pInserat.transportAttribute.loading_volume : true;
         const bLength = loading_l ? loading_l <= pInserat.transportAttribute.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.transportAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.transportAttribute.loading_h : true;
 
-        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower
+        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bInitial
             && bExtraType && bVolume && bLength && bBreite && bHeight;
     })
 

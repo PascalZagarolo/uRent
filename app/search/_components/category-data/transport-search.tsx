@@ -1,3 +1,4 @@
+import InitialSearch from "../_every/initial-search";
 import LoadingSizeSearch from "../_every/loading-size-search";
 import LoadingVolumeSearch from "../_every/loading-volume-search";
 import LkwLoadingSearch from "../_lkw/lkw-loading-search";
@@ -10,6 +11,7 @@ import PkwTransmissionSearch from "../_pkw/pkw-transmission-search";
 import PkwTypeSearch from "../_pkw/pkw-type-search";
 import TrailerExtraTypeSearch from "../_trailer/trailer-extra-type-search";
 import TrailerWeightClassSearch from "../_trailer/trailer-weight-search";
+import TransportBrandSearch from "../_transport/transport-brand-search";
 
 const TransportSearch = () => {
     return (
@@ -38,14 +40,15 @@ const TransportSearch = () => {
             </div>
             <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
                 <div className="sm:w-1/3">
+<TransportBrandSearch />
+                </div>
+                <div className="sm:w-1/3">
                     <TrailerWeightClassSearch />
                 </div>
                 <div className="sm:w-1/3">
-
+                    <InitialSearch />
                 </div>
-                <div className="sm:w-1/3">
 
-                </div>
             </div>
             <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-4  sm:space-y-0">
                 <div className="sm:w-1/3">

@@ -74,6 +74,7 @@ type GetInserate = {
     caution?: number;
 
     userId?: string
+    ahk : string;
 
 }
 
@@ -144,7 +145,8 @@ export const getInserate = cache(async ({
     userId,
     caution,
 
-    transportBrand
+    transportBrand,
+    ahk
 
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
@@ -161,6 +163,8 @@ export const getInserate = cache(async ({
     })
 
     const PkwFilter = cache((pInserat: typeof inserat) => {
+
+        const searchedAhk = (typeof(ahk) !== 'undefined' && ahk !== null);
 
         const usedInitial = initial ? new Date(initial) : null;
 
@@ -189,9 +193,11 @@ export const getInserate = cache(async ({
         const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;
         const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
         const bVolume = volume ? volume <= pInserat.pkwAttribute.loading_volume : true
+
+        const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
         
 
-        return bSeats  && bDoors && bFreeMiles && bInitial &&
+        return bSeats  && bDoors && bFreeMiles && bInitial && bAhk &&
             bExtraCost && bType && bTransmission && bFuel && bBrand &&
             bExtraType && bLoading && bWeightClass && bVolume && bPower;
     })

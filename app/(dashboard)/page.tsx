@@ -88,6 +88,8 @@ interface MainPageProps {
         caution : number,
         user: string,
 
+        ahk : string;
+
     }
 }
 
@@ -183,6 +185,7 @@ const Main = cache(async ({
                             thisType={searchParams.type}
                             freeMiles={searchParams.freeMiles}
                             extraCost={searchParams.extraCost}
+                            ahk = {searchParams.ahk}
 
                             //LKW specific attributes
                             weightClass={searchParams.weightClass}

@@ -4,7 +4,7 @@ import { inserat } from "@/db/schema";
 import axios from "axios";
 import { and, eq, gte, ilike, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { lkwAttribute } from '../../../db/schema';
+import { lkwAttribute, pkwAttribute } from '../../../db/schema';
 import { cache } from "react";
 import { isSameDay } from "date-fns";
 
@@ -22,9 +22,6 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
 export async function PATCH(
     req: Request
 ) {
-
-
-
     try {
         const values = await req.json();
 
@@ -32,9 +29,9 @@ export async function PATCH(
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
-            thisBrand, power, fuel, transmission, thisType, miles, initial, doors, extraCost,
+            thisBrand, power, fuel, transmission, thisType, miles, initial, doors, extraCost, ahk,
             //TRAILER
-            coupling, extraType, axis, brake, trailerType,
+            coupling, extraType, axis, brake, trailerType, 
             //TRANSPORT
             transportBrand,
 
@@ -56,7 +53,11 @@ export async function PATCH(
 
         const PkwFilter = (pInserat: typeof inserat) => {
 
-            const usedInitial = new Date(initial)
+            const usedInitial = new Date(initial);
+
+            const searchedAhk = (typeof(ahk) !== 'undefined' && ahk !== null);
+            
+            
 
             const bSeats = seats ? pInserat?.pkwAttribute?.seats >= seats : true;
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
@@ -72,6 +73,8 @@ export async function PATCH(
             const bInitial = initial ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true;
             const bBrand = thisBrand ? thisBrand.includes(pInserat?.pkwAttribute?.brand) : true;
 
+            const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
+
             const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true
             const bLength = loading_l ? loading_l <= pInserat?.pkwAttribute?.loading_l : true;
             const bBreite = loading_b ? loading_b <= pInserat?.pkwAttribute?.loading_b : true;
@@ -79,7 +82,7 @@ export async function PATCH(
 
 
 
-            return bSeats && bPower && bDoors && bFreeMiles && bInitial &&
+            return bSeats && bPower && bDoors && bFreeMiles && bInitial && bAhk && 
                 bExtraCost && bType && bTransmission && bFuel && bBrand &&
                 bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
         }

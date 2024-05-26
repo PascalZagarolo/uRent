@@ -79,6 +79,8 @@ interface RelevanteInserateProps {
     caution : number;
     userId : string;
 
+    ahk : string;
+
 }
 
 const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
@@ -134,7 +136,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     radius,
     userId,
     caution,
-    transportBrand
+    transportBrand,
+    ahk
 }) => {
 
     
@@ -198,6 +201,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         extraType : extraType,
         axis : Number(axis),
         brake : brake ? (brake.toLowerCase() == 'true') : null,
+        ahk : ahk ? ahk : null,
 
         volume : volume,
         loading_l : loading_l,

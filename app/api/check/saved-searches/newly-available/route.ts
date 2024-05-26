@@ -83,7 +83,11 @@ export async function PATCH(
 
                 radius: params?.radius,
                 userId: params?.userId,
-                caution: params?.caution
+                caution: params?.caution,
+
+                transportBrand : params?.transportBrand,
+                ahk : params?.ahk,
+                
             })
 
             if(foundInserate.length > 0) {

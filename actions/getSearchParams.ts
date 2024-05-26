@@ -53,6 +53,8 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         brake : searchParams.get("brake"),
 
         //TRANSPORT
+        transportBrand : searchParams.get("transportBrand"),
+
 
         //Loading
         volume : searchParams.get("volume"),

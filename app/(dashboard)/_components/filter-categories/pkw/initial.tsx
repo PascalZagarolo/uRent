@@ -17,6 +17,8 @@ import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import { useSavedSearchParams } from "@/store";
+import { useSearchParams } from "next/navigation";
+import { getYear } from "date-fns";
 
 
 
@@ -29,6 +31,9 @@ const SetInitialSearch = () => {
 
     const startYear = 2024;
     const endYear = 1960;
+
+    const pSearchparams = useSearchParams();
+    const existingYear = pSearchparams.get("initial")
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
   
@@ -44,8 +49,16 @@ const SetInitialSearch = () => {
     },[currentYear])
 
     useEffect(() => {
-        
-    })
+        if(existingYear) {
+            changeSearchParams("initial", existingYear)
+            const usedDate = new Date(existingYear);
+            const resolvedYear = String(getYear(usedDate));
+            console.log(resolvedYear);
+            setCurrentYear(resolvedYear)
+        } else {
+            deleteSearchParams("initial");
+        }
+    },[])
     
     interface YearObject {
       value: string;
@@ -93,7 +106,7 @@ const SetInitialSearch = () => {
                         
                         >
                             <CommandInput placeholder="Wähle das Baujahr" className="h-9 " />
-                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandEmpty>Kein passendes Jahr gefunden..</CommandEmpty>
                             <CommandGroup className="overflow-y-scroll">
                             <CommandItem
                                         key={"Beliebig"}
@@ -120,7 +133,7 @@ const SetInitialSearch = () => {
                                         <CheckIcon
                                             className={cn(
                                                 "ml-auto h-4 w-4",
-                                                value === year.value ? "opacity-100" : "opacity-0"
+                                                currentYear === year.value ? "opacity-100" : "opacity-0"
                                             )}
                                         />
                                     </CommandItem>

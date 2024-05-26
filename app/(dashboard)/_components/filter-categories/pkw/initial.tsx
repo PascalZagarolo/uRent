@@ -95,6 +95,17 @@ const SetInitialSearch = () => {
                             <CommandInput placeholder="Wähle das Baujahr" className="h-9 " />
                             <CommandEmpty>No framework found.</CommandEmpty>
                             <CommandGroup className="overflow-y-scroll">
+                            <CommandItem
+                                        key={"Beliebig"}
+                                        value={"Beliebig"}
+                                        onSelect={() => {
+                                            setValue("");
+                                            setCurrentYear(undefined)
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        Beliebig
+                            </CommandItem>
                                 {years.map((year) => (
                                     <CommandItem
                                         key={year.value}

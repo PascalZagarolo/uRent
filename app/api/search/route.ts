@@ -53,6 +53,8 @@ export async function PATCH(
 
         const PkwFilter = (pInserat: typeof inserat) => {
 
+            const usedInitial = new Date(initial)
+
             const bSeats = seats ? pInserat?.pkwAttribute?.seats >= seats : true;
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
             const bDoors = doors ? pInserat?.pkwAttribute?.doors >= doors : true;
@@ -64,7 +66,7 @@ export async function PATCH(
             const bType = thisType ? thisType === pInserat?.pkwAttribute?.type : true;
             const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
             const bFuel = fuel ? fuel === pInserat?.pkwAttribute?.fuel : true;
-            const bInitial = initial ? initial.getTime() >= pInserat?.pkwAttribute?.initial.getTime() : true;
+            const bInitial = initial ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true;
             const bBrand = thisBrand ? thisBrand.includes(pInserat?.pkwAttribute?.brand) : true;
 
             const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true
@@ -74,7 +76,7 @@ export async function PATCH(
 
 
 
-            return bSeats && bPower && bDoors && bFreeMiles &&
+            return bSeats && bPower && bDoors && bFreeMiles && bInitial &&
                 bExtraCost && bType && bTransmission && bFuel && bBrand &&
                 bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
         }

@@ -68,6 +68,8 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         //ELSE
         inseratId : searchParams.get("inseratId"),
 
+        initial : searchParams.get("initial")
+
     }
     if (currentCategory && params.hasOwnProperty(currentCategory)) {
         //@ts-ignore

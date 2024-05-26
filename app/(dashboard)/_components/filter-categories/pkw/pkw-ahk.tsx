@@ -28,9 +28,12 @@ const PkwAhkBar = () => {
 
 
     useEffect(() => {
-        if(brake) {
+        if(typeof(brake) !== 'undefined' && brake !== null) {
           changeSearchParams("ahk", brake);
           setCurrentBrand(brake);
+        } else {
+            deleteSearchParams("ahk");
+            setCurrentBrand(null)
         }
       }, [])
 

@@ -11,12 +11,21 @@ import LoadingSizeBar from "./every/loading_size";
 import TrailerExtraTypeBar from "./trailer/trailer-extra-type";
 import PkwPowerBar from "./pkw/pkw-power";
 import SetInitialSearch from "./pkw/initial";
+import TransportWeightClass from "@/app/inserat/create/[inseratId]/_parts/transport/transport-weight-class";
+import TransportWeightClassBar from "./transport/transport-weightclass";
 
 const TransportSearchComponents = () => {
     return ( 
         <div className="mt-2 space-y-4">
             <LkwLoadingBar />
-            <TrailerExtraTypeBar />
+            <div className="w-full flex gap-x-2">
+                <div className="w-1/2">
+<TrailerExtraTypeBar/>
+                </div>
+                <div className="w-1/2">
+                    <TransportWeightClassBar />
+                </div>
+            </div>
             <div className="w-full flex gap-x-2">
             <div className="w-1/2">
             <PkwSeatsBar />

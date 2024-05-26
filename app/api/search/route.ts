@@ -85,7 +85,7 @@ export async function PATCH(
 
             const bSeats = seats ? pInserat?.lkwAttribute?.seats >= seats : true;
             const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
-            const bWeightClass = weightClass ? pInserat?.lkwAttribute?.weightClass === weightClass : true;
+            const bWeightClass = weightClass ? Number(pInserat?.lkwAttribute?.weightClass) <= Number(weightClass) : true;
             const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;
             const bLoading = loading ? loading === pInserat?.lkwAttribute?.loading : true;
             const bApplication = application ? application == pInserat?.lkwAttribute?.application : true;
@@ -108,7 +108,7 @@ export async function PATCH(
             const bCoupling = coupling ? coupling === pInserat?.trailerAttribute?.coupling : true;
             const bLoading = loading ? loading === pInserat?.trailerAttribute?.loading : true;
             const bAxis = axis ? axis === pInserat?.trailerAttribute?.axis : true;
-            const bWeightClass = weightClass ? weightClass === pInserat?.trailerAttribute?.weightClass : true;
+            const bWeightClass = weightClass ? Number(pInserat?.trailerAttribute?.weightClass) <= Number(weightClass) : true;
             const bBrake = brake ? brake === pInserat?.trailerAttribute?.brake : true;
 
             const bVolume = volume ? volume <= pInserat?.trailerAttribute?.loading_volume : true;
@@ -125,7 +125,7 @@ export async function PATCH(
             const bTransmisson = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
             const bPower = power ? pInserat?.transportAttribute?.power >= power : true;
             const bExtraType = extraType ? extraType === pInserat?.transportAttribute?.extraType : true;
-            const bWeightClass = weightClass ? pInserat?.transportAttribute?.weightClass === weightClass : true;
+            const bWeightClass = weightClass ? Number(pInserat?.transportAttribute?.weightClass) <= Number(weightClass) : true;
             const bSeats = seats ? seats <= pInserat?.transportAttribute?.seats : true;
             const bDoors = doors ? doors === pInserat?.transportAttribute?.doors : true;
             const bFuel = fuel ? fuel === pInserat?.transportAttribute?.fuel : true;

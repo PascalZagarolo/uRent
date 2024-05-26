@@ -58,6 +58,9 @@ interface RelevanteInserateProps {
     application: typeof ApplicationEnumRender;
     lkwBrand?: typeof LkwBrandEnumRender;
 
+    //TRANSPORT
+    transportBrand : string;
+
     //Trailer
     trailerType: typeof TrailerEnumRender;
     coupling: typeof CouplingEnumRender;
@@ -131,6 +134,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     radius,
     userId,
     caution,
+    transportBrand
 }) => {
 
     
@@ -186,6 +190,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         loading: loading,
         application: application,
         lkwBrand: lkwBrand,
+
+        transportBrand : transportBrand,
 
         trailerType : trailerType,
         coupling : coupling,

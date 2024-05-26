@@ -12,11 +12,20 @@ import LoadingSizeBar from "./every/loading_size";
 import TrailerWeightClassBar from "./trailer/trailer-weight-class";
 import PkwPowerBar from "./pkw/pkw-power";
 import SetInitialSearch from "./pkw/initial";
+import PkwTransmissionSearch from "@/app/search/_components/_pkw/pkw-transmission-search";
+import PkwTransmissionBar from "./pkw/pkw-transmission";
 
 const LkwSearchComponent = () => {
     return ( 
         <div className="mt-2 space-y-4">
-           <LkwBrandBar />
+           <div className="w-full flex gap-x-2">
+                <div className="w-1/2">
+                <LkwBrandBar />
+                </div>
+                <div className="w-1/2">
+                <TrailerWeightClassBar />
+                </div>
+            </div>
             <div className="w-full flex gap-x-2">
             <div className="w-1/2">
             <LkwApplicationBar />
@@ -35,7 +44,7 @@ const LkwSearchComponent = () => {
             </div>
             <div className="w-full flex gap-x-2">
             <div className="w-1/2">
-            <TrailerWeightClassBar />
+            <PkwTransmissionBar />
             </div>
             <div className="w-1/2">
             <TrailerAxisBar />

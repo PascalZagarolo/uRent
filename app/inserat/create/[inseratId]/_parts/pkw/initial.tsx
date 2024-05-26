@@ -32,7 +32,6 @@ const InitialForm: React.FC<InitialFormProps> = ({
         if(!date) {
             return "";
         }
-    
         return dateString;
     }
 

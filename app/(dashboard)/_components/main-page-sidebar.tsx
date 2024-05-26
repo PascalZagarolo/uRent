@@ -16,7 +16,7 @@ import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
 import {  useSavedSearchParams } from "@/store";
 import {  MdOutlineCancel } from "react-icons/md";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MainPageResults from "./main-page-results";
 import { CategoryEnumRender } from "@/db/schema";
 import SaveSearch from "./save-search";
@@ -57,6 +57,8 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
     const setCategory = (category : typeof CategoryEnumRender) => {
+        setHasChanged(true);
+        setCurrentCategory(category)
         //@ts-ignore
         changeSearchParams("thisCategory", category);
         
@@ -69,8 +71,54 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
     }, [])
 
     const deleteCategory = () => {
+        setHasChanged(true);
+        setCurrentCategory(null)
         deleteSearchParams("thisCategory")
     }
+
+
+    const [pCurrentCategory, setCurrentCategory]  = useState<any>();
+    const [hasChanged, setHasChanged] = useState(false)
+
+    const deleteAttributes = () => {
+        //PKW
+        deleteSearchParams("brand")
+        deleteSearchParams("seats")
+        deleteSearchParams("doors")
+        deleteSearchParams("fuel")
+        deleteSearchParams("inital")
+        deleteSearchParams("type");
+        deleteSearchParams("ahk");
+
+        //LKW
+        deleteSearchParams("application")
+        deleteSearchParams("axis")
+        deleteSearchParams("drive")
+        deleteSearchParams("lkwBrand")
+        deleteSearchParams("loading")
+        deleteSearchParams("loading_b")
+        deleteSearchParams("loading_h")
+        deleteSearchParams("loading_l")
+        deleteSearchParams("power")
+        deleteSearchParams("transmission")
+        deleteSearchParams("volume")
+        deleteSearchParams("weightClass")
+
+        //TRAILER
+        deleteSearchParams("brake")
+        deleteSearchParams("coupling")
+        deleteSearchParams("brake")
+
+        //TRANSPORT
+        deleteSearchParams("transportBrand")
+        
+    }
+
+    useEffect(() => {
+        if(hasChanged) {
+            deleteAttributes();
+        }
+    },[pCurrentCategory])
     
     
 

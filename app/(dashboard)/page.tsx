@@ -72,6 +72,7 @@ interface MainPageProps {
         lkwBrand?: typeof LkwBrandEnumRender;
 
         //TRANSPORT
+        transportBrand : string;
         trailerType: typeof TrailerEnumRender;
         coupling: typeof CouplingEnumRender;
         extraType: typeof ExtraTypeEnumRender;
@@ -189,6 +190,9 @@ const Main = cache(async ({
                             loading={searchParams.loading}
                             application={searchParams.application}
                             lkwBrand={searchParams.lkwBrand}
+
+                            //TRANSPORT specific attributes
+                            transportBrand = {searchParams.transportBrand}
 
                             trailerType={searchParams.trailerType}
                             coupling={searchParams.coupling}

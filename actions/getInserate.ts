@@ -61,6 +61,9 @@ type GetInserate = {
     axis?: number;
     brake?: boolean;
 
+    //TRANSPORT
+    transportBrand : string;
+
     volume?: number;
 
     loading_l?: number;
@@ -140,6 +143,8 @@ export const getInserate = cache(async ({
     radius,
     userId,
     caution,
+
+    transportBrand
 
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
@@ -262,14 +267,15 @@ export const getInserate = cache(async ({
         const bSeats = seats ? seats <= pInserat.transportAttribute.seats : true;
         const bDoors = doors ? doors === pInserat.transportAttribute.doors : true;
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
-        const bInitial = isValidDate ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true
+        const bInitial = isValidDate ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true;
+        const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true
 
         const bVolume = volume ? volume <= pInserat.transportAttribute.loading_volume : true;
         const bLength = loading_l ? loading_l <= pInserat.transportAttribute.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.transportAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.transportAttribute.loading_h : true;
 
-        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bInitial
+        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bInitial && bBrand
             && bExtraType && bVolume && bLength && bBreite && bHeight;
     })
 

@@ -143,7 +143,7 @@ export const getInserate = cache(async ({
 
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
-    console.log(power)
+    
 
 
 
@@ -157,7 +157,17 @@ export const getInserate = cache(async ({
 
     const PkwFilter = cache((pInserat: typeof inserat) => {
 
-        const usedInitial = new Date(initial)
+        const usedInitial = initial ? new Date(initial) : null;
+
+        let isValidDate;
+
+        if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
+            
+            isValidDate = true;
+          } else {
+            
+            isValidDate = false;
+        }
 
         const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
         
@@ -170,7 +180,7 @@ export const getInserate = cache(async ({
         const bType = thisType ? thisType === pInserat.pkwAttribute.type : true;
         const bTransmission = transmission ? transmission === pInserat.pkwAttribute.transmission : true;
         const bFuel = fuel ? fuel === pInserat.pkwAttribute.fuel : true;
-        const bInitial = initial ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true
+        const bInitial = isValidDate ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true
         const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;
         const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
         const bVolume = volume ? volume <= pInserat.pkwAttribute.loading_volume : true

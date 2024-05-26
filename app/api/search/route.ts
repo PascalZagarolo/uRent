@@ -92,6 +92,7 @@ export async function PATCH(
             const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;
             const bLoading = loading ? loading === pInserat?.lkwAttribute?.loading : true;
             const bApplication = application ? application == pInserat?.lkwAttribute?.application : true;
+            const bTransmission = transmission ? transmission === pInserat?.lkwAttribute?.transmission : true;
             const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
             const bPower = power ? pInserat?.lkwAttribute?.power >= power : true;
 
@@ -100,7 +101,7 @@ export async function PATCH(
             const bBreite = loading_b ? loading_b <= pInserat?.lkwAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.lkwAttribute?.loading_h : true;
 
-            return bSeats && bWeightClass && bDrive && bLoading && bApplication
+            return bSeats && bWeightClass && bDrive && bLoading && bApplication && bTransmission
                 && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight && bPower;
         }
 

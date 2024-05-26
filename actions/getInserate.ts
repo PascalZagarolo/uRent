@@ -217,6 +217,7 @@ export const getInserate = cache(async ({
         const bLoading = loading ? loading === pInserat.lkwAttribute.loading : true;
         const bApplication = application ? application == pInserat.lkwAttribute.application : true;
         const bLkwBrand = lkwBrand ? lkwBrand === pInserat.lkwAttribute.lkwBrand : true;
+        const bTransmission = transmission ? transmission === pInserat?.lkwAttribute?.transmission : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.lkwAttribute?.initial?.getTime() : true
 
         const bVolume = volume ? volume <= pInserat.lkwAttribute.loading_volume : true;
@@ -224,7 +225,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && 
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial &&  bTransmission &&
             bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 

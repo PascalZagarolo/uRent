@@ -13,6 +13,7 @@ import TrailerBrakeSearch from "../_trailer/trailer-brakes";
 import TrailerAxisSearch from "../_trailer/trailer-axis";
 import LoadingVolumeSearch from "../_every/loading-volume-search";
 import LoadingSizeSearch from "../_every/loading-size-search";
+import InitialSearch from "../_every/initial-search";
 
 const TrailerSearch = () => {
 
@@ -49,7 +50,7 @@ const TrailerSearch = () => {
                     <TrailerBrakeSearch />
                 </div>
                 <div className="sm:w-1/3">
-
+                <InitialSearch/>
                 </div>
                 <div className="sm:w-1/3">
 

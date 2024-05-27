@@ -25,7 +25,7 @@ export async function PATCH(
     try {
         const values = await req.json();
 
-        const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice, end, begin,
+        const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice, end, start, begin,
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
@@ -391,7 +391,7 @@ export async function PATCH(
                     //@ts-ignore
                     ...ilikeQuery,
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
-                    begin ? gte(inserat.price, begin) : undefined,
+                    start ? gte(inserat.price, start) : undefined,
                     end ? lte(inserat.price, end) : undefined,
 
                 ),

@@ -1,18 +1,18 @@
 'use client'
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useSavedSearchParams } from "@/store";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 
 
 
 import { Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { z } from "zod";
+
+
 
 
 
@@ -23,164 +23,89 @@ const CautionSearch = () => {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentMin, setCurrentMin] = useState(currentObject["start"] ? Number(currentObject["start"]) : null);
-    const [currentMax, setCurrentMax] = useState(currentObject["end"] ? Number(currentObject["end"]) : null);
+    const [currentMin, setCurrentMin] = useState<string| number>(currentObject["start"] ? Number(currentObject["start"]) : null);
+    const [currentMax, setCurrentMax] = useState<string| number>(currentObject["end"] ? Number(currentObject["end"]) : null);
 
-    const formSchema = z.object({
-        minPrice: z.preprocess(
-            (args) => (args === '' ? undefined : args),
-            z.coerce
-                .number({ invalid_type_error: 'Preis muss eine Nummer sein' })
-                .positive('Price must be positive')
-                .optional()
-        ),
-        maxPrice: z.preprocess(
-            (args) => (args === '' ? undefined : args),
-            z.coerce
-                .number({ invalid_type_error: 'Preis muss eine Nummer sein' })
-                .positive('Price must be positive')
-                .optional()
-        ),
-    })
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            minPrice: currentObject["start"] ? Number(currentObject["start"]) : null,
-            maxPrice : currentObject["end"] ? Number(currentObject["end"]) : null,
-        }
-    })
+
+
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-    
+
     useEffect(() => {
+        
         const setAmount = async () => {
-            await changeSearchParams("minPrice", currentMin);
-            }
-    setAmount();
-    }, [currentMin])
-   
-    useEffect(() => {
-        const setAmount = async () => {
-            await changeSearchParams("maxPrice", currentMax);  
+            await changeSearchParams("start", currentMin);
         }
         setAmount();
-    },[currentMax])
+    }, [currentMin])
 
-    const { isSubmitting, isValid } = form.formState
+    useEffect(() => {
+        const setAmount = async () => {
+            await changeSearchParams("end", currentMax);
+        }
+        setAmount();
+    }, [currentMax])
+
+
+
+
 
     return (
         <div className=" ">
-            <Form {...form}>
-                <form>
-                    <div className="w-full flex gap-x-2">
-                        <div className="w-1/2">
-                        <FormLabel className="flex justify-start items-center">
+
+
+            <div className="w-full flex gap-x-2">
+                <div className="w-1/2">
+                    <Label className="flex justify-start items-center">
                         <Banknote className="w-4 h-4" /><div className="ml-2 font-semibold flex"> Min. <p className="sm:block hidden px-1"> Preis </p> </div>
-                    </FormLabel>
-                    
-                        </div>
-                        <div className="w-1/2">
-                        <FormLabel className="flex justify-start items-center">
+                    </Label>
+
+                </div>
+                <div className="w-1/2">
+                    <Label className="flex justify-start items-center">
                         <Banknote className="w-4 h-4" /><div className="ml-2 font-semibold flex"> Max. <p className="sm:block hidden px-1"> Preis </p> </div>
-                    </FormLabel>
-                        </div>
-                    </div>
-                    <div className="flex w-full gap-x-2">
-                    <FormField
-                        control={form.control}
-                        name="minPrice"
-                        render={({ field }) => (
-                            <FormField
-                                control={form.control}
-                                name="minPrice"
-                                render={({ field }) => (
-                                    <FormItem className="mt-3 ">
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                {...field}
-                                                name="price"
-                                                className=" dark:bg-[#151515] dark:border-none"
-                                                placeholder="Min. Preis"
-                                                onBlur={(e) => {
-                                                    const rawValue = e.currentTarget.value;
+                    </Label>
+                </div>
+            </div>
+            <div className="flex w-full gap-x-2 mt-3">
 
 
-                                                    let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-                                                    cleanedValue = rawValue.replace(/,/g, '.');
+                <Input
 
-                                                    let formattedValue = parseFloat(cleanedValue).toFixed(2);
+                    value={currentMin}
 
-                                                    if(isNaN(Number(formattedValue))){
-                                                        formattedValue = null;
-                                                    }
-                                                    e.currentTarget.value = formattedValue;
+                    className=" dark:bg-[#151515] dark:border-none"
+                    placeholder="Min. Preis"
+                    onChange={(e) => {
+                        const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+                        setCurrentMin(newValue);
+                    }}
 
-                                                    setCurrentMin(Number(formattedValue));
-                                                        
-                                                    field.onChange(formattedValue);
-                                                    
-                                                }}
-                                                
-                                            />
-                                        </FormControl>
-                                        
-                                        <FormMessage />
-                                    </FormItem>
-                                    
-                                )}
-                            />
-                        )}
-                    />
-                    
-                    <FormField
-                                control={form.control}
-                                name="maxPrice"
-                                render={({ field }) => (
-                                    <FormItem className="mt-3 ">
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                {...field}
-                                                name="price"
-                                                className=" dark:bg-[#151515] dark:border-none"
-                                                placeholder="Max. Preis"
-                                                onBlur={(e) => {
-                                                    const rawValue = e.currentTarget.value;
+                />
 
 
-                                                    let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-                                                    cleanedValue = rawValue.replace(/,/g, '.');
 
-                                                    let formattedValue = parseFloat(cleanedValue).toFixed(2);
 
-                                                    if(isNaN(Number(formattedValue))){
-                                                        formattedValue = null;
-                                                    }
-                                                    e.currentTarget.value = formattedValue;
+                <Input
 
-                                                    setCurrentMax(Number(formattedValue));
-                                                        
-                                                    field.onChange(formattedValue);
-                                                    
-                                                }}
-                                                
-                                                
-                                            />
-                                        </FormControl>
-                                        
-                                        <FormMessage />
-                                    </FormItem>
-                                    
-                                )}
-                            />
-                    </div>
-                    
-                       
 
-                </form>
-            </Form>
+                    onChange={(e) => {
+                        const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+                        setCurrentMax(newValue);
+                    }}
+                    className=" dark:bg-[#151515] dark:border-none"
+                    placeholder="Max. Preis"
+
+                />
+
+
+
+            </div>
+
+
+
+
         </div>
     );
 }

@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { IoIosPricetags } from "react-icons/io";
 import { useSavedSearchParams } from "@/store";
+import { Input } from "@/components/ui/input";
 
 
 const PriceFormFilter = () => {
@@ -33,7 +34,7 @@ const PriceFormFilter = () => {
     const currentTitle = usedSearchParams.get("title");
     const category = usedSearchParams.get("category");
 
-    
+
 
     const startPrice = usedSearchParams.get("start");
     const endPrice = usedSearchParams.get("end");
@@ -47,25 +48,25 @@ const PriceFormFilter = () => {
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
-    const setStart = (begin : number) => {
+    const setStart = (begin: number) => {
         //@ts-ignore
         changeSearchParams("start", begin);
-        
+
     }
 
-    const setEnd = (end : number) => {
+    const setEnd = (end: number) => {
         //@ts-ignore
         console.log(end)
         changeSearchParams("end", end);
-        
+
     }
 
     React.useEffect(() => {
-        if(startPrice){
+        if (startPrice) {
             changeSearchParams("start", startPrice);
         }
 
-        if(endPrice){
+        if (endPrice) {
             changeSearchParams("end", endPrice);
         }
     }, [])
@@ -76,19 +77,19 @@ const PriceFormFilter = () => {
     }
 
     React.useEffect(() => {
-        if(!startPrice) {
+        if (!startPrice) {
             deleteSearchParams("start");
             setCurrentStart(null)
         }
-        if(!endPrice) {
+        if (!endPrice) {
             deleteSearchParams("end");
             setCurrentEnd(null);
         }
-    },[startPrice, endPrice])
-    
+    }, [startPrice, endPrice])
 
 
-    
+
+
     const onPriceReset = () => {
         setCurrentStart(null);
         setCurrentEnd(null);
@@ -109,36 +110,52 @@ const PriceFormFilter = () => {
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
-        resolver : zodResolver(formSchema),
-        defaultValues : {
-            start : params.start || null,
-            end : params.end || null,
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            start: params.start || null,
+            end: params.end || null,
         }
     })
-   
 
-    
+
+
 
 
 
     return (
-        <div className="w-full "> 
+        <div className="w-full ">
             <h3 className="flex justify-start text-lg text-gray-100 items-center   w-full bg-[#1b1f2c] 
             p-2 border-[#1f2332]">
-                <IoIosPricetags  className="mr-4" /> Preisrahmen
+                <IoIosPricetags className="mr-4" /> Preisrahmen
             </h3>
             <div className="flex gap-x-4 mt-2 w-full px-2">
                 <div className="w-1/2">
                     <h3 className="text-sm  text-gray-300  mb-1">
                         Von :
                     </h3>
-                    <Select onValueChange={(e) => {setStart(Number(e)); setCurrentStart(e)}} value={currentStart || "0"} defaultValue="Start">
-                        <SelectTrigger className=" w-full font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
-                            <SelectValue className="font-bold" placeholder="Start" />
-                        </SelectTrigger>
-                        <SelectContent >
+                    <Select onValueChange={(e) => { setStart(Number(e)); setCurrentStart(e) }} value={currentStart || "0"} defaultValue="Start">
+
+
+                        <div className="flex w-full">
+                            <Input
+                                className="w-full dark:bg-[#171717] border-none rounded-none"
+                                placeholder="Start"
+                                value={currentStart || ""}
+                                onChange={(e) => {
+                                    const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+                                    setCurrentStart(newValue);
+                                    setStart(Number(newValue)); 
+                                    setCurrentStart(newValue);
+                                }}
+                            />
+                            <SelectTrigger
+                                className="rounded-none rounded-r-md w-[36px] font-semibold  border-[#282c45] dark:bg-[#0F0F0F] dark:border-none" />
+                        </div>
+
+
+                        <SelectContent className="dark:bg-[#191919] dark:border-none p-2 flex justify-center">
                             <SelectGroup>
-                                <SelectLabel>Startpreis</SelectLabel>
+                                
                                 <SelectItem value={null} className="font-bold" >Beliebig</SelectItem>
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
@@ -151,7 +168,7 @@ const PriceFormFilter = () => {
                                 <SelectItem value="300" className="font-bold">300 €</SelectItem>
                                 <SelectItem value="400" className="font-bold">400 €</SelectItem>
                                 <SelectItem value="500" className="font-bold">500 €</SelectItem>
-                                
+
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -160,13 +177,25 @@ const PriceFormFilter = () => {
                     <h3 className="text-sm  text-gray-300 mb-1">
                         Bis :
                     </h3>
-                    <Select onValueChange={(e) => {setEnd(Number(e)); setCurrentEnd(e)}} value={currentEnd || "max"} >
-                        <SelectTrigger className=" w-full font-semibold rounded-lg border-[#282c45] dark:bg-[#0F0F0F] dark:border-none">
-                            <SelectValue className="font-bold" placeholder="Ende"/>
-                        </SelectTrigger>
-                        <SelectContent >
+                    <Select onValueChange={(e) => { setEnd(Number(e)); setCurrentEnd(e) }} value={currentEnd || "max"} >
+                        <div className="flex w-full">
+                            <Input
+                                className="w-full dark:bg-[#171717] border-none rounded-none"
+                                placeholder="Ende"
+                                onChange={(e) => {
+                                    const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+                                    setEnd(Number(newValue)); 
+                                    setCurrentEnd(newValue);
+                                }}
+                                value={currentEnd || ""}
+                            />
+                            <SelectTrigger
+                            
+                                className="rounded-none rounded-r-md w-[36px] font-semibold  border-[#282c45] dark:bg-[#0F0F0F] dark:border-none" />
+                        </div>
+                        <SelectContent className="dark:bg-[#191919] dark:border-none p-2 flex justify-center">
                             <SelectGroup>
-                                <SelectLabel>Endpreis</SelectLabel>
+                                
                                 <SelectItem value={null} className="font-bold" >Beliebig</SelectItem>
                                 <SelectItem value="0" className="font-bold" >0 €</SelectItem>
                                 <SelectItem value="50" className="font-bold">50 €</SelectItem>
@@ -183,16 +212,16 @@ const PriceFormFilter = () => {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                        
+
                 </div>
-                
+
             </div>
             <div className="mt-2 flex justify-center  ">
-                    <Button className="bg-[#1a1d2c] w-full border  dark:text-gray-100
+                <Button className="bg-[#1a1d2c] w-full border  dark:text-gray-100
                       dark:hover:bg-[#212538]" onClick={onPriceReset} disabled={!currentStart && !currentEnd && !startPrice && !endPrice}>
-                        Filter zurücksetzen
-                    </Button>
-                </div>
+                    Filter zurücksetzen
+                </Button>
+            </div>
         </div>
     );
 }

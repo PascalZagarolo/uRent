@@ -87,7 +87,7 @@ const CautionSearch = () => {
                                                 onChange={(e) => {
                                                     const newValue = e.target.value.replace(/[^0-9]/g, '');
                                                     setCurrentValue(newValue); 
-                                                    setCaution(newValue);
+                                                    setCaution(Number(newValue));
                                                 }}
                                             />
                                         </FormControl>

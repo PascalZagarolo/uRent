@@ -265,7 +265,7 @@ export async function PATCH(
         })
 
         const filterAvailabilityMulti = cache((pInserat: typeof inserat) => {
-
+            console.log("...")
 
             if (pInserat.bookings.length === 0) {
                 return true;
@@ -278,13 +278,10 @@ export async function PATCH(
             let index = 1;
     
             for (const vehicle of pInserat?.vehicles) {
-    
                 const startDateAppointments = new Set<any>()
                 const endDateAppointments = new Set<any>();
-    
+                console.log("....")
                 
-    
-    
                 for (const booking of vehicle?.bookings) {
                     //booking starts AND ends before the searched Period
                     if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
@@ -337,7 +334,7 @@ export async function PATCH(
     
                         }
                         else if(index === pInserat.vehicles.length) {
-                            
+                            console.log("this")
                             return false;
                         }
                     }
@@ -346,7 +343,7 @@ export async function PATCH(
     
                 if ((startTime || endTime)) {
     
-                    if (startTime) {
+                    if (startTime && index === pInserat.vehicles.length) {
                         let usedEnd;
                         
                         if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
@@ -357,11 +354,12 @@ export async function PATCH(
         
                         for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
                             if (startDateAppointments.has(Number(i))) {
+                                console.log("...")
                                 return false;
                             }
                         }
                     }
-                    if (endTime) {
+                    if (endTime && index === pInserat.vehicles.length) {
                         let usedEnd;
                         if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
                             usedEnd = startTime;

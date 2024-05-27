@@ -483,7 +483,7 @@ export const getInserate = cache(async ({
 
             if ((startTime || endTime)) {
 
-                if (startTime) {
+                if (startTime && index === pInserat.vehicles.length) {
                     let usedEnd;
                     
                     if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
@@ -498,7 +498,7 @@ export const getInserate = cache(async ({
                         }
                     }
                 }
-                if (endTime) {
+                if (endTime && index === pInserat.vehicles.length) {
                     let usedEnd;
                     if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
                         usedEnd = startTime;

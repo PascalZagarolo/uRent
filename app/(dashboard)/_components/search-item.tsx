@@ -15,6 +15,7 @@ import { FaUserTie } from "react-icons/fa6";
 import { userTable } from "@/db/schema";
 
 import { useSavedSearchParams } from "@/store";
+import { first } from "lodash";
 
 
 
@@ -31,6 +32,8 @@ const SearchItem = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [isSearching, setIsSearching] = useState(true);
+
+    
 
     const params = getSearchParamsFunction("user");
 
@@ -63,8 +66,9 @@ const SearchItem = () => {
 
     useEffect(() => {
         if(currentTitle) {
+           
           changeSearchParams("title", currentTitle);
-          setValue(currentTitle);
+          
         }
 
         if(!currentTitle) {
@@ -74,11 +78,15 @@ const SearchItem = () => {
       }, [])
 
       useEffect(() => {
+        
         changeSearchParams("title", value);
-        if(!value) {
+        if(!value && !currentTitle) {
+            
             deleteSearchParams("title");
             setValue("");
         }
+
+        
       },[value])
 
       useEffect(() => {

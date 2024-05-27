@@ -195,7 +195,7 @@ export const getInserate = cache(async ({
         const bFreeMiles = freeMiles ? pInserat.pkwAttribute.freeMiles >= freeMiles : true;
         const bExtraCost = extraCost ? pInserat.pkwAttribute.extraCost >= extraCost : true;
         const bType = thisType ? thisType === pInserat.pkwAttribute.type : true;
-        const bTransmission = transmission ? transmission === pInserat.pkwAttribute.transmission : true;
+        const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
         const bFuel = fuel ? fuel === pInserat.pkwAttribute.fuel : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true
         const bBrand = thisBrand ? thisBrand.includes(pInserat.pkwAttribute.brand) : true;

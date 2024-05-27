@@ -118,8 +118,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 content: value.content ? value.content : "",
                 
                 //Days
-                start: new Date(usedStart),
-                end: new Date(usedEnd),
+                start: usedStart,
+                end: usedEnd,
 
                 //Hours
                 startPeriod : currentStartTime,

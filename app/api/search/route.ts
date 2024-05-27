@@ -274,13 +274,15 @@ export async function PATCH(
     
             const usedPeriodBegin = new Date(periodBegin);
             const usedPeriodEnd = new Date(periodEnd);
-    
+            
+            
             let index = 1;
     
             for (const vehicle of pInserat?.vehicles) {
                 const startDateAppointments = new Set<any>()
                 const endDateAppointments = new Set<any>();
                 console.log("....")
+                let isAvailable = true;
                 
                 for (const booking of vehicle?.bookings) {
                     //booking starts AND ends before the searched Period
@@ -305,7 +307,7 @@ export async function PATCH(
                             }
                             if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
                                 console.log("this")
-                                return false;
+                                isAvailable = false;
                             }
                         } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
                             || isSameDay(booking.startDate, usedPeriodEnd)) {
@@ -335,7 +337,7 @@ export async function PATCH(
                         }
                         else if(index === pInserat.vehicles.length) {
                             console.log("this")
-                            return false;
+                            isAvailable = false;
                         }
                     }
                     
@@ -343,7 +345,7 @@ export async function PATCH(
     
                 if ((startTime || endTime)) {
     
-                    if (startTime && index === pInserat.vehicles.length) {
+                    if (startTime) {
                         let usedEnd;
                         
                         if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
@@ -355,11 +357,11 @@ export async function PATCH(
                         for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
                             if (startDateAppointments.has(Number(i))) {
                                 console.log("...")
-                                return false;
+                                isAvailable = false;
                             }
                         }
                     }
-                    if (endTime && index === pInserat.vehicles.length) {
+                    if (endTime) {
                         let usedEnd;
                         if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
                             usedEnd = startTime;
@@ -370,19 +372,24 @@ export async function PATCH(
                        
                         for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
                             if (endDateAppointments.has(Number(i))) {
-                                return false;
+                                isAvailable = false;
                             }
                         }
                     }
                 }
     
+
+                if(isAvailable) {
+                    return true;
+                }
+
                 index++;
                 
             }
     
             
     
-            return true;
+           return false;
         })
 
 

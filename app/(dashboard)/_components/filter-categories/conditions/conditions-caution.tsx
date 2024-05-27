@@ -109,11 +109,13 @@ const CautionBar = () => {
                                     <FormItem className="mt-2 ">
                                         <FormControl>
                                             <Input
+                                            
                                                 placeholder="Kautionsbetrag.."
                                                 className="p-2.5 rounded-md input: text-sm border mt-2  
                                                 border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0 w-full"
                                                 onChange={(e) => {
-                                                    setCurrentValue(e.target.value);       
+                                                    const newValue = e.target.value.replace(/[^0-9]/g, '');
+                                                    setCurrentValue(newValue);  
                                                 }}
                                                 
                                                 value={currentValue ? currentValue : ""}

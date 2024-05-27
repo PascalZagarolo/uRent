@@ -46,7 +46,11 @@ export async function PATCH(
         const ConditionFilter = (pInserat: typeof inserat) => {
             const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
             const bLicense = license ? license === pInserat.license : true;
-            const bCaution = caution ? caution <= pInserat.caution : true;
+            const bCaution = caution ? Number(caution) >= Number(pInserat.caution) : true;
+
+            if(caution && !pInserat?.caution) {
+                return false
+            }
 
             return bAge && bLicense && bCaution;
         }

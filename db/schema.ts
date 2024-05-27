@@ -564,6 +564,8 @@ export const trailerAttribute = pgTable("trailerAttribute", {
     loading: loadingEnum("loading"),
     extraType: extraTypeEnum("extraType"),
 
+    initial: timestamp("initial", {mode: "date"}),
+
     loading_volume : decimal("loading_volume"),
 
     loading_l : decimal("loading_l"),

@@ -22,7 +22,7 @@ const CautionSearch = () => {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState<number | null>(null);
+    const [currentValue, setCurrentValue] = useState<number | string | null>(null);
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
     const savedParams = useSavedSearchParams((state) => state.searchParams);
 
@@ -80,28 +80,14 @@ const CautionSearch = () => {
                                         <FormControl>
                                             <Input
                                                 type="text"
-                                                {...field}
+                                                value={currentValue}
                                                 name="price"
                                                 className="dark:bg-[#151515] dark:border-none"
                                                 placeholder="Wie hoch darf die Kaution sein?"
-                                                onBlur={(e) => {
-                                                    const rawValue = e.currentTarget.value;
-                                                    const cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-                                                    let formattedValue = parseFloat(cleanedValue).toFixed(2);
-
-                                                    if (isNaN(Number(formattedValue))) {
-                                                        formattedValue = null;
-                                                    }
-
-                                                    e.currentTarget.value = formattedValue;
-                                                    setCurrentValue(Number(formattedValue));
-                                                    field.onChange(formattedValue);
-
-                                                    if (formattedValue) {
-                                                        setCaution(Number(formattedValue));
-                                                    } else {
-                                                        deleteCaution();
-                                                    }
+                                                onChange={(e) => {
+                                                    const newValue = e.target.value.replace(/[^0-9]/g, '');
+                                                    setCurrentValue(newValue); 
+                                                    setCaution(newValue);
                                                 }}
                                             />
                                         </FormControl>

@@ -28,12 +28,14 @@ const PkwTypeSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
-        changeSearchParams("thisType", selectedValue);
+        changeSearchParams("type", selectedValue);
+        setCurrentAge(selectedValue)
         console.log(selectedValue)
     }
 
     const deleteType = () => {
-        deleteSearchParams("thisType")
+        setCurrentAge(null)
+        deleteSearchParams("type")
     }
 
     function removeUnderscore(inputString: string): string {
@@ -50,7 +52,7 @@ const PkwTypeSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteType() : onSubmit(brand)
+                        !brand ? deleteType() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -66,7 +68,7 @@ const PkwTypeSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
 

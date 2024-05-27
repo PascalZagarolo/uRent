@@ -53,7 +53,7 @@ interface MainPageProps {
         license?: string;
 
         //PKW
-        brand?: any;
+        thisBrand?: any;
         doors?: string;
         initial?: string;
         power?: string;
@@ -175,7 +175,7 @@ const Main = cache(async ({
                             reqLicense={searchParams.license}
 
                             // Car specific attributes
-                            thisBrand={searchParams.brand}
+                            thisBrand={searchParams.thisBrand}
                             doors={searchParams.doors}
                             initial={searchParams.initial}
                             power={searchParams.power}

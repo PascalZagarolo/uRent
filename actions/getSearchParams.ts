@@ -30,6 +30,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
 
         //PKW
         brand : searchParams.get("brand"),
+        
         seats : searchParams.get("seats"),
         fuel : searchParams.get("fuel"),
         transmission : searchParams.get("transmission"),

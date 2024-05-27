@@ -65,7 +65,7 @@ export async function PATCH(
 
             const searchedAhk = (typeof(ahk) !== 'undefined' && ahk !== null);
             
-            
+            console.log(thisBrand)
 
             const bSeats = seats ? pInserat?.pkwAttribute?.seats >= seats : true;
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
@@ -79,7 +79,7 @@ export async function PATCH(
             const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
             const bFuel = fuel ? fuel === pInserat?.pkwAttribute?.fuel : true;
             const bInitial = initial ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true;
-            const bBrand = thisBrand ? thisBrand.includes(pInserat?.pkwAttribute?.brand) : true;
+            const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
 
             const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
 

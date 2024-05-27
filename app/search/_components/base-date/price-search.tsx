@@ -89,7 +89,7 @@ const CautionSearch = () => {
 
                 <Input
 
-
+                    value={currentMax}
                     onChange={(e) => {
                         const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
                         setCurrentMax(newValue);

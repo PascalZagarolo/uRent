@@ -274,9 +274,9 @@ export const getInserate = cache(async ({
             
             isValidDate = false;
         }
-
+        
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
-        const bTransmisson = transmission ? transmission === pInserat.transportAttribute.transmission : true;
+        const bTransmission = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
         const bPower = power ? pInserat.transportAttribute.power >= power : true;
         const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
         const bSeats = seats ? seats <= pInserat.transportAttribute.seats : true;
@@ -290,7 +290,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.transportAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.transportAttribute.loading_h : true;
 
-        return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bInitial && bBrand
+        return bLoading && bTransmission && bSeats && bDoors && bFuel && bPower && bInitial && bBrand
             && bExtraType && bVolume && bLength && bBreite && bHeight;
     })
 
@@ -524,8 +524,6 @@ export const getInserate = cache(async ({
             index++;
             
         }
-
-        
 
         return false;
     })

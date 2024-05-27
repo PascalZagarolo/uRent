@@ -29,7 +29,7 @@ export async function PATCH(
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats,
             //PKW
-            thisBrand, power, fuel, transmission, thisType, miles, initial, doors, extraCost, ahk,
+            thisBrand, power, fuel, transmission, thisType, miles, initial, doors, extraCost, ahk, type,
             //TRAILER
             coupling, extraType, axis, brake, trailerType, 
             //TRANSPORT
@@ -75,7 +75,7 @@ export async function PATCH(
             const bWeightClass = weightClass ? pInserat?.pkwAttribute?.weightClass === weightClass : true;
             const bFreeMiles = freeMiles ? pInserat?.pkwAttribute?.freeMiles >= freeMiles : true;
             const bExtraCost = extraCost ? pInserat?.pkwAttribute?.extraCost >= extraCost : true;
-            const bType = thisType ? thisType === pInserat?.pkwAttribute?.type : true;
+            const bType = type ? String(type) === pInserat.pkwAttribute?.type : true;
             const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
             const bFuel = fuel ? fuel === pInserat?.pkwAttribute?.fuel : true;
             const bInitial = initial ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true;

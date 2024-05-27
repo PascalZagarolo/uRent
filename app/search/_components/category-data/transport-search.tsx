@@ -12,6 +12,7 @@ import PkwTypeSearch from "../_pkw/pkw-type-search";
 import TrailerExtraTypeSearch from "../_trailer/trailer-extra-type-search";
 import TrailerWeightClassSearch from "../_trailer/trailer-weight-search";
 import TransportBrandSearch from "../_transport/transport-brand-search";
+import TransportWeightClassSearch from "../_transport/transport-weight-search";
 
 const TransportSearch = () => {
     return (
@@ -43,7 +44,7 @@ const TransportSearch = () => {
 <TransportBrandSearch />
                 </div>
                 <div className="sm:w-1/3">
-                    <TrailerWeightClassSearch />
+                    <TransportWeightClassSearch />
                 </div>
                 <div className="sm:w-1/3">
                     <InitialSearch />

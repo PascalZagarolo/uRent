@@ -418,12 +418,15 @@ export const getInserate = cache(async ({
 
             const startDateAppointments = new Set<any>()
             const endDateAppointments = new Set<any>();
-
+            let isAvailable = true;
             
 
 
             for (const booking of vehicle?.bookings) {
                 //booking starts AND ends before the searched Period
+
+                
+
                 if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
                     //booking starts or ends on the first OR last day of the searched period
                     || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
@@ -445,7 +448,7 @@ export const getInserate = cache(async ({
                         }
                         if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
                             console.log("this")
-                            return false;
+                            isAvailable = false;
                         }
                     } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
                         || isSameDay(booking.startDate, usedPeriodEnd)) {
@@ -465,7 +468,7 @@ export const getInserate = cache(async ({
                         }
                         if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
                             console.log("this")
-                            return false;
+                            isAvailable = false;
                         } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
                             console.log(booking)
 
@@ -475,7 +478,7 @@ export const getInserate = cache(async ({
                     }
                     else if(index === pInserat.vehicles.length) {
                         
-                        return false;
+                        isAvailable = false;
                     }
                 }
                 
@@ -483,7 +486,7 @@ export const getInserate = cache(async ({
 
             if ((startTime || endTime)) {
 
-                if (startTime && index === pInserat.vehicles.length) {
+                if (startTime) {
                     let usedEnd;
                     
                     if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
@@ -494,11 +497,11 @@ export const getInserate = cache(async ({
     
                     for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
                         if (startDateAppointments.has(Number(i))) {
-                            return false;
+                            isAvailable = false;
                         }
                     }
                 }
-                if (endTime && index === pInserat.vehicles.length) {
+                if (endTime) {
                     let usedEnd;
                     if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
                         usedEnd = startTime;
@@ -509,19 +512,22 @@ export const getInserate = cache(async ({
                    
                     for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
                         if (endDateAppointments.has(Number(i))) {
-                            return false;
+                            isAvailable = false;
                         }
                     }
                 }
             }
 
+            if(isAvailable) {
+                return true;
+            }
             index++;
             
         }
 
         
 
-        return true;
+        return false;
     })
 
     try {

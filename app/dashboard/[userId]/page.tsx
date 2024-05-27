@@ -54,7 +54,7 @@ const DashboardPage = async ({
                 }
             })
         //@ts-ignore
-            involvedBookings.push(...bookings);
+            involvedBookings?.push(...bookings);
         }
     }
 

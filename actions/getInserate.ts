@@ -155,12 +155,16 @@ export const getInserate = cache(async ({
 
 
     const ConditionFilter = cache((pInserat: typeof inserat) => {
-        const bAge = reqAge ? reqAge >= pInserat.reqAge : true;
+        const bAge = reqAge ? Number(reqAge) >= Number(pInserat.reqAge) : true;
         const bLicense = reqLicense ? reqLicense === pInserat.license : true;
         const bCaution = caution ? Number(caution) >= Number(pInserat.caution) : true;
 
             if(caution && !pInserat?.caution) {
                 return false
+            }
+
+            if(reqAge && !pInserat?.reqAge) {
+                return false;
             }
 
         return bAge && bLicense && bCaution;

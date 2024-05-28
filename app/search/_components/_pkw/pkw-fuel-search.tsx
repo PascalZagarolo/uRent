@@ -28,11 +28,13 @@ const PkwFuelSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
+        setCurrentAge(selectedValue);
         changeSearchParams("fuel", selectedValue);
         console.log(selectedValue)
     }
 
     const deleteFuel = () => {
+        setCurrentAge(null);
         deleteSearchParams("fuel")
     }
 
@@ -50,7 +52,7 @@ const PkwFuelSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteFuel() : onSubmit(brand)
+                        !brand ? deleteFuel() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -66,7 +68,7 @@ const PkwFuelSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
 

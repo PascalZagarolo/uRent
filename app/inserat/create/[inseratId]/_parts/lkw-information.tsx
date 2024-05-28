@@ -14,12 +14,13 @@ import LkwSizeForm from "./lkw/loading-size";
 import { lkwAttribute } from '../../../../../db/schema';
 import LkwTransmission from "./lkw/lkw-transmission";
 import LkwInitialForm from "./lkw/lkw-initial";
+import LkwFuelForm from "./lkw/lkw-fuel";
 
 
 
 
 interface LkwInformationProps {
-    thisInserat : typeof inserat.$inferSelect;
+    thisInserat: typeof inserat.$inferSelect;
 
 }
 
@@ -30,13 +31,13 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
         <div className="mt-4">
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8">
                 <div className="sm:w-1/2 w-full">
-                    <WeightClassForm 
-                    thisWeightClass={thisInserat?.lkwAttribute?.weightClass}
+                    <WeightClassForm
+                        thisWeightClass={thisInserat?.lkwAttribute?.weightClass}
                     />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                    <LkwAxis 
-                    thisAxis={thisInserat?.lkwAttribute?.axis}
+                    <LkwAxis
+                        thisAxis={thisInserat?.lkwAttribute?.axis}
                     />
                 </div>
             </div>
@@ -46,12 +47,12 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
                     <LkwBrandForm
-                    thisBrand={thisInserat?.lkwAttribute?.lkwBrand}
+                        thisBrand={thisInserat?.lkwAttribute?.lkwBrand}
                     />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                <Seats
-                    thisSeats={thisInserat?.lkwAttribute?.seats}
+                    <Seats
+                        thisSeats={thisInserat?.lkwAttribute?.seats}
                     />
                 </div>
             </div>
@@ -60,59 +61,62 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
 
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
-                    <LkwTransmission 
-                    thisTransmission={thisInserat?.lkwAttribute?.transmission}
+                    <LkwTransmission
+                        thisTransmission={thisInserat?.lkwAttribute?.transmission}
                     />
-                   
+
                 </div>
                 <div className="sm:w-1/2 w-full">
-                    
-                    <DriveForm 
-                    thisDrive={thisInserat?.lkwAttribute?.drive}
+
+                    <DriveForm
+                        thisDrive={thisInserat?.lkwAttribute?.drive}
                     />
                 </div>
             </div>
 
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
-                <LoadingForm 
-                   thisLoading={thisInserat?.lkwAttribute?.loading}
-                   />
-                   
+                    <LkwFuelForm 
+                    thisFuel={thisInserat?.lkwAttribute?.fuel}
+                    />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                    
+                    <LoadingForm
+                        thisLoading={thisInserat?.lkwAttribute?.loading}
+                    />
+
                 </div>
+
             </div>
 
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
-                   <LkwPowerForm 
-                   thisPower={thisInserat?.lkwAttribute?.power}
-                   />
+                    <LkwPowerForm
+                        thisPower={thisInserat?.lkwAttribute?.power}
+                    />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                   <LkwInitialForm 
-                   thisInitial={thisInserat?.lkwAttribute?.initial}
-                   />
+                    <LkwInitialForm
+                        thisInitial={thisInserat?.lkwAttribute?.initial}
+                    />
                 </div>
             </div>
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
-                   <LkwLoadingVolumeForm 
-                   thisVolume={thisInserat?.lkwAttribute?.loading_volume}
-                   />
+                    <LkwLoadingVolumeForm
+                        thisVolume={thisInserat?.lkwAttribute?.loading_volume}
+                    />
                 </div>
                 <div className="sm:w-1/2 w-full">
-                   <LkwSizeForm 
-                   thisHeight={thisInserat?.lkwAttribute?.loading_h}
-                   thisWidth={thisInserat?.lkwAttribute?.loading_b}
-                   thisLength={thisInserat?.lkwAttribute?.loading_l}
-                   />
+                    <LkwSizeForm
+                        thisHeight={thisInserat?.lkwAttribute?.loading_h}
+                        thisWidth={thisInserat?.lkwAttribute?.loading_b}
+                        thisLength={thisInserat?.lkwAttribute?.loading_l}
+                    />
                 </div>
             </div>
-            
-            
+
+
         </div>
     );
 }

@@ -132,13 +132,14 @@ export async function PATCH(
             const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
             const bPower = power ? pInserat?.lkwAttribute?.power >= power : true;
             const bInitial = initial ? usedInitial <= pInserat?.lkwAttribute?.initial?.getTime() : true;
+            const bFuel = fuel ? fuel === pInserat?.lkwAttribute?.fuel : true;
 
             const bVolume = volume ? volume <= pInserat?.lkwAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.lkwAttribute?.loading_l : true;
             const bBreite = loading_b ? loading_b <= pInserat?.lkwAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.lkwAttribute?.loading_h : true;
 
-            return bSeats && bWeightClass && bDrive && bLoading && bApplication && bTransmission && bInitial
+            return bSeats && bWeightClass && bDrive && bLoading && bApplication && bTransmission && bInitial && bFuel
                 && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight && bPower;
         }
 

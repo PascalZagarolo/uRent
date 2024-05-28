@@ -53,7 +53,7 @@ const PkwTransmissionSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteTransmission() : onSubmit(brand)
+                        !brand ? deleteTransmission() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -69,7 +69,7 @@ const PkwTransmissionSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
 

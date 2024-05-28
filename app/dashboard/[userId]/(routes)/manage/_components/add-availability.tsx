@@ -370,7 +370,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={isLoading || !currentInserat || !currentStart || !currentEnd}
+                                        disabled={isLoading || !currentInserat || !currentStart || !currentEnd || 
+                                            !startTime || !endTime}
                                         type="submit"
                                     >
                                         Verfügbarkeit anpassen</Button>

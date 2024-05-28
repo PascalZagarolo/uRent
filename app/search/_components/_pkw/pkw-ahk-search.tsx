@@ -15,8 +15,12 @@ import { useSavedSearchParams } from "@/store";
 
 
 const PkwAhkSearch = () => {
+
+    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
     const brake = useSearchParams().get("ahk");
-    const [currentBrand, setCurrentBrand] = useState(brake);
+    const [currentBrand, setCurrentBrand] = useState((typeof(currentObject['ahk']) !== 'undefined' && currentObject['ahk'] !== null) 
+    ? currentObject['ahk'] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const params = getSearchParamsFunction("ahk")
@@ -31,16 +35,13 @@ const PkwAhkSearch = () => {
         if(typeof(brake) !== 'undefined' && brake !== null) {
           changeSearchParams("ahk", brake);
           setCurrentBrand(brake);
-        } else {
-            deleteSearchParams("ahk");
-            setCurrentBrand(null)
         }
       }, [])
 
       
   
       
-      const currentObject = useSavedSearchParams((state) => state.searchParams)
+      
   
       const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
   
@@ -51,6 +52,7 @@ const PkwAhkSearch = () => {
           setCurrentBrand(null);
          } else {
            //@ts-ignore
+           console.log("test")
            changeSearchParams("ahk", brake);
            setCurrentBrand(brake);
          }
@@ -80,6 +82,7 @@ const PkwAhkSearch = () => {
 
                     <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
                         disabled={isLoading}
+                        value={currentBrand ? currentBrand : null}
 
                     >
                         <SelectValue

@@ -157,7 +157,7 @@ export async function PATCH(
             const bLoading = loading ? loading === pInserat?.trailerAttribute?.loading : true;
             const bAxis = axis ? axis === pInserat?.trailerAttribute?.axis : true;
             const bWeightClass = weightClass ? Number(pInserat?.trailerAttribute?.weightClass) <= Number(weightClass) : true;
-            const bBrake = brake ? brake === pInserat?.trailerAttribute?.brake : true;
+            const bBrake = brake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
             const bInitial = initial ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true;
 
             const bVolume = volume ? volume <= pInserat?.trailerAttribute?.loading_volume : true;

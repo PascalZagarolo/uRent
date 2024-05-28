@@ -12,6 +12,7 @@ import axios from "axios";
 import { isSameDay } from "date-fns";
 import { and, eq, gte, ilike, lte } from "drizzle-orm";
 import { cache, use } from "react";
+import { object } from "zod";
 
 
 
@@ -259,13 +260,16 @@ export const getInserate = cache(async ({
             isValidDate = false;
         }
 
+        
+        const usesBrake = (brake !== undefined && typeof brake !== "object");
+        
         const bType = trailerType ? trailerType === pInserat.trailerAttribute?.type : true;
         const bExtraType = extraType ? extraType === pInserat.trailerAttribute?.extraType : true;
         const bCoupling = coupling ? coupling === pInserat.trailerAttribute?.coupling : true;
         const bLoading = loading ? loading === pInserat.trailerAttribute?.loading : true;
         const bAxis = axis ? axis === pInserat.trailerAttribute?.axis : true;
         const bWeightClass = weightClass ? weightClass === pInserat.trailerAttribute?.weightClass : true;
-        const bBrake = brake ? brake === pInserat.trailerAttribute?.brake : true;
+        const bBrake = usesBrake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true
 
         const bVolume = volume ? volume <= pInserat.trailerAttribute?.loading_volume : true;

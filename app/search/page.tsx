@@ -17,6 +17,7 @@ import { notification } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import MobileHeader from "../(dashboard)/_components/mobile-header";
 import TimespanSearchRender from "./_components/timespan-search-render";
+import ResetFields from "./_components/reset-fields";
 
 const SearchPage = async () => {
 
@@ -52,7 +53,15 @@ const SearchPage = async () => {
 
                         <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-md sm:text-2xl font-semibold flex items-center gap-x-2">
-                                <MagnifyingGlassIcon className="mr-4 h-6 w-6" /> <p className="sm:block hidden">Erweiterte</p> Detail-Suche 
+                                <div >
+                                <div className="flex items-center gap-x-2">
+                                <MagnifyingGlassIcon className="mr-4 h-6 w-6" /> <p className="sm:block hidden">
+                                    Erweiterte </p> Detail-Suche
+                                </div>
+                                <div>
+                                    <ResetFields />
+                                </div> 
+                                </div>
                                 <div className="ml-auto">
                                 <ResultsSearchPage 
                                    

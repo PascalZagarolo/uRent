@@ -29,11 +29,13 @@ const PkwTransmissionSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
+        setCurrentAge(selectedValue);
         changeSearchParams("transmission", selectedValue);
         console.log(selectedValue)
     }
 
     const deleteTransmission = () => {
+        setCurrentAge(null)
         deleteSearchParams("transmission")
     }
 

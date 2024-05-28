@@ -191,15 +191,15 @@ export const getInserate = cache(async ({
 
         const bSeats = seats ? pInserat.pkwAttribute?.seats >= seats : true;
         
-        const bDoors = doors ? pInserat.pkwAttribute.doors >= doors : true;
-        const bExtraType = extraType ? extraType === pInserat.pkwAttribute.extraType : true;
-        const bLoading = loading ? loading === pInserat.pkwAttribute.loading : true;
-        const bWeightClass = weightClass ? pInserat.pkwAttribute.weightClass === weightClass : true;
-        const bFreeMiles = freeMiles ? pInserat.pkwAttribute.freeMiles >= freeMiles : true;
-        const bExtraCost = extraCost ? pInserat.pkwAttribute.extraCost >= extraCost : true;
+        const bDoors = doors ? pInserat.pkwAttribute?.doors >= doors : true;
+        const bExtraType = extraType ? extraType === pInserat.pkwAttribute?.extraType : true;
+        const bLoading = loading ? loading === pInserat.pkwAttribute?.loading : true;
+        const bWeightClass = weightClass ? pInserat.pkwAttribute?.weightClass === weightClass : true;
+        const bFreeMiles = freeMiles ? pInserat.pkwAttribute?.freeMiles >= freeMiles : true;
+        const bExtraCost = extraCost ? pInserat.pkwAttribute?.extraCost >= extraCost : true;
         const bType = thisType ? String(thisType) === pInserat.pkwAttribute?.type : true;
         const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
-        const bFuel = fuel ? fuel === pInserat.pkwAttribute.fuel : true;
+        const bFuel = fuel ? fuel === pInserat.pkwAttribute?.fuel : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true
         const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
         const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;

@@ -20,7 +20,7 @@ const PkwBrandSearch = () => {
 
   const currentObject : any = useSavedSearchParams((state) => state.searchParams)
 
-  const [currentAge, setCurrentAge] = useState(currentObject["thisBrand"] || "");
+  const [currentAge, setCurrentAge] = useState(currentObject["thisBrand"] ? currentObject["thisBrand"] : null);
   const [isLoading, setIsLoading] = useState(false);
 
   const thisSearchParams = useSearchParams();

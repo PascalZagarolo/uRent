@@ -50,7 +50,18 @@ const TrailerSearch = () => {
                     <TrailerBrakeSearch />
                 </div>
                 <div className="sm:w-1/3">
-                <InitialSearch/>
+                
+                </div>
+                <div className="sm:w-1/3">
+
+                </div>
+            </div>
+            <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0 mt-4">
+                <div className="sm:w-1/3">
+                <InitialSearch />
+                </div>
+                <div className="sm:w-1/3">
+                
                 </div>
                 <div className="sm:w-1/3">
 

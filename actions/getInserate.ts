@@ -254,7 +254,7 @@ export const getInserate = cache(async ({
         const bWeightClass = weightClass ? weightClass === pInserat.trailerAttribute.weightClass : true;
         const bBrake = brake ? brake === pInserat.trailerAttribute.brake : true;
 
-        const bVolume = volume ? volume <= pInserat.trailerAttribute.loading_volume : true;
+        const bVolume = volume ? volume <= pInserat.trailerAttribute?.loading_volume : true;
         const bLength = loading_l ? loading_l <= pInserat.trailerAttribute.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.trailerAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.trailerAttribute.loading_h : true;
@@ -287,7 +287,7 @@ export const getInserate = cache(async ({
         const bInitial = isValidDate ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true;
         const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true
 
-        const bVolume = volume ? volume <= pInserat.transportAttribute.loading_volume : true;
+        const bVolume = volume ? volume <= pInserat?.transportAttribute?.loading_volume : true;
         const bLength = loading_l ? loading_l <= pInserat.transportAttribute.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.transportAttribute.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.transportAttribute.loading_h : true;

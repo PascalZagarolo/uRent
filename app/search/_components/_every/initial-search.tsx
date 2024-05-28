@@ -25,7 +25,7 @@ import { getYear } from "date-fns";
 const InitialSearch = () => {
     const currentObject : any = useSavedSearchParams((state) => state.searchParams)
 
-    const [currentYear, setCurrentYear] = useState(currentObject["initial"] ? getYear(new Date(currentObject["initial"])) : undefined);
+    const [currentYear, setCurrentYear] = useState<any>(currentObject["initial"] ? getYear(new Date(currentObject["initial"])) : undefined);
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
 
@@ -49,14 +49,12 @@ const InitialSearch = () => {
     },[currentYear])
 
     useEffect(() => {
-        if(existingYear) {
-            changeSearchParams("initial", existingYear)
-            const usedDate = new Date(existingYear);
+        if(existingYear || currentObject["initial"]) {
+            changeSearchParams("initial", currentObject["initial"])
+            const usedDate = new Date(currentObject["initial"]);
             const resolvedYear = String(getYear(usedDate));
             console.log(resolvedYear);
             setCurrentYear(Number(resolvedYear))
-        } else {
-            deleteSearchParams("initial");
         }
     },[])
     

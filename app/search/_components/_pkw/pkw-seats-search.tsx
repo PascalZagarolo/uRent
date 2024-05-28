@@ -17,9 +17,10 @@ import toast from "react-hot-toast";
 
 const PkwSeatsSearch = () => {
 
-    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
 
     const [currentAge, setCurrentAge] = useState(currentObject["seats"]);
+    const [currentEnd, setCurrentEnd] = useState(currentObject["seatsMax"]);
     const [isLoading, setIsLoading] = useState(false);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -31,12 +32,25 @@ const PkwSeatsSearch = () => {
     const onSubmit = (selectedValue: string) => {
         setCurrentAge(selectedValue);
         changeSearchParams("seats", selectedValue);
-        
+
     }
+
+    const onSubmitEnd = (selectedValue: string) => {
+        setCurrentEnd(selectedValue);
+        changeSearchParams("seatsMax", selectedValue);
+
+    }
+
+
 
     const deleteSeats = () => {
         setCurrentAge(null);
         deleteSearchParams("seats")
+    }
+
+    const deleteSeatsEnd = () => {
+        setCurrentEnd(null);
+        deleteSearchParams("seatsMax")
     }
 
     function removeUnderscore(inputString: string): string {
@@ -51,36 +65,73 @@ const PkwSeatsSearch = () => {
                     <p className="ml-2 font-semibold"> Sitze </p>
                 </Label>
 
-                <Select
-                    onValueChange={(brand) => {
-                        !brand  ? deleteSeats() : onSubmit(brand)
-                    }}
-                    value={currentAge}
-                    disabled={isLoading}
-                >
+                <div className="w-full flex items-center gap-x-2">
+                <div className="w-1/2">
+                    <Select
+                        onValueChange={(brand) => {
+                            !brand ? deleteSeats() : onSubmit(brand)
+                        }}
+                        value={currentAge}
+                        disabled={isLoading}
+                    >
 
-                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                        disabled={isLoading}  >
-                        <SelectValue
-                            placeholder="Wie viele Sitze?"
+                        <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                            disabled={isLoading}  >
+                            <SelectValue
+                                placeholder="Von"
 
 
-                        />
-                    </SelectTrigger>
+                            />
+                        </SelectTrigger>
 
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value={null} className="font-semibold">
-                            Beliebig
-                        </SelectItem>
-                        <SelectItem value="1">1</SelectItem>
-                        <SelectItem value="2">2</SelectItem>
-                        <SelectItem value="3">3</SelectItem>
-                        <SelectItem value="4">4</SelectItem>
-                        <SelectItem value="5">5</SelectItem>
-                        <SelectItem value="6">6</SelectItem>
-                        <SelectItem value="7">7</SelectItem>
-                    </SelectContent>
-                </Select>
+                        <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                            <SelectItem key="beliebig" value={null} className="font-semibold">
+                                Beliebig
+                            </SelectItem>
+                            <SelectItem value="1">1</SelectItem>
+                            <SelectItem value="2">2</SelectItem>
+                            <SelectItem value="3">3</SelectItem>
+                            <SelectItem value="4">4</SelectItem>
+                            <SelectItem value="5">5</SelectItem>
+                            <SelectItem value="6">6</SelectItem>
+                            <SelectItem value="7">7</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="w-1/2">
+                    <Select
+                        onValueChange={(brand) => {
+                            !brand ? deleteSeatsEnd() : onSubmitEnd(brand)
+                        }}
+                        value={currentEnd}
+                        disabled={isLoading}
+                    >
+
+                        <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                            disabled={isLoading}  >
+                            <SelectValue
+                                placeholder="Bis"
+
+
+                            />
+                        </SelectTrigger>
+
+                        <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                            <SelectItem key="beliebig" value={null} className="font-semibold">
+                                Beliebig
+                            </SelectItem>
+                            <SelectItem value="1">1</SelectItem>
+                            <SelectItem value="2">2</SelectItem>
+                            <SelectItem value="3">3</SelectItem>
+                            <SelectItem value="4">4</SelectItem>
+                            <SelectItem value="5">5</SelectItem>
+                            <SelectItem value="6">6</SelectItem>
+                            <SelectItem value="7">7</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                </div>
             </div>
         </div>
     );

@@ -30,11 +30,13 @@ const PkwDoorsSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
+        setCurrentAge(selectedValue);
         changeSearchParams("doors", selectedValue);
         console.log(selectedValue)
     }
 
     const deleteDoors = () => {
+        setCurrentAge(null);
         deleteSearchParams("doors")
     }
 
@@ -52,7 +54,7 @@ const PkwDoorsSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteDoors() : onSubmit(brand)
+                        !brand ? deleteDoors() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -68,7 +70,7 @@ const PkwDoorsSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="2">2/3</SelectItem>

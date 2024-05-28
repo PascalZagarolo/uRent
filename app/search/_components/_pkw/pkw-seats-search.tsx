@@ -29,11 +29,13 @@ const PkwSeatsSearch = () => {
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
+        setCurrentAge(selectedValue);
         changeSearchParams("seats", selectedValue);
         
     }
 
     const deleteSeats = () => {
+        setCurrentAge(null);
         deleteSearchParams("seats")
     }
 
@@ -51,7 +53,7 @@ const PkwSeatsSearch = () => {
 
                 <Select
                     onValueChange={(brand) => {
-                        brand === "BELIEBIG" ? deleteSeats() : onSubmit(brand)
+                        !brand  ? deleteSeats() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -67,7 +69,7 @@ const PkwSeatsSearch = () => {
                     </SelectTrigger>
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value="BELIEBIG" className="font-semibold">
+                        <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="1">1</SelectItem>

@@ -11,11 +11,11 @@ const ResetFields = () => {
     const usedLink = process.env.NEXT_PUBLIC_BASE_URL + "/search";
 
     return (
-        <Button variant="ghost" size="sm">
-            <a href={usedLink} className="flex items-center ">
+        
+            <a href={usedLink} className="flex items-center text-xs mt-2 hover:underline hover:cursor-pointer">
                <FaDeleteLeft className="w-4 h-4 mr-2 text-rose-600" /> Filter zurücksetzen
             </a>
-        </Button>
+        
     );
 }
 

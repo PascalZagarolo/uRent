@@ -18,6 +18,7 @@ import { eq } from "drizzle-orm";
 import MobileHeader from "../(dashboard)/_components/mobile-header";
 import TimespanSearchRender from "./_components/timespan-search-render";
 import ResetFields from "./_components/reset-fields";
+import BackToHome from "./_components/back-to-home";
 
 const SearchPage = async () => {
 
@@ -50,8 +51,10 @@ const SearchPage = async () => {
                 <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
 
-
-                        <div className="p-4 mt-4  rounded-lg ">
+                        <div className="px-4 pt-4">
+                            <BackToHome />
+                        </div>
+                        <div className="p-4   rounded-lg ">
                             <h3 className="dark:text-gray-100 text-md sm:text-2xl font-semibold flex items-center gap-x-2">
                                 <div >
                                 <div className="flex items-center gap-x-2">

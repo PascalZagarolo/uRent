@@ -27,7 +27,7 @@ export async function PATCH(
 
         const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice, end, start, begin,
             //LKW
-            lkwBrand, application, loading, drive, weightClass, seats,
+            lkwBrand, application, loading, drive, weightClass, seats, seatsMax,
             //PKW
             thisBrand, power, fuel, transmission, thisType, miles, initial, doors, extraCost, ahk, type,
             //TRAILER
@@ -75,9 +75,14 @@ export async function PATCH(
 
             const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
 
+            const searchedSeats = seats || seatsMax ? true : false;
+            const startingIndex = seats ? seats : 0;
+            const endingIndex = seatsMax ? seatsMax : 10;
+            
 
 
-            const bSeats = seats ? pInserat?.pkwAttribute?.seats >= seats : true;
+            const bSeats = searchedSeats ? pInserat?.pkwAttribute?.seats >= startingIndex && 
+            pInserat?.pkwAttribute?.seats <= endingIndex : true;
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
             const bDoors = doors ? pInserat?.pkwAttribute?.doors >= doors : true;
             const bExtraType = extraType ? extraType === pInserat?.pkwAttribute?.extraType : true;

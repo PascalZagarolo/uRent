@@ -33,6 +33,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         thisBrand : searchParams.get("thisBrand"),
         
         seats : searchParams.get("seats"),
+        seatsMax : searchParams.get("seatsMax"),
         fuel : searchParams.get("fuel"),
         transmission : searchParams.get("transmission"),
         type : searchParams.get("type"),

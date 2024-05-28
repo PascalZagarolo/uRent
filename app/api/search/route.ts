@@ -31,7 +31,7 @@ export async function PATCH(
             //PKW
             thisBrand, power, fuel, transmission, thisType, miles, initial, doors, extraCost, ahk, type,
             //TRAILER
-            coupling, extraType, axis, brake, trailerType, 
+            coupling, extraType, axis, brake, trailerType,
             //TRANSPORT
             transportBrand,
 
@@ -48,11 +48,11 @@ export async function PATCH(
             const bLicense = license ? license === pInserat.license : true;
             const bCaution = caution ? Number(caution) >= Number(pInserat.caution) : true;
 
-            if(caution && !pInserat?.caution) {
+            if (caution && !pInserat?.caution) {
                 return false
             }
 
-            if(reqAge && !pInserat?.reqAge) {
+            if (reqAge && !pInserat?.reqAge) {
                 return false;
             }
 
@@ -61,11 +61,21 @@ export async function PATCH(
 
         const PkwFilter = (pInserat: typeof inserat) => {
 
-            const usedInitial = new Date(initial);
+            const usedInitial = initial ? new Date(initial) : null;
 
-            const searchedAhk = (typeof(ahk) !== 'undefined' && ahk !== null);
-            
-            
+            let isValidDate;
+
+            if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
+
+                isValidDate = true;
+            } else {
+
+                isValidDate = false;
+            }
+
+            const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
+
+
 
             const bSeats = seats ? pInserat?.pkwAttribute?.seats >= seats : true;
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
@@ -90,12 +100,27 @@ export async function PATCH(
 
 
 
-            return bSeats && bPower && bDoors && bFreeMiles && bInitial && bAhk && 
+            return bSeats && bPower && bDoors && bFreeMiles && bInitial && bAhk &&
                 bExtraCost && bType && bTransmission && bFuel && bBrand &&
                 bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
         }
 
         const LkwFilter = (pInserat: typeof inserat) => {
+
+            const usedInitial = initial ? new Date(initial) : null;
+
+            let isValidDate;
+
+            if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
+
+                isValidDate = true;
+            } else {
+
+                isValidDate = false;
+            }
+
+            
+
 
             const bSeats = seats ? pInserat?.lkwAttribute?.seats >= seats : true;
             const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
@@ -106,17 +131,25 @@ export async function PATCH(
             const bTransmission = transmission ? transmission === pInserat?.lkwAttribute?.transmission : true;
             const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
             const bPower = power ? pInserat?.lkwAttribute?.power >= power : true;
+            const bInitial = initial ? usedInitial <= pInserat?.lkwAttribute?.initial?.getTime() : true;
 
             const bVolume = volume ? volume <= pInserat?.lkwAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.lkwAttribute?.loading_l : true;
             const bBreite = loading_b ? loading_b <= pInserat?.lkwAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.lkwAttribute?.loading_h : true;
 
-            return bSeats && bWeightClass && bDrive && bLoading && bApplication && bTransmission
+            return bSeats && bWeightClass && bDrive && bLoading && bApplication && bTransmission && bInitial
                 && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight && bPower;
         }
 
         const TrailerFilter = (pInserat: typeof inserat) => {
+
+            const usedInitial = initial ? new Date(initial) : null;
+
+            
+
+            
+
             const bType = trailerType ? trailerType === pInserat?.trailerAttribute?.type : true;
             const bExtraType = extraType ? extraType === pInserat?.trailerAttribute?.extraType : true;
 
@@ -125,17 +158,31 @@ export async function PATCH(
             const bAxis = axis ? axis === pInserat?.trailerAttribute?.axis : true;
             const bWeightClass = weightClass ? Number(pInserat?.trailerAttribute?.weightClass) <= Number(weightClass) : true;
             const bBrake = brake ? brake === pInserat?.trailerAttribute?.brake : true;
+            const bInitial = initial ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true;
 
             const bVolume = volume ? volume <= pInserat?.trailerAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.trailerAttribute?.loading_l : true;
             const bBreite = loading_b ? loading_b <= pInserat?.trailerAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.trailerAttribute?.loading_h : true;
 
-            return bType && bExtraType && bCoupling && bLoading && bAxis
+            return bType && bExtraType && bCoupling && bLoading && bAxis && bInitial
                 && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight;
         }
 
         const TransportFilter = (pInserat: typeof inserat) => {
+
+            const usedInitial = initial ? new Date(initial) : null;
+
+            let isValidDate;
+
+            if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
+
+                isValidDate = true;
+            } else {
+
+                isValidDate = false;
+            }
+
             const bLoading = loading ? loading === pInserat?.transportAttribute?.loading : true;
             const bTransmisson = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
             const bPower = power ? pInserat?.transportAttribute?.power >= power : true;
@@ -145,13 +192,14 @@ export async function PATCH(
             const bDoors = doors ? doors === pInserat?.transportAttribute?.doors : true;
             const bFuel = fuel ? fuel === pInserat?.transportAttribute?.fuel : true;
             const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true
+            const bInitial = initial ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true;
 
             const bVolume = volume ? volume <= pInserat?.transportAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.transportAttribute?.loading_l : true;
             const bBreite = loading_b ? loading_b <= pInserat?.transportAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.transportAttribute?.loading_h : true;
 
-            return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bWeightClass && bBrand
+            return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bWeightClass && bBrand && bInitial
                 && bExtraType && bVolume && bLength && bBreite && bHeight;
         }
 
@@ -219,7 +267,7 @@ export async function PATCH(
 
                     }
                     else {
-                        
+
                         return false;
                     }
                 }
@@ -271,19 +319,19 @@ export async function PATCH(
                 return true;
             }
             //set start and date to same date if the user only provides one
-    
+
             const usedPeriodBegin = new Date(periodBegin);
             const usedPeriodEnd = new Date(periodEnd);
-            
-            
+
+
             let index = 1;
-    
+
             for (const vehicle of pInserat?.vehicles) {
                 const startDateAppointments = new Set<any>()
                 const endDateAppointments = new Set<any>();
                 console.log("....")
                 let isAvailable = true;
-                
+
                 for (const booking of vehicle?.bookings) {
                     //booking starts AND ends before the searched Period
                     if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
@@ -300,9 +348,9 @@ export async function PATCH(
                             } else {
                                 usedStart = "0"
                             }
-    
+
                             for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
-    
+
                                 startDateAppointments.add(i);
                             }
                             if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
@@ -311,18 +359,18 @@ export async function PATCH(
                             }
                         } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
                             || isSameDay(booking.startDate, usedPeriodEnd)) {
-    
+
                             let usedEnd;
-    
+
                             if (isSameDay(booking.startDate, booking.endDate)) {
                                 usedEnd = booking.endPeriod;
                             } else {
-    
+
                                 usedEnd = "1440";
                             }
-    
+
                             for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
-    
+
                                 endDateAppointments.add(i);
                             }
                             if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
@@ -330,30 +378,30 @@ export async function PATCH(
                                 return false;
                             } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
                                 console.log(booking)
-    
+
                             }
                         } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
-    
+
                         }
-                        else if(index === pInserat.vehicles.length) {
+                        else if (index === pInserat.vehicles.length) {
                             console.log("this")
                             isAvailable = false;
                         }
                     }
-                    
+
                 }
-    
+
                 if ((startTime || endTime)) {
-    
+
                     if (startTime) {
                         let usedEnd;
-                        
+
                         if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
                             usedEnd = endTime;
                         } else {
                             usedEnd = "1440";
                         }
-        
+
                         for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
                             if (startDateAppointments.has(Number(i))) {
                                 console.log("...")
@@ -368,8 +416,8 @@ export async function PATCH(
                         } else {
                             usedEnd = "0";
                         }
-        
-                       
+
+
                         for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
                             if (endDateAppointments.has(Number(i))) {
                                 isAvailable = false;
@@ -377,19 +425,19 @@ export async function PATCH(
                         }
                     }
                 }
-    
 
-                if(isAvailable) {
+
+                if (isAvailable) {
                     return true;
                 }
 
                 index++;
-                
+
             }
-    
-            
-    
-           return false;
+
+
+
+            return false;
         })
 
 
@@ -415,9 +463,9 @@ export async function PATCH(
                 trailerAttribute: true,
                 transportAttribute: true,
                 bookings: true,
-                vehicles : {
-                    with : {
-                        bookings : true
+                vehicles: {
+                    with: {
+                        bookings: true
                     }
                 }
             }

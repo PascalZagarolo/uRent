@@ -66,15 +66,10 @@ const SearchItem = () => {
 
     useEffect(() => {
         if(currentTitle) {
-           
           changeSearchParams("title", currentTitle);
-          
         }
 
-        if(!currentTitle) {
-            deleteSearchParams("title");
-            setValue("");
-        }
+        
       }, [])
 
       useEffect(() => {
@@ -89,11 +84,7 @@ const SearchItem = () => {
         
       },[value])
 
-      useEffect(() => {
-        if(!currentTitle){
-            setValue(null)
-        }
-      },[usedSearchParams])
+      
 
 
     const onSearch = () => {

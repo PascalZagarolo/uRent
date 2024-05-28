@@ -6,11 +6,13 @@ import { MdOutlineTitle } from "react-icons/md";
 
 const TitleSearch = () => {
 
-    const [value, setValue] = useState("");
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const [value, setValue] = useState(currentObject["title"] ? currentObject["title"] : null);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
+    
 
     const debouncedValue = useDebounce(value, 500)
 

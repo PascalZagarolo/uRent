@@ -16,8 +16,11 @@ import { LkwBrandEnumRender, TransportBrandEnumRender } from "@/db/schema";
 
 
 const TransportBrandSearch = () => {
+
+  const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+
     const brand = useSearchParams().get("transportBrand");
-    const [currentBrand, setCurrentBrand] = useState(brand);
+    const [currentBrand, setCurrentBrand] = useState(currentObject["transportBrand"] ? currentObject["transportBrand"] : null);
     const [isLoading, setIsLoading] = useState(false);
 
     const params = getSearchParamsFunction("transportBrand")
@@ -38,7 +41,7 @@ const TransportBrandSearch = () => {
     
 
     
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
+    
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 

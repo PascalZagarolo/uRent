@@ -47,7 +47,7 @@ const TrailerBrakeSearch = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Auflaufbremse </p>
+                    <p className="ml-2 font-semibold"> Bremsvorrichtung </p>
                 </Label>
 
                 <Select

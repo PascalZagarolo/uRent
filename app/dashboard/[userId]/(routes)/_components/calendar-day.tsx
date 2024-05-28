@@ -122,7 +122,12 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                     <PopoverContent className="dark:bg-[#1C1C1C] border-none">
                       <>
                         {pBooking.isAvailability ? (
-                          <div className="text-xs flex justify-start">
+                          <div className="text-xs">
+                            <h1 className="flex w-full items-center py-1 justify-end gap-x-4">
+                            <DeleteBooking
+                                bookingId={pBooking.id}
+                              />
+                            </h1>
                             <div>
                               <div className="flex justify-start text-sm font-semibold">
                                 <X className="w-4 h-4 mr-2" />{format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}

@@ -88,7 +88,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     })
 
 
-    const onSubmit = (value: z.infer<typeof formSchema>) => {
+    const onSubmit = async (value: z.infer<typeof formSchema>) => {
         try {
             
             setIsLoading(true);
@@ -104,15 +104,22 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 vehicleId: currentVehicle,
                 isAvailability : true,
             }
-            axios.post(`/api/booking/${currentInserat.id}`, values);
+            axios.post(`/api/booking/${currentInserat.id}`, values)
+                .then(() => {
+                    router.refresh();
+                    setCurrentStart(new Date());
+                    setCurrentEnd(new Date());
+                    setCurrentInserat(null);
+                    setCurrentVehicle(null);
+                    setStartTime("");
+                    setEndTime("");
+                })
             toast.success("Buchung hinzugefügt");
 
         } catch (err) {
             toast.error("Fehler beim hinzufügen der Buchung", err)
         } finally {
-            setTimeout(() => {
-                router.refresh();
-            }, 1000)
+            
             setIsLoading(false);
         }
     }

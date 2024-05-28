@@ -55,6 +55,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
     foundInserate
 }) => {
 
+
+
     const [currentStart, setCurrentStart] = useState(new Date());
     const [currentEnd, setCurrentEnd] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
@@ -112,30 +114,37 @@ const AddBooking: React.FC<AddBookingProps> = ({
             setIsLoading(true);
 
             const usedStart = new Date(currentStart);
-            const usedEnd   = new Date(currentEnd);
+            const usedEnd = new Date(currentEnd);
 
             const values = {
                 content: value.content ? value.content : "",
-                
+
                 //Days
                 start: usedStart,
                 end: usedEnd,
 
                 //Hours
-                startPeriod : currentStartTime,
-                endPeriod : currentEndTime,
+                startPeriod: currentStartTime,
+                endPeriod: currentEndTime,
 
 
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
                 name: currentName,
-                
+
 
             }
             axios.post(`/api/booking/${currentInserat}`, values)
                 .then(() => {
                     router.refresh();
                     form.reset();
+                    setCurrentStart(new Date());
+                    setCurrentEnd(new Date());
+                    setCurrentInserat(null);
+                    setCurrentVehicle(null);
+                    setCurrentName(null);
+                    setCurrentStartTime("");
+                    setCurrentEndTime("");
                 })
             toast.success("Buchung hinzugefügt");
 
@@ -151,10 +160,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
     }
 
     useEffect(() => {
-        if(currentStart > currentEnd){
-          setCurrentEnd(currentStart)
+        if (currentStart > currentEnd) {
+            setCurrentEnd(currentStart)
         }
-      },[currentEnd, currentStart])
+    }, [currentEnd, currentStart])
 
 
     return (
@@ -270,7 +279,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {currentStart ? (
-                                                                    format(currentStart, "PPP", { locale : de})
+                                                                    format(currentStart, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
@@ -287,7 +296,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                             onSelect={(date) => {
                                                                 field.onChange(date);
                                                                 setCurrentStart(date);
-                                                                
+
                                                             }}
                                                             disabled={(date) =>
                                                                 date < new Date() || date < new Date("1900-01-01")
@@ -319,7 +328,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {currentEnd ? (
-                                                                    format(currentEnd, "PPP", { locale : de})
+                                                                    format(currentEnd, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
@@ -351,13 +360,13 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
                                 </div>
-                                
+
                                 <div className="">
-                                                <SelectTimeRange
-                                                isSameDay={isSameDay(currentStart, currentEnd) || false}
-                                                setStartTimeParent={setCurrentStartTime}
-                                                setEndTimeParent={setCurrentEndTime}
-                                                />
+                                    <SelectTimeRange
+                                        isSameDay={isSameDay(currentStart, currentEnd) || false}
+                                        setStartTimeParent={setCurrentStartTime}
+                                        setEndTimeParent={setCurrentEndTime}
+                                    />
                                 </div>
                                 <div>
                                     <FormField
@@ -402,10 +411,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={(!selectedUser && (!currentName || currentName.trim() === "")) 
-                                    || isLoading || !currentInserat || !currentStart || !currentEnd
-                                    || !currentStartTime || !currentEndTime
-                                }
+                                        disabled={(!selectedUser && (!currentName || currentName.trim() === ""))
+                                            || isLoading || !currentInserat || !currentStart || !currentEnd
+                                            || !currentStartTime || !currentEndTime
+                                        }
                                         type="submit"
                                     >
                                         Buchung hinzufügen</Button>

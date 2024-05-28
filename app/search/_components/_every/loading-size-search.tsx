@@ -103,7 +103,7 @@ const LoadingSizeSearch = () => {
     return (
         <div className=" ">
             <h3 className="font-semibold">
-                Lademaßstab
+            Laderaummaße
             </h3>
             <Form {...form}>
                 <form>

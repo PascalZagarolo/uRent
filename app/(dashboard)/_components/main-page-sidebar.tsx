@@ -47,12 +47,12 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
         const url = process.env.NEXT_PUBLIC_BASE_URL
         
         router.push(url)
-        removeAll();
+        
     }
 
 
    
-    const { searchParams, changeSearchParams, deleteSearchParams, removeAll } = useSavedSearchParams();
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
@@ -128,9 +128,11 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
             <h3 className="text-bold text-2xl p-4 font-medium  flex justify-center text-gray-100 items-center  bg-[#1b1e2c]">
                 <FilterIcon className="mr-4" /> Suchfilter                 
             </h3>
-            <p className="w-full flex bg-[#1b1e2c] justify-center items-center text-xs pb-2 hover:underline hover:cursor-pointer" onClick={onReset}>
+            <a 
+            className="w-full flex bg-[#1b1e2c] justify-center items-center text-xs pb-2 hover:underline hover:cursor-pointer" 
+            href={process.env.NEXT_PUBLIC_BASE_URL}>
             <MdOutlineCancel  className="w-4 h-4 mr-2 text-rose-600" />  Filter zurücksetzen
-            </p>
+            </a>
             <div className="py-2 bg-[#1b1e2c]">
                 <SaveSearch 
                 userId={userId || ""}

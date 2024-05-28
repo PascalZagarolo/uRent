@@ -24,10 +24,9 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 
 import { useSavedSearchParams } from "@/store";
 import { Label } from "@/components/ui/label";
-import { Clock10Icon } from "lucide-react";
 
 
-const TimeSearch = () => {
+const TimeSearchFormFilter = () => {
 
     const router = useRouter();
     const pathname = usePathname();
@@ -45,8 +44,8 @@ const TimeSearch = () => {
 
 
 
-    const [startTime, setStartTime] = React.useState(null);
-    const [endTime, setEndTime] = React.useState(null);
+    const [startTime, setStartTime] = React.useState(currentObject["startTime"] ? currentObject["startTime"] : null);
+    const [endTime, setEndTime] = React.useState(currentObject["endTime"] ? currentObject["endTime"] : null);
 
     React.useEffect(() => {
         if (paramsPeriodBegin) {
@@ -167,18 +166,18 @@ const TimeSearch = () => {
 
 
     return (
-        <div className="mb-2 w-full ">
+        <div className=" w-full ">
 
-            <div className="flex gap-x-4  w-full">
+            <div className="flex gap-x-4 w-full">
                 <div className="w-full">
 
-                    <div className="flex w-full ">
+                    <div className="flex w-full px-2">
 
-                        <div className="flex gap-x-2 w-full">
+                        <div className="flex gap-x-4 w-full">
                             <div className="w-1/2">
-                            <Label className="text-gray-100/80 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> 
-                        <div className="sm:ml-2 font-semibold flex "> Startzeit </div>
-                        </Label>
+                            <Label className="text-sm font-semibold">
+                                    Startzeit
+                                </Label>
                                 <Select
                                     onValueChange={(value) => {
                                         value ? setStart(value)  : onDeleteStart();
@@ -186,7 +185,7 @@ const TimeSearch = () => {
                                     }}
                                     value={startTime}
                                 >
-                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none mt-3" value={startTime}>
+                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none mt-2" value={startTime}>
                                         <SelectValue placeholder="Startzeit" />
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
@@ -214,9 +213,9 @@ const TimeSearch = () => {
                             </div>
 
                             <div className="w-1/2">
-                            <Label className="text-gray-100/80 mb-1 font-semibold flex"> <Clock10Icon className="h-4 w-4 mr-2" /> 
-                        <div className="sm:ml-2 font-semibold flex "> Endzeit </div>
-                        </Label>
+                                <Label className="text-sm font-semibold">
+                                    Endzeit
+                                </Label>
                                 <Select
                                     onValueChange={(value) => {
                                         value ? setEnd(value)  : onDeleteEnd();
@@ -224,7 +223,7 @@ const TimeSearch = () => {
                                     value={endTime}
                                 >
 
-                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none mt-3">
+                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none mt-2">
                                         <SelectValue placeholder="Endzeit" />
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
@@ -263,4 +262,4 @@ const TimeSearch = () => {
     );
 }
 
-export default TimeSearch;
+export default TimeSearchFormFilter;

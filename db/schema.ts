@@ -517,7 +517,8 @@ export const lkwAttribute = pgTable("lkwAttribute", {
     axis: integer("axis"),
 
     power: integer("power"),
-
+    fuel: fuelTypeEnum("fuel"),
+    
     loading_volume : decimal("loading_volume"),
 
     transmission: transmissionEnum("transmission"),

@@ -189,7 +189,7 @@ export const getInserate = cache(async ({
 
         
 
-        const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
+        const bSeats = seats ? pInserat.pkwAttribute?.seats >= seats : true;
         
         const bDoors = doors ? pInserat.pkwAttribute.doors >= doors : true;
         const bExtraType = extraType ? extraType === pInserat.pkwAttribute.extraType : true;
@@ -227,7 +227,7 @@ export const getInserate = cache(async ({
             isValidDate = false;
         }
 
-        const bSeats = seats ? pInserat.lkwAttribute?.seats >= seats : true;
+        const bSeats = seats ? Number(pInserat?.lkwAttribute?.seats) >= Number(seats) : true;
         const bAxis = axis ? axis === pInserat.lkwAttribute?.axis : true;
         const bWeightClass = weightClass ? pInserat.lkwAttribute?.weightClass === weightClass : true;
         const bDrive = drive ? drive === pInserat.lkwAttribute?.drive : true;
@@ -299,7 +299,7 @@ export const getInserate = cache(async ({
         const bTransmission = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
         const bPower = power ? pInserat.transportAttribute.power >= power : true;
         const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
-        const bSeats = seats ? seats <= pInserat.transportAttribute.seats : true;
+        const bSeats = seats ? seats <= pInserat.transportAttribute?.seats : true;
         const bDoors = doors ? doors === pInserat.transportAttribute.doors : true;
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true;

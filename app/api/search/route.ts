@@ -65,7 +65,7 @@ export async function PATCH(
 
             const searchedAhk = (typeof(ahk) !== 'undefined' && ahk !== null);
             
-            console.log(thisBrand)
+            
 
             const bSeats = seats ? pInserat?.pkwAttribute?.seats >= seats : true;
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
@@ -83,7 +83,7 @@ export async function PATCH(
 
             const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
 
-            const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true
+            const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.pkwAttribute?.loading_l : true;
             const bBreite = loading_b ? loading_b <= pInserat?.pkwAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.pkwAttribute?.loading_h : true;

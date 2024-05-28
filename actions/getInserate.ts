@@ -186,7 +186,7 @@ export const getInserate = cache(async ({
             isValidDate = false;
         }
 
-        console.log(thisBrand)
+        
 
         const bSeats = seats ? pInserat.pkwAttribute.seats >= seats : true;
         
@@ -202,7 +202,7 @@ export const getInserate = cache(async ({
         const bInitial = isValidDate ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true
         const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
         const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
-        const bVolume = volume ? volume <= pInserat.pkwAttribute.loading_volume : true
+        const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true;
 
         const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
         

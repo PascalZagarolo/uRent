@@ -42,6 +42,7 @@ type GetInserate = {
     doorsMax?: number;
     initial?: Date;
     power?: number;
+    powerMax?: number;
     seats?: number;
     seatsMax?: number;
     fuel?: typeof FuelTypeEnumRender;
@@ -121,6 +122,7 @@ export const getInserate = cache(async ({
     doorsMax,
     initial,
     power,
+    powerMax,
     seats,
     seatsMax,
     fuel,
@@ -201,7 +203,14 @@ export const getInserate = cache(async ({
         const startingDoors = doors ? doors : 0;
         const endingDoors = doorsMax ? doorsMax : 10;
 
+        const searchedPower = (power || powerMax) ? true : false;
+            const minPower = power ? power : 0;
+            const maxPower = powerMax ? powerMax : 100000;
 
+
+        const bPower = searchedPower ? pInserat?.pkwAttribute?.power >= minPower && 
+            pInserat?.pkwAttribute?.power <= maxPower
+            : true;
 
         const bSeats = searchedSeats ? pInserat?.pkwAttribute?.seats >= startingIndex &&
             pInserat?.pkwAttribute?.seats <= endingIndex : true;
@@ -221,7 +230,7 @@ export const getInserate = cache(async ({
         const bFuel = fuel ? fuel === pInserat.pkwAttribute?.fuel : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true
         const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
-        const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
+        
         const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true;
 
         const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
@@ -254,6 +263,15 @@ export const getInserate = cache(async ({
         const startingWeightClass = weightClass ? weightClass : 0;
         const endingWeightClass = weightClassMax ? weightClassMax : 100000;
 
+        const searchedPower = (power || powerMax) ? true : false;
+            const minPower = power ? power : 0;
+            const maxPower = powerMax ? powerMax : 100000;
+
+
+        const bPower = searchedPower ? pInserat?.lkwAttribute?.power >= minPower && 
+            pInserat?.lkwAttribute?.power <= maxPower
+            : true;
+
         const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex &&
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
 
@@ -276,7 +294,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute?.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission &&
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission && bPower &&
             bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 
@@ -349,7 +367,14 @@ export const getInserate = cache(async ({
         const startingWeightClass = weightClass ? weightClass : 0;
         const endingWeightClass = weightClassMax ? weightClassMax : 100000;
 
+        const searchedPower = (power || powerMax) ? true : false;
+        const minPower = power ? power : 0;
+        const maxPower = powerMax ? powerMax : 100000;
 
+
+    const bPower = searchedPower ? pInserat?.transportAttribute?.power >= minPower && 
+        pInserat?.transportAttribute?.power <= maxPower
+        : true;
 
         const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex &&
             pInserat?.transportAttribute?.seats <= endingIndex : true;
@@ -365,7 +390,7 @@ export const getInserate = cache(async ({
 
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmission = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
-        const bPower = power ? pInserat.transportAttribute.power >= power : true;
+        
         const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
 
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;

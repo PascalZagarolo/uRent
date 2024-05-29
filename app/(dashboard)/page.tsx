@@ -59,6 +59,7 @@ interface MainPageProps {
 
         initial?: string;
         power?: string;
+        powerMax?: string;
         seats?: string;
         seatsMax? : string;
         fuel?: typeof FuelTypeEnumRender;
@@ -184,6 +185,7 @@ const Main = cache(async ({
                             doorsMax={searchParams.doorsMax}
                             initial={searchParams.initial}
                             power={searchParams.power}
+                            powerMax={searchParams.powerMax}
                             seats={searchParams.seats}
                             seatsMax = {searchParams.seatsMax}
                             fuel={searchParams.fuel}

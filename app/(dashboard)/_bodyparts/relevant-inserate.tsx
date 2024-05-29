@@ -45,6 +45,7 @@ interface RelevanteInserateProps {
     doorsMax?: string;
     initial?: string;
     power?: string;
+    powerMax?: string;
     seats?: string;
     seatsMax? : string;
     fuel?: typeof FuelTypeEnumRender;
@@ -111,6 +112,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     doorsMax,
     initial,
     power,
+    powerMax,
     seats,
     seatsMax,
     fuel,
@@ -188,6 +190,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         doorsMax: Number(doorsMax),
         initial: new Date(initial),
         power: Number(power),
+        powerMax: Number(powerMax),
         seats: Number(seats) || null,
         seatsMax: Number(seatsMax) || null,
         fuel: fuel,

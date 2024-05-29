@@ -39,6 +39,7 @@ type GetInserate = {
     //PKW
     thisBrand?: typeof BrandEnumRender[];
     doors?: number;
+    doorsMax?: number;
     initial?: Date;
     power?: number;
     seats?: number;
@@ -116,6 +117,7 @@ export const getInserate = cache(async ({
 
     thisBrand,
     doors,
+    doorsMax,
     initial,
     power,
     seats,
@@ -193,10 +195,18 @@ export const getInserate = cache(async ({
         const startingIndex = seats ? seats : 0;
         const endingIndex = seatsMax ? seatsMax : 10;
 
-        const bSeats = searchedSeats ? pInserat?.pkwAttribute?.seats >= startingIndex && 
+        const searchedDoors = doors || doorsMax ? true : false;
+        const startingDoors = doors ? doors : 0;
+        const endingDoors = doorsMax ? doorsMax : 10;
+
+        const bSeats = searchedSeats ? pInserat?.pkwAttribute?.seats >= startingIndex &&
             pInserat?.pkwAttribute?.seats <= endingIndex : true;
 
-        const bDoors = doors ? pInserat.pkwAttribute?.doors >= doors : true;
+        const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors
+            && endingDoors >= pInserat?.pkwAttribute?.doors
+            : true;
+
+
         const bExtraType = extraType ? extraType === pInserat.pkwAttribute?.extraType : true;
         const bLoading = loading ? loading === pInserat.pkwAttribute?.loading : true;
         const bWeightClass = weightClass ? pInserat.pkwAttribute?.weightClass === weightClass : true;
@@ -236,8 +246,10 @@ export const getInserate = cache(async ({
         const startingIndex = seats ? seats : 0;
         const endingIndex = seatsMax ? seatsMax : 10;
 
-        const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
+        const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex &&
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
+
+
 
         const bAxis = axis ? axis === pInserat.lkwAttribute?.axis : true;
         const bWeightClass = weightClass ? pInserat.lkwAttribute?.weightClass === weightClass : true;
@@ -310,14 +322,22 @@ export const getInserate = cache(async ({
         const startingIndex = seats ? seats : 0;
         const endingIndex = seatsMax ? seatsMax : 10;
 
-        const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex && 
+        const searchedDoors = doors || doorsMax ? true : false;
+            const startingDoors = doors ? doors : 0;
+            const endingDoors = doorsMax ? doorsMax : 10;
+
+        const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex &&
             pInserat?.transportAttribute?.seats <= endingIndex : true;
+
+        const bDoors = searchedDoors ? startingDoors <= pInserat?.transportAttribute?.doors
+            && endingDoors >= pInserat?.transportAttribute?.doors
+            : true;
 
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmission = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
         const bPower = power ? pInserat.transportAttribute.power >= power : true;
         const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
-        const bDoors = doors ? doors === pInserat.transportAttribute.doors : true;
+        
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true;
         const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true

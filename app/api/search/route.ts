@@ -84,13 +84,14 @@ export async function PATCH(
             const startingDoors = doors ? doors : 0;
             const endingDoors = doorsMax ? doorsMax : 10;
 
+            const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors
+            && endingDoors >= pInserat?.pkwAttribute?.doors
+            : true;
 
             const bSeats = searchedSeats ? Number(pInserat?.pkwAttribute?.seats) >= startingIndex && 
             Number(pInserat?.pkwAttribute?.seats) <= endingIndex : true;
 
-            const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors
-            && endingDoors >= pInserat?.pkwAttribute?.doors
-            : true;
+            
 
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
             

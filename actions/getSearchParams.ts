@@ -50,6 +50,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         loading : searchParams.get("loading"),
         drive : searchParams.get("drive"),
         weightClass : searchParams.get("weightClass"),
+        weightClassMax : searchParams.get("weightClassMax"),
 
         //TRAILER
         coupling : searchParams.get("coupling"),

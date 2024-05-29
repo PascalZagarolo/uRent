@@ -134,7 +134,9 @@ export async function PATCH(
                 isValidDate = false;
             }
 
-            
+            const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
+            const startingWeightClass = weightClass ? weightClass : 0;
+            const endingWeightClass = weightClassMax ? weightClassMax : 100000;
 
 
             const searchedSeats = seats || seatsMax ? true : false;
@@ -146,10 +148,14 @@ export async function PATCH(
             const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
 
+            const bWeightClass = searchedWeightClass ? 
+            Number(pInserat?.lkwAttribute?.weightClass) <= Number(endingWeightClass) &&
+            Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
+            : true;
             
 
             const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
-            const bWeightClass = weightClass ? Number(pInserat?.lkwAttribute?.weightClass) <= Number(weightClass) : true;
+            
             const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;
             const bLoading = loading ? loading === pInserat?.lkwAttribute?.loading : true;
             const bApplication = application ? application == pInserat?.lkwAttribute?.application : true;

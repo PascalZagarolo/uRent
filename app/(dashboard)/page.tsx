@@ -69,6 +69,7 @@ interface MainPageProps {
 
         //LKW
         weightClass?: string;
+        weightClassMax?: string;
         drive?: typeof DriveEnumRender;
         loading?: typeof LoadingEnumRender;
         application: typeof ApplicationEnumRender;
@@ -194,6 +195,7 @@ const Main = cache(async ({
 
                             //LKW specific attributes
                             weightClass={searchParams.weightClass}
+                            weightClassMax={searchParams.weightClassMax}
                             drive={searchParams.drive}
                             loading={searchParams.loading}
                             application={searchParams.application}

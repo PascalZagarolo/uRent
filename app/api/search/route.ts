@@ -31,7 +31,7 @@ export async function PATCH(
             //PKW
             thisBrand, power, powerMax, fuel, transmission, thisType, miles, initial, doors, doorsMax, extraCost, ahk, type,
             //TRAILER
-            coupling, extraType, axis, brake, trailerType,
+            coupling, extraType, axis, axisMax, brake, trailerType,
             //TRANSPORT
             transportBrand,
 
@@ -151,6 +151,10 @@ export async function PATCH(
             const minPower = power ? power : 0;
             const maxPower = powerMax ? powerMax : 100000;
 
+            const searchedAxis = (axis || axisMax) ? true : false;
+            const minAxis = axis ? axis : 0;
+            const maxAxis = axisMax ? axisMax : 10;
+
 
             const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
@@ -164,7 +168,7 @@ export async function PATCH(
             pInserat?.lkwAttribute?.power <= maxPower
             : true;
 
-            const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
+            const bAxis = searchedAxis ? minAxis <= pInserat?.lkwAttribute?.axis && maxAxis >= pInserat?.lkwAttribute?.axis : true;
             
             const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;
             const bLoading = loading ? loading === pInserat?.lkwAttribute?.loading : true;
@@ -193,18 +197,23 @@ export async function PATCH(
             const startingWeightClass = weightClass ? weightClass : 0;
             const endingWeightClass = weightClassMax ? weightClassMax : 100000;
 
+            const searchedAxis = (axis || axisMax) ? true : false;
+            const minAxis = axis ? axis : 0;
+            const maxAxis = axisMax ? axisMax : 10;
+
             const bWeightClass = searchedWeightClass ? 
             Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
             Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
             : true;
             
+            const bAxis = searchedAxis ? minAxis <= pInserat?.trailerAttribute?.axis && maxAxis >= pInserat?.trailerAttribute?.axis : true;
 
             const bType = trailerType ? trailerType === pInserat?.trailerAttribute?.type : true;
             const bExtraType = extraType ? extraType === pInserat?.trailerAttribute?.extraType : true;
 
             const bCoupling = coupling ? coupling === pInserat?.trailerAttribute?.coupling : true;
             const bLoading = loading ? loading === pInserat?.trailerAttribute?.loading : true;
-            const bAxis = axis ? axis === pInserat?.trailerAttribute?.axis : true;
+            
            
             const bBrake = brake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
             const bInitial = initial ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true;

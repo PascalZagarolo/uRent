@@ -47,12 +47,10 @@ const LkwSearchComponent = () => {
             </div>
             </div>
             <div className="w-full flex gap-x-2">
-            <div className="w-1/2">
+          
             <TrailerAxisBar />
-            </div>
-            <div className="w-1/2">
             
-            </div>
+            
             </div>
             
             <div className="w-full">

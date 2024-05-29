@@ -57,6 +57,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         coupling : searchParams.get("coupling"),
         extraType : searchParams.get("extraType"),
         axis : searchParams.get("axis"),
+        axisMax : searchParams.get("axisMax"),
         brake : searchParams.get("brake"),
 
         //TRANSPORT

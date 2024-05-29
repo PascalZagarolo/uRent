@@ -38,10 +38,12 @@ const TrailerSearchComponent = () => {
                     <TrailerCouplingBar />
                 </div>
                 <div className="w-1/2">
-                    <TrailerAxisBar />
+                    
                 </div>
             </div>
-
+<div className="w-full">
+<TrailerAxisBar />
+</div>
             <TrailerWeightClassBar />
             <div>
                 <SetInitialSearch />

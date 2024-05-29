@@ -33,7 +33,7 @@ const PkwSearchComponents = () => {
                 <PkwAhkBar/>
                 </div>
                 <div className="w-1/2">
-                    <PkwDoorsBar />
+                    
                 </div>
             </div>
             <div className="w-full flex gap-x-2">
@@ -44,7 +44,9 @@ const PkwSearchComponents = () => {
                     <PkwTransmissionBar />
                 </div>
             </div>
-            
+            <div className="w-full">
+            <PkwDoorsBar />
+            </div>
 
 
 

@@ -40,15 +40,12 @@ const TransportSearchComponents = () => {
             <PkwTransmissionBar />
             </div>
             <div className="w-1/2">
+            <PkwFuelBar /> 
+            </div>
+            </div>
+            
+            <div className="w-full">
             <PkwDoorsBar />
-            </div>
-            </div>
-            <div className="w-full flex gap-x-2">
-            
-            <PkwFuelBar />
-            
-            
-           
             </div>
             <div className="w-full">
             <PkwSeatsBar />

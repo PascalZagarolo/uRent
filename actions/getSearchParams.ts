@@ -38,6 +38,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         transmission : searchParams.get("transmission"),
         type : searchParams.get("type"),
         doors : searchParams.get("doors"),
+        doorsMax : searchParams.get("doorsMax"),
         power : searchParams.get("power"),
         freeMiles : searchParams.get("freeMiles"),
         extraCost : searchParams.get("extraCost"),

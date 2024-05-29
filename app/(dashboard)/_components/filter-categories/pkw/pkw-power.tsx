@@ -74,7 +74,7 @@ const PkwPowerBar = () => {
 
     useEffect(() => {
         changeSearchParams("powerMax", currentPSEnd);
-        if (!currentPS || currentPS === 0) {
+        if (!currentPSEnd || currentPSEnd === 0) {
             deleteSearchParams("powerMax")
         }
     }, [currentPSEnd])
@@ -84,11 +84,14 @@ const PkwPowerBar = () => {
             url: pathname,
             query: {
                 power: null,
+                powerMax: null,
                 ...params
             }
         }, { skipEmptyString: true, skipNull: true })
-        setCurrentKW(null);
-        setCurrentPS(null);
+        setCurrentKW("");
+        setCurrentPS("");
+        setCurrentKWEnd("");
+        setCurrentPSEnd("");
 
         router.push(url)
     }

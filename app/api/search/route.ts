@@ -147,6 +147,9 @@ export async function PATCH(
             const startingIndex = seats ? seats : 0;
             const endingIndex = seatsMax ? seatsMax : 10;
             
+            const searchedPower = (power || powerMax) ? true : false;
+            const minPower = power ? power : 0;
+            const maxPower = powerMax ? powerMax : 100000;
 
 
             const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
@@ -157,6 +160,9 @@ export async function PATCH(
             Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
             : true;
             
+            const bPower = searchedPower ? pInserat?.lkwAttribute?.power >= minPower && 
+            pInserat?.lkwAttribute?.power <= maxPower
+            : true;
 
             const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
             
@@ -165,7 +171,7 @@ export async function PATCH(
             const bApplication = application ? application == pInserat?.lkwAttribute?.application : true;
             const bTransmission = transmission ? transmission === pInserat?.lkwAttribute?.transmission : true;
             const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
-            const bPower = power ? pInserat?.lkwAttribute?.power >= power : true;
+            
             const bInitial = initial ? usedInitial <= pInserat?.lkwAttribute?.initial?.getTime() : true;
             const bFuel = fuel ? fuel === pInserat?.lkwAttribute?.fuel : true;
 
@@ -237,7 +243,15 @@ export async function PATCH(
             const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
             const startingWeightClass = weightClass ? weightClass : 0;
             const endingWeightClass = weightClassMax ? weightClassMax : 100000;
+
+            const searchedPower = (power || powerMax) ? true : false;
+            const minPower = power ? power : 0;
+            const maxPower = powerMax ? powerMax : 100000;
             
+
+            const bPower = searchedPower ? pInserat?.transportAttribute?.power >= minPower && 
+            pInserat?.transportAttribute?.power <= maxPower
+            : true;
             
 
             const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex && 
@@ -254,7 +268,7 @@ export async function PATCH(
 
             const bLoading = loading ? loading === pInserat?.transportAttribute?.loading : true;
             const bTransmisson = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
-            const bPower = power ? pInserat?.transportAttribute?.power >= power : true;
+            
             const bExtraType = extraType ? extraType === pInserat?.transportAttribute?.extraType : true;
             
             

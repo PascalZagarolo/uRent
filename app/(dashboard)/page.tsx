@@ -58,6 +58,7 @@ interface MainPageProps {
         initial?: string;
         power?: string;
         seats?: string;
+        seatsMax? : string;
         fuel?: typeof FuelTypeEnumRender;
         transmission?: typeof TransmissionEnumRender;
         type?: typeof CarTypeEnumRender;
@@ -180,6 +181,7 @@ const Main = cache(async ({
                             initial={searchParams.initial}
                             power={searchParams.power}
                             seats={searchParams.seats}
+                            seatsMax = {searchParams.seatsMax}
                             fuel={searchParams.fuel}
                             transmission={searchParams.transmission}
                             thisType={searchParams.type}

@@ -42,6 +42,7 @@ type GetInserate = {
     initial?: Date;
     power?: number;
     seats?: number;
+    seatsMax?: number;
     fuel?: typeof FuelTypeEnumRender;
     transmission?: typeof TransmissionEnumRender;
     thisType?: any;
@@ -63,7 +64,7 @@ type GetInserate = {
     brake?: boolean;
 
     //TRANSPORT
-    transportBrand? : string;
+    transportBrand?: string;
 
     volume?: number;
 
@@ -75,7 +76,7 @@ type GetInserate = {
     caution?: number;
 
     userId?: string
-    ahk? : string;
+    ahk?: string;
 
 }
 
@@ -118,6 +119,7 @@ export const getInserate = cache(async ({
     initial,
     power,
     seats,
+    seatsMax,
     fuel,
     transmission,
     thisType,
@@ -151,7 +153,7 @@ export const getInserate = cache(async ({
 
 }: GetInserate): Promise<typeof inserat.$inferSelect[]> => {
 
-    
+
 
 
 
@@ -160,37 +162,40 @@ export const getInserate = cache(async ({
         const bLicense = reqLicense ? reqLicense === pInserat.license : true;
         const bCaution = caution ? Number(caution) >= Number(pInserat.caution) : true;
 
-            if(caution && !pInserat?.caution) {
-                return false
-            }
+        if (caution && !pInserat?.caution) {
+            return false
+        }
 
-            if(reqAge && !pInserat?.reqAge) {
-                return false;
-            }
+        if (reqAge && !pInserat?.reqAge) {
+            return false;
+        }
 
         return bAge && bLicense && bCaution;
     })
 
     const PkwFilter = cache((pInserat: typeof inserat) => {
 
-        const searchedAhk = (typeof(ahk) !== 'undefined' && ahk !== null);
+        const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
 
         const usedInitial = initial ? new Date(initial) : null;
 
         let isValidDate;
 
         if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
-            
+
             isValidDate = true;
-          } else {
-            
+        } else {
+
             isValidDate = false;
         }
 
-        
+        const searchedSeats = seats || seatsMax ? true : false;
+        const startingIndex = seats ? seats : 0;
+        const endingIndex = seatsMax ? seatsMax : 10;
 
-        const bSeats = seats ? pInserat.pkwAttribute?.seats >= seats : true;
-        
+        const bSeats = searchedSeats ? pInserat?.pkwAttribute?.seats >= startingIndex && 
+            pInserat?.pkwAttribute?.seats <= endingIndex : true;
+
         const bDoors = doors ? pInserat.pkwAttribute?.doors >= doors : true;
         const bExtraType = extraType ? extraType === pInserat.pkwAttribute?.extraType : true;
         const bLoading = loading ? loading === pInserat.pkwAttribute?.loading : true;
@@ -206,9 +211,9 @@ export const getInserate = cache(async ({
         const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true;
 
         const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
-        
 
-        return bSeats  && bDoors && bFreeMiles && bInitial && bAhk &&
+
+        return bSeats && bDoors && bFreeMiles && bInitial && bAhk &&
             bExtraCost && bType && bTransmission && bFuel && bBrand &&
             bExtraType && bLoading && bWeightClass && bVolume && bPower;
     })
@@ -220,10 +225,10 @@ export const getInserate = cache(async ({
         let isValidDate;
 
         if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
-            
+
             isValidDate = true;
-          } else {
-            
+        } else {
+
             isValidDate = false;
         }
 
@@ -242,7 +247,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute?.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial &&  bTransmission &&
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission &&
             bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 
@@ -253,16 +258,16 @@ export const getInserate = cache(async ({
         let isValidDate;
 
         if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
-            
+
             isValidDate = true;
-          } else {
-            
+        } else {
+
             isValidDate = false;
         }
 
-        
+
         const usesBrake = (brake !== undefined && typeof brake !== "object");
-        
+
         const bType = trailerType ? trailerType === pInserat.trailerAttribute?.type : true;
         const bExtraType = extraType ? extraType === pInserat.trailerAttribute?.extraType : true;
         const bCoupling = coupling ? coupling === pInserat.trailerAttribute?.coupling : true;
@@ -288,13 +293,13 @@ export const getInserate = cache(async ({
         let isValidDate;
 
         if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
-            
+
             isValidDate = true;
-          } else {
-            
+        } else {
+
             isValidDate = false;
         }
-        
+
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmission = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
         const bPower = power ? pInserat.transportAttribute.power >= power : true;
@@ -439,13 +444,13 @@ export const getInserate = cache(async ({
             const startDateAppointments = new Set<any>()
             const endDateAppointments = new Set<any>();
             let isAvailable = true;
-            
+
 
 
             for (const booking of vehicle?.bookings) {
                 //booking starts AND ends before the searched Period
 
-                
+
 
                 if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
                     //booking starts or ends on the first OR last day of the searched period
@@ -496,25 +501,25 @@ export const getInserate = cache(async ({
                     } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
 
                     }
-                    else if(index === pInserat.vehicles.length) {
-                        
+                    else if (index === pInserat.vehicles.length) {
+
                         isAvailable = false;
                     }
                 }
-                
+
             }
 
             if ((startTime || endTime)) {
 
                 if (startTime) {
                     let usedEnd;
-                    
+
                     if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
                         usedEnd = endTime;
                     } else {
                         usedEnd = "1440";
                     }
-    
+
                     for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
                         if (startDateAppointments.has(Number(i))) {
                             isAvailable = false;
@@ -528,8 +533,8 @@ export const getInserate = cache(async ({
                     } else {
                         usedEnd = "0";
                     }
-    
-                   
+
+
                     for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
                         if (endDateAppointments.has(Number(i))) {
                             isAvailable = false;
@@ -538,11 +543,11 @@ export const getInserate = cache(async ({
                 }
             }
 
-            if(isAvailable) {
+            if (isAvailable) {
                 return true;
             }
             index++;
-            
+
         }
 
         return false;

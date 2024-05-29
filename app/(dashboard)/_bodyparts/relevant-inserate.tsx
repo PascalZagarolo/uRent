@@ -45,6 +45,7 @@ interface RelevanteInserateProps {
     initial?: string;
     power?: string;
     seats?: string;
+    seatsMax? : string;
     fuel?: typeof FuelTypeEnumRender;
     transmission?: typeof TransmissionEnumRender;
     thisType?: typeof CarTypeEnumRender;
@@ -108,6 +109,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     initial,
     power,
     seats,
+    seatsMax,
     fuel,
     transmission,
     thisType,
@@ -182,6 +184,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         initial: new Date(initial),
         power: Number(power),
         seats: Number(seats) || null,
+        seatsMax: Number(seatsMax) || null,
         fuel: fuel,
         transmission: transmission,
         thisType: thisType,

@@ -10,7 +10,7 @@ import axios from "axios";
 import { User2Icon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 
@@ -41,6 +41,25 @@ const PkwSeatsSearch = () => {
 
     }
 
+    useEffect(() => {
+        if (currentAge && currentEnd) {
+            if (Number(currentAge) > Number(currentEnd)) {
+                changeSearchParams("seatsMax", currentAge);
+                setCurrentEnd(currentAge);
+            }
+
+        }
+    }, [currentAge])
+
+    useEffect(() => {
+        if (currentAge && currentEnd) {
+            if (Number(currentAge) > Number(currentEnd)) {
+                changeSearchParams("seats", currentEnd);
+                setCurrentAge(currentEnd);
+            }
+
+        }
+    }, [currentEnd])
 
 
     const deleteSeats = () => {
@@ -66,71 +85,71 @@ const PkwSeatsSearch = () => {
                 </Label>
 
                 <div className="w-full flex items-center gap-x-2">
-                <div className="w-1/2">
-                    <Select
-                        onValueChange={(brand) => {
-                            !brand ? deleteSeats() : onSubmit(brand)
-                        }}
-                        value={currentAge}
-                        disabled={isLoading}
-                    >
+                    <div className="w-1/2">
+                        <Select
+                            onValueChange={(brand) => {
+                                !brand ? deleteSeats() : onSubmit(brand)
+                            }}
+                            value={currentAge}
+                            disabled={isLoading}
+                        >
 
-                        <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                            disabled={isLoading}  >
-                            <SelectValue
-                                placeholder="Von"
-
-
-                            />
-                        </SelectTrigger>
-
-                        <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                            <SelectItem key="beliebig" value={null} className="font-semibold">
-                                Beliebig
-                            </SelectItem>
-                            <SelectItem value="1">1</SelectItem>
-                            <SelectItem value="2">2</SelectItem>
-                            <SelectItem value="3">3</SelectItem>
-                            <SelectItem value="4">4</SelectItem>
-                            <SelectItem value="5">5</SelectItem>
-                            <SelectItem value="6">6</SelectItem>
-                            <SelectItem value="7">7</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                <div className="w-1/2">
-                    <Select
-                        onValueChange={(brand) => {
-                            !brand ? deleteSeatsEnd() : onSubmitEnd(brand)
-                        }}
-                        value={currentEnd}
-                        disabled={isLoading}
-                    >
-
-                        <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                            disabled={isLoading}  >
-                            <SelectValue
-                                placeholder="Bis"
+                            <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                                disabled={isLoading}  >
+                                <SelectValue
+                                    placeholder="Von"
 
 
-                            />
-                        </SelectTrigger>
+                                />
+                            </SelectTrigger>
 
-                        <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                            <SelectItem key="beliebig" value={null} className="font-semibold">
-                                Beliebig
-                            </SelectItem>
-                            <SelectItem value="1">1</SelectItem>
-                            <SelectItem value="2">2</SelectItem>
-                            <SelectItem value="3">3</SelectItem>
-                            <SelectItem value="4">4</SelectItem>
-                            <SelectItem value="5">5</SelectItem>
-                            <SelectItem value="6">6</SelectItem>
-                            <SelectItem value="7">7</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
+                            <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                                <SelectItem key="beliebig" value={null} className="font-semibold">
+                                    Beliebig
+                                </SelectItem>
+                                <SelectItem value="1">1</SelectItem>
+                                <SelectItem value="2">2</SelectItem>
+                                <SelectItem value="3">3</SelectItem>
+                                <SelectItem value="4">4</SelectItem>
+                                <SelectItem value="5">5</SelectItem>
+                                <SelectItem value="6">6</SelectItem>
+                                <SelectItem value="7">7</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="w-1/2">
+                        <Select
+                            onValueChange={(brand) => {
+                                !brand ? deleteSeatsEnd() : onSubmitEnd(brand)
+                            }}
+                            value={currentEnd}
+                            disabled={isLoading}
+                        >
+
+                            <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                                disabled={isLoading}  >
+                                <SelectValue
+                                    placeholder="Bis"
+
+
+                                />
+                            </SelectTrigger>
+
+                            <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+                                <SelectItem key="beliebig" value={null} className="font-semibold">
+                                    Beliebig
+                                </SelectItem>
+                                <SelectItem value="1">1</SelectItem>
+                                <SelectItem value="2">2</SelectItem>
+                                <SelectItem value="3">3</SelectItem>
+                                <SelectItem value="4">4</SelectItem>
+                                <SelectItem value="5">5</SelectItem>
+                                <SelectItem value="6">6</SelectItem>
+                                <SelectItem value="7">7</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </div>
             </div>
         </div>

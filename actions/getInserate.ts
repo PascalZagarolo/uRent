@@ -294,6 +294,14 @@ export const getInserate = cache(async ({
             isValidDate = false;
         }
 
+        const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
+        const startingWeightClass = weightClass ? weightClass : 0;
+        const endingWeightClass = weightClassMax ? weightClassMax : 100000;
+        
+        const bWeightClass = searchedWeightClass ? 
+        Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
+        Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
+        : true;
 
         const usesBrake = (brake !== undefined && typeof brake !== "object");
 
@@ -302,7 +310,7 @@ export const getInserate = cache(async ({
         const bCoupling = coupling ? coupling === pInserat.trailerAttribute?.coupling : true;
         const bLoading = loading ? loading === pInserat.trailerAttribute?.loading : true;
         const bAxis = axis ? axis === pInserat.trailerAttribute?.axis : true;
-        const bWeightClass = weightClass ? weightClass === pInserat.trailerAttribute?.weightClass : true;
+       
         const bBrake = usesBrake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true
 

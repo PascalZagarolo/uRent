@@ -14,9 +14,11 @@ import { useSavedSearchParams } from "@/store";
 
 
 
-const TrailerWeightClassBar = () => {
+const LkwWeightClassBar = () => {
     const weightClass = useSearchParams().get("weightClass");
+    const weightClassMax = useSearchParams().get("weightClassMax");
     const [currentWeight, setCurrentWeight] = useState(weightClass);
+    const [currentWeightMax, setCurrentWeightMax] = useState(weightClassMax);
     const [isLoading, setIsLoading] = useState(false);
 
     const params = getSearchParamsFunction("weightClass")
@@ -28,31 +30,44 @@ const TrailerWeightClassBar = () => {
 
 
     useEffect(() => {
-        if(weightClass) {
-          changeSearchParams("weightClass", weightClass);
-          setCurrentWeight(weightClass);
+        if (weightClass) {
+            changeSearchParams("weightClass", weightClass);
+            setCurrentWeight(weightClass);
         }
-      }, [])
+    }, [])
 
-      
-  
-      
-      const currentObject = useSavedSearchParams((state) => state.searchParams)
-  
-      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-  
-      const setStart = (weightClass : string) => {
-        
-         if(!weightClass) {
-          deleteSearchParams("weightClass");
-          setCurrentWeight(null);
-         } else {
-           //@ts-ignore
-           changeSearchParams("weightClass", weightClass);
-           setCurrentWeight(weightClass);
-         }
-          
-      }
+
+
+
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (weightClass: string) => {
+
+        if (!weightClass) {
+            deleteSearchParams("weightClass");
+            setCurrentWeight(null);
+        } else {
+            //@ts-ignore
+            changeSearchParams("weightClass", weightClass);
+            setCurrentWeight(weightClass);
+        }
+
+    }
+
+    const setEnd = (weightClass: string) => {
+
+        if (!weightClass) {
+            deleteSearchParams("weightClassMax");
+            setCurrentWeightMax(null);
+        } else {
+            //@ts-ignore
+            changeSearchParams("weightClassMax", weightClass);
+            setCurrentWeightMax(weightClass);
+        }
+
+    }
 
 
 
@@ -68,45 +83,92 @@ const TrailerWeightClassBar = () => {
                     <p className="ml-2 font-semibold"> Gewichtsklasse </p>
                 </Label>
 
-                <Select
-                    onValueChange={(brand) => {
-                        setStart(brand)
-                    }}
-                    value={currentWeight}
-                    disabled={isLoading}
-                >
+                <div className="flex items-center w-full gap-x-2">
+                    <div className="w-1/2">
+                        <Select
+                            onValueChange={(brand) => {
+                                setStart(brand)
+                            }}
+                            value={currentWeight}
+                            disabled={isLoading}
+                        >
 
-                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                        disabled={isLoading}
+                            <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                                disabled={isLoading}
 
-                    >
-                        <SelectValue
-                            placeholder="Wähle deinen Anwendungsbereich"
+                            >
+                                <SelectValue
+                                    placeholder="Wähle deinen Anwendungsbereich"
 
 
-                        />
-                    </SelectTrigger>
+                                />
+                            </SelectTrigger>
 
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
-                    <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
-                        <SelectItem value="75">0,75 t</SelectItem>
-                        <SelectItem value="150">1,5 t</SelectItem>
-                        <SelectItem value="280">2,8 t</SelectItem>
-                        <SelectItem value="350">3,5 t</SelectItem>
-                        <SelectItem value="550">5,5 t</SelectItem>
-                        <SelectItem value="750">7,5 t</SelectItem>
-                        <SelectItem value="1200">12 t</SelectItem>
-                        <SelectItem value="1800">18 t</SelectItem>
-                        <SelectItem value="2600">26 t</SelectItem>
-                        <SelectItem value="3200">32 t</SelectItem>
-                        <SelectItem value="3900">39 t</SelectItem>
-                        <SelectItem value="5000">{'>'} 39 t</SelectItem>
-                        
-                    </SelectContent>
-                </Select>
+                            <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
+                                <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                                <SelectItem value="75">0,75 t</SelectItem>
+                                <SelectItem value="150">1,5 t</SelectItem>
+                                <SelectItem value="280">2,8 t</SelectItem>
+                                <SelectItem value="350">3,5 t</SelectItem>
+                                <SelectItem value="550">5,5 t</SelectItem>
+                                <SelectItem value="750">7,5 t</SelectItem>
+                                <SelectItem value="1200">12 t</SelectItem>
+                                <SelectItem value="1800">18 t</SelectItem>
+                                <SelectItem value="2600">26 t</SelectItem>
+                                <SelectItem value="3200">32 t</SelectItem>
+                                <SelectItem value="3400">34 t</SelectItem>
+                                <SelectItem value="3900">39 t</SelectItem>
+                                <SelectItem value="5000">{'>'} 39 t</SelectItem>
+
+
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="w-1/2">
+                        <Select
+                            onValueChange={(brand) => {
+                                setEnd(brand)
+                            }}
+                            value={currentWeightMax}
+                            disabled={isLoading}
+                        >
+
+                            <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                                disabled={isLoading}
+
+                            >
+                                <SelectValue
+                                    placeholder="Wähle deinen Anwendungsbereich"
+
+
+                                />
+                            </SelectTrigger>
+
+                            <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
+                            <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                                <SelectItem value="75">0,75 t</SelectItem>
+                                <SelectItem value="150">1,5 t</SelectItem>
+                                <SelectItem value="280">2,8 t</SelectItem>
+                                <SelectItem value="350">3,5 t</SelectItem>
+                                <SelectItem value="550">5,5 t</SelectItem>
+                                <SelectItem value="750">7,5 t</SelectItem>
+                                <SelectItem value="1200">12 t</SelectItem>
+                                <SelectItem value="1800">18 t</SelectItem>
+                                <SelectItem value="2600">26 t</SelectItem>
+                                <SelectItem value="3200">32 t</SelectItem>
+                                <SelectItem value="3400">34 t</SelectItem>
+                                <SelectItem value="3900">39 t</SelectItem>
+                                <SelectItem value="5000">{'>'} 39 t</SelectItem>
+
+
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
             </div>
         </div>
     );
 }
 
-export default TrailerWeightClassBar;
+export default LkwWeightClassBar;

@@ -42,6 +42,7 @@ interface RelevanteInserateProps {
     //PKW
     thisBrand?: typeof BrandEnumRender[];
     doors?: string;
+    doorsMax?: string;
     initial?: string;
     power?: string;
     seats?: string;
@@ -106,6 +107,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
 
     thisBrand,
     doors,
+    doorsMax,
     initial,
     power,
     seats,
@@ -181,6 +183,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
 
         thisBrand: thisBrand,
         doors: Number(doors),
+        doorsMax: Number(doorsMax),
         initial: new Date(initial),
         power: Number(power),
         seats: Number(seats) || null,

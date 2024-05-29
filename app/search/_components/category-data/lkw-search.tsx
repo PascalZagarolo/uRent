@@ -9,6 +9,7 @@ import LkwSeatsSearch from "../_lkw/lkw-seats-search";
 import LkwWeightClassSearch from "../_lkw/lkw-weightclass-search";
 import PkwFuelSearch from "../_pkw/pkw-fuel-search";
 import PkwPowerSearch from "../_pkw/pkw-power-search";
+import PkwSeatsSearch from "../_pkw/pkw-seats-search";
 import PkwTransmissionSearch from "../_pkw/pkw-transmission-search";
 import TrailerAxisSearch from "../_trailer/trailer-axis";
 
@@ -34,7 +35,7 @@ const LkwSearch = () => {
                     <LkwWeightClassSearch />
                 </div>
                 <div className="sm:w-1/3">
-                    <LkwSeatsSearch />
+                    <PkwSeatsSearch />
                 </div>
             </div>
             <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
@@ -45,15 +46,15 @@ const LkwSearch = () => {
                     <PkwTransmissionSearch />
                 </div>
                 <div className="sm:w-1/3">
-                <PkwFuelSearch />
+                    <PkwFuelSearch />
                 </div>
             </div>
             <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0 mt-4">
                 <div className="sm:w-1/3">
-                <InitialSearch />
+                    <InitialSearch />
                 </div>
                 <div className="sm:w-1/3">
-                
+
                 </div>
                 <div className="sm:w-1/3">
 
@@ -70,7 +71,7 @@ const LkwSearch = () => {
                     <LoadingSizeSearch />
                 </div>
             </div>
-            
+
         </div>
     );
 }

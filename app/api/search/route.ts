@@ -127,7 +127,14 @@ export async function PATCH(
             
 
 
-            const bSeats = seats ? pInserat?.lkwAttribute?.seats >= seats : true;
+            const searchedSeats = seats || seatsMax ? true : false;
+            const startingIndex = seats ? seats : 0;
+            const endingIndex = seatsMax ? seatsMax : 10;
+            
+
+
+            const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
+            pInserat?.lkwAttribute?.seats <= endingIndex : true;
             const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
             const bWeightClass = weightClass ? Number(pInserat?.lkwAttribute?.weightClass) <= Number(weightClass) : true;
             const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;
@@ -189,12 +196,21 @@ export async function PATCH(
                 isValidDate = false;
             }
 
+            const searchedSeats = seats || seatsMax ? true : false;
+            const startingIndex = seats ? seats : 0;
+            const endingIndex = seatsMax ? seatsMax : 10;
+            
+
+
+            const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex && 
+            pInserat?.transportAttribute?.seats <= endingIndex : true;
+
             const bLoading = loading ? loading === pInserat?.transportAttribute?.loading : true;
             const bTransmisson = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
             const bPower = power ? pInserat?.transportAttribute?.power >= power : true;
             const bExtraType = extraType ? extraType === pInserat?.transportAttribute?.extraType : true;
             const bWeightClass = weightClass ? Number(pInserat?.transportAttribute?.weightClass) <= Number(weightClass) : true;
-            const bSeats = seats ? seats <= pInserat?.transportAttribute?.seats : true;
+            
             const bDoors = doors ? doors === pInserat?.transportAttribute?.doors : true;
             const bFuel = fuel ? fuel === pInserat?.transportAttribute?.fuel : true;
             const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true

@@ -53,6 +53,19 @@ const PkwDoorsBar = () => {
         }
     }, [])
 
+    useEffect(() => {
+        if(Number(currentDoors) > Number(currentEnd) && currentEnd && currentDoors){
+            changeSearchParams("doorsMax", currentDoors);
+            setCurrentEnd(currentDoors)
+        }
+    },[currentDoors])
+
+    useEffect(() => {
+        if(Number(currentDoors) > Number(currentEnd) && currentEnd && currentDoors){
+            changeSearchParams("doors", currentEnd);
+            setCurrentDoors(currentEnd)
+        }
+    },[currentEnd])
 
 
 

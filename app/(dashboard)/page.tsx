@@ -82,6 +82,7 @@ interface MainPageProps {
         coupling: typeof CouplingEnumRender;
         extraType: typeof ExtraTypeEnumRender;
         axis: string;
+        axisMax: string;
         brake: string;
 
         volume: number,
@@ -210,6 +211,7 @@ const Main = cache(async ({
                             coupling={searchParams.coupling}
                             extraType={searchParams.extraType}
                             axis={searchParams.axis}
+                            axisMax={searchParams.axisMax}
                             brake={searchParams.brake}
 
                             currentUser={currentUser}

@@ -70,6 +70,7 @@ interface RelevanteInserateProps {
     coupling: typeof CouplingEnumRender;
     extraType: typeof ExtraTypeEnumRender;
     axis: string;
+    axisMax: string;
     brake: string,
 
     currentUser : typeof userTable.$inferSelect;
@@ -132,6 +133,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     coupling,
     extraType,
     axis,
+    axisMax,
     brake,
 
     currentUser,
@@ -212,6 +214,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         coupling : coupling,
         extraType : extraType,
         axis : Number(axis),
+        axisMax : Number(axisMax),
         brake : brake ? (brake.toLowerCase() == 'true') : null,
         ahk : ahk ? ahk : null,
 

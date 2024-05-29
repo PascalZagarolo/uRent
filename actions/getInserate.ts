@@ -64,6 +64,7 @@ type GetInserate = {
     coupling?: typeof CouplingEnumRender;
     extraType?: typeof ExtraTypeEnumRender;
     axis?: number;
+    axisMax?: number;
     brake?: boolean;
 
     //TRANSPORT
@@ -142,6 +143,7 @@ export const getInserate = cache(async ({
     coupling,
     extraType,
     axis,
+    axisMax,
     brake,
 
     volume,
@@ -280,7 +282,11 @@ export const getInserate = cache(async ({
             Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
             : true;
 
-        const bAxis = axis ? axis === pInserat.lkwAttribute?.axis : true;
+            const searchedAxis = (axis || axisMax) ? true : false;
+            const minAxis = axis ? axis : 0;
+            const maxAxis = axisMax ? axisMax : 10;
+
+        const bAxis = searchedAxis ? minAxis <= pInserat?.lkwAttribute?.axis && maxAxis >= pInserat?.lkwAttribute?.axis : true;
         
         const bDrive = drive ? drive === pInserat.lkwAttribute?.drive : true;
         const bLoading = loading ? loading === pInserat.lkwAttribute?.loading : true;
@@ -315,11 +321,18 @@ export const getInserate = cache(async ({
         const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
         const startingWeightClass = weightClass ? weightClass : 0;
         const endingWeightClass = weightClassMax ? weightClassMax : 100000;
+
+        const searchedAxis = (axis || axisMax) ? true : false;
+            const minAxis = axis ? axis : 0;
+            const maxAxis = axisMax ? axisMax : 10;
+
+        const bAxis = searchedAxis ? minAxis <= pInserat?.trailerAttribute?.axis && maxAxis >= pInserat?.trailerAttribute?.axis : true;
         
         const bWeightClass = searchedWeightClass ? 
         Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
         Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
         : true;
+
 
         const usesBrake = (brake !== undefined && typeof brake !== "object");
 
@@ -327,7 +340,7 @@ export const getInserate = cache(async ({
         const bExtraType = extraType ? extraType === pInserat.trailerAttribute?.extraType : true;
         const bCoupling = coupling ? coupling === pInserat.trailerAttribute?.coupling : true;
         const bLoading = loading ? loading === pInserat.trailerAttribute?.loading : true;
-        const bAxis = axis ? axis === pInserat.trailerAttribute?.axis : true;
+        
        
         const bBrake = usesBrake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true

@@ -40,7 +40,7 @@ const LkwSearchComponent = () => {
             <LkwDriveBar />
             </div>
             <div className="w-1/2">
-            <PkwSeatsBar />
+            <PkwFuelBar />
             </div>
             </div>
             <div className="w-full flex gap-x-2">
@@ -51,7 +51,10 @@ const LkwSearchComponent = () => {
             <TrailerAxisBar />
             </div>
             </div>
-            <PkwFuelBar />
+            
+            <div className="w-full">
+            <PkwSeatsBar />
+            </div>
             <PkwPowerBar />
             <div>
                 <SetInitialSearch/>

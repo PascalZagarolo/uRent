@@ -80,13 +80,20 @@ export async function PATCH(
             const endingIndex = seatsMax ? seatsMax : 10;
 
             
-            
+            const searchedDoors = doors || doorsMax ? true : false;
+            const startingDoors = doors ? doors : 0;
+            const endingDoors = doorsMax ? doorsMax : 10;
 
 
-            const bSeats = searchedSeats ? pInserat?.pkwAttribute?.seats >= startingIndex && 
-            pInserat?.pkwAttribute?.seats <= endingIndex : true;
+            const bSeats = searchedSeats ? Number(pInserat?.pkwAttribute?.seats) >= startingIndex && 
+            Number(pInserat?.pkwAttribute?.seats) <= endingIndex : true;
+
+            const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors
+            && endingDoors >= pInserat?.pkwAttribute?.doors
+            : true;
+
             const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
-            const bDoors = doors ? pInserat?.pkwAttribute?.doors >= doors : true;
+            
             const bExtraType = extraType ? extraType === pInserat?.pkwAttribute?.extraType : true;
             const bLoading = loading ? loading === pInserat?.pkwAttribute?.loading : true;
             const bWeightClass = weightClass ? pInserat?.pkwAttribute?.weightClass === weightClass : true;
@@ -137,6 +144,9 @@ export async function PATCH(
 
             const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
+
+            
+
             const bAxis = axis ? axis === pInserat?.lkwAttribute?.axis : true;
             const bWeightClass = weightClass ? Number(pInserat?.lkwAttribute?.weightClass) <= Number(weightClass) : true;
             const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;

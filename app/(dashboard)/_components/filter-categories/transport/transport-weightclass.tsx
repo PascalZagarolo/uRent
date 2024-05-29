@@ -16,7 +16,9 @@ import { useSavedSearchParams } from "@/store";
 
 const TransportWeightClassBar = () => {
     const weightClass = useSearchParams().get("weightClass");
+    const weightClassMax = useSearchParams().get("weightClassMax");
     const [currentWeight, setCurrentWeight] = useState(weightClass);
+    const [currentWeightMax, setCurrentWeightMax] = useState(weightClassMax);
     const [isLoading, setIsLoading] = useState(false);
 
     const params = getSearchParamsFunction("weightClass")
@@ -54,6 +56,19 @@ const TransportWeightClassBar = () => {
 
     }
 
+    const setEnd = (weightClass: string) => {
+
+        if (!weightClass) {
+            deleteSearchParams("weightClassMax");
+            setCurrentWeightMax(null);
+        } else {
+            //@ts-ignore
+            changeSearchParams("weightClassMax", weightClass);
+            setCurrentWeightMax(weightClass);
+        }
+
+    }
+
 
 
     function removeUnderscore(inputString: string): string {
@@ -68,7 +83,9 @@ const TransportWeightClassBar = () => {
                     <p className="ml-2 font-semibold"> Gewichtsklasse </p>
                 </Label>
 
-                <Select
+                <div className="flex items-center w-full gap-x-2">
+                    <div className="w-1/2">
+                    <Select
                     onValueChange={(brand) => {
                         setStart(brand)
                     }}
@@ -96,6 +113,39 @@ const TransportWeightClassBar = () => {
 
                     </SelectContent>
                 </Select>
+                    </div>
+
+                    <div className="w-1/2">
+                    <Select
+                    onValueChange={(brand) => {
+                        setEnd(brand)
+                    }}
+                    value={currentWeightMax}
+                    disabled={isLoading}
+                >
+
+                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                        disabled={isLoading}
+
+                    >
+                        <SelectValue
+                            placeholder="Wähle deinen Anwendungsbereich"
+
+
+                        />
+                    </SelectTrigger>
+
+                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
+                        <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                        <SelectItem value="280">2,8 t</SelectItem>
+                        <SelectItem value="350">3,5 t</SelectItem>
+                        <SelectItem value="550">5,5 t</SelectItem>
+                        
+
+                    </SelectContent>
+                </Select>
+                    </div>
+                </div>
             </div>
         </div>
     );

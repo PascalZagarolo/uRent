@@ -27,7 +27,7 @@ export async function PATCH(
 
         const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice, end, start, begin,
             //LKW
-            lkwBrand, application, loading, drive, weightClass, seats, seatsMax,
+            lkwBrand, application, loading, drive, weightClass, weightClassMax, seats, seatsMax,
             //PKW
             thisBrand, power, fuel, transmission, thisType, miles, initial, doors, doorsMax, extraCost, ahk, type,
             //TRAILER
@@ -216,8 +216,12 @@ export async function PATCH(
             const searchedDoors = doors || doorsMax ? true : false;
             const startingDoors = doors ? doors : 0;
             const endingDoors = doorsMax ? doorsMax : 10;
-            
 
+            const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
+            const startingWeightClass = weightClass ? weightClass : 0;
+            const endingWeightClass = weightClass ? weightClass : 100000;
+            
+            
 
             const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex && 
             pInserat?.transportAttribute?.seats <= endingIndex : true;
@@ -226,11 +230,16 @@ export async function PATCH(
             && endingDoors >= pInserat?.transportAttribute?.doors
             : true;
 
+            const bWeightClass = searchedWeightClass ? 
+            Number(pInserat?.transportAttribute?.weightClass) <= Number(endingWeightClass) &&
+            Number(pInserat?.transportAttribute?.weightClass) >= Number(startingWeightClass)
+            : true;
+
             const bLoading = loading ? loading === pInserat?.transportAttribute?.loading : true;
             const bTransmisson = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
             const bPower = power ? pInserat?.transportAttribute?.power >= power : true;
             const bExtraType = extraType ? extraType === pInserat?.transportAttribute?.extraType : true;
-            const bWeightClass = weightClass ? Number(pInserat?.transportAttribute?.weightClass) <= Number(weightClass) : true;
+            
             
             
             const bFuel = fuel ? fuel === pInserat?.transportAttribute?.fuel : true;

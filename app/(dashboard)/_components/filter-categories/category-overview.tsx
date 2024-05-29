@@ -22,7 +22,7 @@ const CategoryOverview = () => {
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
     //@ts-ignore
-    const currentCategory : typeof CategoryEnumRender = params.get("category") || currentObject["thisCategory"];
+    const currentCategory : typeof CategoryEnumRender = currentObject["thisCategory"];
 
     return ( 
         <>

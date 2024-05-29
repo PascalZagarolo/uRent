@@ -250,13 +250,20 @@ export const getInserate = cache(async ({
         const startingIndex = seats ? seats : 0;
         const endingIndex = seatsMax ? seatsMax : 10;
 
+        const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
+        const startingWeightClass = weightClass ? weightClass : 0;
+        const endingWeightClass = weightClassMax ? weightClassMax : 100000;
+
         const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex &&
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
 
-
+            const bWeightClass = searchedWeightClass ? 
+            Number(pInserat?.lkwAttribute?.weightClass) <= Number(endingWeightClass) &&
+            Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
+            : true;
 
         const bAxis = axis ? axis === pInserat.lkwAttribute?.axis : true;
-        const bWeightClass = weightClass ? pInserat.lkwAttribute?.weightClass === weightClass : true;
+        
         const bDrive = drive ? drive === pInserat.lkwAttribute?.drive : true;
         const bLoading = loading ? loading === pInserat.lkwAttribute?.loading : true;
         const bApplication = application ? application == pInserat.lkwAttribute?.application : true;

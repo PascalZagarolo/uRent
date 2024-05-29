@@ -29,7 +29,7 @@ export async function PATCH(
             //LKW
             lkwBrand, application, loading, drive, weightClass, seats, seatsMax,
             //PKW
-            thisBrand, power, fuel, transmission, thisType, miles, initial, doors, extraCost, ahk, type,
+            thisBrand, power, fuel, transmission, thisType, miles, initial, doors, doorsMax, extraCost, ahk, type,
             //TRAILER
             coupling, extraType, axis, brake, trailerType,
             //TRANSPORT
@@ -78,6 +78,8 @@ export async function PATCH(
             const searchedSeats = seats || seatsMax ? true : false;
             const startingIndex = seats ? seats : 0;
             const endingIndex = seatsMax ? seatsMax : 10;
+
+            
             
 
 
@@ -199,11 +201,19 @@ export async function PATCH(
             const searchedSeats = seats || seatsMax ? true : false;
             const startingIndex = seats ? seats : 0;
             const endingIndex = seatsMax ? seatsMax : 10;
+
+            const searchedDoors = doors || doorsMax ? true : false;
+            const startingDoors = doors ? doors : 0;
+            const endingDoors = doorsMax ? doorsMax : 10;
             
 
 
             const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex && 
             pInserat?.transportAttribute?.seats <= endingIndex : true;
+
+            const bDoors = searchedDoors ? startingDoors <= pInserat?.transportAttribute?.doors
+            && endingDoors >= pInserat?.transportAttribute?.doors
+            : true;
 
             const bLoading = loading ? loading === pInserat?.transportAttribute?.loading : true;
             const bTransmisson = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
@@ -211,7 +221,7 @@ export async function PATCH(
             const bExtraType = extraType ? extraType === pInserat?.transportAttribute?.extraType : true;
             const bWeightClass = weightClass ? Number(pInserat?.transportAttribute?.weightClass) <= Number(weightClass) : true;
             
-            const bDoors = doors ? doors === pInserat?.transportAttribute?.doors : true;
+            
             const bFuel = fuel ? fuel === pInserat?.transportAttribute?.fuel : true;
             const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true
             const bInitial = initial ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true;

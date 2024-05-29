@@ -16,7 +16,9 @@ import { useSavedSearchParams } from "@/store";
 
 const TrailerAxisBar = () => {
     const axis = useSearchParams().get("axis");
+    const axisMax = useSearchParams().get("axisMax");
     const [currentWeight, setCurrentWeight] = useState(axis);
+    const [currentWeightEnd, setCurrentWeightEnd] = useState(axisMax);
     const [isLoading, setIsLoading] = useState(false);
 
     const params = getSearchParamsFunction("axis")
@@ -27,12 +29,7 @@ const TrailerAxisBar = () => {
 
 
 
-    useEffect(() => {
-        if(axis) {
-          changeSearchParams("axis", axis);
-          setCurrentWeight(axis);
-        }
-      }, [])
+    
   
       
   
@@ -53,6 +50,17 @@ const TrailerAxisBar = () => {
           
       }
 
+      const setEnd = (application : string) => {
+        if(!application) {
+         deleteSearchParams("axisMax");
+         setCurrentWeightEnd(null);
+        } else {
+          //@ts-ignore
+          changeSearchParams("axisMax", application);
+          setCurrentWeightEnd(application);
+        }
+         
+     }
 
 
     function removeUnderscore(inputString: string): string {
@@ -67,7 +75,9 @@ const TrailerAxisBar = () => {
                     <p className="ml-2 font-semibold"> Anz. Achsen </p>
                 </Label>
 
-                <Select
+                <div className="flex items-center gap-x-2">
+                    <div className="w-1/2">
+                    <Select
                     onValueChange={(brand) => {
                         setStart(brand)
                     }}
@@ -96,6 +106,40 @@ const TrailerAxisBar = () => {
 
                     </SelectContent>
                 </Select>
+                    </div>
+                    <div className="w-1/2">
+                    <Select
+                    onValueChange={(brand) => {
+                        setEnd(brand)
+                    }}
+                    value={currentWeightEnd}
+                    disabled={isLoading}
+                >
+
+                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+                        disabled={isLoading}
+
+                    >
+                        <SelectValue
+                            placeholder="Wähle deinen Anwendungsbereich"
+
+
+                        />
+                    </SelectTrigger>
+
+                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
+                        <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                        <SelectItem value="4">4</SelectItem>
+                        <SelectItem value="5">{'>'} 4 </SelectItem>
+                        
+
+                    </SelectContent>
+                </Select>
+                    </div>
+                
+                </div>
             </div>
         </div>
     );

@@ -29,7 +29,7 @@ export async function PATCH(
             //LKW
             lkwBrand, application, loading, drive, weightClass, weightClassMax, seats, seatsMax,
             //PKW
-            thisBrand, power, fuel, transmission, thisType, miles, initial, doors, doorsMax, extraCost, ahk, type,
+            thisBrand, power, powerMax, fuel, transmission, thisType, miles, initial, doors, doorsMax, extraCost, ahk, type,
             //TRAILER
             coupling, extraType, axis, brake, trailerType,
             //TRANSPORT
@@ -84,6 +84,10 @@ export async function PATCH(
             const startingDoors = doors ? doors : 0;
             const endingDoors = doorsMax ? doorsMax : 10;
 
+            const searchedPower = (power || powerMax) ? true : false;
+            const minPower = power ? power : 0;
+            const maxPower = powerMax ? powerMax : 100000;
+
             const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors
             && endingDoors >= pInserat?.pkwAttribute?.doors
             : true;
@@ -91,9 +95,9 @@ export async function PATCH(
             const bSeats = searchedSeats ? Number(pInserat?.pkwAttribute?.seats) >= startingIndex && 
             Number(pInserat?.pkwAttribute?.seats) <= endingIndex : true;
 
-            
-
-            const bPower = power ? pInserat?.pkwAttribute?.power >= power : true;
+            const bPower = searchedPower ? pInserat?.pkwAttribute?.power >= minPower && 
+            pInserat?.pkwAttribute?.power <= maxPower
+            : true;
             
             const bExtraType = extraType ? extraType === pInserat?.pkwAttribute?.extraType : true;
             const bLoading = loading ? loading === pInserat?.pkwAttribute?.loading : true;

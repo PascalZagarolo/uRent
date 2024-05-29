@@ -25,15 +25,26 @@ const PkwPowerBar = () => {
 
     const router = useRouter();
 
+    
+
     const power = useSearchParams().get("power");
     const powerMax = useSearchParams().get("powerMax");
+
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const isPrefilled = (power || currentObject["power"])
+    const isPrefilledMax = (power || currentObject["powerMax"])
+
     const pathname = usePathname();
     const [usesPS, setUsesPS] = useState(true);
 
-    const [currentKW, setCurrentKW] = useState<number | string | null>((Math.round(Number(power) * 0.735499)));
-    const [currentKWEnd, setCurrentKWEnd] = useState<number | string | null>((Math.round(Number(powerMax) * 0.735499)));
-    const [currentPS, setCurrentPS] = useState<number | string | null>(Number(power));
-    const [currentPSEnd, setCurrentPSEnd] = useState<number | string | null>(Number(powerMax));
+    const [currentKW, setCurrentKW] = useState<number | string | null>(isPrefilled ?
+        (Math.round(Number(currentObject["power"]) * 0.735499)) : ""
+        );
+    const [currentKWEnd, setCurrentKWEnd] = useState<number | string | null>(isPrefilledMax ?
+        (Math.round(Number(currentObject["powerMax"]) * 0.735499)) : "");
+    const [currentPS, setCurrentPS] = useState<number | string | null>(isPrefilled ? Number(currentObject["power"]) : "");
+    const [currentPSEnd, setCurrentPSEnd] = useState<number | string | null>(isPrefilledMax ? Number(currentObject["powerMax"]) : "");
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -59,7 +70,7 @@ const PkwPowerBar = () => {
 
 
 
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
+    
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 

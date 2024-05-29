@@ -326,8 +326,7 @@ export const getInserate = cache(async ({
             const startingDoors = doors ? doors : 0;
             const endingDoors = doorsMax ? doorsMax : 10;
 
-            console.log(doors)
-            console.log(doorsMax)
+            
 
         const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex &&
             pInserat?.transportAttribute?.seats <= endingIndex : true;

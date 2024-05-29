@@ -55,6 +55,8 @@ interface MainPageProps {
         //PKW
         thisBrand?: any;
         doors?: string;
+        doorsMax?: string;
+
         initial?: string;
         power?: string;
         seats?: string;
@@ -178,6 +180,7 @@ const Main = cache(async ({
                             // Car specific attributes
                             thisBrand={searchParams.thisBrand}
                             doors={searchParams.doors}
+                            doorsMax={searchParams.doorsMax}
                             initial={searchParams.initial}
                             power={searchParams.power}
                             seats={searchParams.seats}

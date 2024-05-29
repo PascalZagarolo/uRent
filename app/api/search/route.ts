@@ -219,7 +219,7 @@ export async function PATCH(
 
             const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
             const startingWeightClass = weightClass ? weightClass : 0;
-            const endingWeightClass = weightClass ? weightClass : 100000;
+            const endingWeightClass = weightClassMax ? weightClassMax : 100000;
             
             
 

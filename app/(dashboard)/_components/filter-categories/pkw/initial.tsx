@@ -37,6 +37,7 @@ const SetInitialSearch = () => {
 
     const pSearchparams = useSearchParams();
     const existingYear = pSearchparams.get("initial")
+    const existingYearEnd = pSearchparams.get("initialMax")
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
   
@@ -70,6 +71,17 @@ const SetInitialSearch = () => {
         } else {
             deleteSearchParams("initial");
         }
+
+        if(existingYearEnd) {
+            changeSearchParams("initialMax", existingYearEnd)
+            const usedDate = new Date(existingYearEnd);
+            const resolvedYear = String(getYear(usedDate));
+            
+            setCurrentYearEnd(resolvedYear)
+        } else {
+            deleteSearchParams("initialMax");
+        }
+
     },[])
     
     interface YearObject {

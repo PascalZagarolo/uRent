@@ -26,14 +26,18 @@ const InitialSearch = () => {
     const currentObject : any = useSavedSearchParams((state) => state.searchParams)
 
     const [currentYear, setCurrentYear] = useState<any>(currentObject["initial"] ? getYear(new Date(currentObject["initial"])) : undefined);
+    const [currentYearEnd, setCurrentYearEnd] = useState<any>(currentObject["initialMax"] ? getYear(new Date(currentObject["initialMax"])) : undefined);
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState("")
+    const [open2, setOpen2] = useState(false)
+    const [value, setValue] = useState("");
+    const [valueEnd, setValueEnd] = useState("");
 
     const startYear = 2024;
     const endYear = 1960;
 
     const pSearchparams = useSearchParams();
     const existingYear = pSearchparams.get("initial")
+    const existingYearEnd = pSearchparams.get("initialMax")
 
     
   
@@ -49,12 +53,29 @@ const InitialSearch = () => {
     },[currentYear])
 
     useEffect(() => {
+        if(currentYearEnd) {
+            const usedDate = new Date(Number(currentYearEnd), 0, 1); 
+            changeSearchParams("initialMax", usedDate?.toISOString())
+        } else {
+            deleteSearchParams("initialMax")
+        }
+    },[currentYearEnd])
+
+    useEffect(() => {
         if(existingYear || currentObject["initial"]) {
             changeSearchParams("initial", currentObject["initial"])
             const usedDate = new Date(currentObject["initial"]);
             const resolvedYear = String(getYear(usedDate));
-            console.log(resolvedYear);
+            
             setCurrentYear(Number(resolvedYear))
+        }
+
+        if(existingYearEnd || currentObject["initialMax"]) {
+            changeSearchParams("initialMax", currentObject["initialMax"])
+            const usedDate = new Date(currentObject["initialMax"]);
+            const resolvedYear = String(getYear(usedDate));
+            
+            setCurrentYearEnd(Number(resolvedYear))
         }
     },[])
     
@@ -81,7 +102,9 @@ const InitialSearch = () => {
                         
                     </div>
                 </Label>
-                <Popover open={open} onOpenChange={setOpen}>
+                <div className="w-full flex items-center gap-x-2">
+                    <div className="w-1/2">
+                    <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
@@ -138,6 +161,67 @@ const InitialSearch = () => {
                         </Command>
                     </PopoverContent>
                 </Popover>
+                    </div>
+                    <div className="w-1/2">
+                    <Popover open={open2} onOpenChange={setOpen2}>
+                    <PopoverTrigger asChild>
+                        <Button
+                            variant="outline"
+
+                            role="combobox"
+                            aria-expanded={open2}
+                            className="w-full mt-2 bg-[#191919] dark:border-none justify-between"
+                        >
+                            {currentYearEnd
+                                ? years.find((framework) => framework.value == currentYearEnd)?.label
+                                : "Bis"}
+                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-4 dark:bg-[#191919] ">
+                        <Command className="dark:bg-[#191919] h-[320px] overflow-auto" 
+                        onValueChange={(e) => {setCurrentYearEnd(e)}}
+                        
+                        >
+                            <CommandInput placeholder="Wähle das Baujahr" className="h-9 " />
+                            <CommandEmpty>Kein passendes Jahr gefunden..</CommandEmpty>
+                            <CommandGroup className="overflow-y-scroll">
+                            <CommandItem
+                                        key={"Beliebig"}
+                                        value={"Beliebig"}
+                                        onSelect={() => {
+                                            setValueEnd("");
+                                            setCurrentYearEnd(undefined)
+                                            setOpen2(false)
+                                        }}
+                                    >
+                                        Beliebig
+                            </CommandItem>
+                                {years.map((year) => (
+                                    <CommandItem
+                                        key={year.value}
+                                        value={year.value}
+                                        onSelect={(currentValue) => {
+                                            setValueEnd(currentValue === value ? "" : currentValue);
+                                            setCurrentYearEnd(currentValue)
+                                            setOpen2(false)
+                                        }}
+                                    >
+                                        {year.label}
+                                        <CheckIcon
+                                            className={cn(
+                                                "ml-auto h-4 w-4",
+                                                currentYearEnd === year.value ? "opacity-100" : "opacity-0"
+                                            )}
+                                        />
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        </Command>
+                    </PopoverContent>
+                </Popover>
+                    </div>
+                </div>
             </div>
 
 

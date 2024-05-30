@@ -77,23 +77,25 @@ const Inserat: React.FC<InseratProps> = ({
 
             <Dialog >
                 {isntLoggedIn ? (
-
                     <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2.5 rounded-md text-sm items-center 
                 font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" onClick={() => { !currentUser && router.push("/login") }}>
-
-
                         <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Anzeige erstellen</p>
-
                     </div>
-
                 ) : (
-                    <DialogTrigger className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center 
+                    currentUser.isBusiness ? (
+                        <DialogTrigger className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-3 rounded-md text-sm items-center 
                 font-semibold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] dark:bg-[#161723] w-full" onClick={() => { !currentUser && router.push("/login") }}>
 
 
-                        <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:flex mr-1 text-sm">Anzeige erstellen</p>
+                            <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:flex mr-1 text-sm">Anzeige erstellen</p>
 
-                    </DialogTrigger>
+                        </DialogTrigger>
+                    ) : (
+                        <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2.5 rounded-md text-sm items-center 
+                font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" onClick={() => { router.push(`/profile/${currentUser?.id}`) }}>
+                            <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Anzeige erstellen</p>
+                        </div>
+                    )
                 )}
                 <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
                     <div>
@@ -122,10 +124,10 @@ const Inserat: React.FC<InseratProps> = ({
                                     Fahrzeugkategorie
                                 </Label>
                                 <Select
-                                onValueChange={(value) => setCurrentCategory(value)}
+                                    onValueChange={(value) => setCurrentCategory(value)}
                                 >
                                     <SelectTrigger className="dark:border-none dark:bg-[#191919] w-full">
-                                        <SelectValue placeholder="Wähle eine Kategorie"  />
+                                        <SelectValue placeholder="Wähle eine Kategorie" />
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#191919] dark:border-none">
                                         <SelectGroup>
@@ -134,15 +136,15 @@ const Inserat: React.FC<InseratProps> = ({
                                             <SelectItem value="LKW">LKW</SelectItem>
                                             <SelectItem value="TRAILER">Anhänger</SelectItem>
                                             <SelectItem value="TRANSPORT">Transporter</SelectItem>
-                                            
+
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
                             </div>
                             <div className="mt-4 w-full flex justify-end">
                                 <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300"
-                                onClick={onSubmit}
-                                disabled={!currentCategory || !currentTitle || currentTitle.trim() === ""}
+                                    onClick={onSubmit}
+                                    disabled={!currentCategory || !currentTitle || currentTitle.trim() === ""}
 
                                 >
                                     Anzeige erstellen

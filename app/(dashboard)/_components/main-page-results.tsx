@@ -39,8 +39,6 @@ const MainPageResults = () => {
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
 
-        
-        
         let usedEnd = null;
         
         

@@ -6,7 +6,7 @@ import { and, eq, gte, ilike, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { lkwAttribute, pkwAttribute } from '../../../db/schema';
 import { cache } from "react";
-import { isSameDay } from "date-fns";
+import { isAfter, isBefore, isEqual, isSameDay, isWithinInterval } from "date-fns";
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     const r = 6371;
@@ -29,7 +29,7 @@ export async function PATCH(
             //LKW
             lkwBrand, application, loading, drive, weightClass, weightClassMax, seats, seatsMax,
             //PKW
-            thisBrand, power, powerMax, fuel, transmission, thisType, miles, initial, doors, doorsMax, extraCost, ahk, type,
+            thisBrand, power, powerMax, fuel, transmission, thisType, miles, initial, initialMax, doors, doorsMax, extraCost, ahk, type,
             //TRAILER
             coupling, extraType, axis, axisMax, brake, trailerType,
             //TRANSPORT
@@ -88,6 +88,14 @@ export async function PATCH(
             const minPower = power ? power : 0;
             const maxPower = powerMax ? powerMax : 100000;
 
+            const searchedInitial = (initial || initialMax) ? true : false;
+            const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
+            const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+
+            const bInitial = searchedInitial ? 
+            isWithinInterval(new Date(pInserat?.pkwAttribute?.initial), { start: minInitial, end: maxInitial })
+            : true;
+
             const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors
             && endingDoors >= pInserat?.pkwAttribute?.doors
             : true;
@@ -107,7 +115,7 @@ export async function PATCH(
             const bType = type ? String(type) === pInserat.pkwAttribute?.type : true;
             const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
             const bFuel = fuel ? fuel === pInserat?.pkwAttribute?.fuel : true;
-            const bInitial = initial ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true;
+            
             const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
 
             const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;

@@ -26,8 +26,11 @@ const SetInitialSearch = () => {
 
 
     const [currentYear, setCurrentYear] = useState("");
+    const [currentYearEnd, setCurrentYearEnd] = useState("");
     const [open, setOpen] = useState(false)
+    const [open2, setOpen2] = useState(false)
     const [value, setValue] = useState("")
+    const [valueEnd, setValueEnd] = useState("")
 
     const startYear = 2024;
     const endYear = 1960;
@@ -47,6 +50,15 @@ const SetInitialSearch = () => {
             deleteSearchParams("initial")
         }
     },[currentYear])
+
+    useEffect(() => {
+        if(currentYearEnd) {
+            const usedDate = new Date(Number(currentYearEnd), 11, 31); 
+            changeSearchParams("initialMax", usedDate?.toISOString())
+        } else {
+            deleteSearchParams("initialMax")
+        }
+    },[currentYearEnd])
 
     useEffect(() => {
         if(existingYear) {
@@ -85,7 +97,9 @@ const SetInitialSearch = () => {
                         
                     </div>
                 </Label>
-                <Popover open={open} onOpenChange={setOpen}>
+                <div className="flex items-center gap-x-2">
+                    <div className="w-1/2">
+                    <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
@@ -96,7 +110,7 @@ const SetInitialSearch = () => {
                         >
                             {currentYear
                                 ? years.find((framework) => framework.value == currentYear)?.label
-                                : "Wähle das Baujahr"}
+                                : "Von"}
                             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
@@ -142,6 +156,67 @@ const SetInitialSearch = () => {
                         </Command>
                     </PopoverContent>
                 </Popover>
+                    </div>
+                    <div className="w-1/2">
+                    <Popover open={open2} onOpenChange={setOpen2}>
+                    <PopoverTrigger asChild>
+                        <Button
+                            variant="outline"
+
+                            role="combobox"
+                            aria-expanded={open2}
+                            className="w-full mt-4 bg-[#191919] dark:border-none justify-between"
+                        >
+                            {currentYearEnd
+                                ? years.find((framework) => framework.value == currentYearEnd)?.label
+                                : "Bis"}
+                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-4 dark:bg-[#191919] ">
+                        <Command className="dark:bg-[#191919] h-[320px] overflow-auto" 
+                        onValueChange={(e) => {setCurrentYearEnd(e)}}
+                        
+                        >
+                            <CommandInput placeholder="Wähle das Baujahr" className="h-9 " />
+                            <CommandEmpty>Kein passendes Jahr gefunden..</CommandEmpty>
+                            <CommandGroup className="overflow-y-scroll">
+                            <CommandItem
+                                        key={"Beliebig"}
+                                        value={"Beliebig"}
+                                        onSelect={() => {
+                                            setValueEnd("");
+                                            setCurrentYearEnd(undefined)
+                                            setOpen2(false)
+                                        }}
+                                    >
+                                        Beliebig
+                            </CommandItem>
+                                {years.map((year) => (
+                                    <CommandItem
+                                        key={year.value}
+                                        value={year.value}
+                                        onSelect={(currentValue) => {
+                                            setValueEnd(currentValue === valueEnd ? "" : currentValue);
+                                            setCurrentYearEnd(currentValue)
+                                            setOpen2(false)
+                                        }}
+                                    >
+                                        {year.label}
+                                        <CheckIcon
+                                            className={cn(
+                                                "ml-auto h-4 w-4",
+                                                currentYearEnd === year.value ? "opacity-100" : "opacity-0"
+                                            )}
+                                        />
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        </Command>
+                    </PopoverContent>
+                </Popover>
+                    </div>
+                </div>
             </div>
 
 

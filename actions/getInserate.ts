@@ -179,7 +179,7 @@ export const getInserate = cache(async ({
         if (reqAge && !pInserat?.reqAge) {
             return false;
         }
-
+        
         return bAge && bLicense && bCaution;
     })
 
@@ -211,16 +211,19 @@ export const getInserate = cache(async ({
         const minPower = power ? power : 0;
         const maxPower = powerMax ? powerMax : 100000;
 
-        const searchedInitial = (initial || initialMax) ? true : false;
-        const minInitial = initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial ? new Date(initial) : new Date(1900, 0, 1)
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
+        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
+        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
+        
+        const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
-        const maxInitial = initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+        const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
 
-        const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.pkwAttribute?.initial) ||
+        const bInitial = searchedInitial ? ((isEqual(minInitial, pInserat?.pkwAttribute?.initial) ||
             isBefore(minInitial, pInserat?.pkwAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.pkwAttribute?.initial) || isAfter(maxInitial, pInserat?.pkwAttribute?.initial))
+            (isEqual(maxInitial, pInserat?.pkwAttribute?.initial) || isAfter(maxInitial, pInserat?.pkwAttribute?.initial)))
             : true;
 
 
@@ -283,16 +286,19 @@ export const getInserate = cache(async ({
         const minPower = power ? power : 0;
         const maxPower = powerMax ? powerMax : 100000;
 
-        const searchedInitial = (initial || initialMax) ? true : false;
-        const minInitial = initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial ? new Date(initial) : new Date(1900, 0, 1)
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
+        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
+        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
+        
+        const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
-        const maxInitial = initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+        const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
 
-        const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.lkwAttribute?.initial) ||
+        const bInitial = searchedInitial ? ((isEqual(minInitial, pInserat?.lkwAttribute?.initial) ||
             isBefore(minInitial, pInserat?.lkwAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.lkwAttribute?.initial) || isAfter(maxInitial, pInserat?.lkwAttribute?.initial))
+            (isEqual(maxInitial, pInserat?.lkwAttribute?.initial) || isAfter(maxInitial, pInserat?.lkwAttribute?.initial)))
             : true;
 
 
@@ -331,17 +337,9 @@ export const getInserate = cache(async ({
 
     const TrailerFilter = cache((pInserat: typeof inserat) => {
 
-        const usedInitial = initial ? new Date(initial) : null;
+        
 
-        let isValidDate;
-
-        if (initial instanceof Date && !isNaN(initial.getTime()) || String(initial)?.trim() === "" || !initial) {
-
-            isValidDate = true;
-        } else {
-
-            isValidDate = false;
-        }
+        
 
         const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
         const startingWeightClass = weightClass ? weightClass : 0;
@@ -351,16 +349,19 @@ export const getInserate = cache(async ({
         const minAxis = axis ? axis : 0;
         const maxAxis = axisMax ? axisMax : 10;
 
-        const searchedInitial = (initial || initialMax) ? true : false;
-        const minInitial = initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial ? new Date(initial) : new Date(1900, 0, 1)
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
+        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
+        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
+        
+        const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
-        const maxInitial = initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+        const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
 
-        const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.trailerAttribute?.initial) ||
+        const bInitial = searchedInitial ? ((isEqual(minInitial, pInserat?.trailerAttribute?.initial) ||
             isBefore(minInitial, pInserat?.trailerAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.trailerAttribute?.initial) || isAfter(maxInitial, pInserat?.trailerAttribute?.initial))
+            (isEqual(maxInitial, pInserat?.trailerAttribute?.initial) || isAfter(maxInitial, pInserat?.trailerAttribute?.initial)))
             : true;
 
         const bAxis = searchedAxis ? minAxis <= pInserat?.trailerAttribute?.axis && maxAxis >= pInserat?.trailerAttribute?.axis : true;
@@ -421,18 +422,19 @@ export const getInserate = cache(async ({
         const minPower = power ? power : 0;
         const maxPower = powerMax ? powerMax : 100000;
 
-        const searchedInitial = (initial || initialMax) ? true : false;
-        const minInitial = initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial ? new Date(initial) : new Date(1900, 0, 1)
-
-        const maxInitial = initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
-
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
+        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
+        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
         
+        const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
-        const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.transportAttribute?.initial) ||
+        const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
+
+        const bInitial = searchedInitial ? ((isEqual(minInitial, pInserat?.transportAttribute?.initial) ||
             isBefore(minInitial, pInserat?.transportAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.transportAttribute?.initial) || isAfter(maxInitial, pInserat?.transportAttribute?.initial))
+            (isEqual(maxInitial, pInserat?.transportAttribute?.initial) || isAfter(maxInitial, pInserat?.transportAttribute?.initial)))
             : true;
 
 
@@ -715,7 +717,7 @@ export const getInserate = cache(async ({
                     ...ilikeQuery,
                     start ? gte(inserat.price, start) : undefined,
                     end ? lte(inserat.price, end) : undefined,
-                    thisCategory ? eq(inserat.category, thisCategory) : undefined,
+                    thisCategory ? eq(inserat.category, thisCategory) : undefined,  
 
                 )
             ),

@@ -23,17 +23,19 @@ const TrailerTypeBar = () => {
 
     const params = getSearchParamsFunction("type");
 
+    
     useEffect(() => {
         if(type) {
           changeSearchParams("type", type);
           setCurrentType(type);
         }
       }, [])
-
       
   
       
       const currentObject = useSavedSearchParams((state) => state.searchParams)
+      
+      
   
       const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
   

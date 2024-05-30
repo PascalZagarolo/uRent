@@ -30,9 +30,13 @@ const PkwFuelBar = () => {
 
     useEffect(() => {
         if(fuel) {
-            console.log("...")
-          changeSearchParams("fuel", fuel);
-          setCurrentFuel(fuel);
+            changeSearchParams("fuel", fuel);
+            
+        }
+
+        if(!fuel && currentObject["fuel"]) {
+            deleteSearchParams("fuel");
+            setCurrentFuel(null);
         }
       }, [])
 

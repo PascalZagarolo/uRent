@@ -66,7 +66,7 @@ const SetInitialSearch = () => {
             changeSearchParams("initial", existingYear)
             const usedDate = new Date(existingYear);
             const resolvedYear = String(getYear(usedDate));
-            console.log(resolvedYear);
+            
             setCurrentYear(resolvedYear)
         } else {
             deleteSearchParams("initial");

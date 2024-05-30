@@ -3,7 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BrandEnumRender } from "@/db/schema";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
@@ -30,6 +30,8 @@ const PkwBrandBar = () => {
 
     const params = useParams();
 
+    const currentState = useDeleteParams((state) => state.removeAttributes);
+
     const onSubmit = (selectedValue: string) => {
       setCurrentAge(selectedValue);
         changeSearchParams("thisBrand" , selectedValue);
@@ -43,10 +45,10 @@ const PkwBrandBar = () => {
 
     useEffect(() => {
       console.log("...")
-      if(existingBrand) {
+      if(existingBrand && !currentState) {
         setCurrentAge(existingBrand);
         changeSearchParams("thisBrand" , existingBrand);
-      } else if(!existingBrand) {
+      } else{
         setCurrentAge(null);
         deleteSearchParams("thisBrand")
       }

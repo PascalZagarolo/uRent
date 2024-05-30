@@ -12,7 +12,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import qs from "query-string";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
@@ -29,6 +29,8 @@ const PkwDoorsBar = () => {
 
     const router = useRouter();
     const pathname = usePathname();
+
+    const currentState = useDeleteParams((state) => state.removeAttributes);
 
 
 
@@ -47,12 +49,12 @@ const PkwDoorsBar = () => {
 
 
     useEffect(() => {
-        if (doors) {
+        if (doors && !currentState) {
             changeSearchParams("doors", doors);
             setCurrentDoors(doors);
         }
 
-        if (doorsMax) {
+        if (doorsMax && !currentState) {
             changeSearchParams("doorsMax", doorsMax);
             setCurrentEnd(doorsMax);
         }

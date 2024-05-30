@@ -138,7 +138,7 @@ const PriceFormFilter = () => {
 
                         <div className="flex w-full">
                             <Input
-                                className="w-full dark:bg-[#171717] border-none rounded-none"
+                                className="w-full dark:bg-[#0F0F0F]   border-none rounded-none"
                                 placeholder="Start"
                                 value={currentStart || ""}
                                 onChange={(e) => {
@@ -149,7 +149,7 @@ const PriceFormFilter = () => {
                                 }}
                             />
                             <SelectTrigger
-                                className="rounded-none rounded-r-md w-[36px] font-semibold  border-[#282c45] dark:bg-[#0F0F0F] dark:border-none" />
+                                className="rounded-none rounded-r-md w-[36px] font-semibold  border-[#282c45] dark:bg-[#171717]  dark:border-none" />
                         </div>
 
 
@@ -180,7 +180,7 @@ const PriceFormFilter = () => {
                     <Select onValueChange={(e) => { setEnd(Number(e)); setCurrentEnd(e) }} value={currentEnd || "max"} >
                         <div className="flex w-full">
                             <Input
-                                className="w-full dark:bg-[#171717] border-none rounded-none"
+                                className="w-full dark:bg-[#0F0F0F] border-none rounded-none"
                                 placeholder="Ende"
                                 onChange={(e) => {
                                     const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
@@ -191,7 +191,7 @@ const PriceFormFilter = () => {
                             />
                             <SelectTrigger
                             
-                                className="rounded-none rounded-r-md w-[36px] font-semibold  border-[#282c45] dark:bg-[#0F0F0F] dark:border-none" />
+                                className="rounded-none rounded-r-md w-[36px] font-semibold  border-[#282c45] dark:bg-[#171717] dark:border-none" />
                         </div>
                         <SelectContent className="dark:bg-[#191919] dark:border-none p-2 flex justify-center">
                             <SelectGroup>

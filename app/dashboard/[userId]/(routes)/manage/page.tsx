@@ -174,16 +174,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                 Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
                                 <br/> vollen Überblick über deine Inserate und Fahrzeuge.
                             </p>
-                        <div className="pt-4">
-                            <AddAvailability 
-                            foundInserate={foundInserate}
-                            />
-                        </div>
-                        <div className="pb-4 pt-2">
-                            <AddBooking 
-                            foundInserate={foundInserate}
-                            />
-                        </div>
+                        
                         {selectedInserat?.multi && (
                             <div className="sm:px-4 mt-8 sm:w-3/5">
                             <SelectVehicle 
@@ -237,7 +228,16 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                 </div>
                             </div>
                         </div>
-
+                        <div className="pt-4 px-4">
+                            <AddAvailability 
+                            foundInserate={foundInserate}
+                            />
+                        </div>
+                        <div className="pb-4 pt-2 px-4">
+                            <AddBooking 
+                            foundInserate={foundInserate}
+                            />
+                        </div>
                         <div className="w-full">
                             <CalendarAndDetails 
                             foundInserate={foundInserate}

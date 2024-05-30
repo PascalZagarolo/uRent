@@ -57,11 +57,15 @@ export async function PATCH(
             where : (eq(address.inseratId, params.inseratId))
         })
 
-        const addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=65db7269a0101559750093uena07e08`);
+        let addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=65db7269a0101559750093uena07e08`);
 
         console.log("test")
        
         console.log(addressObject.data[0]);
+
+        if(!addressObject.data[0]) {
+            addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat?.postalCode}&api_key=65db7269a0101559750093uena07e08`);
+        }
 
         const pAddress: string[] = addressObject.data[0].display_name.split(",");
         console.log(pAddress[address.length -3])

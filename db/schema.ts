@@ -849,6 +849,7 @@ export const vehicle = pgTable("vehicle", {
 
     title : text("title"),
     registration: text("registration"),
+    internalId : text("internalId"),
     image : text("image")
 })
 

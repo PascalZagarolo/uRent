@@ -51,6 +51,11 @@ const PkwDoorsBar = () => {
             changeSearchParams("doors", doors);
             setCurrentDoors(doors);
         }
+
+        if (doorsMax) {
+            changeSearchParams("doorsMax", doorsMax);
+            setCurrentEnd(doorsMax);
+        }
     }, [])
 
     useEffect(() => {

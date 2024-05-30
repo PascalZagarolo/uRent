@@ -62,8 +62,7 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
     const setCategory = (category : typeof CategoryEnumRender) => {
-        deleteAttributes();
-        setCurrentCategory(category)
+        
         //@ts-ignore
         changeSearchParams("thisCategory", category);
         
@@ -77,18 +76,18 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
     }, [])
 
     const deleteCategory = () => {
-        deleteAttributes();
-        setCurrentCategory(null)
+        
+        
         deleteSearchParams("thisCategory")
     }
 
-
-    const [pCurrentCategory, setCurrentCategory]  = useState<any>();
+console.log(currentObject)
+    
     
     
 
     const deleteAttributes = () => {
-        console.log("...")
+        
         //ALLGEMEIN
         deleteSearchParams("caution")
 
@@ -104,7 +103,7 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
         deleteSearchParams("initalMax")
         deleteSearchParams("type");
         deleteSearchParams("ahk");
-        console.log("...")
+        
         //LKW
         deleteSearchParams("application")
         deleteSearchParams("axis")
@@ -119,12 +118,12 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
         deleteSearchParams("transmission")
         deleteSearchParams("volume")
         deleteSearchParams("weightClass")
-        console.log("...")
+        
         //TRAILER
         deleteSearchParams("brake")
         deleteSearchParams("coupling")
         deleteSearchParams("brake")
-        console.log("...")
+        
         //TRANSPORT
         deleteSearchParams("transportBrand")
         

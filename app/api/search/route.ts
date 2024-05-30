@@ -195,7 +195,7 @@ export async function PATCH(
             const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
             
             
-            const bFuel = fuel ? fuel === pInserat?.lkwAttribute?.fuel : true;
+            const bFuel = fuel ? String(fuel) === String(pInserat?.lkwAttribute?.fuel) : true;
 
             const bVolume = volume ? volume <= pInserat?.lkwAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.lkwAttribute?.loading_l : true;

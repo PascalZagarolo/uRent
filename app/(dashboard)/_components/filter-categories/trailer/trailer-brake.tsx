@@ -9,7 +9,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
@@ -25,10 +25,11 @@ const TrailerBrakeBar = () => {
 
     const router = useRouter();
 
+    const currentState = useDeleteParams((state) => state.removeAttributes);
 
 
     useEffect(() => {
-        if(brake) {
+        if(brake && !currentState) {
           changeSearchParams("brake", brake);
           setCurrentBrand(brake);
         }

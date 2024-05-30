@@ -9,7 +9,7 @@ import { useParams, usePathname, useRouter, useSearchParams } from "next/navigat
 import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
@@ -27,10 +27,10 @@ const TransportWeightClassBar = () => {
 
     const router = useRouter();
 
-
+    const currentState = useDeleteParams((state) => state.removeAttributes);
 
     useEffect(() => {
-        if (weightClass) {
+        if (weightClass && !currentState) {
             changeSearchParams("weightClass", weightClass);
             setCurrentWeight(weightClass);
         }

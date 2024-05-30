@@ -12,7 +12,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { use, useEffect, useState } from "react";
 import qs from "query-string";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 import { set } from 'date-fns';
 
 
@@ -26,21 +26,26 @@ const PkwSeatsBar = () => {
     const [currentEnd, setCurrentEnd] = useState(seatsMax);
     const [isLoading, setIsLoading] = useState(false);
 
-
+    let initialLoad = true;
 
     const router = useRouter();
     const pathname = usePathname();
 
-
-
+    const currentState = useDeleteParams((state) => state.removeAttributes);
 
 
     useEffect(() => {
-        if (seats) {
+        
+        if (seats && !currentState) {
             changeSearchParams("seats", seats);
             setCurrentSeats(seats);
         }
+        if (seatsMax  && !currentState) {
+            changeSearchParams("seatsMax", seatsMax);
+            setCurrentEnd(seatsMax);
+        }
     }, [])
+
 
 
     useEffect(() => {

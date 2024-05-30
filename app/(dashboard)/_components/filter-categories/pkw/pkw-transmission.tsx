@@ -11,7 +11,7 @@ import  qs from "query-string";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useEffect, useState } from "react";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
@@ -22,12 +22,14 @@ const PkwTransmissionBar = () => {
     const [isLoading, setIsLoading] = useState(false);
     const pathname = usePathname();
 
+    const currentState = useDeleteParams((state) => state.removeAttributes);
+
     const router = useRouter();
 
     const params = getSearchParamsFunction("transmission");
 
     useEffect(() => {
-        if(transmission) {
+        if(transmission && !currentState) {
           changeSearchParams("transmission", transmission);
           setCurrentTransmission(transmission);
         }

@@ -173,4 +173,14 @@ export const useUnsavedChangesSettings = create<unsavedChanges>((set) => ({
     }
 }))
 
+type deleteParams = {
+    removeAttributes : boolean,
+    changeAttributes: (action : boolean) => void;
+}
 
+export const useDeleteParams = create<deleteParams>((set) => ({
+    removeAttributes : false,
+    changeAttributes : (action : boolean) => {
+        set({ removeAttributes : action })
+    }
+}))

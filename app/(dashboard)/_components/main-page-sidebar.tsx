@@ -14,7 +14,7 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
-import {  useSavedSearchParams } from "@/store";
+import {  useDeleteParams, useSavedSearchParams } from "@/store";
 import {  MdOutlineCancel } from "react-icons/md";
 import { useEffect, useState } from "react";
 import MainPageResults from "./main-page-results";
@@ -61,8 +61,10 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
 
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
+    const { changeAttributes } = useDeleteParams();
+
     const setCategory = (category : typeof CategoryEnumRender) => {
-        
+        deleteAttributes();
         //@ts-ignore
         changeSearchParams("thisCategory", category);
         
@@ -77,17 +79,19 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
 
     const deleteCategory = () => {
         
-        
+        deleteAttributes();
         deleteSearchParams("thisCategory")
     }
 
-console.log(currentObject)
+    
     
     
     
 
     const deleteAttributes = () => {
         
+        changeAttributes(true);
+
         //ALLGEMEIN
         deleteSearchParams("caution")
 
@@ -99,8 +103,8 @@ console.log(currentObject)
         deleteSearchParams("doors")
         deleteSearchParams("doorsMax")
         deleteSearchParams("fuel")
-        deleteSearchParams("inital")
-        deleteSearchParams("initalMax")
+        deleteSearchParams("initial")
+        deleteSearchParams("initialMax")
         deleteSearchParams("type");
         deleteSearchParams("ahk");
         
@@ -126,6 +130,8 @@ console.log(currentObject)
         
         //TRANSPORT
         deleteSearchParams("transportBrand")
+
+        
         
     }
 

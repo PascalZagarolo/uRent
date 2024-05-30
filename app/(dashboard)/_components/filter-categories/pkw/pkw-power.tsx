@@ -15,7 +15,7 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import qs from "query-string"
 import { Separator } from "@/components/ui/separator";
 import { MdCancel } from "react-icons/md";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 import { Switch } from "@/components/ui/switch";
 
 
@@ -25,7 +25,7 @@ const PkwPowerBar = () => {
 
     const router = useRouter();
 
-    
+    const currentState = useDeleteParams((state) => state.removeAttributes);
 
     const power = useSearchParams().get("power");
     const powerMax = useSearchParams().get("powerMax");
@@ -53,13 +53,13 @@ const PkwPowerBar = () => {
     const params = getSearchParamsFunction("power");
 
     useEffect(() => {
-        if (power) {
+        if (power && !currentState) {
             changeSearchParams("power", power);
             setCurrentPS(Number(power));
             setCurrentKW((Math.round(Number(power) * 0.735499)));
         }
 
-        if (powerMax) {
+        if (powerMax && !currentState) {
             changeSearchParams("powerMax", powerMax);
             setCurrentPSEnd(Number(powerMax));
             setCurrentKWEnd((Math.round(Number(powerMax) * 0.735499)));

@@ -9,7 +9,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import qs from "query-string"
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
@@ -26,15 +26,15 @@ const PkwFuelBar = () => {
 
     const params = getSearchParamsFunction("fuel");
 
-    
+    const currentState = useDeleteParams((state) => state.removeAttributes);
 
     useEffect(() => {
-        if(fuel) {
+        if(fuel && !currentState) {
             changeSearchParams("fuel", fuel);
             
         }
 
-        if(!fuel && currentObject["fuel"]) {
+        if(!fuel && !currentObject["fuel"]) {
             deleteSearchParams("fuel");
             setCurrentFuel(null);
         }

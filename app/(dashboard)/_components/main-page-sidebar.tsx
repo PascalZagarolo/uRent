@@ -35,12 +35,16 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
    
     const router = useRouter();
 
-    
+    const [isMounted, setIsMounted] = useState(false);
 
     const params = getSearchParamsFunction("category");
 
     
-
+    useEffect(() => {
+        if(!isMounted) {
+            setIsMounted(true);
+        }
+    },[])
     
 
     const onReset = () => {
@@ -48,8 +52,9 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
         
         router.push(url)
         
-    }
 
+    }
+    
 
    
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -57,7 +62,7 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
     const currentObject = useSavedSearchParams((state) => state.searchParams)
 
     const setCategory = (category : typeof CategoryEnumRender) => {
-        setHasChanged(true);
+        deleteAttributes();
         setCurrentCategory(category)
         //@ts-ignore
         changeSearchParams("thisCategory", category);
@@ -68,28 +73,38 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
         if(currentCategory){
             changeSearchParams("thisCategory", currentCategory);
         }
+        
     }, [])
 
     const deleteCategory = () => {
-        setHasChanged(true);
+        deleteAttributes();
         setCurrentCategory(null)
         deleteSearchParams("thisCategory")
     }
 
 
     const [pCurrentCategory, setCurrentCategory]  = useState<any>();
-    const [hasChanged, setHasChanged] = useState(false)
+    
+    
 
     const deleteAttributes = () => {
+        console.log("...")
+        //ALLGEMEIN
+        deleteSearchParams("caution")
+
         //PKW
         deleteSearchParams("brand")
+        deleteSearchParams("thisBrand")
         deleteSearchParams("seats")
+        deleteSearchParams("seatsMax")
         deleteSearchParams("doors")
+        deleteSearchParams("doorsMax")
         deleteSearchParams("fuel")
         deleteSearchParams("inital")
+        deleteSearchParams("initalMax")
         deleteSearchParams("type");
         deleteSearchParams("ahk");
-
+        console.log("...")
         //LKW
         deleteSearchParams("application")
         deleteSearchParams("axis")
@@ -100,25 +115,22 @@ const MainPageSideBar : React.FC<MainPageSideBarProps> = ({
         deleteSearchParams("loading_h")
         deleteSearchParams("loading_l")
         deleteSearchParams("power")
+        deleteSearchParams("powerMax")
         deleteSearchParams("transmission")
         deleteSearchParams("volume")
         deleteSearchParams("weightClass")
-
+        console.log("...")
         //TRAILER
         deleteSearchParams("brake")
         deleteSearchParams("coupling")
         deleteSearchParams("brake")
-
+        console.log("...")
         //TRANSPORT
         deleteSearchParams("transportBrand")
         
     }
 
-    useEffect(() => {
-        if(hasChanged) {
-            deleteAttributes();
-        }
-    },[pCurrentCategory])
+    
     
     
 

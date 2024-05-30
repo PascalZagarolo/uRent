@@ -33,7 +33,7 @@ const PkwBrandBar = () => {
     const onSubmit = (selectedValue: string) => {
       setCurrentAge(selectedValue);
         changeSearchParams("thisBrand" , selectedValue);
-        console.log(selectedValue)
+       
     }
 
     const deleteBrand = () => {
@@ -42,6 +42,7 @@ const PkwBrandBar = () => {
     }
 
     useEffect(() => {
+      console.log("...")
       if(existingBrand) {
         setCurrentAge(existingBrand);
         changeSearchParams("thisBrand" , existingBrand);

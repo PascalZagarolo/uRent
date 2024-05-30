@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import qs from "query-string";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
@@ -23,8 +23,10 @@ const TrailerExtraTypeBar = () => {
 
     const params = getSearchParamsFunction("extraType");
 
+    const currentState = useDeleteParams((state) => state.removeAttributes);
+
     useEffect(() => {
-        if(extraType) {
+        if(extraType && !currentState) {
           changeSearchParams("extraType", extraType);
           setCurrentType(extraType);
         }

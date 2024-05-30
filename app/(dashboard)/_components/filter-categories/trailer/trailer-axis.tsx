@@ -9,12 +9,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
 
 const TrailerAxisBar = () => {
+
+    const currentState = useDeleteParams((state) => state.removeAttributes);
+    
     const axis = useSearchParams().get("axis");
     const axisMax = useSearchParams().get("axisMax");
     const [currentWeight, setCurrentWeight] = useState(axis);
@@ -28,6 +31,17 @@ const TrailerAxisBar = () => {
     const router = useRouter();
 
 
+    useEffect(() => {
+        if(axis && !currentState) {
+          changeSearchParams("axis", axis);
+          setCurrentWeight(axis);
+        }
+
+        if(axisMax && !currentState) {
+          changeSearchParams("axisMax", axisMax);
+          setCurrentWeightEnd(axisMax);
+        }
+    },[])
 
     
   

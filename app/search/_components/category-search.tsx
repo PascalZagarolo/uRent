@@ -39,7 +39,9 @@ const CategorySearch = () => {
     const deleteAttributes = () => {
         //PKW
         deleteSearchParams("brand")
+        deleteSearchParams("thisBrand")
         deleteSearchParams("seats")
+        deleteSearchParams("seatsMax")
         deleteSearchParams("doors")
         deleteSearchParams("fuel")
         deleteSearchParams("inital")
@@ -48,6 +50,7 @@ const CategorySearch = () => {
         //LKW
         deleteSearchParams("application")
         deleteSearchParams("axis")
+        deleteSearchParams("axisMax")
         deleteSearchParams("drive")
         deleteSearchParams("lkwBrand")
         deleteSearchParams("loading")
@@ -55,6 +58,7 @@ const CategorySearch = () => {
         deleteSearchParams("loading_h")
         deleteSearchParams("loading_l")
         deleteSearchParams("power")
+        deleteSearchParams("powerMax")
         deleteSearchParams("transmission")
         deleteSearchParams("volume")
         deleteSearchParams("weightClass")

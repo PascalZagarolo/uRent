@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -16,6 +16,9 @@ import { LkwBrandEnumRender, TransportBrandEnumRender } from "@/db/schema";
 
 
 const TransportBrandBar = () => {
+
+  const currentState = useDeleteParams((state) => state.removeAttributes);
+
     const brand = useSearchParams().get("transportBrand");
     const [currentBrand, setCurrentBrand] = useState(brand);
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +32,7 @@ const TransportBrandBar = () => {
     
 
     useEffect(() => {
-      if(brand) {
+      if(brand && !currentState) {
         changeSearchParams("transportBrand", brand);
         setCurrentBrand(brand);
       }

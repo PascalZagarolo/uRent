@@ -9,12 +9,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
 
 const LkwApplicationBar = () => {
+
+    const currentState = useDeleteParams((state) => state.removeAttributes);
+
     const brand = useSearchParams().get("application");
     const [currentBrand, setCurrentBrand] = useState(brand);
     const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +31,7 @@ const LkwApplicationBar = () => {
 
 
     useEffect(() => {
-        if(brand) {
+        if(brand && !currentState) {
           changeSearchParams("application", brand);
           setCurrentBrand(brand);
         }

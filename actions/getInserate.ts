@@ -325,13 +325,13 @@ export const getInserate = cache(async ({
         const bApplication = application ? application == pInserat.lkwAttribute?.application : true;
         const bLkwBrand = lkwBrand ? lkwBrand === pInserat.lkwAttribute?.lkwBrand : true;
         const bTransmission = transmission ? transmission === pInserat?.lkwAttribute?.transmission : true;
-        
+        const bFuel = fuel ? String(fuel) == String(pInserat.lkwAttribute?.fuel) : true;
         const bVolume = volume ? volume <= pInserat.lkwAttribute?.loading_volume : true;
         const bLength = loading_l ? loading_l <= pInserat.lkwAttribute?.loading_l : true;
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute?.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission && bPower &&
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission && bPower && bFuel &&
             bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 

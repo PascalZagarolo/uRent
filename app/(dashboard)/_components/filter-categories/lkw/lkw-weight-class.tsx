@@ -9,12 +9,15 @@ import { useParams, usePathname, useRouter, useSearchParams } from "next/navigat
 import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
 
 const LkwWeightClassBar = () => {
+    
+    const currentState = useDeleteParams((state) => state.removeAttributes);
+
     const weightClass = useSearchParams().get("weightClass");
     const weightClassMax = useSearchParams().get("weightClassMax");
     const [currentWeight, setCurrentWeight] = useState(weightClass);
@@ -30,10 +33,16 @@ const LkwWeightClassBar = () => {
 
 
     useEffect(() => {
-        if (weightClass) {
+        if (weightClass && !currentState) {
             changeSearchParams("weightClass", weightClass);
             setCurrentWeight(weightClass);
         }
+
+        if (weightClassMax && !currentState) {
+            changeSearchParams("weightClassMax", weightClassMax);
+            setCurrentWeightMax(weightClassMax);
+        }
+
     }, [])
 
 

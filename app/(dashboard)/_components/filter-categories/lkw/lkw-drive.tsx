@@ -10,12 +10,15 @@ import { useEffect, useState } from "react";
 import qs from "query-string";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { DriveEnumRender } from "@/db/schema";
-import { useSavedSearchParams } from "@/store";
+import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
 
 
 const LkwDriveBar = () => {
+
+  const currentState = useDeleteParams((state) => state.removeAttributes);
+
     const brand = useSearchParams().get("drive");
     const [currentBrand, setCurrentBrand] = useState(brand);
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +32,7 @@ const LkwDriveBar = () => {
     
 
     useEffect(() => {
-      if(brand) {
+      if(brand && !currentState) {
         changeSearchParams("drive", brand);
         setCurrentBrand(brand);
       }

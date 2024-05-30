@@ -58,6 +58,7 @@ interface MainPageProps {
         doorsMax?: string;
 
         initial?: string;
+        initialMax?: string;
         power?: string;
         powerMax?: string;
         seats?: string;
@@ -185,6 +186,7 @@ const Main = cache(async ({
                             doors={searchParams.doors}
                             doorsMax={searchParams.doorsMax}
                             initial={searchParams.initial}
+                            initialMax={searchParams.initialMax}
                             power={searchParams.power}
                             powerMax={searchParams.powerMax}
                             seats={searchParams.seats}

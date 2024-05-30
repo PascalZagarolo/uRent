@@ -9,7 +9,7 @@ import {
     transportAttribute
 } from "@/db/schema";
 import axios from "axios";
-import { isSameDay } from "date-fns";
+import { isAfter, isBefore, isEqual, isSameDay } from "date-fns";
 import { and, eq, gte, ilike, lte } from "drizzle-orm";
 import { cache, use } from "react";
 import { object } from "zod";
@@ -41,6 +41,7 @@ type GetInserate = {
     doors?: number;
     doorsMax?: number;
     initial?: Date;
+    initialMax?: Date;
     power?: number;
     powerMax?: number;
     seats?: number;
@@ -122,6 +123,7 @@ export const getInserate = cache(async ({
     doors,
     doorsMax,
     initial,
+    initialMax,
     power,
     powerMax,
     seats,
@@ -206,11 +208,20 @@ export const getInserate = cache(async ({
         const endingDoors = doorsMax ? doorsMax : 10;
 
         const searchedPower = (power || powerMax) ? true : false;
-            const minPower = power ? power : 0;
-            const maxPower = powerMax ? powerMax : 100000;
+        const minPower = power ? power : 0;
+        const maxPower = powerMax ? powerMax : 100000;
+
+        const searchedInitial = (initial || initialMax) ? true : false;
+        const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
+        const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+
+        const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.pkwAttribute?.initial) ||
+            isBefore(minInitial, pInserat?.pkwAttribute?.initial)) &&
+            (isEqual(maxInitial, pInserat?.pkwAttribute?.initial) || isAfter(maxInitial, pInserat?.pkwAttribute?.initial))
+            : true;
 
 
-        const bPower = searchedPower ? pInserat?.pkwAttribute?.power >= minPower && 
+        const bPower = searchedPower ? pInserat?.pkwAttribute?.power >= minPower &&
             pInserat?.pkwAttribute?.power <= maxPower
             : true;
 
@@ -230,9 +241,9 @@ export const getInserate = cache(async ({
         const bType = thisType ? String(thisType) === pInserat.pkwAttribute?.type : true;
         const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
         const bFuel = fuel ? fuel === pInserat.pkwAttribute?.fuel : true;
-        const bInitial = isValidDate ? usedInitial <= pInserat?.pkwAttribute?.initial?.getTime() : true
+       
         const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
-        
+
         const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true;
 
         const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
@@ -266,28 +277,28 @@ export const getInserate = cache(async ({
         const endingWeightClass = weightClassMax ? weightClassMax : 100000;
 
         const searchedPower = (power || powerMax) ? true : false;
-            const minPower = power ? power : 0;
-            const maxPower = powerMax ? powerMax : 100000;
+        const minPower = power ? power : 0;
+        const maxPower = powerMax ? powerMax : 100000;
 
 
-        const bPower = searchedPower ? pInserat?.lkwAttribute?.power >= minPower && 
+        const bPower = searchedPower ? pInserat?.lkwAttribute?.power >= minPower &&
             pInserat?.lkwAttribute?.power <= maxPower
             : true;
 
         const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex &&
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
 
-            const bWeightClass = searchedWeightClass ? 
+        const bWeightClass = searchedWeightClass ?
             Number(pInserat?.lkwAttribute?.weightClass) <= Number(endingWeightClass) &&
             Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
             : true;
 
-            const searchedAxis = (axis || axisMax) ? true : false;
-            const minAxis = axis ? axis : 0;
-            const maxAxis = axisMax ? axisMax : 10;
+        const searchedAxis = (axis || axisMax) ? true : false;
+        const minAxis = axis ? axis : 0;
+        const maxAxis = axisMax ? axisMax : 10;
 
         const bAxis = searchedAxis ? minAxis <= pInserat?.lkwAttribute?.axis && maxAxis >= pInserat?.lkwAttribute?.axis : true;
-        
+
         const bDrive = drive ? drive === pInserat.lkwAttribute?.drive : true;
         const bLoading = loading ? loading === pInserat.lkwAttribute?.loading : true;
         const bApplication = application ? application == pInserat.lkwAttribute?.application : true;
@@ -323,15 +334,15 @@ export const getInserate = cache(async ({
         const endingWeightClass = weightClassMax ? weightClassMax : 100000;
 
         const searchedAxis = (axis || axisMax) ? true : false;
-            const minAxis = axis ? axis : 0;
-            const maxAxis = axisMax ? axisMax : 10;
+        const minAxis = axis ? axis : 0;
+        const maxAxis = axisMax ? axisMax : 10;
 
         const bAxis = searchedAxis ? minAxis <= pInserat?.trailerAttribute?.axis && maxAxis >= pInserat?.trailerAttribute?.axis : true;
-        
-        const bWeightClass = searchedWeightClass ? 
-        Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
-        Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
-        : true;
+
+        const bWeightClass = searchedWeightClass ?
+            Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
+            Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
+            : true;
 
 
         const usesBrake = (brake !== undefined && typeof brake !== "object");
@@ -340,8 +351,8 @@ export const getInserate = cache(async ({
         const bExtraType = extraType ? extraType === pInserat.trailerAttribute?.extraType : true;
         const bCoupling = coupling ? coupling === pInserat.trailerAttribute?.coupling : true;
         const bLoading = loading ? loading === pInserat.trailerAttribute?.loading : true;
-        
-       
+
+
         const bBrake = usesBrake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
         const bInitial = isValidDate ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true
 
@@ -385,9 +396,9 @@ export const getInserate = cache(async ({
         const maxPower = powerMax ? powerMax : 100000;
 
 
-    const bPower = searchedPower ? pInserat?.transportAttribute?.power >= minPower && 
-        pInserat?.transportAttribute?.power <= maxPower
-        : true;
+        const bPower = searchedPower ? pInserat?.transportAttribute?.power >= minPower &&
+            pInserat?.transportAttribute?.power <= maxPower
+            : true;
 
         const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex &&
             pInserat?.transportAttribute?.seats <= endingIndex : true;
@@ -395,15 +406,15 @@ export const getInserate = cache(async ({
         const bDoors = searchedDoors ? startingDoors <= pInserat?.transportAttribute?.doors
             && endingDoors >= pInserat?.transportAttribute?.doors
             : true;
-        
-        const bWeightClass = searchedWeightClass ? 
-        Number(pInserat?.transportAttribute?.weightClass) <= Number(endingWeightClass) &&
-        Number(pInserat?.transportAttribute?.weightClass) >= Number(startingWeightClass)
-        : true;
+
+        const bWeightClass = searchedWeightClass ?
+            Number(pInserat?.transportAttribute?.weightClass) <= Number(endingWeightClass) &&
+            Number(pInserat?.transportAttribute?.weightClass) >= Number(startingWeightClass)
+            : true;
 
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmission = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
-        
+
         const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
 
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;

@@ -6,7 +6,7 @@ import { and, eq, gte, ilike, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { lkwAttribute, pkwAttribute } from '../../../db/schema';
 import { cache } from "react";
-import { isAfter, isBefore, isEqual, isSameDay, isWithinInterval } from "date-fns";
+import { isAfter, isBefore, isEqual, isSameDay } from "date-fns";
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     const r = 6371;
@@ -92,8 +92,9 @@ export async function PATCH(
             const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
             const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
 
-            const bInitial = searchedInitial ? 
-            isWithinInterval(new Date(pInserat?.pkwAttribute?.initial), { start: minInitial, end: maxInitial })
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.pkwAttribute?.initial) || 
+            isBefore(minInitial, pInserat?.pkwAttribute?.initial)) &&
+            (isEqual(maxInitial, pInserat?.pkwAttribute?.initial) || isAfter(maxInitial, pInserat?.pkwAttribute?.initial))
             : true;
 
             const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors

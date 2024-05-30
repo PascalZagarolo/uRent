@@ -164,6 +164,15 @@ export async function PATCH(
             const minAxis = axis ? axis : 0;
             const maxAxis = axisMax ? axisMax : 10;
 
+            const searchedInitial = (initial || initialMax) ? true : false;
+            const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
+            const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.lkwAttribute?.initial) || 
+            isBefore(minInitial, pInserat?.lkwAttribute?.initial)) &&
+            (isEqual(maxInitial, pInserat?.lkwAttribute?.initial) || isAfter(maxInitial, pInserat?.lkwAttribute?.initial))
+            : true;
+
 
             const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
@@ -185,7 +194,7 @@ export async function PATCH(
             const bTransmission = transmission ? transmission === pInserat?.lkwAttribute?.transmission : true;
             const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
             
-            const bInitial = initial ? usedInitial <= pInserat?.lkwAttribute?.initial?.getTime() : true;
+            
             const bFuel = fuel ? fuel === pInserat?.lkwAttribute?.fuel : true;
 
             const bVolume = volume ? volume <= pInserat?.lkwAttribute?.loading_volume : true;
@@ -210,6 +219,15 @@ export async function PATCH(
             const minAxis = axis ? axis : 0;
             const maxAxis = axisMax ? axisMax : 10;
 
+            const searchedInitial = (initial || initialMax) ? true : false;
+            const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
+            const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.trailerAttribute?.initial) || 
+            isBefore(minInitial, pInserat?.trailerAttribute?.initial)) &&
+            (isEqual(maxInitial, pInserat?.trailerAttribute?.initial) || isAfter(maxInitial, pInserat?.trailerAttribute?.initial))
+            : true;
+
             const bWeightClass = searchedWeightClass ? 
             Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
             Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
@@ -225,7 +243,7 @@ export async function PATCH(
             
            
             const bBrake = brake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
-            const bInitial = initial ? usedInitial <= pInserat?.trailerAttribute?.initial?.getTime() : true;
+            
 
             const bVolume = volume ? volume <= pInserat?.trailerAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.trailerAttribute?.loading_l : true;
@@ -265,6 +283,15 @@ export async function PATCH(
             const searchedPower = (power || powerMax) ? true : false;
             const minPower = power ? power : 0;
             const maxPower = powerMax ? powerMax : 100000;
+
+            const searchedInitial = (initial || initialMax) ? true : false;
+            const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
+            const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
+
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.transportAttribute?.initial) || 
+            isBefore(minInitial, pInserat?.transportAttribute?.initial)) &&
+            (isEqual(maxInitial, pInserat?.transportAttribute?.initial) || isAfter(maxInitial, pInserat?.transportAttribute?.initial))
+            : true;
             
 
             const bPower = searchedPower ? pInserat?.transportAttribute?.power >= minPower && 
@@ -293,7 +320,7 @@ export async function PATCH(
             
             const bFuel = fuel ? fuel === pInserat?.transportAttribute?.fuel : true;
             const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true
-            const bInitial = initial ? usedInitial <= pInserat?.transportAttribute?.initial?.getTime() : true;
+            
 
             const bVolume = volume ? volume <= pInserat?.transportAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.transportAttribute?.loading_l : true;

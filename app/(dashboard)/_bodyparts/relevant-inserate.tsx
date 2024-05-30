@@ -44,6 +44,7 @@ interface RelevanteInserateProps {
     doors?: string;
     doorsMax?: string;
     initial?: string;
+    initialMax?: string;
     power?: string;
     powerMax?: string;
     seats?: string;
@@ -112,6 +113,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     doors,
     doorsMax,
     initial,
+    initialMax, 
     power,
     powerMax,
     seats,
@@ -191,6 +193,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         doors: Number(doors),
         doorsMax: Number(doorsMax),
         initial: new Date(initial),
+        initialMax: new Date(initialMax),
         power: Number(power),
         powerMax: Number(powerMax),
         seats: Number(seats) || null,

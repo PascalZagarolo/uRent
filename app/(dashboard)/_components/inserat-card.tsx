@@ -38,6 +38,7 @@ import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import ProfileBar from "./_inserat-card/profile-bar";
 import Image from "next/image";
 import { GrLocation, GrMapLocation } from "react-icons/gr";
+import { IoMdOpen } from "react-icons/io";
 
 
 interface InseratCardProps {
@@ -441,11 +442,15 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     : (<div className="text-[10px] ml-1 mr-1 hidden sm:block" > / Zeitraum</div>)}
                             </div>
                         </div>
-                        <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-indigo-900 dark:border-[#171923] 
+                        <a className="ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
                          bg-[#181c28]  
-                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:truncate text-sm justify-center">
-                           <FaShippingFast /> Fahrzeugtransfer möglich
-                        </div>
+                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] 
+                        sm:truncate text-sm justify-center"
+                        target="_blank"
+                        href={`/inserat/${thisInserat.id}`}
+                        >
+                           <IoMdOpen className="w-4 h-4 mr-2"  /> Verfügbarkeitskalender anschauen 
+                        </a>
                     </div>
 
 

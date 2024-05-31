@@ -32,13 +32,13 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     const isOwn = currentUser?.id === thisInserat.userId;
     
     const [text, setText] = useState(
-        "Betreff: Anfrage bezüglich Mietwagen\n\n" +
+        "Betreff: Anfrage bezüglich ihres Inserates\n\n" +
         "Sehr geehrte Damen und Herren,\n\n" +
-        `Nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug.
-         Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.\n\n` +
+        `Nach eingehender Prüfung Ihres Mietangebots bin ich sehr interessiert an dem genannten Fahrzeug.\n` +
+        `Gerne würde ich weitere Details zu den Konditionen besprechen und das Fahrzeug persönlich in Augenschein nehmen.\n\n` +
         "Mit freundlichen Grüßen,\n" +
-        (currentUser?.name ? currentUser?.name + " " : "[Dein Name] ") +
-        "Meine Kontaktdaten : \n\n" +
+        (currentUser?.name ? currentUser?.name + " " + "\n\n" : "[Dein Name] ") +
+        "Meine Kontaktdaten : \n" +
         "E-Mail : " + (currentUser?.email ? currentUser?.email : "[Deine E-Mail Addresse]") + "\n"
 
     );
@@ -140,14 +140,14 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                                     </Button>
 
                                                 </DialogTrigger>
-                                                <DialogContent className="dark:bg-[#0F0F0F]">
+                                                <DialogContent className="dark:bg-[#171717] dark:border-none">
                                                     <DialogHeader>
                                                         <div className="text-lg font-bold flex">
                                                             <Lightbulb className="mr-2" />  Händler sofort kontaktieren
                                                         </div>
                                                     </DialogHeader>
                                                     <div>
-                                                        <Textarea className="h-[400px] border border-gray-300 bg-gray-200 dark:bg-[#171717]"
+                                                        <Textarea className="h-[400px] border dark:border-none bg-gray-200 dark:bg-[#191919]"
                                                             value={text}
                                                             onChange={handleTextChange}
                                                         />
@@ -158,8 +158,8 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                                     </div>
                                                     <div className="ml-auto">
                                                         <DialogTrigger>
-                                                            <Button variant="ghost" className="bg-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                                          dark:bg-[#171717] dark:hover:bg-[#1c1c1c] "
+                                                            <Button variant="ghost" className="bg-gray-200 
+                                                          dark:bg-indigo-800 dark:hover:bg-indigo-900 "
                                                                 onClick={onInterest} disabled={!text}>
                                                                 Senden
                                                             </Button>

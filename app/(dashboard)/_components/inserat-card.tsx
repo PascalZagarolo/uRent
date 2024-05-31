@@ -27,7 +27,7 @@ import { FaCar, FaGasPump } from "react-icons/fa";
 import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
 import { PiVanFill } from "react-icons/pi";
 
-import { TbCrane } from "react-icons/tb";
+import { TbCrane, TbLocationDiscount } from "react-icons/tb";
 import { CategoryEnumRender, inserat, userTable } from "@/db/schema";
 
 import { RiCaravanLine } from "react-icons/ri";
@@ -37,6 +37,7 @@ import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import ProfileBar from "./_inserat-card/profile-bar";
 import Image from "next/image";
+import { GrLocation, GrMapLocation } from "react-icons/gr";
 
 
 interface InseratCardProps {
@@ -394,26 +395,35 @@ const InseratCard: React.FC<InseratCardProps> = ({
             <div className="w-full">
 
 
-                <div className="flex justify-center bg-[#1e2332] p-2  text-gray-100  dark:border-[#1e2332]  
-                    drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] dark:bg-[#191B27] items-center">
-                    <p className="text-gray-100 font-bold mr-4 flex">
-                        <BsCalendarWeekFill className="w-4 h-4 mr-2" />  {thisInserat.annual ? "" : "Zeitraum :"}
-                    </p>
-                    {thisInserat.annual ? (
-                        <p className="font-semibold  text-sm items-center"> Dauerhaftes Inserat </p>
-                    ) : (
-                        <>
-                            <p className="font-semibold text-gray-200">
-                                {formatDate(thisInserat?.begin)}
-                            </p>
-                            <p className="font-bold text-black-800 mr-2 ml-2">
-                                -
-                            </p>
-                            <p className="font-bold text-gray-200">
-                                {formatDate(thisInserat?.end)}
-                            </p>
-                        </>
-                    )}
+                <div className="flex justify-center bg-[#1e2332] p-2 text-xs  text-gray-200 font-semibold  dark:border-[#1e2332]  
+                    drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] dark:bg-[#191B27] items-center gap-x-2">
+                    
+                            <div className={cn("w-1/2 sm:truncate flex items-center text-sm h-[24px] overflow-hidden", //@ts-ignore
+                             !thisInserat.address?.locationString && "w-full flex justify-center ")}>
+                                <div>
+                                <GrLocation  className="text-rose-600 w-4 h-4 mr-2"  />
+                                </div>
+                                {//@ts-ignore
+                                thisInserat.address?.locationString ? //@ts-ignore
+                                    getAddressCity(thisInserat.address?.locationString) 
+                                    : "Keine Angabe"}
+                            </div>
+
+
+                            {//@ts-ignore
+                            thisInserat.address?.locationString && (
+                                <div className="ml-auto gap-x-1 flex text-xs w-1/2 overflow-hidden items-center">
+                                    {//@ts-ignore
+                                    thisInserat.address?.postalCode + ", "}
+                                    <div className="w-2/3 sm:truncate h-[16px]">
+                                        {//@ts-ignore
+                                        thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}, Deutschland
+                                    </div>
+                                </div>
+                            )}
+
+                            
+                                
                 </div>
                 <div>
 
@@ -434,27 +444,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923] 
                          bg-[#181c28]  
                         p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:truncate text-sm justify-center">
-                            <MapPinned className="text-rose-600 sm:mr-2  dark:bg-[#171923] dark:border-none rounded-md w-4 h-4" />
-                            <div className={cn("w-1/3 sm:truncate h-[20px] overflow-hidden", //@ts-ignore
-                             !thisInserat.address?.locationString && "w-full flex justify-center")}>
-                                {//@ts-ignore
-                                thisInserat.address?.locationString ? //@ts-ignore
-                                    getAddressCity(thisInserat.address?.locationString)
-                                    : "Keine Angabe"}
-                            </div>
-
-
-                            {//@ts-ignore
-                            thisInserat.address?.locationString && (
-                                <div className="ml-auto gap-x-1 flex text-xs w-3/5 overflow-hidden items-center">
-                                    {//@ts-ignore
-                                    thisInserat.address?.postalCode + ", "}
-                                    <div className="w-2/3 sm:truncate h-[16px]">
-                                        {//@ts-ignore
-                                        thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}, Deutschland
-                                    </div>
-                                </div>
-                            )}
+                            2
 
 
                         </div>

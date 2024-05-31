@@ -651,8 +651,9 @@ export async function PATCH(
 
         if (location) {
             const usedRadius = radius ? radius : 50;
-            const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
+            let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
 
+            console.log(addressObject.data[0])
 
             for (const pInserat of filteredArray) {
                 const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,

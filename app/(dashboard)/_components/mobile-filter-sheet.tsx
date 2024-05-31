@@ -162,7 +162,9 @@ const MobileFilterSheet = () => {
                     <Settings2 className="mr-2 h-4 w-4" /> Zu der Erweiterten Suche
                 </div>
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
+                    <SheetTrigger className="w-full mr-2">
                     <MainPageResults />
+                    </SheetTrigger>
                 </div>
                 </div>
             </SheetContent>

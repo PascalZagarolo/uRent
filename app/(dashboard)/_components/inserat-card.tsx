@@ -23,7 +23,7 @@ import {
 import { useRouter } from "next/navigation";
 import { cache, useState } from "react";
 import toast from "react-hot-toast";
-import { FaCar, FaGasPump } from "react-icons/fa";
+import { FaCar, FaGasPump, FaShippingFast } from "react-icons/fa";
 import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
 import { PiVanFill } from "react-icons/pi";
 
@@ -441,12 +441,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     : (<div className="text-[10px] ml-1 mr-1 hidden sm:block" > / Zeitraum</div>)}
                             </div>
                         </div>
-                        <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-[#171923] dark:border-[#171923] 
+                        <div className="ml-auto w-2/3 gap-x-2  sm:w-1/2 flex items-center dark:bg-indigo-900 dark:border-[#171923] 
                          bg-[#181c28]  
                         p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:truncate text-sm justify-center">
-                            2
-
-
+                           <FaShippingFast /> Fahrzeugtransfer möglich
                         </div>
                     </div>
 

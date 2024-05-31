@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { inserat, inseratRelations, userTable } from "@/db/schema";
+import { cn } from "@/lib/utils";
 
 import axios from "axios";
 import { Check, Lightbulb, MailCheckIcon, Settings2Icon, ThumbsUpIcon } from "lucide-react";
@@ -14,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { LuMessagesSquare } from "react-icons/lu";
+import { userSubscription } from '../../../../db/schema';
 
 
 interface ProfileBarProps {
@@ -99,10 +101,14 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         setText(event.target.value);
     };
 
+    
+
     return ( 
         <div className="w-full h-full mt-2">
 
-                        <div className=" bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#13141c] dark:border-none">
+                        <div className={cn("bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#13141c] ",
+                        
+                        )}>
                             <div className="flex  items-center  w-full rounded-md p-2">
                             <div className="w-[60px]">
                             <Image

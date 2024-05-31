@@ -19,8 +19,11 @@ const EditVehicle: React.FC<EditVehicleProps> = ({
     thisVehicle
 }) => {
 
+   
+
     const [title, setTitle] = useState(thisVehicle.title);
-    const [registration, setRegistration] = useState(thisVehicle.registration);
+    const [registration, setRegistration] = useState(thisVehicle?.registration);
+    const [internalId, setInternalId] = useState(thisVehicle.internalId);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -30,7 +33,8 @@ const EditVehicle: React.FC<EditVehicleProps> = ({
             setIsLoading(true);
             const values = {
                 title: title,
-                registration: registration
+                registration: registration,
+                internalId : internalId
             }
 
             await axios.patch(`/api/vehicle/${thisVehicle.id}/edit`, values)
@@ -79,6 +83,19 @@ const EditVehicle: React.FC<EditVehicleProps> = ({
                             <Input
                                 value={registration}
                                 onChange={(e) => setRegistration(e.target.value)}
+                                placeholder="Kennzeichen.."
+                                className="dark:border-none dark:bg-[#0F0F0F]"
+                            />
+                        </div>
+                    </div>
+                    <div className="mt-4">
+                        <Label>
+                            Interne Buchungsnr.
+                        </Label>
+                        <div className="mt-2">
+                            <Input
+                                value={internalId}
+                                onChange={(e) => setInternalId(e.target.value)}
                                 placeholder="Kennzeichen.."
                                 className="dark:border-none dark:bg-[#0F0F0F]"
                             />

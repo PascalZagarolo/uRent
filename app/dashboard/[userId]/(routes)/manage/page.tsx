@@ -4,7 +4,7 @@ import { MdManageSearch } from "react-icons/md";
 import db from "@/db/drizzle";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { address, booking, bookingRequest, inserat, vehicle } from "@/db/schema";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import SelectInserat from "./_components/select-inserat";
 import AddBooking from "./_components/add-bookings";
 import RenderedInserat from "./_components/rendered-inserat";
@@ -31,7 +31,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
 
     const currentUser = await getCurrentUser();
 
-    const foundInserate = await db.query.inserat.findMany({
+    const findInserate = db.query.inserat.findMany({
         where: (
             and(
                 eq(inserat.userId, currentUser.id),
@@ -42,7 +42,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
             images: true,
             vehicles : true,
         }
-    })
+    }).prepare("findInserate")
+
+    const foundInserate = await findInserate.execute();
 
     let involvedBookings : any = [];
 
@@ -70,16 +72,18 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     let thisInserat;
 
     if (searchParams.inseratId) {
-        thisInserat = await db.query.inserat.findFirst({
+        db.query.inserat.findFirst({
             where: (
                 and(
-                    eq(inserat.id, searchParams.inseratId),
+                    eq(inserat.id, sql.placeholder("inseratId")),
                 )
             ), with: {
                 images: true,
                 address: true
             }
-        })
+        }).prepare("thisInserat")
+
+        thisInserat = await thisInserat.execute({ inseratId: searchParams.inseratId});
     }
 
     let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
@@ -96,14 +100,14 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                     }
                 }
             }
-        })
+        }).prepare("bookingRequests")
 
-        bookingRequests = requests;
+        bookingRequests = await requests.execute();
     } else {
         if (foundInserate.length > 0) {
             for (let i = 0; i < foundInserate.length; i++) {
 
-                const requests = await db.query.bookingRequest.findMany({
+                const findBookingRequests = db.query.bookingRequest.findMany({
                     where: (
                         eq(bookingRequest.inseratId, foundInserate[i].id)
                     ), with: {
@@ -114,17 +118,20 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             }
                         }
                     }
-                })
+                }).prepare("findBookingRequests")
+
+                const requests = await findBookingRequests.execute();
+
 
                 bookingRequests.push(...requests);
             }
         }
     }
 
-    let thisVehicle : typeof inserat.$inferSelect | null = null;
+    let thisVehicle : any;
 
     if(searchParams.vehicleId) {
-        thisVehicle = await db.query.vehicle.findFirst({
+        const findVehicle : any = await db.query.vehicle.findFirst({
             where : (
                 and(
                     eq(vehicle.id, searchParams.vehicleId)
@@ -136,12 +143,14 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                     }
                 }
             }
-        })
+        }).prepare("findVehicle")
+
+        thisVehicle = await findVehicle.execute();
     }
 
     const selectedInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
 
-    console.log(selectedInserat)
+   
     
 
     return (

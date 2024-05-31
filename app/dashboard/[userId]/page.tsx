@@ -40,64 +40,13 @@ const DashboardPage = async ({
 
     const foundInserate = await findInserate.execute({currentUserId: currentUser?.id})
 
-    let involvedBookings : typeof booking[] = [];
-
-    if(foundInserate.length > 0) {
-        for (let i = 0; i < foundInserate.length; i++) {
-        
-            const bookings = await db.query.booking.findMany({
-                where : (
-                    eq(booking.inseratId, foundInserate[i].id)
-                ), with : {
-                    user : true,
-                    inserat : true,
-                }
-            })
-        //@ts-ignore
-            involvedBookings?.push(...bookings);
-        }
-    }
+   
 
     
 
-    let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
+   
 
-    if(searchParams.inseratId) {
-        const requests = await db.query.bookingRequest.findMany({
-            where : (
-                eq(bookingRequest.inseratId, searchParams.inseratId)
-            ), with : {
-                user : true,
-                inserat : {
-                    with : {
-                        images : true
-                    }
-                }
-            }
-        })
-
-        bookingRequests = requests
-    } else {
-        if(everyInserat.length > 0) {
-            for (let i = 0; i < everyInserat.length; i++) {
-            
-                const requests = await db.query.bookingRequest.findMany({
-                    where : (
-                        eq(bookingRequest.inseratId, everyInserat[i].id)
-                    ), with : {
-                        user : true,
-                        inserat : {
-                            with : {
-                                images : true
-                            }
-                        }
-                    }
-                })
-        
-                bookingRequests.push(...requests);
-            }
-        }
-    }
+    
 
     let views = 0;
 

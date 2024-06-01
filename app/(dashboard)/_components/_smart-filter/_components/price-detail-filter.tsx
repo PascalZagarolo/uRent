@@ -126,7 +126,9 @@ const PriceDetailForm = () => {
                                 <SelectItem value="300" className="font-bold">300 €</SelectItem>
                                 <SelectItem value="400" className="font-bold">400 €</SelectItem>
                                 <SelectItem value="500" className="font-bold">500 €</SelectItem>
-                                
+                                <SelectItem value="600" className="font-bold">600 €</SelectItem>
+                                <SelectItem value="750" className="font-bold">750 €</SelectItem>
+                                <SelectItem value="1000" className="font-bold">1000 €</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -153,7 +155,10 @@ const PriceDetailForm = () => {
                                 <SelectItem value="300" className="font-bold">300 €</SelectItem>
                                 <SelectItem value="400" className="font-bold">400 €</SelectItem>
                                 <SelectItem value="500" className="font-bold">500 €</SelectItem>
-                                <SelectItem value="max" className="font-bold"> &lt; 500 €</SelectItem>
+                                <SelectItem value="600" className="font-bold">600 €</SelectItem>
+                                <SelectItem value="750" className="font-bold">750 €</SelectItem>
+                                <SelectItem value="1000" className="font-bold">1000 €</SelectItem>
+                                <SelectItem value="max" className="font-bold"> &lt; 1000 €</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>

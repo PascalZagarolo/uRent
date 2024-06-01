@@ -26,6 +26,13 @@ const Faqs = () => {
                                 </a>
                                 
                             </div>
+                            <div className="w-full flex justify-center sm:mt-8 mt-2 gap-8">
+                                <a className="w-full flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
+                                hover:underline hover:cursor-pointer" href="/faqs/bookings">
+                                    uRent - Buchungssystem
+                                </a>
+                                
+                            </div>
                             <div className="w-full sm:flex justify-center sm:mt-8 mt-4 gap-8 space-y-4 sm:space-y-0">
                                 <a className="w-full sm:w-1/2 flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
                                 hover:underline hover:cursor-pointer" href="/faqs/mieter">

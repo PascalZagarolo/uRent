@@ -17,6 +17,7 @@ import AddAvailability from "./_components/add-availability";
 import BookingDayDetails from "../_components/booking-day-details";
 import CalendarAndDetails from "../_components/calendar-and-details";
 import SelectVehicle from "./_components/select-vehicle";
+import InfoHeadsUp from "./_components/info-heads-up";
 
 interface ManagePageProps {
     searchParams: {
@@ -165,6 +166,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         <div>
                             <BreadCrumpPage />
                         </div>
+                    </div>
+                    <div>
+                        <InfoHeadsUp />
                     </div>
                     <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
                         <h3 className="dark:text-gray-100 sm:text-2xl text-lg font-semibold flex items-center w-full">

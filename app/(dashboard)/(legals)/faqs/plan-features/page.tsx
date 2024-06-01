@@ -1,6 +1,6 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
-const FaqBookings = () => {
+const FaqPlanFeatures = () => {
     return (
         <div>
 
@@ -10,7 +10,7 @@ const FaqBookings = () => {
                     <div className="min-h-screen">
                         <div className="sm:p-4 p-2 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                Das Buchungssystem - Häufig gestellte Fragen
+                                Inhalte & Features - Häufig gestellte Fragen
                             </h3>
                             <div className="pb-2">
                                 <Breadcrumb>
@@ -24,7 +24,7 @@ const FaqBookings = () => {
                                         </BreadcrumbItem>
                                         <BreadcrumbSeparator />
                                         <BreadcrumbItem>
-                                            <BreadcrumbPage>Buchungssystem</BreadcrumbPage>
+                                            <BreadcrumbPage>Plan Features</BreadcrumbPage>
                                         </BreadcrumbItem>
                                     </BreadcrumbList>
                                 </Breadcrumb>
@@ -32,7 +32,7 @@ const FaqBookings = () => {
                             <div className="p-4">
                                 <div>
                                     <h3 className="text-md font-semibold">
-                                        Das Buchungssystem & Sichtbarkeit
+                                        Inseratspriorisierung bei der Suche
                                     </h3>
                                     <div className=" text-sm text-gray-200/90">
 
@@ -47,7 +47,7 @@ const FaqBookings = () => {
 
                                 <div className="mt-16">
                                     <h3 className="text-md font-semibold">
-                                        Mehrfachinserate & Fahrzeuge
+                                        Hervorhebung von Inseraten
                                     </h3>
                                     <div className=" text-sm text-gray-200/90">
                                     Bei mehreren identischen Fahrzeugen kann ein Flotteninserat erstellt werden, 
@@ -67,4 +67,4 @@ const FaqBookings = () => {
     );
 }
 
-export default FaqBookings;
+export default FaqPlanFeatures;

@@ -406,12 +406,11 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                                         <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div>Fahrzeuge und Verfügbarkeiten verwalten
                                     </li>
                                     <li className="flex text-sm">
-                                        <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Erste-Seite Inserat von bis zu
-                                        1 Inserat für 10 Tage im Monat
+                                        <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Priorisierung bei der Suche
                                     </li>
                                     <li className="flex text-sm">
                                         <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Farbliche Hervorhebung von
-                                        bis zu 1 Inserat für 10 Tage pro Monat
+                                        bis zu 1 Inserat  pro Monat
                                     </li>
 
                                 </ol>
@@ -476,13 +475,12 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                                         <div> <FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Fahrzeuge und Verfügbarkeiten verwalten
                                     </li>
                                     <li className="flex text-sm">
-                                        <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Erste-Seite Inserat von bis zu
-                                        1 Inserat für 15 Tage im Monat
+                                        <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Priorisierung bei der Suche
                                     </li>
                                     <li className="flex text-sm">
                                         <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div>
-                                        Farbliche Hervorhebung von
-                                        2 Inseraten für bis zu 12 Tagen pro Monat
+                                        Farbliche Hervorhebung von bis
+                                        2 Inseraten pro Monat
                                     </li>
                                     <li className="flex text-sm">
                                         <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> uRent Mieter- & Buchungsverwaltungssystem

@@ -84,17 +84,17 @@ const ComparisonPlans = () => {
                             <td className="px-4 py-2 font-medium max-w-[200px]">Hervorhebung <br className="block sm:hidden"/> von Inseraten*</td>
                             <td className="px-4 py-2 text-left font-medium"><X className="w-4 h-4 text-rose-800"/></td>
                             <td className="px-4 py-2 text-left">1</td>
-                            <td className="px-4 py-2 text-left"> {'<'}2</td>
+                            <td className="px-4 py-2 text-left"> 2</td>
                         </tr>
                         
                     </tbody>
 
                     <tbody>
                         <tr className="border-t border-[#232323] font-semibold">
-                            <td className="px-4 py-2 font-medium max-w-[200px]">Erste Seite Inserate*</td>
+                            <td className="px-4 py-2 font-medium max-w-[200px]">Inseratspriorisierung bei der Suche*</td>
                             <td className="px-4 py-2 text-left font-medium"><X className="w-4 h-4 text-rose-800"/></td>
-                            <td className="px-4 py-2 text-left">1</td>
-                            <td className="px-4 py-2 text-left"> {'<'}2</td>
+                            <td className="px-4 py-2 text-left"><CheckIcon className="w-4 h-4 text-emerald-600" /></td>
+                            <td className="px-4 py-2 text-left"> <CheckIcon className="w-4 h-4 text-emerald-600" /></td>
                         </tr>
                     </tbody>
 
@@ -119,8 +119,9 @@ const ComparisonPlans = () => {
                 </table>
                 <div className="text-xs dark:text-gray-200/70  sm:p-0 p-2">
                     <div>
-                    * Die Hervorhebung von Inseraten und die Anzeige als {'"'}Ersteseite-Inserat{'"'} sind an bestimmten Bedingungen 
-                    gekoppelt. </div> <div className="flex">Für mehr Informationen klicke <p className="underline px-1">hier</p></div>
+                    * Die Hervorhebung von Inseraten und die Suchpriorisierung des Inserates sind an bestimmten Bedingungen 
+                    gekoppelt. </div> <div className="flex">Für mehr Informationen klicke <a 
+                    className="underline px-1" target="_blank" href="/faqs/plan-features">hier</a></div>
                 </div>
             </div>
         </div>

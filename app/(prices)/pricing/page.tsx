@@ -21,13 +21,8 @@ const PricingMainPage = async () => {
         )
     })
 
-    console.log(existingSubscription)
+    
 
-    const foundNotifications = await db.query.notification.findMany({
-        where: (
-            eq(notification.userId, currentUser?.id)
-        )
-    })
 
 
     return (

@@ -26,6 +26,7 @@ import {
 import { cache } from "react";
 import HeaderInfo from "./_bodyparts/_components/header-info";
 import AdsComponent from "@/components/ad-component";
+import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 
 
 
@@ -41,8 +42,8 @@ interface MainPageProps {
         //Date and Timefilter
         periodBegin: string,
         periodEnd: string,
-        startTime : number,
-        endTime : number,
+        startTime: number,
+        endTime: number,
 
         location: string,
         amount: string,
@@ -62,7 +63,7 @@ interface MainPageProps {
         power?: string;
         powerMax?: string;
         seats?: string;
-        seatsMax? : string;
+        seatsMax?: string;
         fuel?: typeof FuelTypeEnumRender;
         transmission?: typeof TransmissionEnumRender;
         type?: typeof CarTypeEnumRender;
@@ -78,7 +79,7 @@ interface MainPageProps {
         lkwBrand?: typeof LkwBrandEnumRender;
 
         //TRANSPORT
-        transportBrand : string;
+        transportBrand: string;
         trailerType: typeof TrailerEnumRender;
         coupling: typeof CouplingEnumRender;
         extraType: typeof ExtraTypeEnumRender;
@@ -92,10 +93,10 @@ interface MainPageProps {
         loading_h: number,
 
         radius: number,
-        caution : number,
+        caution: number,
         user: string,
 
-        ahk : string;
+        ahk: string;
 
     }
 }
@@ -116,23 +117,19 @@ const Main = cache(async ({
 
 
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithFavourites();
 
 
 
 
-    
+
 
 
 
     return (
 
-
-
-
         <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
-
-<div>
+            <div>
                 {//@ts-ignore
                     (searchParams.page === "1" || !searchParams.page) && (
                         <div className="xl:flex hidden justify-center py-2">
@@ -140,7 +137,7 @@ const Main = cache(async ({
                         </div>
                     )}
                 <div className="relative flex justify-center mt-4">
-                
+
                     <div className='h-screen xl:flex items-center justify-center w-2/12  p-16 hidden'>
                         <div className=' w-full sm:block hidden space-y-4'>
                             <div>
@@ -156,13 +153,13 @@ const Main = cache(async ({
                     </div>
 
                     <div className="top-0 sm:mr-4 ">
-                    <MainPageSideBar 
-                    userId={currentUser?.id || ""}
-                    />
+                        <MainPageSideBar
+                            userId={currentUser?.id || ""}
+                        />
                     </div>
                     <div className="sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar flex items-center justify-center h-[100%]">
 
-                    <RelevanteInserate
+                        <RelevanteInserate
                             title={searchParams.title}
                             thisCategory={searchParams.category}
                             filter={searchParams.filter}
@@ -190,13 +187,13 @@ const Main = cache(async ({
                             power={searchParams.power}
                             powerMax={searchParams.powerMax}
                             seats={searchParams.seats}
-                            seatsMax = {searchParams.seatsMax}
+                            seatsMax={searchParams.seatsMax}
                             fuel={searchParams.fuel}
                             transmission={searchParams.transmission}
                             thisType={searchParams.type}
                             freeMiles={searchParams.freeMiles}
                             extraCost={searchParams.extraCost}
-                            ahk = {searchParams.ahk}
+                            ahk={searchParams.ahk}
 
                             //LKW specific attributes
                             weightClass={searchParams.weightClass}
@@ -207,7 +204,7 @@ const Main = cache(async ({
                             lkwBrand={searchParams.lkwBrand}
 
                             //TRANSPORT specific attributes
-                            transportBrand = {searchParams.transportBrand}
+                            transportBrand={searchParams.transportBrand}
 
                             trailerType={searchParams.trailerType}
                             coupling={searchParams.coupling}
@@ -231,7 +228,7 @@ const Main = cache(async ({
 
                     <div className='h-screen xl:flex items-center justify-center w-2/12 p-16 hidden'>
                         <div className=' w-full sm:block hidden space-y-4'>
-                        <div>
+                            <div>
                                 <AdsComponent dataAdSlot='3797720061' />
                             </div>
                             <div>

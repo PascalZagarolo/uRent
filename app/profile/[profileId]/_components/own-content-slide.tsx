@@ -67,7 +67,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
                       currentUser={currentUser}
                       
                       thisInserat={thisInserat}
-                      isFaved={false}
+                      
                       profileId={currentUser?.id}
                       />
             

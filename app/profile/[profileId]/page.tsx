@@ -19,6 +19,7 @@ import AddImpressum from "./_components/add-impressum";
 import { FaCarCrash } from "react-icons/fa";
 import Footer from "@/app/(dashboard)/_components/footer";
 import ChangeAccountType from "./_components/change-account-type";
+import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 
 
 
@@ -58,7 +59,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     const pageOwnerId = params.profileId;
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithFavourites();
 
     const foundNotifications = await db.query.notification.findMany({
         where: (

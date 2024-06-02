@@ -6,7 +6,7 @@ import getCurrentUser from "@/actions/getCurrentUser"
 
 import InserateRenderList from "./_components/inserat-render-list"
 
-import SidebarDashboard from "../../_components/sidebar-dashboard"
+
 import db from "@/db/drizzle"
 import { eq } from "drizzle-orm"
 import { inserat, userSubscription, vehicle } from "@/db/schema"
@@ -39,10 +39,8 @@ const InserateOverview = async ({
        
     })
 
-    const existingPurchases = await db.query.userSubscription.findMany({
-        where : (
-            eq(userSubscription.userId, currentUser?.id)
-        )
+    const existingSubscription = await db.query.userSubscription.findFirst({
+        where : eq(userSubscription.userId, currentUser.id)
     })
 
     for (let i = 0; i < inserateArray.length; i++) {
@@ -56,7 +54,7 @@ const InserateOverview = async ({
     
 
     
-
+console.log(existingSubscription)
 
 
     return ( 
@@ -87,6 +85,7 @@ const InserateOverview = async ({
                                 <HighlightInserat 
                                 foundInserate={inserateArray as any}
                                 currentUser={currentUser as any}
+                                existingSubscription={existingSubscription as any}
                                 />
                             </div>
                             <div className="sm:p-4 ">

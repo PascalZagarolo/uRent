@@ -73,7 +73,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     let thisInserat;
 
     if (searchParams.inseratId) {
-        db.query.inserat.findFirst({
+        const findInserat = db.query.inserat.findFirst({
             where: (
                 and(
                     eq(inserat.id, sql.placeholder("inseratId")),
@@ -82,9 +82,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                 images: true,
                 address: true
             }
-        }).prepare("thisInserat")
+        }).prepare("findInserat")
 
-        thisInserat = await thisInserat.execute({ inseratId: searchParams.inseratId});
+        thisInserat = await findInserat.execute({ inseratId: searchParams.inseratId});
     }
 
     let bookingRequests: typeof bookingRequest.$inferSelect[] = [];

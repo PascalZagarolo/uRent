@@ -262,7 +262,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                         <div className="space-x-2 mt-2">
                             <Checkbox
                                 checked={affectAll}
-                                onChange={(e) => setAffectAll(e.target.checked)} />
+                                onChange={(e) => setAffectAll(Boolean(e))} />
 
                             <Label className="hover:cursor-pointer">
                                 Buchung auf alle Fahrzeuge anwenden

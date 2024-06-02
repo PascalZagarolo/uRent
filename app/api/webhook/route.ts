@@ -174,6 +174,7 @@ export async function POST(
     
     //renew subscription
     if(event.type === "invoice.payment_succeeded") {
+        console.log("...")
         //get priceId of subscription
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 

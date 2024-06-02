@@ -11,15 +11,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import ManageAvailability from "./manage-availability";
+import HighlightInseratDialog from "./highlight-inserat-dialog";
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect;
-    
+
 }
 
 const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     thisInserat,
-   
+
 }) => {
     const router = useRouter();
 
@@ -32,14 +33,14 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     const onDelete = () => {
         try {
 
-            
+
 
             setIsLoading(true);
             axios.delete(`/api/inserat/${thisInserat.id}/delete`).then(() => {
                 toast.success("Inserat erfolgreich gelöscht");
                 router.refresh();
             })
-            
+
         } catch {
             toast.error("Fehler beim Löschen des Inserats")
         } finally {
@@ -78,33 +79,41 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         </div>
                     )}
                 </div>
-                <a className="w-1/4 truncate ml-4 text-sm font-base mr-2 hover:underline" 
-                href={`/inserat/${thisInserat.id}`} target="_blank">
+                <a className="w-1/4 truncate ml-4 text-sm font-base mr-2 hover:underline"
+                    href={`/inserat/${thisInserat.id}`} target="_blank">
                     {thisInserat.title}
                 </a>
                 <div className="md:w-1/6 w-1/6 truncate">
-                    <div className={cn("text-sm flex items-center ", thisInserat.isPublished ? "text-emerald-600 font-semibold" : 
-                    "dark:text-gray-100/40 text-gray-700")}>
+                    <div className={cn("text-sm flex items-center ", thisInserat.isPublished ? "text-emerald-600 font-semibold" :
+                        "dark:text-gray-100/40 text-gray-700")}>
                         {thisInserat.isPublished ? <> <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> Veröffentlicht </> : "Entwurf"}
                     </div>
                 </div>
                 <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 md:flex justify-center hidden">
                     <div className="h-full">
-                    <div className="h-1/2">
-                        {format(new Date(thisInserat.createdAt), "dd.MM.yyyy")}
-                        <p className="dark:text-gray-100 text-gray-800">
-                            erstellt am
-                        </p>
+                        <div className="h-1/2">
+                            {format(new Date(thisInserat.createdAt), "dd.MM.yyyy")}
+                            <p className="dark:text-gray-100 text-gray-800">
+                                erstellt am
+                            </p>
+
+                        </div>
+                        <div className="h-1/2">
+                            <div className="h-1/2">
+                            <ManageAvailability
+                                thisInserat={thisInserat}
+                            />
+                            </div>
+                            <div className="h-1/2">
+                            <HighlightInseratDialog
+                                thisInserat={thisInserat}
+                            />
+                        </div>
+                        </div>
                         
                     </div>
-                    <div className="h-1/2">
-                        <ManageAvailability
-                        thisInserat={thisInserat}
-                        />
-                    </div>
-                    </div>
-                    
-                    
+
+
                 </div>
                 <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">
                     <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" onClick={onEdit}>
@@ -118,22 +127,22 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         </DialogTrigger>
                         <DialogContent className="dark:bg-[#141414] border-none">
                             <DialogHeader>
-                                <h3 className="text-lg font-semibold dark:text-gray-100 flex items-center"> <X className="mr-2 h-4 w-4 text-rose-600"/>
-                                Möchtest du das Inserat wirklich löschen ?</h3>
+                                <h3 className="text-lg font-semibold dark:text-gray-100 flex items-center"> <X className="mr-2 h-4 w-4 text-rose-600" />
+                                    Möchtest du das Inserat wirklich löschen ?</h3>
                                 <p className="text-xs text-gray-100/70">
                                     gelöschte Inserate können nicht wiederhergestellt werden.
                                 </p>
                             </DialogHeader>
                             <div className="flex ml-auto gap-x-2">
                                 <DialogTrigger asChild>
-                                <Button className="bg-rose-600 hover:bg-rose-500 text-gray-200" onClick={onDelete}>
-                                    Endgültig löschen
-                                </Button>
+                                    <Button className="bg-rose-600 hover:bg-rose-500 text-gray-200" onClick={onDelete}>
+                                        Endgültig löschen
+                                    </Button>
                                 </DialogTrigger>
                                 <DialogTrigger asChild>
-                                <Button>
-                                    Abbrechen
-                                </Button>
+                                    <Button>
+                                        Abbrechen
+                                    </Button>
                                 </DialogTrigger>
                             </div>
                         </DialogContent>

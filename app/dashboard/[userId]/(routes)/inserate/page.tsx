@@ -12,6 +12,7 @@ import { eq } from "drizzle-orm"
 import { inserat, userSubscription, vehicle } from "@/db/schema"
 import MenuBar from "../../_components/menu-bar"
 import BreadCrumpPage from "../../_components/bread-crump-page"
+import HighlightInserat from "./_components/highlight-inserat"
 
 
 
@@ -82,6 +83,12 @@ const InserateOverview = async ({
                             Verwalte deine Anzeigen, indem du Inhalte änderst, löscht, bearbeitest oder ihre Sichtbarkeit anpasst. 
                             <br/> Darüber hinaus kannst du hier ganz einfach die Verfügbarkeit deiner Fahrzeuge aktualisieren.
                             </p>
+                            <div className="sm:p-4">
+                                <HighlightInserat 
+                                foundInserate={inserateArray as any}
+                                currentUser={currentUser as any}
+                                />
+                            </div>
                             <div className="sm:p-4 ">
                                 {inserateArray.length > 0 ? (
                                     <InserateRenderList 

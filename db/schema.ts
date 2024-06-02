@@ -249,6 +249,7 @@ export const inserat = pgTable("inserat", {
     isPublished: boolean("isPublished").notNull().default(false),
     multi: boolean("multi").notNull().default(false),
     amount: integer("amount").notNull().default(1),
+    isHighlighted: boolean("isHighlighted").notNull().default(false),
 
     emailAddress: text("emailAddress"),
     phoneNumber: text("phoneNumber"),

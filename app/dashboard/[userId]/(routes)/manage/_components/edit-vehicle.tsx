@@ -90,7 +90,7 @@ const EditVehicle: React.FC<EditVehicleProps> = ({
                     </div>
                     <div className="mt-4">
                         <Label>
-                            Interne Buchungsnr.
+                            Interne Fahrzeugnr.
                         </Label>
                         <div className="mt-2">
                             <Input

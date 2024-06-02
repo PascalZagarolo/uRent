@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 import axios from "axios";
 import { format } from "date-fns";
-import { Edit3, Globe2Icon, Trash2, X } from "lucide-react";
+import { CheckIcon, Edit3, Globe2Icon, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -86,7 +86,8 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                 <div className="md:w-1/6 w-1/6 truncate">
                     <div className={cn("text-sm flex items-center ", thisInserat.isPublished ? "text-emerald-600 font-semibold" :
                         "dark:text-gray-100/40 text-gray-700")}>
-                        {thisInserat.isPublished ? <> <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> Veröffentlicht </> : "Entwurf"}
+                        {thisInserat.isPublished ? <> 
+                        <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> <div className="hidden sm:block"> Veröffentlicht </div> </> : "Entwurf"}
                     </div>
                 </div>
                 <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 md:flex justify-center hidden">
@@ -100,17 +101,23 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         </div>
                         <div className="h-1/2">
                             <div className="h-1/2">
-                            <ManageAvailability
-                                thisInserat={thisInserat}
-                            />
+                                <ManageAvailability
+                                    thisInserat={thisInserat}
+                                />
                             </div>
                             <div className="h-1/2">
-                            <HighlightInseratDialog
-                                thisInserat={thisInserat}
+                                {thisInserat.isHighlighted ? (
+                                    <div className="items-center flex text-xs text-gray-200">
+                                        <CheckIcon className="h-4 w-4 mr-2 text-indigo-800" /> <div className="hidden md:block"> Hervorgehoben </div>
+                                    </div>
+                                ): (
+                                        <HighlightInseratDialog
+                                thisInserat = { thisInserat }
                             />
+                            )}
+                            </div>
                         </div>
-                        </div>
-                        
+
                     </div>
 
 

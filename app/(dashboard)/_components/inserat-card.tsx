@@ -44,7 +44,7 @@ import { IoMdOpen } from "react-icons/io";
 interface InseratCardProps {
     thisInserat: typeof inserat.$inferSelect;
     profileId: string,
-    isFaved: boolean,
+    
     currentUser: typeof userTable.$inferSelect;
 
 
@@ -53,10 +53,12 @@ interface InseratCardProps {
 const InseratCard: React.FC<InseratCardProps> = ({
     thisInserat,
     profileId,
-    isFaved,
+    
     currentUser
 
 }) => {
+
+    const isFaved = currentUser?.favourites?.some((fav) => fav.inseratId === thisInserat.id);
 
     const isOwn = currentUser?.id === thisInserat?.userId;
 
@@ -102,14 +104,16 @@ const InseratCard: React.FC<InseratCardProps> = ({
     
     const olderThan24Hours = firstReleaseDate < twentyFourHoursAgo;
 
-    const onFav = () => {
+    const onFav = async () => {
         try {
             setIsLoading(true);
-            axios.patch(`/api/profile/${profileId}/favourites`, { inseratId: thisInserat.id })
+            await axios.patch(`/api/profile/${profileId}/favourites`, { inseratId: thisInserat.id })
+                .then(() => {
+                    router.refresh();
+                    toast.success("Anzeige zu Favouriten hinzugefügt")
+                })
 
-            setTimeout(() => {
-                router.refresh();
-            }, 500)
+            
         } catch {
             toast.error("Fehler beim Favorisieren der Anzeige")
         } finally {

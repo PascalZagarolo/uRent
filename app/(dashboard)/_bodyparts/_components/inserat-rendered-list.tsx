@@ -12,7 +12,7 @@ import {  inserat,
 interface InseratRenderedListProps {
     inserateArray: typeof inserat.$inferSelect[];
     currentUser: typeof userTable.$inferSelect;
-    favedInserate: typeof inserat.$inferSelect[];
+    
 
 }
 
@@ -20,7 +20,7 @@ interface InseratRenderedListProps {
 const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     inserateArray,
     currentUser,
-    favedInserate,
+    
 
 }) => {
 
@@ -56,7 +56,7 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
                             thisInserat={inserat}
                             profileId={currentUser?.id || ""}
                             currentUser={currentUser}
-                            isFaved={favedInserate.some((favedInserat) => favedInserat.id === inserat.id)}
+                            
                         />
                     </div>
                 ))}

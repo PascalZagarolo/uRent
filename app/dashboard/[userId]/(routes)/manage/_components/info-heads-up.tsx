@@ -12,13 +12,13 @@ const InfoHeadsUp = () => {
 
     const onDecline = () => {
         toast.success("Hinweis ausgeblendet.");
-        localStorage.setItem("declineInfo", "true");
+        localStorage?.setItem("declineInfo", "true");
         declinedInfo = true;
         router.refresh();
         
     }
 
-    let declinedInfo = localStorage.getItem("declineInfo") ? true : false;
+    let declinedInfo = localStorage?.getItem("declineInfo") ? true : false;
 
     if (declinedInfo) {
         return null;

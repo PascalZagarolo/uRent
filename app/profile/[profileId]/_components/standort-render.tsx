@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CheckIcon, ImageIcon, MapPinIcon, MapPinOffIcon, PlusSquareIcon } from "lucide-react";
+import { CheckIcon, ImageIcon, MapPinIcon, MapPinOffIcon, PlusSquareIcon, TrashIcon } from "lucide-react";
 import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -28,17 +28,29 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     foundAddress
 }) => {
     const onDrop = useCallback((acceptedFiles : any, rejectedFiles : any) => {
-        acceptedFiles.forEach((file : any) => {
-            setSelectedImages((prevState) => [...prevState, file]);
+        try {
+            setIsLoading(true);
+            acceptedFiles.forEach((file : any) => {
+                setSelectedImages((prevState) => [...prevState, file]);
+                
+            });
             
-        });
-        console.log(acceptedFiles)
-        handleUpload(acceptedFiles);
+            handleUpload(acceptedFiles);
+        } catch (e: any) {
+            console.log(e);
+        } finally {
+            setIsLoading(false);
+        }
     }, []);
 
     const [selectedImages, setSelectedImages] = useState([]);
     const [isUploaded, setIsUploaded] = useState(false);
 
+    const onDelete = () => {
+        setSelectedImages([]);
+        setIsUploaded(false);
+        setCurrentUrl("");
+    }
 
     const {
         getRootProps,
@@ -51,32 +63,40 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     } });
 
     const handleUpload = (acceptedFiles? : any) => {
-        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-        const formData = new FormData();
-        
-        let file : any;
-        
-        if(acceptedFiles) {
-            file = acceptedFiles[0];
-            console.log(file)
-        } else {
-            file = selectedImages[0];
-            console.log(file)
-        }
-        formData.append("file", file);
-        formData.append("upload_preset", "oblbw2xl");
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
+        try {
+            setIsLoading(true);
+            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+            const formData = new FormData();
+            
+            let file : any;
+            
+            if(acceptedFiles) {
+                file = acceptedFiles[0];
                 
-                setCurrentUrl(data.secure_url);
-                setIsUploaded(true);
-            });
+            } else {
+                file = selectedImages[0];
+                
+            }
+            formData.append("file", file);
+            formData.append("upload_preset", "oblbw2xl");
+            fetch(url, {
+                method: "POST",
+                body: formData
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    
+                    setCurrentUrl(data.secure_url);
+                    setIsUploaded(true);
+                });
+        } catch(e : any) {
+            console.log(e);
+            toast.error("Fehler beim Hochladen des Bildes");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
 
@@ -157,13 +177,19 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                     </h1>
                     <div className="mt-4">
                         <div>
-                            <Label className="flex gap-x-2">
-                                <ImageIcon className="w-4 h-4" />  Foto
+                            <Label className="flex gap-x-2 items-center">
+                                <ImageIcon className="w-4 h-4" />  Foto 
+                                
                             </Label>
-                            <p className="text-xs dark:text-gray-200/70">
+                            <p className="text-xs dark:text-gray-200/70 flex items-center">
                                 Lade, falls gewünscht ein Bild von deinem Standort hoch
+                                
                             </p>
-
+                            <div className="ml-auto relative flex justify-end w-full">{currentUrl && (
+                                <Button variant="ghost" size="sm" className="mt-2 " onClick={onDelete}>
+                                <TrashIcon className="w-4 h-4 text-rose-600" /> 
+                            </Button>
+                            )}</div>
 
                             {selectedImages.length > 0 ? (
                                 <>
@@ -245,11 +271,11 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                 </div>
                             </div>
                             <div className="mt-4 w-full" >
-                                <DialogTrigger asChild>
+                                <DialogTrigger asChild disabled={isLoading}>
                                     <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]"
                                         onClick={onCreate}
                                         disabled={currentStreet.trim() === "" || currentPostalCode === "" || currentCity.trim() === "" ||
-                                            currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode))}
+                                            currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode)) || isLoading}
 
                                     >
                                         Standort hinzufügen

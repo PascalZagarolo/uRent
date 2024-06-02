@@ -39,7 +39,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
         return !message.seen && message.senderId !== currentUser.id
     })
     
-    console.log(openChats.length)
+    const isOwnMessage = lastMessage[0]?.senderId === currentUser.id ? true : false;
 
     return ( 
         <div className="flex justify-center ">
@@ -49,6 +49,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
             openMessages = {openChats.length}
             lastMessage = {content}
             lastMessageDate={lastMessage[0]?.createdAt}
+            isOwnMessage = {isOwnMessage}
             />
         </div>
      );

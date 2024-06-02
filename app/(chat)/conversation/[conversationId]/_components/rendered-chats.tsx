@@ -15,6 +15,7 @@ interface RenderedChatsProps {
     lastMessage: string;
     lastMessageDate?: Date;
     openMessages?: number;
+    isOwnMessage? : boolean;
 }
 
 const RenderedChats: React.FC<RenderedChatsProps> = ({
@@ -22,7 +23,8 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     conversationId,
     lastMessage,
     openMessages,
-    lastMessageDate
+    lastMessageDate,
+    isOwnMessage
 }) => {
 
     const currentDate = new Date();
@@ -71,8 +73,9 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                     </div>
                     
                     <div className="flex w-full items-center gap-x-2  line-clamp-1">
-                    <div className={cn("text-xs font-medium inline-block break-words line-clamp-1 ", openMessages === 0 && "dark:text-gray-200/60")}>
-                        {lastMessage}
+                    <div className={cn("text-xs font-medium inline-block break-all line-clamp-1 ", 
+                    openMessages === 0 && "dark:text-gray-200/60" )}>
+                     {isOwnMessage ? "Ich: " : ``}   {lastMessage}
                     </div>
                     {openMessages > 0 && (
                         <div className="py-0.5 px-1 bg-rose-600 justify-end ml-auto text-xs rounded-md flex ">

@@ -61,10 +61,11 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
     return (
         <div>
-            <div className="flex items-center w-full">
+            <div className="sm:flex items-center w-full">
+                <div className="flex items-center w-full">
                 <Input
                     onChange={(e) => setTitle(e.target.value)}
-                    className="dark:border-none dark:bg-[#141414] w-1/3 rounded-r-none"
+                    className="dark:border-none dark:bg-[#141414] sm:w-1/3 rounded-r-none"
                     value={title}
                     placeholder="Suche nach Inseraten..."
                 />
@@ -73,9 +74,10 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                 >
                     <SearchIcon className="w-4 h-4 " />
                 </div>
-                <div className="ml-auto">
+                </div>
+                <div className="ml-auto sm:mt-0 mt-2">
                     <Select onValueChange={(e) => {setSelectedSort(e)}} value={selectedSort}>
-                        <SelectTrigger className="w-[320px] dark:border-none dark:bg-[#141414]">
+                        <SelectTrigger className="sm:w-[320px] dark:border-none dark:bg-[#141414]">
                             <SelectValue placeholder="Sortieren nach.." />
                         </SelectTrigger>
                         <SelectContent className="dark:border-none dark:bg-[#141414]">

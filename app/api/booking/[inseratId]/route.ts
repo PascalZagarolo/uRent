@@ -22,6 +22,7 @@ export async function POST(
             userId: values.userId,
             startDate : usedStart,
             vehicleId : values.vehicleId,
+            buchungsnummer : values.buchungsnummer,
             //Days
             endDate : usedEnd,
             content : values.content,

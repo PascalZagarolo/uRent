@@ -44,6 +44,7 @@ import { MdOutlinePersonPin } from "react-icons/md";
 import { de } from "date-fns/locale";
 import SelectTimeRange from "./select-time-range";
 import { Checkbox } from "@/components/ui/checkbox";
+import { TbListNumbers } from "react-icons/tb";
 
 
 
@@ -64,6 +65,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentInserat, setCurrentInserat] = useState<string | null>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
     const [currentName, setCurrentName] = useState<string | null>(null);
+    const [currentInternal, setCurrentInternal] = useState<string | null>(null);
     const [currentContent, setCurrentContent] = useState<string | null>(null);
     const [affectAll, setAffectAll] = useState(false);
 
@@ -132,6 +134,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
+                buchungsnummer: currentInternal,
                 name: currentName,
 
 
@@ -216,59 +219,57 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     </div>
                     {currentInseratObject && currentInseratObject.multi && (
                         <div className="pb-8 pr-8">
-                        <Label className="">
-                            Fahrzeug
-                        </Label>
-                        <Select
-                            onValueChange={(selectedValue) => {
-                                setCurrentVehicle(selectedValue);
-                            }}
-
-                            value={currentVehicle}
-
-                        >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
-                                disabled={//@ts-ignore
-                                    !currentInserat || currentInseratObject?.vehicles?.length <= 0}>
-                                {currentVehicle ? (
-                                    <SelectValue>
-
-                                    </SelectValue>
-                                ) : (
-                                    <SelectValue>
-                                        Wähle dein Fahrzeug
-                                    </SelectValue>
-                                )}
-
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                    
-                                    {//@ts-ignore
-                                        currentInseratObject?.vehicles?.length > 0 ? (
-                                            //@ts-ignore
-                                            currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
-                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => {setAffectAll(false)}}>
-                                                    {thisVehicle.title}
-                                                </SelectItem>
-                                            ))
-
-                                        ) : (
-                                            <SelectItem value={null}>
-                                                Keine Fahrzeuge verfügbar
-                                            </SelectItem>
-                                        )}
-                                </SelectContent>
-                            </SelectTrigger>
-                        </Select>
-                        <div className="space-x-2 mt-2">
-                            <Checkbox
-                                checked={affectAll}
-                                onChange={(e) => setAffectAll(Boolean(e))} />
-
-                            <Label className="hover:cursor-pointer">
-                                Buchung auf alle Fahrzeuge anwenden
+                            <Label className="">
+                                Fahrzeug
                             </Label>
+                            <Select
+                                onValueChange={(selectedValue) => {
+                                    setCurrentVehicle(selectedValue);
+                                }}
+                                disabled={affectAll}
+                                value={currentVehicle ? currentVehicle : undefined}
+
+                            >
+                                <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
+                                    disabled={//@ts-ignore
+                                        !currentInserat || currentInseratObject?.vehicles?.length <= 0}>
+                                    <SelectValue placeholder="Bitte wähle dein Fahrzeug" />
+
+                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+
+                                        {//@ts-ignore
+                                            currentInseratObject?.vehicles?.length > 0 ? (
+                                                //@ts-ignore
+                                                currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                    <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => { setAffectAll(false) }}>
+                                                        {thisVehicle.title}
+                                                    </SelectItem>
+                                                ))
+
+                                            ) : (
+                                                <SelectItem value={null}>
+                                                    Keine Fahrzeuge verfügbar
+                                                </SelectItem>
+                                            )}
+                                    </SelectContent>
+                                </SelectTrigger>
+                            </Select>
+                            <div className="space-x-2 mt-2">
+                                <Checkbox
+                                    checked={affectAll}
+                                    onCheckedChange={(e) => {
+                                        setAffectAll(Boolean(e));
+                                        if (Boolean(e)) {
+                                            
+                                            setCurrentVehicle(undefined);
+                                        }
+                                    }} />
+
+                                <Label className="hover:cursor-pointer">
+                                    Buchung auf alle Fahrzeuge anwenden
+                                </Label>
+                            </div>
                         </div>
-                    </div>
                     )}
                     <div className="flex">
                         <Form {...form}>
@@ -399,8 +400,21 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 <div>
                                     <SearchRent />
                                 </div>
+                                <div className="mt-2">
+                                    <Label className="font-semibold text-sm flex items-center">
+                                        <TbListNumbers className="w-4 h-4 mr-2" /> Interne Buchungsnr.
+                                    </Label>
+                                    <div className="mt-2">
+                                        <Input
+                                            value={currentInternal}
+                                            className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                                    dark:bg-[#0a0a0a]"
+                                            onChange={(e) => { setCurrentInternal(e.target.value) }}
+                                        />
+                                    </div>
+                                </div>
                                 <div>
-                                    <span className="font-semibold text-base flex">
+                                    <span className="font-semibold text-sm  flex">
                                         <BookOpenCheck className="mr-2" />  Anmerkungen:
                                     </span>
                                     <FormField
@@ -419,6 +433,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         )}
                                     />
                                 </div>
+
                                 <DialogTrigger asChild>
                                     <Button
                                         className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
@@ -427,7 +442,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         disabled={(!selectedUser && (!currentName || currentName.trim() === ""))
                                             || isLoading || !currentInserat || !currentStart || !currentEnd
                                             || !currentStartTime || !currentEndTime ||
-                                            (currentInseratObject.multi && !currentVehicle && !affectAll)
+                                            (currentInseratObject.multi && !(currentVehicle || affectAll))
                                         }
                                         type="submit"
                                     >

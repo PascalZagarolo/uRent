@@ -12,7 +12,7 @@ import { Calendar } from "@/components/ui/calendar"
 import {
     Form,
     FormControl,
-    FormDescription,
+
     FormField,
     FormItem,
     FormLabel,
@@ -34,7 +34,7 @@ import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { booking, inserat, } from "@/db/schema";
+import { inserat } from "@/db/schema";
 import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
@@ -44,6 +44,7 @@ import { MdOutlinePersonPin } from "react-icons/md";
 import { de } from "date-fns/locale";
 import SelectTimeRange from "./select-time-range";
 import { Checkbox } from "@/components/ui/checkbox";
+
 
 
 interface AddBookingProps {
@@ -64,6 +65,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
     const [currentName, setCurrentName] = useState<string | null>(null);
     const [currentContent, setCurrentContent] = useState<string | null>(null);
+    const [affectAll, setAffectAll] = useState(false);
 
     const [currentStartTime, setCurrentStartTime] = useState("");
     const [currentEndTime, setCurrentEndTime] = useState("");
@@ -212,7 +214,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                         </Select>
                     </div>
-                    <div className="pb-8 pr-8">
+                    {currentInseratObject && currentInseratObject.multi && (
+                        <div className="pb-8 pr-8">
                         <Label className="">
                             Fahrzeug
                         </Label>
@@ -238,12 +241,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 )}
 
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-
+                                    
                                     {//@ts-ignore
                                         currentInseratObject?.vehicles?.length > 0 ? (
                                             //@ts-ignore
                                             currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
-                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
+                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => {setAffectAll(false)}}>
                                                     {thisVehicle.title}
                                                 </SelectItem>
                                             ))
@@ -256,7 +259,17 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 </SelectContent>
                             </SelectTrigger>
                         </Select>
+                        <div className="space-x-2 mt-2">
+                            <Checkbox
+                                checked={affectAll}
+                                onChange={(e) => setAffectAll(e.target.checked)} />
+
+                            <Label className="hover:cursor-pointer">
+                                Buchung auf alle Fahrzeuge anwenden
+                            </Label>
+                        </div>
                     </div>
+                    )}
                     <div className="flex">
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -413,7 +426,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
                                         disabled={(!selectedUser && (!currentName || currentName.trim() === ""))
                                             || isLoading || !currentInserat || !currentStart || !currentEnd
-                                            || !currentStartTime || !currentEndTime
+                                            || !currentStartTime || !currentEndTime ||
+                                            (currentInseratObject.multi && !currentVehicle && !affectAll)
                                         }
                                         type="submit"
                                     >

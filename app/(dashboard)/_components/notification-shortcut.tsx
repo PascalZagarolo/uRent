@@ -8,7 +8,7 @@ import { BellDotIcon, BellPlus, MessageCircle, MessageCircleMoreIcon } from "luc
 import { useRouter } from "next/navigation";
 import { conversation, notification,  notificationTypeEnum } from '../../../db/schema';
 import { CiBookmark } from "react-icons/ci";
-import { format } from "date-fns";
+import { format, isToday } from "date-fns";
 import { de } from "date-fns/locale";
 import { LuMailWarning } from "react-icons/lu";
 import { MdOutlineNewReleases, MdOutlineReportProblem } from "react-icons/md";
@@ -165,6 +165,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                             </a> <br />
                                                             Du wurdest zu einer Buchung hinzugefügt <br />
                                                             <div className="text-xs font-light font-size: 0.6rem">
+                                                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                             </div>
                                                         </div>),
@@ -177,6 +178,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                             </a> <br />
                                                             Hat dir eine Nachricht gesendet <br />
                                                             <div className="text-xs font-light font-size: 0.6rem flex w-full">
+                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                                 {!notification.seen && (
                                                                     <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
@@ -195,6 +197,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                             </a> <br />
                                                             Dir wurde eine Anfrage gesendet <br />
                                                             <div className="text-xs font-light font-size: 0.6rem flex">
+                                                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                                 {!notification.seen && (
                                                                     <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
@@ -215,6 +218,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                             Aufgrund eines Verstoßes gegen unsere Richtlinien wurde einer deiner Inhalte verändert. <br />
                                                             Für weitere Informationen über unsere Richtlinien, besuche unsere <a href="/agb" className="text-blue-600 font-bold underline-offset-1 hover:underline">AGB</a> <br />
                                                             <div className="text-xs font-light font-size: 0.6rem flex">
+                                                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                                 {!notification.seen && (
                                                                     <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">

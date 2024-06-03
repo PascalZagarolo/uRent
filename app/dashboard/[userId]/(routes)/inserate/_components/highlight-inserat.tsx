@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { MdOutlineHighlightOff } from "react-icons/md";
+import SelectColor from "./select-color";
 
 interface HighlightInseratProps {
     currentUser: typeof user.$inferSelect;
@@ -87,6 +88,11 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                                 {formatNumber(inserat?.views)} Aufrufe
                             </p>
                         </div>
+                        {existingSubscription?.subscriptionType === "ENTERPRISE" && (
+                            <div className="mt-2">
+                                <SelectColor />
+                            </div>
+                        )}
                         <div className="mt-2">
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>

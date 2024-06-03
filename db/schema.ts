@@ -913,7 +913,7 @@ export const businessFaqs = pgTable("businessFaqs", {
     question : text("question"),
     answer : text("answer"),
     position: integer("position"),
-    businessId : text("businessId")
+    businessId : uuid("businessId")
                 .references(() => business.id, { onDelete: "cascade" }),
 })
 

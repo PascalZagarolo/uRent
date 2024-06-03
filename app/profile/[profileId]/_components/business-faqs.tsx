@@ -10,8 +10,8 @@ const BusinessFaqs : React.FC<BusinessFaqsProps> = ({
     thisBusiness
 }) => {
     return ( 
-        <div className="mt-4">
-            <div className="p-4 dark:bg-[#191919]">
+        <div className="dark:bg-[#191919]">
+            <div className="p-4">
                 <h3 className="w-full text-md font-semibold flex items-center">
                   <FaQuestionCircle  className="w-4 h-4 mr-2" />  FAQS
                   <div className="ml-auto">
@@ -20,6 +20,13 @@ const BusinessFaqs : React.FC<BusinessFaqsProps> = ({
                     />
                   </div>
                 </h3>
+            </div>
+            <div className="">
+                {thisBusiness?.faqs?.map((faq, index) => (
+                    <div key={faq.id}>
+
+                    </div>
+                ))}
             </div>
         </div>
      );

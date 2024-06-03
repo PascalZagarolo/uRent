@@ -37,14 +37,12 @@ const EditBusinessFaqs : React.FC<EditBusinessFaqsProps> = ({
                 answer : currentAnswer,
                 question : currentQuestion,
             }
-
             await axios.patch(`/api/businessfaq/${thisFaq?.id}/edit`, values)
                 .then(() => {
                     router.refresh();
                     toast.success("FAQS gespeichert");
                     
                 })
-
         } catch(error : any) {
             toast.error("Fehler beim absenden der Daten");
             console.log(error);

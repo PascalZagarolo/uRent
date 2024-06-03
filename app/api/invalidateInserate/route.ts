@@ -33,13 +33,16 @@ export async function PATCH(
                 pInserat.user?.subscription?.stripe_current_period_end < currentDate) {
                     await db.update(inserat).set({
                         isPublished : false,
-                        isHighlighted : false
+                        isHighlighted : false,
+                        
                     }).where(eq(inserat.userId , pInserat.userId))
                 }
+
+                
         }
 
 
-        //Todo : Add checks whether capabilities are available or not
+        //Todo : Add checks whether capabilities are available or not do it by person
     
                
             

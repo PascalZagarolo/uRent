@@ -269,6 +269,8 @@ export const inserat = pgTable("inserat", {
     priceWeekend : decimal("priceWeekend"),
     priceKilometer : decimal("priceKilometer"),
 
+    color : text("color"),
+
 
     firstRelease : timestamp("firstRelease", {mode: "date"}),
 

@@ -41,7 +41,32 @@ const ManagePage: React.FC<ManagePageProps> = async ({
             )
         ), with: {
             images: true,
-            vehicles : true,
+            vehicles : {
+                with : {
+                    inserat : {
+                        with : {
+                            address : true
+                        }
+                    }
+                }
+            },
+            address : true,
+            bookings : {
+                with : {
+                    user : true,
+                    vehicle : true,
+                    inserat : true
+                }
+            },
+            bookingRequests : {
+                with : {
+                    inserat : {
+                        with : {
+                            images : true
+                        }
+                    }
+                }
+            },
         }
     }).prepare("findInserate")
 
@@ -52,16 +77,8 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     if(foundInserate.length > 0) {
         for (let i = 0; i < foundInserate.length; i++) {
         
-            const bookings = await db.query.booking.findMany({
-                where : (
-                    eq(booking.inseratId, foundInserate[i].id)
-                ), with : {
-                    user : true,
-                    inserat : true,
-                    vehicle : true
-                }
-            })
-        //@ts-ignore
+            const bookings = foundInserate[i].bookings;
+        
             involvedBookings.push(...bookings);
         }
     }
@@ -73,55 +90,22 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     let thisInserat;
 
     if (searchParams.inseratId) {
-        const findInserat = db.query.inserat.findFirst({
-            where: (
-                and(
-                    eq(inserat.id, sql.placeholder("inseratId")),
-                )
-            ), with: {
-                images: true,
-                address: true
-            }
-        }).prepare("findInserat")
-
-        thisInserat = await findInserat.execute({ inseratId: searchParams.inseratId});
+        thisInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
     }
 
     let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
 
     if (searchParams.inseratId) {
-        const requests = await db.query.bookingRequest.findMany({
-            where: (
-                eq(bookingRequest.inseratId, searchParams.inseratId)
-            ), with: {
-                user: true,
-                inserat: {
-                    with: {
-                        images: true
-                    }
-                }
-            }
-        }).prepare("bookingRequests")
+        
 
-        bookingRequests = await requests.execute();
+        bookingRequests = await foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].bookingRequests;
     } else {
         if (foundInserate.length > 0) {
             for (let i = 0; i < foundInserate.length; i++) {
 
-                const findBookingRequests = db.query.bookingRequest.findMany({
-                    where: (
-                        eq(bookingRequest.inseratId, foundInserate[i].id)
-                    ), with: {
-                        user: true,
-                        inserat: {
-                            with: {
-                                images: true
-                            }
-                        }
-                    }
-                }).prepare("findBookingRequests")
+                
 
-                const requests = await findBookingRequests.execute();
+                const requests = foundInserate[i].bookingRequests;
 
 
                 bookingRequests.push(...requests);
@@ -132,21 +116,9 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     let thisVehicle : any;
 
     if(searchParams.vehicleId) {
-        const findVehicle : any = await db.query.vehicle.findFirst({
-            where : (
-                and(
-                    eq(vehicle.id, searchParams.vehicleId)
-                )
-            ), with : {
-                inserat :  {
-                    with : {
-                        address : true
-                    }
-                }
-            }
-        }).prepare("findVehicle")
+        
 
-        thisVehicle = await findVehicle.execute();
+        thisVehicle = foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].vehicles.find((vehicle) => vehicle.id === searchParams.vehicleId);
     }
 
     const selectedInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);

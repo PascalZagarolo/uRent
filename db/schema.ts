@@ -908,6 +908,15 @@ export const savedSearch = pgTable("savedSearch", {
                 .references(() => userTable.id, { onDelete: "cascade" }),
 })
 
+export const businessFaqs = pgTable("businessFaqs", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    question : text("question"),
+    answer : text("answer"),
+    position: integer("position"),
+    businessId : text("businessId")
+                .references(() => business.id, { onDelete: "cascade" }),
+})
+
 export const report = pgTable("report", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -1089,9 +1098,18 @@ export const businessRelations = relations(business, ({ one, many}) => ({
         fields : [business.id],
         references : [openingTimes.businessId]
     }),
+    faqs : many(businessFaqs),
     businessAddresses : many(businessAddress),
     businessImages : many(businessImages)
 }))
+
+export const businessFaqsRelations = relations(businessFaqs, ({ one }) => ({
+    business : one(business, {
+        fields : [businessFaqs.businessId],
+        references : [business.id]
+    })
+}))
+
 
 export const businessAddressRelations = relations(businessAddress, ({ one }) => ({
     business : one(business, {

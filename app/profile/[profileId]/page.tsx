@@ -20,6 +20,7 @@ import { FaCarCrash } from "react-icons/fa";
 import Footer from "@/app/(dashboard)/_components/footer";
 import ChangeAccountType from "./_components/change-account-type";
 import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
+import BusinessFaqs from "./_components/business-faqs";
 
 
 
@@ -206,7 +207,13 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             
                                         </div>
                                     </div>
-
+                                    {ownProfile && thisUser.isBusiness && (
+                                        <div className="px-8">
+                                            <BusinessFaqs 
+                                            thisBusiness={thisUser.business}
+                                            />
+                                        </div>
+                                    )}
                                    
                                     <div>
                                         

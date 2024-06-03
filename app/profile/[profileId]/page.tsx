@@ -208,10 +208,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             
                                         </div>
                                     </div>
-                                    {ownProfile && thisUser.isBusiness && (
+                                    {thisUser.isBusiness && (
                                         <div className="px-8">
                                             <BusinessFaqs 
                                             thisBusiness={thisUser.business}
+                                            ownProfile = {ownProfile}
                                             />
                                         </div>
                                     )}

@@ -31,12 +31,20 @@ const Standort: React.FC<StandortProps> = ({
     ownProfile
 }) => {
 
-    const onDrop = useCallback((acceptedFiles : any, rejectedFiles : any) => {
-        acceptedFiles.forEach((file : any) => {
-            setSelectedImages((prevState) => [...prevState, file]);
-        });
+    const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
+        try {
+            setIsLoading(true);
+            acceptedFiles.forEach((file: any) => {
+                setSelectedImages((prevState) => [...prevState, file]);
 
+            });
 
+            handleUpload(acceptedFiles);
+        } catch (e: any) {
+            console.log(e);
+        } finally {
+            setIsLoading(false);
+        }
     }, []);
 
     const [selectedImages, setSelectedImages] = useState([]);
@@ -62,24 +70,41 @@ const Standort: React.FC<StandortProps> = ({
 
 
 
-    const handleUpload = () => {
-        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-        const formData = new FormData();
-        let file = selectedImages[0];
-        formData.append("file", file);
-        formData.append("upload_preset", "oblbw2xl");
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-            .then((response) => {
-                return response.json();
+    const handleUpload = (acceptedFiles?: any) => {
+        try {
+            setIsLoading(true);
+            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+            const formData = new FormData();
+
+            let file: any;
+
+            if (acceptedFiles) {
+                file = acceptedFiles[0];
+
+            } else {
+                file = selectedImages[0];
+
+            }
+            formData.append("file", file);
+            formData.append("upload_preset", "oblbw2xl");
+            fetch(url, {
+                method: "POST",
+                body: formData
             })
-            .then((data) => {
-                console.log(data);
-                setCurrentUrl(data.secure_url);
-                setIsUploaded(true);
-            });
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+
+                    setCurrentUrl(data.secure_url);
+                    setIsUploaded(true);
+                });
+        } catch (e: any) {
+            console.log(e);
+            toast.error("Fehler beim Hochladen des Bildes");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const onEdit = async () => {
@@ -130,16 +155,23 @@ const Standort: React.FC<StandortProps> = ({
         }
     }
 
+    const onDeleteImage = () => {
+        setSelectedImages([]);
+        setShownImage("");
+        setIsUploaded(false);
+        setCurrentUrl("");
+    }
+
     return (
         <Dialog>
             <AlertDialog>
                 <div className={cn("dark:bg-[#191919] mt-4 rounded-t-md", thisStandort.isPrimary && "border-rose-800 border-2")}>
                     <div className="sm:flex py-2 px-2  items-center" >
                         <div className="flex">
-                        <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
-                        <div className="sm:text-sm text-xs font-semibold">
-                            {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
-                        </div>
+                            <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
+                            <div className="sm:text-sm text-xs font-semibold">
+                                {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
+                            </div>
                         </div>
                         {ownProfile && (
                             <div className="flex space-0 justify-end ml-auto">
@@ -154,24 +186,24 @@ const Standort: React.FC<StandortProps> = ({
                                     </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent className="dark:bg-[#191919] dark:border-none">
-                            <div>
-                                <h1 className="flex items-center">
-                                    <X className="w-4 h-4 mr-2" />Standort löschen?
-                                </h1>
-                                <p className="flex dark:text-gray-200/70 text-xs">
-                                    Diese Aktion kann nicht rückgängig gemacht werden.
-                                </p>
-                                <div className="mt-4 w-full flex justify-end">
-                                    <AlertDialogCancel className="dark:border-none">
-                                        Abbrechen
-                                    </AlertDialogCancel>
-                                    <AlertDialogAction className="dark:bg-rose-800 hover:dark:bg-rose-700 dark:text-gray-200"
-                                        onClick={onDelete}>
-                                        Löschen
-                                    </AlertDialogAction>
-                                </div>
-                            </div>
-                        </AlertDialogContent>
+                                    <div>
+                                        <h1 className="flex items-center">
+                                            <X className="w-4 h-4 mr-2" />Standort löschen?
+                                        </h1>
+                                        <p className="flex dark:text-gray-200/70 text-xs">
+                                            Diese Aktion kann nicht rückgängig gemacht werden.
+                                        </p>
+                                        <div className="mt-4 w-full flex justify-end">
+                                            <AlertDialogCancel className="dark:border-none">
+                                                Abbrechen
+                                            </AlertDialogCancel>
+                                            <AlertDialogAction className="dark:bg-rose-800 hover:dark:bg-rose-700 dark:text-gray-200"
+                                                onClick={onDelete}>
+                                                Löschen
+                                            </AlertDialogAction>
+                                        </div>
+                                    </div>
+                                </AlertDialogContent>
                             </div>
                         )}
                     </div>
@@ -200,7 +232,7 @@ const Standort: React.FC<StandortProps> = ({
                             Standort bearbeiten
 
                         </h1>
-                        
+
 
                         <div className="mt-4">
                             <div>
@@ -210,7 +242,11 @@ const Standort: React.FC<StandortProps> = ({
                                 <p className="text-xs dark:text-gray-200/70">
                                     Lade, falls gewünscht ein Bild von deinem Standort hoch
                                 </p>
-
+                                <div className="ml-auto relative flex justify-end w-full">{currentUrl && (
+                                    <Button variant="ghost" size="sm" className="mt-2 " onClick={onDeleteImage}>
+                                        <TrashIcon className="w-4 h-4 text-rose-600" />
+                                    </Button>
+                                )}</div>
 
                                 {selectedImages.length > 0 ? (
                                     <>
@@ -255,13 +291,7 @@ const Standort: React.FC<StandortProps> = ({
                                     )
                                 )}
 
-                                {(currentUrl || shownImage) && (
-                                    <div className="ml-auto w-full flex justify-end">
-                                        <Button size="sm" variant="ghost" onClick={() => { setShownImage(""); setSelectedImages([]); setCurrentUrl(""); }}>
-                                            <X className="w-4 h-4" /> Entfernen
-                                        </Button>
-                                    </div>
-                                )}
+                                
 
 
 
@@ -312,17 +342,17 @@ const Standort: React.FC<StandortProps> = ({
                                     </div>
                                     <div className="mt-4 flex items-centerg gap-x-2">
                                         <Checkbox
-                                        checked={isPrimary}
-                                        onClick={onPrimary}
+                                            checked={isPrimary}
+                                            onClick={onPrimary}
                                         /> <Label>
-                                            Primärer Standort 
+                                            Primärer Standort
                                             <Popover>
                                                 <PopoverTrigger className="ml-2">
-                                                <IoMdInformationCircleOutline />
+                                                    <IoMdInformationCircleOutline />
                                                 </PopoverTrigger>
                                                 <PopoverContent className="dark:bg-indigo-950 text-sm  dark:text-gray-200 flex ">
                                                     Falls du mehrere Standorte hast, kannst du einen primären Standort festlegen.
-                                                    Dieser wird neben deinen Inseraten angezeigt, sowie in deinem Profil hervorgehoben. 
+                                                    Dieser wird neben deinen Inseraten angezeigt, sowie in deinem Profil hervorgehoben.
 
                                                 </PopoverContent>
                                             </Popover>
@@ -337,7 +367,7 @@ const Standort: React.FC<StandortProps> = ({
                                                 currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode))}
 
                                         >
-                                            Standort bearbeiten
+                                            Änderungen speichern
                                         </Button>
                                     </DialogTrigger>
                                 </div>

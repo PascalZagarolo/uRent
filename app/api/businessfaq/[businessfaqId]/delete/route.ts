@@ -25,7 +25,8 @@ export async function DELETE(
 
         const currentUser = await getCurrentUser();
         
-        if(!currentUser || currentUser.id !== findBusinessFaq.business.userId) {
+        //@ts-ignore
+        if(!currentUser || currentUser.id !== findBusinessFaq.business?.userId) {
             return new NextResponse("Nicht authorisiert", { status: 401 });
         }
 

@@ -28,9 +28,12 @@ export async function PATCH(
             )
         })
 
+        const today = new Date();
+        const endDate = new Date(existingSubscription.stripe_current_period_end)
+
         
 
-        if (existingSubscription && existingSubscription.stripe_customer_id) {
+        if (existingSubscription && existingSubscription.stripe_customer_id && endDate > today) {
 
             //change redirectUrl
             const stripeSession = await stripe.billingPortal.sessions.create({

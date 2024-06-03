@@ -15,13 +15,17 @@ const PricingMainPage = async () => {
     
     const currentUser = await getCurrentUser();
 
-    const existingSubscription = await db.query.userSubscription.findFirst({
+    
+
+    let existingSubscription = await db.query.userSubscription.findFirst({
         where: (
             eq(userSubscription.userId, currentUser?.id)
         )
     })
 
-    
+    if(existingSubscription) {
+        existingSubscription.stripe_current_period_end > new Date() ? existingSubscription = existingSubscription : existingSubscription = null;
+    }
 
 
 

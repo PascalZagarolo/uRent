@@ -124,6 +124,18 @@ export async function POST(
         if(!session?.metadata?.productId) {
             return new NextResponse("Keine ProduktId hinterlegt", {status : 400})
         }
+
+        const findExistingSubscription = await db.query.userSubscription.findFirst({
+            where : (
+                eq(userSubscription.userId, session?.metadata?.userId)
+            )
+        })
+
+        if(findExistingSubscription) {
+            const deleteSubscription = await db.delete(userSubscription).where(
+                eq(userSubscription.userId, session?.metadata?.userId)
+            )
+        }
         
         const createdSubscription = await db.insert(userSubscription).values({
             //@ts-ignore

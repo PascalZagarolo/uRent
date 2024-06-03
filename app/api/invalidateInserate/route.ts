@@ -32,7 +32,8 @@ export async function PATCH(
             if(!pInserat.user?.subscription || pInserat.user?.subscription.length === 0 || 
                 pInserat.user?.subscription?.stripe_current_period_end < currentDate) {
                     await db.update(inserat).set({
-                        isPublished : false
+                        isPublished : false,
+                        isHighlighted : false
                     }).where(eq(inserat.userId , pInserat.userId))
                 }
         }

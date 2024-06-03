@@ -16,6 +16,8 @@ const SelectColor = () => {
         PURPLE: "bg-indigo-600",
         ORANGE: "bg-orange-600",
         VIOLET: "bg-violet-900",
+        WHITE: "bg-gray-300",
+        BLACK: "bg-black",
     };
 
     return (

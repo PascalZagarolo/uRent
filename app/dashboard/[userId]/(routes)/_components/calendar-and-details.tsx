@@ -4,41 +4,83 @@ import { booking, inserat } from "@/db/schema";
 import BookingDayDetails from "./booking-day-details";
 import EventCalendar from "./calendar";
 import { useState } from "react";
+import { IoCalendar } from "react-icons/io5";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 
 interface CalendarAndDetailsProps {
-    foundInserate : typeof inserat.$inferSelect[];
-    involvedBookings : typeof booking.$inferSelect[];
+    foundInserate: typeof inserat.$inferSelect[];
+    involvedBookings: typeof booking.$inferSelect[];
 }
 
-const CalendarAndDetails : React.FC<CalendarAndDetailsProps> = ({
+const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
     foundInserate,
     involvedBookings
 }) => {
 
     const [selectedDate, setSelectedDate] = useState<Date>(null);
     const [relevantBookings, setRelevantBookings] = useState([]);
+    const [selectedInserat, setSelectedInserat] = useState(null);
+    const [selectedInseratData, setSelectedInseratData] = useState<null | typeof inserat.$inferSelect>(null);
+    const [renderedInserate, setRenderedInserate] = useState(foundInserate);
 
-    
-    return ( 
+    return (
         <div>
+            <div>
+                <h3 className="text-md font-semibold flex items-center">
+                    <IoCalendar className="w-4 h-4 mr-2" /> Termine und Details
+                    <div className="ml-auto w-1/3">
+                        <Select value={selectedInserat} onValueChange={(e) => {
+                            setSelectedInserat(e);
+                            setSelectedInseratData(foundInserate.find(inserat => inserat.id === e) || null);
+                            if (e === null) {
+                                setRenderedInserate(foundInserate);
+                            } else {
+                                setRenderedInserate(foundInserate.filter(inserat => inserat.id === e));
+                            }
+
+                        }}>
+                            <SelectTrigger className="dark:bg-[#191919] w-full dark:border-none">
+                                <SelectValue placeholder="Inserat auswählen" />
+                            </SelectTrigger>
+                            <SelectContent className="dark:bg-[#191919] dark:border-none ">
+                                <SelectItem value={null}>
+                                    Alle Inserate
+                                </SelectItem>
+                                {foundInserate.map((pInserat) => (
+                                    <SelectItem value={pInserat.id} key={pInserat.id}>
+                                        {pInserat.title}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </h3>
+
+
+
+            </div>
             <div className="w-full">
-                            <EventCalendar
-                                everyInserat={foundInserate}
-                                setSelectedDateParent = {setSelectedDate}
-                                setRelevantBookingsParent = {setRelevantBookings}
-                                bookings={involvedBookings}
-                            />
-                        </div>
-                        <div className="mt-4 w-full">
-                        <BookingDayDetails
-                                foundInserate = {foundInserate}
-                                selectedDate={selectedDate}
-                                relevantBookings={relevantBookings}
-                                />
-                        </div>
+                <EventCalendar
+                    everyInserat={foundInserate}
+                    setSelectedDateParent={setSelectedDate}
+                    setRelevantBookingsParent={setRelevantBookings}
+                    bookings={involvedBookings}
+                    selectedInserat={selectedInserat}
+                />
+            </div>
+            <div className="mt-4 w-full">
+                <BookingDayDetails
+                    foundInserate={foundInserate}
+                    selectedDate={selectedDate}
+                    relevantBookings={relevantBookings}
+                    selectedInserat={selectedInserat}
+                    selectedInseratData={selectedInseratData}
+                    renderedInserate={renderedInserate}
+                />
+            </div>
         </div>
-     );
+    );
 }
- 
+
 export default CalendarAndDetails;

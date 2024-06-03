@@ -17,19 +17,26 @@ interface BookingDayDetailsProps {
     selectedDate: Date;
     relevantBookings: typeof booking.$inferSelect[];
     foundInserate: typeof inserat.$inferSelect[];
+    selectedInserat : string;
+    selectedInseratData : typeof inserat.$inferSelect;
+    renderedInserate : any[];
+    
 }
 
 const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     selectedDate,
     relevantBookings,
-    foundInserate
+    foundInserate,
+    selectedInserat,
+    selectedInseratData,
+    renderedInserate
 }) => {
 
     const [appointedTimes, setAppointedTimes] = useState<{ [key: string]: any[] }[]>([]);
     const [usedBookings, setUsedBookings] = useState(relevantBookings);
-    const [selectedInserat, setSelectedInserat] = useState<null | string>(null);
-    const [selectedInseratData, setSelectedInseratData] = useState<null | typeof inserat.$inferSelect>(null);
-    const [renderedInserate, setRenderedInserate] = useState(foundInserate);
+    
+    
+    
 
 
 
@@ -78,7 +85,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                 });
             }
         }
-    }, [relevantBookings, selectedDate]);
+    }, [relevantBookings, selectedDate, selectedInserat]);
 
     const checkBooked = (inseratId: string, number: string) => {
 
@@ -260,32 +267,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         )}
 
                     </Label>
-                    <div className="ml-auto w-1/3">
-                        <Select value={selectedInserat} onValueChange={(e) => {
-                            setSelectedInserat(e);
-                            setSelectedInseratData(foundInserate.find(inserat => inserat.id === e) || null);
-                            if (e === null) {
-                                setRenderedInserate(foundInserate);
-                            } else {
-                                setRenderedInserate(foundInserate.filter(inserat => inserat.id === e));
-                            }
-
-                        }}>
-                            <SelectTrigger className="dark:bg-[#191919] w-full dark:border-none">
-                                <SelectValue placeholder="Inserat auswählen" />
-                            </SelectTrigger>
-                            <SelectContent className="dark:bg-[#191919] dark:border-none ">
-                                <SelectItem value={null}>
-                                    Beliebig
-                                </SelectItem>
-                                {foundInserate.map((pInserat) => (
-                                    <SelectItem value={pInserat.id} key={pInserat.id}>
-                                        {pInserat.title}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
+                    
                 </div>
                 <p className="text-xs dark:text-gray-200/60">
                     Detaillierte Tagesansicht für den {selectedDate && (

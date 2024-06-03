@@ -277,7 +277,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                         inserateArray={foundInserate}
                         currentUser={currentUser}
                         //@ts-ignore
-                        favedInserate={favedInserate}
+                        
 
                     />
                 

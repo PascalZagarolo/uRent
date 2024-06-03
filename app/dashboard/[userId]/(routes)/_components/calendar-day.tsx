@@ -33,6 +33,7 @@ interface CalendarDayProps {
   selectDateParent? : (date : Date) => void;
   setSelectedDateParent? : (date : Date) => void;
   setRelevantBookingsParent? : (bookings : typeof booking.$inferSelect[]) => void;
+  selectedInserat? : string;
 }
 
 
@@ -44,15 +45,17 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   selectDateParent,
   setSelectedDateParent,
   setRelevantBookingsParent,
-  selectedDate
+  selectedDate,
+  selectedInserat
 }) => {
 
   
 
   const searchParams = useSearchParams();
 
-  const inseratFilter = searchParams.get("inseratId");
-  const vehicleFilter = searchParams.get("vehicleId");
+  const inseratFilter = selectedInserat;
+  const vehicleFilter = null;
+  
 
   const [isUnavailable, setIsUnavailable] = useState(false);
   const isSelected = isSameDay(day, selectedDate);

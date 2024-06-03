@@ -138,7 +138,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                 <SelectContent className="dark:bg-[#0F0F0F] dark:border-none">
 
                     <SelectItem value={null}>
-                        Beliebig
+                        Alle
                     </SelectItem>
                     {foundInserate.map((thisInserat) => (
                         <>

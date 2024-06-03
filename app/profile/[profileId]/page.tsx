@@ -97,6 +97,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 with: {
                     businessAddresses: true,
                     businessImages: true,
+                    
                     openingTimes: true
                 }
             }

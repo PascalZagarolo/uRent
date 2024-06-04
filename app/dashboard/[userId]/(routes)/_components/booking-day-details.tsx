@@ -255,7 +255,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         <div className="w-full">
             <div>
                 <div className="flex items-center w-full">
-                    <Label className="text-md font-semibold flex items-center gap-x-2 ">
+                    <Label className="text-md font-semibold flex items-center gap-x-2 w-full">
                         {selectedInserat &&
                             <div className="font-semibold text-indigo-600 w-1/3 line-clamp-1">
                                 {foundInserate.find(inserat => inserat.id === selectedInserat)?.title}

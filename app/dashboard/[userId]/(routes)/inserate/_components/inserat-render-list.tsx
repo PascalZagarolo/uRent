@@ -1,7 +1,7 @@
 'use client';
 
 import InserateDashboardRender from "./inserate-dashboard-render";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { inserat } from "@/db/schema";
 import { Input } from "@/components/ui/input";
 import { SearchIcon, X } from "lucide-react";
@@ -9,10 +9,11 @@ import { useDebounce } from "@/components/multiple-selector";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { user } from "@/drizzle/schema";
+import { set } from "lodash";
 
 interface InserateRenderListProps {
     inserateArray: typeof inserat.$inferSelect;
-    currentUser : typeof user.$inferSelect;
+    currentUser: typeof user.$inferSelect;
 
 }
 
@@ -30,6 +31,9 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
     const debouncedValue = useDebounce(title, 500);
 
+    useEffect(() => {
+        setRenderedInserate(inserateArray)
+    }, [inserateArray])
 
     useMemo(() => {
         if (!title) {
@@ -45,20 +49,20 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
     }, [debouncedValue])
 
     useMemo(() => {
-        if(!selectedSort) {
+        if (!selectedSort) {
             setRenderedInserate(inserateArray)
-        } else if(selectedSort === "date_asc") {
+        } else if (selectedSort === "date_asc") {
             const sortedInserate = [...renderedInserate].sort((a, b) => {
                 return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
             })
             setRenderedInserate(sortedInserate)
-        } else if(selectedSort === "date_desc") {
+        } else if (selectedSort === "date_desc") {
             const sortedInserate = [...renderedInserate].sort((a, b) => {
                 return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
             })
             setRenderedInserate(sortedInserate)
         }
-    },[selectedSort])
+    }, [selectedSort])
 
 
 
@@ -66,20 +70,20 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         <div>
             <div className="sm:flex items-center w-full">
                 <div className="flex items-center w-full">
-                <Input
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="dark:border-none dark:bg-[#141414] sm:w-1/3 rounded-r-none"
-                    value={title}
-                    placeholder="Suche nach Inseraten..."
-                />
-                <div className="dark:bg-[#141414] p-3 rounded-r-md dark:hover:bg-[#191919] hover:cursor-pointer"
+                    <Input
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="dark:border-none dark:bg-[#141414] sm:w-1/3 rounded-r-none"
+                        value={title}
+                        placeholder="Suche nach Inseraten..."
+                    />
+                    <div className="dark:bg-[#141414] p-3 rounded-r-md dark:hover:bg-[#191919] hover:cursor-pointer"
 
-                >
-                    <SearchIcon className="w-4 h-4 " />
-                </div>
+                    >
+                        <SearchIcon className="w-4 h-4 " />
+                    </div>
                 </div>
                 <div className="ml-auto sm:mt-0 mt-2">
-                    <Select onValueChange={(e) => {setSelectedSort(e)}} value={selectedSort}>
+                    <Select onValueChange={(e) => { setSelectedSort(e) }} value={selectedSort}>
                         <SelectTrigger className="sm:w-[320px] dark:border-none dark:bg-[#141414]">
                             <SelectValue placeholder="Sortieren nach.." />
                         </SelectTrigger>
@@ -89,7 +93,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                                 <SelectItem value={null}>Beliebig</SelectItem>
                                 <SelectItem value="date_desc">Erstelldatum: absteigend</SelectItem>
                                 <SelectItem value="date_asc">Erstelldatum: aufsteigend</SelectItem>
-   
+
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -97,10 +101,10 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
             </div>
             <div className="ml-auto w-full flex justify-end mt-2">
                 <Label className="dark:text-gray-200/60 text-xs hover:underline hover:cursor-pointer flex items-center"
-                    onClick={() => { 
+                    onClick={() => {
                         setTitle("");
-                        setSelectedSort(null); 
-                        }}>
+                        setSelectedSort(null);
+                    }}>
                     <X className="w-4 h-4 mr-2" />  Filter löschen
                 </Label>
             </div>
@@ -113,7 +117,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
                         <InserateDashboardRender
                             thisInserat={inserat}
-                            currentUser = {currentUser}
+                            currentUser={currentUser}
                             key={inserat.id}
                         />
 

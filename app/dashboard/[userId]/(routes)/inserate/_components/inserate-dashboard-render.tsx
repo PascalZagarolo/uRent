@@ -12,15 +12,18 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import ManageAvailability from "./manage-availability";
 import HighlightInseratDialog from "./highlight-inserat-dialog";
+import ToggleVisibility from "./toggle-visibility";
+import { user } from "@/drizzle/schema";
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect;
+    currentUser : typeof user.$inferSelect;
 
 }
 
 const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     thisInserat,
-
+    currentUser
 }) => {
     const router = useRouter();
 
@@ -58,6 +61,17 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         }
     }
 
+    const isPublishable = {
+        title: thisInserat.title.length > 0,
+        description: thisInserat.description?.length > 0 || false,
+        price: Number(thisInserat.price) !== 0 && thisInserat.price,
+        images: thisInserat.images?.length > 0,
+        date: (thisInserat.end && thisInserat.begin) !== null || thisInserat.annual,
+        postalCode: thisInserat.address?.postalCode != null,
+        location: thisInserat.address?.locationString != null,
+        state: thisInserat.address?.state != null,
+    };
+
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
@@ -81,10 +95,21 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     {thisInserat.title}
                 </a>
                 <div className="md:w-1/6 w-1/6 truncate">
-                    <div className={cn("text-sm flex items-center ", thisInserat.isPublished ? "text-emerald-600 font-semibold" :
+                    <div className={cn("text-sm  h-full", thisInserat.isPublished ? "text-emerald-600 font-semibold" :
                         "dark:text-gray-100/40 text-gray-700")}>
-                        {thisInserat.isPublished ? <> 
-                        <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> <div className="hidden sm:block"> Veröffentlicht </div> </> : "Entwurf"}
+                        <div className="h-1/2">
+                        {thisInserat.isPublished ? <div className="flex items-center"> 
+                        <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> 
+                        <div className="hidden sm:block"> Veröffentlicht </div> </div> : "Entwurf"}
+                        
+                        </div>
+                        <div className="h-1/2">
+                        <ToggleVisibility 
+                        thisInserat={thisInserat}
+                        isPublishable={isPublishable}
+                        currentUser = {currentUser}
+                        />
+                        </div>
                     </div>
                 </div>
                 <div className="w-2/6 text-sm dark:text-gray-100/70 text-gray-700 md:flex justify-center hidden">

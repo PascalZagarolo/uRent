@@ -3,7 +3,7 @@ import db from "@/db/drizzle";
 import { address, inserat, vehicle } from "@/db/schema";
 
 import axios from "axios";
-import { eq } from "drizzle-orm";
+import { eq, is } from "drizzle-orm";
 
 import { NextResponse } from "next/server";
 
@@ -52,6 +52,15 @@ export async function PATCH(
             isPublished : publish,
             firstRelease : createDate,
         }).where(eq(inserat.id, params.inseratId)).returning();
+
+
+        //if owner privatizes its inserat then remove all highlights and colors..
+        if(!publish) {
+            const patchedHighlight : any = await db.update(inserat).set({
+                isHighlighted : false,
+                color : null
+            }).where(eq(inserat.id, params.inseratId)).returning();
+        }
 
         const addressInserat = await db.query.address.findFirst({
             where : (eq(address.inseratId, params.inseratId))

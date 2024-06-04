@@ -120,8 +120,12 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
                 </div>
                 <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">
-                    <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" onClick={onEdit}>
-                        <Edit3 className="w-4 h-4 xl:mr-2" /> <p className="xl:flex hidden"> Inserat bearbeiten</p>
+                    <Button 
+                    className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" 
+                    
+                    
+                    >
+                        <a href={`/inserat/create/${thisInserat.id}`} className="flex items-center" > <Edit3 className="w-4 h-4 xl:mr-2" /> <div className="xl:flex hidden"> Inserat bearbeiten</div> </a>
                     </Button>
                     <Dialog>
                         <DialogTrigger asChild>

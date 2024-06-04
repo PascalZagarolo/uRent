@@ -186,6 +186,8 @@ export async function POST(
     
     //renew subscription
     if(event.type === "invoice.payment_succeeded") {
+        const currentDate = new Date();
+        const futureMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
         console.log("...")
         //get priceId of subscription
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
@@ -201,9 +203,7 @@ export async function POST(
 
         await db.update(userSubscription).set({
             stripe_price_id : subscription.items.data[0].price.id,
-            stripe_current_period_end : new Date(
-                subscription.current_period_end * 1000
-            ),
+            stripe_current_period_end : futureMonth,
             //@ts-ignore
             amount : product?.metadata?.amount,
             //@ts-ignore

@@ -1,9 +1,13 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { inserat } from "@/db/schema";
-import { user } from "@/drizzle/schema";
+
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaLock } from "react-icons/fa";
+
 import { MdLockOutline, MdOutlineLockOpen } from "react-icons/md";
 
 interface ToggleVisibilityProps {
@@ -20,9 +24,15 @@ const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const areAllValuesTrue = (obj: any): boolean => {
-        return Object.values(obj).every(value => value === true);
+        return Object.entries(obj).every(([key, value]) => {
+            if (key === "price") {
+                return value !== undefined;
+            }
+            return value === true;
+        });
     }
 
     const currentDate = new Date();
@@ -35,9 +45,16 @@ const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
 
     const canPublish = areAllValuesTrue(isPublishable) && matchingConditions;
 
-    const onPublish = () => {
+    
+
+    const onPublish = async () => {
         try {
             setIsLoading(true);
+            await axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish : true })
+                .then(() => {
+                    toast.success("Inserat erfolgreich veröffentlicht")
+                    router.refresh();
+                })
         } catch(e : any) {
             toast.error("Fehler beim Veröffentlichen des Inserats")
             console.log(e)
@@ -46,9 +63,14 @@ const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
         }
     }
 
-    const onPrivate = () => {
+    const onPrivate = async () => {
         try {
             setIsLoading(true);
+            await axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish : false })
+                .then(() => {
+                    toast.success("Inserat erfolgreich privat gestellt ")
+                    router.refresh();
+                })
         } catch(e : any) {
             toast.error("Fehler beim Privat stellen des Inserats")
             console.log(e)
@@ -60,12 +82,12 @@ const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
     return (
         <div>
             {thisInserat?.isPublished ? (
-                <Button className="text-gray-200 text-xs" size="sm" variant="ghost">
+                <Button className="text-gray-200 text-xs" size="sm" variant="ghost" onClick={onPrivate}>
                     <MdLockOutline className="w-4 h-4 mr-2" />   Privat schalten
                 </Button>
             ) : (
                 canPublish ? (
-                    <Button className="text-gray-200 text-xs" size="sm" variant="ghost">
+                    <Button className="text-gray-200 text-xs" size="sm" variant="ghost" onClick={onPublish}>
                         <MdOutlineLockOpen  className="w-4 h-4 mr-2" />   Veröffentlichen
                     </Button>
                 ) : (

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { format, isSameDay } from "date-fns";
 import { de } from "date-fns/locale";
 import { CheckIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiCalendarEventFill } from "react-icons/ri";
 
 interface CalenderDayDetailProps {
@@ -25,7 +25,8 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
     for (const pBooking of affectedBookings) {
         const startHour = Number(pBooking.startPeriod) / 60;
-
+    
+    
 
         //TODO: Add all the time between the start and the end date ONLY if the booking on the given day or starts on the given day
 
@@ -51,7 +52,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
         }
 
     }
-
+    
     
 
 

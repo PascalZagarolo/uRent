@@ -13,6 +13,7 @@ import { inserat, userSubscription, vehicle } from "@/db/schema"
 import MenuBar from "../../_components/menu-bar"
 import BreadCrumpPage from "../../_components/bread-crump-page"
 import HighlightInserat from "./_components/highlight-inserat"
+import getCurrentUserWithSubscriptionAndInserate from "@/actions/getCurrentUserWithSubscriptionAndInserate"
 
 
 
@@ -20,24 +21,31 @@ const InserateOverview = async ({
     params
 } : { params : { userId : string }}) => {
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithSubscriptionAndInserate();
 
     
 
     let publics = [];
     let draft = [];
 
-    const inserateArray = await db.query.inserat.findMany({
+    const findInserate = db.query.inserat.findMany({
         where : (
             eq(inserat.userId, currentUser?.id)
         ),
         with : {
             images : true,
-            user : true,
-            vehicles : true
+            user : {
+                with : {
+                    subscription :true
+                }
+            },
+            vehicles : true,
+            address : true
         }, orderBy :  (inserat, {desc}) => [desc(inserat.createdAt)]
        
-    })
+    }).prepare("findInserate")
+
+    const inserateArray = await findInserate.execute();
 
     const existingSubscription = await db.query.userSubscription.findFirst({
         where : eq(userSubscription.userId, currentUser.id)
@@ -54,7 +62,7 @@ const InserateOverview = async ({
     
 
     
-console.log(existingSubscription)
+
 
 
     return ( 
@@ -93,6 +101,7 @@ console.log(existingSubscription)
                                     <InserateRenderList 
                                     //@ts-ignore
                                     inserateArray={inserateArray}
+                                    currentUser = {currentUser as any}
                                     />
                                 ) : (
                                     <div className="flex justify-center text-gray-100/70">

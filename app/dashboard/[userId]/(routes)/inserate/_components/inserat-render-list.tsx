@@ -8,14 +8,17 @@ import { SearchIcon, X } from "lucide-react";
 import { useDebounce } from "@/components/multiple-selector";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { user } from "@/drizzle/schema";
 
 interface InserateRenderListProps {
     inserateArray: typeof inserat.$inferSelect;
+    currentUser : typeof user.$inferSelect;
 
 }
 
 const InserateRenderList: React.FC<InserateRenderListProps> = ({
     inserateArray,
+    currentUser
 
 }) => {
 
@@ -110,7 +113,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
                         <InserateDashboardRender
                             thisInserat={inserat}
-
+                            currentUser = {currentUser}
                             key={inserat.id}
                         />
 

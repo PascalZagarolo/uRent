@@ -29,7 +29,11 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
 
     const currentDate = new Date();
 
-    const renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
+    let renderedDate = "";
+
+   if(lastMessageDate) {
+    renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
+   }
 
     const onClick = async () => {
         if (conversationId === params.conversationId) {

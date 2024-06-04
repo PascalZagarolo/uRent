@@ -17,6 +17,7 @@ import { userSubscription } from '../db/schema';
 
 
 
+
 type GetInserate = {
     title?: string;
     thisCategory?: typeof CategoryEnumRender;
@@ -723,7 +724,15 @@ export const getInserate = cache(async ({
                 )
             ),
             with: {
-                user: true,
+                user: {
+                    with : {
+                        subscription : {
+                            select : {
+                                plan : true
+                            }
+                        }
+                    }
+                },
                 images: true,
                 address: true,
                 lkwAttribute: true,
@@ -805,7 +814,10 @@ export const getInserate = cache(async ({
                     return true;
                 }
 
+                
             }
+
+            
         });
 
 
@@ -825,6 +837,24 @@ export const getInserate = cache(async ({
             }
         } else {
             returnedArray = filteredArray;
+        }
+
+        
+
+        if (!filter || filter === "relevance") {
+            returnedArray.sort((a, b) => {
+                
+                const aIsPremium = a.user?.subscription?.subscriptionType === "PREMIUM" || a.user?.subscription?.plan === "ENTERPRISE";
+                const bIsPremium = b.user?.subscription?.subscriptionType === "PREMIUM" || b.user?.subscription?.plan === "ENTERPRISE";
+        
+                if (aIsPremium && !bIsPremium) {
+                    return -1; // a should come before b
+                } else if (!aIsPremium && bIsPremium) {
+                    return 1; 
+                } else {
+                    return 0; 
+                }
+            });
         }
 
         return returnedArray;

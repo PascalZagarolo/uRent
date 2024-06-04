@@ -6,6 +6,7 @@ import EventCalendar from "./calendar";
 import { useState } from "react";
 import { IoCalendar } from "react-icons/io5";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 
 interface CalendarAndDetailsProps {
@@ -28,8 +29,13 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
         <div>
             <div>
                 <h3 className="text-md font-semibold flex items-center">
+                    <div className="text-xl flex items-center">
                     <IoCalendar className="w-4 h-4 mr-2" /> Termine und Details
-                    <div className="ml-auto w-1/3">
+                    </div>
+                    <div className="ml-auto w-1/3 mt-2">
+                        <Label>
+                        
+                        </Label>
                         <Select value={selectedInserat} onValueChange={(e) => {
                             setSelectedInserat(e);
                             setSelectedInseratData(foundInserate.find(inserat => inserat.id === e) || null);
@@ -56,7 +62,10 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
                         </Select>
                     </div>
                 </h3>
-
+                <p className="text-xs text-gray-200/60">
+                    Lasse dir alle Buchungen und Termine in deinem persönlichen Kalender anzeigen. <br/>
+                    Filtere nach Fahrzeugen oder gebe dir generellen Überblick über alle Inserate.
+                </p>
 
 
             </div>

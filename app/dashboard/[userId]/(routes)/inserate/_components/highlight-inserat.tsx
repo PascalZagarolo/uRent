@@ -12,6 +12,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { MdOutlineHighlightOff } from "react-icons/md";
 import SelectColor from "./select-color";
+import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 interface HighlightInseratProps {
     currentUser: typeof user.$inferSelect;
@@ -25,6 +27,18 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
     foundInserate,
     existingSubscription
 }) => {
+
+    const Colors = {
+        BLUE: "border-blue-800",
+        RED: "border-rose-800",
+        GREEN: "border-emerald-600",
+        YELLOW: "border-yellow-600",
+        PURPLE: "border-indigo-600",
+        ORANGE: "border-orange-600",
+        VIOLET: "border-violet-900",
+        WHITE: "border-gray-300",
+        BLACK: "border-black",
+    };
 
     const hightlightedInserate = foundInserate.filter((inserat: any) => inserat.isPublished && inserat?.isHighlighted);
     const availableHighlights = (existingSubscription?.subscriptionType === "ENTERPRISE" && existingSubscription?.amount > 1) ? 2 : 1
@@ -58,6 +72,8 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
         }
     }
 
+
+
     return (
         <div className="py-4 pb-8">
             <h1 className="text-md font-semibold">
@@ -65,7 +81,7 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 {hightlightedInserate.map((inserat: any) => (
-                    <div className="p-4 dark:bg-[#0F0F0F] rounded-md" key={inserat.id}>
+                    <div className={cn("p-4 dark:bg-[#0F0F0F] rounded-md", inserat?.color && `${Colors[inserat?.color]} border`)} key={inserat.id}>
                         <div className="text-sm w-full line-clamp-1 break-all">
                             {inserat.title}
                         </div>
@@ -81,6 +97,7 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                             />
                         </div>
                         <div className="mt-2 gap-y-2">
+                            
                             <p className="text-xs">
                                 erstellt: {format(new Date(inserat.createdAt), "dd.MM.yyyy")}
                             </p>
@@ -90,30 +107,35 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                         </div>
                         {existingSubscription?.subscriptionType === "ENTERPRISE" && (
                             <div className="mt-2">
-                                <SelectColor />
+                                <SelectColor
+                                    inseratId={inserat.id}
+                                    selectedColor={inserat.color}
+                                />
                             </div>
                         )}
                         <div className="mt-2">
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                    <Button className="w-full bg-indigo-800 hover:bg-indigo-900 dark:text-gray-200" size="sm">
+                                    <Button
+                                        className="w-full bg-indigo-800 hover:bg-indigo-900 dark:text-gray-200"
+                                        size="sm">
                                         <X className="dark:text-gray-200 w-4 h-4 mr-2" /> Hervorhebung entfernen
                                     </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent className="dark:border-none dark:text-gray-200 dark:bg-[#191919]">
                                     <div>
                                         <div>
-                                        <h3 className="text-md font-semibold flex items-center">
-                                          <MdOutlineHighlightOff className="w-4 h-4 mr-2 text-rose-600" />  Möchtest du die Hervorhebung wirklich entfernen?
-                                        </h3>
-                                        <p className="text-xs dark:text-gray-200/60">
-                                            Du kannst diese Aktion jederzeit rückgängig machen.
-                                        </p>
+                                            <h3 className="text-md font-semibold flex items-center">
+                                                <MdOutlineHighlightOff className="w-4 h-4 mr-2 text-rose-600" />  Möchtest du die Hervorhebung wirklich entfernen?
+                                            </h3>
+                                            <p className="text-xs dark:text-gray-200/60">
+                                                Du kannst diese Aktion jederzeit rückgängig machen.
+                                            </p>
                                         </div>
                                         <div className="mt-4 flex justify-end">
                                             <AlertDialogAction asChild >
                                                 <Button
-                                                    className="bg-indigo-800 hover:bg-indigo-900 dark:text-gray-200"
+                                                    className={clsx(`bg-indigo-800 hover:bg-indigo-900 dark:text-gray-200`)}
                                                     onClick={() => onDehiglight(inserat.id)}
                                                     disabled={isLoading}
                                                 >

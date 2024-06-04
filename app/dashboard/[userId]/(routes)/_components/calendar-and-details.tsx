@@ -3,7 +3,7 @@
 import { booking, inserat } from "@/db/schema";
 import BookingDayDetails from "./booking-day-details";
 import EventCalendar from "./calendar";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { IoCalendar } from "react-icons/io5";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
@@ -24,6 +24,8 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
     const [selectedInserat, setSelectedInserat] = useState(null);
     const [selectedInseratData, setSelectedInseratData] = useState<null | typeof inserat.$inferSelect>(null);
     const [renderedInserate, setRenderedInserate] = useState(foundInserate);
+
+    
 
     return (
         <div>
@@ -79,7 +81,7 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
                 />
             </div>
             <div className="mt-4 w-full">
-                <BookingDayDetails
+            <BookingDayDetails
                     foundInserate={foundInserate}
                     selectedDate={selectedDate}
                     relevantBookings={relevantBookings}

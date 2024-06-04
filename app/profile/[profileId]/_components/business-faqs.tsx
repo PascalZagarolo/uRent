@@ -59,6 +59,12 @@ const BusinessFaqs: React.FC<BusinessFaqsProps> = ({
                     </AccordionItem>
                 ))}
             </Accordion>
+            {thisBusiness?.faqs?.length === 0 && (
+                <div className="flex justify-center p-4 text-sm text-gray-400">
+                    Noch keine Faqs hinzugefügt..
+                </div>
+            
+            )}
         </div>
     );
 }

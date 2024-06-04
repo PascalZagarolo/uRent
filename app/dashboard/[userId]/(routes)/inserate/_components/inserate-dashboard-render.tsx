@@ -32,9 +32,6 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
     const onDelete = () => {
         try {
-
-
-
             setIsLoading(true);
             axios.delete(`/api/inserat/${thisInserat.id}/delete`).then(() => {
                 toast.success("Inserat erfolgreich gelöscht");

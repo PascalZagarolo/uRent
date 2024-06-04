@@ -40,6 +40,18 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
         BLACK: "border-black",
     };
 
+    const ColorsBG = {
+        BLUE: "bg-blue-800",
+        RED: "bg-rose-800",
+        GREEN: "bg-emerald-600",
+        YELLOW: "bg-yellow-600",
+        PURPLE: "bg-indigo-600",
+        ORANGE: "bg-orange-600",
+        VIOLET: "bg-violet-900",
+        WHITE: "bg-gray-300",
+        BLACK: "bg-black",
+    };
+
     const hightlightedInserate = foundInserate.filter((inserat: any) => inserat.isPublished && inserat?.isHighlighted);
     const availableHighlights = (existingSubscription?.subscriptionType === "ENTERPRISE" && existingSubscription?.amount > 1) ? 2 : 1
 
@@ -81,7 +93,10 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 {hightlightedInserate.map((inserat: any) => (
-                    <div className={cn("p-4 dark:bg-[#0F0F0F] rounded-md", inserat?.color && `${Colors[inserat?.color]} border`)} key={inserat.id}>
+                    <div className={cn("p-4 dark:bg-[#0F0F0F] rounded-md", 
+                    inserat?.color && `${Colors[inserat?.color]} border`,
+                    
+                    )} key={inserat.id}>
                         <div className="text-sm w-full line-clamp-1 break-all">
                             {inserat.title}
                         </div>
@@ -117,9 +132,18 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                     <Button
-                                        className="w-full bg-indigo-800 hover:bg-indigo-900 dark:text-gray-200"
-                                        size="sm">
-                                        <X className="dark:text-gray-200 w-4 h-4 mr-2" /> Hervorhebung entfernen
+                                        className={clsx("w-full  dark:text-gray-200", 
+                                        inserat.color && `${ColorsBG[inserat.color]}`,
+                                        inserat?.color == "WHITE" && "dark:text-gray-700 text-gray-800"
+                                        )}
+                                        size="sm"
+                                        variant="ghost"
+                                        >
+                                        <X className={cn("dark:text-gray-200 w-4 h-4 mr-2",
+                                        inserat?.color == "WHITE" && "dark:text-gray-700 text-gray-800"
+                                        )}
+                                        
+                                         /> Hervorhebung entfernen
                                     </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent className="dark:border-none dark:text-gray-200 dark:bg-[#191919]">

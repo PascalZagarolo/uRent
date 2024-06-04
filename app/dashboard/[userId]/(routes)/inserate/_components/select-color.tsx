@@ -1,11 +1,47 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { RiPaintBrushLine } from "react-icons/ri";
 import clsx from "clsx";
+import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { CheckIcon } from "lucide-react";
 
-const SelectColor = () => {
-    const onColorChange = (color) => {
-        console.log(color);
+
+interface SelectColorProps {
+    inseratId: string,
+    selectedColor? : string
+}
+
+const SelectColor: React.FC<SelectColorProps> = ({
+    inseratId,
+    selectedColor
+}) => {
+
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
+    const onColorChange = async (color) => {
+        try {
+            setIsLoading(true);
+
+            const values = {
+                color: color as string
+            }
+            await axios.patch(`/api/inserat/${inseratId}/color`, values)
+                .then(() => {
+                    console.log("Farbe geändert")
+                    toast.success("Farbe geändert")
+                    router.refresh();
+                })
+        } catch (err: any) {
+            console.log(err)
+        } finally {
+            setIsLoading(false)
+        }
     };
 
     const Colors = {
@@ -20,6 +56,10 @@ const SelectColor = () => {
         BLACK: "bg-black",
     };
 
+    const isSelected = (color : string) => {
+        return color === selectedColor;
+    }
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -33,19 +73,21 @@ const SelectColor = () => {
                         <h3 className="text-md font-semibold">Farbe wählen</h3>
                     </div>
                     <div>
-                        {Object.values(Colors).map((color) => (
-                            <div key={color} className="flex items-center py-2">
-                                <Button
-                                    className={clsx(
-                                        `w-full`,
-                                        `${color}`,
-                                        
-                                        `dark:text-gray-200`
-                                    ) } variant="ghost"
-                                    onClick={() => onColorChange(color)}
-                                >
-                                    
-                                </Button>
+                        {Object.entries(Colors).map(([key, value]) => (
+                            <div key={key} className="flex items-center py-2">
+                                <DialogTrigger asChild>
+                                    <Button
+                                        className={clsx(
+                                            `w-full`,
+                                            `${value}`,
+
+                                            `dark:text-gray-200`
+                                        )} variant="ghost"
+                                        onClick={() => onColorChange(key)}
+                                    >
+                                        {isSelected(key) && <CheckIcon className="w-4 h-4 bg-black" />}
+                                    </Button>
+                                </DialogTrigger>
                             </div>
                         ))}
                     </div>

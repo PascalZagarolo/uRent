@@ -58,6 +58,18 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 }) => {
 
+    const Colors = {
+        BLUE: "border-blue-800",
+        RED: "border-rose-800",
+        GREEN: "border-emerald-600",
+        YELLOW: "border-yellow-600",
+        PURPLE: "border-indigo-600",
+        ORANGE: "border-orange-600",
+        VIOLET: "border-violet-900",
+        WHITE: "border-gray-300",
+        BLACK: "border-black",
+    };
+
     const isFaved = currentUser?.favourites?.some((fav) => fav.inseratId === thisInserat.id);
 
     const isOwn = currentUser?.id === thisInserat?.userId;
@@ -149,7 +161,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     return (
         <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
-        mt-4  border-[#171923]  pt-4 rounded-md`, thisInserat?.isHighlighted && "dark:border-2 border-2 border-blue-800",
+        mt-4  border-[#171923]  pt-4 rounded-md`, thisInserat?.isHighlighted && "dark:border-2 border-2 ",
+        thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
         
         
         )}>

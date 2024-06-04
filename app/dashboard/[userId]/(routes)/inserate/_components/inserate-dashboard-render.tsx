@@ -103,14 +103,19 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                                 />
                             </div>
                             <div className="h-1/2">
-                                {thisInserat.isHighlighted ? (
+                                {thisInserat.isHighlighted  ? (
                                     <div className="items-center flex text-xs text-gray-200">
                                         <CheckIcon className="h-4 w-4 mr-2 text-indigo-800" /> <div className="hidden md:block"> Hervorgehoben </div>
                                     </div>
                                 ): (
-                                        <HighlightInseratDialog
-                                thisInserat = { thisInserat }
-                            />
+                                    <>
+                                        {thisInserat?.isPublished && (
+                                            <HighlightInseratDialog
+                                        thisInserat = { thisInserat } />
+                                        )}
+                                        
+                                       
+                                        </>
                             )}
                             </div>
                         </div>

@@ -39,7 +39,7 @@ const FaqPlanFeatures = () => {
                                     </h3>
                                     <div className=" text-sm text-gray-200/90">
 
-                                        Falls Sie den Plan "Premium" oder "Enterprise" abonniert haben,
+                                        Falls Sie den Plan {`"`}Premium{`"`} oder {`"`}Enterprise{`"`} abonniert haben,
                                         werden Ihre Inserate von unserem Suchalgorithmus priorisiert.
                                         Dadurch erhalten Sie eine bessere Sichtbarkeit und stark erhöhte Chancen,
                                         potenzielle Kunden zu erreichen.
@@ -69,7 +69,7 @@ const FaqPlanFeatures = () => {
                                         Hervorhebung von Inseraten
                                     </h3>
                                     <div className=" text-sm text-gray-200/90">
-                                        Falls Sie den Plan "Premium" oder "Enterprise" abonniert haben,
+                                        Falls Sie den Plan {`"`}Premium{`"`} oder {`"`}Enterprise{`"`} abonniert haben,
                                         können Sie Ihr/e Inserat/e hervorheben. <br />   Die Hervorhebung erfolgt durch eine farbliche Umrandung,
                                         die Ihr Inserat auffälliger macht und die Aufmerksamkeit potenzieller Kunden erhöht.
                                         Nutzen Sie diese Funktion, um die Sichtbarkeit Ihres Angebots zu steigern und sich von der Konkurrenz abzuheben. <br />

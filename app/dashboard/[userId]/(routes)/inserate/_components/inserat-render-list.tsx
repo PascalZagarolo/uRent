@@ -32,7 +32,17 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
     const debouncedValue = useDebounce(title, 500);
 
     useEffect(() => {
-        setRenderedInserate(inserateArray)
+        if(title) {
+            //@ts-ignore
+            const filteredInserate = inserateArray.filter((inserat) => {
+                return inserat.title.toLowerCase().includes(title.toLowerCase())
+
+            })
+            setRenderedInserate(filteredInserate)
+        } else {
+            setRenderedInserate(inserateArray)
+        }
+        
     }, [inserateArray])
 
     useMemo(() => {

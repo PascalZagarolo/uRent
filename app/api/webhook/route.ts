@@ -186,6 +186,11 @@ export async function POST(
     
     //renew subscription
     if(event.type === "invoice.payment_succeeded" || event.type === "invoice.paid") {
+
+        await db.insert(userSubscription).values({
+            stripe_subscription_id : "TEST_COMPLETE"
+        })
+
         console.log("renew subscription")
         const currentDate = new Date();
         const futureMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
@@ -207,6 +212,7 @@ export async function POST(
             stripe_current_period_end : futureMonth,
             //@ts-ignore
             amount : product?.metadata?.amount,
+            isGift : false,
             //@ts-ignore
             subscriptionType : product?.metadata?.type as string,
 

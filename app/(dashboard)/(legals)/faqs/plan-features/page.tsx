@@ -73,7 +73,7 @@ const FaqPlanFeatures = () => {
                                         können Sie Ihr/e Inserat/e hervorheben. <br />   Die Hervorhebung erfolgt durch eine farbliche Umrandung,
                                         die Ihr Inserat auffälliger macht und die Aufmerksamkeit potenzieller Kunden erhöht.
                                         Nutzen Sie diese Funktion, um die Sichtbarkeit Ihres Angebots zu steigern und sich von der Konkurrenz abzuheben. <br />
-                                        Wenn Sie den Plan "Enterprise" abonniert haben,
+                                        Wenn Sie den Plan {`"`}Enterprise{`"`} abonniert haben,
                                         können Sie zusätzlich die Farbe der Umrandung individuell anpassen.
                                     </div>
                                 </div>

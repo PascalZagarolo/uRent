@@ -52,7 +52,8 @@ const RegisterBusiness = () => {
                             <p>Ein gewerbliches Konto bietet dir zusätzliche Funktionen wie die Möglichkeit, deinen Auftritt, weiter zu personalisieren,
                                 und die Möglichkeit ein Impressum, Standorte und Öffnungszeiten hinzuzufügen.
                             </p>
-                            <p>Wenn du ein gewerbliches Konto erstellst, musst du die Nutzungsbedingungen für gewerbliche Konten akzeptieren.</p>
+                            <p>Das erstellen eines gewerblichen Kontos, unterliegt unseren <a className="hover:cursor underline" href="/agbs" target="_blank"> 
+                            Allgemeinen Geschäftsbedingungen </a></p>
                         </div>
                         <AlertDialogFooter className="mt-2">
                             <AlertDialogCancel className="dark:border-none">Abbrechen</AlertDialogCancel>

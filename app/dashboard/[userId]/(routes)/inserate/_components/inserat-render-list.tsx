@@ -34,16 +34,35 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
     const debouncedValue = useDebounce(title, 500);
 
     useEffect(() => {
+
+        let returnedInserate = inserateArray;
+
         if(title) {
             //@ts-ignore
-            const filteredInserate = inserateArray.filter((inserat) => {
+            returnedInserate = inserateArray.filter((inserat) => {
                 return inserat.title.toLowerCase().includes(title.toLowerCase())
 
             })
-            setRenderedInserate(filteredInserate)
-        } else {
-            setRenderedInserate(inserateArray)
+            
         }
+
+        if(selectedVisibility) {
+            if(selectedVisibility === "PUBLIC") {
+                //@ts-ignore
+                const filtered = returnedInserate.filter((inserat) => {
+                    return inserat.isPublished
+                })
+                returnedInserate = filtered;
+            } else if(selectedVisibility === "PRIVATE") {
+                //@ts-ignore
+                const filtered = returnedInserate.filter((inserat) => {
+                    return !inserat.isPublished
+                })
+                returnedInserate = filtered;
+            }
+        }
+
+        setRenderedInserate(returnedInserate);
         
     }, [inserateArray])
 

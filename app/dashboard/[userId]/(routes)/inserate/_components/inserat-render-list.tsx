@@ -206,6 +206,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                     onClick={() => {
                         setTitle("");
                         setSelectedSort(null);
+                        setSelectedVisibility(null);
                     }}>
                     <X className="w-4 h-4 mr-2" />  Filter löschen
                 </Label>

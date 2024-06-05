@@ -331,6 +331,8 @@ export const userSubscription = pgTable("userSubscription" , {
     stripe_product_id : text("stripe_product_id"),
     stripe_price_id : text("stripe_price_id"),
     stripe_current_period_end : timestamp("stripe_current_period_end", { mode: "date" }),
+
+    isGift : boolean("isGift").notNull().default(false),
 })
 
 export const loadingEnum = pgEnum("loading", [

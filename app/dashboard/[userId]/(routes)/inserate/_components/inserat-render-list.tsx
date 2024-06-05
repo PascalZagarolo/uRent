@@ -26,7 +26,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
     //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
     const [renderAmount, setRenderAmount] = useState(5);
-    const [renderedInserate, setRenderedInserate] = useState(inserateArray);
+    const [renderedInserate, setRenderedInserate] = useState<any>(inserateArray);
     const [selectedSort, setSelectedSort] = useState(null as any);
     const [selectedVisibility, setSelectedVisibility] = useState<"PRIVATE" | "PUBLIC" | null>(null as any);
     const [title, setTitle] = useState("");
@@ -100,6 +100,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         let fInserate : any = inserateArray;
 
         if(title) {
+            //@ts-ignore
             const filteredInserate = inserateArray.filter((inserat) => {
                 return inserat.title.toLowerCase().includes(title.toLowerCase())
 

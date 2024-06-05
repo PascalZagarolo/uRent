@@ -29,7 +29,7 @@ export async function PATCH(
         })
 
         const today = new Date();
-        const endDate = new Date(existingSubscription.stripe_current_period_end)
+        const endDate = new Date(existingSubscription?.stripe_current_period_end)
 
         
 

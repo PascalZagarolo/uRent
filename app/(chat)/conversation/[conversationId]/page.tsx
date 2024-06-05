@@ -33,6 +33,8 @@ const ConversationPage = async ({
     params
 }: { params: { conversationId: string } }) => {
 
+
+    //get as only call
     const currentUser = await getCurrentUser();
 
     if(!currentUser) {
@@ -41,8 +43,8 @@ const ConversationPage = async ({
 
     let startedConversations: typeof conversation.$inferSelect[] = [];;
 
-    if (currentUser) {
-        startedConversations = await db.query.conversation.findMany({
+    
+        const findStartedConversations = db.query.conversation.findMany({
             where: (
                 or(
                     eq(conversation.user1Id, currentUser.id),
@@ -56,10 +58,11 @@ const ConversationPage = async ({
 
 
             }
-        })
-    } else {
-        startedConversations = [];
-    }
+        }).prepare("findStartedConversations")
+
+        startedConversations = await findStartedConversations.execute();
+  
+      
 
     const findConversation = db.query.conversation.findFirst({
         where: eq(conversation.id, params.conversationId),

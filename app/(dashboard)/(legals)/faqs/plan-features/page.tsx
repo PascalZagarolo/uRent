@@ -1,4 +1,7 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, 
+    BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Label } from "@/components/ui/label";
+
 
 const FaqPlanFeatures = () => {
     return (
@@ -36,12 +39,28 @@ const FaqPlanFeatures = () => {
                                     </h3>
                                     <div className=" text-sm text-gray-200/90">
 
-                                        Das Buchungssystem macht es dir kinderleicht, Buchungen und Verfügbarkeiten hinzuzufügen, und hilft dir,
-                                        stets den Überblick zu bewahren. Es ermöglicht deinen Mietern,
-                                        die Verfügbarkeit deiner Fahrzeuge einzusehen, ohne redundante Anfragen stellen zu müssen,
-                                        und spart dir dadurch wertvolle Zeit. 
-                                        Die einfache Bedienung sorgt dafür, dass du den Kopf für andere Aufgaben frei hast.
-                                        So wird die Verwaltung deiner Fahrzeuge effizienter, kundenfreundlicher .
+                                        Falls Sie den Plan "Premium" oder "Enterprise" abonniert haben,
+                                        werden Ihre Inserate von unserem Suchalgorithmus priorisiert.
+                                        Dadurch erhalten Sie eine bessere Sichtbarkeit und stark erhöhte Chancen,
+                                        potenzielle Kunden zu erreichen.
+
+
+                                    </div>
+                                </div>
+                                <div className="mt-8">
+                                    <h3 className="text-md font-semibold">
+                                        Funktionsumfang „Priorisierung bei der Suche“
+                                    </h3>
+                                    <div className=" text-sm text-gray-200/90">
+
+                                        Die in Abonnement-Paket {`"`}Premium{`"`} und {`"`}Enterprise{`"`} enthaltene Funktion
+                                        {` "`}Priorisierung bei der Suche{`"`} beinhaltet die bevorzugte Positionierung von
+                                        {` "`}Premium/Enterprise{`"`} -Inseraten auf der Startseite und beim Anzeigen von Ergebnissen durch
+                                        Nutzung des Suchfilters.<br />
+                                        Inserate von Premium- und Enterprise Kunden werden dabei als gleichwertig betrachtet. <br />
+                                        Die vorrangige Positionierung findet nur statt, wenn keine manuelle Sortierung der
+                                        Inserate vorgenommen wurde.
+
                                     </div>
                                 </div>
 
@@ -50,11 +69,45 @@ const FaqPlanFeatures = () => {
                                         Hervorhebung von Inseraten
                                     </h3>
                                     <div className=" text-sm text-gray-200/90">
-                                    Bei mehreren identischen Fahrzeugen kann ein Flotteninserat erstellt werden, 
-                                    um die Verwaltung zu vereinfachen. Fahrzeuge ermöglichen es, die einzelnen Flotteninserate im Detail zu verwalten 
-                                    und den Überblick zu behalten, da jedes Fahrzeug seine eigenen Buchungen und Verfügbarkeiten haben kann. 
-                                    Der Mieter sieht dabei nur die generelle Verfügbarkeit, unabhängig vom einzelnen Fahrzeug. Dies macht es für den Vermieter leicht, 
-                                    Verfügbarkeiten und Buchungen zu verwalten, und für den Mieter einfach, passende Inserate zu finden.
+                                        Falls Sie den Plan "Premium" oder "Enterprise" abonniert haben,
+                                        können Sie Ihr/e Inserat/e hervorheben. <br />   Die Hervorhebung erfolgt durch eine farbliche Umrandung,
+                                        die Ihr Inserat auffälliger macht und die Aufmerksamkeit potenzieller Kunden erhöht.
+                                        Nutzen Sie diese Funktion, um die Sichtbarkeit Ihres Angebots zu steigern und sich von der Konkurrenz abzuheben. <br />
+                                        Wenn Sie den Plan "Enterprise" abonniert haben,
+                                        können Sie zusätzlich die Farbe der Umrandung individuell anpassen.
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <h3 className="text-md font-semibold">
+                                        Funktionsumfang Hervorhebung von Inseraten
+                                    </h3>
+                                    <div className="p-4 text-sm text-gray-200/90">
+                                        <Label className="font-semibold text-lg">
+                                            Premium
+                                        </Label>
+                                        <div className="mt-2 px-2">
+                                        - Hervorhebung eines Inserats: Als Premium-Nutzer können Sie ein Inserat hervorheben. <br/>
+                                        Dies erfolgt durch eine farbliche Umrandung, 
+                                        die Ihr Inserat auffälliger macht und die Aufmerksamkeit potenzieller Kunden erhöht.
+                                        </div>
+                                    
+                                        <div className="mt-4">
+                                        <Label className="font-semibold text-lg">
+                                            Enterprise
+                                        </Label>
+                                        <div className="mt-2 px-2">
+                                        - Hervorhebung von bis zu zwei Inseraten: Als Enterprise-Nutzer können Sie bis zu zwei Inserate hervorheben, vorausgesetzt, 
+                                        Ihr abonniertes Plan-Paket erlaubt mehr als ein Inserat. <br/>
+                                        Diese zusätzliche Hervorhebung erhöht die Sichtbarkeit Ihrer Angebote deutlich.
+                                        </div>
+                                        <div className="mt-2 px-2">
+                                        Anpassbare Farbliche Umrandung: Zusätzlich zur Möglichkeit, zwei Inserate hervorzuheben, 
+                                        können Enterprise-Nutzer die Farbe der Umrandung individuell anpassen. <br/>
+                                        Dies ermöglicht eine farbliche Abstimmung passend zu Ihrem Inserat, 
+                                        was die visuelle Attraktivität und Erkennbarkeit Ihrer Angebote weiter steigert.
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -14,7 +14,7 @@ const Faqs = () => {
                             </h3>
 
 
-                            <div className="sm:mt-8 mt-4 text-lg sm:p-8 p-2 font-semibold">
+                            <div className=" mt-4 text-lg sm:p-8 p-2 font-semibold">
                                 <div className="text-md">
                                     <h1>
                                         Willkommen bei den häufig gestellten Fragen {`(`}FAQs{`)`} von uRent!

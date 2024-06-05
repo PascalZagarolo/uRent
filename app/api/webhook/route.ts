@@ -185,7 +185,8 @@ export async function POST(
     }
     
     //renew subscription
-    if(event.type === "invoice.payment_succeeded") {
+    if(event.type === "invoice.payment_succeeded" || event.type === "invoice.paid") {
+        console.log("renew subscription")
         const currentDate = new Date();
         const futureMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
         console.log("...")

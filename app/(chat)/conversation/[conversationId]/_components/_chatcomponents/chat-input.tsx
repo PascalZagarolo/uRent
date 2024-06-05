@@ -71,7 +71,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
             
         <div className="w-full flex p-4">
         
-        <UploadImage/>
+       {existingBlock?.length === 0 && (
+         <UploadImage/>
+       )}
 
 <Form {...form} >
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full">

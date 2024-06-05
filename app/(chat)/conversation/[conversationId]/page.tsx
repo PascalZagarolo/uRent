@@ -19,10 +19,13 @@ import ReturnToChat from "./_components/return-to-chat";
 import db from "@/db/drizzle";
 import { and, eq,  isNotNull, or } from "drizzle-orm";
 import { conversation, notification } from "@/db/schema";
-import { userTable, message } from '../../../../db/schema';
+import { userTable, message, images } from '../../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
 import AdsComponent from "@/components/ad-component";
 import { redirect } from "next/navigation";
+import ChatSideBar from "./_components/chat-sidebar";
+import { user } from "@/drizzle/schema";
+import findConversation from '../../../../actions/findConversation';
 
 
 
@@ -58,34 +61,31 @@ const ConversationPage = async ({
         startedConversations = [];
     }
 
-    const thisConversation = await db.query.conversation.findFirst({
+    const findConversation = db.query.conversation.findFirst({
         where: eq(conversation.id, params.conversationId),
         with: {
             user1: true,
             user2: true,
-            blocks: true
-        }
-
-    })
-
-    const justConversation = await db.query.conversation.findFirst({
-        where: eq(conversation.id, params.conversationId)
-    })
-
-
-
-    const messages = await db.query.message.findMany({
-        where: eq(
-            message.conversationId, params.conversationId
-        ), with: {
-            sender: true,
-            inserat: {
-                with: {
-                    images: true
+            blocks: true,
+            messages : {
+                with : {
+                    sender: true,
+                    inserat : {
+                        with : {
+                            images : true
+                        }
+                    }
                 }
             }
         }
-    })
+
+    }).prepare("findConversation")
+
+    const thisConversation = await findConversation.execute();
+
+
+
+    
 
     //if user clicks on chat, mark all chat notifications as seen
     const patchNotifications = await db.update(notification).set({
@@ -97,15 +97,13 @@ const ConversationPage = async ({
         )
     )
 
-    const otherUserId = thisConversation?.user1Id === currentUser.id ? thisConversation?.user2Id : thisConversation?.user1Id;
+    
 
 
 
-    const otherUserDetails = await db.query.userTable.findFirst({
-        where: eq(
-            userTable.id, otherUserId
-        )
-    })
+    
+
+    const otherUserDetails : any = thisConversation?.user1Id === currentUser.id ? thisConversation?.user2 : thisConversation?.user1;
 
 
 
@@ -115,7 +113,6 @@ const ConversationPage = async ({
         where: (
             eq(notification.userId, currentUser?.id)
         )
-
     }).prepare("findNotifications")
 
     const foundNotifications = await findNotifications.execute();
@@ -152,13 +149,10 @@ const ConversationPage = async ({
                         <MessageSquareIcon className="w-4 h-4 mr-2" />  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                     </h3>
                     <div className="mt-4">
-                        {startedConversations.map((conversation) => (
-                            <StartedChats
-                                key={conversation.id}
-                                conversations={conversation}
-                                currentUser={currentUser}
-                            />
-                        ))}
+                    <ChatSideBar 
+                        startedConversations={startedConversations}
+                        currentUser={currentUser}
+                        />
                     </div>
                 </div>
 
@@ -189,9 +183,9 @@ const ConversationPage = async ({
                             <div className="overflow-y-auto h-[800px] no-scrollbar" id="chat-render">
                                 <ChatComponent
                                     //@ts-ignore
-                                    messages={messages}
+                                    messages={thisConversation?.messages}
                                     currentUser={currentUser}
-                                    thisConversation={justConversation}
+                                    thisConversation={thisConversation}
                                 />
                                 {thisConversation?.blocks.length > 0 && (
                                     <div className="w-full flex justify-center items-center py-8">

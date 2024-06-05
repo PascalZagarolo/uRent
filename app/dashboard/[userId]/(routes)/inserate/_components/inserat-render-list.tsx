@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { user } from "@/drizzle/schema";
 import { set } from "lodash";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface InserateRenderListProps {
     inserateArray: typeof inserat.$inferSelect;
@@ -27,6 +28,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
     const [renderAmount, setRenderAmount] = useState(5);
     const [renderedInserate, setRenderedInserate] = useState(inserateArray);
     const [selectedSort, setSelectedSort] = useState(null as any);
+    const [selectedVisibility, setSelectedVisibility] = useState<"PRIVATE" | "PUBLIC" | null>(null as any);
     const [title, setTitle] = useState("");
 
     const debouncedValue = useDebounce(title, 500);
@@ -74,7 +76,49 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         }
     }, [selectedSort])
 
+    useMemo(() => {
 
+        let fInserate : any = inserateArray;
+
+        if(title) {
+            const filteredInserate = inserateArray.filter((inserat) => {
+                return inserat.title.toLowerCase().includes(title.toLowerCase())
+
+            })
+            fInserate = filteredInserate;
+        }
+
+        if (!selectedSort) {
+            
+        } else if (selectedSort === "date_asc") {
+            const sortedInserate = [...fInserate].sort((a, b) => {
+                return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+            })
+            fInserate = sortedInserate;
+        } else if (selectedSort === "date_desc") {
+            const sortedInserate = [...fInserate].sort((a, b) => {
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            })
+            fInserate = sortedInserate;
+        }
+
+
+        if(!selectedVisibility) {
+            setRenderedInserate(fInserate)
+        } else if(selectedVisibility === "PUBLIC") {
+            //@ts-ignore
+            const filtered = fInserate.filter((inserat) => {
+                return inserat.isPublished
+            })
+            setRenderedInserate(filtered)
+        } else if(selectedVisibility === "PRIVATE") {
+            //@ts-ignore
+            const filtered = fInserate.filter((inserat) => {
+                return !inserat.isPublished
+            })
+            setRenderedInserate(filtered)
+        }
+    },[selectedVisibility])
 
     return (
         <div>
@@ -110,6 +154,35 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                 </div>
             </div>
             <div className="ml-auto w-full flex justify-end mt-2">
+                <div className="gap-x-2 flex items-center mr-4">
+                    <div className="flex items-center">
+                        <Checkbox 
+                        checked={!selectedVisibility}
+                        onCheckedChange={(e) => {setSelectedVisibility(null)}}
+                        />
+                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => {setSelectedVisibility(null)}}>
+                            Alle
+                        </Label>
+                    </div>
+                    <div className="flex items-center">
+                        <Checkbox 
+                        checked={selectedVisibility === "PUBLIC"}
+                        onCheckedChange={(e) => {setSelectedVisibility("PUBLIC")}}
+                        />
+                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => {setSelectedVisibility("PUBLIC")}}>
+                            Öffentlich
+                        </Label>
+                    </div>
+                    <div className="flex items-center">
+                        <Checkbox 
+                        checked={selectedVisibility === "PRIVATE"}
+                        onCheckedChange={(e) => {setSelectedVisibility("PRIVATE")}}
+                        />
+                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => {setSelectedVisibility("PRIVATE")}}>
+                            Privat
+                        </Label>
+                    </div>
+                </div>
                 <Label className="dark:text-gray-200/60 text-xs hover:underline hover:cursor-pointer flex items-center"
                     onClick={() => {
                         setTitle("");

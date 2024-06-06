@@ -12,6 +12,12 @@ export async function POST(
     req : Request
 ) {
 
+    await db.insert(userSubscription).values({
+        stripe_subscription_id : "TEST_COMPLETE",
+        amount : 22,
+        isGift : true,
+    })
+
     const body = await req.text();
     console.log(body)
     const signature = headers().get("Stripe-Signature") as string
@@ -185,30 +191,31 @@ export async function POST(
     }
     
     //renew subscription
-    if(event.type === "invoice.payment_succeeded" || event.type === "invoice.paid") {
+    if(event.type === "invoice.payment_succeeded" || event.type === "invoice.paid"  ||
+    event.type === "subscription_schedule.completed") {
 
-        await db.insert(userSubscription).values({
-            stripe_subscription_id : "TEST_COMPLETE"
-        })
 
-        console.log("renew subscription")
+
+        
+
+        
         const currentDate = new Date();
         const futureMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
-        console.log("...")
+        
         //get priceId of subscription
-        const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
-
+        const retrievedInvoice = await stripe.invoices.retrieve(session.id)
+        
         //get new amount and subscriptionType in case user downgraded
         require('stripe')('sk_test_51OXL4bGRyqashQ2wAaNYkzVV68vGMgReR45Ct3q8BfZO6KCXnZ2BNhiotRuYCwAAOwQxy4iZy2B8WEgRQa2PIG2I00tApjW5eR');
 
         //query for price to get matching productId
-        const connectedPrice = await stripe.prices.retrieve(subscription.items.data[0].price.id);
+        const connectedPrice = await stripe.prices.retrieve(retrievedInvoice.lines.data[0].price.id as string);
 
         //get product id, to change amount and subscriptionType if changed
         const product = await stripe.products.retrieve(connectedPrice.product as string);
-
+        
         await db.update(userSubscription).set({
-            stripe_price_id : subscription.items.data[0].price.id,
+            stripe_price_id : retrievedInvoice.lines.data[0].price.id as string,
             stripe_current_period_end : futureMonth,
             //@ts-ignore
             amount : product?.metadata?.amount,
@@ -217,8 +224,10 @@ export async function POST(
             subscriptionType : product?.metadata?.type as string,
 
         }).where(
-            eq(userSubscription.stripe_subscription_id, subscription.id)
+            eq(userSubscription.stripe_customer_id, retrievedInvoice.customer as string)
         )
+
+        
     }
 
     return new NextResponse(null, {status : 200})

@@ -1,3 +1,5 @@
+
+
 import getCurrentUser from "@/actions/getCurrentUser";
 
 
@@ -24,8 +26,7 @@ import Footer from "@/app/(dashboard)/_components/footer";
 import AdsComponent from "@/components/ad-component";
 import { redirect } from "next/navigation";
 import ChatSideBar from "./_components/chat-sidebar";
-import { user } from "@/drizzle/schema";
-import findConversation from '../../../../actions/findConversation';
+
 
 
 

@@ -12,11 +12,7 @@ export async function POST(
     req : Request
 ) {
 
-    await db.insert(userSubscription).values({
-        stripe_subscription_id : "TEST_COMPLETE",
-        amount : 22,
-        isGift : true,
-    })
+    
 
     const body = await req.text();
     console.log(body)

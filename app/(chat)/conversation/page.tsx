@@ -31,7 +31,7 @@ const ConversationPage = async () => {
 
 
 
-    let startedConversations : typeof conversation.$inferSelect[] = [];
+    let startedConversations: any = [];
 
     
         const findStartedConversations = db.query.conversation.findMany({

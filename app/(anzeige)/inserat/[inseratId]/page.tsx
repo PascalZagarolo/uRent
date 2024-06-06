@@ -13,7 +13,7 @@ import InseratAttributes from "./_components/inserat-attributes";
 import { FaCarCrash } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import { booking, inserat, business, CategoryEnumRender } from '../../../../db/schema';
+import { booking, inserat, business, CategoryEnumRender, userSubscription } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 
 import BreadCrumbs from "./bread-crumbs";
@@ -67,7 +67,8 @@ const InseratAnzeige = async ({
             images: true,
             user: {
                 with: {
-                    contactOptions: true
+                    contactOptions: true,
+                    subscription : true,
                 }
             },
             pkwAttribute: true,

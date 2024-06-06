@@ -1,4 +1,4 @@
-
+'use client'
 
 import { conversation, message, userTable } from "@/db/schema";
 import RenderedChats from "./rendered-chats";
@@ -13,7 +13,7 @@ interface StartedChatsProps{
 }
 
 
-const StartedChats: React.FC<StartedChatsProps> = async ({
+const StartedChats: React.FC<StartedChatsProps> = ({
     conversations,
     currentUser
 }) => {

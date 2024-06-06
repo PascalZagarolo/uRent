@@ -12,6 +12,7 @@ import { eq, or } from "drizzle-orm";
 import { conversation, notification } from '../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
 import AdsComponent from "@/components/ad-component";
+import ChatSideBar from "./[conversationId]/_components/chat-sidebar";
 
 
 
@@ -27,6 +28,8 @@ const ConversationPage = async () => {
     if(!currentUser) {
         redirect("/login")
     }
+
+
 
     let startedConversations : typeof conversation.$inferSelect[] = [];
 
@@ -47,6 +50,10 @@ const ConversationPage = async () => {
    
 
     startedConversations = await findStartedConversations.execute();
+
+    if(startedConversations?.user1Id === currentUser.id && startedConversations?.user2Id === currentUser.id) {
+        return redirect("/conversations")
+    }
     
     const foundNotifications = await db.query.notification.findMany({
         where : (
@@ -87,13 +94,10 @@ const ConversationPage = async () => {
                     </h3>
                     {startedConversations.length > 0 ? (
                         <div className="mt-4">
-                        {startedConversations.map((conversation) => (
-                           <StartedChats
-                           key={conversation.id}
-                           conversations={conversation}
-                           currentUser = {currentUser}
-                           />
-                        ))}
+                        <ChatSideBar 
+                            startedConversations={startedConversations}
+                            currentUser={currentUser}
+                        />
                     </div>
                     ) : (
                         <div className="mt-4 flex justify-center">

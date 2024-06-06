@@ -32,7 +32,7 @@ const FaqBookings = () => {
                             <div className="p-4">
                                 <div>
                                     <h3 className="text-md font-semibold">
-                                    Der BuchungskalenderDer Buchungskalender
+                                    Der Buchungskalender
                                     </h3>
                                     <div className=" text-sm text-gray-200/90">
 

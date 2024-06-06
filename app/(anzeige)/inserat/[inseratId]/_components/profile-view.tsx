@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { business,  userTable } from "@/db/schema";
 import axios from "axios";
 import { format } from "date-fns";
-import { AlignCenter, BuildingIcon, CarIcon, Contact2Icon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2, UserIcon } from "lucide-react";
+import { AlignCenter, BuildingIcon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2, UserIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MdCardMembership } from "react-icons/md";
 import { businessAddress } from '../../../../../db/schema';
 import { GiTargetPoster } from "react-icons/gi";
@@ -34,13 +34,13 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const params = useParams();
 
 
-    const [firstReload, setFirstReload] = useState(false);
+    
 
-    /*
-    useEffect(() => {
+   
+    useMemo(() => {
         axios.patch(`/api/inserat/${params.inseratId}/view`);
     },[]) 
-*/
+
     const router = useRouter();
 
     return (

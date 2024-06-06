@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 
 
 interface StartedChatsProps{
-    conversations : typeof conversation.$inferSelect,
+    conversations : any,
     currentUser : typeof userTable.$inferSelect
 }
 
@@ -22,7 +22,7 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
 
     const user1orUser2 = otherUserId === conversations.user1Id ? true : false;
 
-    console.log(conversations?.user_user2)
+    
 
     const userImage = conversations?.user1Id === currentUser.id ? conversations.user2 : conversations.user1;
 

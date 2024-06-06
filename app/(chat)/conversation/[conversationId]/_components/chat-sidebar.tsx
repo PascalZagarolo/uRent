@@ -49,7 +49,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
         <div>
             <div className=" flex items-center">
                 <Input
-                className="w-full dark:bg-[#1c1c1c] dark:border-none rounded-l-none"
+                className="w-full dark:bg-[#1c1c1c] dark:border-none rounded-none"
                 placeholder="Suche nach einem Chat.."
                 value={currentTitle}
                 onChange={(e) => setCurrentTitle(e.target.value)}

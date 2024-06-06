@@ -74,7 +74,7 @@ const ConversationPage = async () => {
                     />
             </div>
             <div className="sm:hidden">
-                <MobileHeader
+            <MobileHeader
                 currentUser={currentUser}
                 foundNotifications={foundNotifications}
                 />

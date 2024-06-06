@@ -50,10 +50,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({
         <div className={cn(`px-4 py-4 bg-[#171923] xl:min-w-[360px] xl:w-3/5 w-full 
         sm:rounded-md 
        dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
-       `, thisUser?.subscription?.subscriptionType === "ENTERPRISE" && "border-2 border-indigo-800")}>
+       `, thisUser?.subscription?.subscriptionType === "ENTERPRISE" && "border-2 border-double border-indigo-900")}>
             {thisUser?.subscription?.subscriptionType === "ENTERPRISE" && (
-                <div className="ml-auto  bg-indigo-800 p-2 rounded-md flex justify-center items-center text-md font-semibold">
-                 <MdOutlineStarRate className="w-4 h-4 mr-2"/>   ENTERPRISE <MdOutlineStarRate className="w-4 h-4 ml-2"/> 
+                <div className="ml-auto  bg-indigo-800 text-gray-200 p-2 rounded-md flex justify-center items-center text-md font-semibold">
+                   Premiumanbieter  
                 </div>
             )}
             {thisBusiness && (

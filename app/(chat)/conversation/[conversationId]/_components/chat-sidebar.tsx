@@ -8,7 +8,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useEffect, useMemo, useState } from "react";
 
 interface ChatSideBarProps {
-    startedConversations: typeof conversation.$inferSelect[],
+    startedConversations: any[],
     currentUser : any
 }
 

@@ -22,9 +22,9 @@ const StartedChats: React.FC<StartedChatsProps> = async ({
 
     const user1orUser2 = otherUserId === conversations.user1Id ? true : false;
 
-    const userImage = await db.query.userTable.findFirst({
-        where : eq(userTable.id, otherUserId)
-    })
+    console.log(conversations?.user_user2)
+
+    const userImage = conversations?.user1Id === currentUser.id ? conversations.user2 : conversations.user1;
 
     //@ts-ignore
     const lastMessage = conversations.messages.sort((a,b) => {

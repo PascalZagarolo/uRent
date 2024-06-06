@@ -30,8 +30,8 @@ const ConversationPage = async () => {
 
     let startedConversations : typeof conversation.$inferSelect[] = [];
 
-    if(currentUser) {
-        startedConversations = await db.query.conversation.findMany({
+    
+        const findStartedConversations = db.query.conversation.findMany({
             where : (
                 or(
                     eq(conversation.user1Id, currentUser.id),
@@ -39,12 +39,14 @@ const ConversationPage = async () => {
                 
                 )
             ), with : {
-                messages : true
+                messages : true,
+                user1 : true,
+                user2 : true
             }
-        })
-    } else {
-        startedConversations = [];
-    }
+        }).prepare("findStartedConversations")
+   
+
+    startedConversations = await findStartedConversations.execute();
     
     const foundNotifications = await db.query.notification.findMany({
         where : (

@@ -6,6 +6,7 @@ import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server"
 
 export async function PATCH(
+    req : Request,
     { params } : { params : { inseratId : string }}
 ) {
     try {

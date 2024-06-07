@@ -50,7 +50,8 @@ export async function PATCH(
             userId : currentUser.id,
             subscriptionType : findGiftCode.plan,
             amount : findGiftCode.inseratAmount,
-            stripe_current_period_end : usedExpiration
+            stripe_current_period_end : usedExpiration,
+            isGift : true
         }).returning();
 
         const patchUser = await db.update(userTable).set({

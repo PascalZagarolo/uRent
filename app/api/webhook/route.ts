@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm/sql";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { notification } from '../../../db/schema';
 
 export async function POST(
     req : Request
@@ -157,6 +158,15 @@ export async function POST(
             subscriptionId : createdSubscription[0].id,
         }).where(eq(userTable.id, session?.metadata?.userId))
 
+        //send notification
+        await db.insert(notification).values({
+            userId : session?.metadata?.userId as string,
+            notificationType : "SUBSCRIPTION_REDEEMED",
+            content : `Herzlichen Glückwunsch! Du hast erfolgreich ein Abonnement erworben und kannst nun alle Vorteile deines gewählten Pakets nutzen. 
+            Mehr Informationen findest du unter: Dashboard -> Zahlungsverkehr
+            Vielen Dank, dass du dich für uRent entschieden haben!`
+        })
+
         
 
         //publish inserat if id was in the given querystring
@@ -191,10 +201,6 @@ export async function POST(
     event.type === "subscription_schedule.completed") {
 
 
-
-        
-
-        
         const currentDate = new Date();
         const futureMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
         

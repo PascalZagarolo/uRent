@@ -39,7 +39,11 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
     
      useMemo(() => {
-         axios.patch(`/api/inserat/${params.inseratId}/view`);
+         const gainView = async () => {
+            await axios.patch(`/api/inserat/${params.inseratId}/view`);
+         }
+
+         gainView();
      },[]) 
  
     const router = useRouter();

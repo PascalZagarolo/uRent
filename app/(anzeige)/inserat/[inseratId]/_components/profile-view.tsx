@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import { AlignCenter, BuildingIcon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2, UserIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { MdCardMembership, MdOutlineStarRate } from "react-icons/md";
 import { businessAddress } from '../../../../../db/schema';
 import { GiTargetPoster } from "react-icons/gi";
@@ -37,15 +37,17 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
 
 
-    
-     useMemo(() => {
+    /*
+     useEffect(() => {
          const gainView = async () => {
             await axios.patch(`/api/inserat/${params.inseratId}/view`);
          }
 
          gainView();
      },[]) 
- 
+     */
+
+
     const router = useRouter();
 
     return (

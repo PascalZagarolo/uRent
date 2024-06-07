@@ -184,106 +184,109 @@ const InseratAnzeige = async ({
 
 
     return (
+        <>
+            <head>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
+                    crossOrigin="anonymous"></script>
+            </head>
+            <div className='sm:flex w-full justify-center'>
 
 
-        <div className='sm:flex w-full justify-center'>
-
-
-            <div className='h-screen sm:flex justify-center hidden items-center w-2/12'>
-                <div className='w-full sm:block hidden '>
-                    <AdsComponent dataAdSlot='3797720061' />
-                </div>
-            </div>
-
-
-            <div className="sm:w-7/12 w-full sm:flex justify-end    xl:mt-12 h-max">
-
-                <div className="h-full sm:p-4 w-full flex justify-end">
-                    <div className='sm:w-11/12 w-full'>
-                        <div className="w-full   p-2 sm:p-0">
-                            <BreadCrumbs
-                                thisCategory={thisInserat.category}
-                                thisTitle={thisInserat.title}
-                            />
-                        </div>
-                        <div className="">
-                            <InseratShow
-                                thisInserat={thisInserat}
-                                inseratBookings={inseratBookings}
-                            />
-                        </div>
-                        <div className="flex justify-start  mt-2">
-
-
-                            <InseratAttributes
-                                thisInserat={thisInserat}
-                            />
-
-
-                        </div>
+                <div className='h-screen sm:flex hidden items-center w-2/12'>
+                    <div className='w-full sm:block hidden '>
+                        <AdsComponent dataAdSlot='3797720061' />
                     </div>
                 </div>
 
-                <div>
-                    <div className='flex justify-start sm:w-2/4 w-full'>
 
-                        <div className=" sm:p-2 xl:mt-8  justify-center xl:block">
+                <div className="sm:w-7/12 w-full sm:flex justify-end    xl:mt-12 h-max">
 
-                            <div className="xl:hidden  sm:block ">
-
-                                <ProfileView
-                                    thisUser={thisInserat.user}
-                                    inseratArray={inseratArray.length}
-                                    inseratOwner={thisInserat.user}
-                                    thisBusiness={thisBusiness}
+                    <div className="h-full sm:p-4 w-full flex justify-end">
+                        <div className='sm:w-11/12 w-full'>
+                            <div className="w-full   p-2 sm:p-0">
+                                <BreadCrumbs
+                                    thisCategory={thisInserat.category}
+                                    thisTitle={thisInserat.title}
                                 />
-
                             </div>
-                            <div className="xl:ml-0 flex sm:block justify-center w-full">
+                            <div className="">
+                                <InseratShow
+                                    thisInserat={thisInserat}
+                                    inseratBookings={inseratBookings}
+                                />
+                            </div>
+                            <div className="flex justify-start  mt-2">
 
-                                <InseratOptions
-                                    thisUser={thisInserat.user}
-                                    bookings={inseratBookings}
-                                    ownUser={currentUser}
-                                    contactOptions={thisInserat.user.contactOptions}
+
+                                <InseratAttributes
                                     thisInserat={thisInserat}
                                 />
 
-                            </div>
-                            <div className="hidden xl:mt-8 xl:block w-full sm:w-2/4">
-
-                                <ProfileView
-                                    thisUser={thisInserat.user}
-                                    inseratArray={inseratArray.length}
-                                    inseratOwner={thisInserat.user}
-                                    thisBusiness={thisBusiness}
-                                />
-
-                            </div>
-                            <div className="py-8 w-full sm:w-2/4">
-
-                            <OtherInserate
-                                    thisUser={thisInserat.user}
-                                    inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
-                                />
 
                             </div>
                         </div>
+                    </div>
 
+                    <div>
+                        <div className='flex justify-start sm:w-2/4 w-full'>
+
+                            <div className=" sm:p-2 xl:mt-8  justify-center xl:block">
+
+                                <div className="xl:hidden  sm:block ">
+
+                                    <ProfileView
+                                        thisUser={thisInserat.user}
+                                        inseratArray={inseratArray.length}
+                                        inseratOwner={thisInserat.user}
+                                        thisBusiness={thisBusiness}
+                                    />
+
+                                </div>
+                                <div className="xl:ml-0 flex sm:block justify-center w-full">
+
+                                    <InseratOptions
+                                        thisUser={thisInserat.user}
+                                        bookings={inseratBookings}
+                                        ownUser={currentUser}
+                                        contactOptions={thisInserat.user.contactOptions}
+                                        thisInserat={thisInserat}
+                                    />
+
+                                </div>
+                                <div className="hidden xl:mt-8 xl:block w-full sm:w-2/4">
+
+                                    <ProfileView
+                                        thisUser={thisInserat.user}
+                                        inseratArray={inseratArray.length}
+                                        inseratOwner={thisInserat.user}
+                                        thisBusiness={thisBusiness}
+                                    />
+
+                                </div>
+                                <div className="py-8 w-full sm:w-2/4">
+
+                                    <OtherInserate
+                                        thisUser={thisInserat.user}
+                                        inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
+                                    />
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div className='h-screen sm:flex hidden items-center w-2/12'>
+                    <div className='w-full sm:block hidden '>
+                        <AdsComponent dataAdSlot='3797720061' />
                     </div>
                 </div>
 
-
-
             </div>
-            <div className='h-screen sm:flex hidden items-center w-2/12'>
-                <div className=' w-full sm:block hidden'>
-                    <AdsComponent dataAdSlot='3797720061' />
-                </div>
-            </div>
-
-        </div>
-
+        </>
     );
 }
 

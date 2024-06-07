@@ -68,14 +68,14 @@ const InseratAnzeige = async ({
             user: {
                 with: {
                     contactOptions: true,
-                    subscription: true,
+                    subscription : true,
                 }
             },
             pkwAttribute: true,
             lkwAttribute: true,
             trailerAttribute: true,
             transportAttribute: true,
-            priceprofiles: true
+            priceprofiles : true
         }
     }).prepare("findInserat")
 
@@ -179,6 +179,7 @@ const InseratAnzeige = async ({
     }
 
     const usedCategory: typeof CategoryEnumRender = thisInserat.category
+
 
 
 

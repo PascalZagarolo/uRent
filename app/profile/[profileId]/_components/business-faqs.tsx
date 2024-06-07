@@ -29,7 +29,8 @@ const BusinessFaqs: React.FC<BusinessFaqsProps> = ({
                     )}
                 </h3>
             </div>
-            <Accordion type="single" collapsible className="p-4">
+            {thisBusiness?.faqs?.length > 0 && (
+                <Accordion type="single" collapsible className="p-4">
 
                 {thisBusiness?.faqs?.map((faq, index) => (
                     <AccordionItem value={`${index}`} className="border-none" key={index}>
@@ -59,6 +60,7 @@ const BusinessFaqs: React.FC<BusinessFaqsProps> = ({
                     </AccordionItem>
                 ))}
             </Accordion>
+            )}
             {thisBusiness?.faqs?.length === 0 && (
                 <div className="flex justify-center p-4 text-sm text-gray-400">
                     Noch keine Faqs hinzugefügt..

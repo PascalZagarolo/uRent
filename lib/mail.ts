@@ -11,6 +11,7 @@ import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
 import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';
 import SearchIsAvailable from '@/react-email-starter/emails/urent/search-is-available';
 import SubscriptionAlmostExpired from '@/react-email-starter/emails/urent/subscription-almost-expired';
+import WelcomeMail from '@/react-email-starter/emails/urent/welcome-mail';
 
 import { Resend } from "resend";
 
@@ -51,6 +52,18 @@ export const sendSubscriptionAlmostExpired = async (
     to: email,
     subject: "Dein Abo läuft bald ab",
     react : SubscriptionAlmostExpired()
+  });
+};
+
+export const sendWelcomeMail = async (
+  email: string,
+  
+) => {
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to: email,
+    subject: "Willkommen auf uRent",
+    react : WelcomeMail()
   });
 };
 

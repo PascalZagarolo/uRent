@@ -158,15 +158,19 @@ export async function POST(
             subscriptionId : createdSubscription[0].id,
         }).where(eq(userTable.id, session?.metadata?.userId))
 
+        
+        const usedMessage = `Herzlichen Glückwunsch! Du hast erfolgreich ein Abonnement erworben und kannst nun alle Vorteile deines gewählten Pakets nutzen. 
+        Mehr Informationen findest du unter: Dashboard -> Zahlungsverkehr
+        Vielen Dank, dass du dich für uRent entschieden hast!`
+
         //send notification
-        await db.insert(notification).values({
+        const createdNotification = await db.insert(notification).values({
             userId : session?.metadata?.userId as string,
             notificationType : "SUBSCRIPTION_REDEEMED",
-            content : `Herzlichen Glückwunsch! Du hast erfolgreich ein Abonnement erworben und kannst nun alle Vorteile deines gewählten Pakets nutzen. 
-            Mehr Informationen findest du unter: Dashboard -> Zahlungsverkehr
-            Vielen Dank, dass du dich für uRent entschieden haben!`
-        })
+            content : usedMessage
+        }).returning();
 
+        
         
 
         //publish inserat if id was in the given querystring

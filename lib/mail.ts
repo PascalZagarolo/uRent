@@ -150,7 +150,7 @@ export const sendUserDeletedTokenMail = async (
   await resend.emails.send({
       from: 'uRent <mail@urent-rental.de>',
       to: email,
-      subject: "Bestätige deine Anmeldung",
+      subject: "Bestätige die Löschung deines Accounts",
       react : ConfirmUserDeletion({confirmLink}) ,
   });
 }

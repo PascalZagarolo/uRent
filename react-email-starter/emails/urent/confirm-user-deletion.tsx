@@ -27,7 +27,7 @@ import { Inter } from "next/font/google";
   }) => (
     <Html>
       <Head />
-      <Preview>Willkommen auf uRent</Preview>
+      <Preview>Bestätige die Löschung auf deines Accounts</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={box}>
@@ -39,14 +39,14 @@ import { Inter } from "next/font/google";
             />
             <Hr style={hr} />
             <Text style={paragraph}>
-              Vielen Dank für die Erstellung eines Accounts auf uRent.
+              Wir haben deine Anfrage zum Löschen deines Accounts, sowie aller damit verbundenen Daten erhalten.
             </Text>
             <Text style={paragraph}>
-              Du kannst deinen Account jetzt aktivieren, indem du auf den Button unten klickst, um den vollen 
-                Funktionsumfang von uRent zu nutzen.
+              Drücke auf den Knopf um deinen Löschvorgang zu bestätigen.
+              Gelöschte Daten können nicht wiederhergestellt werden, also sei dir sicher, dass du alle Daten gesichert hast, die du behalten möchtest.
             </Text>
             <Button style={button} href={confirmLink}>
-              Account aktivieren
+              Account löschen
             </Button>
             <Hr style={hr} />
             

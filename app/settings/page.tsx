@@ -16,6 +16,7 @@ import UsernameInput from "./_components/username-input";
 import ChangeEmail from "./_components/change-email";
 import { redirect } from "next/navigation";
 import Footer from "../(dashboard)/_components/footer";
+import DeleteUser from "./_components/delete-user";
 
 
 
@@ -89,7 +90,6 @@ const SettingsPage = async () => {
                                     thisUser = {currentUser}
                                     />
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ import ConfirmEmailChange from '@/react-email-starter/emails/urent/confirm-email
 import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
 import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';
 import SearchIsAvailable from '@/react-email-starter/emails/urent/search-is-available';
+import SubscriptionAlmostExpired from '@/react-email-starter/emails/urent/subscription-almost-expired';
 
 import { Resend } from "resend";
 
@@ -38,6 +39,18 @@ export const confirmEmailChange = async (
     to: email,
     subject: "Email geändert",
     react : ConfirmEmailChange()
+  });
+};
+
+export const sendSubscriptionAlmostExpired = async (
+  email: string,
+  
+) => {
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to: email,
+    subject: "Dein Abo läuft bald ab",
+    react : SubscriptionAlmostExpired()
   });
 };
 

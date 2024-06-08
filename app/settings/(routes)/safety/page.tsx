@@ -1,4 +1,4 @@
-import { Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
+import { DeleteIcon, Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
 
 
 import db from "@/db/drizzle";
@@ -21,6 +21,7 @@ import EnableSocialLogin from "./_components/enable-social";
 import { FcGoogle } from "react-icons/fc";
 import Footer from "@/app/(dashboard)/_components/footer";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
+import DeleteUser from "../../_components/delete-user";
 
 
 
@@ -30,7 +31,7 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUser();
 
-    if(!currentUser) {
+    if (!currentUser) {
         redirect("/login")
     }
 
@@ -47,7 +48,7 @@ const SettingsPage = async () => {
 
     })
 
-    
+
 
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">
@@ -111,7 +112,7 @@ const SettingsPage = async () => {
                                 <>
                                     <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                         <div className="flex items-center">
-                                            <FcGoogle  className="mr-4 h-6 w-6" /> Google-Login
+                                            <FcGoogle className="mr-4 h-6 w-6" /> Google-Login
                                         </div>
                                         <p className="ml-4 text-xs dark:text-gray-200/60 font-medium">
                                             Falls aktiviert, kannst du dich mit deinem bestehendem Google Account anmelden.
@@ -121,7 +122,7 @@ const SettingsPage = async () => {
                                     <div className="w-full p-4 mt-2 rounded-md">
                                         <div className="pb-4 px-4">
                                             <EnableSocialLogin
-                                                userId = {currentUser.id}
+                                                userId={currentUser.id}
                                                 enabledSocials={currentUser.enableSocialLogin}
                                             />
                                         </div>
@@ -130,7 +131,7 @@ const SettingsPage = async () => {
                             )}
                             <div>
                                 {!findSocials && (
-                                    <>
+                                    <div>
                                         <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                             <div className="flex items-center">
                                                 <FaSignOutAlt className="mr-4 h-6 w-6" /> Alle Nutzer ausloggen
@@ -149,17 +150,31 @@ const SettingsPage = async () => {
                                                 </form>
                                             </div>
                                         </div>
-                                    </>
+                                    </div>
                                 )}
                             </div>
 
+                            <div>
+                                <h3 className="dark:text-gray-100 text-2xl font-semibold">
+                                    <div className="flex items-center">
+                                        <DeleteIcon className="mr-4 h-6 w-6" /> Account löschen
+                                    </div>
+                                    <p className="ml-4 text-xs dark:text-gray-200/60 font-medium">
+                                        Lösche deinen Account, sowie alle mit ihm verbundenen Daten.
+                                    </p>
+
+                                </h3>
+                                <div className="w-full px-8 mt-2 rounded-md">
+                                    <DeleteUser />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                    <Footer/>
-                </div>
+                <Footer />
+            </div>
         </div>
     );
 }

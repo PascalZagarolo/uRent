@@ -30,17 +30,18 @@ export async function PATCH(
 
         const usedMessage = `Dein Abonnement läuft in wenigen Tagen aus. Verlängere es nach Ablauf um weiterhin Zugriff auf alle Vorteile zu haben.`
         
-        for (const giftSub of findAllGiftSubs) {
+        for (const giftSub of findAllGiftSubs as any) {
             console.log(1)
             if (new Date(giftSub.stripe_current_period_end) < lessThanOneWeek && new Date(giftSub.stripe_current_period_end) >= currentDate ) {
                 //@ts-ignore
-                console.log(2)
+               
+
 
                 const existingNotification = giftSub.user.notifications
                     .find((notification) => notification.notificationType === "SUBSCRIPTION_ALMOST_EXPIRED" &&
                     new Date(notification.createdAt) >= oneWeekAgo);
                 
-                console.log(giftSub.user.notifications)
+                
                     
                 if (!existingNotification) {
                     //@ts-ignore

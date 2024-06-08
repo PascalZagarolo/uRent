@@ -1,9 +1,11 @@
 'use client'
 
 
+import { createDeleteUserToken } from "@/actions/create-delete-user-token";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+
 
 
 
@@ -12,8 +14,13 @@ import { startTransition, useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 import { TiUserDelete } from "react-icons/ti";
 
+interface DeleteUserProps {
+    userId : string
+}
 
-const DeleteUser = () => {
+const DeleteUser : React.FC<DeleteUserProps> = ({
+    userId
+}) => {
 
     const [confirmPassword, setConfirmPassword] = useTransition();
     const [showsConfirm, setShowsConfirm] = useState(false);
@@ -32,9 +39,18 @@ const DeleteUser = () => {
         setGivenInput("")
     }
 
-    const onDelete = () => {
+    const onDelete = async () => {
         try {
+            console.log("Deleting user...")
             setIsLoading(true);
+            createDeleteUserToken(userId)
+                .then((data) => {
+                    if(data?.error) {
+                        toast.error("Fehler beim absenden des Formulars")
+                    } else {
+                        toast.success("Bestätigungsmail wurde an deine E-Mail versandt. Bitte überprüfe deinen Posteingang.")
+                    }
+                })
         } catch(error : any) {
             console.log("Fehler beim absenden des Formulars", error);
             toast.error("Fehler beim absenden des Formulars")
@@ -51,7 +67,7 @@ const DeleteUser = () => {
         }}>
             <DialogTrigger className="" asChild>
               <Button className="bg-rose-800 hover:bg-rose-900 text-gray-200 hover:text-gray-300" size="sm" variant="ghost">
-              <TiUserDelete />  Account löschen
+              <TiUserDelete className="w-4 h-4 mr-2" />  Account löschen
               </Button>
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#191919]">
@@ -78,6 +94,7 @@ const DeleteUser = () => {
                         <div className="w-full flex justify-end mt-2">
                             <Button className="bg-rose-800 hover:bg-rose-900 text-gray-200 hover:text-gray-300"
                             disabled={givenInput !== "LÖSCHEN"}
+                            onClick={onDelete}
                             >
                                 Bestätigen
                             </Button>

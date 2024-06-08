@@ -25,6 +25,7 @@ import { z } from "zod"
 
 
 
+
 //@ts-ignore
 export const userTable = pgTable("user", {
     id: text("id").primaryKey(),
@@ -887,6 +888,15 @@ export const changeEmailToken = pgTable("changeEmailToken", {
     expires : timestamp("expires", { mode: "date" }).notNull(),
 })
 
+export const deleteUserToken = pgTable("deleteUserToken", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    userId : text("userId")
+                .notNull()
+                .references(() => userTable.id, { onDelete: "cascade" }),
+    token : text("token"),
+    expires : timestamp("expires", { mode: "date" }).notNull(),
+})
+
 export const notification = pgTable("notification", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
@@ -1041,6 +1051,13 @@ export const twoFactorConfirmationRelations = relations(twoFactorConfirmation, (
         references : [userTable.id]
     })
 
+}))
+
+export const deleteUserTokenRelations = relations(deleteUserToken, ({ one }) => ({
+    users : one(userTable, {
+        fields : [deleteUserToken.userId],
+        references : [userTable.id]
+    })
 }))
 
 export const subscriptionRelations = relations(userSubscription, ({ one }) => ({

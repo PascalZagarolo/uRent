@@ -8,6 +8,7 @@ import ChangePassword from '@/react-email-starter/emails/urent/change-password';
 import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
 import ConfirmEmailChange from '@/react-email-starter/emails/urent/confirm-email-change';
 import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
+import ConfirmUserDeletion from '@/react-email-starter/emails/urent/confirm-user-deletion';
 import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';
 import SearchIsAvailable from '@/react-email-starter/emails/urent/search-is-available';
 import SubscriptionAlmostExpired from '@/react-email-starter/emails/urent/subscription-almost-expired';
@@ -135,6 +136,23 @@ export const sendVerificationEmail = async (
         subject: "Bestätige deine Anmeldung",
         react : ConfirmMail({confirmLink}) ,
     });
+}
+
+export const sendUserDeletedTokenMail = async (
+  email: string,
+  token : string
+) => {
+  const confirmLink = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/delete-user?token=${token}`;
+
+  console.log("sendVerificationEmail" + email + token)
+
+
+  await resend.emails.send({
+      from: 'uRent <mail@urent-rental.de>',
+      to: email,
+      subject: "Bestätige deine Anmeldung",
+      react : ConfirmUserDeletion({confirmLink}) ,
+  });
 }
 
 export const sendPasswordResetEmail = async (

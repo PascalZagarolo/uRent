@@ -165,7 +165,9 @@ const SettingsPage = async () => {
 
                                 </h3>
                                 <div className="w-full px-8 mt-2 rounded-md">
-                                    <DeleteUser />
+                                    <DeleteUser 
+                                    userId={currentUser.id}
+                                    />
                                 </div>
                             </div>
                         </div>

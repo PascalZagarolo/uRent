@@ -1,15 +1,27 @@
 'use server'
 
 import db from "@/db/drizzle";
-import { deleteUserToken } from "@/db/schema";
+import { deleteUserToken, userTable } from "@/db/schema";
 import { sendUserDeletedTokenMail } from "@/lib/mail";
 import { eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
+
 import * as uuid from "uuid";
+import getCurrentUser from "./getCurrentUser";
 
 export const createDeleteUserToken = async (userId: string) => {
     try {
-        console.log(userId)
+        const currentUser = await getCurrentUser();
+
+        
+
+        const findUser = await db.query.userTable.findFirst({
+            where: eq(userTable.id, userId)
+        })
+
+        if(!currentUser || !findUser || currentUser.id !== userId) {
+            return { error: true };
+        }
+
         const findExistingToken = await db.query.deleteUserToken.findFirst({
             where: eq(deleteUserToken.userId, userId)
         })
@@ -32,7 +44,7 @@ export const createDeleteUserToken = async (userId: string) => {
         })
         
         
-        const sendCorrespondingMail = await sendUserDeletedTokenMail(userId, generateToken as string);
+        const sendCorrespondingMail = await sendUserDeletedTokenMail(findUser?.email, generateToken as string);
         
         return;
 

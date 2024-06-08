@@ -874,6 +874,7 @@ export const notificationTypeEnum = pgEnum("notificationType", [
     "SUBSCRIPTION_REDEEMED",
     "SUBSCRIPTION_RENEWAL",
     "SUBSCRIPTION_UPGRADED",
+    "WELCOME",
 ])
 
 export const changeEmailToken = pgTable("changeEmailToken", {

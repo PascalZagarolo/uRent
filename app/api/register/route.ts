@@ -9,6 +9,7 @@ import bcrypt from "bcrypt";
 
 import { NextResponse } from "next/server";
 import { userTable, verificationTokens } from '../../../db/schema';
+import { notification, user } from "@/drizzle/schema";
 
 export async function POST(
   request: Request
@@ -24,11 +25,13 @@ export async function POST(
 
  
 
-  const user = await db.insert(userTable).values({
+  const thisUser : any = await db.insert(userTable).values({
       password: hashedPassword,
       email: email as string,
       name: name,
-  });
+  }).returning();
+
+  
 
 
   const verificationToken = await generateVerificationToken(email as string);
@@ -38,5 +41,5 @@ export async function POST(
     verificationToken.token
   )
 
-  return NextResponse.json(user);
+  return NextResponse.json(thisUser);
 }

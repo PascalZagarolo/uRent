@@ -825,9 +825,28 @@ export const getInserate = cache(async ({
         let returnedArray = [];
 
         if (location) {
-
+            
             const usedRadius = radius ? radius : 50;
-            const addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
+            let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
+            console.log(addressObject?.data[0]?.lat);
+            console.log(addressObject?.data[0]?.lon);
+            console.log("test")
+            /*
+            if(!addressObject?.data[0]?.lat || !addressObject?.data[0]?.lon) {
+                const words = location.split(' ');
+                console.log(words)
+                for (let word of words) {
+                    addressObject = await axios.get(`https://geocode.maps.co/search?q=${word}&api_key=${process.env.GEOCODING_API}`);
+                    console.log(word)
+                    if(addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
+                        console.log(addressObject?.data[0]?.lat);
+                        console.log(addressObject?.data[0]?.lon);
+                        console.log("test2")
+                        break;
+                    }
+                }
+            }
+            */
             for (const pInserat of filteredArray) {
                 const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
                     Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));

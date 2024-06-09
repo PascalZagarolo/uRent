@@ -132,9 +132,11 @@ const InseratShow: React.FC<InseratShowProps> = ({
                     </div>
                 </div>
             </div>
+            {/*
             <div className="mt-2">
                 <TransferCarAdvert />
             </div>
+            */}
             {thisInserat?.priceprofiles.length > 0 && (
                 <div className="mt-4">
                     <div className="text-md font-semibold">

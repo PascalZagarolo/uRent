@@ -207,6 +207,15 @@ const AgbsPage = async () => {
                                         </div>
                                     </div>
 
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            3.3
+                                        </Label>
+                                        <div>
+                                        Der Nutzer verpflichtet sich, bei der Registrierung wahrheitsgemäße, vollständige und aktuelle Angaben zu machen. 
+                                        </div>
+                                    </div>
+
                                     <div className="text-sm mt-4 flex items-center gap-x-2" >
                                         <Label className="font-semibold">
                                             3.4
@@ -217,6 +226,74 @@ const AgbsPage = async () => {
                                         Der Nutzer ist verpflichtet, seine Zugangsdaten geheim zu halten und vor dem Zugriff unbefugter Dritter zu schützen. <br/>
                                         Sollte der Nutzer feststellen oder den Verdacht haben, 
                                         dass seine Zugangsdaten verloren gegangen sind oder von Dritten missbräuchlich genutzt werden, ist uRent unverzüglich zu informieren.
+                                        </div>
+                                    </div> 
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                       4. Inhalte und Rechte Dritter
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            4.1
+                                        </Label>
+                                        <div>
+                                        Der Nutzer versichert, dass die von ihm auf der Plattform veröffentlichten Inhalte keine Rechte Dritter, insbesondere Urheber-, Marken-, Persönlichkeits- oder sonstige Schutzrechte verletzen.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            4.2
+                                        </Label>
+                                        <div>
+                                        Es ist untersagt, Inhalte hochzuladen oder zu veröffentlichen, die gegen geltendes Recht verstoßen oder in irgendeiner Form unzulässig sind.  
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2" >
+                                        <Label className="font-semibold">
+                                            4.3
+                                        </Label>
+                                        <div>
+                                        uRent haftet nicht für falsche oder irreführende Angaben, die von Nutzern veröffentlicht werden. <br/>
+                                        Die Verantwortung für die Richtigkeit und Rechtmäßigkeit der Inhalte liegt ausschließlich beim Nutzer. 
+                                        </div>
+                                    </div> 
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                       5. Richtigkeit der Angaben
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            5.1
+                                        </Label>
+                                        <div>
+                                        Der Vermieter verpflichtet sich, inhaltlich richtige und vollständige Angaben zu den von ihm angebotenen Inseraten zu machen.<br/> 
+                                        Dies umfasst insbesondere die Beschreibung der Attribute und Eigenschaften der angebotenen Objekte.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            5.2
+                                        </Label>
+                                        <div>
+                                        Der Vermieter ist verpflichtet, die Angaben zu aktualisieren, sobald Änderungen auftreten, 
+                                        um sicherzustellen, dass alle Informationen stets korrekt und aktuell sind.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2" >
+                                        <Label className="font-semibold">
+                                            5.3
+                                        </Label>
+                                        <div>
+                                        uRent ist nicht verpflichtet, die veröffentlichten Inhalte zu überwachen oder zu prüfen. <br/>
+                                         Die Verantwortung für die Richtigkeit und Rechtmäßigkeit der Inhalte liegt ausschließlich beim Vermieter.
                                         </div>
                                     </div> 
                                 </div>

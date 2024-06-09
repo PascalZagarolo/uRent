@@ -144,7 +144,7 @@ export const sendUserDeletedTokenMail = async (
 ) => {
   const confirmLink = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/delete-user?token=${token}`;
 
-  console.log("sendVerificationEmail" + email + token)
+  
 
 
   await resend.emails.send({

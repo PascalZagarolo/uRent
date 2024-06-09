@@ -66,6 +66,13 @@ const DeleteUserPage = () => {
         onSubmit();
     }, []);
 
+    const onSubmitInfo = () => {
+        try {
+            router.push("/")
+        } catch(e : any) {
+            console.log(e)
+        }
+    }
 
 
     return (

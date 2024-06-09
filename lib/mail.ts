@@ -5,6 +5,7 @@
 import FaActivation from '@/react-email-starter/emails/urent/2fa-activation';
 import ChangeMail from '@/react-email-starter/emails/urent/change-email';
 import ChangePassword from '@/react-email-starter/emails/urent/change-password';
+import ConfirmDeletedAccount from '@/react-email-starter/emails/urent/confirm-deleted-account';
 import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
 import ConfirmEmailChange from '@/react-email-starter/emails/urent/confirm-email-change';
 import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
@@ -101,6 +102,18 @@ export const sendSupportConfirm = async (
     to: email,
     subject: "Support Anfrage bestätigt",
     react : SupportConfirm(),
+  });
+};
+
+export const sendConfirmAccountDeleted = async (
+  email: string,
+ 
+) => {
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to: email,
+    subject: "Account gelöscht",
+    react : ConfirmDeletedAccount(),
   });
 };
 

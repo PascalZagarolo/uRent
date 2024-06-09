@@ -504,23 +504,552 @@ const AgbsPage = async () => {
                                             10.3 Beschwerdeantworten
                                         </Label>
                                         <div>
-                                        Nutzer haben das Recht, Beschwerdeantworten anzufechten, indem sie direkt mit uRent in Kontakt treten, beispielsweise per E-Mail. <br />
-                                        uRent verpflichtet sich, Beschwerden so lange zu bearbeiten und zu beantworten, 
-                                        wie es die Kapazitäten erlauben. Beschwerden werden zeitnah und ernsthaft behandelt, 
-                                        um eine zufriedenstellende Lösung zu finden. <br/>
-                                        Durch die Implementierung dieses Meldeverfahrens stellt uRent sicher, dass die Plattform sauber, 
-                                        sicher und im Einklang mit den geltenden Richtlinien und Gesetzen bleibt. <br/>
-                                        Unsere oberste Priorität liegt darin, eine positive und vertrauenswürdige Umgebung für alle Nutzer zu schaffen. 
+                                            Nutzer haben das Recht, Beschwerdeantworten anzufechten, indem sie direkt mit uRent in Kontakt treten, beispielsweise per E-Mail. <br />
+                                            uRent verpflichtet sich, Beschwerden so lange zu bearbeiten und zu beantworten,
+                                            wie es die Kapazitäten erlauben. Beschwerden werden zeitnah und ernsthaft behandelt,
+                                            um eine zufriedenstellende Lösung zu finden. <br />
+                                            Durch die Implementierung dieses Meldeverfahrens stellt uRent sicher, dass die Plattform sauber,
+                                            sicher und im Einklang mit den geltenden Richtlinien und Gesetzen bleibt. <br />
+                                            Unsere oberste Priorität liegt darin, eine positive und vertrauenswürdige Umgebung für alle Nutzer zu schaffen.
                                         </div>
                                     </div>
 
-                                    
 
-                                    
 
-                                    
 
-                                    
+
+
+
+
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                        11. Digitale Produkte und Abonnements
+                                    </h1>
+                                    <div className="text-sm mt-4  items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.1 Produktinhalte
+                                        </Label>
+
+                                        <div className="px-4">
+                                            <div>
+                                                <Label className="font-semibold">
+                                                    11.1.1 Funktionsumfang {`"`}Basis{`"`} Abonnement
+                                                </Label>
+                                                <div className="">
+                                                    Das Abonnementpaket „Basis“ umfasst die Grundfunktionen der Plattform,
+                                                    das Veröffentlichen von Anzeigen und die Verwaltung der inbegriffenen Daten. <br />
+                                                    Diese Funktionen beinhalten alle weiteren Abonnements.
+                                                </div>
+                                            </div>
+                                            <div className="mt-2">
+                                                <Label className="font-semibold">
+                                                    11.1.2 Funktionsumfang {`"`}Priorisierung bei der Suche{`"`}
+                                                </Label>
+                                                <div className="">
+                                                    Die in Abonnement-Paket {`"`}Premium{`"`} und {`"`}Enterprise{`"`} enthaltene Funktion
+                                                    {`"`}Priorisierung bei der Suche{`"`} beinhaltet
+                                                    die bevorzugte Positionierung von
+                                                    {`"`}Premium/Enterprise{`"`} -Inseraten auf der Startseite und beim Anzeigen
+                                                    von Ergebnissen durch Nutzung des Suchfilters.  <br />
+                                                    Inserate von Premium- und Enterprise Kunden werden dabei als gleichwertig betrachtet. <br />
+                                                    Die vorrangige Positionierung findet nur statt, wenn keine manuelle Sortierung der Inserate vorgenommen wurde.
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-2">
+                                                <Label className="font-semibold">
+                                                    11.1.3 Funktionsumfang {`"`}farbliche Hervorhebung{`"`}
+                                                </Label>
+                                                <div className="">
+                                                    Die im Abonnement {`"`}Premium{`"`} und {`"`}Enterprise{`"`} enthaltene Funktion
+                                                    {`"`}farbliche Hervorhebung{`"`} beinhaltet die anpassbare, von Inseraten von Basis-Abonnement Kunden differenzierte, <br />
+                                                    farbliche Umrandung von {`"`}Premium/Enterprise{`"`} -Inseraten
+                                                    auf der Startseite und beim Anzeigen von Ergebnissen durch Nutzung des Suchfilters.
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-2">
+                                                <Label className="font-semibold">
+                                                    11.1.4  Funktionsumfang {`"`}farbliche Hervorhebung{`"`}
+                                                </Label>
+                                                <div className="">
+                                                    Die im Abonnement
+                                                    „Enterprise“ enthaltene Funktion {`"`}Premium-Anbieter Betriebsstempel{`"`} umfasst
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-2">
+                                                <Label className="font-semibold">
+                                                    11.1.5  Funktionsumfang {`"`}uRent Mieter- & Buchungsverwaltungssystem{`"`}
+                                                </Label>
+                                                <div className="">
+                                                    Die im Abonnement
+                                                    {`"`}Enterprise{`"`} enthaltene Funktion {`"`}Premium-Anbieter Betriebsstempel{`"`} umfasst
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="text-sm mt-4  items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.2 Preiszusammensetzung
+                                        </Label>
+                                        <div>
+                                            Der Preis der Abonnements „Basis, Premium und Enterprise“ setzt sich aus der Verrechnung
+                                            des Standardpreis des jeweiligen Abonnements
+                                            mit der Pauschale der gewählten Anzahl an Inseraten,
+                                            die der Nutzer maximal schalten kann, zusammen. <br />
+                                            Beim Aufwerten ({`"`}Upgraden{`"`}) eines Abonnements zahlt der Nutzer einmalig die Different vom alten
+                                            zum neuen Preis um den Geltungsbereich des Vertrags bis zum wiederkehrenden Abbuchungsdatum aufrecht zu erhalten.
+                                        </div>
+                                    </div>
+
+
+                                    <div className="text-sm mt-4 items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.3 Abbuchungsintervalle
+                                        </Label>
+                                        <div>
+                                            Ab dem Datum des Vertragsabschluss wird wiederkehrend monatlich der vertragliche Preis
+                                            des jeweiligen Abonnement abgebucht und der Vertrag verlängert. <br />
+                                            Beim Aufwerten („Upgraden“) eines Abonnements bleibt weiterhin das Abbuchungsdatum des vorherigen Vertrages geltend. <br />
+                                            Dies gilt ebenso für die Änderung der Vertragsbedingungen bei Herabstufung („Downgraden“) eines Abonnements.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.4 Abstufung des Abonnements durch den Nutzer
+                                        </Label>
+                                        <div>
+                                            Wenn durch eine Abstufung („Downgraden“) des Abonnements weniger
+                                            Inserate zugelassen sind als bereits veröffentlicht, werden zufällig der Anzahl entsprechend, Inserate privat geschalten.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.5 Kündigung durch den Nutzer
+                                        </Label>
+                                        <div>
+                                            Der Nutzer hat das Recht, sein Abonnement jederzeit über sein Dashboard zu kündigen. <br />
+                                            Durch die Nutzung der entsprechenden Option im Dashboard kann der Nutzer sein Abonnement ohne zusätzliche Bestätigung
+                                            oder Genehmigung von uRent beenden.<br />
+                                            Die Kündigung wird zum Ende des laufenden Abrechnungszeitraums wirksam,
+                                            und der Nutzer behält bis zum Auslauf seines Abonnements weiterhin Zugang zu allen gebuchten
+                                            Vorteilen und Funktionen gemäß den Bedingungen seines Abonnements. <br />
+                                            Es liegt in der Verantwortung des Nutzers sicherzustellen,
+                                            dass alle offenen Zahlungen beglichen sind und keine ausstehenden Verpflichtungen bestehen,
+                                            bevor die Kündigung wirksam wird. Nach der Kündigung des Abonnements behält sich uRent das Recht vor,
+                                            alle damit verbundenen Daten und Inhalte des Nutzers gemäß den geltenden Datenschutzbestimmungen zu verwalten oder zu löschen.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.6 Vertragsauslauf bei Zahlungsaussetzung
+                                        </Label>
+                                        <div>
+                                            Sollte der Nutzer die vereinbarten Zahlungen für die Nutzung der uRent-Dienste aussetzen
+                                            oder nicht fristgerecht leisten, behält sich uRent das Recht vor, die Funktionen des Abonnements des Nutzers
+                                            einzuschränken oder zu deaktivieren, bis die Zahlungen vollständig beglichen sind. <br />
+                                            In einem solchen Fall wird der Zugang zu den zusätzlichen Funktionen und Vorteilen,
+                                            die durch das Abonnement gewährt werden, vorübergehend eingestellt. <br />
+                                            Der Nutzer verpflichtet sich, sämtliche ausstehenden Zahlungen sowie etwaige anfallende Verzugszinsen oder
+                                            Inkassokosten zu begleichen, um die volle Nutzung der uRent-Dienste wiederherzustellen.
+                                            Die Aussetzung der Abonnement-Funktionen befreit den Nutzer nicht von seiner grundlegenden Nutzung der uRent-Dienste,
+                                            jedoch werden zusätzliche Vorteile und Funktionen durch das Abonnement vorübergehend eingeschränkt.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4  items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.7 Vertragsabschluss und Dokumentation
+                                        </Label>
+
+                                        <div className="px-4">
+                                            <div>
+                                                <Label className="font-semibold">
+                                                    11.7.1 Rechnungsausstellung
+                                                </Label>
+                                                <div className="">
+                                                    uRent stellt sämtliche Rechnungen ausschließlich online bereit. <br />
+                                                    Nach Abschluss einer Bestellung erhält der Nutzer eine digitale Rechnung per E-Mail.
+                                                </div>
+                                            </div>
+                                            <div className="mt-2">
+                                                <Label className="font-semibold">
+                                                    11.7.2 Vertragsabschluss
+                                                </Label>
+                                                <div>
+                                                    Ein Vertrag zwischen dem Nutzer und uRent kommt zustande, sobald uRent die Bestellung des Nutzers bestätigt
+                                                    und die Zahlung erfolgreich über unseren Zahlungsdienstleister Stripe abgewickelt wurde.
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-2">
+                                                <Label className="font-semibold">
+                                                    11.7.3 Zahlungsabwicklung mit Stripe
+                                                </Label>
+                                                <div className="">
+                                                    Die Autorisierung und Abwicklung von Zahlungen erfolgt durch Stripe. <br />
+                                                    uRent übernimmt keine Haftung für Probleme oder Aussetzer des Drittanbieters Stripe.
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-2">
+                                                <Label className="font-semibold">
+                                                    11.7.4  Einverständnis durch AGB-Akzeptanz
+                                                </Label>
+                                                <div className="">
+                                                    Durch das Abonnieren eines Plans oder das Einlösen eines Gutscheincodes
+                                                    erklärt der Nutzer sein ausdrückliches Einverständnis mit den vorliegenden Allgemeinen Geschäftsbedingungen
+                                                    (AGB) von uRent.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="text-sm mt-4 items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            11.8 Bereitstellung von digitalen Produkten und Abonnements
+                                        </Label>
+                                        <div>
+                                            Wir bei uRent streben danach, eine nahtlose Bereitstellung unserer digitalen Produkte und Abonnements
+                                            sicherzustellen. <br />
+                                            Trotz unserer Bemühungen können jedoch aufgrund technischer Probleme Verzögerungen oder
+                                            sogar Ausfälle auftreten. In solchen Fällen möchten wir unsere Nutzer ermutigen,
+                                            unseren Support zu kontaktieren. Unser Support-Team steht unter support@urent-rental.de zur Verfügung und ist bereit,
+                                            Ihnen bei jeglichen Problemen oder Fragen behilflich zu sein. Unsere oberste Priorität liegt dabei auf Ihrer Zufriedenheit,
+                                            und wir setzen alles daran, sicherzustellen,
+                                            dass Sie die bestmögliche Erfahrung mit unseren digitalen Produkten und Abonnements machen.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                        12. Meldeverfahren, Support & Kontaktmöglichkeitenr
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <div>
+                                            Die Datenschutzrichtlinien von uRent sind unter urent-rental.de/data-privacy zu finden.
+                                            Diese Richtlinien legen fest, wie uRent personenbezogene Daten sammelt, verwendet,
+                                            speichert und schützt. Wir empfehlen allen Nutzern, die Datenschutzrichtlinien sorgfältig zu lesen,
+                                            um ein Verständnis dafür zu erhalten, wie ihre Daten behandelt werden. <br />
+                                            Bei Fragen oder Bedenken zum Datenschutz steht unser Datenschutzteam
+                                            gerne zur Verfügung und ist unter support@urent-rental.de erreichbar.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                        13. Haftung des Nutzers
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        13.1
+                                        </Label>
+                                        <div>
+                                        Der Nutzer haftet für sämtliche Schäden, die aufgrund von falschen Angaben, 
+                                        unrichtigen Informationen oder anderweitigen Verstößen gegen die Nutzungsbedingungen von uRent entstehen. <br/>
+                                        Der Nutzer trägt die volle Verantwortung für die Inhalte, die er auf der Plattform veröffentlicht. Fehlerhafte oder irreführende 
+                                        Angaben können zu Schäden bei anderen Nutzern oder Dritten führen.
+                                        </div>
+                                    </div>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        13.2
+                                        </Label>
+                                        <div>
+                                        Der Nutzer ist verpflichtet, sicherzustellen, dass die von ihm veröffentlichten Inhalte korrekt, 
+                                        aktuell und vollständig sind. <br/>
+                                        Der Nutzer ist verantwortlich dafür, sämtliche geltenden Gesetze und Vorschriften einzuhalten, insbesondere im Zusammenhang 
+                                        mit der Veröffentlichung von Inseraten und der Kommunikation mit anderen Nutzern.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        13.3
+                                        </Label>
+                                        <div>
+                                        Der Nutzer verpflichtet sich, uRent von jeglichen Ansprüchen Dritter freizustellen, 
+                                        die aufgrund von Handlungen oder Unterlassungen des Nutzers entstehen, 
+                                        einschließlich, aber nicht beschränkt auf die Verletzung von Rechten Dritter oder Verstöße gegen geltendes Recht. <br/>
+                                        Der Nutzer muss uRent von jeglichen Ansprüchen Dritter freistellen, die aufgrund seiner Handlungen oder Unterlassungen entstehen.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        13.4
+                                        </Label>
+                                        <div>
+                                        Der Nutzer haftet insbesondere für die Richtigkeit, 
+                                        Vollständigkeit und Rechtmäßigkeit der von ihm veröffentlichten Inhalte, 
+                                        einschließlich Texte, Bilder, Links oder Kommentare. <br/>
+                                        Die Haftung des Nutzers umfasst insbesondere die Richtigkeit, Vollständigkeit und Rechtmäßigkeit der von ihm veröffentlichten Inhalte.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                    14 Haftungsausschluss uRent 
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.1
+                                        </Label>
+                                        <div>
+                                        uRent ist eine Plattform, die es Nutzern ermöglicht, Inserate zu veröffentlichen und zu suchen. <br/>
+                                        uRent steht in keiner Verbindung mit den Inseraten und übernimmt keine Verantwortung für die Richtigkeit, 
+                                        Vollständigkeit, Qualität oder Rechtmäßigkeit der Inserate.
+                                        </div>
+                                    </div>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.2
+                                        </Label>
+                                        <div>
+                                        uRent überprüft Inserate nicht systematisch oder regelmäßig auf ihre Richtigkeit oder Qualität. <br/>
+                                        Es obliegt den Nutzern, die Inserate zu prüfen und zu bewerten.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.3
+                                        </Label>
+                                        <div>
+                                        uRent ist nicht verantwortlich für eventuelle Schäden oder Verluste, 
+                                        die aus der Nutzung oder dem Vertrauen auf die Inserate auf der Plattform entstehen.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.4
+                                        </Label>
+                                        <div>
+                                        uRent übernimmt keine Haftung für Inhalte, die von Nutzern oder Dritten auf der Plattform veröffentlicht werden, 
+                                        einschließlich, aber nicht beschränkt auf Texte, Bilder, Links oder Kommentare.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.5
+                                        </Label>
+                                        <div>
+                                        uRent behält sich das Recht vor, Inserate zu entfernen oder zu bearbeiten, 
+                                        die gegen die Nutzungsbedingungen oder geltende Gesetze verstoßen. Die Entscheidung von uRent ist endgültig und bindend.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.6
+                                        </Label>
+                                        <div>
+                                        Nutzer können uRent über verdächtige oder unangemessene Inserate informieren. <br/>
+                                        uRent reagiert auf solche Meldungen pflichtgemäß und im Rahmen seiner Möglichkeiten, 
+                                        behält sich jedoch das Recht vor, nicht auf jede einzelne Meldung zu reagieren.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.7
+                                        </Label>
+                                        <div>
+                                        uRent übernimmt keine Haftung für die Verfügbarkeit und Funktionalität der Plattform. <br/>
+                                        Die Nutzung der Plattform erfolgt auf eigenes Risiko des Nutzers.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.8
+                                        </Label>
+                                        <div>
+                                        uRent behält sich das Recht vor, die Plattform jederzeit und ohne Vorankündigung zu ändern, zu aktualisieren,
+                                         zu erweitern oder einzustellen. Die Nutzer werden über wesentliche Änderungen informiert.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.9
+                                        </Label>
+                                        <div>
+                                        Die Haftung von uRent für direkte oder indirekte Schäden, 
+                                        die aus der Nutzung oder dem Vertrauen auf die Plattform entstehen, ist ausgeschlossen, soweit dies gesetzlich zulässig ist.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.10
+                                        </Label>
+                                        <div>
+                                        Die vorstehenden Haftungsausschlüsse gelten auch zugunsten der gesetzlichen Vertreter,
+                                         Mitarbeiter und Erfüllungsgehilfen von uRent.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        14.11
+                                        </Label>
+                                        <div>
+                                        Der Vermieter haftet für die Einhaltung aller relevanten gesetzlichen Bestimmungen und Vorschriften, 
+                                        einschließlich, aber nicht beschränkt auf Fahrzeugsicherheit , Steuerpflichten und Sicherheitsstandards.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 items-center gap-x-2">
+                                        <Label className="font-semibold text-md">
+                                        *** Wichtig ***
+                                        </Label>
+                                        <div>
+                                        - uRent übernimmt keine Gewährleistung und Haftung für die Richtigkeit, 
+                                        Vollständigkeit, Qualität oder Rechtmäßigkeit der Inserate.
+                                        </div>
+                                        <div className="mt-2">
+                                        - Nutzer sollten Inserate sorgfältig prüfen und bei Bedenken Kontakt mit uRent aufnehmen.
+                                        </div>
+                                        <div className="mt-2">
+                                        - uRent behält sich das Recht vor, unangemessene oder verdächtige Inserate zu entfernen oder zu bearbeiten.
+                                        </div>
+                                        <div className="mt-2">
+                                        - Die Haftung von uRent ist in gesetzlich zulässigem Umfang ausgeschlossen.
+                                        </div>
+                                        <div className="mt-2">
+                                        - Diese Haftungsausschlüsse gelten auch für die gesetzlichen Vertreter, Mitarbeiter und Erfüllungsgehilfen von uRent. 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                    15 Beendigung des Nutzungsvertrages 
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        15.1
+                                        </Label>
+                                        <div>
+                                        Der Nutzungsvertrag zwischen dem Nutzer und uRent kann von 
+                                        beiden Seiten jederzeit ohne Angabe von Gründen gekündigt werden.
+                                        </div>
+                                    </div>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        15.2
+                                        </Label>
+                                        <div>
+                                        Die Kündigung des Nutzungsvertrages erfolgt durch eine schriftliche Mitteilung an die jeweils andere Vertragspartei. <br/>
+                                        Die Kündigung kann auch durch die Nutzung der entsprechenden 
+                                        Optionen im Nutzerkonto oder durch Kontaktaufnahme mit dem Support-Team erfolgen.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        15.3
+                                        </Label>
+                                        <div>
+                                        Die Kündigung des Nutzungsvertrages führt zur Beendigung des Zugangs des Nutzers zu den Diensten von 
+                                        uRent und zur Einstellung aller damit verbundenen Leistungen und Funktionen.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        15.4
+                                        </Label>
+                                        <div>
+                                        Nach Beendigung des Nutzungsvertrages behält uRent sich das Recht vor, alle vom Nutzer veröffentlichten 
+                                        Inhalte zu entfernen oder zu bearbeiten, sofern dies erforderlich ist.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        15.5
+                                        </Label>
+                                        <div>
+                                        Die Beendigung des Nutzungsvertrages befreit den Nutzer nicht 
+                                        von bestehenden Zahlungsverpflichtungen gegenüber uRent.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        15.6
+                                        </Label>
+                                        <div>
+                                        uRent behält sich das Recht vor, den Nutzungsvertrag ohne Vorankündigung zu kündigen 
+                                        oder den Zugang des Nutzers zu den Diensten zu beschränken oder zu sperren, wenn der Nutzer 
+                                        gegen die Nutzungsbedingungen verstößt oder die Sicherheit der Plattform gefährdet.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                        15.7
+                                        </Label>
+                                        <div>
+                                        Die Kündigung des Nutzungsvertrages berührt nicht die Wirksamkeit bereits erfolgter Handlungen oder getroffener Vereinbarungen, 
+                                        die vor dem Zeitpunkt der Kündigung erfolgt sind.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                    16 Anpassung der Nutzungsbedingungen und permanenter digitaler Produkte  
+                                    </h1>
+                                    <div className="mt-2 text-sm">
+                                    uRent behält sich das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern. <br/>
+                                    Solche Änderungen werden dem Nutzer in Textform (meist per E-Mail) innerhalb einer angemessenen Frist mitgeteilt.<br/>
+                                     Diese Frist beträgt für gewerbliche Nutzer mindestens 30 Tage vor dem vorgeschlagenen Zeitpunkt des Inkrafttretens der Änderungen. <br/>
+                                    Die vorgeschlagenen Änderungen treten nur in Kraft, wenn der Nutzer ihnen wie folgt zustimmt: <br/><br/>
+
+                                    Bei wesentlichen Änderungen bittet uRent den Nutzer um ausdrückliche Zustimmung. <br/>
+                                    Eine wesentliche Änderung liegt vor, wenn sie das bestehende Verhältnis zwischen Leistung und Gegenleistung 
+                                    erheblich verändert oder einem neuen Vertrag gleichkommt. <br/>
+                                    Änderungen aufgrund gesetzlicher Vorgaben, 
+                                    gerichtlicher Entscheidungen oder einstweiliger Verfügungen gelten nicht als wesentlich. <br/><br/>
+
+                                    Sind die vorgeschlagenen Änderungen nicht wesentlich, 
+                                    gilt die Zustimmung des Nutzers als erteilt, sofern dieser nicht innerhalb der vorgeschlagenen Frist 
+                                    in Textform (z.B. per E-Mail) widerspricht. <br/>
+                                    Der Nutzer behält das Recht, bis zum vorgeschlagenen Zeitpunkt des Inkrafttretens der Änderungen fristlos zu kündigen,
+                                     sofern er diesen nicht zustimmt. uRent weist den Nutzer in der Mitteilung 
+                                     über die Änderungen ausdrücklich auf sein Widerspruchsrecht, 
+                                    die Frist dafür und die Konsequenzen der Nichtwahrnehmung 
+                                    dieses Rechts sowie die Möglichkeit zur Kündigung hin. <br/><br/>
+
+                                    Die geänderten Nutzungsbedingungen werden zusätzlich auf der Website von uRent veröffentlicht. <br/><br/>
+
+                                    Im Fall permanenter digitaler Produkte behält sich uRent das Recht vor, Änderungen vorzunehmen, 
+                                    um Sicherheit, Nutzererfahrung und Leistung der uRent-Dienste zu verbessern. <br/>
+                                    Dem Nutzer entstehen dadurch keine zusätzlichen Kosten. <br/>
+                                    uRent wird den Nutzer klar und verständlich über solche Änderungen informieren. <br/><br/>
+
+                                    Bei Änderungen, die die Zugriffsmöglichkeit des Nutzers auf das Produkt oder dessen Nutzbarkeit erheblich beeinträchtigen,
+                                     informiert uRent den Nutzer innerhalb angemessener Frist vor dem Zeitpunkt der Änderung mittels eines dauerhaften Datenträgers 
+                                     (z.B. per E-Mail) über Art und Zeitpunkt der Änderungen sowie das Kündigungsrecht des Nutzers. <br/>
+                                    Der Nutzer kann in solchen Fällen innerhalb von 30 Tagen kostenfrei kündigen. <br/><br/>
+                                    </div>    
                                 </div>
                             </div>
                         </div>

@@ -37,8 +37,9 @@ const AgbsPage = async () => {
                                     </h1>
                                     <div className="text-sm">
                                         Die nachfolgenden Allgemeinen Geschäftsbedingungen (AGB) <br /> regeln die Vertragsbeziehungen zwischen der uRent UG, Straße,
-                                        42659 Solingen (im Folgenden "uRent"), <br />
-                                        sowie den Nutzern des von uRent betriebenen Internetportals https://www.urent-rental.de (im Folgenden "Plattform").
+                                        42659 Solingen (im Folgenden {`"`}uRent{`"`}), <br />
+                                        sowie den Nutzern des von uRent betriebenen Internetportals https://www.urent-rental.de 
+                                        (im Folgenden {`"`}Plattform{`"`}).
                                     </div>
                                     <h1 className="text-md font-semibold mt-4">
                                         Kontaktdaten
@@ -141,6 +142,83 @@ const AgbsPage = async () => {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                        2. Vertragsbeziehungen
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            2.1
+                                        </Label>
+                                        <div>
+                                        Auf der Plattform können private und gewerbliche Anbieter Inserate zur Vermietung von Fahrzeugen und Logistik schalten.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            2.2
+                                        </Label>
+                                        <div>
+                                        uRent tritt niemals selbst als Anbieter auf und wird niemals Vertragspartei eines solchen Miet- und Dienstleistungsvertrages. <br/> 
+                                        Die Funktion uRent ist die einer Präsentation, des Inserates vergleichbar mit einem Schaufenster.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2" >
+                                        <Label className="font-semibold">
+                                            2.3
+                                        </Label>
+                                        <div>
+                                        Die Anzeigen der Vermieter sind nicht zwinglich verbindliche Angebote. <br/>
+                                        Vielmehr handelt es sich um Einladung an potentielle Kunden, 
+                                        welche die Kontaktaufnahme anleiten und zur bessern Planung des Mietgeschehens beitragen sollen. 
+                                        </div>
+                                    </div>
+
+                                    
+
+                                    
+
+                                    
+                                </div>
+                                
+                                <div className="mt-8">
+                                    <h1 className="text-md font-semibold">
+                                        3. Anmeldung und Kontoerstellung
+                                    </h1>
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            3.1
+                                        </Label>
+                                        <div>
+                                        Die Erstellung eines Nutzerkontos auf der Plattform setzt die Zustimmung zu diesen AGB voraus. <br/>
+                                        Der Nutzer verpflichtet sich, sich selbständig über die AGB zu informieren.
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2">
+                                        <Label className="font-semibold">
+                                            3.2
+                                        </Label>
+                                        <div>
+                                        Die Anmeldung ist nur volljährigen und unbeschränkt geschäftsfähigen Personen erlaubt. 
+                                        </div>
+                                    </div>
+
+                                    <div className="text-sm mt-4 flex items-center gap-x-2" >
+                                        <Label className="font-semibold">
+                                            3.4
+                                        </Label>
+                                        <div>
+                                        Benutzernamen, die Rechte Dritter verletzen, insbesondere Namens- oder Kennzeichenrechte, 
+                                        oder die anderweitig rechtswidrig sind oder gegen die guten Sitten verstoßen, sind unzulässig. <br/>
+                                        Der Nutzer ist verpflichtet, seine Zugangsdaten geheim zu halten und vor dem Zugriff unbefugter Dritter zu schützen. <br/>
+                                        Sollte der Nutzer feststellen oder den Verdacht haben, 
+                                        dass seine Zugangsdaten verloren gegangen sind oder von Dritten missbräuchlich genutzt werden, ist uRent unverzüglich zu informieren.
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>

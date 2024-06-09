@@ -575,8 +575,9 @@ const AgbsPage = async () => {
                                                     11.1.4  Funktionsumfang {`"`}farbliche Hervorhebung{`"`}
                                                 </Label>
                                                 <div className="">
-                                                    Die im Abonnement
-                                                    „Enterprise“ enthaltene Funktion {`"`}Premium-Anbieter Betriebsstempel{`"`} umfasst
+                                                Die im Abonnement {`"`}Enterprise{`"`} enthaltene Funktion 
+                                                {`"`}Premium-Anbieter Betriebsstempel{`"`} umfasst eine deutlich sichtbares Feld mit der Inschrift 
+                                                {`"`}Premium Vermieter{`"`} oberhalb der Vermieter-Infobox in der detaillierten Inseratsansicht
                                                 </div>
                                             </div>
 
@@ -585,8 +586,10 @@ const AgbsPage = async () => {
                                                     11.1.5  Funktionsumfang {`"`}uRent Mieter- & Buchungsverwaltungssystem{`"`}
                                                 </Label>
                                                 <div className="">
-                                                    Die im Abonnement
-                                                    {`"`}Enterprise{`"`} enthaltene Funktion {`"`}Premium-Anbieter Betriebsstempel{`"`} umfasst
+                                                Die im Abonnement {`"`}Enterprise{`"`} enthaltene Funktion {`"`}uRent Mieter- & Buchungsverwaltungssystem{`"`} 
+                                                umfasst eine weitreichende Funktionserweiterung 
+                                                zur Darstellung und Verwaltung von Verfügbarkeiten und Buchungen, 
+                                                sowie des kompletten persönlichen Vermietungsgeschehens.  
                                                 </div>
                                             </div>
                                         </div>

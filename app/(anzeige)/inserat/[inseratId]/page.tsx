@@ -43,7 +43,6 @@ export async function generateMetadata({ params }: Props,
 
         const usedAddress = res?.address?.locationString ? res?.address?.locationString + ", " : ""
 
-        console.log(usedAddress + res.description)
 
         return {
             title: res.title,

@@ -94,7 +94,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                             />
                             <div className="items-center ml-8">
                                 {ownProfile && (
-                                    <UploadProfilePic />
+                                    <UploadProfilePic 
+                                    existingImageUrl={user.image}
+                                    />
                                 )}
                                 <div className="text-gray-900 text-sm mt-2 font-semibold flex dark:text-gray-300">
                                     <MdOutlineCardMembership className="mr-1" /> Mitglied seit : {convertDateTimeToString(user?.createdAt)}

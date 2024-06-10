@@ -95,12 +95,15 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
                             <div key={search.id} className="dark:bg-[#171717] rounded-md  items-center p-4 font-semibold text-sm">
                                 <div className="flex">
                                     <DialogTrigger className="flex items-center">
-                                        <div className="font-semibold hover:cursor-pointer hover:underline" onClick={() => { onClick(search.link) }}>
+                                        <a className="font-semibold hover:cursor-pointer hover:underline" 
+                                        href={search.link}
+                                        target="_blank"
+                                        >
                                             {search.title}
-                                        </div>
-                                        <div>
+                                        </a>
+                                        <a href={search.link} target="_blank">
                                             <RiShareForward2Fill className="w-4 h-4 ml-2" onClick={() => { onClick(search.link) }} />
-                                        </div>
+                                        </a>
                                     </DialogTrigger>
                                     <div className="ml-auto">
                                         <AlertDialog>

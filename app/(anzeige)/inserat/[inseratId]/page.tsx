@@ -32,13 +32,23 @@ export async function generateMetadata({ params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     try {
-        const res = await db.query.inserat.findFirst({
+        const findInserat = db.query.inserat.findFirst({
             where: eq(inserat.id, params.inseratId),
-        })
+            with : {
+                address : true
+            }
+        }).prepare("findInserat")
+
+        const res = await findInserat.execute();
+
+        const usedAddress = res?.address?.locationString ? res?.address?.locationString + ", " : ""
+
+        console.log(usedAddress + res.description)
+
         return {
             title: res.title,
             openGraph: {
-                description: res.description,
+                description: res?.address?.locationString + " " + res?.description,
             },
         }
     } catch (error) {

@@ -72,7 +72,7 @@ const SettingsPage = async () => {
                                     <ProfilePicSettings 
                                     imageUrl = {currentUser?.image}
                                     thisUserId = {currentUser?.id}
-                                    userImage={currentUser?.image}
+                                    
                                     />
                                 </div>
                                 <div>

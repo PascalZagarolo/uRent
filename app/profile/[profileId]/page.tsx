@@ -41,16 +41,27 @@ export async function generateMetadata({ params }: Props,
             }
 
         })
+
+        let usedDescription;
+
+        if(res?.business?.description || res?.description) {
+            usedDescription = res?.business?.description ? res?.business?.description : res?.description
+        } else {
+            usedDescription = res?.name
+        }
+
+        
+
         return {
             title: res.name,
             openGraph: {
-                description: res.business?.description,
+                description: usedDescription,
             },
         }
     } catch (error) {
         return {
             title: "Mieten auf uRent",
-            description: "Vermiete dein Fahrzeug auf uRent und verdiene Geld damit."
+            description: "Mieten auf uRent"
         }
     }
 }

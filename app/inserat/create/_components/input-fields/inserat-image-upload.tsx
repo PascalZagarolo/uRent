@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import DeleteImageForm from "./delete-image-form";
-import { images, inserat } from "@/db/schema";
+import { images, inserat, userSubscription } from "@/db/schema";
 import { useDropzone } from "react-dropzone";
 
 
@@ -18,12 +18,22 @@ import { useDropzone } from "react-dropzone";
 
 interface InseratImageUploadProps {
     thisImages: typeof images.$inferSelect[];
+    existingSubscription? : typeof userSubscription.$inferSelect;
 
 }
 
 const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
-    thisImages
+    thisImages,
+    existingSubscription
 }) => {
+
+    let maxPicsize = 8;
+
+    if (existingSubscription?.subscriptionType === "PREMIUM") {
+        maxPicsize = 12;
+    } else if(existingSubscription?.subscriptionType === "ENTERPRISE") {
+        maxPicsize = 20;
+    }
 
     const params = useParams();
     const [isLoading, setIsLoading] = useState(false);
@@ -90,7 +100,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
         isDragAccept,
         isDragReject,
     } = useDropzone({
-        onDrop, maxFiles: 8 - thisImages.length, accept: {
+        onDrop, maxFiles: maxPicsize - thisImages.length, accept: {
             'image/png': ['.jpeg', '.png', '.webp', '.jpg'],
         }
     });
@@ -121,16 +131,8 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
         <div className="">
             <h3 className="flex justify-center font-semibold text-md items-center">
                 <ImageIcon className="mr-2 h-4 w-4" />
-                Fotos und Anhänge *
-                {thisImages.length < 8 && (
-                    <CldUploadButton
-                        onUpload={handleImageUpload}
-                        uploadPreset="oblbw2xl"
-                        options={{ maxFiles: 1 }}
-                    >
-                        <PlusCircleIcon className="ml-4 h-4 w-4" />
-                    </CldUploadButton>
-                )}
+                Fotos und Anhänge ({thisImages.length}/{maxPicsize}) *
+                
                 <div className="ml-auto">
                     <DeleteImageForm
                         thisImages={thisImages}
@@ -148,7 +150,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                         items={thisImages || []}
 
                     />
-                    {thisImages.length < 8 && (
+                    {thisImages.length < maxPicsize && (
 
                         <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-20 border-dashed border
                              dark:text-gray-100/80 dark:border-gray-500" {...getRootProps()}>

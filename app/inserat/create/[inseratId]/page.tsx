@@ -195,6 +195,7 @@ const InseratCreation = async ({
                                         <BasicInformation
                                             thisInserat={thisInserat}
                                             thisImages={relatedImages}
+                                            currentUser={currentUserWithContactOptions}
                                         />
 
                                     </div>

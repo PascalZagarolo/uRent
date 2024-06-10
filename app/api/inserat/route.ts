@@ -14,7 +14,7 @@ export async function POST(
 
         console.log(values)
 
-        const data : any = await db.insert(inserat)
+        const createdInserat = await db.insert(inserat)
                                 .values({
                                     category : values.category,
                                     annual : true,
@@ -22,8 +22,11 @@ export async function POST(
                                     title : values.title,
                                     userId : values.userId
                                 }).returning();
+        
+        
+                            
 
-        return NextResponse.json(data[0])
+        return NextResponse.json(createdInserat[0])
 
 
 

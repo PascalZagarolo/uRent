@@ -90,10 +90,17 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         </div>
                     )}
                 </div>
-                <a className="w-1/4 truncate ml-4 text-sm font-base mr-2 hover:underline"
+                {thisInserat.isPublished ? (
+                    <a className="w-1/4 truncate ml-4 text-sm font-base mr-2 hover:underline"
                     href={`/inserat/${thisInserat.id}`} target="_blank">
                     {thisInserat.title}
                 </a>
+                ) : (
+                    <div className="w-1/4 truncate ml-4 text-sm font-base mr-2 "
+                    >
+                    {thisInserat.title}
+                </div>
+                )}
                 <div className="md:w-1/6 w-1/6 truncate">
                     <div className={cn("text-sm  h-full", thisInserat.isPublished ? "text-emerald-600 font-semibold" :
                         "dark:text-gray-100/40 text-gray-700")}>

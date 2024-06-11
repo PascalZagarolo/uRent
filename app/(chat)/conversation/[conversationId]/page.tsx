@@ -19,13 +19,15 @@ import StartedChats from "./_components/started-chats";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import ReturnToChat from "./_components/return-to-chat";
 import db from "@/db/drizzle";
-import { and, eq,  isNotNull, or } from "drizzle-orm";
+import { and, eq, isNotNull, or } from "drizzle-orm";
 import { conversation, notification } from "@/db/schema";
 import { userTable, message, images } from '../../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
 import AdsComponent from "@/components/ad-component";
 import { redirect } from "next/navigation";
 import ChatSideBar from "./_components/chat-sidebar";
+import { cache } from "react";
+import { findStartedConversationsGlobal } from "@/actions/findStartedConversations";
 
 
 
@@ -38,37 +40,23 @@ const ConversationPage = async ({
     //get as only call
     const currentUser = await getCurrentUser();
 
-    if(!currentUser) {
+    if (!currentUser) {
         return redirect("/")
     }
 
     let startedConversations: typeof conversation.$inferSelect[] = [];;
 
+
     
-        const findStartedConversations = db.query.conversation.findMany({
-            where: (
-                or(
-                    eq(conversation.user1Id, currentUser.id),
-                    eq(conversation.user2Id, currentUser.id)
 
-                )
-            ), with: {
-                messages: true,
-                user1: true,
-                user2: true
+    const receivedConversations = await findStartedConversationsGlobal(currentUser.id);
+
+    startedConversations = receivedConversations.filter((conversation: any) => {
+
+        return conversation.messages.length > 0 || conversation?.id === params.conversationId;
+    });
 
 
-            }
-        }).prepare("findStartedConversations")
-
-        const receivedConversations = await findStartedConversations.execute();
-
-        startedConversations = receivedConversations.filter((conversation: any) => {
-            
-            return conversation.messages.length > 0 || conversation?.id === params.conversationId;
-        });
-  
-      
 
     const findConversation = db.query.conversation.findFirst({
         where: eq(conversation.id, params.conversationId),
@@ -76,12 +64,12 @@ const ConversationPage = async ({
             user1: true,
             user2: true,
             blocks: true,
-            messages : {
-                with : {
+            messages: {
+                with: {
                     sender: true,
-                    inserat : {
-                        with : {
-                            images : true
+                    inserat: {
+                        with: {
+                            images: true
                         }
                     }
                 }
@@ -93,8 +81,8 @@ const ConversationPage = async ({
     const thisConversation = await findConversation.execute();
 
 
-    
-    
+
+
 
     //if user clicks on chat, mark all chat notifications as seen
     const patchNotifications = await db.update(notification).set({
@@ -106,17 +94,17 @@ const ConversationPage = async ({
         )
     )
 
-    
 
 
 
-    
-
-    const otherUserDetails : any = thisConversation?.user1Id === currentUser.id ? thisConversation?.user2 : thisConversation?.user1;
 
 
 
-    
+    const otherUserDetails: any = thisConversation?.user1Id === currentUser.id ? thisConversation?.user2 : thisConversation?.user1;
+
+
+
+
 
     const findNotifications = db.query.notification.findMany({
         where: (
@@ -126,7 +114,7 @@ const ConversationPage = async ({
 
     const foundNotifications = await findNotifications.execute();
 
-   
+
 
     return (
         <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 overflow-y-hidden">
@@ -143,14 +131,14 @@ const ConversationPage = async ({
                 />
             </div>
             <div className="flex justify-center min-h-full sm:py-8  sm:px-4">
-            <div className='h-full sm:flex items-center justify-center w-2/12  p-16 hidden'>
-                        <div className=' w-full sm:block hidden space-y-4'>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                            
-                            
+                <div className='h-full sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                    <div className=' w-full sm:block hidden space-y-4'>
+                        <div>
+                            <AdsComponent dataAdSlot='3797720061' />
                         </div>
+
+
+                    </div>
                 </div>
                 <div className="dark:bg-[#0F0F0F] bg-white mr-4 rounded-md w-[280px] 
             min-h-full hidden md:block dark:border-[#1C1C1C] border">
@@ -158,9 +146,9 @@ const ConversationPage = async ({
                         <MessageSquareIcon className="w-4 h-4 mr-2" />  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                     </h3>
                     <div className="mt-4">
-                    <ChatSideBar 
-                        startedConversations={startedConversations}
-                        currentUser={currentUser}
+                        <ChatSideBar
+                            startedConversations={startedConversations}
+                            currentUser={currentUser}
                         />
                     </div>
                 </div>
@@ -217,13 +205,13 @@ const ConversationPage = async ({
 
                 </div>
                 <div className='h-full sm:flex items-center justify-center w-2/12  p-16 hidden'>
-                        <div className=' w-full sm:block hidden space-y-4'>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                            
-                            
+                    <div className=' w-full sm:block hidden space-y-4'>
+                        <div>
+                            <AdsComponent dataAdSlot='3797720061' />
                         </div>
+
+
+                    </div>
                 </div>
             </div>
             <Footer />

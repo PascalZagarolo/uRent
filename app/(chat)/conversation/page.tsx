@@ -13,6 +13,7 @@ import { conversation, notification } from '../../../db/schema';
 import Footer from "@/app/(dashboard)/_components/footer";
 import AdsComponent from "@/components/ad-component";
 import ChatSideBar from "./[conversationId]/_components/chat-sidebar";
+import { findStartedConversationsGlobal } from "@/actions/findStartedConversations";
 
 
 
@@ -34,22 +35,10 @@ const ConversationPage = async () => {
     let startedConversations: any = [];
 
     
-        const findStartedConversations = db.query.conversation.findMany({
-            where : (
-                or(
-                    eq(conversation.user1Id, currentUser.id),
-                    eq(conversation.user2Id, currentUser.id)
-                
-                )
-            ), with : {
-                messages : true,
-                user1 : true,
-                user2 : true
-            }
-        }).prepare("findStartedConversations")
+        
    
 
-        const receivedConversations = await findStartedConversations.execute();
+        const receivedConversations = await findStartedConversationsGlobal(currentUser.id);
 
         startedConversations = receivedConversations.filter((conversation: any) => {
             

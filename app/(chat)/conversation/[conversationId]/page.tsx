@@ -61,7 +61,12 @@ const ConversationPage = async ({
             }
         }).prepare("findStartedConversations")
 
-        startedConversations = await findStartedConversations.execute();
+        const receivedConversations = await findStartedConversations.execute();
+
+        startedConversations = receivedConversations.filter((conversation: any) => {
+            
+            return conversation.messages.length > 0 || conversation?.id === params.conversationId;
+        });
   
       
 

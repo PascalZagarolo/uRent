@@ -58,27 +58,7 @@ const ConversationPage = async ({
 
 
 
-    const findConversation = db.query.conversation.findFirst({
-        where: eq(conversation.id, params.conversationId),
-        with: {
-            user1: true,
-            user2: true,
-            blocks: true,
-            messages: {
-                with: {
-                    sender: true,
-                    inserat: {
-                        with: {
-                            images: true
-                        }
-                    }
-                }
-            }
-        }
-
-    }).prepare("findConversation")
-
-    const thisConversation = await findConversation.execute();
+    const thisConversation : any = startedConversations.find((conversation: any) => conversation.id === params.conversationId);
 
 
 

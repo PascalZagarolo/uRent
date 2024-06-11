@@ -165,7 +165,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                                         <FaBuilding className="mr-2" />  Geschäftsprofil
                                                         {!ownProfile && (
                                                             <div className="ml-auto">
-                                                            <MessageButton />
+                                                            <MessageButton 
+                                                            currentUserId={currentUser?.id}
+                                                            />
                                                         </div>
                                                         )}
                                                     </h3>

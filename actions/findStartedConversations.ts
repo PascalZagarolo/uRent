@@ -14,9 +14,19 @@ export const findStartedConversationsGlobal = (async(currentUserId) => {
 
             )
         ), with: {
-            messages: true,
+            messages: {
+                with : {
+                    sender : true,
+                    inserat : {
+                        with : {
+                            images : true
+                        }
+                    }
+                }
+            },
             user1: true,
-            user2: true
+            user2: true,
+            blocks: true
 
 
         }

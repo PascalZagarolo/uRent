@@ -57,9 +57,9 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     );
 
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
-      console.log(autocomplete)
+      
       const place = autocomplete.getPlace();
-      console.log(place);
+      
       setCurrentZipCode("");
       let foundZipcode;
       for (var i = 0; i < place.address_components.length; i++) {
@@ -178,6 +178,8 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       console.log(values);
       axios.patch(`/api/inserat/${thisInserat.id}/address`, values).
       then(() => {
+        setCurrentAddress(values.locationString);
+        setCurrentZipCode(values.postalCode);
         toast.success("Standort erfolgreich hinzugefügt");
         router.refresh();
       })
@@ -255,7 +257,8 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         </Label>
       </div>
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!inputRef?.current?.value || (thisAddressComponent?.locationString === inputRef?.current?.value && currentZipCode === thisAddressComponent?.postalCode) || !inputRef?.current?.value.length ||
+        disabled={!inputRef?.current?.value || 
+          (thisAddressComponent?.locationString === inputRef?.current?.value && Number(currentZipCode) === Number(thisAddressComponent?.postalCode)) || !inputRef?.current?.value.length ||
           String(currentZipCode).length !== 5 || isNaN(Number(currentZipCode))
         }
       >

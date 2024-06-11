@@ -17,12 +17,14 @@ import { SaveIcon } from "lucide-react";
 
 interface UploadProfilePicProps {
     existingImageUrl: string;
+    userId : string;
 }
 
 const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
-    existingImageUrl
+    existingImageUrl,
+    userId,
 }) => {
-
+    
     const params = useParams();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -93,8 +95,11 @@ const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
 
     const handleDeleteImage = () => {
         try {
+
+            
+            const usedParam = userId ? userId : params.profileId
             setIsLoading(true)
-            axios.patch(`/api/profile/${params.profileId}/profilepicture`, {
+            axios.patch(`/api/profile/${usedParam}/profilepicture`, {
                 image: null
             }).then(() => {
                 router.refresh();
@@ -113,8 +118,9 @@ const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
 
     const onUploadConfirm = () => {
         try {
+            const usedParam = userId ? userId : params.profileId;
             setIsLoading(true);
-            axios.patch(`/api/profile/${params.profileId}/profilepicture`, {
+            axios.patch(`/api/profile/${usedParam}/profilepicture`, {
                 image: currentUrl
             }).then(() => {
                 router.refresh();

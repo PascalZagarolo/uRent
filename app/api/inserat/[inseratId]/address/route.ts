@@ -13,21 +13,19 @@ export async function PATCH(
 
         const values = await req.json();
 
-        console.log(values);
+        
 
-        let addressObject = await axios.get(`https://geocode.maps.co/search?q=${values.locationString}&api_key=65db7269a0101559750093uena07e08`);
-        console.log(addressObject.data[0])
-
-
-        if(!addressObject.data[0]) {
-            addressObject = await axios.get(`https://geocode.maps.co/search?q=${values.postalCode}&api_key=65db7269a0101559750093uena07e08`);
-        }
-        console.log("test")
+        let addressObject = await axios.get(`https://geocode.maps.co/search?q=${values.postalCode}&api_key=65db7269a0101559750093uena07e08`);
        
-        console.log(addressObject.data[0]);
+
+
+        
+        
+       
+        
 
         const pAddress: string[] = addressObject.data[0].display_name.split(",");
-        console.log(pAddress[address.length -3])
+        
         console.log(addressObject.data[0].lat)
         console.log(addressObject.data[0].lon)
 
@@ -37,7 +35,7 @@ export async function PATCH(
 
         if(!existingAddressObject) {
 
-            const patchedAddress : typeof address= await db.insert(address).values({
+            const patchedAddress : any = await db.insert(address).values({
                 inseratId : params.inseratId,
                 ...values,
             }).returning()
@@ -49,7 +47,7 @@ export async function PATCH(
             return NextResponse.json({patchedAddress, patchedOrigin});
             
         } else {
-            const patchedAddress : typeof address = await db.update(address).set({
+            const patchedAddress : any = await db.update(address).set({
                 longitude : addressObject.data[0].lon,
                 latitude : addressObject.data[0].lat,
                 ...values

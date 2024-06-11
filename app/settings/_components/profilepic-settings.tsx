@@ -24,6 +24,7 @@ const ProfilePicSettings: React.FC<ProfilePicSettingsProps> = ({
             <div className="">
                 <UploadProfilePic
                     existingImageUrl={imageUrl}
+                    userId={thisUserId}
                 />
             </div>
         </div>

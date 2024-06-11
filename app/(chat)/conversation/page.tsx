@@ -49,7 +49,13 @@ const ConversationPage = async () => {
         }).prepare("findStartedConversations")
    
 
-    startedConversations = await findStartedConversations.execute();
+        const receivedConversations = await findStartedConversations.execute();
+
+        startedConversations = receivedConversations.filter((conversation: any) => {
+            
+            return conversation.messages.length > 0;
+        });
+
 
     if(startedConversations?.user1Id === currentUser.id && startedConversations?.user2Id === currentUser.id) {
         return redirect("/conversations")

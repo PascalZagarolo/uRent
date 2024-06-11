@@ -91,7 +91,6 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
                     </p>
                     <div className="mt-4 block space-y-2">
                         {savedSearches?.map((search) => (
-
                             <div key={search.id} className="dark:bg-[#171717] rounded-md  items-center p-4 font-semibold text-sm">
                                 <div className="flex">
                                     <DialogTrigger className="flex items-center">
@@ -189,6 +188,11 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
                             </div>
 
                         ))}
+                        {savedSearches?.length === 0 && (
+                            <div className="text-xs dark:text-gray-200/60 flex justify-center py-4">
+                                Du hast noch keine Suchen gespeichert..
+                            </div>
+                        )}
                     </div>
 
                 </div>

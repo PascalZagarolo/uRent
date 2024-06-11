@@ -96,6 +96,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                 {ownProfile && (
                                     <UploadProfilePic 
                                     existingImageUrl={user.image}
+                                    userId={user.id}
                                     />
                                 )}
                                 <div className="text-gray-900 text-sm mt-2 font-semibold flex dark:text-gray-300">

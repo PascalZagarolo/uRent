@@ -14,13 +14,15 @@ import Footer from "@/app/(dashboard)/_components/footer";
 import AdsComponent from "@/components/ad-component";
 import ChatSideBar from "./[conversationId]/_components/chat-sidebar";
 import { findStartedConversationsGlobal } from "@/actions/findStartedConversations";
+import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
 
 
 
 const ConversationPage = async () => {
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithNotifications();
 
     if(!currentUser) {
         return redirect("/")
@@ -50,12 +52,7 @@ const ConversationPage = async () => {
         return redirect("/conversations")
     }
     
-    const foundNotifications = await db.query.notification.findMany({
-        where : (
-            eq(notification.userId, currentUser?.id)
-        )
     
-    })
 
 
    
@@ -65,13 +62,13 @@ const ConversationPage = async () => {
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                     />
             </div>
             <div className="sm:hidden">
             <MobileHeader
                 currentUser={currentUser}
-                foundNotifications={foundNotifications}
+                foundNotifications={currentUser?.notifications}
                 />
              </div>
             <div className="flex justify-center h-full sm:py-8 sm:px-4 ">

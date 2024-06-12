@@ -28,6 +28,7 @@ import { redirect } from "next/navigation";
 import ChatSideBar from "./_components/chat-sidebar";
 import { cache } from "react";
 import { findStartedConversationsGlobal } from "@/actions/findStartedConversations";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
 
 
@@ -38,7 +39,7 @@ const ConversationPage = async ({
 
 
     //get as only call
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithNotifications();
 
     if (!currentUser) {
         return redirect("/")
@@ -86,13 +87,7 @@ const ConversationPage = async ({
 
 
 
-    const findNotifications = db.query.notification.findMany({
-        where: (
-            eq(notification.userId, currentUser?.id)
-        )
-    }).prepare("findNotifications")
-
-    const foundNotifications = await findNotifications.execute();
+    
 
 
 
@@ -101,13 +96,13 @@ const ConversationPage = async ({
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser.notifications}
                 />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser.notifications}
                 />
             </div>
             <div className="flex justify-center min-h-full sm:py-8  sm:px-4">

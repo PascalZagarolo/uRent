@@ -6,17 +6,13 @@ import { notification } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { TruckIcon } from "lucide-react";
 import MobileHeader from "../../_components/mobile-header";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
 const DataPrivacy = async () => {
 
-    const currentUser = await getCurrentUser();
-
-    const foundNotifications = await db.query.notification.findMany({
-        where : (
-            eq(notification.userId, currentUser?.id)
-        )
     
-    })
+
+    
 
     return (
 

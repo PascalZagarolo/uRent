@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { notification } from "@/db/schema";
 import HeaderLogo from "./_components/header-logo";
 import AdsComponent from "@/components/ad-component";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
 
 const DashboardLayout = cache(async (
@@ -20,16 +21,11 @@ const DashboardLayout = cache(async (
 
 
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithNotifications();
 
     
 
-    const foundNotifications = await db.query.notification.findMany({
-        where: (
-            eq(notification.userId, currentUser?.id)
-        )
-
-    })
+    
 
 
 
@@ -38,14 +34,14 @@ const DashboardLayout = cache(async (
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                 />
             </div>
             <div className="relative top-0 w-full z-50">
 
                 <HeaderLogo
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                 />
             </div>
 

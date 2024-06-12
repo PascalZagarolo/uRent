@@ -9,14 +9,7 @@ import MobileHeader from "../../_components/mobile-header";
 
 const Imprint = async () => {
 
-    const currentUser = await getCurrentUser();
-
-    const foundNotifications = await db.query.notification.findMany({
-        where : (
-            eq(notification.userId, currentUser?.id)
-        )
     
-    })
 
     return (
         <div>

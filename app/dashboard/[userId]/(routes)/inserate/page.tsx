@@ -47,9 +47,7 @@ const InserateOverview = async ({
 
     const inserateArray = await findInserate.execute();
 
-    const existingSubscription = await db.query.userSubscription.findFirst({
-        where : eq(userSubscription.userId, currentUser.id)
-    })
+    
 
     for (let i = 0; i < inserateArray.length; i++) {
         if (inserateArray[i].isPublished) {
@@ -93,7 +91,7 @@ const InserateOverview = async ({
                                 <HighlightInserat 
                                 foundInserate={inserateArray as any}
                                 currentUser={currentUser as any}
-                                existingSubscription={existingSubscription as any}
+                                existingSubscription={currentUser?.subscription as any}
                                 />
                             </div>
                             <div className="sm:p-4 ">

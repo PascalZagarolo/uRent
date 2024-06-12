@@ -7,6 +7,7 @@ import db from "@/db/drizzle";
 import { notification } from "@/db/schema";
 import Footer from "../(dashboard)/_components/footer";
 import { redirect } from "next/navigation";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
 
 const DashboardLayout = async (
@@ -14,33 +15,28 @@ const DashboardLayout = async (
 
 ) => {
     
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithNotifications();
 
-    const findNotifications = db.query.notification.findMany({
-        where : (
-            eq(notification.userId, sql.placeholder("currentUserId"))
-        )
     
-    }).prepare("findNotifications")
 
     if(!currentUser) {
         redirect("/")
     }
 
-    const foundNotifications = await findNotifications.execute({currentUserId: currentUser?.id})
+    
     
     return (
         <div className="bg-[#404040]/10 h-full w-full  dark:bg-[#0F0F0F] ">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                     />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                 currentUser={currentUser}
-                foundNotifications = {foundNotifications}       
+                foundNotifications = {currentUser?.notifications}       
                 />
              </div>
             <div>       

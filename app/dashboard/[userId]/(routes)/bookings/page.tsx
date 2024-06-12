@@ -15,18 +15,7 @@ const Bookings = async ({
 }: { params: { userId: string } }) => {
 
     
-    const favourites = await db.query.favourite.findMany({
-        where : (
-            eq(favourite.userId, params.userId)
-        ), with : {
-            inserat : {
-                with : {
-                    images : true,
-                    user : true
-                }
-            }
-        }
-    })
+    
 
     const bookings = await db.query.booking.findMany({
         where : (

@@ -9,39 +9,18 @@ import MenuBar from "../../_components/menu-bar";
 import BreadCrumpPage from "../../_components/bread-crump-page";
 import FavouriteRenderList from "../bookings/_components/favourite-render-list";
 import getCurrentUser from "@/actions/getCurrentUser";
+import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 
 const Bookings = async ({
     params
 }: { params: { userId: string } }) => {
 
     
-    const favourites = await db.query.favourite.findMany({
-        where : (
-            eq(favourite.userId, params.userId)
-        ), with : {
-            inserat : {
-                with : {
-                    images : true,
-                    user : true
-                }
-            }
-        }
-    })
-
-    const bookings = await db.query.booking.findMany({
-        where : (
-            eq(booking.userId, params.userId)
-        ), with : {
-            inserat : {
-                with : {
-                    images : true,
-                    user : true
-                }
-            }
-        }
-    })
     
-    const currentUser = await getCurrentUser();
+
+    
+    
+    const currentUser = await getCurrentUserWithFavourites();
 
     return (
             <div className="flex justify-center sm:py-8  sm:px-4 ">
@@ -65,10 +44,10 @@ const Bookings = async ({
                             
                             </p>
                             <div className="md:p-4 p-2">
-                                {favourites.length > 0 ? (
+                                {currentUser?.favourites.length > 0 ? (
                                     <FavouriteRenderList 
                                     //@ts-ignore
-                                    favourites={favourites}
+                                    favourites={currentUser?.favourites}
                                     />
                                 ) : (
                                     <div className="flex justify-center  text-sm text-gray-200/60">

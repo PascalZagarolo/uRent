@@ -11,7 +11,16 @@ const getCurrentUserWithFavourites = async () => {
       const findUser  = db.query.userTable.findFirst({
         where: (eq(userTable.id, sql.placeholder("userId"))),
         with : {
-            favourites : true
+            favourites : {
+              with : {
+                inserat : {
+                  with : {
+                    images : true,
+                    user : true
+                  }
+                }
+              }
+            }
         }
         
       }).prepare("findUser");

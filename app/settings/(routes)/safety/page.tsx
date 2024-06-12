@@ -1,9 +1,9 @@
-import { DeleteIcon, Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
+import { DeleteIcon, User2Icon } from "lucide-react";
 
 
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
-import { accounts, notification, userTable } from "@/db/schema";
+import { accounts } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
@@ -22,6 +22,8 @@ import { FcGoogle } from "react-icons/fc";
 import Footer from "@/app/(dashboard)/_components/footer";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import DeleteUser from "../../_components/delete-user";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+import getCurrentUserWithNotificationsAndAccounts from "@/actions/getCurrentUserWithNotificationsAndAccounts";
 
 
 
@@ -29,24 +31,15 @@ import DeleteUser from "../../_components/delete-user";
 
 const SettingsPage = async () => {
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithNotificationsAndAccounts();
 
     if (!currentUser) {
         redirect("/login")
     }
 
-    const findSocials = await db.query.accounts.findFirst({
-        where: (
-            eq(accounts.userId, currentUser?.id)
-        )
-    })
+    
 
-    const foundNotifications = await db.query.notification.findMany({
-        where: (
-            eq(notification.userId, currentUser?.id)
-        )
-
-    })
+    
 
 
 
@@ -55,13 +48,13 @@ const SettingsPage = async () => {
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                 />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                 />
             </div>
             <div className="flex justify-center sm:py-8  sm:px-4">
@@ -130,7 +123,7 @@ const SettingsPage = async () => {
                                 </>
                             )}
                             <div>
-                                {!findSocials && (
+                                {!currentUser?.accounts && (
                                     <div>
                                         <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                             <div className="flex items-center">

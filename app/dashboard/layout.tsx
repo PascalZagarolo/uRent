@@ -17,14 +17,10 @@ const DashboardLayout = async (
     
     const currentUser = await getCurrentUserWithNotifications();
 
-    
-
     if(!currentUser) {
         redirect("/")
     }
 
-    
-    
     return (
         <div className="bg-[#404040]/10 h-full w-full  dark:bg-[#0F0F0F] ">
             <div className="relative top-0 w-full z-50">
@@ -42,8 +38,6 @@ const DashboardLayout = async (
             <div>       
                 {children}
             </div>
-           
-            
             <div>
             <Footer />
             </div>

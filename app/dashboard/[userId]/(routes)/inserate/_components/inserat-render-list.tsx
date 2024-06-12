@@ -11,9 +11,10 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { user } from "@/drizzle/schema";
 import { set } from "lodash";
 import { Checkbox } from "@/components/ui/checkbox";
+import { MdOutlineUnfoldLess } from "react-icons/md";
 
 interface InserateRenderListProps {
-    inserateArray: typeof inserat.$inferSelect;
+    inserateArray: typeof inserat.$inferSelect[];
     currentUser: typeof user.$inferSelect;
 
 }
@@ -23,6 +24,9 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
     currentUser
 
 }) => {
+
+    console.log(inserateArray.length);
+
 
     //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
     const [renderAmount, setRenderAmount] = useState(5);
@@ -37,23 +41,23 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
         let returnedInserate = inserateArray;
 
-        if(title) {
+        if (title) {
             //@ts-ignore
             returnedInserate = inserateArray.filter((inserat) => {
                 return inserat.title.toLowerCase().includes(title.toLowerCase())
 
             })
-            
+
         }
 
-        if(selectedVisibility) {
-            if(selectedVisibility === "PUBLIC") {
+        if (selectedVisibility) {
+            if (selectedVisibility === "PUBLIC") {
                 //@ts-ignore
                 const filtered = returnedInserate.filter((inserat) => {
                     return inserat.isPublished
                 })
                 returnedInserate = filtered;
-            } else if(selectedVisibility === "PRIVATE") {
+            } else if (selectedVisibility === "PRIVATE") {
                 //@ts-ignore
                 const filtered = returnedInserate.filter((inserat) => {
                     return !inserat.isPublished
@@ -63,7 +67,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         }
 
         setRenderedInserate(returnedInserate);
-        
+
     }, [inserateArray])
 
     useMemo(() => {
@@ -97,9 +101,9 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
     useMemo(() => {
 
-        let fInserate : any = inserateArray;
+        let fInserate: any = inserateArray;
 
-        if(title) {
+        if (title) {
             //@ts-ignore
             const filteredInserate = inserateArray.filter((inserat) => {
                 return inserat.title.toLowerCase().includes(title.toLowerCase())
@@ -109,7 +113,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         }
 
         if (!selectedSort) {
-            
+
         } else if (selectedSort === "date_asc") {
             const sortedInserate = [...fInserate].sort((a, b) => {
                 return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
@@ -123,22 +127,22 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         }
 
 
-        if(!selectedVisibility) {
+        if (!selectedVisibility) {
             setRenderedInserate(fInserate)
-        } else if(selectedVisibility === "PUBLIC") {
+        } else if (selectedVisibility === "PUBLIC") {
             //@ts-ignore
             const filtered = fInserate.filter((inserat) => {
                 return inserat.isPublished
             })
             setRenderedInserate(filtered)
-        } else if(selectedVisibility === "PRIVATE") {
+        } else if (selectedVisibility === "PRIVATE") {
             //@ts-ignore
             const filtered = fInserate.filter((inserat) => {
                 return !inserat.isPublished
             })
             setRenderedInserate(filtered)
         }
-    },[selectedVisibility])
+    }, [selectedVisibility])
 
     return (
         <div>
@@ -176,29 +180,29 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
             <div className="ml-auto w-full flex justify-end mt-2">
                 <div className="gap-x-2 flex items-center mr-4">
                     <div className="flex items-center">
-                        <Checkbox 
-                        checked={!selectedVisibility}
-                        onCheckedChange={(e) => {setSelectedVisibility(null)}}
+                        <Checkbox
+                            checked={!selectedVisibility}
+                            onCheckedChange={(e) => { setSelectedVisibility(null) }}
                         />
-                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => {setSelectedVisibility(null)}}>
+                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => { setSelectedVisibility(null) }}>
                             Alle
                         </Label>
                     </div>
                     <div className="flex items-center">
-                        <Checkbox 
-                        checked={selectedVisibility === "PUBLIC"}
-                        onCheckedChange={(e) => {setSelectedVisibility("PUBLIC")}}
+                        <Checkbox
+                            checked={selectedVisibility === "PUBLIC"}
+                            onCheckedChange={(e) => { setSelectedVisibility("PUBLIC") }}
                         />
-                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => {setSelectedVisibility("PUBLIC")}}>
+                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => { setSelectedVisibility("PUBLIC") }}>
                             Öffentlich
                         </Label>
                     </div>
                     <div className="flex items-center">
-                        <Checkbox 
-                        checked={selectedVisibility === "PRIVATE"}
-                        onCheckedChange={(e) => {setSelectedVisibility("PRIVATE")}}
+                        <Checkbox
+                            checked={selectedVisibility === "PRIVATE"}
+                            onCheckedChange={(e) => { setSelectedVisibility("PRIVATE") }}
                         />
-                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => {setSelectedVisibility("PRIVATE")}}>
+                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => { setSelectedVisibility("PRIVATE") }}>
                             Privat
                         </Label>
                     </div>
@@ -234,9 +238,21 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                         Keine passenden Inserate vorhanden..
                     </div>
                 )}
-                {renderedInserate.length > 5 && (
-                    <p className="mt-2 text-xs  underline hover:cursor-pointer" onClick={() => { setRenderAmount(renderAmount + 5) }}>
+                {(renderedInserate.length > 5 && inserateArray.length > renderAmount) && (
+                    <p className="mt-2 text-xs  underline hover:cursor-pointer" onClick={() => {
+                        const renderedAddition = Number(inserateArray.length) - renderAmount >= 5 ? 5 : inserateArray.length - renderAmount;
+                        setRenderAmount(renderAmount + renderedAddition)
+                    }}>
                         Mehr anzeigen...
+                    </p>
+                )}
+
+                {(inserateArray.length == renderAmount) && (
+                    <p className="mt-2 text-xs  underline hover:cursor-pointer flex items-center" onClick={() => {
+                        const renderedAddition = Number(inserateArray.length) - renderAmount >= 5 ? 5 : inserateArray.length - renderAmount;
+                        setRenderAmount(5)
+                    }}>
+                        Weniger anzeigen <MdOutlineUnfoldLess className="w-4 h-4 ml-2" />
                     </p>
                 )}
             </div>

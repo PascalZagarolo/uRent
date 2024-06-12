@@ -97,7 +97,21 @@ const MieterFaq = () => {
                                                 „Flotteninserat“ aus und geben dann die Anzahl an identischen Fahrzeugen an.
                                             </AccordionContent>
                                         </AccordionItem>
-
+                                        <AccordionItem value="item-71">
+                                            <AccordionTrigger>Wie kann ich ein Inserat auswählen, damit es bei der Suche priorisiert wird?
+                                                </AccordionTrigger>
+                                            <AccordionContent>
+                                           Wenn Sie das Abonnement „Premium“ oder {'"'}Enterprise{'"'} besitzen, 
+                                            klicken Sie auf der Startseite auf Ihr Profilbild oben rechts. <br/>
+                                            Dort finden Sie Ihre Inserate im Dashboard unter {'"'}Meine Inserate{'"'}. <br/>
+                                             Dort sehen Sie zunächst,
+                                             wie viele Inserate dem Abonnement entsprechend hervorgehoben werden können. <br/>
+                                             Suchen Sie anschließend ein Inserat, das veröffentlicht werden soll und klicken Sie links neben 
+                                             „Inserat bearbeiten“ auf {'"'}Hervorheben{'"'}. <br/>
+                                             Die hervorgehobenen Inserate und finden Sie oben auf der Seite, dort kann auch eine
+                                             gewünschte Farbe ausgewählt werden und eine Hervorhebung wieder entfernt werden.
+                                            </AccordionContent>
+                                        </AccordionItem>
                                     </Accordion>
                                 </div>
                             </div>
@@ -120,6 +134,13 @@ const MieterFaq = () => {
                                             <AccordionContent>
                                                 Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts.
                                                 Dort finden Sie im Dashboard Ihre Favoriten.
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-91">
+                                            <AccordionTrigger>Wie kann ich eine Suche speichern und wo finde ich diese?</AccordionTrigger>
+                                            <AccordionContent>
+                                            Oben im Suchfilter finden Sie {'"'}Suche speichern{'"'}. Nachdem Sie die Suche benannt haben, 
+                                            finden Sie diese oben rechts in der Kopfzeile unter dem zugehörigen Symbol.
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>
@@ -179,9 +200,10 @@ const MieterFaq = () => {
                                         <AccordionItem value="item-16">
                                             <AccordionTrigger>Wo kann ich meinen Account löschen?</AccordionTrigger>
                                             <AccordionContent>
-                                                Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und
-                                                 dann auf „Einstellungen“. Dort können Sie unter „Account“ Ihren 
-                                                 Account löschen. Passen Sie auf, dieser Vorgang ist unwiderruflich.
+                                            Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und dann auf {`"`}Einstellungen{`"`}. <br/>
+                                            Dort können Sie unter „Account“ Ihren Account löschen. <br/>
+                                             Anschließend werden Sie zur Sicherheit noch eine E-Mail bekommen, 
+                                            um das Löschen Ihres Accounts zu bestätigen, da der Vorgang unwiderruflich ist.
                                             </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-17">
@@ -240,6 +262,45 @@ const MieterFaq = () => {
                                                 Beachten Sie, dass diese keine privaten Informationen aus Ihrem Account sind, 
                                                 sondern lediglich auf Ihr privates oder gewerbliches, öffentliches 
                                                 Vermietungs-Profil abzielen.
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-211">
+                                            <AccordionTrigger>Wie kann ich ein Profilbild hinzufügen?</AccordionTrigger>
+                                            <AccordionContent>
+                                            Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und dann auf „Mein Profil“. <br/>
+                                            Dort können Sie oben links Ihr Profilbild hinzufügen, entfernen und bearbeiten.
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-212">
+                                            <AccordionTrigger>Wie kann ich die Informationen bearbeiten, 
+                                                die für den Nutzer neben meinen Inseraten angezeigt werden?</AccordionTrigger>
+                                            <AccordionContent>
+                                            Alle Bilder und Infos, die bei Standort eingetragen werden, 
+                                            sind die, die für die Nutzer neben den Inseraten sichtbar sind. <br/>
+                                            Falls Sie mehrere Standorte haben, kann ein Standort als primär festgelegt werden.<br/>
+                                             Dieser wird neben deinen Inseraten angezeigt, sowie in deinem Profil hervorgehoben.<br/> 
+                                             Um einen Standort hinzuzufügen, klicken Sie auf der Startseite auf Ihr Profilbild oben rechts, 
+                                            dann auf „Mein Profil“ und anschließend auf „Standort hinzufügen“.
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-213">
+                                            <AccordionTrigger>Wofür sind Standorte und wie füge ich sie hinzu?</AccordionTrigger>
+                                            <AccordionContent>
+                                            Alle Bilder und Infos, die bei Standort eingetragen werden, sind die, 
+                                            die für die Nutzer neben den Inseraten sichtbar sind. <br/>
+                                            Falls Sie mehrere Standorte haben, kann ein Standort als primär festgelegt werden. <br/>
+                                            Dieser wird neben deinen Inseraten angezeigt, sowie in deinem Profil hervorgehoben.  <br/>
+                                            Um einen Standort hinzuzufügen, klicken Sie auf der Startseite auf Ihr Profilbild oben rechts, 
+                                            dann auf „Mein Profil“ und anschließend auf „Standort hinzufügen“.
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-213">
+                                            <AccordionTrigger>Wie kann ich Bilder hinzufügen, die Nutzer sehen, wenn sie mein Profil aufrufen?</AccordionTrigger>
+                                            <AccordionContent>
+                                            klicken Sie auf der Startseite auf Ihr Profilbild oben rechts und dann auf „Mein Profil“. <br/>
+                                            Anschließend können Sie oben rechts die Bilder hinzufügen. Beachten Sie, 
+                                            dass diese Bilder nicht neben den Inseraten angezeigt werden, sondern nur auf Ihrer Profilseite. 
+                                            Andernfalls können Sie einen Standort erstellen. 
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>
@@ -301,8 +362,9 @@ const MieterFaq = () => {
                                         <AccordionItem value="item-27">
                                             <AccordionTrigger>Wo kann ich meine Inserate verwalten?</AccordionTrigger>
                                             <AccordionContent>
-                                                Klicken Sie auf der Startseite auf Ihr Profilbild 
-                                                oben rechts und dann auf „Dashboard“. Dort können Sie Ihre Inserate verwalten.
+                                            Klicken Sie auf der Startseite auf Ihr Profilbild oben rechts. 
+                                            Dort finden Sie Ihre Inserate im Dashboard unter „Meine Inserate“. 
+                                            Sie können nun Ihre Inserate bearbeiten, löschen und die Verfügbarkeit ändern.
                                             </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-28">
@@ -364,8 +426,10 @@ const MieterFaq = () => {
                                         <AccordionItem value="item-33">
                                             <AccordionTrigger>Wo kann ich eine Nachricht an den Support schreiben? </AccordionTrigger>
                                             <AccordionContent>
-                                            Sie finden das Impressum, die allgemeinen Nutzungsbedingungen, 
-                                            das Kontaktformular und die Datenschutzerklärung unten auf der Webseite. 
+                                            Sie finden das Impressum, die allgemeinen Nutzungsbedingungen, das Kontaktformular unten in der Fußzeile. 
+                                            Dort können Sie anschließend Ihren Grund auswählen und zusätzlich eine Beschreibung hinzufügen.
+                                            Sie können ausserdem auch direkt, eine Email an support@urent-rental.de senden. 
+                                            Der Support wird sich umgehend um Ihr Problem kümmern. 
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>
@@ -423,6 +487,12 @@ const MieterFaq = () => {
                                             <AccordionContent>
                                                 Sie finden das Impressum, die allgemeinen Nutzungsbedingungen
                                                 und die Datenschutzerklärung auf jeder Seite ganz unten, im Footer.
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                        <AccordionItem value="item-361">
+                                            <AccordionTrigger> Wie kann ich mich bewerben? </AccordionTrigger>
+                                            <AccordionContent>
+                                            Sie finden die Karriere Seite unten auf der Webseite in der Fußzeile.
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>

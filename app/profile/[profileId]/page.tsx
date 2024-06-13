@@ -22,6 +22,7 @@ import ChangeAccountType from "./_components/change-account-type";
 import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 import BusinessFaqs from "./_components/business-faqs";
 import getCurrentUserWithNotificationsAndFavourites from "@/actions/getCurrentUserWithNotificationsAndFavourites";
+import { userAddress } from '../../../db/schema';
 
 
 
@@ -89,18 +90,17 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
         }
     })
 
-    const thisContactoptions = await db.query.contactOptions.findFirst({
-        where: (
-            eq(contactOptions.userId, pageOwnerId)
-        ), with: {
-            userAddress: true
-        }
-    })
+  
 
 
     const thisUser = await db.query.userTable.findFirst({
         where: eq(userTable.id, pageOwnerId),
         with: {
+            contactOptions : {
+                with : {
+                    userAddress : true
+                }
+            },
             business: {
                 with: {
                     businessAddresses: true,
@@ -108,19 +108,15 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     faqs : true,
                     openingTimes: true
                 }
-            }
+            },
         }
     })
 
 
 
-    const thisBusinessImages = await db.query.businessImages.findMany({
-        where: (
-            eq(businessImages.businessId, thisUser?.business?.id)
-        ),
-        orderBy: (position, { asc }) => [asc(businessImages.position)]
+    const thisBusinessImages = thisUser?.business?.businessImages.sort((a, b) => a.position - b.position)
 
-    })
+    
 
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
@@ -194,7 +190,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                         <ProfileHeader
                                             user={thisUser}
                                             currentUser={currentUser}
-                                            thisContactOptions={thisContactoptions}
+                                            thisContactOptions={thisUser?.contactOptions}
                                             thisImages={thisBusinessImages}
 
                                         />

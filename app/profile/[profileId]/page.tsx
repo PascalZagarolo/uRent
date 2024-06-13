@@ -21,6 +21,7 @@ import Footer from "@/app/(dashboard)/_components/footer";
 import ChangeAccountType from "./_components/change-account-type";
 import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 import BusinessFaqs from "./_components/business-faqs";
+import getCurrentUserWithNotificationsAndFavourites from "@/actions/getCurrentUserWithNotificationsAndFavourites";
 
 
 
@@ -71,13 +72,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     const pageOwnerId = params.profileId;
 
-    const currentUser = await getCurrentUserWithFavourites();
+    const currentUser = await getCurrentUserWithNotificationsAndFavourites();
 
-    const foundNotifications = await db.query.notification.findMany({
-        where: (
-            eq(notification.userId, currentUser?.id)
-        )
-    })
+    
 
     const foundInserate = await db.query.inserat.findMany({
         where: (
@@ -142,13 +139,13 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 <div className="relative top-0 w-full z-50">
                     <HeaderLogo
                         currentUser={currentUser}
-                        foundNotifications={foundNotifications}
+                        foundNotifications={currentUser?.notifications}
                     />
                 </div>
                 <div className="sm:hidden">
                     <MobileHeader
                         currentUser={currentUser}
-                        foundNotifications={foundNotifications}
+                        foundNotifications={currentUser?.notifications}
                     />
                 </div>
                 <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">

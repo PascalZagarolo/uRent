@@ -15,6 +15,7 @@ import { vehicle } from '../../../../../db/schema';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PiArrowLineLeftBold, PiArrowLineRightBold } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface BookingDayDetailsProps {
     selectedDate: Date;
@@ -41,11 +42,29 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     const [appointedTimes, setAppointedTimes] = useState<{ [key: string]: any[] }[]>([]);
     const [usedBookings, setUsedBookings] = useState(relevantBookings);
     const [renderingInserate, setRenderingInserate] = useState(renderedInserate.slice(startIndex, endIndex));
+    const [filteredAppointedDay, setFilteredAppointedDay] = useState(false);
 
-    
-    useEffect(() => {
-        setRenderingInserate(renderedInserate.slice(startIndex, endIndex));
-    },[renderedInserate, startIndex, endIndex])
+
+    useMemo(() => {
+
+        let filteredI;
+        
+        if(filteredAppointedDay) {
+            filteredI = renderedInserate.filter((inserat) => {
+                const bookedTimes = appointedTimes.find(item => item.inseratId === inserat.id)?.times;
+                if (bookedTimes) {
+                    return bookedTimes.length > 0;
+                }
+            
+            })
+
+            setRenderingInserate(filteredI);
+        } else {
+            setRenderingInserate(renderedInserate.slice(startIndex, endIndex));
+        }
+
+        
+    }, [renderedInserate, startIndex, endIndex, selectedDate, filteredAppointedDay, foundInserate, appointedTimes])
 
 
 
@@ -260,6 +279,8 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         return segments;
     };
 
+    
+
     return (
         <div className="w-full">
             <div>
@@ -277,41 +298,53 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
                     </Label>
                     {renderedInserate.length > 3 && !selectedInserat && (
+
                         <div className="ml-auto flex justify-end gap-x-2 items-center">
-                        <div>
-                            <Button size="sm" variant="ghost" 
-                            disabled={startIndex === 0}
-                            onClick={() => {
-                                setStartIndex(startIndex - 3 >= 0 ? startIndex - 3 : 0);
-                                setEndIndex(endIndex - 3 >= 0 ? endIndex - 3 : 3);	
-                                }}>
-                            <PiArrowLineLeftBold className="w-4 h-4" />
-                            </Button>
+                            <div>
+                                <Button size="sm" variant="ghost"
+                                    disabled={startIndex === 0}
+                                    onClick={() => {
+                                        setStartIndex(startIndex - 3 >= 0 ? startIndex - 3 : 0);
+                                        setEndIndex(endIndex - 3 >= 0 ? endIndex - 3 : 3);
+                                    }}>
+                                    <PiArrowLineLeftBold className="w-4 h-4" />
+                                </Button>
                             </div>
                             <div className="">
                                 Seite {startIndex / 3 + 1}
                             </div>
                             <div>
-                            <Button size="sm" variant="ghost" 
-                            disabled={endIndex === renderedInserate.length}
-                            onClick={() => {
-                                setEndIndex(endIndex + 3 <= renderedInserate.length ? endIndex + 3 : renderedInserate.length);
-                                setStartIndex(startIndex + 3 <= renderedInserate.length ? startIndex + 3 : renderedInserate.length);
-                                
-                                }}>
-                            <PiArrowLineRightBold className="w-4 h-4" />
-                            </Button>
+                                <Button size="sm" variant="ghost"
+                                    disabled={endIndex === renderedInserate.length}
+                                    onClick={() => {
+                                        setEndIndex(endIndex + 3 <= renderedInserate.length ? endIndex + 3 : renderedInserate.length);
+                                        setStartIndex(startIndex + 3 <= renderedInserate.length ? startIndex + 3 : renderedInserate.length);
+
+                                    }}>
+                                    <PiArrowLineRightBold className="w-4 h-4" />
+                                </Button>
                             </div>
                         </div>
+
+
                     )}
                 </div>
-                <p className="text-xs dark:text-gray-200/60">
+                <div className="text-xs dark:text-gray-200/60 flex items-center">
                     Detaillierte Tagesansicht für den {selectedDate && (
                         <>
                             {format(selectedDate, "dd MMMM yyyy", { locale: de })}
                         </>
                     )}
-                </p>
+                    <div className="ml-auto text-gray-200 gap-x-2 flex items-center text-xs">
+                        <Checkbox 
+                        checked={filteredAppointedDay}
+                        onCheckedChange={(e) => {setFilteredAppointedDay(e as boolean)}}
+                        />
+                        <div>
+                            Nur Inserate mit Buchungen anzeigen
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="mt-4 w-full ">
 
@@ -329,7 +362,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
                         <div className="w-full overflow-x-hidden">
                             <div className={cn(" flex items-center justify-evenly")
-                                }>
+                            }>
 
 
                                 {selectedInseratData?.multi ? (
@@ -369,7 +402,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
                             </div>
                             {!selectedDate && (
-                                <div className="text-sm font-normal dark:text-gray-200/60 w-full flex justify-center">
+                                <div className="text-sm font-normal dark:text-gray-200/60 w-full flex justify-center mt-32">
                                     Klicke auf ein Datum um die Details einzusehen
                                 </div>
 
@@ -380,6 +413,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                         Noch keine Fahrzeuge erstellt..
                                     </div>
                                 )}
+                            {(renderingInserate.length === 0 && !selectedDate) && (
+                                <div className="flex justify-center text-sm text-gray-200/60 mt-32">
+                                    Keine passenden Inserate vorhanden..
+                                </div>
+                            )}
                         </div>
 
                     </div>

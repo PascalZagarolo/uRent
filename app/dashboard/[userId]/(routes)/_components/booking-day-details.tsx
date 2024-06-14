@@ -279,9 +279,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                     {renderedInserate.length > 3 && !selectedInserat && (
                         <div className="ml-auto flex justify-end gap-x-2 items-center">
                         <div>
-                            <Button size="sm" variant="ghost" onClick={() => {
-                                setStartIndex(startIndex - 3)
-                                setEndIndex(endIndex - 3);
+                            <Button size="sm" variant="ghost" 
+                            disabled={startIndex === 0}
+                            onClick={() => {
+                                setStartIndex(startIndex - 3 >= 0 ? startIndex - 3 : 0);
+                                setEndIndex(endIndex - 3 >= 0 ? endIndex - 3 : 3);	
                                 }}>
                             <PiArrowLineLeftBold className="w-4 h-4" />
                             </Button>

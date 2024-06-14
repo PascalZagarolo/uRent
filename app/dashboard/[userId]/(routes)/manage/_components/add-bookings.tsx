@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { format, isSameDay, set } from 'date-fns';
+import { format, getDate, isSameDay, set } from 'date-fns';
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -116,7 +116,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
         try {
 
             setIsLoading(true);
-
+            
             const usedStart = new Date(currentStart);
             const usedEnd = new Date(currentEnd);
 
@@ -124,8 +124,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 content: value.content ? value.content : "",
 
                 //Days
-                start: usedStart,
-                end: usedEnd,
+                start: currentStart,
+                end: currentEnd,
 
                 //Hours
                 startPeriod: currentStartTime,

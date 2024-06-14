@@ -58,9 +58,8 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
             
             })
             //! Include Pagination on filtered Inserate
-            setStartIndex(0);
-            setEndIndex(3);
-            setRenderingInserate(filteredI);
+            
+            setRenderingInserate(filteredI.slice(startIndex, endIndex));
         } else {
             setRenderingInserate(renderedInserate.slice(startIndex, endIndex));
         }
@@ -340,7 +339,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                     <div className="ml-auto text-gray-200 gap-x-2 flex items-center text-xs">
                         <Checkbox 
                         checked={filteredAppointedDay}
-                        onCheckedChange={(e) => {setFilteredAppointedDay(e as boolean)}}
+                        onCheckedChange={(e) => {
+                            setFilteredAppointedDay(e as boolean)
+                            setStartIndex(0);
+                            setEndIndex(3);
+                        }}
                         />
                         <div>
                             Nur Inserate mit Buchungen anzeigen

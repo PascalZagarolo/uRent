@@ -290,9 +290,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 Seite {startIndex / 3 + 1}
                             </div>
                             <div>
-                            <Button size="sm" variant="ghost" onClick={() => {
-                                setEndIndex(endIndex + 3);
-                                setStartIndex(startIndex + 3);
+                            <Button size="sm" variant="ghost" 
+                            disabled={endIndex === renderedInserate.length}
+                            onClick={() => {
+                                setEndIndex(endIndex + 3 <= renderedInserate.length ? endIndex + 3 : renderedInserate.length);
+                                setStartIndex(startIndex + 3 <= renderedInserate.length ? startIndex + 3 : renderedInserate.length);
                                 
                                 }}>
                             <PiArrowLineRightBold className="w-4 h-4" />

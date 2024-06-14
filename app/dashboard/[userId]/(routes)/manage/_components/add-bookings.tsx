@@ -146,6 +146,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     setCurrentStart(new Date());
                     setCurrentEnd(new Date());
                     setCurrentInserat(null);
+                    setCurrentInternal("");
                     setCurrentVehicle(null);
                     setCurrentName(null);
                     setCurrentStartTime("");
@@ -442,7 +443,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         disabled={(!selectedUser && (!currentName || currentName.trim() === ""))
                                             || isLoading || !currentInserat || !currentStart || !currentEnd
                                             || !currentStartTime || !currentEndTime ||
-                                            (currentInseratObject.multi && !(currentVehicle || affectAll))
+                                            (currentInseratObject?.multi && !(currentVehicle || affectAll))
                                         }
                                         type="submit"
                                     >

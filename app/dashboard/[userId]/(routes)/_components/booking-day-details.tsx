@@ -57,7 +57,9 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                 }
             
             })
-
+            //! Include Pagination on filtered Inserate
+            setStartIndex(0);
+            setEndIndex(3);
             setRenderingInserate(filteredI);
         } else {
             setRenderingInserate(renderedInserate.slice(startIndex, endIndex));

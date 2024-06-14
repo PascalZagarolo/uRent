@@ -83,8 +83,14 @@ const InseratAnzeige = async ({
                 with: {
                     contactOptions: true,
                     subscription : true,
+                    business : {
+                        with : {
+                            businessAddresses : true
+                        }
+                    }
                 }
             },
+            bookings : true,
             pkwAttribute: true,
             lkwAttribute: true,
             trailerAttribute: true,
@@ -158,30 +164,13 @@ const InseratAnzeige = async ({
 
     const inseratArray = await findInseratArray.execute({ inseratOwnerId: inseratOwnerId })
 
-    const thisBusiness = await db.query.business.findFirst({
-        where: (
-            eq(business.userId, inseratOwnerId)
-        ),
-        with: {
-            businessAddresses: true,
-        }
-    })
+    
+    const thisBusiness = thisInserat?.user?.business
+    
 
+    const inseratBookings = thisInserat.bookings
 
-
-    const findInseratBookings = await db.query.booking.findMany({
-        where: (
-            eq(booking.inseratId, thisInserat.id)
-        ),
-        with: {
-            user: true,
-
-        }, orderBy: (booking, { asc }) => [asc(booking.startDate)]
-    }).prepare("inseratBookings")
-
-    const inseratBookings = await findInseratBookings.execute()
-
-    const LazyInseratImageCarousel = lazy(() => import("./_components/inserat-image"));
+    
 
     function ripOutToLongAddresses(input: string): string {
         const lastCommaIndex = input?.lastIndexOf(',');

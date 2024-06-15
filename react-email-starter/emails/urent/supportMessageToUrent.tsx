@@ -38,7 +38,7 @@ interface SupportMessageToUrentProps {
     
     <Html>
       <Head />
-      <Preview>{`[`}{category}{`]`} {title} </Preview>
+      <Preview> {title} </Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={box}>

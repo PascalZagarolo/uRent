@@ -114,7 +114,7 @@ export const sendSupportConfirmToUrent = async (
   await resend.emails.send({
     from: 'uRent <mail@urent-rental.de>',
     to: "support@urent-rental.com",
-    subject: "["+ values.category + "] " + values.title,
+    subject: "["+ values.category + "] " + "Support Anfrage",
     react : SupportMessageToUrent({
       category : values.category,
       title : values.title,

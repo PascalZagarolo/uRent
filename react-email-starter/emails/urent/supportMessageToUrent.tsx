@@ -51,7 +51,10 @@ interface SupportMessageToUrentProps {
             <Hr style={hr} />
             <Text style={paragraph}>
             Name : {name} <br/>
-            Email-Addresse : {email} <br/> <br/>
+            Email-Addresse : {email} <br/> 
+            </Text>
+            <Text style={paragraph}>
+            {title} 
             </Text>
             <Text style={paragraph}>
             {content} <br/> <br/>

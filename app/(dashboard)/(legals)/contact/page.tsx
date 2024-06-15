@@ -19,7 +19,7 @@ const ContactPage = () => {
                                 <div className="text-sm">
                                     <p>Adresse: <span className="font-semibold">Sonnenstrasse 29, 42653 Solingen</span></p>
                                     <p>Telefon: <span className="font-semibold">+45 1234 5678</span></p>
-                                    <p>E-mail: <span className="font-semibold">support@urent-rental.de</span></p>
+                                    <p>E-mail: <span className="font-semibold">support@urent-rental.com</span></p>
                                 </div>
                                 <div className="mt-16">
                                     <ContactFormular />

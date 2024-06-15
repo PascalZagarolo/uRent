@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { sendSupportConfirm } from "@/lib/mail";
+import { sendSupportConfirm, sendSupportConfirmToUrent } from "@/lib/mail";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -19,6 +19,7 @@ const ContactFormular = () => {
     const [currentName, setCurrentName] = useState("");
     const [currentEmail, setCurrentEmail] = useState("");
     const [currentCategory, setcurrentCategory] = useState("");
+    const [currentTitle, setcurrentTitle] = useState("");
     const [currentContent, setCurrentContent] = useState("");
 
     const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -35,15 +36,18 @@ const ContactFormular = () => {
                 name: currentName,
                 email: currentEmail,
                 category: currentCategory,
-                content: currentContent
+                content: currentContent,
+                title : currentTitle
             }
 
             await sendSupportConfirm(values.email);
+            await sendSupportConfirmToUrent(values);
             toast.success("Ihre Anfrage wurde erfolgreich versendet.");
             setCurrentContent("");
             setCurrentEmail("");
             setCurrentName("");
             setcurrentCategory("");
+            setcurrentTitle("");
             setAcceptedTerms(false);
             
             router.refresh();
@@ -113,7 +117,16 @@ const ContactFormular = () => {
                     </Select>
                 </div>
                 </div>
-
+                <div className="space-y-1">
+                <Label>
+                        Titel
+                    </Label>
+                    <Input
+                        className="dark:border-none dark:bg-[#141414] w-full"
+                        value={currentTitle}
+                        onChange={(e) => setcurrentTitle(e.target.value)}
+                    />
+                </div>
                 <div className="space-y-1">
                     <Label>
                         Inhalt
@@ -127,7 +140,7 @@ const ContactFormular = () => {
 
                 <div className="flex items-center gap-x-2 mt-2">
                     <Checkbox 
-                    
+                    checked={acceptedTerms}
                     onCheckedChange={//@ts-ignore
                         (checked) => setAcceptedTerms(checked)}
                     /> <Label className="text-xs font-medium">

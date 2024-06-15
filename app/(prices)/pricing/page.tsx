@@ -6,21 +6,24 @@ import BuyOptions from "./_components/buy-options";
 import RedeemCode from "./_components/redeem-code";
 import ComparisonPlans from "./_components/comparison-plans";
 import Faq from "./_components/faq";
-import Footer from "@/app/(dashboard)/_components/footer";
-import getCurrentUserWithSubscriptionAndInserate from "@/actions/getCurrentUserWithSubscriptionAndInserate";
+
 
 
 
 const PricingMainPage = async () => {
 
     
-    const currentUser = await getCurrentUserWithSubscriptionAndInserate();
+    const currentUser = await getCurrentUser();
 
     
 
-    let existingSubscription = currentUser?.subscription;
+    let existingSubscription = await db.query.userSubscription.findFirst({
+        where: (
+            eq(userSubscription.userId, currentUser?.id)
+        )
+    })
 
-    if(currentUser) {
+    if(existingSubscription) {
         existingSubscription.stripe_current_period_end > new Date() ? existingSubscription = existingSubscription : existingSubscription = null;
     }
 

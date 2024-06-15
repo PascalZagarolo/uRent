@@ -8,14 +8,17 @@ import {
     getDay,
     startOfMonth,
 } from "date-fns";
-import {  ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import CalendarDay from "./calendar-day";
 import { Button } from "@/components/ui/button";
 
 
-import { booking,  inserat } from "@/db/schema";
+import { booking, inserat } from "@/db/schema";
 import { de } from 'date-fns/locale';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
+import { MdCalendarMonth, MdOutlineViewWeek } from "react-icons/md";
 
 const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
@@ -24,21 +27,22 @@ const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 interface EventCalendarProps {
     everyInserat: typeof inserat.$inferSelect[],
     bookings: typeof booking.$inferSelect[],
-    setSelectedDateParent? : (date : Date) => void
-    setRelevantBookingsParent? : (bookings : typeof booking.$inferSelect[]) => void;
-    selectedInserat? : string;
+    setSelectedDateParent?: (date: Date) => void
+    setRelevantBookingsParent?: (bookings: typeof booking.$inferSelect[]) => void;
+    selectedInserat?: string;
 }
 
 const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelevantBookingsParent, selectedInserat }: EventCalendarProps) => {
 
-    
+
     const [currentDate, setCurrentDate] = useState(new Date());
     const firstDayOfMonth = startOfMonth(currentDate);
     const lastDayOfMonth = endOfMonth(currentDate);
+    const [selectedCalendarType, setSelecteCalendarType] = useState("month");
 
     const [selectedDate, setSelectedDate] = useState<Date>(null);
-    
-    
+
+
 
     const daysInMonth = eachDayOfInterval({
         start: firstDayOfMonth,
@@ -59,16 +63,16 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
         setCurrentDate(newDate);
     };
 
-    
+
 
     const eventsByDate = useMemo(() => {
-        return bookings?.reduce((acc: { [key: string]: typeof booking.$inferSelect[] }, pBooking : typeof booking.$inferSelect) => {
+        return bookings?.reduce((acc: { [key: string]: typeof booking.$inferSelect[] }, pBooking: typeof booking.$inferSelect) => {
             const startDate = new Date(pBooking.startDate);
             const endDate = new Date(pBooking.endDate);
 
             const currentDate = new Date(startDate);
             while (currentDate <= endDate) {
-                
+
                 const dateKey = format(currentDate, "dd-MM-yyyy");
                 if (!acc[dateKey]) {
                     acc[dateKey] = [];
@@ -83,7 +87,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
         }, {});
     }, [bookings]);
 
-    
+
 
     return (
         <div className="container mx-auto p-4 border dark:border-none">
@@ -91,11 +95,28 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                 <Button onClick={decreaseMonth} className="dark:bg-[#0F0F0F]" variant="ghost">
                     <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
-                <h2 className="text-center font-semibold w-[160px] ">{format(currentDate, "MMMM yyyy", { locale : de })}</h2>
+                <h2 className="text-center font-semibold w-[160px] ">{format(currentDate, "MMMM yyyy", { locale: de })}</h2>
                 <Button onClick={increaseMonth} className="dark:bg-[#0F0F0F]" variant="ghost">
                     <ArrowRightCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                 </Button>
-                
+                <div className="ml-auto">
+                    <div>
+                        <Button size="sm" variant="ghost"
+                        onClick={() => setSelecteCalendarType("month")}
+                        className={cn("text-gray-200/60 hover:text-gray-200/90 rounded-none rounded-l-md",
+                        selectedCalendarType === "month" && "bg-[#0F0F0F] hover:bg-[#131313] text-gray-200 hover:text-gray-300")}
+                        >
+                         <MdCalendarMonth className="w-4 h-4 mr-2" />   Monatsansicht
+                        </Button>
+                        <Button size="sm" variant="ghost"
+                        onClick={() => setSelecteCalendarType("week")}
+                        className={cn("text-gray-200/60 hover:text-gray-200/90 rounded-none rounded-r-md",
+                         selectedCalendarType === "week" && "bg-[#0F0F0F] hover:bg-[#131313] text-gray-200 hover:text-gray-300")}
+                        >
+                           <MdOutlineViewWeek className="w-4 h-4 mr-2" /> Wochenansicht
+                        </Button>
+                    </div>
+                </div>
             </div>
             <div className="grid grid-cols-7 gap-2">
                 {WEEKDAYS.map((day) => {
@@ -116,7 +137,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                 {daysInMonth.map((day, index) => {
                     const dateKey = format(day, "dd-MM-yyyy");
                     const todaysEvents = eventsByDate[dateKey] || [];
-                    
+
                     return (
                         <div key={index} className="h-full">
                             <CalendarDay
@@ -126,7 +147,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                                 bookings={todaysEvents}
                                 selectedDate={selectedDate}
                                 selectDateParent={setSelectedDate}
-                                setSelectedDateParent = {setSelectedDateParent}
+                                setSelectedDateParent={setSelectedDateParent}
                                 setRelevantBookingsParent={setRelevantBookingsParent}
                                 foundInserate={everyInserat}
                                 selectedInserat={selectedInserat ? selectedInserat : null}

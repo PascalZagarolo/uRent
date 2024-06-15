@@ -16,6 +16,8 @@ import SubscriptionAlmostExpired from '@/react-email-starter/emails/urent/subscr
 import WelcomeMail from '@/react-email-starter/emails/urent/welcome-mail';
 
 import { Resend } from "resend";
+import { category } from '../drizzle/schema';
+import SupportMessageToUrent from '@/react-email-starter/emails/urent/supportMessageToUrent';
 
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -102,6 +104,24 @@ export const sendSupportConfirm = async (
     to: email,
     subject: "Support Anfrage bestätigt",
     react : SupportConfirm(),
+  });
+};
+
+export const sendSupportConfirmToUrent = async (
+  values : any
+) => {
+  console.log(values)
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to: "support@urent-rental.com",
+    subject: "["+ values.category + "] " + values.title,
+    react : SupportMessageToUrent({
+      category : values.category,
+      title : values.title,
+      name : values.name,
+      email : values.email,
+      content : values.content
+    }),
   });
 };
 

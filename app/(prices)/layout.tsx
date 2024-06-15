@@ -6,18 +6,15 @@ import { notification } from "@/db/schema";
 import db from "@/db/drizzle";
 import Footer from "../(dashboard)/_components/footer";
 import MobileHeader from "../(dashboard)/_components/mobile-header";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
 const PricingLayout = async (
     { children }: { children: React.ReactNode }
 ) => {
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithNotifications();
 
-    const foundNotifications = await db.query.notification.findMany({
-        where: (
-            eq(notification.userId, "0648aba6-e152-464d-8746-77a65958aa12")
-        )
-    })
+    
 
     return (
         <div>
@@ -25,13 +22,13 @@ const PricingLayout = async (
                 <div className="relative top-0 w-full z-50">
                     <HeaderLogo
                         currentUser={currentUser}
-                        foundNotifications={foundNotifications}
+                        foundNotifications={currentUser.notifications}
                     />
                 </div>
                 <div className="sm:hidden">
                     <MobileHeader
                         currentUser={currentUser}
-                        foundNotifications={foundNotifications}
+                        foundNotifications={currentUser.notifications}
                     />
                 </div>
                 <div className="sm:flex sm:justify-center sm:p-8 bg-[#404040]/10">

@@ -225,7 +225,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         </div>
                         <div className="w-full">
                             <CalendarAndDetails 
-                            foundInserate={foundInserate}
+                            foundInserate={foundInserate as any}
                             involvedBookings={involvedBookings}
                             />
                         </div>

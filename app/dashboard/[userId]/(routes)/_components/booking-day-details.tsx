@@ -293,7 +293,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             </div>
                         } Tagesansicht {selectedDate && (
                             <div className="">
-                                - {format(selectedDate, "dd MMMM yyyy", { locale: de })}
+                                {format(selectedDate, "dd MMMM yyyy", { locale: de })}
                             </div>
                         )}
 

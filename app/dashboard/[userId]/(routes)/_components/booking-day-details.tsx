@@ -345,7 +345,9 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             setEndIndex(3);
                         }}
                         />
-                        <div>
+                        <div className="hover:underline hover:cursor-pointer"
+                        onClick={() => setFilteredAppointedDay(!filteredAppointedDay)}
+                        >
                             Nur Inserate mit Buchungen anzeigen
                         </div>
                     </div>

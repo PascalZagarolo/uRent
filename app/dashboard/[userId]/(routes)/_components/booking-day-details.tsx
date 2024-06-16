@@ -286,13 +286,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         <div className="w-full">
             <div>
                 <div className="flex items-center w-full">
-                    <Label className="text-md font-semibold flex items-center gap-x-2 ">
+                    <Label className="text-md font-semibold flex items-center max-w-full gap-x-2 ">
                         {selectedInserat &&
-                            <div className="font-semibold text-indigo-600 w-1/3 line-clamp-1">
+                            <div className="font-semibold text-indigo-600 max-w-1/3 line-clamp-1">
                                 {foundInserate.find(inserat => inserat.id === selectedInserat)?.title}
                             </div>
                         } Tagesansicht {selectedDate && (
-                            <div >
+                            <div className="">
                                 - {format(selectedDate, "dd MMMM yyyy", { locale: de })}
                             </div>
                         )}
@@ -311,7 +311,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                     <PiArrowLineLeftBold className="w-4 h-4" />
                                 </Button>
                             </div>
-                            <div className="">
+                            <div className="w-full">
                                 Seite {startIndex / 3 + 1}
                             </div>
                             <div>

@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
-import { userTable, userSubscription, notification } from "@/db/schema";
+import { userSubscription } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import BuyOptions from "./_components/buy-options";
 import RedeemCode from "./_components/redeem-code";

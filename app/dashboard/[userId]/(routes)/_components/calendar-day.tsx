@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 import clsx from "clsx";
 import { format, isSameDay, isToday } from "date-fns";
-import { CalendarSearchIcon, CarIcon, UserIcon, X } from "lucide-react";
+import { CalendarSearchIcon, CarIcon, Clock3Icon, UserIcon, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import DeleteBooking from "../manage/_components/delete-booking";
@@ -75,6 +75,21 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
     }
 
   }
+
+  const convertIntoTime = (time) => {
+    // Calculate hours and minutes
+    const hours = Math.floor(time / 60);
+    const minutes = time % 60;
+  
+    // Format hours and minutes to be two digits
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+  
+    // Combine formatted hours and minutes with "Uhr"
+    const formattedTime = `${formattedHours}:${formattedMinutes} Uhr`;
+  
+    return formattedTime;
+  };
 
   return (
 
@@ -181,9 +196,12 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                                 </div>
                               </div>
                             )}
-                            <div className="flex items-center justify-start">
+                            <div className="flex items-center justify-start text-sm">
                               <CalendarSearchIcon className="h-4 w-4 mr-2" />
                               {format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
+                            </div>
+                            <div className="flex items-center text-sm">
+                              <Clock3Icon className="w-4 h-4 mr-2" /> {convertIntoTime(pBooking.startPeriod)} - {convertIntoTime(pBooking.endPeriod)}
                             </div>
                           </>
                         )}

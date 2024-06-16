@@ -111,14 +111,14 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                     <PopoverTrigger>
                       <div className="">
                         <div className="flex justify-center">
-                        {pBooking?.isAvailability ? (
-                          <CgUnavailable className="text-gray-200 w-4 h-4" />
-                        ) : (
-                          <GiShakingHands  className="text-gray-200 w-4 h-4" />
-                        )}
+                        
                         </div>
-                        <div className="text-xs">
+                        <div className="flex p-2 justify-start w-full ">
+                        <div className="text-xs  w-full  line-clamp-1 break-all">
+                          
                           {pBooking?.name}
+                          
+                        </div>
                         </div>
                       </div>
                     </PopoverTrigger>

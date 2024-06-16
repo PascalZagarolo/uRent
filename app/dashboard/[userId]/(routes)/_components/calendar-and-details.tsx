@@ -80,6 +80,20 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
                     selectedInserat={selectedInserat}
                 />
             </div>
+            <div className="flex w-full items-center px-4 gap-x-4">
+                <div className="flex items-center gap-x-2">
+                    <div className="h-[12px] w-[12px]  bg-indigo-800"/>
+                    <Label>
+                        Buchungen
+                    </Label>
+                </div>
+                <div className="flex items-center gap-x-2">
+                    <div className="h-[12px] w-[12px]  bg-rose-800"/>
+                    <Label>
+                        Verfügbarkeiten
+                    </Label>
+                </div>
+            </div>
             <div className="mt-4 w-full">
             <BookingDayDetails
                     foundInserate={foundInserate}

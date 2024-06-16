@@ -42,7 +42,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
     const lastDayOfMonth = endOfMonth(currentDate);
     const firstDayOfWeek = startOfWeek(currentDate);
     const lastDayOfWeek = endOfWeek(currentDate);
-    const [selectedCalendarType, setSelecteCalendarType] = useState("month");
+    const [selectedCalendarType, setSelecteCalendarType] = useState("week");
 
     const [selectedDate, setSelectedDate] = useState<Date>(null);
 

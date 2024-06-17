@@ -11,7 +11,7 @@ import {
     startOfWeek,
 } from "date-fns";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import CalendarDay from "./calendar-day";
 import { Button } from "@/components/ui/button";
 
@@ -30,7 +30,7 @@ interface EventCalendarProps {
     everyInserat: typeof inserat.$inferSelect[],
     bookings: typeof booking.$inferSelect[],
     setSelectedDateParent?: (date: Date) => void
-    setRelevantBookingsParent?: (bookings: typeof booking.$inferSelect[]) => void;s
+    setRelevantBookingsParent?: (bookings: typeof booking.$inferSelect[]) => void;
     selectedInserat?: string;
 }
 

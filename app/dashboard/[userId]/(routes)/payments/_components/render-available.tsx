@@ -1,14 +1,15 @@
 'use client'
 
+import { Progress } from "@/components/ui/progress";
 import { userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 interface RenderAvilableProps {
-    existingSubscription : typeof userTable.$inferSelect,
-    countedInserate : number
+    existingSubscription: any,
+    countedInserate: number
 }
 
-const RenderAvailable : React.FC<RenderAvilableProps> = ({
+const RenderAvailable: React.FC<RenderAvilableProps> = ({
     existingSubscription,
     countedInserate
 }) => {
@@ -22,9 +23,22 @@ const RenderAvailable : React.FC<RenderAvilableProps> = ({
             </p>
             {existingSubscription.subscription ? (
                 <div className="text-2xl font-medium flex gap-x-1 mt-2">
-                    <p className={cn("font-bold",
-                        countedInserate !== existingSubscription?.subscription?.amount ? "text-green-500" : "text-red-500"
-                    )}>{countedInserate}</p> / {existingSubscription?.subscription?.amount}
+                    <div className="w-full">
+                        <div className="w-1/2">
+                            <Progress
+                                className="w-full bg-[#131313]"
+                                value={countedInserate / existingSubscription.subscription.amount * 100}
+                            />
+                        </div>
+                        <div className="flex items-center mt-2">
+                            <p className={cn("font-bold",
+                                countedInserate !== existingSubscription?.subscription?.amount ? "text-green-500" : "text-red-500"
+                            )}>{countedInserate}</p> / {existingSubscription?.subscription?.amount}
+
+                        </div>
+
+                    </div>
+
                 </div>
             ) : (
                 <div className="text-2xl font-medium flex gap-x-1 mt-2">

@@ -30,7 +30,7 @@ interface EventCalendarProps {
     everyInserat: typeof inserat.$inferSelect[],
     bookings: typeof booking.$inferSelect[],
     setSelectedDateParent?: (date: Date) => void
-    setRelevantBookingsParent?: (bookings: typeof booking.$inferSelect[]) => void;
+    setRelevantBookingsParent?: (bookings: typeof booking.$inferSelect[]) => void;s
     selectedInserat?: string;
 }
 
@@ -45,7 +45,6 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
     const [selectedCalendarType, setSelecteCalendarType] = useState("week");
 
     const [selectedDate, setSelectedDate] = useState<Date>(null);
-
 
 
     const daysInMonth = eachDayOfInterval({
@@ -113,8 +112,6 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
     return (
         <div className="container mx-auto p-4 border dark:border-none">
             <div className="mb-4 flex items-center">
-
-
                 {selectedCalendarType === "month" ? (
                     <>
                         <Button onClick={decreaseMonth} className="dark:bg-[#0F0F0F]" variant="ghost">
@@ -136,8 +133,6 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                         </Button>
                     </>
                 )}
-
-
 
                 <div className="ml-auto">
                     <div>

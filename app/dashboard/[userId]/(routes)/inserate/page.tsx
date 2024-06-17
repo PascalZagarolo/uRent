@@ -14,6 +14,7 @@ import MenuBar from "../../_components/menu-bar"
 import BreadCrumpPage from "../../_components/bread-crump-page"
 import HighlightInserat from "./_components/highlight-inserat"
 import getCurrentUserWithSubscriptionAndInserate from "@/actions/getCurrentUserWithSubscriptionAndInserate"
+import { FaChartPie } from "react-icons/fa"
 
 
 
@@ -93,6 +94,20 @@ const InserateOverview = async ({
                                 currentUser={currentUser as any}
                                 existingSubscription={currentUser?.subscription as any}
                                 />
+                            </div>
+                            <div className="sm:px-4 font-semibold text-sm flex items-center gap-x-4">
+                                <div>
+                                    <FaChartPie  className="w-6 h-6" />
+                                </div>
+                                <div className="">
+                                {inserateArray.length} erstellte {inserateArray.length === 1 ? "Inserat" : "Inserate"},
+                                </div>
+                                <div className="text-emerald-600">
+                                    {inserateArray.filter((inserat) => inserat.isPublished).length} Veröffentlicht
+                                </div>
+                                <div className="text-gray-200/60">
+                                    {inserateArray.filter((inserat) => !inserat.isPublished).length} Entwürfe
+                                </div>
                             </div>
                             <div className="sm:p-4 ">
                                 {inserateArray.length > 0 ? (

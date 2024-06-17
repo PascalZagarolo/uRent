@@ -17,36 +17,33 @@ import ChangeEmail from "./_components/change-email";
 import { redirect } from "next/navigation";
 import Footer from "../(dashboard)/_components/footer";
 import DeleteUser from "./_components/delete-user";
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
 
 
 
 const SettingsPage = async () => {
 
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUserWithNotifications();
 
     if(!currentUser) {
         redirect("/login")
     }
 
-    const foundNotifications = await db.query.notification.findMany({
-        where : (
-            eq(notification.userId, currentUser?.id)
-        )
-    })
+    
 
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser} 
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                     />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser}
-                    foundNotifications={foundNotifications}
+                    foundNotifications={currentUser?.notifications}
                 />
             </div>
             <div className="flex justify-center sm:py-8 sm:px-4">

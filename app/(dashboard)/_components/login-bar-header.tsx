@@ -8,6 +8,24 @@ import Link from "next/link";
 const LoginBarHeader = () => {
     return (
         <div className="flex justify-start  items-center mt-4 mr-16">
+            <div className="flex lg:gap-x-2">
+                <div className="sm:block hidden">
+                    0
+                </div>
+                <div className="xl:block hidden">
+
+                    1
+
+                </div>
+                <div className="lg:block hidden">
+
+                    2
+
+                </div>
+                <div className="items-center mr-4 sm:block hidden">
+                    3
+                </div>
+            </div>
             <Button variant="ghost"  className="outline outline-offset-1 outline-1 mr-4 bg-white 
             drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] border-2 border-gray-300
             dark:bg-slate-800 dark:border-none  dark:hover:bg-slate-700 dark:outline-none

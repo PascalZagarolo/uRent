@@ -918,6 +918,21 @@ export const notification = pgTable("notification", {
     createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
 })
 
+export const notificationUnauthorized = pgTable("notificationUnauthorized", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+
+    notificationType: notificationTypeEnum("notificationType"),
+    //save Inserattitle, username that sent the message etc...
+    title : text("title"),
+    content : text("content"),
+    link : text("link"),
+    imageUrl : text("imageUrl"),
+
+    showAuthorizedUsers : boolean("showAuthorizedUsers").default(false),
+
+    createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
+})
+
 export const savedSearch = pgTable("savedSearch", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     link : text("link"),

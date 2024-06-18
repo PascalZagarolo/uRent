@@ -14,7 +14,7 @@ const LoginBarHeader : React.FC<LoginBarHeaderProps> = ({
     return (
         <div className="flex justify-start  items-center mt-4 mr-16">
             <div className="flex lg:gap-x-2">
-                <div className="sm:block hidden">
+                <div className="sm:block hidden mr-2">
                     <NotificationUnauthorizedShortCut 
                     foundNotifications={foundNotifications}
                     />

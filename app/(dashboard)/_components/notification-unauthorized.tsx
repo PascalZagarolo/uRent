@@ -40,7 +40,7 @@ const NotificationUnauthorizedShortCut: React.FC<NotificationUnauthorizedShortCu
     })
 
 
-    let unseenNotifications = [];
+    let unseenNotifications = foundNotifications;
 
 
     const [renderedNotifications, setRenderedNotifications] = useState<any[]>(sortedNoti);
@@ -87,7 +87,7 @@ const NotificationUnauthorizedShortCut: React.FC<NotificationUnauthorizedShortCu
 
                         <div>
                             {foundNotifications.map((notification, index) => (
-                                <div>
+                                <div className="h-full" key={notification?.id}>
                                     <div>
                                         {notification.imageUrl && (
                                             <div>
@@ -104,33 +104,40 @@ const NotificationUnauthorizedShortCut: React.FC<NotificationUnauthorizedShortCu
                                                     </DialogTrigger>
                                                     <DialogContent className="p-0 dark:border-none">
                                                         <img
-                                                        className="h-full w-full"
-                                                        src={notification.imageUrl}
+                                                            className="h-full w-full"
+                                                            src={notification.imageUrl}
                                                         />
                                                     </DialogContent>
                                                 </Dialog>
                                             </div>
                                         )}
-                                        <div className="w-full flex items-center gap-x-2">
+                                        <div className="w-full flex items-center gap-x-2 mt-1">
                                             <div>
                                                 {
                                                     {
-                                                        "NEWS" : <FaNewspaper className="h-4 w-4 text-indigo-800" />,
-                                                        "OFFER" : <MdOutlineLocalOffer className="h-4 w-4 text-indigo-800" />,
-                                                    }[notification.notificationType] 
+                                                        "NEWS": <FaNewspaper className="h-4 w-4 text-indigo-800" />,
+                                                        "OFFER": <MdOutlineLocalOffer className="h-4 w-4 text-indigo-800" />,
+                                                    }[notification.notificationType]
                                                 }
                                             </div>
-                                            {notification?.link ? ( 
+                                            {notification?.link ? (
                                                 <a href={notification.link} target="_blank" className="hover:underline text-sm font-semibold">
                                                     {notification.title}
                                                 </a>
                                             ) : (
                                                 <div className="text-sm font-semibold">
-                                                {notification.title}
-                                            </div>
+                                                    {notification.title}
+                                                </div>
                                             )}
                                         </div>
+                                        <div className=" whitespace-pre-line text-xs">
+                                            {notification?.content}
+                                        </div>
+                                        <div className="text-xs dark:text-gray-200/60 flex justify-end">
+                                            {format(new Date(notification.createdAt), "dd.MMMM", { locale: de })}
+                                        </div>
                                     </div>
+
                                 </div>
                             ))}
                         </div>

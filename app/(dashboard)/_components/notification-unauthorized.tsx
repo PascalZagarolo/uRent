@@ -11,13 +11,16 @@ import { CiBookmark } from "react-icons/ci";
 import { format, isToday } from "date-fns";
 import { de } from "date-fns/locale";
 import { LuMailWarning } from "react-icons/lu";
-import { MdOutlineNewReleases, MdOutlineReportProblem } from "react-icons/md";
+import { MdOutlineLocalOffer, MdOutlineNewReleases, MdOutlineReportProblem } from "react-icons/md";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { IoGiftSharp } from "react-icons/io5";
 import { TbClockExclamation } from "react-icons/tb";
 import { PiHandWaving } from "react-icons/pi";
+import Image from "next/image";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { FaNewspaper } from "react-icons/fa";
 
 
 
@@ -85,7 +88,49 @@ const NotificationUnauthorizedShortCut: React.FC<NotificationUnauthorizedShortCu
                         <div>
                             {foundNotifications.map((notification, index) => (
                                 <div>
-                                    {notification.title}
+                                    <div>
+                                        {notification.imageUrl && (
+                                            <div>
+                                                <Dialog>
+                                                    <DialogTrigger asChild>
+                                                        <Image
+                                                            src={notification.imageUrl}
+                                                            width={400}
+                                                            height={400}
+                                                            className="object-cover w-full h-[64px] rounded-md 
+                                                            hover:cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out"
+                                                            alt="notification image"
+                                                        />
+                                                    </DialogTrigger>
+                                                    <DialogContent className="p-0 dark:border-none">
+                                                        <img
+                                                        className="h-full w-full"
+                                                        src={notification.imageUrl}
+                                                        />
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </div>
+                                        )}
+                                        <div className="w-full flex items-center gap-x-2">
+                                            <div>
+                                                {
+                                                    {
+                                                        "NEWS" : <FaNewspaper className="h-4 w-4 text-indigo-800" />,
+                                                        "OFFER" : <MdOutlineLocalOffer className="h-4 w-4 text-indigo-800" />,
+                                                    }[notification.notificationType] 
+                                                }
+                                            </div>
+                                            {notification?.link ? ( 
+                                                <a href={notification.link} target="_blank" className="hover:underline text-sm font-semibold">
+                                                    {notification.title}
+                                                </a>
+                                            ) : (
+                                                <div className="text-sm font-semibold">
+                                                {notification.title}
+                                            </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>

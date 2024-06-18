@@ -866,11 +866,12 @@ export const vehicle = pgTable("vehicle", {
 
 
 export const notificationTypeEnum = pgEnum("notificationType", [
-    "MESSAGE",
+    
     "BOOKING",
     "BOOKING_REQUEST",
     "EMAIL",
     "FAVOURITE",
+    "MESSAGE",
     "REPORT_ACTION",
     "SUBSCRIPTION",
     "SUBSCRIPTION_ALMOST_EXPIRED",
@@ -878,6 +879,9 @@ export const notificationTypeEnum = pgEnum("notificationType", [
     "SUBSCRIPTION_RENEWAL",
     "SUBSCRIPTION_UPGRADED",
     "WELCOME",
+
+    "OFFER",
+    "NEWS"
 ])
 
 export const changeEmailToken = pgTable("changeEmailToken", {
@@ -929,6 +933,7 @@ export const notificationUnauthorized = pgTable("notificationUnauthorized", {
     imageUrl : text("imageUrl"),
 
     showAuthorizedUsers : boolean("showAuthorizedUsers").default(false),
+    isPublic : boolean("isPublic").default(false),
 
     createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
 })

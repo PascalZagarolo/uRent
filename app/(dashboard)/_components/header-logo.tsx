@@ -18,7 +18,7 @@ import LocationBar from "./location-bar";
 
 import LoggedInBarHeader from "./logged-in-header";
 
-import { notification, savedSearch, userTable } from '../../../db/schema';
+import { notification, notificationUnauthorized, savedSearch, userTable } from '../../../db/schema';
 
 
 import { cache } from "react";
@@ -42,10 +42,16 @@ const Header: React.FC<HeaderProps> = cache(async ({
 
     let savedSearches: any = [];
 
+    let notificationsGlobal;
+
     if (currentUser) {
         savedSearches = await db.query.savedSearch.findMany({
             where: eq(savedSearch.userId, currentUser.id),
             orderBy: (savedSearch, { desc }) => [desc(savedSearch.createdAt)]
+        });
+    } else {
+        notificationsGlobal = await db.query.notificationUnauthorized.findMany({
+            where : eq(notificationUnauthorized.isPublic, true),
         });
     }
 
@@ -78,7 +84,9 @@ const Header: React.FC<HeaderProps> = cache(async ({
                 </div>
             </div>
             {!currentUser ? (
-                <LoginBarHeader />
+                <LoginBarHeader 
+                foundNotifications = {notificationsGlobal}
+                />
             ) : (
                 <div className="items-center flex ml-auto mr-8 gap-x-2">
                     <LoggedInBarHeader

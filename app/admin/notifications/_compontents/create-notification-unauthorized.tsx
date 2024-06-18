@@ -107,7 +107,7 @@ const CreateNotificationUnauthorized = () => {
                 category: currentCategory,
                 content: currentContent,
                 link: currentLink,
-                showLoggedInUsers: showLoggedInUsers,
+                showAuthorizedUsers: showLoggedInUsers,
                 imageUrl: currentUrl
             }
             console.log(values)
@@ -289,7 +289,7 @@ const CreateNotificationUnauthorized = () => {
                         </a>
                     )}
                 </div>
-                <div className={cn("mt-2 text-sm", !currentContent && "text-gray-200/60")}>
+                <div className={cn("mt-2 text-sm whitespace-pre-line", !currentContent && "text-gray-200/60")}>
                     {currentContent ? currentContent : "Inhalt.."}
                 </div>
             </div>

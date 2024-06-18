@@ -95,8 +95,6 @@ const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
 
     const handleDeleteImage = () => {
         try {
-
-            
             const usedParam = userId ? userId : params.profileId
             setIsLoading(true)
             axios.patch(`/api/profile/${usedParam}/profilepicture`, {

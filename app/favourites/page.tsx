@@ -26,6 +26,7 @@ const Bookings = async ({
 
 
     const currentUser = await getCurrentUserWithFavourites();
+
     if (currentUser) {
         return redirect(`/dashboard/${currentUser.id}/favourites`)
     }
@@ -66,19 +67,23 @@ const Bookings = async ({
                                 </h3>
                                 <div className="flex justify-center items-center gap-x-8 mt-4">
                                     <Button className="bg-indigo-900 hover:bg-indigo-900 hover:text-gray-300 text-gray-200 px-8 text-md">
-                                    Anmelden
+                                        <a className="" href="/login">
+                                            Anmelden
+                                        </a>
                                     </Button>
                                     <Label>
                                         oder
                                     </Label>
                                     <Button className="bg-indigo-900 hover:bg-indigo-900 hover:text-gray-300 text-gray-200 px-8 text-md">
-                                    Registrieren
+                                        <a className="" href="/register">
+                                            Registrieren
+                                        </a>
                                     </Button>
                                 </div>
                                 <div>
-                                <h3 className="flex justify-center text-xs dark:text-gray-200/60 mt-1">
-                                    Melde dich an um Inserate zu favourisieren.
-                                </h3>
+                                    <h3 className="flex justify-center text-xs dark:text-gray-200/60 mt-1">
+                                        Melde dich an um Inserate zu favourisieren.
+                                    </h3>
                                 </div>
                             </div>
                         </div>
@@ -87,11 +92,11 @@ const Bookings = async ({
 
                     </div>
                 </div>
-                
+
             </div>
             <div>
-                    <Footer />
-                </div>
+                <Footer />
+            </div>
         </div>
 
     );

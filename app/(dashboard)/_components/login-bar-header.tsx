@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import NotificationUnauthorizedShortCut from "./notification-unauthorized";
+import FavouritesShortCut from "./favourites-shortcut";
+import FavouritesUnsigned from "./favourites-unsigned";
 
 interface LoginBarHeaderProps {
     foundNotifications : any;
@@ -14,9 +16,14 @@ const LoginBarHeader : React.FC<LoginBarHeaderProps> = ({
     return (
         <div className="flex justify-start  items-center mt-4 mr-16">
             <div className="flex lg:gap-x-2">
-                <div className="sm:block hidden mr-2">
+           
+                <div className="sm:block hidden ">
                     <NotificationUnauthorizedShortCut 
                     foundNotifications={foundNotifications}
+                    />
+                </div>
+                <div className="sm:block hidden mr-2">
+                    <FavouritesUnsigned 
                     />
                 </div>
             </div>

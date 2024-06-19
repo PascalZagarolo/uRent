@@ -6,8 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { notificationUnauthorized } from "@/db/schema";
+import axios from "axios";
 import { BellDotIcon, PencilIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
@@ -29,7 +31,7 @@ const EditNotificationDialog: React.FC<EditNotificationDialogProps> = ({
     const [currentLink, setCurrentLink] = useState(thisNotification.link as string)
     const [currentUrl, setCurrentUrl] = useState(thisNotification.imageUrl as string)
 
-    const [isPublic, setIsPublic] = useState(thisNotification.isPublic as boolean)
+    const [isPublic, setIsPublic] = useState(thisNotification.isPublic)
 
     const [selectedImages, setSelectedImages] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -92,6 +94,33 @@ const EditNotificationDialog: React.FC<EditNotificationDialogProps> = ({
         isDragAccept,
         isDragReject,
     } = useDropzone({ onDrop, maxFiles: 1 });
+
+    const router = useRouter();
+
+    const onSubmit = async () => {
+        try {
+            setIsLoading(true);
+            const values = {
+                title: currentTitle,
+                content: currentContent,
+                notificationType: currentCategory,
+                isPublic: isPublic,
+                link: currentLink,
+                imageUrl: currentUrl
+            }
+
+            await axios.patch(`/api/globalnotifications/${thisNotification.id}/edit`, values)
+                .then(() => {
+                    router.refresh();
+                    toast.success("Benachrichtigung erfolgreich bearbeitet")
+                })
+        } catch (error: any) {
+            console.log(error);
+            toast.error("Fehler beim Speichern der Benachrichtigung")
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
 
 
@@ -199,31 +228,36 @@ const EditNotificationDialog: React.FC<EditNotificationDialogProps> = ({
                                 <Label>
                                     Verwendetes Bild
                                 </Label>
-                            <div className="px-4  dark:bg-[#191919] w-full 
+                                <div className="px-4  dark:bg-[#191919] w-full 
                                         dark:text-gray-200/90 items-center text-xs flex  h-[160px] justify-center" {...getRootProps()}>
-                                
-                                <input {...getInputProps()} />
-                                {isDragActive ? (
-                                    <p>Ziehe hier rein</p>
-                                ) : (
-                                    <p>Ziehe Bilder rein oder klicke hier</p>
-                                )}
-                            </div>
+
+                                    <input {...getInputProps()} />
+                                    {isDragActive ? (
+                                        <p>Ziehe hier rein</p>
+                                    ) : (
+                                        <p>Ziehe Bilder rein oder klicke hier</p>
+                                    )}
+                                </div>
                             </div>
                         )}
                         <div className="mt-2 flex items-center gap-x-2">
-                            <Checkbox 
-                            value={isPublic as any}
-                            onCheckedChange={(value) => { setIsPublic(value as boolean) }}
+                            <Checkbox
+                                checked={isPublic}
+                                onCheckedChange={(value) => { setIsPublic(value as boolean) }}
                             />
-                                    <Label>
-                                        Benachrichtigung öffentlich anzeigen
-                                    </Label>
+                            <Label className="hover:underline hover:cursor-pointer" onClick={() => setIsPublic(!isPublic)}>
+                                Benachrichtigung öffentlich anzeigen
+                            </Label>
                         </div>
                         <div className="mt-4 flex justify-end">
-                            <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300">
-                                Änderungen speichern
-                            </Button>
+                            <DialogTrigger asChild>
+                                <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300"
+                                    disabled={isLoading}
+                                    onClick={onSubmit}
+                                >
+                                    Änderungen speichern
+                                </Button>
+                            </DialogTrigger>
                         </div>
                     </div>
                 </div>

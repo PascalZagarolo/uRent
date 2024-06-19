@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FaNewspaper, FaShare } from "react-icons/fa";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import DeleteNotificationAlert from "./delete-notification";
+import EditNotificationDialog from "./edit-notification-dialog";
 
 interface ExistingNotificationsProps {
     foundNotifications: typeof notificationUnauthorized.$inferSelect[];
@@ -56,9 +57,9 @@ const ExistingNotifications: React.FC<ExistingNotificationsProps> = ({
                             erstellt am: {format(new Date(notification.createdAt), 'dd.MM.yyyy')}
                         </div>
                         <div className="w-full flex items-center gap-x-4">
-                            <Button className="w-1/2 bg-indigo-800 text-gray-200 font-semibold hover:bg-indigo-900">
-                                <PencilIcon className="w-4 h-4 mr-2" /> Benachrichtigung bearbeiten
-                            </Button>
+                            <EditNotificationDialog 
+                            thisNotification={notification}
+                            />
                             <DeleteNotificationAlert 
                             notificationId={notification.id}
                             />

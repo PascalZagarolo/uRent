@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { FaNewspaper, FaShare } from "react-icons/fa";
 import { MdOutlineLocalOffer } from "react-icons/md";
+import DeleteNotificationAlert from "./delete-notification";
 
 interface ExistingNotificationsProps {
     foundNotifications: typeof notificationUnauthorized.$inferSelect[];
@@ -18,7 +19,7 @@ const ExistingNotifications: React.FC<ExistingNotificationsProps> = ({
         <div>
             <div className="gap-y-4">
                 {foundNotifications.map((notification) => (
-                    <div className="bg-[#0F0F0F] rounded-md p-4">
+                    <div className="bg-[#0F0F0F] rounded-md p-4" key={notification.id}>
                         {notification.imageUrl && (
                             <div className="w-full h-[80px] mb-2">
                                 <Image
@@ -58,9 +59,9 @@ const ExistingNotifications: React.FC<ExistingNotificationsProps> = ({
                             <Button className="w-1/2 bg-indigo-800 text-gray-200 font-semibold hover:bg-indigo-900">
                                 <PencilIcon className="w-4 h-4 mr-2" /> Benachrichtigung bearbeiten
                             </Button>
-                            <Button className="w-1/2 bg-rose-800 text-gray-200 font-semibold hover:bg-rose-900">
-                               <TrashIcon className="w-4 h-4 mr-2" /> Benachrichtigung löschen
-                            </Button>
+                            <DeleteNotificationAlert 
+                            notificationId={notification.id}
+                            />
                         </div>
                     </div>
                 ))}

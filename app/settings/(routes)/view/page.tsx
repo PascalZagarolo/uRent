@@ -1,9 +1,6 @@
 import { Settings2Icon, TrendingUp, User2Icon } from "lucide-react";
 
 
-import db from "@/db/drizzle";
-import { eq } from "drizzle-orm";
-import { notification, userTable } from "@/db/schema";
 import getCurrentUser from "@/actions/getCurrentUser";
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
 import BreadCrumpSettings from "../../_components/bread-crump-settings";
@@ -24,8 +21,6 @@ const SettingsPage = async () => {
     if (!currentUser) {
         redirect("/login")
     }
-
-    
 
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">

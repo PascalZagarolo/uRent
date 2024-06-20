@@ -25,7 +25,6 @@ export async function POST(
         
         
                             
-
         return NextResponse.json(createdInserat[0])
 
 

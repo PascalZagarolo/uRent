@@ -250,21 +250,21 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                     <h3 className="  flex font-semibold text-lg items-center sm:text-xl h-full w-full">
                         Relevante
                         Inserate
-                        <div className="flex ml-4 sm:ml-auto mr-4 sm:mr-8 text-black">
+                        <div className="flex ml-4 sm:ml-auto mr-2 sm:mr-8 text-black">
                             <OrderBy />
                         </div>
                     </h3>
                 </div>
             </div>
             ) : (
-                <div className="h-full flex sm:block sm:mt-0 items-center   p-4 text-gray-100 bg-[#141620] ">
+                <div className="h-full flex sm:block sm:mt-0 items-center   py-4 text-gray-100 bg-[#141620] ">
                     <div className="ml-4 flex w-full items-center">
-                        <div className="rounded-lg">
+                        <div className="rounded-lg hidden sm:block">
                             <TbReportSearch className="w-6 h-6 sm:mr-2" />
                         </div>
                         <h3 className=" flex font-semibold  items-center text-lg sm:text-lg h-full w-full">
-                            {foundInserate.length} {foundInserate.length == 1 ? "Suchergebnis" : "Suchergebnisse"}
-                            <div className="flex ml-auto mr-4 sm:mr-8 text-black">
+                            {foundInserate.length} {foundInserate.length == 1 ? "Ergebnis" : "Ergebnisse"}
+                            <div className="flex ml-auto mr-2 sm:mr-8 text-black">
                                 <OrderBy />
                             </div>
                         </h3>

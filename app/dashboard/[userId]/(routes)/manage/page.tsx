@@ -169,7 +169,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         )}
                         <div className="sm:px-4  sm:flex">
                             <div className="sm:w-3/5 sm:mr-4">
-                                <div className="w-full  dark:bg-[#141414] rounded-md  mt-2">
+                                <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
                                 {searchParams.vehicleId ? (
                                     <>
                                     <RenderedVehicle
@@ -197,7 +197,6 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                         <UserPlus2 className="w-4 h-4 mr-2" /> Offene Anfragen <p className="text-sm ml-4"> {bookingRequests.length} </p>
                                     </h3>
                                     <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
-
                                         {bookingRequests.map((request: typeof bookingRequest.$inferSelect) => (
                                             <BookingRequestRender
                                                 request={request}

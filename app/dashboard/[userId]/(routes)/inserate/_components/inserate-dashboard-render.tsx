@@ -105,8 +105,8 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     <div className={cn("text-sm  h-full", thisInserat.isPublished ? "text-emerald-600 font-semibold" :
                         "dark:text-gray-100/40 text-gray-700")}>
                         <div className="h-1/2">
-                        {thisInserat.isPublished ? <div className="flex items-center"> 
-                        <Globe2Icon className="mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> 
+                        {thisInserat.isPublished ? <div className="flex items-center justify-center"> 
+                        <Globe2Icon className="sm:mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> 
                         <div className="hidden sm:block"> Veröffentlicht </div> </div> : "Entwurf"}
                         
                         </div>

@@ -82,13 +82,13 @@ const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
     return (
         <div>
             {thisInserat?.isPublished ? (
-                <Button className="text-gray-200 text-xs" size="sm" variant="ghost" onClick={onPrivate}>
-                    <MdLockOutline className="w-4 h-4 mr-2" />   Privat schalten
-                </Button>
+                <div className="text-gray-200 text-xs hover:underline hover:cursor-pointer flex justify-center items-center"  onClick={onPrivate}>
+                    <MdLockOutline className="w-4 h-4 md:mr-2" />   <div className="hidden md:block">Privat schalten</div>
+                </div>
             ) : (
                 canPublish ? (
                     <Button className="text-gray-200 text-xs" size="sm" variant="ghost" onClick={onPublish}>
-                        <MdOutlineLockOpen  className="w-4 h-4 mr-2" />   Veröffentlichen
+                        <MdOutlineLockOpen  className="w-4 h-4 md:mr-2" />   <div className="hidden md:block">Veröffentlichen</div>
                     </Button>
                 ) : (
                     <></>

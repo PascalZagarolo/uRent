@@ -143,11 +143,11 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         <InfoHeadsUp />
                     </div>
                     <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
-                        <h3 className="dark:text-gray-100 sm:text-2xl text-lg font-semibold flex items-center w-full">
-                            <div className="w-2/3 flex">
+                        <h3 className="dark:text-gray-100 sm:text-2xl text-lg font-semibold sm:flex items-center w-full">
+                            <div className="sm:w-2/3 flex w-full">
                                 <MdManageSearch className="mr-4" /> Fahrzeuge verwalten
                             </div>
-                            <div className="w-1/3">
+                            <div className="sm:w-1/3 w-full sm:mt-0 mt-2">
                                 <SelectInserat
                                     foundInserate={foundInserate}
                                 />
@@ -157,7 +157,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         </h3>
                         <p className="text-xs dark:text-gray-200/60 mt-2">
                                 Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
-                                <br/> vollen Überblick über deine Inserate und Fahrzeuge.
+                                <br className="sm:block hidden"/> vollen Überblick über deine Inserate und Fahrzeuge.
                             </p>
                         
                         {selectedInserat?.multi && (
@@ -169,7 +169,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         )}
                         <div className="sm:px-4  sm:flex">
                             <div className="sm:w-3/5 sm:mr-4">
-                                <div className="w-full  dark:bg-[#141414] rounded-md  sm:mt-2">
+                                <div className="w-full  dark:bg-[#141414] rounded-md  mt-2">
                                 {searchParams.vehicleId ? (
                                     <>
                                     <RenderedVehicle
@@ -213,12 +213,12 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                 </div>
                             </div>
                         </div>
-                        <div className="pt-4 px-4">
+                        <div className="pt-4 sm:px-4">
                             <AddAvailability 
                             foundInserate={foundInserate}
                             />
                         </div>
-                        <div className="pb-4 pt-2 px-4">
+                        <div className="pb-4 pt-2 sm:px-4">
                             <AddBooking 
                             foundInserate={foundInserate}
                             />

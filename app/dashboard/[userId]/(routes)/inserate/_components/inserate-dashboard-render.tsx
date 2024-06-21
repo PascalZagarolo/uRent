@@ -109,7 +109,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         <Globe2Icon className="sm:mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> 
                         <div className="hidden sm:block"> Veröffentlicht </div> </div> : "Entwurf"}
                         
-                        </div>
+                        </div>                                                         
                         <div className="h-1/2">
                         <ToggleVisibility 
                         thisInserat={thisInserat}

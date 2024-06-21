@@ -110,10 +110,10 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
 
 
     return (
-        <div className="container mx-auto p-4 border dark:border-none">
-            <div className="mb-4 flex items-center">
+        <div className="sm:container mx-auto w-full sm:p-4 border dark:border-none sm:mt-0 mt-4">
+            <div className="mb-4 sm:flex items-center">
                 {selectedCalendarType === "month" ? (
-                    <>
+                    <div className="flex items-center">
                         <Button onClick={decreaseMonth} className="dark:bg-[#0F0F0F]" variant="ghost">
                             <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                         </Button>
@@ -121,9 +121,9 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                         <Button onClick={increaseMonth} className="dark:bg-[#0F0F0F]" variant="ghost">
                             <ArrowRightCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                         </Button>
-                    </>
+                    </div>
                 ) : (
-                    <>
+                    <div className="flex items-center">
                         <Button onClick={decreaseWeek} className="dark:bg-[#0F0F0F]" variant="ghost">
                             <ArrowLeftCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                         </Button>
@@ -131,21 +131,21 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                         <Button onClick={increaseWeek} className="dark:bg-[#0F0F0F]" variant="ghost">
                             <ArrowRightCircleIcon className="w-4 h-4  hover:cursor-pointer" />
                         </Button>
-                    </>
+                    </div>
                 )}
 
-                <div className="ml-auto">
-                    <div>
+                <div className="sm:ml-auto ">
+                    <div className="w-full mt-2 sm:mt-0">
                         <Button size="sm" variant="ghost"
                             onClick={() => setSelecteCalendarType("month")}
-                            className={cn("text-gray-200/60 hover:text-gray-200/90 rounded-none rounded-l-md",
+                            className={cn("text-gray-200/60 hover:text-gray-200/90 rounded-none rounded-l-md w-1/2",
                                 selectedCalendarType === "month" && "bg-[#0F0F0F] hover:bg-[#131313] text-gray-200 hover:text-gray-300")}
                         >
                             <MdCalendarMonth className="w-4 h-4 mr-2" />   Monatsansicht
                         </Button>
                         <Button size="sm" variant="ghost"
                             onClick={() => setSelecteCalendarType("week")}
-                            className={cn("text-gray-200/60 hover:text-gray-200/90 rounded-none rounded-r-md",
+                            className={cn("text-gray-200/60 hover:text-gray-200/90 rounded-none rounded-r-md w-1/2",
                                 selectedCalendarType === "week" && "bg-[#0F0F0F] hover:bg-[#131313] text-gray-200 hover:text-gray-300")}
                         >
                             <MdOutlineViewWeek className="w-4 h-4 mr-2" /> Wochenansicht
@@ -195,7 +195,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                 </div>
             )}
             {selectedCalendarType === "week" && (
-                <div className="grid grid-cols-7 gap-2">
+                <div className="grid grid-cols-7 sm:gap-2 gap-1">
                     {WEEKDAYS.map((day) => {
                         return (
                             <div key={day} className="font-bold text-center bg-gray-200 dark:bg-[#0F0F0F]">

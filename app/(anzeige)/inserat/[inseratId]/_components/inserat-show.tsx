@@ -65,12 +65,12 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
 
                 <div className=" text-md sm:text-base ml-2 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
-                            bg-[#1d1f2b] sm:px-8 rounded-lg p-4 w-3/4 truncate overflow-hidden">
-                    <div className="w-full ">
-                        <div className="text-left truncate">
+                            bg-[#1d1f2b] sm:px-8 rounded-lg p-4 w-3/4  overflow-hidden">
+                    
+                        <div className="w-full line-clamp-1 break-all overflow-hidden">
                             {thisInserat.title}
                         </div>
-                    </div>
+                    
                 </div>
 
                 <div className="flex justify-end ml-2 sm:ml-2 bg-[#1d1f2b] w-1/8  p-4 rounded-lg sm:p-4">
@@ -88,7 +88,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
                 </div>
             </div>
 
-            <div className="mt-4 rounded-md  text-gray-100   flex justify-center ">
+            <div className="mt-4 rounded-md w-full text-gray-100   flex justify-center ">
                 <InseratImageCarousel 
                 imagesData={usedImages} />
             </div>

@@ -28,9 +28,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 
+
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+
+  const [receivesEmails, setReceivesEmails] = useState<boolean>(true);
+
   const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
@@ -43,15 +47,26 @@ export const RegisterForm = () => {
       email: "",
       password: "",
       name: "",
+      receivesEmails: true
     },
   });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+    
     setError("");
     setSuccess("");
 
+    const value = {
+      email: values.email,
+      password: values.password,
+      name: values.name,
+      receivesEmails: receivesEmails
+    }
+
+    console.log(onSubmit)
+
     startTransition(() => {
-      register(values)
+      register(value)
         .then((data) => {
           setError(data.error);
           setSuccess(data.success);
@@ -169,7 +184,10 @@ export const RegisterForm = () => {
               <AccordionTrigger>abmelden.</AccordionTrigger>
                   </div>
                   <AccordionContent className="border-none flex items-center gap-x-2">
-                    <Checkbox className="h-3 w-3" /> <Label className="text-xs"> Ich möchte keine Emails von uRent bekommen </Label>
+                    <Checkbox className="h-3 w-3" 
+                    checked={!receivesEmails}
+                    onCheckedChange={() => setReceivesEmails(!receivesEmails)}
+                    /> <Label className="text-xs"> Ich möchte keine Emails von uRent bekommen </Label>
                   </AccordionContent>
                 </AccordionItem> 
               </Accordion>

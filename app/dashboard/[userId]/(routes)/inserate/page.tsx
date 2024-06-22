@@ -95,7 +95,7 @@ const InserateOverview = async ({
                                 existingSubscription={currentUser?.subscription as any}
                                 />
                             </div>
-                            <div className="sm:px-4 font-semibold text-sm flex items-center gap-x-4">
+                            <div className="sm:px-4 font-semibold text-sm flex items-center gap-x-4 mb-2 sm:mb-0">
                                 <div>
                                     <FaChartPie  className="w-6 h-6" />
                                 </div>

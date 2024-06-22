@@ -25,7 +25,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
 }) => {
 
-    console.log(inserateArray.length);
+    
 
 
     //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
@@ -177,8 +177,8 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                     </Select>
                 </div>
             </div>
-            <div className="ml-auto w-full flex justify-end mt-2">
-                <div className="gap-x-2 flex items-center mr-4">
+            <div className="sm:ml-auto w-full flex sm:justify-end justify-between  mt-2">
+                <div className="gap-x-2 flex items-center mr-4 mb-2 sm:mb-0">
                     <div className="flex items-center">
                         <Checkbox
                             checked={!selectedVisibility}

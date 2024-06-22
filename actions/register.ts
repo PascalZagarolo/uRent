@@ -33,7 +33,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Email existiert bereits" };
   }
 
-  console.log(receivesEmails)
+ 
 
   try {
 
@@ -52,14 +52,16 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         name: userTable.name,
       })
 
+
+      /*
     const session = await lucia.createSession(userId, {
       expiresIn: 60 * 60 * 24 * 30,
     })
 
     const sessionToken = lucia.createSessionCookie(session.id);
-    console.log(sessionToken)
+    
     cookies().set(sessionToken.name, sessionToken.value, sessionToken.attributes);
-
+*/
     const verificationToken = await generateVerificationToken(email);
     await sendVerificationEmail(
       verificationToken.email,

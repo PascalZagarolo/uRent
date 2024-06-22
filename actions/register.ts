@@ -24,7 +24,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Ungültige Angaben" };
   }
 
-  const { email, password, name } = validatedFields.data;
+  const { email, password, name, receivesEmails } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const existingUser = await getUserByEmail(email);
@@ -32,6 +32,8 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   if (existingUser) {
     return { error: "Email existiert bereits" };
   }
+
+  console.log(receivesEmails)
 
   try {
 
@@ -43,6 +45,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         name: name,
         email: email,
         password: hashedPassword,
+        newsletter: receivesEmails
       })
       .returning({
         id: userTable.id,

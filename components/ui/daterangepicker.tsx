@@ -18,6 +18,7 @@ import { Switch } from './switch'
 import { ChevronUpIcon, ChevronDownIcon, CheckIcon } from '@radix-ui/react-icons'
 import { cn } from '@/lib/utils'
 import { getDaysInMonth } from 'date-fns'
+import { de } from 'date-fns/locale'
 
 export interface DateRangePickerProps {
   /** Click handler for applying the updates from DateRangePicker. */
@@ -362,8 +363,8 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               </div>
             )}
           </div>
-          <div className="pl-1 opacity-60 -mr-2 scale-125">
-            {isOpen ? (<ChevronUpIcon width={24} />) : (<ChevronDownIcon width={24} />)}
+          <div className="pl-1 opacity-60 -mr-2 scale-125 ">
+            {isOpen ? (<ChevronUpIcon width={24} className='' />) : (<ChevronDownIcon width={24} />)}
           </div>
         </Button>
       </PopoverTrigger>
@@ -413,8 +414,9 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                 )}
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
-                    <DateInput
+                  <DateInput
                       value={range.from}
+                      
                       onChange={(date) => {
                         const toDate =
                           range.to == null || date > range.to ? date : range.to
@@ -499,6 +501,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               <div>
                 <Calendar
                   mode="range"
+                  locale={de}
                   onSelect={(value: { from?: Date, to?: Date } | undefined) => {
                     if (value?.from != null) {
                       setRange({ from: value.from, to: value?.to })
@@ -540,9 +543,10 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
             }}
             variant="ghost"
           >
-            Cancel
+            Abbrechen
           </Button>
           <Button
+          className='bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300'
             onClick={() => {
               setIsOpen(false)
               if (

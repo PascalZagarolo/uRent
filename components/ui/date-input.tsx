@@ -47,8 +47,8 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
     const newDate = { ...date, [field]: value }
     const d = new Date(newDate.year, newDate.month - 1, newDate.day)
     return d.getFullYear() === newDate.year &&
-           d.getMonth() + 1 === newDate.month &&
-           d.getDate() === newDate.day
+      d.getMonth() + 1 === newDate.month &&
+      d.getDate() === newDate.day
   }
 
   const handleInputChange =
@@ -196,7 +196,27 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
     }
 
   return (
-    <div className="flex border rounded-lg items-center text-sm px-1">
+    <div className="flex  rounded-lg items-center text-sm p-2 bg-[#131313]">
+<input
+        type="text"
+        ref={dayRef}
+        max={31}
+        maxLength={2}
+        value={date.day.toString()}
+        onChange={handleInputChange('day')}
+        onKeyDown={handleKeyDown('day')}
+        onFocus={(e) => {
+          if (window.innerWidth > 1024) {
+            e.target.select()
+          }
+        }}
+        onBlur={handleBlur('day')}
+        className="p-0 outline-none w-7 border-none text-center"
+        placeholder="D"
+      />
+      <span className="opacity-20 -mx-px">/</span>
+      
+
       <input
         type="text"
         ref={monthRef}
@@ -213,24 +233,6 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
         onBlur={handleBlur('month')}
         className="p-0 outline-none w-6 border-none text-center"
         placeholder="M"
-      />
-      <span className="opacity-20 -mx-px">/</span>
-      <input
-        type="text"
-        ref={dayRef}
-        max={31}
-        maxLength={2}
-        value={date.day.toString()}
-        onChange={handleInputChange('day')}
-        onKeyDown={handleKeyDown('day')}
-        onFocus={(e) => {
-          if (window.innerWidth > 1024) {
-            e.target.select()
-          }
-        }}
-        onBlur={handleBlur('day')}
-        className="p-0 outline-none w-7 border-none text-center"
-        placeholder="D"
       />
       <span className="opacity-20 -mx-px">/</span>
       <input

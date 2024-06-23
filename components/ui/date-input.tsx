@@ -214,7 +214,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
         className="p-0 outline-none w-7 border-none text-center"
         placeholder="D"
       />
-      <span className="opacity-20 -mx-px">/</span>
+      <span className="opacity-20 -mx-px font-black">.</span>
       
 
       <input
@@ -234,7 +234,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
         className="p-0 outline-none w-6 border-none text-center"
         placeholder="M"
       />
-      <span className="opacity-20 -mx-px">/</span>
+      <span className="opacity-20 -mx-px font-black">.</span>
       <input
         type="text"
         ref={yearRef}

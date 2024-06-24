@@ -45,14 +45,14 @@ export async function dynamicSearch (
 
             for (const booking of pInserat.bookings) {
                 //booking starts AND ends before the searched Period
-                if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                if (!(booking.startDate <= windowStart) || !(booking.endDate <= windowStart)
                     //booking starts or ends on the first OR last day of the searched period
-                    || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
-                        || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
+                    || (isSameDay(booking.startDate, windowStart) || isSameDay(booking.endDate, windowStart)
+                        || isSameDay(booking.endDate, windowStart) || isSameDay(booking.startDate, windowStart))
                     //booking
-                    && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
+                    && (!(booking.endDate > windowEnd) || !(booking.startDate > windowEnd))
                 ) {
-                    if ((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)) {
+                    if ((isSameDay(booking.startDate, windowStart) && (isSameDay(booking.endDate, windowStart))) || isSameDay(booking.endDate, windowStart)) {
                         let usedStart;
                         if (isSameDay(booking.startDate, booking.endDate)) {
                             usedStart = booking.startPeriod;
@@ -64,7 +64,7 @@ export async function dynamicSearch (
     
                             startDateAppointments.add(i);
                         }
-                        if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                        if (startDateAppointments.has("1440") && !isSameDay(windowStart, windowEnd)) {
                             break;
                         }
                     } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
@@ -83,18 +83,18 @@ export async function dynamicSearch (
     
                             endDateAppointments.add(i);
                         }
-                        if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                        if (endDateAppointments.has("0") && !isSameDay(windowStart, windowEnd)) {
                             return false;
-                        } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+                        } else if (booking.endDate > windowEnd && booking.startDate > windowEnd) {
                             console.log(booking)
     
                         }
-                    } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+                    } else if (booking.endDate > windowEnd && booking.startDate > windowEnd) {
     
                     }
                     else {
                         console.log(booking)
-                        console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
+                        console.log(booking.endDate > windowEnd && booking.startDate > windowEnd)
                         break;
                     }
                 }

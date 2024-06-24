@@ -25,6 +25,8 @@ export async function dynamicSearch (
         //Sliding Window approach
         const foundAvailability : string[] = [];
 
+        const regAmount = Number(reqTime.slice(0, -1));
+        const regTime = reqTime.slice(-1);
 
         if (pInserat.bookings.length === 0) {
             return true;
@@ -37,98 +39,107 @@ export async function dynamicSearch (
         let startDateAppointments = new Set<any>();
         let endDateAppointments = new Set<any>();
 
-        for (const booking of pInserat.bookings) {
-            //booking starts AND ends before the searched Period
-            if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
-                //booking starts or ends on the first OR last day of the searched period
-                || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
-                    || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
-                //booking
-                && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
-            ) {
-                if ((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)) {
-                    let usedStart;
-                    if (isSameDay(booking.startDate, booking.endDate)) {
-                        usedStart = booking.startPeriod;
-                    } else {
-                        usedStart = "0"
-                    }
 
-                    for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+        for(let windowEnd = new Date(usedPeriodBegin.getDay() + regAmount); windowEnd <= usedPeriodEnd; windowEnd.setDate(windowEnd.getDate() + 1)) {
+            let windowStart = new Date(windowEnd.getDay() - regAmount);
 
-                        startDateAppointments.add(i);
+            for (const booking of pInserat.bookings) {
+                //booking starts AND ends before the searched Period
+                if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                    //booking starts or ends on the first OR last day of the searched period
+                    || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
+                        || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
+                    //booking
+                    && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
+                ) {
+                    if ((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)) {
+                        let usedStart;
+                        if (isSameDay(booking.startDate, booking.endDate)) {
+                            usedStart = booking.startPeriod;
+                        } else {
+                            usedStart = "0"
+                        }
+    
+                        for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+    
+                            startDateAppointments.add(i);
+                        }
+                        if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                            break;
+                        }
+                    } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
+                        || isSameDay(booking.startDate, usedPeriodEnd)) {
+    
+                        let usedEnd;
+    
+                        if (isSameDay(booking.startDate, booking.endDate)) {
+                            usedEnd = booking.endPeriod;
+                        } else {
+    
+                            usedEnd = "1440";
+                        }
+    
+                        for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+    
+                            endDateAppointments.add(i);
+                        }
+                        if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                            return false;
+                        } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+                            console.log(booking)
+    
+                        }
+                    } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+    
                     }
-                    if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                        return false;
+                    else {
+                        console.log(booking)
+                        console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
+                        break;
                     }
-                } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
-                    || isSameDay(booking.startDate, usedPeriodEnd)) {
+                }
 
+                
+            }
+        
+            if ((startTime || endTime)) {
+            
+                if (startTime) {
                     let usedEnd;
-
-                    if (isSameDay(booking.startDate, booking.endDate)) {
-                        usedEnd = booking.endPeriod;
+                    console.log(startDateAppointments)
+                    if (isSameDay(windowStart, windowEnd) && endTime) {
+                        usedEnd = endTime;
                     } else {
-
                         usedEnd = "1440";
                     }
-
-                    for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
-
-                        endDateAppointments.add(i);
+    
+                    for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                        if (startDateAppointments.has(Number(i))) {
+                            break;
+                        }
                     }
-                    if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                        return false;
-                    } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
-                        console.log(booking)
-
-                    }
-                } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
-
                 }
-                else {
-                    console.log(booking)
-                    console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
-                    return false;
+                if (endTime) {
+                    let usedEnd;
+                    if (isSameDay(windowStart, windowEnd) && startTime) {
+                        usedEnd = startTime;
+                    } else {
+                        usedEnd = "0";
+                    }
+    
+                    console.log(endDateAppointments)
+                    for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                        if (endDateAppointments.has(Number(i))) {
+                            break;
+                        }
+                    }
                 }
             }
+           
+    
+            return true;
+
         }
-
-        if ((startTime || endTime)) {
-            console.log("saunoidas")
-            if (startTime) {
-                let usedEnd;
-                console.log(startDateAppointments)
-                if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
-                    usedEnd = endTime;
-                } else {
-                    usedEnd = "1440";
-                }
-
-                for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
-                    if (startDateAppointments.has(Number(i))) {
-                        return false;
-                    }
-                }
-            }
-            if (endTime) {
-                let usedEnd;
-                if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
-                    usedEnd = startTime;
-                } else {
-                    usedEnd = "0";
-                }
-
-                console.log(endDateAppointments)
-                for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
-                    if (endDateAppointments.has(Number(i))) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
     })
 
     

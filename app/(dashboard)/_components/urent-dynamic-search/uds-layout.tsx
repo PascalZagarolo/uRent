@@ -96,9 +96,9 @@ const UdsLayout = () => {
                                         <SelectItem value="4h">4 Stunden</SelectItem>
                                         <SelectItem value="1d">1 Tag</SelectItem>
                                         <SelectItem value="3d">3 Tage</SelectItem>
-                                        <SelectItem value="1w">1 Woche</SelectItem>
-                                        <SelectItem value="2w">2 Wochen</SelectItem>
-                                        <SelectItem value="1m">1 Monat</SelectItem>
+                                        <SelectItem value="7d">1 Woche</SelectItem>
+                                        <SelectItem value="14d">2 Wochen</SelectItem>
+                                        <SelectItem value="30d">1 Monat</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>

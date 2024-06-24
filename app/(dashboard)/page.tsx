@@ -44,6 +44,8 @@ interface MainPageProps {
         periodEnd: string,
         startTime: number,
         endTime: number,
+        startDateDynamic: string,
+        endDateDynamic: string,
 
         location: string,
         amount: string,
@@ -171,6 +173,8 @@ const Main = cache(async ({
                             periodEnd={searchParams.periodEnd}
                             startTime={searchParams.startTime}
                             endTime={searchParams.endTime}
+                            startDateDynamic={searchParams.startDateDynamic}
+                            endDateDynamic={searchParams.endDateDynamic}
 
                             location={searchParams.location}
                             amount={searchParams.amount}
@@ -213,7 +217,7 @@ const Main = cache(async ({
                             axisMax={searchParams.axisMax}
                             brake={searchParams.brake}
 
-                            currentUser={currentUser}
+                            currentUser={currentUser as any}
 
                             volume={searchParams.volume}
                             loading_l={searchParams.loading_l}

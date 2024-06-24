@@ -31,6 +31,8 @@ interface RelevanteInserateProps {
     periodEnd: string;
     startTime : number,
     endTime : number,
+    startDateDynamic: string,
+    endDateDynamic: string,
 
     location: string;
     amount: string;
@@ -102,6 +104,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     periodEnd,
     startTime,
     endTime,
+    startDateDynamic,
+    endDateDynamic,
 
     location,
     amount,
@@ -182,6 +186,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         periodEnd: periodEnd,
         startTime : startTime,
         endTime : endTime,
+        startDateDynamic: startDateDynamic,
+        endDateDynamic: endDateDynamic,
 
         location: location,
         amount: Number(amount),

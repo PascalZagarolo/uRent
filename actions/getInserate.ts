@@ -29,6 +29,8 @@ type GetInserate = {
     periodEnd?: string;
     startTime?: number;
     endTime?: number;
+    startDateDynamic?: string;
+    endDateDynamic?: string;
 
     location?: string;
     amount?: number;
@@ -112,6 +114,8 @@ export const getInserate = cache(async ({
     periodEnd,
     startTime,
     endTime,
+    startDateDynamic,
+    endDateDynamic,
 
 
     location,

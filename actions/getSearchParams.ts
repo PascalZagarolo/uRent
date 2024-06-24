@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation"
 
 
+
 export const getSearchParamsFunction = (currentCategory? : string, currentCategory2? : string) => {
 
     const searchParams = useSearchParams();
@@ -15,6 +16,9 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         periodEnd: searchParams.get("periodEnd"),
         startTime : searchParams.get("startTime"),
         endTime : searchParams.get("endTime"),
+        startDateDynamic : searchParams.get("startDateDynamic"),
+        endDateDynamic : searchParams.get("endDateDynamic"),
+        reqTime : searchParams.get("reqTime"),
         /*
         page : searchParams.get("page"),
         */

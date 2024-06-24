@@ -6,13 +6,50 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { LuCalendarSearch } from "react-icons/lu";
+
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { start } from "repl";
+import { useSavedSearchParams } from "@/store";
+import TimePeriodFormFilter from "../_smart-filter/_components/timeperiod";
+import TimeFilterUds from "./time-filter-uds";
 
 const UdsLayout = () => {
 
     const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
+    const [reqTime, setReqTime] = useState("");
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+
+
+    useEffect(() => {
+        if (startDate) {
+            changeSearchParams("startDateDynamic", format(startDate, "dd-MM-yyyy"));
+        }
+
+        if (endDate) {
+            changeSearchParams("endDateDynamic", format(endDate, "dd-MM-yyyy"));
+        }
+    }, [startDate, endDate])
+
+    useEffect(() => {
+        if (reqTime) {
+            changeSearchParams("reqTime", reqTime);
+        }
+    }, [reqTime])
 
 
 
@@ -27,15 +64,48 @@ const UdsLayout = () => {
                         Mietzeitraum
                     </Label>
                     <div className="">
-                    <DateRangePicker
-                        onUpdate={(values) => console.log(values)}
-                        initialDateFrom="2023-01-01"
-                        initialDateTo="2023-12-31"
-                        align="start"
-                        locale="de"
-                        showCompare={false}
-                        
-                    />
+                        <DateRangePicker
+                            onUpdate={(values) => {
+                                setStartDate(values.range.from);
+                                setEndDate(values.range.to);
+                                console.log(values);
+                            }}
+                            initialDateFrom="2023-01-01"
+                            initialDateTo="2023-12-31"
+                            align="start"
+                            locale="de"
+                            showCompare={false}
+
+                        />
+                    </div>
+                    <div className="w-full mt-1 ">
+                        <Label className="pb-1">
+                            Mietdauer
+                        </Label>
+                        <div className="">
+                            <Select
+                                onValueChange={(value) => setReqTime(value)}
+                            >
+                                <SelectTrigger className="w-full bg-[#13141C] border-none">
+                                    <SelectValue placeholder="Wähle deine gewünschte Mietdauer" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-[#13141C] border-none">
+                                    <SelectGroup>
+
+                                        <SelectItem value="1h">1 Stunde</SelectItem>
+                                        <SelectItem value="4h">4 Stunden</SelectItem>
+                                        <SelectItem value="1d">1 Tag</SelectItem>
+                                        <SelectItem value="3d">3 Tage</SelectItem>
+                                        <SelectItem value="1w">1 Woche</SelectItem>
+                                        <SelectItem value="2w">2 Wochen</SelectItem>
+                                        <SelectItem value="1m">1 Monat</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                    <div className="mt-1">
+                        <TimeFilterUds />
                     </div>
                 </div>
             </div>

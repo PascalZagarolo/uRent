@@ -16,6 +16,7 @@ export async function dynamicSearch (
 
 ) : Promise<any> {
 
+   
 
     const filterAvailability = cache((pInserat: any) => {
         
@@ -140,8 +141,11 @@ export async function dynamicSearch (
             return true;
 
         }
+
+        
     })
 
+    filterAvailability(pInserat)
     
 }
 

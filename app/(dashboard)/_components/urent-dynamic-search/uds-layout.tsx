@@ -38,11 +38,11 @@ const UdsLayout = () => {
 
 
     useEffect(() => {
-        if (startDate && !initialLoad) {
+        if (startDate) {
             changeSearchParams("startDateDynamic", format(startDate, "dd-MM-yyyy"));
         }
 
-        if (endDate && !initialLoad) {
+        if (endDate) {
             changeSearchParams("endDateDynamic", format(endDate, "dd-MM-yyyy"));
         }
     }, [startDate, endDate])
@@ -68,13 +68,8 @@ const UdsLayout = () => {
                     <div className="">
                         <DateRangePicker
                             onUpdate={(values) => {
-                                if (initialLoad) {
-                                    setIsInitialLoad(false);
-                                } else {
                                     setStartDate(values.range.from);
                                     setEndDate(values.range.to);
-                                }
-
                             }}
                             initialDateFrom="2023-01-01"
                             initialDateTo="2023-12-31"

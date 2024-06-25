@@ -7,6 +7,7 @@ import { NextResponse } from "next/server";
 import { lkwAttribute, pkwAttribute } from '../../../db/schema';
 import { cache } from "react";
 import { isAfter, isBefore, isEqual, isSameDay } from "date-fns";
+import { dynamicSearch } from "@/actions/dynamic-search";
 
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
     const r = 6371;
@@ -25,7 +26,7 @@ export async function PATCH(
     try {
         const values = await req.json();
 
-        const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice, end, start, begin,
+        const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice, end, start, begin, startDateDynamic, endDateDynamic, reqTime,
             //LKW
             lkwBrand, application, loading, drive, weightClass, weightClassMax, seats, seatsMax,
             //PKW
@@ -59,7 +60,7 @@ export async function PATCH(
             return bAge && bLicense && bCaution;
         }
 
-        const PkwFilter = (pInserat: typeof inserat) => {
+        const PkwFilter = (pInserat: any) => {
 
             const usedInitial = initial ? new Date(initial) : null;
 
@@ -254,7 +255,7 @@ export async function PATCH(
                 && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight;
         }
 
-        const TransportFilter = (pInserat: typeof inserat) => {
+        const TransportFilter = (pInserat: any) => {
 
             const usedInitial = initial ? new Date(initial) : null;
 
@@ -440,7 +441,7 @@ export async function PATCH(
             return true;
         })
 
-        const filterAvailabilityMulti = cache((pInserat: typeof inserat) => {
+        const filterAvailabilityMulti = cache((pInserat: any) => {
             console.log("...")
 
             if (pInserat.bookings.length === 0) {
@@ -599,16 +600,13 @@ export async function PATCH(
             }
         })
 
-        const filteredArray = results.filter((pInserat) => {
+        const filteredArray = results.filter((pInserat : any) => {
 
             const conditions = ConditionFilter(pInserat);
 
             if (!conditions) return false;
 
             if (periodBegin && periodEnd) {
-
-
-
                 let available;
 
                 if (pInserat.multi && pInserat.vehicles.length > 0) {
@@ -618,6 +616,16 @@ export async function PATCH(
                 }
 
                 if (!available) return false;
+            } else if(startDateDynamic && endDateDynamic) {
+                dynamicSearch(
+                    pInserat.bookings,
+                     startTime,
+                    endTime,
+                    startDateDynamic,
+                    endDateDynamic,
+                    reqTime,
+                    pInserat
+                )
             }
 
             switch (thisCategory) {

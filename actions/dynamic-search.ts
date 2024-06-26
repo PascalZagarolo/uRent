@@ -19,8 +19,6 @@ export async function dynamicSearch (
    
 
     const filterAvailability = cache((pInserat: any) => {
-        
-
         //save found availabilities in array => can be type of Hours, days, weeks, months => e.g 3d => then check length of array, array.length >= reqTime.number -1
         //return true if length is >= reqTime.number -1 then break, else false
         //Sliding Window approach
@@ -33,7 +31,6 @@ export async function dynamicSearch (
             return true;
         }
         //set start and date to same date if the user only provides one
-
         const usedPeriodBegin = new Date(startDateDynamic);
         const usedPeriodEnd = new Date(endDateDynamic);
 
@@ -88,7 +85,6 @@ export async function dynamicSearch (
                             return false;
                         } else if (booking.endDate > windowEnd && booking.startDate > windowEnd) {
                             console.log(booking)
-    
                         }
                     } else if (booking.endDate > windowEnd && booking.startDate > windowEnd) {
     
@@ -98,13 +94,11 @@ export async function dynamicSearch (
                         console.log(booking.endDate > windowEnd && booking.startDate > windowEnd)
                         break;
                     }
-                }
-
-                
+                }  
             }
         
+
             if ((startTime || endTime)) {
-            
                 if (startTime) {
                     let usedEnd;
                     console.log(startDateAppointments)
@@ -136,16 +130,17 @@ export async function dynamicSearch (
                     }
                 }
             }
-           
-    
             return true;
-
         }
 
-        
+        return false;
     })
 
-    filterAvailability(pInserat)
+    let isAvailable = false;
+
+    if(filterAvailability(pInserat)){
+        isAvailable = true;
+    }
     
 }
 

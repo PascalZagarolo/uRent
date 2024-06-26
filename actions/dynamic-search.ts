@@ -1,5 +1,5 @@
-import { inserat } from '@/db/schema';
-import { isSameDay } from 'date-fns';
+
+import { format, isBefore, isSameDay, toDate } from 'date-fns';
 import { cache } from 'react';
 
 
@@ -28,8 +28,10 @@ export async function dynamicSearch (
         const regTime = reqTime.slice(-1);
 
         if (pInserat.bookings.length === 0) {
+            
             return true;
         }
+        console.log(new Date(format(toDate(startDateDynamic), "dd-MM-yyyy")))
         //set start and date to same date if the user only provides one
         const usedPeriodBegin = new Date(startDateDynamic);
         const usedPeriodEnd = new Date(endDateDynamic);
@@ -38,9 +40,13 @@ export async function dynamicSearch (
         let endDateAppointments = new Set<any>();
 
 
-        for(let windowEnd = new Date(usedPeriodBegin.getDay() + regAmount); windowEnd <= usedPeriodEnd; windowEnd.setDate(windowEnd.getDate() + 1)) {
-            let windowStart = new Date(windowEnd.getDay() - regAmount);
+        
+        console.log(usedPeriodBegin)
 
+        for(let windowEnd = new Date(usedPeriodBegin.getDay() + regAmount); (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd)) ; 
+        windowEnd.setDate(windowEnd.getDate() + 1)) {
+            let windowStart = new Date(windowEnd.getDay() - regAmount);
+            
             for (const booking of pInserat.bookings) {
                 //booking starts AND ends before the searched Period
                 if (!(booking.startDate <= windowStart) || !(booking.endDate <= windowStart)
@@ -136,11 +142,8 @@ export async function dynamicSearch (
         return false;
     })
 
-    let isAvailable = false;
-
-    if(filterAvailability(pInserat)){
-        isAvailable = true;
-    }
+    const isAvailable = filterAvailability(pInserat);
+    return isAvailable
     
 }
 

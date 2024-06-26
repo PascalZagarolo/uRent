@@ -39,11 +39,11 @@ const UdsLayout = () => {
 
     useEffect(() => {
         if (startDate) {
-            changeSearchParams("startDateDynamic", format(startDate, "dd-MM-yyyy"));
+            changeSearchParams("startDateDynamic", startDate.toISOString());
         }
 
         if (endDate) {
-            changeSearchParams("endDateDynamic", format(endDate, "dd-MM-yyyy"));
+            changeSearchParams("endDateDynamic", endDate.toISOString());
         }
     }, [startDate, endDate])
 

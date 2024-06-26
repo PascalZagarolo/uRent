@@ -5,7 +5,7 @@ import { cache } from 'react';
 
 
 
-export async function dynamicSearch (
+export function dynamicSearch (
     bookings : any[],
     startTime : string,
     endTime : string,
@@ -14,10 +14,9 @@ export async function dynamicSearch (
     reqTime : string,
     pInserat : any
 
-) : Promise<any> {
+){
 
    
-
     const filterAvailability = cache((pInserat: any) => {
         //save found availabilities in array => can be type of Hours, days, weeks, months => e.g 3d => then check length of array, array.length >= reqTime.number -1
         //return true if length is >= reqTime.number -1 then break, else false
@@ -41,12 +40,12 @@ export async function dynamicSearch (
 
 
         
-        console.log(usedPeriodBegin)
+        
 
         for(let windowEnd = new Date(usedPeriodBegin.getDay() + regAmount); (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd)) ; 
         windowEnd.setDate(windowEnd.getDate() + 1)) {
             let windowStart = new Date(windowEnd.getDay() - regAmount);
-            
+            console.log(windowStart.getDay())
             for (const booking of pInserat.bookings) {
                 //booking starts AND ends before the searched Period
                 if (!(booking.startDate <= windowStart) || !(booking.endDate <= windowStart)
@@ -144,6 +143,7 @@ export async function dynamicSearch (
 
     const isAvailable = filterAvailability(pInserat);
     return isAvailable
+    
     
 }
 

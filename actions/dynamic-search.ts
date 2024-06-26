@@ -1,5 +1,5 @@
 
-import { format, isBefore, isSameDay, toDate } from 'date-fns';
+import { addDays, format, isBefore, isSameDay, toDate } from 'date-fns';
 import { cache } from 'react';
 
 
@@ -17,7 +17,7 @@ export function dynamicSearch (
 ){
 
    
-    const filterAvailability = cache((pInserat: any) => {
+    const filterAvailability = ((pInserat: any) => {
         //save found availabilities in array => can be type of Hours, days, weeks, months => e.g 3d => then check length of array, array.length >= reqTime.number -1
         //return true if length is >= reqTime.number -1 then break, else false
         //Sliding Window approach
@@ -27,10 +27,10 @@ export function dynamicSearch (
         const regTime = reqTime.slice(-1);
 
         if (pInserat.bookings.length === 0) {
-            
+            console.log("No Bookings")
             return true;
         }
-        console.log(new Date(format(toDate(startDateDynamic), "dd-MM-yyyy")))
+        
         //set start and date to same date if the user only provides one
         const usedPeriodBegin = new Date(startDateDynamic);
         const usedPeriodEnd = new Date(endDateDynamic);
@@ -38,14 +38,22 @@ export function dynamicSearch (
         let startDateAppointments = new Set<any>();
         let endDateAppointments = new Set<any>();
 
-
+        let startingPoint = addDays(usedPeriodBegin, regAmount);
         
+        console.log(startingPoint)
         
 
-        for(let windowEnd = new Date(usedPeriodBegin.getDay() + regAmount); (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd)) ; 
+        for(let windowEnd = startingPoint; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd)) ; 
         windowEnd.setDate(windowEnd.getDate() + 1)) {
+            
+            console.log(windowEnd);
+            console.log(usedPeriodEnd)
+            console.log(isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd))
+            console.log(isBefore(windowEnd, usedPeriodEnd))
+
             let windowStart = new Date(windowEnd.getDay() - regAmount);
-            console.log(windowStart.getDay())
+            let isAvailable = true;
+            
             for (const booking of pInserat.bookings) {
                 //booking starts AND ends before the searched Period
                 if (!(booking.startDate <= windowStart) || !(booking.endDate <= windowStart)
@@ -68,7 +76,7 @@ export function dynamicSearch (
                             startDateAppointments.add(i);
                         }
                         if (startDateAppointments.has("1440") && !isSameDay(windowStart, windowEnd)) {
-                            break;
+                            isAvailable = false;
                         }
                     } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
                         || isSameDay(booking.startDate, usedPeriodEnd)) {
@@ -97,7 +105,7 @@ export function dynamicSearch (
                     else {
                         console.log(booking)
                         console.log(booking.endDate > windowEnd && booking.startDate > windowEnd)
-                        break;
+                        isAvailable = false;
                     }
                 }  
             }
@@ -115,7 +123,7 @@ export function dynamicSearch (
     
                     for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
                         if (startDateAppointments.has(Number(i))) {
-                            break;
+                            isAvailable = false;
                         }
                     }
                 }
@@ -127,22 +135,28 @@ export function dynamicSearch (
                         usedEnd = "0";
                     }
     
-                    console.log(endDateAppointments)
+                    
                     for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
                         if (endDateAppointments.has(Number(i))) {
-                            break;
+                            isAvailable = false;
                         }
                     }
                 }
             }
-            return true;
+            if(isAvailable) {
+                console.log("Available")
+                return true;
+            }
+            
         }
 
         return false;
     })
 
+    
     const isAvailable = filterAvailability(pInserat);
-    return isAvailable
+    console.log(isAvailable)
+    return isAvailable;
     
     
 }

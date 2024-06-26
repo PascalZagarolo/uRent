@@ -37,14 +37,16 @@ const UdsLayout = () => {
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
 
+    
 
     useEffect(() => {
-        if (startDate) {
+        if (startDate && currentObject["dynamicSearch"]) {
             changeSearchParams("startDateDynamic", startDate.toISOString());
         }
 
-        if (endDate) {
+        if (endDate && currentObject["dynamicSearch"]) {
             changeSearchParams("endDateDynamic", endDate.toISOString());
         }
     }, [startDate, endDate])
@@ -96,6 +98,7 @@ const UdsLayout = () => {
                             align="start"
                             locale="de"
                             showCompare={false}
+                            isDisabled={!currentObject["dynamicSearch"]}
 
                         />
                     </div>
@@ -106,6 +109,8 @@ const UdsLayout = () => {
                         <div className="">
                             <Select
                                 onValueChange={(value) => setReqTime(value)}
+                                disabled={!currentObject["dynamicSearch"]}
+
                             >
                                 <SelectTrigger className="w-full bg-[#13141C] border-none">
                                     <SelectValue placeholder="Wähle deine gewünschte Mietdauer" />
@@ -126,7 +131,9 @@ const UdsLayout = () => {
                         </div>
                     </div>
                     <div className="mt-1">
-                        <TimeFilterUds />
+                        <TimeFilterUds
+                        isDisabled={!currentObject["dynamicSearch"]}
+                        />
                     </div>
                 </div>
             </div>

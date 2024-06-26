@@ -26,7 +26,13 @@ import { useSavedSearchParams } from "@/store";
 import { Label } from "@/components/ui/label";
 
 
-const TimeFilterUds = () => {
+interface TimeFilterUdsProps {
+    isDisabled? : boolean
+}
+
+const TimeFilterUds : React.FC<TimeFilterUdsProps> = ({
+    isDisabled
+}) => {
 
     const router = useRouter();
     const pathname = usePathname();
@@ -184,6 +190,7 @@ const TimeFilterUds = () => {
 
                                     }}
                                     value={startTime}
+                                    disabled={isDisabled}
                                 >
                                     <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none" value={startTime}>
                                         <SelectValue placeholder="Startzeit" />
@@ -221,6 +228,7 @@ const TimeFilterUds = () => {
                                         value ? setEnd(value)  : onDeleteEnd();
                                     }}
                                     value={endTime}
+                                    disabled={isDisabled}
                                 >
 
                                     <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">

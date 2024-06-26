@@ -23,6 +23,8 @@ import { start } from "repl";
 import { useSavedSearchParams } from "@/store";
 import TimePeriodFormFilter from "../_smart-filter/_components/timeperiod";
 import TimeFilterUds from "./time-filter-uds";
+import DynamicSearchConfirm from "./use-dynamic-search";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 const UdsLayout = () => {
 
@@ -58,10 +60,28 @@ const UdsLayout = () => {
     return (
         <div className="mb-2 w-full ">
             <h3 className="flex justify-start text-md font-semibold text-gray-100 items-center  bg-[#1b1f2c] p-2 border-[#1f2332] ">
-                <LuCalendarSearch className="w-4 h-4 mr-2" />   Dynamischer Mietzeitraum
+                <LuCalendarSearch className="w-4 h-4 mr-2" />   Dynamischer Mietzeitraum 
+                <Popover>
+                    <PopoverTrigger>
+                        <InfoCircledIcon className="w-4 h-4 ml-2 text-gray-400" />
+                    </PopoverTrigger>
+                    <PopoverContent>
+                        <div className="text-xs">
+                            <h3 className="text-sm font-semibold mb-1">
+                                Dynamischer Mietzeitraum
+                            </h3>
+                        Falls du flexibler bist, ermöglicht dir unsere dynamische Mietzeitraumsuche,
+                         den perfekten Mietzeitraum für dein Fahrzeug zu finden: <br/> Lege den verfügbaren Zeitraum und die gewünschte Mietdauer 
+                        fest und wähle präzise deinen Abhol- und Rückgabezeitpunkt. <br/> So passt sich die Buchung optimal deinen individuellen Bedürfnissen an.
+                        </div>
+                    </PopoverContent>
+                </Popover>
             </h3>
             <div>
                 <div className="w-full mt-1 px-2">
+                    <div className="py-2">
+                        <DynamicSearchConfirm />
+                    </div>
                     <Label className="pb-1">
                         Mietzeitraum
                     </Label>

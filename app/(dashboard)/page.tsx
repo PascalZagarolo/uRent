@@ -46,6 +46,7 @@ interface MainPageProps {
         endTime: number,
         startDateDynamic: string,
         endDateDynamic: string,
+        reqTime : string,
 
         location: string,
         amount: string,
@@ -175,6 +176,7 @@ const Main = cache(async ({
                             endTime={searchParams.endTime}
                             startDateDynamic={searchParams.startDateDynamic}
                             endDateDynamic={searchParams.endDateDynamic}
+                            reqTime = {searchParams.reqTime}
 
                             location={searchParams.location}
                             amount={searchParams.amount}

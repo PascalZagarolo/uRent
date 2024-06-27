@@ -1,7 +1,19 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useSavedSearchParams } from "@/store";
 
 const DynamicSearchConfirm = () => {
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const onConfirm = () => {
+        changeSearchParams("dynamicSearch", "true");
+    }
+
+    const onNonConfirm = () => {
+        deleteSearchParams("dynamicSearch");
+    }
+
     return ( 
         <div className="flex items-center gap-x-2 justify-center bg-indigo-800 p-2 rounded-md">
             <Label className="font-semibold">
@@ -12,10 +24,10 @@ const DynamicSearchConfirm = () => {
                 className="mt-1" 
                 onCheckedChange={(checked) => {
                     if(checked) {
-                        console.log("ja");
+                        onConfirm();
                         
                     } else {
-                        console.log("nein");
+                        onNonConfirm();
                     }
                 }}
                 />

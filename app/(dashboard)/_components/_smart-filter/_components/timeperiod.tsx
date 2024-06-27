@@ -26,7 +26,13 @@ import { useSavedSearchParams } from "@/store";
 import { Label } from "@/components/ui/label";
 
 
-const TimePeriodFormFilter = () => {
+interface TimePeriodFormFilterProps {
+    isDisabled? : boolean
+}
+
+const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
+    isDisabled
+}) => {
 
     const router = useRouter();
     const pathname = usePathname();
@@ -183,6 +189,7 @@ const TimePeriodFormFilter = () => {
                                         value ? setStart(value)  : onDeleteStart();
 
                                     }}
+                                    disabled={isDisabled}
                                     value={startTime}
                                 >
                                     <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none" value={startTime}>
@@ -220,6 +227,7 @@ const TimePeriodFormFilter = () => {
                                     onValueChange={(value) => {
                                         value ? setEnd(value)  : onDeleteEnd();
                                     }}
+                                    disabled={isDisabled}
                                     value={endTime}
                                 >
 

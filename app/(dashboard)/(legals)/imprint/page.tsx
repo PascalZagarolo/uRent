@@ -37,37 +37,32 @@ const Imprint = async () => {
                                     uRent
                                 </p>
                                 <p className="mt-2">
-                                Lützowstraße 375
+                                x Straße
                                 </p>
                                 <p className="mt-2">
-                                    42653 Solingen
+                                    x
                                 </p>
                                 
                                 <p className="mt-4 text-lg font-semibold">
                                     Vertreten durch:
                                 </p>
                                 <p className="mt-2">
-                                    Vincent Garber
+                                    x
                                 </p>
-                                <p className="mt-2">
-                                    Karl Schad
-                                </p>
-                                <p className="mt-2">
-                                    Pascal Zagarolo
-                                </p>
+                                
                                 <div>
                                     <p className="font-bold mt-4">
                                         Kontakt:
                                     </p>
                                     <div>
                                         <p className="mt-2">
-                                            Telefon: +49(0)1636860555
+                                            Telefon: x
                                         </p>
                                         <p className="mt-2">
-                                            Telefax: +49 30 37 71 96 10
+                                            Telefax: x
                                         </p>
                                         <p className="mt-2">
-                                            E-Mail: <a href="mailto:support@urent-rental.de">support@urent-rental.de</a>
+                                            E-Mail: <a href="mailto:support@urent-rental.de">support@urent-rental.com</a>
                                         </p>
                                     </div>
                                     {/* 

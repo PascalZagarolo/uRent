@@ -8,10 +8,19 @@ const DynamicSearchConfirm = () => {
 
     const onConfirm = () => {
         changeSearchParams("dynamicSearch", "true");
+        deleteSearchParams("periodBegin");
+        deleteSearchParams("periodEnd");
+        deleteSearchParams("endTime");
+        deleteSearchParams("startTime");
     }
 
     const onNonConfirm = () => {
         deleteSearchParams("dynamicSearch");
+        deleteSearchParams("startDateDynamic");
+        deleteSearchParams("endDateDynamic");
+        deleteSearchParams("reqTime");
+        deleteSearchParams("startTime");
+        deleteSearchParams("endTime");
     }
 
     return ( 

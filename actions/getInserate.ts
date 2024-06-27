@@ -12,6 +12,7 @@ import axios from "axios";
 import { isAfter, isBefore, isEqual, isSameDay } from "date-fns";
 import { and, eq, gte, ilike, lte } from "drizzle-orm";
 import { cache } from "react";
+import { dynamicSearch } from "./dynamic-search";
 
 
 
@@ -31,6 +32,7 @@ type GetInserate = {
     endTime?: number;
     startDateDynamic?: string;
     endDateDynamic?: string;
+    reqTime?: string;
 
     location?: string;
     amount?: number;
@@ -116,6 +118,7 @@ export const getInserate = cache(async ({
     endTime,
     startDateDynamic,
     endDateDynamic,
+    reqTime,
 
 
     location,
@@ -184,7 +187,7 @@ export const getInserate = cache(async ({
         if (reqAge && !pInserat?.reqAge) {
             return false;
         }
-        
+
         return bAge && bLicense && bCaution;
     })
 
@@ -216,12 +219,12 @@ export const getInserate = cache(async ({
         const minPower = power ? power : 0;
         const maxPower = powerMax ? powerMax : 100000;
 
-        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
-        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime())
+            || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime())
+            || String(initial)?.trim() === "" || !initial) ? true : false;
         const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
-        
+
         const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
         const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
@@ -252,7 +255,7 @@ export const getInserate = cache(async ({
         const bType = thisType ? String(thisType) === pInserat.pkwAttribute?.type : true;
         const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
         const bFuel = fuel ? fuel === pInserat.pkwAttribute?.fuel : true;
-       
+
         const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
 
         const bVolume = volume ? volume <= pInserat?.pkwAttribute?.loading_volume : true;
@@ -291,12 +294,12 @@ export const getInserate = cache(async ({
         const minPower = power ? power : 0;
         const maxPower = powerMax ? powerMax : 100000;
 
-        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
-        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime())
+            || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime())
+            || String(initial)?.trim() === "" || !initial) ? true : false;
         const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
-        
+
         const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
         const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
@@ -342,9 +345,9 @@ export const getInserate = cache(async ({
 
     const TrailerFilter = cache((pInserat: typeof inserat) => {
 
-        
 
-        
+
+
 
         const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
         const startingWeightClass = weightClass ? weightClass : 0;
@@ -354,12 +357,12 @@ export const getInserate = cache(async ({
         const minAxis = axis ? axis : 0;
         const maxAxis = axisMax ? axisMax : 10;
 
-        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
-        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime())
+            || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime())
+            || String(initial)?.trim() === "" || !initial) ? true : false;
         const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
-        
+
         const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
         const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
@@ -386,7 +389,7 @@ export const getInserate = cache(async ({
 
 
         const bBrake = usesBrake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
-        
+
 
         const bVolume = volume ? volume <= pInserat.trailerAttribute?.loading_volume : true;
         const bLength = loading_l ? loading_l <= pInserat.trailerAttribute?.loading_l : true;
@@ -427,12 +430,12 @@ export const getInserate = cache(async ({
         const minPower = power ? power : 0;
         const maxPower = powerMax ? powerMax : 100000;
 
-        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime()) 
-        || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
-        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime()) 
-        || String(initial)?.trim() === "" || !initial) ? true : false;
+        const searchedMaxInitial = (initialMax instanceof Date && !isNaN(initialMax.getTime())
+            || String(initialMax)?.trim() === "" || !initialMax) ? true : false;
+        const searchedMinInitial = (initial instanceof Date && !isNaN(initial.getTime())
+            || String(initial)?.trim() === "" || !initial) ? true : false;
         const searchedInitial = (searchedMinInitial || searchedMaxInitial) ? true : false;
-        
+
         const minInitial = searchedMinInitial ? new Date(initial) : new Date(1900, 0, 1)
 
         const maxInitial = searchedMaxInitial ? new Date(initialMax) : new Date(2060, 0, 1);
@@ -465,7 +468,7 @@ export const getInserate = cache(async ({
         const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
 
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
-        
+
         const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true
 
         const bVolume = volume ? volume <= pInserat?.transportAttribute?.loading_volume : true;
@@ -722,16 +725,16 @@ export const getInserate = cache(async ({
                     ...ilikeQuery,
                     start ? gte(inserat.price, start) : undefined,
                     end ? lte(inserat.price, end) : undefined,
-                    thisCategory ? eq(inserat.category, thisCategory) : undefined,  
+                    thisCategory ? eq(inserat.category, thisCategory) : undefined,
 
                 )
             ),
             with: {
                 user: {
-                    with : {
-                        subscription : {
-                            select : {
-                                plan : true
+                    with: {
+                        subscription: {
+                            select: {
+                                plan: true
                             }
                         }
                     }
@@ -791,6 +794,32 @@ export const getInserate = cache(async ({
                 }
 
                 if (!available) return false;
+            } else if (startDateDynamic && endDateDynamic) {
+                console.log("test")
+                console.log(pInserat.bookings)
+                console.log(startTime)
+                console.log(endTime)
+                console.log(startDateDynamic)
+                console.log(endDateDynamic)
+                console.log(reqTime)
+
+                const usedStartTime = String(startTime);
+                const usedEndTime = String(endTime);
+                const usedStartDate = new Date(startDateDynamic);
+                const usedEndDate = new Date(endDateDynamic);
+
+                const dSearchResult = dynamicSearch(
+                    pInserat.bookings,
+                    usedStartTime,
+                    usedEndTime,
+                    usedStartDate,
+                    usedEndDate,
+                    reqTime,
+                    pInserat
+                )
+
+                console.log(dSearchResult)
+                if (!dSearchResult) return false;
             }
 
             switch (thisCategory) {
@@ -817,10 +846,10 @@ export const getInserate = cache(async ({
                     return true;
                 }
 
-                
+
             }
 
-            
+
         });
 
 
@@ -828,7 +857,7 @@ export const getInserate = cache(async ({
         let returnedArray = [];
 
         if (location) {
-            
+
             const usedRadius = radius ? radius : 50;
             let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
             console.log(addressObject?.data[0]?.lat);
@@ -861,20 +890,20 @@ export const getInserate = cache(async ({
             returnedArray = filteredArray;
         }
 
-        
+
 
         if (!filter || filter === "relevance") {
             returnedArray.sort((a, b) => {
-                
+
                 const aIsPremium = a.user?.subscription?.subscriptionType === "PREMIUM" || a.user?.subscription?.plan === "ENTERPRISE";
                 const bIsPremium = b.user?.subscription?.subscriptionType === "PREMIUM" || b.user?.subscription?.plan === "ENTERPRISE";
-        
+
                 if (aIsPremium && !bIsPremium) {
                     return -1; // a should come before b
                 } else if (!aIsPremium && bIsPremium) {
-                    return 1; 
+                    return 1;
                 } else {
-                    return 0; 
+                    return 0;
                 }
             });
         }

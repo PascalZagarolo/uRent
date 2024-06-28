@@ -34,16 +34,19 @@ import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { inserat, userTable } from "@/db/schema";
+import { booking, inserat, userTable } from "@/db/schema";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
 import { de } from "date-fns/locale";
 import SelectTimeRange from "./select-time-range";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+import { checkAvailability } from "@/actions/check-availability";
 
 interface AddAvailabilityProps {
-    foundInserate : typeof inserat.$inferSelect[]
+    foundInserate: typeof inserat.$inferSelect[]
 }
 
 
@@ -61,10 +64,12 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
 
+    const [content, SetContent] = useState("");
+
 
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
-    
+
 
     const params = useParams();
     const router = useRouter();
@@ -90,7 +95,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
     const onSubmit = async (value: z.infer<typeof formSchema>) => {
         try {
-            
+
             setIsLoading(true);
             const values = {
                 content: value.content ? value.content : "",
@@ -98,28 +103,52 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 end: currentEnd,
 
                 //Hours
-                startPeriod : startTime,
-                endPeriod : endTime,
+                startPeriod: startTime,
+                endPeriod: endTime,
 
                 vehicleId: currentVehicle,
-                isAvailability : true,
+                isAvailability: true,
             }
-            axios.post(`/api/booking/${currentInserat.id}`, values)
-                .then(() => {
-                    router.refresh();
-                    setCurrentStart(new Date());
-                    setCurrentEnd(new Date());
-                    setCurrentInserat(null);
-                    setCurrentVehicle(null);
-                    setStartTime("");
-                    setEndTime("");
-                })
-            toast.success("Buchung hinzugefügt");
+
+            const isAvailable: {
+                isConflict?: boolean,
+                booking?: any
+            } = checkAvailability(
+                currentInserat,
+                currentStart,
+                currentEnd,
+                startTime,
+                endTime
+            )
+
+
+
+            if (isAvailable.isConflict) {
+                
+                setConflictedBooking(isAvailable.booking)
+                setShowConflict(true);
+                setIsLoading(false);
+
+            } else {
+                axios.post(`/api/booking/${currentInserat.id}`, values)
+                    .then(() => {
+                        router.refresh();
+                        setCurrentStart(new Date());
+                        setCurrentEnd(new Date());
+                        setCurrentInserat(null);
+                        setCurrentVehicle(null);
+                        setStartTime("");
+                        setEndTime("");
+                    })
+                toast.success("Buchung hinzugefügt");
+            }
+
+
 
         } catch (err) {
             toast.error("Fehler beim hinzufügen der Buchung", err)
         } finally {
-            
+
             setIsLoading(false);
         }
     }
@@ -127,11 +156,130 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
 
     useEffect(() => {
-        if(currentStart > currentEnd) {
+        if (currentStart > currentEnd) {
             setCurrentEnd(currentStart);
         }
-    },[currentStart, currentEnd])
+    }, [currentStart, currentEnd])
 
+
+    const [ignore, setIgnore] = useState(false);
+    const [ignoreOnce, setIgnoreOnce] = useState(false);
+    const [showConflict, setShowConflict] = useState(false);
+
+    const [conflictedBooking, setConflictedBooking] = useState<typeof booking.$inferSelect | null>(null);
+
+    function convertMinutesToDayTime(minutes: number): string {
+        // Calculate hours and minutes
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+
+        // Format hours and minutes to two digits
+        const formattedHours = hours.toString().padStart(2, '0');
+        const formattedMinutes = remainingMinutes.toString().padStart(2, '0');
+
+        // Construct the time string in HH:MM format
+        const dayTime = `${formattedHours}:${formattedMinutes} Uhr`;
+
+        return dayTime;
+    }
+
+    const onShowConflictConfirm = () => {
+        try {
+            setIsLoading(true);
+
+            const values = {
+
+                //!SET CONTENT
+                content: "",
+                start: currentStart,
+                end: currentEnd,
+
+                //Hours
+                startPeriod: startTime,
+                endPeriod: endTime,
+
+                vehicleId: currentVehicle,
+                isAvailability: true,
+            }
+
+
+            axios.post(`/api/booking/${currentInserat}`, values)
+                .then(() => {
+                    setIgnoreOnce(false);
+                    setShowConflict(false);
+                    setConflictedBooking(null)
+                    router.refresh();
+                })
+        } catch (error: any) {
+            toast.error("Fehler beim hinzufügen der Buchung", error)
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    if (showConflict) {
+
+        return (
+            <AlertDialog open>
+                <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
+                    <div>
+                        <h3 className="flex items-center text-md font-semibold">
+                            <CalendarCheck2 className="mr-2 w-4 h-4" /> Buchungskonflikt
+                        </h3>
+                        <p className="text-xs text-gray-200/60">
+                            Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
+                        </p>
+                        <div className="mt-2 text-sm text-gray-200/90">
+                            Eine Buchung für diesen Zeitraum existiert bereits. <br /> Möchtest du trotzdem fortfahren?
+                        </div>
+                        {conflictedBooking && (
+                            <div className="mt-2">
+                                <h3 className="font-semibold text-sm text-rose-600">
+                                    Gefundene Buchung:
+                                </h3>
+                                <div className="text-sm">
+                                    {conflictedBooking?.name}
+                                </div>
+                                <div className="text-sm ">
+                                    Zeitraum : {format(conflictedBooking?.startDate, "PPP", { locale: de })} - {format(conflictedBooking?.endDate, "PPP", { locale: de })}
+                                </div>
+                                <div className="w-full flex items-center text-sm gap-x-4">
+                                    <div className="w-1/2">
+                                        Abholzeit : {convertMinutesToDayTime(Number(conflictedBooking?.startPeriod))}
+                                    </div>
+                                    <div className="w-1/2">
+                                        Abgabezeit: {convertMinutesToDayTime(Number(conflictedBooking?.endPeriod))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        <div className="mt-4 space-x-2 flex items-center">
+                            <Checkbox
+                                onCheckedChange={(e) => { setIgnore(Boolean(e)) }}
+                                checked={ignore}
+                            />
+                            <p className="text-xs">
+                                Hinweis in Zukunft ausblenden
+                            </p>
+                        </div>
+                        <div className="flex justify-end mt-2">
+                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
+                                onClick={onShowConflictConfirm}
+                            >
+                                Buchung eintragen
+                            </AlertDialogAction>
+                            <AlertDialogCancel className="dark:border-none" onClick={() => {
+                                setShowConflict(false)
+                            }}>
+                                Abbrechen
+                            </AlertDialogCancel>
+                        </div>
+                    </div>
+                </AlertDialogContent>
+            </AlertDialog>
+        )
+    }
 
     return (
         <Dialog>
@@ -149,11 +297,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                     <div className="mb-8">
                         <h3 className="font-bold flex ">
                             <CalendarClockIcon className="mr-2" /> Verfügbarkeit ändern
-                            
+
                         </h3>
                         <p className="dark:text-gray-200/70 text-xs">
                             Gebe unkompliziert, Zeiträume an, an denen dein Fahrzeug NICHT verfügbar ist.
-                            </p>
+                        </p>
                     </div>
                     <div className="py-4 pr-8">
                         <Label className="">
@@ -167,21 +315,21 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                             }}
                             //@ts-ignore
                             value={currentInserat}
-                            
+
                         >
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2">
                                 {currentInserat ? (
                                     <SelectValue>
-                                
+
                                     </SelectValue>
                                 ) : (
                                     <SelectValue>
                                         Bitte wähle ein Inserat aus
                                     </SelectValue>
                                 )}
-                                
+
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                
+
                                     {foundInserate.map((thisInserat) => (
                                         //@ts-ignore
                                         <SelectItem value={thisInserat} key={thisInserat.id}>
@@ -194,45 +342,45 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                     </div>
                     <div className="pb-8 pr-8">
                         <Label className="">
-                           Fahrzeug
+                            Fahrzeug
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
                                 setCurrentVehicle(selectedValue);
                             }}
-                            
+
                             value={currentVehicle}
-                            
+
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]" 
-                            disabled={//@ts-ignore
-                                !currentInserat ||  currentInserat?.vehicles.length <= 0}>
+                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
+                                disabled={//@ts-ignore
+                                    !currentInserat || currentInserat?.vehicles.length <= 0}>
                                 {currentVehicle ? (
                                     <SelectValue>
-                                
+
                                     </SelectValue>
                                 ) : (
                                     <SelectValue>
                                         Wähle dein Fahrzeug
                                     </SelectValue>
                                 )}
-                                
+
                                 <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                
+
                                     {//@ts-ignore
-                                    currentInserat?.vehicles.length > 0 ? (
-                                        //@ts-ignore
-                                        currentInserat?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
-                                            <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
-                                                {thisVehicle.title}
+                                        currentInserat?.vehicles.length > 0 ? (
+                                            //@ts-ignore
+                                            currentInserat?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
+                                                    {thisVehicle.title}
+                                                </SelectItem>
+                                            ))
+
+                                        ) : (
+                                            <SelectItem value={null}>
+                                                Keine Fahrzeuge verfügbar
                                             </SelectItem>
-                                        ))
-                                        
-                                    ) : (
-                                        <SelectItem value={null}>
-                                            Keine Fahrzeuge verfügbar
-                                        </SelectItem>
-                                    )}
+                                        )}
                                 </SelectContent>
                             </SelectTrigger>
                         </Select>
@@ -258,7 +406,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                                 )}
                                                             >
                                                                 {currentStart ? (
-                                                                    format(currentStart, "PPP", { locale : de})
+                                                                    format(currentStart, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
@@ -279,7 +427,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                             disabled={(date) =>
                                                                 date < new Date() || date < new Date("1900-01-01")
                                                             }
-                                                            
+
                                                             initialFocus
                                                         />
                                                     </PopoverContent>
@@ -307,7 +455,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                                 )}
                                                             >
                                                                 {currentEnd ? (
-                                                                    format(currentEnd, "PPP", { locale : de})
+                                                                    format(currentEnd, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
@@ -341,10 +489,10 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
                                 </div>
                                 <div>
-                                    <SelectTimeRange 
-                                    isSameDay={isSameDay(currentStart, currentEnd)}
-                                    setStartTimeParent={setStartTime}
-                                    setEndTimeParent={setEndTime}
+                                    <SelectTimeRange
+                                        isSameDay={isSameDay(currentStart, currentEnd)}
+                                        setStartTimeParent={setStartTime}
+                                        setEndTimeParent={setEndTime}
                                     />
                                 </div>
                                 <div>
@@ -364,13 +512,13 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         )}
                                     />
                                 </div>
-                                
+
                                 <DialogTrigger asChild>
                                     <Button
                                         className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={isLoading || !currentInserat || !currentStart || !currentEnd || 
+                                        disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
                                             !startTime || !endTime}
                                         type="submit"
                                     >

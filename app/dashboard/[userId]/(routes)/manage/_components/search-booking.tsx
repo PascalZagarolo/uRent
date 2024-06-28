@@ -70,7 +70,7 @@ const SearchBookingInput: React.FC<SearchBookingInputProps> = ({
                             {renderedBookings.length > 0 ? (
                                 <div className="block space-y-2">
                                     {renderedBookings.map((pBooking) => (
-                                        <div className="w-full">
+                                        <div className="w-full" key={pBooking.id}>
                                             <div className="rounded-md text-gray-200 text-sm hover:text-gray-300 w-full justify-start flex">
                                                 <div className="w-full flex items-center gap-x-1">
                                                     <div>

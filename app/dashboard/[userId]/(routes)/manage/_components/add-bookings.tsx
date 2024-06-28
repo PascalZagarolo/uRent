@@ -204,7 +204,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
             setIsLoading(true);
 
             const values = {
-                content: value.content ? value.content : "",
+                content: currentContent,
 
                 //Days
                 start: currentStart,

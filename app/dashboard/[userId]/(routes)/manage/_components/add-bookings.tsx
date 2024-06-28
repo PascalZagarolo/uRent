@@ -161,7 +161,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
             if(isAvailable.isConflict) {
                 setShowConflict(true);
                 setIsLoading(false);
-                return;
+                
                 
             } else {
                 axios.post(`/api/booking/${currentInserat}`, values)
@@ -199,43 +199,88 @@ const AddBooking: React.FC<AddBookingProps> = ({
         }
     }, [currentEnd, currentStart])
 
+    const onShowConflictConfirm = () => {
+        try {
+            setIsLoading(true);
 
-    if(showConflict) {
-        return(
-            <AlertDialog open={!setIgnoreOnce}>
-                <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
-                    <div>
-                        <h3 className="flex items-center text-md font-semibold">
-                            <CalendarCheck2 className="mr-2 w-4 h-4" /> Buchungskonflikt
-                        </h3>
-                        <p className="text-xs text-gray-200/60">
-                            Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
-                        </p>
-                        <div className="mt-2 text-sm text-gray-200/90">
-                            Eine Buchung für diesen Zeitraum existiert bereits. <br/> Möchtest du trotzdem fortfahren?
-                        </div>
-                        <div className="mt-4 space-x-2 flex items-center">
-                            <Checkbox 
-                            onCheckedChange={(e) => {setIgnore(Boolean(e))}}
-                            checked={ignore}
-                            />
-                            <p className="text-xs">
-                                Hinweis in Zukunft ausblenden
-                            </p>
-                        </div>
-                        <div className="flex justify-end mt-2">
-                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300">
-                                Buchung eintragen
-                            </AlertDialogAction>
-                            <AlertDialogCancel className="dark:border-none">
-                                Abbrechen
-                            </AlertDialogCancel>
-                        </div>
-                    </div>
-                </AlertDialogContent>
-            </AlertDialog>
-        )
+            const values = {
+                content: value.content ? value.content : "",
+
+                //Days
+                start: currentStart,
+                end: currentEnd,
+
+                //Hours
+                startPeriod: currentStartTime,
+                endPeriod: currentEndTime,
+
+
+                userId: selectedUser ? selectedUser?.id : null,
+                vehicleId: currentVehicle,
+                buchungsnummer: currentInternal,
+                name: currentName,
+
+
+            }
+
+            axios.post(`/api/booking/${currentInserat}`, values)
+                .then(() => {
+                    setIgnoreOnce(false);
+                    setShowConflict(false);
+                    router.refresh();
+                })
+        } catch(error : any) {
+            toast.error("Fehler beim hinzufügen der Buchung", error)
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
     }
+
+
+    
+        if(showConflict) {
+            
+            return (
+                <AlertDialog open>
+                    <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
+                        <div>
+                            <h3 className="flex items-center text-md font-semibold">
+                                <CalendarCheck2 className="mr-2 w-4 h-4" /> Buchungskonflikt
+                            </h3>
+                            <p className="text-xs text-gray-200/60">
+                                Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
+                            </p>
+                            <div className="mt-2 text-sm text-gray-200/90">
+                                Eine Buchung für diesen Zeitraum existiert bereits. <br/> Möchtest du trotzdem fortfahren?
+                            </div>
+                            <div className="mt-4 space-x-2 flex items-center">
+                                <Checkbox 
+                                onCheckedChange={(e) => {setIgnore(Boolean(e))}}
+                                checked={ignore}
+                                />
+                                <p className="text-xs">
+                                    Hinweis in Zukunft ausblenden
+                                </p>
+                            </div>
+                            <div className="flex justify-end mt-2">
+                                <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
+                                onClick={onShowConflictConfirm}
+                                >
+                                    Buchung eintragen
+                                </AlertDialogAction>
+                                <AlertDialogCancel className="dark:border-none">
+                                    Abbrechen
+                                </AlertDialogCancel>
+                            </div>
+                        </div>
+                    </AlertDialogContent>
+                </AlertDialog>
+            )
+        }
+   
+        
+    
 
     return (
         <Dialog>

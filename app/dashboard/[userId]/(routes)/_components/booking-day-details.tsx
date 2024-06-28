@@ -315,7 +315,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 </Button>
                             </div>
                             <div className="w-full">
-                                Seite {startIndex / 3 + 1} {startIndex} . {endIndex}
+                                Seite {startIndex / 3 + 1} 
                             </div>
                             <div>
                                 <Button size="sm" variant="ghost"

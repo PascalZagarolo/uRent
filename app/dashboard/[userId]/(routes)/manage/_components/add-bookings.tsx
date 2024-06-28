@@ -157,8 +157,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 currentEndTime
             )
 
-            console.log(isAvailable)
-
+            
 
             if(isAvailable.isConflict) {
                 console.log(isAvailable.booking)

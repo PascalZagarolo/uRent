@@ -6,13 +6,16 @@ import { TrashIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
 
 interface DeleteBookingProps {
-    bookingId : string
+    bookingId: string;
+    useHover?: boolean;
 }
 
-const DeleteBooking : React.FC<DeleteBookingProps> = ({
-    bookingId
+const DeleteBooking: React.FC<DeleteBookingProps> = ({
+    bookingId,
+    useHover
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +28,7 @@ const DeleteBooking : React.FC<DeleteBookingProps> = ({
             await axios.delete(`/api/booking/delete/${bookingId}`)
                 .then(() => router.refresh())
             toast.success("Buchung erfolgreich gelöscht")
-        } catch(error : any) {
+        } catch (error: any) {
             console.log(error)
             toast.error("Fehler beim Löschen der Buchung")
         } finally {
@@ -33,20 +36,28 @@ const DeleteBooking : React.FC<DeleteBookingProps> = ({
         }
     }
 
-    return ( 
+    return (
         <AlertDialog>
-            <AlertDialogTrigger>
-                <TrashIcon className="w-4 h-4" />
-            </AlertDialogTrigger>
+            {useHover ? (
+                <AlertDialogTrigger>
+                    <Button variant="ghost">
+                        <TrashIcon className="w-4 h-4" />
+                    </Button>
+                </AlertDialogTrigger>
+            ) : (
+                <AlertDialogTrigger>
+                    <TrashIcon className="w-4 h-4" />
+                </AlertDialogTrigger>
+            )}
             <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
                 <div>
                     <div>
-                    <h1 className="text-md font-semibold flex items-center">
-                       <X className="w-4 h-4 mr-2 text-rose-800" /> Buchung wirklich löschen?
-                    </h1>
-                    <p className="text-xs dark:text-gray-200/70">
-                        Gelöschte Buchungen können nicht wiederhergestellt werden.
-                    </p>
+                        <h1 className="text-md font-semibold flex items-center">
+                            <X className="w-4 h-4 mr-2 text-rose-800" /> Buchung wirklich löschen?
+                        </h1>
+                        <p className="text-xs dark:text-gray-200/70">
+                            Gelöschte Buchungen können nicht wiederhergestellt werden.
+                        </p>
                     </div>
                     <div className="w-full flex justify-end mt-2">
                         <AlertDialogCancel className="dark:border-none">
@@ -59,7 +70,7 @@ const DeleteBooking : React.FC<DeleteBookingProps> = ({
                 </div>
             </AlertDialogContent>
         </AlertDialog>
-     );
+    );
 }
- 
+
 export default DeleteBooking;

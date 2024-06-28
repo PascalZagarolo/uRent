@@ -7,6 +7,7 @@ import { use, useEffect, useState } from "react";
 import { IoCalendar } from "react-icons/io5";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import SearchBookingInput from "../manage/_components/search-booking";
 
 
 interface CalendarAndDetailsProps {
@@ -70,6 +71,11 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
                 </p>
 
 
+            </div>
+            <div className="mt-4 px-4">
+                    <SearchBookingInput
+                    
+                    />
             </div>
             <div className="w-full">
                 <EventCalendar

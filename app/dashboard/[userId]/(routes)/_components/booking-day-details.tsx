@@ -44,6 +44,8 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     const [renderingInserate, setRenderingInserate] = useState(renderedInserate.slice(startIndex, endIndex));
     const [filteredAppointedDay, setFilteredAppointedDay] = useState(false);
 
+    let foundBooking : any;
+
 
     useMemo(() => {
 
@@ -62,7 +64,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
             setRenderingInserate(filteredI.slice(startIndex, endIndex));
         } else {
             const usedList = renderedInserate.slice(startIndex, endIndex);
-           console.log(usedList.length)
+           
             setRenderingInserate(usedList);
         }
 

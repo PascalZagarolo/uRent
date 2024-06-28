@@ -34,7 +34,7 @@ import toast from "react-hot-toast";
 import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { inserat } from "@/db/schema";
+import { booking, inserat } from "@/db/schema";
 import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
@@ -83,6 +83,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [ignore, setIgnore] = useState(false);
     const [ignoreOnce, setIgnoreOnce] = useState(false);
     const [showConflict, setShowConflict] = useState(false);
+
+    const [conflictedBooking, setConflictedBooking] = useState<typeof booking.$inferSelect | null>(null);
 
     const params = useParams();
     const router = useRouter();
@@ -159,8 +161,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
             if(isAvailable.isConflict) {
+                console.log(isAvailable.booking)
+                setConflictedBooking(isAvailable.booking)
                 setShowConflict(true);
                 setIsLoading(false);
+
                 
                 
             } else {
@@ -188,6 +193,21 @@ const AddBooking: React.FC<AddBookingProps> = ({
             }, 1000)
             setIsLoading(false);
         }
+    }
+
+    function convertMinutesToDayTime(minutes: number): string {
+        // Calculate hours and minutes
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        
+        // Format hours and minutes to two digits
+        const formattedHours = hours.toString().padStart(2, '0');
+        const formattedMinutes = remainingMinutes.toString().padStart(2, '0');
+        
+        // Construct the time string in HH:MM format
+        const dayTime = `${formattedHours}:${formattedMinutes} Uhr`;
+    
+        return dayTime;
     }
 
     useEffect(() => {
@@ -224,6 +244,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 .then(() => {
                     setIgnoreOnce(false);
                     setShowConflict(false);
+                    setConflictedBooking(null)
                     router.refresh();
                 })
         } catch(error : any) {
@@ -251,6 +272,27 @@ const AddBooking: React.FC<AddBookingProps> = ({
                             <div className="mt-2 text-sm text-gray-200/90">
                                 Eine Buchung für diesen Zeitraum existiert bereits. <br/> Möchtest du trotzdem fortfahren?
                             </div>
+                            {conflictedBooking && (
+                                <div className="mt-2">
+                                <h3 className="font-semibold text-sm text-rose-600">
+                                    Gefundene Buchung:
+                                </h3>
+                                <div className="text-sm">
+                                    {conflictedBooking?.name} 
+                                </div>
+                                <div className="text-sm ">
+                                    Zeitraum : {format(conflictedBooking?.startDate, "PPP", { locale: de })} - {format(conflictedBooking?.endDate, "PPP", { locale: de })}
+                                </div>
+                                <div className="w-full flex items-center text-sm gap-x-4">
+                                    <div className="w-1/2">
+                                        Abholzeit : {convertMinutesToDayTime(Number(conflictedBooking?.startPeriod))}
+                                    </div>
+                                    <div className="w-1/2">
+                                        Abgabezeit: {convertMinutesToDayTime(Number(conflictedBooking?.endPeriod))}
+                                    </div>
+                                </div>
+                            </div>
+                            )}
                             <div className="mt-4 space-x-2 flex items-center">
                                 <Checkbox 
                                 onCheckedChange={(e) => {setIgnore(Boolean(e))}}
@@ -266,7 +308,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 >
                                     Buchung eintragen
                                 </AlertDialogAction>
-                                <AlertDialogCancel className="dark:border-none">
+                                <AlertDialogCancel className="dark:border-none" onClick={() => {
+                                    setShowConflict(false)
+                                }}>
                                     Abbrechen
                                 </AlertDialogCancel>
                             </div>

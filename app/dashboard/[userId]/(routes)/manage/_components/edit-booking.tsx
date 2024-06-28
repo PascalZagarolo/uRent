@@ -48,12 +48,14 @@ import SelectTimeRange from "./select-time-range";
 interface EditBookingProps {
     foundInserate : typeof inserat.$inferSelect[];
     thisBooking : typeof booking.$inferSelect;
+    useHover? : boolean;
 }
 
 
 const EditBooking: React.FC<EditBookingProps> = ({
     foundInserate,
-    thisBooking
+    thisBooking,
+    useHover
 }) => {
 
     
@@ -151,9 +153,17 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
     return (
         <Dialog>
-                <DialogTrigger >    
+                {useHover ? (
+                    <DialogTrigger asChild>    
+                        <Button variant="ghost">
+                        <PencilIcon className="h-4 w-4" />
+                        </Button>
+                </DialogTrigger>
+                ) : (
+                    <DialogTrigger >    
                         <PencilIcon className="h-4 w-4" />
                 </DialogTrigger>
+                )}
             <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none">
                 <div>
                     <div>

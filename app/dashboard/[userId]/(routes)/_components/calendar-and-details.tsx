@@ -74,7 +74,8 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
             </div>
             <div className="mt-4 px-4">
                     <SearchBookingInput
-                    
+                    foundBooking={involvedBookings}
+                    foundInserate={foundInserate}
                     />
             </div>
             <div className="w-full">

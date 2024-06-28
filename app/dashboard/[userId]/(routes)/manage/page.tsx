@@ -41,28 +41,28 @@ const ManagePage: React.FC<ManagePageProps> = async ({
             )
         ), with: {
             images: true,
-            vehicles : {
-                with : {
-                    inserat : {
-                        with : {
-                            address : true
+            vehicles: {
+                with: {
+                    inserat: {
+                        with: {
+                            address: true
                         }
                     }
                 }
             },
-            address : true,
-            bookings : {
-                with : {
-                    user : true,
-                    vehicle : true,
-                    inserat : true
+            address: true,
+            bookings: {
+                with: {
+                    user: true,
+                    vehicle: true,
+                    inserat: true
                 }
             },
-            bookingRequests : {
-                with : {
-                    inserat : {
-                        with : {
-                            images : true
+            bookingRequests: {
+                with: {
+                    inserat: {
+                        with: {
+                            images: true
                         }
                     }
                 }
@@ -72,20 +72,20 @@ const ManagePage: React.FC<ManagePageProps> = async ({
 
     const foundInserate = await findInserate.execute();
 
-    let involvedBookings : any = [];
+    let involvedBookings: any = [];
 
-    if(foundInserate.length > 0) {
+    if (foundInserate.length > 0) {
         for (let i = 0; i < foundInserate.length; i++) {
-        
+
             const bookings = foundInserate[i].bookings;
-        
+
             involvedBookings.push(...bookings);
         }
     }
 
-    
 
-    
+
+
 
     let thisInserat;
 
@@ -96,14 +96,14 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
 
     if (searchParams.inseratId) {
-        
+
 
         bookingRequests = await foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].bookingRequests;
     } else {
         if (foundInserate.length > 0) {
             for (let i = 0; i < foundInserate.length; i++) {
 
-                
+
 
                 const requests = foundInserate[i].bookingRequests;
 
@@ -113,27 +113,27 @@ const ManagePage: React.FC<ManagePageProps> = async ({
         }
     }
 
-    let thisVehicle : any;
+    let thisVehicle: any;
 
-    if(searchParams.vehicleId) {
-        
+    if (searchParams.vehicleId) {
+
 
         thisVehicle = foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].vehicles.find((vehicle) => vehicle.id === searchParams.vehicleId);
     }
 
     const selectedInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
 
-   
-    
+
+
 
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">
-            
+
             <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen w-full">
                     <div>
-                        <MenuBar 
-                        isBusiness = {currentUser.isBusiness}
+                        <MenuBar
+                            isBusiness={currentUser.isBusiness}
                         />
                         <div>
                             <BreadCrumpPage />
@@ -152,43 +152,43 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                     foundInserate={foundInserate}
                                 />
                             </div>
-                            
-                            
+
+
                         </h3>
                         <p className="text-xs dark:text-gray-200/60 mt-2">
-                                Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
-                                <br className="sm:block hidden"/> vollen Überblick über deine Inserate und Fahrzeuge.
-                            </p>
-                        
+                            Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
+                            <br className="sm:block hidden" /> vollen Überblick über deine Inserate und Fahrzeuge.
+                        </p>
+
                         {selectedInserat?.multi && (
                             <div className="sm:px-4 mt-8 sm:w-3/5">
-                            <SelectVehicle 
-                            selectedInserat={selectedInserat}
-                            />
-                        </div>
+                                <SelectVehicle
+                                    selectedInserat={selectedInserat}
+                                />
+                            </div>
                         )}
                         <div className="sm:px-4  sm:flex">
                             <div className="sm:w-3/5 sm:mr-4">
                                 <div className="w-full  dark:bg-[#141414] rounded-md mt-2">
-                                {searchParams.vehicleId ? (
-                                    <>
-                                    <RenderedVehicle
-                                    thisVehicle={thisVehicle}
-                                    />
-                                    </>
-                                ) : (
-                                    thisInserat ? (
-                                        <RenderedInserat
-                                            thisInserat={thisInserat}
-                                        />
+                                    {searchParams.vehicleId ? (
+                                        <>
+                                            <RenderedVehicle
+                                                thisVehicle={thisVehicle}
+                                            />
+                                        </>
                                     ) : (
-                                        <div className="flex justify-center py-40 text-sm border dark:border-none">
-                                            <p className="py-1">
-                                            Wähle ein Inserat aus...
-                                            </p>
-                                        </div>
-                                    )
-                                )}
+                                        thisInserat ? (
+                                            <RenderedInserat
+                                                thisInserat={thisInserat}
+                                            />
+                                        ) : (
+                                            <div className="flex justify-center py-40 text-sm border dark:border-none">
+                                                <p className="py-1">
+                                                    Wähle ein Inserat aus...
+                                                </p>
+                                            </div>
+                                        )
+                                    )}
                                 </div>
                             </div>
                             <div className="sm:w-2/5 mt-4 sm:mt-0">
@@ -213,19 +213,19 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             </div>
                         </div>
                         <div className="pt-4 sm:px-4">
-                            <AddAvailability 
-                            foundInserate={foundInserate}
+                            <AddAvailability
+                                foundInserate={foundInserate}
                             />
                         </div>
                         <div className="pb-4 pt-2 sm:px-4">
-                            <AddBooking 
-                            foundInserate={foundInserate as any}
+                            <AddBooking
+                                foundInserate={foundInserate as any}
                             />
                         </div>
                         <div className="w-full">
-                            <CalendarAndDetails 
-                            foundInserate={foundInserate as any}
-                            involvedBookings={involvedBookings}
+                            <CalendarAndDetails
+                                foundInserate={foundInserate as any}
+                                involvedBookings={involvedBookings}
                             />
                         </div>
                     </div>

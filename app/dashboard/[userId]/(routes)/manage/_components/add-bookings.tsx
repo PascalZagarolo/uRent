@@ -144,7 +144,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
             }
 
-            const isAvailable = checkAvailability(
+            const isAvailable : {
+                isConflict?: boolean,
+                booking?: any
+            } = checkAvailability(
                 currentInseratObject,
                 currentStart,
                 currentEnd,

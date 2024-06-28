@@ -219,7 +219,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                         </div>
                         <div className="pb-4 pt-2 sm:px-4">
                             <AddBooking 
-                            foundInserate={foundInserate}
+                            foundInserate={foundInserate as any}
                             />
                         </div>
                         <div className="w-full">

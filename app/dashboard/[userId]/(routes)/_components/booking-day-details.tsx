@@ -61,7 +61,9 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
             
             setRenderingInserate(filteredI.slice(startIndex, endIndex));
         } else {
-            setRenderingInserate(renderedInserate.slice(startIndex, endIndex));
+            const usedList = renderedInserate.slice(startIndex, endIndex);
+           console.log(usedList.length)
+            setRenderingInserate(usedList);
         }
 
         
@@ -305,20 +307,21 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 <Button size="sm" variant="ghost"
                                     disabled={startIndex === 0}
                                     onClick={() => {
+                                        
                                         setStartIndex(startIndex - 3 >= 0 ? startIndex - 3 : 0);
-                                        setEndIndex(endIndex - 3 >= 0 ? endIndex - 3 : 3);
+                                        setEndIndex(startIndex - 3 > 0 ? endIndex - 3 : 3);
                                     }}>
                                     <PiArrowLineLeftBold className="w-4 h-4" />
                                 </Button>
                             </div>
                             <div className="w-full">
-                                Seite {startIndex / 3 + 1}
+                                Seite {startIndex / 3 + 1} {startIndex} . {endIndex}
                             </div>
                             <div>
                                 <Button size="sm" variant="ghost"
                                     disabled={endIndex === renderedInserate.length}
                                     onClick={() => {
-                                        setEndIndex(endIndex + 3 <= renderedInserate.length ? endIndex + 3 : renderedInserate.length);
+                                        setEndIndex(endIndex + 3 <= renderedInserate.length - 1 ? endIndex + 3 : renderedInserate.length);
                                         setStartIndex(startIndex + 3 <= renderedInserate.length ? startIndex + 3 : renderedInserate.length);
 
                                     }}>

@@ -180,9 +180,6 @@ const AddBooking: React.FC<AddBookingProps> = ({
             toast.success("Buchung hinzugefügt");
             }
 
-            
-
-
         } catch (err) {
             toast.error("Fehler beim hinzufügen der Buchung", err)
         } finally {

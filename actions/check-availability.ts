@@ -6,9 +6,9 @@ export const checkAvailability = (
     periodEnd : Date,
     startTime : string,
     endTime : string,
-) => {
+) : Object => {
 
-    let interferringBooking = false;
+    
 
     const filterAvailability = (pInserat: any) => {
 
@@ -46,7 +46,10 @@ export const checkAvailability = (
                         startDateAppointments.add(i);
                     }
                     if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                        return booking;
+                        return {
+                            isConflict : true,
+                            booking
+                        };
                     }
                 } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
                     || isSameDay(booking.startDate, usedPeriodEnd)) {
@@ -75,7 +78,10 @@ export const checkAvailability = (
                 }
                 else {
 
-                    return booking;
+                    return {
+                        isConflict : true,
+                        booking
+                    };
                 }
             }
         }
@@ -119,5 +125,9 @@ export const checkAvailability = (
         return true;
     }
 
-    return filterAvailability(pInserat);
+    const result = filterAvailability(pInserat);
+
+    console.log(result);
+
+    return result
 }

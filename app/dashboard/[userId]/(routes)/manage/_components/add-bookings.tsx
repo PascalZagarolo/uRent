@@ -45,6 +45,8 @@ import { de } from "date-fns/locale";
 import SelectTimeRange from "./select-time-range";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TbListNumbers } from "react-icons/tb";
+import { checkAvailability } from "@/actions/check-availability";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
 
 
 
@@ -78,7 +80,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
     const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null>(null);
 
-
+    const [ignore, setIgnore] = useState(false);
+    const [ignoreOnce, setIgnoreOnce] = useState(false);
+    const [showConflict, setShowConflict] = useState(false);
 
     const params = useParams();
     const router = useRouter();
@@ -139,7 +143,25 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
             }
-            axios.post(`/api/booking/${currentInserat}`, values)
+
+            const isAvailable = checkAvailability(
+                currentInseratObject,
+                currentStart,
+                currentEnd,
+                currentStartTime,
+                currentEndTime
+            )
+
+            console.log(isAvailable)
+
+
+            if(isAvailable.isConflict) {
+                setShowConflict(true);
+                setIsLoading(false);
+                return;
+                
+            } else {
+                axios.post(`/api/booking/${currentInserat}`, values)
                 .then(() => {
                     router.refresh();
                     form.reset();
@@ -153,6 +175,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     setCurrentEndTime("");
                 })
             toast.success("Buchung hinzugefügt");
+            }
+
+            
 
 
         } catch (err) {
@@ -171,6 +196,43 @@ const AddBooking: React.FC<AddBookingProps> = ({
         }
     }, [currentEnd, currentStart])
 
+
+    if(showConflict) {
+        return(
+            <AlertDialog open={!setIgnoreOnce}>
+                <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
+                    <div>
+                        <h3 className="flex items-center text-md font-semibold">
+                            <CalendarCheck2 className="mr-2 w-4 h-4" /> Buchungskonflikt
+                        </h3>
+                        <p className="text-xs text-gray-200/60">
+                            Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
+                        </p>
+                        <div className="mt-2 text-sm text-gray-200/90">
+                            Eine Buchung für diesen Zeitraum existiert bereits. <br/> Möchtest du trotzdem fortfahren?
+                        </div>
+                        <div className="mt-4 space-x-2 flex items-center">
+                            <Checkbox 
+                            onCheckedChange={(e) => {setIgnore(Boolean(e))}}
+                            checked={ignore}
+                            />
+                            <p className="text-xs">
+                                Hinweis in Zukunft ausblenden
+                            </p>
+                        </div>
+                        <div className="flex justify-end mt-2">
+                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300">
+                                Buchung eintragen
+                            </AlertDialogAction>
+                            <AlertDialogCancel className="dark:border-none">
+                                Abbrechen
+                            </AlertDialogCancel>
+                        </div>
+                    </div>
+                </AlertDialogContent>
+            </AlertDialog>
+        )
+    }
 
     return (
         <Dialog>

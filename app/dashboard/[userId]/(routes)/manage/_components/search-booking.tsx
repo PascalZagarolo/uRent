@@ -12,6 +12,7 @@ import { PencilIcon, TrashIcon } from "lucide-react";
 import EditBooking from "./edit-booking";
 import EditBookingDialog from "@/app/(anzeige)/inserat/[inseratId]/_components/edit-booking-dialog";
 import DeleteBooking from "./delete-booking";
+import useOnclickOutside from "react-cool-onclickoutside";
 
 
 interface SearchBookingInputProps {
@@ -29,6 +30,10 @@ const SearchBookingInput: React.FC<SearchBookingInputProps> = ({
     const [renderedBookings, setRenderedBookings] = useState(foundBooking);
 
     const [term, setTerm] = useState("");
+
+    const ref = useOnclickOutside(() => {
+        setShowDialog(false);
+      });
 
     useMemo(() => {
 
@@ -53,7 +58,7 @@ const SearchBookingInput: React.FC<SearchBookingInputProps> = ({
                         Nach Buchungen suchen
                     </Label>
                 </div>
-                <div className="relative w-full">
+                <div className="relative w-full" ref={ref}>
                     <Input
                         className="w-full bg-[#0F0F0F] dark:border-none"
                         placeholder="Buchungsnr. , Name, Interne Buchungsnr..."
@@ -61,7 +66,7 @@ const SearchBookingInput: React.FC<SearchBookingInputProps> = ({
                         onChange={(e) => { setTerm(e.currentTarget.value) }}
                     />
                     {showDialog && (
-                        <div className="bg-[#0F0F0F] rounded-md p-4 mt-2">
+                        <div className="bg-[#0F0F0F] rounded-md p-4 mt-2" >
                             {renderedBookings.length > 0 ? (
                                 <div className="block space-y-2">
                                     {renderedBookings.map((pBooking) => (

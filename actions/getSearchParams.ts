@@ -96,10 +96,6 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
           } 
       }
       
-      
-    
-    
-
     return params;
 
 }

@@ -1,10 +1,24 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useSavedSearchParams } from "@/store";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const DynamicSearchConfirm = () => {
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    
+
+    const linkSearchparams = useSearchParams();
+
+    const initialDynamic = linkSearchparams.get("dynamicSearch");
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    useEffect(() => {
+        if(initialDynamic === "true") {
+            changeSearchParams("dynamicSearch", "true");
+        }
+    },[initialDynamic])
 
     const onConfirm = () => {
         changeSearchParams("dynamicSearch", "true");
@@ -39,6 +53,7 @@ const DynamicSearchConfirm = () => {
                         onNonConfirm();
                     }
                 }}
+                checked={currentObject["dynamicSearch"] === "true" ? true : false}
                 />
             </div>
         </div>

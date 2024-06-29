@@ -164,7 +164,6 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
         changeSearchParams("endDateDynamic", initialEnd)
       }
     },[initialStart, initialEnd])
-
     const getPresetRange = (presetName: string): DateRange => {
       const preset = PRESETS.find(({ name }) => name === presetName)
       if (!preset) throw new Error(`Unknown date range preset: ${presetName}`)

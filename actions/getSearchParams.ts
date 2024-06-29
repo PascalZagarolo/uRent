@@ -19,6 +19,7 @@ export const getSearchParamsFunction = (currentCategory? : string, currentCatego
         startDateDynamic : searchParams.get("startDateDynamic"),
         endDateDynamic : searchParams.get("endDateDynamic"),
         reqTime : searchParams.get("reqTime"),
+        dynamicSearch : searchParams.get("dynamicSearch"),
         /*
         page : searchParams.get("page"),
         */

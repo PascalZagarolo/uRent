@@ -19,6 +19,8 @@ import { ChevronUpIcon, ChevronDownIcon, CheckIcon } from '@radix-ui/react-icons
 import { cn } from '@/lib/utils'
 import { getDaysInMonth } from 'date-fns'
 import { de } from 'date-fns/locale'
+import { useSavedSearchParams } from '@/store'
+import { useSearchParams } from 'next/navigation'
 
 export interface DateRangePickerProps {
   /** Click handler for applying the updates from DateRangePicker. */
@@ -99,6 +101,9 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
   showCompare = true,
   isDisabled
 }): JSX.Element => {
+
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
     const [isOpen, setIsOpen] = useState(false)
 
     const [range, setRange] = useState<DateRange>({
@@ -140,6 +145,25 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
         window.removeEventListener('resize', handleResize)
       }
     }, [])
+
+    const pSearchParams = useSearchParams();
+
+    const initialStart = pSearchParams.get("startDateDynamic")
+    const initialEnd = pSearchParams.get("endDateDynamic")
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    useEffect(() => {
+      if(initialStart && initialEnd) {
+        setRange({
+          from: new Date(initialStart),
+          to: new Date(initialEnd)
+        })
+
+        changeSearchParams("startDateDynamic", initialStart)
+        changeSearchParams("endDateDynamic", initialEnd)
+      }
+    },[initialStart, initialEnd])
 
     const getPresetRange = (presetName: string): DateRange => {
       const preset = PRESETS.find(({ name }) => name === presetName)

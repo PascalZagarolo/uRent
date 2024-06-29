@@ -12,13 +12,18 @@ const DynamicSearchConfirm = () => {
     const linkSearchparams = useSearchParams();
 
     const initialDynamic = linkSearchparams.get("dynamicSearch");
+    const initialReqTime = linkSearchparams.get("reqTime");
     const currentObject: any = useSavedSearchParams((state) => state.searchParams)
 
     useEffect(() => {
         if(initialDynamic === "true") {
             changeSearchParams("dynamicSearch", "true");
         }
-    },[initialDynamic])
+
+        if(initialReqTime) {
+            changeSearchParams("reqTime", initialReqTime);
+        }
+    },[initialDynamic, initialReqTime])
 
     const onConfirm = () => {
         changeSearchParams("dynamicSearch", "true");

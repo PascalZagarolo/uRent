@@ -175,7 +175,7 @@ export const getInserate = cache(async ({
 
 
 
-    const ConditionFilter = cache((pInserat: typeof inserat) => {
+    const ConditionFilter = cache((pInserat: any) => {
         const bAge = reqAge ? Number(reqAge) >= Number(pInserat.reqAge) : true;
         const bLicense = reqLicense ? reqLicense === pInserat.license : true;
         const bCaution = caution ? Number(caution) >= Number(pInserat.caution) : true;
@@ -191,7 +191,7 @@ export const getInserate = cache(async ({
         return bAge && bLicense && bCaution;
     })
 
-    const PkwFilter = cache((pInserat: typeof inserat) => {
+    const PkwFilter = cache((pInserat: any) => {
 
         const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
 
@@ -268,7 +268,7 @@ export const getInserate = cache(async ({
             bExtraType && bLoading && bWeightClass && bVolume && bPower;
     })
 
-    const LkwFilter = cache((pInserat: typeof inserat) => {
+    const LkwFilter = cache((pInserat: any) => {
 
         const usedInitial = initial ? new Date(initial) : null;
 
@@ -343,7 +343,7 @@ export const getInserate = cache(async ({
             bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 
-    const TrailerFilter = cache((pInserat: typeof inserat) => {
+    const TrailerFilter = cache((pInserat: any) => {
 
 
 
@@ -400,7 +400,7 @@ export const getInserate = cache(async ({
             && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight;
     })
 
-    const TransportFilter = cache((pInserat: typeof inserat) => {
+    const TransportFilter = cache((pInserat: any) => {
 
         const usedInitial = initial ? new Date(initial) : null;
 
@@ -480,7 +480,7 @@ export const getInserate = cache(async ({
             && bExtraType && bVolume && bLength && bBreite && bHeight;
     })
 
-    const filterAvailability = cache((pInserat: typeof inserat) => {
+    const filterAvailability = cache((pInserat: any) => {
         console.log("test")
         if (pInserat.bookings.length === 0) {
             return true;
@@ -587,7 +587,7 @@ export const getInserate = cache(async ({
         return true;
     })
 
-    const filterAvailabilityMulti = cache((pInserat: typeof inserat) => {
+    const filterAvailabilityMulti = cache((pInserat: any) => {
 
 
         if (pInserat.bookings.length === 0) {
@@ -720,12 +720,12 @@ export const getInserate = cache(async ({
         const findInserate = await db.query.inserat.findMany({
             where: (
                 and(
-                    eq(inserat.isPublished, "true"),
+                    eq(inserat.isPublished, true),
                     //@ts-ignore
                     ...ilikeQuery,
-                    start ? gte(inserat.price, start) : undefined,
-                    end ? lte(inserat.price, end) : undefined,
-                    thisCategory ? eq(inserat.category, thisCategory) : undefined,
+                    start ? gte(inserat.price as any, start) : undefined,
+                    end ? lte(inserat.price as any, end) : undefined,
+                    thisCategory ? eq(inserat.category, thisCategory as any) : undefined,
 
                 )
             ),

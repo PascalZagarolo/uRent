@@ -8,6 +8,7 @@ import {
     Select, SelectContent, SelectGroup, SelectItem,
     SelectLabel, SelectTrigger, SelectValue
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import axios from "axios";
@@ -28,6 +29,7 @@ const CreateNotificationUnauthorized = () => {
     const [currentContent, setCurrentContent] = useState("");
     const [currentLink, setCurrentLink] = useState("");
     const [showLoggedInUsers, setShowLoggedInUsers] = useState(false);
+    const [isPublic, setIsPublic] = useState(false)
 
     const [isLoading, setIsLoading] = useState(false);
     const [selectedImages, setSelectedImages] = useState<any>([]);
@@ -108,7 +110,8 @@ const CreateNotificationUnauthorized = () => {
                 content: currentContent,
                 link: currentLink,
                 showAuthorizedUsers: showLoggedInUsers,
-                imageUrl: currentUrl
+                imageUrl: currentUrl,
+                isPublic: isPublic
             }
             console.log(values)
             await axios.post(`/api/globalnotifications`, values)
@@ -121,6 +124,7 @@ const CreateNotificationUnauthorized = () => {
                     setCurrentLink("");
                     setCurrentUrl("");
                     setShowLoggedInUsers(false);
+                    setIsPublic(false);
                     router.refresh();
                 })
 
@@ -147,8 +151,8 @@ const CreateNotificationUnauthorized = () => {
                             Notifikationstyp
                         </Label>
                         <Select
-                        value={currentCategory}
-                        onValueChange={(value) => { setCurrentCategory(value)}}
+                            value={currentCategory}
+                            onValueChange={(value) => { setCurrentCategory(value) }}
                         >
                             <SelectTrigger className="w-full dark:border-none mt-2 bg-[#191919] ">
                                 <SelectValue placeholder="Wähle dein Notifikationstyp" />
@@ -252,9 +256,19 @@ const CreateNotificationUnauthorized = () => {
                         Benachrichtigung auch für eingeloggte Nutzer
                     </Label>
                 </div>
+                
+                <div className="flex items-center justify-end gap-x-2 mb-2 mt-2">
+                    <Label>
+                        Öffentlich sichtbar
+                    </Label>
+                    <Switch
+                        checked={isPublic}
+                        onCheckedChange={(checked) => { setIsPublic(Boolean(checked)) }}
+                    />
+                </div>
                 <div className="w-full flex justify-end">
                     <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
-                    onClick={onSubmit}
+                        onClick={onSubmit}
                     >
                         Benachrichtigung erstellen
                     </Button>

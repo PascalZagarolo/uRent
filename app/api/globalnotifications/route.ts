@@ -25,6 +25,7 @@ export async function POST(
             link : values.link,
             showLoggedInUsers : values.showLoggedInUsers as boolean,
             imageUrl : values.imageUrl,
+            isPublic : values.isPublic as boolean,
         })
 
         return NextResponse.json(createdGlobalNotification)

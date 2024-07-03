@@ -23,6 +23,7 @@ import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites
 import BusinessFaqs from "./_components/business-faqs";
 import getCurrentUserWithNotificationsAndFavourites from "@/actions/getCurrentUserWithNotificationsAndFavourites";
 import { userAddress } from '../../../db/schema';
+import FeedbackModal from "@/components/feedback-modal";
 
 
 
@@ -145,7 +146,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     />
                 </div>
                 <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">
-                    
+                    <FeedbackModal 
+                    show={false}
+                    content="Informationen zum Feature.."
+                    feature="uRent Kriegswaffen"
+                    />
                     <div className="md:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
                         <div className="min-h-screen">
                             {thisUser ? (

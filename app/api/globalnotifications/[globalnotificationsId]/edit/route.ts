@@ -31,6 +31,7 @@ export async function PATCH(
             showAuthorizedUsers : values.showAuthorizedUsers,
             link : values.link,
             imageUrl : values.imageUrl,
+            
         }).where(eq(notificationUnauthorized.id, params.globalnotificationsId))
 
         return NextResponse.json(patchedNotification)

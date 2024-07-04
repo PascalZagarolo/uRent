@@ -19,13 +19,13 @@ export async function POST(
 
         //@ts-ignore
         const createdGlobalNotification = await db.insert(notificationUnauthorized).values({
-            title : values.title,
-            notificationType : values.category,
-            content : values.content,
-            link : values.link,
-            showLoggedInUsers : values.showLoggedInUsers as boolean,
-            imageUrl : values.imageUrl,
-            isPublic : values.isPublic as boolean,
+            title : values?.title,
+            notificationType : values?.category,
+            content : values?.content,
+            link : values?.link,
+            showLoggedInUsers : values?.showLoggedInUsers as boolean,
+            imageUrl : values?.imageUrl,
+            isPublic : values?.isPublic as boolean,
         })
 
         return NextResponse.json(createdGlobalNotification)

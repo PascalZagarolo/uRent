@@ -8,6 +8,7 @@ import { FaNewspaper, FaShare } from "react-icons/fa";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import DeleteNotificationAlert from "./delete-notification";
 import EditNotificationDialog from "./edit-notification-dialog";
+import ChangePublic from "./change-public";
 
 interface ExistingNotificationsProps {
     foundNotifications: typeof notificationUnauthorized.$inferSelect[];
@@ -56,7 +57,13 @@ const ExistingNotifications: React.FC<ExistingNotificationsProps> = ({
                         <div className="text-xs text-gray-200/60 w-full flex justify-end mt-2">
                             erstellt am: {format(new Date(notification.createdAt), 'dd.MM.yyyy')}
                         </div>
-                        <div className="w-full flex items-center gap-x-4">
+                        <div className="w-full">
+                            <ChangePublic 
+                            isPublic={notification.isPublic}
+                            notificationId={notification.id as string}
+                            />
+                        </div>
+                        <div className="w-full flex items-center gap-x-4 mt-2">
                             <EditNotificationDialog 
                             thisNotification={notification}
                             />

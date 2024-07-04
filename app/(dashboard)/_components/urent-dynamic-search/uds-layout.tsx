@@ -99,6 +99,7 @@ const UdsLayout = () => {
                             locale="de"
                             showCompare={false}
                             isDisabled={!currentObject["dynamicSearch"]}
+                            
 
                         />
                     </div>

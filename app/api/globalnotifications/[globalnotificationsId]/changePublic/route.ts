@@ -14,12 +14,10 @@ export async function PATCH(
         const currentUser = await getCurrentUser();
         
         if(!currentUser || !currentUser.isAdmin) {
-            
             return new NextResponse("Nicht autorisiert", { status : 401 })
         }
 
         
-
         const {isPublic} = await req.json();
         
         const updatedNotification = await db.update(notificationUnauthorized).set({
@@ -27,7 +25,6 @@ export async function PATCH(
         }).where(eq(notificationUnauthorized.id, params.globalnotificationsId)).returning()
 
         return NextResponse.json(updatedNotification);
-
     } catch(error : any) {
         console.log(error);
         return new NextResponse("Error", { status : 500 });

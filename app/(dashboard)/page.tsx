@@ -141,7 +141,7 @@ const Main = cache(async ({
                     )}
                 <div className="relative flex justify-center mt-4">
 
-                    <div className='h-screen xl:flex items-center justify-center w-2/12  p-16 hidden'>
+                    <div className='h-screen 2xl:flex items-center justify-center w-2/12  p-16 hidden'>
                         <div className=' w-full sm:block hidden space-y-4'>
                             <div>
                                 <AdsComponent dataAdSlot='3797720061' />
@@ -232,7 +232,7 @@ const Main = cache(async ({
                         />
                     </div>
 
-                    <div className='h-screen xl:flex items-center justify-center w-2/12 p-16 hidden'>
+                    <div className='h-screen 2xl:flex items-center justify-center w-2/12 p-16 hidden'>
                         <div className=' w-full sm:block hidden space-y-4'>
                             <div>
                                 <AdsComponent dataAdSlot='3797720061' />

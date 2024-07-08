@@ -116,7 +116,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
 
 
         <div className="p-1.5 font-semibold text-xs rounded-md bg-[#272b42] w-content flex items-center gap-x-0.5 group">
-            <div className="group-hover:underline">
+            <div className=" group-hover:text-gray-200/60">
                 {displayKey(pKey, value)}
             </div>
             <div className="hover:cursor-pointer" onClick={onClickDelete}>

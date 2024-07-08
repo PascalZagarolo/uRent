@@ -35,6 +35,10 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
             case 'periodEnd':
                 formattedDate = format(new Date(usedValue), 'dd.MM.yyyy');
                 return `Bis ${formattedDate}`;
+            case 'start' :
+                return `Ab ${usedValue} €`;
+            case 'end' :
+                return `Bis ${usedValue} €`;
             default:
                 return usedValue;
         }

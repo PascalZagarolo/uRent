@@ -6,20 +6,39 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import qs from 'query-string';
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
 
 
 interface ExistingFilterBubbleProps {
-    key: string;
+    pKey: string;
     value: string;
 }
 
 const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     value,
-    key
+    pKey
 }) => {
+
+    
 
     const [isLoading, setIsLoading] = useState(false);
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const displayKey = (usedKey: string, usedValue: string): string => {
+        
+        let formattedDate;
+        
+        switch (usedKey) {
+            case 'periodBegin':
+                formattedDate = format(new Date(usedValue), 'dd.MM.yyyy');
+                return `Von ${formattedDate}`;
+            case 'periodEnd':
+                formattedDate = format(new Date(usedValue), 'dd.MM.yyyy');
+                return `Bis ${formattedDate}`;
+            default:
+                return usedValue;
+        }
+    }
 
     const router = useRouter();
 
@@ -28,10 +47,10 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
             console.log(1)
             setIsLoading(true);
             console.log(1)
-            deleteSearchParams(key);
+            deleteSearchParams(pKey);
             console.log(1)
             onRedirect();
-        } catch(e : any) {
+        } catch (e: any) {
             console.error(e);
         } finally {
             setIsLoading(false);
@@ -40,19 +59,19 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
 
     const onRedirect = () => {
         const {//@ts-ignore
-            thisCategory, ...filteredValues} = searchParams;
+            thisCategory, ...filteredValues } = searchParams;
 
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
         let usedEnd = null;
         console.log(1)
-    //@ts-ignore
-        if(filteredValues.periodEnd){
         //@ts-ignore
-        usedEnd = filteredValues.periodEnd;
+        if (filteredValues.periodEnd) {
+            //@ts-ignore
+            usedEnd = filteredValues.periodEnd;
         } else {
             //@ts-ignore
-            if(filteredValues.periodBegin) {
+            if (filteredValues.periodBegin) {
                 //@ts-ignore
                 usedEnd = filteredValues.periodBegin;
             }
@@ -75,8 +94,8 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
             },
 
         }, { skipEmptyString: true, skipNull: true })
-        
-        
+
+
         router.push(url);
     }
 
@@ -85,7 +104,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
 
         <div className="p-1.5 font-semibold text-xs rounded-md bg-[#272b42] w-content flex items-center gap-x-0.5 group">
             <div className="group-hover:underline">
-                {value}
+                {displayKey(pKey, value)}
             </div>
             <div className="hover:cursor-pointer" onClick={onClickDelete}>
                 <X className="w-4 h-4" />

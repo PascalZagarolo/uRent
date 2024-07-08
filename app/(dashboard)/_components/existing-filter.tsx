@@ -17,8 +17,9 @@ const ExistingFilter = () => {
                 <div className="mt-1 w-full flex  ">
                     {Object.entries(searchParams)
                         .filter(([key, value]) => value !== null)
-                        .map(([key, value]) => (
-                            <ExistingFilterBubble key={key} value={value} />
+                        .map(([pKey, value]) => (
+                            
+                            <ExistingFilterBubble key={pKey} value={value} pKey={pKey} />
                         ))}
                 </div>
             </div>

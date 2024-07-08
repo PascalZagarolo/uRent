@@ -24,6 +24,8 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
+    console.log(searchParams)
+
     const displayKey = (usedKey: string, usedValue: string): string => {
         
         let formattedDate;
@@ -48,11 +50,10 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
 
     const onClickDelete = () => {
         try {
-            console.log(1)
             setIsLoading(true);
-            console.log(1)
+           
             deleteSearchParams(pKey);
-            console.log(1)
+
             onRedirect();
         } catch (e: any) {
             console.error(e);
@@ -62,13 +63,21 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     }
 
     const onRedirect = () => {
-        const {//@ts-ignore
-            thisCategory, ...filteredValues } = searchParams;
+        
+
+        let pFilteredValues = searchParams;
+        delete pFilteredValues[pKey.toString().trim()];
+
+        const {
+                //@ts-ignore            
+            thisCategory, ...filteredValues } = pFilteredValues;
+
+            console.log(filteredValues)
 
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
         let usedEnd = null;
-        console.log(1)
+        
         //@ts-ignore
         if (filteredValues.periodEnd) {
             //@ts-ignore
@@ -89,9 +98,9 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                 //@ts-ignore
                 category: thisCategory,
                 //@ts-ignore
-                periodBegin: usedStart ? usedStart : null,
+                periodBegin: filteredValues.periodBegin,
                 //@ts-ignore
-                periodEnd: usedEnd ? usedEnd : null,
+                periodEnd: filteredValues.periodEnd,
                 //@ts-ignore
                 type: filteredValues.thisType,
                 ...filteredValues
@@ -99,7 +108,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
 
         }, { skipEmptyString: true, skipNull: true })
 
-
+        console.log(url)
         router.push(url);
     }
 

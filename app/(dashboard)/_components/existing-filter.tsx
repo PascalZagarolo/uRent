@@ -14,7 +14,7 @@ const ExistingFilter = () => {
                 <h3>
                     Suchfilter:
                 </h3>
-                <div className="mt-1 w-full flex  ">
+                <div className="mt-1 w-full flex flex-wrap gap-y-1 gap-x-1">
                     {Object.entries(searchParams)
                         .filter(([key, value]) => value !== null)
                         .map(([pKey, value]) => (

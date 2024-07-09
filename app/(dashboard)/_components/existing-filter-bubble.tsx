@@ -123,7 +123,6 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                 <X className="w-4 h-4" />
             </div>
         </div>
-
     );
 }
 

@@ -29,7 +29,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     const displayKey = (usedKey: string, usedValue: string): string => {
         
         let formattedDate;
-        
+
         switch (usedKey) {
             case 'periodBegin':
                 formattedDate = format(new Date(usedValue), 'dd.MM.yyyy');

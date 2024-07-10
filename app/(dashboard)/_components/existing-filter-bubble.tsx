@@ -64,7 +64,6 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
 
     const onRedirect = () => {
         
-
         let pFilteredValues = searchParams;
         delete pFilteredValues[pKey.toString().trim()];
 
@@ -73,7 +72,6 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
             thisCategory, ...filteredValues } = pFilteredValues;
 
             console.log(filteredValues)
-
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
         let usedEnd = null;
@@ -91,8 +89,6 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
         }
         const url = qs.stringifyUrl({
             url: process.env.NEXT_PUBLIC_BASE_URL,
-
-
             //@ts-ignore
             query: {
                 //@ts-ignore
@@ -113,8 +109,6 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     }
 
     return (
-
-
         <div className="p-1.5 font-semibold text-xs rounded-md bg-[#272b42] w-content flex items-center gap-x-0.5 group">
             <div className=" group-hover:text-gray-200/60">
                 {displayKey(pKey, value)}
@@ -125,5 +119,4 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
         </div>
     );
 }
-
 export default ExistingFilterBubble;

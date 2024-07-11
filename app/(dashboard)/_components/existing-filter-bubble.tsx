@@ -31,6 +31,18 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
         let formattedDate;
 
         switch (usedKey) {
+            case 'category': {
+                switch (usedValue) {
+                    case 'PKW':
+                        return "Pkw"
+                    case 'LKW':
+                        return "Lkw"
+                    case 'TRAILER':
+                        return "Anhänger"
+                    case 'TRANSPORT':
+                        return "Transporter"
+                }
+            }
             case 'periodBegin':
                 formattedDate = format(new Date(usedValue), 'dd.MM.yyyy');
                 return `Von ${formattedDate}`;
@@ -157,19 +169,60 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return 'bis über 34t'
                 }
             }
-            case "axis" : 
+            case "axis":
                 return 'ab ' + usedValue + ' Achsen'
-            case "axisMax" :
+            case "axisMax":
                 return 'bis ' + usedValue + ' Achsen'
-            case "brake" :
+            case "brake":
                 {
-                    switch(usedValue) {
-                        case 'true' :
+                    switch (usedValue) {
+                        case 'true':
                             return "mit Bremsvorrichtung"
-                        case 'false' :
+                        case 'false':
                             return "ohne Bremsvorrichtung"
                     }
                 }
+            case 'coupling': {
+                switch (usedValue) {
+                    case 'KUGELKOPFKUPPLUNNG':
+                        return 'Kugelkopfkupplung'
+                    case 'MAULKUPPLUNG':
+                        return 'Maulkupplung'
+                }
+            }
+            case 'extraType' : {
+                switch (usedValue) {
+                    case "FAHRZEUGTRANSPORT":
+                        return "Fahrzeugtransport";
+                    case "CONTAINERTRANSPORT":
+                        return "Containertransport";
+                    case "FLUESSIGKEITSTRANSPORT":
+                        return "Flüssigkeitstransport";
+                    case "KASTENWAGEN":
+                        return "Kastenwagen";
+                    case "KIPPER":
+                        return "Kipper";
+                    case "KIPPERAUFBAU":
+                        return "Kipperaufbau";
+                    case "KOFFERAUFBAU":
+                        return "Kofferaufbau";
+                    case "KUEHLAUFBAU":
+                        return "Kühlaufbau";
+                    case "MOEBELTRANSPORT":
+                        return "Möbeltransport";
+                    case "MULDENKIPPER":
+                        return "Muldenkipper";
+                    case "PERSONENTRANSPORT":
+                        return "Personentransport";
+                    case "PLANE":
+                        return "Plane";
+                    case "PRITSCHE":
+                        return "Pritsche";
+                    case "VERANSTALTUNG":
+                        return "Veranstaltung";
+                }
+                
+            }
             default:
                 return usedValue;
         }

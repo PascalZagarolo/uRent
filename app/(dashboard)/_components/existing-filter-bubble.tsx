@@ -104,17 +104,63 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                     default:
                         return usedValue;
                 }
-                case 'ahk' : {
-                    switch (usedValue) {
-                        case 'true':
-                            return 'Mit Anhängerkupplung';
-                        case 'false':
-                            return 'Ohne Anhängerkupplung';
-                        default:
-                            return usedValue;
-                    
-                    }
+            case 'ahk': {
+                switch (usedValue) {
+                    case 'true':
+                        return 'Mit Anhängerkupplung';
+                    case 'false':
+                        return 'Ohne Anhängerkupplung';
+                    default:
+                        return usedValue;
+
                 }
+            }
+            case 'drive':
+                return usedValue.slice(1)
+            case 'weightClass': {
+                switch (usedValue) {
+                    case '550':
+                        return 'Ab 5,5t'
+                    case '750':
+                        return 'Ab 7,5t'
+                    case '1200':
+                        return 'Ab 12t'
+                    case '1800':
+                        return 'Ab 18t'
+                    case '2600':
+                        return 'Ab 26t'
+                    case '3200':
+                        return 'Ab 32t'
+                    case '3400':
+                        return 'Ab 34t'
+                    case '5000':
+                        return 'über 39t'
+                }
+            }
+            case 'weightClassMax': {
+                switch (usedValue) {
+                    case '550':
+                        return 'bis 5,5t'
+                    case '750':
+                        return 'bis 7,5t'
+                    case '1200':
+                        return 'bis 12t'
+                    case '1800':
+                        return 'bis 18t'
+                    case '2600':
+                        return 'bis 26t'
+                    case '3200':
+                        return 'bis 32t'
+                    case '3400':
+                        return 'bis 34t'
+                    case '5000':
+                        return 'bis über 34t'
+                }
+            }
+            case "axis" : 
+                return 'ab ' + usedValue + ' Achsen'
+            case "axisMax" :
+                return 'bis ' + usedValue + ' Achsen'
             default:
                 return usedValue;
         }

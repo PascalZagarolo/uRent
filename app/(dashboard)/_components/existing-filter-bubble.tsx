@@ -23,14 +23,14 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
         // Calculate hours and remaining minutes
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
-    
+
         // Format the hours and minutes to always have two digits
         const formattedHours = hours.toString().padStart(2, '0');
         const formattedMinutes = remainingMinutes.toString().padStart(2, '0');
-    
+
         // Construct the German time format
         const germanTime = `${formattedHours}:${formattedMinutes} Uhr`;
-    
+
         return germanTime;
     }
 
@@ -84,9 +84,9 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                 return 'bis ' + usedValue + ' Sitze';
             case 'volume':
                 return 'ab ' + usedValue + ' Liter';
-            case 'startTime' :
+            case 'startTime':
                 return 'ab ' + convertMinutesToGermanTime(parseInt(usedValue));
-            case 'endTime' :
+            case 'endTime':
                 return 'bis ' + convertMinutesToGermanTime(parseInt(usedValue));
             case 'transmission':
                 switch (usedValue) {
@@ -207,7 +207,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return 'Maulkupplung'
                 }
             }
-            case 'extraType' : {
+            case 'extraType': {
                 switch (usedValue) {
                     case "FAHRZEUGTRANSPORT":
                         return "Fahrzeugtransport";
@@ -238,10 +238,43 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                     case "VERANSTALTUNG":
                         return "Veranstaltung";
                 }
-                
+
             }
-            case 'loading' : {
-                return usedValue.slice(0,1) + usedValue.slice(1).toLowerCase();
+            case 'startDateDynamic': {
+                return "von " + format(new Date(usedValue), 'dd.MM.yyyy');
+            }
+            case 'endDateDynamic': {
+                return "bis " + format(new Date(usedValue), 'dd.MM.yyyy');
+            }
+            case 'loading': {
+                return usedValue.slice(0, 1) + usedValue.slice(1).toLowerCase();
+            }
+            case 'dynamicSearch': {
+                switch (usedValue) {
+                    case 'true':
+                        return 'Dynamische Suche';
+                    case 'false':
+                        return 'Statische Suche';
+
+                }
+            }
+            case 'reqTime': {
+                switch (usedValue) {
+                    case '1h':
+                        return '1 Stunde';
+                    case '4 h':
+                        return '4 Stunde';
+                    case '1d':
+                        return '1 Tage';
+                    case '3d':
+                        return '3 Tage';
+                    case '1w':
+                        return '1 Woche';
+                    case '2w':
+                        return '2 Wochen';
+                    case '1m':
+                        return '1 Monat';
+                }
             }
             default:
                 return usedValue;

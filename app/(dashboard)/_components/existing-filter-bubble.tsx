@@ -19,7 +19,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     pKey
 }) => {
 
-    
+
 
     const [isLoading, setIsLoading] = useState(false);
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -27,7 +27,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     console.log(searchParams)
 
     const displayKey = (usedKey: string, usedValue: string): string => {
-        
+
         let formattedDate;
 
         switch (usedKey) {
@@ -37,22 +37,84 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
             case 'periodEnd':
                 formattedDate = format(new Date(usedValue), 'dd.MM.yyyy');
                 return `Bis ${formattedDate}`;
-            case 'start' :
+            case 'start':
                 return `Ab ${usedValue} €`;
-            case 'end' :
+            case 'end':
                 return `Bis ${usedValue} €`;
-            case 'doors' :
+            case 'doors':
                 return `Ab ${usedValue} Türen`;
-            case 'doorsMax' : 
+            case 'doorsMax':
                 return `Bis ${usedValue} Türen`;
-            case 'initial' : 
+            case 'initial':
                 return 'Baujahr ab ' + format(new Date(usedValue), 'dd.MM.yyyy');
-            case 'initialMax' :
+            case 'initialMax':
                 return 'Baujahr bis ' + format(new Date(usedValue), 'dd.MM.yyyy');
-            case 'power' :
+            case 'power':
                 return 'ab ' + usedValue + 'PS';
-            case 'powerMax' :
+            case 'powerMax':
                 return 'bis ' + usedValue + 'PS';
+            case 'seats':
+                return 'ab ' + usedValue + ' Sitze';
+            case 'seatsMax':
+                return 'bis ' + usedValue + ' Sitze';
+            case 'volume':
+                return 'ab ' + usedValue + ' Liter';
+            case 'transmission':
+                switch (usedValue) {
+                    case 'automatic':
+                        return 'Automatik';
+                    case 'MANUAL':
+                        return 'Schaltgetriebe';
+                    default:
+                        return usedValue;
+                }
+            case 'fuel':
+                switch (usedValue) {
+                    case 'BENZIN':
+                        return 'Benzin';
+                    case 'DIESEL':
+                        return 'Diesel';
+                }
+            case 'type':
+                switch (usedValue) {
+                    case 'KOMBI':
+                        return 'Kombi';
+                    case 'COUPE':
+                        return 'Coupe';
+                    case 'PICKUP':
+                        return 'Pickup';
+                    case 'SUV':
+                        return 'Suv';
+                    case 'LIMOUSINE':
+                        return 'Limousinen';
+                    case 'VAN':
+                        return 'Van';
+                    case 'KASTENWAGEN':
+                        return 'Kastenwagen';
+                    case 'KLEINBUS':
+                        return 'Kleinbus';
+                    case 'CABRIO':
+                        return 'Cabrio';
+                    case 'KLEIN':
+                        return 'Kleinwagen';
+                    case 'SPORT':
+                        return 'Sportwagen';
+                    case 'SUPERSPORT':
+                        return 'Supersportwagen';
+                    default:
+                        return usedValue;
+                }
+                case 'ahk' : {
+                    switch (usedValue) {
+                        case 'true':
+                            return 'Mit Anhängerkupplung';
+                        case 'false':
+                            return 'Ohne Anhängerkupplung';
+                        default:
+                            return usedValue;
+                    
+                    }
+                }
             default:
                 return usedValue;
         }
@@ -63,7 +125,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     const onClickDelete = () => {
         try {
             setIsLoading(true);
-           
+
             deleteSearchParams(pKey);
 
             onRedirect();
@@ -75,19 +137,19 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     }
 
     const onRedirect = () => {
-        
+
         let pFilteredValues = searchParams;
         delete pFilteredValues[pKey.toString().trim()];
 
         const {
-                //@ts-ignore            
+            //@ts-ignore            
             thisCategory, ...filteredValues } = pFilteredValues;
 
-            console.log(filteredValues)
+        console.log(filteredValues)
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
         let usedEnd = null;
-        
+
         //@ts-ignore
         if (filteredValues.periodEnd) {
             //@ts-ignore

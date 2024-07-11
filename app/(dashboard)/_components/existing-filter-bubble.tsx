@@ -161,6 +161,15 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                 return 'ab ' + usedValue + ' Achsen'
             case "axisMax" :
                 return 'bis ' + usedValue + ' Achsen'
+            case "brake" :
+                {
+                    switch(usedValue) {
+                        case 'true' :
+                            return "mit Bremsvorrichtung"
+                        case 'false' :
+                            return "ohne Bremsvorrichtung"
+                    }
+                }
             default:
                 return usedValue;
         }

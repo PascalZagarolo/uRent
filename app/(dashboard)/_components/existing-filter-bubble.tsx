@@ -19,7 +19,20 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
     pKey
 }) => {
 
-
+    function convertMinutesToGermanTime(minutes: number): string {
+        // Calculate hours and remaining minutes
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+    
+        // Format the hours and minutes to always have two digits
+        const formattedHours = hours.toString().padStart(2, '0');
+        const formattedMinutes = remainingMinutes.toString().padStart(2, '0');
+    
+        // Construct the German time format
+        const germanTime = `${formattedHours}:${formattedMinutes} Uhr`;
+    
+        return germanTime;
+    }
 
     const [isLoading, setIsLoading] = useState(false);
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -71,9 +84,13 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                 return 'bis ' + usedValue + ' Sitze';
             case 'volume':
                 return 'ab ' + usedValue + ' Liter';
+            case 'startTime' :
+                return 'ab ' + convertMinutesToGermanTime(parseInt(usedValue));
+            case 'endTime' :
+                return 'bis ' + convertMinutesToGermanTime(parseInt(usedValue));
             case 'transmission':
                 switch (usedValue) {
-                    case 'automatic':
+                    case 'AUTOMATIC':
                         return 'Automatik';
                     case 'MANUAL':
                         return 'Schaltgetriebe';
@@ -222,6 +239,9 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return "Veranstaltung";
                 }
                 
+            }
+            case 'loading' : {
+                return usedValue.slice(0,1) + usedValue.slice(1).toLowerCase();
             }
             default:
                 return usedValue;

@@ -89,7 +89,7 @@ const MainPageResults = () => {
                     justify-center 
                     dark:text-gray-100 dark:hover:bg-sky-700" onClick={onRedirect}>
                         <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> 
-                        <NumberTicker value={currentResults || 0} />
+                        <NumberTicker value={currentResults ? currentResults : 0} />
                          </p> Ergebnisse
                     </Button>
      );

@@ -41,6 +41,18 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                 return `Ab ${usedValue} €`;
             case 'end' :
                 return `Bis ${usedValue} €`;
+            case 'doors' :
+                return `Ab ${usedValue} Türen`;
+            case 'doorsMax' : 
+                return `Bis ${usedValue} Türen`;
+            case 'initial' : 
+                return 'Baujahr ab ' + format(new Date(usedValue), 'dd.MM.yyyy');
+            case 'initialMax' :
+                return 'Baujahr bis ' + format(new Date(usedValue), 'dd.MM.yyyy');
+            case 'power' :
+                return 'ab ' + usedValue + 'PS';
+            case 'powerMax' :
+                return 'bis ' + usedValue + 'PS';
             default:
                 return usedValue;
         }

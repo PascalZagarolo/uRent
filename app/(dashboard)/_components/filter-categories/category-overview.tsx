@@ -37,10 +37,7 @@ const CategoryOverview = () => {
                 {//@ts-ignore
                 (currentCategory || currentObject["thisCategory"]) && (
             <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-            <AccordionItem value="item-1" className="border-none mb-4">
-                
-                    
-               
+            <AccordionItem value="item-1" className="border-none mb-4">                
             <AccordionTrigger className="bg-[#1B1F2C] mt-4 p-2">
                     {//@ts-ignore
                         (currentCategory || currentObject["thisCategory"]) && (

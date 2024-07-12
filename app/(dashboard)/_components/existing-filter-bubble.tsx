@@ -342,7 +342,6 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
         console.log(url)
         router.push(url);
     }
-
     return (
         <div className="p-1.5 font-semibold text-xs rounded-md bg-[#272b42] w-content flex items-center gap-x-0.5 group">
             <div className=" group-hover:text-gray-200/60">

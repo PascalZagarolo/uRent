@@ -301,7 +301,6 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
 
         let pFilteredValues = searchParams;
         delete pFilteredValues[pKey.toString().trim()];
-
         const {
             //@ts-ignore            
             thisCategory, ...filteredValues } = pFilteredValues;

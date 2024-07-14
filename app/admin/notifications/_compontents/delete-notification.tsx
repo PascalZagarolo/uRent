@@ -28,7 +28,6 @@ const DeleteNotificationAlert : React.FC<DeleteNotificationAlertProps> = ({
             toast.error('Fehler beim Löschen der Benachrichtigung');
         }
     }
-
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>

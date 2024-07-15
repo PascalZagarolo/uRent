@@ -69,7 +69,7 @@ const RequiredAge: React.FC<RequiredAgeProps> = ({
           disabled={isLoading} defaultValue={thisInserat.reqAge} >
             <SelectValue
               placeholder="Wähle die Kategorie aus"
-              defaultValue={inserat.reqAge}
+              defaultValue={inserat.reqAge as any}
               
             />
           </SelectTrigger>

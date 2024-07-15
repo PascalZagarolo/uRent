@@ -27,6 +27,7 @@ import SaveChanges from "../_components/save-changes";
 import PriceProfiles from "./_parts/price-profiles";
 import { redirect } from "next/navigation";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
+import SelectMinTime from "../_components/input-fields/select-min-time";
 
 
 
@@ -264,6 +265,10 @@ const InseratCreation = async ({
                                             thisInserat={thisInserat}
                                         />
 
+                                    </div>
+                                    <div className="mt-4">
+                                        <SelectMinTime 
+                                        thisInserat={thisInserat as any} />
                                     </div>
                                 </div>
                             </div>

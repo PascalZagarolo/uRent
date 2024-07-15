@@ -43,5 +43,4 @@ const TabSwitchNotifications : React.FC<TabSwitchNotificationsProps> = ({
         </div>
     );
 }
-
 export default TabSwitchNotifications;

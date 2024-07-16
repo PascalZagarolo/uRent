@@ -267,6 +267,7 @@ export const inserat = pgTable("inserat", {
     license: licenseEnum("license"),
     caution: decimal("caution"),
     reqAge: integer("reqAge"),
+    minTime : text("minTime"),
 
     priceHour : decimal("priceHour"),
     priceWeekend : decimal("priceWeekend"),

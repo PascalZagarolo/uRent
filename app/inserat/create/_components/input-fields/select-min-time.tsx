@@ -22,7 +22,7 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
   thisInserat
 }) => {
 
-    const [currentValue, setCurrentValue] = useState<number | null>(thisInserat.reqAge);
+    const [currentValue, setCurrentValue] = useState<string | null>(thisInserat.minTime);
     const [isLoading, setIsLoading] = useState(false);
     const [currentDateType, setCurrentDateType] = useState<string>("d");
 
@@ -68,8 +68,6 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         )
     }
 
-
-    
     const onWeeks = () => {
         return (
             <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
@@ -124,23 +122,23 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         )
     }
 
-    const onSubmit = (selectedValue: number) => {
+    const onSubmit = (selectedValue: string) => {
         try {
     
             setCurrentValue(selectedValue);
     
           const values = {
-            reqAge: selectedValue
+            minTime: currentValue
           }
     
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}`, values);
-          toast.success("Mindestalter gespeichert");
+          toast.success("Mindestmietdauer gespeichert");
           setTimeout(() => {
             router.refresh();
           }, 400)
         } catch {
-          toast.error("Fehler beim Speichern der Kategorie");
+          toast.error("Fehler beim Speichern der Mindestmietdauer");
         } finally {
           setIsLoading(false);
         }
@@ -157,7 +155,7 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
             <div className="w-1/2">
             <Select
           onValueChange={(value) => {
-            setCurrentValue(value)
+            onSubmit(value);
           }}
           value={currentValue ? String(currentValue) : null}
           disabled={isLoading}
@@ -183,7 +181,6 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
           }
         </Select>
             </div>
-
             <div className="w-1/2">
             <Select
           onValueChange={(value) => {

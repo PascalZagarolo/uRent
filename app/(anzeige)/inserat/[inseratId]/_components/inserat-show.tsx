@@ -3,7 +3,7 @@ import InseratDescription from "./inserat-description";
 import BookingsOverview from "./bookings-overview";
 import { FaAddressCard } from "react-icons/fa";
 import { convertState } from "@/actions/convert-states";
-import { AlignLeft, CarFront, Contact2, Globe2, HourglassIcon, MailIcon, MapPinned, Phone, Truck, UserCircleIcon } from "lucide-react";
+import { AlignLeft, CarFront, Clock2Icon, Contact2, Globe2, HourglassIcon, MailIcon, MapPinned, Phone, Truck, UserCircleIcon } from "lucide-react";
 import { Ri24HoursLine, RiCaravanLine } from "react-icons/ri";
 import { TbPigMoney, TbZoomMoney } from "react-icons/tb";
 import { CiBookmark } from "react-icons/ci";
@@ -36,6 +36,39 @@ const InseratShow: React.FC<InseratShowProps> = ({
         } else {
             return input; // No comma found, return the original input
         }
+    }
+
+    function returnMinTimeType(usedValue : number, minTime: string): string {
+
+        if(usedValue === 1) {
+            switch(minTime) {
+                case "h":
+                    return "Stunde";
+                case "d":
+                    return "Tag";
+                case "w":
+                    return "Woche";
+                case "m" :
+                    return "Monat";
+                default:
+                    return minTime;
+            }
+        } else {
+            switch(minTime) {
+                case "h":
+                    return "Stunden";
+                case "d":
+                    return "Tage";
+                case "w":
+                    return "Wochen";
+                case "m" :
+                    return "Monate";
+                default:
+                    return minTime;
+            }
+        }
+
+        return "";
     }
 
     const usedListPrices = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
@@ -175,7 +208,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
                 )}
             </div>
             {thisInserat?.category === "PKW" && (
-                <div className="w-full flex mt-2">
+                <div className="w-full flex mt-1">
                     {thisInserat?.pkwAttribute?.freeMiles && (
                         <div className="w-1/2 truncate font-semibold text-sm flex">
                             <PiSteeringWheel className="w-4 h-4 mr-2 text-gray-400" />
@@ -193,6 +226,13 @@ const InseratShow: React.FC<InseratShowProps> = ({
                     )}
                 </div>
             )}
+            {thisInserat?.minTime && (
+                    <div className="w-full mt-1 truncate font-semibold text-sm flex">
+                        <Clock2Icon className="w-4 h-4 mr-2 text-indigo-800" />
+                        Mindestmietdauer : {thisInserat?.minTime.slice(0,1)} {returnMinTimeType(Number(thisInserat.minTime.slice(0,1)), thisInserat?.minTime.slice(1))}
+                    </div>
+                )}
+            
             <div className="mt-4">
                 <div className="flex sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" />
                     Kontaktinformationen

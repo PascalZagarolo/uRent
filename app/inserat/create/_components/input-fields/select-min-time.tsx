@@ -127,9 +127,9 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
             setCurrentValue(selectedValue);
     
           const values = {
-            minTime: currentValue
+            minTime: selectedValue
           }
-    
+          console.log(values);
           setIsLoading(true);
           axios.patch(`/api/inserat/${params.inseratId}`, values);
           toast.success("Mindestmietdauer gespeichert");

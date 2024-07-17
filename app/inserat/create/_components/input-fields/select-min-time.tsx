@@ -124,7 +124,6 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
 
     const onSubmit = (selectedValue: string) => {
         try {
-    
             setCurrentValue(selectedValue);
     
           const values = {

@@ -8,7 +8,7 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import { businessImages, contactOptions, inserat, notification,  userTable } from "@/db/schema";
+import { businessImages, contactOptions, inserat, notification,  paymentMethods,  userTable } from "@/db/schema";
 import RegisterBusiness from "./_components/register-business";
 import { FaBuilding, FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
@@ -111,6 +111,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     openingTimes: true
                 }
             },
+            paymentMethods : true
         }
     })
 
@@ -123,7 +124,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
 
-
+    console.log(thisUser.paymentMethods)
 
 
 

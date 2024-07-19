@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
-import { paymentMethods } from "@/db/schema";
+import { paymentMethods, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -21,14 +21,21 @@ export async function PATCH(
 
         const values = await req.json()
 
+        console.log(paymentMethods)
+
         if(!existingPaymentObject) {
             const [createdPaymentObject] = await db.insert(paymentMethods).values({
                 userId : currentUser.id,
                 ...values,
             }).returning()
 
+            const patchedUser = await db.update(userTable).set({
+                paymentMethodsId : createdPaymentObject.id
+            }).where(eq(currentUser.id, currentUser.id)).returning();
+
             return NextResponse.json(createdPaymentObject)
         } else {
+            console.log("ja")
             const patchedPaymentObject = await db.update(paymentMethods).set({
                 ...values
             }).where(eq(paymentMethods.userId, currentUser.id))

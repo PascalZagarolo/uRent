@@ -25,9 +25,9 @@ const ManagePaymentMethods : React.FC<ManagePaymentMethodsProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [acceptPaypal, setAcceptPaypal] = useState(thisPaymentMethods?.paypal);
-    const [acceptCreditCard, setAcceptCreditCard] = useState(thisPaymentMethods?.creditCard);
-    const [acceptCash, setAcceptCash] = useState(thisPaymentMethods?.barGeld);
+    const [acceptPaypal, setAcceptPaypal] = useState(thisPaymentMethods?.paypal !== undefined ? thisPaymentMethods?.paypal : false);
+    const [acceptCreditCard, setAcceptCreditCard] = useState(thisPaymentMethods?.creditCard !== undefined ? thisPaymentMethods?.creditCard : false);
+    const [acceptCash, setAcceptCash] = useState(thisPaymentMethods?.barGeld !== undefined ? thisPaymentMethods?.barGeld : false);
 
     const router = useRouter();
 
@@ -144,7 +144,7 @@ const ManagePaymentMethods : React.FC<ManagePaymentMethodsProps> = ({
                         disabled={isLoading ||
                         (acceptPaypal === thisPaymentMethods?.paypal && 
                         acceptCreditCard === thisPaymentMethods?.creditCard &&
-                        acceptCash === thisPaymentMethods?.barGeld    
+                        acceptCash === thisPaymentMethods?.barGeld  	  
                         )
                         }
                         onClick={onSave}

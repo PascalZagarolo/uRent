@@ -3,6 +3,7 @@
 
 
 
+
 import {
     timestamp,
     pgTable,
@@ -61,6 +62,8 @@ export const userTable = pgTable("user", {
         .references(() => userSubscription.id, { onDelete : "set null"}),
     userAddressId : uuid("userAddressId")
                     .references(() => userAddress.id , { onDelete : "set null"}),
+    paymentMethodsId : uuid("paymentMethodsId")
+                        .references(() => paymentMethods.id, { onDelete : "set null"}),
     twoFactorConfirmationId : uuid("twoFactorConfirmationId")
                                 .references(() => twoFactorConfirmation.id, { onDelete: "set null" }),
 })
@@ -319,6 +322,15 @@ export const priceprofile = pgTable("priceprofile", {
     inseratId : uuid("inseratId")
                 .references(() => inserat.id, { onDelete: "cascade" }),
 
+})
+
+export const paymentMethods = pgTable("paymentMethods", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    userId : text("userId")
+            .references(() => userTable.id, { onDelete: "cascade" }),
+    creditCard : boolean("creditCard").notNull().default(false),
+    paypal : boolean("paypal").notNull().default(false),
+    barGeld : boolean("barGeld").notNull().default(false),
 })
 
 export const userSubscription = pgTable("userSubscription" , {
@@ -1051,7 +1063,10 @@ export const userRelations = relations(userTable, ({ one, many }) => ({
         fields : [userTable.subscriptionId],
         references : [userSubscription.id]
     }),
-    
+    paymentMethods : one(paymentMethods, {
+        fields : [userTable.paymentMethodsId],
+        references : [paymentMethods.id]
+    }),
     bookings : many(booking),
     bookingRequests : many(bookingRequest),
     notifications : many(notification),
@@ -1067,6 +1082,14 @@ export const twoFactorToken = pgTable("twoFactorToken", {
     token : text("token"),
     expires : timestamp("expires", { mode: "date" }).notNull(),
 })
+
+export const paymentMethodsRelations = relations(paymentMethods, ({ one }) => ({
+    users : one(userTable, {
+        fields : [paymentMethods.userId],
+        references : [userTable.id]
+    
+    })
+}))
 
 export const twoFactorConfirmationRelations = relations(twoFactorConfirmation, ({ one }) => ({
     users : one(userTable, {

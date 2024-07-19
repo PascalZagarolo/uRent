@@ -24,6 +24,7 @@ import BusinessFaqs from "./_components/business-faqs";
 import getCurrentUserWithNotificationsAndFavourites from "@/actions/getCurrentUserWithNotificationsAndFavourites";
 import { userAddress } from '../../../db/schema';
 import FeedbackModal from "@/components/feedback-modal";
+import PaymentMethods from "./_components/payment-methods";
 
 
 
@@ -204,6 +205,13 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                                 <Openhours
                                                     ownProfile={ownProfile}
                                                     thisBusiness={thisUser.business}
+                                                />
+                                            </div>
+                                        )}
+                                        {thisUser.isBusiness && (
+                                            <div className="sm:px-4">
+                                                <PaymentMethods 
+                                                isOwn={ownProfile}
                                                 />
                                             </div>
                                         )}

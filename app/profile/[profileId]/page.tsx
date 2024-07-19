@@ -210,7 +210,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                         )}
                                         {thisUser.isBusiness && (
                                             <div className="sm:px-4">
-                                                <PaymentMethods 
+                                                <PaymentMethods
+                                                thisPaymentMethods={thisUser.paymentMethods}
+                                                currentUserId={currentUser?.id} 
                                                 isOwn={ownProfile}
                                                 />
                                             </div>

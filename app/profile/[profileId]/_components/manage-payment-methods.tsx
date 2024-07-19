@@ -1,13 +1,53 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { paymentMethods } from "@/db/schema";
+import axios from "axios";
 import { Check } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { BsPaypal } from "react-icons/bs";
 import { CiCreditCard1 } from "react-icons/ci";
 import { GiReceiveMoney } from "react-icons/gi";
 import { TbReportMoney } from "react-icons/tb";
 
+interface ManagePaymentMethodsProps {
+    paymentMethods : typeof paymentMethods.$inferSelect;
+}
+
 const ManagePaymentMethods = () => {
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [acceptPaypal, setAcceptPaypal] = useState(paymentMethods.paypal);
+    const [acceptCreditCard, setAcceptCreditCard] = useState(paymentMethods.creditCard);
+    const [acceptCash, setAcceptCash] = useState(paymentMethods.barGeld);
+
+    const router = useRouter();
+
+
+    const onSave = () => {
+        try {
+            const values = {
+                paypal : acceptPaypal,
+                creditCard : acceptCreditCard,
+                barGeld : acceptCash
+            }
+
+            axios.patch("...")
+                .then(() => {
+                    router.refresh();
+                    toast.success("Änderungen gespeichert")
+                })
+
+        } catch(e : any) {
+            console.log("Fehler beim speichern der Zahlungsmethoden");
+            toast.error("Fehler beim speichern der Zahlung");
+        }
+    }
+
     return (
         <Dialog>
             <DialogTrigger className="" asChild>
@@ -86,7 +126,11 @@ const ManagePaymentMethods = () => {
                         </div>
 
                     </div>
-
+                    <div className="mt-2">
+                        <Button className="w-full bg-indigo-800 text-gray-200 hover:text-gray-300 hover:bg-indigo-900">
+                            Änderungen speichern
+                        </Button>
+                    </div>
 
 
                     <div className="mt-2 text-xs text-gray-200/60">

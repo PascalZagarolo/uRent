@@ -1,12 +1,17 @@
 import { Button } from "@/components/ui/button";
 import ManagePaymentMethods from "./manage-payment-methods";
+import { paymentMethods } from "@/db/schema";
 
 interface PaymentMethodsProps {
     isOwn: boolean;
+    thisPaymentMethods : typeof paymentMethods.$inferSelect;
+    currentUserId : string;
 }
 
 const PaymentMethods: React.FC<PaymentMethodsProps> = ({
-    isOwn
+    isOwn,
+    thisPaymentMethods,
+    currentUserId
 }) => {
     return (
         <div className="w-full dark:bg-[#191919] p-4">
@@ -19,7 +24,8 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({
                         {isOwn && (
                             <div className="ml-auto">
                                 <ManagePaymentMethods
-
+                                    thisPaymentMethods={thisPaymentMethods}
+                                    currentUserId={currentUserId}
                                 />
                             </div>
                         )}

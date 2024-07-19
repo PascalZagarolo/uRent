@@ -14,16 +14,20 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { TbReportMoney } from "react-icons/tb";
 
 interface ManagePaymentMethodsProps {
-    paymentMethods : typeof paymentMethods.$inferSelect;
+    thisPaymentMethods : typeof paymentMethods.$inferSelect;
+    currentUserId : string;
 }
 
-const ManagePaymentMethods = () => {
+const ManagePaymentMethods : React.FC<ManagePaymentMethodsProps> = ({
+    thisPaymentMethods,
+    currentUserId
+}) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [acceptPaypal, setAcceptPaypal] = useState(paymentMethods.paypal);
-    const [acceptCreditCard, setAcceptCreditCard] = useState(paymentMethods.creditCard);
-    const [acceptCash, setAcceptCash] = useState(paymentMethods.barGeld);
+    const [acceptPaypal, setAcceptPaypal] = useState(thisPaymentMethods?.paypal);
+    const [acceptCreditCard, setAcceptCreditCard] = useState(thisPaymentMethods?.creditCard);
+    const [acceptCash, setAcceptCash] = useState(thisPaymentMethods?.barGeld);
 
     const router = useRouter();
 
@@ -36,7 +40,7 @@ const ManagePaymentMethods = () => {
                 barGeld : acceptCash
             }
 
-            axios.patch("...")
+            axios.patch(`/api/profile/${currentUserId}/payment-methods`, values)
                 .then(() => {
                     router.refresh();
                     toast.success("Änderungen gespeichert")
@@ -73,7 +77,10 @@ const ManagePaymentMethods = () => {
                         </div>
                         <div className="dark:bg-[#1c1c1c] p-4 rounded-md flex items-center space-x-4">
                             <div>
-                                <Checkbox />
+                                <Checkbox 
+                                checked={acceptPaypal}
+                                onCheckedChange={(e) => {setAcceptPaypal(e as boolean)}}
+                                />
                             </div>
                             <div className="w-full">
                                 <div>
@@ -91,7 +98,10 @@ const ManagePaymentMethods = () => {
 
                         <div className="dark:bg-[#1c1c1c] p-4 rounded-md flex items-center space-x-4">
                             <div>
-                                <Checkbox />
+                                <Checkbox 
+                                checked={acceptCreditCard}
+                                onCheckedChange={(e) => {setAcceptCreditCard(e as boolean)}}
+                                />
                             </div>
                             <div className="w-full">
                                 <div>
@@ -109,7 +119,10 @@ const ManagePaymentMethods = () => {
 
                         <div className="dark:bg-[#1c1c1c] p-4 rounded-md flex items-center space-x-4">
                             <div>
-                                <Checkbox />
+                                <Checkbox 
+                                checked={acceptCash}
+                                onCheckedChange={(e) => {setAcceptCash(e as boolean)}}
+                                />
                             </div>
                             <div className="w-full">
                                 <div>
@@ -127,7 +140,15 @@ const ManagePaymentMethods = () => {
 
                     </div>
                     <div className="mt-2">
-                        <Button className="w-full bg-indigo-800 text-gray-200 hover:text-gray-300 hover:bg-indigo-900">
+                        <Button className="w-full bg-indigo-800 text-gray-200 hover:text-gray-300 hover:bg-indigo-900"
+                        disabled={isLoading ||
+                        (acceptPaypal === thisPaymentMethods?.paypal && 
+                        acceptCreditCard === thisPaymentMethods?.creditCard &&
+                        acceptCash === thisPaymentMethods?.barGeld    
+                        )
+                        }
+                        onClick={onSave}
+                        >
                             Änderungen speichern
                         </Button>
                     </div>

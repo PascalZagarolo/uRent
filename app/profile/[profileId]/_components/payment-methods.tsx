@@ -21,6 +21,8 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({
     
     console.log(thisPaymentMethods)
 
+    const linkedNothing = !thisPaymentMethods?.paypal && !thisPaymentMethods?.creditCard && !thisPaymentMethods?.barGeld;
+
     return (
         <div className="w-full dark:bg-[#191919] p-4">
             <div className="w-full">
@@ -71,6 +73,12 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({
                         )}
 
                     </div>
+                    {!linkedNothing && (
+                        <div className="mt-2 text-xs text-gray-200/60">
+                        * uRent bietet keine Möglichkeit der direkten Zahlungsabwicklung. <br/>
+                        Die Zahlung erfolgt direkt zwischen Mieter und Vermieter.
+                    </div>
+                    )}
                 </div>
             </div>
         </div>

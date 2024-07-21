@@ -193,7 +193,7 @@ const PaymentsPage = async () => {
                             </div>
                             {
                                 existingInvoices.data.map((invoice: any) => (
-                                    <div className="">
+                                    <div className="" key={invoice?.id}>
                                         <ExistingInvoices
                                             foundInvoice={invoice}
                                         />

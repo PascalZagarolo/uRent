@@ -67,7 +67,7 @@ const UdsLayout = () => {
                     <PopoverTrigger>
                         <InfoCircledIcon className="w-4 h-4 ml-2 text-gray-400" />
                     </PopoverTrigger>
-                    <PopoverContent>
+                    <PopoverContent className="dark:border-none">
                         <div className="text-xs">
                             <h3 className="text-sm font-semibold mb-1">
                                 Dynamischer Mietzeitraum

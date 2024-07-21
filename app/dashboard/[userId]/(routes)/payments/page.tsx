@@ -13,13 +13,14 @@ import SubscriptionsRenderList from "./_components/subscriptions-render-list";
 import { stripe } from "@/lib/stripe";
 import { format } from "date-fns";
 import RenderAvailable from "./_components/render-available";
+import ExistingInvoices from "./_components/existing-invoices";
 
 
 
 const PaymentsPage = async () => {
 
     const currentUser = await getCurrentUser();
-    
+
 
     const usedId = currentUser.id;
 
@@ -31,13 +32,17 @@ const PaymentsPage = async () => {
         }
     }).prepare("findSubscription")
 
-    const existingSubscription = await findSubscription.execute({usedId : usedId});
+    const existingSubscription = await findSubscription.execute({ usedId: usedId });
 
-    
+    const existingInvoices = await stripe.invoices.list({
+        customer: existingSubscription?.subscription?.stripe
+    })
+
+
 
     let retrievedSubscription;
 
-    if(existingSubscription.subscription?.stripe_subscription_id) {
+    if (existingSubscription.subscription?.stripe_subscription_id) {
         retrievedSubscription = await stripe.subscriptions.retrieve(
             existingSubscription?.subscription?.stripe_subscription_id
         )
@@ -55,7 +60,7 @@ const PaymentsPage = async () => {
             )
         )
 
-        
+
 
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">
@@ -63,8 +68,8 @@ const PaymentsPage = async () => {
             <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen w-full">
                     <div>
-                        <MenuBar 
-                        isBusiness = {currentUser.isBusiness}
+                        <MenuBar
+                            isBusiness={currentUser.isBusiness}
                         />
                         <div>
                             <BreadCrumpPage />
@@ -85,9 +90,9 @@ const PaymentsPage = async () => {
                         <div className="w-full sm:flex flex-row mt-8 sm:space-y-0 space-y-4">
 
                             <div className="sm:w-1/2 w-full">
-                                <RenderAvailable 
-                                existingSubscription={existingSubscription}
-                                countedInserate={countInserate[0]?.count}
+                                <RenderAvailable
+                                    existingSubscription={existingSubscription}
+                                    countedInserate={countInserate[0]?.count}
                                 />
                             </div>
 
@@ -124,18 +129,18 @@ const PaymentsPage = async () => {
                                 {existingSubscription.subscription ? (
                                     retrievedSubscription?.cancel_at_period_end ? (
                                         <div className="font-semibold text-rose-600 gap-x-1 flex items-center text-sm">
-                                            Gekündigt 
+                                            Gekündigt
                                             <div className="text-gray-200 text-xs">
-                                                (Endet am {format(new Date(existingSubscription?.subscription.stripe_current_period_end), 
-                                                "dd.MM.yyyy")})
+                                                (Endet am {format(new Date(existingSubscription?.subscription.stripe_current_period_end),
+                                                    "dd.MM.yyyy")})
                                             </div>
                                         </div>
                                     ) : (
                                         <div className="font-semibold text-emerald-600 gap-x-1 flex items-center text-sm">
-                                            Aktiv 
+                                            Aktiv
                                             <div className="text-gray-200 text-xs">
-                                                (wird verlängert am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end), 
-                                                "dd.MM.yyyy")})
+                                                (wird verlängert am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end),
+                                                    "dd.MM.yyyy")})
                                             </div>
                                         </div>
                                     )
@@ -146,9 +151,32 @@ const PaymentsPage = async () => {
                                 )}
                             </div>
 
-                            
-                        </div>
 
+                        </div>
+                        <div className="mt-4">
+                            <div>
+                                <h3 className="text-md font-semibold">
+                                    Bezahlte Rechnungen
+                                </h3>
+                            </div>
+                            <div className="mt-4 text-sm font-semibold flex items-center gap-x-2 px-4 text-gray-200/60">
+                                <div className="w-1/4">
+                                    Rechnungsnr.
+                                </div>
+                                <div className="">
+                                    Datum
+                                </div>
+                            </div>
+                            {
+                                existingInvoices.data.map((invoice: any) => (
+                                    <div className="">
+                                        <ExistingInvoices
+                                            foundInvoice={invoice}
+                                        />
+                                    </div>
+                                ))
+                            }
+                        </div>
                         <div className="mt-8">
                             {existingSubscription.subscription ? (
                                 <SubscriptionsRenderList

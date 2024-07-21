@@ -177,7 +177,7 @@ const PaymentsPage = async () => {
                                     Bezahlte Rechnungen
                                 </h3>
                             </div>
-                            <div className="mt-2 text-sm font-semibold flex items-center  px-4 text-gray-200/60">
+                            <div className="mt-2 text-xs font-semibold flex items-center  px-4 text-gray-200/60">
                                 <div className="w-1/4">
                                     Rechnungsnr.
                                 </div>

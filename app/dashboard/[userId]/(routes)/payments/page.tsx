@@ -153,30 +153,7 @@ const PaymentsPage = async () => {
 
 
                         </div>
-                        <div className="mt-4">
-                            <div>
-                                <h3 className="text-md font-semibold">
-                                    Bezahlte Rechnungen
-                                </h3>
-                            </div>
-                            <div className="mt-4 text-sm font-semibold flex items-center gap-x-2 px-4 text-gray-200/60">
-                                <div className="w-1/4">
-                                    Rechnungsnr.
-                                </div>
-                                <div className="">
-                                    Datum
-                                </div>
-                            </div>
-                            {
-                                existingInvoices.data.map((invoice: any) => (
-                                    <div className="">
-                                        <ExistingInvoices
-                                            foundInvoice={invoice}
-                                        />
-                                    </div>
-                                ))
-                            }
-                        </div>
+
                         <div className="mt-8">
                             {existingSubscription.subscription ? (
                                 <SubscriptionsRenderList
@@ -192,6 +169,37 @@ const PaymentsPage = async () => {
                                     </div>
                                 </div>
                             )}
+                        </div>
+
+                        <div className="mt-8">
+                            <div>
+                                <h3 className="text-lg font-semibold">
+                                    Bezahlte Rechnungen
+                                </h3>
+                            </div>
+                            <div className="mt-2 text-sm font-semibold flex items-center  px-4 text-gray-200/60">
+                                <div className="w-1/4">
+                                    Rechnungsnr.
+                                </div>
+                                <div className="font-semibold w-1/6">
+                                    Datum
+                                </div>
+                                <div className="w-1/4">
+                                    Produkt
+                                </div>
+                                <div className="w-1/4">
+                                    Preis
+                                </div>
+                            </div>
+                            {
+                                existingInvoices.data.map((invoice: any) => (
+                                    <div className="">
+                                        <ExistingInvoices
+                                            foundInvoice={invoice}
+                                        />
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

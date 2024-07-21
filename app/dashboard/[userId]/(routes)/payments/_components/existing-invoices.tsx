@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { format, parse } from "date-fns";
 import { FaFileDownload } from "react-icons/fa";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
+import RenderAsHtml from "./render-as-html";
 
 
 interface ExistingInvoicesProps {
@@ -35,8 +36,7 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = async ({
     return (
         <div className="mb-2">
             <div className="">
-                <div className="p-4 dark:bg-[#0F0F0F] rounded-md text-sm">
-
+                <div className="p-4 dark:bg-[#171717] rounded-md text-sm">
                     <div className="flex items-center">
                         <div className="font-semibold w-1/4 text-xs">
                             {foundInvoice.id}
@@ -50,12 +50,11 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = async ({
                         <div className="text-sm font-semibold w-1/6 ">
                             {convertedPrice} €
                         </div>
-                        <div className="ml-auto space-x-2">
-                            <Button size="sm" variant="ghost" className="dark:bg-[#1C1C1C]">
-                                <FaFileDownload
-                                    className="w-4 h-4"
-                                />
-                            </Button>
+                        <div className="ml-auto space-x-2 flex items-center">
+                            <div>
+                            <RenderAsHtml 
+                            />
+                            </div>
                             <Button size="sm" variant="ghost" className="dark:bg-[#1C1C1C]">
                                 <PiDotsThreeOutlineFill 
                                     className="w-4 h-4"

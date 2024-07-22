@@ -15,13 +15,7 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = async ({
     foundInvoice
 }) => {
 
-    const onDownload = () => {
-        try {
-
-        } catch (e: any) {
-            console.log("Fehler beim Erstellen der PDF Datei: ", e)
-        }
-    }
+    
 
     //console.log(foundInvoice.lines.data[0].price.unit_amount)
 

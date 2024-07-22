@@ -11,13 +11,18 @@ const styles = StyleSheet.create({
 
     logo: { width: 90 },
 
-    reportTitle: { fontSize: 16, textAlign: 'center' },
+    reportTitle: { fontSize: 16, textAlign: 'center', fontWeight: 'black' },
 
-    addressTitle: { fontSize: 11, fontStyle: 'bold' },
+    addressTitle: { fontSize: 8, fontStyle: 'bold' },
+    addressTitle2: { fontSize: 11, fontStyle: 'heavy', fontWeight: 'black' },
 
-    invoice: { fontWeight: 'bold', fontSize: 20 },
+    invoice: { fontWeight: 'bold', fontSize: 16 },
 
-    invoiceNumber: { fontSize: 11, fontWeight: 'bold' },
+    invoiceline : { flex: 1, 
+        flexDirection: 'row', alignItems : 'center', gap: 10},
+
+    invoiceNumber: { fontSize: 8, fontWeight: 'bold' },
+    invoiceNumberResult: { fontSize: 8, fontWeight: 'black' },
 
     address: { fontWeight: 400, fontSize: 10 },
 
@@ -55,17 +60,26 @@ const InvoiceTitle = () => (
     <View style={styles.titleContainer}>
         <View style={styles.spaceBetween}>
         <Image style={styles.logo} src="/uRent.png" />
-            <Text style={styles.reportTitle}>uRent</Text>
+            <Text style={styles.reportTitle}>uRent UG</Text>
         </View>
     </View>
 );
 
-const Address = () => (
+interface AddressProps {
+    invoice_no : string
+}
+
+const Address : React.FC<AddressProps> = ({
+    invoice_no
+})  => (
     <View style={styles.titleContainer}>
         <View style={styles.spaceBetween}>
             <View>
                 <Text style={styles.invoice}>Rechnungsbeleg </Text>
-                <Text style={styles.invoiceNumber}>Rechnungsnr. {reciept_data.invoice_no} </Text>
+                <View style={styles.invoiceline}>
+                <Text style={styles.invoiceNumber}>Rechnungsnr. :</Text>
+                <Text style={styles.invoiceNumberResult}>{invoice_no}</Text>
+                </View>
             </View>
             <View>
                 <Text style={styles.addressTitle}>Bozenerstr. 26, </Text>
@@ -85,7 +99,7 @@ const UserAddress = () => (
                     {reciept_data.address}
                 </Text>
             </View>
-            <Text style={styles.addressTitle}>{reciept_data.date}</Text>
+            <Text style={styles.addressTitle2}>{reciept_data.date}</Text>
         </View>
     </View>
 );
@@ -147,12 +161,25 @@ const TableTotal = () => (
     </View>
 );
 
-const InvoiceTemplate = () => {
+interface InvoiceTemplateProps {
+    price : number;
+    invoice_no : string;
+    address : string;
+    plan : string;
+    amount : number;
+    date : string;
+}
+
+const InvoiceTemplate : React.FC<InvoiceTemplateProps> = (
+    {price, invoice_no, address, plan, amount, date} : InvoiceTemplateProps
+) => {
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <InvoiceTitle />
-                <Address />
+                <Address 
+                invoice_no = {invoice_no}
+                />
                 <UserAddress />
                 <TableHead />
             <TableBody/>

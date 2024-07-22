@@ -23,6 +23,8 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = async ({
         foundInvoice.lines.data[0].price.product as string
     )
 
+    console.log(foundInvoice)
+
     //console.log(matchingProduct.metadata)
 
     const convertedPrice = foundInvoice.lines.data[0].price.unit_amount / 100
@@ -46,7 +48,13 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = async ({
                         </div>
                         <div className="ml-auto space-x-2 flex items-center">
                             <div>
-                            <RenderAsHtml 
+                            <RenderAsHtml
+                                price={convertedPrice}
+                                invoice_no={foundInvoice.id}
+                                address="Hamburg"
+                                plan={matchingProduct.metadata?.type.slice(0,1) + matchingProduct.metadata?.type.slice(1).toLowerCase()}
+                                amount={convertedPrice}
+                                date={format(new Date(foundInvoice.period_start * 1000), 'dd.MM.yyyy')} 
                             />
                             </div>
                             <Button size="sm" variant="ghost" className="dark:bg-[#1C1C1C]">

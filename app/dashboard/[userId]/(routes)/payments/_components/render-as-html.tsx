@@ -7,8 +7,18 @@ import InvoiceTemplate from "./invoice-template";
 import { PDFDownloadLink, PDFViewer, Document, Page, Text } from "@react-pdf/renderer";
 
 
+interface RenderAsHtmlProps {
+    price : number;
+    invoice_no : string;
+    address : string;
+    plan : string;
+    amount : number;
+    date : string;
+}
 
-const RenderAsHtml = () => {
+const RenderAsHtml : React.FC<RenderAsHtmlProps> = ({
+    price, invoice_no, address, plan, amount, date
+}) => {
 
 
     
@@ -23,7 +33,15 @@ const RenderAsHtml = () => {
     return (
         <div>
             <PDFDownloadLink document={
-                <InvoiceTemplate />
+                <InvoiceTemplate 
+                price={price}
+                invoice_no={invoice_no}
+                address={address}
+                plan={plan}
+                amount={amount}
+                date={date}
+        
+                />
             } fileName="fee_acceptance.pdf">
                 {({ blob, url, loading, error }) => (loading ? 'Loading document...' : <Button size="sm" variant="ghost" className="dark:bg-[#1C1C1C]"
                 

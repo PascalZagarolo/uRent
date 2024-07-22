@@ -90,13 +90,31 @@ const Address : React.FC<AddressProps> = ({
     </View>
 );
 
-const UserAddress = () => (
+interface UserAddressProps {
+    address : {
+        city: string,
+        country: string,
+        line1: string,
+        line2: string,
+        postal_code: string,
+        state: string
+    };
+    
+}
+
+const UserAddress : React.FC<UserAddressProps> = ({
+    address
+}) => (
     <View style={styles.titleContainer}>
         <View style={styles.spaceBetween}>
             <View style={{ maxWidth: 200 }}>
                 <Text style={styles.addressTitle}>Rechnungsadresse </Text>
                 <Text style={styles.address}>
-                    {reciept_data.address}
+                    {
+                    `${address?.line1 ? address?.line1 : ""}${address?.line2 ? ', ' + address?.line2 : ''}\n
+                    ${address?.postal_code ? address?.postal_code : ""} ${address?.city ? address?.city : ""}${address?.state ? ', ' 
+                    + address?.state : ''}\n${address?.country ? address?.country : ""}`
+                    }
                 </Text>
             </View>
             <Text style={styles.addressTitle2}>{reciept_data.date}</Text>
@@ -164,7 +182,14 @@ const TableTotal = () => (
 interface InvoiceTemplateProps {
     price : number;
     invoice_no : string;
-    address : string;
+    address: {
+        city: string,
+        country: string,
+        line1: string,
+        line2: string,
+        postal_code: string,
+        state: string
+    };
     plan : string;
     amount : number;
     date : string;
@@ -180,7 +205,9 @@ const InvoiceTemplate : React.FC<InvoiceTemplateProps> = (
                 <Address 
                 invoice_no = {invoice_no}
                 />
-                <UserAddress />
+                <UserAddress 
+                address={address}
+                />
                 <TableHead />
             <TableBody/>
                 <TableTotal />

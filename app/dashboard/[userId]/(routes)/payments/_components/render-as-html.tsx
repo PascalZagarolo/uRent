@@ -10,7 +10,7 @@ import { PDFDownloadLink, PDFViewer, Document, Page, Text } from "@react-pdf/ren
 interface RenderAsHtmlProps {
     price : number;
     invoice_no : string;
-    address : string;
+    address : Object;
     plan : string;
     amount : number;
     date : string;
@@ -23,7 +23,7 @@ const RenderAsHtml : React.FC<RenderAsHtmlProps> = ({
 
     
 
-
+console.log(address)
 
 
             

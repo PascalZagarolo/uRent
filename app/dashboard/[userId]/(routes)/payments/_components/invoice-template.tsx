@@ -99,11 +99,13 @@ interface UserAddressProps {
         postal_code: string,
         state: string
     };
+    date : string;
     
 }
 
 const UserAddress : React.FC<UserAddressProps> = ({
-    address
+    address,
+    date
 }) => (
     <View style={styles.titleContainer}>
         <View style={styles.spaceBetween}>
@@ -117,7 +119,7 @@ const UserAddress : React.FC<UserAddressProps> = ({
                     }
                 </Text>
             </View>
-            <Text style={styles.addressTitle2}>{reciept_data.date}</Text>
+            <Text style={styles.addressTitle2}>{date}</Text>
         </View>
     </View>
 );
@@ -204,9 +206,11 @@ const InvoiceTemplate : React.FC<InvoiceTemplateProps> = (
                 <InvoiceTitle />
                 <Address 
                 invoice_no = {invoice_no}
+                
                 />
                 <UserAddress 
                 address={address}
+                date = {date}
                 />
                 <TableHead />
             <TableBody/>

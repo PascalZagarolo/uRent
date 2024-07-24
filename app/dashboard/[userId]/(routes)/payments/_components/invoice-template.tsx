@@ -198,7 +198,9 @@ interface InvoiceTemplateProps {
 }
 
 const InvoiceTemplate : React.FC<InvoiceTemplateProps> = (
-    {price, invoice_no, address, plan, amount, date} : InvoiceTemplateProps
+    {
+        price, invoice_no, address, plan, amount, date
+    } : InvoiceTemplateProps
 ) => {
     return (
         <Document>

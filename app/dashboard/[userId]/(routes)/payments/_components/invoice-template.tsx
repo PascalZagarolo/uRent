@@ -141,7 +141,9 @@ const TableHead = () => (
     </View>
 );
 
-const TableBody = () => (
+const TableBody = ({
+    price
+}) => (
     reciept_data.items.map((receipt) => (
         <Fragment key={receipt.id}>
             <View style={{ width: '100%', flexDirection: 'row' }}>
@@ -149,20 +151,22 @@ const TableBody = () => (
                     <Text >{receipt.desc}</Text>
                 </View>
                 <View style={styles.tbody}>
-                    <Text>{receipt.price} </Text>
+                    <Text>{price.toFixed(2)} </Text>
                 </View>
                 <View style={styles.tbody}>
                     <Text>{receipt.qty}</Text>
                 </View>
                 <View style={styles.tbody}>
-                    <Text>{(receipt.price * receipt.qty).toFixed(2)} </Text>
+                    <Text>{(price * receipt.qty).toFixed(2)} </Text>
                 </View>
             </View>
         </Fragment>
     ))
 );
 
-const TableTotal = () => (
+const TableTotal = ({
+    price
+}) => (
     <View style={{ width: '100%', flexDirection: 'row' }}>
         <View style={styles.total}>
             <Text></Text>
@@ -175,7 +179,7 @@ const TableTotal = () => (
         </View>
         <View style={styles.tbody}>
             <Text>
-                {reciept_data.items.reduce((sum, item) => sum + (item.price * item.qty), 0)} €
+                {price.toFixed(2)} €
             </Text>
         </View>
     </View>
@@ -215,8 +219,12 @@ const InvoiceTemplate : React.FC<InvoiceTemplateProps> = (
                 date = {date}
                 />
                 <TableHead />
-            <TableBody/>
-                <TableTotal />
+            <TableBody
+            price={price}
+            />
+                <TableTotal 
+                price={price}
+                />
             </Page>
         </Document>
     );

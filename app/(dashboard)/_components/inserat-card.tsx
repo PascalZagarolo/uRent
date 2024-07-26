@@ -184,7 +184,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="w-full ml-4 mr-4 text-base font-semibold h-[24px]  text-gray-200 flex items-center ">
 
                     <a
-                        className="hover:underline h-[24px] overflow-hidden w-3/4 sm:truncate
+                        className="hover:underline h-[24px] overflow-hidden w-3/4 sm:line-clamp-1
                         break-words text-ellipsis"
                         href={`/inserat/${thisInserat.id}`}
                         target="_blank"

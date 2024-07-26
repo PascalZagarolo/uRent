@@ -214,7 +214,7 @@ const InseratAnzeige = async ({
                 <AdsComponent dataAdSlot='3797720061' />
             </div>
         </div>
-*/}c
+*/}
         <div className="xl:w-6/12 w-full xl:flex  justify-center   xl:mt-12 h-max">
 
             <div className="h-full sm:p-4 w-full flex justify-end">

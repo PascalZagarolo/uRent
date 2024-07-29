@@ -2,11 +2,13 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 
 interface ChatImageRenderProps {
-    imageLink: string
+    imageLink: string,
+    content? : string
 }
 
 const ChatImageRender: React.FC<ChatImageRenderProps> = ({
-    imageLink
+    imageLink,
+    content
 }) => {
     return (
         <Dialog>
@@ -16,6 +18,11 @@ const ChatImageRender: React.FC<ChatImageRenderProps> = ({
                         className="sm:max-w-[200px] sm:max-h-[200px]"
                         src={imageLink}
                     />
+                    {content && (
+                        <div>
+                            {content}
+                        </div>
+                    )}
                 </div>
             </DialogTrigger>
             <DialogContent className="dark:bg-[#101010] flex justify-center border-none">

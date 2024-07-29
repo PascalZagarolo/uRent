@@ -13,12 +13,13 @@ export async function POST(
 
         const currentUser = await getCurrentUser();
 
-        const { image } = await req.json();
+        const { image, content } = await req.json();
         
         const [imageMessage] = await db.insert(message).values({
             conversationId : params.conversationId,
             senderId : currentUser.id,
             image : image,
+            content : content
         }).returning();
 
         await pusherServer.trigger(params.conversationId, 'messages:new', imageMessage);

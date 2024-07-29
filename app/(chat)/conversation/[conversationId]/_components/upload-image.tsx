@@ -139,7 +139,7 @@ const UploadImage = ({
             </Button>
             {currentUrl && (
                 <Dialog
-                open={currentUrl} 
+                open={currentUrl ? true : false} 
                 onOpenChange={(e) => {
                     if(e === false) {
                         setCurrentUrl("");

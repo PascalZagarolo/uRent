@@ -162,7 +162,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             {
                                                 thisUser.isBusiness ? (
                                                     <h3 className="text-2xl flex font-bold p-2">
-                                                        <FaBuilding className="mr-2" />  Geschäftsprofil
+                                                        Profilinformationen
                                                         {!ownProfile && (
                                                             <div className="ml-auto">
                                                             <MessageButton 

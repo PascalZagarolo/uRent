@@ -19,7 +19,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import { FaRegEdit } from "react-icons/fa";
-import { IoMdInformationCircleOutline } from "react-icons/io";
+import { IoMdInformationCircleOutline, IoMdLocate } from "react-icons/io";
 
 interface StandortProps {
     thisStandort: typeof businessAddress.$inferSelect;
@@ -50,6 +50,7 @@ const Standort: React.FC<StandortProps> = ({
     const [selectedImages, setSelectedImages] = useState([]);
     const [isUploaded, setIsUploaded] = useState(false);
     const [currentUrl, setCurrentUrl] = useState(thisStandort?.image);
+    const [currentTitle, setCurrentTitle] = useState(thisStandort?.title);
     const [currentStreet, setCurrentStreet] = useState(thisStandort?.street);
     const [currentCity, setCurrentCity] = useState(thisStandort?.city);
     const [currentPostalCode, setCurrentPostalCode] = useState<string>(String(thisStandort?.postalCode));
@@ -113,7 +114,8 @@ const Standort: React.FC<StandortProps> = ({
                 street: currentStreet,
                 city: currentCity,
                 postalCode: Number(currentPostalCode),
-                image: currentUrl
+                image: currentUrl,
+                title : currentTitle
             }
 
             await axios.patch(`/api/businessAddress/${thisStandort.id}`, values).then(() => {
@@ -166,11 +168,12 @@ const Standort: React.FC<StandortProps> = ({
         <Dialog>
             <AlertDialog>
                 <div className={cn("dark:bg-[#191919] mt-4 rounded-t-md", thisStandort.isPrimary && "border-rose-800 border-2")}>
-                    <div className="sm:flex py-2 px-2  items-center" >
-                        <div className="flex">
-                            <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
-                            <div className="sm:text-sm text-xs font-semibold">
-                                {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
+                    <div className="sm:flex p-2  items-center" >
+                        <div >
+                            
+                            <div className="sm:text-base text-xs px-2 font-semibold w-full break-all line-clamp-1 gap-x-2  items-center">
+                            
+                                {thisStandort?.title}
                             </div>
                         </div>
                         {ownProfile && (
@@ -224,6 +227,12 @@ const Standort: React.FC<StandortProps> = ({
                             </div>
                         </div>
                     )}
+                    <div className="flex p-2">
+                            <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
+                            <div className="sm:text-sm text-xs font-semibold text-gray-200/95">
+                                {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
+                            </div>
+                        </div>
                 </div>
                 <DialogContent className="dark:bg-[#191919] dark:border-none">
                     <div>
@@ -302,6 +311,17 @@ const Standort: React.FC<StandortProps> = ({
                                     <MapPinIcon className="w-4 h-4" /> Addresse
                                 </Label>
                                 <div>
+                                    <div className="w-full">
+                                        <Label className="font-semibold">
+                                        Name des Standorts
+                                        </Label>
+                                        <Input 
+                                        value={currentTitle}
+                                        className="dark:bg-[#1C1C1C] border-none"
+                                        onChange={(e) => setCurrentTitle(e.target.value)}
+                                        placeholder="z.B. Autohaus Mömer"
+                                        />
+                                    </div>
                                     <div className="w-full flex gap-4">
                                         <div className="w-full mt-2">
                                             <Label className="font-semibold">

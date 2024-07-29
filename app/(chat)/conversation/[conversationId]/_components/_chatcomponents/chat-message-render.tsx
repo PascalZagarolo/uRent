@@ -84,13 +84,22 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                             <div className=" py-0.5">
                                 <Dialog>
                                     <DialogTrigger>
-                                        <Image
-                                            src={messages?.image}
-                                            width={200}
-                                            height={200}
-                                            className="object-cover"
-                                            alt="image"
-                                        />
+                                        <div className="max-w-max">
+                                            <div>
+                                                <Image
+                                                    src={messages?.image}
+                                                    width={200}
+                                                    height={200}
+                                                    className="object-cover"
+                                                    alt="image"
+                                                />
+                                            </div>
+                                            {messages?.content && (
+                                                <div className=" justify-start mt-1 break-all text-left text-gray-200/80" style={{ maxWidth: '200px' }}>
+                                                    {messages?.content}
+                                                </div>
+                                            )}
+                                        </div>
                                     </DialogTrigger>
                                     <DialogContent className="p-0">
                                         <Image

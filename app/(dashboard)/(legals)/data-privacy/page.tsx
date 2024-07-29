@@ -48,7 +48,7 @@ const DataPrivacy = async () => {
                                 <h1 className="font-semibold text-lg underline mt-4">
                                     2. Verantwortliche
                                 </h1>
-                                <div className="">
+                                <div >
                                     Die uRent UG  ist Betreiber des Services und der Produkte und
                                     verantwortlich im Sinne der Datenschutzgrundverordnung (DSGVO).
                                 </div>
@@ -187,7 +187,7 @@ const DataPrivacy = async () => {
                                     </h1>
                                     <div>
                                         Wir und unsere Dienstleister speichern Ihre personenbezogenen Daten gemäß den geltenden Datenschutzgesetzen, solange dies für die in dieser Datenschutzerklärung genannten Zwecke erforderlich ist. Weitere Informationen zu den Verarbeitungszwecken finden
-                                        Sie unter "Zwecke und Rechtsgrundlagen der Datenverarbeitung".
+                                        Sie unter {`"`}Zwecke und Rechtsgrundlagen der Datenverarbeitung{`"`}.
                                         Nach Ablauf dieser Zeiträume löschen wir Ihre personenbezogenen Daten gemäß
                                         unseren Richtlinien zur Datenaufbewahrung und -löschung oder anonymisieren sie ordnungsgemäß.
                                         Eine Ausnahme gilt, wenn wir gesetzlich verpflichtet sind, Ihre personenbezogenen Daten länger aufzubewahren (z.B. zur Erfüllung rechtlicher Pflichten oder für Steuer-, Buchhaltungs- und Prüfzwecke). In Europa betragen die üblichen Aufbewahrungsfristen zwischen 6 und 10 Jahren (z.B. für Verträge, Mitteilungen und Geschäftsbriefe). Wenn gesetzlich zulässig oder erforderlich, schränken wir die Verarbeitung Ihrer Daten ein, anstatt sie zu löschen (z.B. durch Sperrung). Dies gilt insbesondere, wenn wir die betreffenden Daten noch für die weitere Vertragsabwicklung, Rechtsverfolgung oder Rechtsverteidigung benötigen oder ihre Aufbewahrung anderweitig gesetzlich vorgeschrieben oder erlaubt ist. Die maßgeblichen Kriterien für die Dauer der Einschränkung der Verarbeitung sind dann die gesetzlichen Verjährungs- bzw. Aufbewahrungsfristen. Nach Ablauf dieser Fristen werden die betreffenden Daten gelöscht.

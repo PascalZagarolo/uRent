@@ -106,7 +106,7 @@ export const businessAddress = pgTable("businessAddress", {
     state: text("state"),
     city : text("city"),
     street : text("street"),
-
+    title : text("title"),
     isPrimary : boolean("isPrimary").notNull().default(false),
 })
 

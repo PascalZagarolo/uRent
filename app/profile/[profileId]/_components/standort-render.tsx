@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { businessAddress } from "@/db/schema";
 import Standort from "./standort";
+import { de } from 'date-fns/locale';
 
 interface StandortRenderProps {
     ownProfile: boolean;
@@ -59,7 +60,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
         isDragAccept,
         isDragReject,
     } = useDropzone({ onDrop, maxFiles: 1, accept : { 
-        'image/png': ['.jpeg', '.png', '.webp', '.jpg', ''],
+        'image/png': ['.jpeg', '.png', '.webp', '.jpg'],
     } });
 
     const handleUpload = (acceptedFiles? : any) => {
@@ -99,7 +100,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
         }
     };
 
-
+    const [currentTitle, setCurrentTitle] = useState("");
     const [currentStreet, setCurrentStreet] = useState("");
     const [currentCity, setCurrentCity] = useState("");
     const [currentPostalCode, setCurrentPostalCode] = useState("");
@@ -118,7 +119,8 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                 street: currentStreet,
                 city: currentCity,
                 postalCode: currentPostalCode,
-                image: currentUrl
+                image: currentUrl,
+                title : currentTitle
             }
 
             await axios.post(`/api/business/${businessId}/businessAddress`, values);
@@ -228,10 +230,20 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                         </div>
 
                         <div className="mt-4">
-                            <Label className="font-semibold text-sm flex gap-x-2 items-center">
+                            <Label className="font-semibold text-base flex gap-x-2 items-center">
                                 <MapPinIcon className="w-4 h-4" /> Addresse
                             </Label>
                             <div>
+                                <div className="w-full ">
+                                    <Label>
+                                        Name des Standorts
+                                    </Label>
+                                    <Input 
+                                    className="dark:bg-[#1C1C1C] border-none"
+                                    onChange={(e) => setCurrentTitle(e.target.value)}
+                                    placeholder="z.B. Autohaus Mömer"
+                                    />
+                                </div>
                                 <div className="w-full flex gap-4">
                                     <div className="w-full mt-2">
                                         <Label className="font-semibold">
@@ -275,7 +287,9 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                     <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]"
                                         onClick={onCreate}
                                         disabled={currentStreet.trim() === "" || currentPostalCode === "" || currentCity.trim() === "" ||
-                                            currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode)) || isLoading}
+                                            currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode)) || isLoading || !currentTitle || 
+                                        currentTitle.trim() === ""
+                                        }
 
                                     >
                                         Standort hinzufügen

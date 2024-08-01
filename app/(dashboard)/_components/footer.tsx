@@ -1,7 +1,9 @@
 'use client'
 
-import { TruckIcon } from "lucide-react";
+
+import { Instagram, MailCheckIcon, MailIcon, TruckIcon, Twitter } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { EmailIcon } from "react-share";
 
 const Footer = () => {
 
@@ -9,42 +11,74 @@ const Footer = () => {
 
   return (
     <div className=" bottom-0 mt-1 dark:bg-[#0F0F0F] bg-[#191B27] w-full sticky border-y border-gray-300/10">
-      <div className="flex justify-center text-gray-200   dark:text-gray-900 mt-2    w-full">
-        <div className="sm:w-[1044px] w-full bg-[#0b0c13]bg-[#0b0c13] rounded-lg py-4 px-4 sm:p-4">
+      <div className="flex flex-row items-center p-4 sm:hidden ">
+                  <a
+                  href="https://www.instagram.com/urent.de/"
+                  >
+                  <Instagram className="w-6 h-6 mr-4" />
+                  </a>
+                  <a>
+                    <Twitter className="w-6 h-6 mr-4" />
+                  </a>
+                  <a href="mailto:support@urent-rental.de">
+  <MailIcon className="w-6 h-6 mr-4" />
+</a>
+                </div>
+      <div className="flex justify-center text-gray-200   dark:text-gray-900 sm:mt-2    w-full">
+      
+        <div className="sm:w-[1044px] w-full bg-[#0b0c13]bg-[#0b0c13] rounded-lg pb-4 px-4 sm:p-4">
           <div className="flex items-center">
-            <TruckIcon className="w-6 h-6 dark:text-gray-200 mr-2 sm:block hidden" />
-            <p className="dark:text-gray-100 text-lg sm:text-xl font-semibold sm:block hidden"> uRent </p>
+            <TruckIcon className="w-6 h-6 dark:text-gray-200 mr-2 md:block hidden" />
+            <p className="dark:text-gray-100 text-lg sm:text-xl font-semibold md:block hidden"> uRent </p>
 
             <div className="flex justify-evenly gap-x-8 sm:gap-x-0 dark:text-gray-200 font-medium sm:font-semibold w-full sm:text-sm text-xs">
             <div className="font-medium flex-col">
 
-<a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/about-us">
+<a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/about-us">
     Über uns
   </a>
-  <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/contact">
+  <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/contact">
     Kontakt
   </a>
-  <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/career">
+  <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/career">
     Karriere
   </a>
 </div>
 
               <div className="font-medium flex-col">
-                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/imprint">
+                <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/imprint">
                   Impressum
                 </a>
-                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/data-privacy">
+                <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/data-privacy">
                   Datenschutz
                 </a>
-                <a className="hover:underline hover:cursor-pointer  text-xs sm:text-sm block" href="/agbs">
+                <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/agbs">
                   AGBs
                 </a>
               </div>
 
-              <a className="hover:underline hover:cursor-pointer  sm:text-sm text-xs" href="/faqs">
+              <a className="hover:underline hover:cursor-pointer  sm:text-sm text-sm" href="/faqs">
                FAQs & Hilfe
               </a>
 
+              <div className="hidden sm:block">
+                <div className="hidden md:block">
+                    Kontakt
+                </div>
+                <div className="flex flex-row items-center mt-2">
+                  <a
+                  href="https://www.instagram.com/urent.de/"
+                  >
+                  <Instagram className="w-6 h-6 mr-4" />
+                  </a>
+                  <a>
+                    <Twitter className="w-6 h-6 mr-4" />
+                  </a>
+                  <a href="mailto:support@urent-rental.de">
+  <MailIcon className="w-6 h-6 mr-4" />
+</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

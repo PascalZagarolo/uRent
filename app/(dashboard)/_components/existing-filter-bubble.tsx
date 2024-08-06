@@ -54,6 +54,8 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return "Anhänger"
                     case 'TRANSPORT':
                         return "Transporter"
+                        default:
+                            return usedValue;
                 }
             }
             case 'periodBegin':
@@ -88,6 +90,14 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                 return 'ab ' + convertMinutesToGermanTime(parseInt(usedValue));
             case 'endTime':
                 return 'bis ' + convertMinutesToGermanTime(parseInt(usedValue));
+            case "loading_l":
+                return 'ab ' + usedValue + 'm Länge';
+            case "loading_h":
+                return 'ab ' + usedValue + 'm Höhe';
+            case "loading_b":
+                return 'ab ' + usedValue + 'm Breite';
+            case "caution":
+                return 'max. Kaution ' + usedValue + '€';
             case 'transmission':
                 switch (usedValue) {
                     case 'AUTOMATIC':
@@ -103,6 +113,8 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return 'Benzin';
                     case 'DIESEL':
                         return 'Diesel';
+                        default:
+                            return usedValue;
                 }
             case 'type':
                 switch (usedValue) {
@@ -131,7 +143,7 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                     case 'SUPERSPORT':
                         return 'Supersportwagen';
                     default:
-                        return usedValue;
+                        return usedValue.slice(0, 1) + usedValue.slice(1).toLowerCase();
                 }
             case 'ahk': {
                 switch (usedValue) {
@@ -164,6 +176,8 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return 'Ab 34t'
                     case '5000':
                         return 'über 39t'
+                        default:
+                            return usedValue;
                 }
             }
             case 'weightClassMax': {
@@ -184,12 +198,16 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return 'bis 34t'
                     case '5000':
                         return 'bis über 34t'
+                        default:
+                            return usedValue;
                 }
             }
             case "axis":
                 return 'ab ' + usedValue + ' Achsen'
             case "axisMax":
                 return 'bis ' + usedValue + ' Achsen'
+            case "reqAge": 
+                return 'bis ' + usedValue + ' Jahre'
             case "brake":
                 {
                     switch (usedValue) {
@@ -197,14 +215,18 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                             return "mit Bremsvorrichtung"
                         case 'false':
                             return "ohne Bremsvorrichtung"
+                        default:
+                            return usedValue;
                     }
                 }
             case 'coupling': {
                 switch (usedValue) {
-                    case 'KUGELKOPFKUPPLUNNG':
+                    case 'KUGELKOPFKUPPLUNG':
                         return 'Kugelkopfkupplung'
                     case 'MAULKUPPLUNG':
                         return 'Maulkupplung'
+                    default:
+                        return usedValue;
                 }
             }
             case 'extraType': {
@@ -237,6 +259,8 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return "Pritsche";
                     case "VERANSTALTUNG":
                         return "Veranstaltung";
+                        default:
+                            return usedValue;
                 }
 
             }
@@ -252,9 +276,11 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
             case 'dynamicSearch': {
                 switch (usedValue) {
                     case 'true':
-                        return 'Dynamische Suche';
+                        return 'Dynamische Suchen nutzen';
                     case 'false':
                         return 'Statische Suche';
+                        default:
+                            return usedValue;
 
                 }
             }
@@ -274,6 +300,8 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
                         return '2 Wochen';
                     case '1m':
                         return '1 Monat';
+                        default:
+                            return usedValue;
                 }
             }
             default:

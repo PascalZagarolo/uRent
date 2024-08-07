@@ -27,7 +27,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState<string | number>(thisInserat?.price);
+    const [currentValue, setCurrentValue] = useState<string | number>(Number(thisInserat?.price)?.toFixed(2));
     const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
 
     const {currentChanges, changeCurrent, deleteCurrent} = useUnsavedChanges()
@@ -124,7 +124,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            onClick={onSubmit} disabled={!correctPrice || currentValue == thisInserat.price || Number(currentValue) > 1_000_000}
+                            onClick={onSubmit} disabled={!correctPrice || Number(currentValue) === Number(thisInserat?.price) || Number(currentValue) > 1_000_000}
                         >
                             Preis festlegen
                         </Button>

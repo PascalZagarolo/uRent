@@ -23,16 +23,17 @@ const SaveChanges: React.FC<SaveChangesProps> = ({
     const currentChanges = useUnsavedChanges((state) => state.currentChanges);
     const router = useRouter();
     //@ts-ignore
-    const priceNumber = parseInt(currentChanges['price']);
+    const priceNumber = currentChanges['price'];
 //@ts-ignore
-    console.log(currentChanges['description'])
+    
+
     
 //@ts-ignore
     const changedTitle = currentChanges['title']?.trim() !== thisInserat?.title && currentChanges['title'] ? true : false;
     //@ts-ignore
     const changedDescription = currentChanges['description']?.trim() !== thisInserat?.description && currentChanges['description']  ? true : false;
     //@ts-ignore
-    const changedPrice = currentChanges['price'] !== thisInserat?.price && currentChanges['price'] ? true : false;
+    const changedPrice = (currentChanges['price'] === thisInserat?.price) && currentChanges['price'] ? true : false;
 
     const hasChanged = changedTitle || changedDescription || changedPrice;
     

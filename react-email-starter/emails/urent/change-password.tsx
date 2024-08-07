@@ -63,7 +63,7 @@ import { Inter } from "next/font/google";
             <Text style={paragraph2}>— Das uRent Team</Text>
             <Hr style={hr} />
             <Text style={footer}>
-              uRent, 42653 Solingen, NRW, Deutschland
+            uRent UG (haftungsbeschränkt), Bozenerstr.26, 42659 Solingen, NRW, Deutschland
             </Text>
           </Section>
         </Container>

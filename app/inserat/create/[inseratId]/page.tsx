@@ -165,7 +165,7 @@ const InseratCreation = async ({
                                         <MdPostAdd className="mr-2" />  Inserat bearbeiten
                                         <div className="ml-auto">
                                     <SaveChanges 
-                                    thisInserat={thisInserat}
+                                    thisInserat={thisInserat as any}
                                     />
                                 </div>
                                     </h3>

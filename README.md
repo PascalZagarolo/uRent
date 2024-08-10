@@ -13,7 +13,7 @@ Mit unserem integrierten Chat-Tool können Mieter und Vermieter direkt miteinand
 Halte deine Verfügbarkeiten stets aktuell, indem du alle Termine und Buchungen direkt in deinen Kalender einträgst – so bleibt nichts dem Zufall überlassen!
 
 ### Mobile-App
-[Github-Repo](https://github.com/PascalZagarolo/uRent_rn) der Mobile App, sowie des Androids sowie der Ios-Version.
+[Github-Repo](https://github.com/PascalZagarolo/uRent_rn) der Mobile App, sowie der Android und Ios-Version.
 
 
 ### Technische Details:

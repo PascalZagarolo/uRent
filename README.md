@@ -24,3 +24,35 @@ Halte deine Verfügbarkeiten stets aktuell, indem du alle Termine und Buchungen 
 - Next.js
 - Node.js
 - Lucia Auth
+
+# Funktionsübersicht
+
+### 🔍 Inserate & Suche
+- **Inserate suchen / filtern:** Präzise Suche mit vielfältigen Filtermöglichkeiten.
+- **Personalisierte Suchen speichern:** Speichern und Wiederverwenden von Suchanfragen.
+- **Favoriten:** Inserate als Favoriten markieren und verwalten.
+
+### 🏠 Inserate erstellen & verwalten
+- **Inserate erstellen / verwalten:** Einfaches Erstellen und Bearbeiten von Inseraten.
+- **Hervorhebung von Inseraten:** Nutzung diverser Tools zur besonderen Präsentation von Inseraten.
+
+### 👤 Benutzerprofile & Kontoverwaltung
+- **Registrierung / Login:** Sichere Registrierung und Anmeldung.
+- **Sicherheitsfunktionen:** Unterstützung für 3-Faktor-Authentifizierung und OTP (E-Mail/Telefon).
+- **Profil erstellen, verwalten, personalisieren:** Individuelle Gestaltung und Verwaltung von Benutzerprofilen.
+- **Personalisierte Vermieter-/Businessprofile:** Mit Standorten, Öffnungszeiten, Impressum und mehr.
+
+### 🧑‍💼 Kontoarten & Abonnements
+- **Mieter- & Vermieter-Konto:** Unterschiedliche Konten mit spezifischen Funktionen.
+- **Zahlungsverkehr & Abomodell:** Flexibles Zahlungsmanagement mit Abonnement-Optionen.
+
+### 📨 Kommunikation & Benachrichtigungen
+- **Interne Benachrichtigungsfunktionen:** In-App-Benachrichtigungen und E-Mail-Benachrichtigungen.
+- **Echtzeit-Nachrichtendienst:** Sofortnachrichten mit der Möglichkeit, Bilder zu senden.
+- **Buchungstermine vorschlagen:** Einfache Terminabstimmung zwischen Mietern und Vermietern.
+
+### 🛠 Verwaltung & Organisation
+- **uRent Dashboard:** Umfangreiches Verwaltungsdashboard mit:
+  - Terminplanung
+  - Buchungsverwaltung
+  - Zahlungsmanagement

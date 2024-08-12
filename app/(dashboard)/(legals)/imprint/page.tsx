@@ -40,16 +40,18 @@ const Imprint = async () => {
                                 x Straße
                                 </p>
                                 <p className="mt-2">
-                                    x
+                                    42659 Solingen, Deutschland
                                 </p>
                                 
                                 <p className="mt-4 text-lg font-semibold">
                                     Vertreten durch:
                                 </p>
                                 <p className="mt-2">
-                                    x
+                                    Pascal Zagarolo
                                 </p>
-                                
+                                <p className="mt-2">
+                                    Vincent Garber
+                                </p>
                                 <div>
                                     <p className="font-bold mt-4">
                                         Kontakt:

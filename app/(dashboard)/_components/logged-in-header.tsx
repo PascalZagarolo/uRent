@@ -18,7 +18,7 @@ import { signOut } from "@/actions/signout";
 import { RiAdminFill } from "react-icons/ri";
 import { IoIosPricetags } from "react-icons/io";
 import SavedSearchShortCut from "./saved-search-shortcut";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import NewMessageToast from "./used-toasts/new-message-toast";
 import { pusherClient } from "@/lib/pusher";
@@ -40,6 +40,8 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
     const router = useRouter();
 
+    let savedIds = useRef([]).current;
+
 
     const onClick = () => {
         router.push(`/profile/${currentUser.id}`);
@@ -53,31 +55,29 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         router.push(`/conversation`)
     }
 
+    const onNewNotification = (data : any) => {
+                
+        if(!savedIds.includes(data.notification.id)) {
+            console.log(savedIds)
+            console.log(data.notification.id)
+            savedIds.push(data.notification.id);
+            console.log(savedIds)
+            toast.custom((t) => (
+                <NewMessageToast
+                    t={t}
+                    usedImageUrl={data.imageUrl}
+                    notification = {data.notification}
+                />
+            ))
+        } else {
+            return null;
+        }
+       
+    }
 
     useEffect(() => {
 
         pusherClient.subscribe(currentUser.id);
-
-        const onNewNotification = (data : any) => {
-            console.log(data)
-            toast.custom((t) => (
-                <NewMessageToast
-                    t={t}
-                    usedImageUrl={data.notification.content}
-                />
-            ), {
-                duration: 10000,
-                icon: "📬",
-                style: {
-                    background: "#191919",
-                    color: "#fff",
-                },
-                position: "top-right",
-            })
-        }
-
-        
-
         pusherClient.bind("notification:new", (data) => {onNewNotification(data)})
 
         return () => {
@@ -86,8 +86,9 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         }
 
         
-    })
+    },[])
 
+    
 
     return (
         <div className="flex ml-auto items-center sm:mt-2">

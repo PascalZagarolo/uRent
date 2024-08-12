@@ -40,10 +40,14 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
     const onBlur = async () => {
         if (unseenNotifications.length > 0) {
-            const patchedNotifications = await axios.patch("/api/notifications")
+            try {
+                const patchedNotifications = await axios.patch("/api/notifications")
                 .then(() => {
                     router.refresh();
                 })
+            } catch(e : any) {
+                console.log(e)
+            }
         } else {
             return;
         }

@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mieten & Vermieten auf uRent
 
-## Getting Started
+🚗 Miete & Vermiete Pkw, Lkw, Transporter und Anhänger so einfach wie noch nie
+uRent macht es möglich, Fahrzeuge jeder Art schnell und unkompliziert zu mieten oder zu vermieten. Egal ob Pkw, Lkw, Transporter oder Anhänger – mit uRent geht alles ganz einfach!
 
-First, run the development server:
+📈 Verwalte deine Inserate zielführend und effektiv mit dem uRent RMS
+Unser benutzerfreundliches uRent RMS (Rental Management System) hilft dir, deine Inserate optimal zu verwalten und immer den Überblick zu behalten.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+💬 Kontaktiere Mieter & Vermieter mit unserem integrierten Chat
+Mit unserem integrierten Chat-Tool können Mieter und Vermieter direkt miteinander kommunizieren und Prozesse schnell und reibungslos abwickeln.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📅 Trage Termine und Buchungen in deinen Kalender ein
+Halte deine Verfügbarkeiten stets aktuell, indem du alle Termine und Buchungen direkt in deinen Kalender einträgst – so bleibt nichts dem Zufall überlassen!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Mobile-App
+[Github-Repo](https://github.com/PascalZagarolo/uRent_rn) der Mobile App, sowie der Android und Ios-Version.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### Technische Details:
+- React
+- Javascript / Typescript
+- Tailwind
+- PostgresSQL, DrizzleORM
+- Next.js
+- Node.js
+- Lucia Auth
 
-To learn more about Next.js, take a look at the following resources:
+# Funktionsübersicht
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🔍 Inserate & Suche
+- **Inserate suchen / filtern:** Präzise Suche mit vielfältigen Filtermöglichkeiten.
+- **Personalisierte Suchen speichern:** Speichern und Wiederverwenden von Suchanfragen.
+- **Favoriten:** Inserate als Favoriten markieren und verwalten.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 🏠 Inserate erstellen & verwalten
+- **Inserate erstellen / verwalten:** Einfaches Erstellen und Bearbeiten von Inseraten.
+- **Hervorhebung von Inseraten:** Nutzung diverser Tools zur besonderen Präsentation von Inseraten.
 
-## Deploy on Vercel
+### 👤 Benutzerprofile & Kontoverwaltung
+- **Registrierung / Login:** Sichere Registrierung und Anmeldung.
+- **Sicherheitsfunktionen:** Unterstützung für 3-Faktor-Authentifizierung und OTP (E-Mail/Telefon).
+- **Profil erstellen, verwalten, personalisieren:** Individuelle Gestaltung und Verwaltung von Benutzerprofilen.
+- **Personalisierte Vermieter-/Businessprofile:** Mit Standorten, Öffnungszeiten, Impressum und mehr.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🧑‍💼 Kontoarten & Abonnements
+- **Mieter- & Vermieter-Konto:** Unterschiedliche Konten mit spezifischen Funktionen.
+- **Zahlungsverkehr & Abomodell:** Flexibles Zahlungsmanagement mit Abonnement-Optionen.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 📨 Kommunikation & Benachrichtigungen
+- **Interne Benachrichtigungsfunktionen:** In-App-Benachrichtigungen und E-Mail-Benachrichtigungen.
+- **Echtzeit-Nachrichtendienst:** Sofortnachrichten mit der Möglichkeit, Bilder zu senden.
+- **Buchungstermine vorschlagen:** Einfache Terminabstimmung zwischen Mietern und Vermietern.
+
+### 🛠 Verwaltung & Organisation
+- **uRent Dashboard:** Umfangreiches Verwaltungsdashboard mit:
+  - Terminplanung
+  - Buchungsverwaltung
+  - Zahlungsmanagement

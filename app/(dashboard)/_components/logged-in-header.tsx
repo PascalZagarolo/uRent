@@ -87,7 +87,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             pusherClient.unbind("notification:new", onNewNotificationRef.current);
             
         };
-    })
+    },)
 
 
 

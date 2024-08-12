@@ -43,7 +43,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
             try {
                 const patchedNotifications = await axios.patch("/api/notifications")
                 .then(() => {
-                    foundNotifications.filter((notification) => !notification.seen);
+                    router.refresh();
                 })
             } catch(e : any) {
                 console.log(e)

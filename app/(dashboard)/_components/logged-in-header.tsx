@@ -60,8 +60,23 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
         const onNewNotification = (data : any) => {
             console.log(data)
+            toast.custom((t) => (
+                <NewMessageToast
+                    t={t}
+                    usedImageUrl={data.notification.content}
+                />
+            ), {
+                duration: 10000,
+                icon: "📬",
+                style: {
+                    background: "#191919",
+                    color: "#fff",
+                },
+                position: "top-right",
+            })
         }
 
+        
 
         pusherClient.bind("notification:new", (data) => {onNewNotification(data)})
 

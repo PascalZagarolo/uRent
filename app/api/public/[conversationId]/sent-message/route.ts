@@ -16,11 +16,11 @@ export async function POST(
 
         //Route for Mobile App, if App user writes message, the Server will response to the given conversation and notifies the other participant
         
-        const values = await req.json();
+        const currentMessage = await req.json();
 
-        await pusherServer.trigger(params.conversationId, 'messages:new', values.currentMessage);
+        await pusherServer.trigger(params.conversationId, 'messages:new', currentMessage);
 
-        return NextResponse.json({ success : values.currentMessage})
+        return NextResponse.json({ success : currentMessage})
 
 
     } catch(e : any) {

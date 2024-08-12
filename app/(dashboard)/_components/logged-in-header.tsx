@@ -38,6 +38,9 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     savedSearches
 }) => {
 
+    console.log("..")
+    
+
     const router = useRouter();
 
     let savedIds = useRef([])
@@ -63,6 +66,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         onNewNotificationRef.current = (data) => {
             console.log("onNewNotificationRef !!")
             if (!savedIds.current.includes(data.notification.id)) {
+                console.log("render!")
                 savedIds.current.push(data.notification.id);
                 toast.custom((t) => (
                     <NewMessageToast
@@ -82,7 +86,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             channel.unbind("notification:new", onNewNotificationRef.current);
             
         };
-    },[])
+    })
 
 
 

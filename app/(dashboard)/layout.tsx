@@ -42,7 +42,7 @@ const DashboardLayout = cache(async (
             </div>
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser}
+                    currentUser={currentUser as any}
                     foundNotifications={currentUser?.notifications}
                 />
             </div>

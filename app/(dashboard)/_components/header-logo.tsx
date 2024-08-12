@@ -39,6 +39,8 @@ const Header: React.FC<HeaderProps> = cache(async ({
     foundNotifications
 }) => {
 
+    
+
     const foundConversations = await getOpenConversations(currentUser?.id);
 
     let savedSearches: any = [];

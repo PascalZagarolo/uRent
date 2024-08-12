@@ -40,6 +40,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
 
     useEffect(() => {
         pusherClient.subscribe(conversationId);
+
         
 
         const messageHandler = (message : any) => {
@@ -81,6 +82,10 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             pusherClient.unbind('messages:delete', deleteMessage);
         }
     }, )
+
+    useEffect(() => {
+        console.log("sssw")
+    },[])
     
     const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
     

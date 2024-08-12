@@ -45,7 +45,7 @@ export async function POST(
                 content : otherUserName
             }).returning()
 
-            console.log("triggered...")
+            
             await pusherServer.trigger(otherUser, 'notification:new', {
                 notification : createdNotification,
                 userId : otherUser,

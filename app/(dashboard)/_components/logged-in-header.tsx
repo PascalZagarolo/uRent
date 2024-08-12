@@ -18,7 +18,7 @@ import { signOut } from "@/actions/signout";
 import { RiAdminFill } from "react-icons/ri";
 import { IoIosPricetags } from "react-icons/io";
 import SavedSearchShortCut from "./saved-search-shortcut";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import NewMessageToast from "./used-toasts/new-message-toast";
 import { pusherClient } from "@/lib/pusher";
@@ -28,22 +28,24 @@ interface LoggedInBarHeaderProps {
     currentUser: typeof userTable.$inferSelect;
     foundNotifications: typeof notification.$inferSelect[];
     foundConversations?: number;
-    savedSearches: typeof savedSearch.$inferSelect
+    savedSearches: typeof savedSearch.$inferSelect;
+    isMobile? : boolean
 }
 
 const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     currentUser,
     foundNotifications,
     foundConversations,
-    savedSearches
+    savedSearches,
+    isMobile
 }) => {
 
-    console.log("..")
+    
     
 
     const router = useRouter();
 
-    let savedIds = useRef([])
+    const [savedIds, setSavedIds] = useState([]);
 
 
     const onClick = () => {
@@ -58,17 +60,23 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         router.push(`/conversation`)
     }
 
-    const onNewNotificationRef = useRef(null);
+    
 
     useEffect(() => {
-        pusherClient.subscribe(currentUser.id);
+        
+        if(!isMobile) {
+            pusherClient.subscribe(currentUser.id);
+        
         
         // Initialize the function inside useEffect to ensure it's only created once
-        onNewNotificationRef.current = (data) => {
+        const onNewNotification = (data) => {
             console.log("onNewNotificationRef !!")
-            if (!savedIds.current.find(id => id === data.notification.id)) {
-                console.log("render!")
-                savedIds.current.push(data.notification.id);
+            if (savedIds.includes(data.notification.id)) {
+                
+                return;
+            } else {
+                
+                setSavedIds((current) => [...current, data.notification.id]);
                 toast.custom((t) => (
                     <NewMessageToast
                         t={t}
@@ -76,18 +84,20 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                         notification={data.notification}
                     />
                 ));
+                
             }
         };
 
         
-        pusherClient.bind('notification:new' , onNewNotificationRef.current);
+        pusherClient.bind('notification:new' , onNewNotification);
 
         return () => {
             pusherClient.unsubscribe(currentUser.id);
-            pusherClient.unbind("notification:new", onNewNotificationRef.current);
+            pusherClient.unbind("notification:new", onNewNotification);
             
         };
-    },)
+        }
+    },[])
 
 
 

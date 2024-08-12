@@ -21,10 +21,11 @@ import LoggedInBarHeader from "./logged-in-header";
 import { notification, notificationUnauthorized, savedSearch, userTable } from '../../../db/schema';
 
 
-import { cache } from "react";
+import { cache, useEffect } from "react";
 import { getOpenConversations } from "@/actions/getOpenConversations";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
+import toast from "react-hot-toast";
 
 
 
@@ -54,6 +55,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
             where : eq(notificationUnauthorized.isPublic, true),
         });
     }
+
 
 
     return (

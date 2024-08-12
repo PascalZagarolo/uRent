@@ -45,6 +45,11 @@ export async function POST(
                 content : otherUserName
             }).returning()
 
+            await pusherServer.trigger(otherUser, 'notification:new', {
+                notification : createdNotification,
+                userId : otherUser
+             });
+
             return NextResponse.json({newMessage, createdNotification})
         } else {
             

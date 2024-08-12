@@ -18,6 +18,10 @@ import { signOut } from "@/actions/signout";
 import { RiAdminFill } from "react-icons/ri";
 import { IoIosPricetags } from "react-icons/io";
 import SavedSearchShortCut from "./saved-search-shortcut";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import NewMessageToast from "./used-toasts/new-message-toast";
+import { pusherClient } from "@/lib/pusher";
 
 
 interface LoggedInBarHeaderProps {
@@ -50,7 +54,24 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     }
 
 
+    useEffect(() => {
 
+        pusherClient.subscribe(currentUser.id);
+
+        const onNewNotification = (data : any) => {
+            console.log(data)
+        }
+
+
+        pusherClient.bind("notification:new", (data) => {onNewNotification(data)})
+
+        return () => {
+            pusherClient.unsubscribe(currentUser.id);
+            pusherClient.unbind("notification:new", onNewNotification)
+        }
+
+        
+    })
 
 
     return (

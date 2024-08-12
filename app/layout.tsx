@@ -56,7 +56,9 @@ export default function RootLayout({
             </script>
             {children}
             <ToasterContext />
-            <Toaster />
+            <Toaster 
+            
+            />
           
           <SpeedInsights />
           <Analytics />

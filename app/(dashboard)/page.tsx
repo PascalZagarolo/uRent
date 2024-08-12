@@ -124,7 +124,6 @@ const Main = cache(async ({
 
 
 
-    console.log("geladen..")
 
 
 

@@ -16,7 +16,7 @@ import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
 import { useDeleteParams, useSavedSearchParams } from "@/store";
 import { MdOutlineCancel } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MainPageResults from "./main-page-results";
 import { CategoryEnumRender } from "@/db/schema";
 import SaveSearch from "./save-search";
@@ -39,21 +39,21 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
     const router = useRouter();
 
-    const [isMounted, setIsMounted] = useState(false);
+    const isMounted = useRef(false)
 
     const params = getSearchParamsFunction("category");
 
     const linkedParams = getSearchParamsFunction("");
 
-    const [hasNonNullValue, setHasNonNullValue] = useState(Object.values(linkedParams).some(value => value !== null))
+    
 
     
     
     
 
     useEffect(() => {
-        if (!isMounted) {
-            setIsMounted(true);
+        if (!isMounted.current) {
+            isMounted.current = true
         }
     }, [])
 
@@ -90,9 +90,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
     }, [])
 
-    useEffect(() => {
-        setHasNonNullValue(Object.values(linkedParams).some(value => value !== null))
-    },[linkedParams])
+   
 
     const deleteCategory = () => {
 
@@ -158,7 +156,8 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
 
     return (
-        <div className=" no-scrollbar w-[280px] rounded-md hidden xl:block bg-[#202336]  sm:overflow-auto    ">
+        <div>
+            <div className=" no-scrollbar w-[280px] rounded-md hidden xl:block bg-[#202336]  sm:overflow-auto    ">
             <h3 className="text-bold text-2xl p-4 font-medium  flex justify-center text-gray-100 items-center  bg-[#1b1e2c]">
                 <FilterIcon className="mr-4" /> Suchfilter
             </h3>
@@ -172,7 +171,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     userId={userId || ""}
                 />
             </div>
-            {hasNonNullValue && (
+            {usedSearchParams !== null && (
                 <div className="">
                     <ExistingFilter />
                 </div>
@@ -255,10 +254,11 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     <Settings2 className="mr-2 h-4 w-4" /> Zu der Erweiterten Suche
                 </div>
                 <div className="flex justify-center mt-2 mb-2 rounded-md">
-                    <MainPageResults />
+                <MainPageResults />
                 </div>
 
             </div>
+        </div>
         </div>
     );
 }

@@ -3,7 +3,7 @@
 import { useSavedSearchParams } from "@/store";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import qs from "query-string";
 import { SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ const MainPageResults = () => {
     const searchParams = useSavedSearchParams((state) => state.searchParams);
 
 
-    const [currentResults, setCurrentResults] = useState();
+    const [currentResults, setCurrentResults] = useState(null);
     const pathname = usePathname();
     const router = useRouter();
     //? Fix 429-Error in Axios, because of too many requests regarding location..
@@ -24,7 +24,7 @@ const MainPageResults = () => {
             const values = searchParams
             const results = await axios.patch('/api/search', values);
             setCurrentResults(results.data);
-            router.refresh();
+            
         }
         getSearchResults();
     }, [searchParams]);
@@ -76,10 +76,10 @@ const MainPageResults = () => {
         router.push(url);
     }
 
-    const [isMounted, setIsMounted] = useState(false);
+    const isMounted = useRef(false)
 
     useEffect(() => {
-        setIsMounted(true);
+        isMounted.current = true;
     }, [])
 
     if(!isMounted) return null;
@@ -89,7 +89,7 @@ const MainPageResults = () => {
                     justify-center 
                     dark:text-gray-100 dark:hover:bg-sky-700" onClick={onRedirect}>
                         <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> 
-                        {currentResults ? <NumberTicker value={currentResults} /> : 0}
+                        {currentResults ? <NumberTicker value={currentResults as any} /> : 0}
                          </p> Ergebnisse
                     </Button>
      );

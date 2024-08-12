@@ -40,7 +40,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
     const router = useRouter();
 
-    let savedIds = useRef([]).current;
+    let savedIds = useRef([])
 
 
     const onClick = () => {
@@ -55,40 +55,10 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         router.push(`/conversation`)
     }
 
-    const onNewNotification = (data : any) => {
-                
-        if(!savedIds.includes(data.notification.id)) {
-            console.log(savedIds)
-            console.log(data.notification.id)
-            savedIds.push(data.notification.id);
-            console.log(savedIds)
-            toast.custom((t) => (
-                <NewMessageToast
-                    t={t}
-                    usedImageUrl={data.imageUrl}
-                    notification = {data.notification}
-                />
-            ))
-        } else {
-            return null;
-        }
-       
-    }
+    const onNewNotificationRef = useRef(null);
 
-    useEffect(() => {
 
-        pusherClient.subscribe(currentUser.id);
-        pusherClient.bind("notification:new", (data) => {onNewNotification(data)})
 
-        return () => {
-            pusherClient.unsubscribe(currentUser.id);
-            pusherClient.unbind("notification:new", onNewNotification)
-        }
-
-        
-    },[])
-
-    
 
     return (
         <div className="flex ml-auto items-center sm:mt-2">
@@ -97,16 +67,16 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                 <div>
                     🎉 {currentUser.name.toUpperCase() || ""} 🎉
                 </div>
-                
+
                 {currentUser?.isBusiness && (
                     <div className="flex justify-center items-center font-semibold text-indigo-600">
                         Vermieter
                     </div>
                 )}
-                
+
                 {(!currentUser.isBusiness && currentUser) && (
                     <div className="flex justify-center items-center
-                     hover:underline dark:text-gray-200/60 font-medium hover:cursor-pointer" onClick={() => {router.push(`/profile/${currentUser.id}`)}}>
+                     hover:underline dark:text-gray-200/60 font-medium hover:cursor-pointer" onClick={() => { router.push(`/profile/${currentUser.id}`) }}>
                         Du bist Vermieter? Klicke hier
                     </div>
                 )}

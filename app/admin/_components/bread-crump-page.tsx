@@ -27,9 +27,9 @@ const BreadCrumpPage = () => {
             <BreadcrumbLink>Notifikationen</BreadcrumbLink>
           </BreadcrumbItem>
         )}
-        {pathname.includes("payments") && (
+        {pathname.includes("popup") && (
             <BreadcrumbItem>
-            <BreadcrumbLink>Zahlungsverkehr</BreadcrumbLink>
+            <BreadcrumbLink>Popups / Benachrichtigungen</BreadcrumbLink>
           </BreadcrumbItem>
         )}
         {pathname.includes("bookings") && (
@@ -42,6 +42,7 @@ const BreadCrumpPage = () => {
             <BreadcrumbLink>Favoriten</BreadcrumbLink>
           </BreadcrumbItem>
         )}
+        
         
       </BreadcrumbList>
     </Breadcrumb>

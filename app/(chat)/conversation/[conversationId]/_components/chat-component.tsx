@@ -83,9 +83,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         }
     }, )
 
-    useEffect(() => {
-        console.log("sssw")
-    },[])
+    
     
     const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
     

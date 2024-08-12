@@ -2,14 +2,13 @@ import { MessageCircleIcon, XIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 
-interface NewMessageToastProps {
+interface BookingRequestToastProps {
   t: any;
   usedImageUrl: string;
   notification: any;
-  
 }
 
-const NewMessageToast: React.FC<NewMessageToastProps> = ({
+const BookingRequestToast: React.FC<BookingRequestToastProps> = ({
   t,
   usedImageUrl,
   notification
@@ -17,9 +16,9 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
   return (
     <div
       className={`${t.visible ? 'animate-enter' : 'animate-leave'
-        } max-w-md w-full bg-[#191919] shadow-lg rounded-lg border-indigo-800 border pointer-events-auto flex ring-1 ring-black ring-opacity-5 ml-auto `}
+        } max-w-md w-full bg-[#191919] shadow-lg rounded-lg border-yellow-500 border pointer-events-auto flex ring-1 ring-black ring-opacity-5 ml-auto `}
     >
-      <div className="flex bg-indigo-800 rounded-l-md">
+      <div className="flex bg-yellow-500 rounded-l-md">
         <button
           onClick={() => toast.dismiss(t.id)}
           className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium
@@ -40,10 +39,10 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
           </div>
           <div className="ml-3 flex-1">
             <p className="text-sm font-semibold text-gray-200">
-              Neue Nachricht erhalten!
+              Buchungsvorschlag
             </p>
             <div className="mt-1 text-sm text-gray-500">
-              <span className="text-gray-200/60 font-semibold hover:underline hover:cursor-pointer">{notification?.content}</span> hat dir eine Nachricht gesendet.
+              <span className="text-gray-200/60 font-semibold hover:underline hover:cursor-pointer">{notification?.content}</span> wurde für eine Buchung angefragt
             </div>
           </div>
         </div>
@@ -63,4 +62,4 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
   );
 }
 
-export default NewMessageToast;
+export default BookingRequestToast;

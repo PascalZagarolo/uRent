@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
     foundNotifications
 }) => {
 
-    
+    console.log("rendered..")
 
     const foundConversations = await getOpenConversations(currentUser?.id);
 

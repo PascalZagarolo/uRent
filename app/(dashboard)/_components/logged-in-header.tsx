@@ -61,11 +61,12 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     const onNewNotificationRef = useRef(null);
 
     useEffect(() => {
-        console.log("useEffect !!")
+        pusherClient.subscribe(currentUser.id);
+        
         // Initialize the function inside useEffect to ensure it's only created once
         onNewNotificationRef.current = (data) => {
             console.log("onNewNotificationRef !!")
-            if (!savedIds.current.includes(data.notification.id)) {
+            if (!savedIds.current.find(id => id === data.notification.id)) {
                 console.log("render!")
                 savedIds.current.push(data.notification.id);
                 toast.custom((t) => (
@@ -78,12 +79,12 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             }
         };
 
-        const channel = pusherClient.subscribe(currentUser.id);
-        channel.bind("notification:new", onNewNotificationRef.current);
+        
+        pusherClient.bind('notification:new' , onNewNotificationRef.current);
 
         return () => {
             pusherClient.unsubscribe(currentUser.id);
-            channel.unbind("notification:new", onNewNotificationRef.current);
+            pusherClient.unbind("notification:new", onNewNotificationRef.current);
             
         };
     })

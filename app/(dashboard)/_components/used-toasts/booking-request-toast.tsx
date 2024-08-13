@@ -1,5 +1,6 @@
 import { MessageCircleIcon, XIcon } from "lucide-react";
 import toast from "react-hot-toast";
+import { TbMailExclamation } from "react-icons/tb";
 
 
 interface BookingRequestToastProps {
@@ -24,7 +25,7 @@ const BookingRequestToast: React.FC<BookingRequestToastProps> = ({
           className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium
            text-gray-200 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
-          <MessageCircleIcon className="w-4 h-4" />
+          <TbMailExclamation  className="w-4 h-4" />
         </button>
       </div>
       <div className="flex-1 w-0 p-4">

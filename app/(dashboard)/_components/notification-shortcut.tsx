@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 import { BellDotIcon, BellPlus, MessageCircle, MessageCircleMoreIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { conversation, notification,  notificationTypeEnum } from '../../../db/schema';
+import { conversation, notification, notificationTypeEnum } from '../../../db/schema';
 import { CiBookmark } from "react-icons/ci";
 import { format, isToday } from "date-fns";
 import { de } from "date-fns/locale";
@@ -18,16 +18,20 @@ import { cn } from "@/lib/utils";
 import { IoGiftSharp } from "react-icons/io5";
 import { TbClockExclamation } from "react-icons/tb";
 import { PiHandWaving } from "react-icons/pi";
+import { pusherClient } from "@/lib/pusher";
+import { set } from "lodash";
 
 
 
 interface NotificationShortCutProps {
     foundNotifications: typeof notification.$inferSelect[];
+
 }
 
 
 const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
-    foundNotifications
+    foundNotifications,
+
 }) => {
 
     const router = useRouter();
@@ -36,16 +40,25 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     })
 
-    const unseenNotifications = foundNotifications.filter((notification) => !notification.seen);
+    const [unseenNotifications, setUnseenNotifications] = useState(() =>
+        foundNotifications.filter((notification) => !notification.seen)
+    );
+
+    useEffect(() => {
+        setUnseenNotifications(foundNotifications.filter((notification) => !notification.seen));
+        setRenderedNotifications(foundNotifications);
+    },[foundNotifications])
+
 
     const onBlur = async () => {
         if (unseenNotifications.length > 0) {
             try {
                 const patchedNotifications = await axios.patch("/api/notifications")
-                .then(() => {
-                    router.refresh();
-                })
-            } catch(e : any) {
+                    .then(() => {
+                        setUnseenNotifications([]);
+                        router.refresh();
+                    })
+            } catch (e: any) {
                 console.log(e)
             }
         } else {
@@ -74,34 +87,34 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
             case "BOOKING_REQUEST":
                 setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "BOOKING_REQUEST"));
                 break;
-            
+
             default:
                 setRenderedNotifications(foundNotifications);
         }
     }, [usedFilter])
 
-    let usedNotificationType : typeof notificationTypeEnum;
+    let usedNotificationType: typeof notificationTypeEnum;
 
     return (
         <Popover >
             <PopoverTrigger asChild>
-                
+
                 <Button className=" text-gray-200" variant="ghost" size="sm">
-                    <BellDotIcon className="w-6 h-6" /> 
+                    <BellDotIcon className="w-6 h-6" />
                     {unseenNotifications.length > 0 ? (
                         <span className="bg-rose-600 text-xs font-bold px-1 flex rounded-md text-gray-200">
                             {unseenNotifications.length}
                         </span>
-                    ) : 
-                    <span className=" text-xs font-bold px-1 flex rounded-md text-gray-200">
+                    ) :
+                        <span className=" text-xs font-bold px-1 flex rounded-md text-gray-200">
                             0
                         </span>
                     }
                 </Button>
-               
-                    
-                
-                
+
+
+
+
             </PopoverTrigger>
             <PopoverContent className="dark:bg-[#0F0F0F] w-[400px] dark:border-gray-800 border-none" onBlur={onBlur}>
                 <div>
@@ -117,55 +130,55 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
                         <div>
                             <div className="flex justify-between">
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md", 
-                                usedFilter === "ALL" ? "border border-blue-900" : "border border-[#161616]")}
-                                onClick={() => { setUsedFilter("ALL") }}>
+                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
+                                    usedFilter === "ALL" ? "border border-blue-900" : "border border-[#161616]")}
+                                    onClick={() => { setUsedFilter("ALL") }}>
                                     Alle
                                 </button>
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md", 
-                                usedFilter === "MESSAGES" ? "border border-blue-900" : "border border-[#161616]")} 
-                                onClick={() => { setUsedFilter("MESSAGES") }}>
+                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
+                                    usedFilter === "MESSAGES" ? "border border-blue-900" : "border border-[#161616]")}
+                                    onClick={() => { setUsedFilter("MESSAGES") }}>
                                     Nachrichten
                                 </button>
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md", 
-                                usedFilter === "BOOKING_REQUEST" ? "border border-blue-900" : "border border-[#161616]")} 
-                                onClick={() => { setUsedFilter("BOOKING_REQUEST") }}>
+                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
+                                    usedFilter === "BOOKING_REQUEST" ? "border border-blue-900" : "border border-[#161616]")}
+                                    onClick={() => { setUsedFilter("BOOKING_REQUEST") }}>
                                     Anfragen
                                 </button>
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md", 
-                                usedFilter === "BOOKING" ? "border border-blue-900" : "border border-[#161616]")} 
-                                onClick={() => { setUsedFilter("BOOKING") }}>
+                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
+                                    usedFilter === "BOOKING" ? "border border-blue-900" : "border border-[#161616]")}
+                                    onClick={() => { setUsedFilter("BOOKING") }}>
                                     Buchungen
                                 </button>
-                                
+
                             </div>
 
 
 
                             {renderedNotifications.length > 0 ? (
-                                renderedNotifications?.map((notification : any) => (
+                                renderedNotifications?.map((notification: any) => (
                                     usedNotificationType = notification.notificationType,
                                     <div className="dark:bg-[#161616] p-2 mt-1 w-full flex" key={notification.id}>
                                         <div className="w-1/8 px-2">
                                             {
-                                                {   
+                                                {
                                                     "BOOKING": <CiBookmark className="w-4 h-4" />,
-                                                    
+
                                                     "MESSAGE": <MessageCircle className="w-4 h-4" />,
-                                                    
+
                                                     "BOOKING_REQUEST": <LuMailWarning className="w-4 h-4" />,
 
-                                                    "REPORT_ACTION" : <MdOutlineReportProblem className="w-4 h-4 text-rose-600" />,
-                                                    "SUBSCRIPTION_ALMOST_EXPIRED" : <TbClockExclamation className="w-4 h-4 text indigo-600" />,
-                                                    "SUBSCRIPTION_REDEEMED" : <IoGiftSharp className="w-4 h-4 text-indigo-600" />,
-                                                    "WELCOME" : <PiHandWaving  className="w-4 h-4 text-indigo-600" />,
+                                                    "REPORT_ACTION": <MdOutlineReportProblem className="w-4 h-4 text-rose-600" />,
+                                                    "SUBSCRIPTION_ALMOST_EXPIRED": <TbClockExclamation className="w-4 h-4 text indigo-600" />,
+                                                    "SUBSCRIPTION_REDEEMED": <IoGiftSharp className="w-4 h-4 text-indigo-600" />,
+                                                    "WELCOME": <PiHandWaving className="w-4 h-4 text-indigo-600" />,
                                                     //@ts-ignore
-                                                }[usedNotificationType] 
+                                                }[usedNotificationType]
                                             }
                                         </div>
                                         <div className="text-xs font-semibold">
                                             {
-                                                { 
+                                                {
                                                     "BOOKING": (
                                                         <div className="w-full">
                                                             <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
@@ -175,7 +188,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                             </a> <br />
                                                             Du wurdest zu einer Buchung hinzugefügt <br />
                                                             <div className="text-xs font-light font-size: 0.6rem">
-                                                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                             </div>
                                                         </div>),
@@ -207,7 +220,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                             </a> <br />
                                                             Dir wurde eine Anfrage gesendet <br />
                                                             <div className="text-xs font-light font-size: 0.6rem flex">
-                                                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                                 {!notification.seen && (
                                                                     <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
@@ -228,7 +241,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                             Aufgrund eines Verstoßes gegen unsere Richtlinien wurde einer deiner Inhalte verändert. <br />
                                                             Für weitere Informationen über unsere Richtlinien, besuche unsere <a href="/agb" className="text-blue-600 font-bold underline-offset-1 hover:underline">AGB</a> <br />
                                                             <div className="text-xs font-light font-size: 0.6rem flex">
-                                                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
                                                                 {!notification.seen && (
                                                                     <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
@@ -247,7 +260,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                                 Abonnement läuft aus!
                                                             </a> <br />
                                                             {notification?.content} <br />
-                                                            Mehr Informationen findest du unter Dashboard {'>'} Zahlungsverkehr <br/>
+                                                            Mehr Informationen findest du unter Dashboard {'>'} Zahlungsverkehr <br />
                                                             <div className="text-xs font-light font-size: 0.6rem flex w-full">
                                                                 {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
                                                                 {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
@@ -258,7 +271,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                                 )}
                                                             </div>
                                                         </div>
-                                                    ),"SUBSCRIPTION_REDEEMED": (
+                                                    ), "SUBSCRIPTION_REDEEMED": (
                                                         <div className="w-full">
                                                             <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
                                                                 href={`/dashboard/${notification?.userId}/payments`}
@@ -301,7 +314,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                             }
                                         </div>
                                     </div>
-                                    
+
                                 ))
                             ) : (
                                 <div className="p-4 dark:bg-[#161616] mt-2 rounded-md">
@@ -309,12 +322,12 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                 </div>
                             )}
 
-                    </div>
+                        </div>
 
-                      
+
                     )}
                 </div>
-               
+
             </PopoverContent>
         </Popover>
     );

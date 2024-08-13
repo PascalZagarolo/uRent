@@ -42,6 +42,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
     
     
+    const [renderedNotifications, setRenderedNotifications] = useState(foundNotifications ? foundNotifications : []);
 
     const router = useRouter();
 
@@ -75,7 +76,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
                 
                 return;
             } else {
-                
+                setRenderedNotifications((current) => [...current, data.notification]);
                 setSavedIds((current) => [...current, data.notification.id]);
                 toast.custom((t) => (
                     <NewMessageToast
@@ -125,7 +126,8 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             <div className="flex lg:gap-x-2">
                 <div className="sm:block hidden">
                     <NotificationShortCut
-                        foundNotifications={foundNotifications}
+                        foundNotifications={renderedNotifications}
+                        
                     />
                 </div>
                 <div className="xl:block hidden">

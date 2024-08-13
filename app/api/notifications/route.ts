@@ -9,7 +9,7 @@ export async function PATCH() {
 
         const currentUser = await getCurrentUser();
 
-        const [updatedNotifications] = await db.update(notification).set({
+        const updatedNotifications = await db.update(notification).set({
             seen: true,
         }).where(
             and(

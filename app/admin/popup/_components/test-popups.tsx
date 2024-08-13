@@ -13,15 +13,19 @@ import { TbMailExclamation } from "react-icons/tb";
 const TestPopups = () => {
 
     const otherUserName = [
-        "Max Mustermann",
-        "John Doe",
-        "Jane Doe",
-        "Peter Parker",
-        "Clark Kent",
-        "Bruce Wayne",
+        
         "Gniesbert Haselmus",
-        "Gustav Gans",
-        "Pneubert Hinterhuber",
+    "Pneubert Hinterhuber",
+    "Froderick Wunderschmidt",
+    "Knapoleon Wunderlich",
+    "Brumpter Frabensmith",
+    "Florestan Zumbroich",
+    "Vundhelm Schnitzelfritz",
+    "Gorbert Kranzenschuh",
+    "Meinhardt Pfeffelstroh",
+    "Blitwulf Katzenjammer",
+    "Bumbo Breiner",
+    "Jumbo Wackelmann",
     ]
 
     const inseratTitle = "VW Golf 7 GTI | Langzeitmiete möglich | 300 PS | 5-Türer | 2021"
@@ -65,8 +69,10 @@ const TestPopups = () => {
         const randomNumberImage = Math.floor(Math.random() * 14) + 1;
         const randomNumberTitle = Math.floor(Math.random() * 10) + 1;
 
+        const isNewMessage = Math.random() >= 0.5;
+
         const createdNotificationMessage = {
-            userId: "111",
+            userId: "78rrcr6xpdx21zw",
             conversationId: "2222",
             notificationType: "MESSAGE",
             content: otherUserName[randomNumberTitle]
@@ -77,6 +83,7 @@ const TestPopups = () => {
                 t={t}
                 usedImageUrl={imageUrl[randomNumberImage]}
                 notification={createdNotificationMessage}
+                startedConversation={isNewMessage}
             />
         ))
     }

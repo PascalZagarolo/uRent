@@ -6,7 +6,7 @@ import { BrushIcon, Calendar } from 'lucide-react';
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 
@@ -16,10 +16,10 @@ const ToggleDarkMode = () => {
 
     const darkChecked = theme === "dark";
 
-    const [isMounted, setIsMounted] = useState(false)
+    const isMounted = useRef(false)
 
     useEffect(() => {
-        setIsMounted(true)
+        isMounted.current = true
     },[])
     
     if(!isMounted){

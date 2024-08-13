@@ -10,6 +10,8 @@ import { redirect } from "next/navigation";
 import Footer from "@/app/(dashboard)/_components/footer";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+import Notificationpreferences from "./_components/notification-preferences";
+import { IoMdNotifications } from "react-icons/io";
 
 
 
@@ -55,12 +57,25 @@ const SettingsPage = async () => {
                                 </div>
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
-                                <div className="pb-4 px-4">
-
-                                </div>
 
                                 <div>
                                     <ToggleDarkMode />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className="p-4 mt-4  rounded-lg ">
+                            <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
+                                <IoMdNotifications  className="mr-4" /> Benachrichtigungen & Popups  <p className="ml-4 text-lg"> </p>
+                                <div className="ml-auto">
+
+                                </div>
+                            </h3>
+                            <div className="w-full p-4 mt-2 rounded-md">
+                                
+
+                                <div>
+                                    <Notificationpreferences />
                                 </div>
 
                             </div>

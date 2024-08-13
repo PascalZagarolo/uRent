@@ -1,4 +1,6 @@
-import { MessageCircleIcon, X, XIcon } from "lucide-react";
+import { MessageCircleIcon, SettingsIcon, X, XIcon } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 
@@ -12,8 +14,12 @@ interface NewMessageToastProps {
 const NewMessageToast: React.FC<NewMessageToastProps> = ({
   t,
   usedImageUrl,
-  notification
+  notification,
+  startedConversation
 }) => {
+
+  const router = useRouter();
+
   return (
     <div
       className={`${t.visible ? 'animate-enter' : 'animate-leave'
@@ -33,23 +39,34 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
 
           <div className="flex-shrink-0 pt-0.5">
             <img
-              className="h-8 w-8 rounded-md"
+              className="h-8 w-8 rounded-md object-cover"
               src={usedImageUrl}
               alt=""
+
             />
           </div>
           <div className="ml-3 flex-1">
             <div className="flex flex-row">
-            <p className="text-sm font-medium text-gray-200/60">
-            <span className="text-gray-200 font-bold hover:underline hover:cursor-pointer">
-              {notification?.content}saijdinamsdnmapoisnda</span> hat dir eine Nachricht gesendet
-            </p> 
-            <div>
-              <XIcon className="w-4 h-4 text-gray-200 hover:text-gray-600 hover:cursor-pointer" />
-            </div>
+              <p className="text-sm font-medium text-gray-200/60">
+                <span className="text-gray-200 font-bold hover:underline hover:cursor-pointer break-all">
+                  <a className="" href={`/profile/${notification.userId}`}
+                    target="_blank" rel="noreferrer"
+                  >
+                    {notification?.content}</a></span> hat dir eine Nachricht gesendet
+              </p>
+              <div className="ml-auto px-2 gap-x-2 flex flex-row" onClick={() => toast.dismiss(t.id)}>
+                <SettingsIcon 
+                className="w-4 h-4"
+                />
+                <XIcon className="w-4 h-4 text-gray-200 hover:text-gray-600 hover:cursor-pointer" />
               </div>
+            </div>
             <div className="mt-1 text-sm text-gray-500">
-               Dir wurde eine neue Nachricht gesendet.
+              {startedConversation ? (
+                "Hat eine Konversation mit dir gestartet"
+              ) : (
+                "Dir wurde eine neue Nachricht gesendet."
+              )}
             </div>
           </div>
         </div>

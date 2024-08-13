@@ -13,7 +13,7 @@ import { de } from "date-fns/locale";
 import { LuMailWarning } from "react-icons/lu";
 import { MdOutlineNewReleases, MdOutlineReportProblem } from "react-icons/md";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { IoGiftSharp } from "react-icons/io5";
 import { TbClockExclamation } from "react-icons/tb";
@@ -23,51 +23,56 @@ import { set } from "lodash";
 
 
 
+
 interface NotificationShortCutProps {
     foundNotifications: typeof notification.$inferSelect[];
-
+  
 }
 
 
 const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
     foundNotifications,
-
+   
 }) => {
 
     const router = useRouter();
 
+    // Sort notifications by date
     foundNotifications.sort((a, b) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    })
+    });
 
     const [unseenNotifications, setUnseenNotifications] = useState(() =>
         foundNotifications.filter((notification) => !notification.seen)
     );
 
+    const [renderedNotifications, setRenderedNotifications] = useState<
+        typeof notification.$inferSelect[]
+    >(foundNotifications);
+
+    const [usedFilter, setUsedFilter] = useState<"ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST" | "ANDERE">("ALL");
+
     useEffect(() => {
-        setUnseenNotifications(foundNotifications.filter((notification) => !notification.seen));
         setRenderedNotifications(foundNotifications);
+        setUnseenNotifications(foundNotifications.filter((notification) => !notification.seen));
     },[foundNotifications])
 
-
     const onBlur = async () => {
-        if (unseenNotifications.length > 0) {
+        if (foundNotifications?.length > 0) {
             try {
                 const patchedNotifications = await axios.patch("/api/notifications")
-                    .then(() => {
-                        setUnseenNotifications([]);
-                        router.refresh();
-                    })
+                .then((res) => {
+                    
+                    setUnseenNotifications([]);
+                    router.refresh();
+                });
             } catch (e: any) {
-                console.log(e)
+                console.log(e);
             }
         } else {
             return;
         }
-    }
-
-    const [renderedNotifications, setRenderedNotifications] = useState<typeof notification.$inferSelect[]>(foundNotifications);
-    const [usedFilter, setUsedFilter] = useState<"ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST" | "ANDERE">("ALL");
+    };
 
     const onAll = () => {
         setRenderedNotifications(foundNotifications);
@@ -101,9 +106,9 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
                 <Button className=" text-gray-200" variant="ghost" size="sm">
                     <BellDotIcon className="w-6 h-6" />
-                    {unseenNotifications.length > 0 ? (
+                    {unseenNotifications?.length > 0 ? (
                         <span className="bg-rose-600 text-xs font-bold px-1 flex rounded-md text-gray-200">
-                            {unseenNotifications.length}
+                            {unseenNotifications?.length}
                         </span>
                     ) :
                         <span className=" text-xs font-bold px-1 flex rounded-md text-gray-200">
@@ -155,7 +160,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
 
 
-                            {renderedNotifications.length > 0 ? (
+                            {renderedNotifications?.length > 0 ? (
                                 renderedNotifications?.map((notification: any) => (
                                     usedNotificationType = notification.notificationType,
                                     <div className="dark:bg-[#161616] p-2 mt-1 w-full flex" key={notification.id}>

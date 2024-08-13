@@ -71,7 +71,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         
         // Initialize the function inside useEffect to ensure it's only created once
         const onNewNotification = (data) => {
-            console.log("onNewNotificationRef !!")
+            
             if (savedIds.includes(data.notification.id)) {
                 
                 return;

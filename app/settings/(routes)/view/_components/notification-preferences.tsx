@@ -1,11 +1,35 @@
+'use client'
+
+import { setLocalStorage } from "@/actions/setLocalStorage";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
+import { IoMdNotifications } from "react-icons/io";
 import { IoPush } from "react-icons/io5";
 
 const Notificationpreferences = () => {
+
+    const disableAllNotifications = () => {
+        localStorage.setItem("disableAllNotifications", "true");
+    }
+
+
+    const [currentValues, setCurrentValues] = useState({
+        disableAllNoti: localStorage.getItem("disableAllNotifications") === "true" ? false : true,
+        disableConversationNoti: localStorage.getItem("disableConversationNoti") === "true" ? false : true,
+        disableBookingNoti: localStorage.getItem("disableBookingNoti") === "true" ? false : true,
+    })
+
+
     return (
         <div>
-            <div className="flex flex-row w-full space-x-8">
+            <div>
+                <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
+                    <IoMdNotifications className="mr-4" /> Benachrichtigungen & Popups  <p className="ml-4 text-lg"> </p>
+
+                </h3>
+            </div>
+            <div className="flex flex-row w-full space-x-8 mt-4">
                 <div className="w-1/3">
                     <div className="flex flex-col">
                         <h3 className="flex items-center flex-row gap-x-2">
@@ -22,8 +46,11 @@ const Notificationpreferences = () => {
                 <div className="w-2/3 flex flex-col space-y-4">
                     <div className="flex-row flex space-x-4">
                         <div>
-                            <Switch 
-                            checked={true}
+                            <Switch
+                                checked={
+                                    currentValues.disableAllNoti
+                                }
+                                onCheckedChange={(checked) => { setCurrentValues({ ...currentValues, disableAllNoti: checked }) }}
                             />
                         </div>
                         <div>

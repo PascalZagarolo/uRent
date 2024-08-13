@@ -23,6 +23,7 @@ export async function POST(
             ...values
         }).returning();
 
+        
 
         //send the receiver only one notification that is unseen, if sees it => send new one in case
         const existingNotication = await db.query.notification.findFirst({
@@ -46,10 +47,15 @@ export async function POST(
             }).returning()
 
             
+            const existingMessages = await db.query.message.findMany({
+                where : eq(message.conversationId, params.conversationId)
+            })
+
             await pusherServer.trigger(otherUser, 'notification:new', {
                 notification : createdNotification,
                 userId : otherUser,
-                imageUrl : currentUser?.image
+                imageUrl : currentUser?.image,
+                startedConversation : existingMessages ? false : true
              });
 
             return NextResponse.json({newMessage, createdNotification})

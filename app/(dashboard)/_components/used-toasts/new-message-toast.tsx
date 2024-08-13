@@ -1,4 +1,4 @@
-import { MessageCircleIcon, XIcon } from "lucide-react";
+import { MessageCircleIcon, X, XIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 
@@ -6,7 +6,7 @@ interface NewMessageToastProps {
   t: any;
   usedImageUrl: string;
   notification: any;
-  
+  startedConversation?: boolean;
 }
 
 const NewMessageToast: React.FC<NewMessageToastProps> = ({
@@ -39,11 +39,17 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
             />
           </div>
           <div className="ml-3 flex-1">
-            <p className="text-sm font-semibold text-gray-200">
-              Neue Nachricht erhalten!
-            </p>
+            <div className="flex flex-row">
+            <p className="text-sm font-medium text-gray-200/60">
+            <span className="text-gray-200 font-bold hover:underline hover:cursor-pointer">
+              {notification?.content}saijdinamsdnmapoisnda</span> hat dir eine Nachricht gesendet
+            </p> 
+            <div>
+              <XIcon className="w-4 h-4 text-gray-200 hover:text-gray-600 hover:cursor-pointer" />
+            </div>
+              </div>
             <div className="mt-1 text-sm text-gray-500">
-              <span className="text-gray-200/60 font-semibold hover:underline hover:cursor-pointer">{notification?.content}</span> hat dir eine Nachricht gesendet.
+               Dir wurde eine neue Nachricht gesendet.
             </div>
           </div>
         </div>

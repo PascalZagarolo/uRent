@@ -100,7 +100,9 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         }
     },[])
 
-
+    useEffect(() => {
+        setRenderedNotifications(foundNotifications);
+    },[foundNotifications])
 
     return (
         <div className="flex ml-auto items-center sm:mt-2">

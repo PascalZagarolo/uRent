@@ -20,7 +20,17 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentFilter, setCurrentFilter] = useState<"ALL" | "UNREAD" | null>(null);
 
-    const [renderedConversations, setRenderedConversations] = useState(startedConversations);
+    const [renderedConversations, setRenderedConversations] = useState([]);
+
+    useMemo(() => {
+        
+        setRenderedConversations(
+            startedConversations.sort((a , b) => {
+                //@ts-ignore
+                return new Date(b?.lastMessage?.createdAt) - new Date(a?.lastMessage?.createdAt);
+            })
+        );
+    }, [startedConversations]);
 
     useMemo(() => {
         if(currentTitle === "") {

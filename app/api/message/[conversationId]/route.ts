@@ -17,13 +17,16 @@ export async function POST(
         const {otherUser, otherUserName, ...values} = await req.json();
 
 
-        const [newMessage] = await db.insert(message).values({
+        const [newMessage] : any = await db.insert(message).values({
             conversationId : params.conversationId,
             senderId : currentUser.id,
             ...values
         }).returning();
 
-        
+        const updateLastMessage = await db.update(conversation).set({
+            message : newMessage,
+            lastMessageId : newMessage.id
+        }).where(eq(conversation.id, params.conversationId)).returning();
 
         //send the receiver only one notification that is unseen, if sees it => send new one in case
         const existingNotication = await db.query.notification.findFirst({

@@ -24,6 +24,7 @@ export const findStartedConversationsGlobal = (async(currentUserId) => {
                     }
                 }
             },
+            lastMessage : true,
             user1: true,
             user2: true,
             blocks: true

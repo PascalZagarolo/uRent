@@ -47,7 +47,7 @@ const ConversationPage = async ({
 
     let startedConversations: typeof conversation.$inferSelect[] = [];;
 
-
+    
     
 
     const receivedConversations = await findStartedConversationsGlobal(currentUser.id);
@@ -57,7 +57,7 @@ const ConversationPage = async ({
         return conversation.messages.length > 0 || conversation?.id === params.conversationId;
     });
 
-
+    
 
     const thisConversation : any = startedConversations.find((conversation: any) => conversation.id === params.conversationId);
 

@@ -47,6 +47,7 @@ const ConversationPage = async () => {
         return conversation.messages.length > 0;
     });
 
+    
 
     if (startedConversations?.user1Id === currentUser.id && startedConversations?.user2Id === currentUser.id) {
         return redirect("/conversations")

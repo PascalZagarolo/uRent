@@ -100,7 +100,8 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
         }
     },[])
 
-    useEffect(() => {
+    useEffect(() => {+
+        
         setRenderedNotifications(foundNotifications);
     },[foundNotifications])
 

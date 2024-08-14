@@ -27,11 +27,9 @@ const StartedChats: React.FC<StartedChatsProps> = ({
 
     
 
-    let lMessage = conversations.messages.sort((a, b) => {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    })
+    
 
-    const [lastMessage, setLastMessage] = useState(lMessage);
+    const [lastMessage, setLastMessage] = useState(conversations.lastMessage);
 
     useEffect(() => {
         pusherClient.subscribe(conversations.id);
@@ -41,17 +39,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
 
             
             
-            setLastMessage((current) => {
-                if (find(current, {id: message.id})) {
-                    return current;
-                }
-                
-                if(message?.conversationId === conversations.id) {
-                    return [message, ...current];
-                }
-                
-                return lastMessage;
-            });
+            setLastMessage(conversations?.lastMessage);
             
         }
 
@@ -72,7 +60,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
     //@ts-ignore
 
 
-    let content = lastMessage[0]?.content ? lastMessage[0].content : "Hat ein Bild gesendet"
+    let content = lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet"
 
     //@ts-ignore
     const openChats = conversations.messages.filter((message) => {
@@ -89,7 +77,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
                 conversationId={conversations.id}
                 openMessages={openChats.length}
                 lastMessage={content}
-                lastMessageDate={lastMessage[0]?.createdAt}
+                lastMessageDate={lastMessage?.createdAt}
                 isOwnMessage={isOwnMessage}
             />
         </div>

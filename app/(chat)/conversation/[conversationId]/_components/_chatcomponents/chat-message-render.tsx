@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 
 
-import { format } from "date-fns";
+import { format, set } from 'date-fns';
 
 import { useRouter } from "next/navigation";
 
@@ -12,12 +12,13 @@ import Image from "next/image";
 
 import { BsChatSquareQuoteFill } from "react-icons/bs";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
 
 
 
 
 interface ChatMessageRenderProps {
-    messages: typeof message.$inferSelect;
+    messages: typeof message.$inferSelect | any;
     isOwn: boolean;
 
 }
@@ -30,10 +31,16 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
     const router = useRouter();
 
+    const [usedImage, setUsedImage] = useState(messages.sender?.image ? messages.sender?.image : "/images/default-profile.png");
+    
+    useEffect(() => {
+        if (messages.sender?.image) {
+            setUsedImage(messages.sender?.image)
+        }
+    }, [messages])
 
-
-
-    console.log()
+    console.log(messages?.content)
+    console.log(messages?.sender)
 
     return (
         <div className={cn("w-full p-2 flex items-center dark:text-gray-300 text-sm", isOwn && " justify-end",)}>

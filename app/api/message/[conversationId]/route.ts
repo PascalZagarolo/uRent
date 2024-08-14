@@ -20,9 +20,20 @@ export async function POST(
         const [newMessage] : any = await db.insert(message).values({
             conversationId : params.conversationId,
             senderId : currentUser.id,
-            ...values
+            ...values,
+            
         }).returning();
 
+        const messageObject = {
+            ...newMessage,
+            sender : {
+                id : currentUser.id,
+                name : currentUser.name,
+                image : currentUser.image
+            }
+        }
+
+        console.log(messageObject.sender)
         const updateLastMessage = await db.update(conversation).set({
             message : newMessage,
             lastMessageId : newMessage.id
@@ -39,7 +50,7 @@ export async function POST(
             )
         })
 
-        await pusherServer.trigger(params.conversationId, 'messages:new', newMessage);
+        await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
 
         if(!existingNotication) {
             const [createdNotification] = await db.insert(notification).values({

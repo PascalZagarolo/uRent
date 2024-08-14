@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useEffect, useMemo, useState } from "react";
+import { pusherClient } from "@/lib/pusher";
 
 interface ChatSideBarProps {
     startedConversations: any[],
@@ -54,6 +55,8 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
             }))
         }
     },[currentFilter])
+
+    
 
     return (
         <div>

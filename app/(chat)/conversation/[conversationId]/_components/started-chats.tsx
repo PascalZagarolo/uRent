@@ -31,34 +31,9 @@ const StartedChats: React.FC<StartedChatsProps> = ({
 
     const [lastMessage, setLastMessage] = useState(conversations.lastMessage);
 
-    useEffect(() => {
-        setLastMessage(conversations.lastMessage);
-        console.log(lastMessage);
-    },[conversations.id])
+    
 
-    useEffect(() => {
-        pusherClient.subscribe(conversations.id);
-
-
-        const messageHandler = (message : any) => {
-
-            
-            
-            setLastMessage(conversations?.lastMessage);
-            console.log("message", message);
-        }
-
-        
-
-        pusherClient.bind('messages:new', messageHandler);
-
-
-        return () => {
-            pusherClient.unsubscribe(conversations.id);
-            pusherClient.unbind('messages:new', messageHandler);
-
-        }
-    },[conversations.id])
+    
 
     const userImage = conversations?.user1Id === currentUser.id ? conversations.user2 : conversations.user1;
 

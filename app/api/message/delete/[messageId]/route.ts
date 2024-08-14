@@ -19,7 +19,7 @@ export async function DELETE(
         
         const conversationId = foundMessage.conversationId;
 
-        const [deletedMessage] = await db.delete(message).where(
+        const [deletedMessage] : any = await db.delete(message).where(
             eq(message.id, params.messageId)
         ).returning()
 

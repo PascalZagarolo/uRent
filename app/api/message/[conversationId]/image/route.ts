@@ -15,7 +15,7 @@ export async function POST(
 
         const { image, content } = await req.json();
         
-        const [imageMessage] = await db.insert(message).values({
+        const [imageMessage] : any = await db.insert(message).values({
             conversationId : params.conversationId,
             senderId : currentUser.id,
             image : image,

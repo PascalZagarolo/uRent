@@ -32,6 +32,11 @@ const StartedChats: React.FC<StartedChatsProps> = ({
     const [lastMessage, setLastMessage] = useState(conversations.lastMessage);
 
     useEffect(() => {
+        setLastMessage(conversations.lastMessage);
+        console.log(lastMessage);
+    },[conversations.id])
+
+    useEffect(() => {
         pusherClient.subscribe(conversations.id);
 
 
@@ -40,7 +45,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
             
             
             setLastMessage(conversations?.lastMessage);
-            
+            console.log("message", message);
         }
 
         
@@ -53,14 +58,14 @@ const StartedChats: React.FC<StartedChatsProps> = ({
             pusherClient.unbind('messages:new', messageHandler);
 
         }
-    },)
+    },[conversations.id])
 
     const userImage = conversations?.user1Id === currentUser.id ? conversations.user2 : conversations.user1;
 
     //@ts-ignore
 
 
-    let content = lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet"
+    
 
     //@ts-ignore
     const openChats = conversations.messages.filter((message) => {
@@ -76,7 +81,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
                 user={userImage as any}
                 conversationId={conversations.id}
                 openMessages={openChats.length}
-                lastMessage={content}
+                lastMessage={lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet"}
                 lastMessageDate={lastMessage?.createdAt}
                 isOwnMessage={isOwnMessage}
             />

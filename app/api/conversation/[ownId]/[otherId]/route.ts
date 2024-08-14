@@ -27,7 +27,7 @@ export async function POST(
         
 
         if (!existingConversation) {
-            const [newConversation] = await db.insert(conversation).values({
+            const [newConversation] : any = await db.insert(conversation).values({
                 user1Id : params.ownId,
                 user2Id : params.otherId,
             }).returning();

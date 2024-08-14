@@ -39,8 +39,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
         }
     }, [messages])
 
-    console.log(messages?.content)
-    console.log(messages?.sender)
+    
 
     return (
         <div className={cn("w-full p-2 flex items-center dark:text-gray-300 text-sm", isOwn && " justify-end",)}>

@@ -40,7 +40,13 @@ const StartedChats: React.FC<StartedChatsProps> = ({
     //@ts-ignore
 
 
-    
+    useEffect(() => {
+        pusherClient.bind("messages:new", (message) => {
+            if (message.conversationId === conversations.id) {
+                setLastMessage(message)
+            }
+        }) 
+    },[])
 
     //@ts-ignore
     const openChats = conversations.messages.filter((message) => {

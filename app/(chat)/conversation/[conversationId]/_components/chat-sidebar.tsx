@@ -21,17 +21,14 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentFilter, setCurrentFilter] = useState<"ALL" | "UNREAD" | null>(null);
 
-    const [renderedConversations, setRenderedConversations] = useState([]);
+    const [renderedConversations, setRenderedConversations] = useState(
+        startedConversations.sort((a , b) => {
+            //@ts-ignore
+            return new Date(b?.lastMessage?.createdAt) - new Date(a?.lastMessage?.createdAt);
+        })
+    );
 
-    useMemo(() => {
-        
-        setRenderedConversations(
-            startedConversations.sort((a , b) => {
-                //@ts-ignore
-                return new Date(b?.lastMessage?.createdAt) - new Date(a?.lastMessage?.createdAt);
-            })
-        );
-    }, [startedConversations]);
+    
 
     useMemo(() => {
         if(currentTitle === "") {
@@ -56,6 +53,22 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
         }
     },[currentFilter])
 
+
+    useEffect(() => {
+        
+        pusherClient.bind("messages:new", (message) => {
+            console.log(message.conversationId)
+            setRenderedConversations((current) => {
+                const conversationIndex = current.findIndex((conversation) => conversation.id === message.conversationId);
+                const newConversations = [...current];
+                newConversations[conversationIndex].lastMessage = message;
+                return newConversations.sort((a , b) => {
+                    //@ts-ignore
+                    return new Date(b?.lastMessage?.createdAt) - new Date(a?.lastMessage?.createdAt);
+                })
+            })
+        })
+    },[])
     
 
     return (

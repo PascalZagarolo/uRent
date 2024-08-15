@@ -5,10 +5,12 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger  } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
-import { CheckIcon, PlusIcon } from "lucide-react";
+import { CarFrontIcon, CheckIcon, PlusIcon, StarIcon, TruckIcon } from "lucide-react";
 
 import { useState } from "react";
 import { CheckmarkIcon } from "react-hot-toast";
+import { PiVanFill } from "react-icons/pi";
+import { RiCaravanLine } from "react-icons/ri";
 
 const ChatFolder = () => {
 
@@ -79,10 +81,35 @@ const ChatFolder = () => {
         }
     ]
 
+    const selectableIcons = [
+        {
+            key : "star",
+            value : <StarIcon className="w-6 h-6" />
+        },
+        {
+            key : "car",
+            value : <CarFrontIcon className="w-6 h-6" />
+        },
+        {
+            key : "truck",
+            value : <TruckIcon className="w-6 h-6" />
+        },
+        {
+            key : "trailer",
+            value : <RiCaravanLine className="w-6 h-6" />
+        },
+        {
+            key : "transport",
+            value : <PiVanFill className="w-6 h-6" />
+        }
+    ]
+
 
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentColor, setCurrentColor] = useState<string>(null)
-    const [currentIcon, setCurrentIcon] = useState<string>(null)
+    const [currentIcon, setCurrentIcon] = useState<string>(null);
+
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <div className="">
@@ -134,10 +161,12 @@ const ChatFolder = () => {
                                         <Label className="text-sm font-semibold">
                                             Farbe
                                         </Label>
-                                        <div className="flex flex-row flex-wrap space-x-4 mt-2">
+                                        <div className="flex flex-row flex-wrap justify-between mt-2">
                                             {
                                                 selectableColors.map((color) => (
-                                                    <div className={`${color.value}  p-4 rounded-md cursor-pointer`} 
+                                                    <div 
+                                                    key={color.key}
+                                                    className={`${color.value}  p-4 rounded-md cursor-pointer`} 
                                                     onClick={() => {setCurrentColor(color.key)}}
                                                     >
                                                         {
@@ -177,9 +206,24 @@ const ChatFolder = () => {
                                                         Icon auswählen..
                                                     </Button>
                                                 </PopoverTrigger>
-                                                <PopoverContent>
+                                                <PopoverContent className="dark:border-none dark:bg-[#131313]"
+                                                side="top"
+                                                >
                                                     <div>
-                                                        222
+                                                       <div className="grid grid-cols-5 grid-flow-dense gap-x-2">
+                                                            {
+                                                                selectableIcons.map((icon) => (
+                                                                    
+                                                                        <Button
+                                                                        key={icon.key}
+                                                                    variant="ghost" 
+                                                                    className="bg-[#191919] text-gray-200 flex justify-center p-2 rounded-md">
+                                                                        {icon.value}
+                                                                    </Button>
+                                                                    
+                                                                ))
+                                                            }
+                                                       </div>
                                                     </div>
                                                 </PopoverContent>
                                             </Popover>

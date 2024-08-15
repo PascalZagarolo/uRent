@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ChatFolder from "./chat-folder";
+import ManageConversations from "./_manage-chat-components/manage-conversations";
 
 interface ChatSideBarProps {
     startedConversations: any[],
@@ -76,7 +77,6 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
 
     return (
         <div>
-            
                 <div className="p-2">
                 <div className="grid w-full grid-cols-2 bg-[#1C1C1C] rounded-md p-1 items-center ">
                     <Button value="all" size="sm"
@@ -117,6 +117,11 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                     foundFolders={currentUser?.conversationFolders}
                     setCurrentFolder={setCurrentFolder}
                     currentFolder={currentFolder}
+                    />
+            </div>
+            <div className="ml-auto justify-end flex">
+                    <ManageConversations 
+                    foundFolders={currentUser?.conversationFolders}
                     />
             </div>
             {renderedConversations.map((conversation) => (

@@ -14,6 +14,7 @@ import { useState } from "react";
 import toast, { CheckmarkIcon } from "react-hot-toast";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
+import ManageConversationFolder from "./_manage-chat-components/manage-conversationFolder";
 
 interface ChatFolderProps {
     foundFolders: typeof conversationFolder.$inferSelect[];
@@ -27,7 +28,7 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
     currentFolder
 }) => {
 
-    
+
 
     const renderedFolder = (
         id,
@@ -36,17 +37,17 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
         icon
     ) => {
         return (
-            <button 
-            key={id}
-            className={cn(
-                `${colorResponse(color)} p-1.5 rounded-md px-2 mt-2 hover:${colorResponse(color)}/50 font-semibold
+            <button
+                key={id}
+                className={cn(
+                    `${colorResponse(color)} p-1.5 rounded-md px-2 mt-2 hover:${colorResponse(color)}/50 font-semibold
              hover:text-gray-200/40`,
-                currentFolder === id && " border-gray-400 border"
-            )}
-             onClick={() => {
-                id == currentFolder ? setCurrentFolder(null) : setCurrentFolder(id)
-             }}
-             >
+                    currentFolder === id && " border-gray-400 border"
+                )}
+                onClick={() => {
+                    id == currentFolder ? setCurrentFolder(null) : setCurrentFolder(id)
+                }}
+            >
                 <div className="text-xs text-gray-200">
                     {title}
                 </div>
@@ -54,7 +55,7 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
         )
     }
 
-    const colorResponse = (color: string) => {
+     const colorResponse = (color: string) => {
         switch (color) {
             case "blue":
                 return "bg-blue-800";
@@ -172,7 +173,11 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
                     foundFolders?.map(folder => renderedFolder(folder.id, folder.title, folder.color, folder.icon)) // Render all folders if currentFolder is not defined
                 )}
 
-
+                {
+                    foundFolders.length > 0 && (
+                        <ManageConversationFolder />
+                    )
+                }
                 <Dialog>
                     <DialogTrigger asChild>
                         <button className="bg-[#191919]

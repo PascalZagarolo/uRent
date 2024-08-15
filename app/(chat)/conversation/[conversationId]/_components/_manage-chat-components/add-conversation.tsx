@@ -2,18 +2,33 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { conversation } from "@/db/schema";
-import { PlusCircle } from "lucide-react";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { PlusCircle, PlusCircleIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface AddConversationProps {
     foundConversations : typeof conversation.$inferSelect[];
+    currentUserId : string;
 }
 
 const AddConversations : React.FC<AddConversationProps> = ({
-    foundConversations
+    foundConversations,
+    currentUserId
 }) => {
 
     const [selectedConversations, setSelectedConversations] = useState([]);
+
+    useEffect(() => {
+        console.log(selectedConversations)
+    }, [selectedConversations])
+
+    const findOtherUser = (conversation) => {
+        if(conversation.user1Id !== currentUserId) {
+            return conversation.user1
+        } else {
+            return conversation.user2
+        }
+    }
 
     return ( 
         <Dialog>
@@ -36,16 +51,62 @@ const AddConversations : React.FC<AddConversationProps> = ({
                     <div className="flex flex-col space-y-2 mt-4 p-4">
                         {foundConversations?.map((conversation) => (
                             <div key={conversation.id}
-                            className="flex flex-row items-center"
+                            className="flex flex-row items-center hover:cursor-pointer"
+                            onClick={() => {
+                                if(selectedConversations.includes(conversation.id)) {
+                                    setSelectedConversations(selectedConversations.filter((id) => id !== conversation.id))
+                                } else {
+                                    setSelectedConversations([...selectedConversations, conversation.id])
+                                }
+                            }}
                             >
                                 <div className="w-1/12">
-                                    <Checkbox />
+                                    <Checkbox 
+                                    checked={selectedConversations.includes(conversation.id)}
+                                    onCheckedChange={(checked) => {
+                                        if(checked) {
+                                            setSelectedConversations([...selectedConversations, conversation.id])
+                                        } else {
+                                            setSelectedConversations(selectedConversations.filter((id) => id !== conversation.id))
+                                        }
+                                    }}
+                                    />
                                 </div>
-                                <div className="p-4 dark:bg-[#111111] rounded-md w-11/12">
-                                    Konversationsdetails
+                                <div className="px-4 py-2 dark:bg-[#111111] rounded-md w-11/12">
+                                    <div className="flex flex-row items-center gap-x-2">
+                                        <div>
+                                            <img src={findOtherUser(conversation).image} alt="" className="w-10 h-10 rounded-full" />
+                                        </div>
+                                        <div className="flex flex-col ">
+                                            <div>
+                                                <div className={
+                                                    cn("text-sm font-semibold dark:text-gray-200/20",
+                                                    selectedConversations.includes(conversation.id) && "dark:text-gray-200"
+                                                    )
+                                                }>
+                                                    {findOtherUser(conversation).name}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         ))}
+                    </div>
+                    {selectedConversations.length > 0 && (
+                        <div>
+                            <div className="text-xs dark:text-gray-200/40">
+                                {selectedConversations.length} {selectedConversations.length === 1 ? 
+                                "Konversation" : "Konversationen"} ausgewählt
+                            </div>
+                        </div>
+                    )}
+                    <div>
+                        <Button className="w-full bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300"
+                        disabled={selectedConversations.length === 0}
+                        >
+                          <PlusCircleIcon className="w-4 h-4 mr-2" /> {selectedConversations?.length}  Hinzufügen
+                        </Button>
                     </div>
                 </div>
             </DialogContent>

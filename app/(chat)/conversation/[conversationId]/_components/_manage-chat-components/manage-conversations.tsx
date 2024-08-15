@@ -12,11 +12,13 @@ import { set } from 'date-fns';
 import AddConversations from "./add-conversation";
 
 interface MessageConversationProps {
-    foundFolders: typeof conversationFolder.$inferSelect[]
+    foundFolders: typeof conversationFolder.$inferSelect[];
+    foundConversations: typeof conversation.$inferSelect[];
 }
 
 const ManageConversations: React.FC<MessageConversationProps> = ({
-    foundFolders
+    foundFolders,
+    foundConversations
 }) => {
 
     const colorResponse = (color: string) => {
@@ -112,7 +114,9 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                                                 </div>
                                             </div>
                                             <div className="mt-4">
-                                                <AddConversations />
+                                                <AddConversations 
+                                                foundConversations={foundConversations}
+                                                />
                                             </div>
                                         </div>
                                     )}

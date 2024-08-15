@@ -121,6 +121,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
             </div>
             <div className="ml-auto justify-end flex">
                     <ManageConversations 
+                    foundConversations={startedConversations}
                     foundFolders={currentUser?.conversationFolders}
                     />
             </div>

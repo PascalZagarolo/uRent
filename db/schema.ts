@@ -735,6 +735,7 @@ export const conversation = pgTable("conversation", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
     blocked : boolean("blocked").notNull().default(false),
+    conversationFolder : text("conversationFolder"),
     lastMessageId: uuid("lastMessageId")
         .references(() => message.id, { onDelete: "set null" }),
     user1Id: text("user1").
@@ -1019,7 +1020,12 @@ export const block = pgTable("block", {
 
 //every array of a user => e.g liked posts etc..
 
-
+export const conversationFolderRelations = relations(conversationFolder, ({ one  }) => ({
+    user : one(userTable, {
+        fields : [conversationFolder.userId],
+        references : [userTable.id]
+    })
+}))
 
 export const blockRelations = relations(block , ({ one }) => ({
     conversation : one(conversation, {
@@ -1087,6 +1093,7 @@ export const userRelations = relations(userTable, ({ one, many }) => ({
     notifications : many(notification),
     savedSearch : many(savedSearch),
     accounts : many(accounts),
+    conversationFolders : many(conversationFolder),
     
     
 }));

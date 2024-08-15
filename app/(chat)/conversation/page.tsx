@@ -16,13 +16,14 @@ import ChatSideBar from "./[conversationId]/_components/chat-sidebar";
 import { findStartedConversationsGlobal } from "@/actions/findStartedConversations";
 import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+import getCurrentUserWithNotificationsFolders from "@/actions/getCurrentUserWithNotificationsFolders";
 
 
 
 
 const ConversationPage = async () => {
 
-    const currentUser = await getCurrentUserWithNotifications();
+    const currentUser = await getCurrentUserWithNotificationsFolders();
 
     if (!currentUser) {
         return redirect("/")

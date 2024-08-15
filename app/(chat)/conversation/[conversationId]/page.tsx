@@ -29,6 +29,7 @@ import ChatSideBar from "./_components/chat-sidebar";
 import { cache } from "react";
 import { findStartedConversationsGlobal } from "@/actions/findStartedConversations";
 import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+import getCurrentUserWithNotificationsFolders from "@/actions/getCurrentUserWithNotificationsFolders";
 
 
 
@@ -39,7 +40,7 @@ const ConversationPage = async ({
 
 
     //get as only call
-    const currentUser = await getCurrentUserWithNotifications();
+    const currentUser = await getCurrentUserWithNotificationsFolders();
 
     if (!currentUser) {
         return redirect("/")
@@ -62,7 +63,7 @@ const ConversationPage = async ({
     const thisConversation : any = startedConversations.find((conversation: any) => conversation.id === params.conversationId);
 
 
-
+    
 
 
     //if user clicks on chat, mark all chat notifications as seen

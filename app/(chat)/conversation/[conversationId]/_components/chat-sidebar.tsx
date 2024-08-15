@@ -22,6 +22,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
 
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentFilter, setCurrentFilter] = useState<"ALL" | "UNREAD" | null>(null);
+    const [currentFolder, setCurrentFolder] = useState<string | null>(null);
 
     const [renderedConversations, setRenderedConversations] = useState(
         startedConversations.sort((a, b) => {
@@ -58,7 +59,6 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
 
 
     useEffect(() => {
-
         pusherClient.bind("messages:new", (message) => {
             console.log(message.conversationId)
             setRenderedConversations((current) => {
@@ -113,7 +113,11 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                 </div>
             </div>
             <div className="px-2 py-2 w-full">
-                    <ChatFolder />
+                    <ChatFolder 
+                    foundFolders={currentUser?.conversationFolders}
+                    setCurrentFolder={setCurrentFolder}
+                    currentFolder={currentFolder}
+                    />
             </div>
             {renderedConversations.map((conversation) => (
                 <StartedChats

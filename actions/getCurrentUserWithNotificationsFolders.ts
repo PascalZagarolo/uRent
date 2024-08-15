@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import {  notification, userTable } from "@/db/schema";
+import {  conversationFolder, notification, userTable } from "@/db/schema";
 import { validateRequest } from "@/lib/lucia";
 
 import { eq, sql } from "drizzle-orm";
@@ -9,7 +9,7 @@ import { cache } from "react";
 
 
 
-const getCurrentUserWithNotifications = cache(async () => {
+const getCurrentUserWithNotificationsFolders = cache(async () => {
   try {
     
     const { user } = await validateRequest();
@@ -17,7 +17,8 @@ const getCurrentUserWithNotifications = cache(async () => {
     const findUser  = db.query.userTable.findFirst({
       where: (eq(userTable.id, sql.placeholder("userId"))),
         with : {
-            notifications : true
+            notifications : true,
+            conversationFolders : true
         }
     }).prepare("findUser");
 
@@ -37,7 +38,7 @@ const getCurrentUserWithNotifications = cache(async () => {
   }
 });
 
-export default getCurrentUserWithNotifications;
+export default getCurrentUserWithNotificationsFolders;
 
 
 

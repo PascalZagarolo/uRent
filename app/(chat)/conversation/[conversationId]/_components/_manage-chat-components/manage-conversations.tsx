@@ -8,6 +8,8 @@ import { conversation, conversationFolder } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { Pencil, PencilIcon } from "lucide-react";
 import { useState } from "react";
+import { set } from 'date-fns';
+import AddConversations from "./add-conversation";
 
 interface MessageConversationProps {
     foundFolders: typeof conversationFolder.$inferSelect[]
@@ -48,7 +50,7 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                 className={cn(
                     `${colorResponse(color)} p-1.5 rounded-md px-2 mt-2 hover:${colorResponse(color)}/50 font-semibold
              hover:text-gray-200/40`,
-                    currentFolder === id && " border-gray-400 border"
+                    currentFolder === id && " border-gray-400 border underline"
                 )}
                 onClick={() => {
                     id == currentFolder ? setCurrentFolder(null) : setCurrentFolder(id)
@@ -62,6 +64,7 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
     }
 
     const [currentFolder, setCurrentFolder] = useState<string | null>(null);
+    const [matchingConversations, setMatchingConversations] = useState<any[] | null>([]);
 
     return (
         <Dialog>
@@ -72,12 +75,12 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#131313]">
                 <div>
-                    <Tabs defaultValue="account" className="w-full">
+                    <Tabs defaultValue="add" className="w-full">
                         <TabsList className="grid w-full grid-cols-2 dark:bg-[#191919]">
-                            <TabsTrigger value="delete">Account</TabsTrigger>
-                            <TabsTrigger value="add">Password</TabsTrigger>
+                            <TabsTrigger value="add">Hinzufügen</TabsTrigger>
+                            <TabsTrigger value="delete">Entfernen</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="delete">
+                        <TabsContent value="add">
                             <Card className="dark:bg-[#191919] dark:border-none">
                                 <CardHeader>
                                     <CardTitle>Konversationen zu Ordner hinzufügen</CardTitle>
@@ -85,7 +88,7 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                                         Wähle den Ordner sowie die Konversationen aus die du hinzufügen möchtest.
                                     </CardDescription>
                                 </CardHeader>
-                                <CardContent className="">
+                                <CardContent className="py-0">
                                     <div className="flex flex-row flex-wrap items-center  gap-x-2 ">
 
                                         {currentFolder ? (
@@ -96,13 +99,30 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                                             foundFolders?.map(folder => renderedFolder(folder.id, folder.title, folder.color, folder.icon)) // Render all folders if currentFolder is not defined
                                         )}
                                     </div>
+                                    {currentFolder && (
+                                        <div className="mt-4">
+                                            <div>
+                                                <Label className="text-base">
+                                                    Konversationen ({matchingConversations?.length})
+                                                </Label>
+                                            </div>
+                                            <div>
+                                                <div className="text-xs text-gray-200/60">
+                                                    Noch keine Konversationen den Ordner hinzugefügt.
+                                                </div>
+                                            </div>
+                                            <div className="mt-4">
+                                                <AddConversations />
+                                            </div>
+                                        </div>
+                                    )}
                                 </CardContent>
                                 <CardFooter>
 
                                 </CardFooter>
                             </Card>
                         </TabsContent>
-                        <TabsContent value="add">
+                        <TabsContent value="delete">
                             <Card>
 
                             </Card>

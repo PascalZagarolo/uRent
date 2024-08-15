@@ -222,7 +222,9 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
                                         <div className="flex flex-row flex-wrap justify-between">
                                             {
                                                 selectableColors.map((color) => (
-                                                    <div className="bg-[#131313] p-1 rounded-md">
+                                                    <div className="bg-[#131313] p-1 rounded-md"
+                                                    key={color.key}
+                                                    >
                                                         <div
                                                             key={color.key}
                                                             className={`${color.value}  p-3 rounded-md cursor-pointer`}

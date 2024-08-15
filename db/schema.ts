@@ -310,6 +310,19 @@ export const inserat = pgTable("inserat", {
     
 })
 
+export const conversationFolder = pgTable("conversationFolder", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    title : text("title"),
+    color : text("color"),
+    icon : text("icon"),
+    userId : text("userId")
+                .references(() => userTable.id, { onDelete: "cascade" }),
+    position : integer("position"),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+    updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
+
+})
+
 export const priceprofile = pgTable("priceprofile", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     title : text("title"),

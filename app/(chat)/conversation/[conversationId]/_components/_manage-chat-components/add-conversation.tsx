@@ -3,30 +3,77 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { conversation } from "@/db/schema";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import { PlusCircle, PlusCircleIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import toast from "react-hot-toast";
+import { conversationFolder } from '../../../../../../db/schema';
 
 interface AddConversationProps {
     foundConversations : typeof conversation.$inferSelect[];
     currentUserId : string;
+    conversationFolderId : string;
 }
 
 const AddConversations : React.FC<AddConversationProps> = ({
     foundConversations,
-    currentUserId
+    currentUserId,
+    conversationFolderId
 }) => {
 
-    const [selectedConversations, setSelectedConversations] = useState([]);
+    
 
-    useEffect(() => {
-        console.log(selectedConversations)
-    }, [selectedConversations])
+    const [selectedConversations, setSelectedConversations] = useState([]);
+    const [renderedConversations, setRenderedConversations] = useState<any>([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
+
+    useMemo(() => {
+        const notRelated = foundConversations?.filter((conversation : any) => {
+            for (const folder of conversation?.folderOnConversation) {
+                
+                if(folder.folderId === conversationFolderId) {
+                    return false;
+                }
+            }
+            return true;
+        })
+
+        setRenderedConversations(notRelated);
+    },[foundConversations])
+    
+
+    
+
+   
 
     const findOtherUser = (conversation) => {
-        if(conversation.user1Id !== currentUserId) {
-            return conversation.user1
+        if(conversation?.user1Id !== currentUserId) {
+            return conversation?.user1
         } else {
-            return conversation.user2
+            return conversation?.user2
+        }
+    }
+
+
+    const onSubmit = async () => {
+        try {
+            setIsLoading(true);
+            const allIds = selectedConversations;
+            console.log(conversationFolderId)
+            axios.patch(`/api/conversationFolder/${conversationFolderId}`, selectedConversations)
+                .then(() => {
+                    toast.success("Konversationen verschoben");
+                    setSelectedConversations([]);
+                    router.refresh();
+                })
+        } catch(e : any) {
+            console.log(e);
+            return null;
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -43,29 +90,29 @@ const AddConversations : React.FC<AddConversationProps> = ({
                     <div className="text-lg font-semibold flex flex-row items-center">
                         
                         <PlusCircle className="w-4 h-4 mr-2" />
-                        Konversation hinzufügen
+                        Konversation hinzufügen {renderedConversations?.length}
                     </div>
                     <p className="text-xs dark:text-gray-200/60">
                         Wähle Konversationen aus, die du den Ordner hinzufügen möchtest.
                     </p>
                     <div className="flex flex-col space-y-2 mt-4 p-4">
-                        {foundConversations?.map((conversation) => (
-                            <div key={conversation.id}
+                        {renderedConversations?.map((conversation) => (
+                            <div key={conversation?.id}
                             className="flex flex-row items-center hover:cursor-pointer"
                             onClick={() => {
-                                if(selectedConversations.includes(conversation.id)) {
-                                    setSelectedConversations(selectedConversations.filter((id) => id !== conversation.id))
+                                if(selectedConversations.includes(conversation?.id)) {
+                                    setSelectedConversations(selectedConversations?.filter((id) => id !== conversation?.id))
                                 } else {
-                                    setSelectedConversations([...selectedConversations, conversation.id])
+                                    setSelectedConversations([...selectedConversations, conversation?.id])
                                 }
                             }}
                             >
                                 <div className="w-1/12">
                                     <Checkbox 
-                                    checked={selectedConversations.includes(conversation.id)}
+                                    checked={selectedConversations.includes(conversation?.id)}
                                     onCheckedChange={(checked) => {
                                         if(checked) {
-                                            setSelectedConversations([...selectedConversations, conversation.id])
+                                            setSelectedConversations([...selectedConversations, conversation?.id])
                                         } else {
                                             setSelectedConversations(selectedConversations.filter((id) => id !== conversation.id))
                                         }
@@ -75,16 +122,16 @@ const AddConversations : React.FC<AddConversationProps> = ({
                                 <div className="px-4 py-2 dark:bg-[#111111] rounded-md w-11/12">
                                     <div className="flex flex-row items-center gap-x-2">
                                         <div>
-                                            <img src={findOtherUser(conversation).image} alt="" className="w-10 h-10 rounded-full" />
+                                            <img src={findOtherUser(conversation)?.image} alt="" className="w-10 h-10 rounded-full" />
                                         </div>
                                         <div className="flex flex-col ">
                                             <div>
                                                 <div className={
                                                     cn("text-sm font-semibold dark:text-gray-200/20",
-                                                    selectedConversations.includes(conversation.id) && "dark:text-gray-200"
+                                                    selectedConversations.includes(conversation?.id) && "dark:text-gray-200"
                                                     )
                                                 }>
-                                                    {findOtherUser(conversation).name}
+                                                    {findOtherUser(conversation)?.name}
                                                 </div>
                                             </div>
                                         </div>
@@ -103,6 +150,7 @@ const AddConversations : React.FC<AddConversationProps> = ({
                     )}
                     <div>
                         <Button className="w-full bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300"
+                        onClick={onSubmit}
                         disabled={selectedConversations.length === 0}
                         >
                           <PlusCircleIcon className="w-4 h-4 mr-2" /> {selectedConversations?.length}  Hinzufügen

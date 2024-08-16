@@ -117,6 +117,7 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                                                 <AddConversations 
                                                 foundConversations={foundConversations}
                                                 currentUserId={foundFolders[0].userId}
+                                                conversationFolderId={currentFolder}
                                                 />
                                             </div>
                                         </div>

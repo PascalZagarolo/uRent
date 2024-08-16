@@ -1,7 +1,7 @@
 
 
 import db from "@/db/drizzle"
-import { conversation } from "@/db/schema"
+import { conversation, folderOnConversation } from "@/db/schema"
 import { eq, or } from "drizzle-orm"
 import { cache } from "react"
 
@@ -27,7 +27,8 @@ export const findStartedConversationsGlobal = (async(currentUserId) => {
             lastMessage : true,
             user1: true,
             user2: true,
-            blocks: true
+            blocks: true,
+            folderOnConversation : true
 
 
         }

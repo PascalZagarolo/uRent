@@ -1020,11 +1020,12 @@ export const block = pgTable("block", {
 
 //every array of a user => e.g liked posts etc..
 
-export const conversationFolderRelations = relations(conversationFolder, ({ one  }) => ({
+export const conversationFolderRelations = relations(conversationFolder, ({ one, many}) => ({
     user : one(userTable, {
         fields : [conversationFolder.userId],
         references : [userTable.id]
-    })
+    }),
+    folderOnConversation : many(folderOnConversation)
 }))
 
 export const blockRelations = relations(block , ({ one }) => ({
@@ -1049,7 +1050,28 @@ export const changeEmailTokenRelations = relations(changeEmailToken, ({ one }) =
     })
 }))
 
+export const folderOnConversation = pgTable("folder_conversation", {
+    folderId : uuid("folderId")
+                .references(() => conversationFolder.id, { onDelete: "cascade" }),
+    userId : text("userId"),
+    conversationId : uuid("conversationId")
+                .references(() => conversation.id, { onDelete: "cascade" }),
+    },
+    (t) => ({
+        primaryKey: primaryKey({ columns: [t.folderId, t.conversationId] }),
+    })
+    )
 
+export const folderOnConversationRelations = relations(folderOnConversation, ({ one }) => ({
+    conversationFolder : one(conversationFolder, {
+        fields : [folderOnConversation.folderId],
+        references : [conversationFolder.id]
+    }),
+    conversation : one(conversation, {
+        fields : [folderOnConversation.conversationId],
+        references : [conversation.id]
+    })
+}))
 
 export const userRelations = relations(userTable, ({ one, many }) => ({
     userAddress : one(userAddress, {
@@ -1379,7 +1401,8 @@ export const conversationRelations = relations(conversation, ({ one, many }) => 
         relationName: "lastMessage"
     }),
     messages: many(message),
-    blocks : many(block)
+    blocks : many(block),
+    folderOnConversation : many(folderOnConversation)
 }))
 
 export const notificationRelations = relations(notification, ({ one }) => ({

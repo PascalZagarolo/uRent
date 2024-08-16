@@ -165,13 +165,9 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
         <div className="">
             <div className="flex flex-row flex-wrap items-center  gap-x-2 ">
 
-                {currentFolder ? (
-                    foundFolders
-                        ?.filter(folder => folder.id === currentFolder) // Filter the folders to match only the currentFolder
-                        .map(folder => renderedFolder(folder.id, folder.title, folder.color, folder.icon)) // Render the matched folder
-                ) : (
-                    foundFolders?.map(folder => renderedFolder(folder.id, folder.title, folder.color, folder.icon)) // Render all folders if currentFolder is not defined
-                )}
+                {
+                    foundFolders?.map(folder => renderedFolder(folder.id, folder.title, folder.color, folder.icon))} 
+                
 
                 {
                     foundFolders.length > 0 && (

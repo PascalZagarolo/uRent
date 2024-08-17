@@ -144,7 +144,9 @@ const DeleteFolder: React.FC<DeleteFolderProps> = ({
                         </div>
                         <div className="mt-4 flex flex-row justify-end">
                         <AlertDialogTrigger>
-                                <Button variant="ghost" className="bg-rose-600 hover:bg-rose-800 text-gray-200 font-semibold">
+                                <Button variant="ghost" className="bg-rose-600 hover:bg-rose-800 text-gray-200 font-semibold"
+                                onClick={onDelete}
+                                >
                                     Löschen
                                 </Button>
                             </AlertDialogTrigger>

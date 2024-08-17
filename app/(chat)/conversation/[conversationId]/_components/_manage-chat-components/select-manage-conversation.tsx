@@ -97,9 +97,9 @@ const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
     }
 
 
-    const [currentTitle, setCurrentTitle] = useState("");
-    const [currentColor, setCurrentColor] = useState<string>(null)
-    const [currentIcon, setCurrentIcon] = useState<string>(null);
+    const [currentTitle, setCurrentTitle] = useState(thisFolder?.title);
+    const [currentColor, setCurrentColor] = useState<string>(thisFolder?.color)
+    const [currentIcon, setCurrentIcon] = useState<string>(thisFolder?.icon);
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = () => {
@@ -130,10 +130,10 @@ const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
                             <div>
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-200 flex items-center flex-row gap-x-2">
-                                        <PlusIcon className="w-4 h-4" /> Neuen Ordner erstellen
+                                        <PencilLineIcon className="w-4 h-4" /> {thisFolder.title} bearbeiten
                                     </h3>
                                     <p className="text-xs dark:text-gray-200/60">
-                                        Erstelle einen neuen Ordner um deine Chats zu organisieren und Konversationen zu verschieben.
+                                        Bearbeite die Eigenschaften deines Ordners {thisFolder.title}.
                                     </p>
                                 </div>
                                 <div className="mt-4">
@@ -253,143 +253,7 @@ const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
                                                 onClick={onSubmit}
                                                 disabled={isLoading || !currentTitle || !currentColor}
                                             >
-                                                Ordner hinzufügen
-
-                                            </Button>
-                                        </DialogTrigger>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </DialogContent><DialogContent className="dark:border-none dark:bg-[#191919]">
-                        <div className="w-full h-full">
-                            <div>
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-200 flex items-center flex-row gap-x-2">
-                                        <PlusIcon className="w-4 h-4" /> Neuen Ordner erstellen
-                                    </h3>
-                                    <p className="text-xs dark:text-gray-200/60">
-                                        Erstelle einen neuen Ordner um deine Chats zu organisieren und Konversationen zu verschieben.
-                                    </p>
-                                </div>
-                                <div className="mt-4">
-                                    <div>
-                                        <Label className="text-sm font-semibold">
-                                            Titel
-                                        </Label>
-                                        <div>
-                                            <Input
-                                                className="dark:bg-[#131313] dark:border-none"
-                                                value={currentTitle}
-                                                onChange={(e) => setCurrentTitle(e.target.value)}
-                                                placeholder="Ordnername.."
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-4">
-                                        <Label className="text-sm font-semibold">
-                                            Farbe
-                                        </Label>
-                                        <div className="flex flex-row flex-wrap justify-between">
-                                            {
-                                                selectableColors.map((color) => (
-                                                    <div className="bg-[#131313] p-1 rounded-md"
-                                                    key={color.key}
-                                                    >
-                                                        <div
-                                                            key={color.key}
-                                                            className={`${color.value}  p-3 rounded-md cursor-pointer`}
-                                                            onClick={() => { setCurrentColor(color.key) }}
-                                                        >
-                                                            {
-                                                                currentColor === color.key ? (
-                                                                    currentColor === "white" ? (
-                                                                        <div
-                                                                            className="w-4 h-4 bg-gray-600/60 rounded-full flex items-center justify-center"
-                                                                        />
-                                                                    ) : (
-                                                                        <div
-                                                                            className="w-4 h-4 bg-gray-200/60 rounded-full flex items-center justify-center"
-                                                                        />
-                                                                    )
-
-                                                                ) : (
-                                                                    <div
-                                                                        className={`${color.value} w-4 h-4  rounded-full flex items-center justify-center`}
-                                                                    />
-                                                                )
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                ))
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="mt-4">
-                                        <Label className="text-sm font-semibold">
-                                            Icon
-
-                                        </Label>
-                                        <div className="">
-                                            <Popover>
-                                                <PopoverTrigger asChild>
-                                                    <Button className={
-                                                        cn("w-full bg-[#131313] hover:bg-[#171717]",
-                                                            currentIcon ? "text-gray-200" : "text-gray-200/60 hover:text-gray-200/80")
-                                                    }>
-                                                        {
-                                                            currentIcon ? (
-                                                                selectableIcons.find((icon) => icon.key === currentIcon).value
-                                                            ) : (
-                                                                "Icon auswählen.."
-                                                            )
-                                                        }
-                                                        <div className="ml-auto">
-                                                            <ChevronDownIcon className="w-4 h-4" />
-                                                        </div>
-                                                    </Button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="dark:border-none dark:bg-[#131313]"
-                                                    side="top"
-                                                >
-                                                    <div>
-                                                        <div className="grid grid-cols-5 grid-flow-dense gap-x-2">
-                                                            {
-                                                                selectableIcons.map((icon) => (
-
-                                                                    <Button
-                                                                        key={icon.key}
-                                                                        onClick=
-                                                                        {() => {
-                                                                            currentIcon === icon.key ? setCurrentIcon(null) : setCurrentIcon(icon.key)
-                                                                        }}
-
-                                                                        variant="ghost"
-
-                                                                        className={cn("bg-[#191919] text-gray-200 flex justify-center p-2 rounded-md",
-                                                                            currentIcon === icon.key ? "border border-indigo-800" : "hover:bg-[#1C1C1C]")}
-
-                                                                    >
-                                                                        {icon.value}
-                                                                    </Button>
-
-                                                                ))
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </div>
-                                    </div>
-                                    <div className="mt-4 flex justify-end">
-                                        <DialogTrigger asChild>
-                                            <Button
-                                                className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-400"
-                                                onClick={onSubmit}
-                                                disabled={isLoading || !currentTitle || !currentColor}
-                                            >
-                                                Ordner hinzufügen
+                                                Änderungen speichern
 
                                             </Button>
                                         </DialogTrigger>
@@ -398,6 +262,7 @@ const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
                             </div>
                         </div>
                     </DialogContent>
+                    
         </Dialog>
     );
 }

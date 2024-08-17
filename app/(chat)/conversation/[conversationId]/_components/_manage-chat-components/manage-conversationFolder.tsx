@@ -5,17 +5,17 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { conversationFolder } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { CarFrontIcon, ChevronDownIcon, FolderIcon, PencilLineIcon, PlusIcon, StarIcon, TruckIcon } from "lucide-react";
+import { CarFrontIcon, ChevronDownIcon, FolderIcon, PencilLineIcon, PlusIcon, StarIcon, TruckIcon, X } from 'lucide-react';
 import { useState } from "react";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import SelectManageConversation from "./select-manage-conversation";
 
 interface ManageConversationFolderProps {
-    foundFolders : typeof conversationFolder.$inferSelect[];
+    foundFolders: typeof conversationFolder.$inferSelect[];
 }
 
-const ManageConversationFolder : React.FC<ManageConversationFolderProps>  = ({
+const ManageConversationFolder: React.FC<ManageConversationFolderProps> = ({
     foundFolders
 }) => {
 
@@ -101,10 +101,12 @@ const ManageConversationFolder : React.FC<ManageConversationFolderProps>  = ({
     const onSubmit = () => {
         try {
 
-        } catch(e : any) {
+        } catch (e: any) {
 
         }
     }
+
+    const [currentTab, setCurrentTab] = useState("edit");
 
     return (
         <Dialog>
@@ -120,22 +122,68 @@ const ManageConversationFolder : React.FC<ManageConversationFolderProps>  = ({
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#191919]">
                 <div>
-                    <div>
-                    <div className="text-lg font-semibold text-gray-200 flex flex-row items-center gap-x-2">
-                        <FolderIcon className="w-4 h-4 " />
-                        Ordner bearbeiten
+                    <div className="px-2 p-1 bg-[#1C1C1C] flex flex-row items-center w-full rounded-md">
+                        <Button
+                            className={cn("w-1/2 bg-[#1C1C1C] hover:bg-[#202020] text-gray-200 font-medium",
+                                currentTab === "edit" && "bg-[#191919] hover:bg-[#171717]")}
+                                onClick={() => setCurrentTab("edit")}
+                            size="sm">
+                            Ordner bearbeiten
+                        </Button>
+                        <Button className={cn("w-1/2 bg-[#1C1C1C] hover:bg-[#1C1C1C] text-gray-200 font-medium",
+                            currentTab === "delete" && "bg-[#191919] hover:bg-[#191919]")} size="sm"
+                            onClick={() => setCurrentTab("delete")}
+                            >
+                            Ordner löschen
+                        </Button>
                     </div>
-                    <p className="text-xs dark:text-gray-200/60">
-                        Klicke auf einen Ordner um ihn zu bearbeiten.
-                    </p>
-                    </div>
+
                     <div className="mt-4">
-                        <div className="flex flex-col space-y-2">
-                            {foundFolders.map((folder) => (
-                                <SelectManageConversation key={folder.id} thisFolder={folder} />
-                            ))}
-                        </div>
+                        {currentTab === "edit" ? (
+                            <div>
+                                <div>
+                                    <div className="text-lg font-semibold text-gray-200 flex flex-row items-center gap-x-2">
+                                        <FolderIcon className="w-4 h-4 " />
+                                        Ordner bearbeiten
+                                    </div>
+                                    <p className="text-xs dark:text-gray-200/60">
+                                        Klicke auf einen Ordner um ihn zu bearbeiten.
+                                    </p>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="flex flex-col space-y-2">
+                                        {foundFolders.map((folder) => (
+                                            <SelectManageConversation key={folder.id} thisFolder={folder} />
+                                        ))}
+                                    </div>
+
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <div>
+                                    <div className="text-lg font-semibold text-gray-200 flex flex-row items-center gap-x-2">
+                                        <X className="w-4 h-4 text-rose-600" />
+                                        Ordner löschen
+                                    </div>
+                                    <p className="text-xs dark:text-gray-200/60">
+                                        Klicke auf einen Ordner um ihn zu löschen.
+                                    </p>
+                                </div>
+                                <div className="mt-4">
+                                    <div className="flex flex-col space-y-2">
+                                        {foundFolders.map((folder) => (
+                                            <>
+                                            </>
+                                        ))}
+                                    </div>
+
+                                </div>
+                            </div>
+                        )}
                     </div>
+
+
                 </div>
             </DialogContent>
         </Dialog>

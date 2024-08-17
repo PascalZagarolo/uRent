@@ -5,8 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { conversationFolder } from "@/db/schema";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import { CarFrontIcon, ChevronDownIcon, PencilLineIcon, PlusIcon, StarIcon, TruckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 
@@ -102,11 +105,25 @@ const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
     const [currentIcon, setCurrentIcon] = useState<string>(thisFolder?.icon);
     const [isLoading, setIsLoading] = useState(false);
 
+    const router = useRouter();
+
     const onSubmit = () => {
         try {
-
+            setIsLoading(true);
+            const values = {
+                title: currentTitle,
+                color: currentColor,
+                icon: currentIcon
+            }
+            axios.patch(`/api/conversationFolder/${thisFolder.id}/edit`, values)
+                .then(() => {
+                    router.refresh();
+                })
         } catch(e : any) {
-
+            console.log(e);
+            toast.error("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
+        } finally {
+            setIsLoading(false);
         }
     }
 

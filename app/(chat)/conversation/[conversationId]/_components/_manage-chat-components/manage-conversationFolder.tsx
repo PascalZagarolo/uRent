@@ -10,6 +10,7 @@ import { useState } from "react";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import SelectManageConversation from "./select-manage-conversation";
+import DeleteFolder from "./delete-folder";
 
 interface ManageConversationFolderProps {
     foundFolders: typeof conversationFolder.$inferSelect[];
@@ -173,8 +174,7 @@ const ManageConversationFolder: React.FC<ManageConversationFolderProps> = ({
                                 <div className="mt-4">
                                     <div className="flex flex-col space-y-2">
                                         {foundFolders.map((folder) => (
-                                            <>
-                                            </>
+                                            <DeleteFolder key={folder.id} thisFolder={folder} />
                                         ))}
                                     </div>
 

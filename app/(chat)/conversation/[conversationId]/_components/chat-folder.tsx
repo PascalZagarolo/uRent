@@ -171,7 +171,9 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
 
                 {
                     foundFolders.length > 0 && (
-                        <ManageConversationFolder />
+                        <ManageConversationFolder 
+                        foundFolders={foundFolders}
+                        />
                     )
                 }
                 <Dialog>

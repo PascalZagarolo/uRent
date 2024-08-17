@@ -3,13 +3,20 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { conversationFolder } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { CarFrontIcon, ChevronDownIcon, PencilLineIcon, PlusIcon, StarIcon, TruckIcon } from "lucide-react";
 import { useState } from "react";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 
-const SelectManageConversation  = () => {
+interface SelectMangeConversationProps {
+    thisFolder : typeof conversationFolder.$inferSelect;
+}
+
+const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
+    thisFolder
+}) => {
 
     const colorResponse = (color: string) => {
         switch (color) {
@@ -64,25 +71,30 @@ const SelectManageConversation  = () => {
     const selectableIcons = [
         {
             key: "star",
-            value: <StarIcon className="w-6 h-6" />
+            value: <StarIcon className="w-4 h-4" />
         },
         {
             key: "car",
-            value: <CarFrontIcon className="w-6 h-6" />
+            value: <CarFrontIcon className="w-4 h-4" />
         },
         {
             key: "truck",
-            value: <TruckIcon className="w-6 h-6" />
+            value: <TruckIcon className="w-4 h-4" />
         },
         {
             key: "trailer",
-            value: <RiCaravanLine className="w-6 h-6" />
+            value: <RiCaravanLine className="w-4 h-4" />
         },
         {
             key: "transport",
-            value: <PiVanFill className="w-6 h-6" />
+            value: <PiVanFill className="w-4 h-4" />
         }
     ]
+
+    function getIconByKey(key) {
+        const iconObject = selectableIcons.find(icon => icon.key === key);
+        return iconObject ? iconObject.value : null;
+    }
 
 
     const [currentTitle, setCurrentTitle] = useState("");
@@ -101,14 +113,17 @@ const SelectManageConversation  = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="bg-[#191919]
-             hover:bg-[#292929] hover:text-gray-200/60 p-1 px-4 rounded-md border border-dashed border-[#252525] 
-             flex flex-row items-center gap-x-2 mt-2">
-                    <PencilLineIcon className="w-2 h-2" />
-                    <div className="text-xs">
-                        Ordner verwalten
+                <Button 
+                variant="ghost"
+                className={`
+                    ${colorResponse(thisFolder.color)}
+                    text-gray-200 font-semibold justify-start hover:text-gray-200/60
+                `}>
+                    <div className="mr-2">
+                    {getIconByKey(thisFolder.icon)}
                     </div>
-                </button>
+                    {thisFolder.title}
+                </Button>
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#191919]">
                         <div className="w-full h-full">

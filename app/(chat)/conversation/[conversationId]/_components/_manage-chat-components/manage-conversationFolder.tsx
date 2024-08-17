@@ -3,13 +3,21 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { conversationFolder } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { CarFrontIcon, ChevronDownIcon, PencilLineIcon, PlusIcon, StarIcon, TruckIcon } from "lucide-react";
+import { CarFrontIcon, ChevronDownIcon, FolderIcon, PencilLineIcon, PlusIcon, StarIcon, TruckIcon } from "lucide-react";
 import { useState } from "react";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
+import SelectManageConversation from "./select-manage-conversation";
 
-const ManageConversationFolder  = () => {
+interface ManageConversationFolderProps {
+    foundFolders : typeof conversationFolder.$inferSelect[];
+}
+
+const ManageConversationFolder : React.FC<ManageConversationFolderProps>  = ({
+    foundFolders
+}) => {
 
     const colorResponse = (color: string) => {
         switch (color) {
@@ -110,8 +118,25 @@ const ManageConversationFolder  = () => {
                     </div>
                 </button>
             </DialogTrigger>
-            <DialogContent>
-                
+            <DialogContent className="dark:border-none dark:bg-[#191919]">
+                <div>
+                    <div>
+                    <div className="text-lg font-semibold text-gray-200 flex flex-row items-center gap-x-2">
+                        <FolderIcon className="w-4 h-4 " />
+                        Ordner bearbeiten
+                    </div>
+                    <p className="text-xs dark:text-gray-200/60">
+                        Klicke auf einen Ordner um ihn zu bearbeiten.
+                    </p>
+                    </div>
+                    <div className="mt-4">
+                        <div className="flex flex-col space-y-2">
+                            {foundFolders.map((folder) => (
+                                <SelectManageConversation key={folder.id} thisFolder={folder} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
             </DialogContent>
         </Dialog>
     );

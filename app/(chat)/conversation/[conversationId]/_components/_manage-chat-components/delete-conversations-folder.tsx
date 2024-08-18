@@ -63,9 +63,9 @@ const DeleteConversationsFolder : React.FC<DeleteConversationsFolderProps> = ({
             setIsLoading(true);
             const allIds = selectedConversations;
             console.log(conversationFolderId)
-            axios.patch(`/api/conversationFolder/${conversationFolderId}`, selectedConversations)
+            axios.patch(`/api/conversationFolder/${conversationFolderId}/conversations/delete`, selectedConversations)
                 .then(() => {
-                    toast.success("Konversationen verschoben");
+                    toast.success("Konversationen aus Ordner gelöscht.");
                     setSelectedConversations([]);
                     router.refresh();
                 })
@@ -93,7 +93,7 @@ const DeleteConversationsFolder : React.FC<DeleteConversationsFolderProps> = ({
                         Konversation  {renderedConversations?.length}
                     </div>
                     <p className="text-xs dark:text-gray-200/60">
-                        Wähle Konversationen aus, die du den Ordner hinzufügen möchtest.
+                        Wähle Konversationen aus, die du aus dem Ordner entfernen möchtest.
                     </p>
                     <div className="flex flex-col space-y-2 mt-4 p-4">
                         {renderedConversations?.map((conversation) => (

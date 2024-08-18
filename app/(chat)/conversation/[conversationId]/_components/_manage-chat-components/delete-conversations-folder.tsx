@@ -35,10 +35,10 @@ const DeleteConversationsFolder : React.FC<DeleteConversationsFolderProps> = ({
             for (const folder of conversation?.folderOnConversation) {
                 
                 if(folder.folderId === conversationFolderId) {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         })
 
         setRenderedConversations(notRelated);
@@ -81,8 +81,8 @@ const DeleteConversationsFolder : React.FC<DeleteConversationsFolderProps> = ({
         <Dialog>
             <DialogTrigger className="" asChild>
                 <Button className="w-full dark:bg-[#131313] dark:hover:bg-[#171717] text-gray-200 hover:text-gray-200/60">
-                    <PlusCircle className="w-4 h-4 mr-2" />
-                    Konversation hinzufügen
+                    <MinusCircleIcon className="w-4 h-4 mr-2" />
+                    Konversation entfernen
                 </Button>
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#131313]">

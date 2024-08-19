@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { conversation, conversationFolder } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { Pencil, PencilIcon } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { set } from 'date-fns';
 import AddConversations from "./add-conversation";
 import DeleteConversationsFolder from "./delete-conversations-folder";
@@ -69,7 +69,39 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
     const [currentFolder, setCurrentFolder] = useState<string | null>(null);
     const [matchingConversations, setMatchingConversations] = useState<any[] | null>([]);
 
+    const [linkedConversations, setLinkedConversations] = useState<any[] | null>([]);
+
     const [currentTab, setCurrentTab] = useState<string>("add");
+
+    useMemo(() => {
+        if (currentFolder) {
+            if(currentTab === "add") {
+                const related = foundConversations?.filter((conversation : any) => {
+                    for (const folder of conversation?.folderOnConversation) {
+                        
+                        if(folder.folderId === currentFolder) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                setLinkedConversations(related)
+            } else {
+                const notRelated = foundConversations?.filter((conversation : any) => {
+                    for (const folder of conversation?.folderOnConversation) {
+                        
+                        if(folder.folderId === currentFolder) {
+                            return true;
+                        }
+                    }
+                    return false;
+                })
+                setLinkedConversations(notRelated)
+            }
+        }
+    },[currentFolder, currentTab])
+
+    
 
     return (
         <Dialog>
@@ -83,13 +115,13 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                     <div defaultValue="add" className="w-full rounded-md">
                         <div className="grid w-full grid-cols-2 dark:bg-[#191919] px-2 p-1">
                             <Button value="add" size="sm"
-                            className={cn("dark:bg-[#191919] text-gray-200 hover:bg-[#191919] dark:hover:bg-[#191919]", 
-                            currentTab === "add" ? "text-gray-200 dark:bg-[#131313] dark:hover:bg-[#131313]" : "text-gray-200/60")}
+                                className={cn("dark:bg-[#191919] text-gray-200 hover:bg-[#191919] dark:hover:bg-[#191919]",
+                                    currentTab === "add" ? "text-gray-200 dark:bg-[#131313] dark:hover:bg-[#131313]" : "text-gray-200/60")}
                                 onClick={() => setCurrentTab("add")}
                             >Hinzufügen</Button>
                             <Button value="delete" size="sm"
-                            className={cn("dark:bg-[#191919] text-gray-200 hover:bg-[#191919] dark:hover:bg-[#191919]", 
-                            currentTab === "delete" ? "text-gray-200 dark:bg-[#131313] dark:hover:bg-[#131313]" : "text-gray-200/60")}
+                                className={cn("dark:bg-[#191919] text-gray-200 hover:bg-[#191919] dark:hover:bg-[#191919]",
+                                    currentTab === "delete" ? "text-gray-200 dark:bg-[#131313] dark:hover:bg-[#131313]" : "text-gray-200/60")}
                                 onClick={() => setCurrentTab("delete")}
                             >Entfernen</Button>
                         </div>
@@ -117,14 +149,10 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                                             <div className="mt-4">
                                                 <div>
                                                     <Label className="text-base">
-                                                        Konversationen ({matchingConversations?.length})
+                                                        Konversationen ({linkedConversations?.length})
                                                     </Label>
                                                 </div>
-                                                <div>
-                                                    <div className="text-xs text-gray-200/60">
-                                                        Noch keine Konversationen den Ordner hinzugefügt.
-                                                    </div>
-                                                </div>
+                                                
                                                 <div className="mt-4">
                                                     <AddConversations
                                                         foundConversations={foundConversations}
@@ -164,21 +192,24 @@ const ManageConversations: React.FC<MessageConversationProps> = ({
                                             <div className="mt-4">
                                                 <div>
                                                     <Label className="text-base">
-                                                        Konversationen ({matchingConversations?.length})
+                                                        Konversationen ({linkedConversations?.length})
                                                     </Label>
                                                 </div>
-                                                <div>
-                                                    <div className="text-xs text-gray-200/60">
-                                                        Noch keine Konversationen den Ordner hinzugefügt.
+                                                {linkedConversations?.length === 0 ? (
+                                                    <div>
+                                                        <div className="text-xs text-gray-200/60">
+                                                            Noch keine Konversationen den Ordner hinzugefügt.
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="mt-4">
-                                                    <DeleteConversationsFolder
-                                                        foundConversations={foundConversations}
-                                                        currentUserId={foundFolders[0].userId}
-                                                        conversationFolderId={currentFolder}
-                                                    />
-                                                </div>
+                                                ) :
+                                                    <div className="mt-4">
+                                                        <DeleteConversationsFolder
+                                                            foundConversations={foundConversations}
+                                                            currentUserId={foundFolders[0].userId}
+                                                            conversationFolderId={currentFolder}
+                                                        />
+                                                    </div>
+                                                }
                                             </div>
                                         )}
                                     </CardContent>

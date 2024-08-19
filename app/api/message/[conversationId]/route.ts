@@ -5,6 +5,7 @@ import { pusherServer } from "@/lib/pusher";
 import db from "@/db/drizzle";
 import { conversation, message, notification } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
+import axios from "axios";
 
 export async function POST(
     req : Request,
@@ -51,6 +52,8 @@ export async function POST(
         })
 
         await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
+
+        await axios.post("http://localhost:4000/api/messages/synchronize", newMessage)
 
         if(!existingNotication) {
             const [createdNotification] = await db.insert(notification).values({

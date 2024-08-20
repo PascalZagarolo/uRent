@@ -34,7 +34,7 @@ export async function POST(
             }
         }
 
-        console.log(messageObject.sender)
+        
         const updateLastMessage = await db.update(conversation).set({
             message : newMessage,
             lastMessageId : newMessage.id
@@ -53,6 +53,7 @@ export async function POST(
 
         await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
 
+        
         await axios.post("http://192.168.178.45:4000/api/messages/synchronize", newMessage)
 
         if(!existingNotication) {

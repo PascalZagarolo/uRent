@@ -20,7 +20,7 @@ export async function POST(
 
         const convertedObject = {
             ...values?.sentMessage,
-            sender : values?.sentMessage?.sender
+            sender : values?.sender
         }
 
         await pusherServer.trigger(params.conversationId, 'messages:new', convertedObject);

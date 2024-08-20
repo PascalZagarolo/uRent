@@ -18,7 +18,12 @@ export async function POST(
         
         const values = await req.json();
 
-        await pusherServer.trigger(params.conversationId, 'messages:new', values?.sentMessage);
+        const convertedObject = {
+            ...values?.sentMessage,
+            sender : values?.sentMessage?.sender
+        }
+
+        await pusherServer.trigger(params.conversationId, 'messages:new', convertedObject);
 
         if(values?.existingNotification) {
             await pusherServer.trigger(values?.existingNotification?.userId, 'notification:new', {

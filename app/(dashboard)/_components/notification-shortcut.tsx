@@ -52,7 +52,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
     const [usedFilter, setUsedFilter] = useState<"ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST" | "ANDERE">("ALL");
 
-    useEffect(() => {
+    useMemo(() => {
         setRenderedNotifications(foundNotifications);
         setUnseenNotifications(foundNotifications.filter((notification) => !notification.seen));
     },[foundNotifications])
@@ -62,7 +62,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
             try {
                 const patchedNotifications = await axios.patch("/api/notifications")
                 .then((res) => {
-                    
+                    console.log("..")
                     setUnseenNotifications([]);
                     router.refresh();
                 });
@@ -101,7 +101,11 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
     let usedNotificationType: typeof notificationTypeEnum;
 
     return (
-        <Popover >
+        <Popover onOpenChange={(e) => {
+            if (!e) {
+                onBlur();
+            }
+        }}>
             <PopoverTrigger asChild>
 
                 <Button className=" text-gray-200" variant="ghost" size="sm">
@@ -121,7 +125,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
 
             </PopoverTrigger>
-            <PopoverContent className="dark:bg-[#0F0F0F] w-[400px] dark:border-gray-800 border-none" onBlur={onBlur}>
+            <PopoverContent className="dark:bg-[#0F0F0F] w-[400px] dark:border-gray-800 border-none" >
                 <div>
                     <h3 className="flex">
                         <BellPlus className="h-4 w-4 " />

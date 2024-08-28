@@ -62,7 +62,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
             try {
                 const patchedNotifications = await axios.patch("/api/notifications")
                 .then((res) => {
-                    console.log("..")
+                    
                     setUnseenNotifications([]);
                     router.refresh();
                 });

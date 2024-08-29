@@ -55,7 +55,7 @@ export const login = async (
 
 
 
-  if (!existingUser.emailVerified) {
+  if (!existingUser?.emailVerified) {
     const verificationToken = await generateVerificationToken(
       existingUser.email,
     );
@@ -125,6 +125,8 @@ export const login = async (
 
       const passwordsMatch = await bcrypt.compare(password, existingUser.password);
 
+      
+
       if(passwordsMatch) {
         const session = await lucia.createSession(existingUser.id, {
           expiresIn: 60 * 60 * 24 * 30,
@@ -158,6 +160,8 @@ export const login = async (
           return { error: "Etwas ist schief gelaufen" }
       }
     }
+
+    return { error: "Etwas ist schief gelaufen" }
 
     throw error;
   }

@@ -136,7 +136,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
                         <Checkbox
                         onCheckedChange={(checked) => {setDailyPrice(!isDailyPrice)}}
                         checked={isDailyPrice}
-                        disabled={thisInserat.annual}
+                        disabled
                         />
                       
                         </div>

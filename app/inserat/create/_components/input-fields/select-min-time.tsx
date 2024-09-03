@@ -11,7 +11,7 @@ import axios from "axios";
 import { User2Icon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface SelectMinTimeProps {
@@ -29,6 +29,30 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
   const router = useRouter();
 
   const params = useParams();
+
+  useEffect(() => {
+    let usedSuffix
+    
+    switch(currentDateType) {
+      case "h":
+        usedSuffix = "h";
+        break;
+      case "d":
+        usedSuffix = "d";
+        break;
+      case "w":
+        usedSuffix = "w";
+        break;
+      case "m":
+        usedSuffix = "m";
+        break;
+      case "y":
+        usedSuffix = "y";
+        break;
+    }
+
+    setCurrentValue(1 + usedSuffix);
+  },[currentDateType])
 
   const onHours = () => {
     return (
@@ -58,12 +82,12 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         <SelectItem value={null}>
           Keine Mindestdauer
         </SelectItem>
-        <SelectItem value="1d">1 Tag</SelectItem>
-        <SelectItem value="2d">2 Tage</SelectItem>
-        <SelectItem value="3d">3 Tage</SelectItem>
-        <SelectItem value="4d">4 Tage</SelectItem>
-        <SelectItem value="5d">5 Tage</SelectItem>
-        <SelectItem value="6d">6 Tage</SelectItem>
+        <SelectItem value="1d">1</SelectItem>
+        <SelectItem value="2d">2</SelectItem>
+        <SelectItem value="3d">3</SelectItem>
+        <SelectItem value="4d">4</SelectItem>
+        <SelectItem value="5d">5</SelectItem>
+        <SelectItem value="6d">6</SelectItem>
       </SelectContent>
     )
   }
@@ -74,10 +98,10 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         <SelectItem value={null}>
           Keine Mindestdauer
         </SelectItem>
-        <SelectItem value="1w">1 Woche</SelectItem>
-        <SelectItem value="2w">2 Wochen</SelectItem>
-        <SelectItem value="3w">3 Wochen</SelectItem>
-        <SelectItem value="4w">4 Wochen</SelectItem>
+        <SelectItem value="1w">1</SelectItem>
+        <SelectItem value="2w">2</SelectItem>
+        <SelectItem value="3w">3</SelectItem>
+        <SelectItem value="4w">4</SelectItem>
 
       </SelectContent>
     )
@@ -91,17 +115,17 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         <SelectItem value={null}>
           Keine Mindestdauer
         </SelectItem>
-        <SelectItem value="1m">1 Monat</SelectItem>
-        <SelectItem value="2m">2 Monate</SelectItem>
-        <SelectItem value="3m">3 Monate</SelectItem>
-        <SelectItem value="4m">4 Monate</SelectItem>
-        <SelectItem value="5m">5 Monate</SelectItem>
-        <SelectItem value="6m">6 Monate</SelectItem>
-        <SelectItem value="7m">7 Monate</SelectItem>
-        <SelectItem value="8m">8 Monate</SelectItem>
-        <SelectItem value="9m">9 Monate</SelectItem>
-        <SelectItem value="10m">10 Monate</SelectItem>
-        <SelectItem value="11m">11 Monate</SelectItem>
+        <SelectItem value="1m">1</SelectItem>
+        <SelectItem value="2m">2</SelectItem>
+        <SelectItem value="3m">3</SelectItem>
+        <SelectItem value="4m">4</SelectItem>
+        <SelectItem value="5m">5</SelectItem>
+        <SelectItem value="6m">6</SelectItem>
+        <SelectItem value="7m">7</SelectItem>
+        <SelectItem value="8m">8</SelectItem>
+        <SelectItem value="9m">9</SelectItem>
+        <SelectItem value="10m">10</SelectItem>
+        <SelectItem value="11m">11</SelectItem>
 
 
       </SelectContent>
@@ -114,9 +138,9 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         <SelectItem value={null}>
           Keine Mindestdauer
         </SelectItem>
-        <SelectItem value="1y">1 Jahr</SelectItem>
-        <SelectItem value="2y">2 Jahre</SelectItem>
-        <SelectItem value="3y">3 Jahre</SelectItem>
+        <SelectItem value="1y">1</SelectItem>
+        <SelectItem value="2y">2</SelectItem>
+        <SelectItem value="3y">3</SelectItem>
 
       </SelectContent>
     )
@@ -206,8 +230,8 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
                 <SelectItem value="h">Stunden</SelectItem>
                 <SelectItem value="d">Tag(e)</SelectItem>
                 <SelectItem value="w">Woche(n)</SelectItem>
-                <SelectItem value="m">Monate</SelectItem>
-                <SelectItem value="y">Jahr</SelectItem>
+                <SelectItem value="m">Monat(e)</SelectItem>
+                <SelectItem value="y">Jahr(e)</SelectItem>
               </SelectContent>
             </Select>
           </div>

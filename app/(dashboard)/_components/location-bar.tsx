@@ -145,7 +145,6 @@ const AutoComplete = () => {
       const {
         place_id,
         structured_formatting: { main_text, secondary_text },
-
       } = suggestion;
 
       return (

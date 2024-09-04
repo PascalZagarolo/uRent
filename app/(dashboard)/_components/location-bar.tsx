@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "@/hooks/use-debounce";
 import qs from "query-string";
+import { Separator } from "@/components/ui/separator";
 
 const AutoComplete = () => {
 
@@ -148,10 +149,17 @@ const AutoComplete = () => {
       } = suggestion;
 
       return (
-        <li key={place_id} onClick={
-          handleSelect(suggestion)
-        } className="flex pl-4 pr-2 py-4 gap-x-2 hover:cursor-pointer">
-          <div><PinIcon className="w-4 h-4  text-rose-600" /></div> <div><strong>{main_text}</strong> <small>{secondary_text}</small></div>
+        <li
+          key={place_id}
+          onClick={handleSelect(suggestion)}
+          className="flex items-center px-4 py-2 gap-x-2 hover:bg-gray-700 hover:text-white rounded-lg transition-colors cursor-pointer"
+        >
+        <div>
+        <PinIcon className="w-4 h-4 text-indigo-800" />
+        </div>
+          <div>
+            <strong>{main_text}</strong> <small>{secondary_text}</small>
+          </div>
         </li>
       );
     });
@@ -200,11 +208,17 @@ const AutoComplete = () => {
       </div>
 
 
-      <div className="absolute 2xl:w-[272px]  top-full bg-[#141721] rounded-b-md space-y-2 text-sm  z-10">
+      <div className="absolute 2xl:w-[272px]  top-full bg-[#1f2231] rounded-b-md space-y-2 text-sm  z-10">
         {status === "OK" && (
-          <ul className="overflow-y-auto h-full ">
+          <div className="absolute top-full left-0 w-full mt-2 py-2 bg-[#26293a] rounded-lg shadow-lg z-10 ">
+          <ul className=" overflow-y-auto ">
             {renderSuggestions()}
           </ul>
+          
+          <span className="font-roboto font-medium text-sm leading-4 p-2 pr-4 tracking-[0.0575em] text-gray-400 flex justify-end">
+            Google
+          </span>
+        </div>
         )}
       </div>
     </div>

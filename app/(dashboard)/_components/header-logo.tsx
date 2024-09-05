@@ -68,7 +68,6 @@ const Header: React.FC<HeaderProps> = cache(async ({
                 <div className="flex items-center relative">
                     <div className="text-[#363d5e] font-font-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</div>
                     <p className="text-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Rent</p>
-                    
                 </div>
             </a>
         </div>

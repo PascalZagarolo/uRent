@@ -28,6 +28,7 @@ import PriceProfiles from "./_parts/price-profiles";
 import { redirect } from "next/navigation";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import SelectMinTime from "../_components/input-fields/select-min-time";
+import { userContactprofiles } from '../../../../db/schema';
 
 
 
@@ -82,7 +83,8 @@ const InseratCreation = async ({
                         with : {
                             businessAddresses : true
                         }
-                    }
+                    },
+                    userContactprofiles : true
                 }
             },
             pkwAttribute: true,

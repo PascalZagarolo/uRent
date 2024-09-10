@@ -1215,8 +1215,6 @@ export const inseratRelations = relations(inserat, ({ one, many }) => ({
         references : [address.id]
     }),
     
-    
-
     message : many(message),
 
     images : many(images),

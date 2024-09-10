@@ -11,7 +11,7 @@ import { inserat, userContactprofiles } from "@/db/schema";
 import axios from "axios";
 import { ChevronDown, MailCheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { contactOptions, business } from '../../../../../db/schema';
@@ -42,8 +42,21 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
     content: thisInserat.user?.email,
   }
 
-  const [renderedMails, setRenderedMails] = useState<typeof userContactprofiles.$inferSelect[]>([loginMail as any]);
 
+  const [renderedMails, setRenderedMails] = useState<typeof userContactprofiles.$inferSelect[]>([]);
+
+  useEffect(() => {
+    const mails = thisInserat?.user?.userContactprofiles.map((mail) => {
+      if(mail.profileType === "EMAIL") {
+        return {
+          id: mail.id,
+          title: mail.title,
+          content: mail.content,
+        }
+      }
+    })
+    setRenderedMails([...mails, loginMail]);
+  },[])
 
   const router = useRouter();
 

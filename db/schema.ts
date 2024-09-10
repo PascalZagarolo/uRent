@@ -456,13 +456,21 @@ export const contactProfileTypeEnum = pgEnum("contactProfileTypeEnum", [
 
  export const ContactProfileTypeEnumRender = z.enum(contactProfileTypeEnum.enumValues).Enum;
 
-export const userContactProfiles = pgTable("userContactProfiles", {
+export const userContactprofiles = pgTable("userContactprofiles", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     title : text("title"),
     content : text("content"),
     profileType : contactProfileTypeEnum("profileType"),
+    userId : text("userId")
+                .references(() => userTable.id, { onDelete: "cascade" }),
 })
 
+export const userContactprofilesRelations = relations(userContactprofiles, ({ one }) => ({
+    users : one(userTable, {
+        fields : [userContactprofiles.userId],
+        references : [userTable.id]
+    })
+}))
 
 
 export const pkwAttribute = pgTable("pkwAttribute", {
@@ -1135,6 +1143,7 @@ export const userRelations = relations(userTable, ({ one, many }) => ({
     savedSearch : many(savedSearch),
     accounts : many(accounts),
     conversationFolders : many(conversationFolder),
+    userContactprofiles : many(userContactprofiles),
     
     
     

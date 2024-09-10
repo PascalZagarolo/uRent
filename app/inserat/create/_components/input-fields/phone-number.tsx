@@ -84,11 +84,10 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
               type="tel"
               ref={inputRef}
               className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border-none rounded-r-none mt-2   dark:bg-[#151515] 
-            input: justify-start dark:focus-visible:ring-0 w-full"
+              input: justify-start dark:focus-visible:ring-0 w-full"
               disabled={isPrefill}
               value={currentNumber}
               onChange={(e) => { setCurrentNumber(e.target.value) }}
-
             />
             <Button className="mt-2 bg-[#0F0F0F] hover:bg-[#0F0F0F]  py-5 rounded-l-none" size="sm">
               <ChevronDown className="h-4 w-4 text-gray-200" />

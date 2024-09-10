@@ -21,6 +21,7 @@ import type { AdapterAccount } from '@auth/core/adapters'
 
 import {  relations, sql } from "drizzle-orm"
 import { z } from "zod"
+import { profile } from "console"
 
 
 
@@ -364,6 +365,8 @@ export const userSubscription = pgTable("userSubscription" , {
     isGift : boolean("isGift").notNull().default(false),
 })
 
+
+
 export const loadingEnum = pgEnum("loading", [
     "AUFFAHRRAMPE",
     "KRAN",
@@ -386,6 +389,8 @@ export const brandEnum = pgEnum("brand", [
 ])
 
 export const BrandEnumRender = z.enum(brandEnum.enumValues).Enum;
+
+
 
 export const transmissionEnum = pgEnum("transmission", [
     "MANUAL",
@@ -423,8 +428,6 @@ export const fuelTypeEnum = pgEnum("fuelType", [
 export const FuelTypeEnumRender = z.enum(fuelTypeEnum.enumValues).Enum;
 
 export const extraTypeEnum = pgEnum("extraType", [
-    
-
     "CONTAINERTRANSPORT",
 
     "FAHRZEUGTRANSPORT",
@@ -445,6 +448,22 @@ export const extraTypeEnum = pgEnum("extraType", [
     "PRITSCHE",
     "VERANSTALTUNG",
 ])
+
+export const contactProfileTypeEnum = pgEnum("contactProfileTypeEnum", [
+    "EMAIL",
+    "PHONE",
+ ])
+
+ export const ContactProfileTypeEnumRender = z.enum(contactProfileTypeEnum.enumValues).Enum;
+
+export const userContactProfiles = pgTable("userContactProfiles", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    title : text("title"),
+    content : text("content"),
+    profileType : contactProfileTypeEnum("profileType"),
+})
+
+
 
 export const pkwAttribute = pgTable("pkwAttribute", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
@@ -1118,7 +1137,10 @@ export const userRelations = relations(userTable, ({ one, many }) => ({
     conversationFolders : many(conversationFolder),
     
     
+    
 }));
+
+
 
 export const twoFactorToken = pgTable("twoFactorToken", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),

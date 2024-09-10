@@ -18,10 +18,11 @@ import { contactOptions, business } from '../../../../../db/schema';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { login } from "@/actions/login";
 import { is } from 'drizzle-orm';
+import { cn } from "@/lib/utils";
 
 interface SelectEmailProps {
-  thisInserat: typeof inserat.$inferSelect;
-  usedContactOptions: typeof contactOptions.$inferSelect;
+  thisInserat: typeof inserat.$inferSelect | any;
+  usedContactOptions: typeof contactOptions.$inferSelect | any;
 }
 
 const SelectEmail: React.FC<SelectEmailProps> = ({
@@ -41,7 +42,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
     content: thisInserat.user?.email,
   }
 
-  const [renderedMails, setRenderedMails] = useState<typeof userContactprofiles.$inferSelect[]>([loginMail]);
+  const [renderedMails, setRenderedMails] = useState<typeof userContactprofiles.$inferSelect[]>([loginMail as any]);
 
 
   const router = useRouter();
@@ -126,11 +127,11 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
                       onClick={() => { onPrefill(mail.content) }}
                     >      
                        <div className="text-left w-full">
-                          <div className="text-sm text-gray-200 font-semibold">
+                          <div className={cn("text-sm text-gray-200 font-bold", mail.id == "1" && "text-indigo-800 underline" )}>
                             {mail.title}
                           </div>
-                          <div className="mt-1 text-xs text-gray-200/60">
-                            {mail.content}
+                          <div className="mt-1 text-xs text-gray-200/60 font-medium">
+                          {mail.content}
                           </div>
                         </div>
                       </Button>

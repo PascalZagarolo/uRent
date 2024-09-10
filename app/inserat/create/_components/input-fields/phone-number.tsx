@@ -10,109 +10,113 @@ import { inserat } from "@/db/schema";
 
 
 import axios from "axios";
-import { MailCheckIcon, MailOpen, PhoneCall, PhoneCallIcon, PhoneForwarded, PhoneIncomingIcon, PinIcon } from "lucide-react";
+import { ChevronDown, MailCheckIcon, MailOpen, PhoneCall, PhoneCallIcon, PhoneForwarded, PhoneIncomingIcon, PinIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface PhoneNumberProps {
-  thisInserat : typeof inserat.$inferSelect
+  thisInserat: typeof inserat.$inferSelect | any;
 }
 
 const PhoneNumber: React.FC<PhoneNumberProps> = ({
   thisInserat
 }) => {
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [currentNumber, setCurrentNumber] = useState(thisInserat.phoneNumber || "");
-    const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentNumber, setCurrentNumber] = useState(thisInserat.phoneNumber || "");
+  const [value, setValue] = useState("");
 
-    const [isPrefill, setIsPrefill] = useState(false);
+  const [isPrefill, setIsPrefill] = useState(false);
 
-    const router = useRouter();
+  const router = useRouter();
 
-    const onSubmit = async () => {
-        try {
-          setIsLoading(true)
-          const values = {
-            phoneNumber : currentNumber
-          }
+  const onSubmit = async () => {
+    try {
+      setIsLoading(true)
+      const values = {
+        phoneNumber: currentNumber
+      }
 
-          await axios.patch(`/api/inserat/${thisInserat.id}`, values)
-            .then(() => {
-              toast.success("Telefonnummer wurde erfolgreich geändert")
-              router.refresh();
-            })
-          
+      await axios.patch(`/api/inserat/${thisInserat.id}`, values)
+        .then(() => {
+          toast.success("Telefonnummer wurde erfolgreich geändert")
+          router.refresh();
+        })
 
-        } catch {
-          toast.error("Fehler beim Versenden der E-Mail")
-        } finally {
-          setIsLoading(false);
-        }
-    } 
 
-    const inputRef = React.useRef<HTMLInputElement>(null);
-
-    const onPrefill = () => {
-        if(!isPrefill) {
-            if(thisInserat.user?.business?.telephone_number) {
-              setCurrentNumber(thisInserat.user.business.telephone_number);
-            }
-            setIsPrefill(true);
-        } else if(isPrefill) {
-            setCurrentNumber("");
-            setIsPrefill(false);
-        }
+    } catch {
+      toast.error("Fehler beim Versenden der E-Mail")
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    return ( 
-        <div className="items-center w-full">
-       <h3 className="text-md font-semibold items-center flex">
-          <PhoneIncomingIcon className="h-4 w-4 mr-2"/> Telefonisch
-        </h3>
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const onPrefill = () => {
+    if (!isPrefill) {
+      if (thisInserat.user?.business?.telephone_number) {
+        setCurrentNumber(thisInserat.user.business.telephone_number);
+      }
+      setIsPrefill(true);
+    } else if (isPrefill) {
+      setCurrentNumber("");
+      setIsPrefill(false);
+    }
+  }
+
+  return (
+    <div className="items-center w-full">
+      <h3 className="text-md font-semibold items-center flex">
+        <PhoneIncomingIcon className="h-4 w-4 mr-2" /> Telefonisch
+      </h3>
       <div className="flex mt-4 ">
-       
+
         <div className="  items-center  w-full">
           <Label className="flex justify-start items-center">
             <p className="mb-0.5  font-semibold"> Telefonnummer </p>
           </Label>
           <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1"> wie möchtest du telefonisch erreicht werden? </p>
-          <Input placeholder="+49 1234567890"
-          type="tel"
-          ref={inputRef}
-            className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] 
+          <div className="flex flex-row items-center">
+            <Input placeholder="+49 1234567890"
+              type="tel"
+              ref={inputRef}
+              className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border-none rounded-r-none mt-2   dark:bg-[#151515] 
             input: justify-start dark:focus-visible:ring-0 w-full"
-            disabled={isPrefill}
-            value={currentNumber}
-            onChange={(e) => { setCurrentNumber(e.target.value) }}
-            
-          />
+              disabled={isPrefill}
+              value={currentNumber}
+              onChange={(e) => { setCurrentNumber(e.target.value) }}
 
+            />
+            <Button className="mt-2 bg-[#0F0F0F] hover:bg-[#0F0F0F]  py-5 rounded-l-none" size="sm">
+              <ChevronDown className="h-4 w-4 text-gray-200" />
+            </Button>
+          </div>
         </div>
-        
+
       </div>
 
       <div className="flex mt-2">
-      <Checkbox 
-      className="h-4 w-4 mr-2"
-      onCheckedChange={onPrefill}
-      />
-      <Label>
-        Informationen aus Profil verwenden
-      </Label>
-    </div>
+        <Checkbox
+          className="h-4 w-4 mr-2"
+          onCheckedChange={onPrefill}
+        />
+        <Label>
+          Informationen aus Profil verwenden
+        </Label>
+      </div>
 
 
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
         disabled={!currentNumber || currentNumber === thisInserat.phoneNumber || !thisInserat.user?.business?.telephone_number}
       >
-        <span className="">Telefonnr. anzeigen</span> 
+        <span className="">Telefonnr. anzeigen</span>
       </Button>
 
     </div>
-     );
+  );
 }
- 
+
 export default PhoneNumber;

@@ -9,7 +9,7 @@ import { inserat } from "@/db/schema";
 
 
 import axios from "axios";
-import { MailCheckIcon } from "lucide-react";
+import { ChevronDown, MailCheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
@@ -82,15 +82,20 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
           </Label>
           <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:block hidden"> über welche Addresse möchtest du kontaktiert werden? </div>
           <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:hidden block"> deine benutzte E-Mail </div>
+          <div className="flex flex-row items-center w-full justify-center">
           <Input placeholder="name@addresse.de"
           ref={inputRef}
-            className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] 
-            input: justify-start dark:focus-visible:ring-0 w-full"
+          className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md rounded-r-none text-sm border-none border-r-0 dark:bg-[#151515] 
+          dark:focus-visible:ring-0 w-11/12 mt-2"
             disabled={isPrefill}
             value={currentAddress}
             onChange={(e) => { setCurrentAddress(e.target.value) }}
             
           />
+          <Button className="mt-2 bg-[#0F0F0F] hover:bg-[#0F0F0F]  py-5 rounded-l-none" size="sm">
+            <ChevronDown className="h-4 w-4 text-gray-200"/>
+          </Button>
+          </div>
 
         </div>
         

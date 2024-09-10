@@ -115,7 +115,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
               </PopoverTrigger>
               <PopoverContent className="bg-[#171717] rounded-md border-none p-4 shadow-lg">
                 <div className="font-semibold text-base">
-                  Email-Addresse auswählen
+                  Telefonnummer auswählen
                 </div>
                 <div className="flex flex-col h-full space-y-2 mt-2">
                   {renderedNumbers.length > 0 ? (
@@ -139,7 +139,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
                     ))
                   ) : (
                     <div className="text-xs text-gray-200/60">
-                      Noch keine Emails hinzugefügt..
+                      Noch keine Telefonnummern hinzugefügt..
                     </div>
                   )}
                 </div>

@@ -38,9 +38,9 @@ const HeaderInfo = () => {
   }, [api])
 
   const renderedBanner = [
-    <FreeRentCard />,
-    <BasicUrentBanner />,
-    <BasicUrentNewsletter />
+    <FreeRentCard key={1}/>,
+    <BasicUrentBanner key={2}/>,
+    <BasicUrentNewsletter key={3}/>
   ]
 
   return (

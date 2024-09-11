@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { TruckIcon } from "lucide-react";
 import Image from "next/image";
 import { FaRegNewspaper, FaRegWindowMinimize } from "react-icons/fa";
@@ -19,9 +20,36 @@ const BasicUrentNewsletter = () => {
                             und immer auf den laufenden bleiben!
                         </div>
                         <div className="mt-4">
-                            <Button className="text-lg font-semibold bg-indigo-800" variant="ghost">
-                              <FaRegNewspaper className="w-8 h-8 mr-4" />   Keine Neuigkeiten verpassen!
-                            </Button>
+                            <Dialog>
+                                <DialogTrigger>
+                                    <Button className="text-lg font-semibold bg-indigo-800" variant="ghost">
+                                        <FaRegNewspaper className="w-8 h-8 mr-4" />   Keine Neuigkeiten verpassen!
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="dark:bg-[#191919] dark:border-none">
+                                    <div>
+                                        <div className="text-lg font-semibold">
+                                            Möchtest du dich zum Newsletter anmelden?
+                                        </div>
+                                        <div className="text-xs text-gray-200/60">
+                                            Der Newsletter informiert dich über neue Angebote und Neuigkeiten auf uRent.
+                                            Du kannst dich jederzeit abmelden.
+                                        </div>
+                                        <div className="mt-4 ml-auto justify-end flex">
+                                            <DialogTrigger>
+                                                <Button className="text-sm font-semibold bg-indigo-800" variant="ghost">
+                                                    Anmelden
+                                                </Button>
+                                            </DialogTrigger>
+                                            <DialogTrigger>
+                                                <Button variant="ghost">
+                                                    Abbrechen
+                                                </Button>
+                                            </DialogTrigger>
+                                        </div>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </div>
                     <div className=" w-full flex justify-end  ml-auto h-full">

@@ -56,7 +56,7 @@ const HeaderInfo = () => {
 
           {
             renderedBanner.map((item, index) => (
-              <CarouselItem>
+              <CarouselItem key={index}>
                 <div className="w-full h-[320px]">
                   <Card className="w-full h-full border-none rounded-md">
                     <CardContent className="flex w-full h-full items-center justify-center p-6 

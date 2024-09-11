@@ -38,30 +38,30 @@ const InseratShow: React.FC<InseratShowProps> = ({
         }
     }
 
-    function returnMinTimeType(usedValue : number, minTime: string): string {
+    function returnMinTimeType(usedValue: number, minTime: string): string {
 
-        if(usedValue === 1) {
-            switch(minTime) {
+        if (usedValue === 1) {
+            switch (minTime) {
                 case "h":
                     return "Stunde";
                 case "d":
                     return "Tag";
                 case "w":
                     return "Woche";
-                case "m" :
+                case "m":
                     return "Monat";
                 default:
                     return minTime;
             }
         } else {
-            switch(minTime) {
+            switch (minTime) {
                 case "h":
                     return "Stunden";
                 case "d":
                     return "Tage";
                 case "w":
                     return "Wochen";
-                case "m" :
+                case "m":
                     return "Monate";
                 default:
                     return minTime;
@@ -75,7 +75,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
     const usedImages = thisInserat?.images?.sort((a, b) => a.position - b.position) || [];
 
-    
+
 
     return (
         <div className="sm:mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 
@@ -97,21 +97,14 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
 
 
-                <div className=" text-md sm:text-base ml-2 font-bold text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] 
-                            bg-[#1d1f2b] sm:px-8 rounded-lg p-4 w-3/4  overflow-hidden">
-                    
-                        <div className="w-full line-clamp-1 break-all overflow-hidden">
-                            {thisInserat.title}
-                        </div>
-                    
+                <div className=" text-md sm:text-base ml-2 font-bold text-gray-100  
+                            bg-[#1d1f2b] sm:px-4 rounded-lg p-4 flex-grow  overflow-hidden flex justify-center">
+                    <div className="w-full line-clamp-1 break-all overflow-hidden text-center">
+                        {thisInserat.title}
+                    </div>
                 </div>
 
-                <div className="flex justify-end ml-2 sm:ml-2 bg-[#1d1f2b] w-1/8  p-4 rounded-lg sm:p-4">
-                    <BookingsOverview
-                        receivedBookings={inseratBookings}
-                        thisInserat={thisInserat}
-                    />
-                </div>
+
             </div>
             <div className="flex items-center gap-x-1 mt-1 sm:text-sm text-xs">
                 <p className="text-xs text-gray-200  ">erstellt am :</p>
@@ -121,13 +114,20 @@ const InseratShow: React.FC<InseratShowProps> = ({
                 </div>
             </div>
 
-            <div className="mt-4 rounded-md w-full text-gray-100   flex justify-center ">
-                <InseratImageCarousel 
-                imagesData={usedImages} />
+            <div className="mt-4 rounded-md w-full text-gray-100  flex justify-center ">
+                <InseratImageCarousel
+                    imagesData={usedImages} />
             </div>
-
             <div>
-                <div className="flex justify-end items-center rounded-md sm:mt-8 p-4 w-full border-gray-800 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)] bg-[#13151c]  text-gray-100 mt-2">
+                <div className="  bg-indigo-800 w-full mt-8   rounded-lg ">
+                    <BookingsOverview
+                        receivedBookings={inseratBookings}
+                        thisInserat={thisInserat}
+                    />
+                </div>
+            </div>
+            <div>
+                <div className="flex justify-end items-center rounded-md sm:mt-2 p-4 w-full border-gray-800  bg-[#1B1D28]  text-gray-100 mt-2">
                     <div className="flex mr-auto items-center w-full">
                         <div className="flex font-bold  text-sm items-center  sm:w-full ">
 
@@ -171,18 +171,18 @@ const InseratShow: React.FC<InseratShowProps> = ({
             </div>
             */}
             {thisInserat?.priceprofiles.length > 0 && (
-                <div className="mt-4">
+                <div className="">
                     <div className="text-md font-semibold">
                         Weitere Preisprofile
                     </div>
                     <div className="space-y-2 mt-2">
                         {//@ts-ignore
-                        usedListPrices.map((priceprofile : any) => (
-                            <PriceProfileDialog
-                            key={priceprofile.id}
-                            thisPriceprofile={priceprofile}
-                            />
-                        ))}
+                            usedListPrices.map((priceprofile: any) => (
+                                <PriceProfileDialog
+                                    key={priceprofile.id}
+                                    thisPriceprofile={priceprofile}
+                                />
+                            ))}
                     </div>
                 </div>
             )}
@@ -227,12 +227,12 @@ const InseratShow: React.FC<InseratShowProps> = ({
                 </div>
             )}
             {thisInserat?.minTime && (
-                    <div className="w-full mt-1 truncate font-semibold text-sm flex">
-                        <Clock2Icon className="w-4 h-4 mr-2 text-indigo-800" />
-                        Mindestmietdauer : {thisInserat?.minTime.slice(0,1)} {returnMinTimeType(Number(thisInserat.minTime.slice(0,1)), thisInserat?.minTime.slice(1))}
-                    </div>
-                )}
-            
+                <div className="w-full mt-1 truncate font-semibold text-sm flex">
+                    <Clock2Icon className="w-4 h-4 mr-2 text-indigo-800" />
+                    Mindestmietdauer : {thisInserat?.minTime.slice(0, 1)} {returnMinTimeType(Number(thisInserat.minTime.slice(0, 1)), thisInserat?.minTime.slice(1))}
+                </div>
+            )}
+
             <div className="mt-4">
                 <div className="flex sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" />
                     Kontaktinformationen

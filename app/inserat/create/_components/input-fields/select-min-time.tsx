@@ -22,7 +22,7 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
   thisInserat
 }) => {
 
-  const [currentValue, setCurrentValue] = useState<string | null>(thisInserat.minTime);
+  const [currentValue, setCurrentValue] = useState<string | null>(thisInserat.minTime ? thisInserat.minTime : null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentDateType, setCurrentDateType] = useState<string>(thisInserat.minTime ? thisInserat.minTime.slice(-1) : "d");
   
@@ -51,7 +51,7 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         break;
     }
 
-    setCurrentValue(1 + usedSuffix);
+    currentValue ? setCurrentValue(currentValue + usedSuffix) : null;
   },[currentDateType])
 
   const onHours = () => {

@@ -1,16 +1,3 @@
-
-import getCurrentUser from "../../actions/getCurrentUser";
-
-
-
-
-
-
-
-
-
-
-
 import Footer from "./_components/footer";
 
 import { Metadata } from "next";

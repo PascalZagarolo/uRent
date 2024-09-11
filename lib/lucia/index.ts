@@ -1,3 +1,5 @@
+'use server'
+
 import { Lucia } from "lucia"
 import adapter from "./adapter"
 import { cookies } from "next/headers"

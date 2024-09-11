@@ -1,3 +1,5 @@
+'use server'
+
 import { NextApiRequest, NextApiResponse } from "next";
 
 
@@ -9,7 +11,7 @@ export default async function handler(
     request : NextApiRequest,
     response : NextApiResponse,
 ) {
-    const {session, user } = await validateRequest();;
+    const {session, user } = await validateRequest();
 
     if(!user){
         return response.status(401);

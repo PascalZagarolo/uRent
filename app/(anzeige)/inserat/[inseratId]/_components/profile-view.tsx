@@ -14,11 +14,12 @@ import { MdCardMembership, MdOutlineStarRate } from "react-icons/md";
 import { businessAddress } from '../../../../../db/schema';
 import { GiTargetPoster } from "react-icons/gi";
 import { FaFax } from "react-icons/fa6";
-import { Separator } from "@radix-ui/react-separator";
+
 import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 interface ProfileViewProps {
-    thisUser: typeof userTable.$inferSelect;
+    thisUser: typeof userTable.$inferSelect | any;
     inseratArray: number;
     inseratOwner: typeof userTable.$inferSelect;
     thisBusiness: typeof business.$inferSelect;

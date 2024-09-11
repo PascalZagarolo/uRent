@@ -53,8 +53,8 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
     return ( 
         <Dialog>
             <DialogTrigger asChild>
-            <Button className="w-full font-semibold text-gray-300 bg-[#3730A3] hover:bg-[#3730A3] hover:underline" variant="ghost">
-            <CalendarCheck className="w-6 h-6 mr-2"/> Verfügbarkeit prüfen
+            <Button className="w-full font-semibold text-gray-200 bg-indigo-900  hover:underline" variant="ghost">
+            <CalendarCheck className="w-4 h-4 mr-2"/> Verfügbarkeit prüfen
             </Button>
             </DialogTrigger>
             <DialogContent  className="dark:bg-[#0F0F0F] border-none">

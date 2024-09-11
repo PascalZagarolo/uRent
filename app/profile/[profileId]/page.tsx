@@ -41,15 +41,25 @@ export async function generateMetadata({ params }: Props,
         const res = await db.query.userTable.findFirst({
             where: eq(userTable.id, params.profileId),
             with: {
-                business: true
+                business: {
+                    with: {
+                        businessAddresses: true,
+                    }
+                },
             }
 
         })
 
         let usedDescription;
 
+        let addedAddress = ""; 
+
+        if(res?.business?.businessAddresses[0]?.postalCode && res?.business?.businessAddresses[0]?.city) {
+            addedAddress = res?.business?.businessAddresses[0]?.postalCode + ", " + res?.business?.businessAddresses[0]?.city;
+        }
+
         if(res?.business?.description || res?.description) {
-            usedDescription = res?.business?.description ? res?.business?.description : res?.description
+            usedDescription = res?.business?.description ? addedAddress + res?.business?.description : addedAddress + res?.description
         } else {
             usedDescription = res?.name
         }

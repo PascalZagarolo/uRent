@@ -59,23 +59,16 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
       ]}>
         
         <CarouselContent className="mt-0">
-          
               {foundInserate.map((thisInserat, index) => (
                 <CarouselItem key={index} className="w-full flex justify-center flex-shrink-0">
-                  
                   <InseratCard 
                       currentUser={currentUser}
-                      
                       thisInserat={thisInserat}
-                      
                       profileId={currentUser?.id}
                       />
-            
-            
                 </CarouselItem>
               ))}
             </CarouselContent>
-        
       </Carousel>
       </div>
       <div className="text-center text-sm text-muted-foreground mt-2">
@@ -83,7 +76,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
       </div>
     </div>
   ) : (
-    <p className="mb-16 text-gray-900/50 dark:text-gray-100 justify-center flex text-sm">
+    <p className="mb-16 text-gray-900/50 dark:text-gray-200/60 justify-center flex text-sm mt-16">
       Noch keine Inserate vorhanden...
     </p>
   )}

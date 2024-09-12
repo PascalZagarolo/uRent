@@ -85,7 +85,7 @@ const AddContactProfile = ({ contactType, onAddContact }: AddContactProfileProps
                                     maxLength={100}
                                 />
                                 <div>
-                                    <LetterRestriction limit={100} currentLength={currentTitle.length} />
+                                    <LetterRestriction limit={100} currentLength={currentContact.length} />
                                 </div>
                             </div>
                             <div className="mt-2 flex justify-end">

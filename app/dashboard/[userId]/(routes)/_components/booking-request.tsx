@@ -79,12 +79,12 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                         </Button>
                     </div>
                 </div>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                     <div className="justify-center flex w-full h-[100px] mt-2">
                         <Image
-                            className="min-h-[50px] min-w-[300px] object-cover flex justify-center"
+                            className="min-h-[50px] w-full object-cover flex justify-center"
                             src={//@ts-ignore
-                                request.inserat?.images[0]?.url}
+                                request?.inserat?.images[0]?.url}
                             alt="Inserat-Bild"
                             width={200}
                             height={50}
@@ -99,7 +99,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                             <Image
                                 className="w-[30px] h-[30px] rounded-full"
                                 src={//@ts-ignore
-                                    request.user.image || "/placeholder-person.jpg"}
+                                    request?.user?.image || "/placeholder-person.jpg"}
                                 alt="Profilbild"
                                 width={30}
                                 height={30}
@@ -170,7 +170,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                             <Image
                                 className="w-[30px] h-[30px] rounded-full"
                                 src={//@ts-ignore
-                                    request.user.image || "/placeholder-person.jpg"}
+                                    request?.user?.image || "/placeholder-person.jpg"}
                                 alt="Profilbild"
                                 width={30}
                                 height={30}

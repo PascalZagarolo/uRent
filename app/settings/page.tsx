@@ -16,9 +16,10 @@ import UsernameInput from "./_components/username-input";
 import ChangeEmail from "./_components/change-email";
 import { redirect } from "next/navigation";
 import Footer from "../(dashboard)/_components/footer";
-import DeleteUser from "./_components/delete-user";
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 
+import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+import { RiContactsBookFill } from "react-icons/ri";
+import ContactProfiles from "./_components/contact-profiles";
 
 
 
@@ -26,19 +27,19 @@ const SettingsPage = async () => {
 
     const currentUser = await getCurrentUserWithNotifications();
 
-    if(!currentUser) {
+    if (!currentUser) {
         redirect("/login")
     }
 
-    
+
 
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
-                    currentUser={currentUser} 
+                    currentUser={currentUser}
                     foundNotifications={currentUser?.notifications}
-                    />
+                />
             </div>
             <div className="sm:hidden">
                 <MobileHeader
@@ -57,36 +58,44 @@ const SettingsPage = async () => {
                         </div>
                         <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                <User2Icon className="mr-4" /> Account verwalten  <p className="ml-4 text-lg"> </p> 
+                                <User2Icon className="mr-4" /> Account verwalten  <p className="ml-4 text-lg"> </p>
                                 <div className="ml-auto">
-                                <SaveChangesSettings 
-                                thisUser={currentUser}
-                                />
+                                    <SaveChangesSettings
+                                        thisUser={currentUser}
+                                    />
                                 </div>
                             </h3>
                             <div className="w-full p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
-                                    <ProfilePicSettings 
-                                    imageUrl = {currentUser?.image}
-                                    thisUserId = {currentUser?.id}
-                                    
+                                    <ProfilePicSettings
+                                        imageUrl={currentUser?.image}
+                                        thisUserId={currentUser?.id}
+
                                     />
                                 </div>
                                 <div>
-                                <UsernameInput 
-                                thisUser = {currentUser}
-                                />
-                                <Vorname 
-                                thisUser = {currentUser}
-                                />
-                                <Nachname 
-                                thisUser = {currentUser}
-                                />
+                                    <UsernameInput
+                                        thisUser={currentUser}
+                                    />
+                                    <Vorname
+                                        thisUser={currentUser}
+                                    />
+                                    <Nachname
+                                        thisUser={currentUser}
+                                    />
                                 </div>
                                 <div>
-                                    <ChangeEmail 
-                                    thisUser = {currentUser}
+                                    <ChangeEmail
+                                        thisUser={currentUser}
                                     />
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
+                                    <RiContactsBookFill  className="mr-4" /> Kontaktprofile verwalten  <p className="ml-4 text-lg"> </p>
+                                </h3>
+                                <div className="w-full p-4 mt-2 rounded-md">
+                                    <ContactProfiles />
                                 </div>
                             </div>
                         </div>
@@ -94,8 +103,8 @@ const SettingsPage = async () => {
                 </div>
             </div>
             <div>
-                    <Footer/>
-                </div>
+                <Footer />
+            </div>
         </div>
     );
 }

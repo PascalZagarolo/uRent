@@ -21,11 +21,12 @@ import { BiSolidBusiness } from "react-icons/bi";
 import { MdOutlineCardMembership } from "react-icons/md";
 import UploadBusinessPics from "./upload-business-pics";
 import { business } from '../../../../db/schema';
+import { Button } from "@/components/ui/button";
 
 
 interface ProfileHeaderProps {
     currentUser: typeof userTable.$inferSelect;
-    user: typeof userTable.$inferSelect;
+    user: typeof userTable.$inferSelect | any;
     thisContactOptions: typeof contactOptions.$inferSelect;
     thisImages: typeof businessImages.$inferSelect[];
 }
@@ -46,10 +47,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
         return `${day}.${month}.${year}`;
     };
 
-
-
     const isOwnProfile = currentUser?.id === user.id || user.emailVerified ? true : false;
-
     const ownProfile = currentUser?.id === user.id
 
     return (
@@ -63,14 +61,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     />
                 )}
             </div>
-
-
-
-
-
-
             <div className="sm:flex w-full  ">
-
                 <div className="flex rounded-md w-full pb-8 sm:pb-0 sm:w-2/5">
                     <div className="w-full sm:px-0 px-4">
                         <div className=" dark:text-gray-100 w-full">

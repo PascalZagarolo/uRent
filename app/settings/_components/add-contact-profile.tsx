@@ -33,6 +33,8 @@ const AddContactProfile = ({ contactType, onAddContact }: AddContactProfileProps
 
             const res = await axios.post("/api/contactProfile", values);
             toast.success('Kontaktprofil erfolgreich hinzugefügt.');
+            setCurrentTitle('');
+            setCurrentContact('');
             onAddContact(res.data);
 
 
@@ -45,9 +47,9 @@ const AddContactProfile = ({ contactType, onAddContact }: AddContactProfileProps
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <div className="hover:cursor-pointer">
                     <PlusSquareIcon className="w-4 h-4" />
-                </Button>
+                </div>
             </DialogTrigger>
             <DialogContent className="border-none dark:bg-[#191919]">
                 <div>

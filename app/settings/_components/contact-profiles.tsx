@@ -25,7 +25,9 @@ const ContactProfiles = () => {
                         currentMails.map((mail) => (
 
                             
-                                <div className="flex flex-col bg-[#141414] rounded-md w-1/2 px-4 py-2 pb-4 mt-2">
+                                <div className="flex flex-col bg-[#141414] rounded-md w-1/2 px-4 py-2 pb-4 mt-2"
+                                key={mail.id}
+                                >
                                     <div className="flex flex-row items-center ">
                                     <span className="text-sm font-semibold">{mail.title}</span>
                                     <Button variant="ghost" size="sm" className="ml-4">

@@ -5,6 +5,7 @@ import AddContactProfile from "./add-contact-profile";
 import { Button } from "@/components/ui/button";
 import { PencilIcon, TrashIcon } from "lucide-react";
 import EditContactProfile from "./edit-contact-profile";
+import DeleteContactProfile from "./delete-contact-profile";
 
 const ContactProfiles = () => {
 
@@ -40,9 +41,13 @@ const ContactProfiles = () => {
                                         setCurrentMails(newMails);
                                     }}
                                     />
-                                    <Button variant="ghost" size="sm">
-                                        <TrashIcon className="w-4 h-4" />
-                                    </Button>
+                                    <DeleteContactProfile 
+                                    profileId={mail.id} 
+                                    onDelete={(deletedProfile) => {
+                                        const newMails = currentMails.filter((m) => m.id !== deletedProfile.id);
+                                        setCurrentMails(newMails);
+                                    }}
+                                    />
                                     </div>
                                     <span className="text-sm text-gray-200/60">{mail.content}</span>
                                 </div>

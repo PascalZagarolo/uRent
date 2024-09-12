@@ -12,16 +12,21 @@ const ContactProfiles = () => {
         <div>
             <div className="text-lg font-semibold flex flex-row items-center gap-x-4">
                 Email-Addressen
-                <AddContactProfile 
-                contactType="email"
+                <AddContactProfile
+                onAddContact={(addedContact) => setCurrentMails([...currentMails, addedContact])} 
+                contactType="EMAIL"
                 />
             </div>
-            <div className="">
+            <div>
                 {
                     currentMails.length > 0 ? (
-                        <div className="flex flex-col items-center">
-                            2
-                        </div>
+                        currentMails.map((mail) => (
+                        
+                            <div className="flex flex-col">
+                                <span className="text-sm font-semibold">{mail.title}</span>
+                                <span className="text-sm text-gray-200/60">{mail.content}</span>
+                            </div>
+                        ))
                     ) : (
                         <div>
                             <span className="text-xs text-gray-200/60">
@@ -34,10 +39,11 @@ const ContactProfiles = () => {
             <div className="text-lg font-semibold flex flex-row items-center gap-x-4 mt-8">
                 Telefonnummern
                 <AddContactProfile 
-                contactType="phone"
+                onAddContact={(addedContact) => setCurrentPhones([...currentPhones, addedContact])}
+                contactType="PHONE"
                 />
             </div>
-            <div className="">
+            <div >
                 {
                     currentPhones.length > 0 ? (
                         <div className="flex flex-col items-center">

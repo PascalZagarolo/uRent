@@ -9,6 +9,7 @@ import {
 import { Social } from "./social";
 import { Header } from "./header";
 import { BackButton } from "./back-button";
+import { Label } from "@/components/ui/label";
 
 
 interface CardWrapperProps {
@@ -31,13 +32,15 @@ export const CardWrapper = ({
       <CardHeader>
         <Header label={headerLabel} />
       </CardHeader>
-      <CardContent>
+      <CardContent className="py-0">
         {children}
       </CardContent>
       {showSocial && (
-        <CardFooter>
+        <div className="mt-2">
+          <CardFooter className="">
           <Social />
         </CardFooter>
+        </div>
       )}
       <CardFooter>
         <BackButton

@@ -100,21 +100,21 @@ export const RegisterForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 "
+          className="space-y-4"
         >
           <div className="space-y-4">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="space-y-0">
                   <FormLabel>Nutzername</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder="Max Mustermann"
-                      className="bg-[#1a1c2c] border-none"
+                      className="bg-[#1B1F2C] border-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -126,7 +126,7 @@ export const RegisterForm = () => {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="space-y-0">
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
@@ -134,7 +134,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="max.muster@email.com"
                       type="email"
-                      className="bg-[#1a1c2c] border-none"
+                      className="bg-[#1B1F2C] border-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -145,7 +145,7 @@ export const RegisterForm = () => {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="space-y-0">
                   <FormLabel>Passwort</FormLabel>
                   <div className="flex ">
                     <FormControl>
@@ -154,7 +154,7 @@ export const RegisterForm = () => {
                         disabled={isPending}
                         placeholder="**********"
                         type={showPassword ? "text" : "password"}
-                        className="rounded-none rounded-l-md bg-[#1a1c2c] border-none"
+                        className="rounded-none rounded-l-md bg-[#1B1F2C] border-none"
                       />
                     </FormControl>
                     <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
@@ -212,7 +212,7 @@ export const RegisterForm = () => {
           <Button
             disabled={isPending}
             type="submit"
-            className="w-full"
+            className="w-full bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg"
           >
             Account erstellen
           </Button>

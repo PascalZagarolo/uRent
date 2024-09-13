@@ -29,12 +29,13 @@ export const Social = () => {
   return (
     <div className="flex items-center w-full gap-x-2">
       <Button
-        size="lg"
-        className="w-full bg-[#1a1c2c] border-none"
+        size="default"
+        className="w-full bg-[#1a1c2c] border-none gap-x-4"
         variant="outline"
         onClick={onGoogle}
       >
-        <FcGoogle className="h-5 w-5" />
+        <FcGoogle className="h-4 w-4" />
+        Mit Google einloggen
       </Button>
       
     </div>

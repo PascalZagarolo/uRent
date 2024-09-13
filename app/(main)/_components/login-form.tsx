@@ -28,6 +28,7 @@ import { LoginSchema } from "./_schemas";
 import { EyeIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import { set } from "lodash";
+import { Label } from "@/components/ui/label";
 
 
 export const LoginForm = () => {
@@ -124,7 +125,7 @@ export const LoginForm = () => {
       <Form {...form}>
         <form 
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6"
+          className="space-y-4"
         >
           <div className="space-y-4">
             {showTwoFactor && (
@@ -138,8 +139,8 @@ export const LoginForm = () => {
                       <Input
                         {...field}
                         disabled={isPending}
-                        placeholder="123456"
-                        className="bg-[#1F2332]"
+                        placeholder=""
+                        className="bg-[#1B1F2C]"
                         
                        
                       />
@@ -155,15 +156,15 @@ export const LoginForm = () => {
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="space-y-0">
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="max.muster@email.com"
+                          placeholder=""
                           type="email"
-                          className="bg-[#1a1c2c] border-none"
+                          className="bg-[#1B1F2C] border border-[#1f2234]"
                         />
                       </FormControl>
                       <FormMessage />
@@ -174,16 +175,16 @@ export const LoginForm = () => {
                   control={form.control}
                   name="password"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="space-y-0">
                       <FormLabel>Passwort</FormLabel>
                       <div className="flex rounded-lg w-full ">
                       <FormControl>
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="**********"
+                          placeholder=""
                           type={showPassword ? "text" : "password"}
-                          className="bg-[#1a1c2c] border-none rounded-none rounded-l-md"
+                          className="bg-[#1B1F2C] border-none rounded-none rounded-l-md"
                         />
                         
                       </FormControl>
@@ -196,16 +197,11 @@ export const LoginForm = () => {
                           <EyeIcon className="h-4 w-4"/>
                         </Button>
                         </div>
-                      <Button
-                        size="sm"
-                        variant="link"
-                        asChild
-                        className="px-0 font-normal"
-                      >
-                        <Link href="/forget">
+                     
+                        <Link href="/forget" className="text-xs text-gray-200/90 font-medium hover:underline">
                           Password vergessen?
                         </Link>
-                      </Button>
+                     
                       <FormMessage />
                     </FormItem>
                   )}
@@ -218,9 +214,9 @@ export const LoginForm = () => {
           <Button
             disabled={isPending}
             type="submit"
-            className="w-full"
+            className="w-full bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 shadow-lg"
           >
-            {showTwoFactor ? "Bestätigen" : "Login"}
+            {showTwoFactor ? "Bestätigen" : "Anmelden"}
           </Button>
         </form>
       </Form>

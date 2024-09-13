@@ -14,7 +14,7 @@ const LoginLayout = async (
     return (
         <div className="min-w-screen min-h-screen flex flex-col  dark:bg-[#0F0F0F]">
     <div>
-    <div className="bg-[#1f2332] h-[90px]  flex-shrink-1 block">
+    <div className="bg-[#1F2332] h-[90px]  flex-shrink-1 block">
             <div className="flex 2xl:justify-start md:justify-evenly">
             <HeaderRedirect />
 

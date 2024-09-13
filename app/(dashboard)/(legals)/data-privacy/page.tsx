@@ -6,7 +6,7 @@ import { notification } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { TruckIcon } from "lucide-react";
 import MobileHeader from "../../_components/mobile-header";
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+
 
 const DataPrivacy = async () => {
 

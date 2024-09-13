@@ -119,8 +119,8 @@ const ContactProfiles = ({ foundProfiles, foundEmail }: ContactProfilesProps) =>
                                     <DeleteContactProfile
                                         profileId={mail.id}
                                         onDelete={(deletedProfile) => {
-                                            const newMails = currentMails.filter((m) => m.id !== deletedProfile.id);
-                                            setCurrentMails(newMails);
+                                            const newPhones = currentPhones.filter((m) => m.id !== deletedProfile.id);
+                                            setCurrentPhones(newPhones);
                                         }}
                                     />
                                 </div>

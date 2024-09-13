@@ -5,8 +5,8 @@ import MobileHeader from "./_components/mobile-header";
 
 import HeaderLogo from "./_components/header-logo";
 
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
 import { Metadata } from "next";
+import { getCurrentUserWithNotifications } from "@/actions/getCurrentUserWithNotifications";
 
 
 export const metadata: Metadata = {

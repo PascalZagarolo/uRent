@@ -15,7 +15,8 @@ import BreadCrumpSettings from "../../_components/bread-crump-settings";
 import { redirect } from "next/navigation";
 import Footer from "@/app/(dashboard)/_components/footer";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+import { getCurrentUserWithNotifications } from "@/actions/getCurrentUserWithNotifications";
+
 
 
 

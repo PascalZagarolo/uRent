@@ -21,7 +21,7 @@ import { FormSuccess } from "./form-success";
 import { FormError } from "./form-error";
 import { RegisterSchema } from "./_schemas";
 import { register } from "@/actions/register";
-import { EyeIcon } from "lucide-react";
+import { CheckIcon, EyeIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -40,19 +40,24 @@ export const RegisterForm = () => {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       email: "",
       password: "",
+      password2: "",
       name: "",
       receivesEmails: true
     },
   });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    
+
     setError("");
     setSuccess("");
 
@@ -115,6 +120,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="Max Mustermann"
                       className="bg-[#1B1F2C] border-none"
+
                     />
                   </FormControl>
                   <FormMessage />
@@ -155,6 +161,43 @@ export const RegisterForm = () => {
                         placeholder="**********"
                         type={showPassword ? "text" : "password"}
                         className="rounded-none rounded-l-md bg-[#1B1F2C] border-none"
+                        onChange={(e) => {
+                          setPassword1(e.target.value);
+                          field.onChange(e);
+                        }}
+                      />
+                    </FormControl>
+                    <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
+                      onMouseDown={onHold}
+                      onMouseUp={onRelease}
+                      type="button"
+                      onClick={() => { }}
+                    >
+                      <EyeIcon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password2"
+              render={({ field }) => (
+                <FormItem className="space-y-0">
+                  <FormLabel>Passwort bestätigen</FormLabel>
+                  <div className="flex ">
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="**********"
+                        type={showPassword2 ? "text" : "password"}
+                        className="rounded-none rounded-l-md bg-[#1B1F2C] border-none"
+                        onChange={(e) => {
+                          setPassword2(e.target.value);
+                          field.onChange(e);
+                        }}
                       />
                     </FormControl>
                     <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
@@ -172,28 +215,51 @@ export const RegisterForm = () => {
             />
 
           </div>
-          <div className="text-xs text-gray-200">
-            <div>uRent schickt dir regelmäßig E-Mails mit Produktupdates, Angeboten und weiteren hilfreichen Informationen.</div> <br />
+          <div className="flex flex-col">
+          <div className="flex flex-row items-center space-x-4">
+              {password1.length >= 6 ? (
+                <CheckIcon className="h-4 w-4 text-emerald-600" />
+              ) : (
+                <X className="w-4 h-4 text-rose-600" />
+              )}
+              <Label className="text-sm">
+                Min. 6 Zeichen (+ Sonderzeichen)
+              </Label>
+            </div>
+            <div className="flex flex-row items-center space-x-4">
+              {password1 === password2 && password1.length > 0 && password2.length > 0 ? (
+                <CheckIcon className="h-4 w-4 text-emerald-600" />
+              ) : (
+                <X className="w-4 h-4 text-rose-600" />
+              )}
+              <Label className="text-sm">
+                Passwörter stimmen überein
+              </Label>
+            </div>
             
-              
+          </div>
+          <div className="text-xs text-gray-200 space-y-0">
+            <div>uRent schickt dir regelmäßig E-Mails mit Produktupdates, Angeboten und weiteren hilfreichen Informationen.</div> <br />
 
-              <Accordion type="single" collapsible className=" text-xs border-none">
-              
-              <AccordionItem value="item-1">
-              <div className="flex items-center gap-x-1">Du kannst dich jederzeit von diesen E-Mails
-              <AccordionTrigger>abmelden.</AccordionTrigger>
-                  </div>
-                  <AccordionContent className="border-none flex items-center gap-x-2">
-                    <Checkbox className="h-3 w-3" 
+
+
+            <Accordion type="single" collapsible className=" text-xs border-none space-y-0 p-0 ">
+
+              <AccordionItem value="item-1" className="border-none">
+                <div className="flex items-center gap-x-1">Du kannst dich jederzeit von diesen E-Mails
+                  <AccordionTrigger className="p-0 ">abmelden.</AccordionTrigger>
+                </div>
+                <AccordionContent className="border-none flex items-center gap-x-2 mt-4">
+                  <Checkbox className="h-3 w-3"
                     checked={!receivesEmails}
                     onCheckedChange={() => setReceivesEmails(!receivesEmails)}
-                    /> <Label className="text-xs"> Ich möchte keine Emails von uRent bekommen </Label>
-                  </AccordionContent>
-                </AccordionItem> 
-              </Accordion>
+                  /> <Label className="text-xs"> Ich möchte keine Emails von uRent bekommen </Label>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
 
-            
+
           </div>
 
           <div className="text-xs text-gray-200/90">

@@ -28,7 +28,7 @@ import { redirect } from "next/navigation";
 import ChatSideBar from "./_components/chat-sidebar";
 import { cache } from "react";
 import { findStartedConversationsGlobal } from "@/actions/findStartedConversations";
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+
 import getCurrentUserWithNotificationsFolders from "@/actions/getCurrentUserWithNotificationsFolders";
 
 

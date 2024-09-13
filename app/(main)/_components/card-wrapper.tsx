@@ -42,7 +42,7 @@ export const CardWrapper = ({
         </CardFooter>
         </div>
       )}
-      <CardFooter>
+      <CardFooter className="mt-4">
         <BackButton
           label={backButtonLabel}
           href={backButtonHref}

@@ -51,25 +51,25 @@ export const ResetForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Passwort zurücksetzen"
+      headerLabel="Gebe deine Email ein mit der du dich auf uRent registriert hast, um dein Passwort zurückzusetzen."
       backButtonLabel="Zurück zum Login"
       backButtonHref="/login"
     >
       <Form {...form}>
         <form 
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6"
+          className="space-y-4"
         >
           <div className="space-y-4">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="space-y-0">
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                    className="bg-[#1a1c2c] border-none"
+                    className="bg-[#1B1F2C] border-none"
                       {...field}
                       disabled={isPending}
                       placeholder=""
@@ -86,7 +86,7 @@ export const ResetForm = () => {
           <Button
             disabled={isPending}
             type="submit"
-            className="w-full"
+            className="w-full bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg"
           >
             Email senden
           </Button>

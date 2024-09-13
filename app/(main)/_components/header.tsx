@@ -22,6 +22,7 @@ export const Header = ({
   const pathname = usePathname();
 
   const isLogin = pathname.includes("/login");
+  const isReset = pathname.includes("/forget")
  
 
   return (
@@ -33,7 +34,11 @@ export const Header = ({
         {isLogin ? (
           "Einloggen"
         ) : (
-          "Registrieren"
+          isReset ? (
+            "Passwort zurücksetzen"
+          ) : (
+            "Registrieren"
+          )
         )}
       </h1>
       <p className="text-muted-foreground text-sm">

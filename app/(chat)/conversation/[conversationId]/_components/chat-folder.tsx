@@ -80,7 +80,7 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
             value: "bg-blue-800"
         },
         {
-            red: "red",
+            key: "red",
             value: "bg-red-800"
         },
         {

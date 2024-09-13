@@ -22,7 +22,7 @@ import { FcGoogle } from "react-icons/fc";
 import Footer from "@/app/(dashboard)/_components/footer";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import DeleteUser from "../../_components/delete-user";
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+
 import getCurrentUserWithNotificationsAndAccounts from "@/actions/getCurrentUserWithNotificationsAndAccounts";
 
 

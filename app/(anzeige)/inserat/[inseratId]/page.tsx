@@ -24,8 +24,9 @@ import AdsComponent from '@/components/ad-component';
 import Footer from '@/app/(dashboard)/_components/footer';
 import MobileHeader from '@/app/(dashboard)/_components/mobile-header';
 import HeaderLogo from '@/app/(dashboard)/_components/header-logo';
+import { getCurrentUserWithNotifications } from '@/actions/getCurrentUserWithNotifications';
 
-import getCurrentUserWithNotifications from '@/actions/getCurrentUserWithNotifications';
+
 
 
 type Props = {

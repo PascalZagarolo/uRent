@@ -9,9 +9,10 @@ import ToggleDarkMode from "./_components/toggle-dark-mode";
 import { redirect } from "next/navigation";
 import Footer from "@/app/(dashboard)/_components/footer";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+
 import Notificationpreferences from "./_components/notification-preferences";
 import { IoMdNotifications } from "react-icons/io";
+import { getCurrentUserWithNotifications } from "@/actions/getCurrentUserWithNotifications";
 
 
 

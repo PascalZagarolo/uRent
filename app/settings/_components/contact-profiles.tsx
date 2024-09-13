@@ -6,11 +6,20 @@ import { Button } from "@/components/ui/button";
 import { PencilIcon, TrashIcon } from "lucide-react";
 import EditContactProfile from "./edit-contact-profile";
 import DeleteContactProfile from "./delete-contact-profile";
+import { userContactprofiles } from "@/db/schema";
 
-const ContactProfiles = () => {
+interface ContactProfilesProps {
+    foundProfiles : typeof userContactprofiles.$inferSelect[];
+}
 
-    const [currentMails, setCurrentMails] = useState([]);
-    const [currentPhones, setCurrentPhones] = useState([]);
+const ContactProfiles = ({ foundProfiles } : ContactProfilesProps ) => {
+
+    const [currentMails, setCurrentMails] = useState(
+        foundProfiles.filter((profile) => profile.profileType === "EMAIL")
+    );
+    const [currentPhones, setCurrentPhones] = useState(
+        foundProfiles.filter((profile) => profile.profileType === "PHONE")
+    );
 
     return (
         <div>
@@ -38,7 +47,7 @@ const ContactProfiles = () => {
                                             }
                                             return m;
                                         });
-                                        setCurrentMails(newMails);
+                                        setCurrentMails(newMails as any);
                                     }}
                                     />
                                     <DeleteContactProfile 
@@ -72,9 +81,35 @@ const ContactProfiles = () => {
             <div >
                 {
                     currentPhones.length > 0 ? (
-                        <div className="flex flex-col items-center">
-                            2
-                        </div>
+                        currentPhones.map((mail) => (
+                            <div className="flex flex-col bg-[#141414] rounded-md w-1/2 px-4 py-2 pb-4 mt-2"
+                            key={mail.id}
+                            >
+                                <div className="flex flex-row items-center ">
+                                <span className="text-sm font-semibold">{mail.title}</span>
+                                <EditContactProfile thisProfile={mail} 
+                                onChangeProfile={(profile) => {
+                                    const newMails = currentMails.map((m) => {
+                                        if (m.id === mail.id) {
+                                            return profile;
+                                        }
+                                        return m;
+                                    });
+                                    setCurrentMails(newMails as any);
+                                }}
+                                />
+                                <DeleteContactProfile 
+                                profileId={mail.id} 
+                                onDelete={(deletedProfile) => {
+                                    const newMails = currentMails.filter((m) => m.id !== deletedProfile.id);
+                                    setCurrentMails(newMails);
+                                }}
+                                />
+                                </div>
+                                <span className="text-sm text-gray-200/60">{mail.content}</span>
+                            </div>
+                        
+                    ))
                     ) : (
                         <div>
                             <span className="text-xs text-gray-200/60">

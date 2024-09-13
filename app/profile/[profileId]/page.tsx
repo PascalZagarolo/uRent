@@ -121,7 +121,8 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     openingTimes: true
                 }
             },
-            paymentMethods : true
+            paymentMethods : true,
+            
         }
     })
 

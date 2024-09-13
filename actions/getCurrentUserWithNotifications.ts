@@ -9,7 +9,7 @@ import { cache } from "react";
 
 
 
-const getCurrentUserWithNotifications = cache(async () => {
+export const getCurrentUserWithNotifications = cache(async () => {
   try {
     
     const { user } = await validateRequest();
@@ -37,7 +37,34 @@ const getCurrentUserWithNotifications = cache(async () => {
   }
 });
 
-export default getCurrentUserWithNotifications;
+export const getCurrentUserWithNotificationsContactProfiles = cache(async () => {
+  try {
+    
+    const { user } = await validateRequest();
+
+    const findUser  = db.query.userTable.findFirst({
+      where: (eq(userTable.id, sql.placeholder("userId"))),
+        with : {
+            notifications : true,
+            userContactprofiles : true
+        }
+    }).prepare("findUser");
+
+    
+
+    const currentUser = await findUser.execute({userId : user.id })
+    
+
+    if (!currentUser) {
+      
+      return null;
+    }
+
+    return currentUser;
+  } catch (error) {
+    return null;
+  }
+});
 
 
 

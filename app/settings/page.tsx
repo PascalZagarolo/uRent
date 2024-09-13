@@ -17,15 +17,16 @@ import ChangeEmail from "./_components/change-email";
 import { redirect } from "next/navigation";
 import Footer from "../(dashboard)/_components/footer";
 
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+
 import { RiContactsBookFill } from "react-icons/ri";
 import ContactProfiles from "./_components/contact-profiles";
+import { getCurrentUserWithNotificationsContactProfiles } from "@/actions/getCurrentUserWithNotifications";
 
 
 
 const SettingsPage = async () => {
 
-    const currentUser = await getCurrentUserWithNotifications();
+    const currentUser = await getCurrentUserWithNotificationsContactProfiles();
 
     if (!currentUser) {
         redirect("/login")
@@ -95,7 +96,9 @@ const SettingsPage = async () => {
                                     <RiContactsBookFill  className="mr-4" /> Kontaktprofile verwalten  <p className="ml-4 text-lg"> </p>
                                 </h3>
                                 <div className="w-full p-4 mt-2 rounded-md">
-                                    <ContactProfiles />
+                                    <ContactProfiles 
+                                    foundProfiles = {currentUser?.userContactprofiles}
+                                    />
                                 </div>
                             </div>
                         </div>

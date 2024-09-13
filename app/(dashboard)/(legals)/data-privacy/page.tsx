@@ -10,17 +10,10 @@ import MobileHeader from "../../_components/mobile-header";
 
 const DataPrivacy = async () => {
 
-
-
-
-
+    
     return (
-
         <div>
-
-
             <div className="flex justify-center sm:p-8 bg-[#404040]/10">
-
                 <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
                         <div className="p-4 mt-4  rounded-lg ">
@@ -28,9 +21,6 @@ const DataPrivacy = async () => {
                                 Datenschutzerklärung uRent UG <p className="ml-auto text-sm"> (15.06.2024) </p>
                             </h3>
                         </div>
-
-
-
                         <div className="p-8 text-sm dark:text-gray-300/90">
 
                             <div className="p-4">

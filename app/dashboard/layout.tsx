@@ -7,7 +7,8 @@ import db from "@/db/drizzle";
 import { notification } from "@/db/schema";
 import Footer from "../(dashboard)/_components/footer";
 import { redirect } from "next/navigation";
-import getCurrentUserWithNotifications from "@/actions/getCurrentUserWithNotifications";
+import { getCurrentUserWithNotifications } from "@/actions/getCurrentUserWithNotifications";
+
 
 
 const DashboardLayout = async (

@@ -188,6 +188,7 @@ const SearchItem = () => {
                
                 {showDropdown && (
                     <div className="absolute w-full bg-[#141721] rounded-b-md space-y-2 text-sm" onBlur={() => {setShowDropdown(false)}}>
+                        {/*
                         {selectedUser ? (
                             <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
                             key={selectedUser.id}>
@@ -195,13 +196,16 @@ const SearchItem = () => {
                                 <X className="w-4 h-4 ml-auto text-rose-600" onClick={() => {onUserDelete()}} />
                         </div>
                         ) : (
-                            foundProfiles.map((profile : typeof userTable.$inferSelect) => (
-                                <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
-                                key={profile.id} onClick={() => {onUserSearch(profile)}} >
-                                    <FaUserTie className="w-4 h-4" />  {profile.name}
-                                </div>
-                            ))
+                            foundProfiles.length > 0 && (
+                                foundProfiles?.map((profile : typeof userTable.$inferSelect) => (
+                                    <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
+                                    key={profile.id} onClick={() => {onUserSearch(profile)}} >
+                                        <FaUserTie className="w-4 h-4" />  {profile.name}
+                                    </div>
+                                ))
+                            )
                         )}
+                        */}
                        
                             
                         

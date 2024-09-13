@@ -548,9 +548,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                             </FormItem>
                                         )} />
                                 </div>
+                                {/*
                                 <div>
                                     <SearchRent />
                                 </div>
+                                */}
                                 <div className="mt-2">
                                     <Label className="font-semibold text-sm flex items-center">
                                         <TbListNumbers className="w-4 h-4 mr-2" /> Interne Buchungsnr.

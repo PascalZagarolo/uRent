@@ -98,6 +98,7 @@ const SettingsPage = async () => {
                                 <div className="w-full p-4 mt-2 rounded-md">
                                     <ContactProfiles 
                                     foundProfiles = {currentUser?.userContactprofiles}
+                                    foundEmail = {currentUser?.email}
                                     />
                                 </div>
                             </div>

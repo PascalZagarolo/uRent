@@ -2,11 +2,8 @@ import { CalendarSearchIcon, Star } from "lucide-react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 
 
-import db from "@/db/drizzle";
-import { booking, favourite } from "@/db/schema";
-import { eq } from "drizzle-orm";
 
-import getCurrentUser from "@/actions/getCurrentUser";
+
 import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 import { redirect } from "next/navigation";
 import MobileHeader from "../(dashboard)/_components/mobile-header";

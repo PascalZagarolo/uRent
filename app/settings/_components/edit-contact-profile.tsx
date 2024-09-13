@@ -80,7 +80,7 @@ const EditContactProfile = ({ thisProfile, onChangeProfile }: EditContactProfile
                                     maxLength={100}
                                 />
                                 <div>
-                                    <LetterRestriction limit={100} currentLength={currentContact.length} />
+                                    <LetterRestriction limit={100} currentLength={currentContact?.length} />
                                 </div>
                             </div>
                             <div className="mt-2 flex justify-end">

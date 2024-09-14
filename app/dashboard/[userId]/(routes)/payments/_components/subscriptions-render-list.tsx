@@ -16,11 +16,15 @@ import axios from "axios";
 
 interface SubscriptionsRenderListProps {
     subscriptions: typeof userTable.$inferSelect;
+    invoiceSubscription : any
 }
 
 const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
-    subscriptions
+    subscriptions,
+    invoiceSubscription
 }) => {
+
+    const currentPrice = invoiceSubscription[0].subtotal / 100;
 
     const currentDate = new Date();
 
@@ -93,17 +97,9 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                         {subscriptions.subscription?.subscriptionType}
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        {
-                                            {
-                                                "BASIS": "25 €",
-                                                "PREMIUM": "39 €",
-                                                "ENTERPRISE": "49 €",
-                                                //@ts-ignore
-                                            }[usedType]
-                                        }
+                                       {currentPrice} €
                                     </TableCell>
                                 </TableRow>
-                       
                         </TableBody>
                     </Table>
                 </div>

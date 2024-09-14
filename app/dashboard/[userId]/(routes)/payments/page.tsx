@@ -35,9 +35,20 @@ const PaymentsPage = async () => {
     const existingSubscription = await findSubscription.execute({ usedId: usedId });
 
     const existingInvoices = await stripe.invoices.list({
-        customer: existingSubscription?.subscription?.stripe
+        customer: existingSubscription?.subscription?.stripe_customer_id
     })
 
+    
+
+    const matchingProduct = await stripe.products.retrieve(
+        existingInvoices.data[0].lines.data[0].price.product as string
+    )
+
+    console.log(existingInvoices.data[0].subscription)
+
+    //console.log(matchingProduct.metadata)
+
+    
 
 
     let retrievedSubscription;

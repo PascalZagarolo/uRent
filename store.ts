@@ -184,3 +184,16 @@ export const useDeleteParams = create<deleteParams>((set) => ({
         set({ removeAttributes : action })
     }
 }))
+
+type loadingParams = {
+    isLoading : boolean;
+    changeLoading: (action : boolean) => void;
+
+}
+
+export const useLoading = create<loadingParams>((set) => ({
+    isLoading : false,
+    changeLoading : (action : boolean) => {
+        set({ isLoading : action })
+    }
+}))

@@ -29,6 +29,7 @@ import { EyeIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import { set } from "lodash";
 import { Label } from "@/components/ui/label";
+import { useLoading } from "@/store";
 
 
 export const LoginForm = () => {
@@ -55,13 +56,15 @@ export const LoginForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const { isLoading, changeLoading } = useLoading();
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
 
     setError("");
     setSuccess("");
     
     startTransition(() => {
-      
+      changeLoading(true);
       login(values)
       
         .then((data) => {
@@ -74,28 +77,34 @@ export const LoginForm = () => {
 
           
           if (data?.success) {
-            console.log("this");
+            //changeLoading(false);
             setSuccess(data.success);
             form.reset();
             toast.success("Erfolgreich eingeloggt");
+            changeLoading(true);
             setTimeout(() => {
               router.push("/")
+              changeLoading(false)
             })
             
           }
 
           if (data?.twoFactor) {
             
+            changeLoading(false);
             setShowTwoFactor(true);
           }
           
           //eventually delete later
           if(!data?.success && !data?.twoFactor) {
+            changeLoading(false);
+            
             toast.error("Falsche Anmeldedaten");
-            form.reset();
+           //form.reset();
           }
         }).catch((error) => {
           toast.error("Fehler beim Einloggen");
+          changeLoading(false);
         })
           
         
@@ -120,7 +129,7 @@ export const LoginForm = () => {
       headerLabel="Willkommen zurück"
       backButtonLabel="Noch keinen Account?"
       backButtonHref="/register"
-      showSocial
+      showSocial={!showTwoFactor}
     >
       <Form {...form}>
         <form 

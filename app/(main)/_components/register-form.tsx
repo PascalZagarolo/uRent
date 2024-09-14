@@ -45,6 +45,11 @@ export const RegisterForm = () => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
 
+  const passwordMatch = password1 === password2 && password1.length > 0 && password2.length > 0;
+
+  var format1 = /^.*[!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?-].*$/;
+  const hasSymbol = format1.test(password1) && password1.length >= 6;
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -85,14 +90,24 @@ export const RegisterForm = () => {
     });
   };
 
-  const onHold = () => {
-    setShowPassword(true)
+  const onHold = (index : number) => {
+    if(index === 1) {
+      setShowPassword(true)
+    } else {
+      setShowPassword2(true)
+    }
   }
 
-  const onRelease = () => {
-    setTimeout(() => {
-      setShowPassword(false)
-    }, 200)
+  const onRelease = (index : number) => {
+    if(index === 1) {
+      setTimeout(() => {
+        setShowPassword(false)
+      }, 200)
+    } else {
+      setTimeout(() => {
+        setShowPassword2(false)
+      }, 200)
+    }
   }
 
   return (
@@ -159,6 +174,7 @@ export const RegisterForm = () => {
                         {...field}
                         disabled={isPending}
                         placeholder="**********"
+                        maxLength={20}
                         type={showPassword ? "text" : "password"}
                         className="rounded-none rounded-l-md bg-[#1B1F2C] border-none"
                         onChange={(e) => {
@@ -168,8 +184,8 @@ export const RegisterForm = () => {
                       />
                     </FormControl>
                     <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
-                      onMouseDown={onHold}
-                      onMouseUp={onRelease}
+                      onMouseDown={() => {onHold(1)}}
+                      onMouseUp={() => {onRelease(1)}}
                       type="button"
                       onClick={() => { }}
                     >
@@ -192,6 +208,7 @@ export const RegisterForm = () => {
                         {...field}
                         disabled={isPending}
                         placeholder="**********"
+                        maxLength={20}
                         type={showPassword2 ? "text" : "password"}
                         className="rounded-none rounded-l-md bg-[#1B1F2C] border-none"
                         onChange={(e) => {
@@ -201,8 +218,8 @@ export const RegisterForm = () => {
                       />
                     </FormControl>
                     <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
-                      onMouseDown={onHold}
-                      onMouseUp={onRelease}
+                      onMouseDown={() => {onHold(2)}}
+                      onMouseUp={() => {onRelease(2)}}
                       type="button"
                       onClick={() => { }}
                     >
@@ -217,17 +234,17 @@ export const RegisterForm = () => {
           </div>
           <div className="flex flex-col">
           <div className="flex flex-row items-center space-x-4">
-              {password1.length >= 6 ? (
+              {hasSymbol ? (
                 <CheckIcon className="h-4 w-4 text-emerald-600" />
               ) : (
                 <X className="w-4 h-4 text-rose-600" />
               )}
               <Label className="text-sm">
-                Min. 6 Zeichen (+ Sonderzeichen)
+                6 - 20 Zeichen (+ Sonderzeichen)
               </Label>
             </div>
             <div className="flex flex-row items-center space-x-4">
-              {password1 === password2 && password1.length > 0 && password2.length > 0 ? (
+              {passwordMatch ? (
                 <CheckIcon className="h-4 w-4 text-emerald-600" />
               ) : (
                 <X className="w-4 h-4 text-rose-600" />
@@ -276,9 +293,11 @@ export const RegisterForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button
-            disabled={isPending}
+            disabled={isPending || !passwordMatch || !hasSymbol}
             type="submit"
-            className="w-full bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg"
+            className="w-full bg-indigo-800 hover:bg-indigo-900
+             text-gray-200 hover:text-gray-300 shadow-lg"
+             
           >
             Account erstellen
           </Button>

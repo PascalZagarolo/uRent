@@ -19,6 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { login } from "@/actions/login";
 import { is } from 'drizzle-orm';
 import { cn } from "@/lib/utils";
+import { profile } from 'console';
 
 interface SelectEmailProps {
   thisInserat: typeof inserat.$inferSelect | any;
@@ -46,17 +47,16 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
   const [renderedMails, setRenderedMails] = useState<typeof userContactprofiles.$inferSelect[]>([]);
 
   useEffect(() => {
-    const mails = thisInserat?.user?.userContactprofiles.map((mail) => {
-      if(mail.profileType === "EMAIL") {
-        return {
-          id: mail.id,
-          title: mail.title,
-          content: mail.content,
-        }
-      }
-    })
-    setRenderedMails([...mails, loginMail]);
-  },[])
+    console.log(thisInserat?.user?.userContactprofiles);
+  
+    // Filter to get only the EMAIL profiles
+    const mails = thisInserat?.user?.userContactprofiles?.filter((mail) => mail?.profileType === "EMAIL");
+  
+    console.log(mails);
+  
+    // Set the state with the filtered emails and loginMail
+    setRenderedMails([...(mails || []), loginMail]);
+  }, []);
 
   const router = useRouter();
 
@@ -130,21 +130,21 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
                   Email-Addresse auswählen
                 </div>
                 <div className="flex flex-col h-full space-y-2 mt-2">
-                  {renderedMails.length > 0 ? (
-                    renderedMails.map((mail) => (
+                  {renderedMails?.length > 0 ? (
+                    renderedMails?.map((mail) => (
                       <Button
-                      disabled={isAlreadyChosen(mail.content)}
-                      key={mail.id}
+                      disabled={isAlreadyChosen(mail?.content)}
+                      key={mail?.id}
                       variant="ghost"
                       className="justify-start text-left w-full p-3 py-6 rounded-md hover:bg-[#1E1E1E] transition-colors duration-200"
-                      onClick={() => { onPrefill(mail.content) }}
+                      onClick={() => { onPrefill(mail?.content) }}
                     >      
                        <div className="text-left w-full">
-                          <div className={cn("text-sm text-gray-200 font-bold", mail.id == "1" && "text-indigo-800 underline" )}>
-                            {mail.title}
+                          <div className={cn("text-sm text-gray-200 font-bold", mail?.id == "1" && "text-indigo-800 underline" )}>
+                            {mail?.title}
                           </div>
                           <div className="mt-1 text-xs text-gray-200/60 font-medium">
-                          {mail.content}
+                          {mail?.content}
                           </div>
                         </div>
                       </Button>

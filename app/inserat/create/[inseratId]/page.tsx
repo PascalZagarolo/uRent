@@ -101,6 +101,8 @@ const InseratCreation = async ({
 
     const thisInserat = await findInserat.execute({ inseratId: params.inseratId })
 
+    
+
     if(currentUser?.id !== thisInserat?.userId || !thisInserat) {
         redirect("/")
     }

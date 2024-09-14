@@ -36,17 +36,16 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
   const [renderedNumbers, setRenderedNumbers] = useState<typeof userContactprofiles.$inferSelect[]>([]);
 
   useEffect(() => {
-    const phoneNumbers = thisInserat?.user?.userContactprofiles.map((mail) => {
-      if(mail.profileType === "PHONE") {
-        return {
-          id: mail.id,
-          title: mail.title,
-          content: mail.content,
-        }
-      }
-    })
-    setRenderedNumbers([...phoneNumbers]);
-  },[])
+    console.log(thisInserat?.user?.userContactprofiles);
+  
+    // Filter to get only the EMAIL profiles
+    const phones = thisInserat?.user?.userContactprofiles?.filter((mail) => mail?.profileType === "PHONE");
+  
+    console.log(phones);
+  
+    // Set the state with the filtered emails and loginMail
+    setRenderedNumbers([...(phones || [])]);
+  }, []);
 
   const [isPrefill, setIsPrefill] = useState(false);
 
@@ -125,7 +124,10 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
                       key={mail.id}
                       variant="ghost"
                       className="justify-start text-left w-full p-3 py-6 rounded-md hover:bg-[#1E1E1E] transition-colors duration-200"
-                      onClick={() => { onPrefill(mail.content) }}
+                      onClick={() => { 
+                        onPrefill(mail.content);
+                        setModalOpen(false);
+                       }}
                     >      
                        <div className="text-left w-full">
                           <div className={cn("text-sm text-gray-200 font-bold", mail.id == "1" && "text-indigo-800 underline" )}>

@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import axios from "axios";
 
 interface SubscriptionsRenderListProps {
-    subscriptions: typeof userTable.$inferSelect;
+    subscriptions: typeof userTable.$inferSelect | any;
     invoiceSubscription : any
 }
 

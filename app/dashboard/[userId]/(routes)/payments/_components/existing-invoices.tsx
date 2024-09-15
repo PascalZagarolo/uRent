@@ -16,14 +16,16 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = async ({
 }) => {
 
     
-
+    console.log(foundInvoice.lines.data[0].plan.product)
     //console.log(foundInvoice.lines.data[0].price.unit_amount)
 
     const matchingProduct = await stripe.products.retrieve(
-        foundInvoice.lines.data[0].price.product as string
+        foundInvoice.lines.data[0].plan.product
     )
 
-    console.log(foundInvoice)
+    console.log(matchingProduct.name)
+
+    
 
     //console.log(matchingProduct.metadata)
 
@@ -54,7 +56,7 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = async ({
                                 price={convertedPrice}
                                 invoice_no={foundInvoice.id}
                                 address={usedAddress}
-                                plan={matchingProduct.metadata?.type.slice(0,1) + matchingProduct.metadata?.type.slice(1).toLowerCase()}
+                                plan={matchingProduct.name}
                                 amount={convertedPrice}
                                 date={format(new Date(foundInvoice.period_start * 1000), 'dd.MM.yyyy')} 
                             />

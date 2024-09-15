@@ -21,6 +21,7 @@ interface RenderAsHtmlProps {
     plan: string;
     amount: number;
     date: string;
+
 }
 
 const RenderAsHtml: React.FC<RenderAsHtmlProps> = ({

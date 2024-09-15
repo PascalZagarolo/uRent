@@ -65,7 +65,7 @@ const InitialForm: React.FC<InitialFormProps> = ({
 
     
 
-    const [currentInitial, setcurrentInitial] = useState<string | null>(null);
+    const [currentInitial, setcurrentInitial] = useState<string | number | null>(thisInitial ? thisInitial.getFullYear() : null);
     const [inputValue, setInputValue] = useState(formatDateToMMYYYY(thisInitial) || '');
     const [validValue, setValidValue] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
@@ -116,7 +116,7 @@ const InitialForm: React.FC<InitialFormProps> = ({
                         >
                             {currentInitial
                                 ? years.find((framework) => framework.value == currentInitial)?.label
-                                : "Von"}
+                                : "Beliebig"}
                             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>

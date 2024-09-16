@@ -59,7 +59,7 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                             alt="preview image"
                             width={1000}
                             height={1000}
-                            src={thisInserat?.images[0].url}
+                            src={thisInserat?.images[0]?.url}
                             className="w-full h-[200px] object-cover"
                         />
                     </div>

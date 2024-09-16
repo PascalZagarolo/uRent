@@ -13,6 +13,8 @@ import RenderedInserat from "../(routes)/manage/_components/rendered-inserat";
 import RenderedVehicle from "../(routes)/manage/_components/rendered-vehicle";
 import SelectVehicle from "../(routes)/manage/_components/select-vehicle";
 import SelectInserat from "../(routes)/manage/_components/select-inserat";
+import { useRef, useState } from "react";
+import { set } from "lodash";
 
 
 interface ManageTabProps {
@@ -28,8 +30,8 @@ const ManageTab: React.FC<ManageTabProps> = ({
     currentUser
 }) => {
 
-    
-
+   
+    const [thisInserat, setThisInserat] = useState<any | null>(null);
     
 
     const foundInserate = currentUser?.inserat
@@ -49,11 +51,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
 
 
 
-    let thisInserat;
-
-    if (searchParams?.inseratId) {
-        thisInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
-    }
+    
 
     let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
 
@@ -84,7 +82,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
     }
 
     const selectedInserat = foundInserate?.find((inserat) => inserat.id === searchParams?.inseratId);
-
+    
 
 
 
@@ -100,6 +98,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                             <div className="sm:w-1/3 w-full sm:mt-0 mt-2">
                                 <SelectInserat
                                     foundInserate={foundInserate}
+                                    selectChange = {(inseratId) => {setThisInserat(foundInserate.find((inserat) => inserat.id === inseratId))}}
                                 />
                             </div>
 
@@ -172,7 +171,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                                 foundInserate={foundInserate as any}
                             />
                         </div>
-                        <div className="w-full">
+                        <div className="w-full mt-16">
                             <CalendarAndDetails
                                 foundInserate={foundInserate as any}
                                 involvedBookings={involvedBookings}

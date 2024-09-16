@@ -1,6 +1,6 @@
 export function convertState(state: string): string {
 
-    const fullState = state.trim();
+    const fullState = state?.trim();
 
     switch (fullState) {
         case "North Rhine – Westphalia":
@@ -49,6 +49,6 @@ export function convertState(state: string): string {
             return "Bremen";
             break;
         default:
-            return state;
+            return "";
     }
 }

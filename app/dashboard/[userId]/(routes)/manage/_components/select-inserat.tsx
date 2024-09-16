@@ -7,18 +7,21 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 ;
-import React, { use, useMemo, useRef } from "react";
+import React, { use, useEffect, useMemo, useRef } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import useOnclickOutside from "react-cool-onclickoutside";
 
 
 interface SelectInseratProps {
-    foundInserate: typeof inserat.$inferSelect[]
+    foundInserate: typeof inserat.$inferSelect[];
+    selectChange: (selectedId) => void;
 }
 
 const SelectInserat: React.FC<SelectInseratProps> = ({
-    foundInserate
+    foundInserate,
+    selectChange
 }) => {
+    console.log(foundInserate)
 
     const pathname = usePathname();
     const router = useRouter();
@@ -32,17 +35,28 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     const [isFocused, setIsFocused] = React.useState(false);
 
     const alphabeticOrder = () => {
-        const sortedArray = [...foundInserate].sort((a, b) => a.title.localeCompare(b.title, 'de', { sensitivity: 'base' }));
-        return sortedArray;
+
+        const filteredArray = foundInserate
+            .filter((thisInserat) => { return thisInserat.isPublished === true })
+            .sort((a, b) => a.title.localeCompare(b.title, 'de', { sensitivity: 'base' }))
+
+
+
+
+
+        return filteredArray;
     };
 
-    const [renderedInserate, setRenderedInserate] = React.useState(foundInserate);
-    const [foundInserateRender, setFoundInserateRender] = React.useState(alphabeticOrder);
 
-    
+
+    const [foundInserateRender, setFoundInserateRender] = React.useState<any[]>(alphabeticOrder());
+    const [renderedInserate, setRenderedInserate] = React.useState(foundInserate);
+
+
 
     const [currentTitle, setCurrentTitle] = React.useState("")
 
+    /*
     const onClick = (id: string) => {
         //@ts-ignore
         const findInserat = foundInserate.find((inserat) => inserat.id === id);
@@ -62,6 +76,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
         }, { skipEmptyString: true, skipNull: true })
         router.push(url)
     }
+    */
 
     const debouncedValue = useDebounce(currentTitle, 100);
 
@@ -71,19 +86,19 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                 return inserat.title.toLowerCase().includes(debouncedValue.toLowerCase())
             })
             setRenderedInserate(filteredInserate)
-        } else if(!debouncedValue){
+        } else if (!debouncedValue) {
             setRenderedInserate([]);
         }
     }, [debouncedValue])
 
-    const onInseratPopoverClick = (id : string) => {
-        
+    const onInseratPopoverClick = (id: string) => {
+
         const findInserat = foundInserate.find((inserat) => inserat.id === id);
         setCurrentTitle(findInserat.title)
         const url = qs.stringifyUrl({
-            url : pathname,
-            query : {
-                inseratId : id
+            url: pathname,
+            query: {
+                inseratId: id
             }
         }, { skipEmptyString: true, skipNull: true })
 
@@ -91,23 +106,23 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
         setIsFocused(false)
     }
 
-    
+
 
 
     const ref = useOnclickOutside(() => {
         // When the user clicks outside of the component, we can dismiss
         // the searched suggestions by calling this method
         setIsFocused(false);
-      });
+    });
 
     return (
         <div ref={ref}>
             <Select
                 onValueChange={(selectedValue) => {
                     console.log("selectedValue", selectedValue)
-                    onClick(selectedValue);
+                    selectChange(selectedValue)
                 }}
-                
+
                 value={
                     currentVehicle ? currentInserat + "++" + currentVehicle : currentInserat
                 }
@@ -128,14 +143,14 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                             <SelectTrigger className="dark:border-none dark:bg-[#0F0F0F] rounded-l-none" />
                         </div>
                     </div>
-                    {((renderedInserate.length) > 0  && isFocused) && (
+                    {((renderedInserate.length) > 0 && isFocused) && (
                         <div className="absolute w-full bg-white dark:bg-[#191919] text-sm border dark:border-[#141414] rounded-b"
-                        
+
                         >
-                            {renderedInserate.slice(0,6).map((pInserat) => (
-                                <div key={pInserat.id} 
-                                className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-[#2c2c2c] hover:cursor-pointer"
-                                onClick={() => onInseratPopoverClick(pInserat.id)}
+                            {renderedInserate.slice(0, 6).map((pInserat) => (
+                                <div key={pInserat.id}
+                                    className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-[#2c2c2c] hover:cursor-pointer"
+                                    onClick={() => onInseratPopoverClick(pInserat.id)}
                                 >
                                     {pInserat.title}
                                 </div>
@@ -143,25 +158,32 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                         </div>
                     )}
                 </div>
-                <SelectContent className="dark:bg-[#0F0F0F] dark:border-none">
+                <SelectContent className="dark:bg-[#0F0F0F] dark:border-none"
 
-                    <SelectItem value={null}>
+                >
+
+                    {foundInserateRender.length > 0 && (
+                        <SelectItem value={null}>
                         Alle
                     </SelectItem>
-                    {foundInserateRender.map((thisInserat) => (
-                        <>
+                    )}
+                    {foundInserateRender.length > 0 ? (
+                        foundInserateRender.map((thisInserat) => (
                             <SelectItem value={thisInserat.id} key={thisInserat.id}
                                 className="w-[400px]  line-clamp-1 break-all h-[30px]">
-                                {thisInserat.title}
+                                {thisInserat.title}fggffdg
                             </SelectItem>
-                            
-                        </>
-                    ))}
+                        ))
+                    ) : (
+                        <div className="text-sm flex justify-center items-center text-gray-200/60 w-[400px] line-clamp-1 break-all h-[60px]">
+                            Noch keine öffentlichen Inserate...
+                        </div>
+                    )}
                 </SelectContent>
 
             </Select>
-            
-            
+
+
         </div>
     );
 }

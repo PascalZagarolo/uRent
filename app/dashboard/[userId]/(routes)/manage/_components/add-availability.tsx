@@ -340,7 +340,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                             </SelectTrigger>
                         </Select>
                     </div>
-                    <div className="pb-8 pr-8">
+                    {currentInserat?.multi && currentInserat?.vehicles.length > 0 && (
+                        <div className="pb-8 pr-8">
                         <Label className="">
                             Fahrzeug
                         </Label>
@@ -385,6 +386,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                             </SelectTrigger>
                         </Select>
                     </div>
+                    )}
                     <div className="flex">
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

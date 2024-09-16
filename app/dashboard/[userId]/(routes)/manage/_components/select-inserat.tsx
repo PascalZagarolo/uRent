@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import React, { use, useEffect, useMemo, useRef } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { Separator } from "@/components/ui/separator";
 
 
 interface SelectInseratProps {
@@ -21,7 +22,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     foundInserate,
     selectChange
 }) => {
-    console.log(foundInserate)
+    
 
     const pathname = usePathname();
     const router = useRouter();
@@ -34,10 +35,16 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     const inputRef = useRef(null);
     const [isFocused, setIsFocused] = React.useState(false);
 
-    const alphabeticOrder = () => {
+    const alphabeticOrder = (published) => {
 
         const filteredArray = foundInserate
-            .filter((thisInserat) => { return thisInserat.isPublished === true })
+            .filter((thisInserat) => { 
+                if(published) {
+                    return thisInserat.isPublished === true
+                } else {
+                    return thisInserat.isPublished === false
+                }
+             })
             .sort((a, b) => a.title.localeCompare(b.title, 'de', { sensitivity: 'base' }))
 
 
@@ -49,7 +56,8 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
 
 
 
-    const [foundInserateRender, setFoundInserateRender] = React.useState<any[]>(alphabeticOrder());
+    const [foundInseratePublic, setFoundInseratePublic] = React.useState<any[]>(alphabeticOrder(true));
+    const [foundInseratePrivate, setFoundInseratePrivate] = React.useState<any[]>(alphabeticOrder(false));
     const [renderedInserate, setRenderedInserate] = React.useState(foundInserate);
 
 
@@ -158,28 +166,52 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                         </div>
                     )}
                 </div>
-                <SelectContent className="dark:bg-[#0F0F0F] dark:border-none"
+                <SelectContent className="dark:bg-[#0F0F0F] dark:border-none p-4 rounded-md shadow-lg">
+                {foundInserate.length > 0 && (
+            <SelectItem value={null} className="text-gray-100 font-semibold hover:bg-gray-700  rounded-md">
+            Alle Inserate
+            </SelectItem>
+    )}
 
-                >
+    {foundInserate.length > 0 ? (
+        <>
+            {foundInseratePublic.length > 0 && (
+                <SelectGroup className="mt-4">
+                    <SelectLabel className="text-gray-400 text-sm mb-2">
+                        Öffentliche Inserate
+                    </SelectLabel>
+                    <Separator className="mb-4 border-gray-600" />
+                    {foundInseratePublic.map((thisInserat) => (
+                        <SelectItem value={thisInserat.id} key={thisInserat.id}
+                            className="w-[400px] line-clamp-1 break-all h-[30px] text-gray-200 hover:bg-gray-700 p-2 rounded-md">
+                            {thisInserat.title}
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            )}
 
-                    {foundInserateRender.length > 0 && (
-                        <SelectItem value={null}>
-                        Alle
-                    </SelectItem>
-                    )}
-                    {foundInserateRender.length > 0 ? (
-                        foundInserateRender.map((thisInserat) => (
-                            <SelectItem value={thisInserat.id} key={thisInserat.id}
-                                className="w-[400px]  line-clamp-1 break-all h-[30px]">
-                                {thisInserat.title}fggffdg
-                            </SelectItem>
-                        ))
-                    ) : (
-                        <div className="text-sm flex justify-center items-center text-gray-200/60 w-[400px] line-clamp-1 break-all h-[60px]">
-                            Noch keine öffentlichen Inserate...
-                        </div>
-                    )}
-                </SelectContent>
+            {foundInseratePrivate.length > 0 && (
+                <SelectGroup className="mt-6">
+                    <SelectLabel className="text-gray-400 text-sm mb-2">
+                        Private Inserate
+                    </SelectLabel>
+                    <Separator className="mb-4 border-gray-600" />
+                    {foundInseratePrivate.map((thisInserat) => (
+                        <SelectItem value={thisInserat.id} key={thisInserat.id}
+                            className="w-[400px] line-clamp-1 break-all h-[30px] text-gray-200 hover:bg-gray-700 p-2 rounded-md">
+                            {thisInserat.title}
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            )}
+        </>
+    ) : (
+        <div className="text-sm flex justify-center items-center text-gray-400/60 w-[400px] line-clamp-1 break-all h-[60px]">
+            Noch keine Inserate erstellt
+        </div>
+    )}
+</SelectContent>
+
 
             </Select>
 

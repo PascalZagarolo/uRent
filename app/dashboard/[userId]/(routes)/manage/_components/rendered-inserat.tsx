@@ -55,13 +55,22 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                 </div>
                 <div className="mt-2">
                     <div className="w-full flex justify-center">
-                        <Image
+                        {thisInserat?.images?.length > 0 ? (
+                            <Image
                             alt="preview image"
                             width={1000}
                             height={1000}
                             src={thisInserat?.images[0]?.url}
                             className="w-full h-[200px] object-cover"
                         />
+                        ) : (
+                            <div className="w-full h-[200px] object-cover">
+                                <span className="flex justify-center items-center h-full">
+                                    <MdAddToPhotos className="w-8 h-8 text-gray-400" />
+                                </span>
+                            </div>
+                            
+                        )}
                     </div>
                     <div className="w-full mt-2 flex justify-start">
                         <MapPinIcon
@@ -69,10 +78,10 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                         />
 
                         <div className="w-1/2 text-xs truncate">
-                            {thisInserat?.address?.locationString}
+                            {thisInserat?.address?.locationString ? thisInserat?.address?.locationString : "Keine Adresse hinterlegt"}
                         </div>
                         <div className="w-1/2 flex justify-end truncate text-xs font-semibold">
-                            {thisInserat?.address?.postalCode + ", "}
+                            {thisInserat?.address?.postalCode ? thisInserat?.address?.postalCode  + ", " : "Nicht angegeben"}
                             {convertState(thisInserat?.address?.state)}
                         </div>
 
@@ -81,17 +90,13 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                         <CalendarCheck2Icon
                             className="w-4 h-4 mr-2 "
                         />
-                        {thisInserat?.annual ? (
-                            <p className="text-sm">
-                                Dauerhaftes Inserat
-                            </p>
-                        ) : (
-                            <p className="text-sm">
-                                {format(new Date(thisInserat?.begin), 'dd.MM.yyyy')} - {format(new Date(thisInserat?.end), 'dd.MM.yyyy')}
+                        {thisInserat?.createdAt && (
+                            <p className="text-xs">
+                                erstellt am: {format(new Date(thisInserat?.createdAt), 'dd.MM.yyyy')}
                             </p>
                         )}
                         <div className="ml-auto text-sm flex font-semibold ">
-                            {thisInserat?.price} € <p className="text-xs">{thisInserat?.annual ? "/Zeitraum" : "/Tag"}</p>
+                            {thisInserat?.price ? thisInserat?.price : "n/A"} € <p className="text-xs">{thisInserat?.annual ? "/Zeitraum" : "/Tag"}</p>
                         </div>
                     </div>
                 </div>

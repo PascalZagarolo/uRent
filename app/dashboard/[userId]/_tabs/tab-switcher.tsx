@@ -30,7 +30,8 @@ const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription } : 
             case "inserate":
                 return <InserateTab currentUser = {currentUser} />
             case "payments":
-                return <PaymentsTab currentUser = {currentUser} existingInvoices = {existingInvoices} retrievedSubscription={retrievedSubscription} />
+                return <PaymentsTab currentUser = {currentUser} 
+                existingInvoices = {JSON.parse(JSON.stringify(existingInvoices))} retrievedSubscription={JSON.parse(JSON.stringify(retrievedSubscription))} />
             case "favourites":
                 return <FavouritesTab currentUser = {currentUser} />
         }

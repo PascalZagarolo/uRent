@@ -31,7 +31,15 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
     const inputRef = useRef(null);
     const [isFocused, setIsFocused] = React.useState(false);
 
-    const [renderedInserate, setRenderedInserate] = React.useState(foundInserate)
+    const alphabeticOrder = () => {
+        const sortedArray = [...foundInserate].sort((a, b) => a.title.localeCompare(b.title, 'de', { sensitivity: 'base' }));
+        return sortedArray;
+    };
+
+    const [renderedInserate, setRenderedInserate] = React.useState(foundInserate);
+    const [foundInserateRender, setFoundInserateRender] = React.useState(alphabeticOrder);
+
+    
 
     const [currentTitle, setCurrentTitle] = React.useState("")
 
@@ -124,7 +132,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                         <div className="absolute w-full bg-white dark:bg-[#191919] text-sm border dark:border-[#141414] rounded-b"
                         
                         >
-                            {renderedInserate.map((pInserat) => (
+                            {renderedInserate.slice(0,6).map((pInserat) => (
                                 <div key={pInserat.id} 
                                 className="px-4 py-3 hover:bg-gray-200 dark:hover:bg-[#2c2c2c] hover:cursor-pointer"
                                 onClick={() => onInseratPopoverClick(pInserat.id)}
@@ -140,7 +148,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                     <SelectItem value={null}>
                         Alle
                     </SelectItem>
-                    {foundInserate.map((thisInserat) => (
+                    {foundInserateRender.map((thisInserat) => (
                         <>
                             <SelectItem value={thisInserat.id} key={thisInserat.id}
                                 className="w-[400px]  line-clamp-1 break-all h-[30px]">

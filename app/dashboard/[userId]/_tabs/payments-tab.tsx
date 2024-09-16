@@ -49,7 +49,7 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription } : 
         <div className="flex justify-center sm:py-8 sm:px-4  ">
 
            
-                    <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
+<div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
                         <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center w-full">
                             <div className="w-2/3 flex">
                                 <BiCreditCardAlt className="mr-4" /> Zahlungsverkehr
@@ -132,7 +132,7 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription } : 
                             {existingSubscription.subscription ? (
                                 <SubscriptionsRenderList
                                     subscriptions={existingSubscription as any}
-                                    invoiceSubscription={stripeSubscription}
+                                    invoiceSubscription={JSON.parse(JSON.stringify(stripeSubscription))}
                                 />
                             ) : (
                                 <div>
@@ -168,9 +168,9 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription } : 
                             </div>
                             {
                                 existingInvoices.data.map((invoice: any) => (
-                                    <div className="" key={invoice?.id}>
+                                    <div className="" key={invoice?.id as string}>
                                         <ExistingInvoices
-                                            foundInvoice={invoice}
+                                            foundInvoice={JSON.parse(JSON.stringify(invoice))}
                                         />
                                     </div>
                                 ))

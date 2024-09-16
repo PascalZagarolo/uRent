@@ -167,7 +167,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                     </div>
                 ) : (
                     <div className="text-sm mt-4 text-gray-200/60 px-8 flex justify-between">
-                        Noch keine Konversationen gestartet..
+                        {currentFilter === "UNREAD" ? "Keine ungelesenen Konversationen.." : "Keine Konversationen gefunden.."}
                     </div>
                 )
             )}

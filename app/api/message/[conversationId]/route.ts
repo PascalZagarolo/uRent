@@ -53,8 +53,8 @@ export async function POST(
 
         await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
 
-        
-        await axios.post("http://192.168.178.45:4000/api/messages/synchronize", newMessage)
+        //! Add on the server side if app is available
+        //await axios.post("http://192.168.178.45:4000/api/messages/synchronize", newMessage)
 
         if(!existingNotication) {
             const [createdNotification] = await db.insert(notification).values({

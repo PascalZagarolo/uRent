@@ -72,7 +72,10 @@ const ChatInput: React.FC<ChatInputProps> = ({
         <div className="w-full flex p-4">
         
        {existingBlock?.length === 0 && (
-         <UploadImage/>
+         <UploadImage
+         otherUser = {otherUser}
+         otherUserName = {otherUserName}
+         />
        )}
 
 <Form {...form} >

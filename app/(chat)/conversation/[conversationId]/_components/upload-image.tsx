@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { ImageIcon } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { IoIosSend } from "react-icons/io";
@@ -17,11 +17,15 @@ import { CiStickyNote } from "react-icons/ci";
 import { set } from 'date-fns';
 
 
-
+interface UploadImageProps {
+    otherUser : string;
+    otherUserName : string;
+}
 
 const UploadImage = ({
-    
-}) => {
+    otherUser,
+    otherUserName
+} : UploadImageProps) => {
 
     const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
         try {
@@ -100,6 +104,14 @@ const UploadImage = ({
 
     const handleImageUpload = (result : any) => {
         try {
+
+            const values = {
+                content : currentNote,
+                image : result,
+                otherUser : otherUser,
+                otherUserName : otherUserName
+            }
+
             setIsLoading(true)
             axios.post(`/api/message/${params.conversationId}/image`, {
                 image : currentUrl,
@@ -110,8 +122,9 @@ const UploadImage = ({
                 toast.success("Bild erfolgreich gesendet")
             })
             
-        } catch {
+        } catch(e : any) {
             toast.error("Fehler beim Upload")
+            console.log(e);
         } finally {
             setIsLoading(false)
             setTimeout(() => {
@@ -169,6 +182,7 @@ const UploadImage = ({
                             value={currentNote}
                             maxLength={100}
                             />
+                            <DialogTrigger asChild>
                             <Button
                             className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 rounded-l-none"
                             onClick={() => handleImageUpload(currentUrl)}
@@ -176,6 +190,7 @@ const UploadImage = ({
                             >
                                 <IoIosSend className="w-4 h-4" />
                             </Button>
+                            </DialogTrigger>
                             
                         </div>
                         <div className="text-xs text-gray-200/60">

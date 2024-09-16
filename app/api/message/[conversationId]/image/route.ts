@@ -15,7 +15,7 @@ export async function POST(
 
         const currentUser = await getCurrentUser();
 
-        const {otherUser, otherUserName, image, content} = await req.json();
+        const { otherUser, otherUserName, image, content} = await req.json();
         
         const [imageMessage] : any = await db.insert(message).values({
             conversationId : params.conversationId,
@@ -49,11 +49,13 @@ export async function POST(
             )
         })
         
-        await pusherServer.trigger(params.conversationId as string, 'messages:new', messageObject);
+        
 
         //! Add on prod if App is available
         //await axios.post("http://192.168.178.45:4000/api/messages/synchronize", imageMessage)
 
+        console.log("1")
+        console.log(otherUser + "22")
         if(!existingNotication) {
             const [createdNotification] = await db.insert(notification).values({
                 userId : otherUser,
@@ -74,8 +76,12 @@ export async function POST(
                 startedConversation : existingMessages ? false : true
              });
 
+             console.log("12")
+             await pusherServer.trigger(params.conversationId as string, 'messages:new', messageObject);
             return NextResponse.json({imageMessage, createdNotification})
         } else {
+            console.log("13")
+            await pusherServer.trigger(params.conversationId as string, 'messages:new', messageObject);
             return NextResponse.json(imageMessage)
         }
 

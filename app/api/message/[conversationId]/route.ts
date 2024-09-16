@@ -51,7 +51,7 @@ export async function POST(
             )
         })
 
-        await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
+        
 
         //! Add on the server side if app is available
         //await axios.post("http://192.168.178.45:4000/api/messages/synchronize", newMessage)
@@ -76,10 +76,12 @@ export async function POST(
                 startedConversation : existingMessages ? false : true
              });
 
+             await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
+             
             return NextResponse.json({newMessage, createdNotification})
         } else {
             
-
+            await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
             return NextResponse.json(newMessage)
         }
 

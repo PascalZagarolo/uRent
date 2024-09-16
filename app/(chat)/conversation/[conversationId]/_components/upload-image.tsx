@@ -104,7 +104,7 @@ const UploadImage = ({
 
     const handleImageUpload = (result : any) => {
         try {
-
+            
             const values = {
                 content : currentNote,
                 image : result,
@@ -113,10 +113,7 @@ const UploadImage = ({
             }
 
             setIsLoading(true)
-            axios.post(`/api/message/${params.conversationId}/image`, {
-                image : currentUrl,
-                content : currentNote ? currentNote : null
-            }).then(() => {
+            axios.post(`/api/message/${params.conversationId}/image`, values).then(() => {
                 setCurrentUrl("");
                 setCurrentNote("");
                 toast.success("Bild erfolgreich gesendet")

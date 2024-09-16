@@ -150,6 +150,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                             <div className="sm:w-1/3 w-full sm:mt-0 mt-2">
                                 <SelectInserat
                                     foundInserate={foundInserate}
+                                selectChange={() => {}}
                                 />
                             </div>
 

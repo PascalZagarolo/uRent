@@ -11,7 +11,7 @@ import VehicleDialog from "./vehicle-dialog";
 
 
 interface RenderedInseratProps {
-    thisInserat: typeof inserat.$inferSelect
+    thisInserat: typeof inserat.$inferSelect | any;
 }
 
 const RenderedInserat: React.FC<RenderedInseratProps> = ({

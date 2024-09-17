@@ -76,11 +76,11 @@ export async function POST(
                 startedConversation : existingMessages ? false : true
              });
 
-             console.log("12")
+             
              await pusherServer.trigger(params.conversationId as string, 'messages:new', messageObject);
             return NextResponse.json({imageMessage, createdNotification})
         } else {
-            console.log("13")
+            
             await pusherServer.trigger(params.conversationId as string, 'messages:new', messageObject);
             return NextResponse.json(imageMessage)
         }

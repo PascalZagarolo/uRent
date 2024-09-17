@@ -16,6 +16,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import MainPageResults from "./main-page-results";
 import { CategoryEnumRender } from "@/db/schema";
 import { GrAddCircle } from "react-icons/gr";
+import { TiFilter } from "react-icons/ti";
 
 const MobileFilterSheet = () => {
 
@@ -85,7 +86,7 @@ const MobileFilterSheet = () => {
                 <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 gap-x-2" 
                 size="sm"
                 variant="ghost">
-                  <GrAddCircle className="w-4 h-4" />  Filter hinzufügen
+                  <TiFilter  className="w-4 h-4" />  Filter bearbeiten
                 </Button>
             </SheetTrigger>
             <SheetContent side="left" className="bg-[#202336] p-0 px-0 pb-4 border-none w-4/5 h-full overflow-y-scroll no-scrollbar">

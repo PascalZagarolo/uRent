@@ -18,6 +18,7 @@ import InseratRenderedList from "./_components/inserat-rendered-list";
 import { TbReportSearch } from "react-icons/tb";
 import { FaAlignLeft } from "react-icons/fa";
 import MobileFilterSheet from "../_components/mobile-filter-sheet";
+import MobileFilter from "../_components/mobile-filter";
 
 
 interface RelevanteInserateProps {
@@ -281,19 +282,18 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                     </div>
                 </div>
             )}
-            <div className="sm:hidden block mt-4">
+            <div className="sm:hidden  mt-4  px-2 sm:px-0">
             <MobileFilterSheet />
+            <div className="sm:mt-0 mt-4 ">
+            <MobileFilter/>
+            </div>
             </div>
             <div className="sm:flex sm:justify-center w-full px-0.5">
-            
-            <InseratRenderedList
+                    <InseratRenderedList
                         inserateArray={foundInserate}
                         currentUser={currentUser}
                         //@ts-ignore
-                        
-
                     />
-                
             </div>
         </div>
 

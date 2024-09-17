@@ -412,33 +412,29 @@ const InseratCard: React.FC<InseratCardProps> = ({
             <div className="w-full">
 
 
-                <div className="flex justify-center bg-[#1e2332] p-2 text-xs  text-gray-200 font-semibold  dark:border-[#1e2332]  
-                    drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] dark:bg-[#191B27] items-center gap-x-2">
-
-                    <div className={cn("w-1/2 sm:truncate flex items-center text-sm h-[24px] overflow-hidden", //@ts-ignore
-                        !thisInserat.address?.locationString && "w-full flex justify-center ")}>
-                        <div>
-                            <GrLocation className="text-rose-600 w-4 h-4 mr-2" />
-                        </div>
-                        {//@ts-ignore
-                            thisInserat.address?.locationString ? //@ts-ignore
-                                getAddressCity(thisInserat.address?.locationString)
-                                : "Keine Angabe"}
+                <div className="flex items-center bg-[#1e2332] p-3 rounded-md text-gray-200 text-sm 
+                font-semibold drop-shadow-md dark:bg-[#191B27] space-x-2 transition-transform ">
+                    {/* Icon Section */}
+                    <div className="flex items-center justify-center  rounded-md">
+                        <GrLocation className="w-4 h-4  text-rose-800" />
                     </div>
 
+                    {/* Address Section */}
+                    <div className="flex flex-col flex-grow">
+                        <div className="flex items-center gap-x-2 text-sm w-full">
+                            
+                            <span className="text-gray-200 flex-shrink-0">{thisInserat?.address?.postalCode}</span>
 
-                    {//@ts-ignore
-                        thisInserat.address?.locationString && (
-                            <div className="ml-auto gap-x-1 flex text-xs w-1/2 overflow-hidden items-center">
-                                {//@ts-ignore
-                                    thisInserat.address?.postalCode + ", "}
-                                <div className="w-2/3 sm:truncate h-[16px]">
-                                    {//@ts-ignore
-                                        thisInserat.address?.state ? convertState(thisInserat.address?.state) : ""}, Deutschland
-                                </div>
-                            </div>
-                        )}
+                            
+                            <span className="text-gray-200/80"> | </span>
+
+                            
+                            <span className="text-gray-200 font-medium line-clamp-1 flex-grow break-all">
+                                {thisInserat?.address?.locationString}</span>
+                        </div>
+                    </div>
                 </div>
+
                 <div>
                     {/* Part2 */}
                     <div className="font-semibold text-gray-900 flex mt-2 items-center w-full">

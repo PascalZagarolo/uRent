@@ -207,7 +207,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       <div className="flex mt-4 w-full">
         <div className="  items-center  ">
           <Label className="flex justify-start items-center">
-            <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Standort </p>
+            <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Standort (Stadt) </p>
           </Label>
           <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1  sm:block hidden"> Standort des Fahrzeugs ? </div>
           <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1  sm:hidden block"> Standort ? </div>

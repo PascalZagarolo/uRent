@@ -35,6 +35,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   const options = {
     componentRestrictions: { country: "de" },
     fields: ["address_components", "geometry", "icon", "name"],
+    types : ['(cities)']
     
   };
   const [value, setValue] = useState("");

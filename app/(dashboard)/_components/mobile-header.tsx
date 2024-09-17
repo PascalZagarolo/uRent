@@ -47,7 +47,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                                     currentUserId={currentUser?.id}
                                 />
                             ) : (
-                                <MobileFilterSheet />
+                                <></>
                             )
                         }
                     </div>

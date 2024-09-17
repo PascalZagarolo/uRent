@@ -15,6 +15,7 @@ import { useGetFilterAmount, useSavedSearchParams } from "@/store";
 import { MdOutlineCancel } from "react-icons/md";
 import MainPageResults from "./main-page-results";
 import { CategoryEnumRender } from "@/db/schema";
+import { GrAddCircle } from "react-icons/gr";
 
 const MobileFilterSheet = () => {
 
@@ -80,8 +81,12 @@ const MobileFilterSheet = () => {
     return (
 
         <Sheet>
-            <SheetTrigger className="flex items-center sm:bg-[#1C1E2C] p-2 rounded-md">
-                <AlignLeft className="w-6 h-6" />
+            <SheetTrigger className="flex items-center sm:bg-[#1C1E2C]  rounded-md" asChild>
+                <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 gap-x-2" 
+                size="sm"
+                variant="ghost">
+                  <GrAddCircle className="w-4 h-4" />  Filter hinzufügen
+                </Button>
             </SheetTrigger>
             <SheetContent side="left" className="bg-[#202336] p-0 px-0 pb-4 border-none w-4/5 h-full overflow-y-scroll no-scrollbar">
             <h3 className="text-bold text-2xl p-4 font-medium  flex justify-center text-gray-100 items-center  bg-[#1b1e2c]">

@@ -17,6 +17,7 @@ import InseratRenderedList from "./_components/inserat-rendered-list";
 
 import { TbReportSearch } from "react-icons/tb";
 import { FaAlignLeft } from "react-icons/fa";
+import MobileFilterSheet from "../_components/mobile-filter-sheet";
 
 
 interface RelevanteInserateProps {
@@ -280,6 +281,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                     </div>
                 </div>
             )}
+            <div className="sm:hidden block mt-4">
+            <MobileFilterSheet />
+            </div>
             <div className="sm:flex sm:justify-center w-full px-0.5">
             
             <InseratRenderedList

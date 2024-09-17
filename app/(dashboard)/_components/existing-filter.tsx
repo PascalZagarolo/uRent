@@ -14,9 +14,12 @@ const ExistingFilter = () => {
 
     const searchParams = getSearchParamsFunction();
 
+    const isEmpty = Object.values(searchParams).every((value) => value === null);
+
     return (
         <div className="w-full px-2 border-[#202336] border-l-none border-r-none border-t-2 border-b-2 bg-[#1B1E2C] text-xs">
-            <div>
+            {!isEmpty && (
+                <div>
                 <Accordion type="single" collapsible className="w-full border-none">
                     <AccordionItem value="item-1" className="border-none">
                     <AccordionTrigger className="border-none ">
@@ -37,6 +40,7 @@ const ExistingFilter = () => {
 
                 </Accordion>
             </div>
+            )}
         </div>
     );
 }

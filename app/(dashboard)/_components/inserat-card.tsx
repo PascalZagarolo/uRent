@@ -31,7 +31,7 @@ import { TbCrane, TbLocationDiscount } from "react-icons/tb";
 import { CategoryEnumRender, inserat, userTable } from "@/db/schema";
 
 import { RiCaravanLine } from "react-icons/ri";
-import { BsCalendarWeekFill, BsTools } from "react-icons/bs";
+import { BsTools } from "react-icons/bs";
 
 
 import { LiaMoneyBillWaveSolid } from "react-icons/lia";
@@ -42,7 +42,7 @@ import { IoMdOpen } from "react-icons/io";
 
 
 interface InseratCardProps {
-    thisInserat: typeof inserat.$inferSelect;
+    thisInserat: typeof inserat.$inferSelect | any;
     profileId: string,
 
     currentUser: typeof userTable.$inferSelect;

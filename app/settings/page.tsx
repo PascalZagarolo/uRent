@@ -21,6 +21,7 @@ import Footer from "../(dashboard)/_components/footer";
 import { RiContactsBookFill } from "react-icons/ri";
 import ContactProfiles from "./_components/contact-profiles";
 import { getCurrentUserWithNotificationsContactProfiles } from "@/actions/getCurrentUserWithNotifications";
+import TabSwitcher from "./(tabs)/tab-switcher";
 
 
 
@@ -31,8 +32,6 @@ const SettingsPage = async () => {
     if (!currentUser) {
         redirect("/login")
     }
-
-
 
     return (
         <div className="bg-[#ECECEC] dark:bg-[#121212]">
@@ -49,62 +48,9 @@ const SettingsPage = async () => {
                 />
             </div>
             <div className="flex justify-center sm:py-8 sm:px-4">
-                <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
-                    <div>
-                        <MenuBar />
-                    </div>
-                    <div className="min-h-screen">
-                        <div>
-                            <BreadCrumpSettings />
-                        </div>
-                        <div className="p-4 mt-4  rounded-lg ">
-                            <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                <User2Icon className="mr-4" /> Account verwalten  <p className="ml-4 text-lg"> </p>
-                                <div className="ml-auto">
-                                    <SaveChangesSettings
-                                        thisUser={currentUser}
-                                    />
-                                </div>
-                            </h3>
-                            <div className="w-full p-4 mt-2 rounded-md">
-                                <div className="pb-4 px-4">
-                                    <ProfilePicSettings
-                                        imageUrl={currentUser?.image}
-                                        thisUserId={currentUser?.id}
-
-                                    />
-                                </div>
-                                <div>
-                                    <UsernameInput
-                                        thisUser={currentUser}
-                                    />
-                                    <Vorname
-                                        thisUser={currentUser}
-                                    />
-                                    <Nachname
-                                        thisUser={currentUser}
-                                    />
-                                </div>
-                                <div>
-                                    <ChangeEmail
-                                        thisUser={currentUser}
-                                    />
-                                </div>
-                            </div>
-                            <div className="mt-4">
-                                <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                    <RiContactsBookFill  className="mr-4" /> Kontaktprofile verwalten  <p className="ml-4 text-lg"> </p>
-                                </h3>
-                                <div className="w-full p-4 mt-2 rounded-md">
-                                    <ContactProfiles 
-                                    foundProfiles = {currentUser?.userContactprofiles}
-                                    foundEmail = {currentUser?.email}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <TabSwitcher 
+                currentUser={currentUser}
+                />
             </div>
             <div>
                 <Footer />

@@ -58,7 +58,9 @@ export default function RootLayout({
             <ActiveStatus />
             <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
             </script>
+            <Suspense fallback={<LoadingFallBack/>}>
             {children}
+            </Suspense>
             <ToasterContext />
             <Toaster 
             

@@ -16,6 +16,7 @@ import { VscMilestone } from "react-icons/vsc";
 import TransferCarAdvert from "./transfer-car-advert";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import PriceProfileDialog from "./price-profile-dialog";
+import { GrLocation } from "react-icons/gr";
 
 interface InseratShowProps {
     thisInserat: typeof inserat.$inferSelect
@@ -132,21 +133,23 @@ const InseratShow: React.FC<InseratShowProps> = ({
                         <div className="flex font-bold  text-sm items-center  sm:w-full ">
 
                             <div className="w-full flex gap-x-2">
-                                <div>
-                                    <MapPinned className="text-rose-600 mr-2 h-4 w-4" />
+                                <div className="flex items-center justify-center  rounded-md">
+                                    <GrLocation className="w-4 h-4  text-rose-800" />
                                 </div>
-                                <div className="sm:w-2/4 truncate flex items-center">
-                                    {thisInserat.address?.locationString ? (
-                                        <span className="max-w-full hidden sm:block">
-                                            {ripOutToLongAddresses(thisInserat.address?.locationString)}
-                                        </span>
-                                    ) : (
-                                        "Keine Adresse hinterlegt"
-                                    )}
-                                </div>
-                                <div className="w-2/4 sm:truncate  whitespace-nowrap">
-                                    {thisInserat.address?.postalCode && `${thisInserat.address?.postalCode} `}
-                                    {thisInserat.address?.state ? convertState(thisInserat.address?.state) + ", " : ""}DE
+
+                                {/* Address Section */}
+                                <div className="flex flex-col flex-grow">
+                                    <div className="flex items-center gap-x-2 text-sm w-full">
+
+                                        <span className="text-gray-200 flex-shrink-0">{thisInserat?.address?.postalCode}</span>
+
+
+                                        <span className="text-gray-200/80"> | </span>
+
+
+                                        <span className="text-gray-200 font-medium line-clamp-1 flex-grow break-all">
+                                            {thisInserat?.address?.locationString}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

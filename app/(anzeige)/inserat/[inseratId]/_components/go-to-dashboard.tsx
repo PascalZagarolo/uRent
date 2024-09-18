@@ -21,7 +21,7 @@ const GoToDashboard: React.FC<GoToDashboardProps> = ({
         <div className="sm:w-[240px]">
             <Button className="w-full bg-[#20222F] text-gray-200 border-none border-gray-900 hover:bg-[#20222F]"
             onClick={() => {
-                router.push(`/dashboard/${userId}/manage`);
+                router.push(`/dashboard/${userId}`);
             }}
             >
                 <PlusSquare className="mr-2 h-4 w-4" /> Zum Dashboard

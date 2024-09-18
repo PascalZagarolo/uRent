@@ -140,7 +140,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                         setStartTime("");
                         setEndTime("");
                     })
-                toast.success("Buchung hinzugefügt");
+                toast.success("Verfügbarkeit geändert");
             }
 
 
@@ -456,7 +456,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                                     !field.value && "text-muted-foreground"
                                                                 )}
                                                             >
-                                                                {currentEnd ? (
+                                                                {(currentEnd && field.value) ? (
                                                                     format(currentEnd, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
@@ -471,9 +471,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                             selected={currentEnd}
                                                             className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
-                                                                const nextDay = new Date(date);
-                                                                field.onChange(nextDay);
-                                                                setCurrentEnd(nextDay);
+                                                                field.onChange(date);
+                                                                setCurrentEnd(date);
                                                             }}
                                                             locale={de}
                                                             disabled={(date) =>

@@ -156,136 +156,108 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             </div>
 
             <Popover>
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <PopoverTrigger asChild>
-                                <img
-                                    src={currentUser?.image || "/placeholder-person.jpg"}
-                                    className="sm:ml-0 sm:mr-0 mr-4 w-[40px] h-[40px] rounded-full  hover:cursor-pointer"
-                                />
-                            </PopoverTrigger>
-                        </TooltipTrigger>
-                        <TooltipContent className="dark:bg-[#0F0F0F]">
-                            <p>Mein Profil</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-                <PopoverContent className="dark:bg-[#0F0F0F] dark:text-gray-100 border-none">
-                    <div className="mb-2">
-                        <h3 className="flex">
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <PopoverTrigger asChild>
+          <img
+            src={currentUser?.image || "/placeholder-person.jpg"}
+            className="sm:ml-0 sm:mr-0 mr-4 w-[40px] h-[40px] rounded-full hover:cursor-pointer"
+            alt="User Avatar"
+          />
+        </PopoverTrigger>
+      </TooltipTrigger>
+      <TooltipContent className="dark:bg-[#0F0F0F] text-sm">
+        <p>Mein Profil</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 
-                            <span className="ml-2 text-base flex">
-                                {currentUser.isBusiness ? (
-                                    <div className="font-semibold  flex items-center text-indigo-800 gap-x-1">
-                                        Vermieter <div className="text-gray-200">Account</div>
-                                    </div>
-                                ) : (
-                                    <div className="font-semibold">
-                                        Mieter Account
-                                        <p className="text-xs font-normal">
-                                            Du bist Vermieter? <a className="text-blue-500 cursor-pointer" href={`/profile/${currentUser.id}`}>Hier klicken</a>
-                                        </p>
-                                    </div>
-                                )}
-                            </span>
-                        </h3>
-                    </div>
-                    {currentUser.isAdmin && (
-                        <Button
-                            variant="ghost"
-                            className="  bg-[#e1dfdf] 
-                        border-2 border-gray-300  mb-2 w-full 
-                        dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-indigo-900 flex justify-start"
-                            onClick={() => { router.push(`/admin`) }}
-                        >
-                            <RiAdminFill className="mr-4 w-4 h-4" />
-                            <p>
-                                Admin Dashboard
-                            </p>
-                        </Button>
-                    )}
-                    <Button
-                        variant="ghost"
-                        className="  bg-[#e1dfdf] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start"
-                        onClick={onClick}
-                    >
-                        <UserIcon className="mr-4 w-4 h-4" />
-                        <p>
-                            Mein Profil
-                        </p>
-                    </Button>
+  <PopoverContent className="dark:bg-[#0F0F0F] dark:text-gray-100 text-sm bg-white shadow-lg rounded-lg p-4">
+    <div className="mb-2">
+      <h3 className="flex">
+        <span className="ml-2 text-base flex">
+          {currentUser.isBusiness ? (
+            <div className="font-semibold flex items-center text-indigo-800 gap-x-1">
+              Vermieter <div className="text-gray-400">Account</div>
+            </div>
+          ) : (
+            <div className="font-semibold">
+              Mieter Account
+              <p className="text-xs font-normal">
+                Du bist Vermieter? <a className="text-blue-500 hover:underline" href={`/profile/${currentUser.id}`}>Hier klicken</a>
+              </p>
+            </div>
+          )}
+        </span>
+      </h3>
+    </div>
 
-                    <Button
-                        variant="ghost"
-                        className="  bg-[#e1dfdf] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                        onClick={onDashboard}
-                    >
-                        <TrendingUp className="mr-4 w-4 h-4" />
-                        <p>
-                            Dashboard
-                        </p>
-                    </Button>
+    {currentUser.isAdmin && (
+      <a
+        href="/admin"
+        className=" bg-indigo-800 text-white rounded-md w-full flex items-center p-2 hover:bg-indigo-900 transition"
+      >
+        <RiAdminFill className="mr-4 w-4 h-4" />
+        <p>Admin Dashboard</p>
+      </a>
+    )}
 
-                    <Button
-                        variant="ghost"
-                        className="  bg-[#e1dfdf] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                        onClick={onMessages}
-                    >
-                        <MailCheck className="mr-4 w-4 h-4" />
-                        <p>
-                            Konversationen
-                        </p>
-                    </Button>
+    <a
+      href={`/profile/${currentUser.id}`}
+      className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+    >
+      <UserIcon className="mr-4 w-4 h-4" />
+      <p>Mein Profil</p>
+    </a>
 
-                    {currentUser.isBusiness && (
-                        <Button
-                            variant="ghost"
-                            className="  bg-[#e1dfdf] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                            onClick={() => { router.push("/pricing") }}
-                        >
-                            <IoIosPricetags className="mr-4 w-4 h-4" />
-                            <p>
-                                Pläne und Upgrades
-                            </p>
-                        </Button>
-                    )}
+    <a
+      href={`/dashboard/${currentUser.id}`}
+      className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+    >
+      <TrendingUp className="mr-4 w-4 h-4" />
+      <p>Dashboard</p>
+    </a>
 
-                    <Button
-                        variant="ghost"
-                        className="  bg-[#e1dfdf] 
-                        border-2 border-gray-300   w-full dark:bg-[#1b1b1b] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                        onClick={() => { router.push("/settings") }}
+    <a
+      href="/messages"
+      className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+    >
+      <MailCheck className="mr-4 w-4 h-4" />
+      <p>Konversationen</p>
+    </a>
 
-                    >
-                        <SettingsIcon className="mr-4 w-4 h-4" />
-                        <p>
-                            Einstellungen
-                        </p>
-                    </Button>
+    {currentUser.isBusiness && (
+      <a
+        href="/pricing"
+        className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+      >
+        <IoIosPricetags className="mr-4 w-4 h-4" />
+        <p>Pläne und Upgrades</p>
+      </a>
+    )}
+
+    <a
+      href="/settings"
+      className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+    >
+      <SettingsIcon className="mr-4 w-4 h-4" />
+      <p>Einstellungen</p>
+    </a>
+
+    <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2" />
+
+    <a
+      href="/logout"
+      className=" bg-indigo-800 text-white rounded-md w-full flex items-center p-2 hover:bg-indigo-900 transition mt-2"
+    >
+      <LogOutIcon className="mr-4 w-4 h-4" />
+      <p>Abmelden</p>
+    </a>
+  </PopoverContent>
+</Popover>
 
 
-                    <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2" />
-                    <Button
-                        variant="ghost"
-                        className="  bg-[#e1dfdf] 
-                        border-2 border-gray-300   w-full dark:bg-[#0f0f0f] dark:hover:bg-[#171717] dark:border-none flex justify-start mt-2"
-                        onClick={() => signOut()}
-                    >
-                        <LogOutIcon className="mr-4 w-4 h-4" />
-                        <p>
-                            Abmelden
-                        </p>
-                    </Button>
-
-
-
-                </PopoverContent>
-            </Popover>
 
 
 

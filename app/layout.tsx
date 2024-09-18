@@ -12,6 +12,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@/components/theme-provider'
 import LoadingProvider from '@/components/LoadingState'
+import { Suspense } from 'react'
+import LoadingFallBack from '@/components/loading-fallback'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -51,6 +53,7 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange>
+            
           <LoadingProvider>
             <ActiveStatus />
             <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
@@ -64,6 +67,7 @@ export default function RootLayout({
           <SpeedInsights />
           <Analytics />
           </LoadingProvider>
+         
         </ThemeProvider>
       </body>
     </html>

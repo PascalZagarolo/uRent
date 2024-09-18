@@ -122,7 +122,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
         try {
 
             setIsLoading(true);
-            
+
             const usedStart = new Date(currentStart);
             const usedEnd = new Date(currentEnd);
 
@@ -146,7 +146,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
             }
 
-            const isAvailable : {
+            const isAvailable: {
                 isConflict?: boolean,
                 booking?: any
             } = checkAvailability(
@@ -157,31 +157,31 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 currentEndTime
             )
 
-            
 
-            if(isAvailable.isConflict) {
+
+            if (isAvailable.isConflict) {
                 console.log(isAvailable.booking)
                 setConflictedBooking(isAvailable.booking)
                 setShowConflict(true);
                 setIsLoading(false);
 
-                
-                
+
+
             } else {
                 axios.post(`/api/booking/${currentInserat}`, values)
-                .then(() => {
-                    router.refresh();
-                    form.reset();
-                    setCurrentStart(new Date());
-                    setCurrentEnd(new Date());
-                    setCurrentInserat(null);
-                    setCurrentInternal("");
-                    setCurrentVehicle(null);
-                    setCurrentName(null);
-                    setCurrentStartTime("");
-                    setCurrentEndTime("");
-                })
-            toast.success("Buchung hinzugefügt");
+                    .then(() => {
+                        router.refresh();
+                        form.reset();
+                        setCurrentStart(new Date());
+                        setCurrentEnd(new Date());
+                        setCurrentInserat(null);
+                        setCurrentInternal("");
+                        setCurrentVehicle(null);
+                        setCurrentName(null);
+                        setCurrentStartTime("");
+                        setCurrentEndTime("");
+                    })
+                toast.success("Buchung hinzugefügt");
             }
 
         } catch (err) {
@@ -198,14 +198,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
         // Calculate hours and minutes
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
-        
+
         // Format hours and minutes to two digits
         const formattedHours = hours.toString().padStart(2, '0');
         const formattedMinutes = remainingMinutes.toString().padStart(2, '0');
-        
+
         // Construct the time string in HH:MM format
         const dayTime = `${formattedHours}:${formattedMinutes} Uhr`;
-    
+
         return dayTime;
     }
 
@@ -246,7 +246,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     setConflictedBooking(null)
                     router.refresh();
                 })
-        } catch(error : any) {
+        } catch (error: any) {
             toast.error("Fehler beim hinzufügen der Buchung", error)
             console.log(error)
         } finally {
@@ -255,29 +255,29 @@ const AddBooking: React.FC<AddBookingProps> = ({
     }
 
 
-    
-        if(showConflict) {
-            
-            return (
-                <AlertDialog open>
-                    <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
-                        <div>
-                            <h3 className="flex items-center text-md font-semibold">
-                                <CalendarCheck2 className="mr-2 w-4 h-4" /> Buchungskonflikt
-                            </h3>
-                            <p className="text-xs text-gray-200/60">
-                                Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
-                            </p>
-                            <div className="mt-2 text-sm text-gray-200/90">
-                                Eine Buchung für diesen Zeitraum existiert bereits. <br/> Möchtest du trotzdem fortfahren?
-                            </div>
-                            {conflictedBooking && (
-                                <div className="mt-2">
+
+    if (showConflict) {
+
+        return (
+            <AlertDialog open>
+                <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
+                    <div>
+                        <h3 className="flex items-center text-md font-semibold">
+                            <CalendarCheck2 className="mr-2 w-4 h-4" /> Buchungskonflikt
+                        </h3>
+                        <p className="text-xs text-gray-200/60">
+                            Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
+                        </p>
+                        <div className="mt-2 text-sm text-gray-200/90">
+                            Eine Buchung für diesen Zeitraum existiert bereits. <br /> Möchtest du trotzdem fortfahren?
+                        </div>
+                        {conflictedBooking && (
+                            <div className="mt-2">
                                 <h3 className="font-semibold text-sm text-rose-600">
                                     Gefundene Buchung:
                                 </h3>
                                 <div className="text-sm">
-                                    {conflictedBooking?.name} 
+                                    {conflictedBooking?.name}
                                 </div>
                                 <div className="text-sm ">
                                     Zeitraum : {format(conflictedBooking?.startDate, "PPP", { locale: de })} - {format(conflictedBooking?.endDate, "PPP", { locale: de })}
@@ -291,36 +291,36 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                     </div>
                                 </div>
                             </div>
-                            )}
-                            <div className="mt-4 space-x-2 flex items-center">
-                                <Checkbox 
-                                onCheckedChange={(e) => {setIgnore(Boolean(e))}}
+                        )}
+                        <div className="mt-4 space-x-2 flex items-center">
+                            <Checkbox
+                                onCheckedChange={(e) => { setIgnore(Boolean(e)) }}
                                 checked={ignore}
-                                />
-                                <p className="text-xs">
-                                    Hinweis in Zukunft ausblenden
-                                </p>
-                            </div>
-                            <div className="flex justify-end mt-2">
-                                <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
-                                onClick={onShowConflictConfirm}
-                                >
-                                    Buchung eintragen
-                                </AlertDialogAction>
-                                <AlertDialogCancel className="dark:border-none" onClick={() => {
-                                    setShowConflict(false)
-                                }}>
-                                    Abbrechen
-                                </AlertDialogCancel>
-                            </div>
+                            />
+                            <p className="text-xs">
+                                Hinweis in Zukunft ausblenden
+                            </p>
                         </div>
-                    </AlertDialogContent>
-                </AlertDialog>
-            )
-        }
-   
-        
-    
+                        <div className="flex justify-end mt-2">
+                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
+                                onClick={onShowConflictConfirm}
+                            >
+                                Buchung eintragen
+                            </AlertDialogAction>
+                            <AlertDialogCancel className="dark:border-none" onClick={() => {
+                                setShowConflict(false)
+                            }}>
+                                Abbrechen
+                            </AlertDialogCancel>
+                        </div>
+                    </div>
+                </AlertDialogContent>
+            </AlertDialog>
+        )
+    }
+
+
+
 
     return (
         <Dialog>
@@ -349,23 +349,19 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 setCurrentInserat(selectedValue);
                                 setCurrentVehicle(null);
                             }}
-
-
-
+                            value={currentInserat || ''} // Ensures a falsy value like null doesn't break the component
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2">
-                                <SelectValue placeholder="Bitte wähle dein Inserat" />
+                            <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a] mt-2", !currentInserat && "text-gray-200/80")}>
+                                <SelectValue placeholder="Bitte wähle dein Inserat"/>
                             </SelectTrigger>
 
                             <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-
                                 {foundInserate.map((thisInserat) => (
-                                    <SelectItem value={thisInserat.id} id="" key={thisInserat.id}>
+                                    <SelectItem value={thisInserat.id} key={thisInserat.id}>
                                         {thisInserat.title}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
-
                         </Select>
                     </div>
                     {currentInseratObject && currentInseratObject.multi && (
@@ -378,13 +374,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                     setCurrentVehicle(selectedValue);
                                 }}
                                 disabled={affectAll}
-                                value={currentVehicle ? currentVehicle : undefined}
+                                value={currentVehicle || ''}
 
                             >
-                                <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
+                                <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
                                     disabled={//@ts-ignore
-                                        !currentInserat || currentInseratObject?.vehicles?.length <= 0}>
-                                    <SelectValue placeholder="Bitte wähle dein Fahrzeug" />
+                                        !currentInserat || currentInseratObject?.vehicles?.length <= 0}
+                                >
+                                    <SelectValue placeholder={affectAll ? "Buchung wird auf alle Fahrzeuge angewandt.." : "Bitte wähle dein Fahrzeug"} />
 
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
 
@@ -411,12 +408,17 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                     onCheckedChange={(e) => {
                                         setAffectAll(Boolean(e));
                                         if (Boolean(e)) {
-                                            
+
                                             setCurrentVehicle(undefined);
                                         }
                                     }} />
 
-                                <Label className="hover:cursor-pointer">
+                                <Label className="hover:cursor-pointer" onClick={() => {
+                                    setAffectAll(!affectAll);
+                                    if (affectAll) {
+                                        setCurrentVehicle(undefined);
+                                    }
+                                }}>
                                     Buchung auf alle Fahrzeuge anwenden
                                 </Label>
                             </div>

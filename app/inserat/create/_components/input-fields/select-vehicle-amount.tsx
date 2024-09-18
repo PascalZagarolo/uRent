@@ -60,6 +60,10 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
     const onSubmit = () => {
         try {
 
+            if(currentValue > 20) {
+                return toast.error("Maximal 20 Fahrzeuge erlaubt");
+            }
+
             const values = {
                 amount : Number(currentValue)
             }
@@ -92,7 +96,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                     <FormLabel className="flex justify-start items-center">
                         <CarTaxiFrontIcon className="w-4 h-4" /><p className="ml-2 font-semibold"> Anzahl </p>
                     </FormLabel>
-                    <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Wie viele genau? </p>
+                    <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> 1-20 Fahrzeuge </p>
                     <FormField
                         control={form.control}
                         name="amount"
@@ -106,6 +110,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                                             <Input
                                                 type="number"
                                                 {...field}
+                                                max={20}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
                                                 onChange={handleInputChange}
@@ -126,7 +131,11 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                         <Button
                             className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            onClick={onSubmit} disabled={!currentValue || currentValue == thisInserat.amount || thisInserat.multi === false}
+                            onClick={onSubmit} disabled={!currentValue || 
+                                currentValue == thisInserat.amount || thisInserat.multi === false
+                                || currentValue > 20
+                            
+                            }
                         >
                             Anzahl angeben
                         </Button>

@@ -34,7 +34,7 @@ const Imprint = async () => {
                                     Angaben gemäß § 5 TMG
                                 </p>
                                 <p className="mt-2">
-                                    uRent
+                                    uRent UG (haftungsbeschränkt)
                                 </p>
                                 <p className="mt-2">
                                 Bozenerstr. 26

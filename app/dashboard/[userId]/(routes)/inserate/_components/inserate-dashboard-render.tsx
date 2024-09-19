@@ -29,6 +29,8 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const renderedPicture = thisInserat?.images.sort((a, b) => a.position - b.position)[0]?.url;
+
     const onEdit = () => {
         router.push(`/inserat/create/${thisInserat.id}`);
     }
@@ -79,7 +81,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     {thisInserat.images.length > 0 ? (
                         <Image
                             alt="Inserat-Bild"
-                            src={thisInserat?.images[0]?.url}
+                            src={renderedPicture}
                             width={200}
                             height={100}
                             className="h-full w-full object-cover"

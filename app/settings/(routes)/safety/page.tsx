@@ -94,8 +94,7 @@ const SettingsPage = async () => {
                                     <div className="w-full p-4 mt-2 rounded-md">
                                         <div className="pb-4 px-4">
                                             <Select2Fa
-
-                                                thisUser={currentUser}
+                                                thisUser={currentUser as any}
                                             />
                                         </div>
                                     </div>

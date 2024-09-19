@@ -96,9 +96,7 @@ const ChangeEmail: React.FC<ChangeEmailProps> = ({
 
     }
 
-    useEffect(() => {
-        console.log(otp)
-    }, [otp])
+    
 
     return (
         <div>

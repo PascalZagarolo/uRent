@@ -248,7 +248,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2" />
 
     <a
-      href="/logout"
+      onClick={() => signOut()}
       className=" bg-indigo-800 text-white rounded-md w-full flex items-center p-2 hover:bg-indigo-900 transition mt-2"
     >
       <LogOutIcon className="mr-4 w-4 h-4" />

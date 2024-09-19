@@ -18,6 +18,7 @@ import WelcomeMail from '@/react-email-starter/emails/urent/welcome-mail';
 import { Resend } from "resend";
 import { category } from '../drizzle/schema';
 import SupportMessageToUrent from '@/react-email-starter/emails/urent/supportMessageToUrent';
+import Confirm2FaAbortion from '@/react-email-starter/emails/urent/confirm-2fa-abortion';
 
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -80,6 +81,18 @@ export const sendTwoFactorTokenEmail = async (
     to: email,
     subject: "2FA Code",
     react : ConfirmLogin({token})
+  });
+};
+
+export const sendTwoFactorAbortionConfirmation = async (
+  email: string,
+  token: string
+) => {
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to: email,
+    subject: "2FA Authentifizierung deaktivieren",
+    react : Confirm2FaAbortion({token})
   });
 };
 

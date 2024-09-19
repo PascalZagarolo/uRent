@@ -761,7 +761,7 @@ export const getInserate = cache(async ({
             },
             ...(filter === "desc") && {
                 orderBy: (price, { desc }) => [desc(inserat.price)]
-            }
+            },
 
         }).prepare("findInserate");
 
@@ -890,7 +890,17 @@ export const getInserate = cache(async ({
             returnedArray = filteredArray;
         }
 
+        if(filter === "date_newest") {
+            returnedArray.sort((a, b) => {
+                return new Date(b.firstRelease).getTime() - new Date(a.firstRelease).getTime();
+            })
+        }
 
+        if(filter === "date_oldest") {
+            returnedArray.sort((a, b) => {
+                return new Date(a.firstRelease).getTime() - new Date(b.firstRelease).getTime();
+            })
+        }
 
         if (!filter || filter === "relevance") {
             returnedArray.sort((a, b) => {

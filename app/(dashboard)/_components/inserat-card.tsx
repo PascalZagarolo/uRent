@@ -392,7 +392,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     loading="lazy"
                                 />
                                 <div className="text-xs justify-end text-gray-200">
-                                    inseriert am:  {format(new Date(thisInserat.createdAt), "dd.MM")}
+                                    inseriert am:  {format(new Date(thisInserat.firstRelease), "dd.MM")}
                                 </div>
                             </div>
                             <div className="flex text-xs font-bold text-gray-200">

@@ -37,7 +37,7 @@ const Imprint = async () => {
                                     uRent
                                 </p>
                                 <p className="mt-2">
-                                Bozenerstr. 26 Straße
+                                Bozenerstr. 26
                                 </p>
                                 <p className="mt-2">
                                     42659 Solingen, Deutschland

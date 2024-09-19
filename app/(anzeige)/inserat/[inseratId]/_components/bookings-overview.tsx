@@ -10,6 +10,7 @@ import { FaCalendarCheck, FaRegCalendarCheck } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { useOpenAvailabilityOnPageLoad } from "@/store";
 import { useEffect, useState } from "react";
+import useRef from 'react';
 
 
 interface BookingsOverviewProps{
@@ -54,12 +55,16 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
         return `${formattedDay}.${formattedMonth}`;
     }
 
-    const { openOnPageLoad } = useOpenAvailabilityOnPageLoad();
-    const savedOpen = openOnPageLoad;
-
-    const [isOpen, setIsOpen] = useState(savedOpen ? true : false);
-
+    const { openOnPageLoad, changeOpenOnPageLoad } = useOpenAvailabilityOnPageLoad();
     
+
+    const [isOpen, setIsOpen] = useState(openOnPageLoad ? true : false);
+
+    useEffect(() => {
+        if(openOnPageLoad){
+            changeOpenOnPageLoad(false);
+        }
+    },[])
 
     return ( 
         <Dialog open={isOpen} onOpenChange={(e) => {setIsOpen(e)}}>

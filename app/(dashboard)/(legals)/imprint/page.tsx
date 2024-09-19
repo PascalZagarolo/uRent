@@ -37,7 +37,7 @@ const Imprint = async () => {
                                     uRent
                                 </p>
                                 <p className="mt-2">
-                                x Straße
+                                Bozenerstr. 26 Straße
                                 </p>
                                 <p className="mt-2">
                                     42659 Solingen, Deutschland
@@ -61,10 +61,7 @@ const Imprint = async () => {
                                             Telefon: x
                                         </p>
                                         <p className="mt-2">
-                                            Telefax: x
-                                        </p>
-                                        <p className="mt-2">
-                                            E-Mail: <a href="mailto:support@urent-rental.de">support@urent-rental.com</a>
+                                            E-Mail: <a href="mailto:info@urent-rental.de">info@urent-rental.com</a>
                                         </p>
                                     </div>
                                     {/* 

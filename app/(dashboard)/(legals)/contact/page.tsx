@@ -17,9 +17,7 @@ const ContactPage = () => {
                             <div className="p-4">
                                 Kontaktinformation:
                                 <div className="text-sm">
-                                    <p>Adresse: <span className="font-semibold">x</span></p>
-                                    <p>Telefon: <span className="font-semibold">x</span></p>
-                                    <p>E-mail: <span className="font-semibold">support@urent-rental.com</span></p>
+                                    <p>E-mail: <span className="font-semibold">info@urent-rental.com</span></p>
                                 </div>
                                 <div className="mt-16">
                                     <ContactFormular />

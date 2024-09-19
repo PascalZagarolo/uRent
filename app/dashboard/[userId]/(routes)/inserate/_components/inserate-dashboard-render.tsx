@@ -16,7 +16,7 @@ import ToggleVisibility from "./toggle-visibility";
 import { user } from "@/drizzle/schema";
 
 interface InserateDashboardRenderProps {
-    thisInserat: typeof inserat.$inferSelect;
+    thisInserat: typeof inserat.$inferSelect | any;
     currentUser : typeof user.$inferSelect;
 
 }

@@ -19,7 +19,7 @@ import PriceProfileDialog from "./price-profile-dialog";
 import { GrLocation } from "react-icons/gr";
 
 interface InseratShowProps {
-    thisInserat: typeof inserat.$inferSelect
+    thisInserat: typeof inserat.$inferSelect | any
     inseratBookings: typeof booking.$inferSelect[]
 }
 
@@ -28,7 +28,12 @@ const InseratShow: React.FC<InseratShowProps> = ({
     inseratBookings
 }) => {
 
-    const usedCategory: typeof CategoryEnumRender = thisInserat.category
+    const renderRahmen = (thisInserat?.caution != undefined
+        || (thisInserat?.reqAge != 0 && thisInserat?.reqAge != undefined)
+        || thisInserat?.pkwAttribute?.extraCost != undefined
+        || thisInserat?.minTime != undefined
+    )
+    const usedCategory: typeof CategoryEnumRender | any = thisInserat.category
 
     function ripOutToLongAddresses(input: string): string {
         const lastCommaIndex = input?.lastIndexOf(',');
@@ -190,28 +195,31 @@ const InseratShow: React.FC<InseratShowProps> = ({
                 </div>
             )}
 
-            <div className="mt-4">
-                <p className="flex text-lg sm:text-lg  items-center"><CiBookmark className="mr-2 h-4 w-4" />
-                    Rahmenbedingungen</p>
-            </div>
-            <div className="w-full flex mt-2">
-                {thisInserat?.caution && (
-                    <div className="w-1/2 truncate font-semibold text-sm flex">
-                        <TbPigMoney className="w-4 h-4 mr-2 text-rose-300" />
-                        Kaution : {Number((thisInserat?.caution))?.toFixed(2) + " €"}
+            {renderRahmen && (
+                <>
+                    <div className="mt-4">
+                        <p className="flex text-lg sm:text-lg  items-center"><CiBookmark className="mr-2 h-4 w-4" />
+                            Rahmenbedingungen</p>
                     </div>
-                )}
-                {thisInserat?.reqAge != 0 && thisInserat?.reqAge && (
-                    <div className="w-1/2 truncate flex font-semibold text-sm ">
-                        <>
-                            <UserCircleIcon className="w-4 h-4 mr-2 text-blue-600" />
-                            Mindestalter : {thisInserat?.reqAge + " Jahre"}
-                        </>
+                    <div className="w-full flex mt-2">
+                        {thisInserat?.caution && (
+                            <div className="w-1/2 truncate font-semibold text-sm flex">
+                                <TbPigMoney className="w-4 h-4 mr-2 text-rose-300" />
+                                Kaution : {Number((thisInserat?.caution))?.toFixed(2) + " €"}
+                            </div>
+                        )}
+                        {thisInserat?.reqAge != 0 && thisInserat?.reqAge && (
+                            <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                <>
+                                    <UserCircleIcon className="w-4 h-4 mr-2 text-blue-600" />
+                                    Mindestalter : {thisInserat?.reqAge + " Jahre"}
+                                </>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-            {thisInserat?.category === "PKW" && (
-                <div className="w-full flex mt-1">
+                    {thisInserat?.category === "PKW" && (
+                        <div className="w-full flex mt-1">
+                            {/* 
                     {thisInserat?.pkwAttribute?.freeMiles && (
                         <div className="w-1/2 truncate font-semibold text-sm flex">
                             <PiSteeringWheel className="w-4 h-4 mr-2 text-gray-400" />
@@ -219,22 +227,26 @@ const InseratShow: React.FC<InseratShowProps> = ({
                             {thisInserat?.pkwAttribute?.freeMiles ? " " + thisInserat?.pkwAttribute?.freeMiles + " Km" : "Keine KM-Anzahl angegeben"}
                         </div>
                     )}
-                    {thisInserat?.pkwAttribute?.extraCost && (
-                        <div className="w-1/2 truncate flex font-semibold text-sm ">
-                            <GiReceiveMoney className="w-4 h-4 mr-2 text-emerald-600" />
-                            Extrapreis /Km : {thisInserat?.pkwAttribute?.extraCost ?
-                                (thisInserat?.pkwAttribute?.extraCost).toFixed(2) + " €"
-                                : "Keine Kosten angegeben"}
+                    */}
+                            {thisInserat?.minTime && (
+                                <div className="w-1/2 mt-1 truncate font-semibold text-sm flex">
+                                    <Clock2Icon className="w-4 h-4 mr-2 text-indigo-800" />
+                                    Mindestmietdauer : {thisInserat?.minTime.slice(0, 1)} {returnMinTimeType(Number(thisInserat.minTime.slice(0, 1)), thisInserat?.minTime.slice(1))}
+                                </div>
+                            )}
+                            {thisInserat?.pkwAttribute?.extraCost && (
+                                <div className="w-1/2 truncate flex font-semibold text-sm ">
+                                    <GiReceiveMoney className="w-4 h-4 mr-2 text-emerald-600" />
+                                    Extrapreis /Km : {thisInserat?.pkwAttribute?.extraCost ?
+                                        (thisInserat?.pkwAttribute?.extraCost).toFixed(2) + " €"
+                                        : "Keine Kosten angegeben"}
+                                </div>
+                            )}
                         </div>
                     )}
-                </div>
+                </>
             )}
-            {thisInserat?.minTime && (
-                <div className="w-full mt-1 truncate font-semibold text-sm flex">
-                    <Clock2Icon className="w-4 h-4 mr-2 text-indigo-800" />
-                    Mindestmietdauer : {thisInserat?.minTime.slice(0, 1)} {returnMinTimeType(Number(thisInserat.minTime.slice(0, 1)), thisInserat?.minTime.slice(1))}
-                </div>
-            )}
+
 
             <div className="mt-4">
                 <div className="flex sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" />

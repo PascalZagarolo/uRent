@@ -71,7 +71,7 @@ const InseratAnzeige = async ({
 }: { params: { inseratId: string } }) => {
 
 
-
+    
     const currentUser = await getCurrentUserWithNotifications();
 
 

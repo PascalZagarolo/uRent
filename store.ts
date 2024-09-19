@@ -197,3 +197,15 @@ export const useLoading = create<loadingParams>((set) => ({
         set({ isLoading : action })
     }
 }))
+
+type openAvailabilityOnPageLoadParams = {
+    openOnPageLoad : boolean;
+    changeOpenOnPageLoad: (action : boolean) => void;
+}
+
+export const useOpenAvailabilityOnPageLoad = create<openAvailabilityOnPageLoadParams>((set) => ({
+    openOnPageLoad : false,
+    changeOpenOnPageLoad : (action : boolean) => {
+        set({ openOnPageLoad : action })
+    }
+}))

@@ -21,7 +21,7 @@ import {
 
 
 import { useRouter } from "next/navigation";
-import { cache, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaCar, FaGasPump, FaShippingFast } from "react-icons/fa";
 import { GiCarWheel, GiSteeringWheel } from "react-icons/gi";
@@ -39,6 +39,7 @@ import ProfileBar from "./_inserat-card/profile-bar";
 import Image from "next/image";
 import { GrLocation, GrMapLocation } from "react-icons/gr";
 import { IoMdOpen } from "react-icons/io";
+import { useOpenAvailabilityOnPageLoad } from "@/store";
 
 
 interface InseratCardProps {
@@ -72,7 +73,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     const isFaved = currentUser?.favourites?.some((fav) => fav.inseratId === thisInserat.id);
 
-    const isOwn = currentUser?.id === thisInserat?.userId;
+    
 
     const formattedViews = Intl.NumberFormat('en-US', {
         notation: "compact",
@@ -158,6 +159,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     const usedCategory: typeof CategoryEnumRender = thisInserat.category;
 
+    const { changeOpenOnPageLoad } = useOpenAvailabilityOnPageLoad();
 
     return (
         <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
@@ -453,9 +455,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         <a className="ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
                          bg-[#181c28]  
                         p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] 
-                        sm:truncate text-sm justify-center"
+                        sm:truncate text-sm justify-center hover:cursor-pointer"
                             target="_blank"
-                            href={`/inserat/${thisInserat.id}`}
+                            onClick={() => {
+                                changeOpenOnPageLoad(true)
+                                router.push(`/inserat/${thisInserat.id}`)
+                            }}
+                            
                         >
                             <div className="flex flex-row px-2">
                                 <div>

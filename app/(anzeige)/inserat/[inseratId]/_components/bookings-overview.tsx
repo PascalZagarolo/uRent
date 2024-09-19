@@ -1,3 +1,5 @@
+'use client'
+
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { booking, inserat } from "@/db/schema";
@@ -6,6 +8,8 @@ import { CalendarCheck, CalendarClock, CheckCheckIcon, CheckIcon } from "lucide-
 import BookingCalendar from "./booking-calendar";
 import { FaCalendarCheck, FaRegCalendarCheck } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
+import { useOpenAvailabilityOnPageLoad } from "@/store";
+import { useEffect, useState } from "react";
 
 
 interface BookingsOverviewProps{
@@ -50,8 +54,15 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
         return `${formattedDay}.${formattedMonth}`;
     }
 
+    const { openOnPageLoad } = useOpenAvailabilityOnPageLoad();
+    const savedOpen = openOnPageLoad;
+
+    const [isOpen, setIsOpen] = useState(savedOpen ? true : false);
+
+    
+
     return ( 
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={(e) => {setIsOpen(e)}}>
             <DialogTrigger asChild>
             <Button className="w-full font-semibold text-gray-200 bg-indigo-900  hover:underline" variant="ghost">
             <CalendarCheck className="w-4 h-4 mr-2"/> Verfügbarkeit prüfen

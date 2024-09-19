@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { format, isSameDay, set } from 'date-fns';
+import { format, isBefore, isSameDay, set } from 'date-fns';
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -46,7 +46,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { checkAvailability } from "@/actions/check-availability";
 
 interface AddAvailabilityProps {
-    foundInserate: typeof inserat.$inferSelect[]
+    foundInserate: typeof inserat.$inferSelect[];
 }
 
 
@@ -61,7 +61,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect>(null);
+    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
 
     const [content, SetContent] = useState("");

@@ -91,6 +91,14 @@ const ManageTab: React.FC<ManageTabProps> = ({
 
             
                     <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
+                        
+                        <div className="w-full mb-16">
+                            <CalendarAndDetails
+                                foundInserate={foundInserate as any}
+                                involvedBookings={involvedBookings}
+                            />
+                        </div>
+
                         <h3 className="dark:text-gray-100 sm:text-2xl text-lg font-semibold sm:flex items-center w-full">
                             <div className="sm:w-2/3 flex w-full">
                                 <MdManageSearch className="mr-4" /> Fahrzeuge verwalten
@@ -169,12 +177,6 @@ const ManageTab: React.FC<ManageTabProps> = ({
                         <div className="pb-4 pt-2 sm:px-4">
                             <AddBooking
                                 foundInserate={foundInserate as any}
-                            />
-                        </div>
-                        <div className="w-full mt-16">
-                            <CalendarAndDetails
-                                foundInserate={foundInserate as any}
-                                involvedBookings={involvedBookings}
                             />
                         </div>
                     </div>

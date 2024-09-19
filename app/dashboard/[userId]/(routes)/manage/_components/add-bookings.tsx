@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { format, getDate, isSameDay, set } from 'date-fns';
+import { format, getDate, isBefore, isSameDay, set } from 'date-fns';
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -466,7 +466,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                                                             }}
                                                             disabled={(date) =>
-                                                                date < new Date() || date < new Date("1900-01-01")
+                                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
                                                             }
                                                             initialFocus
                                                         />

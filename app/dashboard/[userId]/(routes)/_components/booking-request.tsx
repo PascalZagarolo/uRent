@@ -60,6 +60,14 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
         }
     }
 
+    const convertMinutesToHours = (minutes: number): string => {
+        const hours = Math.floor(minutes / 60);   // Calculate the full hours
+        const remainingMinutes = minutes % 60;    // Calculate the remaining minutes
+    
+        // Return the formatted time in "HH:MM Uhr" format
+        return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')} Uhr`;
+    };
+
     return (
         <Dialog>
             <div className="dark:bg-[#141414] p-4 mb-4 rounded-md border dark:border-none ">
@@ -118,6 +126,9 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                             <p className="mr-1">{format(new Date(request.startDate), "dd.MM")}</p>
                             -
                             <p className="ml-1">{format(new Date(request.endDate), "dd.MM.yy")}</p>
+                        </div>
+                        <div className="text-gray-200/80 text-xs">
+                            {convertMinutesToHours(request.startPeriod)} - {convertMinutesToHours(request.endPeriod)}
                         </div>
                     </div>
                 </div>

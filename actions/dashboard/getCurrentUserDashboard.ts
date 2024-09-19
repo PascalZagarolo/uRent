@@ -51,7 +51,8 @@ const getCurrentUserDashboard = async () => {
                   with: {
                     images: true
                   }
-                }
+                },
+                user : true
               }
             }
           }

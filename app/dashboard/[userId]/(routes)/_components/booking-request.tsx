@@ -13,14 +13,17 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { inserat } from '../../../../../db/schema';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import findConversation from "@/actions/findConversation";
 
 
 interface BookingRequestRenderProps {
-    request: typeof bookingRequest.$inferSelect;
+    request: typeof bookingRequest.$inferSelect | any;
+    currentUserId : string
 }
 
 const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
-    request
+    request,
+    currentUserId
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +60,16 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
             toast.error("Fehler beim Ablehnen der Anfrage")
         } finally {
             setIsLoading(false);
+        }
+    }
+
+    const onContact = async () => {
+        try {
+            const foundId = await findConversation(request.user.id, currentUserId);
+            router.push(`/conversation/${foundId}`);
+        } catch(e : any){
+            toast.error("Fehler beim Kontaktieren des Anfragers")
+            console.log(e);
         }
     }
 
@@ -213,7 +226,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <div className="w-full mt-2">
                     <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex"
                         //@ts-ignore
-                        onClick={() => { router.push(`/conversation/${request.user.id}`) }}>
+                        onClick={onContact}>
                         <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                     </Button>
                 </div>

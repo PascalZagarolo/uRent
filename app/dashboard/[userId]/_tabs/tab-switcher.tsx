@@ -48,7 +48,10 @@ const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription } : 
                     currentTab={tab}
                 />
                 <div>
-                    <BreadCrumpPage />
+                    <BreadCrumpPage 
+                    setCurrentTab={(tab) => setTab(tab)}
+                    currentTab={tab}
+                    />
                 </div>
                 <div>
                     {renderTab()}

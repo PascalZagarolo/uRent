@@ -1,3 +1,5 @@
+'use server'
+
 import db from "@/db/drizzle";
 import { conversation } from "@/db/schema";
 import { and, eq, or } from "drizzle-orm";

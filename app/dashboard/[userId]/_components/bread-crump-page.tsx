@@ -4,11 +4,11 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { usePathname } from "next/navigation";
 
 interface BreadCrumpPageProps {
-  changeCurrentTab?: (tab: string) => void;
+  setCurrentTab?: (tab: string) => void;
   currentTab?: string;
 }
 
-const BreadCrumpPage = ({ changeCurrentTab, currentTab } : BreadCrumpPageProps) => {
+const BreadCrumpPage = ({ setCurrentTab, currentTab } : BreadCrumpPageProps) => {
 
     const pathname = usePathname();
     const userId = pathname.split("/")[2];
@@ -45,27 +45,27 @@ const BreadCrumpPage = ({ changeCurrentTab, currentTab } : BreadCrumpPageProps) 
         </BreadcrumbItem>
         
         <BreadcrumbSeparator />
-        {pathname.includes("manage") && (
+        {currentTab == "manage" && (
             <BreadcrumbItem>
             <BreadcrumbLink>Meine Fahrzeuge</BreadcrumbLink>
           </BreadcrumbItem>
         )}
-        {pathname.includes("inserate") && (
+        {currentTab == "inserate" && (
             <BreadcrumbItem>
             <BreadcrumbLink>Meine Inserate</BreadcrumbLink>
           </BreadcrumbItem>
         )}
-        {pathname.includes("payments") && (
+        {currentTab == "payments" && (
             <BreadcrumbItem>
             <BreadcrumbLink>Zahlungsverkehr</BreadcrumbLink>
           </BreadcrumbItem>
         )}
-        {pathname.includes("bookings") && (
+        {currentTab == "bookings" && (
             <BreadcrumbItem>
             <BreadcrumbLink>Meine Inserate</BreadcrumbLink>
           </BreadcrumbItem>
         )}
-        {pathname.includes("favourites") && (
+        {currentTab == "favourites" && (
             <BreadcrumbItem>
             <BreadcrumbLink>Favoriten</BreadcrumbLink>
           </BreadcrumbItem>

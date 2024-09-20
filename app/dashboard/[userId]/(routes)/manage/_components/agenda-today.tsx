@@ -17,7 +17,7 @@ const formatTime = (minutes: number) => {
 
 const renderFittingBookings = (booking: any, type: string) => {
     return (
-        <div key={booking.id} className="w-full flex flex-row  rounded-md  h-full bg-[#212121] ">
+        <div key={booking.id} className="w-full flex flex-row  rounded-md  h-full bg-[#0F0F0F] border-indigo-800 border">
             <div className={cn("w-1/12 rounded-l-md", !booking.isAvailability ? "bg-indigo-800" : "bg-rose-800")} />
             <div className="w-11/12 pl-4 py-2">
                 <div className="text-sm font-bold underline flex flex-row items-center">

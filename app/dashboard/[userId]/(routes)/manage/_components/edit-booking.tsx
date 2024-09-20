@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { format, set, isSameDay } from 'date-fns';
+import { format, set, isSameDay, isBefore } from 'date-fns';
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -264,7 +264,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 {currentStart ? (
                                                                     format(currentStart, "PPP", { locale : de})
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>Wähle ein Datum</span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
@@ -281,7 +281,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 setCurrentStart(date);
                                                             }}
                                                             disabled={(date) =>
-                                                                date < new Date() || date < new Date("1900-01-01")
+                                                                 date < new Date("1900-01-01")
                                                             }
                                                             initialFocus
                                                         />
@@ -312,7 +312,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 {currentEnd ? (
                                                                     format(currentEnd, "PPP", { locale : de})
                                                                 ) : (
-                                                                    <span>Pick a date</span>
+                                                                    <span>Wähle ein Datum</span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>

@@ -43,6 +43,8 @@ import { Input } from "@/components/ui/input";
 import { MdOutlinePersonPin } from "react-icons/md";
 import { de } from "date-fns/locale";
 import SelectTimeRange from "./select-time-range";
+import { Checkbox } from "@/components/ui/checkbox";
+import { TbListNumbers } from "react-icons/tb";
 
 
 interface EditBookingProps {
@@ -66,6 +68,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
     const [currentEnd, setCurrentEnd] = useState(new Date(thisBooking?.endDate));
     const [currentPeriodStart, setCurrentPeriodStart] = useState(thisBooking?.startPeriod);
     const [currentPeriodEnd, setCurrentPeriodEnd] = useState(thisBooking?.endPeriod);
+    const [currentInternal, setCurrentInternal] = useState(thisBooking?.buchungsnummer);
+    const [affectAll, setAffectAll] = useState(false);
+
 
     const [isLoading, setIsLoading] = useState(false);
     
@@ -111,6 +116,45 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
         }
     })
+
+    // const onShowConflictConfirm = () => {
+    //     try {
+    //         setIsLoading(true);
+
+    //         const values = {
+    //             content: currentContent,
+
+    //             //Days
+    //             start: currentStart,
+    //             end: currentEnd,
+
+    //             //Hours
+    //             startPeriod: currentPeriodStart,
+    //             endPeriod: currentPeriodEnd,
+
+
+    //             userId: selectedUser ? selectedUser?.id : null,
+    //             vehicleId: currentVehicle,
+    //             buchungsnummer: currentInternal,
+    //             name: currentName,
+
+
+    //         }
+
+    //         axios.post(`/api/booking/${currentInserat}`, values)
+    //             .then(() => {
+    //                 setIgnoreOnce(false);
+    //                 setShowConflict(false);
+    //                 setConflictedBooking(null)
+    //                 router.refresh();
+    //             })
+    //     } catch (error: any) {
+    //         toast.error("Fehler beim hinzufügen der Buchung", error)
+    //         console.log(error)
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // }
 
 
     const onSubmit = (value: z.infer<typeof formSchema>) => {
@@ -208,37 +252,58 @@ const EditBooking: React.FC<EditBookingProps> = ({
                            Fahrzeug
                         </Label>
                         <Select
-                            onValueChange={(selectedValue) => {
-                                setCurrentVehicle(selectedValue);
-                            }}
-                            
-                            value={currentVehicle}
-                            
-                        >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]" 
-                            disabled={!currentInserat ||  currentInseratObject?.vehicles?.length <= 0}>
-                                <SelectValue>
-                                    
-                                </SelectValue>
-                                
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                
-                                    {currentInseratObject?.vehicles?.length > 0 ? (
-                                        
-                                        currentInseratObject?.vehicles?.map((thisVehicle : typeof vehicle.$inferSelect) => (
-                                            <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
-                                                {thisVehicle.title}
-                                            </SelectItem>
-                                        ))
-                                        
-                                    ) : (
-                                        <SelectItem value={null}>
-                                            Keine Fahrzeuge verfügbar
-                                        </SelectItem>
-                                    )}
-                                </SelectContent>
-                            </SelectTrigger>
-                        </Select>
+                                onValueChange={(selectedValue) => {
+                                    setCurrentVehicle(selectedValue);
+                                }}
+                                disabled={affectAll}
+                                value={currentVehicle || ''}
+
+                            >
+                                <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
+                                    disabled={//@ts-ignore
+                                        !currentInserat || currentInseratObject?.vehicles?.length <= 0}
+                                >
+                                    <SelectValue placeholder={affectAll ? "Buchung wird auf alle Fahrzeuge angewandt.." : "Bitte wähle dein Fahrzeug"} />
+
+                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+
+                                        {//@ts-ignore
+                                            currentInseratObject?.vehicles?.length > 0 ? (
+                                                //@ts-ignore
+                                                currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                    <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => { setAffectAll(false) }}>
+                                                        {thisVehicle.title}
+                                                    </SelectItem>
+                                                ))
+
+                                            ) : (
+                                                <SelectItem value={null}>
+                                                    Keine Fahrzeuge verfügbar
+                                                </SelectItem>
+                                            )}
+                                    </SelectContent>
+                                </SelectTrigger>
+                            </Select>
+                            <div className="space-x-2 mt-2">
+                                <Checkbox
+                                    checked={affectAll}
+                                    onCheckedChange={(e) => {
+                                        setAffectAll(Boolean(e));
+                                        if (Boolean(e)) {
+
+                                            setCurrentVehicle(undefined);
+                                        }
+                                    }} />
+
+                                <Label className="hover:cursor-pointer" onClick={() => {
+                                    setAffectAll(!affectAll);
+                                    if (affectAll) {
+                                        setCurrentVehicle(undefined);
+                                    }
+                                }}>
+                                    Buchung auf alle Fahrzeuge anwenden
+                                </Label>
+                            </div>
                     </div>
                     <div className="flex">
                         <Form {...form}>
@@ -342,6 +407,16 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
 
                                 </div>
+                                <div className="mt-2">
+                                    <SelectTimeRange 
+                                    isSameDay={isSameDay(currentStart, currentEnd)}
+                                    setStartTimeParent={setCurrentPeriodStart}
+                                    setEndTimeParent={setCurrentPeriodEnd}
+                                    prefilledStartTime={thisBooking?.startPeriod} 
+                                    prefilledEndTime={thisBooking?.endPeriod}
+                                    
+                                    />
+                                </div>
                                 <div>
                                 <FormField
                                         control={form.control}
@@ -359,21 +434,19 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         )} />
                                 </div>
                                 <div className="mt-2">
-                                    <SelectTimeRange 
-                                    isSameDay={isSameDay(currentStart, currentEnd)}
-                                    setStartTimeParent={setCurrentPeriodStart}
-                                    setEndTimeParent={setCurrentPeriodEnd}
-                                    prefilledStartTime={thisBooking?.startPeriod} 
-                                    prefilledEndTime={thisBooking?.endPeriod}
-                                    
-                                    />
+                                    <Label className="font-semibold text-sm flex items-center">
+                                        <TbListNumbers className="w-4 h-4 mr-2" /> Interne Buchungsnr.
+                                    </Label>
+                                    <div className="mt-2">
+                                        <Input
+                                            value={currentInternal}
+                                            className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                                    dark:bg-[#0a0a0a]"
+                                            onChange={(e) => { setCurrentInternal(e.target.value) }}
+                                        />
+                                    </div>
                                 </div>
-                                <div>
-                                <SearchRent 
-                                //@ts-ignore
-                                initialUser={thisBooking?.user}
-                                />
-                                </div>
+                                
                                 <div>
                                     <span className="font-semibold text-base flex">
                                         <BookOpenCheck className="mr-2" />  Anmerkungen:

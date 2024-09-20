@@ -95,6 +95,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
 
 
     <div
+    onClick={() => {
+      setSelectedDateParent(day);
+      setRelevantBookingsParent(bookings);
+      selectDateParent(day);
+      }}
       key={index}
       className={clsx("dark:bg-[#0F0F0F] h-full p-4 text-center ", {
         "bg-gray-200": isToday(day),
@@ -118,6 +123,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                 key={pBooking.id}
                 className={cn("bg-indigo-800 rounded-md py-2  flex justify-center mt-2",
                   pBooking.isAvailability && "bg-rose-800")}
+                onClick={(e) => e.stopPropagation()}
               >
                 {inseratFilter ? (
                   <X className="text-gray-900 w-4 h-4" />

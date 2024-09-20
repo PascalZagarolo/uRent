@@ -79,7 +79,7 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
                     />
             </div>
             <div className="w-full">
-                <EventCalendar
+            <EventCalendar
                     everyInserat={foundInserate}
                     setSelectedDateParent={setSelectedDate}
                     setRelevantBookingsParent={setRelevantBookings}

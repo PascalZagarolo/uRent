@@ -200,6 +200,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                     <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
                                         {bookingRequests.map((request: typeof bookingRequest.$inferSelect) => (
                                             <BookingRequestRender
+                                                currentUserId={currentUser.id}
                                                 request={request}
                                                 key={request?.id || 1}
                                             />

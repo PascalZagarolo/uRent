@@ -135,9 +135,10 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                         
                         </div>
                         <div className="flex p-2 justify-start w-full ">
-                        <div className="text-xs  w-full  line-clamp-1 break-all">
+                        <div className={cn("text-xs  w-full  line-clamp-1 break-all", 
+                        !(pBooking?.content || pBooking?.name) && "text-gray-200/60")}>
                           
-                          {pBooking?.name}
+                          {pBooking.isAvailability ? pBooking?.content ? pBooking?.content : "Keine Angaben" : pBooking?.name}
                           
                         </div>
                         </div>

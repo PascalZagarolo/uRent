@@ -15,6 +15,8 @@ import SelectVehicle from "../(routes)/manage/_components/select-vehicle";
 import SelectInserat from "../(routes)/manage/_components/select-inserat";
 import { useRef, useState } from "react";
 import { set } from "lodash";
+import TodayAgenda from "../(routes)/manage/_components/agenda-today";
+import { isToday } from "date-fns";
 
 
 interface ManageTabProps {
@@ -84,13 +86,26 @@ const ManageTab: React.FC<ManageTabProps> = ({
     const selectedInserat = foundInserate?.find((inserat) => inserat.id === searchParams?.inseratId);
 
 
-
+   
 
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">
 
 
             <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
+                <div>
+                    <TodayAgenda 
+                    todaysBookings={
+                        involvedBookings
+                        ?.filter((booking) => isToday(booking.startDate))
+                        ?.sort((a, b) => a.startPeriod - b.startPeriod)
+
+                    }
+                    todaysReturns={involvedBookings
+                        ?.filter((booking) => isToday(booking.endDate))
+                        ?.sort((a, b) => a.startPeriod - b.startPeriod)}
+                    />
+                </div>
                 <div className=" sm:px-4">
                     <AddAvailability
                         foundInserate={foundInserate}

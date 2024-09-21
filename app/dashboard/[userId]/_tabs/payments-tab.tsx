@@ -14,13 +14,13 @@ interface PaymentsTabProps {
 const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription } : PaymentsTabProps) => {
     
 
-
+    console.log(currentUser?.subscription)
 
     const usedId = currentUser.id;
 
     
 
-    const existingSubscription = currentUser.subscription
+    const existingSubscription = currentUser
 
     
 
@@ -64,9 +64,9 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription } : 
                         <div className="w-full sm:flex flex-row mt-8 sm:space-y-0 space-y-4">
 
                             <div className="sm:w-1/2 w-full">
-                                <RenderAvailable
+                            <RenderAvailable
                                     existingSubscription={existingSubscription}
-                                    countedInserate={countInserate[0]?.count}
+                                    countedInserate={currentUser.inserat.filter((inserat: any) => inserat.isPublished).length}
                                 />
                             </div>
 

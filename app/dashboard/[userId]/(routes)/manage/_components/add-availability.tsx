@@ -228,6 +228,10 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
         return (
             <ConflictDialog
                 title={currentInserat?.title}
+                reqStartDate={currentStart}
+                reqEndDate={currentEnd}
+                reqStartPeriod={startTime}
+                reqEndPeriod={endTime}
                 conflictedBooking={conflictedBooking}
                 setShowConflict={setShowConflict}
                 onShowConflictConfirm={onShowConflictConfirm}

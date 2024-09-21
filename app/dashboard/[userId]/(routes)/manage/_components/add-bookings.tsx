@@ -124,8 +124,6 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
             setIsLoading(true);
 
-            const usedStart = new Date(currentStart);
-            const usedEnd = new Date(currentEnd);
 
             const values = {
                 content: value.content ? value.content : "",
@@ -262,6 +260,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
         return (
             <ConflictDialog
                 title={currentInseratObject?.title}
+                reqStartDate={currentStart}
+                reqEndDate={currentEnd}
+                reqStartPeriod={currentStartTime}
+                reqEndPeriod={currentEndTime}
                 conflictedBooking={conflictedBooking}
                 setShowConflict={setShowConflict}
                 onShowConflictConfirm={onShowConflictConfirm}

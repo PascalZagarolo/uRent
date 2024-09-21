@@ -15,6 +15,7 @@ export const checkAvailability = (
 
         try {
             if (pInserat?.bookings?.length === 0 || !pInserat?.bookings) {
+                console.log("...")
                 return true;
             }
             //set start and date to same date if the user only provides one

@@ -45,12 +45,14 @@ import { de } from "date-fns/locale";
 import SelectTimeRange from "./select-time-range";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TbListNumbers } from "react-icons/tb";
+import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
+import { checkAvailability } from "@/actions/check-availability";
 
 
 interface EditBookingProps {
-    foundInserate : typeof inserat.$inferSelect[];
-    thisBooking : typeof booking.$inferSelect;
-    useHover? : boolean;
+    foundInserate: typeof inserat.$inferSelect[];
+    thisBooking: typeof booking.$inferSelect;
+    useHover?: boolean;
 }
 
 
@@ -60,9 +62,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
     useHover
 }) => {
 
-    
 
-    
+
+
 
     const [currentStart, setCurrentStart] = useState(new Date(thisBooking?.startDate));
     const [currentEnd, setCurrentEnd] = useState(new Date(thisBooking?.endDate));
@@ -71,9 +73,13 @@ const EditBooking: React.FC<EditBookingProps> = ({
     const [currentInternal, setCurrentInternal] = useState(thisBooking?.buchungsnummer);
     const [affectAll, setAffectAll] = useState(false);
 
+    const [ignore, setIgnore] = useState(false);
+    const [ignoreOnce, setIgnoreOnce] = useState(false);
+    const [showConflict, setShowConflict] = useState(false);
 
+    const [conflictedBooking, setConflictedBooking] = useState<typeof booking.$inferSelect | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    
+
     const [currentInserat, setCurrentInserat] = useState<string | null>(thisBooking?.inseratId);
     const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null | any>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(thisBooking?.vehicleId);
@@ -82,17 +88,17 @@ const EditBooking: React.FC<EditBookingProps> = ({
     const selectedUser = usesearchUserByBookingStore((user) => user.user);
 
 
-    
+
 
     useEffect(() => {
-        
-        const newInserat = foundInserate.find((inserat) => inserat.id === currentInserat);
-        
-        setCurrentInseratObject(newInserat);
-        
-    },[currentInserat])
 
-    
+        const newInserat = foundInserate.find((inserat) => inserat.id === currentInserat);
+
+        setCurrentInseratObject(newInserat);
+
+    }, [currentInserat])
+
+
 
     const params = useParams();
     const router = useRouter();
@@ -103,7 +109,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
         }), end: z.date({
             required_error: "A date of birth is required.",
         }), content: z.string().optional(),
-        name : z.string().optional()
+        name: z.string().optional()
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -112,102 +118,170 @@ const EditBooking: React.FC<EditBookingProps> = ({
             start: new Date(),
             end: new Date(),
             content: "",
-            name : ""
+            name: ""
 
         }
     })
 
-    // const onShowConflictConfirm = () => {
-    //     try {
-    //         setIsLoading(true);
-
-    //         const values = {
-    //             content: currentContent,
-
-    //             //Days
-    //             start: currentStart,
-    //             end: currentEnd,
-
-    //             //Hours
-    //             startPeriod: currentPeriodStart,
-    //             endPeriod: currentPeriodEnd,
 
 
-    //             userId: selectedUser ? selectedUser?.id : null,
-    //             vehicleId: currentVehicle,
-    //             buchungsnummer: currentInternal,
-    //             name: currentName,
 
-
-    //         }
-
-    //         axios.post(`/api/booking/${currentInserat}`, values)
-    //             .then(() => {
-    //                 setIgnoreOnce(false);
-    //                 setShowConflict(false);
-    //                 setConflictedBooking(null)
-    //                 router.refresh();
-    //             })
-    //     } catch (error: any) {
-    //         toast.error("Fehler beim hinzufügen der Buchung", error)
-    //         console.log(error)
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // }
 
 
     const onSubmit = (value: z.infer<typeof formSchema>) => {
         try {
-           
+
             setIsLoading(true);
-            const usedStart = new Date(currentStart);
-            const usedEnd = new Date(currentEnd);
+
+
             const values = {
                 content: currentContent,
-                start: usedStart,
-                end: usedEnd,
+
+                //Days
+                start: currentStart,
+                end: currentEnd,
+
+                //Hours
                 startPeriod: currentPeriodStart,
                 endPeriod: currentPeriodEnd,
+
+
                 userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
-                name : currentName
+                buchungsnummer: currentInternal,
+                name: currentName,
+
+
             }
-            axios.patch(`/api/booking/edit/${thisBooking.id}`, values)
-                .then(() => router.refresh())
-            toast.success("Änderungen gespeichert");
+
+            const isAvailable: {
+                isConflict?: boolean,
+                booking?: any
+            } = checkAvailability(
+                currentInseratObject,
+                currentStart,
+                currentEnd,
+                currentPeriodStart,
+                currentPeriodEnd
+            )
+
+
+
+            if (isAvailable.isConflict) {
+                console.log(isAvailable.booking)
+                setConflictedBooking(isAvailable.booking)
+                setShowConflict(true);
+                setIsLoading(false);
+
+
+
+            } else {
+                axios.patch(`/api/booking/edit/${thisBooking.id}`, values)
+                    .then(() => {
+                        router.refresh();
+                        form.reset();
+                        setCurrentStart(new Date());
+                        setCurrentEnd(new Date());
+                        setCurrentInserat(null);
+                        setCurrentInternal("");
+                        setCurrentVehicle(null);
+                        setCurrentName(null);
+                        setCurrentPeriodStart("");
+                        setCurrentPeriodEnd("");
+                    })
+                toast.success("Buchung bearbeitet");
+            }
 
         } catch (err) {
             toast.error("Fehler beim hinzufügen der Buchung", err)
         } finally {
-            setTimeout(() => {
-                router.refresh();
-            }, 1000)
             setIsLoading(false);
         }
     }
 
-    
-    useEffect(() => {
-        if(currentStart > currentEnd){
-          setCurrentEnd(currentStart)
-        }
-      },[currentEnd, currentStart])
 
+    useEffect(() => {
+        if (currentStart > currentEnd) {
+            setCurrentEnd(currentStart)
+        }
+    }, [currentEnd, currentStart])
+
+    const onShowConflictConfirm = () => {
+        try {
+            setIsLoading(true);
+
+            const values = {
+                content: currentContent,
+
+                //Days
+                start: currentStart,
+                end: currentEnd,
+
+                //Hours
+                startPeriod: currentPeriodStart,
+                endPeriod: currentPeriodEnd,
+
+
+                userId: selectedUser ? selectedUser?.id : null,
+                vehicleId: currentVehicle,
+                buchungsnummer: currentInternal,
+                name: currentName,
+
+
+            }
+
+            axios.patch(`/api/booking/edit/${thisBooking.id}`, values)
+                .then(() => {
+                    setIgnoreOnce(false);
+                    setShowConflict(false);
+                    setConflictedBooking(null)
+                    router.refresh();
+                    form.reset();
+                    setCurrentStart(new Date());
+                    setCurrentEnd(new Date());
+                    setCurrentInserat(null);
+                    setCurrentInternal("");
+                    setCurrentVehicle(null);
+                    setCurrentName(null);
+                    setCurrentPeriodStart("");
+                    setCurrentPeriodEnd("");
+                })
+        } catch (error: any) {
+            toast.error("Fehler beim hinzufügen der Buchung", error)
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    if (showConflict) {
+        return (
+            <ConflictDialog
+                title={currentInseratObject?.title}
+                reqStartDate={currentStart}
+                reqEndDate={currentEnd}
+                reqStartPeriod={currentPeriodStart}
+                reqEndPeriod={currentPeriodEnd}
+                conflictedBooking={conflictedBooking}
+                setShowConflict={setShowConflict}
+                onShowConflictConfirm={onShowConflictConfirm}
+            />
+        )
+    }
 
     return (
         <Dialog>
-                {useHover ? (
-                    <DialogTrigger asChild>    
-                        <Button variant="ghost">
+            {useHover ? (
+                <DialogTrigger asChild>
+                    <Button variant="ghost">
                         <PencilIcon className="h-4 w-4" />
-                        </Button>
+                    </Button>
                 </DialogTrigger>
-                ) : (
-                    <DialogTrigger >    
-                        <PencilIcon className="h-4 w-4" />
+            ) : (
+                <DialogTrigger >
+                    <PencilIcon className="h-4 w-4" />
                 </DialogTrigger>
-                )}
+            )}
             <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none">
                 <div>
                     <div>
@@ -224,86 +298,86 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                 console.log(selectedValue)
                                 console.log(currentInserat)
                                 setCurrentInserat(selectedValue);
-                                
+
                                 setCurrentVehicle(null);
                             }}
-                            
+
                             value={//@ts-ignore
                                 currentInserat}
-                            
+
                         >
                             <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2" value={//@ts-ignore
                                 currentInserat}>
-                                <SelectValue defaultValue={currentInserat} placeholder="Wähle dein Inserat"/>
-                                </SelectTrigger>
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
-                                
-                                    {foundInserate.map((thisInserat : typeof inserat.$inferSelect) => (
-                                        <SelectItem value={thisInserat.id} key={thisInserat.id}>
-                                            {thisInserat.title}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            
+                                <SelectValue defaultValue={currentInserat} placeholder="Wähle dein Inserat" />
+                            </SelectTrigger>
+                            <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
+
+                                {foundInserate.map((thisInserat: typeof inserat.$inferSelect) => (
+                                    <SelectItem value={thisInserat.id} key={thisInserat.id}>
+                                        {thisInserat.title}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+
                         </Select>
                     </div>
                     <div className="pb-8 pr-8">
                         <Label className="">
-                           Fahrzeug
+                            Fahrzeug
                         </Label>
                         <Select
-                                onValueChange={(selectedValue) => {
-                                    setCurrentVehicle(selectedValue);
-                                }}
-                                disabled={affectAll}
-                                value={currentVehicle || ''}
+                            onValueChange={(selectedValue) => {
+                                setCurrentVehicle(selectedValue);
+                            }}
+                            disabled={affectAll}
+                            value={currentVehicle || ''}
 
+                        >
+                            <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
+                                disabled={//@ts-ignore
+                                    !currentInserat || currentInseratObject?.vehicles?.length <= 0}
                             >
-                                <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
-                                    disabled={//@ts-ignore
-                                        !currentInserat || currentInseratObject?.vehicles?.length <= 0}
-                                >
-                                    <SelectValue placeholder={affectAll ? "Buchung wird auf alle Fahrzeuge angewandt.." : "Bitte wähle dein Fahrzeug"} />
+                                <SelectValue placeholder={affectAll ? "Buchung wird auf alle Fahrzeuge angewandt.." : "Bitte wähle dein Fahrzeug"} />
 
-                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
 
-                                        {//@ts-ignore
-                                            currentInseratObject?.vehicles?.length > 0 ? (
-                                                //@ts-ignore
-                                                currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
-                                                    <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => { setAffectAll(false) }}>
-                                                        {thisVehicle.title}
-                                                    </SelectItem>
-                                                ))
-
-                                            ) : (
-                                                <SelectItem value={null}>
-                                                    Keine Fahrzeuge verfügbar
+                                    {//@ts-ignore
+                                        currentInseratObject?.vehicles?.length > 0 ? (
+                                            //@ts-ignore
+                                            currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => { setAffectAll(false) }}>
+                                                    {thisVehicle.title}
                                                 </SelectItem>
-                                            )}
-                                    </SelectContent>
-                                </SelectTrigger>
-                            </Select>
-                            <div className="space-x-2 mt-2">
-                                <Checkbox
-                                    checked={affectAll}
-                                    onCheckedChange={(e) => {
-                                        setAffectAll(Boolean(e));
-                                        if (Boolean(e)) {
+                                            ))
 
-                                            setCurrentVehicle(undefined);
-                                        }
-                                    }} />
+                                        ) : (
+                                            <SelectItem value={null}>
+                                                Keine Fahrzeuge verfügbar
+                                            </SelectItem>
+                                        )}
+                                </SelectContent>
+                            </SelectTrigger>
+                        </Select>
+                        <div className="space-x-2 mt-2">
+                            <Checkbox
+                                checked={affectAll}
+                                onCheckedChange={(e) => {
+                                    setAffectAll(Boolean(e));
+                                    if (Boolean(e)) {
 
-                                <Label className="hover:cursor-pointer" onClick={() => {
-                                    setAffectAll(!affectAll);
-                                    if (affectAll) {
                                         setCurrentVehicle(undefined);
                                     }
-                                }}>
-                                    Buchung auf alle Fahrzeuge anwenden
-                                </Label>
-                            </div>
+                                }} />
+
+                            <Label className="hover:cursor-pointer" onClick={() => {
+                                setAffectAll(!affectAll);
+                                if (affectAll) {
+                                    setCurrentVehicle(undefined);
+                                }
+                            }}>
+                                Buchung auf alle Fahrzeuge anwenden
+                            </Label>
+                        </div>
                     </div>
                     <div className="flex">
                         <Form {...form}>
@@ -327,7 +401,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {currentStart ? (
-                                                                    format(currentStart, "PPP", { locale : de})
+                                                                    format(currentStart, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
@@ -346,7 +420,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 setCurrentStart(date);
                                                             }}
                                                             disabled={(date) =>
-                                                                 date < new Date("1900-01-01")
+                                                                date < new Date("1900-01-01")
                                                             }
                                                             initialFocus
                                                         />
@@ -375,7 +449,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 )}
                                                             >
                                                                 {currentEnd ? (
-                                                                    format(currentEnd, "PPP", { locale : de})
+                                                                    format(currentEnd, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
@@ -408,26 +482,26 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
                                 </div>
                                 <div className="mt-2">
-                                    <SelectTimeRange 
-                                    isSameDay={isSameDay(currentStart, currentEnd)}
-                                    setStartTimeParent={setCurrentPeriodStart}
-                                    setEndTimeParent={setCurrentPeriodEnd}
-                                    prefilledStartTime={thisBooking?.startPeriod} 
-                                    prefilledEndTime={thisBooking?.endPeriod}
-                                    
+                                    <SelectTimeRange
+                                        isSameDay={isSameDay(currentStart, currentEnd)}
+                                        setStartTimeParent={setCurrentPeriodStart}
+                                        setEndTimeParent={setCurrentPeriodEnd}
+                                        prefilledStartTime={thisBooking?.startPeriod}
+                                        prefilledEndTime={thisBooking?.endPeriod}
+
                                     />
                                 </div>
                                 <div>
-                                <FormField
+                                    <FormField
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem >
-                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2"/> Name</FormLabel>
+                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</FormLabel>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
-                                                    onChange={(e) => {setCurrentName(e.target.value); field.onChange(e)}}
+                                                    onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
                                                     value={currentName}
                                                 />
                                             </FormItem>
@@ -446,7 +520,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         />
                                     </div>
                                 </div>
-                                
+
                                 <div>
                                     <span className="font-semibold text-base flex">
                                         <BookOpenCheck className="mr-2" />  Anmerkungen:
@@ -456,12 +530,12 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         name="content"
                                         render={({ field }) => (
                                             <FormItem className="mt-2 ">
-                                                
+
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
-                                                onChange={(e) => {setCurrentContent(e.target.value); field.onChange(e)}}
-                                                value={currentContent}
+                                                    onChange={(e) => { setCurrentContent(e.target.value); field.onChange(e) }}
+                                                    value={currentContent}
                                                 />
                                             </FormItem>
                                         )}

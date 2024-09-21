@@ -1,6 +1,7 @@
 import { EyeIcon, TrendingUp, Truck } from "lucide-react";
 import InseratCategoriesChart from "../(routes)/_components/_charts/inserat-category.chart";
 import { inserat } from "@/db/schema";
+import LatestInserate from "../(routes)/_components/latest-inserate";
 
 interface DashboardTabProps {
     views : number;
@@ -24,9 +25,14 @@ const DashboardTab = ({ views, foundInserate } : DashboardTabProps) => {
                 </div>
             </div>
 
-            <div className="mt-4">
-                <div className="w-full h-full">
+            <div className="mt-4 flex flex-row">
+                <div className="w-1/2 h-full">
                     <InseratCategoriesChart 
+                    foundInserate={foundInserate}
+                    />
+                </div>
+                <div className="w-1/2">
+                    <LatestInserate 
                     foundInserate={foundInserate}
                     />
                 </div>

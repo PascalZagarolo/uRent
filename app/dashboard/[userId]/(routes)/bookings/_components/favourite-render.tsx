@@ -12,7 +12,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface FavouriteDashboardRenderProps {
-    thisFavourite: typeof favourite.$inferSelect;
+    thisFavourite: typeof favourite.$inferSelect | any;
 }
 
 const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
@@ -42,8 +42,10 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
     return (
         <div className="w-full dark:bg-[#141414] p-4 mt-2 border dark:border-none rounded-md">
             <div className="flex">
-            <div className="w-1/4 h-[100px] hover:cursor-pointer" onClick={() => {//@ts-ignore
-                router.push(`/inserat/${favourite[0].inserat.id}`)}}>
+            <a className="w-1/4 h-[100px] hover:cursor-pointer" 
+            target="_blank"
+            href={`/inserat/${thisFavourite?.inseratId}`}
+            >
                     {//@ts-ignore
                     thisFavourite?.inserat?.images?.length > 0 ? (
                         <Image
@@ -59,11 +61,15 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                             keine Fotos vorhanden
                         </div>
                     )}
-                </div>
-                <div className="w-1/4 truncate ml-4 text-sm font-base mr-2">
+                </a>
+                <a className="w-1/4 line-clamp-1 break-all ml-4 text-sm font-base mr-2 hover:cursor-pointer hover:underline"
+                target="_blank"
+                href={`/inserat/${thisFavourite?.inseratId}`}
+
+                >
                     {//@ts-ignore
                     thisFavourite?.inserat?.title}
-                </div>
+                </a>
                 <div className="w-1/6 h-[100px]">
                     <p className={cn("text-sm flex items-start h-[100px] overflow-hidden", //@ts-ignore
                     thisFavourite[0]?.inserat.isPublished ? 
@@ -83,10 +89,13 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                                 width={40}
                                 height={40}
                             />
-                            <p className="ml-2 md:block hidden">
+                            <a className="ml-2 md:block hidden hover:underline hover:cursor-pointer"
+                            target="_blank"
+                            href={`/profile/${thisFavourite?.inserat?.user?.id}`}
+                            >
                             {//@ts-ignore   
                             thisFavourite?.inserat.user.name}
-                                </p>
+                                </a>
                             
                         </div>
 

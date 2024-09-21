@@ -108,6 +108,8 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                                 </div>
                             )
                         }
+                        
+
                     </div>
                 </div>
             </div>

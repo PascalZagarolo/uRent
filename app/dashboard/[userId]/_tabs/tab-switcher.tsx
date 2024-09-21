@@ -24,7 +24,7 @@ const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription } : 
     const renderTab = () => {
         switch(tab) {
             case "dashboard":
-                return <DashboardTab views = {currentUser.views} inseratLength = {currentUser.inserat.length} />
+                return <DashboardTab views = {currentUser.views} foundInserate = {currentUser.inserat} />
             case "manage":
                 return <ManageTab currentUser = {currentUser} searchParams={null} />
             case "inserate":

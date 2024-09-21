@@ -25,13 +25,13 @@ const DashboardTab = ({ views, foundInserate } : DashboardTabProps) => {
                 </div>
             </div>
 
-            <div className="mt-4 flex flex-row">
-                <div className="w-1/2 h-full">
+            <div className="mt-4 flex sm:flex-row flex-col sm:space-y-0 space-y-8">
+                <div className="sm:w-1/2 w-full h-full">
                     <InseratCategoriesChart 
                     foundInserate={foundInserate}
                     />
                 </div>
-                <div className="w-1/2">
+                <div className="sm:w-1/2 w-full h-full">
                     <LatestInserate 
                     foundInserate={foundInserate}
                     />

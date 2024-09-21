@@ -2,6 +2,10 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { booking } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { ShareIcon } from "lucide-react";
+import { FaShareAlt } from "react-icons/fa";
+import { IoIosShareAlt } from "react-icons/io";
+import { MdOutlineCallReceived } from "react-icons/md";
 import { RiInformationLine } from "react-icons/ri";
 
 interface TodayAgendaProps {
@@ -17,23 +21,33 @@ const formatTime = (minutes: number) => {
 
 const renderFittingBookings = (booking: any, type: string) => {
     return (
-        <div key={booking.id} className="w-full flex flex-row  rounded-md  h-full bg-[#0F0F0F] border-indigo-800 border">
-            <div className={cn("w-1/12 rounded-l-md", !booking.isAvailability ? "bg-indigo-800" : "bg-rose-800")} />
-            <div className="w-11/12 pl-4 py-2">
-                <div className="text-sm font-bold underline flex flex-row items-center">
-                    {formatTime(booking.startPeriod)}
-                    <div className="justify-end ml-auto pr-2">
-                        {renderDialog(booking)}
-                    </div>
-                </div>
-                <div className="font-medium mt-2">
-                    {booking?.name}
-                </div>
-                <div className="text-sm text-gray-200/60">
-                    {format(new Date(booking?.startDate), "dd.MM")} - {format(new Date(booking?.endDate), "dd.MM")}
-                </div>
+        <div key={booking.id} className="relative w-full flex flex-row rounded-md h-full bg-[#0F0F0F] border-indigo-800 border">
+    {/* Share Icon positioned in a circle on the upper left */}
+    <div className={cn(`absolute top-[-12px] left-[-12px]  border-2 shadow-lg border-gray-200  
+    rounded-full p-2 flex justify-center items-center`, type === "ABGABE" ? "bg-[#0F0F0F]" : "bg-emerald-600")}>
+        {type === "ABGABE" ? (
+            <IoIosShareAlt className="text-white w-4 h-4" />
+        ) : (
+            <MdOutlineCallReceived  className="text-white w-4 h-4" />
+        )}
+    </div>
+    
+    <div className={cn("w-1/12 rounded-l-md", !booking.isAvailability ? "bg-indigo-800" : "bg-rose-800")} />
+    <div className="w-11/12 pl-4 py-2">
+        <div className="text-sm font-bold underline flex flex-row items-center">
+            {formatTime(booking.startPeriod)}
+            <div className="justify-end ml-auto pr-2">
+                {renderDialog(booking)}
             </div>
         </div>
+        <div className="font-medium mt-2">
+            {booking?.name}
+        </div>
+        <div className="text-sm text-gray-200/60">
+            {format(new Date(booking?.startDate), "dd.MM")} - {format(new Date(booking?.endDate), "dd.MM")}
+        </div>
+    </div>
+</div>
     )
 }
 
@@ -49,18 +63,18 @@ const renderDialog = (booking: any) => {
                         {booking?.name}
                     </div>
                     <div className="flex flex-row items-center text-sm">
-                        
+
                         <span className={cn("text-gray-200 text-sm ", !booking?.buchungsnummer && "text-gray-200/60")}>
                             {booking?.buchungsnummer ? booking?.buchungsnummer : "Keine eigene Buchungsnummer"}
-                            </span>
+                        </span>
                     </div>
                     <div className="text-sm text-gray-200/60">
                         {format(new Date(booking?.startDate), "dd.MM")} - {format(new Date(booking?.endDate), "dd.MM")}
                     </div>
                     <div className="text-sm text-gray-200/60">
-                    {formatTime(booking.startPeriod)} - {formatTime(booking.endPeriod)}
+                        {formatTime(booking.startPeriod)} - {formatTime(booking.endPeriod)}
                     </div>
-                    
+
                     <div className={cn("mt-4", !booking?.content && "text-gray-200/60")}>
                         {booking?.content ? booking?.content : "Keine Beschreibung vorhanden.."}
                     </div>
@@ -108,7 +122,7 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                                 </div>
                             )
                         }
-                        
+
 
                     </div>
                 </div>

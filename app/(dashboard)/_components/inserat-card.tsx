@@ -73,7 +73,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     const isFaved = currentUser?.favourites?.some((fav) => fav.inseratId === thisInserat.id);
 
-    
+
 
     const formattedViews = Intl.NumberFormat('en-US', {
         notation: "compact",
@@ -203,15 +203,14 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                 </div>
 
-                <div className="ml-auto items-center sm:flex hidden ">
-
-
-                    <Button variant="ghost" onClick={onFav} className="bg-[#171923] 
+                {currentUser?.id !== thisInserat?.userId && (
+                    <div className="ml-auto items-center sm:flex hidden ">
+                        <Button variant="ghost" onClick={onFav} className="bg-[#171923] 
         border border-[#171923]  hover:none ">
-                        <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
-                    </Button>
-
-                </div>
+                            <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
+                        </Button>
+                    </div>
+                )}
 
             </h3>
 
@@ -424,13 +423,13 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     {/* Address Section */}
                     <div className="flex flex-col flex-grow">
                         <div className="flex items-center gap-x-2 text-sm w-full">
-                            
+
                             <span className="text-gray-200 flex-shrink-0">{thisInserat?.address?.postalCode}</span>
 
-                            
+
                             <span className="text-gray-200/80"> | </span>
 
-                            
+
                             <span className="text-gray-200 font-medium line-clamp-1 flex-grow break-all">
                                 {thisInserat?.address?.locationString}</span>
                         </div>
@@ -461,7 +460,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 changeOpenOnPageLoad(true)
                                 router.push(`/inserat/${thisInserat.id}`)
                             }}
-                            
+
                         >
                             <div className="flex flex-row px-2">
                                 <div>

@@ -51,9 +51,18 @@ const LatestInserate = ({ foundInserate }: LatestInserateProps) => {
                 </h2>
             </div>
             <div className="space-y-4">
-                {latestInserate?.map((inserat) => (
-                    renderLatest(inserat)
-                ))}
+                {
+                    latestInserate?.length > 0 ? (
+                        latestInserate?.map((inserat) => (
+                            renderLatest(inserat)
+                        ))
+                    ) : (
+                        <div className="text-sm text-gray-200/60">
+                            Noch keine Inserate veröffentlicht..
+                        </div>
+                    )
+
+                }
             </div>
         </div>
     );

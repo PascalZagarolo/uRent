@@ -39,7 +39,7 @@ const LatestInserate = ({ foundInserate }: LatestInserateProps) => {
                         {thisInserat?.title}
                     </a>
                 </div>
-            </div>
+            </div> 
         )
     }
 

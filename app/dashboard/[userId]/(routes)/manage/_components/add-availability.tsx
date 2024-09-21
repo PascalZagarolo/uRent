@@ -44,6 +44,7 @@ import SelectTimeRange from "./select-time-range";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { checkAvailability } from "@/actions/check-availability";
+import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 
 interface AddAvailabilityProps {
     foundInserate: typeof inserat.$inferSelect[];
@@ -98,7 +99,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
             setIsLoading(true);
             const values = {
-                content: value.content ? value.content : "",
+                content: content,
                 start: currentStart,
                 end: currentEnd,
 
@@ -124,7 +125,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
 
             if (isAvailable.isConflict) {
-                
+
                 setConflictedBooking(isAvailable.booking)
                 setShowConflict(true);
                 setIsLoading(false);
@@ -190,7 +191,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
             const values = {
 
                 //!SET CONTENT
-                content: "",
+                content: content,
                 start: currentStart,
                 end: currentEnd,
 
@@ -221,63 +222,12 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     if (showConflict) {
 
         return (
-            <AlertDialog open>
-                <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
-                    <div>
-                        <h3 className="flex items-center text-md font-semibold">
-                            <CalendarCheck2 className="mr-2 w-4 h-4" /> Buchungskonflikt
-                        </h3>
-                        <p className="text-xs text-gray-200/60">
-                            Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
-                        </p>
-                        <div className="mt-2 text-sm text-gray-200/90">
-                            Eine Buchung für diesen Zeitraum existiert bereits. <br /> Möchtest du trotzdem fortfahren?
-                        </div>
-                        {conflictedBooking && (
-                            <div className="mt-2">
-                                <h3 className="font-semibold text-sm text-rose-600">
-                                    Gefundene Buchung:
-                                </h3>
-                                <div className="text-sm">
-                                    {conflictedBooking?.name}
-                                </div>
-                                <div className="text-sm ">
-                                    Zeitraum : {format(conflictedBooking?.startDate, "PPP", { locale: de })} - {format(conflictedBooking?.endDate, "PPP", { locale: de })}
-                                </div>
-                                <div className="w-full flex items-center text-sm gap-x-4">
-                                    <div className="w-1/2">
-                                        Abholzeit : {convertMinutesToDayTime(Number(conflictedBooking?.startPeriod))}
-                                    </div>
-                                    <div className="w-1/2">
-                                        Abgabezeit: {convertMinutesToDayTime(Number(conflictedBooking?.endPeriod))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                        <div className="mt-4 space-x-2 flex items-center">
-                            <Checkbox
-                                onCheckedChange={(e) => { setIgnore(Boolean(e)) }}
-                                checked={ignore}
-                            />
-                            <p className="text-xs">
-                                Hinweis in Zukunft ausblenden
-                            </p>
-                        </div>
-                        <div className="flex justify-end mt-2">
-                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
-                                onClick={onShowConflictConfirm}
-                            >
-                                Buchung eintragen
-                            </AlertDialogAction>
-                            <AlertDialogCancel className="dark:border-none" onClick={() => {
-                                setShowConflict(false)
-                            }}>
-                                Abbrechen
-                            </AlertDialogCancel>
-                        </div>
-                    </div>
-                </AlertDialogContent>
-            </AlertDialog>
+            <ConflictDialog
+                title={currentInserat?.title}
+                conflictedBooking={conflictedBooking}
+                setShowConflict={setShowConflict}
+                onShowConflictConfirm={onShowConflictConfirm}
+            />
         )
     }
 
@@ -342,50 +292,50 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                     </div>
                     {currentInserat?.multi && currentInserat?.vehicles.length > 0 && (
                         <div className="pb-8 pr-8">
-                        <Label className="">
-                            Fahrzeug
-                        </Label>
-                        <Select
-                            onValueChange={(selectedValue) => {
-                                setCurrentVehicle(selectedValue);
-                            }}
+                            <Label className="">
+                                Fahrzeug
+                            </Label>
+                            <Select
+                                onValueChange={(selectedValue) => {
+                                    setCurrentVehicle(selectedValue);
+                                }}
 
-                            value={currentVehicle}
+                                value={currentVehicle}
 
-                        >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
-                                disabled={//@ts-ignore
-                                    !currentInserat || currentInserat?.vehicles.length <= 0}>
-                                {currentVehicle ? (
-                                    <SelectValue>
+                            >
+                                <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
+                                    disabled={//@ts-ignore
+                                        !currentInserat || currentInserat?.vehicles.length <= 0}>
+                                    {currentVehicle ? (
+                                        <SelectValue>
 
-                                    </SelectValue>
-                                ) : (
-                                    <SelectValue>
-                                        Wähle dein Fahrzeug
-                                    </SelectValue>
-                                )}
+                                        </SelectValue>
+                                    ) : (
+                                        <SelectValue>
+                                            Wähle dein Fahrzeug
+                                        </SelectValue>
+                                    )}
 
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
 
-                                    {//@ts-ignore
-                                        currentInserat?.vehicles.length > 0 ? (
-                                            //@ts-ignore
-                                            currentInserat?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
-                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
-                                                    {thisVehicle.title}
+                                        {//@ts-ignore
+                                            currentInserat?.vehicles.length > 0 ? (
+                                                //@ts-ignore
+                                                currentInserat?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                    <SelectItem value={thisVehicle.id} key={thisVehicle.id}>
+                                                        {thisVehicle.title}
+                                                    </SelectItem>
+                                                ))
+
+                                            ) : (
+                                                <SelectItem value={null}>
+                                                    Keine Fahrzeuge verfügbar
                                                 </SelectItem>
-                                            ))
-
-                                        ) : (
-                                            <SelectItem value={null}>
-                                                Keine Fahrzeuge verfügbar
-                                            </SelectItem>
-                                        )}
-                                </SelectContent>
-                            </SelectTrigger>
-                        </Select>
-                    </div>
+                                            )}
+                                    </SelectContent>
+                                </SelectTrigger>
+                            </Select>
+                        </div>
                     )}
                     <div className="flex">
                         <Form {...form}>
@@ -506,6 +456,9 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         render={({ field }) => (
                                             <FormItem className="mt-2 ">
                                                 <Textarea
+                                                    onChange={(e) => { SetContent(e.target.value) }}
+                                                    value={content}
+                                                    maxLength={2000}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
                                                 />

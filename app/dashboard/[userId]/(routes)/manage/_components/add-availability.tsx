@@ -65,7 +65,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
 
-    const [content, SetContent] = useState("");
+    const [content, setContent] = useState("");
 
 
     const selectedUser = usesearchUserByBookingStore((user) => user.user)
@@ -131,6 +131,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 setIsLoading(false);
 
             } else {
+
+                console.log(currentInserat?.id)
                 axios.post(`/api/booking/${currentInserat.id}`, values)
                     .then(() => {
                         router.refresh();
@@ -138,6 +140,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                         setCurrentEnd(new Date());
                         setCurrentInserat(null);
                         setCurrentVehicle(null);
+                        setContent("");
                         setStartTime("");
                         setEndTime("");
                     })
@@ -147,7 +150,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
 
         } catch (err) {
-            toast.error("Fehler beim hinzufügen der Buchung", err)
+            toast.error("Fehler beim hinzufügen der Buchung")
+            console.log(err)
         } finally {
 
             setIsLoading(false);
@@ -184,7 +188,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
         return dayTime;
     }
 
-    const onShowConflictConfirm = () => {
+    const onShowConflictConfirm = async () => {
         try {
             setIsLoading(true);
 
@@ -203,16 +207,16 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 isAvailability: true,
             }
 
+            
+            await axios.post(`/api/booking/${currentInserat.id}`, values)
 
-            axios.post(`/api/booking/${currentInserat}`, values)
-                .then(() => {
-                    setIgnoreOnce(false);
-                    setShowConflict(false);
-                    setConflictedBooking(null)
-                    router.refresh();
-                })
+            setIgnoreOnce(false);
+            setShowConflict(false);
+            setConflictedBooking(null)
+            router.refresh();
+
         } catch (error: any) {
-            toast.error("Fehler beim hinzufügen der Buchung", error)
+            toast.error("Fehler beim hinzufügen der Verfügbarkeit")
             console.log(error)
         } finally {
             setIsLoading(false);
@@ -259,35 +263,22 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
-                                //@ts-ignore
-                                setCurrentInserat(selectedValue);
-                                setCurrentVehicle(null);
+                                
+                                setCurrentInserat(foundInserate.find((inserat) => inserat.id === selectedValue));
                             }}
-                            //@ts-ignore
-                            value={currentInserat}
-
+                            value={currentInserat?.id || ''} // Ensures a falsy value like null doesn't break the component
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2">
-                                {currentInserat ? (
-                                    <SelectValue>
-
-                                    </SelectValue>
-                                ) : (
-                                    <SelectValue>
-                                        Bitte wähle ein Inserat aus
-                                    </SelectValue>
-                                )}
-
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-
-                                    {foundInserate.map((thisInserat) => (
-                                        //@ts-ignore
-                                        <SelectItem value={thisInserat} key={thisInserat.id}>
-                                            {thisInserat.title}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
+                            <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a] mt-2", !currentInserat && "text-gray-200/80")}>
+                                <SelectValue placeholder="Bitte wähle dein Inserat" />
                             </SelectTrigger>
+
+                            <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                                {foundInserate.map((thisInserat) => (
+                                    <SelectItem value={thisInserat.id} key={thisInserat.id}>
+                                        {thisInserat.title}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
                         </Select>
                     </div>
                     {currentInserat?.multi && currentInserat?.vehicles.length > 0 && (
@@ -456,7 +447,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         render={({ field }) => (
                                             <FormItem className="mt-2 ">
                                                 <Textarea
-                                                    onChange={(e) => { SetContent(e.target.value) }}
+                                                    onChange={(e) => { setContent(e.target.value) }}
                                                     value={content}
                                                     maxLength={2000}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none

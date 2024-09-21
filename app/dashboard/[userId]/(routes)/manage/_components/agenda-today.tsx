@@ -21,7 +21,10 @@ const formatTime = (minutes: number) => {
 
 const renderFittingBookings = (booking: any, type: string) => {
     return (
-        <div key={booking.id} className="relative w-full flex flex-row rounded-md h-full bg-[#0F0F0F] border-indigo-800 border">
+        <div key={booking.id} 
+        className={cn("relative w-full flex flex-row rounded-md h-full bg-[#0F0F0F] ",
+            booking.isAvailability ? "border-rose-800" : "border-indigo-800"
+        )}>
     {/* Share Icon positioned in a circle on the upper left */}
     <div className={cn(`absolute top-[-12px] left-[-12px]  border-2 shadow-lg border-gray-200  
     rounded-full p-2 flex justify-center items-center`, type === "ABGABE" ? "bg-[#0F0F0F]" : "bg-emerald-600")}>
@@ -32,7 +35,7 @@ const renderFittingBookings = (booking: any, type: string) => {
         )}
     </div>
     
-    <div className={cn("w-1/12 rounded-l-md", !booking.isAvailability ? "bg-indigo-800" : "bg-rose-800")} />
+    <div className={cn("w-1/12 rounded-l-md", booking.isAvailability ? "bg-rose-800" : "bg-indigo-800")} />
     <div className="w-11/12 pl-4 py-2">
         <div className="text-sm font-bold underline flex flex-row items-center">
             {formatTime(booking.startPeriod)}
@@ -95,7 +98,7 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                     <div className="text-sm font-semibold">
                         Fahrzeugabgaben ({todaysBookings.length})
                     </div>
-                    <div className="gap-y-4 w-full mt-4">
+                    <div className="space-y-4 w-full mt-4 flex flex-col">
                         {
                             todaysBookings.length > 0 ? (
                                 todaysBookings.map((booking) => renderFittingBookings(booking, "ABGABE"))
@@ -112,7 +115,7 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                     <div className="text-sm font-semibold">
                         Fahrzeugrückgaben ({todaysReturns.length})
                     </div>
-                    <div className="gap-y-4 w-full mt-4">
+                    <div className="space-y-4 w-full mt-4 flex flex-col">
                         {
                             todaysReturns.length > 0 ? (
                                 todaysReturns.map((booking) => renderFittingBookings(booking, "RETURN"))

@@ -10,7 +10,7 @@ export async function POST(
 ) {
     try {
 
-
+        console.log(params.inseratId)
 
         const {start, end, ...values} = await req.json();
 

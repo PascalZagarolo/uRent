@@ -481,7 +481,7 @@ export const getInserate = cache(async ({
     })
 
     const filterAvailability = cache((pInserat: any) => {
-        console.log("test")
+        
         if (pInserat.bookings.length === 0) {
             return true;
         }
@@ -543,7 +543,7 @@ export const getInserate = cache(async ({
 
                 }
                 else {
-                    console.log(booking)
+                    
                     console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
                     return false;
                 }

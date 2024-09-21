@@ -38,7 +38,7 @@ const renderFittingBookings = (booking: any, type: string) => {
     <div className={cn("w-1/12 rounded-l-md", booking.isAvailability ? "bg-rose-800" : "bg-indigo-800")} />
     <div className="w-11/12 pl-4 py-2">
         <div className="text-sm font-bold underline flex flex-row items-center">
-            {formatTime(booking.startPeriod)}
+            {type === "ABGABE" ? formatTime(booking.startPeriod) : formatTime(booking.endPeriod)}
             <div className="justify-end ml-auto pr-2">
                 {renderDialog(booking)}
             </div>

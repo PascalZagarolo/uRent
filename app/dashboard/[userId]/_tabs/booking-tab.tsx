@@ -103,7 +103,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                     }
                     todaysReturns={involvedBookings
                         ?.filter((booking) => isToday(booking.endDate))
-                        ?.sort((a, b) => a.startPeriod - b.startPeriod)}
+                        ?.sort((a, b) => a.endPeriod - b.endPeriod)}
                     />
                 </div>
                 <div className=" sm:px-4">

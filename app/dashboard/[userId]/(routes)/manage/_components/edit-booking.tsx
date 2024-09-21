@@ -162,13 +162,14 @@ const EditBooking: React.FC<EditBookingProps> = ({
                 currentStart,
                 currentEnd,
                 currentPeriodStart,
-                currentPeriodEnd
+                currentPeriodEnd,
+                thisBooking.id
             )
 
 
 
             if (isAvailable.isConflict) {
-                console.log(isAvailable.booking)
+                
                 setConflictedBooking(isAvailable.booking)
                 setShowConflict(true);
                 setIsLoading(false);

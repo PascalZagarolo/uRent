@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { format, isBefore } from "date-fns";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { de } from "date-fns/locale";
 import { FaRegCalendarAlt } from "react-icons/fa";
@@ -192,7 +192,7 @@ const DateFormFilter = () => {
                               }}
                               locale={de}
                               disabled={(date) =>
-                                date < new Date() || date < new Date("1900-01-01")
+                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
                               }
                               className="dark:bg-[#0F0F0F] border-none"
                               initialFocus

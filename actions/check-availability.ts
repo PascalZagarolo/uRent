@@ -1,5 +1,6 @@
 import { isSameDay } from "date-fns";
 import { NextResponse } from "next/server";
+import { booking } from '../drizzle/schema';
 
 export const checkAvailability = (
     pInserat : any,
@@ -7,14 +8,17 @@ export const checkAvailability = (
     periodEnd : Date,
     startTime : string,
     endTime : string,
+    bookingId? : string
 ) : Object => {
 
     
 
     const filterAvailability = (pInserat: any) => {
 
+        const usedBookings = pInserat?.bookings?.filter((booking) => booking.id !== bookingId);
+
         try {
-            if (pInserat?.bookings?.length === 0 || !pInserat?.bookings) {
+            if (usedBookings === 0 || !usedBookings) {
                 console.log("...")
                 return true;
             }
@@ -26,7 +30,7 @@ export const checkAvailability = (
             let startDateAppointments = new Set<any>();
             let endDateAppointments = new Set<any>();
     
-            for (const booking of pInserat.bookings) {
+            for (const booking of usedBookings) {
                 //booking starts AND ends before the searched Period
                 if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
                     //booking starts or ends on the first OR last day of the searched period
@@ -35,7 +39,9 @@ export const checkAvailability = (
                     //booking
                     && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
                 ) {
-                    if ((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)) {
+                    if ((isSameDay(booking.startDate, usedPeriodBegin) && 
+                    (isSameDay(booking.endDate, usedPeriodBegin))) || 
+                    isSameDay(booking.endDate, usedPeriodBegin)) {
     
                         let usedStart;
     
@@ -46,12 +52,14 @@ export const checkAvailability = (
                         }
     
                         for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
-                            startDateAppointments.add(i);
+                            startDateAppointments.add({ number : i, bookingId : booking.id });
                         }
-                        if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                        if ([...startDateAppointments].some(appointment => appointment.number === "1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                            
+                            console.log("this")
                             return {
                                 isConflict : true,
-                                booking
+                                booking : booking
                             };
                         }
                     } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
@@ -68,13 +76,17 @@ export const checkAvailability = (
     
                         for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
     
-                            endDateAppointments.add(i);
+                            endDateAppointments.add({ number : i, bookingId : booking.id });
                         }
-                        if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                            return false;
+                        if ([...endDateAppointments].some(appointment => appointment.number === "0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                            console.log("this")
+                                return {
+                                    isConflict : true,
+                                    booking : booking
+                                };
+                           
                         } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
-                            console.log(booking)
-    
+                            
                         }
                     } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
     
@@ -100,8 +112,15 @@ export const checkAvailability = (
                     }
     
                     for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
-                        if (startDateAppointments.has(Number(i))) {
-                            return false;
+                        if ([...startDateAppointments].some(appointment => appointment.number === Number(i))) {
+                           
+
+                            const findBooking = usedBookings.find(booking => booking.id === 
+                                [...startDateAppointments].find(appointment => appointment.number == Number(i))?.bookingId);
+                            return {
+                                isConflict : true,
+                                booking : findBooking
+                            };
                         }
                     }
                 }
@@ -116,10 +135,14 @@ export const checkAvailability = (
                     }
     
     
-                    console.log(endDateAppointments)
+                    
                     for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
-                        if (endDateAppointments.has(Number(i))) {
-                            return false;
+                        if ([...endDateAppointments].some(appointment => appointment.number === Number(i))) {
+                            console.log("this")
+                            return {
+                                isConflict : true,
+                                booking : [...endDateAppointments].find(appointment => appointment.number === Number(i))
+                            };
                         }
                     }
                 }

@@ -58,7 +58,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                 } 
             })
 
-            router.push(url)
+            router.replace(url)
         }
     }
 

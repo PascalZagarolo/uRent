@@ -17,9 +17,7 @@ interface RenderedChatClientProps {
 
 const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } : RenderedChatClientProps) => {
 
-    useEffect(() => {
-        console.log("geupdated..")
-    },[thisConversation])
+   
 
     return ( 
         <div className="w-[1044px] dark:bg-[#151515] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white ">

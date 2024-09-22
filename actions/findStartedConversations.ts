@@ -6,6 +6,8 @@ import { eq, or } from "drizzle-orm"
 import { cache } from "react"
 
 export const findStartedConversationsGlobal = (async(currentUserId) => {
+
+
     const findStartedConversations = db.query.conversation.findMany({
         where: (
             or(

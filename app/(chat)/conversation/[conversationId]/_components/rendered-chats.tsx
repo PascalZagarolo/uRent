@@ -16,7 +16,7 @@ interface RenderedChatsProps {
     lastMessage: string;
     lastMessageDate?: Date;
     openMessages?: number;
-    isOwnMessage? : boolean;
+    isOwnMessage?: boolean;
 }
 
 const RenderedChats: React.FC<RenderedChatsProps> = ({
@@ -28,15 +28,15 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     isOwnMessage
 }) => {
 
-    
+
 
     let renderedDate = "";
 
-    
 
-   if(lastMessageDate) {
-    renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
-   }
+
+    if (lastMessageDate) {
+        renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
+    }
 
     // const onClick = async () => {
     //     if (conversationId === params.conversationId) {
@@ -47,23 +47,18 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     //     }
     // }
 
-    const onClick = (usedId : string) => {
-        if(conversationId === params) {
+    const onClick = (usedId: string) => {
+        if (conversationId === params) {
 
         } else {
-            const url = qs.stringifyUrl({
-                url: "/conversation",
-                query: {
-                    conversationId : usedId
-                } 
-            })
-
-            router.replace(url)
+            const params = new URLSearchParams(searchParams.toString())
+            params.set('conversationId', usedId)
+            window.history.pushState(null, '', `?${params.toString()}`)
         }
     }
 
     const params = useSearchParams().get("conversationId");
-
+    const searchParams = useSearchParams();
     const isOnSite = params === conversationId ? true : false;
     const router = useRouter();
     return (
@@ -85,25 +80,25 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
                 <div className="w-2/3 ">
                     <div className=" w-full flex items-center">
                         <div className="w-2/3 break-words line-clamp-1">
-                        {user.name}
+                            {user.name}
                         </div>
                         {lastMessageDate && (
                             <div className="ml-auto text-xs dark:text-gray-200/60 font-normal">
-                            {renderedDate}
-                        </div>
+                                {renderedDate}
+                            </div>
                         )}
                     </div>
-                    
+
                     <div className="flex w-full items-center gap-x-2  line-clamp-1">
-                    <div className={cn("text-xs font-medium inline-block break-all line-clamp-1 ", 
-                    openMessages === 0 && "dark:text-gray-200/60" )}>
-                     {isOwnMessage ? "Ich: " : ``}   {lastMessage}
-                    </div>
-                    {openMessages > 0 && (
-                        <div className="py-0.5 px-1 bg-rose-600 justify-end ml-auto text-xs rounded-md flex ">
-                            {openMessages > 9 ? "9+" : openMessages}
+                        <div className={cn("text-xs font-medium inline-block break-all line-clamp-1 ",
+                            openMessages === 0 && "dark:text-gray-200/60")}>
+                            {isOwnMessage ? "Ich: " : ``}   {lastMessage}
                         </div>
-                    )}
+                        {openMessages > 0 && (
+                            <div className="py-0.5 px-1 bg-rose-600 justify-end ml-auto text-xs rounded-md flex ">
+                                {openMessages > 9 ? "9+" : openMessages}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

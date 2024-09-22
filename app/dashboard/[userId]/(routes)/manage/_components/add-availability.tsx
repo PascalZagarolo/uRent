@@ -45,6 +45,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent }
 import { Checkbox } from "@/components/ui/checkbox";
 import { checkAvailability } from "@/actions/check-availability";
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
+import { Input } from "@/components/ui/input";
 
 interface AddAvailabilityProps {
     foundInserate: typeof inserat.$inferSelect[];
@@ -64,6 +65,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
+
+    const [currentTitle, setCurrentTitle] = useState("");
 
     const [content, setContent] = useState("");
 
@@ -102,7 +105,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 content: content,
                 start: currentStart,
                 end: currentEnd,
-
+                name : currentTitle,
                 //Hours
                 startPeriod: startTime,
                 endPeriod: endTime,
@@ -140,6 +143,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                         setCurrentEnd(new Date());
                         setCurrentInserat(null);
                         setCurrentVehicle(null);
+                        setCurrentTitle("");
                         setContent("");
                         setStartTime("");
                         setEndTime("");
@@ -198,7 +202,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 content: content,
                 start: currentStart,
                 end: currentEnd,
-
+                name : currentTitle,
                 //Hours
                 startPeriod: startTime,
                 endPeriod: endTime,
@@ -207,7 +211,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 isAvailability: true,
             }
 
-            
+
             await axios.post(`/api/booking/${currentInserat.id}`, values)
 
             setIgnoreOnce(false);
@@ -267,7 +271,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
-                                
+
                                 setCurrentInserat(foundInserate.find((inserat) => inserat.id === selectedValue));
                             }}
                             value={currentInserat?.id || ''} // Ensures a falsy value like null doesn't break the component
@@ -440,6 +444,15 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         setStartTimeParent={setStartTime}
                                         setEndTimeParent={setEndTime}
                                     />
+                                </div>
+                                <div>
+                                        <Label className="flex items-center"> Titel</Label>
+                                        <Input
+                                            className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                                    dark:bg-[#0a0a0a]"
+                                                    value={currentTitle}
+                                            onChange={(e) => { setCurrentTitle(e.target.value)}}
+                                        />
                                 </div>
                                 <div>
                                     <span className="font-semibold text-base flex">

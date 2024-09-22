@@ -44,20 +44,12 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     const [renderingInserate, setRenderingInserate] = useState(renderedInserate.slice(startIndex, endIndex));
     const [filteredAppointedDay, setFilteredAppointedDay] = useState(false);
 
-    let foundBooking : any;
-
-
-  
-
     const checkBooked = (inseratId: string, number: string) => {
-
         //@ts-ignore
         return appointedTimes.some(item => item.inseratId === inseratId && item.times.includes(Number(number)));
     }
 
-
     const checkBookedMulti = (inseratId: string, number: string, vehicleId: string) => {
-
         //@ts-ignore
         return appointedTimes.some(item => (item.inseratId === inseratId && item.times.includes(Number(number)) &&
             item.vehicleId.includes(vehicleId)));
@@ -65,7 +57,6 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
     useMemo(() => {
         let filteredI;
-        
         if(filteredAppointedDay) {
             filteredI = renderedInserate.filter((inserat) => {
                 const bookedTimes = appointedTimes.find(item => item.inseratId === inserat.id)?.times;
@@ -75,11 +66,9 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
             
             })
             //! Include Pagination on filtered Inserate
-            
             setRenderingInserate(filteredI.slice(startIndex, endIndex));
         } else {
             const usedList = renderedInserate.slice(startIndex, endIndex);
-           
             setRenderingInserate(usedList);
         }
         
@@ -132,7 +121,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         const segments = [];
         for (let hour = 8; hour <= 23; hour++) {
             segments.push(
-                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center  dark:border border-[#191919] h-[80px]">
+                <div key={hour} className="text-sm flex items-center   h-[80px]">
                     <div>
                         <div className="p-2 text-sm w-4/4 h-[40px]">
                             {hour}:00 Uhr
@@ -152,7 +141,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         const segments = [];
         for (let hour = 8; hour <= 23; hour++) {
             segments.push(
-                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center h-[80px] dark:border border-[#191919]">
+                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center h-[80px] ">
 
                     <div className="h-full ml-auto w-full flex flex-col">
                         <div className={cn("h-[40px] w-full p-2",

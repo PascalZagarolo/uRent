@@ -57,18 +57,20 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                     return inserat.isPublished
                 })
                 returnedInserate = filtered;
+                setRenderedInserate(returnedInserate);
             } else if (selectedVisibility === "PRIVATE") {
                 //@ts-ignore
                 const filtered = returnedInserate.filter((inserat) => {
                     return !inserat.isPublished
                 })
                 returnedInserate = filtered;
+                setRenderedInserate(returnedInserate);
             }
         }
 
-        setRenderedInserate(returnedInserate);
+        
 
-    }, [inserateArray])
+    }, [inserateArray, selectedVisibility, title])
 
     useMemo(() => {
         if (!title) {
@@ -87,6 +89,8 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         if (!selectedSort) {
             setRenderedInserate(inserateArray)
         } else if (selectedSort === "date_asc") {
+            
+            console.log("...")
             const sortedInserate = [...renderedInserate].sort((a, b) => {
                 return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
             })
@@ -99,7 +103,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         }
     }, [selectedSort])
 
-    useMemo(() => {
+    useEffect(() => {
 
         let fInserate: any = inserateArray;
 

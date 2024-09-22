@@ -49,7 +49,7 @@ const ConversationPage = async () => {
         return conversation.messages.length > 0;
     });
 
-    
+
 
     if (startedConversations?.user1Id === currentUser.id && startedConversations?.user2Id === currentUser.id) {
         return redirect("/conversations")
@@ -74,7 +74,7 @@ const ConversationPage = async () => {
                     foundNotifications={currentUser?.notifications}
                 />
             </div>
-            <div className="flex justify-center h-full sm:py-8 sm:px-4 ">
+            <div className="flex flex-row justify-center h-full sm:py-8 sm:px-4 ">
                 <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>
@@ -83,10 +83,10 @@ const ConversationPage = async () => {
 
                     </div>
                 </div>
-                
-                <ChatClient 
-                currentUser={currentUser}
-                startedConversations={startedConversations}
+
+                <ChatClient
+                    currentUser={currentUser}
+                    startedConversations={startedConversations}
                 />
 
                 <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>

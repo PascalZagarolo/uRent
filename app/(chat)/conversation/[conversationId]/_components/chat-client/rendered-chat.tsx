@@ -24,8 +24,9 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } 
     return ( 
         <div className="w-[1044px] dark:bg-[#151515] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white ">
                     <div className="rounded-lg h-full no-scrollbar ">
-                        <div className="relative">
-                            <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-md truncate sm:text-2xl flex items-center p-4 font-semibold  sticky top-0 z-10">
+                        <div className="relative h-full">
+                            <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-md truncate sm:text-2xl 
+                            flex items-center p-4 font-semibold  sticky top-0 z-10">
                                 <ReturnToChat />
                                 <Image
                                     className="rounded-full w-[40px] h-[40px] object-cover mr-4"
@@ -34,7 +35,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } 
                                     height={40}
                                     alt="Profile Picture"
                                 />
-                                <a className="w-2/4 truncate hover:underline" href={`/profile/${otherUserDetails?.id}`}>
+                                <a className="w-2/4 line-clamp-1 hover:underline" href={`/profile/${otherUserDetails?.id}`}>
                                     {otherUserDetails.name}
                                 </a>
                                 <div className="ml-auto">
@@ -46,7 +47,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } 
                                     />
                                 </div>
                             </h3>
-                            <div className="overflow-y-auto h-[800px] no-scrollbar" id="chat-render">
+                            <div className="overflow-y-auto h-full flex-grow no-scrollbar" id="chat-render">
                                 <ChatComponent
                                     //@ts-ignore
                                     messages={thisConversation?.messages}
@@ -60,7 +61,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } 
 
                                 )}
                             </div>
-                            <div className="sticky bottom-0 w-full flex items-center border-t border-gray-600/10 ">
+                            <div className="sticky bottom-0 w-full  flex items-center ">
                                 <ChatInput
                                     otherUser={otherUserDetails.id}
                                     otherUserName={currentUser?.name}

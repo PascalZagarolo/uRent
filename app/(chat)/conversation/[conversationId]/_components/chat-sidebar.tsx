@@ -88,7 +88,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
     }, [currentFolder])
 
     return (
-        <div>
+        <div className="">
             <div className="p-2">
                 <div className="grid w-full grid-cols-2 bg-[#1C1C1C] rounded-md p-1 items-center ">
                     <Button value="all" size="sm"

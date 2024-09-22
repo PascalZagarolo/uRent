@@ -27,8 +27,8 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
     },[conversationId, startedConversations])
 
     return (
-        <>
-            <div className="dark:bg-[#0F0F0F] sm:mr-4 sm:rounded-md sm:w-[280px] w-full min-h-screen dark:border-[#1C1C1C] border">
+        <div className="flex flex-row justify-center">
+            <div className="dark:bg-[#0F0F0F] sm:mr-4  sm:rounded-md sm:w-[280px] w-full h-full dark:border-[#1a1a1a] border">
                 <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2" />  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                 </h3>
@@ -47,7 +47,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
             </div>
 
             {currentConversation ? (
-                <div className="flex justify-center  sm:py-8 mt-auto sm:px-4">
+                <div className="flex justify-center sm:px-4">
                 <RenderedChatClient 
                 otherUserDetails={currentConversation.user1Id === currentUser.id ? currentConversation.user2 : currentConversation.user1}
                 thisConversation={currentConversation}
@@ -55,7 +55,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
                 />
                 </div>
             ) : (
-                <div className="w-[1044px] dark:bg-[#1c1c1c] h-screen overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
+                <div className="w-[1044px] dark:bg-[#1c1c1c] h-full overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
                 <div className="rounded-lg h-full no-scrollbar">
                     <div className="relative h-full flex justify-center items-center font-semibold text-lg">
 
@@ -71,7 +71,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
                 </div>
             </div>
             )}
-        </>
+        </div>
     );
 }
 

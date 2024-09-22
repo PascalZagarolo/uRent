@@ -47,11 +47,13 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
             </div>
 
             {currentConversation ? (
+                <div className="flex justify-center  sm:py-8 mt-auto sm:px-4">
                 <RenderedChatClient 
                 otherUserDetails={currentConversation.user1Id === currentUser.id ? currentConversation.user2 : currentConversation.user1}
                 thisConversation={currentConversation}
                 currentUser={currentUser}
                 />
+                </div>
             ) : (
                 <div className="w-[1044px] dark:bg-[#1c1c1c] h-screen overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
                 <div className="rounded-lg h-full no-scrollbar">

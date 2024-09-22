@@ -46,7 +46,7 @@ const ConversationPage = async ({
         return redirect("/")
     }
 
-    let startedConversations: typeof conversation.$inferSelect[] = [];;
+    let startedConversations: typeof conversation.$inferSelect[] | any = [];;
 
     
     
@@ -106,7 +106,7 @@ const ConversationPage = async ({
                     foundNotifications={currentUser.notifications}
                 />
             </div>
-            <div className="flex justify-center min-h-full sm:py-8  sm:px-4">
+            <div className="flex justify-center min-h-full sm:py-8 sm:px-4">
                 <div className='h-full sm:flex items-center justify-center w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>

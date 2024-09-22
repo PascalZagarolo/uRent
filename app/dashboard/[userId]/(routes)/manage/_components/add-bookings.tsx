@@ -496,6 +496,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                 <FormLabel className="flex items-center">
                                                     <MdOutlinePersonPin className="w-4 h-4 mr-2" />Name*</FormLabel>
                                                 <Input
+                                                    maxLength={160}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
                                                     onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}

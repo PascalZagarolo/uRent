@@ -96,137 +96,103 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
 
 
     <div
-    onClick={() => {
-      setSelectedDateParent(day);
-      setRelevantBookingsParent(bookings);
-      selectDateParent(day);
+      onClick={() => {
+        setSelectedDateParent?.(day);
+        setRelevantBookingsParent?.(bookings);
+        selectDateParent?.(day);
       }}
       key={index}
-      className={clsx("dark:bg-[#0F0F0F] h-full p-4 text-center ", {
-        "bg-gray-200": isToday(day),
-        "text-emerald-400 font-semibold": isToday(day),
+      className={clsx("dark:bg-[#101010] h-full p-4 rounded-lg transition-all cursor-pointer text-center", {
+        "bg-gray-100": isToday(day),
+        "text-indigo-600 font-bold": isToday(day),
+        "border border-indigo-800 shadow-md": isSelected,
+        "hover:bg-[#141414]": !isSelected,
       })}
     >
-      <div className={cn("hover:cursor-pointer", isSelected && "text-indigo-800 font-bold")} 
-      onClick={() => {
-        setSelectedDateParent(day);
-        setRelevantBookingsParent(bookings);
-        selectDateParent(day);
-        }}>
+      <div className={cn("text-lg", isSelected && "text-indigo-800 font-extrabold")}>
         {format(day, "d")}
       </div>
       {bookings?.map((pBooking) => {
         return (
-
           <>
             {(isShowing(pBooking.inseratId, pBooking?.vehicleId)) &&
               <div
                 key={pBooking.id}
-                className={cn("bg-indigo-800 rounded-md py-2  flex justify-center mt-2",
-                  pBooking.isAvailability && "bg-rose-800")}
+                className={cn(
+                  "rounded-md py-2 px-4 mt-3 text-white flex justify-between items-center bg-gradient-to-r",
+                  pBooking.isAvailability ? "from-rose-500 to-rose-600" : "from-indigo-700 to-indigo-800"
+                )}
                 onClick={(e) => e.stopPropagation()}
               >
-                {inseratFilter ? (
-                  <X className="text-gray-900 w-4 h-4" />
-                ) : (
-                  <Popover>
-                    <PopoverTrigger>
-                      <div className="">
-                        <div className="flex justify-center">
-                        
-                        </div>
-                        <div className="flex p-2 justify-start w-full ">
-                        <div className={cn("text-xs  w-full  line-clamp-1 break-all", 
-                        !(pBooking?.content || pBooking?.name) && "text-gray-200/60")}>
+                <Popover>
+                  <PopoverTrigger>
+                    <div className="w-full">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-2 text-sm font-medium ">
                           
-                          {pBooking.isAvailability ? pBooking?.content ? pBooking?.content : "Keine Angaben" : pBooking?.name}
-                          
-                        </div>
+                          <span className={cn("line-clamp break-all", !pBooking.name && "text-gray-200/60")}>{pBooking.name || "Keine Angaben"}</span>
                         </div>
                       </div>
-                    </PopoverTrigger>
-                    <PopoverContent className="dark:bg-[#1C1C1C] border-none">
-                      <>
-                        {pBooking.isAvailability ? (
-                          <div className="text-xs">
-                            <h1 className="flex w-full items-center py-1 justify-end gap-x-4">
-                              <EditAvailability 
-                              foundInserate={foundInserate}
-                              thisBooking={pBooking}
-                              />
-                            <DeleteBooking
-                                bookingId={pBooking.id}
-                              />
-                            </h1>
-                            <div>
-                              <div className="flex justify-start text-sm font-semibold">
-                                <X className="w-4 h-4 mr-2" />{format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
-                              </div>
-                              Als nicht verfügbar markiert
-                              <div className="flex justify-start mt-2 font-semibold">
-                                {pBooking.content ? (
-                                  pBooking.content
-                                ) : (
-                                  "Keine Notiz angegeben"
-                                )}
-                              </div>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-lg max-w-sm">
+                    <>
+                      {pBooking.isAvailability ? (
+                        <div className="text-xs">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="font-bold">Als nicht verfügbar markiert</span>
+                            <div className="flex gap-2">
+                              <EditAvailability foundInserate={foundInserate} thisBooking={pBooking} />
+                              <DeleteBooking bookingId={pBooking.id} />
                             </div>
                           </div>
-                        ) : (
-                          <>
-                            <h1 className="flex w-full items-center py-1 justify-end gap-x-4">
-                              <EditBooking
-                                foundInserate={foundInserate}
-                                thisBooking={pBooking}
+                          <div className="text-sm">
+                            <span>{format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="font-bold text-lg">{pBooking.inserat?.title || "Buchung"}</span>
+                            <div className="flex gap-2">
+                              <EditBooking foundInserate={foundInserate} thisBooking={pBooking} />
+                              <DeleteBooking bookingId={pBooking.id} />
+                            </div>
+                          </div>
+                          <div className="text-sm text-gray-700 dark:text-gray-300">
+                            {pBooking.name}
+                          </div>
+                          {pBooking.userId && (
+                            <div className="flex items-center space-x-2 mt-3 text-sm">
+                              <UserIcon className="w-4 h-4" />
+                              <span onClick={() => router.push(`/profile/${booking.userId}`)} className="hover:underline cursor-pointer">
+                                {pBooking.user?.name}
+                              </span>
+                              <Image
+                                alt="Mieter-Bild"
+                                src={pBooking.user?.image || "/placeholder-person.jpg"}
+                                width={32}
+                                height={32}
+                                className="w-8 h-8 rounded-full"
                               />
-                              <DeleteBooking
-                                bookingId={pBooking.id}
-                              />
-                            </h1>
-                            <h3 className="font-semibold flex justify-start">
-
-                              {//@ts-ignore
-                                pBooking.inserat.title}
-                            </h3>
-                            <div className="text-sm text-gray-200/70">
-                              {pBooking.name}
                             </div>
-                            {pBooking.userId && (
-                              <div className="flex items-center justify-start hover:underline hover:cursor-pointer"
-                                onClick={() => { router.push(`/profile/${booking.userId}`) }}>
-                                <UserIcon className="h-4 w-4 mr-2" /> {//@ts-ignore
-                                  pBooking?.user?.name}
-                                <div className="ml-auto">
-                                  <Image
-                                    alt="Mieter-Bild"
-                                    src={//@ts-ignore
-                                      pBooking?.user?.image || "/placeholder-person.jpg"}
-                                    width={100}
-                                    height={100}
-                                    className="w-[32px] h-[32px] rounded-full"
-                                  />
-                                </div>
-                              </div>
-                            )}
-                            <div className="flex items-center justify-start text-sm">
-                              <CalendarSearchIcon className="h-4 w-4 mr-2" />
-                              {format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
-                            </div>
-                            <div className="flex items-center text-sm">
-                              <Clock3Icon className="w-4 h-4 mr-2" /> {convertIntoTime(pBooking.startPeriod)} - {convertIntoTime(pBooking.endPeriod)}
-                            </div>
-                          </>
-                        )}
-                      </>
-                    </PopoverContent>
-                  </Popover>
-                )}
+                          )}
+                          <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <CalendarSearchIcon className="w-4 h-4 mr-1" />
+                            {format(new Date(pBooking.startDate), "dd.MM")} - {format(new Date(pBooking.endDate), "dd.MM")}
+                          </div>
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <Clock3Icon className="w-4 h-4 mr-1" />
+                            {convertIntoTime(pBooking.startPeriod)} - {convertIntoTime(pBooking.endPeriod)}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  </PopoverContent>
+                </Popover>
               </div>
             }
           </>
-
-
-
         );
       })}
     </div>

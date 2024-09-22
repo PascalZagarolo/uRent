@@ -451,6 +451,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                             className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
                                                     value={currentTitle}
+                                                    maxLength={160}
                                             onChange={(e) => { setCurrentTitle(e.target.value)}}
                                         />
                                 </div>

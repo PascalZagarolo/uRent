@@ -47,78 +47,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     let foundBooking : any;
 
 
-    useMemo(() => {
-
-        let filteredI;
-        
-        if(filteredAppointedDay) {
-            filteredI = renderedInserate.filter((inserat) => {
-                const bookedTimes = appointedTimes.find(item => item.inseratId === inserat.id)?.times;
-                if (bookedTimes) {
-                    return bookedTimes.length > 0;
-                }
-            
-            })
-            //! Include Pagination on filtered Inserate
-            
-            setRenderingInserate(filteredI.slice(startIndex, endIndex));
-        } else {
-            const usedList = renderedInserate.slice(startIndex, endIndex);
-           
-            setRenderingInserate(usedList);
-        }
-
-        
-    }, [renderedInserate, startIndex, endIndex, selectedDate, filteredAppointedDay, foundInserate, appointedTimes])
-
-
-
-    useMemo(() => {
-        setAppointedTimes([]);
-        setUsedBookings(relevantBookings);
-
-        for (const pBooking of relevantBookings) {
-            if (relevantBookings) {
-                setAppointedTimes(prevAppointedTimes => {
-                    const newAppointedTimes: { [key: string]: any[] }[] = [...prevAppointedTimes];
-                    const existingIndex = newAppointedTimes.findIndex(item => item.bookingIds.includes(pBooking.id));
-                    if (existingIndex === -1) {
-                        newAppointedTimes.push({
-                            //@ts-ignore
-                            inseratId: pBooking.inseratId,
-                            bookingIds: [pBooking.id],
-                            vehicleId: [pBooking?.vehicleId] || null,
-                            times: []
-                        });
-                    } else {
-                        newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
-                    }
-
-                    // Populate appointed times array based on booking dates and periods
-                    const index = newAppointedTimes.findIndex(item => item.bookingIds.includes(pBooking.id));
-                    if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
-                        for (let i = 0; i <= 1440; i += 30) {
-                            newAppointedTimes[index].times.push(i);
-                        }
-                    } else if (isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
-                        for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i += 30) {
-                            newAppointedTimes[index].times.push(i);
-                        }
-                    } else if (isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
-                        for (let i = Number(pBooking.startPeriod); i <= 1440; i += 30) {
-                            newAppointedTimes[index].times.push(i);
-                        }
-                    } else if (!isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
-                        for (let i = 0; i <= Number(pBooking.endPeriod); i += 30) {
-                            newAppointedTimes[index].times.push(i);
-                        }
-                    }
-
-                    return newAppointedTimes;
-                });
-            }
-        }
-    }, [relevantBookings, selectedDate, selectedInserat]);
+  
 
     const checkBooked = (inseratId: string, number: string) => {
 

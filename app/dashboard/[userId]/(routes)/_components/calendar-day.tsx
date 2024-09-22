@@ -104,12 +104,15 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
       key={index}
       className={clsx("dark:bg-[#101010] h-full p-4 rounded-lg transition-all cursor-pointer text-center", {
         "bg-gray-100": isToday(day),
-        "text-indigo-600 font-bold": isToday(day),
-        "border border-gray-200 shadow-md": isSelected,
-        "hover:bg-[#141414]": !isSelected,
+        "text-orange-600 font-bold": isToday(day),
+        "shadow-lg border-[#131313] border": isSelected,
+        "hover:bg-[#202020]": !isSelected,
       })}
     >
-      <div className={cn("text-lg", isSelected && "text-gray-200 font-extrabold")}>
+      <div className={cn("text-lg text-gray-300", 
+      isSelected && "text-gray-200 font-extrabold",
+      isToday(day) && !isSelected && "text-indigo-600 font-bold"
+      )}>
         {format(day, "d")}
       </div>
       {bookings?.map((pBooking) => {

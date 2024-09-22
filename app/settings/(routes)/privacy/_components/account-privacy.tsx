@@ -91,6 +91,9 @@ const AccountPrivacy : React.FC<AccountPrivacyProps> = ({
             <h1 className="font-semibold flex items-center">
               <User2Icon className="w-4 h-4 mr-2" />  Account-Einstellungen
             </h1>
+            <div className="text-sm text-gray-200/60">
+                    Account_id : {thisUser?.id}
+                </div>
             <div className="mt-4 space-y-4">
                 <div className="flex items-center gap-x-2">
                     <Checkbox className="w-4 h-4"

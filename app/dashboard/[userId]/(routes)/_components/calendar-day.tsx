@@ -17,6 +17,7 @@ import { GiHouseKeys, GiShakingHands } from "react-icons/gi";
 import { CgUnavailable } from "react-icons/cg";
 import CalenderDayDetail from "./calender-day-detail";
 import { useState } from "react";
+import EditAvailability from "../manage/_components/edit-availability";
 
 interface Event {
   date: Date;
@@ -149,6 +150,10 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                         {pBooking.isAvailability ? (
                           <div className="text-xs">
                             <h1 className="flex w-full items-center py-1 justify-end gap-x-4">
+                              <EditAvailability 
+                              foundInserate={foundInserate}
+                              thisBooking={pBooking}
+                              />
                             <DeleteBooking
                                 bookingId={pBooking.id}
                               />

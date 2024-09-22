@@ -41,7 +41,7 @@ const SearchBookingInput: React.FC<SearchBookingInputProps> = ({
             setShowDialog(true);
 
             const filteredP = foundBooking.filter((pBooking) => {
-                return pBooking.name.includes(term)
+                return pBooking?.name?.includes(term)
             })
 
             setRenderedBookings(filteredP);

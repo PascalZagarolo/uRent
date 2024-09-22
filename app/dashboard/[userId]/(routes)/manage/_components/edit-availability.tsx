@@ -49,14 +49,14 @@ import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 import { checkAvailability } from "@/actions/check-availability";
 
 
-interface EditBookingProps {
+interface EditAvailabilityProps {
     foundInserate: typeof inserat.$inferSelect[];
     thisBooking: typeof booking.$inferSelect;
     useHover?: boolean;
 }
 
 
-const EditBooking: React.FC<EditBookingProps> = ({
+const EditAvailability: React.FC<EditAvailabilityProps> = ({
     foundInserate,
     thisBooking,
     useHover
@@ -151,7 +151,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                 buchungsnummer: currentInternal,
                 name: currentName,
 
-
+                isAvailability: true,
             }
 
             const isAvailable: {
@@ -227,6 +227,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                 vehicleId: currentVehicle,
                 buchungsnummer: currentInternal,
                 name: currentName,
+                isAvailability: true,
 
 
             }
@@ -322,7 +323,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
                         </Select>
                     </div>
-                    {currentInseratObject?.multi && currentInseratObject && (
+                    {currentInseratObject && currentInseratObject?.multi && (
                         <div className="pb-8 pr-8">
                         <Label className="">
                             Fahrzeug
@@ -500,7 +501,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem >
-                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</FormLabel>
+                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Titel</FormLabel>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
@@ -510,19 +511,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                             </FormItem>
                                         )} />
                                 </div>
-                                <div className="mt-2">
-                                    <Label className="font-semibold text-sm flex items-center">
-                                        <TbListNumbers className="w-4 h-4 mr-2" /> Interne Buchungsnr.
-                                    </Label>
-                                    <div className="mt-2">
-                                        <Input
-                                            value={currentInternal}
-                                            className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#0a0a0a]"
-                                            onChange={(e) => { setCurrentInternal(e.target.value) }}
-                                        />
-                                    </div>
-                                </div>
+                                
 
                                 <div>
                                     <span className="font-semibold text-base flex">
@@ -564,4 +553,4 @@ const EditBooking: React.FC<EditBookingProps> = ({
     );
 }
 
-export default EditBooking;
+export default EditAvailability;

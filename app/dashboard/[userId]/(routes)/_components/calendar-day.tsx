@@ -105,11 +105,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
       className={clsx("dark:bg-[#101010] h-full p-4 rounded-lg transition-all cursor-pointer text-center", {
         "bg-gray-100": isToday(day),
         "text-indigo-600 font-bold": isToday(day),
-        "border border-indigo-800 shadow-md": isSelected,
+        "border border-gray-200 shadow-md": isSelected,
         "hover:bg-[#141414]": !isSelected,
       })}
     >
-      <div className={cn("text-lg", isSelected && "text-indigo-800 font-extrabold")}>
+      <div className={cn("text-lg", isSelected && "text-gray-200 font-extrabold")}>
         {format(day, "d")}
       </div>
       {bookings?.map((pBooking) => {
@@ -120,7 +120,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                 key={pBooking.id}
                 className={cn(
                   "rounded-md py-2 px-4 mt-3 text-white flex justify-between items-center bg-gradient-to-r",
-                  pBooking.isAvailability ? "from-rose-500 to-rose-600" : "from-indigo-700 to-indigo-800"
+                  pBooking.isAvailability ? "from-rose-600 to-rose-800" : "from-indigo-600 to-indigo-800"
                 )}
                 onClick={(e) => e.stopPropagation()}
               >

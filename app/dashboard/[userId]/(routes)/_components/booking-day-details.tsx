@@ -141,11 +141,11 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         const segments = [];
         for (let hour = 8; hour <= 23; hour++) {
             segments.push(
-                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center h-[80px] ">
+                <div key={hour} className=" text-sm flex items-center h-[80px]  ">
 
                     <div className="h-full ml-auto w-full flex flex-col">
                         <div className={cn("h-[40px] w-full p-2",
-                            checkBooked(inseratId, String(hour * 60)) ? " bg-rose-800" : "",
+                            checkBooked(inseratId, String(hour * 60)) ? " bg-rose-600/80 border-l-2 border-rose-600" : "",
                             checkBooked(inseratId, String((hour * 60) + 30)) ? "" : "rounded-b-lg",
                             checkBooked(inseratId, String((hour * 60) - 30)) ? "" : "rounded-t-lg"
                         )}>
@@ -170,13 +170,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 </div>
                             )}
                         </div>
-                        <div className={cn("h-[40px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]",
-                            checkBooked(inseratId, String((hour * 60) + 30)) ? " bg-rose-800" : "",
+                        <div className={cn("h-[40px] w-full p-2 font-semibold text-xs border-t  border-dotted border-[#191919]",
+                            checkBooked(inseratId, String((hour * 60) + 30)) ? " bg-rose-600/80 border-l-2 border-rose-800" : "",
                             checkBooked(inseratId, String((hour * 60) + 60)) ? "" : "rounded-b-lg",
                             checkBooked(inseratId, String((hour * 60))) ? "" : "rounded-t-lg"
                         )}>
                             {checkBooked(inseratId, String((hour * 60) + 30)) && (
-                                <div className="w-full">
+                                <div className="w-full ">
                                     <BookingDayDetailsPopover
                                         foundInserate={foundInserate}
                                         // @ts-ignore
@@ -204,7 +204,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                 <div key={`${vehicleId}-${hour}`} className="dark:bg-[#131313] text-sm flex items-center h-[80px] dark:border border-[#191919]">
                     <div className="h-full ml-auto w-full flex flex-col">
                         <div className={cn("h-[40px] w-full p-2",
-                            checkBookedMulti(inseratId, String(hour * 60), vehicleId) ? " bg-rose-800" : "",
+                            checkBookedMulti(inseratId, String(hour * 60), vehicleId) ? " bg-rose-600/80" : "",
                             checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) ? "" : "rounded-b-lg",
                             checkBookedMulti(inseratId, String((hour * 60) - 30), vehicleId) ? "" : "rounded-t-lg"
                         )}>
@@ -233,7 +233,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 )}
                         </div>
                         <div className={cn("h-[40px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]",
-                            checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) ? " bg-rose-800" : "",
+                            checkBookedMulti(inseratId, String((hour * 60) + 30), vehicleId) ? " bg-rose-600/80" : "",
                             checkBookedMulti(inseratId, String((hour * 60) + 60), vehicleId) ? "" : "rounded-b-lg",
                             checkBookedMulti(inseratId, String((hour * 60)), vehicleId) ? "" : "rounded-t-lg"
                         )}>
@@ -355,8 +355,8 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             </div>
                         </div>
 
-                        <div className="w-full overflow-x-hidden">
-                            <div className={cn(" flex items-center justify-evenly")
+                        <div className="w-full overflow-x-hidden ">
+                            <div className={cn("dark:bg-[#171717] flex items-center justify-evenly")
                             }>
 
 
@@ -379,16 +379,16 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                     ))
                                 ) : (
                                     renderingInserate.map((inserat) => (
-                                        <div className={cn("", (selectedInserat || renderedInserate.length === 1) && "w-full")} key={inserat.id}>
+                                        <div className={cn("", (selectedInserat || renderedInserate.length === 1) && "w-full ")} key={inserat.id}>
                                             <div className="font-medium text-sm p-8 w-[240px] text-left overflow-hidden">
                                                 <a className="line-clamp-1 break-all hover:underline text-left" href={`/inserat/${inserat.id}`} target="_blank">
                                                     {inserat.title}
                                                 </a>
                                             </div>
                                             {selectedDate && (
-                                                <div>
-                                                    {renderAvailability(inserat.id)}
-                                                </div>
+                                                <div className="">
+                                                {renderAvailability(inserat.id)}
+                                            </div>
                                             )}
                                         </div>
                                     ))

@@ -28,7 +28,7 @@ const BookingDayDetailsPopover : React.FC<BookingDayDetailsPopoverProps> = ({
 
     return ( 
         <Popover>
-            <PopoverTrigger className="w-full h-full bg-rose-800 text-rose-800">
+            <PopoverTrigger className="w-full h-full  border-rose-800  text-rose-600/0">
                 X
             </PopoverTrigger>
             <PopoverContent className="dark:bg-[#191919] dark:border-none">

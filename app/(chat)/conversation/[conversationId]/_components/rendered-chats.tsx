@@ -7,7 +7,8 @@ import { format, isToday } from "date-fns";
 
 import { UserCircle2Icon, X } from "lucide-react";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import qs from "query-string";
 
 interface RenderedChatsProps {
     user: typeof userTable.$inferSelect,
@@ -27,32 +28,49 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     isOwnMessage
 }) => {
 
-    const currentDate = new Date();
+    
 
     let renderedDate = "";
+
+    
 
    if(lastMessageDate) {
     renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
    }
 
-    const onClick = async () => {
-        if (conversationId === params.conversationId) {
-            router.push(`/conversation`)
+    // const onClick = async () => {
+    //     if (conversationId === params.conversationId) {
+    //         router.push(`/conversation`)
+    //     } else {
+    //         await axios.patch(`/api/conversation/seen/${conversationId}`)
+    //             .then(() => router.push(`/conversation/${conversationId}`))
+    //     }
+    // }
+
+    const onClick = (usedId : string) => {
+        if(conversationId === params) {
+
         } else {
-            await axios.patch(`/api/conversation/seen/${conversationId}`)
-                .then(() => router.push(`/conversation/${conversationId}`))
+            const url = qs.stringifyUrl({
+                url: "/conversation",
+                query: {
+                    conversationId : usedId
+                } 
+            })
+
+            router.push(url)
         }
     }
 
-    const params = useParams();
+    const params = useSearchParams().get("conversationId");
 
-    const isOnSite = params.conversationId === conversationId ? true : false;
+    const isOnSite = params === conversationId ? true : false;
     const router = useRouter();
     return (
         <div className={cn(`flex items-center mr-auto w-full  pl-2 py-2  
          text-gray-800 dark:text-gray-200 font-semibold hover:cursor-pointer border-t border-b dark:border-[#1C1C1C]`,
             !isOnSite ? "dark:bg-[#0F0F0F] bg-[#404040]/10" : "bg-white dark:bg-[#1c1c1c]")}
-            onClick={onClick}
+            onClick={() => onClick(conversationId)}
         >
             <div className="flex w-full items-center py-2 space-y-1">
                 <div>

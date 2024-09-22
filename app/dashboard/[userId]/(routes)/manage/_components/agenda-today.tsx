@@ -66,7 +66,6 @@ const renderDialog = (booking: any) => {
                         {booking?.name}
                     </div>
                     <div className="flex flex-row items-center text-sm">
-
                         <span className={cn("text-gray-200 text-sm ", !booking?.buchungsnummer && "text-gray-200/60")}>
                             {booking?.buchungsnummer ? booking?.buchungsnummer : "Keine eigene Buchungsnummer"}
                         </span>
@@ -110,7 +109,6 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                         }
                     </div>
                 </div>
-
                 <div className="w-1/2">
                     <div className="text-sm font-semibold">
                         Fahrzeugrückgaben ({todaysReturns.length})
@@ -125,8 +123,6 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                                 </div>
                             )
                         }
-
-
                     </div>
                 </div>
             </div>

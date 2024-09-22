@@ -5,7 +5,7 @@ import ChatMessageRender from "./_chatcomponents/chat-message-render";
 
 import { use, useEffect, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { find, set } from "lodash";
 import { format } from "date-fns";
 import { conversation, message, userTable } from "@/db/schema";
@@ -32,8 +32,8 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         return chatBegin;
     }
 
-    const params = useParams();
-    const conversationId = params!.conversationId.toString();
+    const params = useSearchParams().get("conversationId");
+    const conversationId = params?.toString();
     const bottomRef = useRef<HTMLDivElement>(null);
     //@ts-ignore
     const [pMessages, setMessages] = useState(messages.sort((a, b) => a.createdAt - b.createdAt));
@@ -90,7 +90,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
 
     const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(startIndex, pMessages.length));
 
-    console.log(renderedMessages.length)
+   
     
     useEffect(() => {
         const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;

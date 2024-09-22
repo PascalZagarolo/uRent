@@ -17,6 +17,7 @@ import { findStartedConversationsGlobal } from "@/actions/findStartedConversatio
 import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
 
 import getCurrentUserWithNotificationsFolders from "@/actions/getCurrentUserWithNotificationsFolders";
+import ChatClient from "./[conversationId]/_components/chat-client/chat-client";
 
 
 
@@ -82,39 +83,12 @@ const ConversationPage = async () => {
 
                     </div>
                 </div>
-                <div className="dark:bg-[#0F0F0F] sm:mr-4 sm:rounded-md sm:w-[280px] w-full min-h-screen dark:border-[#1C1C1C] border">
-                    <h3 className="text-md font-semibold flex items-center p-4 ">
-                        <MessageSquareIcon className="w-4 h-4 mr-2" />  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
-                    </h3>
-                    {startedConversations.length > 0 ? (
-                        <div className="mt-4">
-                            <ChatSideBar
-                                startedConversations={startedConversations}
-                                currentUser={currentUser}
-                            />
-                        </div>
-                    ) : (
-                        <div className="mt-4 flex justify-center">
-                            <p className="text-sm text-gray-300/60"> Noch keine Konversation begonnen...</p>
-                        </div>
-                    )}
-                </div>
+                
+                <ChatClient 
+                currentUser={currentUser}
+                startedConversations={startedConversations}
+                />
 
-                <div className="w-[1044px] dark:bg-[#1c1c1c] h-screen overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
-                    <div className="rounded-lg h-full no-scrollbar">
-                        <div className="relative h-full flex justify-center items-center font-semibold text-lg">
-
-
-
-                            <div className="mr-2">
-                                <User2Icon className="w-12 h-12 text-gray-500 dark:text-gray-400" />
-                            </div>
-                            Tippe auf eine Konversation um sie zu öffnen...
-
-
-                        </div>
-                    </div>
-                </div>
                 <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>

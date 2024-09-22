@@ -267,7 +267,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                     </div>
                     <div className="py-4 pr-8">
                         <Label className="">
-                            Zugehöriges Inserat
+                            Zugehöriges Inserat*
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
@@ -345,7 +345,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         name="start"
                                         render={({ field }) => (
                                             <FormItem className="flex flex-col">
-                                                <FormLabel>Anfangsdatum</FormLabel>
+                                                <FormLabel>Anfangsdatum*</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
                                                         <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]">
@@ -394,7 +394,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         name="end"
                                         render={({ field }) => (
                                             <FormItem className="flex flex-col">
-                                                <FormLabel>Enddatum</FormLabel>
+                                                <FormLabel>Enddatum*</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
                                                         <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] ">
@@ -446,7 +446,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                     />
                                 </div>
                                 <div>
-                                        <Label className="flex items-center"> Titel</Label>
+                                        <Label className="flex items-center"> Titel*</Label>
                                         <Input
                                             className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
@@ -481,7 +481,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
                                         disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
-                                            !startTime || !endTime}
+                                            !startTime || !endTime || !currentTitle }
                                         type="submit"
                                     >
                                         Verfügbarkeit anpassen</Button>

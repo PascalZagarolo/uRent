@@ -35,7 +35,7 @@ const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
         <div className="flex w-full items-center gap-8">
             <div className="w-1/2">
                 <Label>
-                    Startzeit
+                    Startzeit*
                 </Label>
                 <Select
                 onValueChange={(value) => {
@@ -74,7 +74,7 @@ const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
             </div>
             <div className="w-1/2">
                 <Label>
-                    Endzeit
+                    Endzeit*
                 </Label>
                 <Select
                 onValueChange={(value) => {

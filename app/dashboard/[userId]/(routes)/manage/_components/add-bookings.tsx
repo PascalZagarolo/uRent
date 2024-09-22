@@ -294,7 +294,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     </div>
                     <div className="py-4 pr-8">
                         <Label className="">
-                            Zugehöriges Inserat
+                            Zugehöriges Inserat*
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
@@ -385,7 +385,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         name="start"
                                         render={({ field }) => (
                                             <FormItem className="flex flex-col">
-                                                <FormLabel>Anfangsdatum</FormLabel>
+                                                <FormLabel>Anfangsdatum*</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
                                                         <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]
@@ -435,7 +435,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         name="end"
                                         render={({ field }) => (
                                             <FormItem className="flex flex-col">
-                                                <FormLabel>Enddatum</FormLabel>
+                                                <FormLabel>Enddatum*</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
                                                         <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]">
@@ -493,7 +493,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem >
-                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</FormLabel>
+                                                <FormLabel className="flex items-center">
+                                                    <MdOutlinePersonPin className="w-4 h-4 mr-2" />Name*</FormLabel>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"

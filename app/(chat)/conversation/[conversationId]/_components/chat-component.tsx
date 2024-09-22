@@ -3,7 +3,7 @@
 
 import ChatMessageRender from "./_chatcomponents/chat-message-render";
 
-import { use, useEffect, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { useParams, useSearchParams } from "next/navigation";
 import { find, set } from "lodash";
@@ -81,7 +81,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             pusherClient.unbind('messages:new', messageHandler);
             pusherClient.unbind('messages:delete', deleteMessage);
         }
-    }, )
+    })
 
     
     
@@ -90,12 +90,14 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
 
     const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(startIndex, pMessages.length));
 
-   
+   useMemo(() => {
+    setMessages(messages.sort((a : any, b : any) => a.createdAt - b.createdAt));
+   },[messages])
     
     useEffect(() => {
         const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
         setRenderedMessages(pMessages.slice(startIndex, pMessages.length));
-    }, [pMessages]);
+    }, [pMessages, messages]);
 
     useEffect(() => {
         if (pMessages.length > 0) {
@@ -110,7 +112,7 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
             
             bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "center"});
         }
-    }, [pMessages, renderedMessages]);
+    }, [pMessages, renderedMessages, messages]);
 
     let markedDates : any = [];
 

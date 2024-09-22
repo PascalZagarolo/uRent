@@ -1,9 +1,12 @@
+'use client'
+
 import Image from "next/image";
 import ChatInput from "../_chatcomponents/chat-input";
 import ReturnToChat from "../return-to-chat";
 import { conversation, userTable } from "@/db/schema";
 import ChatHeader from "../chat-header";
 import ChatComponent from "../chat-component";
+import { useEffect } from "react";
 
 
 interface RenderedChatClientProps {
@@ -13,6 +16,11 @@ interface RenderedChatClientProps {
 }
 
 const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } : RenderedChatClientProps) => {
+
+    useEffect(() => {
+        console.log("geupdated..")
+    },[thisConversation])
+
     return ( 
         <div className="w-[1044px] dark:bg-[#151515] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white ">
                     <div className="rounded-lg h-full no-scrollbar ">

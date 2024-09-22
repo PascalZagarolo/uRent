@@ -19,12 +19,12 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
 
 
     useMemo(() => {
-       if(conversationId) {
-              setCurrentConversation(startedConversations.find((conversation) => conversation.id === conversationId))
-       } else {
-        setCurrentConversation(null)
-       }
-    },[conversationId])
+        if(conversationId) {
+            setCurrentConversation(startedConversations.find((conversation) => conversation.id === conversationId))
+     } else {
+      setCurrentConversation(null)
+     }
+    },[conversationId, startedConversations])
 
     return (
         <>

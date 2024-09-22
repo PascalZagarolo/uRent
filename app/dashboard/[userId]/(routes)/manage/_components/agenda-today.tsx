@@ -43,8 +43,8 @@ const renderFittingBookings = (booking: any, type: string) => {
                 {renderDialog(booking)}
             </div>
         </div>
-        <div className="font-medium mt-2">
-            {booking?.name}
+        <div className={cn("font-medium mt-2", !booking?.name && "text-gray-200/60")}>
+            {booking?.name ? booking?.name : "Kein Titel"}
         </div>
         <div className="text-sm text-gray-200/60">
             {format(new Date(booking?.startDate), "dd.MM")} - {format(new Date(booking?.endDate), "dd.MM")}

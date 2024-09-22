@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { ImageIcon, Plane, Send } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,7 +26,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
 }) => {
 
     const [currentValue, setCurrentValue] = useState("");
-    const params = useParams();
+    const conversationId = useSearchParams().get("conversationId");
 
     const formSchema = z.object({
         content: z.string().optional(),
@@ -55,7 +55,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             }
 
             setIsLoading(true);
-            axios.post(`/api/message/${params.conversationId}`, values);
+            axios.post(`/api/message/${conversationId}`, values);
             setCurrentValue("");
             
         } catch {

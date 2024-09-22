@@ -28,7 +28,7 @@ interface Event {
 interface CalendarDayProps {
   index: number;
   day: Date;
-  bookings: typeof booking.$inferSelect[];
+  bookings: typeof booking.$inferSelect[] | any;
   foundInserate: typeof inserat.$inferSelect[];
   selectedDate? : Date,
   selectDateParent? : (date : Date) => void;

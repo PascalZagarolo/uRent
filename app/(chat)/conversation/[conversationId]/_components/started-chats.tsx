@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { find } from "lodash";
 import { useSearchParams } from "next/navigation";
 import { MarkAsSeen } from '../../../../../actions/notifications/mark-as-seen';
+import { markAsSeenMessages } from "@/actions/messages/mark-as-seen";
 
 
 
@@ -49,10 +50,11 @@ const StartedChats: React.FC<StartedChatsProps> = ({
 
         const load = async () => {
             await MarkAsSeen(conversations.id, currentUser.id)
+            await markAsSeenMessages(conversations.id, currentUser.id)
         }
 
         if(paramsConversationId === conversations.id){ 
-            load();
+            load()
         }
 
     },[paramsConversationId])

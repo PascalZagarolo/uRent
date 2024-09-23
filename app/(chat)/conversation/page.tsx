@@ -51,9 +51,7 @@ const ConversationPage = async () => {
 
 
 
-    if (startedConversations?.user1Id === currentUser.id && startedConversations?.user2Id === currentUser.id) {
-        return redirect("/conversations")
-    }
+   
 
 
 

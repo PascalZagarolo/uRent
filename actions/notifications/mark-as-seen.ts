@@ -12,7 +12,7 @@ export const MarkAsSeen = (conversationId, currentUserId) => {
             }).where(
                 and(
                     eq(notification.conversationId, conversationId),
-                    eq(notification.userId, currentUserId.id)
+                    eq(notification.userId, currentUserId)
                 )
             )
         }

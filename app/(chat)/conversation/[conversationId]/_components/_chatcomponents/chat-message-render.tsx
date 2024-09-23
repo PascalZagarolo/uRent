@@ -42,7 +42,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
     
 
     return (
-        <div className={cn("w-full px-4 py-2 flex items-center dark:text-gray-200 text-sm", isOwn && " justify-end",)}>
+        <div className={cn("w-full  py-2 flex items-center dark:text-gray-200 text-sm", isOwn && " justify-end",)}>
             <div className="flex space-x-2 ">
                 {!isOwn && (
                     <a className="mt-auto hover:cursor-pointer"

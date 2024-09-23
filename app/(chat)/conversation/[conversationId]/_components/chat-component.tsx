@@ -137,16 +137,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
     return (
         <div className="flex flex-col h-full">
       {/* Header or Chat start info */}
-      <div>
-        {hasMoreMessages && (
-          <h3 className="text-xs text-gray-200 flex justify-center py-2 hover:underline">
-            Ältere Nachrichten laden
-          </h3>
-        )}
-        <h3 className="flex justify-center text-gray-900/30 px-4 py-4 dark:text-gray-100 text-sm">
-          Chat gestartet am {formateDate(thisConversation.createdAt)}
-        </h3>
-      </div>
+      
 
       {/* Message Container: Scrollable section */}
       <div className="flex-1 overflow-y-auto no-scrollbar">
@@ -166,7 +157,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
                 messages={message}
                 isOwn={message.senderId === currentUser.id}
               />
-               
+               <div ref={bottomRef}/>
             </div>
           ))}
          

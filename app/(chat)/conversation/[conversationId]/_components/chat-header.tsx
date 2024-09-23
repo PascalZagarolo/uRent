@@ -30,7 +30,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
                 <PopoverTrigger>
                     <BsThreeDots />
                 </PopoverTrigger>
-                <PopoverContent className="dark:bg-[#191919] dark:border-none w-[200px] space-y-2">
+                <PopoverContent className="dark:bg-[#131313] dark:border-none w-[200px] space-y-2">
                     <div>
                     <ReportModal/>
                     </div>

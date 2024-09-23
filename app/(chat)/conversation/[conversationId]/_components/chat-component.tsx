@@ -41,8 +41,6 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     useEffect(() => {
         pusherClient.subscribe(conversationId);
 
-        
-
         const messageHandler = (message : any) => {
             setMessages((current) => {
                 if(find(current, {id : message.id})) {

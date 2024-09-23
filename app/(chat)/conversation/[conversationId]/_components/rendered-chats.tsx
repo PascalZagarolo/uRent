@@ -28,7 +28,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     isOwnMessage
 }) => {
 
-
+    
 
     let renderedDate = "";
 
@@ -38,14 +38,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
         renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
     }
 
-    // const onClick = async () => {
-    //     if (conversationId === params.conversationId) {
-    //         router.push(`/conversation`)
-    //     } else {
-    //         await axios.patch(`/api/conversation/seen/${conversationId}`)
-    //             .then(() => router.push(`/conversation/${conversationId}`))
-    //     }
-    // }
+    
 
     const onClick = (usedId: string) => {
         if (conversationId === params) {
@@ -60,7 +53,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     const params = useSearchParams().get("conversationId");
     const searchParams = useSearchParams();
     const isOnSite = params === conversationId ? true : false;
-    const router = useRouter();
+
     return (
         <div className={cn(`flex items-center mr-auto w-full  pl-2 py-2  
          text-gray-800 dark:text-gray-200 font-semibold hover:cursor-pointer border-t border-b dark:border-[#1C1C1C]`,

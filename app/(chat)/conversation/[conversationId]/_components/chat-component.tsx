@@ -14,134 +14,135 @@ import { Separator } from "@radix-ui/react-select";
 
 
 interface ChatComponentProps {
-    messages: typeof message.$inferSelect[]
-    currentUser: typeof userTable.$inferSelect;
-    thisConversation: typeof conversation.$inferSelect;
+  messages: typeof message.$inferSelect[]
+  currentUser: typeof userTable.$inferSelect;
+  thisConversation: typeof conversation.$inferSelect;
 }
 
 const ChatComponent: React.FC<ChatComponentProps> = ({
-    messages,
-    currentUser,
-    thisConversation
+  messages,
+  currentUser,
+  thisConversation
 }) => {
 
 
 
-    const formateDate = (date: Date) => {
-        const chatBegin = format(new Date(date), "yyyy-MM-dd");
-        return chatBegin;
+  const formateDate = (date: Date) => {
+    const chatBegin = format(new Date(date), "yyyy-MM-dd");
+    return chatBegin;
+  }
+
+  const params = useSearchParams().get("conversationId");
+  const conversationId = params?.toString();
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  
+  //@ts-ignore
+  const [hasMoreMessages, setHasMoreMessages] = useState(false);
+
+
+
+
+
+  const [renderedMessages, setRenderedMessages] = useState(messages.sort((a: any, b: any) => a.createdAt - b.createdAt));
+
+
+  useEffect(() => {
+    pusherClient.subscribe(conversationId);
+
+    const messageHandler = (message: any) => {
+      setRenderedMessages((current) => {
+        if (find(current, { id: message.id })) {
+          current
+        }
+
+        return [...current, message]
+      });
+
+
     }
 
-    const params = useSearchParams().get("conversationId");
-    const conversationId = params?.toString();
-    const bottomRef = useRef<HTMLDivElement>(null);
-    //@ts-ignore
-    
-    const [hasMoreMessages, setHasMoreMessages] = useState(false); 
-    
+    const deleteMessage = (message: any) => {
+      setRenderedMessages((current) => {
 
-    
+        const index = current.findIndex((m) => m.id === message.id);
 
+        if (index !== -1) {
 
-    const [renderedMessages, setRenderedMessages] = useState(messages.sort((a: any, b: any) => a.createdAt - b.createdAt));
-    
-
-    useEffect(() => {
-        pusherClient.subscribe(conversationId);
-
-        const messageHandler = (message: any) => {
-            setRenderedMessages((current) => {
-                if (find(current, { id: message.id })) {
-                    current
-                }
-
-                return [...current, message]
-            });
-
-
+          const updatedMessages = [...current.slice(0, index), ...current.slice(index + 1)];
+          return updatedMessages;
         }
 
-        const deleteMessage = (message: any) => {
-            setRenderedMessages((current) => {
 
-                const index = current.findIndex((m) => m.id === message.id);
-
-                if (index !== -1) {
-
-                    const updatedMessages = [...current.slice(0, index), ...current.slice(index + 1)];
-                    return updatedMessages;
-                }
+        return current;
+      });
 
 
-                return current;
-            });
-
-
-        }
-
-        pusherClient.bind('messages:new', messageHandler);
-        pusherClient.bind('messages:delete', deleteMessage);
-
-        return () => {
-            pusherClient.unsubscribe(conversationId);
-            pusherClient.unbind('messages:new', messageHandler);
-            pusherClient.unbind('messages:delete', deleteMessage);
-        }
-    })
-
-
-    useEffect(() => {
-        setHasMoreMessages(messages.length > 15);
-    },[conversationId])
-    
-
-    useMemo(() => {
-        setRenderedMessages(messages.sort((a: any, b: any) => a.createdAt - b.createdAt));
-    }, [messages])
-
-    
-
-    // useEffect(() => {
-    //     if (pMessages.length > 0) {
-    //         const lastMessage = document.getElementById(`message-${pMessages[pMessages.length - 1].id}`);
-    //         if (lastMessage) {
-    //             lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
-    //         }
-    //     }
-
-    //     if (bottomRef.current) {
-
-
-    //         bottomRef.current.scrollIntoView({  block: "end", inline: "center" });
-    //     }
-    // }, [pMessages, renderedMessages, messages]);
-
-    let markedDates: any = [];
-
-    const isNewDate = (createdAt: Date) => {
-        const date = format(new Date(createdAt), "yyyy-MM-dd");
-        if (markedDates.includes(date)) {
-            return false;
-        } else {
-            markedDates.push(date);
-            return true;
-        }
     }
 
-    useEffect(() => {
-        if (bottomRef.current) {
-          bottomRef.current.scrollIntoView({ behavior: "instant" });
-        }
-      }, [renderedMessages]);
+    pusherClient.bind('messages:new', messageHandler);
+    pusherClient.bind('messages:delete', deleteMessage);
 
-    return (
-        <div className="flex flex-col h-full">
+    return () => {
+      pusherClient.unsubscribe(conversationId);
+      pusherClient.unbind('messages:new', messageHandler);
+      pusherClient.unbind('messages:delete', deleteMessage);
+    }
+  })
+
+
+  useEffect(() => {
+    setHasMoreMessages(messages.length > 15);
+  }, [conversationId])
+
+
+  useMemo(() => {
+    setRenderedMessages(messages.sort((a: any, b: any) => a.createdAt - b.createdAt));
+  }, [messages])
+
+
+
+  // useEffect(() => {
+  //     if (pMessages.length > 0) {
+  //         const lastMessage = document.getElementById(`message-${pMessages[pMessages.length - 1].id}`);
+  //         if (lastMessage) {
+  //             lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
+  //         }
+  //     }
+
+  //     if (bottomRef.current) {
+
+
+  //         bottomRef.current.scrollIntoView({  block: "end", inline: "center" });
+  //     }
+  // }, [pMessages, renderedMessages, messages]);
+
+  let markedDates: any = [];
+
+  const isNewDate = (createdAt: Date) => {
+    const date = format(new Date(createdAt), "yyyy-MM-dd");
+    if (markedDates.includes(date)) {
+      return false;
+    } else {
+      markedDates.push(date);
+      return true;
+    }
+  }
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [renderedMessages]);
+
+  return (
+    <div className="flex flex-col h-full">
       {/* Header or Chat start info */}
-      
+
 
       {/* Message Container: Scrollable section */}
-      <div className="flex-1 overflow-y-auto no-scrollbar">
-        <div className="p-2">
+      <div className="flex-1 overflow-y-auto no-scrollbar" ref={chatContainerRef}>
+        <div className="p-2 flex-col">
           {renderedMessages.map((message) => (
             <div key={message.id}>
               {isNewDate(message.createdAt) && (
@@ -157,14 +158,14 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
                 messages={message}
                 isOwn={message.senderId === currentUser.id}
               />
-               <div ref={bottomRef}/>
+              <div ref={bottomRef} />
             </div>
           ))}
-         
+
         </div>
       </div>
     </div>
-    );
+  );
 }
 
 export default ChatComponent;

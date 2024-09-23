@@ -64,7 +64,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } 
         </div>
 
         {/* Chat Input */}
-        <div className="sticky bottom-0 w-full bg-white dark:bg-[#0F0F0F] p-3 border-t dark:border-gray-700 shadow-md">
+        <div className="sticky bottom-0 w-full bg-white dark:bg-[#0F0F0F]  dark:border-gray-700 shadow-md">
             <ChatInput
                 otherUser={otherUserDetails.id}
                 otherUserName={currentUser?.name}

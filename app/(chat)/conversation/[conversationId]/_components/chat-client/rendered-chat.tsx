@@ -46,7 +46,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } 
                                 </div>
                             </h3>
                             <div className="overflow-y-auto h-full flex-grow no-scrollbar" id="chat-render">
-                                <ChatComponent
+                            <ChatComponent
                                     //@ts-ignore
                                     messages={thisConversation?.messages}
                                     currentUser={currentUser}

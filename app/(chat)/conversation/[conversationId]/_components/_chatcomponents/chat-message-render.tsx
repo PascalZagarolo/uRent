@@ -42,7 +42,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
     
 
     return (
-        <div className={cn("w-full p-2 flex items-center dark:text-gray-300 text-sm", isOwn && " justify-end",)}>
+        <div className={cn("w-full px-4 py-2 flex items-center dark:text-gray-200 text-sm", isOwn && " justify-end",)}>
             <div className="flex space-x-2 ">
                 {!isOwn && (
                     <a className="mt-auto hover:cursor-pointer"
@@ -60,8 +60,8 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
                 <div>
 
-                    <div className={cn("max-w-lg text-sm font-medium p-2 rounded-md ",
-                        !isOwn ? "dark:bg-[#191919]" : "dark:bg-[#1F2332] dark:bg-opacity-100",
+                    <div className={cn("max-w-lg text-sm font-medium p-2.5 rounded-md ",
+                        !isOwn ? "dark:bg-[#1f1f1f]" : "dark:bg-[#262b3d]/60 ",
                         messages.isInterest && "border "
                     )}>
                         <div>
@@ -101,7 +101,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                                 />
                                             </div>
                                             {messages?.content && (
-                                                <div className=" justify-start mt-1 break-all text-left text-gray-200/80" style={{ maxWidth: '200px' }}>
+                                                <div className=" justify-start mt-1 break-all text-left text-gray-200" style={{ maxWidth: '200px' }}>
                                                     {messages?.content}
                                                 </div>
                                             )}

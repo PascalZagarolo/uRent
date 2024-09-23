@@ -48,8 +48,8 @@ const ConversationPage = async ({
 
     let startedConversations: typeof conversation.$inferSelect[] | any = [];;
 
-    
-    
+
+
 
     const receivedConversations = await findStartedConversationsGlobal(currentUser.id);
 
@@ -58,16 +58,16 @@ const ConversationPage = async ({
         return conversation.messages.length > 0 || conversation?.id === params.conversationId;
     });
 
-    
-
-    const thisConversation : any = startedConversations.find((conversation: any) => conversation.id === params.conversationId);
 
 
-    
+    const thisConversation: any = startedConversations.find((conversation: any) => conversation.id === params.conversationId);
+
+
+
 
 
     //if user clicks on chat, mark all chat notifications as seen
-    
+
 
 
 
@@ -81,7 +81,7 @@ const ConversationPage = async ({
 
 
 
-    
+
 
 
 
@@ -113,7 +113,7 @@ const ConversationPage = async ({
             min-h-full hidden md:block dark:border-[#1C1C1C] border">
                     <h3 className="text-md font-semibold flex items-center p-4 ">
                         <MessageSquareIcon className="w-4 h-4 mr-2" />  Konversationen {startedConversations.length > 0 &&
-                         <p className="ml-4 text-base"> {startedConversations.length} </p>}
+                            <p className="ml-4 text-base"> {startedConversations.length} </p>}
                     </h3>
                     <div className="mt-4">
                         <ChatSideBar
@@ -148,7 +148,7 @@ const ConversationPage = async ({
                                 </div>
                             </h3>
                             <div className="overflow-y-auto h-[800px] no-scrollbar" id="chat-render">
-                                <ChatComponent
+                            <ChatComponent
                                     //@ts-ignore
                                     messages={thisConversation?.messages}
                                     currentUser={currentUser}

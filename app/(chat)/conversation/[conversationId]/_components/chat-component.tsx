@@ -14,20 +14,20 @@ import { Separator } from "@radix-ui/react-select";
 
 
 interface ChatComponentProps {
-    messages : typeof message.$inferSelect[]
-    currentUser : typeof userTable.$inferSelect;
-    thisConversation : typeof conversation.$inferSelect;
+    messages: typeof message.$inferSelect[]
+    currentUser: typeof userTable.$inferSelect;
+    thisConversation: typeof conversation.$inferSelect;
 }
 
-const ChatComponent: React.FC<ChatComponentProps> =  ({
+const ChatComponent: React.FC<ChatComponentProps> = ({
     messages,
     currentUser,
     thisConversation
 }) => {
 
-    
 
-    const formateDate = (date : Date) => {
+
+    const formateDate = (date: Date) => {
         const chatBegin = format(new Date(date), "yyyy-MM-dd");
         return chatBegin;
     }
@@ -36,39 +36,47 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
     const conversationId = params?.toString();
     const bottomRef = useRef<HTMLDivElement>(null);
     //@ts-ignore
-    const [pMessages, setMessages] = useState(messages.sort((a, b) => a.createdAt - b.createdAt));
+    
+    const [hasMoreMessages, setHasMoreMessages] = useState(false); 
+    
+
+    
+
+
+    const [renderedMessages, setRenderedMessages] = useState(messages.sort((a: any, b: any) => a.createdAt - b.createdAt));
+    
 
     useEffect(() => {
         pusherClient.subscribe(conversationId);
 
-        const messageHandler = (message : any) => {
-            setMessages((current) => {
-                if(find(current, {id : message.id})) {
+        const messageHandler = (message: any) => {
+            setRenderedMessages((current) => {
+                if (find(current, { id: message.id })) {
                     current
                 }
 
                 return [...current, message]
             });
 
-            
+
         }
 
-        const deleteMessage = (message : any) => {
-            setMessages((current) => {
-                
-                const index = current.findIndex((m) => m.id === message.id);
-            
-                if (index !== -1) {
-                  
-                  const updatedMessages = [...current.slice(0, index), ...current.slice(index + 1)];
-                  return updatedMessages;
-                }
-        
-                
-                return current;
-              });
+        const deleteMessage = (message: any) => {
+            setRenderedMessages((current) => {
 
-            
+                const index = current.findIndex((m) => m.id === message.id);
+
+                if (index !== -1) {
+
+                    const updatedMessages = [...current.slice(0, index), ...current.slice(index + 1)];
+                    return updatedMessages;
+                }
+
+
+                return current;
+            });
+
+
         }
 
         pusherClient.bind('messages:new', messageHandler);
@@ -81,40 +89,36 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         }
     })
 
-    
-    
-    const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
-    
-
-    const [renderedMessages, setRenderedMessages] = useState(pMessages.slice(startIndex, pMessages.length));
-
-   useMemo(() => {
-    setMessages(messages.sort((a : any, b : any) => a.createdAt - b.createdAt));
-   },[messages])
-    
-    useEffect(() => {
-        const startIndex = pMessages.length - 15 < 0 ? 0 : pMessages.length - 15;
-        setRenderedMessages(pMessages.slice(startIndex, pMessages.length));
-    }, [pMessages, messages]);
 
     useEffect(() => {
-        if (pMessages.length > 0) {
-            const lastMessage = document.getElementById(`message-${pMessages[pMessages.length - 1].id}`);
-            if (lastMessage) {
-                lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
-            }
-        }
+        setHasMoreMessages(messages.length > 15);
+    },[conversationId])
     
-        if (bottomRef.current) {
-            
-            
-            bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "center"});
-        }
-    }, [pMessages, renderedMessages, messages]);
 
-    let markedDates : any = [];
+    useMemo(() => {
+        setRenderedMessages(messages.sort((a: any, b: any) => a.createdAt - b.createdAt));
+    }, [messages])
 
-    const isNewDate = (createdAt : Date) => {
+    
+
+    // useEffect(() => {
+    //     if (pMessages.length > 0) {
+    //         const lastMessage = document.getElementById(`message-${pMessages[pMessages.length - 1].id}`);
+    //         if (lastMessage) {
+    //             lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
+    //         }
+    //     }
+
+    //     if (bottomRef.current) {
+
+
+    //         bottomRef.current.scrollIntoView({  block: "end", inline: "center" });
+    //     }
+    // }, [pMessages, renderedMessages, messages]);
+
+    let markedDates: any = [];
+
+    const isNewDate = (createdAt: Date) => {
         const date = format(new Date(createdAt), "yyyy-MM-dd");
         if (markedDates.includes(date)) {
             return false;
@@ -124,41 +128,52 @@ const ChatComponent: React.FC<ChatComponentProps> =  ({
         }
     }
 
-    return ( 
-        <div> 
-            <div className="no-scrollbar  overflow-y-auto h-full w-full" ref={bottomRef}>
-            <div className="h-full">
-            <h3 className="flex justify-center  text-gray-900/30 px-4  py-4 dark:text-gray-100 text-sm ">
-            Chat gestartet am {formateDate(thisConversation.createdAt)}
-            </h3>
-            <div className="no-scrollbar p-0.5">
-            {renderedMessages.map((message) => (
-               <>
-               {isNewDate(message.createdAt) && (
+    useEffect(() => {
+        if (bottomRef.current) {
+          bottomRef.current.scrollIntoView({ behavior: "instant" });
+        }
+      }, [renderedMessages]);
+
+    return (
+        <div className="flex flex-col h-full">
+      {/* Header or Chat start info */}
+      <div>
+        {hasMoreMessages && (
+          <h3 className="text-xs text-gray-200 flex justify-center py-2 hover:underline">
+            Ältere Nachrichten laden
+          </h3>
+        )}
+        <h3 className="flex justify-center text-gray-900/30 px-4 py-4 dark:text-gray-100 text-sm">
+          Chat gestartet am {formateDate(thisConversation.createdAt)}
+        </h3>
+      </div>
+
+      {/* Message Container: Scrollable section */}
+      <div className="flex-1 overflow-y-auto no-scrollbar">
+        <div className="p-2">
+          {renderedMessages.map((message) => (
+            <div key={message.id}>
+              {isNewDate(message.createdAt) && (
                 <span className="w-full flex items-center justify-center space-x-8">
-                    <Separator 
-                     className="w-1/4 bg-gray-900/10 dark:bg-[#272727] h-[0.1px] "
-                    />
-                <div className="flex justify-center text-gray-900/30 px-4 py-2 dark:text-gray-100 text-sm">
-                {format(new Date(message.createdAt), "dd.MM.yyyy")}
-                </div>
-                <Separator 
-                     className="w-1/4 bg-gray-900/10 dark:bg-[#272727] h-[0.1px] "
-                    />
+                  <Separator className="w-1/4 bg-gray-900/10 dark:bg-[#272727] h-[0.1px]" />
+                  <div className="flex justify-center text-gray-900/30 px-4 py-2 dark:text-gray-100 text-sm">
+                    {format(new Date(message.createdAt), "dd.MM.yyyy")}
+                  </div>
+                  <Separator className="w-1/4 bg-gray-900/10 dark:bg-[#272727] h-[0.1px]" />
                 </span>
-               )}
-               <ChatMessageRender
-                key={message.id}
+              )}
+              <ChatMessageRender
                 messages={message}
                 isOwn={message.senderId === currentUser.id}
-                />
-               </>
-            ))}
+              />
+               
             </div>
-            </div>
+          ))}
+         
         </div>
-        </div>
-     );
+      </div>
+    </div>
+    );
 }
- 
+
 export default ChatComponent;

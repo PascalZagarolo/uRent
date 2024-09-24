@@ -22,7 +22,7 @@ const BlogCategorySelect = ({ currentCategory, setCurrentCategory }: BlogCategor
             <div className="w-full px-8">
                 <div className="flex flex-row items-center space-x-8  border-b border-gray-400/50">
                     {renderedCategories.map((category, index) => (
-                        <span className="text-sm">
+                        <span className="text-sm" key={index}>
                             <button
                                 onClick={() => setCurrentCategory(category.value)}
                                 key={index}

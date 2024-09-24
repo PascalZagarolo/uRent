@@ -53,7 +53,7 @@ const RenderedBlogs = ({ foundBlogs }: RenderedBlogsProps) => {
       </div>
             <div>
                 {foundBlogs.slice(1, foundBlogs.length).map((blog, index) => (
-                    <div>
+                    <div key={index}>
 
                     </div>
                 ))}

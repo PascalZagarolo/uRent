@@ -48,6 +48,11 @@ const MenuBar = () => {
             >
                 Popups
             </a>
+            <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isPopup && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
+            href={`${baseUrl}/blogs`}
+            >
+                Blogs
+            </a>
             </div>
         </div>
      );

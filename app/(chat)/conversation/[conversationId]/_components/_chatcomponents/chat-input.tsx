@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import UploadImage from "../upload-image";
 import { block } from "@/db/schema";
+import LetterRestriction from "@/components/letter-restriction";
 
 interface ChatInputProps {
     otherUser : string;
@@ -84,17 +85,20 @@ const ChatInput: React.FC<ChatInputProps> = ({
             control={form.control}
             name="content"
             render={({ field }) => (
-                <FormItem className="w-full">
+                <FormItem className="w-full gap-y-0">
                     <FormControl className="w-full">
-                        <Input className="mt-auto mb-4 border text-black border-gray-300 w-full
+                        <Input className="mt-auto  border text-black border-gray-300 w-full
                         dark:bg-[#0F0F0F] dark:text-gray-100 focus-visible:ring-0 focus-visible:border-none  dark:border-none"
+                        maxLength={2000}
                             placeholder="Schreibe eine Nachricht..."
                             onChange={(e) => {setCurrentValue(e.target.value)}}
                             value={currentValue}
                         disabled={existingBlock.length > 0 ? true : false}
                         />
                     </FormControl>
-                    
+                    <div className="ml-auto flex justify-end">
+                    <LetterRestriction limit={2000} currentLength={currentValue.length} />
+                    </div>
                 </FormItem>
             )}
         />

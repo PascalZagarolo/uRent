@@ -42,7 +42,11 @@ const BreadCrumpPage = () => {
             <BreadcrumbLink>Favoriten</BreadcrumbLink>
           </BreadcrumbItem>
         )}
-        
+        {pathname.includes("blogs") && (
+            <BreadcrumbItem>
+            <BreadcrumbLink>Blogs</BreadcrumbLink>
+          </BreadcrumbItem>
+        )}
         
       </BreadcrumbList>
     </Breadcrumb>

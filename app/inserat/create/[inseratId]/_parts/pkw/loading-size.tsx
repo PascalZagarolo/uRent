@@ -142,10 +142,11 @@ const LoadingSizeForm: React.FC<LoadingSizeFormProps> = ({
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         type="decimal"
+                        
                         onChange={(e) => {
                             const rawValue = e.currentTarget.value;
 
-
+                            
                             let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
                             cleanedValue = rawValue.replace(/,/g, '.');
                             setCurrentHeight(cleanedValue)

@@ -77,6 +77,7 @@ const PowerForm: React.FC<PowerFormProps> = ({
                             setCurrentPS(Number(e.target.value));
                             setCurrentKW(Math.round(Number(e.target.value) * 0.735499)); 
                         }}
+                        maxLength={5}
                         disabled={!usesPS}
                         value={currentPS || ''}
                     />
@@ -93,6 +94,7 @@ const PowerForm: React.FC<PowerFormProps> = ({
                             setCurrentKW(Number(e.target.value));
                             setCurrentPS(Math.round(Number(e.target.value) * 1.35962)); 
                         }}
+                        maxLength={4}
                         disabled={usesPS}
                         value={currentKW || ''}
                     />

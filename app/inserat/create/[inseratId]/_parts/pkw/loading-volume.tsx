@@ -86,6 +86,7 @@ const LoadingVolumeForm: React.FC<LoadingVolumeFormProps> = ({
                         placeholder="Volumen in Liter"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
+                         maxLength={8}
                          onChange={(e) => {
                             const rawValue = e.currentTarget.value;
 
@@ -111,6 +112,7 @@ const LoadingVolumeForm: React.FC<LoadingVolumeFormProps> = ({
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         type="decimal"
+                        maxLength={5}
                         onChange={(e) => {
                             const rawValue = e.currentTarget.value;
 

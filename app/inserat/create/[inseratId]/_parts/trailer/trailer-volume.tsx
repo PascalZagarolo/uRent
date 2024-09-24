@@ -99,6 +99,7 @@ const TrailerLoadingVolumeForm: React.FC<TrailerLoadingVolumeFormProps> = ({
                         }}
                         disabled={!usesPS}
                         value={currentLiter || ''}
+                        maxLength={8}
                     />
                 </div>
                 <div className="ml-4">
@@ -124,6 +125,7 @@ const TrailerLoadingVolumeForm: React.FC<TrailerLoadingVolumeFormProps> = ({
                         }}
                         disabled={usesPS}
                         value={currentMeter}
+                        maxLength={5}
                     />
                 </div>
             </div>

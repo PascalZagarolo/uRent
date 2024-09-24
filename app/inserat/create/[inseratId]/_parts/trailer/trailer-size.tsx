@@ -104,7 +104,7 @@ const TrailerSizeForm: React.FC<TrailerSizeFormProps> = ({
                             setCurrentLength(cleanedValue)
                             
                         }}
-                        
+                        maxLength={6}
                         value={currentLength}
                     />
                 </div>
@@ -128,7 +128,7 @@ const TrailerSizeForm: React.FC<TrailerSizeFormProps> = ({
                             setCurrentWidth(cleanedValue)
                             
                         }}
-                        
+                        maxLength={6}
                         value={currentWidth}
                     />
                 </div>
@@ -151,7 +151,7 @@ const TrailerSizeForm: React.FC<TrailerSizeFormProps> = ({
                             setCurrentHeight(cleanedValue)
                             
                         }}
-                        
+                        maxLength={6}
                         value={currentHeight}
                     />
                 </div>

@@ -64,8 +64,6 @@ const TransportInitialForm: React.FC<TransportInitialFormProps> = ({
     const params = useParams();
 
     const [currentInitial, setcurrentInitial] = useState<string | number | null>(thisInitial ? thisInitial.getFullYear() : null);
-    const [inputValue, setInputValue] = useState(formatDateToMMYYYY(thisInitial) || '');
-    const [validValue, setValidValue] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
     
    

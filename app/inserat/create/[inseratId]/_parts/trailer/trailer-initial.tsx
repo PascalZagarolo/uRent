@@ -1,7 +1,7 @@
 'use client'
 
 
-import {  PinIcon } from "lucide-react";
+import {  CheckIcon, PinIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -10,16 +10,40 @@ import toast from "react-hot-toast";
 import { Label } from "@/components/ui/label";
 
 import axios from "axios";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CaretSortIcon } from "@radix-ui/react-icons";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import { format, getYear } from 'date-fns';
 
 
 
-interface TrailerInitialFormProps {
+interface TransportInitialFormProps {
     thisInitial: Date;
 }
 
-const TrailerInitialForm: React.FC<TrailerInitialFormProps> = ({
+const TrailerInitialForm: React.FC<TransportInitialFormProps> = ({
     thisInitial
 }) => {
+
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState("");
+
+    interface YearObject {
+        value: string;
+        label: number;
+      }
+      
+      const startYear = 2024;
+    const endYear = 1900;
+
+      const years: YearObject[] = [];
+      
+      for (let year = startYear; year >= endYear; year--) {
+        years.push({ value: String(year), label: year });
+      }
+
+    
 
     function formatDateToMMYYYY(date : Date) {
         
@@ -32,7 +56,6 @@ const TrailerInitialForm: React.FC<TrailerInitialFormProps> = ({
         if(!date) {
             return "";
         }
-    
         return dateString;
     }
 
@@ -40,32 +63,26 @@ const TrailerInitialForm: React.FC<TrailerInitialFormProps> = ({
   
     const params = useParams();
 
-    
-
-    const [currentInitial, setcurrentInitial] = useState<Date | null>(null);
-    const [inputValue, setInputValue] = useState(formatDateToMMYYYY(thisInitial) || '');
-    const [validValue, setValidValue] = useState(false);
+    const [currentInitial, setcurrentInitial] = useState<string | number | null>(thisInitial ? thisInitial.getFullYear() : null);
     const [isLoading, setIsLoading] = useState(false)
     
    
 
 
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
 
-        
+        const dateInitial = new Date(Number(currentInitial), 0, 1);
 
         const values = {
-            initial : currentInitial
+            initial : dateInitial
         }
 
         try {
-        setIsLoading(true);
-          axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
+            setIsLoading(true);
+          await axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
           toast.success("Baujahr gespeichert");
-          setTimeout(() => {
-            router.refresh();
-          }, 400)
+          router.refresh();
 
         } catch {
             toast.error("Etwas ist schief gelaufen...");
@@ -73,52 +90,79 @@ const TrailerInitialForm: React.FC<TrailerInitialFormProps> = ({
 
     }
 
-    //! fix cant copy values in handleInputChange
-    const handleInputChange = (event : any) => {
-        const { value } = event.target;
     
-        setInputValue(value);
-    
-        if (value.trim() === '') { 
-            setValidValue(false);
-            setcurrentInitial(null);
-            return;
-        }
-    
-        const regex = /^(0[1-9]|1[0-2])\/(19\d{2}|[2-9]\d{3})$/;
-        const isValidDate = regex.test(value);
-        const isYearValid = parseInt(value.split('/')[1]) >= 1900;
-        setValidValue(!isValidDate || !isYearValid);
-    
-        if (isValidDate && isYearValid) {
-            const [month, year] = value.split('/').map(Number);
-            const newInitial = new Date(year, month - 1, 1);
-            setcurrentInitial(newInitial);
-        }
-    };
     
 
 
     return (
         <div className="items-center w-full">
         <div className="flex mt-4 w-full">
-            <div className="items-center">
+            <div className="items-center w-full">
                 <Label className="flex justify-start items-center">
                     <PinIcon className="w-4 h-4" /> <p className="ml-2 font-semibold"> Baujahr </p>
                 </Label>
-                <Input
-                    placeholder="MM/YYYY"
-                    className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md input:text-sm border mt-2 border-black dark:bg-[#151515] input:justify-start dark:focus-visible:ring-0"
-                    value={inputValue ||  formatDateToMMYYYY(currentInitial) }
-                    
-                    onChange={handleInputChange}
-                />
+                <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                        <Button
+                            variant="outline"
+
+                            role="combobox"
+                            aria-expanded={open}
+                            className="w-1/2 mt-2 bg-[#191919] dark:border-none justify-between"
+                        >
+                            {currentInitial
+                                ? years.find((framework) => framework.value == currentInitial)?.label
+                                : "Beliebig"}
+                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-4 dark:bg-[#191919] ">
+                        <Command className="dark:bg-[#191919] h-[320px] overflow-auto" 
+                        onValueChange={(e) => {setcurrentInitial(e as any)}}
+                        
+                        >
+                            <CommandInput placeholder="Wähle das Baujahr" className="h-9 " />
+                            <CommandEmpty>Kein passendes Jahr gefunden..</CommandEmpty>
+                            <CommandGroup className="overflow-y-scroll">
+                            <CommandItem
+                                        key={"Beliebig"}
+                                        value={"Beliebig"}
+                                        onSelect={() => {
+                                            setValue("");
+                                            setcurrentInitial(undefined)
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        Beliebig
+                            </CommandItem>
+                                {years.map((year) => (
+                                    <CommandItem
+                                        key={year.value}
+                                        value={year.value}
+                                        onSelect={(currentValue) => {
+                                            setValue(currentValue === value ? "" : currentValue);
+                                            setcurrentInitial(currentValue)
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        {year.label}
+                                        <CheckIcon
+                                            className={cn(
+                                                "ml-auto h-4 w-4",
+                                                currentInitial === year.value ? "opacity-100" : "opacity-0"
+                                            )}
+                                        />
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        </Command>
+                    </PopoverContent>
+                </Popover>
             </div>
         </div>
-        <Button onClick={onSubmit} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100" 
-        disabled={validValue || currentInitial?.toDateString() === thisInitial?.toDateString() || !currentInitial
-        || currentInitial > new Date()
-        } >
+        <Button onClick={onSubmit} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100"  
+        disabled={thisInitial?.getFullYear() == Number(currentInitial)}
+        >
             <span className="">Baujahr angeben</span>
         </Button>
         

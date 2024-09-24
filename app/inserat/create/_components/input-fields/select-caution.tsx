@@ -85,6 +85,8 @@ const SelectCaution: React.FC<SelectCautionProps> = ({
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none"
                                                 placeholder="Gebe deine Kaution ein"
+                                                max={999999}
+                                                maxLength={7}
                                                 onBlur={(e) => {
                                                     const rawValue = e.currentTarget.value;
 

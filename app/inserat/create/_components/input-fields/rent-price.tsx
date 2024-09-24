@@ -119,7 +119,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
 
             />
             <div className="ml-auto flex justify-end">
-                <LetterRestriction limit={10} currentLength={currentValue?.length} />
+                <LetterRestriction limit={10} currentLength={currentValue ? String(currentValue).length : 0} />
             </div>
 
 

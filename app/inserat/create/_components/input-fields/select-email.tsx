@@ -20,6 +20,7 @@ import { login } from "@/actions/login";
 import { is } from 'drizzle-orm';
 import { cn } from "@/lib/utils";
 import { profile } from 'console';
+import LetterRestriction from "@/components/letter-restriction";
 
 interface SelectEmailProps {
   thisInserat: typeof inserat.$inferSelect | any;
@@ -31,7 +32,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
   usedContactOptions
 }) => {
 
- 
+
   const [currentAddress, setCurrentAddress] = useState(thisInserat.emailAddress || "");
   const [isLoading, setIsLoading] = useState(false);
   const [isPrefill, setIsPrefill] = useState(false);
@@ -48,12 +49,12 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
   useEffect(() => {
     console.log(thisInserat?.user?.userContactprofiles);
-  
+
     // Filter to get only the EMAIL profiles
     const mails = thisInserat?.user?.userContactprofiles?.filter((mail) => mail?.profileType === "EMAIL");
-  
+
     console.log(mails);
-  
+
     // Set the state with the filtered emails and loginMail
     setRenderedMails([...(mails || []), loginMail]);
   }, []);
@@ -85,7 +86,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const onPrefill = (usedMail : string) => {
+  const onPrefill = (usedMail: string) => {
     setCurrentAddress(usedMail);
     setModalOpen(false);
   }
@@ -117,8 +118,8 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
               onChange={(e) => { setCurrentAddress(e.target.value) }}
 
             />
-            <Popover onOpenChange={(e) => {setModalOpen(e)}}
-            open={modalOpen}
+            <Popover onOpenChange={(e) => { setModalOpen(e) }}
+              open={modalOpen}
             >
               <PopoverTrigger asChild>
                 <Button className="mt-2 bg-[#0F0F0F] hover:bg-[#0F0F0F]  py-5 rounded-l-none" size="sm">
@@ -133,18 +134,18 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
                   {renderedMails?.length > 0 ? (
                     renderedMails?.map((mail) => (
                       <Button
-                      disabled={isAlreadyChosen(mail?.content)}
-                      key={mail?.id}
-                      variant="ghost"
-                      className="justify-start text-left w-full p-3 py-6 rounded-md hover:bg-[#1E1E1E] transition-colors duration-200"
-                      onClick={() => { onPrefill(mail?.content) }}
-                    >      
-                       <div className="text-left w-full">
-                          <div className={cn("text-sm text-gray-200 font-bold", mail?.id == "1" && "text-indigo-800 underline" )}>
+                        disabled={isAlreadyChosen(mail?.content)}
+                        key={mail?.id}
+                        variant="ghost"
+                        className="justify-start text-left w-full p-3 py-6 rounded-md hover:bg-[#1E1E1E] transition-colors duration-200"
+                        onClick={() => { onPrefill(mail?.content) }}
+                      >
+                        <div className="text-left w-full">
+                          <div className={cn("text-sm text-gray-200 font-bold", mail?.id == "1" && "text-indigo-800 underline")}>
                             {mail?.title}
                           </div>
                           <div className="mt-1 text-xs text-gray-200/60 font-medium">
-                          {mail?.content}
+                            {mail?.content}
                           </div>
                         </div>
                       </Button>
@@ -158,7 +159,9 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
               </PopoverContent>
             </Popover>
           </div>
-
+          <div className="ml-auto flex justify-end">
+            <LetterRestriction limit={40} currentLength={currentAddress.length || 0} />
+          </div>
         </div>
 
       </div>
@@ -179,7 +182,7 @@ const SelectEmail: React.FC<SelectEmailProps> = ({
       */}
 
 
-      <Button onClick={() => { onSubmit() }} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
+      <Button onClick={() => { onSubmit() }} className=" dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
         disabled={!currentAddress || currentAddress === thisInserat.emailAddress}
       >
         <span className="">Email anzeigen</span>

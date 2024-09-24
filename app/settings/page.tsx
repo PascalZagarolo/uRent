@@ -18,8 +18,7 @@ import { redirect } from "next/navigation";
 import Footer from "../(dashboard)/_components/footer";
 
 
-import { RiContactsBookFill } from "react-icons/ri";
-import ContactProfiles from "./_components/contact-profiles";
+
 import { getCurrentUserWithNotificationsContactProfiles } from "@/actions/getCurrentUserWithNotifications";
 import TabSwitcher from "./(tabs)/tab-switcher";
 

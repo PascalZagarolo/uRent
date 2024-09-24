@@ -1,6 +1,7 @@
 'use client'
 
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -30,19 +31,19 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
   const [currentNumber, setCurrentNumber] = useState(thisInserat.phoneNumber || "");
   const [modalOpen, setModalOpen] = useState(false);
 
-  
+
 
 
   const [renderedNumbers, setRenderedNumbers] = useState<typeof userContactprofiles.$inferSelect[]>([]);
 
   useEffect(() => {
     console.log(thisInserat?.user?.userContactprofiles);
-  
+
     // Filter to get only the EMAIL profiles
     const phones = thisInserat?.user?.userContactprofiles?.filter((mail) => mail?.profileType === "PHONE");
-  
+
     console.log(phones);
-  
+
     // Set the state with the filtered emails and loginMail
     setRenderedNumbers([...(phones || [])]);
   }, []);
@@ -74,7 +75,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const onPrefill = (usedNumber : string) => {
+  const onPrefill = (usedNumber: string) => {
     setCurrentNumber(usedNumber);
   }
 
@@ -101,11 +102,13 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
               className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border-none rounded-r-none mt-2   dark:bg-[#151515] 
               input: justify-start dark:focus-visible:ring-0 w-full"
               disabled={isPrefill}
+              maxLength={32}
               value={currentNumber}
               onChange={(e) => { setCurrentNumber(e.target.value) }}
             />
-            <Popover onOpenChange={(e) => {setModalOpen(e)}}
-            open={modalOpen}
+            
+            <Popover onOpenChange={(e) => { setModalOpen(e) }}
+              open={modalOpen}
             >
               <PopoverTrigger asChild>
                 <Button className="mt-2 bg-[#0F0F0F] hover:bg-[#0F0F0F]  py-5 rounded-l-none" size="sm">
@@ -120,21 +123,21 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
                   {renderedNumbers.length > 0 ? (
                     renderedNumbers.map((mail) => (
                       <Button
-                      disabled={isAlreadyChosen(mail.content)}
-                      key={mail.id}
-                      variant="ghost"
-                      className="justify-start text-left w-full p-3 py-6 rounded-md hover:bg-[#1E1E1E] transition-colors duration-200"
-                      onClick={() => { 
-                        onPrefill(mail.content);
-                        setModalOpen(false);
-                       }}
-                    >      
-                       <div className="text-left w-full">
-                          <div className={cn("text-sm text-gray-200 font-bold", mail.id == "1" && "text-indigo-800 underline" )}>
+                        disabled={isAlreadyChosen(mail.content)}
+                        key={mail.id}
+                        variant="ghost"
+                        className="justify-start text-left w-full p-3 py-6 rounded-md hover:bg-[#1E1E1E] transition-colors duration-200"
+                        onClick={() => {
+                          onPrefill(mail.content);
+                          setModalOpen(false);
+                        }}
+                      >
+                        <div className="text-left w-full">
+                          <div className={cn("text-sm text-gray-200 font-bold", mail.id == "1" && "text-indigo-800 underline")}>
                             {mail.title}
                           </div>
                           <div className="mt-1 text-xs text-gray-200/60 font-medium">
-                          {mail.content}
+                            {mail.content}
                           </div>
                         </div>
                       </Button>
@@ -147,7 +150,11 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
                 </div>
               </PopoverContent>
             </Popover>
+            
           </div>
+          <div className="ml-auto flex justify-end">
+              <LetterRestriction limit={32} currentLength={currentNumber.length || 0} />
+            </div>
         </div>
 
       </div>
@@ -165,7 +172,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
       */}
 
 
-      <Button onClick={() => { onSubmit() }} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
+      <Button onClick={() => { onSubmit() }} className=" dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
         disabled={!currentNumber || currentNumber === thisInserat.phoneNumber || !thisInserat.user?.business?.telephone_number}
       >
         <span className="">Telefonnr. anzeigen</span>

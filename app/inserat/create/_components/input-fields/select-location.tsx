@@ -215,7 +215,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
             onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
             defaultValue={thisAddressComponent?.locationString}
-            
+            maxLength={60}
           />
         </div>
         <div className="ml-4">
@@ -231,7 +231,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
             justify-start dark:focus-visible:ring-0"
             type="text"
             pattern="[0-9]{5}"
-            
+            maxLength={20}
             onChange={(e) => { setCurrentZipCode(e.target.value) }}
             value={currentZipCode}
           />

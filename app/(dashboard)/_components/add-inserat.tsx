@@ -1,5 +1,6 @@
 'use client'
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -115,8 +116,12 @@ const Inserat: React.FC<InseratProps> = ({
                                 <div>
                                     <Input
                                         className="w-full dark:border-none dark:bg-[#191919] dark:text-gray-200/80"
+                                        maxLength={160}
                                         onChange={(e) => setCurrentTitle(e.target.value)}
                                     />
+                                    <div className="ml-auto flex justify-end">
+                                        <LetterRestriction limit={160} currentLength={currentTitle.length} />
+                                    </div>
                                 </div>
                             </div>
                             <div className="mt-4">

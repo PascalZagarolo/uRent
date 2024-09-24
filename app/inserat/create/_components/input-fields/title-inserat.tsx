@@ -1,6 +1,7 @@
 'use client'
 
 import { onKeyPressForm } from "@/actions/form-actions";
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
@@ -133,6 +134,7 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                     ref={inputRef}
                                     onChange={(e) => {setCurrentTitle(e.target.value)}}
                                     value={currentTitle}
+                                    maxLength={160}
                                     className="  dark:bg-[#0F0F0F]  
                                      focus:ring-0 focus-visible:ring-0 w-full rounded-none border-gray-600 "
                                     onKeyDown={(e) => 
@@ -141,6 +143,9 @@ const TitleInserat: React.FC<TitleInseratProps> = ({
                                     />
                                 </FormControl>
                                 <FormMessage/>
+                                <div className="ml-auto flex justify-end">
+                                        <LetterRestriction limit={160} currentLength={currentTitle.length} />
+                                    </div>
                             </FormItem>
                         )}
                         />

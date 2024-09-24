@@ -1,4 +1,5 @@
 'use client'
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -30,11 +31,11 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const [currentValue, setCurrentValue] = useState<string | number>(Number(thisInserat?.price)?.toFixed(2));
     const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
 
-    const {currentChanges, changeCurrent, deleteCurrent} = useUnsavedChanges()
+    const { currentChanges, changeCurrent, deleteCurrent } = useUnsavedChanges()
 
     useEffect(() => {
         const setAmount = async () => {
-            if(currentValue) {
+            if (currentValue) {
                 await changeCurrent("price", Number(currentValue)?.toFixed(2));
             } else {
                 console.log("delete")
@@ -46,13 +47,13 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
 
     useEffect(() => {
         isValidNumber(currentValue) ? setCorrectPrice(true) : setCorrectPrice(false);
-    },[currentValue])
- 
+    }, [currentValue])
+
     const [correctPrice, setCorrectPrice] = useState(false);
 
-    
 
-    function isValidNumber(input : any) {
+
+    function isValidNumber(input: any) {
         if (input?.startsWith("0")) {
             return false;
         }
@@ -63,7 +64,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
     const onSubmit = () => {
         try {
             const values = {
-                price : Number(currentValue)
+                price: Number(currentValue)
             }
             setIsLoading(true);
             axios.patch(`/api/inserat/${thisInserat.id}`, values);
@@ -80,69 +81,73 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
 
     useEffect(() => {
         const values = {
-            dailyPrice : isDailyPrice
+            dailyPrice: isDailyPrice
         }
         axios.patch(`/api/inserat/${thisInserat.id}`, values);
     }, [isDailyPrice])
 
     useEffect(() => {
-        if(thisInserat.annual) {
+        if (thisInserat.annual) {
             setDailyPrice(true)
         }
-    },[thisInserat.annual])
+    }, [thisInserat.annual])
 
-    
+
 
     return (
         <div className=" ">
-            
-                    <Label className="flex justify-start items-center">
-                        <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Mietpreis *</p>
-                    </Label>
-                    <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
-                    
-                                            <Input
-                                                type="text"
-                                                value={currentValue}
-                                                name="price"
-                                                className=" dark:bg-[#151515] dark:border-none mt-2"
-                                                placeholder="Mietpreis hinzufügen"
-                                                onChange={(e) => {
-                                                    let value = e.target.value;
-                                                            value = value.replace(/,/g, '.'); // Convert commas to periods
-                                                            
-                                                            setCurrentValue(value);
-                                                }}
-                                                
-                                            />
-                                      
-                                    
-                               
-                       
-                   
-                    <div className="w-full flex items-center">
-                        <Button
-                            className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
+
+            <Label className="flex justify-start items-center">
+                <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Mietpreis *</p>
+            </Label>
+            <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
+
+            <Input
+                type="text"
+                value={currentValue}
+                name="price"
+                maxLength={10}
+                max={1_000_000}
+                className=" dark:bg-[#151515] dark:border-none mt-2"
+                placeholder="Mietpreis hinzufügen"
+                onChange={(e) => {
+                    let value = e.target.value;
+                    value = value.replace(/,/g, '.'); // Convert commas to periods
+
+                    setCurrentValue(value);
+                }}
+
+            />
+            <div className="ml-auto flex justify-end">
+                <LetterRestriction limit={10} currentLength={currentValue?.length} />
+            </div>
+
+
+
+
+            <div className="w-full flex items-center">
+                <Button
+                    className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                            onClick={onSubmit} disabled={!correctPrice || Number(currentValue) === Number(thisInserat?.price) || Number(currentValue) > 1_000_000}
-                        >
-                            Preis festlegen
-                        </Button>
-                        
-                        <div className="ml-auto space-x-2">
-                        <Label>
-                            Preis pro Tag
-                        </Label>
-                        <Checkbox
-                        onCheckedChange={(checked) => {setDailyPrice(!isDailyPrice)}}
+                    onClick={onSubmit} disabled={!correctPrice || Number(currentValue) === Number(thisInserat?.price) || Number(currentValue) > 1_000_000}
+                >
+                    Preis festlegen
+                </Button>
+
+                <div className="ml-auto space-x-2">
+                    <Label>
+                        Preis pro Tag
+                    </Label>
+                    <Checkbox
+                        onCheckedChange={(checked) => { setDailyPrice(!isDailyPrice) }}
                         checked={isDailyPrice}
                         disabled
-                        />
-                      
-                        </div>
-                    </div>
-               
-           
+                    />
+
+                </div>
+            </div>
+
+
         </div>
     );
 }

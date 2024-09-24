@@ -94,6 +94,7 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                         }}
                         disabled={!usesPS}
                         value={currentLiter || ''}
+                        maxLength={8}
                     />
                 </div>
                 <div className="ml-4">
@@ -119,6 +120,7 @@ const LkwLoadingVolumeForm: React.FC<LkwLoadingVolumeFormProps> = ({
                         }}
                         disabled={usesPS}
                         value={currentMeter}
+                        maxLength={5}
                     />
                 </div>
             </div>

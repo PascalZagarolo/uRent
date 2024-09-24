@@ -79,6 +79,7 @@ const LkwPowerForm: React.FC<PowerFormProps> = ({
                         }}
                         disabled={!usesPS}
                         value={currentPS || ''}
+                        maxLength={5}
                     />
                 </div>
                 <div className="ml-4">
@@ -93,6 +94,7 @@ const LkwPowerForm: React.FC<PowerFormProps> = ({
                             setCurrentKW(Number(e.target.value));
                             setCurrentPS(Math.round(Number(e.target.value) * 1.35962)); 
                         }}
+                        maxLength={4}
                         disabled={usesPS}
                         value={currentKW || ''}
                     />

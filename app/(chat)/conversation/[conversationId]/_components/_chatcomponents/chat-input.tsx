@@ -101,6 +101,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                     </div>
                 </FormItem>
             )}
+            
         />
     
         <div className="ml-2">

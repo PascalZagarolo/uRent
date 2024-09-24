@@ -15,6 +15,7 @@ import toast, { CheckmarkIcon } from "react-hot-toast";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import ManageConversationFolder from "./_manage-chat-components/manage-conversationFolder";
+import LetterRestriction from "@/components/letter-restriction";
 
 interface ChatFolderProps {
     foundFolders: typeof conversationFolder.$inferSelect[];
@@ -55,7 +56,7 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
         )
     }
 
-     const colorResponse = (color: string) => {
+    const colorResponse = (color: string) => {
         switch (color) {
             case "blue":
                 return "bg-blue-800";
@@ -166,13 +167,13 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
             <div className="flex flex-row flex-wrap items-center  gap-x-2 ">
 
                 {
-                    foundFolders?.map(folder => renderedFolder(folder.id, folder.title, folder.color, folder.icon))} 
-                
+                    foundFolders?.map(folder => renderedFolder(folder.id, folder.title, folder.color, folder.icon))}
+
 
                 {
                     foundFolders.length > 0 && (
-                        <ManageConversationFolder 
-                        foundFolders={foundFolders}
+                        <ManageConversationFolder
+                            foundFolders={foundFolders}
                         />
                     )
                 }
@@ -208,8 +209,12 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
                                                 className="dark:bg-[#131313] dark:border-none"
                                                 value={currentTitle}
                                                 onChange={(e) => setCurrentTitle(e.target.value)}
-                                                placeholder="Ordnername.."
+                                                maxLength={100}
+                                            placeholder="Ordnername.."
                                             />
+                                            <div className="ml-auto flex justify-end">
+                                                <LetterRestriction limit={100} currentLength={currentTitle.length} />
+                                            </div>
                                         </div>
                                     </div>
 
@@ -221,7 +226,7 @@ const ChatFolder: React.FC<ChatFolderProps> = ({
                                             {
                                                 selectableColors.map((color) => (
                                                     <div className="bg-[#131313] p-1 rounded-md"
-                                                    key={color.key}
+                                                        key={color.key}
                                                     >
                                                         <div
                                                             key={color.key}

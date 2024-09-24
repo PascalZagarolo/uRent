@@ -1,3 +1,4 @@
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -14,10 +15,10 @@ import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 
 interface SelectMangeConversationProps {
-    thisFolder : typeof conversationFolder.$inferSelect;
+    thisFolder: typeof conversationFolder.$inferSelect;
 }
 
-const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
+const SelectManageConversation: React.FC<SelectMangeConversationProps> = ({
     thisFolder
 }) => {
 
@@ -119,7 +120,7 @@ const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
                 .then(() => {
                     router.refresh();
                 })
-        } catch(e : any) {
+        } catch (e: any) {
             console.log(e);
             toast.error("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
         } finally {
@@ -130,156 +131,160 @@ const SelectManageConversation : React.FC<SelectMangeConversationProps> = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button 
-                variant="ghost"
-                className={`
+                <Button
+                    variant="ghost"
+                    className={`
                     ${colorResponse(thisFolder.color)}
                     text-gray-200 font-semibold justify-start hover:text-gray-200/60
                 `}>
                     <div className="mr-2">
-                    {getIconByKey(thisFolder.icon)}
+                        {getIconByKey(thisFolder.icon)}
                     </div>
                     {thisFolder.title}
                 </Button>
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#191919]">
-                        <div className="w-full h-full">
+                <div className="w-full h-full">
+                    <div>
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-200 flex items-center flex-row gap-x-2">
+                                <PencilLineIcon className="w-4 h-4" /> {thisFolder.title} bearbeiten
+                            </h3>
+                            <p className="text-xs dark:text-gray-200/60">
+                                Bearbeite die Eigenschaften deines Ordners {thisFolder.title}.
+                            </p>
+                        </div>
+                        <div className="mt-4">
                             <div>
+                                <Label className="text-sm font-semibold">
+                                    Titel
+                                </Label>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-200 flex items-center flex-row gap-x-2">
-                                        <PencilLineIcon className="w-4 h-4" /> {thisFolder.title} bearbeiten
-                                    </h3>
-                                    <p className="text-xs dark:text-gray-200/60">
-                                        Bearbeite die Eigenschaften deines Ordners {thisFolder.title}.
-                                    </p>
-                                </div>
-                                <div className="mt-4">
-                                    <div>
-                                        <Label className="text-sm font-semibold">
-                                            Titel
-                                        </Label>
-                                        <div>
-                                            <Input
-                                                className="dark:bg-[#131313] dark:border-none"
-                                                value={currentTitle}
-                                                onChange={(e) => setCurrentTitle(e.target.value)}
-                                                placeholder="Ordnername.."
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-4">
-                                        <Label className="text-sm font-semibold">
-                                            Farbe
-                                        </Label>
-                                        <div className="flex flex-row flex-wrap justify-between">
-                                            {
-                                                selectableColors.map((color) => (
-                                                    <div className="bg-[#131313] p-1 rounded-md"
-                                                    key={color.key}
-                                                    >
-                                                        <div
-                                                            key={color.key}
-                                                            className={`${color.value}  p-3 rounded-md cursor-pointer`}
-                                                            onClick={() => { setCurrentColor(color.key) }}
-                                                        >
-                                                            {
-                                                                currentColor === color.key ? (
-                                                                    currentColor === "white" ? (
-                                                                        <div
-                                                                            className="w-4 h-4 bg-gray-600/60 rounded-full flex items-center justify-center"
-                                                                        />
-                                                                    ) : (
-                                                                        <div
-                                                                            className="w-4 h-4 bg-gray-200/60 rounded-full flex items-center justify-center"
-                                                                        />
-                                                                    )
-
-                                                                ) : (
-                                                                    <div
-                                                                        className={`${color.value} w-4 h-4  rounded-full flex items-center justify-center`}
-                                                                    />
-                                                                )
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                ))
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="mt-4">
-                                        <Label className="text-sm font-semibold">
-                                            Icon
-
-                                        </Label>
-                                        <div className="">
-                                            <Popover>
-                                                <PopoverTrigger asChild>
-                                                    <Button className={
-                                                        cn("w-full bg-[#131313] hover:bg-[#171717]",
-                                                            currentIcon ? "text-gray-200" : "text-gray-200/60 hover:text-gray-200/80")
-                                                    }>
-                                                        {
-                                                            currentIcon ? (
-                                                                selectableIcons.find((icon) => icon.key === currentIcon).value
-                                                            ) : (
-                                                                "Icon auswählen.."
-                                                            )
-                                                        }
-                                                        <div className="ml-auto">
-                                                            <ChevronDownIcon className="w-4 h-4" />
-                                                        </div>
-                                                    </Button>
-                                                </PopoverTrigger>
-                                                <PopoverContent className="dark:border-none dark:bg-[#131313]"
-                                                    side="top"
-                                                >
-                                                    <div>
-                                                        <div className="grid grid-cols-5 grid-flow-dense gap-x-2">
-                                                            {
-                                                                selectableIcons.map((icon) => (
-
-                                                                    <Button
-                                                                        key={icon.key}
-                                                                        onClick=
-                                                                        {() => {
-                                                                            currentIcon === icon.key ? setCurrentIcon(null) : setCurrentIcon(icon.key)
-                                                                        }}
-
-                                                                        variant="ghost"
-
-                                                                        className={cn("bg-[#191919] text-gray-200 flex justify-center p-2 rounded-md",
-                                                                            currentIcon === icon.key ? "border border-indigo-800" : "hover:bg-[#1C1C1C]")}
-
-                                                                    >
-                                                                        {icon.value}
-                                                                    </Button>
-
-                                                                ))
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </PopoverContent>
-                                            </Popover>
-                                        </div>
-                                    </div>
-                                    <div className="mt-4 flex justify-end">
-                                        <DialogTrigger asChild>
-                                            <Button
-                                                className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-400"
-                                                onClick={onSubmit}
-                                                disabled={isLoading || !currentTitle || !currentColor}
-                                            >
-                                                Änderungen speichern
-
-                                            </Button>
-                                        </DialogTrigger>
+                                    <Input
+                                        className="dark:bg-[#131313] dark:border-none"
+                                        value={currentTitle}
+                                        maxLength={100}
+                                        onChange={(e) => setCurrentTitle(e.target.value)}
+                                        placeholder="Ordnername.."
+                                    />
+                                    <div className="ml-auto flex justify-end">
+                                        <LetterRestriction limit={100} currentLength={currentTitle.length} />
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="mt-4">
+                                <Label className="text-sm font-semibold">
+                                    Farbe
+                                </Label>
+                                <div className="flex flex-row flex-wrap justify-between">
+                                    {
+                                        selectableColors.map((color) => (
+                                            <div className="bg-[#131313] p-1 rounded-md"
+                                                key={color.key}
+                                            >
+                                                <div
+                                                    key={color.key}
+                                                    className={`${color.value}  p-3 rounded-md cursor-pointer`}
+                                                    onClick={() => { setCurrentColor(color.key) }}
+                                                >
+                                                    {
+                                                        currentColor === color.key ? (
+                                                            currentColor === "white" ? (
+                                                                <div
+                                                                    className="w-4 h-4 bg-gray-600/60 rounded-full flex items-center justify-center"
+                                                                />
+                                                            ) : (
+                                                                <div
+                                                                    className="w-4 h-4 bg-gray-200/60 rounded-full flex items-center justify-center"
+                                                                />
+                                                            )
+
+                                                        ) : (
+                                                            <div
+                                                                className={`${color.value} w-4 h-4  rounded-full flex items-center justify-center`}
+                                                            />
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <Label className="text-sm font-semibold">
+                                    Icon
+
+                                </Label>
+                                <div className="">
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <Button className={
+                                                cn("w-full bg-[#131313] hover:bg-[#171717]",
+                                                    currentIcon ? "text-gray-200" : "text-gray-200/60 hover:text-gray-200/80")
+                                            }>
+                                                {
+                                                    currentIcon ? (
+                                                        selectableIcons.find((icon) => icon.key === currentIcon).value
+                                                    ) : (
+                                                        "Icon auswählen.."
+                                                    )
+                                                }
+                                                <div className="ml-auto">
+                                                    <ChevronDownIcon className="w-4 h-4" />
+                                                </div>
+                                            </Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="dark:border-none dark:bg-[#131313]"
+                                            side="top"
+                                        >
+                                            <div>
+                                                <div className="grid grid-cols-5 grid-flow-dense gap-x-2">
+                                                    {
+                                                        selectableIcons.map((icon) => (
+
+                                                            <Button
+                                                                key={icon.key}
+                                                                onClick=
+                                                                {() => {
+                                                                    currentIcon === icon.key ? setCurrentIcon(null) : setCurrentIcon(icon.key)
+                                                                }}
+
+                                                                variant="ghost"
+
+                                                                className={cn("bg-[#191919] text-gray-200 flex justify-center p-2 rounded-md",
+                                                                    currentIcon === icon.key ? "border border-indigo-800" : "hover:bg-[#1C1C1C]")}
+
+                                                            >
+                                                                {icon.value}
+                                                            </Button>
+
+                                                        ))
+                                                    }
+                                                </div>
+                                            </div>
+                                        </PopoverContent>
+                                    </Popover>
+                                </div>
+                            </div>
+                            <div className="mt-4 flex justify-end">
+                                <DialogTrigger asChild>
+                                    <Button
+                                        className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-400"
+                                        onClick={onSubmit}
+                                        disabled={isLoading || !currentTitle || !currentColor}
+                                    >
+                                        Änderungen speichern
+
+                                    </Button>
+                                </DialogTrigger>
+                            </div>
                         </div>
-                    </DialogContent>
-                    
+                    </div>
+                </div>
+            </DialogContent>
+
         </Dialog>
     );
 }

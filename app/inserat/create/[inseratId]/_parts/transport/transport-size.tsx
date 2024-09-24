@@ -104,7 +104,7 @@ const TransportSizeForm: React.FC<TransportSizeFormProps> = ({
                             setCurrentLength(cleanedValue)
                             
                         }}
-                        
+                        maxLength={6}
                         value={currentLength}
                     />
                 </div>
@@ -128,7 +128,7 @@ const TransportSizeForm: React.FC<TransportSizeFormProps> = ({
                             setCurrentWidth(cleanedValue)
                             
                         }}
-                        
+                        maxLength={6}
                         value={currentWidth}
                     />
                 </div>
@@ -151,7 +151,7 @@ const TransportSizeForm: React.FC<TransportSizeFormProps> = ({
                             setCurrentHeight(cleanedValue)
                             
                         }}
-                        
+                        maxLength={6}
                         value={currentHeight}
                     />
                 </div>

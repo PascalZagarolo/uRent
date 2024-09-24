@@ -79,6 +79,7 @@ const TransportPowerForm: React.FC<PowerFormProps> = ({
                         }}
                         disabled={!usesPS}
                         value={currentPS || ''}
+                        maxLength={5}
                     />
                 </div>
                 <div className="ml-4">
@@ -95,6 +96,7 @@ const TransportPowerForm: React.FC<PowerFormProps> = ({
                         }}
                         disabled={usesPS}
                         value={currentKW || ''}
+                        maxLength={4}
                     />
                 </div>
             </div>

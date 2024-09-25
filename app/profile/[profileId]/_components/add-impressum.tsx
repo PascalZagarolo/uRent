@@ -18,11 +18,12 @@ import { set } from "lodash";
 import { cn } from "@/lib/utils";
 import { userTable } from "@/db/schema";
 import { useRouter } from "next/navigation";
+import LetterRestriction from "@/components/letter-restriction";
 
 
-interface ProfileDescriptionProps { 
-    ownProfile : boolean;
-    user : typeof userTable.$inferSelect;
+interface ProfileDescriptionProps {
+    ownProfile: boolean;
+    user: typeof userTable.$inferSelect;
 }
 
 
@@ -30,7 +31,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
     ownProfile,
     user
 }) => {
-    
+
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [currentContent, setCurrentContent] = useState(user.business?.impressum);
@@ -69,7 +70,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
     const onChange = () => {
         try {
             const values = {
-                impressum : currentContent
+                impressum: currentContent
             }
             setIsLoading(true);
             axios.patch(`/api/business/${user.business.id}`, values);
@@ -86,70 +87,74 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-2 ">
 
-                    <div className="  p-4  bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
+            <div className="  p-4  bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
                      w-full">
-                        <div className=" flex items-center" >
-                        
-                        <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
-                        <GoLaw className="w-4 h-4 mr-2" /> Impressum 
-                        </p>
-                        {ownProfile && (
-                            <div className="ml-auto"> 
+                <div className=" flex items-center" >
+
+                    <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
+                        <GoLaw className="w-4 h-4 mr-2" /> Impressum
+                    </p>
+                    {ownProfile && (
+                        <div className="ml-auto">
                             <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
                                       dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" onClick={onChange}
-                                      disabled={!currentContent || currentContent === user.business?.impressum || currentContent.trim() === ""}
-                                      >
-                                         Impressum speichern
-                                     </Button>
-                                </div>
-                        )}
-                        
+                                disabled={!currentContent || currentContent === user.business?.impressum || currentContent.trim() === ""}
+                            >
+                                Impressum speichern
+                            </Button>
                         </div>
-                        <div className="mt-4" >
-                        {isEditing ? (
-                             <Form {...form}>
-                             <form onSubmit={form.handleSubmit(onChange)}>
-                                 <FormField
-                                     control={form.control}
-                                     name="impressum"
-                                     render={({ field }) => (
-                                         <FormItem>
-                                             <FormControl>
-                                                 <Textarea
-                                                     {...field} className="dark:bg-[#171717] border-none h-[200px]"
-                                                     onBlur={() => {
+                    )}
+
+                </div>
+                <div className="mt-4" >
+                    {isEditing ? (
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onChange)}>
+                                <FormField
+                                    control={form.control}
+                                    name="impressum"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormControl>
+                                                <Textarea
+                                                    {...field} className="dark:bg-[#171717] border-none h-[200px]"
+                                                    onBlur={() => {
                                                         setIsEditing(false);
-                                                     }}
-                                                     onChange={(e) => {setCurrentContent(e.target.value)}}
-                                                     value={currentContent}
-                                                     ref={textareaRef}
-                                                 />
-                                             </FormControl>
-                                             <FormMessage/>
-                                         </FormItem>
-                                     )}
-             
-                                 />
-                                 <div>
-                                     
-                                 </div>
-                             </form>
-                         </Form>
-                        ) : (
-                            <div className="mt-2 text-sm font-medium">
-                            
-                        {(currentContent?.trim() !== "" && currentContent)? (
-                            
+                                                    }}
+                                                    onChange={(e) => { setCurrentContent(e.target.value) }}
+                                                    value={currentContent}
+                                                    ref={textareaRef}
+                                                    maxLength={5000}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                            <div className="ml-auto flex justify-end">
+                                                <LetterRestriction limit={5000} currentLength={currentContent.length} />
+                                            </div>
+                                        </FormItem>
+                                    )}
 
-                            <div>
-                                <div className={cn("dark:text-gray-200/90 whitespace-pre-wrap break-words", 
-                                isUnfolded ? "h-full" : "h-full", ownProfile && "hover:cursor-pointer")}  style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
-                                onClick={() => {ownProfile && onEdit()}}
-                                >
-                                {currentContent} 
+                                />
+                                <div>
 
-                            </div>
-                            {/* 
+                                </div>
+                            </form>
+                        </Form>
+                    ) : (
+                        <div className="mt-2 text-sm font-medium">
+
+                            {(currentContent?.trim() !== "" && currentContent) ? (
+
+
+                                <div>
+                                    <div className={cn("dark:text-gray-200/90 whitespace-pre-wrap break-words",
+                                        isUnfolded ? "h-full" : "h-full", ownProfile && "hover:cursor-pointer")} style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                        onClick={() => { ownProfile && onEdit() }}
+                                    >
+                                        {currentContent}
+
+                                    </div>
+                                    {/* 
                             
                             {user?.business?.impressum?.length > 400 && (
                                 <Button className=" w-full bg-gray-200 
@@ -160,20 +165,20 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                             )}
 
                             */}
-                            </div>
-                           ) : (
-                            <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => {ownProfile && onEdit()}}>
-                                Das Unternehmen hat noch nichts über sich geteilt..
-                            </div>
-                           )}
-                           
+                                </div>
+                            ) : (
+                                <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => { ownProfile && onEdit() }}>
+                                    Das Unternehmen hat noch nichts über sich geteilt..
+                                </div>
+                            )}
+
                         </div>
-                        )}
-                        </div>
-                        
-                    </div>
-                    
+                    )}
                 </div>
+
+            </div>
+
+        </div>
     );
 }
 

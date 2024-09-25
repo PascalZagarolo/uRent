@@ -18,11 +18,12 @@ export async function POST(
             return new NextResponse("Unauthorized", { status : 401 });
         }
 
-        const values = await req.json();
+        
 
         const { imageUrl, title, category ,  tags, content, isPublic  } = await req.json();
 
         if(!imageUrl || !title || !category || !tags || !content || !isPublic) {
+            console.log("22")
             return new NextResponse("Bad Request", { status : 400 });
         }
         console.log("22")

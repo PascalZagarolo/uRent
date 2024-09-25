@@ -87,7 +87,9 @@ const BlogCreation = () => {
                         Kategorie
                     </Label>
                     <div>
-                        <Select>
+                        <Select onValueChange={(e) => {
+                            setCurrentCategory(e);
+                        }}>
                             <SelectTrigger className="w-1/2 border-none bg-[#191919]">
                                 <SelectValue placeholder="Wähle die Kategorie deines Blogs aus" />
                             </SelectTrigger>

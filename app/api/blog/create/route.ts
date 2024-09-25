@@ -7,7 +7,7 @@ export async function POST(
     req : Request
 ) {
     try {
-
+        console.log("...")
         const currentUser = await getCurrentUser();
 
         if(!currentUser) {
@@ -18,12 +18,14 @@ export async function POST(
             return new NextResponse("Unauthorized", { status : 401 });
         }
 
-        const { imageUrl, title, category ,  tags, content, isPublic,  } = await req.json();
+        const values = await req.json();
+
+        const { imageUrl, title, category ,  tags, content, isPublic  } = await req.json();
 
         if(!imageUrl || !title || !category || !tags || !content || !isPublic) {
             return new NextResponse("Bad Request", { status : 400 });
         }
-
+        console.log("22")
         const [createdBlog] = await db.insert(blog).values({
             imageUrl,
             title,

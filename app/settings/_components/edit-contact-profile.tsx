@@ -30,6 +30,7 @@ const EditContactProfile = ({ thisProfile, onChangeProfile }: EditContactProfile
             }
             const res = await axios.patch(`/api/contactProfile/${thisProfile.id}/edit`, values);
             toast.success('Kontaktprofil erfolgreich bearbeitet.');
+            console.log(res.data)
             onChangeProfile(res.data);
         } catch(e : any) {
             console.log(e);

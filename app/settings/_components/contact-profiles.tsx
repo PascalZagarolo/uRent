@@ -107,13 +107,13 @@ const ContactProfiles = ({ foundProfiles, foundEmail }: ContactProfilesProps) =>
                                     <span className="text-sm font-semibold">{mail.title}</span>
                                     <EditContactProfile thisProfile={mail}
                                         onChangeProfile={(profile) => {
-                                            const newMails = currentMails.map((m) => {
+                                            const newPhones = currentPhones.map((m) => {
                                                 if (m.id === mail.id) {
                                                     return profile;
                                                 }
                                                 return m;
                                             });
-                                            setCurrentMails(newMails as any);
+                                            setCurrentPhones(newPhones as any);
                                         }}
                                     />
                                     <DeleteContactProfile

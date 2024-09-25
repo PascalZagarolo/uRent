@@ -11,26 +11,65 @@ import { useState } from "react";
 import AddImageBlog from "./add-image";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const BlogCreation = () => {
-    const [currentTitle, setCurrentTitle] = useState("");
-    const [currentCategories, setCurrentCategories] = useState<Array<{ label: string, value: string }>>([]);
-    const [currentContent, setCurrentContent] = useState("");
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentTags, setCurrentTags] = useState<Array<{ label: string, value: string }>>([]);
+    const [currentCategory, setCurrentCategory] = useState("");
+    const [currentContent, setCurrentContent] = useState("");
+    const [currentImage, setCurrentImage] = useState<string | null>(null);
     const [isPublic, setPublic] = useState(false);
 
     const allCategories = useBlogCategories();
 
     // Dynamically filter available categories based on selected ones
     const availableCategories = allCategories.filter(
-        (category) => !currentCategories.some((current) => current.value === category.value)
+        (category) => !currentTags.some((current) => current.value === category.value)
     );
+
+    const onSave = async () => {
+        setIsLoading(true);
+
+        const usedTags = [
+            ...(currentTags?.map(tag => tag.value) || []),            
+          ].join(",");
+
+        try {
+            const values = {
+                title : currentTitle,
+                content : currentContent,
+                imageUrl : currentImage,
+                isPublic : isPublic,
+                category : currentCategory,
+                tags : usedTags
+            }
+
+            await axios.post('/api/blog/create', values)
+            toast.success('Blog erfolgreich erstellt')
+
+            
+       
+        } catch(e : any) {
+            console.log(e);
+            toast.error('Fehler beim Erstellen des Blogs')
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <div>
             <div className="mt-4 flex flex-col space-y-8">
                 <div>
-                    <AddImageBlog />
+                    <AddImageBlog 
+                    currentUrl={currentImage}
+                    setCurrentUrl={setCurrentImage}
+                    />
                 </div>
                 <div>
                     <Label>Titel</Label>
@@ -68,16 +107,16 @@ const BlogCreation = () => {
                 <div>
                     <Label>Tags</Label>
                     <div className="flex-wrap space-y-2 w-full">
-                        {currentCategories.length > 0 && (
+                        {currentTags.length > 0 && (
                             <div className="flex flex-row items-center flex-wrap gap-y-2 gap-x-2 mt-2">
-                                {currentCategories.map((category, index) => (
+                                {currentTags.map((category, index) => (
                                     <div
                                         key={index}
                                         className="flex items-center bg-[#242424] hover:bg-[#232323] text-gray-200 hover:text-gray-300 
                                         rounded-full px-3 py-1 text-sm shadow-md transition-all duration-150 ease-in-out"
                                     >
                                         <button
-                                            onClick={() => setCurrentCategories(currentCategories.filter((cat) => cat.value !== category.value))}
+                                            onClick={() => setCurrentTags(currentTags.filter((cat) => cat.value !== category.value))}
                                         >
                                             <X className="w-4 h-4" />
                                         </button>
@@ -109,7 +148,7 @@ const BlogCreation = () => {
                                                 key={index}
                                                 className="text-sm bg-indigo-800 rounded-md p-2 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
                                                 onClick={() => {
-                                                    setCurrentCategories([...currentCategories, category]);
+                                                    setCurrentTags([...currentTags, category]);
                                                 }}
                                             >
                                                 {category.label}
@@ -142,7 +181,9 @@ const BlogCreation = () => {
                 </Label>
             </div>
             <div className="mt-4">
-                <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 w-full">
+                <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 w-full"
+                onClick={onSave}
+                >
                         Blog speichern
                 </Button>
             </div>

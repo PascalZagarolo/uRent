@@ -8,7 +8,12 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 
-const AddImageBlog = () => {
+interface AddImageProps {
+    currentUrl : string;
+    setCurrentUrl : (url : string) => void;
+}
+
+const AddImageBlog = ({ currentUrl, setCurrentUrl } : AddImageProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +46,7 @@ const AddImageBlog = () => {
     });
 
     const [selectedImages, setSelectedImages] = useState([]);
-    const [currentUrl, setCurrentUrl] = useState("");
+   
     const [isUploaded, setIsUploaded] = useState(false);
     const [currentNote, setCurrentNote] = useState("");
 

@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { userTable } from "@/db/schema";
 import { useRouter } from "next/navigation";
+import LetterRestriction from "@/components/letter-restriction";
 
 
 
@@ -124,9 +125,13 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                                                      onChange={(e) => {setCurrentContent(e.target.value)}}
                                                      value={currentContent}
                                                      ref={textareaRef}
+                                                     maxLength={2000}
                                                  />
                                              </FormControl>
                                              <FormMessage/>
+                                             <div className="ml-auto flex justify-end">
+                                            <LetterRestriction limit={2000} currentLength={currentContent.length} />
+                                    </div>
                                          </FormItem>
                                      )}
              

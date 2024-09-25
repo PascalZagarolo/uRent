@@ -1,5 +1,6 @@
 'use client'
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -12,10 +13,10 @@ import toast from "react-hot-toast";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
 interface AddBusinessFaqsProps {
-    businessId : string 
+    businessId: string
 }
 
-const AddBusinessFaqs : React.FC<AddBusinessFaqsProps> = ({
+const AddBusinessFaqs: React.FC<AddBusinessFaqsProps> = ({
     businessId
 }) => {
 
@@ -30,8 +31,8 @@ const AddBusinessFaqs : React.FC<AddBusinessFaqsProps> = ({
         try {
             setIsLoading(true);
             const values = {
-                answer : currentAnswer,
-                question : currentQuestion,
+                answer: currentAnswer,
+                question: currentQuestion,
             }
 
             await axios.post(`/api/business/${businessId}/faqs`, values)
@@ -42,9 +43,9 @@ const AddBusinessFaqs : React.FC<AddBusinessFaqsProps> = ({
                     setCurrentAnswer('');
                 })
 
-        } catch(error : any) {
+        } catch (error: any) {
             toast.error("Fehler beim absenden der Daten");
-            
+
         } finally {
             setIsLoading(false);
         }
@@ -68,45 +69,51 @@ const AddBusinessFaqs : React.FC<AddBusinessFaqsProps> = ({
                     </div>
                     <div className="mt-8">
                         <div>
-                        <Label className="text-sm font-medium">
-                            Frage
-                        </Label>
-                        <Input className="dark:bg-[#1c1c1c] border-none mt-2" 
-                        onChange={(e) => {setCurrentQuestion(e.target.value)}} value={currentQuestion}/>
+                            <Label className="text-sm font-medium">
+                                Frage
+                            </Label>
+                            <Input className="dark:bg-[#1c1c1c] border-none mt-2"
+                                onChange={(e) => { setCurrentQuestion(e.target.value) }} value={currentQuestion} maxLength={256} />
+                            <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={256} currentLength={currentQuestion.length} />
+                            </div>
                         </div>
                         <div className="mt-2">
-                        <Label className="text-sm font-medium">
-                            Antwort
-                        </Label>
-                        <Textarea className="dark:bg-[#1c1c1c] border-none mt-2 h-[200px]" 
-                        onChange={(e) => {setCurrentAnswer(e.target.value)}} value={currentAnswer}/>
+                            <Label className="text-sm font-medium">
+                                Antwort
+                            </Label>
+                            <Textarea className="dark:bg-[#1c1c1c] border-none mt-2 h-[200px]"
+                                onChange={(e) => { setCurrentAnswer(e.target.value) }} value={currentAnswer} maxLength={1000} />
+                                <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={1000} currentLength={currentAnswer.length} />
+                            </div>
                         </div>
                     </div>
-                    {currentQuestion.length > 200 && (
+                    {currentQuestion.length > 256 && (
                         <span className="text-rose-800 font-semibold text-xs">
-                        Frage zu lang
-                    </span>
+                            Frage zu lang
+                        </span>
                     )}
-                    {currentAnswer.length > 5000 && (
+                    {currentAnswer.length > 1000 && (
                         <span className="text-rose-800 font-semibold text-xs">
-                        Antwort zu lang
-                    </span>
+                            Antwort zu lang
+                        </span>
                     )}
                     <div className="mt-2 flex justify-end">
                         <DialogTrigger asChild>
-                        <Button 
-                        className="dark:bg-indigo-800 dark:hover:bg-indigo-900 dark:text-gray-200 dark:hover:text-gray-300"
-                        disabled={currentQuestion.length === 0 || currentAnswer.length === 0 || 
-                            currentQuestion.length > 200 || currentAnswer.length > 5000 || isLoading}
-                            onClick={onSend}
-                        >
-                            Speichern
-                        </Button>
+                            <Button
+                                className="dark:bg-indigo-800 dark:hover:bg-indigo-900 dark:text-gray-200 dark:hover:text-gray-300"
+                                disabled={currentQuestion.length === 0 || currentAnswer.length === 0 ||
+                                    currentQuestion.length > 200 || currentAnswer.length > 5000 || isLoading}
+                                onClick={onSend}
+                            >
+                                Speichern
+                            </Button>
                         </DialogTrigger>
                         <DialogTrigger asChild>
-                        <Button className="" variant="ghost">
-                            Abbrechen
-                        </Button>
+                            <Button className="" variant="ghost">
+                                Abbrechen
+                            </Button>
                         </DialogTrigger>
                     </div>
                 </div>

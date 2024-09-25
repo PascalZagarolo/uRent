@@ -1,5 +1,6 @@
 'use client'
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -71,14 +72,20 @@ const EditBusinessFaqs : React.FC<EditBusinessFaqsProps> = ({
                             Frage
                         </Label>
                         <Input className="dark:bg-[#1c1c1c] border-none mt-2" 
-                        onChange={(e) => {setCurrentQuestion(e.target.value)}} value={currentQuestion}/>
+                        onChange={(e) => {setCurrentQuestion(e.target.value)}} value={currentQuestion} maxLength={1000}/>
+                        <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={256} currentLength={currentQuestion.length} />
+                            </div>
                         </div>
                         <div className="mt-2">
                         <Label className="text-sm font-medium">
                             Antwort
                         </Label>
                         <Textarea className="dark:bg-[#1c1c1c] border-none mt-2 h-[200px] whitespace-break-spaces" 
-                        onChange={(e) => {setCurrentAnswer(e.target.value)}} value={currentAnswer}/>
+                        onChange={(e) => {setCurrentAnswer(e.target.value)}} value={currentAnswer} maxLength={1000}/>
+                        <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={1000} currentLength={currentAnswer.length} />
+                            </div>
                         </div>
                     </div>
                     {currentQuestion.length > 200 && (

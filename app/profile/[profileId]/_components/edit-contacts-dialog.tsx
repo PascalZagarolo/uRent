@@ -1,5 +1,6 @@
 'use client'
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -15,10 +16,10 @@ import { TfiMobile } from "react-icons/tfi";
 
 
 interface EditContactsDialogProps {
-    thisBusiness : typeof business.$inferSelect;
+    thisBusiness: typeof business.$inferSelect;
 }
 
-const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
+const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
     thisBusiness
 }) => {
 
@@ -65,7 +66,7 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                         <Contact2Icon className="w-4 h-4 mr-2" /> Kontakte verwalten
                     </h1>
                     <p className="text-xs dark:text-gray-200/70">
-                        Verwalte deine Kontaktdaten. Angegebene Kontaktdaten werden öffentlich auf deinem 
+                        Verwalte deine Kontaktdaten. Angegebene Kontaktdaten werden öffentlich auf deinem
                         Profil sowie neben deinen Inseraten angezeigt.
                     </p>
                     <div className="w-full space-y-4 ">
@@ -79,7 +80,11 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                                 onChange={(e) => setCurrentWebsite(e.target.value)}
                                 value={currentWebsite}
                                 placeholder="www.urent-rental.de"
+                                maxLength={100}
                             />
+                            <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={100} currentLength={currentWebsite.length} />
+                            </div>
                         </div>
 
                         <div className="w-full">
@@ -91,7 +96,11 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                                 onChange={(e) => setCurrentEmail(e.target.value)}
                                 value={currentEmail}
                                 placeholder="test@urent-rental.de"
+                                maxLength={60}
                             />
+                            <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={60} currentLength={currentEmail.length} />
+                            </div>
                         </div>
 
                         <div className="w-full">
@@ -104,7 +113,11 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                                 value={currentNumber}
                                 onChange={(e) => setCurrentNumber(e.target.value)}
                                 placeholder="+49 123456789"
+                                maxLength={20}
                             />
+                            <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={20} currentLength={currentNumber.length} />
+                            </div>
                         </div>
 
                         <div className="w-full">
@@ -116,13 +129,17 @@ const EditContactsDialog : React.FC<EditContactsDialogProps> = ({
                                 onChange={(e) => setCurrentFax(e.target.value)}
                                 value={currentFax}
                                 placeholder="040-999 8888"
+                                maxLength={20}
                             />
+                            <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={20} currentLength={currentFax.length} />
+                            </div>
                         </div>
                         <div>
                             <DialogTrigger asChild>
-                            <Button className="w-full dark:bg-[#1C1C1C]" variant="ghost" size="sm" onClick={onSave}>
-                                Speichern
-                            </Button>
+                                <Button className="w-full dark:bg-[#1C1C1C]" variant="ghost" size="sm" onClick={onSave}>
+                                    Speichern
+                                </Button>
                             </DialogTrigger>
                         </div>
                     </div>

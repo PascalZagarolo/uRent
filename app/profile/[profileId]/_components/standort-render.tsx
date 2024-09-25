@@ -242,6 +242,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                     className="dark:bg-[#1C1C1C] border-none"
                                     onChange={(e) => setCurrentTitle(e.target.value)}
                                     placeholder="z.B. Autohaus Mömer"
+                                    maxLength={120}
                                     />
                                 </div>
                                 <div className="w-full flex gap-4">
@@ -253,6 +254,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                             className="dark:bg-[#1C1C1C] border-none"
                                             onChange={(e) => setCurrentStreet(e.target.value)}
                                             placeholder="Musterstraße 13"
+                                            maxLength={60}
                                         />
                                     </div>
 
@@ -266,6 +268,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                             className="dark:bg-[#1C1C1C] border-none"
                                             onChange={(e) => setCurrentCity(e.target.value)}
                                             placeholder="Musterstadt"
+                                            maxLength={60}
                                         />
                                     </div>
                                     <div className="w-1/2 mt-2">
@@ -274,7 +277,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                         </Label>
                                         <Input
                                             className="dark:bg-[#1C1C1C] border-none"
-
+                                            maxLength={5}
                                             onChange={(e) => setCurrentPostalCode(e.target.value)}
                                             placeholder="10100"
                                         />

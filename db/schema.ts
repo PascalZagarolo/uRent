@@ -20,7 +20,7 @@ import {
 import type { AdapterAccount } from '@auth/core/adapters'
 
 import {  relations, sql } from "drizzle-orm"
-import { z } from "zod"
+import { string, z } from "zod"
 import { profile } from "console"
 
 
@@ -131,6 +131,17 @@ export const businessImages = pgTable("businessImages", {
     businessId: uuid("businessId")
         .references(() => business.id, { onDelete: "cascade" }),
 
+})
+
+export const blog = pgTable("blog", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
+    category : text("category"),
+    tags : text("tags"),
+    title : text("title"),
+    content : text("content"),
+    isPublic : boolean("isPublic").notNull().default(false),
+    imageUrl : text("imageUrl"),
 })
 
 export const twoFactorConfirmation = pgTable("twoFactorConfirmation", {

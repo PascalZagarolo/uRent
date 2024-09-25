@@ -9,11 +9,15 @@ import { useBlogCategories } from "@/hooks/blogs/useBlogCategories";
 import { PlusIcon, X } from "lucide-react";
 import { useState } from "react";
 import AddImageBlog from "./add-image";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 const BlogCreation = () => {
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentCategories, setCurrentCategories] = useState<Array<{ label: string, value: string }>>([]);
     const [currentContent, setCurrentContent] = useState("");
+
+    const [isPublic, setPublic] = useState(false);
 
     const allCategories = useBlogCategories();
 
@@ -40,7 +44,29 @@ const BlogCreation = () => {
                     </div>
                 </div>
                 <div>
-                    <Label>Kategorie(n)</Label>
+                    <Label>
+                        Kategorie
+                    </Label>
+                    <div>
+                        <Select>
+                            <SelectTrigger className="w-1/2 border-none bg-[#191919]">
+                                <SelectValue placeholder="Wähle die Kategorie deines Blogs aus" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#191919] border-none">
+                                <SelectGroup>
+                                    <SelectLabel>Kategorie</SelectLabel>
+                                    {allCategories.map((category, index) => (
+                                        <SelectItem key={index} value={category.value}>
+                                            {category.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+                <div>
+                    <Label>Tags</Label>
                     <div className="flex-wrap space-y-2 w-full">
                         {currentCategories.length > 0 && (
                             <div className="flex flex-row items-center flex-wrap gap-y-2 gap-x-2 mt-2">
@@ -66,7 +92,7 @@ const BlogCreation = () => {
                                     className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 mt-2"
                                     size="sm"
                                 >
-                                    <PlusIcon className="w-4 h-4 mr-2" /> Kategorie hinzufügen
+                                    <PlusIcon className="w-4 h-4 mr-2" /> Tags hinzufügen
                                 </Button>
                             </PopoverTrigger>
                             <PopoverContent className="bg-[#191919] border-none shadow-lg sm:w-[700px]">
@@ -74,7 +100,7 @@ const BlogCreation = () => {
                                     <div>
                                         <h3 className="text-sm text-gray-200 font-semibold flex flex-row items-center">
                                             <PlusIcon className="w-4 h-4 mr-2" />
-                                            Kategorie hinzufügen
+                                            Tags hinzufügen
                                         </h3>
                                     </div>
                                     <div className="grid grid-cols-3 gap-x-4 mt-2 gap-y-4">
@@ -106,6 +132,19 @@ const BlogCreation = () => {
                         />
                     </div>
                 </div>
+            </div>
+            <div className="flex flex-row gap-x-4 items-center mt-4">
+                <Switch 
+                onCheckedChange={(e) => {setPublic(e)}}
+                />
+                <Label className="text-sm font-semibold">
+                    Blog ist Öffentlich
+                </Label>
+            </div>
+            <div className="mt-4">
+                <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 w-full">
+                        Blog speichern
+                </Button>
             </div>
         </div>
     );

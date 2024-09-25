@@ -5,8 +5,8 @@ export const useBlogCategories = () => {
             value : "all"
         },
         {
-            label : "Inserate",
-            value : "inserate"
+            label : "Abonnements",
+            value : "abo"
         },
         {
             label : "Dashboard",
@@ -17,25 +17,26 @@ export const useBlogCategories = () => {
             value : "settings"
         },
         {
-            label : "Mein Profil",
-            value : "profile"
+            label : "Inserate",
+            value : "inserate"
         },
         {
             label : "Konversationen",
             value : "chat"
         },
         {
-            label : "Abonnements",
-            value : "abo"
+            label : "Mein Profil",
+            value : "profile"
+        },
+        {
+            label : "News",
+            value : "news"
         },
         {
             label : "Tipps & Tricks",
             value : "tipps"
         },
-        {
-            label : "News",
-            value : "news"
-        }
+        
     ]
 
     return existingCategories;

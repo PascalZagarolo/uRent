@@ -150,7 +150,7 @@ export const LoginForm = () => {
                         disabled={isPending}
                         placeholder=""
                         className="bg-[#1B1F2C]"
-                        
+                        maxLength={100}
                        
                       />
                     </FormControl>
@@ -174,6 +174,7 @@ export const LoginForm = () => {
                           placeholder=""
                           type="email"
                           className="bg-[#1B1F2C] border border-[#1f2234]"
+                          maxLength={100}
                         />
                       </FormControl>
                       <FormMessage />

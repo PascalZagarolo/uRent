@@ -135,7 +135,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="Max Mustermann"
                       className="bg-[#1B1F2C] border-none"
-
+                      maxLength={60}
                     />
                   </FormControl>
                   <FormMessage />

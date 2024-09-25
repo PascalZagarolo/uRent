@@ -1,5 +1,6 @@
 'use client'
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { userTable } from "@/db/schema";
@@ -8,7 +9,7 @@ import { set } from 'date-fns';
 import { useEffect, useRef, useState } from "react";
 
 interface UsernameProps {
-    thisUser : typeof userTable.$inferSelect
+    thisUser: typeof userTable.$inferSelect
 }
 
 const UsernameInput: React.FC<UsernameProps> = ({
@@ -24,19 +25,19 @@ const UsernameInput: React.FC<UsernameProps> = ({
         }
     }, [isEditing]);
 
-    const {currentChanges, changeCurrent} = useUnsavedChangesSettings()
+    const { currentChanges, changeCurrent } = useUnsavedChangesSettings()
 
     useEffect(() => {
         const setAmount = async () => {
             await changeCurrent("username", username);
-        
+
         }
 
         setAmount();
     }, [username])
 
 
-    return ( 
+    return (
         <div>
             <div>
                 <div className="sm:w-1/2 w-full">
@@ -45,37 +46,36 @@ const UsernameInput: React.FC<UsernameProps> = ({
                     </Label>
                     {isEditing ? (
                         <>
-                        <Input 
-                        ref={inputRef}
-                        className="border-none dark:bg-[#141414] w-full border dark:border-none bg-gray-200 
+                            <Input
+                                ref={inputRef}
+                                className="border-none dark:bg-[#141414] w-full border dark:border-none bg-gray-200 
                         focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none"
-                        value={username}
-                        placeholder="Nutzername hinzufügen..."
-                        onBlur={() => {setIsEditing(false)}}
-                        onChange={(e) => setUserName(e.target.value)}
-                        />
-                        <p className="ml-auto flex justify-end p-1 w-full text-xs font-semibold dark:text-gray-200/60"
-                        
-                        >
-                            ...
-                        </p>
+                                value={username}
+                                placeholder="Nutzername hinzufügen..."
+                                onBlur={() => { setIsEditing(false) }}
+                                onChange={(e) => setUserName(e.target.value)}
+                                maxLength={60}
+                            />
+                            <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={60} currentLength={username?.length} />
+                            </div>
                         </>
                     ) : (
                         <div className="w-full">
                             <div className="pl-3 p-2.5 dark:bg-[#141414] border dark:border-none bg-gray-200 text-sm rounded-md">
-                            {username ? username : "Nutzername hinzufügen..."}
-                        </div>
-                        <p className="ml-auto flex justify-end p-1  text-xs font-semibold hover:underline hover:cursor-pointer"
-                        onClick={() => setIsEditing(true)}
-                        >
-                            Ändern
-                        </p>
+                                {username ? username : "Nutzername hinzufügen..."}
+                            </div>
+                            <p className="ml-auto flex justify-end p-1  text-xs font-semibold hover:underline hover:cursor-pointer"
+                                onClick={() => setIsEditing(true)}
+                            >
+                                Ändern
+                            </p>
                         </div>
                     )}
                 </div>
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default UsernameInput;

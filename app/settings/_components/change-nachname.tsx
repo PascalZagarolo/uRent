@@ -1,5 +1,6 @@
 'use client'
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { userTable } from "@/db/schema";
@@ -54,12 +55,11 @@ const Nachname: React.FC<UsernameProps> = ({
                         placeholder="Nachname hinzufügen..."
                         onBlur={() => {setIsEditing(false)}}
                         onChange={(e) => setUserName(e.target.value)}
+                        maxLength={30}
                         />
-                        <p className="ml-auto flex justify-end p-1 w-full text-xs font-semibold dark:text-gray-200/60"
-                        
-                        >
-                            ...
-                        </p>
+                        <div className="ml-auto flex justify-end">
+                                <LetterRestriction limit={30} currentLength={username?.length} />
+                            </div>
                         </>
                     ) : (
                         <div className="w-full">

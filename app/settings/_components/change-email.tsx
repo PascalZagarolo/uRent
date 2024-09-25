@@ -216,7 +216,7 @@ const ChangeEmail: React.FC<ChangeEmailProps> = ({
                                             {!showOTP && (
                                                 <Button className="dark:bg-[#151515] dark:border-none dark:text-gray-200 
                                                 dark:hover:bg-[#171717] dark:hover:text-gray-300" onClick={onCheck}>
-                                                    <GiConfirmed className="w-4 h-4 mr-2" />    Code bestätigen
+                                                    <GiConfirmed className="w-4 h-4 mr-2" />    Email ändern
                                                 </Button>
                                            
                                             )}

@@ -70,10 +70,10 @@ const AddContactProfile = ({ contactType, onAddContact }: AddContactProfileProps
                                     value={currentTitle}
                                     onChange={(e) => setCurrentTitle(e.target.value)}
                                     className="w-full bg-[#202020] border-none"
-                                    maxLength={100}
+                                    maxLength={50}
                                 />
                                 <div>
-                                    <LetterRestriction limit={100} currentLength={currentTitle.length} />
+                                    <LetterRestriction limit={50} currentLength={currentTitle.length} />
                                 </div>
                             </div>
                             <div className="mt-4">
@@ -84,10 +84,10 @@ const AddContactProfile = ({ contactType, onAddContact }: AddContactProfileProps
                                     value={currentContact}
                                     onChange={(e) => setCurrentContact(e.target.value)}
                                     className="w-full bg-[#202020] border-none"
-                                    maxLength={100}
+                                    maxLength={50}
                                 />
                                 <div>
-                                    <LetterRestriction limit={100} currentLength={currentContact.length} />
+                                    <LetterRestriction limit={50} currentLength={currentContact.length} />
                                 </div>
                             </div>
                             <div className="mt-2 flex justify-end">

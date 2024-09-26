@@ -51,6 +51,12 @@ const BlogCreation = () => {
 
             await axios.post('/api/blog/create', values)
             toast.success('Blog erfolgreich erstellt')
+            setCurrentTitle("");
+            setCurrentContent("");
+            setCurrentImage(null);
+            setCurrentCategory("");
+            setCurrentTags([]);
+            setPublic(false);
 
             
        

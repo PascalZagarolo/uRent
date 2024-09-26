@@ -1,8 +1,11 @@
 import { Badge } from "@/components/ui/badge";
+import { blog } from "@/db/schema";
+import { format } from "date-fns";
 import Image from "next/image";
 
+
 interface RenderedBlogsProps {
-    foundBlogs: any[]
+    foundBlogs: typeof blog.$inferSelect[]
 }
 
 const RenderedBlogs = ({ foundBlogs }: RenderedBlogsProps) => {
@@ -24,7 +27,7 @@ const RenderedBlogs = ({ foundBlogs }: RenderedBlogsProps) => {
             </div>
           <div className="ml-auto flex flex-row items-center space-x-8">
           <div className="text-sm text-gray-400 font-semibold">
-            {foundBlogs[0]?.createdAt}
+            {format(new Date(foundBlogs[0]?.createdAt), "dd. MMMM yyyy")}
           </div>
           <div className="ml-auto">
             <Badge className="bg-indigo-800 text-gray-200">

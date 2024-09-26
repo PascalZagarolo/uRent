@@ -27,7 +27,7 @@ const BlogPage = async () => {
                 <div className="flex justify-center sm:py-8 sm:px-4">
                     <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                         <div className="min-h-screen">
-                            <div>
+                            <div className="h-full">
                                 <div className="p-4">
                                     <h4 className="flex justify-center mt-4">
                                     <Badge className="bg-indigo-800 px-4 text-white">Blog</Badge>
@@ -39,7 +39,7 @@ const BlogPage = async () => {
                                         Neuigkeiten, Blogs, Ressourcen und Tipps rund um uRent
                                     </h2>
                                 </div>
-                                <div>
+                                <div className="h-full">
                                     <BlogOverview />
                                 </div>
                             </div>

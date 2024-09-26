@@ -174,10 +174,7 @@ const BlogCreation = () => {
 
                     <DescriptionArea currentContent={currentContent} setCurrentContent={setCurrentContent} />
                 </div>
-                <div
-                    className="rich-text-content"
-                    dangerouslySetInnerHTML={{ __html: currentContent }}
-                />
+                
             </div>
             <div className="flex flex-row gap-x-4 items-center mt-4">
                 <Switch

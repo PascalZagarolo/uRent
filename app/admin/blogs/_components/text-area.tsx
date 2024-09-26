@@ -3,7 +3,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
 import { Bold, Italic,  Strikethrough, Code,  Heading1, Heading2, Heading3, UnderlineIcon } from 'lucide-react'; // Icons for buttons
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+
 import { cn } from '@/lib/utils';
 import Heading from "@tiptap/extension-heading"
 import Underline from '@tiptap/extension-underline'
@@ -54,7 +54,7 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
         },
         editorProps: {
             attributes: {
-                class: 'text-sm bg-[#191919] rounded-md p-2.5 focus:outline-none h-[600px]',
+                class: 'min-h-[200px] bg-[#191919] rounded-md p-2.5 focus:outline-none',
             }
         }
     });
@@ -166,8 +166,9 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
             {/* Tiptap Editor */}
             <div className="text-sm rounded-md mb-4 h-full">
                 <EditorContent
+                    
                     editor={editor}
-                    placeholder='Beschreibung eingeben...'
+                    
                 />
             </div>
 

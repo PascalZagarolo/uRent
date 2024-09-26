@@ -1,12 +1,14 @@
 import { useEditor, EditorContent, FloatingMenu, BubbleMenu, mergeAttributes } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
-import { Bold, Italic, Underline, Strikethrough, Code,  Heading1, Heading2, Heading3 } from 'lucide-react'; // Icons for buttons
+import { Bold, Italic,  Strikethrough, Code,  Heading1, Heading2, Heading3, UnderlineIcon } from 'lucide-react'; // Icons for buttons
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Heading from "@tiptap/extension-heading"
-
+import Underline from '@tiptap/extension-underline'
+import { PiListBullets } from 'react-icons/pi';
+import BulletList from '@tiptap/extension-bullet-list';
 interface TextAreaProps {
     currentContent: string;
     setCurrentContent: (content: string) => void;
@@ -34,7 +36,18 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
                 0,
               ];
             },
-          }).configure({ levels: [1, 2, 3] }),],
+          }).configure({ levels: [1, 2, 3] }),
+          Underline.configure({
+            HTMLAttributes: {
+              class: 'underline',
+            },
+          }),
+          BulletList.configure({
+            HTMLAttributes: {
+              class: 'list-disc pl-4',
+            },
+          }),
+        ],
         content: currentContent,
         onUpdate: ({ editor }) => {
             setCurrentContent(editor.getHTML()); // Sync editor content to state
@@ -85,6 +98,15 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
                     <Italic size={20} />
                 </button>
 
+                {/* Italic */}
+                <button
+                    onClick={() => editor.chain().focus().toggleUnderline().run()}
+                    disabled={!editor.can().chain().focus().toggleUnderline().run()}
+                    className={cn("p-2.5 hover:bg-slate-800 rounded-md", `btn ${editor.isActive('underline') ? 'bg-[#202020] text-white' : ''}`)}
+                >
+                    <UnderlineIcon size={20} />
+                </button>
+
                 {/* Strikethrough */}
                 <button
                     onClick={() => editor.chain().focus().toggleStrike().run()}
@@ -128,6 +150,14 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
                     className={cn("p-2.5 hover:bg-slate-800 rounded-md", `btn ${editor.isActive('heading', { level: 3 }) ? 'bg-[#202020] text-white' : ''}`)}
                 >
                     <Heading3 size={20} />
+                </button>
+
+                <button
+                    onClick={() => editor.chain().focus().toggleBulletList().run()}
+                    disabled={!editor.can().chain().focus().toggleBulletList().run()}
+                    className={cn("p-2.5 hover:bg-slate-800 rounded-md", `btn ${editor.isActive('bulletList', { level: 3 }) ? 'bg-[#202020] text-white' : ''}`)}
+                >
+                    <PiListBullets size={20} />
                 </button>
             </div>
 

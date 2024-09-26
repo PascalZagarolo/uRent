@@ -38,17 +38,17 @@ const BlogCreation = () => {
         setIsLoading(true);
 
         const usedTags = [
-            ...(currentTags?.map(tag => tag.value) || []),            
-          ].join(",");
+            ...(currentTags?.map(tag => tag.value) || []),
+        ].join(",");
 
         try {
             const values = {
-                title : currentTitle,
-                content : currentContent,
-                imageUrl : currentImage,
-                isPublic : isPublic,
-                category : currentCategory,
-                tags : usedTags
+                title: currentTitle,
+                content: currentContent,
+                imageUrl: currentImage,
+                isPublic: isPublic,
+                category: currentCategory,
+                tags: usedTags
             }
 
             await axios.post('/api/blog/create', values)
@@ -60,9 +60,9 @@ const BlogCreation = () => {
             setCurrentTags([]);
             setPublic(false);
 
-            
-       
-        } catch(e : any) {
+
+
+        } catch (e: any) {
             console.log(e);
             toast.error('Fehler beim Erstellen des Blogs')
         } finally {
@@ -74,9 +74,9 @@ const BlogCreation = () => {
         <div>
             <div className="mt-4 flex flex-col space-y-8">
                 <div>
-                    <AddImageBlog 
-                    currentUrl={currentImage}
-                    setCurrentUrl={setCurrentImage}
+                    <AddImageBlog
+                        currentUrl={currentImage}
+                        setCurrentUrl={setCurrentImage}
                     />
                 </div>
                 <div>
@@ -171,13 +171,17 @@ const BlogCreation = () => {
                     </div>
                 </div>
                 <div>
-                    
-                <DescriptionArea currentContent={currentContent} setCurrentContent={setCurrentContent} />
+
+                    <DescriptionArea currentContent={currentContent} setCurrentContent={setCurrentContent} />
                 </div>
+                <div
+                    className="rich-text-content"
+                    dangerouslySetInnerHTML={{ __html: currentContent }}
+                />
             </div>
             <div className="flex flex-row gap-x-4 items-center mt-4">
-                <Switch 
-                onCheckedChange={(e) => {setPublic(e)}}
+                <Switch
+                    onCheckedChange={(e) => { setPublic(e) }}
                 />
                 <Label className="text-sm font-semibold">
                     Blog ist Öffentlich
@@ -185,9 +189,9 @@ const BlogCreation = () => {
             </div>
             <div className="mt-4">
                 <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 w-full"
-                onClick={onSave}
+                    onClick={onSave}
                 >
-                        Blog speichern
+                    Blog speichern
                 </Button>
             </div>
         </div>

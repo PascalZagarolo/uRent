@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { blog } from "@/db/schema";
 import { format } from "date-fns";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 interface RenderedBlogsProps {
@@ -9,10 +10,21 @@ interface RenderedBlogsProps {
 }
 
 const RenderedBlogs = ({ foundBlogs }: RenderedBlogsProps) => {
+
+  const router = useRouter();
+
+  const onClick = (blogId : string) => {
+    router.push(`/blog/${blogId}`);
+  }
+
     return (
         <div>
-            <div className="bg-[#242424] p-6 rounded-lg shadow-xl transition-transform transform hover:scale-[1.03] hover:shadow-2xl">
-        <div className="flex flex-row items-center ">
+            <div className="bg-[#242424] p-6 rounded-lg shadow-xl transition-transform transform hover:scale-[1.03] hover:shadow-2xl"
+            onClick={() => {onClick(foundBlogs[0]?.id)}}
+            >
+        <div className="flex flex-row items-center "
+        
+        >
             <div>
                 <img
                 src="uRent.png"

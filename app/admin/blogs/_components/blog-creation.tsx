@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Switch } from "@/components/ui/switch";
 import axios from "axios";
 import toast from "react-hot-toast";
+import TextArea from "./text-area";
+import DescriptionArea from "./text-area";
 
 const BlogCreation = () => {
 
@@ -169,15 +171,8 @@ const BlogCreation = () => {
                     </div>
                 </div>
                 <div>
-                    <Label>Inhalt</Label>
-                    <div className="">
-                        <Textarea
-                            value={currentContent}
-                            onChange={(e) => setCurrentContent(e.target.value)}
-                            className="bg-[#191919] border-none h-[600px]"
-                            placeholder="Titel des Blogs..."
-                        />
-                    </div>
+                    
+                <DescriptionArea currentContent={currentContent} setCurrentContent={setCurrentContent} />
                 </div>
             </div>
             <div className="flex flex-row gap-x-4 items-center mt-4">

@@ -1,10 +1,11 @@
-import { useEditor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/react';
+import { useEditor, EditorContent, FloatingMenu, BubbleMenu, mergeAttributes } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
-import { Bold, Italic, Underline, Strikethrough, Code, Heading1, Heading2, Heading3 } from 'lucide-react'; // Icons for buttons
+import { Bold, Italic, Underline, Strikethrough, Code,  Heading1, Heading2, Heading3 } from 'lucide-react'; // Icons for buttons
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import Heading from "@tiptap/extension-heading"
 
 interface TextAreaProps {
     currentContent: string;
@@ -13,7 +14,27 @@ interface TextAreaProps {
 
 const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) => {
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [StarterKit.configure({
+        }),  Heading.extend({
+            levels: [1, 2, 3],
+            renderHTML({ node, HTMLAttributes }) {
+              const level = this.options.levels.includes(node.attrs.level)
+                ? node.attrs.level
+                : this.options.levels[0];
+              const classes: { [index: number]: string } = {
+                1: 'text-2xl font-bold',
+                2: 'text-xl font-semibold',
+                3 : 'text-lg font-semibold'
+              };
+              return [
+                `h${level}`,
+                mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+                  class: `${classes[level]}`,
+                }),
+                0,
+              ];
+            },
+          }).configure({ levels: [1, 2, 3] }),],
         content: currentContent,
         onUpdate: ({ editor }) => {
             setCurrentContent(editor.getHTML()); // Sync editor content to state
@@ -34,8 +55,10 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
 
     if (!editor) {
         return null; // Prevent rendering until editor is ready
+
     }
 
+    
     return (
         <div>
             <Label className='text-sm mb-2'>

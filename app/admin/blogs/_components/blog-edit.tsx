@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { useBlogCategories } from "@/hooks/blogs/useBlogCategories";
-import { PlusIcon, X } from "lucide-react";
+import { ArrowLeft, PlusIcon, X } from "lucide-react";
 import { useState } from "react";
 import AddImageBlog from "./add-image";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -15,18 +15,25 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 import DescriptionArea from "./text-area";
-import { useRouter } from "next/navigation";
+import BlogCreation from './blog-creation';
+import { blog } from "@/db/schema";
 
-const BlogCreation = () => {
+
+interface BlogCreationProps {
+    thisBlog : typeof blog.$inferSelect
+    deleteCurrentBlog : () => void
+}
+
+const BlogEdit = ({ thisBlog }: BlogCreationProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentTitle, setCurrentTitle] = useState(thisBlog?.title);
     const [currentTags, setCurrentTags] = useState<Array<{ label: string, value: string }>>([]);
-    const [currentCategory, setCurrentCategory] = useState("");
-    const [currentContent, setCurrentContent] = useState("");
-    const [currentImage, setCurrentImage] = useState<string | null>(null);
-    const [isPublic, setPublic] = useState(false);
+    const [currentCategory, setCurrentCategory] = useState(thisBlog?.category);
+    const [currentContent, setCurrentContent] = useState(thisBlog?.content);
+    const [currentImage, setCurrentImage] = useState<string | null>(thisBlog?.imageUrl);
+    const [isPublic, setPublic] = useState(thisBlog?.isPublic);
 
     const allCategories = useBlogCategories();
 
@@ -34,8 +41,6 @@ const BlogCreation = () => {
     const availableCategories = allCategories.filter(
         (category) => !currentTags.some((current) => current.value === category.value)
     );
-
-    const router = useRouter();
 
     const onSave = async () => {
         setIsLoading(true);
@@ -54,16 +59,9 @@ const BlogCreation = () => {
                 tags: usedTags
             }
 
-            await axios.post('/api/blog/create', values)
-            toast.success('Blog erfolgreich erstellt')
-            setCurrentTitle("");
-            setCurrentContent("");
-            setCurrentImage(null);
-            setCurrentCategory("");
-            setCurrentTags([]);
-            setPublic(false);
-            router.refresh();
-
+            await axios.patch(`/api/blog/${thisBlog?.id}/edit`, values)
+            toast.success('Blog erfolgreich bearbeitet')
+            
 
         } catch (e: any) {
             console.log(e);
@@ -75,6 +73,10 @@ const BlogCreation = () => {
 
     return (
         <div>
+            <div className="mt-4 flex flex-row items-center text-sm font-semibold gap-x-2 hover:underline hover:cursor-pointer">
+                <ArrowLeft className="w-4 h-4 text-gray-200 hover:text-gray-300" onClick={() => thisBlog ? thisBlog : null} />
+                Zurück zur Blog Auswahl
+            </div>
             <div className="mt-4 flex flex-col space-y-8">
                 <div>
                     <AddImageBlog
@@ -191,11 +193,11 @@ const BlogCreation = () => {
                 <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 w-full"
                     onClick={onSave}
                 >
-                    Blog speichern
+                    Änderungen speichern
                 </Button>
             </div>
         </div>
     );
 }
 
-export default BlogCreation;
+export default BlogEdit;

@@ -3,8 +3,9 @@ import db from "@/db/drizzle";
 import { blog } from "@/db/schema";
 import { NextResponse } from "next/server";
 
-export async function POST(
-    req : Request
+export async function PATCH(
+    req : Request,
+    { params } : { params : { blogId : string}}
 ) {
     try {
       
@@ -27,7 +28,7 @@ export async function POST(
             return new NextResponse("Bad Request", { status : 400 });
         }
 
-        const [createdBlog] = await db.insert(blog).values({
+        const [createdBlog] = await db.update(blog).set({
             imageUrl,
             title,
             category,

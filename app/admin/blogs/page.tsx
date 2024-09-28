@@ -6,22 +6,14 @@ import BreadCrumpPage from "../_components/bread-crump-page";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { Newspaper } from "lucide-react";
 import BlogCreation from "./_components/blog-creation";
+import BlogTab from "./_components/blog-tab";
+import { eq } from "drizzle-orm";
+import { blog } from "@/db/schema";
 
 
 const BlogsPage = async () => {
 
-    const foundReports = await db.query.report.findMany(
-        {
-            with : {
-                user : true,
-                inserat : {
-                    with : {
-                        user : true
-                    }
-                }
-            }
-        }
-    )
+    const foundBlogs  = await db.query.blog.findMany()
 
     
 
@@ -41,7 +33,9 @@ const BlogsPage = async () => {
                           <Newspaper className="w-4 h-4 mr-2" />  Blog erstellen
                         </h3>
                         <div>
-                            <BlogCreation />
+                            <BlogTab 
+                            foundBlogs = {foundBlogs as any}
+                            />
                         </div>
                     </div>
                 </div>

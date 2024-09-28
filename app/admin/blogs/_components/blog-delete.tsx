@@ -27,7 +27,7 @@ const BlogDelete = ({ foundBlogs }: BlogDeleteProps) => {
         ) : (
             <div className="gap-y-4 mt-4">
             {foundBlogs.map((blog) => (
-                <AlertDialog>
+                <AlertDialog key={blog.id}>
                     <AlertDialogTrigger asChild>
                     <div className="w-full bg-[#131313] rounded-md p-2 hover:cursor-pointer shadow-lg border border-rose-800"
                 onClick={() => setSelectedId(blog.id)} key={blog.id}

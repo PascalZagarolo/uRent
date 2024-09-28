@@ -54,7 +54,7 @@ const BlogEditSelect = ({ foundBlogs }: BlogEditSelectProps) => {
                         foundBlogs.length > 0 ? (
                             foundBlogs.map((blog) => (
                                 <div className="w-full bg-[#131313] rounded-md p-2 hover:cursor-pointer shadow-lg"
-        
+                                key={blog.id}
                                 >
                                     <div className="">
                                         <div className="text-sm flex-grow flex items-center line-clamp-1 font-semibold break-all hover:underline">

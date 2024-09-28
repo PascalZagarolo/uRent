@@ -115,7 +115,6 @@ const FaqCreation = () => {
                 </div>
                 
                 <div>
-
                     <DescriptionArea currentContent={currentContent} setCurrentContent={setCurrentContent} />
                 </div>
                 

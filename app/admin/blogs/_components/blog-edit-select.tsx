@@ -1,10 +1,11 @@
 'use client'
 
 import { blog } from "@/db/schema";
-import { ImageIcon } from "lucide-react";
+import { ArrowLeft, ImageIcon, Pencil, PencilIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import BlogEdit from "./blog-edit";
+import { Button } from "@/components/ui/button";
 
 interface BlogEditSelectProps {
     foundBlogs : typeof blog.$inferSelect[]
@@ -18,8 +19,15 @@ const BlogEditSelect = ({ foundBlogs }: BlogEditSelectProps) => {
     <div>
         {selectedId ? (
             <div>
-            <BlogEdit thisBlog={foundBlogs.find((blog) => blog.id === selectedId)} 
-                    deleteCurrentBlog={() => setSelectedId(null)}
+            <div className="mt-4 flex flex-row items-center text-sm font-semibold gap-x-2 hover:underline hover:cursor-pointer"
+            onClick={() => setSelectedId(null)}
+            >
+                <ArrowLeft className="w-4 h-4 text-gray-200 hover:text-gray-300"  />
+                Zurück zur Blog Auswahl
+            </div>
+            <BlogEdit 
+            thisBlog={foundBlogs.find((blog) => blog.id === selectedId)} 
+            deleteCurrentBlog={() => setSelectedId(null)}
             />
         </div>
         
@@ -27,11 +35,21 @@ const BlogEditSelect = ({ foundBlogs }: BlogEditSelectProps) => {
             <div className="gap-y-4 mt-4">
             {foundBlogs.map((blog) => (
                 <div className="w-full bg-[#131313] rounded-md p-2 hover:cursor-pointer shadow-lg"
-                onClick={() => setSelectedId(blog.id)} key={blog.id}
+                
                 >
                     <div className="">
-                        <div className="text-sm font-semibold hover:underline">
+                        <div className="text-sm flex-grow flex items-center line-clamp-1 font-semibold break-all hover:underline">
+                            <div>
                             {blog.title}
+                            </div>
+                            <div className="flex justify-end ml-auto">
+                                <Button size="sm" variant="ghost" onClick={() => setSelectedId(blog.id)} key={blog.id}>
+                                    <PencilIcon className="w-4 h-4 text-gray-200" />
+                                </Button>
+                                <Button className="" size="sm" variant="ghost">
+                                    <TrashIcon className="w-4 h-4 text-rose-600" />
+                                </Button>
+                            </div>
                         </div>
                         <div className="mt-2">
                             {blog.imageUrl ? (

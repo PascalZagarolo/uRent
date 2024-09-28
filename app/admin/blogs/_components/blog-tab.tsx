@@ -35,7 +35,7 @@ const BlogTab = ({ foundBlogs }:  BlogTabProps) => {
     return (
         <div>
             <div className="flex flex-row items-center mt-4 gap-x-4">
-                <Button className={cn("bg-[#131313] hover:bg-[#141414] text-gray-200 w-1/3", 
+                <Button className={cn("bg-[#131313] hover:bg-[#141414] text-gray-200 w-1/2", 
                 currentTab === "create" && "text-gray-300 bg-[#171717] hover:bg-[#181818] border-indigo-800 border")}
                 onClick={() => setCurrentTab("create")}
 
@@ -43,7 +43,7 @@ const BlogTab = ({ foundBlogs }:  BlogTabProps) => {
                     Blog erstellen
                 </Button>
 
-                <Button className={cn("bg-[#131313] hover:bg-[#141414] text-gray-200 w-1/3", 
+                <Button className={cn("bg-[#131313] hover:bg-[#141414] text-gray-200 w-1/2", 
                 currentTab === "edit" && "text-gray-300 bg-[#171717] hover:bg-[#181818] border-indigo-800 border")}
                 onClick={() => setCurrentTab("edit")}
 
@@ -51,13 +51,13 @@ const BlogTab = ({ foundBlogs }:  BlogTabProps) => {
                     Blog bearbeiten
                 </Button>
 
-                <Button className={cn("bg-[#131313] hover:bg-[#141414] text-gray-200 w-1/3", 
+                {/* <Button className={cn("bg-[#131313] hover:bg-[#141414] text-gray-200 w-1/3", 
                 currentTab === "delete" && "text-gray-300 bg-[#171717] hover:bg-[#181818] border-indigo-800 border")}
                 onClick={() => setCurrentTab("delete")}
 
                 >
                     Blog löschen
-                </Button>
+                </Button> */}
             </div>
             <div className="w-full h-full">
                 {

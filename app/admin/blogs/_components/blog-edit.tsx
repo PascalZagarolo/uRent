@@ -73,10 +73,7 @@ const BlogEdit = ({ thisBlog }: BlogCreationProps) => {
 
     return (
         <div>
-            <div className="mt-4 flex flex-row items-center text-sm font-semibold gap-x-2 hover:underline hover:cursor-pointer">
-                <ArrowLeft className="w-4 h-4 text-gray-200 hover:text-gray-300" onClick={() => thisBlog ? thisBlog : null} />
-                Zurück zur Blog Auswahl
-            </div>
+            
             <div className="mt-4 flex flex-col space-y-8">
                 <div>
                     <AddImageBlog

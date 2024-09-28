@@ -20,8 +20,11 @@ const MenuBar = () => {
     const isNotification = pathname.includes("notifications");
     const isBooking = pathname.includes("bookings");
     const isPopup = pathname.includes("popup");
-    
-    const isDashboard = !isManage && !isReports && !isNotification && !isBooking && !isPopup;
+    const isBlogs = pathname.includes("blogs");
+    const isFaqs = pathname.includes("faqs");
+
+
+    const isDashboard = !isManage && !isReports && !isNotification && !isBooking && !isPopup && !isBlogs && !isFaqs;
 
     const baseUrl = "/admin/" ;
 
@@ -48,10 +51,15 @@ const MenuBar = () => {
             >
                 Popups
             </a>
-            <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isPopup && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
+            <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isBlogs && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
             href={`${baseUrl}/blogs`}
             >
                 Blogs
+            </a>
+            <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isFaqs && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
+            href={`${baseUrl}/faqs`}
+            >
+                FAQS
             </a>
             </div>
         </div>

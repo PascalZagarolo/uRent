@@ -1,7 +1,9 @@
+'use client'
+
 import { useEditor, EditorContent, FloatingMenu, BubbleMenu, mergeAttributes } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { useEffect } from 'react';
-import { Bold, Italic,  Strikethrough, Code,  Heading1, Heading2, Heading3, UnderlineIcon } from 'lucide-react'; // Icons for buttons
+import { useCallback, useEffect } from 'react';
+import { Bold, Italic,  Strikethrough, Code,  Heading1, Heading2, Heading3, UnderlineIcon, LinkIcon } from 'lucide-react'; // Icons for buttons
 import { Label } from '@/components/ui/label';
 
 import { cn } from '@/lib/utils';
@@ -9,6 +11,7 @@ import Heading from "@tiptap/extension-heading"
 import Underline from '@tiptap/extension-underline'
 import { PiListBullets } from 'react-icons/pi';
 import BulletList from '@tiptap/extension-bullet-list';
+import Link from '@tiptap/extension-link';
 interface TextAreaProps {
     currentContent: string;
     setCurrentContent: (content: string) => void;
@@ -47,6 +50,11 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
               class: 'list-disc pl-4',
             },
           }),
+          Link.configure({
+            openOnClick: false,
+            autolink: true,
+            defaultProtocol: 'https',
+          }),
         ],
         content: currentContent,
         onUpdate: ({ editor }) => {
@@ -70,6 +78,32 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
         return null; // Prevent rendering until editor is ready
 
     }
+
+    const setLink = () => {
+       if(!editor.isActive('link')) {
+        const previousUrl = editor.getAttributes('link').href
+        const url = window.prompt('URL', previousUrl)
+    
+        // cancelled
+        if (url === null) {
+          return
+        }
+    
+        // empty
+        if (url === '') {
+          editor.chain().focus().extendMarkRange('link').unsetLink()
+            .run()
+    
+          return
+        }
+    
+        // update link
+        editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+          .run()
+       } else {
+        editor.chain().focus().unsetLink().run()
+       }
+      }
 
     
     return (
@@ -158,6 +192,14 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
                     className={cn("p-2.5 hover:bg-slate-800 rounded-md", `btn ${editor.isActive('bulletList', { level: 3 }) ? 'bg-[#202020] text-white' : ''}`)}
                 >
                     <PiListBullets size={20} />
+                </button>
+
+                <button
+                    onClick={setLink}
+                    disabled={!editor.can().chain().focus().toggleBulletList().run()}
+                    className={cn("p-2.5 hover:bg-slate-800 rounded-md", `btn ${editor.isActive('bulletList', { level: 3 }) ? 'bg-[#202020] text-white' : ''}`)}
+                >
+                    <LinkIcon size={20} />
                 </button>
             </div>
 

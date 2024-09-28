@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import DescriptionArea from "./text-area";
 import BlogCreation from './blog-creation';
 import { blog } from "@/db/schema";
+import { getLabelByValue } from "@/hooks/blogs/convert-values";
 
 
 interface BlogCreationProps {
@@ -29,7 +30,9 @@ const BlogEdit = ({ thisBlog }: BlogCreationProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [currentTitle, setCurrentTitle] = useState(thisBlog?.title);
-    const [currentTags, setCurrentTags] = useState<Array<{ label: string, value: string }>>([]);
+    const [currentTags, setCurrentTags] = useState<Array<{ label: string, value: string }>>(
+        thisBlog?.tags.split(',').map((tag) => ({ label: getLabelByValue(tag), value: tag })) || []
+    );
     const [currentCategory, setCurrentCategory] = useState(thisBlog?.category);
     const [currentContent, setCurrentContent] = useState(thisBlog?.content);
     const [currentImage, setCurrentImage] = useState<string | null>(thisBlog?.imageUrl);

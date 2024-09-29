@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 
 
-import { PlusIcon } from "lucide-react";
+import { CopyIcon, PlusIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { title } from "process";
 import { useState } from "react";
@@ -78,17 +78,19 @@ const Inserat: React.FC<InseratProps> = ({
 
             <Dialog >
                 {isntLoggedIn ? (
-                    <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2.5 rounded-md text-sm items-center 
-                font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" onClick={() => { !currentUser && router.push("/login") }}>
-                        <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Anzeige erstellen</p>
-                    </div>
+                    <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost"
+                    onClick={() => { !currentUser && router.push("/login") }}
+                    >
+                    <CopyIcon className="w-4 h-4 mr-2" />  Anzeige erstellen
+                  </Button>
                 ) : (
                     currentUser.isBusiness ? (
-                        <DialogTrigger className="bg-[#12141f] hover:bg-[#181b29] ml-4  mt-2 flex justify-center text-gray-300 p-2.5 rounded-md text-sm items-center 
-                font-semibold  w-full" onClick={() => { !currentUser && router.push("/login") }}>
+                        <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
 
-
-                            <PlusIcon className="w-4 h-4 xl:mr-2 flex justify-center" /> <p className="hidden xl:flex mr-1 text-sm">Anzeige erstellen</p>
+                        <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost">
+                          <CopyIcon className="w-4 h-4 mr-2" />  Anzeige erstellen
+                        </Button>
+                          
 
                         </DialogTrigger>
                     ) : (

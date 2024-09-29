@@ -64,21 +64,24 @@ const Header: React.FC<HeaderProps> = cache(async ({
         <div className="bg-[#1f2332] h-[90px] flex-shrink-1 hidden sm:block">
     <div className="flex 2xl:justify-start md:justify-evenly">
         <div className="block relative">
-            <a className="flex justify-start items-center py-6  ml-8 sm:text-3xl font-semibold text-white hover:cursor-pointer" href="/">
-                <div className="flex items-center relative">
+            <a className="flex flex-col justify-start items-center py-6  ml-8 
+            sm:text-2xl font-semibold text-white hover:cursor-pointer" href="/">
+                {/* <div className="flex items-center relative">
                     <div className="text-[#363d5e] font-font-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</div>
                     <p className="text-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Rent</p>
-                </div>
+                </div> */}
+                uRent
             </a>
+            
         </div>
         <div className="flex w-full">
             <div className={cn("flex items-center justify-center ", currentUser ? "ml-auto" : "w-full")}>
                 <div className="2xl:mr-16 items-center sm:mr-8">
                     <Inserat currentUser={currentUser} isntLoggedIn={currentUser ? false : true} />
                 </div>
-                <div className="p-4 xl:hidden flex rounded-md mt-2 items-center">
+                {/* <div className="p-4 xl:hidden flex rounded-md mt-2 items-center">
                     <MobileFilterSheet />
-                </div>
+                </div> */}
                 <div className="flex justify-center mt-2">
                     <SearchItem />
                 </div>

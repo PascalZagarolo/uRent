@@ -282,9 +282,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                     </div>
                 </div>
             )}
-            <div className="sm:hidden  mt-4  px-2 sm:px-0">
+            <div className="xl:hidden w-full mt-4  px-2 xl:px-0">
             <MobileFilterSheet />
-            <div className="sm:mt-0 mt-4 ">
+            <div className="md:mt-0 mt-4 ">
             <MobileFilter/>
             </div>
             </div>

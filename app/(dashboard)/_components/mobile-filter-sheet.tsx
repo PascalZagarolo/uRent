@@ -82,7 +82,7 @@ const MobileFilterSheet = () => {
     return (
 
         <Sheet>
-            <SheetTrigger className="flex items-center sm:bg-[#1C1E2C]  rounded-md" asChild>
+            <SheetTrigger className="flex items-center sm:bg-[#1C1E2C] w-full rounded-md" asChild>
                 <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 gap-x-2" 
                 size="sm"
                 variant="ghost">

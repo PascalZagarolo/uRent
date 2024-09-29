@@ -151,7 +151,15 @@ export const twoFactorConfirmation = pgTable("twoFactorConfirmation", {
 })
 
 
-
+export const faqs = pgTable("faqs", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    lastUpdated : timestamp("lastUpdated", { mode: "date" }).defaultNow(),
+    category : text("category"),
+    question : text("question"),
+    answer : text("answer"),
+    position : integer("position"),
+    isPublic : boolean("isPublic").notNull().default(false),
+})
 
 
 

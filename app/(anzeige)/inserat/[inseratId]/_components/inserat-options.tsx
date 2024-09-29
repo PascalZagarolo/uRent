@@ -103,7 +103,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             try {
                 setIsLoading(true);
                 const conversation = axios.post(`/api/conversation/${ownUser.id}/${thisUser.id}`).then((response) => {
-                    router.push(`/conversation/${response.data.id}`)
+                    router.push(`/conversation?conversationId=${response.data.id}`)
                 })
             } catch {
                 toast.error("Fehler beim Erstellen der Konversation")

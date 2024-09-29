@@ -71,7 +71,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                     axios.get(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
                         if (response) {
                             console.log(response)
-                            router.push(`/conversation?=${response.data.id}`)
+                            router.push(`/conversation?conversationId=${response.data.id}`)
                         } else {
                             toast.error("Fehler beim abrufen")
                         }
@@ -122,7 +122,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                             </div>
                             <Link href={`/profile/${thisInserat.userId}`} className="w-1/2 truncate">
                             <div className=" font-semibold text-gray-200  items-center flex truncate">
-                                        <div className="w-3/4 truncate">
+                                        <div className="w-3/4 line-clamp-1">
                                         {thisInserat.user?.name}
                                         </div>   
                                         

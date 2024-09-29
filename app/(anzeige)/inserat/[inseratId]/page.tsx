@@ -173,16 +173,9 @@ const InseratAnzeige = async ({
 
     
 
-    function ripOutToLongAddresses(input: string): string {
-        const lastCommaIndex = input?.lastIndexOf(',');
-        if (lastCommaIndex !== -1) { // Check if comma exists
-            return input?.substring(0, lastCommaIndex).trim();
-        } else {
-            return input; // No comma found, return the original input
-        }
-    }
+    
 
-    const usedCategory: typeof CategoryEnumRender = thisInserat.category
+    
 
 
 

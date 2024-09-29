@@ -5,6 +5,7 @@ import ChatSideBar from "../chat-sidebar";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import RenderedChatClient from "./rendered-chat";
+import { useMediaQuery } from 'react-responsive';
 
 interface ChatClientProps {
     startedConversations: any[];
@@ -16,7 +17,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
     const conversationId = useSearchParams().get("conversationId");
 
     const [currentConversation, setCurrentConversation] = useState<any | null>(null);
-
+    const isSmOrLarger = useMediaQuery({ query: '(min-width: 640px)' }); 
 
     useMemo(() => {
         if(conversationId) {
@@ -27,14 +28,15 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
     },[conversationId, startedConversations])
 
     return (
-        <div className="flex flex-row justify-center h-full">
-            <div className="dark:bg-[#0F0F0F] sm:mr-4  sm:rounded-md sm:w-[280px] w-full h-full dark:border-[#1a1a1a] border">
+        <div className="sm:flex sm:flex-row sm:justify-center h-full">
+            {!(currentConversation && !isSmOrLarger) && (
+                <div className="dark:bg-[#0F0F0F] sm:mr-4  sm:rounded-md sm:w-[280px] w-full h-full dark:border-[#1a1a1a] sm:border">
                 <h3 className="text-md font-semibold flex items-center p-4 ">
                     <MessageSquareIcon className="w-4 h-4 mr-2" />  Konversationen {startedConversations.length > 0 && <p className="ml-4 text-base"> {startedConversations.length} </p>}
                 </h3>
                 {startedConversations.length > 0 ? (
                     <div className="mt-4">
-                        <ChatSideBar
+                       <ChatSideBar
                             startedConversations={startedConversations}
                             currentUser={currentUser}
                         />
@@ -45,9 +47,10 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
                     </div>
                 )}
             </div>
+            )}
 
             {currentConversation ? (
-                <div className="flex justify-center sm:px-4  w-[760px]">
+                <div className="sm:flex sm:justify-center sm:px-4 w-full  sm:w-[760px]">
                 <RenderedChatClient 
                 otherUserDetails={currentConversation.user1Id === currentUser.id ? currentConversation.user2 : currentConversation.user1}
                 thisConversation={currentConversation}
@@ -55,7 +58,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
                 />
                 </div>
             ) : (
-                <div className="w-[760px] dark:bg-[#1c1c1c]  overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
+                <div className="md:w-[760px]  dark:bg-[#1c1c1c]  overflow-y-auto no-scrollbar rounded-md bg-white hidden md:block">
                 <div className="rounded-lg h-full no-scrollbar">
                     <div className="relative h-full flex justify-center items-center font-semibold text-lg">
 

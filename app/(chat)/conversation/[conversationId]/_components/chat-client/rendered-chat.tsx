@@ -20,7 +20,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation } 
    
 
     return ( 
-        <div className="w-full dark:bg-[#191919] h-full bg-white max-h-screen overflow-hidden rounded-md shadow-lg">
+        <div className="w-full dark:bg-[#191919] h-full bg-white max-h-screen overflow-y-scroll sm:overflow-hidden rounded-md shadow-lg">
     <div className="h-full flex flex-col">
         {/* Chat Header */}
         <div className="flex items-center p-4 dark:bg-[#131313] bg-gray-50  dark:border-gray-700 sticky top-0 z-10">

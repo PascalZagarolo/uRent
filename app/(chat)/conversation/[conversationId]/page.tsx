@@ -123,7 +123,7 @@ const ConversationPage = async ({
                     </div>
                 </div>
 
-                <div className="w-[1044px] dark:bg-[#151515] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white ">
+                <div className="sm:w-[1044px] dark:bg-[#151515] max-h-screen overflow-y-auto no-scrollbar rounded-md bg-white ">
                     <div className="rounded-lg h-full no-scrollbar ">
                         <div className="relative">
                             <h3 className="dark:text-gray-100 dark:bg-[#0F0F0F] text-md truncate sm:text-2xl flex items-center p-4 font-semibold  sticky top-0 z-10">

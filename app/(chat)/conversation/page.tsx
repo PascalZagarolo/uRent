@@ -59,7 +59,7 @@ const ConversationPage = async () => {
 
 
     return (
-        <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 min-h-screen h-full">
+        <div className="dark:bg-[#0F0F0F] bg-[#404040]/10 min-h-screen w-full h-full">
             <div className="relative top-0 w-full z-50">
                 <HeaderLogo
                     currentUser={currentUser}
@@ -72,8 +72,8 @@ const ConversationPage = async () => {
                     foundNotifications={currentUser?.notifications}
                 />
             </div>
-            <div className="flex flex-row justify-center h-full py-4 sm:px-4 ">
-                <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
+            <div className="flex flex-row justify-center h-full sm:py-4 sm:px-4 w-full">
+                <div className='h-screen sm:flex items-center justify-center sm:w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>
                             <AdsComponent dataAdSlot='3797720061' />
@@ -83,13 +83,15 @@ const ConversationPage = async () => {
                 </div>
 
                 
+                <div className="sm:w-8/12 w-full">
                 <ChatClient
                     currentUser={currentUser}
                     startedConversations={startedConversations}
                 />
+                </div>
                 
 
-                <div className='h-screen sm:flex items-center justify-center w-2/12  p-16 hidden'>
+                <div className='h-screen sm:flex items-center justify-center sm:w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>
                             <AdsComponent dataAdSlot='3797720061' />

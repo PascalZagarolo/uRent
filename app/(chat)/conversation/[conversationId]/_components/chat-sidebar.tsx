@@ -123,7 +123,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                     </Button>
                 </div>
             </div>
-            <div className="px-2 py-2 w-full">
+            <div className="sm:px-2 py-2 w-full">
                 <ChatFolder
                     foundFolders={currentUser?.conversationFolders}
                     setCurrentFolder={setCurrentFolder}

@@ -162,7 +162,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     const { changeOpenOnPageLoad } = useOpenAvailabilityOnPageLoad();
 
     return (
-        <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#171923]
+        <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#1a1d28]
         mt-4  border-[#171923]  pt-4 rounded-md`, thisInserat?.isHighlighted && "dark:border-2 border-2 ",
             thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
 
@@ -172,10 +172,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
             <h3 className={cn("flex   font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md px-2",)} >
-                <div className="bg-[#181c28] p-2 rounded-md  sm:w-1/10">
+                <div className="bg-[#1d202d] shadow-xl p-2 rounded-md  sm:w-1/10 border-gray-900 border">
                     {
                         {
-                            'PKW': <CarFront className=" text-gray-300 h-6 w-6 " />,
+                            'PKW': <CarFront className=" text-gray-200 h-6 w-6 " />,
                             'LKW': <Truck className=" text-gray-300 h-6 w-6 " />,
                             'TRANSPORT': <PiVanFill className=" text-gray-300 h-6 w-6 " />,
                             'TRAILER': <RiCaravanLine className="text-gray-300 w-6 h-6" />
@@ -205,7 +205,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                 {currentUser?.id !== thisInserat?.userId && (
                     <div className="ml-auto items-center sm:flex hidden ">
-                        <Button variant="ghost" onClick={onFav} className="bg-[#171923] 
+                        <Button variant="ghost" onClick={onFav} className="bg-[#1a1d28] shadow-xl
         border border-[#171923]  hover:none ">
                             <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
                         </Button>
@@ -360,21 +360,21 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
                         </div>
-
+{/* 
                         <div className="mt-1 sm:block hidden">
                             <Badge className="bg-[#171923] flex  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                                 dark:text-gray-100 dark:bg-[#181818]/95  dark:hover:bg-[#181818]/60
                                 ">
                                 <EyeIcon className="w-4 h-4 mr-1" /> {formattedViews}
                             </Badge>
-                        </div>
-                        <div className="mt-2 sm:block hidden">
-                            <Badge className="bg-emerald-600  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                dark:bg-emerald-800 dark:text-gray-100  dark:hover:bg-emerald-700
+                        </div> */}
+                       <div className="mt-1 sm:block hidden">
+                            <Badge className="bg-emerald-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.0)]
+                                dark:bg-emerald-800 dark:text-gray-200  dark:hover:bg-emerald-700
                                 ">
-                                <CheckCheckIcon className="w-4 h-4" /> verfügbar
+                                <CheckCheckIcon className="w-4 h-4 mr-1" /> verfügbar
                             </Badge>
-                        </div>
+                        </div> 
 
                     </div>
                     <div className="flex w-full">
@@ -392,8 +392,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     alt={thisInserat.title}
                                     loading="lazy"
                                 />
-                                <div className="text-xs justify-end text-gray-200">
-                                    inseriert am:  {format(new Date(thisInserat.firstRelease), "dd.MM")}
+                                <div className="text-xs justify-end text-gray-200/60 mt-1">
+                                    veröffentlicht  {format(new Date(thisInserat.firstRelease), "dd.MM")}
                                 </div>
                             </div>
                             <div className="flex text-xs font-bold text-gray-200">
@@ -401,9 +401,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </div>
                         </div>
 
-                        <div className="ml-4 bg-[#191B27] text-gray-200  border-none  
-                        w-1/2 p-2 text-xs sm:mr-2 overflow-hidden sm:h-[172px] h-[130px] sm:block hidden" >
-                            <div className="h-full overflow-hidden text-xs whitespace-pre-wrap break-words">
+                        <div className="ml-4 bg-[#1d202d] text-gray-200  border-none  
+                        w-1/2 p-2 text-xs sm:mr-2 overflow-hidden sm:h-[172px] h-[130px] sm:block hidden shadow-xl" >
+                            <div className="h-full overflow-hidden text-xs  whitespace-pre-wrap break-words">
                                 {thisInserat.description}
                             </div>
                         </div>
@@ -413,8 +413,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
             <div className="w-full">
 
 
-                <div className="flex items-center bg-[#1e2332] p-3 rounded-md text-gray-200 text-sm 
-                font-semibold drop-shadow-md dark:bg-[#191B27] space-x-2 transition-transform ">
+                <div className="flex items-center bg-[#1d202d] shadow-xl p-3  text-gray-200 text-sm 
+                font-semibold  dark:bg-[#191B27] space-x-2 transition-transform border-gray-800 border-t border-b">
                     {/* Icon Section */}
                     <div className="flex items-center justify-center  rounded-md">
                         <GrLocation className="w-4 h-4  text-rose-800" />
@@ -445,15 +445,15 @@ const InseratCard: React.FC<InseratCardProps> = ({
                              text-xs items-center">
                                 <div className="sm:mr-2 flex font-bold">
 
-                                    <LiaMoneyBillWaveSolid className="mr-1 sm:block hidden w-4 h-4" />
+                                    
                                 </div>
                                 {thisInserat.price} €  {thisInserat.dailyPrice ? (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)
                                     : (<div className="text-[10px] ml-1 mr-1 hidden sm:block" > / Zeitraum</div>)}
                             </div>
                         </div>
                         <a className="ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
-                         bg-[#181c28]  
-                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] 
+                         bg-indigo-800 
+                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 
                         sm:truncate text-sm justify-center hover:cursor-pointer"
                             target="_blank"
                             onClick={() => {

@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import { useBlogCategories } from "@/hooks/blogs/useBlogCategories";
-import { PlusIcon, X } from "lucide-react";
+
+import { ArrowLeft, PlusIcon, X } from "lucide-react";
 import { useState } from "react";
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -14,37 +14,37 @@ import { Switch } from "@/components/ui/switch";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-
-import { useRouter } from "next/navigation";
-import DescriptionArea from "../../blogs/_components/text-area";
+import { blog, faqs } from "@/db/schema";
+import { getLabelByValue } from "@/hooks/blogs/convert-values";
 import { useFaqsCategories } from "@/hooks/faqs/useFaqsCategories";
+import DescriptionArea from "../../blogs/_components/text-area";
 
-const FaqCreation = () => {
+
+interface FaqCreationProps {
+    thisFaq : typeof faqs.$inferSelect
+    deleteCurrentFaq : () => void
+}
+
+const FaqEdit = ({ thisFaq }: FaqCreationProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [currentTitle, setCurrentTitle] = useState("");
-    const [currentTags, setCurrentTags] = useState<Array<{ label: string, value: string }>>([]);
-    const [currentCategory, setCurrentCategory] = useState("");
-    const [currentContent, setCurrentContent] = useState("");
-    const [currentImage, setCurrentImage] = useState<string | null>(null);
-    const [isPublic, setPublic] = useState(false);
+    const [currentTitle, setCurrentTitle] = useState(thisFaq?.question);
+
+    const [currentCategory, setCurrentCategory] = useState(thisFaq?.category);
+    const [currentContent, setCurrentContent] = useState(thisFaq?.answer);
+  
+    const [isPublic, setPublic] = useState(thisFaq?.isPublic);
 
     const allCategories = useFaqsCategories();
 
     // Dynamically filter available categories based on selected ones
-    const availableCategories = allCategories.filter(
-        (category) => !currentTags.some((current) => current.value === category.value)
-    );
-
-    const router = useRouter();
+   
 
     const onSave = async () => {
         setIsLoading(true);
 
-        const usedTags = [
-            ...(currentTags?.map(tag => tag.value) || []),
-        ].join(",");
+        
 
         try {
             const values = {
@@ -52,22 +52,16 @@ const FaqCreation = () => {
                 answer: currentContent,
                 isPublic: isPublic,
                 category: currentCategory,
+
             }
 
-            await axios.post('/api/faqs/create', values)
-            toast.success('FAQ erfolgreich erstellt')
-            setCurrentTitle("");
-            setCurrentContent("");
-            setCurrentImage(null);
-            setCurrentCategory(null);
-            setCurrentTags([]);
-            setPublic(false);
-            router.refresh();
-
+            await axios.patch(`/api/faqs/${thisFaq?.id}/edit`, values)
+            toast.success('Faq erfolgreich bearbeitet')
+            
 
         } catch (e: any) {
             console.log(e);
-            toast.error('Fehler beim Erstellen des Blogs')
+            toast.error('Fehler beim Erstellen des Faqs')
         } finally {
             setIsLoading(false);
         }
@@ -75,14 +69,15 @@ const FaqCreation = () => {
 
     return (
         <div>
+            
             <div className="mt-4 flex flex-col space-y-8">
                 
                 <div>
-                    <Label>Frage</Label>
+                    <Label>Titel</Label>
                     <div className="">
                         <Input
                             className="bg-[#191919] border-none"
-                            placeholder="Frage eingeben.."
+                            placeholder="Frage des Faqs..."
                             value={currentTitle}
                             onChange={(e) => setCurrentTitle(e.target.value)}
                         />
@@ -97,7 +92,7 @@ const FaqCreation = () => {
                             setCurrentCategory(e);
                         }}>
                             <SelectTrigger className="w-1/2 border-none bg-[#191919]">
-                                <SelectValue placeholder="Wähle die Kategorie deines FAQs aus" />
+                                <SelectValue placeholder="Wähle die Kategorie deines Faqs aus" />
                             </SelectTrigger>
                             <SelectContent className="bg-[#191919] border-none">
                                 <SelectGroup>
@@ -114,6 +109,7 @@ const FaqCreation = () => {
                 </div>
                 
                 <div>
+
                     <DescriptionArea currentContent={currentContent} setCurrentContent={setCurrentContent} />
                 </div>
                 
@@ -123,18 +119,18 @@ const FaqCreation = () => {
                     onCheckedChange={(e) => { setPublic(e) }}
                 />
                 <Label className="text-sm font-semibold">
-                    FAQ ist Öffentlich
+                    Faq ist Öffentlich
                 </Label>
             </div>
             <div className="mt-4">
                 <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 w-full"
                     onClick={onSave}
                 >
-                    FAQ speichern
+                    Änderungen speichern
                 </Button>
             </div>
         </div>
     );
 }
 
-export default FaqCreation;
+export default FaqEdit;

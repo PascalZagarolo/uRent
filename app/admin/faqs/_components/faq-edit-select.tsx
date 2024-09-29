@@ -1,8 +1,8 @@
 'use client'
 
-import { blog } from "@/db/schema";
+import { faqs } from "@/db/schema";
 import { ArrowLeft, ImageIcon, Pencil, PencilIcon, TrashIcon, X } from "lucide-react";
-import Image from "next/image";
+
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,10 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import FaqEdit from "./faq-edit";
 
 interface FaqEditSelectProps {
-    foundFaqs: typeof blog.$inferSelect[]
+    foundFaqs: typeof faqs.$inferSelect[]
 }
 
 const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
@@ -23,12 +24,12 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
 
     const onDelete = async (id: string) => {
         try {
-            await axios.delete(`/api/blog/${id}/delete`);
-            toast.success('Blog erfolgreich gelöscht');
+            await axios.delete(`/api/faqs/${id}/delete`);
+            toast.success('FAQ erfolgreich gelöscht');
             router.refresh();
         } catch(e : any) {
             console.log(e);
-            toast.error('Fehler beim Löschen des Blogs')
+            toast.error('Fehler beim Löschen des FAQ')
         }
     }
 
@@ -40,12 +41,12 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                         onClick={() => setSelectedId(null)}
                     >
                         <ArrowLeft className="w-4 h-4 text-gray-200 hover:text-gray-300" />
-                        Zurück zur Blog Auswahl
+                        Zurück zur FAQ Auswahl
                     </div>
-                    {/* <BlogEdit
-                        thisBlog={foundBlogs.find((blog) => blog.id === selectedId)}
-                        deleteCurrentBlog={() => setSelectedId(null)}
-                    /> */}
+                    <FaqEdit
+                        thisFaq={foundFaqs.find((faq) => faq.id === selectedId) as any}
+                        deleteCurrentFaq={() => setSelectedId(null)}
+                    /> 
                 </div>
 
             ) : (
@@ -59,7 +60,7 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                                     <div className="">
                                         <div className="text-sm flex-grow flex items-center line-clamp-1 font-semibold break-all hover:underline">
                                             <div>
-                                                {blog.title}
+                                                {blog.question}
                                             </div>
                                             <div className="flex justify-end ml-auto">
                                                 <Button size="sm" variant="ghost" onClick={() => setSelectedId(blog.id)} key={blog.id}>
@@ -75,10 +76,10 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                                                         <div>
                                                             <div className="text-lg font-semibold flex flex-row items-center">
                                                                 <X className="w-4 h-4 mr-2 text-rose-600" />
-                                                                Blog wirklich löschen?
+                                                                Faq wirklich löschen?
                                                             </div>
                                                             <p className="text-xs text-gray-200/60">
-                                                                Gelöschte Blogs können nicht wiederhergestellt werden.
+                                                                Gelöschte Faqs können nicht wiederhergestellt werden.
                                                             </p>
                                                             <div className="mt-4 flex justify-end">
                                                                 <AlertDialogAction asChild>
@@ -100,27 +101,18 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                                             </div>
                                         </div>
                                         <div className="mt-2">
-                                            {blog.imageUrl ? (
-                                                <Image
-                                                    src={blog?.imageUrl}
-                                                    width={200}
-                                                    height={200}
-                                                    alt={blog?.title}
-                                                    className="rounded-md h-24 object-cover"
-                                                    placeholder={"blur"}
-                                                />
-                                            ) : (
-                                                <div className="h-24 bg-[#191919] rounded-md flex items-center justify-center">
-                                                    <ImageIcon className="w-4 h-4 text-gray-400" />
-                                                </div>
+                                            {blog.answer && (
+                                                <div dangerouslySetInnerHTML={{ __html: blog.answer }} />
+
                                             )}
+                                                
                                         </div>
                                     </div>
                                 </div>
                             ))
                         ) : (
                             <div className="mt-4 text-sm text-gray-200/60">
-                                Keine Blogs gefunden..
+                                Keine Faqs gefunden..
                             </div>
                         )
                     }

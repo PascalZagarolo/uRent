@@ -14,7 +14,7 @@ import FaqTab from "./_components/faq-tab";
 
 const FaqsPage = async () => {
 
-    const foundBlogs  = await db.query.blog.findMany()
+    const foundFaqs  = await db.query.faqs.findMany()
 
     
 
@@ -35,7 +35,7 @@ const FaqsPage = async () => {
                         </h3>
                         <div>
                            <FaqTab 
-                           foundFaqs={[]}
+                           foundFaqs={foundFaqs as any}
                            />
                         </div>
                     </div>

@@ -3,7 +3,7 @@ import db from "@/db/drizzle";
 import { faqs } from "@/db/schema";
 import { NextResponse } from "next/server";
 
-export async function POST(
+export async function PATCH(
     req : Request
 ) {
     try {
@@ -25,14 +25,14 @@ export async function POST(
         }
 
         
-        const [createdFaq] : any = await db.insert(faqs).values({
+        const [createdFaq] : any = await db.update(faqs).set({
             category,
             question,
             answer,
             isPublic
         }).returning()
         
-        return new NextResponse("FAQ hinzugefügt", { status: 201 });
+        return new NextResponse("FAQ bearbeitet", { status: 201 });
     } catch(e : any) {
         console.log(e);
         return new NextResponse("Internal Server Error", { status: 500 });

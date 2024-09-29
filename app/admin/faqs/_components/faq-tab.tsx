@@ -20,13 +20,13 @@ import {
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import { blog } from "@/db/schema"
+import { blog, faqs } from "@/db/schema"
 import FaqCreation from "./faq-creation"
 import FaqEditSelect from "./faq-edit-select"
 
 
 interface FaqTabProps {
-    foundFaqs : typeof blog.$inferSelect[]
+    foundFaqs : typeof faqs.$inferSelect[]
 }
 
 const FaqTab = ({ foundFaqs }:  FaqTabProps) => {

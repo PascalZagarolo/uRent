@@ -49,17 +49,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     const [savedIds, setSavedIds] = useState([]);
 
 
-    const onClick = () => {
-        router.push(`/profile/${currentUser.id}`);
-    }
-
-    const onDashboard = () => {
-        router.push(`/dashboard/${currentUser.id}`)
-    }
-
-    const onMessages = () => {
-        router.push(`/conversation`)
-    }
+    
 
     
 
@@ -220,7 +210,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     </a>
 
     <a
-      href="/messages"
+      href="/conversation"
       className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
     >
       <MailCheck className="mr-4 w-4 h-4" />

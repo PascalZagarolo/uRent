@@ -19,7 +19,7 @@ import { userSubscription } from '../../../../db/schema';
 
 
 interface ProfileBarProps {
-    thisInserat : typeof inserat.$inferSelect.users,
+    thisInserat : typeof inserat.$inferSelect | any,
     currentUser : typeof userTable.$inferSelect
 }
 
@@ -50,8 +50,8 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         if (currentUser) {
             try {
                 setIsLoading(true);
-                const conversation = axios.post(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
-                    router.push(`/conversation/${response.data.id}`)
+                axios.post(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
+                    router.push(`/conversation?=${response.data.id}`)
                 })
             } catch {
                 toast.error("Fehler beim Erstellen der Konversation")
@@ -71,7 +71,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                     axios.get(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
                         if (response) {
                             console.log(response)
-                            router.push(`/conversation/${response.data.id}`)
+                            router.push(`/conversation?=${response.data.id}`)
                         } else {
                             toast.error("Fehler beim abrufen")
                         }

@@ -171,8 +171,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-            <h3 className={cn("flex   font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md px-2",)} >
-                <div className="bg-[#1d202d] shadow-xl p-2 rounded-md  sm:w-1/10 border-gray-900 border">
+            <h3 className={cn("flex flex-row   font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md px-2",)} >
+            <div className="bg-[#1c1f2b] shadow-xl p-2 px-2.5 rounded-md  sm:w-1/10 ">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-200 h-6 w-6 " />,
@@ -186,8 +186,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 <div className="w-full ml-4 mr-4 text-base font-semibold h-[24px]  text-gray-200 flex items-center ">
 
                     <a
-                        className="hover:underline h-[24px] overflow-hidden w-3/4 sm:line-clamp-1
-                        break-words text-ellipsis"
+                        className="hover:underline h-[24px] overflow-hidden w-3/4  sm:line-clamp-1 break-all"
                         href={`/inserat/${thisInserat.id}`}
                         target="_blank"
                     >
@@ -202,15 +201,15 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </div>
 
                 </div>
-
                 {currentUser?.id !== thisInserat?.userId && (
                     <div className="ml-auto items-center sm:flex hidden ">
-                        <Button variant="ghost" onClick={onFav} className="bg-[#1a1d28] shadow-xl
-        border border-[#171923]  hover:none ">
+                        <Button variant="ghost" onClick={onFav} className="
+          hover:none ">
                             <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
                         </Button>
                     </div>
                 )}
+                
 
             </h3>
 
@@ -414,7 +413,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
                 <div className="flex items-center bg-[#1d202d] shadow-xl p-3  text-gray-200 text-sm 
-                font-semibold  dark:bg-[#191B27] space-x-2 transition-transform border-gray-800 border-t border-b">
+                font-semibold  dark:bg-[#1d202d] space-x-2 transition-transform border-[#161923] ">
                     {/* Icon Section */}
                     <div className="flex items-center justify-center  rounded-md">
                         <GrLocation className="w-4 h-4  text-rose-800" />
@@ -462,7 +461,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             }}
 
                         >
-                            <div className="flex flex-row px-2">
+                            <div className="flex flex-row px-2 items-center ">
                                 <div>
                                     <IoMdOpen className="w-4 h-4 mr-2" />
                                 </div>

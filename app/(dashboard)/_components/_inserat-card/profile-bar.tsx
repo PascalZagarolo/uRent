@@ -106,7 +106,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     return ( 
         <div className="w-full h-full mt-2">
 
-                        <div className={cn("bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#13141c] ",
+                        <div className={cn("bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#171821] ",
                         
                         )}>
                             <div className="flex  items-center  w-full rounded-md p-2">
@@ -133,11 +133,11 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                 <div className="flex ml-auto">
 
                                     {!isOwn ? (
-                                        <>
+                                        <div className="flex flex-row items-center">
                                             <Dialog>
                                                 <DialogTrigger className="" asChild>
 
-                                                    <Button className="flex items-center mr-4 ml-auto bg-[#171923] rounded-md p-2  font-semibold
+                                                    <Button className="flex items-center mr-4 ml-auto bg-[#1e202d] rounded-md p-2  font-semibold
                                                  dark:text-gray-100 dark:hover:bg-[#181818]/60 px-4 sm:px-8" onClick={onOpen}>
                                                         <ThumbsUpIcon className="w-4 h-4 sm:mr-2" />
                                                         <p className="sm:block hidden">
@@ -174,14 +174,14 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                                 </DialogContent>
                                             </Dialog>
 
-                                            <Button className="flex items-center mr-4  bg-[#171923] rounded-md p-2 px-4 sm:px-8 font-semibold
+                                            <Button className="flex items-center mr-4  bg-[#1e202d] rounded-md p-2 px-4 sm:px-8 font-semibold
                                      dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
                                                 <LuMessagesSquare  className="w-4 h-4 sm:mr-2" />
                                                 <p className="sm:block hidden">
                                                     Kontaktieren
                                                 </p>
                                             </Button>
-                                        </>
+                                        </div>
                                     ) : (
                                         <Button className="flex items-center mr-4  bg-slate-200  rounded-md p-2 px-4 sm:px-8 font-semibold
                                      dark:text-gray-900/80 dark:hover:bg-slate-300 hover:bg-gray-200 text-gray-900" onClick={onEdit}>

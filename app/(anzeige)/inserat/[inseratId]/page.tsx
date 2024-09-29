@@ -244,7 +244,7 @@ const InseratAnzeige = async ({
 
                         <div className="xl:hidden  sm:block ">
 
-                            <ProfileView
+                        <ProfileView
                                 thisUser={thisInserat.user}
                                 inseratArray={inseratArray.length}
                                 inseratOwner={thisInserat.user}
@@ -265,7 +265,7 @@ const InseratAnzeige = async ({
                         </div>
                         <div className="hidden xl:mt-8 xl:block w-full xl:w-2/4">
 
-                            <ProfileView
+                        <ProfileView
                                 thisUser={thisInserat.user}
                                 inseratArray={inseratArray.length}
                                 inseratOwner={thisInserat.user}

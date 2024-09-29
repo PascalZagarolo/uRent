@@ -106,7 +106,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
 
             </div>
-            {thisBusiness && (
+            {thisBusiness && thisBusiness?.businessAddresses.length > 0 && (
                 <div className="bg-[#1b1d28] p-4 w-full rounded-t-md mt-2 ">
                     <h1 className="flex items-center gap-x-2 text-sm font-semibold">
                         <MapPinIcon className="w-4 h-4 text-rose-600" />Firmenstandort

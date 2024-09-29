@@ -29,8 +29,8 @@ const Notificationpreferences = () => {
 
                 </h3>
             </div>
-            <div className="flex flex-row w-full space-x-8 mt-4">
-                <div className="w-1/3">
+            <div className="flex md:flex-row flex-col w-full md:space-x-8 mt-4">
+                <div className="md:w-1/3 w-full">
                     <div className="flex flex-col">
                         <h3 className="flex items-center flex-row gap-x-2">
                             <IoPush className="w-4 h-4" />
@@ -43,7 +43,7 @@ const Notificationpreferences = () => {
                     </div>
 
                 </div>
-                <div className="w-2/3 flex flex-col space-y-4">
+                <div className="md:w-2/3 w-full flex flex-col space-y-4 mt-4 md:mt-0">
                     <div className="flex-row flex space-x-4">
                         <div>
                             <Switch

@@ -204,7 +204,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                     "MESSAGE": (
                                                         <div className="w-full">
                                                             <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/conversation/${notification?.conversationId}`}
+                                                                href={`/conversation?conversationId=${notification?.conversationId}`}
                                                             >
                                                                 {notification?.content}
                                                             </a> <br />

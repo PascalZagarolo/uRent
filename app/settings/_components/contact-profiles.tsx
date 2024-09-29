@@ -48,7 +48,7 @@ const ContactProfiles = ({ foundProfiles, foundEmail }: ContactProfilesProps) =>
                 {
                     currentMails.length > 0 ? (
                         currentMails.map((mail) => (
-                            <div className="flex flex-col bg-[#141414] rounded-md w-1/2 px-4 py-2 pb-4 mt-2"
+                            <div className="flex flex-col bg-[#141414] rounded-md md:w-1/2 w-full px-4 py-2 pb-4 mt-2"
                                 key={mail.id}
                             >
                                 <div className={cn("flex flex-row items-center ", mail?.id === 1 && "py-2")}>
@@ -100,7 +100,7 @@ const ContactProfiles = ({ foundProfiles, foundEmail }: ContactProfilesProps) =>
                 {
                     currentPhones.length > 0 ? (
                         currentPhones.map((mail) => (
-                            <div className="flex flex-col bg-[#141414] rounded-md w-1/2 px-4 py-2 pb-4 mt-2"
+                            <div className="flex flex-col bg-[#141414] rounded-md md:w-1/2 w-full px-4 py-2 pb-4 mt-2"
                                 key={mail.id}
                             >
                                 <div className="flex flex-row items-center ">

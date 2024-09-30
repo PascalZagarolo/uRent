@@ -209,6 +209,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
 
                         return (
                             <div key={index} className="h-[420px]">
+                                
                                 <CalendarDay
                                     index={index}
                                     day={day}
@@ -221,7 +222,6 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
                                     foundInserate={everyInserat}
                                     selectedInserat={selectedInserat ? selectedInserat : null}
                                 />
-
                             </div>
                         );
                     })}

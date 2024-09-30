@@ -31,14 +31,12 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
     return (
         <div>
             <div>
-                <h3 className="text-md font-semibold flex items-center">
+                <h3 className="text-md font-semibold sm:flex items-center">
                     <div className="text-xl flex items-center">
                     <IoCalendar className="w-4 h-4 mr-2" /> Termine und Details
                     </div>
-                    <div className="ml-auto w-1/3 mt-2">
-                        <Label>
-                        
-                        </Label>
+                    <div className="ml-auto sm:w-1/3 mt-2">
+ 
                         <Select value={selectedInserat} onValueChange={(e) => {
                             setSelectedInserat(e);
                             setSelectedInseratData(foundInserate.find(inserat => inserat.id === e) || null);
@@ -65,14 +63,14 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
                         </Select>
                     </div>
                 </h3>
-                <p className="text-xs text-gray-200/60">
+                <p className="text-xs text-gray-200/60 sm:mt-0 mt-2">
                     Lasse dir alle Buchungen und Termine in deinem persönlichen Kalender anzeigen. <br/>
                     Filtere nach Fahrzeugen oder gebe dir generellen Überblick über alle Inserate.
                 </p>
 
 
             </div>
-            <div className="mt-4 px-4">
+            <div className="mt-4 sm:px-4">
                     <SearchBookingInput
                     foundBooking={involvedBookings}
                     foundInserate={foundInserate}
@@ -87,7 +85,7 @@ const CalendarAndDetails: React.FC<CalendarAndDetailsProps> = ({
                     selectedInserat={selectedInserat}
                 />
             </div>
-            <div className="flex w-full items-center px-4 gap-x-4">
+            <div className="flex w-full items-center sm:px-4 gap-x-4 mt-2 sm:mt-0">
                 <div className="flex items-center gap-x-2">
                     <div className="h-[12px] w-[12px]  bg-indigo-800"/>
                     <Label>

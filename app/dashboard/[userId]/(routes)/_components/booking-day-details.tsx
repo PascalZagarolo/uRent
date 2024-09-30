@@ -272,7 +272,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     return (
         <div className="w-full">
             <div>
-                <div className="flex items-center w-full">
+                <div className="sm:flex items-center w-full space-y-2 sm:space-y-0">
                     <Label className="text-md font-semibold flex items-center max-w-full gap-x-2 ">
                         {selectedInserat &&
                             <div className="font-semibold text-indigo-600 max-w-1/3 line-clamp-1">
@@ -318,13 +318,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
                     )}
                 </div>
-                <div className="text-xs dark:text-gray-200/60 flex items-center">
+                <div className="text-xs dark:text-gray-200/60 sm:flex  items-center">
                     Detaillierte Tagesansicht für den {selectedDate && (
                         <>
                             {format(selectedDate, "dd MMMM yyyy", { locale: de })}
                         </>
                     )}
-                    <div className="ml-auto text-gray-200 gap-x-2 flex items-center text-xs">
+                    <div className="ml-auto text-gray-200 sm:mt-0 mt-2 gap-x-2 flex items-center text-xs">
                         <Checkbox 
                         checked={filteredAppointedDay}
                         onCheckedChange={(e) => {

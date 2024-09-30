@@ -116,8 +116,8 @@ const ManageTab: React.FC<ManageTabProps> = ({
                         foundInserate={foundInserate as any}
                     />
                 </div>
-                <div className="w-full mb-16">
-                    <CalendarAndDetails
+                <div className="w-full sm:mb-16 mb-8">
+                <CalendarAndDetails
                         foundInserate={foundInserate as any}
                         involvedBookings={involvedBookings}
                     />

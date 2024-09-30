@@ -22,7 +22,7 @@ const LoginLayout = async (
             </div>
         </div>
     </div>
-    <div className="mt-8 flex-grow h-full items-center pb-2">
+    <div className="sm:mt-8 flex-grow h-full items-center sm:pb-2">
         {children}
     </div>
     <div>

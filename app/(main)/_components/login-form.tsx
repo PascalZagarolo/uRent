@@ -15,7 +15,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,  
+  FormMessage,
 } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
@@ -30,11 +30,12 @@ import toast from "react-hot-toast";
 import { set } from "lodash";
 import { Label } from "@/components/ui/label";
 import { useLoading } from "@/store";
+import { ClipLoader } from "react-spinners";
 
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
- 
+
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
     ? "Diese Email wurde schon mit einem anderen Account verknüpft. Bitte logge dich mit dem anderen Account ein."
     : "";
@@ -56,60 +57,61 @@ export const LoginForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { isLoading, changeLoading } = useLoading();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-
+    setIsLoading(true);
     setError("");
     setSuccess("");
-    
+
     startTransition(() => {
-      changeLoading(true);
-      login(values)
       
+      login(values)
+
         .then((data) => {
           if (data?.error) {
-            if (!showTwoFactor) { 
-                form.reset()
+            setIsLoading(false);
+            if (!showTwoFactor) {
+              form.reset()
             }
-            setError(data.error) 
-        } 
+            setError(data.error)
+          }
 
-          
+
           if (data?.success) {
-            //changeLoading(false);
+            
             setSuccess(data.success);
             form.reset();
             toast.success("Erfolgreich eingeloggt");
-            changeLoading(true);
+
             setTimeout(() => {
               router.push("/")
-              changeLoading(false)
+              setIsLoading(false)
             })
-            
+
           }
 
           if (data?.twoFactor) {
-            
-            changeLoading(false);
+
+            setIsLoading(false);
             setShowTwoFactor(true);
           }
-          
+
           //eventually delete later
-          if(!data?.success && !data?.twoFactor) {
-            changeLoading(false);
-            
+          if (!data?.success && !data?.twoFactor) {
+            setIsLoading(false);
+
             toast.error("Falsche Anmeldedaten");
-           //form.reset();
+            //form.reset();
           }
         }).catch((error) => {
           toast.error("Fehler beim Einloggen");
-          changeLoading(false);
+          setIsLoading(false);
         })
-          
-        
-        
-        
+
+
+
+
 
     });
   };
@@ -132,7 +134,7 @@ export const LoginForm = () => {
       showSocial={!showTwoFactor}
     >
       <Form {...form}>
-        <form 
+        <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4"
         >
@@ -151,7 +153,7 @@ export const LoginForm = () => {
                         placeholder=""
                         className="bg-[#1B1F2C]"
                         maxLength={100}
-                       
+
                       />
                     </FormControl>
                     <FormMessage />
@@ -188,36 +190,36 @@ export const LoginForm = () => {
                     <FormItem className="space-y-0">
                       <FormLabel>Passwort</FormLabel>
                       <div className="flex rounded-lg w-full ">
-                      <FormControl>
-                        <Input
-                          {...field}
-                          disabled={isPending}
-                          placeholder=""
-                          type={showPassword ? "text" : "password"}
-                          className="bg-[#1B1F2C] border-none rounded-none rounded-l-md"
-                        />
-                        
-                      </FormControl>
-                      <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md" 
-                      onMouseDown={onHold} 
-                      onMouseUp={onRelease}
-                      type="button"
-                      onClick={() => {}}
-                      >
-                          <EyeIcon className="h-4 w-4"/>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled={isPending}
+                            placeholder=""
+                            type={showPassword ? "text" : "password"}
+                            className="bg-[#1B1F2C] border-none rounded-none rounded-l-md"
+                          />
+
+                        </FormControl>
+                        <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
+                          onMouseDown={onHold}
+                          onMouseUp={onRelease}
+                          type="button"
+                          onClick={() => { }}
+                        >
+                          <EyeIcon className="h-4 w-4" />
                         </Button>
-                        </div>
-                     
-                        <Link href="/forget" className="text-xs text-gray-200/90 font-medium hover:underline">
-                          Password vergessen?
-                        </Link>
-                     
+                      </div>
+
+                      <Link href="/forget" className="text-xs text-gray-200/90 font-medium hover:underline">
+                        Password vergessen?
+                      </Link>
+
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-            </>
-          )}
+              </>
+            )}
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
@@ -226,7 +228,13 @@ export const LoginForm = () => {
             type="submit"
             className="w-full bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300 shadow-lg"
           >
-            {showTwoFactor ? "Bestätigen" : "Anmelden"}
+            {isLoading ?
+              (
+                <ClipLoader color="#fff" loading={isLoading} size={20} />
+              ) :
+              (
+                 showTwoFactor? "Bestätigen": "Anmelden" 
+              )}
           </Button>
         </form>
       </Form>

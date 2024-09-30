@@ -52,7 +52,10 @@ const AboutUsPage = () => {
                                         <div className="px-4 text-sm font-light dark:text-gray-200/90">
                                             <div className="pb-2">
                                             - Schneller Zugang zur Online Präsenz durch einfaches Erstellen von Inseraten
-                                            </div>    
+                                            </div> 
+                                            <div className="pb-2">
+                                            - Steigerung der Online-Sichtbarkeit über uRent hinaus durch optimale Auffindbarkeit auf Suchmaschinen wie Google.
+                                            </div>     
                                             <div className="pb-2">
                                             - Mehr Reichweite und schnelle Kontaktaufnahme mit Mietern durch unsere Plattform
                                             </div>

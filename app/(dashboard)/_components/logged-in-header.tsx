@@ -239,7 +239,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
 
     <a
       onClick={() => signOut()}
-      className=" bg-indigo-800 text-white rounded-md w-full flex items-center p-2 hover:bg-indigo-900 transition mt-2"
+      className=" bg-indigo-800 text-white rounded-md w-full flex items-center p-2 hover:bg-indigo-900 transition mt-2 hover:cursor-pointer"
     >
       <LogOutIcon className="mr-4 w-4 h-4" />
       <p>Abmelden</p>

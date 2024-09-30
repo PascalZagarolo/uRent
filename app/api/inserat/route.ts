@@ -1,4 +1,5 @@
 
+import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
 import { inserat } from "@/db/schema";
 import { NextResponse } from "next/server"
@@ -12,7 +13,11 @@ export async function POST(
 
         const values = await req.json();
 
-        console.log(values)
+        const currentUser = await getCurrentUser();
+
+        if(!currentUser) {
+            return new NextResponse("Unauthorized" , { status : 401 })
+        }
 
         const createdInserat = await db.insert(inserat)
                                 .values({

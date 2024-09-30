@@ -209,10 +209,10 @@ const InseratAnzeige = async ({
             </div>
         </div>
 */}
-        <div className="xl:w-6/12 w-full xl:flex  justify-center   xl:mt-12 h-max">
+        <div className="xl:w-6/12 2xl:max-w-[1080px]  w-full xl:flex  justify-center   xl:mt-12 h-max">
 
             <div className="h-full sm:p-4 w-full flex justify-end">
-                <div className='xl:w-12/12 w-full'>
+                <div className='xl:w-12/12  w-full'>
                     <div className="w-full   p-2 sm:p-0">
                         <BreadCrumbs
                             thisCategory={thisInserat.category}

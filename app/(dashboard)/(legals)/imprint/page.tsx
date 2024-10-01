@@ -28,7 +28,7 @@ const Imprint = async () => {
 
 
 
-                        <div className="p-8 text-sm dark:text-gray-300/90">
+                        <div className="sm:p-8 p-4 text-sm dark:text-gray-300/90">
                             <div className="p-4">
                                 <p className="font-semibold text-lg">
                                     Angaben gemäß § 5 TMG

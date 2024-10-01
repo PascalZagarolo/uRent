@@ -40,7 +40,7 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
     }
 
     return (
-        <div className="w-full dark:bg-[#141414] p-4 mt-2 border dark:border-none rounded-md">
+        <div className="w-full dark:bg-[#141414] sm:p-4 p-2 mt-2 border dark:border-none rounded-md">
             <div className="flex">
             <a className="w-1/4 h-[100px] hover:cursor-pointer" 
             target="_blank"
@@ -62,15 +62,15 @@ const FavouriteDashboardRender: React.FC<FavouriteDashboardRenderProps> = ({
                         </div>
                     )}
                 </a>
-                <a className="w-1/4 line-clamp-1 break-all ml-4 text-sm font-base mr-2 hover:cursor-pointer hover:underline"
+                <a className="w-1/4 line-clamp-3 break-all ml-4 text-sm font-base mr-2 h-full hover:cursor-pointer hover:underline"
                 target="_blank"
                 href={`/inserat/${thisFavourite?.inseratId}`}
 
                 >
                     {//@ts-ignore
-                    thisFavourite?.inserat?.title}
+                    thisFavourite?.inserat?.title} 
                 </a>
-                <div className="w-1/6 h-[100px]">
+                <div className="sm:w-1/6 sm:block hidden h-[100px]">
                     <p className={cn("text-sm flex items-start h-[100px] overflow-hidden", //@ts-ignore
                     thisFavourite[0]?.inserat.isPublished ? 
                     "text-emerald-600 font-semibold" : "text-gray-100/40")} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>

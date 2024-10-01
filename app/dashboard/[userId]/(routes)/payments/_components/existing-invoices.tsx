@@ -79,13 +79,13 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = ({
             <div className="">
                 <div className="p-4 dark:bg-[#171717] rounded-md text-sm">
                     <div className="flex items-center">
-                        <div className="font-semibold w-1/4 text-xs">
+                        <div className="font-medium w-1/4 text-gray-200/90  line-clamp-1 break-all">
                             {foundInvoice.id}
                         </div>
-                        <div className="font-semibold w-1/6">
-                            {format(new Date(foundInvoice.period_start * 1000), 'dd.MM.yyyy')}
+                        <div className="font-semibold w-1/6 ">
+                            {format(new Date(foundInvoice.period_start * 1000), 'dd.MM')}
                         </div>
-                        <div className="w-1/4">
+                        <div className="w-1/4 text-left text-sm">
                             {matchingProduct.metadata?.type.slice(0, 1)}{matchingProduct.metadata?.type.slice(1).toLowerCase()} ({matchingProduct.metadata.amount})
                         </div>
                         <div className="text-sm font-semibold w-1/6 ">
@@ -102,11 +102,11 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = ({
                                     date={format(new Date(foundInvoice.period_start * 1000), 'dd.MM.yyyy')}
                                 />
                             </div>
-                            <Button size="sm" variant="ghost" className="dark:bg-[#1C1C1C]">
+                            {/* <Button size="sm" variant="ghost" className="dark:bg-[#1C1C1C]">
                                 <PiDotsThreeOutlineFill
                                     className="w-4 h-4"
                                 />
-                            </Button>
+                            </Button> */}
                         </div>
                     </div>
                 </div>

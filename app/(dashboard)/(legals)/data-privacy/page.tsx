@@ -21,7 +21,7 @@ const DataPrivacy = async () => {
                                 Datenschutzerklärung uRent UG <p className="ml-auto text-sm"> (15.06.2024) </p>
                             </h3>
                         </div>
-                        <div className="p-8 text-sm dark:text-gray-300/90">
+                        <div className="sm:p-8 text-sm dark:text-gray-300/90">
 
                             <div className="p-4">
                                 <h1 className="font-semibold text-lg underline">

@@ -51,7 +51,7 @@ const Proximity = () => {
     //delete radius if location is deleted
     useEffect(() => {
       
-      if(!usedLocation) {
+      if(!usedLocation && usedRadius) {
         const url = qs.stringifyUrl({
           url: pathname,
           query: {

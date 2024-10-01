@@ -52,8 +52,8 @@ const AutoComplete = () => {
         // by setting the second parameter to "false"
         
         let usedLocation = description;
-        console.log(types, types.includes("establishment"))
-        console.log(!types.includes("geocode") || types.includes("establishment"))
+        // console.log(types, types.includes("establishment"))
+        // console.log(!types.includes("geocode") || types.includes("establishment"))
         if(terms.length === 4 || terms.length > 4 && (!types.includes("geocode") || types.includes("establishment"))) {
           console.log(1)
           usedLocation = terms[1].value + " " + terms[2].value + " " + terms[3].value;
@@ -127,7 +127,9 @@ const AutoComplete = () => {
 
   useEffect(() => {
 
-    changeSearchParams("location", value);
+    if(value) {
+      changeSearchParams("location", value);
+    }
     if (!value) {
       deleteSearchParams("location");
     }
@@ -141,7 +143,7 @@ const AutoComplete = () => {
 
   const renderSuggestions = () =>
     data.map((suggestion) => {
-      console.log(suggestion)
+    
 
 
       const {
@@ -174,12 +176,12 @@ const AutoComplete = () => {
     }
   };
 
-  useEffect(() => {
-    if (usedLocation) {
-      setValue(usedLocation)
-      changeSearchParams("location", usedLocation)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (usedLocation) {
+  //     setValue(usedLocation)
+  //     changeSearchParams("location", usedLocation)
+  //   }
+  // }, [])
 
 
 
@@ -189,7 +191,7 @@ const AutoComplete = () => {
       <div className="flex items-center mt-2 w-full flex-shrink" >
         <div className="flex sm:pr-2">
           <div className="flex">
-            <Input
+          <Input
               value={value}
               onKeyDown={handleKeyDown}
               className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none 2xl:w-[272px]
@@ -223,7 +225,6 @@ const AutoComplete = () => {
         )}
       </div>
     </div>
-
 
 
 

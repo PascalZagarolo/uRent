@@ -19,7 +19,7 @@ const AutoComplete = () => {
 
   const usedSearchParams = useSearchParams();
   const usedLocation = usedSearchParams.get("location");
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+ 
 
   const {
     ready,
@@ -67,6 +67,8 @@ const AutoComplete = () => {
 
 
       };
+
+      const debouncedValue = useDebounce(value, 300);
 
   const router = useRouter();
 
@@ -118,9 +120,9 @@ const AutoComplete = () => {
 
 
   const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-  const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+  
 
-  const debouncedValue = useDebounce(value, 300);
+
 
 
   useEffect(() => {

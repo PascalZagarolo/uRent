@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
     foundNotifications
 }) => {
 
-    console.log("rendered..")
+   
 
     const foundConversations = await getOpenConversations(currentUser?.id);
 
@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
             
         </div>
         <div className="flex w-full">
-            <div className={cn("flex items-center justify-center ", currentUser ? "ml-auto" : "w-full")}>
+        <div className={cn("flex items-center justify-center ", currentUser ? "ml-auto" : "w-full")}>
                 <div className="2xl:mr-16 items-center sm:mr-8">
                     <Inserat currentUser={currentUser} isntLoggedIn={currentUser ? false : true} />
                 </div>
@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
                     <LocationBar />
                 </div>
             </div>
-            {!currentUser ? (
+             {!currentUser ? (
                 <LoginBarHeader 
                 foundNotifications = {notificationsGlobal}
                 />
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
                         foundConversations={foundConversations}
                     />
                 </div>
-            )}
+            )} 
         </div>
     </div>
 </div>

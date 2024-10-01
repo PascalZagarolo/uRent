@@ -30,7 +30,7 @@ const AgbsPage = async () => {
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 Allgemeinen Geschäftsbedingungen für uRent
                             </h3>
-                            <div className="px-8 mt-4">
+                            <div className="sm:px-8 mt-4">
                                 <div>
                                     <h1 className="text-md font-semibold">
                                         Geltungsbereich

@@ -88,7 +88,7 @@ const PowerForm: React.FC<PowerFormProps> = ({
                     </Label>
 
                     <Input
-                        placeholder="Leistung in PS"
+                        placeholder="Leistung in KW"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         onChange={(e) => {
                             setCurrentKW(Number(e.target.value));

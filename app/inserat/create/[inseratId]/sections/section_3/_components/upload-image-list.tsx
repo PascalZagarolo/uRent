@@ -17,18 +17,18 @@ import { useRouter } from "next/navigation";
 import { images } from "@/db/schema";
 
 
-interface ImageListProps {
-    onEdit : (id : string) => void;
-    onReorder : (updateData : { id : string, position : number }[]) => void;
-    items : typeof images.$inferSelect[];
-    
+interface ImageListCreationProps {
+    onEdit: (id: string) => void;
+    onReorder: (updateData: { id: string, position: number }[]) => void;
+    items: { id: string, url: string, position: number }[];
+
 }
 
-const ImageList: React.FC<ImageListProps> = ({
+const ImageListCreation: React.FC<ImageListCreationProps> = ({
     onEdit,
     onReorder,
     items,
-    
+
 }) => {
 
     const [isMounted, setIsMounted] = useState(false);
@@ -37,15 +37,17 @@ const ImageList: React.FC<ImageListProps> = ({
 
     useEffect(() => {
         setIsMounted(true);
-    },[])
+    }, [])
 
 
+    useEffect(() => {
+        setChapters(items);
+    },[items])
 
-    const router = useRouter();
 
-    const onDragEnd = (result : DropResult) => {
-        
-        if(!result.destination) {
+    const onDragEnd = (result: DropResult) => {
+
+        if (!result.destination) {
             return
         }
 
@@ -56,70 +58,68 @@ const ImageList: React.FC<ImageListProps> = ({
         const startIndex = Math.min(result.source.index, result.destination.index);
         const endIndex = Math.max(result.source.index, result.destination.index);
 
-        console.log(startIndex)
-        console.log(endIndex)
+
 
         const updatedChapters = items.slice(startIndex, endIndex + 1);
-        
+
         setChapters(items)
 
-        const bulkUpdatedData = updatedChapters.map((chapter) => ({
-            id: chapter.id,
-            position: items.findIndex((item) => item.id === chapter.id)
-        }));
+        const bulkUpdatedData = updatedChapters.map((chapter) => (
+            {
+                id: chapter.id,
+                position: items.findIndex((item) => item.id === chapter.id),
+                url : chapter.url
+            }));
 
         onReorder(bulkUpdatedData);
-        router.refresh();
+
     }
 
-    useEffect(() => {
-    
-    setChapters(items)
-    },[items.length])
+    //have to update updatedChapters later..
 
-    
-    if(!isMounted) {
+
+    if (!isMounted) {
         return null;
     }
 
-    const onDelete = (imageId : string) => {
-        console.log(imageId); 
+    const onDelete = (imageId: string) => {
+        console.log(imageId);
     }
 
-    return ( 
+    return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="image" isDropDisabled={isLoading}>
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2 w-full">
-                        {chapters.map((image,index) => (
-                            <Draggable key={image.id} draggableId={image.id} index={index}>
+                        {chapters.map((image, index) => (
+                            <Draggable key={image.position} draggableId={image.id} index={index}>
                                 {(provided) => (
                                     <div
-                                    className={cn(
-                                        `flex items-center  bg-slate-200 border-slate-200  
+                                        className={cn(
+                                            `flex items-center  bg-slate-200 border-slate-200  
                                         h-[200px] text-slate-700 rounded-md p-2 text-sm
                                         dark:bg-[#202020] dark:text-gray-100 `,
-                                        
-                                    )}
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
+
+                                        )}
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
                                     >
                                         <div
-                                        className={cn(`w-full p-2 border-r border-r-slate-200 hover:bg-slate-300 
+                                            className={cn(`w-full p-2 border-r border-r-slate-200 hover:bg-slate-300 
                                         dark:hover:bg-[#282828] dark: border-none rounded-l-md `)}
-                                        {...provided.dragHandleProps}
+                                            {...provided.dragHandleProps}
                                         >
-                                         <div className="flex ">
-                                            <img 
-                                            src={image.url}
-                                            className=" object-cover h-[160px]"
-                                            />
-                                            
-                                            </div>   
-                                            
+                                            <div className="flex ">
+                                                <img
+                                                    src={image.url}
+                                                    className=" object-cover h-[160px]"
+                                                />
+
+                                            </div>
+
                                         </div>
-                                        
-                                        
+
+
                                     </div>
                                 )}
                             </Draggable>
@@ -130,8 +130,8 @@ const ImageList: React.FC<ImageListProps> = ({
             </Droppable>
 
         </DragDropContext>
-        
-     );
+
+    );
 }
- 
-export default ImageList;
+
+export default ImageListCreation;

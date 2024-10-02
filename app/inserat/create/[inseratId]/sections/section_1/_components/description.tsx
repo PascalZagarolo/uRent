@@ -23,15 +23,19 @@ import { z } from "zod";
 
 interface DescriptionInseratCreationProps {
     thisInserat: typeof inserat.$inferSelect;
+    currentDescription : string;
+    setCurrentDescription : (value) => void;
 }
 
 const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
-    thisInserat
+    thisInserat,
+    currentDescription,
+    setCurrentDescription
 }) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [currentDescription, setCurrentDescription] = useState(thisInserat?.description || "");
+   
 
     const { deleteCurrent, currentChanges, changeCurrent } = useUnsavedChanges()
 
@@ -120,8 +124,6 @@ const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
             >
                 Beschreibung *
 
-              
-
             </h1>
 
             <div className=" bg-white dark:bg-[#202020]  shadow-xl hover:bg-[#212121] hover:cursor-pointer p-4 rounded-md  h-[320px]" onClick={() => { setIsEditing(true) }} >
@@ -141,7 +143,7 @@ const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
                                                     className="dark:bg-[#202020] hover:bg-[#212121]  h-full text-gray-200/80"
                                                     ref={textareaRef}
                                                     maxLength={5000}
-                                                    onChange={(e) => { setCurrentDescription(e.target.value) }}
+                                                    onChange={(e) => {setCurrentDescription(e.target.value)}}
                                                     value={currentDescription}
                                                     onBlur={(e) => { setIsEditing(false) }}
                                                 />
@@ -154,7 +156,6 @@ const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
                                     )}
 
                                 />
-
                             </form>
                         </Form>
 

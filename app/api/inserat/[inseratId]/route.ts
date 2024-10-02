@@ -17,7 +17,7 @@ export async function PATCH(
         const usedEnd = new Date(end);
         
 
-        console.log(usedBegin)
+      
 
         const patchedInserat = await db.update(inserat).set({
             ...(begin) && {
@@ -28,6 +28,8 @@ export async function PATCH(
             },
             ...values,
         }).where(eq(inserat.id, params.inseratId)).returning();
+
+        
 
         return NextResponse.json(patchedInserat)
 

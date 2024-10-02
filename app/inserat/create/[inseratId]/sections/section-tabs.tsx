@@ -6,6 +6,8 @@ import { inserat, userTable } from "@/db/schema";
 import BasicDetails from "./section_1/basic-details";
 import { MdPostAdd } from "react-icons/md";
 import { Separator } from "@/components/ui/separator";
+import BasicDetails2 from "./section_2/basic-details2";
+import UploadImagesSection from "./section_3/upload-image-section";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -19,6 +21,12 @@ interface SectionTabsProps {
 const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, publishedLength, isPublishable }: SectionTabsProps) => {
 
     const sectionId = useSearchParams().get("sectionId");
+
+    const changeSection = (value : number) => {
+        const params = new URLSearchParams()
+        params.set('sectionId', String(value))
+        window.history.pushState(null, '', `?${params.toString()}`)
+    }
 
     return (
         <div className="p-4">
@@ -36,10 +44,12 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                             </p>
                         </div>
                         
-                        <div className="px-8 mt-4">
+                        <div className="px-8 mt-4 h-[600px]">
                         {
                             {
-                                1: <BasicDetails thisInserat={thisInserat}/>,
+                                1: <BasicDetails thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                2: <BasicDetails2 thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                3 : <UploadImagesSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />
                             }[sectionId]
                         }
                         </div>

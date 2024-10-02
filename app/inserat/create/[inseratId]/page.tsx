@@ -74,8 +74,10 @@ const InseratCreation = async ({
                             businessAddresses: true
                         }
                     },
-                    userContactprofiles: true
-                }
+                    userContactprofiles: true,
+                    subscription : true
+                },
+                
             },
             pkwAttribute: true,
             lkwAttribute: true,

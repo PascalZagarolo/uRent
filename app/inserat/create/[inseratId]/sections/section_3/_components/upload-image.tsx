@@ -119,6 +119,7 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
         isDragAccept,
         isDragReject,
     } = useDropzone({
+        //@ts-ignore
         onDrop, maxFiles: maxPicsize - selectedImages.length, accept: {
             'image/png': ['.jpeg', '.png', '.webp', '.jpg'],
         }

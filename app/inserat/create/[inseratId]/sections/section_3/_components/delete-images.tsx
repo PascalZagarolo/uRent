@@ -1,20 +1,13 @@
 'use client';
 
-
-
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-
-
 import { ImageIcon, Trash2Icon } from "lucide-react";
-
 import { images } from "@/db/schema";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import ImageListForm from "@/app/inserat/create/_components/input-fields/image-list-form";
-
-
 
 interface DeleteImagesCreationProps {
     thisImages : typeof images.$inferSelect[];

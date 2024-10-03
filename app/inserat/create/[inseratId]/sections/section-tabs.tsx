@@ -33,7 +33,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
             {
                 sectionId ? (
                     <div>
-                        <div className="w-full bg-[#171717] rounded-t-md shadow-lg p-4">
+                        <div className="w-full bg-[#171717] rounded-t-md shadow-lg p-4 ">
                             <h3 className="sm:text-2xl text-md font-bold flex items-center w-full">
                                 <MdPostAdd className="mr-2" />  Inserat erstellen
                                
@@ -44,7 +44,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                             </p>
                         </div>
                         
-                        <div className="px-8 mt-4 h-[600px]">
+                        <div className="px-8 mt-4 min-h-[600px] flex flex-col">
                         {
                             {
                                 1: <BasicDetails thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
@@ -52,6 +52,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 3 : <UploadImagesSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />
                             }[sectionId]
                         }
+                        
                         </div>
                     </div>
                 ) : (

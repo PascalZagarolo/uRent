@@ -41,7 +41,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
     const hasChanged = currentTitle !== thisInserat.title || currentDescription !== thisInserat.description;
 
     return ( 
-     
+        <>
             <div className="flex flex-col h-full">
                 <h3 className="text-lg font-semibold">
                     Grundlegende Angaben (1/2)
@@ -61,7 +61,9 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                     <DescriptionInseratCreation thisInserat={thisInserat} currentDescription={currentDescription} setCurrentDescription={setCurrentDescription} />
                 </div>
                
-                <div className="mt-auto flex flex-col">
+                
+            </div>
+            <div className="mt-auto flex flex-col">
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer">
                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
@@ -74,8 +76,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                     </Button>
                     </div>
                 </div>
-            </div>
-       
+            </>
      );
 }
  

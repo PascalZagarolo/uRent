@@ -8,6 +8,7 @@ import { MdPostAdd } from "react-icons/md";
 import { Separator } from "@/components/ui/separator";
 import BasicDetails2 from "./section_2/basic-details2";
 import UploadImagesSection from "./section_3/upload-image-section";
+import PriceSection from "./section_4/price-section";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -49,7 +50,8 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                             {
                                 1: <BasicDetails thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 2: <BasicDetails2 thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
-                                3 : <UploadImagesSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />
+                                3 : <UploadImagesSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                4 : <PriceSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />
                             }[sectionId]
                         }
                         

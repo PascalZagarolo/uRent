@@ -25,6 +25,8 @@ import EditPriceProfile from "../../../_parts/price-profiles/edit-price-profile"
 import DeletePriceProfile from "../../../_parts/price-profiles/delete-price-profile";
 import AddPriceProfile from "../../../_parts/price-profiles/add-price-profile";
 import AddPriceProfileCreation from "./add-price-profile";
+import EditPriceProfilesCreation from "./edit-price-profile";
+import DeletePriceProfilesCreation from "./delete-price-profiles";
 
 
 
@@ -172,8 +174,8 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                         {priceprofile?.freeMiles ? `${priceprofile?.freeMiles}Km` : "Keine Kilometerbegrenzung angegeben"}
                         </div>
                         <div className="text-sm font-medium flex justify-end w-3/12 break-all gap-x-2">
-                            <EditPriceProfile priceprofile={priceprofile} />
-                            <DeletePriceProfile priceprofileId={priceprofile?.id} />
+                            <EditPriceProfilesCreation priceprofile={priceprofile} />
+                            <DeletePriceProfilesCreation priceprofileId={priceprofile?.id} />
                         </div>
                     </div>
                 </div>

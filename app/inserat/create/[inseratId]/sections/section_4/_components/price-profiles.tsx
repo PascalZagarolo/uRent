@@ -144,7 +144,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                 <AddPriceProfileCreation thisInserat={thisInserat} setPriceProfiles={setCurrentPriceProfiles}/>
             )}
                 <div className="space-y-2">
-                {usedList.map((priceprofile: any, index) => (
+                {currentPriceProfiles?.map((priceprofile: any, index) => (
                     <div className="dark:bg-[#141414] p-4 rounded-md" key={priceprofile.id}>
                     <div className="flex items-center gap-x-2">
                         <div className="w-1/4">
@@ -163,17 +163,17 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                             </Button>
                         </div>
                         <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
-                          {priceprofile.title}
+                          {priceprofile?.title}
                         </div>
                         <div className="text-sm font-medium dark:text-gray-200/60 w-1/12  line-clamp-1 break-all">
-                            {(priceprofile.price).toFixed(2)}€ 
+                            {(priceprofile?.price)}€ 
                         </div>
                         <div className="text-sm font-medium dark:text-gray-200/60 w-1/12 line-clamp-1 break-all">
-                            {priceprofile.freeMiles ? `${priceprofile.freeMiles}Km` : "Keine Kilometerbegrenzung angegeben"}
+                        {priceprofile?.freeMiles ? `${priceprofile?.freeMiles}Km` : "Keine Kilometerbegrenzung angegeben"}
                         </div>
                         <div className="text-sm font-medium flex justify-end w-3/12 break-all gap-x-2">
                             <EditPriceProfile priceprofile={priceprofile} />
-                            <DeletePriceProfile priceprofileId={priceprofile.id} />
+                            <DeletePriceProfile priceprofileId={priceprofile?.id} />
                         </div>
                     </div>
                 </div>

@@ -23,10 +23,13 @@ import { z } from "zod";
 
 interface AddPriceProfileCreationProps {
     thisInserat: typeof inserat.$inferSelect;
+    setPriceProfiles : (value) => void;
+    
 }
 
 const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
-    thisInserat
+    thisInserat,
+    setPriceProfiles
 }) => {
 
 
@@ -94,25 +97,27 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
     const onSubmit = async () => {
         try {
             setIsLoading(true);
-            const values = {
+            const newInserted = {
                 title: currentType,
                 price: currentValue,
                 description: currentInfo,
                 kilometer: currentKilometer,
-                extraCost: currentExtratype
+                extraCost: currentExtratype,
+                getsAdded : true
             }
-            console.log(values)
-            await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
-                .then(() => {
-                    router.refresh();
-                    setCurrentValue(undefined);
-                    setCurrentExtratype(undefined);
-                    setCurrentKilometer(undefined);
-                    setCurrentInfo(undefined);
-                    setCurrentType(undefined);
-                    form.reset();
-                })
+            // console.log(values)
+            // await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
+            //     .then(() => {
+            //         router.refresh();
+            //         setCurrentValue(undefined);
+            //         setCurrentExtratype(undefined);
+            //         setCurrentKilometer(undefined);
+            //         setCurrentInfo(undefined);
+            //         setCurrentType(undefined);
+            //         form.reset();
+            //     })
 
+            setPriceProfiles((prev) => [...prev, newInserted]);
             toast.success("Preisprofil hinzugefügt")
         } catch {
             toast.error("Fehler beim hinzufügen des Preisprofils")
@@ -125,7 +130,7 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="ghost"
-                    className="w-full dark:bg-[#212121] rounded-md p-8 items-center dark:text-gray-200 text-sm mb-2 flex">
+                    className="w-full dark:bg-[#212121] hover:bg-[#202020] rounded-md p-8 items-center dark:text-gray-200 text-sm mb-2 flex">
                     <PlusSquareIcon className="w-4 h-4 mr-2" />  Preisprofil hinzufügen
                 </Button>
             </DialogTrigger>

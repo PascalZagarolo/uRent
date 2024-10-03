@@ -29,11 +29,15 @@ import AddPriceProfileCreation from "./add-price-profile";
 
 
 interface PriceProfilesCreationProps {
-    thisInserat: typeof inserat.$inferSelect
+    thisInserat: typeof inserat.$inferSelect | any;
+    currentPriceProfiles : any[];
+    setCurrentPriceProfiles : (value) => void;
 }
 
 const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
-    thisInserat
+    thisInserat,
+    currentPriceProfiles,
+    setCurrentPriceProfiles
 }) => {
 
     const [priceType, setPriceType] = useState<string>("");
@@ -49,56 +53,10 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 
     const router = useRouter();
 
-    const onDelete = async () => {
-        try {
-            setIsLoading(true);
-            const values = {
-                type: priceType,
-                //@ts-ignore
-                price: null
-            }
-            console.log(values)
-            await axios.patch(`/api/inserat/${thisInserat.id}/price-profiles`, values)
-                .then(() => {
-                    router.refresh();
-                })
+    
+    
 
-        } catch {
-            toast.error("Fehler beim löschen des Preisprofils")
-        } finally {
-            setIsLoading(false)
-        }
-    }
-
-    const onSubmit = async () => {
-        try {
-            setIsLoading(true);
-            const values = {
-                type: priceType,
-                price: currentValue
-            }
-            await axios.patch(`/api/inserat/${thisInserat.id}/price-profiles`, values)
-                .then(() => {
-                    router.refresh();
-                })
-
-            toast.success("Preisprofil geändert")
-        } catch {
-            toast.error("Fehler beim hinzufügen des Preisprofils")
-        } finally {
-            setIsLoading(false);
-        }
-    }
-
-    const formSchema = z.object({
-        price: z.preprocess(
-            (args) => (args === '' ? undefined : args),
-            z.coerce
-                .number({ invalid_type_error: 'Preis muss eine Nummer sein' })
-                .positive('Price must be positive')
-                .optional()
-        ),
-    })
+    
 
     useEffect(() => {
         if (priceType === "hours") {
@@ -111,12 +69,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
         router.refresh()
     }, [priceType])
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            price: 2000
-        }
-    })
+    
 
     const onUpwards = async (priceprofileId: string, position : number) => {
         try {
@@ -161,7 +114,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
         }
     }
 
-    const { isSubmitting, isValid } = form.formState
+
 
     return (
         <div>
@@ -188,7 +141,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 
                     </div>
                     {thisInserat?.priceprofiles.length < 6 && (
-                <AddPriceProfileCreation thisInserat={thisInserat} />
+                <AddPriceProfileCreation thisInserat={thisInserat} setPriceProfiles={setCurrentPriceProfiles}/>
             )}
                 <div className="space-y-2">
                 {usedList.map((priceprofile: any, index) => (

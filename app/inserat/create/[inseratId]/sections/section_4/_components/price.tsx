@@ -19,16 +19,20 @@ import { z } from "zod";
 
 interface SelectPriceCreationProps {
     thisInserat: typeof inserat.$inferSelect;
+    currentValue : string | number;
+    setCurrentValue : (value) => void;
 }
 
 const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
-    thisInserat
+    thisInserat,
+    currentValue,
+    setCurrentValue
 }) => {
 
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState<string | number>(Number(thisInserat?.price)?.toFixed(2));
+    
     const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
 
     const { currentChanges, changeCurrent, deleteCurrent } = useUnsavedChanges()

@@ -20,15 +20,27 @@ interface PriceSectionProps {
 
 const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSectionProps) => {
 
-    const [currentTitle, setCurrentTitle] = useState(thisInserat.title || "");
-    const [currentDescription, setCurrentDescription] = useState(thisInserat.description || "");
+    
+    const [currentPrice, setCurrentPrice] = useState(thisInserat?.price);
+    const [currentPriceProfiles, setCurrentPriceProfiles] = useState<
+    {
+        id: string;
+        title: string;
+        description : string;
+        price: number;
+        freeMiles : number;
+        extraCost : number;
+        position: number;
+        getsDeleted?: boolean;
+        getsAdded?: boolean;
+    }[]
+>(thisInserat?.priceProfiles ?? []);
 
     const onSave = async () => {
         try {
           if(hasChanged) {
             const values = {
-                title : currentTitle,
-                description : currentDescription
+                
             }
            await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
            toast.success("Hallo")
@@ -44,7 +56,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = currentTitle !== thisInserat.title || currentDescription !== thisInserat.description;
+    const hasChanged = true;
 
     return ( 
         <>
@@ -57,10 +69,10 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
                     </p>
                 </h3>
                 <div className="mt-4">
-                   <SelectPriceCreation thisInserat={thisInserat} />
+                   <SelectPriceCreation thisInserat={thisInserat} currentValue={currentPrice} setCurrentValue={setCurrentPrice}/>
                 </div>
                 <div className="mt-4">
-                   <PriceProfilesCreation thisInserat={thisInserat}/>
+                   <PriceProfilesCreation thisInserat={thisInserat} currentPriceProfiles={currentPriceProfiles} setCurrentPriceProfiles={setCurrentPriceProfiles} />
                 </div>
                
                 

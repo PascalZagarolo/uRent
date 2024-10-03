@@ -17,6 +17,7 @@ import ImageList from "@/app/inserat/create/_components/input-fields/image-list"
 
 import { v4 as uuidv4 } from 'uuid';
 import ImageListCreation from "./upload-image-list";
+import DeleteImagesCreation from "./delete-images";
 
 
 
@@ -117,8 +118,7 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
         getRootProps,
         getInputProps,
         isDragActive,
-        isDragAccept,
-        isDragReject,
+
     } = useDropzone({
         //@ts-ignore
         onDrop, maxFiles: maxPicsize - selectedImages.length, accept: {
@@ -136,8 +136,9 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
                 Fotos und Anhänge ({selectedImages.length}/{maxPicsize}) *
                 
                 <div className="ml-auto">
-                    <DeleteImageForm
-                        thisImages={selectedImages}
+                    <DeleteImagesCreation 
+                    thisImages={selectedImages}
+                    setImages={setSelectedImages}
                     />
                 </div>
             </h3>

@@ -24,7 +24,7 @@ interface UploadImagesSectionProps {
 
 const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: UploadImagesSectionProps) => {
 
-    const [selectedImages, setSelectedImages] = useState<{ id: string; imageUrl: string; position: number, wholeFile : any }[]>(
+    const [selectedImages, setSelectedImages] = useState<{ id: string; url: string; position: number, wholeFile : any }[]>(
         thisInserat?.images.map((image) => ({
             id: image.id,
             url: image.url,
@@ -40,13 +40,21 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 let uploadData: { url: string, position: number }[] = [];
     
                 for (const pImage of selectedImages) {
-                    let returnedUrl: string = "";
+                    let returnedUrl: string = pImage.url;
     
                     if (pImage.wholeFile) {
                         returnedUrl = await handleUpload2(pImage.wholeFile);
-                    
-                        uploadData.push({ url: returnedUrl, position: pImage.position });
+                        setSelectedImages((prev) => prev.map((item) => {
+                            if (item.id === pImage.id) {
+                                //remove wholeFile from item , so data doesnt get uploaded twice
+                                return { ...item, imageUrl: returnedUrl, wholeFile: null };
+                            }
+                            return item;
+                        }))
+                        
                     }
+
+                    uploadData.push({ url: returnedUrl, position: pImage.position });
                 }
     
                 const values = {

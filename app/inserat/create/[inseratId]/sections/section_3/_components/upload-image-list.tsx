@@ -88,6 +88,7 @@ const ImageListCreation: React.FC<ImageListCreationProps> = ({
                                                     alt={`Image ${image.position}`} // Added alt attribute for accessibility
                                                 />
                                             </div>
+                                            {image?.url}
                                         </div>
                                     </div>
                                 )}

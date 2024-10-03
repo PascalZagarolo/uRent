@@ -24,66 +24,74 @@ interface UploadImagesSectionProps {
 
 const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: UploadImagesSectionProps) => {
 
-    const [selectedImages, setSelectedImages] = useState<{ id: string; imageUrl: string; position: number }[]>(
+    const [selectedImages, setSelectedImages] = useState<{ id: string; imageUrl: string; position: number, wholeFile : any }[]>(
         thisInserat?.images.map((image) => ({
             id: image.id,
             url: image.url,
-            position: image.position
+            position: image.position,
         })) || []
     );
 
-    const params = useParams();
-    const router = useRouter();
+
 
     const onSave = async () => {
         try {
             if (hasChanged) {
-                let uploadData : { url : string, position : number }[] = [];
+                let uploadData: { url: string, position: number }[] = [];
+    
                 for (const pImage of selectedImages) {
-                    const returnedUrl = handleUpload2(pImage)
-                    uploadData.push({url : returnedUrl, position : pImage.position})
+                    let returnedUrl: string = "";
+    
+                    if (pImage.wholeFile) {
+                        returnedUrl = await handleUpload2(pImage.wholeFile);
+                    
+                        uploadData.push({ url: returnedUrl, position: pImage.position });
+                    }
                 }
-
+    
                 const values = {
-                    images: uploadData
-                }
-                await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values)
-               
+                    updatedImages: uploadData
+                };
+    
+                await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
             }
             changeSection(currentSection + 1);
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
         }
-    }
-
-    const handleUpload2 = (file: any) => {
-        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-        const formData = new FormData();
-
-        let responseUrl = "";
-
-        formData.append("file", file);
-        formData.append("upload_preset", "oblbw2xl");
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                responseUrl = data.secure_url;
-            })
-
-        return responseUrl;
     };
+    
+    const handleUpload2 = async (file: any) => {
+        try {
+            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "oblbw2xl");
+    
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData,
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+            return data.secure_url;  // Return the secure_url directly
+        } catch (e: any) {
+            console.log(e);
+            return ""; // Return an empty string if there's an error
+        }
+    };
+    
 
     const onPrevious = () => {
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = false;
+    const hasChanged = true;
 
 
 

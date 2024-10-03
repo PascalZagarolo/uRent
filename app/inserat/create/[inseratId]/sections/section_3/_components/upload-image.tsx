@@ -96,7 +96,8 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
             return {
                 id: usedId,
                 url: URL.createObjectURL(file),
-                position: selectedImages.length 
+                position: selectedImages.length,
+                wholeFile : file 
             };
         });
     

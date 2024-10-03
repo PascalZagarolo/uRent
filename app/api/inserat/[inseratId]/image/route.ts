@@ -20,7 +20,7 @@ export async function POST(
 
         const position = foundInserat.images.length;
 
-        console.log(position)
+        
         const [createdImage] = await db.insert(images).values({
             position : position,
             inseratId : params.inseratId,

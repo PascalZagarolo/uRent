@@ -35,7 +35,7 @@ export async function POST(
         let editedData = [];
 
         data.forEach((profile : any) => {
-            if(profile.getsAdded) {
+            if(profile.getsAdded && !profile.getsDeleted) {
                 insertedData.push(profile);
             }
 
@@ -43,13 +43,21 @@ export async function POST(
                 deletedData.push(profile);
             }
 
-            if(profile.getsEdited) {
+            if(profile.getsEdited && !profile.getsAdded && !profile.getsDeleted) {
                 editedData.push(profile);
             }
         })
 
         for(const addedProfile of insertedData) {
-
+            await db.insert(priceprofile).values({
+                inseratId : findInserat.id,
+                title : addedProfile.title,
+                description : addedProfile.description,
+                price : addedProfile.price,
+                freeMiles : addedProfile.freeMiles,
+                extraCost : addedProfile.extraCost,
+                position : addedProfile?.position
+            })
         }
 
         for(const deletedProfile of deletedData) {
@@ -57,7 +65,14 @@ export async function POST(
         }
 
         for (const editedProfile of editedData) {
-
+            await db.update(priceprofile).set({
+                title : editedProfile.title,
+                description : editedProfile.description,
+                price : editedProfile.price,
+                freeMiles : editedProfile.freeMiles,
+                extraCost : editedProfile.extraCost,
+                position : editedProfile?.position
+            }).where(eq(priceprofile.id, editedProfile.id));
         }
 
 

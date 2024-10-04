@@ -13,7 +13,7 @@ import SelectPriceCreation from "./_components/price";
 import PriceProfilesCreation from "./_components/price-profiles";
 
 interface PriceSectionProps {
-    thisInserat : typeof inserat.$inferSelect;
+    thisInserat : typeof inserat.$inferSelect | any;
     currentSection : number;
     changeSection : (value : number) => void;
 }
@@ -33,6 +33,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
         position: number;
         getsDeleted?: boolean;
         getsAdded?: boolean;
+        getsEdited?: boolean;
     }[]
 >(thisInserat?.priceProfiles ?? []);
 

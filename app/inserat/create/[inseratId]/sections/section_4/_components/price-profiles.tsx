@@ -36,7 +36,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 }) => {
 
     const [priceType, setPriceType] = useState<string>("");
-    const [isLoading, setIsLoading] = useState(false);
+
     const [currentValue, setCurrentValue] = useState(null);
 
 
@@ -66,48 +66,48 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 
 
 
-    const onUpwards = async (priceprofileId: string, position: number) => {
-        try {
+    // const onUpwards = async (priceprofileId: string, position: number) => {
+    //     try {
 
-            const values = {
-                action: "Up",
-                position: position,
-                priceprofileId: priceprofileId
-            }
-            await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values)
-                .then(() => {
+    //         const values = {
+    //             action: "Up",
+    //             position: position,
+    //             priceprofileId: priceprofileId
+    //         }
+    //         await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values)
+    //             .then(() => {
 
-                    router.refresh();
-                    toast.success("Preisprofil verschoben")
-                })
+    //                 router.refresh();
+    //                 toast.success("Preisprofil verschoben")
+    //             })
 
-        } catch (error: any) {
-            console.log(error);
-            toast.error("Fehler beim verschieben des Preisprofils")
-        }
-    }
+    //     } catch (error: any) {
+    //         console.log(error);
+    //         toast.error("Fehler beim verschieben des Preisprofils")
+    //     }
+    // }
 
-    const onDownwards = async (priceprofileId: string, position: number) => {
-        try {
+    // const onDownwards = async (priceprofileId: string, position: number) => {
+    //     try {
 
-            const values = {
-                action: "Down",
-                position: position,
-                priceprofileId: priceprofileId
-            }
+    //         const values = {
+    //             action: "Down",
+    //             position: position,
+    //             priceprofileId: priceprofileId
+    //         }
 
-            await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values)
-                .then(() => {
-                    router.refresh();
+    //         await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values)
+    //             .then(() => {
+    //                 router.refresh();
 
-                    toast.success("Preisprofil verschoben")
-                })
+    //                 toast.success("Preisprofil verschoben")
+    //             })
 
-        } catch (error: any) {
-            console.log(error);
-            toast.error("Fehler beim verschieben des Preisprofils")
-        }
-    }
+    //     } catch (error: any) {
+    //         console.log(error);
+    //         toast.error("Fehler beim verschieben des Preisprofils")
+    //     }
+    // }
 
 
 
@@ -142,7 +142,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
         .map((priceProfile: typeof priceprofile.$inferSelect, index: number) => (
             <div className="dark:bg-[#141414] p-4 rounded-md" key={priceProfile.id}>
                 <div className="flex items-center gap-x-2">
-                    <div className="w-1/4">
+                    {/* <div className="w-1/4">
                         <Button
                             size="sm"
                             variant="ghost"
@@ -159,7 +159,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                         >
                             <ArrowDown className="w-4 h-4" />
                         </Button>
-                    </div>
+                    </div> */}
                     <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
                         {priceProfile?.title}
                     </div>

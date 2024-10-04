@@ -48,7 +48,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 
     const usedList = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
     
-    const [renderedInserate, setRenderedInserate] = useState(usedList);
+
 
    
 
@@ -121,7 +121,6 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
     return (
         <div>
             <div>
-                
                     <div className="text-md font-semibold pb-2 flex items-center">
                        <AiFillProfile className="w-4 h-4 mr-2" />  Meine Preisprofile
                         <Popover>
@@ -172,7 +171,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                         </div>
                         <div className="text-sm font-medium flex justify-end w-3/12 break-all gap-x-2">
                             <EditPriceProfilesCreation priceprofile={priceprofile} setCurrentPriceProfiles={setCurrentPriceProfiles}/>
-                            <DeletePriceProfilesCreation priceprofileId={priceprofile?.id} />
+                            <DeletePriceProfilesCreation priceprofileId={priceprofile?.id} setCurrentPriceProfiles={setCurrentPriceProfiles} />
                         </div>
                     </div>
                 </div>

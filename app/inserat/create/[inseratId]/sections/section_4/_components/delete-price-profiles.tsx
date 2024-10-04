@@ -11,10 +11,12 @@ import toast from "react-hot-toast";
 
 interface DeletePriceProfilesCreationProps {
     priceprofileId : string
+    setCurrentPriceProfiles : (value) => void;
 }
 
 const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> = ({
-    priceprofileId
+    priceprofileId,
+    setCurrentPriceProfiles
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -22,17 +24,22 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
 
 
     const onDelete = async () => {
+        // try {
+        //     setIsLoading(true);
+        //     await axios.delete(`/api/priceprofile/${priceprofileId}/delete`)
+        //         .then(() => {
+        //             router.refresh();
+        //             toast.success("Preisprofil gelöscht");
+        //         })
+        // } catch(error : any) {
+        //     console.log(error);
+        // } finally {
+        //     setIsLoading(false);
+        // }
         try {
-            setIsLoading(true);
-            await axios.delete(`/api/priceprofile/${priceprofileId}/delete`)
-                .then(() => {
-                    router.refresh();
-                    toast.success("Preisprofil gelöscht");
-                })
-        } catch(error : any) {
-            console.log(error);
-        } finally {
-            setIsLoading(false);
+            setCurrentPriceProfiles((prev) => prev.filter((item) => item.id !== priceprofileId));
+        } catch(e : any) {
+            console.log(e);
         }
     }
 
@@ -55,6 +62,7 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
                     </div>
                     <div className="mt-4 flex justify-end">
                         <AlertDialogAction className="bg-rose-600 hover:bg-rose-700 text-gray-200 hover:text-gray-300"
+                        disabled={isLoading}
                         onClick={onDelete}
                         >
                             Löschen

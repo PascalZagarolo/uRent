@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { z } from "zod";
-
+import {v4 as uuidv4} from 'uuid';
 
 interface AddPriceProfileCreationProps {
     thisInserat: typeof inserat.$inferSelect;
@@ -97,7 +97,11 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
     const onSubmit = async () => {
         try {
             setIsLoading(true);
+
+            const generatedId = uuidv4()
+
             const newInserted = {
+                id : generatedId,
                 title: currentType,
                 price: currentValue,
                 description: currentInfo,

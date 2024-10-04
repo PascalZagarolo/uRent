@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { inserat, priceprofile } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { id } from "date-fns/locale";
 import { Banknote, PencilIcon, PlusSquareIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,15 +22,17 @@ import { z } from "zod";
 
 interface EditPriceProfilesCreationProps {
     priceprofile : typeof priceprofile.$inferSelect;
+    setCurrentPriceProfiles : (value) => void;
 }
 
 const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreationProps> = ({
-    priceprofile
+    priceprofile,
+    setCurrentPriceProfiles
 }) => {
 
 
 
-    const params = useParams();
+    
     const router = useRouter();
 
     function isNumberKey(evt: any) {
@@ -98,20 +101,31 @@ const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreationProps> = ({
     const onSubmit = async () => {
         try {
             setIsLoading(true);
-            const values = {
+            const newInserted = {
+                id: priceprofile.id,
                 title: currentType,
                 price: currentValue,
                 description: currentInfo,
                 kilometer: currentKilometer,
                 extraCost : currentExtratype
             }
-            console.log(values)
-            await axios.patch(`/api/priceprofile/${priceprofile.id}/edit`, values)
-                .then(() => {
-                    router.refresh();
-                    setCurrentValue(undefined);
-                    form.reset();
+            
+            // await axios.patch(`/api/priceprofile/${priceprofile.id}/edit`, values)
+            //     .then(() => {
+            //         router.refresh();
+            //         setCurrentValue(undefined);
+            //         form.reset();
+            //     })
+
+            setCurrentPriceProfiles((prev) => {
+                return prev.map((item) => {
+                    if(item.id === priceprofile.id) {
+                        return newInserted;
+                    } else {
+                        return item;
+                    }
                 })
+            })
 
             toast.success("Preisprofil bearbeitet")
         } catch {

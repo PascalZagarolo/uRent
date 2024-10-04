@@ -120,10 +120,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 
     return (
         <div>
-            <div className="pb-4">
-            
-            </div>
-            <div >
+            <div>
                 
                     <div className="text-md font-semibold pb-2 flex items-center">
                        <AiFillProfile className="w-4 h-4 mr-2" />  Meine Preisprofile
@@ -174,7 +171,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                         {priceprofile?.freeMiles ? `${priceprofile?.freeMiles}Km` : "Keine Kilometerbegrenzung angegeben"}
                         </div>
                         <div className="text-sm font-medium flex justify-end w-3/12 break-all gap-x-2">
-                            <EditPriceProfilesCreation priceprofile={priceprofile} />
+                            <EditPriceProfilesCreation priceprofile={priceprofile} setCurrentPriceProfiles={setCurrentPriceProfiles}/>
                             <DeletePriceProfilesCreation priceprofileId={priceprofile?.id} />
                         </div>
                     </div>

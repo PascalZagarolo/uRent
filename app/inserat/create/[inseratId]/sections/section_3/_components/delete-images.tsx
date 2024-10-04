@@ -34,19 +34,22 @@ const DeleteImagesCreation: React.FC<DeleteImagesCreationProps> = ({
     const onBulkDelete = async () => {
         try {
             setIsLoading(true);
-            let returnedData = thisImages.filter((image) => selectedImages.includes(image.id));
+
+            // Update the image list to exclude the selected images
+            const updatedImages = thisImages.filter(
+                (image) => !selectedImages.includes(image.id)
+            );
 
             toast.success("Bilder erfolgreich gelöscht");
-            setImages(returnedData)
-            setSelectedImages([]);
-
-        } catch(error : any) {
+            setImages(updatedImages); // Exclude deleted images from the list
+            setSelectedImages([]); // Clear selection after deletion
+        } catch (error: any) {
             console.log("Fehler beim Löschen der Angehängten Bilder ", error);
-            toast.error("Bilder konnten nicht gelöscht werden...")
+            toast.error("Bilder konnten nicht gelöscht werden...");
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     return ( 
         <div>

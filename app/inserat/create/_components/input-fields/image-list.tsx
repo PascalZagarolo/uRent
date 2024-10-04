@@ -92,7 +92,8 @@ const ImageList: React.FC<ImageListProps> = ({
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2 w-full">
                         {chapters.map((image,index) => (
-                            <Draggable key={image.id} draggableId={image.id} index={index}>
+                            image?.url && (
+                                <Draggable key={image.id} draggableId={image.id} index={index}>
                                 {(provided) => (
                                     <div
                                     className={cn(
@@ -118,11 +119,12 @@ const ImageList: React.FC<ImageListProps> = ({
                                             </div>   
                                             
                                         </div>
-                                        
+                                       
                                         
                                     </div>
                                 )}
                             </Draggable>
+                            )
                         ))}
                         {provided.placeholder}
                     </div>

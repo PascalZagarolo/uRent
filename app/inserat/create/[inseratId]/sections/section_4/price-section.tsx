@@ -38,12 +38,21 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
 
     const onSave = async () => {
         try {
-          if(hasChanged) {
+          if(currentPrice !== thisInserat?.price) {
             const values = {
-                
+                price : currentPrice   
             }
            await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
-           toast.success("Hallo")
+          }
+
+          if(currentPriceProfiles != thisInserat?.priceProfiles) {
+            const submittedValues = currentPriceProfiles.map((profile) => {
+                if(profile.getsAdded || profile.getsDeleted) {
+                    return profile;
+                }
+            })
+
+                
           }
           changeSection(currentSection + 1);
         } catch(e : any) {

@@ -10,12 +10,12 @@ import toast from "react-hot-toast";
 
 
 interface DeletePriceProfilesCreationProps {
-    priceprofileId : string
+    thisProfileId : string
     setCurrentPriceProfiles : (value) => void;
 }
 
 const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> = ({
-    priceprofileId,
+    thisProfileId,
     setCurrentPriceProfiles
 }) => {
 
@@ -26,7 +26,7 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
     const onDelete = async () => {
         // try {
         //     setIsLoading(true);
-        //     await axios.delete(`/api/priceprofile/${priceprofileId}/delete`)
+        //     await axios.delete(`/api/priceprofile/${thisProfileId}/delete`)
         //         .then(() => {
         //             router.refresh();
         //             toast.success("Preisprofil gelöscht");
@@ -37,7 +37,15 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
         //     setIsLoading(false);
         // }
         try {
-            setCurrentPriceProfiles((prev) => prev.filter((item) => item.id !== priceprofileId));
+            setCurrentPriceProfiles((prev) => prev.map((item) => {
+                if(item.id === thisProfileId) {
+                    return {
+                        ...item,
+                        getsDeleted : true
+                    }
+                }
+                return item;
+            }));
         } catch(e : any) {
             console.log(e);
         }

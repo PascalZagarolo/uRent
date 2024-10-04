@@ -11,8 +11,8 @@ import { inserat, priceprofile } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { id } from "date-fns/locale";
-import { Banknote, PencilIcon, PlusSquareIcon } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import {  PencilIcon, PlusSquareIcon } from "lucide-react";
+import {  useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -20,13 +20,13 @@ import { z } from "zod";
 
 
 
-interface EditPriceProfilesCreationProps {
-    priceprofile : typeof priceprofile.$inferSelect;
+interface EditPriceProfilesCreiationProps {
+    thisProfile : typeof priceprofile.$inferSelect;
     setCurrentPriceProfiles : (value) => void;
 }
 
-const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreationProps> = ({
-    priceprofile,
+const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreiationProps> = ({
+    thisProfile,
     setCurrentPriceProfiles
 }) => {
 
@@ -45,11 +45,11 @@ const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreationProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [currentValue, setCurrentValue] = useState(priceprofile?.price);
-    const [currentType, setCurrentType] = useState(priceprofile?.title);
-    const [currentKilometer, setCurrentKilometer] = useState(priceprofile?.freeMiles);
-    const [currentExtratype, setCurrentExtratype] = useState(priceprofile?.extraCost);
-    const [currentInfo, setCurrentInfo] = useState(priceprofile?.description);
+    const [currentValue, setCurrentValue] = useState(thisProfile?.price);
+    const [currentType, setCurrentType] = useState(thisProfile?.title);
+    const [currentKilometer, setCurrentKilometer] = useState(thisProfile?.freeMiles);
+    const [currentExtratype, setCurrentExtratype] = useState(thisProfile?.extraCost);
+    const [currentInfo, setCurrentInfo] = useState(thisProfile?.description);
 
 
     function isValidNumber(input: any) {
@@ -83,16 +83,16 @@ const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreationProps> = ({
     })
 
     const hasChanged =
-        currentValue != priceprofile?.price ||
-        currentType != priceprofile?.title ||
-        currentKilometer != priceprofile?.freeMiles ||
-        currentExtratype != priceprofile?.extraCost ||
-        currentInfo != priceprofile?.description;
+        currentValue != thisProfile?.price ||
+        currentType != thisProfile?.title ||
+        currentKilometer != thisProfile?.freeMiles ||
+        currentExtratype != thisProfile?.extraCost ||
+        currentInfo != thisProfile?.description;
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            price: Number(priceprofile?.price)
+            price: Number(thisProfile?.price)
         }
     })
 
@@ -102,15 +102,16 @@ const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreationProps> = ({
         try {
             setIsLoading(true);
             const newInserted = {
-                id: priceprofile.id,
+                id: thisProfile.id,
                 title: currentType,
                 price: currentValue,
                 description: currentInfo,
                 kilometer: currentKilometer,
-                extraCost : currentExtratype
+                extraCost : currentExtratype,
+                getsEdited : true,
             }
             
-            // await axios.patch(`/api/priceprofile/${priceprofile.id}/edit`, values)
+            // await axios.patch(`/api/thisProfile/${thisProfile.id}/edit`, values)
             //     .then(() => {
             //         router.refresh();
             //         setCurrentValue(undefined);
@@ -119,7 +120,7 @@ const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreationProps> = ({
 
             setCurrentPriceProfiles((prev) => {
                 return prev.map((item) => {
-                    if(item.id === priceprofile.id) {
+                    if(item.id === thisProfile.id) {
                         return newInserted;
                     } else {
                         return item;

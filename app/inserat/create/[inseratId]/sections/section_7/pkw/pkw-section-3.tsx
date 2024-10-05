@@ -2,7 +2,7 @@
 
 import { inserat, pkwAttribute } from "@/db/schema";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 import { Button } from "@/components/ui/button";
@@ -36,11 +36,31 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
     const [currentInitial, setCurrentInitial] = useState<string | number>(pkwAttribute?.initial ? pkwAttribute?.initial.getFullYear() : null);
     const [currentVolume, setCurrentVolume] = useState<string | number | null>(pkwAttribute?.loading_volume ? pkwAttribute?.loading_volume : undefined);
 
+    const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
+
     const inseratId = useParams()?.inseratId;
 
 
+    useEffect(() => {
+        if(currentPower !== undefined && Number.isNaN(currentPower)) {
+            setError({errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an"});
+        } else if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
+            setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});
+        } else if(currentVolume !== undefined && Number.isNaN(currentVolume)) {
+            setError({errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an"});
+        } else {
+            setError(null);
+        }
+
+    },[currentPower, currentInitial, currentVolume]);
     const onSave = async () => {
         try {
+
+            if(currentPower !== undefined && Number.isNaN(currentPower)) {
+                toast.error("Bitte gib eine gültige Fahrzeugleistung an");
+                return;
+            }
+
             const values = {
                 power: currentPower,
                 initial: currentInitial,
@@ -59,6 +79,8 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
     }
 
     const hasChanged = true;
+
+    //!render Errors
 
     return (
         <>
@@ -82,7 +104,6 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                         setCurrentValue={(value) => setCurrentPower(value)}
                     />
                 </div>
-                
                 <div className="mt-8">
                 <PkwLoadingVolumeCreation
                 currentValue={currentVolume as number}
@@ -102,6 +123,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
                         onClick={onSave}
+                        disabled={error}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>

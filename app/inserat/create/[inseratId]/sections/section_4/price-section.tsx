@@ -51,8 +51,9 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
                 if(profile.getsAdded || profile.getsDeleted) {
                     return profile;
                 }
+               
             })
-
+            await axios.post(`/api/inserat/${thisInserat?.id}/price-profiles/bulkUpdate`, submittedValues)
                 
           }
           changeSection(currentSection + 1);

@@ -50,8 +50,8 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
                 Fahrzeugleistung
             </Label>
 
-            <div className="flex mt-4 w-full">
-                <div className="  items-center  ">
+            <div className="flex mt-4 w-full flex-row items-center space-x-8">
+                <div className="w-1/2 items-center  ">
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> PS </p>
                     </Label>
@@ -68,7 +68,7 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
                         value={currentPS || ''}
                     />
                 </div>
-                <div className="ml-4">
+                <div className="w-1/2">
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> KW </p>
                     </Label>

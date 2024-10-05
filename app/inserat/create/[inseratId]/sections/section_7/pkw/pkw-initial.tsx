@@ -93,7 +93,7 @@ const InitialFormCreation: React.FC<InitialFormCreationProps> = ({
 
                             role="combobox"
                             aria-expanded={open}
-                            className="w-1/2 mt-2 bg-[#191919] dark:border-none justify-between"
+                            className="w-full mt-2 bg-[#191919] dark:border-none justify-between"
                         >
                             {currentValue
                                 ? years.find((framework) => framework.value == currentValue)?.label

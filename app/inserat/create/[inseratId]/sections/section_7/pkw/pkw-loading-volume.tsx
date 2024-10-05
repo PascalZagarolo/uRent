@@ -52,9 +52,9 @@ const PkwLoadingVolumeCreation: React.FC<PkwLoadingVolumeCreationProps> = ({
              Kofferraumvolumen
                 </Label>
 
-            <div className="flex mt-4 w-full">
+            <div className="flex mt-4 w-full flex-row items-center space-x-8">
                 
-                <div className="  items-center  ">
+                <div className="  items-center  w-1/2">
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Liter </p>
                     </Label>
@@ -79,7 +79,7 @@ const PkwLoadingVolumeCreation: React.FC<PkwLoadingVolumeCreationProps> = ({
                         value={currentValue || ''}
                     />
                 </div>
-                <div className="ml-4">
+                <div className="w-1/2">
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Kubikmeter </p>
                     </Label>

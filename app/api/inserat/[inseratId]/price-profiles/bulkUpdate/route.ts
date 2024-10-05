@@ -24,7 +24,7 @@ export async function POST(
             return new NextResponse("Inserat nicht gefunden", { status : 404 })
         }
 
-        if(!findInserat.userId !== currentUser.id) {
+        if(findInserat.userId !== currentUser.id) {
             return new NextResponse("Nicht autorisiert", { status : 401 })
         }
 
@@ -35,15 +35,15 @@ export async function POST(
         let editedData = [];
 
         data.forEach((profile : any) => {
-            if(profile.getsAdded && !profile.getsDeleted) {
+            if(profile?.getsAdded && !profile?.getsDeleted) {
                 insertedData.push(profile);
             }
 
-            if(profile.getsDeleted) {
+            if(profile?.getsDeleted) {
                 deletedData.push(profile);
             }
 
-            if(profile.getsEdited && !profile.getsAdded && !profile.getsDeleted) {
+            if(profile?.getsEdited && !profile?.getsAdded && !profile?.getsDeleted) {
                 editedData.push(profile);
             }
         })

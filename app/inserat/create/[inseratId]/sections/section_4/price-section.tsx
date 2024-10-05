@@ -35,7 +35,9 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
         getsAdded?: boolean;
         getsEdited?: boolean;
     }[]
->(thisInserat?.priceProfiles ?? []);
+>(thisInserat?.priceprofiles ?? []);
+
+
 
     const onSave = async () => {
         try {
@@ -67,7 +69,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = true;
+    const hasChanged = currentPrice !== thisInserat?.price || currentPriceProfiles !== thisInserat?.priceProfiles;
 
     return ( 
         <>

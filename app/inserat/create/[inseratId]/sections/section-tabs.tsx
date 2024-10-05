@@ -9,6 +9,8 @@ import { Separator } from "@/components/ui/separator";
 import BasicDetails2 from "./section_2/basic-details2";
 import UploadImagesSection from "./section_3/upload-image-section";
 import PriceSection from "./section_4/price-section";
+import { category } from '../../../../../drizzle/schema';
+import PkwSection from "./section_5/pkw/pkw-section";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -28,6 +30,33 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
         params.set('sectionId', String(value))
         window.history.pushState(null, '', `?${params.toString()}`)
     }
+
+    let firstSegment;
+    let secondSegment;
+
+
+        switch(thisInserat?.category) {
+            case "PKW":
+                firstSegment = <PkwSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />;
+                secondSegment = 2;
+                break;
+            case "LKW":
+                firstSegment = 1;
+                secondSegment = 2;
+                break;
+            case "Anhänger":
+                firstSegment = 1;
+                secondSegment = 2;
+                break;
+            case "TRAILER":
+                firstSegment = 1;
+                secondSegment = 2;
+                break;
+            default:
+                firstSegment = 1;
+                secondSegment = 2;
+        }
+
 
     return (
         <div className="p-4">
@@ -51,7 +80,9 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 1: <BasicDetails thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 2: <BasicDetails2 thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 3 : <UploadImagesSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
-                                4 : <PriceSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />
+                                4 : <PriceSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                5 : firstSegment,
+                                6 : secondSegment
                             }[sectionId]
                         }
                         

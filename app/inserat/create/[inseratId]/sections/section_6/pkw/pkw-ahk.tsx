@@ -9,40 +9,18 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface CarTypeProps {
-  thisBrake: boolean;
+  currentValue : string;
+  setCurrentValue : (value) => void;
 }
 
-const PkwAhkCreation: React.FC<CarTypeProps> = ({ thisBrake }) => {
-  const [currentCoupling, setCurrentCoupling] = useState<boolean | null>(thisBrake || null);
+const PkwAhkCreation: React.FC<CarTypeProps> = ({ currentValue, setCurrentValue }) => {
+ 
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const params = useParams();
 
-  const onSubmit = (selectedValue: string | null) => {
-    try {
-      if (selectedValue) {
-        setCurrentCoupling(selectedValue === "true" ? true : false); 
-      } else {
-        setCurrentCoupling(null);
-      }
-
-      const values = {
-        ahk: selectedValue ? (selectedValue.toLowerCase() == 'true') : null,
-      };
-
-      setIsLoading(true);
-      axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-      toast.success("Anhängerkupplung gespeichert");
-      setTimeout(() => {
-        router.refresh();
-      }, 400);
-    } catch {
-      toast.error("Fehler beim Speichern der Kategorie");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  
 
   return (
     <div className="w-full">
@@ -50,10 +28,10 @@ const PkwAhkCreation: React.FC<CarTypeProps> = ({ thisBrake }) => {
         <Label>Anhängerkupplung</Label>
         <Select
           onValueChange={(coupling) => {
-            onSubmit(coupling);
+            setCurrentValue(coupling);
           }}
           disabled={isLoading}
-          value={typeof(thisBrake) === "undefined" ? "false" : String(thisBrake) }
+          value={typeof(currentValue) === "undefined" ? "false" : String(currentValue) }
           
           
         >

@@ -14,41 +14,22 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface FuelFormCreationProps {
-  thisFuel : typeof FuelTypeEnumRender;
+  currentValue : string;
+  setCurrentValue : (value) => void;
 }
 
 const FuelFormCreation: React.FC<FuelFormCreationProps> = ({
-  thisFuel
+  currentValue,
+  setCurrentValue
 }) => {
 
-    const [currentFuel, setCurrentFuel] = useState<typeof FuelTypeEnumRender | null>(thisFuel || null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: typeof FuelTypeEnumRender) => {
-        try {
     
-            setCurrentFuel(selectedValue);
-    
-          const values = {
-            fuel: selectedValue
-          }
-    
-          setIsLoading(true);
-          axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Kraftstoff gespeichert");
-          setTimeout(() => {
-            router.refresh();
-          }, 400)
-        } catch {
-          toast.error("Fehler beim Speichern der Kategorie");
-        } finally {
-          setIsLoading(false);
-        }
-      }
 
     return ( 
         <div className="w-full">
@@ -57,11 +38,11 @@ const FuelFormCreation: React.FC<FuelFormCreationProps> = ({
         <Select
         //@ts-ignore
           onValueChange={(fuel : typeof FuelTypeEnumRender) => {
-            onSubmit(fuel);
+            setCurrentValue(fuel);
           }}
           disabled={isLoading}
           //@ts-ignore
-          value={currentFuel}
+          value={currentValue}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 

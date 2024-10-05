@@ -11,41 +11,23 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface DoorsCreationProps {
-  thisDoorsCreation : number;
+  currentValue : string;
+  setCurrentValue : (value) => void;
 }
 
 const DoorsCreation: React.FC<DoorsCreationProps> = ({
-  thisDoorsCreation
+  currentValue,
+  setCurrentValue
 }) => {
 
-    const [currentDoorsCreation, setCurrentDoorsCreation] = useState(thisDoorsCreation);
+
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: number) => {
-        try {
     
-          setCurrentDoorsCreation(selectedValue);
-    
-          const values = {
-            doors: selectedValue
-          }
-    
-          setIsLoading(true);
-          axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
-          toast.success("Türen gespeichert");
-          setTimeout(() => {
-            router.refresh();
-          }, 400)
-        } catch {
-          toast.error("Fehler beim Speichern der Kategorie");
-        } finally {
-          setIsLoading(false);
-        }
-      }
 
     return ( 
         <div className="w-full">
@@ -53,9 +35,9 @@ const DoorsCreation: React.FC<DoorsCreationProps> = ({
         <Label>Anzahl der Türen</Label>
         <Select
           onValueChange={(seats) => {
-            onSubmit(Number(seats));
+            setCurrentValue(Number(seats));
           }}
-          value={currentDoorsCreation ? String(currentDoorsCreation) : null}
+          value={currentValue ? String(currentValue) : null}
           disabled={isLoading}
         >
 

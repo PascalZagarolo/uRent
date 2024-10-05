@@ -69,6 +69,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
 
     return (
 
+        <>
         <div className="h-full flex flex-col">
             <h3 className="text-lg font-semibold">
                 PKW - Eigenschaften (1/3)
@@ -89,7 +90,9 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
             <div className="mt-4">
                 <TransmissionFormCreation currentValue={currentTransmission as any} setCurrentValue={setCurrentTransmission} />
             </div>
-            <div className=" flex flex-col mt-auto ">
+            
+        </div>
+        <div className=" flex flex-col mt-auto ">
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
@@ -104,7 +107,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
                     </Button>
                 </div>
             </div>
-        </div>
+        </>
 
     );
 }

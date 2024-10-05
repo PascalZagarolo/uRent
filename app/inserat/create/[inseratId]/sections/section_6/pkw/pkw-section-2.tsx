@@ -64,6 +64,7 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
     return (
 
+        <>
         <div className="h-full flex flex-col">
             <h3 className="text-lg font-semibold">
                 PKW - Eigenschaften (2/3)
@@ -73,33 +74,35 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                 </p>
             </h3>
             <div className="mt-4">
-                <FuelFormCreation thisFuel={currentFuel} />
+                <FuelFormCreation currentValue={currentFuel} setCurrentValue={setCurrentFuel} />
             </div>
             <div className="mt-4">
-                <DoorsCreation thisDoorsCreation={currentDoors} />
+                <DoorsCreation currentValue={currentDoors as any} setCurrentValue={setCurrentDoors} />
             </div>
             <div className="mt-4">
-                <PkwAhkCreation thisBrake={currentAhk} />
+                <PkwAhkCreation currentValue={currentAhk as any} setCurrentValue={setCurrentAhk} />
             </div>
             <div className="mt-4">
 
             </div>
-            <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
-                </span>
-                <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
-                        Zurück
-                    </Button>
-                    <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
-                    >
-                        Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
-                </div>
-            </div>
+            
         </div>
+        <div className=" flex flex-col mt-auto ">
+        <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
+        </span>
+        <div className="grid grid-cols-2 mt-2">
+            <Button className="" variant="ghost" onClick={onPrevious}>
+                Zurück
+            </Button>
+            <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
+                onClick={onSave}
+            >
+                Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
+            </Button>
+        </div>
+    </div>
+    </>
 
     );
 }

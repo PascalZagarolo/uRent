@@ -9,7 +9,7 @@ export async function PATCH(
     { params } : { params : { inseratId : string }}
 ) {
     try {
-
+        
         const {initial, ...values} = await req.json();
 
         const usedInitial = new Date(initial);
@@ -32,7 +32,7 @@ export async function PATCH(
             const patchedOrigin = await db.update(inserat).set({
                 pkwId : patchedInserat.id
             }).where(eq(inserat.id, params.inseratId)).returning();
-
+            console.log(values)
             return NextResponse.json({patchedInserat, patchedOrigin});
             
         } else {
@@ -42,6 +42,7 @@ export async function PATCH(
                 },
                 ...values
             }).where(eq(pkwAttribute.inseratId, params.inseratId)).returning();
+            console.log(values)
             return NextResponse.json(patchedInserat[0]);
         }
 

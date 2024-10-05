@@ -8,13 +8,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
-import CarBrandCreation from "./pkw-brand";
-import SeatsCreation from "./pkw-seats";
-import CarTypeCreation from "./pkw-type";
-import { brand } from '../../../../../../../drizzle/schema';
-import TransmissionFormCreation from "./pkw-transmission";
+
 import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
+import FuelFormCreation from "./pkw-fuel";
+import DoorsCreation from "./pkw-doors";
+import PkwAhkCreation from "./pkw-ahk";
 
 
 
@@ -22,33 +21,29 @@ import { useParams, useSearchParams } from "next/navigation";
 
 
 
-interface PkwSectionProps {
+interface PkwSection2Props {
     pkwAttribute: typeof pkwAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionProps) => {
+const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection2Props) => {
 
     
 
-   const [currentBrand, setCurrentBrand] = useState(pkwAttribute?.brand ? pkwAttribute?.brand : null);
-   const [currentSeats, setCurrentSeats] = useState(pkwAttribute?.seats);
-   const [currentType, setCurrentType] = useState(pkwAttribute?.type ? pkwAttribute?.type : null);
-   const [currentTransmission, setCurrentTransmission] = useState(pkwAttribute?.transmission ? pkwAttribute?.transmission : null);
-
+   const [currentFuel, setCurrentFuel] = useState(pkwAttribute?.fuel ? pkwAttribute?.fuel : null);
+   const [currentDoors, setCurrentDoors] = useState(pkwAttribute?.doors);
+   const [currentAhk, setCurrentAhk] = useState(pkwAttribute?.ahk ? pkwAttribute?.ahk : undefined);
+  
     const inseratId = useParams()?.inseratId;
     
 
     const onSave = async () => {
         try {
             const values = {
-                brand: currentBrand,
-                seats: currentSeats,
-                type: currentType,
-                transmission: currentTransmission
+
             }
-            await axios.patch(`/api/inserat/${inseratId}/pkw`, values); 
+            await axios.patch(`/api/inserat/${inseratId}/pkw`, {}); 
             changeSection(currentSection + 1);
         } catch (e: any) {
             console.log(e);
@@ -71,23 +66,23 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
 
         <div className="h-full flex flex-col">
             <h3 className="text-lg font-semibold">
-                PKW - Eigenschaften (1/3)
+                PKW - Eigenschaften (2/3)
                 <p className="text-xs text-gray-200/60 font-medium text-left">
                     Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                     Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
                 </p>
             </h3>
             <div className="mt-4">
-                <CarBrandCreation currentValue={currentBrand} setCurrentValue={setCurrentBrand} />
+                <FuelFormCreation thisFuel={currentFuel} />
             </div>
             <div className="mt-4">
-                <SeatsCreation currentValue={currentSeats as any} setCurrentValue={setCurrentSeats} />
+                <DoorsCreation thisDoorsCreation={currentDoors} />
             </div>
             <div className="mt-4">
-                <CarTypeCreation currentValue={currentType as any} setCurrentValue={setCurrentType} />
+                <PkwAhkCreation thisBrake={currentAhk} />
             </div>
             <div className="mt-4">
-                <TransmissionFormCreation currentValue={currentTransmission as any} setCurrentValue={setCurrentTransmission} />
+
             </div>
             <div className=" flex flex-col mt-auto ">
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
@@ -109,4 +104,4 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
     );
 }
 
-export default PkwSection;
+export default PkwSection2;

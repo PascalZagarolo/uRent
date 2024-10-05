@@ -12,6 +12,7 @@ import PriceSection from "./section_4/price-section";
 import { category } from '../../../../../drizzle/schema';
 import PkwSection from "./section_5/pkw/pkw-section";
 import { pkwAttribute } from '../../../../../db/schema';
+import PkwSection2 from "./section_6/pkw/pkw-section-2";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -36,10 +37,12 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
     let secondSegment;
 
 
+    
+
         switch(thisInserat?.category) {
             case "PKW":
-                firstSegment = <PkwSection pkwAttribute={thisInserat?.pkwAttributes} currentSection={Number(sectionId)} changeSection={changeSection} />;
-                secondSegment = 2;
+                firstSegment = <PkwSection pkwAttribute={thisInserat?.pkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
+                secondSegment = <PkwSection2 pkwAttribute={thisInserat?.pkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 break;
             case "LKW":
                 firstSegment = 1;

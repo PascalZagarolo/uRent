@@ -41,9 +41,11 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
     const onSave = async () => {
         try {
             const values = {
-
+                fuel: currentFuel,
+                doors: currentDoors,
+                ahk: currentAhk
             }
-            await axios.patch(`/api/inserat/${inseratId}/pkw`, {}); 
+            await axios.patch(`/api/inserat/${inseratId}/pkw`, values); 
             changeSection(currentSection + 1);
         } catch (e: any) {
             console.log(e);
@@ -82,9 +84,7 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
             <div className="mt-4">
                 <PkwAhkCreation currentValue={currentAhk as any} setCurrentValue={setCurrentAhk} />
             </div>
-            <div className="mt-4">
-
-            </div>
+            
             
         </div>
         <div className=" flex flex-col mt-auto ">

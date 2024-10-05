@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat } from "@/db/schema";
+import { inserat, pkwAttribute } from "@/db/schema";
 
 import { useState } from "react";
 
@@ -8,7 +8,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import CarBrandCreation from "./pkw-brand";
+import SeatsCreation from "./pkw-seats";
+import CarTypeCreation from "./pkw-type";
+import { brand } from '../../../../../../../drizzle/schema';
+
 
 
 
@@ -16,52 +20,28 @@ import axios from "axios";
 
 
 interface PkwSectionProps {
-    thisInserat: typeof inserat.$inferSelect | any;
+    pkwAttribute: typeof pkwAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const PkwSection = ({ thisInserat, currentSection, changeSection }: PkwSectionProps) => {
+const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionProps) => {
 
-    const [selectedImages, setSelectedImages] = useState<{ id: string; url: string; position: number, wholeFile : any }[]>(
-        thisInserat?.images.map((image) => ({
-            id: image.id,
-            url: image.url,
-            position: image.position,
-        })) || []
-    );
+   const [currentBrand, setCurrentBrand] = useState(pkwAttribute?.brand ? pkwAttribute?.brand : null);
+   const [currentSeats, setCurrentSeats] = useState(pkwAttribute?.seats);
+   const [currentType, setCurrentType] = useState(pkwAttribute?.type ? pkwAttribute?.type : null);
+   const [currentTransmission, setCurrentTransmission] = useState(pkwAttribute?.transmission ? pkwAttribute?.transmission : null);
 
 
 
     const onSave = async () => {
         try {
-            if (hasChanged) {
-                let uploadData: { url: string, position: number }[] = [];
-    
-                for (const pImage of selectedImages) {
-                    let returnedUrl: string = pImage.url;
-    
-                    if (pImage.wholeFile) {
-                        returnedUrl = await handleUpload2(pImage.wholeFile);
-                        setSelectedImages((prev) => prev.map((item) => {
-                            if (item.id === pImage.id) {
-                                //remove wholeFile from item , so data doesnt get uploaded twice
-                                return { ...item, imageUrl: returnedUrl, wholeFile: null };
-                            }
-                            return item;
-                        }))
-                        
-                    }
-
-                    uploadData.push({ url: returnedUrl, position: pImage.position });
-                }
-    
-                const values = {
-                    updatedImages: uploadData
-                };
-    
-                await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
-            }
+            const values = {
+                brand: currentBrand,
+                seats: currentSeats,
+                type: currentType,
+                transmission: currentTransmission
+            } 
             changeSection(currentSection + 1);
         } catch (e: any) {
             console.log(e);
@@ -69,29 +49,7 @@ const PkwSection = ({ thisInserat, currentSection, changeSection }: PkwSectionPr
         }
     };
     
-    const handleUpload2 = async (file: any) => {
-        try {
-            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "oblbw2xl");
-    
-            const response = await fetch(url, {
-                method: "POST",
-                body: formData,
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-    
-            const data = await response.json();
-            return data.secure_url;  // Return the secure_url directly
-        } catch (e: any) {
-            console.log(e);
-            return ""; // Return an empty string if there's an error
-        }
-    };
+   
     
 
     const onPrevious = () => {
@@ -113,14 +71,19 @@ const PkwSection = ({ thisInserat, currentSection, changeSection }: PkwSectionPr
                 </p>
             </h3>
             <div className="mt-4">
-                
+                <CarBrandCreation currentValue={currentBrand} setCurrentValue={setCurrentBrand} />
             </div>
             <div className="mt-4">
-
+                <SeatsCreation currentValue={currentSeats as any} setCurrentValue={setCurrentSeats} />
             </div>
-
-            <div className=" flex flex-col mt-auto">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer">
+            <div className="mt-4">
+                <CarTypeCreation currentValue={currentType as any} setCurrentValue={setCurrentType} />
+            </div>
+            <div className="mt-4">
+                <CarTypeCreation currentValue={currentTransmission as any} setCurrentValue={setCurrentTransmission} />
+            </div>
+            <div className=" flex flex-col mt-auto ">
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">

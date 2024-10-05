@@ -53,19 +53,13 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
         }
     };
     
-   
-    
-
     const onPrevious = () => {
         changeSection(currentSection - 1);
     }
 
     const hasChanged = true;
 
-
-
     return (
-
         <>
         <div className="h-full flex flex-col">
             <h3 className="text-lg font-semibold">

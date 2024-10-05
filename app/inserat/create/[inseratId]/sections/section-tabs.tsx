@@ -13,6 +13,7 @@ import { category } from '../../../../../drizzle/schema';
 import PkwSection from "./section_5/pkw/pkw-section";
 import { pkwAttribute } from '../../../../../db/schema';
 import PkwSection2 from "./section_6/pkw/pkw-section-2";
+import PkwSection3 from "./section_7/pkw/pkw-section-3";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -35,6 +36,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
 
     let firstSegment;
     let secondSegment;
+    let thirdSegment
 
 
     
@@ -43,6 +45,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
             case "PKW":
                 firstSegment = <PkwSection pkwAttribute={thisInserat?.pkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 secondSegment = <PkwSection2 pkwAttribute={thisInserat?.pkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
+                thirdSegment = <PkwSection3 pkwAttribute={thisInserat?.pkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 break;
             case "LKW":
                 firstSegment = 1;
@@ -86,7 +89,8 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 3 : <UploadImagesSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 4 : <PriceSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 5 : firstSegment,
-                                6 : secondSegment
+                                6 : secondSegment,
+                                7 : thirdSegment
                             }[sectionId]
                         }
                         

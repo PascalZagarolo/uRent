@@ -23,6 +23,7 @@ import TrailerSection3 from "./section_7/trailer/trailer-section-3";
 import TransportSection from "./section_5/transport/transport-section";
 import TransportSection2 from "./section_6/transport/transport-section-2";
 import TransportSection3 from "./section_7/transport/transport-section-3";
+import RahmenSection from "./section_8/rahmen-section";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -102,7 +103,8 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 4 : <PriceSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 5 : firstSegment,
                                 6 : secondSegment,
-                                7 : thirdSegment
+                                7 : thirdSegment,
+                                8 : <RahmenSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                             }[sectionId]
                         }
                         

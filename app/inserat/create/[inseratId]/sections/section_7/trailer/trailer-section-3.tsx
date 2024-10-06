@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat, pkwAttribute } from "@/db/schema";
+import { inserat, pkwAttribute, trailerAttribute } from "@/db/schema";
 
 import { useEffect, useState } from "react";
 
@@ -27,16 +27,16 @@ import LkwSizeCreation from "../lkw/lkw-loading-size";
 
 
 interface TrailerSection3Props {
-    trailerAttribute: typeof lkwAttribute.$inferSelect;
+    trailerAttribute: typeof trailerAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
 const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: TrailerSection3Props) => {
 
+   
 
-
-    const [currentPower, setCurrentPower] = useState<string | number>(trailerAttribute?.power ? trailerAttribute?.power : undefined);
+    
     const [currentInitial, setCurrentInitial] = useState<string | number>(trailerAttribute?.initial ? trailerAttribute?.initial.getFullYear() : null);
     const [currentVolume, setCurrentVolume] = useState<string | number>(trailerAttribute?.loading_volume ? trailerAttribute?.loading_volume : undefined);
 
@@ -52,11 +52,9 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
     useEffect(() => {
 
         const parsedVolume = parseFloat(currentVolume as string);
-        const parsedPower = parseFloat(currentPower as string);
 
-        if((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower))) {
-            setError({errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an"});
-        } else if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
+
+       if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
             setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});
         }  else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
             setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
@@ -72,24 +70,20 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
             setError(undefined);
         }
 
-    },[currentPower, currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
+    },[ currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
     const onSave = async () => {
         try {
 
-            if(currentPower !== undefined && Number.isNaN(currentPower)) {
-                toast.error("Bitte gib eine gültige Fahrzeugleistung an");
-                return;
-            }
 
             const values = {
-                power: currentPower,
+
                 initial: currentInitial,
                 loading_volume: currentVolume,
                 loading_l: currentLength,
                 loading_b: currentWidth,
                 loading_h: currentHeight
             }
-            await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
+            await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
             changeSection(currentSection + 1);
         } catch (e: any) {
             console.log(e);
@@ -109,7 +103,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
         <>
             <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    LKW - Eigenschaften (3/3)
+                    Anhänger - Eigenschaften (3/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                         Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
@@ -122,14 +116,8 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                     />
                     
                 </div>
+                
                 <div className="mt-8">
-                    <PowerFormCreation
-                        currentValue={currentPower}
-                        setCurrentValue={(value) => setCurrentPower(value)}
-                    />
-                    {error?.errorField === "power" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>} 
-                </div>
-                <div className="mt-4">
                 <PkwLoadingVolumeCreation
                 currentValue={currentVolume}
                 setCurrentValue={(value) => setCurrentVolume(value)} 

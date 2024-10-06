@@ -63,9 +63,9 @@ const LkwSizeCreation: React.FC<LkwSizeCreationProps> = ({
             <GiResize className="h-4 w-4 mr-2" />    Laderaum 
                 </Label>
 
-            <div className="flex mt-4 w-full">
+            <div className="flex mt-4 w-full flex-row items-center space-x-4">
                 
-                <div className="  items-center  ">
+                <div className="  items-center  w-1/3">
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Länge </p>
                     </Label>
@@ -87,7 +87,7 @@ const LkwSizeCreation: React.FC<LkwSizeCreationProps> = ({
                     />
                 </div>
                 
-                <div className="ml-4">
+                <div className="w-1/3">
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Breite </p>
                     </Label>
@@ -110,7 +110,7 @@ const LkwSizeCreation: React.FC<LkwSizeCreationProps> = ({
                         value={currentWidth}
                     />
                 </div>
-                <div className="ml-4">
+                <div className="w-1/3">
                     <Label className="flex justify-start items-center">
                         <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Höhe </p>
                     </Label>

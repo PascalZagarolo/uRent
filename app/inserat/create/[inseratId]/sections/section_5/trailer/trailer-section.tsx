@@ -37,7 +37,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
     const [currentType, setCurrentType] = useState(trailerAttribute?.type ? trailerAttribute?.type : null);
     const [currentWeight, setCurrentWeight] = useState(trailerAttribute?.weightClass ? trailerAttribute?.weightClass : null);
     const [currentAxis, setCurrentAxis] = useState(trailerAttribute?.axis ? trailerAttribute?.axis : null);
-    const [currentBrake, setCurrentBrake] = useState(trailerAttribute?.brake ? trailerAttribute?.brake : null);
+    const [currentBrake, setCurrentBrake] = useState(trailerAttribute?.brake ? trailerAttribute?.brake : undefined);
 
     const inseratId = useParams()?.inseratId;
 
@@ -45,9 +45,12 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
     const onSave = async () => {
         try {
             const values = {
-
+                type: currentType,
+                weightClass: currentWeight,
+                axis: currentAxis,
+                brake: currentBrake
             }
-            await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
+            await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
             changeSection(currentSection + 1);
         } catch (e: any) {
             console.log(e);
@@ -71,7 +74,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
         <>
             <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    LKW - Eigenschaften (1/3)
+                    Anhänger - Eigenschaften (1/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                         Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.

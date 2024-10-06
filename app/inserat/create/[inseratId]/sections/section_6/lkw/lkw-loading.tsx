@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TransmissionEnumRender } from "@/db/schema";
+import { LoadingEnumRender } from "@/db/schema";
 
 
 
@@ -12,51 +12,48 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface TransmissionFormCreationProps {
-  currentValue : string;
-  setCurrentValue : (value) => void;
+interface LoadingFormCreationProps {
+    currentValue : string;
+    setCurrentValue : (value) => void;
 }
 
-const TransmissionFormCreation: React.FC<TransmissionFormCreationProps> = ({
-  currentValue,
-  setCurrentValue
+const LoadingFormCreation: React.FC<LoadingFormCreationProps> = ({
+    currentValue,
+    setCurrentValue
 }) => {
 
-
+  
     const [isLoading, setIsLoading] = useState(false);
 
-    const router = useRouter();
 
-    const params = useParams();
 
-   
+    
 
     return ( 
         <div className="w-full">
             <div className="w-full">
-        <Label>Getriebe</Label>
+        <Label>Ladevorrichtung</Label>
         <Select
-     
-          onValueChange={(transmission) => {
-            console.log(transmission)
-            setCurrentValue(transmission);
+          //@ts-ignore
+          onValueChange={(loading : typeof LoadingEnumRender) => {
+            setCurrentValue(loading);
           }}
-          
+           //@ts-ignore
           value={currentValue}
           disabled={isLoading}
         >
-
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
           disabled={isLoading}>
-            <SelectValue  
-
+            <SelectValue
+              placeholder="Wähle die Kategorie aus"
             />
           </SelectTrigger>
-
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
           <SelectItem value={null}>Beliebig</SelectItem>
-            <SelectItem value="MANUAL">Manuell</SelectItem>
-            <SelectItem value="AUTOMATIC">Automatisch</SelectItem>
+            <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
+            <SelectItem value="LADERAMPE">Laderampe</SelectItem>
+            <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
+            <SelectItem value="KRAN">Kran</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -64,4 +61,4 @@ const TransmissionFormCreation: React.FC<TransmissionFormCreationProps> = ({
      );
 }
  
-export default TransmissionFormCreation;
+export default LoadingFormCreation;

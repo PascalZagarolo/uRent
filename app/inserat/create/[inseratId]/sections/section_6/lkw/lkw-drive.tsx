@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TransmissionEnumRender } from "@/db/schema";
+import { DriveEnumRender } from "@/db/schema";
 
 
 
@@ -12,18 +12,17 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface TransmissionFormCreationProps {
-  currentValue : string;
-  setCurrentValue : (value) => void;
+interface DriveFormCreationProps {
+    currentValue : string;
+    setCurrentValue : (value) => void;
 }
 
-const TransmissionFormCreation: React.FC<TransmissionFormCreationProps> = ({
+const DriveFormCreation: React.FC<DriveFormCreationProps> = ({
   currentValue,
   setCurrentValue
 }) => {
 
-
-    const [isLoading, setIsLoading] = useState(false);
+    const [isdrive, setIsdrive] = useState(false);
 
     const router = useRouter();
 
@@ -34,29 +33,33 @@ const TransmissionFormCreation: React.FC<TransmissionFormCreationProps> = ({
     return ( 
         <div className="w-full">
             <div className="w-full">
-        <Label>Getriebe</Label>
+        <Label>Antrieb</Label>
         <Select
-     
-          onValueChange={(transmission) => {
-            console.log(transmission)
-            setCurrentValue(transmission);
+        //@ts-ignore
+          onValueChange={(drive) => {
+            setCurrentValue(drive);
           }}
-          
+          //@ts-ignore
           value={currentValue}
-          disabled={isLoading}
+          disabled={isdrive}
         >
 
           <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading}>
-            <SelectValue  
-
+          disabled={isdrive}>
+            <SelectValue
+              placeholder="Wähle die Kategorie aus"
+              
+              
             />
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-          <SelectItem value={null}>Beliebig</SelectItem>
-            <SelectItem value="MANUAL">Manuell</SelectItem>
-            <SelectItem value="AUTOMATIC">Automatisch</SelectItem>
+            <SelectItem value={null}>Beliebig</SelectItem>
+          {Object.values(DriveEnumRender).map((drive, index) => (
+                            <SelectItem key={index} value={drive}>
+                                {drive.substring(1)}
+                            </SelectItem>
+                        ))}
           </SelectContent>
         </Select>
       </div>
@@ -64,4 +67,4 @@ const TransmissionFormCreation: React.FC<TransmissionFormCreationProps> = ({
      );
 }
  
-export default TransmissionFormCreation;
+export default DriveFormCreation;

@@ -15,7 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 
 interface PowerFormCreationProps {
-    currentValue: number | string;
+    currentValue: any;
     setCurrentValue: (value) => void;
 }
 
@@ -30,8 +30,8 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
     const params = useParams();
 
     const [usesPS, setUsesPS] = useState(true);
-
-    const [currentKW, setCurrentKW] = useState<number | null>(Math.round(currentValue * 0.735499) || null);
+    //@ts-ignore
+    const [currentKW, setCurrentKW] = useState<number | any>(Math.round(currentValue * 0.735499) || null);
     
     const [isLoading, setIsLoading] = useState(false);
 
@@ -60,7 +60,7 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
                         placeholder="Leistung in PS"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         onChange={(e) => {
-                            setCurrentValue(Number(e.target.value));
+                            setCurrentValue(e.target.value);
                             setCurrentKW(Math.round(Number(e.target.value) * 0.735499));
                         }}
                         

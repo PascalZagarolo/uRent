@@ -34,7 +34,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
 
 
 
-    const [currentPower, setCurrentPower] = useState(lkwAttribute?.power ? lkwAttribute?.power : null);
+    const [currentPower, setCurrentPower] = useState<string | number>(lkwAttribute?.power ? lkwAttribute?.power : null);
     const [currentInitial, setCurrentInitial] = useState<string | number>(lkwAttribute?.initial ? lkwAttribute?.initial.getFullYear() : null);
     const [currentVolume, setCurrentVolume] = useState<string | number>(lkwAttribute?.loading_volume ? lkwAttribute?.loading_volume : undefined);
 
@@ -46,8 +46,9 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     useEffect(() => {
 
         const parsedVolume = parseFloat(currentVolume as string);
+        const parsedPower = parseFloat(currentPower as string);
 
-        if(currentPower !== undefined && Number.isNaN(currentPower)) {
+        if((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower) || parsedPower <= 0)) {
             setError({errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an"});
         } else if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
             setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});
@@ -106,7 +107,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 </div>
                 <div className="mt-8">
                     <PowerFormCreation
-                        currentValue={pkwAttribute?.power}
+                        currentValue={currentPower}
                         setCurrentValue={(value) => setCurrentPower(value)}
                     />
                     {error?.errorField === "power" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>} 

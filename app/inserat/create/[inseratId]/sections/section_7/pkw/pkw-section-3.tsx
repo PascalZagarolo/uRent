@@ -33,7 +33,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
 
 
-    const [currentPower, setCurrentPower] = useState(pkwAttribute?.power ? pkwAttribute?.power : null);
+    const [currentPower, setCurrentPower] = useState<string | number>(pkwAttribute?.power ? pkwAttribute?.power : null);
     const [currentInitial, setCurrentInitial] = useState<string | number>(pkwAttribute?.initial ? pkwAttribute?.initial.getFullYear() : null);
     const [currentVolume, setCurrentVolume] = useState<string | number>(pkwAttribute?.loading_volume ? pkwAttribute?.loading_volume : undefined);
 
@@ -45,8 +45,9 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
     useEffect(() => {
 
         const parsedVolume = parseFloat(currentVolume as string);
+        const parsedPower = parseFloat(currentPower as string);
 
-        if(currentPower !== undefined && Number.isNaN(currentPower)) {
+        if((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower) || parsedPower <= 0)) {
             setError({errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an"});
         } else if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
             setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});

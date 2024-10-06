@@ -17,6 +17,7 @@ import PkwLoadingVolumeCreation from "../pkw/pkw-loading-volume";
 import PowerFormCreation from "../pkw/pkw-power";
 import InitialFormCreation from "../pkw/pkw-initial";
 import { lkwAttribute } from '../../../../../../../db/schema';
+import LkwSizeCreation from "./lkw-loading-size";
 
 
 
@@ -34,9 +35,13 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
 
 
 
-    const [currentPower, setCurrentPower] = useState<string | number>(lkwAttribute?.power ? lkwAttribute?.power : null);
+    const [currentPower, setCurrentPower] = useState<string | number>(lkwAttribute?.power ? lkwAttribute?.power : undefined);
     const [currentInitial, setCurrentInitial] = useState<string | number>(lkwAttribute?.initial ? lkwAttribute?.initial.getFullYear() : null);
     const [currentVolume, setCurrentVolume] = useState<string | number>(lkwAttribute?.loading_volume ? lkwAttribute?.loading_volume : undefined);
+
+    const [currentLength, setCurrentLength] = useState<string | number>(lkwAttribute?.loading_l ? lkwAttribute?.loading_l : undefined);
+    const [currentWidth, setCurrentWidth] = useState<string | number>(lkwAttribute?.loading_b ? lkwAttribute?.loading_b : undefined);
+    const [currentHeight, setCurrentHeight] = useState<string | number>(lkwAttribute?.loading_h ? lkwAttribute?.loading_h : undefined);
 
     const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
 
@@ -48,17 +53,25 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         const parsedVolume = parseFloat(currentVolume as string);
         const parsedPower = parseFloat(currentPower as string);
 
-        if((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower) || parsedPower <= 0)) {
+        if((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower))) {
             setError({errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an"});
         } else if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
             setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});
         }  else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
             setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
-        } else {
-            setError(null);
+        } else if(
+        (currentLength !== undefined && currentLength != "") && (isNaN(parseFloat(currentLength as string)) || parseFloat(currentLength as string) <= 0) ||
+        (currentWidth !== undefined && currentWidth != "") && (isNaN(parseFloat(currentWidth as string)) || parseFloat(currentWidth as string) <= 0) ||
+        (currentHeight !== undefined && currentHeight != "") && (isNaN(parseFloat(currentHeight as string)) || parseFloat(currentHeight as string) <= 0)
+        ) {
+        
+        setError({ errorField: "size", errorText: "Bitte gebe eine gültige Lademaße ein" });
+        }
+        else {
+            setError(undefined);
         }
 
-    },[currentPower, currentInitial, currentVolume]);
+    },[currentPower, currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
     const onSave = async () => {
         try {
 
@@ -120,8 +133,17 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
 
                 </div>
-
-
+                <div>
+                    <LkwSizeCreation 
+                    currentHeight={currentHeight}
+                    currentLength={currentLength}
+                    currentWidth={currentWidth}
+                    setCurrentHeight={(value) => setCurrentHeight(value)}
+                    setCurrentLength={(value) => setCurrentLength(value)}
+                    setCurrentWidth={(value) => setCurrentWidth(value)}
+                    />
+                </div>
+                {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
             </div>
             <div className=" flex flex-col mt-auto ">
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">

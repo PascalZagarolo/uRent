@@ -58,7 +58,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                 secondSegment = <LkwSection2 lkwAttribute={thisInserat?.lkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 thirdSegment = <LkwSection3 lkwAttribute={thisInserat?.lkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 break;
-            case "Anhänger":
+            case "TRAILER":
                 firstSegment = <TrailerSection trailerAttribute={thisInserat?.trailerAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 secondSegment = <TrailerSection2 trailerAttributes={thisInserat?.trailerAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 thirdSegment = <TrailerSection3 trailerAttribute={thisInserat?.trailerAttribute} currentSection={Number(sectionId)} changeSection={changeSection}/>;

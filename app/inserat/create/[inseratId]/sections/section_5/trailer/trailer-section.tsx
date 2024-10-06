@@ -12,6 +12,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 import SeatsCreation from "../pkw/pkw-seats";
+import TrailerTypeCreation from "./trailer-type";
+import TrailerWeightClassCreation from "./trailer-weight-class";
+import LkwAxisCreation from "../lkw/lkw-axis";
+import TrailerBrakeCreation from "./trailer-brake";
 
 
 
@@ -30,10 +34,10 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
 
 
 
-    const [currentType, setCurrentWeight] = useState(trailerAttribute?.type ? trailerAttribute?.type : null);
-    const [currentWeight, setCurrentAxis] = useState(trailerAttribute?.weightClass ? trailerAttribute?.weightClass : null);
-    const [currentAxis, setCurrentBrand] = useState(trailerAttribute?.axis ? trailerAttribute?.axis : null);
-    const [currentBrake, setCurrentSeats] = useState(trailerAttribute?.brake ? trailerAttribute?.brake : null);
+    const [currentType, setCurrentType] = useState(trailerAttribute?.type ? trailerAttribute?.type : null);
+    const [currentWeight, setCurrentWeight] = useState(trailerAttribute?.weightClass ? trailerAttribute?.weightClass : null);
+    const [currentAxis, setCurrentAxis] = useState(trailerAttribute?.axis ? trailerAttribute?.axis : null);
+    const [currentBrake, setCurrentBrake] = useState(trailerAttribute?.brake ? trailerAttribute?.brake : null);
 
     const inseratId = useParams()?.inseratId;
 
@@ -74,16 +78,16 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
                     </p>
                 </h3>
                 <div className="mt-4">
-                   
+                   <TrailerTypeCreation currentValue={currentType} setCurrentValue={setCurrentType} />
                 </div>
                 <div className="mt-4">
-                  
+                  <TrailerWeightClassCreation currentValue={currentWeight} setCurrentValue={setCurrentWeight} />
                 </div>
                 <div className="mt-4">
-                    
+                    <LkwAxisCreation currentValue={currentAxis} setCurrentValue={setCurrentAxis} />
                 </div>
                 <div className="mt-4">
-                    
+                    <TrailerBrakeCreation currentValue={currentBrake as any} setCurrentValue={setCurrentBrake} />
                 </div>
 
             </div>

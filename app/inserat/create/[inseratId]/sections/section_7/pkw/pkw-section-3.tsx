@@ -15,6 +15,7 @@ import PowerFormCreation from "./pkw-power";
 import InitialFormCreationn from "./pkw-initial";
 import InitialFormCreation from "./pkw-initial";
 import PkwLoadingVolumeCreation from "./pkw-loading-volume";
+import { RenderErrorMessage } from "../../_components/render-messages";
 
 
 
@@ -34,7 +35,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
     const [currentPower, setCurrentPower] = useState(pkwAttribute?.power ? pkwAttribute?.power : null);
     const [currentInitial, setCurrentInitial] = useState<string | number>(pkwAttribute?.initial ? pkwAttribute?.initial.getFullYear() : null);
-    const [currentVolume, setCurrentVolume] = useState<string | number | null>(pkwAttribute?.loading_volume ? pkwAttribute?.loading_volume : undefined);
+    const [currentVolume, setCurrentVolume] = useState<string | number>(pkwAttribute?.loading_volume ? pkwAttribute?.loading_volume : undefined);
 
     const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
 
@@ -42,12 +43,15 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
 
     useEffect(() => {
+
+        const parsedVolume = parseFloat(currentVolume as string);
+
         if(currentPower !== undefined && Number.isNaN(currentPower)) {
             setError({errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an"});
         } else if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
             setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});
-        } else if(currentVolume !== undefined && Number.isNaN(currentVolume)) {
-            setError({errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an"});
+        }  else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
+            setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
         } else {
             setError(null);
         }
@@ -80,7 +84,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
     const hasChanged = true;
 
-    //!render Errors
+ 
 
     return (
         <>
@@ -97,18 +101,22 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                         currentValue={currentInitial as string}
                         setCurrentValue={(value) => setCurrentInitial(value)}
                     />
+                    
                 </div>
                 <div className="mt-8">
                     <PowerFormCreation
                         currentValue={pkwAttribute?.power}
                         setCurrentValue={(value) => setCurrentPower(value)}
                     />
+                    {error?.errorField === "power" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>} 
                 </div>
-                <div className="mt-8">
+                <div className="mt-4">
                 <PkwLoadingVolumeCreation
-                currentValue={currentVolume as number}
+                currentValue={currentVolume}
                 setCurrentValue={(value) => setCurrentVolume(value)} 
                 />
+                {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
+
                 </div>
 
 
@@ -123,7 +131,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
                         onClick={onSave}
-                        disabled={error}
+                        disabled={error !== undefined}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>

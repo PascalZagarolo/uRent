@@ -16,7 +16,7 @@ import { FaBoxOpen } from "react-icons/fa";
 
 
 interface PkwLoadingVolumeCreationProps {
-    currentValue : number;
+    currentValue : number | string | any;
     setCurrentValue : (value) => void;
 }
 

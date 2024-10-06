@@ -17,6 +17,7 @@ import PkwLoadingVolumeCreation from "../pkw/pkw-loading-volume";
 import PowerFormCreation from "../pkw/pkw-power";
 import InitialFormCreation from "../pkw/pkw-initial";
 import { lkwAttribute } from '../../../../../../../db/schema';
+import LkwSizeCreation from "../lkw/lkw-loading-size";
 
 
 
@@ -88,7 +89,7 @@ const TransportSection3 = ({ transportAttribute, currentSection, changeSection }
                 loading_b: currentWidth,
                 loading_h: currentHeight
             }
-            await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
+            await axios.patch(`/api/inserat/${inseratId}/transport`, values);
             changeSection(currentSection + 1);
         } catch (e: any) {
             console.log(e);

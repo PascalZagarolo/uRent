@@ -13,6 +13,8 @@ import { useParams, useSearchParams } from "next/navigation";
 import SeatsCreation from "../pkw/pkw-seats";
 import { transportAttribute } from '../../../../../../../db/schema';
 import TransmissionFormCreation from "../pkw/pkw-transmission";
+import TransportWeightClassCreation from "./transport-weight-class";
+import TransportBrandCreation from "./transport-brand";
 
 
 
@@ -45,7 +47,7 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
             const values = {
                 weightClass: currentWeight,
                 transmission: currentTransmission,
-                brand: currentBrand,
+                transportBrand: currentBrand,
                 seats: currentSeats
             }
             await axios.patch(`/api/inserat/${inseratId}/transport`, values);
@@ -79,10 +81,10 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
                     </p>
                 </h3>
                 <div className="mt-4">
-
+                    <TransportWeightClassCreation currentValue={currentWeight as any} setCurrentValue={setCurrentWeight} />
                 </div>
                 <div className="mt-4">
-
+                    <TransportBrandCreation currentValue={currentBrand as any} setCurrentValue={setCurrentBrand} />
                 </div>
                 <div className="mt-4">
                     <SeatsCreation currentValue={currentSeats as any} setCurrentValue={setCurrentSeats} />

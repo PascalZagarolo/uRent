@@ -12,6 +12,9 @@ import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { transportAttribute } from '../../../../../../../db/schema';
+import FuelFormCreation from "../pkw/pkw-fuel";
+import DoorsCreation from "../pkw/pkw-doors";
+import LoadingFormCreation from "../lkw/lkw-loading";
 
 
 
@@ -78,13 +81,13 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
                     </p>
                 </h3>
                 <div className="mt-4">
-
+                    <FuelFormCreation currentValue={currentFuel} setCurrentValue={setCurrentFuel} />
                 </div>
                 <div className="mt-4">
-
+                    <DoorsCreation currentValue={currentDoors as any} setCurrentValue={setCurrentDoors} />
                 </div>
                 <div className="mt-4">
-                    
+                    <LoadingFormCreation currentValue={currentLoading as any} setCurrentValue={setCurrentLoading} />
                 </div>
                 <div className="mt-4">
                     

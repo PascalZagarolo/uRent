@@ -17,6 +17,9 @@ import PkwSection3 from "./section_7/pkw/pkw-section-3";
 import LkwSection from "./section_5/lkw/lkw-section";
 import LkwSection2 from "./section_6/lkw/lkw-section-2";
 import LkwSection3 from "./section_7/lkw/lkw-section-3";
+import TrailerSection from "./section_5/trailer/trailer-section";
+import TrailerSection2 from "./section_6/trailer/trailer-section-2";
+import TrailerSection3 from "./section_7/trailer/trailer-section-3";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -56,8 +59,9 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                 thirdSegment = <LkwSection3 lkwAttribute={thisInserat?.lkwAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 break;
             case "Anhänger":
-                firstSegment = 1;
-                secondSegment = 2;
+                firstSegment = <TrailerSection trailerAttribute={thisInserat?.trailerAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
+                secondSegment = <TrailerSection2 trailerAttributes={thisInserat?.trailerAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
+                thirdSegment = <TrailerSection3 trailerAttribute={thisInserat?.trailerAttribute} currentSection={Number(sectionId)} changeSection={changeSection}/>;
                 break;
             case "TRAILER":
                 firstSegment = 1;

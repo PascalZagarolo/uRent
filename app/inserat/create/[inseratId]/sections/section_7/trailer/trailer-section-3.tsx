@@ -17,7 +17,7 @@ import PkwLoadingVolumeCreation from "../pkw/pkw-loading-volume";
 import PowerFormCreation from "../pkw/pkw-power";
 import InitialFormCreation from "../pkw/pkw-initial";
 import { lkwAttribute } from '../../../../../../../db/schema';
-import LkwSizeCreation from "./lkw-loading-size";
+import LkwSizeCreation from "../lkw/lkw-loading-size";
 
 
 
@@ -25,23 +25,24 @@ import LkwSizeCreation from "./lkw-loading-size";
 
 
 
-interface LkwSection3Props {
-    lkwAttribute: typeof lkwAttribute.$inferSelect;
+
+interface TrailerSection3Props {
+    trailerAttribute: typeof lkwAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection3Props) => {
+const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: TrailerSection3Props) => {
 
 
 
-    const [currentPower, setCurrentPower] = useState<string | number>(lkwAttribute?.power ? lkwAttribute?.power : undefined);
-    const [currentInitial, setCurrentInitial] = useState<string | number>(lkwAttribute?.initial ? lkwAttribute?.initial.getFullYear() : null);
-    const [currentVolume, setCurrentVolume] = useState<string | number>(lkwAttribute?.loading_volume ? lkwAttribute?.loading_volume : undefined);
+    const [currentPower, setCurrentPower] = useState<string | number>(trailerAttribute?.power ? trailerAttribute?.power : undefined);
+    const [currentInitial, setCurrentInitial] = useState<string | number>(trailerAttribute?.initial ? trailerAttribute?.initial.getFullYear() : null);
+    const [currentVolume, setCurrentVolume] = useState<string | number>(trailerAttribute?.loading_volume ? trailerAttribute?.loading_volume : undefined);
 
-    const [currentLength, setCurrentLength] = useState<string | number>(lkwAttribute?.loading_l ? lkwAttribute?.loading_l : undefined);
-    const [currentWidth, setCurrentWidth] = useState<string | number>(lkwAttribute?.loading_b ? lkwAttribute?.loading_b : undefined);
-    const [currentHeight, setCurrentHeight] = useState<string | number>(lkwAttribute?.loading_h ? lkwAttribute?.loading_h : undefined);
+    const [currentLength, setCurrentLength] = useState<string | number>(trailerAttribute?.loading_l ? trailerAttribute?.loading_l : undefined);
+    const [currentWidth, setCurrentWidth] = useState<string | number>(trailerAttribute?.loading_b ? trailerAttribute?.loading_b : undefined);
+    const [currentHeight, setCurrentHeight] = useState<string | number>(trailerAttribute?.loading_h ? trailerAttribute?.loading_h : undefined);
 
     const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
 
@@ -169,4 +170,4 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     );
 }
 
-export default LkwSection3;
+export default TrailerSection3;

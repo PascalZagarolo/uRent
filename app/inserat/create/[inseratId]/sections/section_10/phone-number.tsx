@@ -19,16 +19,20 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface PhoneNumberProps {
+interface PhoneNumberCreationProps {
   thisInserat: typeof inserat.$inferSelect | any;
+  currentValue : string;
+  setCurrentValue : (value) => void;
 }
 
-const PhoneNumber: React.FC<PhoneNumberProps> = ({
-  thisInserat
+const PhoneNumberCreation: React.FC<PhoneNumberCreationProps> = ({
+  thisInserat,
+    currentValue,
+    setCurrentValue
 }) => {
 
   const [isLoading, setIsLoading] = useState(false);
-  const [currentNumber, setCurrentNumber] = useState(thisInserat.phoneNumber || "");
+ 
   const [modalOpen, setModalOpen] = useState(false);
 
 
@@ -37,12 +41,8 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
   const [renderedNumbers, setRenderedNumbers] = useState<typeof userContactprofiles.$inferSelect[]>([]);
 
   useEffect(() => {
-
-
     // Filter to get only the EMAIL profiles
     const phones = thisInserat?.user?.userContactprofiles?.filter((mail) => mail?.profileType === "PHONE");
-
-
 
     // Set the state with the filtered emails and loginMail
     setRenderedNumbers([...(phones || [])]);
@@ -50,37 +50,18 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
 
   const [isPrefill, setIsPrefill] = useState(false);
 
-  const router = useRouter();
-
-  const onSubmit = async () => {
-    try {
-      setIsLoading(true)
-      const values = {
-        phoneNumber: currentNumber
-      }
-
-      await axios.patch(`/api/inserat/${thisInserat.id}`, values)
-        .then(() => {
-          toast.success("Telefonnummer wurde erfolgreich geändert")
-          router.refresh();
-        })
 
 
-    } catch {
-      toast.error("Fehler beim Versenden der E-Mail")
-    } finally {
-      setIsLoading(false);
-    }
-  }
+ 
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const onPrefill = (usedNumber: string) => {
-    setCurrentNumber(usedNumber);
+    setCurrentValue(usedNumber);
   }
 
   const isAlreadyChosen = (number: string) => {
-    return number === currentNumber;
+    return number === currentValue;
   }
 
   return (
@@ -103,8 +84,8 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
               input: justify-start dark:focus-visible:ring-0 w-full"
               disabled={isPrefill}
               maxLength={32}
-              value={currentNumber}
-              onChange={(e) => { setCurrentNumber(e.target.value) }}
+              value={currentValue}
+              onChange={(e) => { setCurrentValue(e.target.value) }}
             />
             
             <Popover onOpenChange={(e) => { setModalOpen(e) }}
@@ -153,7 +134,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
             
           </div>
           <div className="ml-auto flex justify-end">
-              <LetterRestriction limit={32} currentLength={currentNumber.length || 0} />
+              <LetterRestriction limit={32} currentLength={currentValue.length || 0} />
             </div>
         </div>
 
@@ -172,14 +153,10 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({
       */}
 
 
-      <Button onClick={() => { onSubmit() }} className=" dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!currentNumber || currentNumber === thisInserat.phoneNumber || !thisInserat.user?.business?.telephone_number}
-      >
-        <span className="">Telefonnr. anzeigen</span>
-      </Button>
+      
 
     </div>
   );
 }
 
-export default PhoneNumber;
+export default PhoneNumberCreation;

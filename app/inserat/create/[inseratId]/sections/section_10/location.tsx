@@ -51,7 +51,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
 
   
     const searchParams = useSearchParams();
-    const currentLocation = searchParams.get("location");
+    
 
   
     
@@ -65,7 +65,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
         );
 
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
-
+            console.log("place changed")
             const place = autocomplete.getPlace();
 
             setCurrentZipCode("");
@@ -84,12 +84,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
                 getZipCode();
             }
         });
-
-
-
-
-
-    }, [currentLocation]);
+    }, [currentAddress]);
 
 
 
@@ -173,6 +168,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
 
     useEffect(() => {
         //@ts-ignore
+        setCurrentAddress(inputRef?.current?.value)
     }, [inputRef?.current?.value])
 
     
@@ -219,7 +215,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
             justify-start dark:focus-visible:ring-0"
                         type="text"
                         pattern="[0-9]{5}"
-                        maxLength={20}
+                        maxLength={5}
                         onChange={(e) => { setCurrentZipCode(e.target.value) }}
                         value={currentZipCode}
                     />

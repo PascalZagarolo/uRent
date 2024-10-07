@@ -61,7 +61,13 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
 
 
-
+    useEffect(() => {
+        if (currentZipCode && currentZipCode.trim()?.length != 5) {
+            setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
+        } else {
+            setError(null);
+        }
+    },[currentZipCode])
 
 
 

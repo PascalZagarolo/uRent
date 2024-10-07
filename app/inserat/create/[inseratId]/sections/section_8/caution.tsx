@@ -25,8 +25,6 @@ const SelectCautionCreation: React.FC<SelectCautionCreationProps> = ({
     setCurrentValue
 }) => {
 
-    const router = useRouter();
-
 
 
     
@@ -46,33 +44,13 @@ const SelectCautionCreation: React.FC<SelectCautionCreationProps> = ({
                     
                                             <Input
                                                 type="text"
-                                             
+                                                value={currentValue}
                                                 name="price"
                                                 className=" dark:bg-[#151515] dark:border-none mt-2"
                                                 placeholder="Gebe deine Kaution ein"
                                                 max={999999}
                                                 maxLength={7}
-                                                onBlur={(e) => {
-                                                    const rawValue = e.currentTarget.value;
-
-
-                                                    let cleanedValue = rawValue.replace(/[^0-9.]/g, '');
-                                                    cleanedValue = rawValue.replace(/,/g, '.');
-
-                                                    let formattedValue = parseFloat(cleanedValue).toFixed(2);
-
-                                                    if(isNaN(Number(formattedValue))){
-                                                        formattedValue = null;
-                                                    }
-                                                    if(Number(formattedValue) >= 1_000_000){
-                                                        formattedValue = "999999";
-                                                    }
-                                                    e.currentTarget.value = formattedValue;
-
-                                                    setCurrentValue(Number(formattedValue));
-                                                        
-         
-                                                }}
+                                                onChange={(e) => setCurrentValue(e.target.value)}
 
                                             />
                                   

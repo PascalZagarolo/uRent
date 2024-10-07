@@ -26,6 +26,7 @@ import TransportSection3 from "./section_7/transport/transport-section-3";
 import RahmenSection from "./section_8/rahmen-section";
 import TimeSection from "./section_9/time-section";
 import ContactSection from "./section_10/contact-section";
+import ReleaseSection from "./section_11/release-section";
 
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -109,6 +110,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 8 : <RahmenSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 9 : <TimeSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 10 : <ContactSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                11 : <ReleaseSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />
 
                             }[sectionId]
                         }

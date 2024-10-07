@@ -27,7 +27,7 @@ interface ContactSectionProps {
 const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactSectionProps) => {
 
     const [currentLocation, setCurrentLocation] = useState<string | null>(thisInserat?.address?.locationString ? thisInserat?.address?.locationString : null);
-    const [currentZipCode, setCurrentZipCode] = useState<string | null>(thisInserat?.address?.postalCode ? thisInserat?.address?.postalCode : null);
+    const [currentZipCode, setCurrentZipCode] = useState<string | any | null>(thisInserat?.address?.postalCode ? thisInserat?.address?.postalCode : "");
     const [currentEmail, setCurrentEmail] = useState<string | null>(thisInserat?.emailAddress ? thisInserat?.emailAddress : null);
     const [currentNumber, setCurrentNumber] = useState<string | null>(thisInserat?.phoneNumber ? thisInserat?.phoneNumber : null);
 
@@ -62,8 +62,10 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
 
     useEffect(() => {
-        if (currentZipCode && currentZipCode.trim()?.length != 5) {
-            setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
+        if (currentZipCode && currentZipCode?.length != 5) {
+            if(String(currentZipCode).trim().length < 5) {
+                setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
+            }
         } else {
             setError(null);
         }

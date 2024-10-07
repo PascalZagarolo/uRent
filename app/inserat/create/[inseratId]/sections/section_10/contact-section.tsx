@@ -96,7 +96,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
                     />
                 </div>
                 <div className="">
-                    <PhoneNumberCreation thisInserat={thisInserat} currentValue={currentNumber} setCurrentValue={(value) => setCurrentNumber} />
+                    <PhoneNumberCreation thisInserat={thisInserat} currentValue={currentNumber} setCurrentValue={(value) => setCurrentNumber(value)} />
                 </div>
 
             </div>

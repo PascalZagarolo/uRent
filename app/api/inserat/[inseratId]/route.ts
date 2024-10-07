@@ -17,7 +17,7 @@ export async function PATCH(
         const usedEnd = new Date(end);
         
 
-      
+        console.log(values)
 
         const patchedInserat = await db.update(inserat).set({
             ...(begin) && {

@@ -33,9 +33,8 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
 
     const onSave = async () => {
         try {
-          
             const values = {
-
+                minTime : currentMinTime,
             }
           await axios.patch(`/api/inserat/${thisInserat.id}`, values);
           changeSection(currentSection + 1);
@@ -62,7 +61,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
         <>
             <div className="flex flex-col h-full">
                 <h3 className="text-lg font-semibold">
-                    Mietdauer
+                    Mietdauer 
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Gebe deine Mindestmietdauer an, also den Zeitraum die der Mieter mindestens mieten muss. <br/>
                         Falls du keine Mindestmietdauer hast, lasse das Feld einfach leer oder klicke auf "Beliebig".
@@ -70,14 +69,9 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
                 </h3>
                 <div className="mt-4">
                     <SelectMinTimeCreation currentValue={currentMinTime} setCurrentValue={setCurrentMinTime} currentDateType={currentDateType} setCurrentDateType={setCurrentDateType}/>
-                  {error?.errorField === "caution" &&  <RenderErrorMessage error={error.errorText as string}/>}
+                 
                 </div>
-                <div className="mt-4">
-
-               </div>
-                <div className="mt-4">
-    
-                </div>
+                {currentMinTime}
 
             </div>
             <div className="mt-auto flex flex-col">

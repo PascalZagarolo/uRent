@@ -36,29 +36,29 @@ const SelectMinTimeCreation: React.FC<SelectMinTimeCreationProps> = ({
 
   const params = useParams();
 
-  useEffect(() => {
-    let usedSuffix
+  // useEffect(() => {
+  //   let usedSuffix
     
-    switch(currentDateType) {
-      case "h":
-        usedSuffix = "h";
-        break;
-      case "d":
-        usedSuffix = "d";
-        break;
-      case "w":
-        usedSuffix = "w";
-        break;
-      case "m":
-        usedSuffix = "m";
-        break;
-      case "y":
-        usedSuffix = "y";
-        break;
-    }
+  //   switch(currentDateType) {
+  //     case "h":
+  //       usedSuffix = "h";
+  //       break;
+  //     case "d":
+  //       usedSuffix = "d";
+  //       break;
+  //     case "w":
+  //       usedSuffix = "w";
+  //       break;
+  //     case "m":
+  //       usedSuffix = "m";
+  //       break;
+  //     case "y":
+  //       usedSuffix = "y";
+  //       break;
+  //   }
 
-    currentValue ? setCurrentValue(currentValue + usedSuffix) : null;
-  },[currentDateType])
+  //   currentValue ? setCurrentValue(currentValue + usedSuffix) : null;
+  // },[currentDateType])
 
   const onHours = () => {
     return (

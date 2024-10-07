@@ -12,31 +12,25 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { RenderErrorMessage } from "../_components/render-messages";
-import SelectMinTimeCreation from "./min-time";
+import SelectLocationCreation from "./location";
 
 
-interface TimeSectionProps {
-    thisInserat : typeof inserat.$inferSelect;
+
+interface ContactSectionProps {
+    thisInserat : typeof inserat.$inferSelect | any;
     currentSection : number;
     changeSection : (value : number) => void;
 }
 
-const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectionProps) => {
+const ContactSection = ({ thisInserat, currentSection, changeSection } : ContactSectionProps) => {
 
-    
-    
-
-
-    const [currentMinTime, setCurrentMinTime] = useState<string | null>(thisInserat.minTime ? thisInserat.minTime : null);
-    const [currentDateType, setCurrentDateType] = useState<string>(thisInserat.minTime ? thisInserat.minTime.slice(-1) : "d");
-    
+    const [currentLocation, setCurrentLocation] = useState<string | null>(thisInserat?.address?.locationString ? thisInserat?.address?.locationString : null);
+    const [currentZipCode, setCurrentZipCode] = useState<string | null>(thisInserat?.address?.postalCode ? thisInserat?.address?.postalCode : null);
 
     const onSave = async () => {
         try {
-            const values = {
-                minTime : currentMinTime,
-            }
-          await axios.patch(`/api/inserat/${thisInserat.id}`, values);
+            
+          await axios.patch(`/api/inserat/${thisInserat.id}`, {});
           changeSection(currentSection + 1);
         } catch(e : any) {
             console.log(e);
@@ -61,16 +55,25 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
         <>
             <div className="flex flex-col h-full">
                 <h3 className="text-lg font-semibold">
-                    Mietdauer 
+                    Kontaktdaten
                     <p className="text-xs text-gray-200/60 font-medium text-left">
-                        Gebe deine Mindestmietdauer an, also den Zeitraum die der Mieter mindestens mieten muss. <br/>
-                        Falls du keine Mindestmietdauer hast, lasse das Feld einfach leer oder klicke auf "Beliebig".
+                       Gebe an wie potentielle Mieter dich außerhalb des uRent Chatsystems kontaktieren können. <br/>
+                       Kontaktdaten werden öffentlich in deinem Inserat angezeigt.
                     </p>
                 </h3>
                 <div className="mt-4">
-                    <SelectMinTimeCreation currentValue={currentMinTime} setCurrentValue={setCurrentMinTime} currentDateType={currentDateType} setCurrentDateType={setCurrentDateType}/>
+                    <SelectLocationCreation
+                        usedContactOptions={thisInserat.contactOptions}
+                        thisInserat={thisInserat}
+                        thisAddressComponent={thisInserat.address}
+                        currentAddress={currentLocation}
+                        setCurrentAddress={setCurrentLocation}
+                        currentZipCode={currentZipCode}
+                        setCurrentZipCode={setCurrentZipCode}
+                    />
                  
                 </div>
+
               
 
             </div>
@@ -94,4 +97,4 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
      );
 }
  
-export default TimeSection;
+export default ContactSection;

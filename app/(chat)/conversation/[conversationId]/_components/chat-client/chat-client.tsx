@@ -28,7 +28,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
     },[conversationId, startedConversations])
 
     return (
-        <div className="sm:flex sm:flex-row sm:justify-center h-full">
+        <div className="sm:flex sm:flex-row sm:justify-center h-full max-h-[920px]">
             {!(currentConversation && !isSmOrLarger) && (
                 <div className="dark:bg-[#0F0F0F] sm:mr-4  sm:rounded-md sm:w-[280px] w-full h-full dark:border-[#1a1a1a] sm:border">
                 <h3 className="text-md font-semibold flex items-center p-4 ">

@@ -27,7 +27,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
     
 
     const [lastMessage, setLastMessage] = useState(conversations.lastMessage);
-
+    
     const userImage = conversations?.user1Id === currentUser.id ? conversations.user2 : conversations.user1;
 
 
@@ -66,7 +66,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
         return !message.seen && message.senderId !== currentUser.id
     }))
 
-    const isOwnMessage = lastMessage[0]?.senderId === currentUser.id ? true : false;
+    const isOwnMessage = lastMessage?.senderId === currentUser.id ? true : false;
 
     return (
         <div className="flex justify-center ">

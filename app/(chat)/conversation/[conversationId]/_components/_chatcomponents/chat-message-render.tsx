@@ -119,7 +119,7 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                 </Dialog>
                             </div>
                         ) : (
-                            <div className="font-medium text-gray-200 px-1 py-0.5">
+                            <div className="font-medium text-gray-200 px-1 py-0.5 whitespace-pre-wrap break-all">
                                 {messages?.content}
                             </div>
                         )}

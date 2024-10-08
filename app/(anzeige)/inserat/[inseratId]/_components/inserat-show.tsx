@@ -94,12 +94,12 @@ const InseratShow: React.FC<InseratShowProps> = ({
                             <span className="mb-2">
                                 {!thisInserat?.isPublished ? (
                                     <div className="text-xs  flex flex-row mb-2 text-emerald-600 font-semibold items-center">
-                                        <FaCircle className="w-4 h-4 mr-2 text-emerald-500" />
+                                        <FaCircle className="w-2 h-2 mr-2 text-emerald-500" />
                                         Das Inserat ist öffentlich und für alle sichtbar
                                     </div>
                                 ) : (
                                     <div className="text-xs text-gray-200/60 flex flex-row items-center mb-2">
-                                        <FaCircle  className="w-4 h-4 mr-2 text-gray-600" />
+                                        <FaCircle  className="w-2 h-2 mr-2 text-gray-600" />
                                         Das Inserat ist privat und nur für dich sichtbar
                                     </div>
                                 )}

@@ -83,7 +83,7 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                                 maxLength={100}
                             />
                             <div className="ml-auto flex justify-end">
-                                <LetterRestriction limit={100} currentLength={currentWebsite.length} />
+                                <LetterRestriction limit={100} currentLength={currentWebsite?.length} />
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                                 maxLength={60}
                             />
                             <div className="ml-auto flex justify-end">
-                                <LetterRestriction limit={60} currentLength={currentEmail.length} />
+                                <LetterRestriction limit={60} currentLength={currentEmail?.length} />
                             </div>
                         </div>
 
@@ -116,7 +116,7 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                                 maxLength={20}
                             />
                             <div className="ml-auto flex justify-end">
-                                <LetterRestriction limit={20} currentLength={currentNumber.length} />
+                                <LetterRestriction limit={20} currentLength={currentNumber?.length} />
                             </div>
                         </div>
 
@@ -132,7 +132,7 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                                 maxLength={20}
                             />
                             <div className="ml-auto flex justify-end">
-                                <LetterRestriction limit={20} currentLength={currentFax.length} />
+                                <LetterRestriction limit={20} currentLength={currentFax?.length} />
                             </div>
                         </div>
                         <div>

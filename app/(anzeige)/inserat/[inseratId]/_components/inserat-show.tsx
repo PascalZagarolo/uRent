@@ -92,7 +92,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
                      w-full">
                         {isOwner && (
                             <span className="mb-2">
-                                {!thisInserat?.isPublished ? (
+                                {thisInserat?.isPublished ? (
                                     <div className="text-xs  flex flex-row mb-2 text-emerald-600 font-semibold items-center">
                                         <FaCircle className="w-2 h-2 mr-2 text-emerald-500" />
                                         Das Inserat ist öffentlich und für alle sichtbar

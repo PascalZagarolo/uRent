@@ -169,6 +169,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
     useEffect(() => {
         //@ts-ignore
         setCurrentAddress(inputRef?.current?.value)
+        //@ts-ignore
     }, [inputRef?.current?.value])
 
     

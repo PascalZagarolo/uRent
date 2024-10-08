@@ -64,7 +64,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
                     Mietdauer 
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Gebe deine Mindestmietdauer an, also den Zeitraum die der Mieter mindestens mieten muss. <br/>
-                        Falls du keine Mindestmietdauer hast, lasse das Feld einfach leer oder klicke auf "Beliebig".
+                        Falls du keine Mindestmietdauer hast, lasse das Feld einfach leer oder klicke auf {`"`}Beliebig{`"`}.
                     </p>
                 </h3>
                 <div className="mt-4">

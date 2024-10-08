@@ -3,14 +3,16 @@
 import { inserat } from "@/db/schema";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
+import { ArrowLeft, ArrowRightCircleIcon, ClipboardCopy, CopyCheckIcon, Link2 } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { HiLockClosed } from "react-icons/hi";
 import { LockOpen1Icon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface ReleaseSectionProps {
-    thisInserat: typeof inserat.$inferSelect | any;
+    thisInserat: typeof inserat.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
@@ -21,10 +23,40 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection }: ReleaseS
     }
 
     const [error, setError] = useState<{ errorField: string; errorText: string } | null>(null);
-    const [currentPrivacy, setCurrentPrivacy] = useState<boolean>(thisInserat?.isPublic ? thisInserat?.isPublic : false);
+    const [currentPrivacy, setCurrentPrivacy] = useState<boolean>(thisInserat?.isPublished);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
 
     const handlePrivacyChange = (privacy: boolean) => {
         setCurrentPrivacy(privacy);
+    }
+
+    const router = useRouter();
+
+    const onSave = async () => {
+        try {
+            setIsLoading(false);
+            const values = {
+                isPublished : currentPrivacy
+            }
+            await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
+            if(currentPrivacy) {
+                toast.success("Inserat wurde erfolgreich veröffentlicht.");
+                router.push(`/inserat/${thisInserat?.id}`);
+            } else {
+                toast.success("Inserat wurde als Entwurf gespeichert.");
+                router.push(`/dashboard/${thisInserat?.userId}`);
+            }
+
+        } catch(e : any) {
+            console.log(e);
+            toast.error("Etwas ist schief gelaufen. Bitte versuche es erneut.");
+        }
+    }
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(`www.urent-rental.de/inserat/${thisInserat?.id}`);
+        toast.success("Link wurde in die Zwischenablage kopiert.");
     }
 
     return (
@@ -57,12 +89,25 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection }: ReleaseS
                     <LockOpen1Icon className="w-4 h-4 mr-2"/> Öffentlich
                 </Button>
             </div>
+            <div className="flex flex-col items-center  ">
+            <a className="hover:underline flex flex-row items-center text-sm text-gray-200 mt-4" href={`/inserat/${thisInserat?.id}`} target="_blank" rel="noReferrer">
+                    <Link2 className="w-4 h-4 mr-2" /> Zu deiner Inserats-Vorschau
+                </a>
+               <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline hover:text-gray-200/80" onClick={copyToClipboard}>
+               <ClipboardCopy className="w-4 h-4 mr-2 text-gray-200 hover:cursor-pointer" /> www.urent-rental.de/inserat/{thisInserat?.id}
+               </span>
 
-            <div className="flex flex-col w-full mt-8">
-                <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-100 py-3 w-full rounded-lg shadow-lg transition-all duration-200">
-                    Inserat speichern & zum Dashboard
+            </div>
+            <div className="flex flex-col w-full mt-16">
+                <Button className={cn("bg-indigo-800 hover:bg-indigo-900 text-gray-100 py-3 w-full rounded-lg shadow-lg transition-all duration-200",
+                    !currentPrivacy ? 'bg-gray-800 hover:bg-gray-900' : 'bg-indigo-800 hover:bg-indigo-900')}
+                onClick={onSave}
+                disabled={isLoading}
+                >
+                    Inserat  {currentPrivacy ? 'veröffentlichen' : 'als Entwurf speichern'}
                 </Button>
-                <Button className="flex items-center justify-center w-full text-gray-400 hover:text-gray-200 transition-all" variant="ghost" onClick={onPrevious}>
+                <Button className="flex items-center justify-center w-full text-gray-400 hover:text-gray-200 transition-all mt-2" variant="ghost" 
+                onClick={onPrevious} disabled={isLoading}>
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Zurück
                 </Button>

@@ -2,13 +2,13 @@
 
 import { userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import axios from "axios";
+
 import { format, isToday } from "date-fns";
 
 import { UserCircle2Icon, X } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import qs from "query-string";
+
 
 interface RenderedChatsProps {
     user: typeof userTable.$inferSelect,

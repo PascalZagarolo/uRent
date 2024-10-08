@@ -60,7 +60,7 @@ const Inserat: React.FC<InseratProps> = ({
             const res = axios.post("/api/inserat", values).
                 then((res) => {
                     toast.success("Anzeige erfolgreich erstellt");
-                    router.push(`/inserat/create/${res.data.id}`);
+                    router.push(`/inserat/create/${res.data.id}?sectionId=1`);
 
                 })
 

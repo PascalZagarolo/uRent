@@ -62,14 +62,18 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
 
     useEffect(() => {
-        if (currentZipCode && currentZipCode?.length != 5) {
-            if(String(currentZipCode).trim().length < 5) {
+        if(!currentLocation || currentLocation.trim().length == 0 || currentLocation.trim().length < 3) {
+            setError({ errorField: "location", errorText: "Bitte gebe einen gültigen Ort ein" });
+        } 
+        else if (currentZipCode && currentZipCode?.length != 5 || !currentZipCode || !/^\d+$/.test(currentZipCode)) {
+           
                 setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
-            }
-        } else {
+
+        }
+        else {
             setError(null);
         }
-    },[currentZipCode])
+    },[currentZipCode, currentLocation])
 
 
 
@@ -94,7 +98,8 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
                         currentZipCode={currentZipCode}
                         setCurrentZipCode={setCurrentZipCode}
                     />
-
+                    {error && error.errorField === "location" && <RenderErrorMessage error={error.errorText as string} />}
+                    {error && error.errorField === "postalCode" && <RenderErrorMessage error={error.errorText as string} />}
                 </div>
                 <div className="mt-4">
                     <SelectEmailCreation

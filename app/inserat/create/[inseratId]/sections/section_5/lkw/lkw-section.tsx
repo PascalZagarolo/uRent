@@ -35,7 +35,7 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
 
     const [currentWeight, setCurrentWeight] = useState(lkwAttribute?.weightClass ? lkwAttribute?.weightClass : null);
     const [currentAxis, setCurrentAxis] = useState(lkwAttribute?.axis ? lkwAttribute?.axis : null);
-    const [currentBrand, setCurrentBrand] = useState(lkwAttribute?.brand ? lkwAttribute?.brand : null);
+    const [currentBrand, setCurrentBrand] = useState(lkwAttribute?.lkwBrand ? lkwAttribute?.lkwBrand : null);
     const [currentSeats, setCurrentSeats] = useState(lkwAttribute?.seats ? lkwAttribute?.seats : null);
 
     const inseratId = useParams()?.inseratId;

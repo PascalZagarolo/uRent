@@ -33,8 +33,8 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
 
 
-    const [currentPower, setCurrentPower] = useState<string | number>(pkwAttribute?.power ? pkwAttribute?.power : null);
-    const [currentInitial, setCurrentInitial] = useState<string | number>(pkwAttribute?.initial ? pkwAttribute?.initial.getFullYear() : null);
+    const [currentPower, setCurrentPower] = useState<string | number>(pkwAttribute?.power ? pkwAttribute?.power : undefined);
+    const [currentInitial, setCurrentInitial] = useState<string | number>(pkwAttribute?.initial ? pkwAttribute?.initial.getFullYear() : undefined);
     const [currentVolume, setCurrentVolume] = useState<string | number>(pkwAttribute?.loading_volume ? pkwAttribute?.loading_volume : undefined);
 
     const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
@@ -54,7 +54,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
         }  else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
             setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
         } else {
-            setError(null);
+            setError(undefined);
         }
 
     },[currentPower, currentInitial, currentVolume]);

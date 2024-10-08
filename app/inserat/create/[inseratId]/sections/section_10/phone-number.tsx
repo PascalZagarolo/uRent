@@ -134,7 +134,7 @@ const PhoneNumberCreation: React.FC<PhoneNumberCreationProps> = ({
             
           </div>
           <div className="ml-auto flex justify-end">
-              <LetterRestriction limit={32} currentLength={currentValue.length || 0} />
+              <LetterRestriction limit={32} currentLength={currentValue?.length || 0} />
             </div>
         </div>
 

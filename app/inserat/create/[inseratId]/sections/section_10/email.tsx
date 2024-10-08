@@ -138,7 +138,7 @@ const SelectEmailCreation: React.FC<SelectEmailCreationProps> = ({
             </Popover>
           </div>
           <div className="ml-auto flex justify-end">
-            <LetterRestriction limit={40} currentLength={currentValue.length || 0} />
+            <LetterRestriction limit={40} currentLength={currentValue?.length || 0} />
           </div>
         </div>
 

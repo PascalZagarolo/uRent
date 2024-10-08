@@ -28,7 +28,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSe
     
 
 
-    const [currentCaution, setCurrentCaution] = useState(thisInserat?.caution);
+    const [currentCaution, setCurrentCaution] = useState(thisInserat?.caution ? thisInserat?.caution : undefined);
     const [currentReqAge, setCurrentReqAge] = useState(thisInserat?.reqAge);
     const [currentLicense, setCurrentLicense] = useState(thisInserat?.license);
 
@@ -54,7 +54,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSe
         changeSection(currentSection - 1);
     }
 
-    const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
+    const [error, setError] = useState< {errorField : string; errorText : string}|null>(undefined);
 
     
 
@@ -69,7 +69,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSe
             if (!cautionRegex.test(currentCaution) || isNaN(parsedCaution) || parsedCaution <= 0) {
                 setError({ errorField: "caution", errorText: "Bitte gebe eine gültige Kaution an." });
             } else {
-                setError(null);
+                setError(undefined);
             }
         }
     }, [currentCaution]);

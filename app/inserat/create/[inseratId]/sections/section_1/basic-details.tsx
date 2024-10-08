@@ -29,7 +29,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                 description : currentDescription
             }
            await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
-           toast.success("Hallo")
+          
           }
           changeSection(currentSection + 1);
         } catch(e : any) {

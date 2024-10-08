@@ -56,8 +56,8 @@ const DashboardPage = async ({
                     <div>
                         <TabSwitcher
                             currentUser={currentUser as any}
-                            existingInvoices = {JSON.parse(JSON.stringify(existingInvoices))}
-                            retrievedSubscription = {JSON.parse(JSON.stringify(retrievedSubscription))}
+                            existingInvoices = {JSON?.parse(JSON?.stringify(existingInvoices))}
+                            retrievedSubscription = {JSON?.parse(JSON?.stringify(retrievedSubscription ? retrievedSubscription : null))}
                         />
                     </div>
                 </div>

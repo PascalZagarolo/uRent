@@ -104,7 +104,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
 
     return (
-
+<>
         <div className="h-full flex flex-col">
             <h3 className="text-lg font-semibold">
                 Fahrzeug Bilder
@@ -120,11 +120,11 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     existingSubscription={thisInserat?.user?.subscription}
                 />
             </div>
-            <div className="mt-4">
+            
 
-            </div>
-
-            <div className=" flex flex-col mt-auto">
+            
+        </div>
+        <div className=" flex flex-col mt-auto">
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
@@ -139,8 +139,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     </Button>
                 </div>
             </div>
-        </div>
-
+        </>
     );
 }
 

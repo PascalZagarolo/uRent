@@ -105,7 +105,7 @@ const InseratAnzeige = async ({
     try {
         thisInserat = await findInserat.execute({ inseratId: params?.inseratId })
 
-        if (!thisInserat) {
+        if (!thisInserat || !thisInserat.isPublished && thisInserat.userId !== currentUser?.id) {
             return (
                 <div className="w-full h-dvh flex justify-center items-center">
                     <h1 className="text-2xl dark:text-gray-200 font-semibold">
@@ -208,9 +208,11 @@ const InseratAnzeige = async ({
                                         />
                                     </div>
                                     <div className="">
+                                        
                                         <InseratShow
                                             thisInserat={thisInserat}
                                             inseratBookings={inseratBookings}
+                                            isOwner={thisInserat.user.id === currentUser?.id}
                                         />
                                     </div>
                                     <div className="flex justify-start  mt-2">

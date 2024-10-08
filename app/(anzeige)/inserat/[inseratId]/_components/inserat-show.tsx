@@ -1,9 +1,9 @@
 import { booking, CategoryEnumRender, inserat } from "@/db/schema";
 import InseratDescription from "./inserat-description";
 import BookingsOverview from "./bookings-overview";
-import { FaAddressCard } from "react-icons/fa";
+import { FaAddressCard, FaCircle } from "react-icons/fa";
 import { convertState } from "@/actions/convert-states";
-import { AlignLeft, CarFront, Clock2Icon, Contact2, Globe2, HourglassIcon, MailIcon, MapPinned, Phone, Truck, UserCircleIcon } from "lucide-react";
+import { AlignLeft, CarFront, Circle, Clock2Icon, Contact2, Globe2, HourglassIcon, MailIcon, MapPinned, Phone, Truck, UserCircleIcon } from "lucide-react";
 import { Ri24HoursLine, RiCaravanLine } from "react-icons/ri";
 import { TbPigMoney, TbZoomMoney } from "react-icons/tb";
 import { CiBookmark } from "react-icons/ci";
@@ -17,15 +17,18 @@ import TransferCarAdvert from "./transfer-car-advert";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import PriceProfileDialog from "./price-profile-dialog";
 import { GrLocation } from "react-icons/gr";
+import { AiFillMediumCircle } from "react-icons/ai";
 
 interface InseratShowProps {
     thisInserat: typeof inserat.$inferSelect | any
-    inseratBookings: typeof booking.$inferSelect[]
+    inseratBookings: typeof booking.$inferSelect[];
+    isOwner : boolean;
 }
 
 const InseratShow: React.FC<InseratShowProps> = ({
     thisInserat,
-    inseratBookings
+    inseratBookings,
+    isOwner
 }) => {
 
     const renderRahmen = (thisInserat?.caution != undefined
@@ -87,7 +90,21 @@ const InseratShow: React.FC<InseratShowProps> = ({
         <div className="sm:mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 
                         sm:rounded-md  
                      w-full">
-
+                        {isOwner && (
+                            <span className="mb-2">
+                                {!thisInserat?.isPublished ? (
+                                    <div className="text-xs  flex flex-row mb-2 text-emerald-600 font-semibold items-center">
+                                        <FaCircle className="w-4 h-4 mr-2 text-emerald-500" />
+                                        Das Inserat ist öffentlich und für alle sichtbar
+                                    </div>
+                                ) : (
+                                    <div className="text-xs text-gray-200/60 flex flex-row items-center mb-2">
+                                        <FaCircle  className="w-4 h-4 mr-2 text-gray-600" />
+                                        Das Inserat ist privat und nur für dich sichtbar
+                                    </div>
+                                )}
+                            </span>
+                        )}
             <div className="flex  justify-between  w-full">
                 <div className="bg-[#1d1f2b] w-1/8 rounded-lg p-4">
                     {

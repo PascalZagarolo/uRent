@@ -45,7 +45,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
 
     return ( 
         <>
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col  h-full">
                 <h3 className="text-lg font-semibold">
                     Grundlegende Angaben (1/2)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
@@ -66,7 +66,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                
                 
             </div>
-            <div className="mt-auto flex flex-col">
+            <div className="sm:mt-auto flex flex-col mt-8">
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
                        <ArrowLeft className="w-4 h-4 mr-2"  /> Zu deiner Inseratsübersicht
                     </span>

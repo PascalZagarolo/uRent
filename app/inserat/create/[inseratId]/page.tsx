@@ -146,8 +146,8 @@ const InseratCreation = async ({
                 /> 
             </div> 
             <div className="flex justify-center sm:p-8 bg-[#404040]/10 sm:min-h-screen">
-                <div className="sm:w-[1044px] w-full dark:bg-[#191919] rounded-md  ">
-                    <div className="dark:bg-[#1c1c1c] ">
+                <div className="sm:w-[1044px] w-full dark:bg-[#191919] rounded-md ">
+                    <div className="dark:bg-[#1c1c1c]">
                         <SectionTabs 
                         thisInserat={thisInserat}
                         currentUser={currentUser}

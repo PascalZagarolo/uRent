@@ -82,11 +82,11 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
 
 
     return (
-        <div className="sm:p-4 px-4 sm:mt-0 mt-2  ">
+        <div className="sm:p-4  sm:mt-0 mt-2  h-full">
             {
                 sectionId ? (
                     <div>
-                        <div className="w-full bg-[#171717] rounded-t-md shadow-lg sm:p-4 ">
+                        <div className="w-full sm:bg-[#171717] px-4 rounded-t-md shadow-lg sm:p-4 ">
                             <h3 className="sm:text-2xl text-md font-bold flex items-center w-full">
                                 <MdPostAdd className="mr-2" />  Inserat erstellen
                                
@@ -97,7 +97,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                             </p>
                         </div>
                         
-                        <div className="sm:px-8 mt-4 sm:min-h-[600px] flex flex-col">
+                        <div className="sm:px-8 px-4 mt-4 min-h-[600px] flex flex-col h-full sm:pb-0 pb-4">
                         {
                             {
                                 1: <BasicDetails thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,

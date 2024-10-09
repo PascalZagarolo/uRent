@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import SelectPriceCreation from "./_components/price";
 import PriceProfilesCreation from "./_components/price-profiles";
+import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 
 interface PriceSectionProps {
     thisInserat : typeof inserat.$inferSelect | any;
@@ -91,7 +92,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection } : PriceSect
                 
             </div>
             <div className="mt-auto flex flex-col">
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer">
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
                     <div className="grid grid-cols-2 mt-2">

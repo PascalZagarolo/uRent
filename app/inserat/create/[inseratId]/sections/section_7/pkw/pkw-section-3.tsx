@@ -16,6 +16,7 @@ import InitialFormCreationn from "./pkw-initial";
 import InitialFormCreation from "./pkw-initial";
 import PkwLoadingVolumeCreation from "./pkw-loading-volume";
 import { RenderErrorMessage } from "../../_components/render-messages";
+import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 
 
 
@@ -123,7 +124,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={switchSectionOverview}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">

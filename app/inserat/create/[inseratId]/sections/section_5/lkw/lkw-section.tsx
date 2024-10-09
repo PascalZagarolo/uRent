@@ -15,6 +15,7 @@ import SeatsCreation from "../pkw/pkw-seats";
 import LkwWeightClassCreation from "./lkw-weight-class";
 import LkwAxisCreation from "./lkw-axis";
 import LkwBrandCreation from "./lkw-brand";
+import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 
 
 
@@ -94,7 +95,7 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
 
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={switchSectionOverview}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">

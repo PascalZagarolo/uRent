@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { RenderErrorMessage } from "../_components/render-messages";
 import SelectMinTimeCreation from "./min-time";
+import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 
 
 interface TimeSectionProps {
@@ -75,7 +76,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
 
             </div>
             <div className="mt-auto flex flex-col">
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer">
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
                     <div className="grid grid-cols-2 mt-2">

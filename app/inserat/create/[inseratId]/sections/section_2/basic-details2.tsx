@@ -14,6 +14,7 @@ import CategoryInseratCreation from "./_components/category";
 import ExtraTypeLkwCreation from "./_components/extra-type-lkw";
 import TransportExtraTypeCreation from "./_components/extra-type-transport";
 import TrailerExtraTypeCreation from "./_components/extra-type-trailer";
+import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 
 interface BasicDetails2Props {
     thisInserat: typeof inserat.$inferSelect;
@@ -82,7 +83,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     </div>
         <div className=" mt-auto">
         <div className="flex flex-col mt-auto">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer">
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">

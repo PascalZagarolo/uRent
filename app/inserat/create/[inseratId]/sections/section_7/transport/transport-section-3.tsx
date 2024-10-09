@@ -18,6 +18,7 @@ import PowerFormCreation from "../pkw/pkw-power";
 import InitialFormCreation from "../pkw/pkw-initial";
 import { lkwAttribute } from '../../../../../../../db/schema';
 import LkwSizeCreation from "../lkw/lkw-loading-size";
+import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 
 
 
@@ -150,7 +151,7 @@ const TransportSection3 = ({ transportAttribute, currentSection, changeSection }
                 {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2">
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={switchSectionOverview}> 
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">

@@ -15,6 +15,7 @@ import { RenderErrorMessage } from "../_components/render-messages";
 import SelectLocationCreation from "./location";
 import SelectEmailCreation from "./email";
 import PhoneNumberCreation from "./phone-number";
+import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 
 
 
@@ -114,7 +115,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
             </div>
             <div className="mt-auto flex flex-col">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer">
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">

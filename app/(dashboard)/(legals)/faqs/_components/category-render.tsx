@@ -1,4 +1,4 @@
-import { CopyCheckIcon } from "lucide-react";
+import { CopyCheckIcon, UserIcon } from "lucide-react";
 import { CiBank } from "react-icons/ci";
 import { MdOutlineEditCalendar } from "react-icons/md";
 
@@ -18,6 +18,11 @@ const FaqCategoryRender = () => {
     }
 
     const existingCategorys = [
+        {
+            title : "Mein Profil",
+            description : "",
+            icons : <UserIcon className="w-6 h-6" />
+        },
         {
             title : "Inserate",
             description : "",

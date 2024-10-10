@@ -1,3 +1,6 @@
+import FaqCategoryRender from "./_components/category-render";
+import SearchFaqs from "./_components/search-faqs";
+
 const Faqs = () => {
     return (
 
@@ -14,26 +17,24 @@ const Faqs = () => {
                             </h3>
 
 
-                            <div className=" mt-4 text-lg sm:p-8 p-2 font-semibold">
-                                <div className="text-md">
+                            <div className="text-lg sm:p-8 p-2 font-semibold">
+                                
+                                <div className="mt-8">
+                                    <SearchFaqs />
+                                </div>
+                                <div className=" mt-4">
                                     <h1>
                                         Willkommen bei den häufig gestellten Fragen {`(`}FAQs{`)`} von uRent!
                                     </h1>
                                     <div className=" font-normal text-sm text-gray-200/90">
-                                        Wir haben diese Seite zusammengestellt, um Ihnen bei allen Fragen und Anliegen 
-                                        rund um unsere Mietservices weiterzuhelfen. <br/>
-                                        Hier finden Sie Antworten auf die am häufigsten gestellten Fragen unserer Kunden, 
-                                        die Ihnen helfen können, Ihre Mieterfahrung so reibungslos wie möglich zu gestalten.<br/> <br/>
-
-                                        Sollten Sie hier keine Antwort auf Ihre Frage finden oder weitere Unterstützung benötigen, zögern Sie bitte nicht, uns direkt zu kontaktieren. Unser Support-Team steht Ihnen unter der E-Mail-Adresse support@urent-rental.de gerne zur Verfügung.
-                                        <br/><br/>
-                                        Vielen Dank, dass Sie sich für uRent entschieden haben!
+                                        Wir haben diese Seite zusammengestellt, um dir bei allen Fragen und Anliegen 
+                                        rund um unserer Plattform weiterzuhelfen. <br/> <br/>
+                                       Solltest du neu auf uRent sein, könnte das Benutzerhandbuch für dich hilfreich sein. <br/>
+                                        Vielen Dank, dass du dich für uRent entschieden hast!
                                     </div>
                                 </div>
-                                <h1 className="mt-8">
-                                    Themen
-                                </h1>
-                                <div className="w-full flex justify-center  mt-2 gap-8">
+                                
+                                {/* <div className="w-full flex justify-center  mt-2 gap-8">
                                     <a className="w-full flex justify-center font-medium rounded-md p-8 dark:bg-[#141414] 
                                 hover:underline hover:cursor-pointer" href="/faqs/bedienung">
                                         Bedienungshilfe
@@ -56,8 +57,10 @@ const Faqs = () => {
                                 hover:underline hover:cursor-pointer" href="/faqs/vermieter">
                                         FAQ - Vermieter
                                     </a>
+                                </div> */}
+                                <div>
+                                    <FaqCategoryRender />
                                 </div>
-
 
 
                             </div>

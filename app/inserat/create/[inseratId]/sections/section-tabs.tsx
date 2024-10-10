@@ -114,7 +114,6 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
 
                             }[sectionId]
                         }
-                        
                         </div>
                     </div>
                 ) : (

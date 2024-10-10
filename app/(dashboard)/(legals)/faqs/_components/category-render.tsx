@@ -1,6 +1,8 @@
-import { CopyCheckIcon, UserIcon } from "lucide-react";
+import { CopyCheckIcon, MessageSquareIcon, Settings2Icon, UserIcon } from "lucide-react";
 import { CiBank } from "react-icons/ci";
-import { MdOutlineEditCalendar } from "react-icons/md";
+import { FaUserFriends, FaUserTie } from "react-icons/fa";
+import { FiBookOpen } from "react-icons/fi";
+import { MdOutlineEditCalendar, MdOutlineTipsAndUpdates } from "react-icons/md";
 
 const FaqCategoryRender = () => {
 
@@ -34,6 +36,16 @@ const FaqCategoryRender = () => {
             icons : <MdOutlineEditCalendar className="w-6 h-6" />
         },
         {
+            title : "Chat",
+            description : "",
+            icons : <MessageSquareIcon className="w-6 h-6" />
+        },
+        {
+            title : "Einstellungen",
+            description : "",
+            icons : <Settings2Icon className="w-6 h-6" />
+        },
+        {
             title : "Zahlungsverkehr",
             description : "",
             icons : <CiBank className="w-6 h-6" />
@@ -41,12 +53,17 @@ const FaqCategoryRender = () => {
         {
             title : "Mieter",
             description : "",
-            icons : ""
+            icons : <FaUserTie className="w-6 h-6"/>
         },
         {
             title : "Vermieter",
             description : "",
-            icons : ""
+            icons : <FaUserFriends className="w-6 h-6"/>
+        },
+        {
+            title : "Benutzerhandbuch",
+            description : "",
+            icons : <FiBookOpen  className="w-6 h-6" />
         }
     ]
 

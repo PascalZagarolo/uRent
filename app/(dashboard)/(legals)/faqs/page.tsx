@@ -1,4 +1,5 @@
 import FaqCategoryRender from "./_components/category-render";
+import FurtherInformations from "./_components/further-informations";
 import SearchFaqs from "./_components/search-faqs";
 
 const Faqs = () => {
@@ -61,7 +62,10 @@ const Faqs = () => {
                                 <div>
                                     <FaqCategoryRender />
                                 </div>
-
+                                <div className="mt-8">
+                                    <FurtherInformations />
+                                </div>
+                                
 
                             </div>
 

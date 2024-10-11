@@ -2,7 +2,7 @@ import { CopyCheckIcon, MessageSquareIcon, Settings2Icon, UserIcon } from "lucid
 import { CiBank } from "react-icons/ci";
 import { FaUserFriends, FaUserTie } from "react-icons/fa";
 import { FiBookOpen } from "react-icons/fi";
-import { MdOutlineEditCalendar, MdOutlineTipsAndUpdates } from "react-icons/md";
+import { MdOutlineEditCalendar } from "react-icons/md";
 
 const FaqCategoryRender = () => {
 

@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 
 import { eq } from "drizzle-orm";
 import { inserat } from "@/db/schema";
+import { isAfter } from "date-fns";
 
 
 export async function PATCH(
@@ -30,7 +31,7 @@ export async function PATCH(
         //privatize all inserate that are published and the user has no subscription or the subscription is expired
         for (const pInserat of findMatchingInserate) {
             if(!pInserat.user?.subscription || pInserat.user?.subscription.length === 0 || 
-                pInserat.user?.subscription?.stripe_current_period_end < currentDate) {
+                isAfter(currentDate, new Date(pInserat.user?.subscription?.stripe_current_period_end))) {
                     await db.update(inserat).set({
                         isPublished : false,
                         isHighlighted : false,

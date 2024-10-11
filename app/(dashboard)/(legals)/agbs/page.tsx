@@ -1,9 +1,10 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 
 import { eq } from "drizzle-orm";
-import { notification } from "@/db/schema";
+import { notification, userSubscription } from "@/db/schema";
 import db from "@/db/drizzle";
 import { Label } from "@/components/ui/label";
+
 
 
 
@@ -18,6 +19,14 @@ const AgbsPage = async () => {
 
     })
 
+    const foundSubscription = await db.query.userSubscription.findMany({
+        where : (
+            eq(userSubscription.id, "260efeeb-3005-4cac-a2e9-af78c5e3a0e3")
+        )
+    })
+
+    
+
     return (
         <div>
 
@@ -26,6 +35,7 @@ const AgbsPage = async () => {
 
                 <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
+                        
                         <div className="p-4 mt-4  rounded-lg ">
                             <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                 Allgemeinen Geschäftsbedingungen für uRent

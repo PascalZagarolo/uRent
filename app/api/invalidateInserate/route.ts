@@ -30,9 +30,11 @@ export async function PATCH(
 
         //privatize all inserate that are published and the user has no subscription or the subscription is expired
         for (const pInserat of findMatchingInserate) {
+            //add 1 hour to the current date to make sure that the subscription is still valid and give it a cooldown of 1 hour
+            const comparedDate = addHours(new Date(pInserat.user?.subscription?.stripe_current_period_end),1);
             if(!pInserat.user?.subscription || pInserat.user?.subscription.length === 0 || 
-                //add 1 hour to the current date to make sure that the subscription is still valid and give it a cooldown of 1 hour
-                isAfter(currentDate, addHours(new Date(pInserat.user?.subscription?.stripe_current_period_end), 1))) {
+                
+                isAfter(currentDate, comparedDate)) {
                     await db.update(inserat).set({
                         isPublished : false,
                         isHighlighted : false,

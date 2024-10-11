@@ -402,8 +402,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </div>
                         </div>
 
-                        <div className="ml-4  text-gray-200  border-none  
-                        w-1/2 p-2 text-xs sm:mr-2 overflow-hidden sm:h-[172px] h-[130px] sm:block hidden shadow-xl" >
+                        <div className="ml-4  text-gray-200/80  border-none  
+                        w-1/2 p-2 text-xs sm:mr-2 overflow-hidden sm:h-[180px] h-[130px] sm:block hidden shadow-xl" >
                             <div className="h-full overflow-hidden text-xs  whitespace-pre-wrap break-words">
                                 {thisInserat.description}
                             </div>

@@ -12,8 +12,11 @@ const FaqCategoryRender = () => {
                 <div>
                     {icons}
                 </div>
-                <div className="text-sm mt-2">
+                <div className="text-sm mt-2 hover:underline">
                     {name}
+                </div>
+                <div className="text-xs text-gray-200/60 font-medium text-center mt-2 h-[40px]">
+                    {description}
                 </div>
             </div>
         )
@@ -22,47 +25,47 @@ const FaqCategoryRender = () => {
     const existingCategorys = [
         {
             title : "Mein Profil",
-            description : "",
+            description : "Wissenwertes über dein Profil",
             icons : <UserIcon className="w-6 h-6" />
         },
         {
             title : "Inserate",
-            description : "",
+            description : "Wie erstelle ich ein Inserat?",
             icons : <CopyCheckIcon className="w-6 h-6" />
         },
         {
             title : "Buchungen",
-            description : "",
+            description : "Alles Rund ums Buchungssystem",
             icons : <MdOutlineEditCalendar className="w-6 h-6" />
         },
         {
             title : "Chat",
-            description : "",
+            description : "Wie funktioniert das Chatsystem?",
             icons : <MessageSquareIcon className="w-6 h-6" />
         },
         {
             title : "Einstellungen",
-            description : "",
+            description : "Sicherheit, Privatsphäre und mehr..",
             icons : <Settings2Icon className="w-6 h-6" />
         },
         {
             title : "Zahlungsverkehr",
-            description : "",
+            description : "Rechnungen, Zahlungen und mehr..",
             icons : <CiBank className="w-6 h-6" />
         },
         {
             title : "Mieter",
-            description : "",
+            description : "Wissenswertes für Mieter",
             icons : <FaUserTie className="w-6 h-6"/>
         },
         {
             title : "Vermieter",
-            description : "",
+            description : "Wissenswertes für Vermieter",
             icons : <FaUserFriends className="w-6 h-6"/>
         },
         {
             title : "Benutzerhandbuch",
-            description : "",
+            description : "Tipps und Tricks für den optimalen Einstieg ins uRent Ökosystem",
             icons : <FiBookOpen  className="w-6 h-6" />
         }
     ]

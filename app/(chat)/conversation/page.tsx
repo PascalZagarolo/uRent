@@ -72,7 +72,7 @@ const ConversationPage = async () => {
                     foundNotifications={currentUser?.notifications}
                 />
             </div>
-            <div className="flex flex-row justify-center h-full sm:py-4 sm:px-4 w-full">
+            <div className="flex flex-row justify-center h-full sm:py-4 sm:px-4 w-full min-h-screen">
                 <div className='h-screen sm:flex items-center justify-center sm:w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>
@@ -83,7 +83,7 @@ const ConversationPage = async () => {
                 </div>
 
                 
-                <div className="sm:w-8/12 w-full">
+                <div className="sm:w-8/12 w-full sm:h-[920px]">
                 <ChatClient
                     currentUser={currentUser}
                     startedConversations={startedConversations}

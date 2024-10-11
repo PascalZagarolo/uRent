@@ -106,13 +106,13 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     return ( 
         <div className="w-full h-full mt-2">
 
-                        <div className={cn("bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#171821] ",
+                        <div className={cn("bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#171821] shadow-lg",
                         
                         )}>
                             <div className="flex  items-center  w-full rounded-md p-2">
-                            <div className="w-[60px]">
+                            <div className="w-[40px] mr-2">
                             <Image
-                                    className="rounded-full  object-cover  w-[40px] h-[40px]"
+                                    className="rounded-full  object-cover  w-[32px] h-[32px]"
                                     src={thisInserat.user?.image || "/placeholder-person.jpg"}
                                     height={40}
                                     width={40}
@@ -122,7 +122,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                             </div>
                             <Link href={`/profile/${thisInserat.userId}`} className="w-1/2 truncate">
                             <div className=" font-semibold text-gray-200  items-center flex truncate">
-                                        <div className="w-3/4 line-clamp-1">
+                                        <div className="w-3/4 line-clamp-1 text-base">
                                         {thisInserat.user?.name}
                                         </div>   
                                         
@@ -183,8 +183,8 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                                             </Button>
                                         </div>
                                     ) : (
-                                        <Button className="flex items-center mr-4  bg-slate-200  rounded-md p-2 px-4 sm:px-8 font-semibold
-                                     dark:text-gray-900/80 dark:hover:bg-slate-300 hover:bg-gray-200 text-gray-900" onClick={onEdit}>
+                                        <Button className="flex items-center mr-4  bg-[#1D202D] text-gray-200  rounded-md p-2 px-4 sm:px-8 font-semibold
+                                      hover:bg-[#242838] " onClick={onEdit}>
                                             <Settings2Icon className="w-4 h-4 mr-2" />
                                             <p className=" hidden sm:block">Inserat bearbeiten</p> 
                                             <p className="sm:hidden block">Bearbeiten</p>

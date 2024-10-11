@@ -14,6 +14,8 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { format } from "date-fns";
 import {
+    Calendar,
+    CalendarCheckIcon,
     CarFront, CaravanIcon, CheckCheckIcon, EyeIcon, FlameIcon, ImageIcon,
     MapPinned, SofaIcon, Star, Truck,
     WeightIcon,
@@ -400,7 +402,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </div>
                         </div>
 
-                        <div className="ml-4 bg-[#1d202d] text-gray-200  border-none  
+                        <div className="ml-4  text-gray-200  border-none  
                         w-1/2 p-2 text-xs sm:mr-2 overflow-hidden sm:h-[172px] h-[130px] sm:block hidden shadow-xl" >
                             <div className="h-full overflow-hidden text-xs  whitespace-pre-wrap break-words">
                                 {thisInserat.description}
@@ -412,8 +414,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
             <div className="w-full">
 
 
-                <div className="flex items-center bg-[#1d202d] shadow-xl p-3  text-gray-200 text-sm 
-                font-semibold  dark:bg-[#1d202d] space-x-2 transition-transform border-[#161923] ">
+                <div className="flex items-center   p-3  text-gray-200 text-sm 
+                font-semibold   space-x-2 transition-transform border-[#161923] ">
                     {/* Icon Section */}
                     <div className="flex items-center justify-center  rounded-md">
                         <GrLocation className="w-4 h-4  text-rose-800" />
@@ -437,22 +439,19 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
                 <div>
                     {/* Part2 */}
-                    <div className="font-semibold text-gray-900 flex mt-2 items-center w-full">
+                    <div className="font-semibold text-gray-900 flex mt-2 items-center w-full ">
                         <div className="flex ">
-                            <div className="flex border-none  bg-emerald-800 p-2 rounded-r-md 
-                              text-gray-200  px-4 sm:text-sm 
-                             text-xs items-center">
-                                <div className="sm:mr-2 flex font-bold">
-
-                                    
-                                </div>
+                            <div className="flex border-none   p-2 rounded-r-md 
+                              text-gray-200  px-4 sm:text-base 
+                             text-xs items-center ">
+                                
                                 {thisInserat.price} €  {thisInserat.dailyPrice ? (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)
                                     : (<div className="text-[10px] ml-1 mr-1 hidden sm:block" > / Zeitraum</div>)}
                             </div>
                         </div>
                         <a className="ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
-                         bg-indigo-800 
-                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-100 
+                         bg-indigo-800 shadow-lg
+                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-300 
                         sm:truncate text-sm justify-center hover:cursor-pointer"
                             target="_blank"
                             onClick={() => {
@@ -463,7 +462,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         >
                             <div className="flex flex-row px-2 items-center ">
                                 <div>
-                                    <IoMdOpen className="w-4 h-4 mr-2" />
+                                    <CalendarCheckIcon className="w-4 h-4 mr-2" />
                                 </div>
                                 <span>
                                     Verfügbarkeit prüfen
@@ -474,7 +473,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-                    <div className="h-full bg-blue-800">
+                    <div className="h-full  rounded-b-md">
                         <ProfileBar
                             thisInserat={thisInserat}
                             currentUser={currentUser}

@@ -112,7 +112,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                             <div className="flex  items-center  w-full rounded-md p-2">
                             <div className="w-[40px] mr-2">
                             <Image
-                                    className="rounded-full  object-cover  w-[32px] h-[32px]"
+                                    className="rounded-full  object-cover shadow-lg  w-[32px] h-[32px]"
                                     src={thisInserat.user?.image || "/placeholder-person.jpg"}
                                     height={40}
                                     width={40}

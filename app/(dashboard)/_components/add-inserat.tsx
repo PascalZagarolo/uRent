@@ -81,14 +81,14 @@ const Inserat: React.FC<InseratProps> = ({
                     <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost"
                     onClick={() => { !currentUser && router.push("/login") }}
                     >
-                    <CopyIcon className="w-4 h-4 mr-2" />  Anzeige erstellen
+                    <CopyIcon className="w-4 h-4 xl:mr-2" />  <span className="hidden xl:block">Anzeige erstellen</span>
                   </Button>
                 ) : (
                     currentUser.isBusiness ? (
                         <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
 
                         <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost">
-                          <CopyIcon className="w-4 h-4 mr-2" />  Anzeige erstellen
+                          <CopyIcon className="w-4 h-4 xl:mr-2" /> <span className="hidden xl:block"> Anzeige erstellen </span>
                         </Button>
                           
 

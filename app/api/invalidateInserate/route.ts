@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 import { eq } from "drizzle-orm";
 import { inserat } from "@/db/schema";
-import { isAfter } from "date-fns";
+import { addHours, isAfter } from "date-fns";
 
 
 export async function PATCH(
@@ -31,7 +31,8 @@ export async function PATCH(
         //privatize all inserate that are published and the user has no subscription or the subscription is expired
         for (const pInserat of findMatchingInserate) {
             if(!pInserat.user?.subscription || pInserat.user?.subscription.length === 0 || 
-                isAfter(currentDate, new Date(pInserat.user?.subscription?.stripe_current_period_end))) {
+                //add 1 hour to the current date to make sure that the subscription is still valid and give it a cooldown of 1 hour
+                isAfter(currentDate, addHours(new Date(pInserat.user?.subscription?.stripe_current_period_end), 1))) {
                     await db.update(inserat).set({
                         isPublished : false,
                         isHighlighted : false,

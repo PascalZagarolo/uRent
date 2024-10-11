@@ -72,7 +72,7 @@ const FaqCategoryRender = () => {
             <div className="flex flex-col">
                 <div className="grid grid-cols-3 items-center gap-y-4 justify-center">
                     {existingCategorys.map((category, index) => (
-                        <div className="w-full flex justify-center"> 
+                        <div className="w-full flex justify-center" key={index}> 
                     {categoryRender(category.title, category.description, category.icons)}
                         </div>
                     ))}

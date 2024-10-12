@@ -11,6 +11,9 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import FaqEdit from "./faq-edit";
+import { useFaqsCategories } from "@/hooks/faqs/useFaqsCategories";
+import { cn } from "@/lib/utils";
+import { getLabelByValueFaqs } from "@/hooks/faqs/convert-faq-values";
 
 interface FaqEditSelectProps {
     foundFaqs: typeof faqs.$inferSelect[]
@@ -19,6 +22,7 @@ interface FaqEditSelectProps {
 const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
 
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
     const router = useRouter();
 
@@ -32,6 +36,10 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
             toast.error('Fehler beim Löschen des FAQ')
         }
     }
+
+    const [renderedFaqs, setRenderedFaqs] = useState(foundFaqs);
+
+    const faqsCategories = useFaqsCategories();
 
     return (
         <div>
@@ -50,17 +58,40 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                 </div>
 
             ) : (
-                <div className="gap-y-4 mt-4">
+                <div>
+                    <div className="flex flex-wrap gap-x-2 ">
+                        {faqsCategories.map((category) => (
+                           <Button variant="secondary" size="sm" className={cn("mt-4 shadow-lg bg-indigo-800 text-gray-200 text-sm hover:bg-indigo-900", 
+                                                                                category.value === selectedCategory && 
+                                                                                "bg-indigo-900/80 hover:bg-indigo-900/80 shadow-none text-gray-600 font-medium")} onClick={() => {
+                            if(category.value === selectedCategory) {
+                                setSelectedCategory(null);
+                                setRenderedFaqs(foundFaqs);
+                            } else {
+                                setSelectedCategory(category.value);
+                                setRenderedFaqs(foundFaqs.filter((faq) => faq.category === category.value));
+                            }
+                           }}>
+                                 {category.label}
+                           </Button>
+                        ))}
+                    </div>
+                    <div className="gap-y-4 mt-4">
                     {
-                        foundFaqs.length > 0 ? (
-                            foundFaqs.map((blog) => (
-                                <div className="w-full bg-[#131313] rounded-md p-2 hover:cursor-pointer shadow-lg"
+                        renderedFaqs.length > 0 ? (
+                            renderedFaqs.map((blog) => (
+                                <div className="w-full bg-[#131313] rounded-md px-4 py-2 hover:cursor-pointer shadow-lg"
                                 key={blog.id}
                                 >
                                     <div className="">
-                                        <div className="text-sm flex-grow flex items-center line-clamp-1 font-semibold break-all hover:underline">
-                                            <div>
-                                                {blog.question}
+                                        <div className="text-sm flex-grow flex items-center line-clamp-1 font-semibold break-all ">
+                                            <div className="flex flex-row items-center space-x-2">
+                                                <div className="bg-indigo-800 p-1 rounded-md text-xs text-gray-200 font-medium whitespace-nowrap">
+                                                    {getLabelByValueFaqs(blog.category)}
+                                                </div>
+                                                <span className="hover:underline line-clamp-1 break-all">
+                                                    {blog.question}
+                                                </span>
                                             </div>
                                             <div className="flex justify-end ml-auto">
                                                 <Button size="sm" variant="ghost" onClick={() => setSelectedId(blog.id)} key={blog.id}>
@@ -116,6 +147,7 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                             </div>
                         )
                     }
+                </div>
                 </div>
             )}
         </div>

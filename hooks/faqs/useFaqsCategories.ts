@@ -1,32 +1,36 @@
 export const useFaqsCategories = () => {
     const existingCategories = [
         {
-            label : "Mieter",
-            value : "mieter"
-        },
-        {
-            label : "Vermieter",
-            value : "vermieter"
+            label : "Mein Profil",
+            value : "profile"
         },
         {
             label : "Inserate",
             value : "inserate"
         },
         {
-            label : "Zahlungsverkehr",
-            value : "zahlungsverkehr"
+            label : "Buchungen",
+            value : "bookings"
         },
         {
-            label : "Konversationen",
+            label : "Chat",
             value : "chat"
         },
         {
-            label : "Mein Profil",
-            value : "profile"
+            label : "Einstellungen",
+            value : "settings"
         },
         {
-            label : "Dashboard",
-            value : "dashboard"
+            label : "Zahlungsverkehr",
+            value : "payments"
+        },
+        {
+            label : "Mieter",
+            value : "mieter"
+        },
+        {
+            label : "Vermieter",
+            value : "vermieter"
         },
         {
             label : "Benutzerhandbuch",

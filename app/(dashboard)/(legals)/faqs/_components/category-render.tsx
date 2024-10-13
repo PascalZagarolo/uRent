@@ -1,4 +1,7 @@
+'use client'
+
 import { CopyCheckIcon, MessageSquareIcon, Settings2Icon, UserIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { CiBank } from "react-icons/ci";
 import { FaUserFriends, FaUserTie } from "react-icons/fa";
 import { FiBookOpen } from "react-icons/fi";
@@ -20,6 +23,18 @@ const FaqCategoryRender = () => {
                 </div>
             </div>
         )
+    }
+
+    const currentCategory = useSearchParams().get('category')
+
+    const onClick = (usedId: string) => {
+        if (currentCategory === params) {
+
+        } else {
+            const params = new URLSearchParams(searchParams.toString())
+            params.set('conversationId', usedId)
+            window.history.pushState(null, '', `?${params.toString()}`)
+        }
     }
 
     const existingCategorys = [

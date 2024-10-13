@@ -31,7 +31,7 @@ const FaqCategoryRender = () => {
 
     const onClick = (usedCategory: string) => {
             const params = new URLSearchParams("")
-            params.set('conversationId', usedCategory)
+            params.set('category', usedCategory)
             window.history.pushState(null, '', `?${params.toString()}`)
     }
 

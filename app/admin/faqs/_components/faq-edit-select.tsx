@@ -176,10 +176,16 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                         )
                     }
                     
-                    {renderedFaqs.length > renderedAmount && (
-                        <span className="text-sm text-gray-200/60 hover:cursor-pointer hover:underline" onClick={() => {setRenderedAmount(renderedAmount + 10)}}>
+                    {renderedFaqs?.length > renderedAmount && (
+                        <div className="text-sm text-gray-200/60 hover:cursor-pointer hover:underline mt-2" onClick={() => {setRenderedAmount(renderedAmount + 10)}}>
                             Mehr laden..
-                        </span>
+                        </div>
+                    )}
+
+                    {renderedFaqs?.length !== 0 && renderedFaqs?.length <= renderedAmount && (
+                        <div className="text-sm text-gray-200/60 hover:cursor-pointer hover:underline mt-2" onClick={() => {setRenderedAmount(10)}}>
+                            Weniger anzeigen..
+                        </div>
                     )}
                 </div>
                 </div>

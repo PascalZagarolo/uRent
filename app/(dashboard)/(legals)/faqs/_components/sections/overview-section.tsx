@@ -1,8 +1,13 @@
+import { faqs } from "@/db/schema";
 import FaqCategoryRender from "../category-render";
 import FurtherInformations from "../further-informations";
 import SearchFaqs from "../search-faqs";
 
-const OverviewSection = () => {
+interface OverviewSectionProps {
+    foundFaqs : typeof faqs.$inferSelect[];
+}
+
+const OverviewSection = ({ foundFaqs } : OverviewSectionProps) => {
     return (
         <div className="  min-h-screen">
             <div className="sm:p-4 p-2 mt-4  rounded-lg ">
@@ -14,9 +19,9 @@ const OverviewSection = () => {
                 <div className="text-lg sm:p-8 p-2 font-semibold">
 
                     <div className="mt-8">
-                        <SearchFaqs />
+                        <SearchFaqs foundFaqs={foundFaqs}/>
                     </div>
-                    <div className=" mt-4">
+                    <div className=" mt-16">
                         <h1>
                             Willkommen bei den häufig gestellten Fragen {`(`}FAQs{`)`} von uRent!
                         </h1>

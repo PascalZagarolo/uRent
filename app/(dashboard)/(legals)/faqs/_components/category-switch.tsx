@@ -34,7 +34,7 @@ const CategorySwitch = ({ foundFaqs } : CategorySwitchProps) => {
         <div>
            <div>
             {(faqCategory == "" || !faqCategory) ? (
-                <OverviewSection />
+                <OverviewSection foundFaqs={foundFaqs} />
             ) : (
                 <RenderedFaqSection currentCategory={faqCategory} foundFaqs={currentFaqs} />
             )}

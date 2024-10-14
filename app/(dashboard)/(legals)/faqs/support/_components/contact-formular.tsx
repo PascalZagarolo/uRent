@@ -80,7 +80,7 @@ const SupportContactFormular = () => {
                 </Button>
             </div>
             <div className="text-xs text-gray-200/60 whitespace-nowrap">
-                * Alle Angaben werden vertraulich behandelt und nicht an dritte weitergegeben.
+                * Alle Angaben werden vertraulich behandelt und nicht an Dritte weitergegeben.
                 Nach Prüfung deiner Anfrage werden, wir uns so schnell wie möglich bei dir melden.
             </div>
         </div>

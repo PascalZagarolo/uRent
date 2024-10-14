@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { sendSupportConfirm, sendSupportConfirmToUrent } from "@/lib/mail";
+import { sendInfoConfirmToUrent, sendInfoConfirm  } from "@/lib/mail";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -40,8 +40,8 @@ const ContactFormular = () => {
                 title: currentTitle
             }
 
-            await sendSupportConfirm(values.email);
-            await sendSupportConfirmToUrent(values);
+            await sendInfoConfirm(values.email);
+            await sendInfoConfirmToUrent(values);
             toast.success("Ihre Anfrage wurde erfolgreich versendet.");
             setCurrentContent("");
             setCurrentEmail("");

@@ -1,10 +1,18 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 
 
 const SupportContactFormular = () => {
+
+    const [currentEmail, setCurrentEmail] = useState("");
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentContent, setCurrentContent] = useState("");
+
     return ( 
         <div className="flex flex-col space-y-8">
             <div>
@@ -13,6 +21,8 @@ const SupportContactFormular = () => {
                 </Label>
                 <Input 
                 className="w-full bg-[#191919] rounded-md dark:border-none"
+                value={currentEmail}
+                onChange={(e) => setCurrentEmail(e.target.value)}
                 maxLength={100}
                 />
             </div>
@@ -22,6 +32,8 @@ const SupportContactFormular = () => {
                 </Label>
                 <Input 
                 className="w-full bg-[#191919] rounded-md dark:border-none"
+                value={currentTitle}
+                onChange={(e) => setCurrentTitle(e.target.value)}
                 maxLength={100}
                 />
             </div>
@@ -30,6 +42,8 @@ const SupportContactFormular = () => {
                     Nachricht*
                 </Label>
                 <Textarea className="bg-[#191919] rounded-md dark:border-none h-[400px]"
+                value={currentContent}
+                onChange={(e) => setCurrentContent(e.target.value)}
                 maxLength={2000} />
             </div>
             <div className="mt-4 ml-auto">

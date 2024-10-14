@@ -10,7 +10,7 @@ import ConfirmMail from '@/react-email-starter/emails/urent/confirm-email';
 import ConfirmEmailChange from '@/react-email-starter/emails/urent/confirm-email-change';
 import ConfirmLogin from '@/react-email-starter/emails/urent/confirm-login';
 import ConfirmUserDeletion from '@/react-email-starter/emails/urent/confirm-user-deletion';
-import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';
+import InfoConfirm  from '@/react-email-starter/emails/urent/confirmInfo';
 import SearchIsAvailable from '@/react-email-starter/emails/urent/search-is-available';
 import SubscriptionAlmostExpired from '@/react-email-starter/emails/urent/subscription-almost-expired';
 import WelcomeMail from '@/react-email-starter/emails/urent/welcome-mail';
@@ -19,6 +19,7 @@ import { Resend } from "resend";
 import { category } from '../drizzle/schema';
 import SupportMessageToUrent from '@/react-email-starter/emails/urent/supportMessageToUrent';
 import Confirm2FaAbortion from '@/react-email-starter/emails/urent/confirm-2fa-abortion';
+import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';
 
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -108,6 +109,18 @@ export const sendChangeEmail = async (
   });
 };
 
+export const sendInfoConfirm = async (
+  email: string,
+ 
+) => {
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to: email,
+    subject: "Anfrage bestätigt",
+    react : InfoConfirm(),
+  });
+};
+
 export const sendSupportConfirm = async (
   email: string,
  
@@ -120,13 +133,13 @@ export const sendSupportConfirm = async (
   });
 };
 
-export const sendSupportConfirmToUrent = async (
+export const sendInfoConfirmToUrent = async (
   values : any
 ) => {
   
   await resend.emails.send({
-    from: 'uRent - Support <mail@urent-rental.de>',
-    to: "support@urent-rental.com",
+    from: 'uRent - Info <mail@urent-rental.de>',
+    to: "info@urent-rental.com",
     subject: "["+ (values.category).toUpperCase() + "] " + "Support Anfrage",
     react : SupportMessageToUrent({
       category : values.category,

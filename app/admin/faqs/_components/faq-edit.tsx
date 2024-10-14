@@ -88,7 +88,9 @@ const FaqEdit = ({ thisFaq }: FaqCreationProps) => {
                         Kategorie
                     </Label>
                     <div>
-                        <Select onValueChange={(e) => {
+                        <Select 
+                        value={currentCategory}
+                        onValueChange={(e) => {
                             setCurrentCategory(e);
                         }}>
                             <SelectTrigger className="w-1/2 border-none bg-[#191919]">

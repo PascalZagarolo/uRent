@@ -3,7 +3,7 @@
 import { faqs } from "@/db/schema";
 import { ArrowLeft, ImageIcon, Pencil, PencilIcon, TrashIcon, X } from "lucide-react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -14,6 +14,9 @@ import FaqEdit from "./faq-edit";
 import { useFaqsCategories } from "@/hooks/faqs/useFaqsCategories";
 import { cn } from "@/lib/utils";
 import { getLabelByValueFaqs } from "@/hooks/faqs/convert-faq-values";
+import { set } from 'date-fns';
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { Input } from "@/components/ui/input";
 
 interface FaqEditSelectProps {
     foundFaqs: typeof faqs.$inferSelect[]
@@ -23,6 +26,9 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
 
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [currentSearch, setCurrentSearch] = useState<string | null>(null);
+
+    const [renderedAmount, setRenderedAmount] = useState(10);
 
     const router = useRouter();
 
@@ -40,6 +46,14 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
     const [renderedFaqs, setRenderedFaqs] = useState(foundFaqs);
 
     const faqsCategories = useFaqsCategories();
+
+    useEffect(() => {
+        if(currentSearch) {
+            setRenderedFaqs(foundFaqs.filter((faq) => faq.question.toLowerCase().includes(currentSearch.toLowerCase())));
+        } else {
+            setRenderedFaqs(foundFaqs);
+        }
+    },[currentSearch]);
 
     return (
         <div>
@@ -59,8 +73,21 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
 
             ) : (
                 <div>
+                    <div className="mt-4 text-sm font-semibold flex flex-row items-center">
+                       <MagnifyingGlassIcon className="w-4 h-4 mr-2" /> {renderedFaqs?.length} FAQs gefunden..
+                    </div>
+                    <div className="flex flex-row items-center shadow-md mt-4 mb-4">
+                        <Input 
+                         className="border-none dark:bg-[#212121] dark:text-gray-200 rounded-r-none"
+                         placeholder="Suche nach Frage.."
+                         onChange={(e) => {setCurrentSearch(e.target.value)}}
+                        />
+                        <div className="p-3 bg-[#191919] items-center dark:bg-[#171717] rounded-l-none rounded-r-md">
+                            <MagnifyingGlassIcon className="w-4 h-4 text-gray-200" />
+                        </div>
+                    </div>
                     <div className="flex flex-wrap gap-x-2 ">
-                        {faqsCategories.map((category) => (
+                    {faqsCategories.map((category) => (
                            <Button variant="secondary" size="sm" className={cn("mt-4 shadow-lg bg-indigo-800 text-gray-200 text-sm hover:bg-indigo-900", 
                                                                                 category.value === selectedCategory && 
                                                                                 "bg-indigo-900/80 hover:bg-indigo-900/80 shadow-none text-gray-600 font-medium")} onClick={() => {
@@ -76,10 +103,10 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                            </Button>
                         ))}
                     </div>
-                    <div className="gap-y-4 mt-4">
+                    <div className="gap-y-4 mt-4 space-y-4">
                     {
                         renderedFaqs.length > 0 ? (
-                            renderedFaqs.map((blog) => (
+                            renderedFaqs.slice(0,renderedAmount).map((blog) => (
                                 <div className="w-full bg-[#131313] rounded-md px-4 py-2 hover:cursor-pointer shadow-lg"
                                 key={blog.id}
                                 >
@@ -133,12 +160,13 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                                         </div>
                                         <div className="mt-2">
                                             {blog.answer && (
-                                                <div dangerouslySetInnerHTML={{ __html: blog.answer }} />
+                                                <div dangerouslySetInnerHTML={{ __html: blog.answer }} className="text-sm" />
 
                                             )}
                                                 
                                         </div>
                                     </div>
+                                    
                                 </div>
                             ))
                         ) : (
@@ -147,6 +175,12 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                             </div>
                         )
                     }
+                    
+                    {renderedFaqs.length > renderedAmount && (
+                        <span className="text-sm text-gray-200/60 hover:cursor-pointer hover:underline" onClick={() => {setRenderedAmount(renderedAmount + 10)}}>
+                            Mehr laden..
+                        </span>
+                    )}
                 </div>
                 </div>
             )}

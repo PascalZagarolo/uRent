@@ -410,7 +410,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                                     </li>
                                     <li className="flex text-sm">
                                         <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> Farbliche Hervorhebung von
-                                        bis zu 1 Inserat  pro Monat
+                                        bis zu 1 Inserat
                                     </li>
 
                                 </ol>
@@ -480,7 +480,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                                     <li className="flex text-sm">
                                         <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div>
                                         Farbliche Hervorhebung von bis
-                                        2 Inseraten pro Monat
+                                        2 Inseraten
                                     </li>
                                     <li className="flex text-sm">
                                         <div><FaCheck className="text-blue-900 w-4 h-4 mr-2" /></div> uRent Mieter- & Buchungsverwaltungssystem

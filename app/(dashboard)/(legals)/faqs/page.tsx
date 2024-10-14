@@ -21,7 +21,7 @@ const Faqs = async () => {
             <div className="flex justify-center sm:p-8 bg-[#404040]/10">
 
                 <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
-                    <CategorySwitch foundFaqs={findMatchingFaqs} />
+                    <CategorySwitch foundFaqs={findMatchingFaqs as any} />
                 </div>
             </div>
         </div>

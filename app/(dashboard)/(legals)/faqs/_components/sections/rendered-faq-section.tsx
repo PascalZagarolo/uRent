@@ -1,3 +1,4 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { faqs } from "@/db/schema";
 import { getLabelByValueFaqs } from "@/hooks/faqs/convert-faq-values";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -33,12 +34,22 @@ const RenderedFaqSection = ({ currentCategory, foundFaqs }: RenderdFaqsSectionPr
                     {foundFaqs.length} Fragen & Antworten gefunden
                 </div>
                 <div>
+                <Accordion type="single" collapsible className="w-full">
                     {foundFaqs.map((faq, index) => (
                         <div key={index} className="mt-4">
-                            <h4 className="dark:text-gray-100 text-lg font-semibold">{faq.question}</h4>
-                            <p className="dark:text-gray-100 text-base mt-2">{faq.answer}</p>
+                            
+                                <AccordionItem value={String(index)} className="shadow-md border-none px-4 dark:bg-[#171717] text-sm rounded-t-md
+                                ">
+                                    <AccordionTrigger>{faq.question}</AccordionTrigger>
+                                    <AccordionContent>
+                                    <div dangerouslySetInnerHTML={{ __html: faq.answer }} className="text-sm text-gray-200/80" />
+                                    </AccordionContent>
+                                </AccordionItem>
+                               
+                           
                         </div>
                     ))}
+                     </Accordion>
                 </div>
             </div>
         </div>

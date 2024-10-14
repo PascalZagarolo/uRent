@@ -53,7 +53,6 @@ const FaqCreation = () => {
                 isPublic: isPublic,
                 category: currentCategory,
             }
-
             await axios.post('/api/faqs/create', values)
             toast.success('FAQ erfolgreich erstellt')
             setCurrentTitle("");
@@ -63,8 +62,6 @@ const FaqCreation = () => {
             setCurrentTags([]);
             setPublic(false);
             router.refresh();
-
-
         } catch (e: any) {
             console.log(e);
             toast.error('Fehler beim Erstellen des Blogs')

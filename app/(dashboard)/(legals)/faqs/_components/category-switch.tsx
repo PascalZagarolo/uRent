@@ -20,7 +20,7 @@ const CategorySwitch = ({ foundFaqs } : CategorySwitchProps) => {
     const [category, setCategory] = useState("");
     const router = useRouter()
 
-    console.log(foundFaqs)
+    
 
     const [currentFaqs, setCurrentFaqs] = useState(foundFaqs);
 

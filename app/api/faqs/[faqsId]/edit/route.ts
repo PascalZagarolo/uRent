@@ -1,10 +1,12 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
 import { faqs } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
-    req : Request
+    req : Request,
+    { params } : { params : { faqsId : string}}
 ) {
     try {
 
@@ -30,7 +32,7 @@ export async function PATCH(
             question,
             answer,
             isPublic
-        }).returning()
+        }).where(eq(faqs.id, params.faqsId))
         
         return new NextResponse("FAQ bearbeitet", { status: 201 });
     } catch(e : any) {

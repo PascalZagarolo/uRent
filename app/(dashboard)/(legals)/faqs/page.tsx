@@ -8,9 +8,10 @@ import { faqs } from "@/db/schema";
 
 const Faqs = async () => {
 
-    const findMatchingFaqs = await db.query.faqs.findMany({
-        where : eq(faqs.isPublic, true)
-    })
+    
+    const findMatchingFaqs = await db.query.faqs.findMany();
+
+    
 
     return (
 

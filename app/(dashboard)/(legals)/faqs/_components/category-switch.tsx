@@ -20,8 +20,15 @@ const CategorySwitch = ({ foundFaqs } : CategorySwitchProps) => {
     const [category, setCategory] = useState("");
     const router = useRouter()
 
+    console.log(foundFaqs)
 
-    
+    const [currentFaqs, setCurrentFaqs] = useState(foundFaqs);
+
+    useEffect(() => {
+        if(faqCategory) {
+            setCurrentFaqs(foundFaqs.filter(faq => faq.category === faqCategory))
+        }
+    }, [faqCategory])
 
     return ( 
         <div>
@@ -29,7 +36,7 @@ const CategorySwitch = ({ foundFaqs } : CategorySwitchProps) => {
             {(faqCategory == "" || !faqCategory) ? (
                 <OverviewSection />
             ) : (
-                <RenderedFaqSection currentCategory={faqCategory} foundFaqs={foundFaqs} />
+                <RenderedFaqSection currentCategory={faqCategory} foundFaqs={currentFaqs} />
             )}
            </div>
         </div>

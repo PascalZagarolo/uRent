@@ -11,6 +11,7 @@ const Faqs = async () => {
     
     const findMatchingFaqs = await db.query.faqs.findMany();
 
+
     
 
     return (

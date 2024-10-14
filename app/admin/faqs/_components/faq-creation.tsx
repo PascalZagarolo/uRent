@@ -28,7 +28,7 @@ const FaqCreation = () => {
     const [currentCategory, setCurrentCategory] = useState("");
     const [currentContent, setCurrentContent] = useState("");
     const [currentImage, setCurrentImage] = useState<string | null>(null);
-    const [isPublic, setPublic] = useState(false);
+    const [isPublic, setPublic] = useState(true);
 
     const allCategories = useFaqsCategories();
 

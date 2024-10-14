@@ -5,7 +5,7 @@ import { GrContactInfo } from "react-icons/gr"
 const FurtherInformations = () => {
     const categoryRender = (name, description, icons) => {
         return (
-            <div className="flex flex-col items-center px-4 py-4 bg-indigo-800 hover:bg-indigo-900  shadow-lg rounded-md w-10/12 justify-center hover:bg-[#181818] hover:cursor-pointer h-[200px]">
+            <div className="flex flex-col items-center px-4 py-4 bg-indigo-800 hover:bg-indigo-900  shadow-lg rounded-md w-10/12 justify-center  hover:cursor-pointer h-[200px]">
                 <div>
                     {icons}
                 </div>

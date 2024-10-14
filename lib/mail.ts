@@ -1,4 +1,3 @@
-
 'use server';
 
 
@@ -17,9 +16,10 @@ import WelcomeMail from '@/react-email-starter/emails/urent/welcome-mail';
 
 import { Resend } from "resend";
 import { category } from '../drizzle/schema';
-import SupportMessageToUrent from '@/react-email-starter/emails/urent/supportMessageToUrent';
+import InfoMessageToUrent from '@/react-email-starter/emails/urent/infoMessageToUrent';
 import Confirm2FaAbortion from '@/react-email-starter/emails/urent/confirm-2fa-abortion';
 import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';
+import SupportMessageToUrent from '@/react-email-starter/emails/urent/supportMessageToUrent';
 
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -136,15 +136,29 @@ export const sendSupportConfirm = async (
 export const sendInfoConfirmToUrent = async (
   values : any
 ) => {
-  
   await resend.emails.send({
     from: 'uRent - Info <mail@urent-rental.de>',
-    to: "info@urent-rental.com",
-    subject: "["+ (values.category).toUpperCase() + "] " + "Support Anfrage",
-    react : SupportMessageToUrent({
+    to: "info@urent-rental.de",
+    subject: "["+ (values.category).toUpperCase() + "] " + "Info Anfrage",
+    react : InfoMessageToUrent({
       category : values.category,
       title : values.title,
       name : values.name,
+      email : values.email,
+      content : values.content
+    }),
+  });
+};
+
+export const sendSupportToUrent = async (
+  values : any
+) => {
+  await resend.emails.send({
+    from: 'uRent - Info <mail@urent-rental.de>',
+    to: "support@urent-rental.com",
+    subject: values.title + "[Support]",
+    react : SupportMessageToUrent({
+      title : values.title,
       email : values.email,
       content : values.content
     }),

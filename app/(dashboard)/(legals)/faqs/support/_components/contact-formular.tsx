@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { sendSupportConfirm, sendSupportToUrent } from "@/lib/mail";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 
 const SupportContactFormular = () => {
@@ -13,8 +15,32 @@ const SupportContactFormular = () => {
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentContent, setCurrentContent] = useState("");
 
+    const onSend = async () => {
+        try {
+            const values = {
+                title : currentTitle,
+                email : currentEmail,
+                content : currentContent
+            }
+            
+            await sendSupportToUrent(values);
+            
+            await sendSupportConfirm(currentEmail);
+            
+            setCurrentEmail("");
+            setCurrentTitle("");
+            setCurrentContent("");
+            toast.success("Deine Anfrage wurde erfolgreich versendet. Wir melden uns so schnell wie möglich bei dir.", {
+                duration: 10000
+            });
+        } catch(e : any) {
+            console.log(e);
+            toast.error("Es ist ein Fehler aufgetreten. Bitte versuche es erneut.");
+        }
+    }
+
     return ( 
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col space-y-8 px-4">
             <div>
                 <Label className="text-sm">
                     Deine Email-Adresse*
@@ -47,7 +73,9 @@ const SupportContactFormular = () => {
                 maxLength={2000} />
             </div>
             <div className="mt-4 ml-auto">
-                <Button className="bg-indigo-800 hover:bg-indigo-900 hover:text-gray-300 text-gray-200">
+                <Button className="bg-indigo-800 hover:bg-indigo-900 hover:text-gray-300 text-gray-200" disabled={!currentContent || !currentEmail || !currentTitle}
+                onClick={onSend}
+                >
                     Supportanfrage schicken
                 </Button>
             </div>

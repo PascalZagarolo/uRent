@@ -22,7 +22,7 @@ import { Inter } from "next/font/google";
   export const SupportConfirm = () => (
     <Html>
       <Head />
-      <Preview>Support Anfrage erhalten</Preview>
+      <Preview>Wir haben deine Support Anfrage erfolgreich erhalten</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={box}>

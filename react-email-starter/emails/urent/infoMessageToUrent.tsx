@@ -12,24 +12,26 @@ import {
   } from "@react-email/components";
 import { Inter } from "next/font/google";
   import * as React from "react";
-
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     ? `${process.env.NEXT_PUBLIC_BASE_URL}`
     : "";
   
     
-interface SupportMessageToUrentProps {
+interface InfoMessageToUrentProps {
+    category : string,
     title : string,
+    name : string,
     email : string,
     content : string
 }
 
 
 
-  export const SupportMessageToUrent : React.FC<SupportMessageToUrentProps> = ({
+  export const InfoMessageToUrent : React.FC<InfoMessageToUrentProps> = ({
+    category,
     title,
-
+    name,
     email,
     content
   }) => (
@@ -48,7 +50,7 @@ interface SupportMessageToUrentProps {
             />
             <Hr style={hr} />
             <Text style={paragraph}>
-
+            Name : {name} <br/>
             Email-Addresse : {email} <br/> 
             </Text>
             <Text style={paragraph}>
@@ -71,7 +73,7 @@ interface SupportMessageToUrentProps {
     </Html>
   );
   
-  export default SupportMessageToUrent;
+  export default InfoMessageToUrent;
 
   const inter = Inter({ subsets: ['latin'] });
 

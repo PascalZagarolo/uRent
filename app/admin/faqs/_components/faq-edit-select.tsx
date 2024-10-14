@@ -88,7 +88,7 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                     </div>
                     <div className="flex flex-wrap gap-x-2 ">
                     {faqsCategories.map((category) => (
-                           <Button variant="secondary" size="sm" className={cn("mt-4 shadow-lg bg-indigo-800 text-gray-200 text-sm hover:bg-indigo-900", 
+                           <Button variant="secondary" key={category.label} size="sm" className={cn("mt-4 shadow-lg bg-indigo-800 text-gray-200 text-sm hover:bg-indigo-900", 
                                                                                 category.value === selectedCategory && 
                                                                                 "bg-indigo-900/80 hover:bg-indigo-900/80 shadow-none text-gray-600 font-medium")} onClick={() => {
                             if(category.value === selectedCategory) {

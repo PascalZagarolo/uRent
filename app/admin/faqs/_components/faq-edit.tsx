@@ -22,10 +22,11 @@ import DescriptionArea from "../../blogs/_components/text-area";
 
 interface FaqCreationProps {
     thisFaq : typeof faqs.$inferSelect
-    deleteCurrentFaq : () => void
+    deleteCurrentFaq : () => void;
+    onChange : (changedFaq) => void;
 }
 
-const FaqEdit = ({ thisFaq }: FaqCreationProps) => {
+const FaqEdit = ({ thisFaq, onChange, deleteCurrentFaq }: FaqCreationProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +41,7 @@ const FaqEdit = ({ thisFaq }: FaqCreationProps) => {
 
     // Dynamically filter available categories based on selected ones
    
+    
 
     const onSave = async () => {
         setIsLoading(true);
@@ -55,9 +57,10 @@ const FaqEdit = ({ thisFaq }: FaqCreationProps) => {
 
             }
 
-            await axios.patch(`/api/faqs/${thisFaq?.id}/edit`, values)
+            const patchedFaq = await axios.patch(`/api/faqs/${thisFaq?.id}/edit`, values)
             toast.success('Faq erfolgreich bearbeitet')
             
+            onChange(patchedFaq.data[0]);
 
         } catch (e: any) {
             console.log(e);

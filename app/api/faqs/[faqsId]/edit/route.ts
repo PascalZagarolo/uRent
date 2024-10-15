@@ -20,21 +20,24 @@ export async function PATCH(
             return new NextResponse("Forbidden", { status: 403 });
         }
 
+        
         const { category, question, answer, isPublic } = await req.json();
+
+        
 
         if(isPublic && (!category || !question || !answer)) {
             return new NextResponse("Bad Request", { status: 400 });
         }
 
         
-        const [createdFaq] : any = await db.update(faqs).set({
-            category,
-            question,
-            answer,
-            isPublic
-        }).where(eq(faqs.id, params.faqsId))
+        const patchedFaq = await db.update(faqs).set({
+            category : category,
+            question : question,
+            answer : answer,
+            isPublic : isPublic
+        }).where(eq(faqs.id, params.faqsId)).returning();
         
-        return new NextResponse("FAQ bearbeitet", { status: 201 });
+        return NextResponse.json(patchedFaq);
     } catch(e : any) {
         console.log(e);
         return new NextResponse("Internal Server Error", { status: 500 });

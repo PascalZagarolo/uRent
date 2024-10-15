@@ -68,6 +68,11 @@ const FaqEditSelect = ({ foundFaqs }: FaqEditSelectProps) => {
                     <FaqEdit
                         thisFaq={foundFaqs.find((faq) => faq.id === selectedId) as any}
                         deleteCurrentFaq={() => setSelectedId(null)}
+                        onChange = {(changedFaq) => {
+                            const oldRenderedFaqs = renderedFaqs;
+                            setRenderedFaqs(oldRenderedFaqs.map((faq) => faq.id === changedFaq.id ? changedFaq : faq))
+                        
+                        }}
                     /> 
                 </div>
 

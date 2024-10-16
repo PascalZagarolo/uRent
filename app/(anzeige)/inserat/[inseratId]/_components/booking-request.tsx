@@ -55,14 +55,14 @@ const Bookings = () => {
   const selectedUser = usesearchUserByBookingStore((user) => user.user)
 
   const [startTime, setStartTime] = useState<string | null>("");
-    const [endTime, setEndTime] = useState<string | null>("");
-    
-    
-    useEffect(() => {
-        if((!!startTime && !!endTime && Number(startTime) >= Number(endTime) && isSameDay)){
-            setStartTime(String(Number(endTime) - 30));
-        }
-    },[endTime])
+  const [endTime, setEndTime] = useState<string | null>("");
+
+
+  useEffect(() => {
+    if ((!!startTime && !!endTime && Number(startTime) >= Number(endTime) && isSameDay)) {
+      setStartTime(String(Number(endTime) - 30));
+    }
+  }, [endTime])
 
   const params = useParams();
   const router = useRouter();
@@ -99,8 +99,8 @@ const Bookings = () => {
       const values = {
         content: currentContent,
         startDate: currentStart,
-        startPeriod : startTime,
-        endPeriod : endTime,
+        startPeriod: startTime,
+        endPeriod: endTime,
         endDate: currentEnd,
       }
       axios.post(`/api/bookingrequest/${params.inseratId}`, values);
@@ -126,8 +126,8 @@ const Bookings = () => {
   return (
     <Dialog>
       <DialogTrigger className=" w-full">
-        <Button className="w-full bg-amber-200 hover:bg-amber-300 text-gray-900 shadow-lg  ">
-          <LuCalendarPlus  className="mr-2 h-4 w-4" /> Buchung vorschlagen
+        <Button className="w-full bg-indigo-800 hover:bg-indigo-900 hover:text-gray-300 text-gray-200 shadow-lg">
+          <LuCalendarPlus className="mr-2 h-4 w-4" /> Buchung vorschlagen
         </Button>
       </DialogTrigger>
       <DialogContent className="dark:bg-[#0F0F0F] border-none">
@@ -228,85 +228,85 @@ const Bookings = () => {
                     )}
                   />
                 </div>
-                
+
                 <div className="flex w-full items-center gap-x-8">
-            <div className="w-1/2">
-                <Label>
-                    Startzeit
-                </Label>
-                <Select
-                onValueChange={(value) => {
-                    setStartTime(value);
-                   
-                }}
-                value={startTime ? startTime : undefined}
-                >
-                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">
+                  <div className="w-1/2">
+                    <Label>
+                      Startzeit
+                    </Label>
+                    <Select
+                      onValueChange={(value) => {
+                        setStartTime(value);
+
+                      }}
+                      value={startTime ? startTime : undefined}
+                    >
+                      <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">
                         <SelectValue placeholder="Wähle eine Startzeit" />
-                    </SelectTrigger>
-                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                      </SelectTrigger>
+                      <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                         {[...Array(48).keys()].map(index => {
-                            const hour = Math.floor(index / 2);
-                            const minute = index % 2 === 0 ? '00' : '30';
-                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                            return (
-                                <SelectGroup key={index}>
+                          const hour = Math.floor(index / 2);
+                          const minute = index % 2 === 0 ? '00' : '30';
+                          const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                          return (
+                            <SelectGroup key={index}>
+                              {
                                 {
-                                    {
-                                        "0" : <SelectLabel>Frühmorgen</SelectLabel>,
-                                        "510" : <SelectLabel>Morgens</SelectLabel>,
-                                        "990" : <SelectLabel>Nachmittags</SelectLabel>,
-                                    }[String(index * 30)]
-                                }
-                                <SelectItem disabled={
-                                    (isSameDay && Number(endTime) <= Number(index * 30) && !!endTime) 
-                                    
-                                    }  key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
-                                </SelectGroup>
-                            );
+                                  "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                  "510": <SelectLabel>Morgens</SelectLabel>,
+                                  "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                }[String(index * 30)]
+                              }
+                              <SelectItem disabled={
+                                (isSameDay && Number(endTime) <= Number(index * 30) && !!endTime)
+
+                              } key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
+                            </SelectGroup>
+                          );
                         })}
 
-                    </SelectContent>
-                </Select>
-            </div>
-            <div className="w-1/2">
-                <Label>
-                    Endzeit
-                </Label>
-                <Select
-                onValueChange={(value) => {
-                    setEndTime(value);
-                    
-                }}
-                value={endTime ? endTime : undefined}
-                >
-                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="w-1/2">
+                    <Label>
+                      Endzeit
+                    </Label>
+                    <Select
+                      onValueChange={(value) => {
+                        setEndTime(value);
+
+                      }}
+                      value={endTime ? endTime : undefined}
+                    >
+                      <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">
                         <SelectValue placeholder="Wähle eine Endzeit" />
-                    </SelectTrigger>
-                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                      </SelectTrigger>
+                      <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                         {[...Array(48).keys()].map(index => {
-                            const hour = Math.floor(index / 2);
-                            const minute = index % 2 === 0 ? '00' : '30';
-                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                            return (
-                                <SelectGroup key={index}>
+                          const hour = Math.floor(index / 2);
+                          const minute = index % 2 === 0 ? '00' : '30';
+                          const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                          return (
+                            <SelectGroup key={index}>
+                              {
                                 {
-                                    {
-                                        "0" : <SelectLabel>Frühmorgen</SelectLabel>,
-                                        "510" : <SelectLabel>Morgens</SelectLabel>,
-                                        "990" : <SelectLabel>Nachmittags</SelectLabel>,
-                                    }[String(index * 30)]
-                                }
-                                <SelectItem key={index} value={String(index * 30)} disabled={isSameDay && index === 0}>{formattedTime}</SelectItem>
-                                </SelectGroup>
-                            );
+                                  "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                  "510": <SelectLabel>Morgens</SelectLabel>,
+                                  "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                }[String(index * 30)]
+                              }
+                              <SelectItem key={index} value={String(index * 30)} disabled={isSameDay && index === 0}>{formattedTime}</SelectItem>
+                            </SelectGroup>
+                          );
                         })}
 
-                    </SelectContent>
-                </Select>
-            </div>
-        </div>
-               
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
                 <div>
                   <span className="font-semibold text-base flex">
                     <BookOpenCheck className="mr-2" />  Anmerkungen:
@@ -324,7 +324,7 @@ const Bookings = () => {
                     )}
                   />
                 </div>
-                
+
                 <DialogTrigger asChild>
                   <Button
                     className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200

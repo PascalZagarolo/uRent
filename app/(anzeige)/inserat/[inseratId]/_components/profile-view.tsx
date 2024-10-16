@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { business, userTable } from "@/db/schema";
 import axios from "axios";
 import { format } from "date-fns";
-import { AlignCenter, BuildingIcon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, User2, UserIcon } from "lucide-react";
+import { AlignCenter, BuildingIcon, Globe2Icon, MailIcon, MapPinIcon, PhoneIcon, TruckIcon, User2, UserIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { use, useEffect, useMemo, useState } from "react";
@@ -55,19 +55,16 @@ const ProfileView: React.FC<ProfileViewProps> = ({
         <div className={cn(`px-4 py-4 bg-[#171923]  w-full 
         sm:rounded-md 
        dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
-       `, thisUser?.subscription?.subscriptionType === "ENTERPRISE" && "border  border-blue-900")}>
+       `, thisUser?.subscription?.subscriptionType === "ENTERPRISE" && "  border-indigo-800")}>
             {thisUser?.subscription?.subscriptionType === "ENTERPRISE" && (
-                <div className="ml-auto  bg-blue-900 text-gray-200 p-2 rounded-md flex justify-center items-center text-md font-semibold">
-                   Premiumanbieter  
-                </div>
-            )}
-            {thisBusiness && (
-                <div className="bg-[#171923]  p-4 text-sm font-semibold flex">
-                    <BuildingIcon className="w-4 h-4 mr-2" />  Gewerblicher Händler
+                <div className="ml-auto  from-indigo-600 to-indigo-800 bg-gradient-to-br text-gray-200 p-2 rounded-t-md flex justify-center items-center text-md font-semibold">
+                   uRent Enterprise  
                 </div>
             )}
 
-            <div className="bg-[#1b1d28] p-4 w-full rounded-b-md shadow-lg">
+            <div className={cn("bg-[#1b1d28] p-4 w-full rounded-b-md shadow-lg", 
+            thisUser?.subscription?.subscriptionType === "ENTERPRISE" && "border-r border-b border-l border-indigo-800"
+            )}>
                 <div className="flex items-center w-full text-gray-100">
                     <Image
                         src={thisUser.image || "/placeholder-person.jpg"}
@@ -76,40 +73,40 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                         className="rounded-full h-[40px] w-[40px] border border-gray-100 dark:border-gray-800"
                         alt="User-Bild"
                     />
-                    <div className="font-semibold ml-2 flex items-center text-md w-3/4 truncate">
+                    <div className="font-semibold ml-2 flex items-center text-base w-3/4 line-clamp-1">
                         {thisUser.name}
                     </div>
 
 
                 </div>
                 {(thisUser?.sharesRealName && (thisUser?.vorname || thisUser?.nachname)) && (
-                    <div className="text-sm text-gray-200 font-semibold flex items-center mt-1">
-                        <UserIcon className="w-4 h-4 mr-2" />  {thisUser.vorname} {thisUser.nachname}
+                    <div className="text-sm text-gray-200  flex items-center mt-1 text-gray-200/90">
+                        {thisUser.vorname} {thisUser.nachname}
                     </div>
                 )}
                 {thisUser?.sharesEmail && (
-                    <div className="text-sm text-gray-200 font-medium flex items-center mt-1">
-                        <MailIcon className="w-4 h-4 mr-2" />  {thisUser.email}
+                    <div className="text-sm text-gray-200 font-semibold flex items-center">
+                        {thisUser.email}
                     </div>
                 )}
+                
+                <div className="flex gap-x-1 mt-4">
+                    <div className="text-sm flex items-center text-gray-200/80">
+                        {inseratArray} {inseratArray === 1 ? "Inserat" : "Inserate"} online
+                    </div>
+                </div>
                 <div>
                     <div>
-                        <p className="text-xs font-semibold  mt-2 flex dark:text-gray-100/90 text-gray-400">
-                            <MdCardMembership className="w-4 h-4 mr-2" /> Mitglied seit: {format(new Date(thisUser.createdAt), "dd.MM.yyyy")}
+                        <p className="text-sm mt-1 flex dark:text-gray-100/90 text-gray-400">
+                            Mitglied seit {format(new Date(thisUser.createdAt), "dd.MM.yyyy")}
                         </p>
                     </div>
                 </div>
-                <div className="flex gap-x-1 mt-4">
-                    <div className="text-sm flex items-center">
-                        <GiTargetPoster className="w-4 h-4 mr-2" />   {inseratArray} {inseratArray === 1 ? "Inserat" : "Inserate"} online
-                    </div>
-                </div>
-
             </div>
             {thisBusiness && thisBusiness?.businessAddresses.length > 0 && (
                 <div className="bg-[#1b1d28] p-4 w-full rounded-t-md mt-2 shadow-lg">
                     <h1 className="flex items-center gap-x-2 text-sm font-semibold">
-                        <MapPinIcon className="w-4 h-4 text-rose-600" />Firmenstandort
+                        <MapPinIcon className="w-4 h-4 text-rose-600" /> Firmenstandort
                     </h1>
                     <div >
                         {thisBusiness?.businessAddresses?.map((business: typeof businessAddress.$inferSelect) => (

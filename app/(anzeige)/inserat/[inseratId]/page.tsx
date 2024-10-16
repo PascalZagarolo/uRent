@@ -191,9 +191,14 @@ const InseratAnzeige = async ({
                 </div>
                 <div className="h-full w-full">
                     <div className='flex flex-row justify-center w-full mt-8'>
+                        <div className='h-screen sm:flex hidden items-center w-2/12 '>
+                            <div className='w-full sm:block hidden '>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                        </div>
                         {/* Inserat side left */}
                         <div className='flex flex-row justify-center w-6/12 space-x-4'>
-                        <div className='w-7/12  flex flex-col '>
+                            <div className='w-7/12  flex flex-col '>
                                 <div>
                                     <BreadCrumbs
                                         thisCategory={thisInserat.category}
@@ -219,7 +224,7 @@ const InseratAnzeige = async ({
                                     <InseratOptions
                                         thisUser={thisInserat.user}
                                         bookings={inseratBookings}
-                                        ownUser={currentUser}
+                                        ownUser={currentUser as any}
                                         contactOptions={thisInserat.user.contactOptions}
                                         thisInserat={thisInserat}
                                     />
@@ -233,11 +238,17 @@ const InseratAnzeige = async ({
                                     />
                                 </div>
                                 <div className='mt-8'>
-                                <OtherInserate
-                                                thisUser={thisInserat.user}
-                                                inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
-                                            />
+                                    <OtherInserate
+                                        thisUser={thisInserat.user}
+                                        inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
+                                    />
                                 </div>
+                            </div>
+                        </div>
+
+                        <div className='h-screen sm:flex hidden items-center w-2/12 '>
+                            <div className='w-full sm:block hidden '>
+                                <AdsComponent dataAdSlot='3797720061' />
                             </div>
                         </div>
                     </div>

@@ -124,7 +124,7 @@ useEffect(() => {
                             Verfügbarkeit ändern
                        </div>
                     ) : (
-                        <Button className="sm:w-[240px] w-full bg-indigo-800 text-gray-200 border-none border-gray-900 hover:bg-[#20222F]">
+                        <Button className=" w-full bg-amber-200 text-gray-900 border-none  hover:bg-amber-100">
                             <CalendarCheck2 className="w-4 h-4 mr-2"/>Verfügbarkeit ändern
                         </Button>
                     )}

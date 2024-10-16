@@ -70,7 +70,7 @@ const Proximity = () => {
         }}
         value={currentRadius.toString()}
         >
-      <SelectTrigger className="w-[120px] bg-[#141721] text-gray-200 f border-none rounded-none rounded-r-md">
+      <SelectTrigger className="w-[92px] bg-[#141721] text-gray-200 text-sm font-semibold  border-none rounded-none rounded-r-md">
         <SelectValue placeholder="Umkreis" />
       </SelectTrigger>
       <SelectContent className="font-semibold dark:border-none dark:bg-[#141721]">

@@ -214,9 +214,9 @@ const SearchItem = () => {
             </div>
 
 
-            <div className="px-2 py-2  rounded-none rounded-r-md bg-slate-800 dark:hover:bg-slate-700 hover: cursor-pointer lg:hidden xl:flex" onClick={onSearch}>
+            <div className="px-3 py-3  rounded-none rounded-r-md bg-slate-800 dark:hover:bg-slate-700 hover: cursor-pointer lg:hidden xl:flex" onClick={onSearch}>
                 <Search
-                    className=" text-white h-6 w-6"
+                    className=" text-white h-4 w-4"
                 />
             </div>
         </div>

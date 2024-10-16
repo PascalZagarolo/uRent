@@ -190,17 +190,17 @@ const InseratAnzeige = async ({
                     />
                 </div>
                 <div className="h-full w-full">
-                    <div className='sm:flex w-full justify-center'>
-                                                {/*
+                    <div className='sm:flex sm:flex-row w-full  justify-center'>
+                                               
                                 <div className='h-screen sm:flex hidden items-center w-2/12'>
                                     <div className='w-full sm:block hidden '>
                                         <AdsComponent dataAdSlot='3797720061' />
                                     </div>
                                 </div>
-                        */}
-                        <div className="xl:w-6/12 2xl:max-w-[1080px]  w-full xl:flex  justify-center   xl:mt-12 h-max">
-                            <div className="h-full sm:p-4 w-full flex justify-end">
-                                <div className='xl:w-12/12  w-full'>
+                       
+                        <div className="2xl:w-6/12 2xl:max-w-[1080px]  w-full lg:flex  justify-center   lg:mt-12 h-max">
+                            <div className="h-full sm:p-4 w-full flex justify-end ">
+                                <div className='  w-full'>
                                     <div className="w-full   p-2 sm:p-0">
                                         <BreadCrumbs
                                             thisCategory={thisInserat.category}
@@ -223,9 +223,9 @@ const InseratAnzeige = async ({
                                 </div>
                             </div>
                             <div>
-                                <div className='xl:flex justify-start xl:w-2/4 w-full'>
-                                    <div className=" sm:p-2 xl:mt-8  justify-center xl:block">
-                                        <div className="xl:hidden  sm:block ">
+                                <div className='lg:flex justify-start lg:w-2/4 w-full'>
+                                    <div className=" sm:p-2 lg:mt-8  justify-center lg:block">
+                                        <div className="lg:hidden  sm:block ">
                                             <ProfileView
                                                 thisUser={thisInserat.user}
                                                 inseratArray={inseratArray.length}
@@ -234,7 +234,7 @@ const InseratAnzeige = async ({
                                             />
                                         </div>
                                         <div className="xl:ml-0 flex sm:block justify-center w-full">
-                                            <InseratOptions
+                                        <InseratOptions
                                                 thisUser={thisInserat.user}
                                                 bookings={inseratBookings}
                                                 ownUser={currentUser}
@@ -242,7 +242,7 @@ const InseratAnzeige = async ({
                                                 thisInserat={thisInserat}
                                             />
                                         </div>
-                                        <div className="hidden xl:mt-8 xl:block w-full xl:w-2/4">
+                                        <div className="hidden lg:mt-8 lg:block w-full 2xl:w-2/4 ">
                                             <ProfileView
                                                 thisUser={thisInserat.user}
                                                 inseratArray={inseratArray.length}
@@ -264,13 +264,13 @@ const InseratAnzeige = async ({
 
 
                         </div>
-                        {/*
+                        
                         <div className='h-screen sm:flex hidden items-center w-2/12'>
                             <div className='w-full sm:block hidden '>
                                 <AdsComponent dataAdSlot='3797720061' />
                             </div>
                         </div>
-                    */}
+                   
                     </div>
                 </div>
                 <div>

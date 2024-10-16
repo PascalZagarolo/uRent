@@ -163,7 +163,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     <DialogTrigger className="mt-4" asChild>
 
                         {ownUser && (
-                            <Button className="bg-emerald-700 hover:bg-emerald-600  xl:w-[240px] w-full text-gray-200">
+                            <Button className="bg-emerald-700 hover:bg-emerald-600  lg:w-[240px] w-full text-gray-200">
                                 <ThumbsUp className="h-4 w-4 mr-2" /> Fahrzeug anfragen
                             </Button>
                         )}

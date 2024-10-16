@@ -78,25 +78,25 @@ const Inserat: React.FC<InseratProps> = ({
 
             <Dialog >
                 {isntLoggedIn ? (
-                    <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost"
+                    <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
                     onClick={() => { !currentUser && router.push("/login") }}
                     >
-                    <CopyIcon className="w-4 h-4 xl:mr-2" />  <span className="hidden 2xl:block">Anzeige erstellen</span>
+                    <CopyIcon className="w-4 h-4 xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
                   </Button>
                 ) : (
                     currentUser.isBusiness ? (
                         <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
 
-                        <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost">
-                          <CopyIcon className="w-4 h-4 2xl:mr-2" /> <span className="hidden 2xl:block"> Anzeige erstellen </span>
+                        <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm">
+                          <CopyIcon className="w-4 h-4 3xl:mr-2" /> <span className="hidden 3xl:block"> Inserat erstellen </span>
                         </Button>
                           
 
                         </DialogTrigger>
                     ) : (
-                        <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2.5 rounded-md text-sm items-center 
+                        <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2 rounded-md text-sm items-center 
                 font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" onClick={() => { router.push(`/profile/${currentUser?.id}`) }}>
-                            <PlusIcon className="w-4 h-4 2xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Anzeige erstellen</p>
+                            <PlusIcon className="w-4 h-4 3xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Inserat erstellen</p>
                         </div>
                     )
                 )}

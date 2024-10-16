@@ -122,7 +122,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
                 <div className=" text-md sm:text-base ml-2 font-bold text-gray-100  
                             bg-[#1d1f2b] sm:px-4 rounded-lg p-4 flex-grow  overflow-hidden flex justify-center">
-                    <div className="w-full line-clamp-1 break-all overflow-hidden text-center">
+                    <div className="w-full line-clamp-1 break-all overflow-hidden text-left">
                         {thisInserat.title}
                     </div>
                 </div>

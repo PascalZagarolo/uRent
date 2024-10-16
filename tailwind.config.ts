@@ -30,6 +30,9 @@ const config: Config = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
     },
+    screens : {
+      "3xl" : "1800px",
+    }
   },
   plugins: [],
 }

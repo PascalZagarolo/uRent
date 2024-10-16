@@ -253,7 +253,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         <div className="w-full">
             
             {!title ? (
-                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full py-4 text-gray-100 bg-[#141620]">
+                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full py-4 text-gray-100 bg-[#171925]">
                 <div className="ml-4 flex w-full items-center">
                     <div className="p-2 sm:block hidden rounded-lg">
                         <FaAlignLeft   className="w-6 h-6 sm:mr-2" />
@@ -268,7 +268,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                 </div>
             </div>
             ) : (
-                <div className="h-full flex sm:block sm:mt-0 items-center   py-4 text-gray-100 bg-[#141620] ">
+                <div className="h-full flex sm:block sm:mt-0 items-center   py-4 text-gray-200  bg-[#171925]">
                     <div className="ml-4 flex w-full items-center">
                         <div className="rounded-lg hidden sm:block">
                             <TbReportSearch className="w-6 h-6 sm:mr-2" />

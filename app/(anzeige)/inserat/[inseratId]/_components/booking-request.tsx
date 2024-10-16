@@ -38,6 +38,7 @@ import { userTable } from "@/db/schema";
 import { de } from "date-fns/locale";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { LuCalendarPlus } from "react-icons/lu";
 
 interface BookingsProps {
   user: typeof userTable.$inferSelect[];
@@ -124,9 +125,9 @@ const Bookings = () => {
 
   return (
     <Dialog>
-      <DialogTrigger className="xl:w-[240px] w-full">
-        <Button className="w-full bg-blue-900 hover:bg-blue-800 text-gray-100  ">
-          <CalendarSearchIcon className="mr-2 h-4 w-4" /> Buchung vorschlagen
+      <DialogTrigger className=" w-full">
+        <Button className="w-full bg-amber-200 hover:bg-amber-300 text-gray-900 shadow-lg  ">
+          <LuCalendarPlus  className="mr-2 h-4 w-4" /> Buchung vorschlagen
         </Button>
       </DialogTrigger>
       <DialogContent className="dark:bg-[#0F0F0F] border-none">

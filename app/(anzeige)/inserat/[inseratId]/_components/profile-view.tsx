@@ -52,10 +52,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({
     const router = useRouter();
 
     return (
-        <div className={cn(`px-4 py-4 bg-[#171923] lg:min-w-[320px] xl:min-w-[360px] xl:w-3/5 w-full 
+        <div className={cn(`px-4 py-4 bg-[#171923]  w-full 
         sm:rounded-md 
        dark:from-[#2a3046] dark:via-[#23283b] dark:to-[#191d2a]
-       `, thisUser?.subscription?.subscriptionType === "ENTERPRISE" && "border-2 border-double border-blue-900")}>
+       `, thisUser?.subscription?.subscriptionType === "ENTERPRISE" && "border  border-blue-900")}>
             {thisUser?.subscription?.subscriptionType === "ENTERPRISE" && (
                 <div className="ml-auto  bg-blue-900 text-gray-200 p-2 rounded-md flex justify-center items-center text-md font-semibold">
                    Premiumanbieter  
@@ -67,7 +67,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                 </div>
             )}
 
-            <div className="bg-[#1b1d28] p-4 w-full rounded-b-md">
+            <div className="bg-[#1b1d28] p-4 w-full rounded-b-md shadow-lg">
                 <div className="flex items-center w-full text-gray-100">
                     <Image
                         src={thisUser.image || "/placeholder-person.jpg"}
@@ -107,7 +107,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
 
             </div>
             {thisBusiness && thisBusiness?.businessAddresses.length > 0 && (
-                <div className="bg-[#1b1d28] p-4 w-full rounded-t-md mt-2 ">
+                <div className="bg-[#1b1d28] p-4 w-full rounded-t-md mt-2 shadow-lg">
                     <h1 className="flex items-center gap-x-2 text-sm font-semibold">
                         <MapPinIcon className="w-4 h-4 text-rose-600" />Firmenstandort
                     </h1>
@@ -144,7 +144,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({
             )}
 
             {thisBusiness && (
-                <div className="bg-[#1b1d28] p-4 w-full rounded-md mt-2">
+                <div className="bg-[#1b1d28] shadow-lg p-4 w-full rounded-md mt-2">
                     <h1 className="w-full text-sm font-medium flex">
                         Weitere Kontaktdaten
                     </h1>

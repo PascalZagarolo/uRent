@@ -190,87 +190,56 @@ const InseratAnzeige = async ({
                     />
                 </div>
                 <div className="h-full w-full">
-                    <div className='sm:flex sm:flex-row w-full  justify-center'>
-                                               
-                                <div className='h-screen sm:flex hidden items-center w-2/12'>
-                                    <div className='w-full sm:block hidden '>
-                                        <AdsComponent dataAdSlot='3797720061' />
-                                    </div>
+                    <div className='flex flex-row justify-center w-full mt-8'>
+                        {/* Inserat side left */}
+                        <div className='flex flex-row justify-center w-6/12 space-x-4'>
+                        <div className='w-7/12  flex flex-col '>
+                                <div>
+                                    <BreadCrumbs
+                                        thisCategory={thisInserat.category}
+                                        thisTitle={thisInserat.title}
+                                    />
                                 </div>
-                       
-                        <div className="2xl:w-6/12 2xl:max-w-[1080px]  w-full lg:flex  justify-center   lg:mt-12 h-max">
-                            <div className="h-full sm:p-4 w-full flex justify-end ">
-                                <div className='  w-full'>
-                                    <div className="w-full   p-2 sm:p-0">
-                                        <BreadCrumbs
-                                            thisCategory={thisInserat.category}
-                                            thisTitle={thisInserat.title}
-                                        />
-                                    </div>
-                                    <div className="">
-                                        
-                                        <InseratShow
-                                            thisInserat={thisInserat}
-                                            inseratBookings={inseratBookings}
-                                            isOwner={thisInserat.user.id === currentUser?.id}
-                                        />
-                                    </div>
-                                    <div className="flex justify-start  mt-2">
-                                        <InseratAttributes
-                                            thisInserat={thisInserat}
-                                        />
-                                    </div>
+                                <div>
+                                    <InseratShow
+                                        thisInserat={thisInserat}
+                                        inseratBookings={inseratBookings}
+                                        isOwner={thisInserat.user.id === currentUser?.id}
+                                    />
+                                </div>
+                                <div>
+                                    <InseratAttributes
+                                        thisInserat={thisInserat}
+                                    />
                                 </div>
                             </div>
-                            <div>
-                                <div className='lg:flex justify-start lg:w-2/4 w-full'>
-                                    <div className=" sm:p-2 lg:mt-8  justify-center lg:block">
-                                        <div className="lg:hidden  sm:block ">
-                                            <ProfileView
-                                                thisUser={thisInserat.user}
-                                                inseratArray={inseratArray.length}
-                                                inseratOwner={thisInserat.user}
-                                                thisBusiness={thisBusiness}
-                                            />
-                                        </div>
-                                        <div className="xl:ml-0 flex sm:block justify-center w-full">
-                                        <InseratOptions
-                                                thisUser={thisInserat.user}
-                                                bookings={inseratBookings}
-                                                ownUser={currentUser}
-                                                contactOptions={thisInserat.user.contactOptions}
-                                                thisInserat={thisInserat}
-                                            />
-                                        </div>
-                                        <div className="hidden lg:mt-8 lg:block w-full 2xl:w-2/4 ">
-                                            <ProfileView
-                                                thisUser={thisInserat.user}
-                                                inseratArray={inseratArray.length}
-                                                inseratOwner={thisInserat.user}
-                                                thisBusiness={thisBusiness}
-                                            />
-                                        </div>
-                                        <div className="py-8 w-full xl:w-2/4">
-                                            <OtherInserate
+                            {/* Inserat side right */}
+                            <div className='w-4/12 flex flex-col '>
+                                <div className='mt-10'>
+                                    <InseratOptions
+                                        thisUser={thisInserat.user}
+                                        bookings={inseratBookings}
+                                        ownUser={currentUser}
+                                        contactOptions={thisInserat.user.contactOptions}
+                                        thisInserat={thisInserat}
+                                    />
+                                </div>
+                                <div className='mt-8'>
+                                    <ProfileView
+                                        thisUser={thisInserat.user}
+                                        inseratArray={inseratArray.length}
+                                        inseratOwner={thisInserat.user}
+                                        thisBusiness={thisBusiness}
+                                    />
+                                </div>
+                                <div className='mt-8'>
+                                <OtherInserate
                                                 thisUser={thisInserat.user}
                                                 inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
                                             />
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
-
-
-
                         </div>
-                        
-                        <div className='h-screen sm:flex hidden items-center w-2/12'>
-                            <div className='w-full sm:block hidden '>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                        </div>
-                   
                     </div>
                 </div>
                 <div>

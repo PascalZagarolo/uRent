@@ -87,9 +87,9 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
 
     return (
-        <div className="sm:mt-4 bg-[#161923]  text-gray-200 sm:p-8 p-4 
+        <div className="sm:mt-4 bg-[#161923] shadow-lg  text-gray-200 sm:p-8 p-4 
                         sm:rounded-md  
-                     w-full">
+                     ">
                         {isOwner && (
                             <span className="mb-2">
                                 {thisInserat?.isPublished ? (
@@ -106,7 +106,7 @@ const InseratShow: React.FC<InseratShowProps> = ({
                             </span>
                         )}
             <div className="flex  justify-between  w-full">
-                <div className="bg-[#1d1f2b] w-1/8 rounded-lg p-4">
+                <div className="bg-[#1d1f2b] w-1/8 rounded-lg p-4 shadow-lg">
                     {
                         {
                             'PKW': <CarFront className=" text-gray-100 h-6 w-6 " />,
@@ -120,9 +120,9 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
 
 
-                <div className=" text-md sm:text-base ml-2 font-bold text-gray-100  
+                <div className=" text-md sm:text-base ml-2 font-semibold text-gray-200  
                             bg-[#1d1f2b] sm:px-4 rounded-lg p-4 flex-grow  overflow-hidden flex justify-center">
-                    <div className="w-full line-clamp-1 break-all overflow-hidden text-left">
+                    <div className="w-full line-clamp-1 break-all overflow-hidden text-left shadow-lg">
                         {thisInserat.title}
                     </div>
                 </div>
@@ -178,16 +178,16 @@ const InseratShow: React.FC<InseratShowProps> = ({
 
                     </div>
                 </div>
-                <div className="flex w-full items-center">
+                <div className="flex w-full items-center mt-4">
                     {thisInserat.license && (
                         <div className=" font-semibold flex w-3/4 items-center">
                             <FaAddressCard className="w-4 h-4 mr-2" /><p className="font-normal px-2 sm:block hidden">
-                                Führerscheinklasse : </p> {thisInserat.license}
+                                Führerscheinklasse  </p> {thisInserat.license}
                         </div>
                     )}
-                    <div className="ml-auto justify-end w-1/2 flex mt-2 text-md sm:text-xl font-semibold ">
+                    {/* <div className="ml-auto justify-end w-1/2 flex mt-2 text-md sm:text-xl font-semibold ">
                         {thisInserat.price} € {thisInserat.dailyPrice && <p className="text-xs px-1">/Tag </p>}
-                    </div>
+                    </div> */}
                 </div>
             </div>
             {/*

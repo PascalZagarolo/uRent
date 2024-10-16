@@ -161,7 +161,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             {ownSite ? (
                 <div className="mt-6">
                     <ManageAvailability thisInserat={thisInserat} inseratPage={true} />
-                    <GoToDashboard userId={thisUser.id} inseratId={params.inseratId} />
+                    <GoToDashboard userId={thisUser.id} inseratId={params.inseratId as any} />
                 </div>
             ) : (
                 <div>

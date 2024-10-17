@@ -8,7 +8,7 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import {  inserat, userTable } from "@/db/schema";
+import { inserat, userTable } from "@/db/schema";
 import RegisterBusiness from "./_components/register-business";
 import { FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
@@ -24,6 +24,7 @@ import getCurrentUserWithNotificationsAndFavourites from "@/actions/getCurrentUs
 
 import FeedbackModal from "@/components/feedback-modal";
 import PaymentMethods from "./_components/payment-methods";
+import AdsComponent from "@/components/ad-component";
 
 
 
@@ -51,19 +52,19 @@ export async function generateMetadata({ params }: Props,
 
         let usedDescription;
 
-        let addedAddress = ""; 
+        let addedAddress = "";
 
-        if(res?.business?.businessAddresses[0]?.postalCode && res?.business?.businessAddresses[0]?.city) {
+        if (res?.business?.businessAddresses[0]?.postalCode && res?.business?.businessAddresses[0]?.city) {
             addedAddress = res?.business?.businessAddresses[0]?.postalCode + ", " + res?.business?.businessAddresses[0]?.city;
         }
 
-        if(res?.business?.description || res?.description) {
+        if (res?.business?.description || res?.description) {
             usedDescription = res?.business?.description ? addedAddress + res?.business?.description : addedAddress + res?.description
         } else {
             usedDescription = res?.name
         }
 
-        
+
 
         return {
             title: res.name,
@@ -86,7 +87,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     const currentUser = await getCurrentUserWithNotificationsAndFavourites();
 
-    
+
 
     const foundInserate = await db.query.inserat.findMany({
         where: (
@@ -101,27 +102,27 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
         }
     })
 
-  
+
 
 
     const thisUser = await db.query.userTable.findFirst({
         where: eq(userTable.id, pageOwnerId),
         with: {
-            contactOptions : {
-                with : {
-                    userAddress : true
+            contactOptions: {
+                with: {
+                    userAddress: true
                 }
             },
             business: {
                 with: {
                     businessAddresses: true,
                     businessImages: true,
-                    faqs : true,
+                    faqs: true,
                     openingTimes: true
                 }
             },
-            paymentMethods : true,
-            
+            paymentMethods: true,
+
         }
     })
 
@@ -129,12 +130,12 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     const thisBusinessImages = thisUser?.business?.businessImages.sort((a, b) => a.position - b.position)
 
-    
+
 
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
 
-    
+
 
 
 
@@ -157,13 +158,20 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                         foundNotifications={currentUser?.notifications}
                     />
                 </div>
-                <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full">
-                    <FeedbackModal 
-                    show={false}
-                    content="Informationen zum Feature.."
-                    feature="uRent Kriegswaffen"
+                <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full space-x-8">
+                    <FeedbackModal
+                        show={false}
+                        content="Informationen zum Feature.."
+                        feature="uRent Kriegswaffen"
                     />
-                    <div className="md:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
+
+<div className='h-screen xl:flex hidden items-center xl:w-2/12 '>
+                        <div className='w-full xl:block hidden '>
+                            <AdsComponent dataAdSlot='3797720061' />
+                        </div>
+                    </div>
+
+                    <div className="xl:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
                         <div className="min-h-screen">
                             {thisUser ? (
                                 <>
@@ -175,10 +183,10 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                                         Profilinformationen
                                                         {!ownProfile && (
                                                             <div className="ml-auto">
-                                                            <MessageButton 
-                                                            currentUserId={currentUser?.id}
-                                                            />
-                                                        </div>
+                                                                <MessageButton
+                                                                    currentUserId={currentUser?.id}
+                                                                />
+                                                            </div>
                                                         )}
                                                     </h3>
                                                 ) : (
@@ -237,26 +245,26 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             </div>
                                         )}
                                         <div>
-                                            
+
                                         </div>
                                     </div>
                                     {thisUser.isBusiness && (ownProfile || thisUser?.business.faqs.length > 0) && (
                                         <div className="sm:px-8">
-                                            <BusinessFaqs 
-                                            thisBusiness={thisUser.business}
-                                            ownProfile = {ownProfile}
+                                            <BusinessFaqs
+                                                thisBusiness={thisUser.business}
+                                                ownProfile={ownProfile}
                                             />
                                         </div>
                                     )}
-                                   
+
                                     <div>
-                                        
-                                    <OwnContentSlide
+
+                                        <OwnContentSlide
                                             foundInserate={foundInserate}
                                             currentUser={currentUser}
                                         />
                                     </div>
-                                    
+
 
 
                                 </>
@@ -269,7 +277,16 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             )}
                         </div>
                     </div>
+
+                    <div className='h-screen xl:flex hidden items-center xl:w-2/12 '>
+                        <div className='w-full xl:block hidden '>
+                            <AdsComponent dataAdSlot='3797720061' />
+                        </div>
+                    </div>
+
                 </div>
+
+
 
                 <div>
                     <Footer />

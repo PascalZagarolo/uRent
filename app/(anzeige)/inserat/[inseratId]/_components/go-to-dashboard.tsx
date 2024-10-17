@@ -19,7 +19,7 @@ const GoToDashboard: React.FC<GoToDashboardProps> = ({
 
     return (
         <div className="w-full">
-            <Button className="w-full bg-[#20222F] text-gray-200 border-none border-gray-900 hover:bg-[#20222F]"
+            <Button className="w-full bg-[#20222F]  text-gray-200 border-none border-gray-900 hover:bg-[#242635] shadow-lg"
             onClick={() => {
                 router.push(`/dashboard/${userId}`);
             }}

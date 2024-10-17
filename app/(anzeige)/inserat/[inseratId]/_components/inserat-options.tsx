@@ -235,7 +235,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     <DialogTrigger asChild>
                         <Button
                             variant="secondary"
-                            className="flex items-center justify-center w-full py-3  shadow-lg text-white rounded-lg transition ease-in-out">
+                            className="flex items-center justify-center w-full py-3  shadow-lg  rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold transition ease-in-out">
                             <Share className="mr-2 h-4 w-4" /> Teilen
                         </Button>
                     </DialogTrigger>

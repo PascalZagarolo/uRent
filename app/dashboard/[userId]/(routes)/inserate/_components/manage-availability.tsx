@@ -116,7 +116,7 @@ useEffect(() => {
     return (
         <Dialog>
 
-            <div className="dark:bg-[#0F0F0F] bg-gray-200 rounded-md w-full">
+            <div className="dark:bg-[#0F0F0F] bg-indigo-800 rounded-md w-full">
                 <DialogTrigger asChild className="w-full">
                     {!inseratPage ? (
                         <div className=" text-gray-700 dark:text-gray-200
@@ -124,7 +124,7 @@ useEffect(() => {
                             Verfügbarkeit ändern
                        </div>
                     ) : (
-                        <Button className=" w-full bg-amber-200 text-gray-900 border-none  hover:bg-amber-100">
+                        <Button className=" w-full bg-gray-200 text-gray-900 border-none font-semibold shadow-lg  hover:bg-gray-300">
                             <CalendarCheck2 className="w-4 h-4 mr-2"/>Verfügbarkeit ändern
                         </Button>
                     )}

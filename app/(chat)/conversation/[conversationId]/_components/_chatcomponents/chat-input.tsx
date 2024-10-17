@@ -57,7 +57,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 if (newLines >= MAX_LINES) {
                     e.preventDefault();  // Prevent adding more than the max lines
                 }
-            } else {
+            } else if(!isLoading) {
                 e.preventDefault();
                 // Only allow to submit if Enter is pressed without Shift, and if line limit isn't exceeded
                 form.handleSubmit(onSubmit)();

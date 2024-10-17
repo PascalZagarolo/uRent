@@ -107,8 +107,8 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                     </p>
                     {ownProfile && (
                         <div className="ml-auto">
-                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
-                                      dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" type="submit" onClick={onChange}
+                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-indigo-900 dark:text-gray-200 
+                                      dark:bg-indigo-800  mt-2" size="sm" type="submit" onClick={onChange}
                                 disabled={!currentContent || currentContent === user.business?.description || currentContent.trim() === ""}
                             >
                                 Beschreibung speichern

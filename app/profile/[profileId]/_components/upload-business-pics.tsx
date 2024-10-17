@@ -91,7 +91,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
             <div className="w-1/2 space-y-0.5">
                 {usedImages?.length > 1 ? (
-                    <div className="h-1/2 p-0.5 dark:bg-[#191919]">
+                    <div className="h-1/2 p-0.5 dark:bg-[#222222]">
                         <Image
                             alt="1. Bild"
                             width={1000}
@@ -101,8 +101,8 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                         />
                     </div>
                 ) : (
-                    <div className="h-1/2 p-8 dark:bg-[#191919]">
-                        {ownProfile ? (
+                    <div className="h-1/2 p-8 dark:bg-[#222222]">
+                        {ownProfile && (
                             <CldUploadButton
                                 onUpload={onUpload}
                                 uploadPreset="oblbw2xl"
@@ -113,17 +113,13 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                     weitere Bilder...
                                 </p>
                             </CldUploadButton>
-                        ) : (
-                            <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                               <ImageIcon className="w-4 h-4" />
-                            </p>
                         )}
                     </div>
                 )}
                 <>
 
                     {usedImages?.length > 2 ? (
-                        <div className="h-1/2 p-0.5 dark:bg-[#191919]">
+                        <div className="h-1/2 p-0.5 dark:bg-[#191919] shadow-lg">
                             <Image
                                 alt="1. Bild"
                                 width={1000}
@@ -134,8 +130,8 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
                         </div>
                     ) : (
-                        ownProfile ? (
-                            <div className="h-1/2 p-8 dark:bg-[#191919]">
+                        ownProfile && (
+                            <div className="h-1/2 p-8 dark:bg-[#222222] shadow-lg">
                                 <CldUploadButton
                                     onUpload={onUpload}
                                     uploadPreset="oblbw2xl"
@@ -147,15 +143,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                     </p>
                                 </CldUploadButton>
                             </div>
-                        ) : (
-                            <div className="h-1/2 p-8 dark:bg-[#191919] ">
-                                <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                                    <ImageIcon className="w-4 h-4" />
-                                </p>
-                            </div>
-                        )
-
-                    )}
+                        ))}
                     {(usedImages?.length > 0 && ownProfile)&& (
                         <div>
                             

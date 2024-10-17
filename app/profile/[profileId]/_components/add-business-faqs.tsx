@@ -13,11 +13,13 @@ import toast from "react-hot-toast";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
 interface AddBusinessFaqsProps {
-    businessId: string
+    businessId: string;
+    onChange : (newFaq : any) => void;
 }
 
 const AddBusinessFaqs: React.FC<AddBusinessFaqsProps> = ({
-    businessId
+    businessId,
+    onChange
 }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState('');
@@ -35,17 +37,14 @@ const AddBusinessFaqs: React.FC<AddBusinessFaqsProps> = ({
                 question: currentQuestion,
             }
 
-            await axios.post(`/api/business/${businessId}/faqs`, values)
-                .then(() => {
-                    router.refresh();
-                    toast.success("FAQS hinzugefügt");
-                    setCurrentQuestion('');
-                    setCurrentAnswer('');
-                })
+            const added = await axios.post(`/api/business/${businessId}/faqs`, values)
+            toast.success("FAQ hinzugefügt");
+            onChange(added.data);
+                
 
         } catch (error: any) {
             toast.error("Fehler beim absenden der Daten");
-
+            
         } finally {
             setIsLoading(false);
         }
@@ -56,7 +55,7 @@ const AddBusinessFaqs: React.FC<AddBusinessFaqsProps> = ({
         <Dialog>
 
             <DialogTrigger asChild>
-                <Button className="text-sm dark:bg-[#1c1c1c] dark:hover:bg-[#171717] dark:text-gray-200">
+                <Button className="text-sm dark:bg-[#1c1c1c] dark:hover:bg-[#171717] dark:text-gray-200 shadow-lg">
                     <MdFormatListBulletedAdd className="w-4 h-4 mr-2" />  FAQS hinzufügen
                 </Button>
             </DialogTrigger>

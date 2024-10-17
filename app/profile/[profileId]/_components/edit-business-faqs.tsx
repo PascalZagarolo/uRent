@@ -17,11 +17,13 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 interface EditBusinessFaqsProps {
     thisFaq : typeof businessFaqs.$inferSelect;
     businessId : string;
+    onChange : (updatedFaq : typeof businessFaqs.$inferSelect) => void;
 }
 
 const EditBusinessFaqs : React.FC<EditBusinessFaqsProps> = ({
     thisFaq,
-    businessId
+    businessId,
+    onChange
 }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(thisFaq.question);
@@ -38,12 +40,8 @@ const EditBusinessFaqs : React.FC<EditBusinessFaqsProps> = ({
                 answer : currentAnswer,
                 question : currentQuestion,
             }
-            await axios.patch(`/api/businessfaq/${thisFaq?.id}/edit`, values)
-                .then(() => {
-                    router.refresh();
-                    toast.success("FAQS gespeichert");
-                    
-                })
+            const edited = await axios.patch(`/api/businessfaq/${thisFaq?.id}/edit`, values)
+            onChange(edited.data);
         } catch(error : any) {
             toast.error("Fehler beim absenden der Daten");
             console.log(error);

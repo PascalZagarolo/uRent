@@ -8,9 +8,9 @@ import OwnContentSlide from "./_components/own-content-slide";
 import MobileHeader from "@/app/(dashboard)/_components/mobile-header";
 import db from "@/db/drizzle";
 import { and, eq, sql } from "drizzle-orm";
-import { businessImages, contactOptions, inserat, notification,  paymentMethods,  userTable } from "@/db/schema";
+import {  inserat, userTable } from "@/db/schema";
 import RegisterBusiness from "./_components/register-business";
-import { FaBuilding, FaKey } from "react-icons/fa6";
+import { FaKey } from "react-icons/fa6";
 import Openhours from "./_components/openhours";
 import MessageButton from "./_components/message-button";
 
@@ -18,11 +18,10 @@ import { Metadata, ResolvingMetadata } from "next";
 import AddImpressum from "./_components/add-impressum";
 import { FaCarCrash } from "react-icons/fa";
 import Footer from "@/app/(dashboard)/_components/footer";
-import ChangeAccountType from "./_components/change-account-type";
-import getCurrentUserWithFavourites from "@/actions/getCurrentUserWithFavourites";
+
 import BusinessFaqs from "./_components/business-faqs";
 import getCurrentUserWithNotificationsAndFavourites from "@/actions/getCurrentUserWithNotificationsAndFavourites";
-import { userAddress } from '../../../db/schema';
+
 import FeedbackModal from "@/components/feedback-modal";
 import PaymentMethods from "./_components/payment-methods";
 

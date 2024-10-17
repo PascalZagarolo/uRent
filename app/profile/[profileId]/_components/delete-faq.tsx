@@ -11,24 +11,25 @@ import toast from "react-hot-toast";
 
 interface DeleteFaqProps {
     faqId : string
+    deleteFaq: (deletedFaq) => void
 }
 
 const DeleteFaq : React.FC<DeleteFaqProps> = ({
-    faqId  
+    faqId,
+    deleteFaq  
 }) => {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const router = useRouter();
+    
 
     const onDelete = async () => {
         try {
             setIsLoading(true)
-            await axios.delete(`/api/businessfaq/${faqId}/delete`)
-                .then(() => {
-                    router.refresh();
-                    toast.success("Frage gelöscht")
-                })
+            const deleted = await axios.delete(`/api/businessfaq/${faqId}/delete`);
+            deleteFaq(deleted.data);
+            toast.success("Frage gelöscht")
+                
         } catch (e : any) {
             
         } finally {
@@ -52,7 +53,7 @@ const DeleteFaq : React.FC<DeleteFaqProps> = ({
                         </p>
                     </div>
                     <div className="mt-2 flex justify-end">
-                        <AlertDialogAction className="dark:bg-rose-800 hover:bg-rose-900 text-gray-200 hover:text-gray-200">
+                        <AlertDialogAction className="dark:bg-rose-800 hover:bg-rose-900 text-gray-200 hover:text-gray-200" onClick={onDelete} disabled={isLoading}>
                             Löschen
                         </AlertDialogAction>
                         <AlertDialogCancel className="dark:border-none">

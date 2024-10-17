@@ -9,7 +9,7 @@ import { EmailShareButton, FacebookShareButton, TwitterShareButton } from "react
 
 import axios from "axios";
 import {
-    CopyIcon, FacebookIcon, Forward, Lightbulb, Mail, Send, Share, Star,
+    CopyIcon, FacebookIcon, Forward, Lightbulb, Mail, Send, Share, Share2Icon, Star,
     StarIcon,
     ThumbsUp, TwitterIcon
 } from "lucide-react";
@@ -146,9 +146,12 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     return (
         <div className="w-full rounded-lg bg-[#161923] p-6 shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-between mb-4">
-                <div className="flex items-baseline space-x-2">
+                <div className="flex  space-x-1">
                     <span className="text-4xl font-bold text-white">{usedPrice.slice(0, -3)}</span>
-                    <span className="text-lg font-medium text-gray-400">€ / Tag</span>
+                    <span className="font-semibold text-gray-200">
+                        {usedPrice.slice(-2)}€
+                    </span>
+                    <span className="text-lg font-medium text-gray-200 mt-3">/ Tag</span>
                 </div>
                 
             </div>
@@ -239,37 +242,46 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                             <Share className="mr-2 h-4 w-4" /> Teilen
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-gray-900 p-6 rounded-lg shadow-xl">
+                    <DialogContent className="bg-[#191919] border-none shadow-xl">
                         <div className="text-lg font-semibold text-white flex items-center">
-                            <Forward className="mr-2 h-5 w-5" /> Anzeige teilen
+                            <Share2Icon className="w-4 h-4 mr-2" /> Anzeige teilen
                         </div>
                         <div className="mt-4 space-y-4">
-                            <p className="text-gray-300 font-medium">Soziale Netzwerke :</p>
+                            <p className="text-gray-200 text-lg font-semibold">Teilen auf</p>
                             <div className="flex justify-evenly space-x-4">
-                                <FacebookShareButton url={currentUrl} hashtag="#Urent">
-                                    <FacebookIcon size={32} className="text-white" />
+                                <FacebookShareButton url={currentUrl} hashtag="#Urent" >
+                                    <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
+                                    <FacebookIcon size={24} className="text-white" />
+                                    </div>
                                 </FacebookShareButton>
                                 <TwitterShareButton
+                                className="p-2 bg-[#202020] rounded-md shadow-xl"
                                     title="Dieses Produkt habe ich auf Urent gefunden, Wow!"
                                     hashtags={["Urent", "Mietwagen", "Autovermietung", "Inserat"]}
                                     url={currentUrl}>
-                                    <TwitterIcon size={32} className="text-white" />
+                                        <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
+                                    <TwitterIcon size={24} className="text-white" />
+                                    </div>
                                 </TwitterShareButton>
                                 <EmailShareButton
+                                className="p-2 bg-[#202020] rounded-md shadow-xl"
                                     url={currentUrl}
                                     subject="Dieses Produkt habe ich auf Urent gefunden, Wow!"
                                     body="Hallo, ich habe dieses Produkt auf Urent gefunden und wollte es dir zeigen.">
-                                    <Mail size={32} className="text-white" />
+                                        <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
+                                    <Mail size={24} className="text-white" />
+                                    </div>
                                 </EmailShareButton>
                             </div>
-                            <div className="flex items-center mt-4">
+                            <div className="flex items-center mt-4 space-x-2">
+                            <CopyIcon className="ml-2 text-white hover:cursor-pointer w-4 h-4" onClick={() => copyToClipboard(currentUrl)} />
                                 <Input
-                                    className="w-full bg-gray-800 text-white border-none rounded-lg px-4 py-2"
+                                    className="w-full  text-white border-none bg-[#202020]"
                                     value={currentUrl}
                                     readOnly
                                     onClick={() => copyToClipboard(currentUrl)}
                                 />
-                                <CopyIcon className="ml-2 text-white hover:cursor-pointer" onClick={() => copyToClipboard(currentUrl)} />
+                                
                             </div>
                         </div>
                     </DialogContent>

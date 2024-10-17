@@ -157,7 +157,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
     return (
         <div>
-            <div className=" no-scrollbar w-[280px] rounded-md hidden xl:block bg-[#202336]  sm:overflow-auto    ">
+            <div className=" no-scrollbar w-[280px] rounded-md hidden lg:block bg-[#202336]  sm:overflow-auto    ">
             <h3 className="text-bold text-2xl p-4 font-medium  flex justify-center text-gray-100 items-center  bg-[#1b1e2c]">
                 <FilterIcon className="mr-4" /> Suchfilter
             </h3>

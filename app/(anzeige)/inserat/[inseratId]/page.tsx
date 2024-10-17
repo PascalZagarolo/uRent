@@ -191,13 +191,13 @@ const InseratAnzeige = async ({
                 </div>
                 <div className="h-full w-full">
                     <div className='flex flex-row justify-center w-full mt-8'>
-                        <div className='h-screen sm:flex hidden items-center w-2/12 '>
-                            <div className='w-full sm:block hidden '>
+                        <div className='h-screen xl:flex hidden items-center w-2/12 '>
+                            <div className='w-full xl:block hidden '>
                                 <AdsComponent dataAdSlot='3797720061' />
                             </div>
                         </div>
                         {/* Inserat side left */}
-                        <div className='flex flex-row justify-center w-6/12 space-x-4'>
+                        <div className='flex flex-row justify-center 3xl:w-6/12 w-full space-x-4'>
                             <div className='w-7/12  flex flex-col '>
                                 <div>
                                     <BreadCrumbs
@@ -246,8 +246,8 @@ const InseratAnzeige = async ({
                             </div>
                         </div>
 
-                        <div className='h-screen sm:flex hidden items-center w-2/12 '>
-                            <div className='w-full sm:block hidden '>
+                        <div className='h-screen xl:flex hidden items-center w-2/12 '>
+                            <div className='w-full xl:block hidden '>
                                 <AdsComponent dataAdSlot='3797720061' />
                             </div>
                         </div>

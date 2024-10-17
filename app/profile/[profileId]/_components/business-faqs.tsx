@@ -65,7 +65,7 @@ const BusinessFaqs: React.FC<BusinessFaqsProps> = ({
                             </div>
                         )}
                         <AccordionTrigger
-                            className="dark:bg-[#1c1c1c] shadow-lg p-4 text-sm font-semibold">
+                            className="dark:bg-[#1c1c1c]  p-4 text-sm font-semibold">
                             <div className="flex items-center gap-x-2">
                                 <MdOutlineQuestionAnswer className="w-4 h-4 mr-2" />
                             </div>{faq.question}</AccordionTrigger>

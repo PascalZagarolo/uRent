@@ -134,7 +134,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
     const ownProfile = currentUser?.id === thisUser?.id ? true : false;
 
 
-    console.log(thisUser.paymentMethods)
+    
 
 
 
@@ -219,7 +219,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                                 />
                                             </div>
                                         )}
-                                        {thisUser.isBusiness && (
+                                        {/* {thisUser.isBusiness && (
                                             <div className="sm:px-4">
                                                 <PaymentMethods
                                                 thisPaymentMethods={thisUser.paymentMethods}
@@ -227,7 +227,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                                 isOwn={ownProfile}
                                                 />
                                             </div>
-                                        )}
+                                        )} */}
                                         {thisUser.isBusiness && (
                                             <div className="sm:px-4">
                                                 <AddImpressum

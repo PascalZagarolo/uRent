@@ -138,7 +138,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     return (
         <Dialog>
             <div>
-                <div className="dark:bg-[#191919] p-4 rounded-t-md">
+                <div className="dark:bg-[#222222] p-4 rounded-t-md shadow-lg">
                     <h1 className="text-md font-semibold sm:flex items-center">
                         <div className="flex items-center">
                             <BiLandscape className="w-4 h-4 mr-2" />  Standort
@@ -146,7 +146,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                         {ownProfile && (
                             <div className="sm:ml-auto w-full flex sm:justify-end justify-center">
                                 <DialogTrigger asChild>
-                                    <Button className="text-xs hover:underline" variant="ghost" size="sm">
+                                    <Button className="text-xs hover:underline bg-indigo-800 hover:bg-indigo-900" variant="ghost" size="sm">
                                         <PlusSquareIcon className="w-4 h-4 mr-2" />   Standort hinzufügen
                                     </Button>
                                 </DialogTrigger>

@@ -22,7 +22,7 @@ const BusinessFaqs: React.FC<BusinessFaqsProps> = ({
     const [renderedFaqs, setRenderedFaqs] = useState(thisBusiness?.faqs)
 
     return (
-        <div className="dark:bg-[#191919] shadow-lg">
+        <div className="dark:bg-[#222222] shadow-lg">
             <div className="p-4">
                 <h3 className="w-full text-md font-semibold flex items-center">
                     <FaQuestionCircle className="w-4 h-4 mr-2" />  FAQS
@@ -37,10 +37,10 @@ const BusinessFaqs: React.FC<BusinessFaqsProps> = ({
                 </h3>
             </div>
             {thisBusiness?.faqs?.length > 0 && (
-                <Accordion type="single" collapsible className="p-4 ">
+                <Accordion type="single" collapsible className="p-4 space-y-4">
 
                 {renderedFaqs?.map((faq, index) => (
-                    <AccordionItem value={`${index}`} className="border-none" key={index}>
+                    <AccordionItem value={`${index}`} className="border-none shadow-lg" key={index}>
                         {ownProfile && (
                             <div className="ml-auto w-full flex justify-end p-2 gap-x-2">
                                 <div className="">

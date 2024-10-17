@@ -167,7 +167,7 @@ const Standort: React.FC<StandortProps> = ({
     return (
         <Dialog>
             <AlertDialog>
-                <div className={cn("dark:bg-[#191919] mt-4 rounded-t-md", thisStandort.isPrimary && "border-rose-800 border-2")}>
+                <div className={cn("dark:bg-[#222222] mt-4 rounded-t-md shadow-lg")}>
                     <div className="sm:flex p-2  items-center" >
                         <div >
                             

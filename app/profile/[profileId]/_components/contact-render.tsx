@@ -15,7 +15,7 @@ const ContactRender : React.FC<ContactRenderProps> = ({
     ownProfile
 }) => {
     return (
-        <div className="p-4 dark:bg-[#191919] rounded-md">
+        <div className="p-4 dark:bg-[#222222] shadow-lg rounded-md">
             <h1 className="font-semibold sm:flex items-center">
                 Kontakt
                 {ownProfile && (

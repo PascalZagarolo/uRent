@@ -87,7 +87,7 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-2 ">
 
-            <div className="  p-4  bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
+            <div className="  p-4  bg-white dark:bg-[#222222] shadow-lg rounded-md dark:border-[#191919] border border-gray-200    
                      w-full">
                 <div className=" flex items-center" >
 
@@ -96,8 +96,8 @@ const AddImpressum: React.FC<ProfileDescriptionProps> = ({
                     </p>
                     {ownProfile && (
                         <div className="ml-auto">
-                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-[#272626] dark:text-gray-200 
-                                      dark:bg-[#171717] hover:bg-gray-100 mt-2" size="sm" onClick={onChange}
+                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-indigo-900 dark:text-gray-200 
+                                      dark:bg-indigo-800 hover:bg-gray-100 mt-2" size="sm" onClick={onChange}
                                 disabled={!currentContent || currentContent === user.business?.impressum || currentContent.trim() === ""}
                             >
                                 Impressum speichern

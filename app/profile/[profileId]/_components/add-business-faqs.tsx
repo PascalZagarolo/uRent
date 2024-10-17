@@ -55,7 +55,7 @@ const AddBusinessFaqs: React.FC<AddBusinessFaqsProps> = ({
         <Dialog>
 
             <DialogTrigger asChild>
-                <Button className="text-sm dark:bg-[#1c1c1c] dark:hover:bg-[#171717] dark:text-gray-200 shadow-lg">
+                <Button className="text-sm dark:bg-indigo-800 dark:hover:bg-indigo-900 dark:text-gray-200 shadow-lg">
                     <MdFormatListBulletedAdd className="w-4 h-4 mr-2" />  FAQS hinzufügen
                 </Button>
             </DialogTrigger>

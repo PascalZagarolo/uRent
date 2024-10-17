@@ -98,12 +98,12 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-2 ">
 
-            <div className="p-4 bg-white dark:bg-[#191919] rounded-md dark:border-[#191919] border border-gray-200    
+            <div className="p-4  rounded-md  bg-[#222222] shadow-lg   
                      w-full">
                 <div className=" flex items-center" >
 
                     <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
-                        Beschreibung
+                       über {user?.name}
                     </p>
                     {ownProfile && (
                         <div className="ml-auto">

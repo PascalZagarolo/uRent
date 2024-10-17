@@ -14,10 +14,10 @@ const Openhours : React.FC<OpenhoursProps> = ({
     ownProfile
 }) => {
     return (
-        <div className="dark:bg-[#191919] p-4">
+        <div className="dark:bg-[#222222] shadow-lg p-4">
             <div>
                 <h1 className="font-medium flex items-center">
-                    <CalendarIcon className="w-4 h-4 mr-2" /> Öffnungszeiten
+                    Öffnungszeiten
                     {ownProfile && (
                         <div className="ml-auto">
                         <EditOpenhours 

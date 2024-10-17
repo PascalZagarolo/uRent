@@ -94,8 +94,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = async (value: z.infer<typeof formSchema>) => {
+    const onSubmit = async () => {
         try {
+            setIsLoading(true);
             const values = {
                 content: currentValue,
                 otherUser: otherUser,
@@ -149,7 +150,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 <div className="ml-2">
                     <Button
                         className="bg-white hover:bg-gray-100 dark:bg-[#0F0F0F] dark:hover:bg-[#151515]"
-                        disabled={currentValue.trim() === ""}
+                        disabled={currentValue.trim() === "" || isLoading}
                         onClick={form.handleSubmit(onSubmit)}
                     >
                         <Send className="text-black dark:text-gray-100" />

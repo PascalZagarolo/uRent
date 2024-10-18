@@ -31,9 +31,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
     const renderedPicture = thisInserat?.images.sort((a, b) => a.position - b.position)[0]?.url;
 
-    const onEdit = () => {
-        router.push(`/inserat/create/${thisInserat.id}?sectionId=1`);
-    }
+   
 
     const onDelete = () => {
         try {
@@ -164,7 +162,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     
                     
                     >
-                        <a href={`/inserat/create/${thisInserat.id}`} className="flex items-center" > <Edit3 className="w-4 h-4 xl:mr-2" /> <div className="xl:flex hidden"> Inserat bearbeiten</div> </a>
+                        <a href={`/inserat/create/${thisInserat.id}?sectionId=1`} className="flex items-center" > <Edit3 className="w-4 h-4 xl:mr-2" /> <div className="xl:flex hidden"> Inserat bearbeiten</div> </a>
                     </Button>
                     <Dialog>
                         <DialogTrigger asChild>

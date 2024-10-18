@@ -47,13 +47,11 @@ export async function generateMetadata({ params }: Props,
 
         const res = await findInserat.execute();
 
-        const usedAddress = res?.address?.locationString ? res?.address?.locationString + ", " : ""
-
-
+        
         return {
-            title: res.title,
+            title: res.title + "in",
             openGraph: {
-                description: res?.address?.locationString + " " + res?.description,
+                description: res?.address?.locationString + ", " + res?.description,
             },
         }
     } catch (error) {

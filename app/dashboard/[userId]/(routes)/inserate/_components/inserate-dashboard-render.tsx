@@ -32,7 +32,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     const renderedPicture = thisInserat?.images.sort((a, b) => a.position - b.position)[0]?.url;
 
     const onEdit = () => {
-        router.push(`/inserat/create/${thisInserat.id}`);
+        router.push(`/inserat/create/${thisInserat.id}?sectionId=1`);
     }
 
     const onDelete = () => {

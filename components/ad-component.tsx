@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react';
-import AdSense from 'react-adsense';
+
 const AdsComponent = (props?: any) => {
 
 

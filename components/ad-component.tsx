@@ -4,31 +4,39 @@ import React, { useEffect } from 'react';
 import AdSense from 'react-adsense';
 const AdsComponent = (props?: any) => {
 
-    // useEffect(() => {
-    //     try {
-    //         //@ts-ignore
-    //         (window.adsbygoogle = window?.adsbygoogle || []).push({});
-    //     }
+    useEffect(() => {
+        try {
+            //@ts-ignore
+            (window.adsbygoogle = window?.adsbygoogle || []).push({});
+        }
 
-    //     catch (e) {
-    //         console.log(e)
-    //     }
-    // }, []);
+        catch (e) {
+            console.log(e)
+        }
+    }, []);
 
-    return (
+    try {
+        return (
 
-        <>
-            {/* <AdSense.Google
-                client='ca-pub-9497499351411762'
-                slot='3797720061'
-                style={{ display: 'block' }}
-                format='auto'
-                responsive='true'
-                layoutKey='-gw-1+2a-9x+5c'
-            /> */}
-        </>
-
-    );
+            <>
+               <AdSense.Google
+                    client='ca-pub-9497499351411762'
+                    slot='3797720061'
+                    style={{ display: 'block' }}
+                    format='auto'
+                    responsive='true'
+    
+                /> 
+            </>
+    
+        );
+    } catch(e : any) {
+        console.log(e);
+        return (
+            <>
+            </>
+        )
+    }
     
 };
 

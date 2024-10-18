@@ -2,13 +2,12 @@
 
 import React, { useEffect } from 'react';
 import AdSense from 'react-adsense';
-const AdsComponent = (props: any) => {
-    const { dataAdSlot } = props;
+const AdsComponent = () => {
+
 
 
 
     useEffect(() => {
-
         try {
             //@ts-ignore
             (window.adsbygoogle = window?.adsbygoogle || []).push({});
@@ -17,7 +16,6 @@ const AdsComponent = (props: any) => {
         catch (e) {
             console.log(e)
         }
-
     }, []);
 
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import AdSense from 'react-adsense';
-const AdsComponent = () => {
+const AdsComponent = (props? : any) => {
 
     // useEffect(() => {
     //     try {

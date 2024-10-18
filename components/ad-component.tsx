@@ -4,34 +4,41 @@ import React, { useEffect } from 'react';
 import AdSense from 'react-adsense';
 const AdsComponent = (props?: any) => {
 
-    
+
 
     try {
 
-        
+        useEffect(() => {
+            try {
+                //@ts-ignore
+                (window.adsbygoogle = window?.adsbygoogle || [])?.push({});
+            }
+
+            catch (e) {
+            }
+        }, []);
 
         return (
 
             <>
-               <AdSense
-                    client='ca-pub-9497499351411762'
-                    slot='3797720061'
-                    style={{ display: 'block' }}
-                    format='auto'
-                    responsive='true'
-    
-                /> 
+                <ins className="adsbygoogle"
+                    style={{ display: "block", height: "100vh" }}
+                    data-ad-client="ca-pub-9497499351411762"
+                    data-ad-slot="3797720061"
+                    data-ad-format="auto"
+                    data-full-height-responsive="true"
+                    data-full-width-responsive="true"></ins>
             </>
-    
+
         );
-    } catch(e : any) {
+    } catch (e: any) {
         console.log(e);
         return (
             <>
             </>
         )
     }
-    
+
 };
 
 export default AdsComponent;

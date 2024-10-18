@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import AdSense from 'react-adsense';
-const AdsComponent = (props? : any) => {
+const AdsComponent = (props?: any) => {
 
     // useEffect(() => {
     //     try {
@@ -15,20 +15,21 @@ const AdsComponent = (props? : any) => {
     //     }
     // }, []);
 
-
-
     return (
-       
-            <AdSense.Google
+
+        <>
+            {/* <AdSense.Google
                 client='ca-pub-9497499351411762'
                 slot='3797720061'
                 style={{ display: 'block' }}
                 format='auto'
                 responsive='true'
                 layoutKey='-gw-1+2a-9x+5c'
-            />
-        
+            /> */}
+        </>
+
     );
+    
 };
 
 export default AdsComponent;

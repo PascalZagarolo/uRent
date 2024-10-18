@@ -11,7 +11,7 @@ const AdsComponent = (props?: any) => {
         useEffect(() => {
             try {
                 //@ts-ignore
-                (window.adsbygoogle = window?.adsbygoogle || []).push({});
+                (window.adsbygoogle = window?.adsbygoogle || [])?.push({});
             }
     
             catch (e) {

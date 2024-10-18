@@ -100,6 +100,7 @@
     "pusher-js": "^8.4.0-rc2",
     "query-string": "^8.1.0",
     "react": "^18",
+    "react-adsense": "^0.1.0",
     "react-cool-onclickoutside": "^1.7.0",
     "react-day-picker": "^8.10.0",
     "react-dom": "^18",

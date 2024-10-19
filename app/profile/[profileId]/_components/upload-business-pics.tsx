@@ -59,13 +59,13 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
         <div className="w-full flex gap-0.5">
 
             {usedImages?.length > 0 ? (
-                <div className="w-1/2 p-0.5 h-full dark:bg-[#191919] rounded-md">
+                <div className="w-full p-0.5 h-full dark:bg-[#191919] rounded-md ">
                     <Image
                         alt="1. Bild"
                         width={1000}
                         height={1000}
                         src={rightImages[0]?.url}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover shadow-lg rounded-md"
                     />
                 </div>
             ) : (
@@ -89,74 +89,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 </div>
             )}
 
-            <div className="w-1/2 space-y-0.5">
-                {usedImages?.length > 1 ? (
-                    <div className="h-1/2 p-0.5 dark:bg-[#222222]">
-                        <Image
-                            alt="1. Bild"
-                            width={1000}
-                            height={1000}
-                            src={rightImages[1]?.url}
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                ) : (
-                    <div className="h-1/2 p-8 dark:bg-[#222222]">
-                        {ownProfile && (
-                            <CldUploadButton
-                                onUpload={onUpload}
-                                uploadPreset="oblbw2xl"
-                                options={{ maxFiles: 1 }}
-                                className="w-full h-full"
-                            >
-                                <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                                    weitere Bilder...
-                                </p>
-                            </CldUploadButton>
-                        )}
-                    </div>
-                )}
-                <>
-
-                    {usedImages?.length > 2 ? (
-                        <div className="h-1/2 p-0.5 dark:bg-[#191919] shadow-lg">
-                            <Image
-                                alt="1. Bild"
-                                width={1000}
-                                height={1000}
-                                src={rightImages[2]?.url}
-                                className="w-full h-full object-cover"
-                            />
-
-                        </div>
-                    ) : (
-                        ownProfile && (
-                            <div className="h-1/2 p-8 dark:bg-[#222222] shadow-lg">
-                                <CldUploadButton
-                                    onUpload={onUpload}
-                                    uploadPreset="oblbw2xl"
-                                    options={{ maxFiles: 1 }}
-                                    className="w-full h-full"
-                                >
-                                    <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                                        weitere Bilder...
-                                    </p>
-                                </CldUploadButton>
-                            </div>
-                        ))}
-                    {(usedImages?.length > 0 && ownProfile)&& (
-                        <div>
-                            
-                            <div className="w-full ml-auto flex justify-end">
-                            <EditBusinessPics 
-                            usedImages={rightImages}
-                            businessId={businessId}
-                            />
-                        </div>
-                        </div>
-                    )}
-                </>
-            </div>
+            
 
         </div>
     );

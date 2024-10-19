@@ -53,7 +53,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     return (
         <div className="sm:px-4 px-0">
 
-            <div className="mt-4 mb-4">
+            <div className="">
                 {isOwnProfile && !user.confirmedMail && (
                     <NotVerifiedYet
                         email={user.email}
@@ -61,22 +61,34 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     />
                 )}
             </div>
-            <div className="sm:flex w-full  ">
+            {user.isBusiness && (
+                    <div className=" w-full flex justify-end h-[240px] gap-x-2">
+                        <UploadBusinessPics
+                            usedImages={thisImages}
+                            businessId={user?.business?.id}
+                            ownProfile={ownProfile}
+                        />
+
+                    </div>
+                )}
+            <div className="sm:flex w-full mt-4">
+                
                 <div className="flex rounded-md w-full pb-8 sm:pb-0 sm:w-2/5">
                     <div className="w-full sm:px-0 px-4">
+
                         <div className=" dark:text-gray-100 w-full">
                             <div className="w-full text-lg  font-semibold line-clamp-1 whitespace-break-spaces break-all">
                                 {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}
                             </div>
                             {(user.sharesRealName && (user.vorname || user.nachname)) && (
                                 <div className="text-sm w-full line-clamp-1 whitespace-break-spaces break-all font-normal">
-                                {user.vorname} {user.nachname}
-                              </div>
+                                    {user.vorname} {user.nachname}
+                                </div>
                             )}
                             {user.sharesEmail && (
                                 <div className="text-sm w-full line-clamp-1 whitespace-break-spaces break-all font-normal">
-                                {user.email}
-                              </div>
+                                    {user.email}
+                                </div>
                             )}
                         </div>
                         <div className="flex mt-4">
@@ -85,9 +97,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                             />
                             <div className="items-center ml-8">
                                 {ownProfile && (
-                                    <UploadProfilePic 
-                                    existingImageUrl={user.image}
-                                    userId={user.id}
+                                    <UploadProfilePic
+                                        existingImageUrl={user.image}
+                                        userId={user.id}
                                     />
                                 )}
                                 <div className="text-gray-900 text-sm mt-2 font-semibold flex dark:text-gray-300">
@@ -98,28 +110,19 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                     </div>
 
                 </div>
-                {user.isBusiness && (
-                    <div className="sm:w-3/5 w-full flex justify-end h-[240px] gap-x-2">
-                        <UploadBusinessPics
-                            usedImages={thisImages}
-                            businessId={user?.business?.id}
-                            ownProfile={ownProfile}
-                        />
-                        
-                    </div>
-                )}
+
 
             </div>
             {user.isBusiness ? (
-           
-                    
-                    <div className="mt-16">
-                        <BusinessDescription
-                            ownProfile={ownProfile}
-                            user={user}
-                        />
-                    </div>
-              
+
+
+                <div className="mt-16">
+                    <BusinessDescription
+                        ownProfile={ownProfile}
+                        user={user}
+                    />
+                </div>
+
             ) : (
 
                 <>

@@ -200,17 +200,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                         {(ownProfile && !thisUser.isBusiness) && (
                                             <RegisterBusiness />
                                         )}
-                                        <div className="mt-4 items-center p-2">
-                                            {thisUser.isBusiness ? (
-                                                <h1 className="text-lg font-semibold flex items-center">
-                                                    <FaKey className="w-4 h-4 mr-2" />Vermieterdetails
-                                                </h1>
-                                            ) : (
-                                                <h1 className="text-lg font-semibold flex">
-                                                    <Contact2Icon className="mr-2" />Profildetails
-                                                </h1>
-                                            )}
-                                        </div>
+                                        
 
                                         <ProfileHeader
                                             user={thisUser}

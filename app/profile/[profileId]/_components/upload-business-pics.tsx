@@ -58,9 +58,16 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     return (
         <div>
             {usedImages.length > 0 && (
-                <div>
-                    <img src={usedImages[0].url}  alt="" className="w-full shadow-lg object-cover h-[240px]" />
-                </div>
+                <div className="w-full h-[240px] relative overflow-hidden">
+                <Image
+                  src={usedImages[0].url}
+                  quality={100}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  className="shadow-lg"
+                  alt="Shitty Image Component i hate next/image"
+                />
+              </div>
             )}
         </div>
     );

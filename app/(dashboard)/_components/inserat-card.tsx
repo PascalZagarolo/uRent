@@ -122,11 +122,17 @@ const InseratCard: React.FC<InseratCardProps> = ({
     const onFav = async () => {
         try {
             setIsLoading(true);
-            await axios.patch(`/api/profile/${profileId}/favourites`, { inseratId: thisInserat.id })
+
+            if(currentUser) {
+                await axios.patch(`/api/profile/${profileId}/favourites`, { inseratId: thisInserat.id })
                 .then(() => {
                     router.refresh();
                     toast.success("Anzeige zu Favouriten hinzugefügt")
                 })
+            } else {
+                router.push("/login")
+            }
+            
 
 
         } catch {
@@ -144,19 +150,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
         router.push(`/inserat/${thisInserat.id}`)
     }
 
-    const getAddressCity = (address: string): string => {
-        const addressParts = address.split(', ');
-
-        const checkString = addressParts[addressParts.length - 2];
-
-        if (checkString === "" || checkString === " " || !checkString) {
-            return addressParts[addressParts.length - 1]
-        } else {
-            return addressParts[addressParts.length - 2]
-        }
-
-
-    };
+    
 
 
     const usedCategory: typeof CategoryEnumRender = thisInserat.category;

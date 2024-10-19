@@ -62,7 +62,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                 )}
             </div>
             {user.isBusiness && (
-                    <div className=" w-full flex justify-end h-[240px] gap-x-2">
+                    <div className="w-full h-full">
                         <UploadBusinessPics
                             usedImages={thisImages}
                             businessId={user?.business?.id}

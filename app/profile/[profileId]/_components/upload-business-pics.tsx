@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import EditBusinessPics from "./edit-business-pics";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, Trash2Icon } from "lucide-react";
 
 interface UploadBusinessPicsProps {
     usedImages: typeof businessImages.$inferSelect[];
@@ -56,41 +56,12 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
 
     return (
-        <div className="w-full flex gap-0.5">
-
-            {usedImages?.length > 0 ? (
-                <div className="w-full p-0.5 h-full dark:bg-[#191919] rounded-md ">
-                    <Image
-                        alt="1. Bild"
-                        width={1000}
-                        height={1000}
-                        src={rightImages[0]?.url}
-                        className="w-full h-full object-cover shadow-lg rounded-md"
-                    />
-                </div>
-            ) : (
-                <div className="w-1/2 p-8 h-full dark:bg-[#191919] rounded-md">
-                    {ownProfile ? (
-                        <CldUploadButton
-                            onUpload={onUpload}
-                            uploadPreset="oblbw2xl"
-                            options={{ maxFiles: 1 }}
-                            className="w-full h-full"
-                        >
-                            <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                                Lade Bilder von deiner Vermietung hoch..
-                            </p>
-                        </CldUploadButton>
-                    ) : (
-                        <p className="w-full h-full items-center flex justify-center text-sm dark:text-gray-200/70">
-                            Noch keine Bilder hinzugefügt..
-                        </p>
-                    )}
+        <div>
+            {usedImages.length > 0 && (
+                <div>
+                    <img src={usedImages[0].url}  alt="" className="w-full shadow-lg object-cover h-[240px]" />
                 </div>
             )}
-
-            
-
         </div>
     );
 }

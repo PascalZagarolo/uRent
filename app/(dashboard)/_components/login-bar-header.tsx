@@ -29,7 +29,7 @@ const LoginBarHeader : React.FC<LoginBarHeaderProps> = ({
             </div>
             <Button variant="ghost"  className="outline outline-offset-1 outline-1 mr-4 bg-white 
              border-2 border-gray-300
-            dark:bg-slate-800 dark:border-none  dark:hover:bg-slate-700 dark:outline-none
+            dark:bg-slate-800 dark:border-none shadow-lg  dark:hover:bg-slate-700 dark:outline-none
             " asChild>
                 <Link href="/login">
                     Anmelden
@@ -37,7 +37,7 @@ const LoginBarHeader : React.FC<LoginBarHeaderProps> = ({
             </Button>
             <p className="text-gray-200 font-bold hidden 2xl:flex"> oder </p>
             <Button variant="ghost"  className=" 2xl:flex hidden outline outline-offset-1 outline-1 ml-4 bg-white 
-            drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] border-2 border-gray-300
+            shadow-lg border-2 border-gray-300
             dark:bg-slate-800 dark:border-none dark:hover:bg-slate-700 dark:outline-none
             ">
                 <Link href="/login">

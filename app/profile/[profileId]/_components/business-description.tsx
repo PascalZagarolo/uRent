@@ -140,7 +140,7 @@ const BusinessDescription: React.FC<ProfileDescriptionProps> = ({
                                             </FormControl>
                                             <FormMessage />
                                             <div className="ml-auto flex justify-end">
-                                                <LetterRestriction limit={5000} currentLength={currentContent.length} />
+                                                <LetterRestriction limit={5000} currentLength={currentContent?.length} />
                                             </div>
                                         </FormItem>
                                     )}

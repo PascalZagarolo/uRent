@@ -54,10 +54,10 @@ const UsernameInput: React.FC<UsernameProps> = ({
                                 placeholder="Nutzername hinzufügen..."
                                 onBlur={() => { setIsEditing(false) }}
                                 onChange={(e) => setUserName(e.target.value)}
-                                maxLength={60}
+                                maxLength={100}
                             />
                             <div className="ml-auto flex justify-end">
-                                <LetterRestriction limit={60} currentLength={username?.length} />
+                                <LetterRestriction limit={100} currentLength={username?.length} />
                             </div>
                         </>
                     ) : (

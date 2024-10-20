@@ -109,7 +109,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
             await activate2Fa();
             toast.success("2FA wurde aktiviert");
             setIsActive(true);
-        } catch (e : any) {
+        } catch (e: any) {
             toast.error("Fehler beim Aktivieren der 2FA");
             console.log(e);
         } finally {
@@ -121,7 +121,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
         return (
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="bg-rose-800 hover:bg-rose-900 text-gray-200 hover:text-gray-300">
+                    <Button className="bg-rose-800 hover:bg-rose-900 text-gray-200 hover:text-gray-300" size="sm">
                         2FA Deaktivieren
                     </Button>
                 </DialogTrigger>
@@ -176,7 +176,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
 
                                         <DialogTrigger asChild>
                                             <Button className="bg-rose-800 hover:bg-rose-900 text-gray-200 hover:text-gray-300"
-                                            type="submit"
+                                                type="submit"
                                             >
                                                 Deaktivieren
                                             </Button>
@@ -222,36 +222,36 @@ const Select2Fa: React.FC<Select2FaProps> = ({
         return (
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300">
-                    2FA Aktivieren
+                    <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" size="sm">
+                        2FA Aktivieren
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="bg-[#191919] border-none">
-                    
-                        <div>
-                            <div className="text-lg font-semibold flex flex-row items-center">
-                                <CheckIcon className="w-4 h-4 mr-2 text-indigo-800" /> Zwei-Faktor-Authentifizierung aktivieren?
-                            </div>
-                            <div className="text-xs text-gray-200/60">
-                                Falls aktiviert, wird dir bei jedem Login eine Bestätigungs-Email gesendet. <br/>
-                                uRent empfiehlt die Aktivierung der 2FA.
-                            </div>
-                            <div className="flex flex-row items-center justify-end mt-4">
-                                <DialogTrigger asChild>
+
+                    <div>
+                        <div className="text-lg font-semibold flex flex-row items-center">
+                            <CheckIcon className="w-4 h-4 mr-2 text-indigo-800" /> Zwei-Faktor-Authentifizierung aktivieren?
+                        </div>
+                        <div className="text-xs text-gray-200/60">
+                            Falls aktiviert, wird dir bei jedem Login eine Bestätigungs-Email gesendet. <br />
+                            uRent empfiehlt die Aktivierung der 2FA.
+                        </div>
+                        <div className="flex flex-row items-center justify-end mt-4">
+                            <DialogTrigger asChild>
                                 <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
                                     onClick={onActivate}
                                 >
                                     Aktivieren
                                 </Button>
-                                </DialogTrigger>
-                                <DialogTrigger asChild>
-                                    <Button className="" variant="ghost">
-                                        Abbrechen
-                                    </Button>
-                                </DialogTrigger>
-                            </div>
+                            </DialogTrigger>
+                            <DialogTrigger asChild>
+                                <Button className="" variant="ghost">
+                                    Abbrechen
+                                </Button>
+                            </DialogTrigger>
                         </div>
-                   
+                    </div>
+
                 </DialogContent>
             </Dialog>
         )
@@ -260,17 +260,15 @@ const Select2Fa: React.FC<Select2FaProps> = ({
     return (
         <div>
             <div>
-                <div className="sm:w-1/2 w-full">
-                    <Checkbox
-                        checked={isActive}
-                        className="hover:cursor-default"
-                    />
+                <div className="sm:w-1/2 w-full flex flex-row items-center">
+                    {isActive ? <CheckIcon className="w-4 h-4 text-green-500" /> : <X className="w-6 h-6 text-red-500" />}
                     <Label className="text-sm font-semibold p-2">
-                    Zwei-Faktor-Authentifizierung aktiviert (empfohlen)
+                        Zwei-Faktor-Authentifizierung aktiviert (empfohlen)
                     </Label>
-                    <div className="mt-4">
-                        {thisUser.usesTwoFactor ? returnDialogAbort() : returnDialogaActivate()}
-                    </div>
+
+                </div>
+                <div className="mt-2">
+                    {thisUser.usesTwoFactor ? returnDialogAbort() : returnDialogaActivate()}
                 </div>
             </div>
         </div>

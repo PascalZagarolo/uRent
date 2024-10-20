@@ -202,7 +202,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
     </a>
 
     <a
-      href={`/dashboard/${currentUser.id}`}
+      href={`/dashboard/${currentUser.id}?tab=dashboard`}
       className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
     >
       <TrendingUp className="mr-4 w-4 h-4" />

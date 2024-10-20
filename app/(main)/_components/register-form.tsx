@@ -73,7 +73,7 @@ export const RegisterForm = () => {
       receivesEmails: receivesEmails
     }
 
-    console.log(onSubmit)
+    
 
     startTransition(() => {
       register(value)

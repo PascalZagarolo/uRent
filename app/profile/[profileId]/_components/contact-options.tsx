@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { Globe2Icon, MailCheckIcon, MapPin, PhoneCall, Settings2 } from "lucide-react";
+import { Globe2Icon, MailCheckIcon, MailIcon, MapPin, MapPinIcon, PhoneCall, Settings2 } from "lucide-react";
 import AddContactOption from "./add-contact-option";
 
 import { cn } from "@/lib/utils";
@@ -34,32 +34,38 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
                 )}
 
                 {thisContactOptions?.emailAddress && (
-                    <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]
+                    <div className="bg-gray-300 dark:bg-[#191919] p-2 shadow-lg rounded-md
                     sm:text-base text-sm">
-                        <MailCheckIcon className="p-1 rounded-md border-black border" />
+                        <div className="pr-1 pb-1 pt-1">
+                        <MailIcon className="h-4 w-4" />
+                        </div>
                         {thisContactOptions?.emailAddress}
                     </div>
                 )}
 
                 {thisContactOptions?.userAddress?.postalCode && thisContactOptions?.userAddress?.street &&
                 thisContactOptions?.userAddress?.city &&  (
-                    <div className="bg-gray-300 dark:bg-[#171717] text-gray-200 p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)] sm:text-base text-sm truncate">
-                        <MailCheckIcon className="p-1 rounded-md border-black border" />
-                        
+                    <div className="bg-gray-300 dark:bg-[#191919] rounded-md text-gray-200 p-2 shadow-lg sm:text-base text-sm truncate">
+                        <div className="pr-1 pb-1 pt-1">
+                        <MapPinIcon className="w-4 h-4" />
+                        </div>
                         {thisContactOptions?.userAddress?.street} {thisContactOptions?.userAddress?.houseNumber}, {thisContactOptions?.userAddress?.postalCode} {thisContactOptions?.userAddress?.city}
                     </div>
                 )}
 
                 {thisContactOptions?.websiteAddress && (
-                    <div className="bg-gray-300 dark:bg-[#171717] sm:text-base text-sm p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]"><Globe2Icon className="p-1 rounded-md border-black border" />
-                        <a href={`//${thisContactOptions.websiteAddress}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    <div className="bg-gray-300 dark:bg-[#191919] sm:text-base text-sm p-2 shadow-lg rounded-md">
+                        <div className="pr-1 pb-1 pt-1">
+                        <Globe2Icon className="rounded-md w-4 h-4" />
+                        </div>
+                        <a href={`//${thisContactOptions.websiteAddress}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-base text-gray-200">
                             {thisContactOptions.websiteAddress} 
                         </a>
                     </div>
                 )}
 
                 {thisContactOptions?.phoneNumber && (
-                    <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]"><PhoneCall className="p-1 rounded-md border-black border" />
+                    <div className="bg-gray-300 dark:bg-[#191919] p-2 px-4 "><PhoneCall className="p-1 rounded-md border-black border" />
                         {thisContactOptions.phoneNumber}
                     </div>
                 )}

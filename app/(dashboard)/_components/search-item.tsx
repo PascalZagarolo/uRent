@@ -14,7 +14,7 @@ import axios from "axios";
 import { FaUserTie } from "react-icons/fa6";
 import { userTable } from "@/db/schema";
 
-import { useSavedSearchParams } from "@/store";
+import { useLoadingState, useSavedSearchParams } from "@/store";
 import { first } from "lodash";
 
 
@@ -88,6 +88,7 @@ const SearchItem = () => {
 
 
     const onSearch = () => {
+        changeLoading(true);
         const {//@ts-ignore
             thisCategory, ...filteredValues} = searchParams;
             
@@ -129,37 +130,37 @@ const SearchItem = () => {
         router.push(url);
     }
 
-    
+    const { loading, changeLoading } = useLoadingState()
     
 
-    const onUserSearch = (selectUser : typeof userTable.$inferSelect) => {
+    // const onUserSearch = (selectUser : typeof userTable.$inferSelect) => {
         
-        setSelectedUser(selectUser);
+    //     setSelectedUser(selectUser);
         
-        console.log("sadas")
-        const url = qs.stringifyUrl({
-            url: "/",
-            query: {
-                user : selectUser?.id || null,
-                ...params,
-            }
-        }, { skipEmptyString: true, skipNull: true });
-       setIsSearching(false);
-        setShowDropdown(false)
-       router.push(url)
-    }
+        
+    //     const url = qs.stringifyUrl({
+    //         url: "/",
+    //         query: {
+    //             user : selectUser?.id || null,
+    //             ...params,
+    //         }
+    //     }, { skipEmptyString: true, skipNull: true });
+    //    setIsSearching(false);
+    //     setShowDropdown(false)
+    //    router.push(url)
+    // }
 
-    const onUserDelete = () => {
-        setSelectedUser(null)
-        const url = qs.stringifyUrl({
-            url : "/",
-            query : {
-                user : null,
-                ...params
-            }
-        }, { skipEmptyString: true, skipNull: true })
-        router.push(url)
-    }
+    // const onUserDelete = () => {
+    //     setSelectedUser(null)
+    //     const url = qs.stringifyUrl({
+    //         url : "/",
+    //         query : {
+    //             user : null,
+    //             ...params
+    //         }
+    //     }, { skipEmptyString: true, skipNull: true })
+    //     router.push(url)
+    // }
 
     const handleKeyDown = (e : any) => {
         if (e.key === "Enter") {
@@ -177,11 +178,7 @@ const SearchItem = () => {
                     onChange={(e) => setValue(e.target.value)}
                     onKeyDown={handleKeyDown}
                     onFocus={() => {setShowDropdown(true); setIsSearching(true)}}
-                    onBlur={() => {
-                        setTimeout(() => {
-                            setShowDropdown(false)
-                        }, 200)
-                    }}
+                    maxLength={200}
                 />
                 
                     

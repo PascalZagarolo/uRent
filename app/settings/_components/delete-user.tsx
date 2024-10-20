@@ -123,9 +123,11 @@ const DeleteUser: React.FC<DeleteUserProps> = ({
                                 >
                                     Löschen
                                 </Button>
+                                <DialogTrigger asChild>
                                 <Button className="dark:text-gray-200" variant="ghost">
                                     Abbrechen
                                 </Button>
+                                </DialogTrigger>
                             </div>
                         </div>
                     )}

@@ -74,6 +74,7 @@ const InserateOverview = async ({
                     <div>
                         <MenuBar
                         isBusiness = {currentUser.isBusiness}
+                        setCurrentTab={null}
                         />
                         <div>
                             <BreadCrumpPage />

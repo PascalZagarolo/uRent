@@ -134,6 +134,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                     <div>
                         <MenuBar
                             isBusiness={currentUser.isBusiness}
+                            setCurrentTab={null}
                         />
                         <div>
                             <BreadCrumpPage />

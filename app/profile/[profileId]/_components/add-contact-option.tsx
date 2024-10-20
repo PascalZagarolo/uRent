@@ -29,12 +29,12 @@ const AddContactOption = ({
     const router = useRouter()
     const params = useParams();
 
-    const [currentWebsite, setCurrentWebsite] = useState(thisContactOptions?.websiteAddress);
-    const [currentEmail, setCurrentEmail] = useState(thisContactOptions?.emailAddress);
-    const [currentStreet, setCurrentStreet] = useState(thisContactOptions?.userAddress?.street);
-    const [currentHouseNumber, setCurrentHouseNumber] = useState(thisContactOptions?.userAddress?.houseNumber);
-    const [currentPlz, setCurrentPlz] = useState(thisContactOptions?.userAddress?.postalCode);
-    const [currentCity, setCurrentCity] = useState(thisContactOptions?.userAddress?.city);
+    const [currentWebsite, setCurrentWebsite] = useState(thisContactOptions?.websiteAddress ? thisContactOptions?.websiteAddress : "");
+    const [currentEmail, setCurrentEmail] = useState(thisContactOptions?.emailAddress ? thisContactOptions?.emailAddress : "");
+    const [currentStreet, setCurrentStreet] = useState(thisContactOptions?.userAddress?.street ? thisContactOptions?.userAddress?.street : "");
+    const [currentHouseNumber, setCurrentHouseNumber] = useState(thisContactOptions?.userAddress?.houseNumber ? thisContactOptions?.userAddress?.houseNumber : "");
+    const [currentPlz, setCurrentPlz] = useState(thisContactOptions?.userAddress?.postalCode ? thisContactOptions?.userAddress?.postalCode : "");
+    const [currentCity, setCurrentCity] = useState(thisContactOptions?.userAddress?.city ? thisContactOptions?.userAddress?.city : "");
 
 
     const formSchema = z.object({
@@ -75,7 +75,8 @@ const AddContactOption = ({
             axios.patch(`/api/contact/${params.profileId}`, values).then(() => {
                 router.refresh()
             })
-        } catch {
+        } catch(e : any) {
+            console.log(e);
             toast.error("Fehler beim Speichern")
         }
     }

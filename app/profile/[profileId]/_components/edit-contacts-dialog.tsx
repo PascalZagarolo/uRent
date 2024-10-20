@@ -24,10 +24,10 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentWebsite, setCurrentWebsite] = useState(thisBusiness.website);
-    const [currentEmail, setCurrentEmail] = useState(thisBusiness.email);
-    const [currentNumber, setCurrentNumber] = useState(thisBusiness.telephone_number);
-    const [currentFax, setCurrentFax] = useState(thisBusiness.fax);
+    const [currentWebsite, setCurrentWebsite] = useState(thisBusiness.website ? thisBusiness.website : "");
+    const [currentEmail, setCurrentEmail] = useState(thisBusiness.email ? thisBusiness.email : "");
+    const [currentNumber, setCurrentNumber] = useState(thisBusiness.telephone_number ? thisBusiness.telephone_number : "");
+    const [currentFax, setCurrentFax] = useState(thisBusiness.fax ? thisBusiness.fax : "");
 
     const router = useRouter();
 
@@ -43,10 +43,12 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
 
             await axios.patch(`/api/business/${thisBusiness.id}`, values)
                 .then((res) => {
+                    toast.success("Kontaktdaten gespeichert");
                     router.refresh();
                 })
 
-        } catch {
+        } catch(e) {
+            console.log(e);
             toast.error("Fehler beim Speichern der Kontaktdaten")
         } finally {
             setIsLoading(false);
@@ -137,7 +139,7 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                         </div>
                         <div>
                             <DialogTrigger asChild>
-                                <Button className="w-full dark:bg-[#1C1C1C]" variant="ghost" size="sm" onClick={onSave}>
+                                <Button className="w-full dark:bg-[#1C1C1C]" variant="ghost" size="sm" onClick={onSave} disabled={isLoading}>
                                     Speichern
                                 </Button>
                             </DialogTrigger>

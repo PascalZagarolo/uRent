@@ -30,6 +30,7 @@ const Bookings = async ({
                     <div>
                         <MenuBar 
                         isBusiness = {currentUser.isBusiness}
+                        setCurrentTab={null}
                         />
                         <div>
                             <BreadCrumpPage />

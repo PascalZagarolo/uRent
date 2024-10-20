@@ -115,7 +115,7 @@ const Inserat: React.FC<InseratProps> = ({
                                     </div>
                                     <div className="mt-4 flex justify-end">
                                         <DialogTrigger asChild>
-                                            <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300">
+                                            <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300" onClick={() => { router.push(`/profile/${currentUser?.id}`)}}>
                                                 Zum Vermieter werden
                                             </Button>
                                         </DialogTrigger>

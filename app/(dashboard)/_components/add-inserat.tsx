@@ -20,7 +20,8 @@ import { title } from "process";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { MdAddToPhotos } from "react-icons/md";
+import { FaExchangeAlt } from "react-icons/fa";
+import { MdAddToPhotos, MdChangeCircle } from "react-icons/md";
 
 import { z } from "zod";
 
@@ -79,25 +80,54 @@ const Inserat: React.FC<InseratProps> = ({
             <Dialog >
                 {isntLoggedIn ? (
                     <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
-                    onClick={() => { !currentUser && router.push("/login") }}
+                        onClick={() => { !currentUser && router.push("/login") }}
                     >
-                    <CopyIcon className="w-4 h-4 xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
-                  </Button>
+                        <CopyIcon className="w-4 h-4 xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
+                    </Button>
                 ) : (
                     currentUser.isBusiness ? (
                         <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
 
-                        <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm">
-                          <CopyIcon className="w-4 h-4 3xl:mr-2" /> <span className="hidden 3xl:block"> Inserat erstellen </span>
-                        </Button>
-                          
+                            <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm">
+                                <CopyIcon className="w-4 h-4 3xl:mr-2" /> <span className="hidden 3xl:block"> Inserat erstellen </span>
+                            </Button>
+
 
                         </DialogTrigger>
                     ) : (
-                        <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2 rounded-md text-sm items-center 
-                font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" onClick={() => { router.push(`/profile/${currentUser?.id}`) }}>
-                            <PlusIcon className="w-4 h-4 3xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Inserat erstellen</p>
-                        </div>
+                        <Dialog>
+                            <DialogTrigger>
+                                <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2 rounded-md text-sm items-center 
+                font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" >
+                                    <PlusIcon className="w-4 h-4 3xl:mr-2 flex justify-center" /> <p className="hidden 2xl:flex mr-1 text-sm">Inserat erstellen</p>
+                                </div>
+                            </DialogTrigger>
+                            <DialogContent className="bg-[#191919] rounded-md border-none">
+                                <div className="">
+                                    <h3 className="text-lg font-semibold flex flex-row items-center">
+                                       <FaExchangeAlt  className="w-4 h-4 mr-2" /> Profil umwandeln?
+                                    </h3>
+                                    <div className="">
+                                        <p className="text-xs text-gray-200/80">
+                                            Um Inserate zu schalten, musst du dein Profil in ein Vermieter-Konto umwandeln. <br/>
+                                            Dies kannst du unter {`"`} Mein Profil {`"`} völlig kostenlos & schnell machen.
+                                        </p>
+                                    </div>
+                                    <div className="mt-4 flex justify-end">
+                                        <DialogTrigger asChild>
+                                            <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300">
+                                                Zum Vermieter werden
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogTrigger asChild>
+                                            <Button variant="ghost" className="border-none">
+                                                Abbrechen
+                                            </Button>
+                                        </DialogTrigger>
+                                    </div>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
                     )
                 )}
                 <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">

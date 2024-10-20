@@ -37,7 +37,7 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
                     <div className="bg-gray-300 dark:bg-[#171717] p-2 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.4)]
                     sm:text-base text-sm">
                         <MailCheckIcon className="p-1 rounded-md border-black border" />
-                        {thisContactOptions.emailAddress}
+                        {thisContactOptions?.emailAddress}
                     </div>
                 )}
 

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { ContactIcon, Globe2, Home, Locate, MailOpenIcon, Map, MapPin, Navigation, PlugZap, Settings2 } from "lucide-react";
+import { ContactIcon, Globe2, Home, Locate, MailIcon, MailOpenIcon, Map, MapPin, MapPinIcon, Navigation, PlugZap, Settings2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -102,14 +102,17 @@ const AddContactOption = ({
 
             </DialogTrigger>
             <DialogContent className="dark:bg-[#151515] border-none">
-                <DialogHeader>
-                    <div className="flex">
-                        <ContactIcon className="mr-2" /> <p className="text-xl font-semibold"> Kontaktmöglichkeiten verwalten </p>
-                    </div>
-                </DialogHeader>
+
+                <div className="flex">
+                    <p className="text-lg font-semibold"> Kontaktmöglichkeiten verwalten </p>
+                </div>
+
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
-                        <div className="flex items-center font-semibold"> <Globe2 className="mr-2" />  Website
+                        <div className="flex items-center font-semibold"> <Globe2 className="mr-2 w-4 h-4" />
+                            <div>
+                                Website
+                            </div>
                         </div>
 
                         <FormField
@@ -126,14 +129,14 @@ const AddContactOption = ({
                                     </FormControl>
                                     <FormMessage />
                                     <div className="ml-auto flex justify-end">
-                                        <LetterRestriction limit={100} currentLength={currentWebsite.length} />
+                                        <LetterRestriction limit={100} currentLength={currentWebsite?.length ? currentWebsite?.length : 0} />
                                     </div>
                                 </FormItem>
                             )}
                         />
 
 
-                        <div className="flex items-center font-semibold mt-4"> <MailOpenIcon className="mr-2" />  Email
+                        <div className="flex items-center font-semibold mt-4"> <MailIcon className="mr-2 w-4 h-4" />  Email
                         </div>
 
                         <FormField
@@ -145,22 +148,25 @@ const AddContactOption = ({
                                         <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
                                             onChange={(e) => setCurrentEmail(e.target.value)}
                                             value={currentEmail}
-
+                                            maxLength={40}
                                         />
                                     </FormControl>
                                     <FormMessage />
+                                    <div className="ml-auto flex justify-end">
+                                        <LetterRestriction limit={40} currentLength={currentEmail?.length ? currentEmail?.length : 0} />
+                                    </div>
                                 </FormItem>
                             )}
                         />
 
 
-                        <div className="flex items-center font-semibold mt-4"> <MapPin className="mr-2" />  Addresse
+                        <div className="flex items-center font-semibold mt-4"> <MapPinIcon className="w-4 h-4 mr-2" />   Addresse
                         </div>
 
                         <div className="mt-4">
                             <div>
                                 <p className="flex items-center">
-                                    <Home className="mr-2 w-4 h-4" /> Stadt
+                                     Stadt
                                 </p>
                                 <FormField
                                     control={form.control}
@@ -171,7 +177,7 @@ const AddContactOption = ({
                                                 <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
                                                     onChange={(e) => setCurrentCity(e.target.value)}
                                                     value={currentCity}
-
+                                                    maxLength={100}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -182,7 +188,7 @@ const AddContactOption = ({
                             <div className="flex">
                                 <div>
                                     <p className="flex items-center mt-2">
-                                        <Map className="mr-2 w-4 h-4" /> Strasse
+                                         Strasse
                                     </p>
                                     <FormField
                                         control={form.control}
@@ -193,7 +199,7 @@ const AddContactOption = ({
                                                     <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
                                                         onChange={(e) => setCurrentStreet(e.target.value)}
                                                         value={currentStreet}
-
+                                                        maxLength={100}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -203,7 +209,7 @@ const AddContactOption = ({
                                 </div>
                                 <div className="ml-auto">
                                     <p className="flex items-center mt-2">
-                                        <Locate className="mr-2 w-4 h-4" /> Hausnr.
+                                        Hausnummer
                                     </p>
                                     <FormField
                                         control={form.control}
@@ -214,7 +220,7 @@ const AddContactOption = ({
                                                     <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
                                                         onChange={(e) => setCurrentHouseNumber(e.target.value)}
                                                         value={currentHouseNumber}
-
+                                                        maxLength={10}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -225,7 +231,7 @@ const AddContactOption = ({
                             </div>
                             <div className="mt-2">
                                 <p className="flex items-center">
-                                    <Navigation className="mr-2 w-4 h-4" /> PLZ
+                                     PLZ
                                 </p>
                                 <FormField
                                     control={form.control}
@@ -236,7 +242,7 @@ const AddContactOption = ({
                                                 <Input className="mt-2 dark:border-none dark:bg-[#0a0a0a]"
                                                     onChange={(e) => setCurrentPlz(e.target.value)}
                                                     value={currentPlz}
-
+                                                    maxLength={5}
                                                 />
                                             </FormControl>
                                             <FormMessage />

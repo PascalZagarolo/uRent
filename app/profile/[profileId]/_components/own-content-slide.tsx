@@ -49,7 +49,7 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
   const router = useRouter();
   return (
     <div className="flex-shrink-1">
-  {foundInserate.length > 0 ? (
+  {foundInserate.length > 0 && (
     <div className="">
       <div className="sm:w-full ">
       <Carousel setApi={setApi} className="" plugins={[
@@ -75,10 +75,6 @@ const OwnContentSlide: React.FC<OwnContentSlideProps> = ({
         Inserat {current} von {count}
       </div>
     </div>
-  ) : (
-    <p className="mb-16 text-gray-900/50 dark:text-gray-200/60 justify-center flex text-sm mt-16">
-      Noch keine Inserate vorhanden...
-    </p>
   )}
 </div>
   )

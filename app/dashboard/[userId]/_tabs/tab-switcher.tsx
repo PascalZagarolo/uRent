@@ -10,6 +10,7 @@ import ManageTab from "./booking-tab";
 import InserateTab from "./inserate-tab";
 import PaymentsTab from "./payments-tab";
 import FavouritesTab from "./favourites-tab";
+import { useSearchParams } from "next/navigation";
 
 interface TabSwitcherProps {
     currentUser : typeof userTable.$inferSelect | any;
@@ -19,10 +20,12 @@ interface TabSwitcherProps {
 
 const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription } : TabSwitcherProps) => {
 
-    const [tab, setTab] = useState("dashboard");
+   
+
+    const currentTab = useSearchParams().get("tab");
 
     const renderTab = () => {
-        switch(tab) {
+        switch(currentTab) {
             case "dashboard":
                 return <DashboardTab views = {currentUser.views} foundInserate = {currentUser.inserat} />
             case "manage":
@@ -34,23 +37,31 @@ const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription } : 
                 existingInvoices = {JSON.parse(JSON.stringify(existingInvoices))} retrievedSubscription={JSON.parse(JSON.stringify(retrievedSubscription))} />
             case "favourites":
                 return <FavouritesTab currentUser = {currentUser} />
+            default : 
+                return <DashboardTab views = {currentUser.views} foundInserate = {currentUser.inserat} />
         }
     }
 
     
+
+    const switchTab = (newTab : string) => {
+        const params = new URLSearchParams("");
+        params.set('tab', newTab);
+        window.history.pushState(null, '', `?${params?.toString()}`)
+    }
 
     return (
         <div>
             <div>
                 <MenuBar
                     isBusiness={currentUser.isBusiness as any}
-                    setCurrentTab={(tab) => setTab(tab)}
-                    currentTab={tab}
+                    setCurrentTab={(tab) => switchTab(tab)}
+                    currentTab={currentTab}
                 />
                 <div>
                     <BreadCrumpPage 
-                    setCurrentTab={(tab) => setTab(tab)}
-                    currentTab={tab}
+                    setCurrentTab={(tab) => switchTab(tab)}
+                    currentTab={currentTab}
                     />
                 </div>
                 <div>

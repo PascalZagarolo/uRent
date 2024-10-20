@@ -179,8 +179,8 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                         <div>
                                             {
                                                 thisUser.isBusiness ? (
-                                                    <h3 className="text-2xl flex font-bold p-2">
-                                                        Profilinformationen
+                                                    <h3 className="text-2xl flex font-bold p-2 items-center">
+                                                       <UsersIcon className="mr-2" />  Profilinformationen
                                                         {!ownProfile && (
                                                             <div className="ml-auto">
                                                                 <MessageButton
@@ -190,7 +190,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                                         )}
                                                     </h3>
                                                 ) : (
-                                                    <h3 className="text-2xl flex font-bold ">
+                                                    <h3 className="text-2xl flex font-bold items-center">
                                                         <UsersIcon className="mr-2" />  Profilübersicht
 
                                                     </h3>

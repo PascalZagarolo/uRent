@@ -8,7 +8,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 interface MenuBarProps {
     isBusiness : boolean
     currentTab?: string;
-    setCurrentTab?: (tab: string) => void;
+    setCurrentTab: (tab: string) => void;
 }
 
 const MenuBar : React.FC<MenuBarProps> = ({
@@ -17,11 +17,7 @@ const MenuBar : React.FC<MenuBarProps> = ({
     setCurrentTab
 }) => {
 
-    const router = useRouter();
-
-    const pathname = usePathname();
-
-    const params = useParams();
+   
 
     const isManage = currentTab === "manage";
     const isFavourite = currentTab === "favourites";
@@ -30,14 +26,14 @@ const MenuBar : React.FC<MenuBarProps> = ({
     const isPayment = currentTab === "payments";
     const isDashboard = currentTab === "dashboard";
 
-    const baseUrl = "/dashboard/" + params.userId;
+    
 
     return ( 
         <div className="w-full dark:bg-[#141414]">
             <div className="pt-4 sm:px-4 flex justify-evenly text-xs sm:text-sm font-semibold">
             <a className={cn("sm:p-4 py-4 px-2 rounded-t-md dark:text-gray-200/70 text-gray-700/60", 
             isDashboard && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
-            //href={`${baseUrl}`}
+        
             onClick={() => setCurrentTab("dashboard")}
             >
                 Übersicht

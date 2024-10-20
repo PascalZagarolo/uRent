@@ -122,7 +122,10 @@ const Main = cache(async ({
                 {//@ts-ignore
                     (searchParams.page === "1" || !searchParams.page) && (
                         <div className="xl:flex hidden justify-center py-2">
-                            <HeaderInfo />
+                            <HeaderInfo 
+                            subscribedToNewsletter={currentUser?.newsletter}
+                            userId={currentUser?.id || ""}
+                            />
                         </div>
                     )}
                 <div className="relative flex justify-center mt-4">

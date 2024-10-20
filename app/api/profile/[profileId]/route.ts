@@ -17,9 +17,8 @@ export async function PATCH(
         const updatedProfile : any = await db.update(userTable).set({
         ...values
         }).where(eq(userTable.id, params.profileId)).returning()
-        console.log(updatedProfile)
-
-        console.log(values.enableSocialLogin)
+        
+        
 
         if(typeof values.enableSocialLogin !== 'undefined' && values.enableSocialLogin === false) {
             

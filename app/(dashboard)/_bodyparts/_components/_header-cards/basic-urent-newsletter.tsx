@@ -1,11 +1,42 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import axios from "axios";
 import { TruckIcon } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaRegNewspaper, FaRegWindowMinimize } from "react-icons/fa";
-import { PiCursorClickLight } from "react-icons/pi";
 
-const BasicUrentNewsletter = () => {
+
+interface BasicUrentNewsletterProps {
+    userId : string
+}
+
+const BasicUrentNewsletter = ({ userId } : BasicUrentNewsletterProps) => {
+
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const onSubscribe = async() => {
+        try {
+
+            if(!userId) {
+                return router.push('/login');
+            }
+
+            const values = {
+                newsletter : true
+            }
+
+            await axios.patch(`/api/profile/${userId}`, values);
+            router.refresh();
+            toast.success('Wir halten dich von nun an auf dem laufenden!');
+        } catch(e : any) {
+            console.log(e);
+        }
+    }
+
     return (
         <div className="w-full">
             <div className="text-4xl w-full">
@@ -37,7 +68,7 @@ const BasicUrentNewsletter = () => {
                                         </div>
                                         <div className="mt-4 ml-auto justify-end flex">
                                             <DialogTrigger>
-                                                <Button className="text-sm font-semibold bg-indigo-800" variant="ghost">
+                                                <Button className="text-sm font-semibold bg-indigo-800" variant="ghost" onClick={onSubscribe}>
                                                     Anmelden
                                                 </Button>
                                             </DialogTrigger>

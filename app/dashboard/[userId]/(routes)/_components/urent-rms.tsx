@@ -6,6 +6,9 @@ const RentalManagementAd = () => {
                     <h3 className="text-lg font-semibold">
                         uRent RMS und weitere Dashboard Tools
                     </h3>
+                    <div>
+                        
+                    </div>
                 </div>
             </div>
         </div>

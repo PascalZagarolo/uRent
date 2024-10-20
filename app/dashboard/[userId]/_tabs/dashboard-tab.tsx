@@ -3,6 +3,7 @@ import InseratCategoriesChart from "../(routes)/_components/_charts/inserat-cate
 import { inserat } from "@/db/schema";
 import LatestInserate from "../(routes)/_components/latest-inserate";
 import RentalManagementAd from "../(routes)/_components/urent-rms";
+import DashboardTips from "../(routes)/_components/dashboard-tips";
 
 
 interface DashboardTabProps {
@@ -72,7 +73,9 @@ const DashboardTab = ({ views, foundInserate } : DashboardTabProps) => {
                     />
                 </div>
             </div>
-
+            <div className="mt-16">
+                <DashboardTips />
+            </div>
         </div>
     );
 }

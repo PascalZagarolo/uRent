@@ -42,6 +42,7 @@ const InserateTab = ({ currentUser } : InserateTabProps) => {
                             Verwalte deine Anzeigen, indem du Inhalte änderst, löscht, bearbeitest oder ihre Sichtbarkeit anpasst. 
                             <br/> Darüber hinaus kannst du hier ganz einfach die Verfügbarkeit deiner Fahrzeuge aktualisieren.
                             </p>
+                            {currentUser?.subscription?.subscriptionType === "ENTERPRISE" && (
                             <div className="sm:p-4">
                                 <HighlightInserat 
                                 foundInserate={inserateArray as any}
@@ -49,7 +50,8 @@ const InserateTab = ({ currentUser } : InserateTabProps) => {
                                 existingSubscription={currentUser?.subscription as any}
                                 />
                             </div>
-                            <div className="sm:px-4 font-semibold text-sm flex items-center gap-x-4 mb-2 sm:mb-0">
+                            )}
+                            <div className="sm:px-4 font-semibold text-sm flex items-center gap-x-4 mb-2 sm:mb-0 mt-4">
                                 <div>
                                     <FaChartPie  className="w-6 h-6" />
                                 </div>

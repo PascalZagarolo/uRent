@@ -10,8 +10,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-import {  Trash2Icon  } from "lucide-react";
+import { ImageIcon, Trash2Icon, TrashIcon } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface UploadBusinessPicsProps {
     usedImages: typeof businessImages.$inferSelect[];
@@ -27,81 +28,69 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
 
 
-    const [rightImages, setRightImages] = useState(usedImages);
+    const [currentImage, setCurrentImage] = useState(usedImages ? usedImages[0] : null);
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    const onUpload = (result: any) => {
-        try {
-            setIsLoading(true)
-            axios.post(`/api/business/${businessId}/images`, {
-                image: result?.info?.secure_url
-            }).then(() => {
-                router.refresh();
-            })
-            toast.success("Profilbild erfolgreich hochgeladen")
-        } catch {
-            toast.error("Fehler beim Upload")
-        } finally {
-            setIsLoading(false)
-        }
+    const onUpload = async () => {
+
     }
 
 
 
 
-    useEffect(() => {
-        setRightImages(usedImages)
-    }, [usedImages])
+
 
 
     return (
         <div>
-            {ownProfile && usedImages.length > 0 && (
-                <div className="ml-auto flex flex-row justify-end">
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button size="sm" variant="ghost" className="shadow-lg bg-[#202020] rounded-b-none">
-                                <Trash2Icon className="w-4 h-4 text-rose-600" />
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent className="bg-[#191919] border-none">
-                            <div>
-                                <h3 className="text-lg font-semibold">
-                                    Banner löschen?
-                                </h3>
-                                <p className="text-gray-200/60 text-xs">
-                                    Gelöschte Banner können nicht wiederhergestellt werden.
-                                </p>
-                                <div className="ml-auto flex flex-row justify-end mt-2">
-                                    <AlertDialogAction asChild>
-                                        <Button className="bg-rose-600 hover:bg-rose-700 text-gray-200 hover:text-gray-300">
-                                            Löschen
-                                        </Button>
-                                    </AlertDialogAction>
-                                    <AlertDialogCancel asChild>
-                                    <Button variant="ghost" className="border-none text-gray-200 hover:text-gray-300">
-                                            Abbrechen
-                                        </Button>
-                                    </AlertDialogCancel>
-                                </div>
-                            </div>
-                        </AlertDialogContent>
-                    </AlertDialog>
-                </div>
-            )}
+
             {usedImages.length > 0 && (
-                <div className="w-full h-[240px] relative overflow-hidden">
-                    <Image
-                        src={usedImages[0].url}
-                        quality={100}
-                        fill
-                        style={{ objectFit: "cover" }}
-                        className="shadow-lg"
-                        alt="Shitty Image Component i hate next/image"
-                    />
-                </div>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <div className="w-full h-[240px] relative overflow-hidden">
+                            <Image
+                                src={usedImages[0].url}
+                                quality={100}
+                                fill
+                                style={{ objectFit: "cover" }}
+                                className="shadow-lg"
+                                alt="Shitty Image Component i hate next/image"
+                            />
+                        </div>
+                    </DialogTrigger>
+                    <DialogContent className="bg-[#191919] border-none">
+                        <div>
+                            <h3 className="text-lg font-semibold">
+                                Banner bearbeiten
+                            </h3>
+                            <div className="mt-4">
+                                <img
+                                    src={usedImages[0].url}
+
+
+                                    style={{ objectFit: "cover" }}
+                                    className="shadow-lg w-full h-[240px] object-cover"
+                                    alt="Shitty Image Component i hate next/image"
+                                />
+                            </div>
+                            <div className="w-full flex-row  flex items-center mt-2 space-x-8">
+                                <Button className="w-1/2 bg-[#222222] shadow-lg hover:bg-[#212121] text-gray-200 hover:text-gray-300">
+                                    <ImageIcon className="w-4 h-4 mr-2" /> Bild ersetzen
+                                </Button>
+                                <Button className="w-1/2 bg-rose-600 text-gray-200 hover:bg-rose-700 hover:text-gray-300">
+                                    <Trash2Icon className="w-4 h-4 mr-2" /> Bild löschen
+                                </Button>
+                            </div>
+                            <div className="mt-2">
+                                <Button className="w-full bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" disabled>
+                                    Änderungen speichern
+                                </Button>
+                            </div>
+                        </div>
+                    </DialogContent>
+                </Dialog>
             )}
         </div>
     );

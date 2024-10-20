@@ -35,7 +35,7 @@ const RegisterBusiness = () => {
     return (
         <div className="mt-4">
             <AlertDialog>
-                <Alert className="dark:bg-[#191919] dark:border-none">
+                <Alert className="dark:bg-[#222222] shadow-lg dark:border-none">
                     <BsBuildingsFill className="h-4 w-4" />
                     <AlertTitle>Du bist Vermieter?</AlertTitle>
                     <AlertDescription>
@@ -57,7 +57,7 @@ const RegisterBusiness = () => {
                         </div>
                         <AlertDialogFooter className="mt-2">
                             <AlertDialogCancel className="dark:border-none">Abbrechen</AlertDialogCancel>
-                            <AlertDialogAction className="dark:bg-[#121212] dark:hover:bg-[#171717] dark:text-gray-200"
+                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 dark:text-gray-200"
                             onClick={onBusinessRegister} disabled={isLoading}>
                             Umwandeln
                             </AlertDialogAction>

@@ -96,8 +96,8 @@ const AddContactOption = ({
         <Dialog>
             <DialogTrigger asChild className="mt-2">
 
-                <Button className="bg-gray-200 w-full dark:bg-[#151515]  dark:hover:bg-[#171717]" variant="ghost">
-                    <Settings2 className="mr-2" /> Kontaktmöglichkeiten hinzufügen
+                <Button className="w-full bg-indigo-800 hover:bg-indigo-900" variant="ghost">
+                    <Settings2 className="mr-2 w-4 h-4" /> Kontaktmöglichkeiten hinzufügen
                 </Button>
 
             </DialogTrigger>

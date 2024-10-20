@@ -31,7 +31,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     const [currentImage, setCurrentImage] = useState(usedImages ? usedImages[0] : null);
 
     const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+    
 
     const onUpload = async () => {
 
@@ -46,7 +46,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     return (
         <div>
 
-            {usedImages.length > 0 && (
+            {usedImages[0] && (
                 <Dialog>
                     <DialogTrigger asChild>
                         <div className="w-full h-[240px] relative overflow-hidden">
@@ -55,7 +55,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                 quality={100}
                                 fill
                                 style={{ objectFit: "cover" }}
-                                className="shadow-lg"
+                                className="shadow-lg hover:cursor-pointer"
                                 alt="Shitty Image Component i hate next/image"
                             />
                         </div>
@@ -67,7 +67,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                             </h3>
                             <div className="mt-4">
                                 <img
-                                    src={usedImages[0].url}
+                                    src={currentImage?.url}
 
 
                                     style={{ objectFit: "cover" }}
@@ -79,7 +79,9 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                 <Button className="w-1/2 bg-[#222222] shadow-lg hover:bg-[#212121] text-gray-200 hover:text-gray-300">
                                     <ImageIcon className="w-4 h-4 mr-2" /> Bild ersetzen
                                 </Button>
-                                <Button className="w-1/2 bg-rose-600 text-gray-200 hover:bg-rose-700 hover:text-gray-300">
+                                <Button className="w-1/2 bg-rose-600 text-gray-200 hover:bg-rose-700 hover:text-gray-300"
+                                onClick={() => {setCurrentImage(null)}}
+                                >
                                     <Trash2Icon className="w-4 h-4 mr-2" /> Bild löschen
                                 </Button>
                             </div>

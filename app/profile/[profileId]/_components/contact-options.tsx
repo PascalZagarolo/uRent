@@ -19,17 +19,16 @@ const ContactOptionsRender: React.FC<ContactOptionsProps> = ({
     thisContactOptions,
     ownProfile
 }) => {
-    console.log(thisContactOptions?.userAddress?.postalCode)
-    const router = useRouter();
+
 
     const nothingAdded = !thisContactOptions?.emailAddress && !thisContactOptions?.websiteAddress && !thisContactOptions?.phoneNumber ? true : false;
 
     return (
-        <div className="bg-white dark:bg-[#191919]  dark:border-[#191919] border border-gray-300 p-4 mt-2 ">
+        <div className="bg-white dark:bg-[#222222]  dark:border-[#191919] rounded-md shadow-lg border border-gray-300 p-4 mt-2 ">
             <div className={cn("gap-4 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.2)]", nothingAdded ? "" : "grid grid-cols-2")}>
 
                 {nothingAdded && (
-                    <p className="flex text-gray-900/50 justify-center italic font-medium dark:text-gray-100/70">
+                    <p className="flex text-gray-900/50 text-sm  font-medium dark:text-gray-200/60 py-2">
                         Keine Kontaktmöglichkeiten hinzugefügt...
                     </p>
                 )}

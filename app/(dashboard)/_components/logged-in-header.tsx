@@ -100,7 +100,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
             <div className="font-semibold  text-xs text-gray-200 2xl:mr-8 lg:mr-4  hidden items-center 2xl:block">
 
                 <div className="text-xs max-w-[160px] break-all line-clamp-1 font-medium">
-                    🎉 {currentUser.name.toUpperCase() || ""}aß0jsdjkoaosdjkaspiodjaopisjdapoisdnasodhjaisdhiiaonisdoijasdjasoidn 🎉
+                    🎉 {currentUser.name.toUpperCase() || ""} 🎉
                 </div>
 
                 {currentUser?.isBusiness && (

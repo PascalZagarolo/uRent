@@ -125,23 +125,19 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
 
             ) : (
 
-                <>
-                    <div className="mt-8 text-md font-semibold ml-2 flex ">
 
-                        <UserCircle2 className="mr-2 h-4 w-4" /> Über mich
-                    </div>
                     <div>
                         <ProfileDescription
                             ownProfile={ownProfile}
                             user={user}
                         />
                     </div>
-                </>
+
 
             )}
 
             {!user.isBusiness && (
-                <div className="mt-8 text-md font-semibold ml-2 flex ">
+                <div className="mt-8 text-md font-semibold ml-2 flex flex-row items-center">
                     <Contact className="mr-2 h-4 w-4" /> Kontakt
                 </div>
             )}

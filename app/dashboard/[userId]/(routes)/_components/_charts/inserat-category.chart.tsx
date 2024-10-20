@@ -29,7 +29,8 @@ return (
     <div>
       <h2 className='font-semibold text-lg'>Inserate nach Kategorien</h2>
     </div>
-    <ResponsiveContainer width={400} height={200} className="mt-2">
+    {foundInserate?.length > 0 ? (
+      <ResponsiveContainer width={400} height={400} className="mt-2">
       <PieChart>
         <Pie
         stroke='none'
@@ -48,6 +49,11 @@ return (
         </Pie>
       </PieChart>
     </ResponsiveContainer>
+    ) : (
+      <span className='text-sm text-gray-200/60'>
+        Keine Daten zum Abbilden gefunden..
+      </span>
+    )}
   </div>
 );
 }

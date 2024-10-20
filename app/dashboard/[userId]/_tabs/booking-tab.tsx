@@ -14,7 +14,7 @@ import RenderedVehicle from "../(routes)/manage/_components/rendered-vehicle";
 import SelectVehicle from "../(routes)/manage/_components/select-vehicle";
 import SelectInserat from "../(routes)/manage/_components/select-inserat";
 import { useRef, useState } from "react";
-import { set } from "lodash";
+
 import TodayAgenda from "../(routes)/manage/_components/agenda-today";
 import { isToday } from "date-fns";
 

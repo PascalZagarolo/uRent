@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { notification } from '../../../db/schema';
+import { sendSubscriptionRedeemed } from "@/lib/mails/subscriptions";
 
 export async function POST(
     req : Request
@@ -80,13 +81,13 @@ export async function POST(
 
         //publish inserat if id was in the given querystring
         if(session?.metadata?.usedId) {
-            console.log(1);
+            
             const findInserat = await db.query.inserat.findFirst({
                 where : (
                     eq(inserat.id, session?.metadata?.usedId)
                 )
             })
-            console.log(2);
+            
             if(!findInserat){
                 return new NextResponse("Inserat nicht gefunden", {status : 404})
             }
@@ -94,7 +95,7 @@ export async function POST(
             if(findInserat.userId !== session?.metadata?.userId) {
                 return new NextResponse("Nicht autorisiert", {status : 401})
             }
-            console.log(3);
+            
             const patchedInserat = await db.update(inserat).set({
                 isPublished : true
             }).where(eq(inserat.id, session?.metadata?.usedId)).returning();
@@ -164,13 +165,14 @@ export async function POST(
         Vielen Dank, dass du dich für uRent entschieden hast!`
 
         //send notification
-        const createdNotification = await db.insert(notification).values({
+        await db.insert(notification).values({
             userId : session?.metadata?.userId as string,
             notificationType : "SUBSCRIPTION_REDEEMED",
             content : usedMessage
         }).returning();
 
-        
+        console.log(session?.metadata?.email)
+        await sendSubscriptionRedeemed(session?.metadata?.email as string)
         
 
         //publish inserat if id was in the given querystring

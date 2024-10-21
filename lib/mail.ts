@@ -15,7 +15,7 @@ import SubscriptionAlmostExpired from '@/react-email-starter/emails/urent/subscr
 import WelcomeMail from '@/react-email-starter/emails/urent/welcome-mail';
 
 import { Resend } from "resend";
-import { category } from '../drizzle/schema';
+
 import InfoMessageToUrent from '@/react-email-starter/emails/urent/infoMessageToUrent';
 import Confirm2FaAbortion from '@/react-email-starter/emails/urent/confirm-2fa-abortion';
 import SupportConfirm from '@/react-email-starter/emails/urent/confirmSupport';

@@ -30,7 +30,7 @@ return (
       <h2 className='font-semibold text-lg'>Inserate nach Kategorien</h2>
     </div>
     {foundInserate?.length > 0 ? (
-      <ResponsiveContainer width={400} height={400} className="mt-2">
+      <ResponsiveContainer  className="mt-2">
       <PieChart>
         <Pie
         stroke='none'
@@ -38,7 +38,7 @@ return (
           cx="50%"
           cy="50%"
           labelLine={true}
-          label={renderCustomizedLabel} // Custom labels for "PKW", "LKW", etc.
+          //label={renderCustomizedLabel}// Custom labels for "PKW", "LKW", etc.
           outerRadius={100} // Increased the size of the pie
           
           dataKey="value"
@@ -48,11 +48,22 @@ return (
           ))}
         </Pie>
       </PieChart>
+      
     </ResponsiveContainer>
     ) : (
       <span className='text-sm text-gray-200/60'>
         Keine Daten zum Abbilden gefunden..
       </span>
+    )}
+    {foundInserate?.length > 0 && (
+    <div className='flex flex-row items-center space-x-4'>
+      {data.map((entry, index) => (
+        <div className='flex flex-row items-center gap-x-2'>
+          <div className={`w-4 h-4 rounded-md shadow-lg`} style={{ backgroundColor: COLORS[index] }} />
+          {entry.name}  ({entry.value}) 
+        </div>
+      ))}
+    </div>
     )}
   </div>
 );

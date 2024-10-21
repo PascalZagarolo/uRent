@@ -36,8 +36,8 @@ export async function PATCH(
         const createdPriceProfile = await db.insert(priceprofile).values({
             title : values.title,
             price : values.price,
-            ...values.kilometer && {
-                freeMiles : values.kilometer
+            ...values.freeMiles && {
+                freeMiles : values.freeMiles
             },
             ...values.extraCost && {
                 extraCost : values.extraCost

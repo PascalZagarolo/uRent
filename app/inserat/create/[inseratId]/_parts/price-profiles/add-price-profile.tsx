@@ -98,10 +98,10 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                 title: currentType,
                 price: currentValue,
                 description: currentInfo,
-                kilometer: currentKilometer,
+                freeMiles: currentKilometer,
                 extraCost: currentExtratype
             }
-            console.log(values)
+           
             await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
                 .then(() => {
                     router.refresh();

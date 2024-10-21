@@ -62,12 +62,12 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
     }, [currentValue])
 
     useEffect(() => {
-        if(currentExtratype) {
-            isValidNumber(currentExtratype) ? setCorrectKilometer(true) : setCorrectKilometer(false);
+        if(currentKilometer) {
+            isValidNumber(currentKilometer) ? setCorrectKilometer(true) : setCorrectKilometer(false);
         } else {
             setCorrectKilometer(true);
         }
-    },[currentExtratype])
+    },[currentKilometer])
 
     const formSchema = z.object({
         price: z.preprocess(
@@ -102,14 +102,13 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                 title: currentType,
                 price: currentValue,
                 description: currentInfo,
-                kilometer: currentKilometer,
+                freeMiles: currentKilometer,
                 extraCost : currentExtratype
             }
             console.log(values)
             await axios.patch(`/api/priceprofile/${priceprofile.id}/edit`, values)
                 .then(() => {
                     router.refresh();
-                    setCurrentValue(undefined);
                     form.reset();
                 })
 
@@ -198,10 +197,10 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                                             value={currentKilometer}
                                             className="dark:border-none dark:bg-[#141414]"
                                             placeholder="z.B 100km"
-                                            type="text" // Use text type to prevent default browser behavior for number input
+
                                             onChange={(e) => {
-                                                const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-                                                setCurrentKilometer(Number(newValue));
+                                                
+                                                setCurrentKilometer(e.target.value as any);
                                             }}
                                         />
                                     </div>

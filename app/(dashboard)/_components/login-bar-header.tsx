@@ -40,7 +40,7 @@ const LoginBarHeader : React.FC<LoginBarHeaderProps> = ({
             shadow-lg border-2 border-gray-300
             dark:bg-slate-800 dark:border-none dark:hover:bg-slate-700 dark:outline-none
             ">
-                <Link href="/login">
+                <Link href="/register">
                     Registrieren
                 </Link>
             </Button>

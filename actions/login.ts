@@ -64,7 +64,7 @@ export const login = async (
       verificationToken.token,
     );
 
-    return { success: "Bitte bestätige deine Email-Addresse" };
+    return { error: "Bitte bestätige deine Email-Addresse" };
   }
  
   if (existingUser.usesTwoFactor && existingUser.email) {

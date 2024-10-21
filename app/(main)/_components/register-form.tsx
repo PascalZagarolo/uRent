@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import toast from "react-hot-toast";
 
 
 
@@ -80,10 +81,8 @@ export const RegisterForm = () => {
         .then((data) => {
           setError(data.error);
           setSuccess(data.success);
-          if (data.success) {
-            setTimeout(() => {
-              router.push("/login")
-            }, 1000)
+          if(data.success) {
+            toast.success("Account erfolgreich erstellt. Wir haben dir eine E-Mail geschickt, um deine E-Mail-Adresse zu bestätigen.")
           }
         });
 

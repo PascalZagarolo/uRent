@@ -27,13 +27,16 @@ import { FormError } from "./form-error";
 import { LoginSchema } from "./_schemas";
 import { EyeIcon } from "lucide-react";
 import toast from "react-hot-toast";
-import { set } from "lodash";
-import { Label } from "@/components/ui/label";
-import { useLoading } from "@/store";
+
 import { ClipLoader } from "react-spinners";
 
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  existingMessage? : string
+}
+
+
+export const LoginForm = ({ existingMessage } : LoginFormProps) => {
   const searchParams = useSearchParams();
 
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
@@ -41,7 +44,7 @@ export const LoginForm = () => {
     : "";
 
   const [showTwoFactor, setShowTwoFactor] = useState(false);
-  const [error, setError] = useState<string | undefined>("");
+  const [error, setError] = useState<string | undefined>(existingMessage ? existingMessage : "");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 

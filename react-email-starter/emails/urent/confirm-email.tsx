@@ -42,8 +42,8 @@ import { Inter } from "next/font/google";
               Vielen Dank für die Erstellung eines Accounts auf uRent.
             </Text>
             <Text style={paragraph}>
-              Du kannst deinen Account jetzt aktivieren, indem du auf den Button unten klickst, um den vollen 
-                Funktionsumfang von uRent zu nutzen.
+              Du kannst deinen Account jetzt aktivieren, indem du auf den Button unten klickst.
+              Nachdem dein Account aktiviert wurde, kannst du dich einloggen und es kann mit deinem uRent Erlebnis losgehen.
             </Text>
             <Button style={button} href={confirmLink}>
               Account aktivieren

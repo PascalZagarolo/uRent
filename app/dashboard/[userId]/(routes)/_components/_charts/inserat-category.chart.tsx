@@ -59,7 +59,7 @@ return (
     <div className='flex flex-row items-center space-x-4'>
       {data.map((entry, index) => (
         <div className='flex flex-row items-center gap-x-2'>
-          <div className={`w-4 h-4 rounded-md shadow-lg`} style={{ backgroundColor: COLORS[index] }} />
+          <div className={`w-4 h-4 rounded-md shadow-lg`} style={{ backgroundColor: COLORS[index] }} key={index}/>
           {entry.name}  ({entry.value}) 
         </div>
       ))}

@@ -10,7 +10,7 @@ import { HiLockClosed } from "react-icons/hi";
 import { LockOpen1Icon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { checkIfValid } from "@/hooks/subscription/check-if-valid";
+import { checkIfValid } from "@/hooks/subscription/useCheckSubscription";
 
 interface ReleaseSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;

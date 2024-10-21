@@ -29,6 +29,8 @@ import { EyeIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { ClipLoader } from "react-spinners";
+import { FormConfirmEmail } from "./form-confirm-email";
+
 
 
 interface LoginFormProps {
@@ -46,6 +48,10 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
   const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>(existingMessage ? existingMessage : "");
   const [success, setSuccess] = useState<string | undefined>("");
+
+  const [confirmEmail, setConfirmEmail] = useState<string | undefined>("");
+  const [accountEmail, setAccountEmail] = useState<string | undefined>("");
+
   const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
@@ -66,7 +72,7 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
     setIsLoading(true);
     setError("");
     setSuccess("");
-
+    setConfirmEmail("");
     startTransition(() => {
       
       login(values)
@@ -94,6 +100,12 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
 
           }
 
+          if(data?.confirmEmail) {
+            setConfirmEmail(data.confirmEmail);
+            setAccountEmail(values.email);
+            setIsLoading(false);
+          }
+
           if (data?.twoFactor) {
 
             setIsLoading(false);
@@ -101,7 +113,7 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
           }
 
           //eventually delete later
-          if (!data?.success && !data?.twoFactor) {
+          if (!data?.success && !data?.twoFactor && !data?.confirmEmail) {
             setIsLoading(false);
 
             toast.error("Falsche Anmeldedaten");
@@ -118,6 +130,11 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
 
     });
   };
+
+  const onNewMailSend = () => {
+    setConfirmEmail("");
+    setAccountEmail("");
+  }
 
   const onHold = () => {
     setShowPassword(true)
@@ -226,6 +243,7 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
+          <FormConfirmEmail message={confirmEmail} email={form.watch("email")} onSend={onNewMailSend} />
           <Button
             disabled={isPending}
             type="submit"

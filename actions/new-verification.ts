@@ -53,7 +53,7 @@ export const newVerification = async (token: string) => {
       notificationType: "WELCOME"
     })
 
-    const pSendWelcomeMail = await sendWelcomeMail(existingToken.email);
+    await sendWelcomeMail(existingToken.email);
   }
 
   

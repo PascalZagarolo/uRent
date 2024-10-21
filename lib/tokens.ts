@@ -1,3 +1,5 @@
+'use server'
+
 import crypto from "crypto";
 
 import { getTwoFactorTokenByEmail } from "@/actions/two-factor-token";

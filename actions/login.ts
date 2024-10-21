@@ -12,7 +12,7 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/app/(main)/_components/_schemas";
 import { z } from "zod";
 import { getTwoFactorTokenByEmail } from "./two-factor-token";
-import { twoFactorToken } from "@/db/schema";
+import { twoFactorToken, verificationTokens } from "@/db/schema";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { getTwoFactorConfirmationByUserId } from "./two-factor-confirmation";
@@ -56,15 +56,29 @@ export const login = async (
 
 
   if (!existingUser?.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      existingUser.email,
-    );
-    await sendVerificationEmail(
-      verificationToken.email,
-      verificationToken.token,
-    );
+    const passwordsMatch = await bcrypt.compare(password, existingUser.password);
 
-    return { error: "Bitte bestätige deine Email-Addresse" };
+    if(!passwordsMatch){
+      return { error : "Ungültige Anmeldedaten" }
+    }
+    // check if the user has a verification token that is valid
+    const existingToken = await db.query.verificationTokens.findFirst({
+      where : eq(verificationTokens.email, existingUser.email)
+    })
+
+    if(!existingToken || new Date(existingToken.expires) < new Date()){
+     
+      const verificationToken = await generateVerificationToken(
+        existingUser.email,
+      );
+      await sendVerificationEmail(
+        verificationToken.email,
+        verificationToken.token,
+      );
+    }
+
+    
+    return { confirmEmail: "Bitte bestätige deine Email-Addresse" };
   }
  
   if (existingUser.usesTwoFactor && existingUser.email) {

@@ -17,9 +17,9 @@ const LatestInserate = ({ foundInserate }: LatestInserateProps) => {
 
     const renderLatest = (thisInserat: typeof inserat.$inferSelect) => {
         return (
-            <div className="bg-[#141414] p-2 rounded-md">
+            <div className="bg-[#141414] p-2 rounded-md shadow-lg">
                 <div className="text-sm text-gray-200/60">
-                    {format(new Date(thisInserat?.firstRelease), "dd.MM.yyyy")}
+                    {format(new Date(thisInserat?.firstRelease ? thisInserat?.firstRelease : thisInserat?.createdAt), "dd.MM.yyyy")}
                 </div>
                 <div className="flex flex-row items-center">   
                     <div className="w-1/4 text-sm font-semibold">
@@ -47,10 +47,10 @@ const LatestInserate = ({ foundInserate }: LatestInserateProps) => {
         <div className="flex flex-col">
             <div>
                 <h2 className="text-lg font-semibold">
-                    Deine letzten Veröffentlichungen
+                    Deine letzten Inserate
                 </h2>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 mt-2">
                 {
                     latestInserate?.length > 0 ? (
                         latestInserate?.map((inserat) => (

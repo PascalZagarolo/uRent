@@ -80,7 +80,7 @@ const DashboardTips = () => {
                 </div>
                 <div className="mt-4">
                     <Button variant="ghost" size="sm" className="bg-[#222222] shadow-lg ">
-                        Mehr erfahren
+                        Jetzt teilnehmen
                     </Button>
                 </div>
                 </div>

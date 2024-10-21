@@ -4,8 +4,8 @@ import { ShareIcon } from "lucide-react";
 const DashboardTips = () => {
     return ( 
         <div>
-            <div className="tex-lg font-semibold">
-                Weiteres zum Dashboard
+            <div className="text-lg font-semibold">
+                Weiteres zum Dashboard (3)
             </div>
             <div className="w-full flex flex-row items-center space-x-4 mt-2">
             <div className="w-1/3 bg-[#131313] rounded-md shadow-md 

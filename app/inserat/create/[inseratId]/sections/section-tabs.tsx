@@ -28,6 +28,7 @@ import TimeSection from "./section_9/time-section";
 import ContactSection from "./section_10/contact-section";
 import ReleaseSection from "./section_11/release-section";
 
+
 interface SectionTabsProps {
     thisInserat: typeof inserat.$inferSelect | any;
     currentUser: typeof userTable.$inferSelect | any;
@@ -73,7 +74,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
             case "TRANSPORT":
                 firstSegment = <TransportSection transportAttribute={thisInserat?.transportAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
                 secondSegment = <TransportSection2 transportAttribute={thisInserat?.transportAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
-                thirdSegment = <TransportSection3  transportAttribute={thisInserat?.transportAttribute} currentSection={Number(sectionId)} changeSection={changeSection} />;
+                thirdSegment = <TransportSection3  transportAttribute={thisInserat?.transportAttribute} currentSection={Number(sectionId)} changeSection={changeSection}  />;
                 break;
             default:
                 firstSegment = 1;
@@ -110,7 +111,8 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 8 : <RahmenSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 9 : <TimeSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 10 : <ContactSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
-                                11 : <ReleaseSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />
+                                11 : <ReleaseSection thisInserat={thisInserat} currentSection={Number(sectionId)} 
+                                changeSection={changeSection} existingSubscription={currentUser?.subscription} publishedLength={publishedLength} />
 
                             }[sectionId]
                         }

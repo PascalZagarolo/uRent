@@ -1,6 +1,6 @@
 'use client';
 
-import { inserat } from "@/db/schema";
+import { inserat, userSubscription } from "@/db/schema";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRightCircleIcon, ClipboardCopy, CopyCheckIcon, Link2 } from "lucide-react";
@@ -10,14 +10,17 @@ import { HiLockClosed } from "react-icons/hi";
 import { LockOpen1Icon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { checkIfValid } from "@/hooks/subscription/check-if-valid";
 
 interface ReleaseSectionProps {
-    thisInserat: typeof inserat.$inferSelect;
+    thisInserat: typeof inserat.$inferSelect | any;
+    existingSubscription : typeof userSubscription.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
+    publishedLength: number;
 }
 
-const ReleaseSection = ({ thisInserat, currentSection, changeSection }: ReleaseSectionProps) => {
+const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSubscription, publishedLength}: ReleaseSectionProps) => {
     const onPrevious = () => {
         changeSection(currentSection - 1);
     }
@@ -33,8 +36,25 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection }: ReleaseS
 
     const router = useRouter();
 
+    
+
+    const canPublish = () => {
+        if(!thisInserat?.title || !thisInserat?.description || !thisInserat?.category || !thisInserat?.price
+             || thisInserat?.images?.length < 1 || !thisInserat?.address?.postalCode || !thisInserat?.address?.locationString
+            ) {
+                return false;
+            } else {
+                return true;
+            }
+    }
+
     const onSave = async () => {
         try {
+
+            if(!checkIfValid(publishedLength, existingSubscription)) {
+                return router.push("/pricing")
+            }
+
             setIsLoading(false);
             const values = {
                 isPublished : currentPrivacy
@@ -99,10 +119,10 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection }: ReleaseS
 
             </div>
             <div className="flex flex-col w-full mt-16">
-                <Button className={cn("bg-indigo-800 hover:bg-indigo-900 text-gray-100 py-3 w-full rounded-lg shadow-lg transition-all duration-200",
-                    !currentPrivacy ? 'bg-gray-800 hover:bg-gray-900' : 'bg-indigo-800 hover:bg-indigo-900')}
+                <Button className={cn("bg-indigo-800 hover:bg-indigo-900 text-gray-200 py-3 w-full rounded-lg shadow-lg transition-all duration-200",
+                    !currentPrivacy ? 'bg-[#222222] hover:bg-[#232323] text-gray-200/80 hover:text-gray-200' : 'bg-indigo-800 hover:bg-indigo-900')}
                 onClick={onSave}
-                disabled={isLoading}
+                disabled={isLoading || !canPublish() && currentPrivacy}
                 >
                     Inserat  {currentPrivacy ? 'veröffentlichen' : 'als Entwurf speichern'}
                 </Button>

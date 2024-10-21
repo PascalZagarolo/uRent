@@ -68,9 +68,9 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
             }
 
             const values = {
-                power: currentPower,
-                initial: currentInitial,
-                loading_volume: currentVolume
+                power: currentPower ? currentPower : null,
+                initial: currentInitial ? currentInitial : null,
+                loading_volume: currentVolume ? currentVolume : null
             }
             await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
             changeSection(currentSection + 1);

@@ -35,11 +35,14 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
            await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
           
           }
-          changeSection(currentSection + 1);
           if(redirect) {
             router.push(`/inserat/create/${thisInserat.id}`);
             router.refresh();
+          } else {
+            changeSection(currentSection + 1);
           }
+          
+          
         } catch(e : any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");

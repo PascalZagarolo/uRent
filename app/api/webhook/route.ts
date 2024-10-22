@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { notification } from '../../../db/schema';
-import { sendSubscriptionRedeemed } from "@/lib/mails/subscriptions";
+import { sendSubscriptionRedeemed, sendSubscriptionRenewed } from "@/lib/mails/subscriptions";
 
 export async function POST(
     req : Request
@@ -171,7 +171,7 @@ export async function POST(
             content : usedMessage
         }).returning();
 
-        console.log(updatedUser[0].email)
+        
         await sendSubscriptionRedeemed(updatedUser[0].email as string)
         
 
@@ -222,7 +222,7 @@ export async function POST(
         //get product id, to change amount and subscriptionType if changed
         const product = await stripe.products.retrieve(connectedPrice.product as string);
         
-        await db.update(userSubscription).set({
+        const updatedSubscription = await db.update(userSubscription).set({
             stripe_price_id : retrievedInvoice.lines.data[0].price.id as string,
             stripe_current_period_end : futureMonth,
             //@ts-ignore
@@ -235,6 +235,13 @@ export async function POST(
             eq(userSubscription.stripe_customer_id, retrievedInvoice.customer as string)
         )
 
+        const findMatchingUser = await db.query.userTable.findFirst({
+            where : eq(userTable.id, updatedSubscription[0]?.userId)
+        })
+
+        if(findMatchingUser?.email) {
+            await sendSubscriptionRenewed(findMatchingUser?.email as string)
+        }
         
     }
 

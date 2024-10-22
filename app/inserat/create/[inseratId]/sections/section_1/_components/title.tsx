@@ -66,32 +66,9 @@ const TitleInseratCreation: React.FC<TitleInseratCreationProps> = ({
 
     
 
-    const onSubmit = () => {
-        try {
-            setIsLoading(true);
-            const values = {
-                title : currentTitle
-            }
-            axios.patch(`/api/inserat/${thisInserat.id}`, values);
-            toast.success("Titel erfolgreich gespeichert");
-            setTimeout(() => {
-                router.refresh();
-            }, 1000);
-        } catch { 
-            toast.error("Fehler beim Speichern des Titels");
-        } finally {
-            setIsEditing(false);
-            setIsLoading(false);
-        }
-    }
+    
 
-    function handleKeyPress(event : any) {
-        if ((event.key === 'Escape' || event.button === 0) && isEditing) {
-            setIsEditing(false); 
-
-            form.handleSubmit(onSubmit);
-        }
-      }
+    
 
     
 
@@ -116,7 +93,7 @@ const TitleInseratCreation: React.FC<TitleInseratCreationProps> = ({
                 {isEditing ? (
                     <div className="flex"> 
                         <Form {...form}>
-                    <form className="flex w-full" onSubmit={form.handleSubmit(onSubmit)}>
+                    <form className="flex w-full" >
                         <FormField
                         control={form.control}
                         name="title"
@@ -131,8 +108,7 @@ const TitleInseratCreation: React.FC<TitleInseratCreationProps> = ({
                                     maxLength={160}
                                     className="  dark:bg-[#202020]  
                                      focus:ring-0 focus-visible:ring-0 w-full rounded-none  text-gray-200/80"
-                                    onKeyDown={(e) => 
-                                        {onKeyPressForm(e, form.handleSubmit(onSubmit), () => {form.handleSubmit(onSubmit)})}}
+                                    
                                     onBlur={(e) => {setIsEditing(false)}}
                                     />
                                 </FormControl>

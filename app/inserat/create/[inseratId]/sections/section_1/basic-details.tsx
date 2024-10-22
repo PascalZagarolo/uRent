@@ -2,7 +2,7 @@
 
 import { inserat } from "@/db/schema";
 import TitleInseratCreation from "./_components/title";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DescriptionInserat from "../../../_components/input-fields/description-inserat";
 import DescriptionInseratCreation from "./_components/description";
 import { Button } from "@/components/ui/button";
@@ -43,6 +43,19 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
     const router = useRouter();
     const hasChanged = currentTitle !== thisInserat.title || currentDescription !== thisInserat.description;
 
+    useEffect(() => {
+        if(!hasChanged) return
+        function handleBeforeUnload(event : BeforeUnloadEvent) {
+            event.preventDefault();
+            return(event.returnValue = '');
+        }
+        window.addEventListener('beforeunload', handleBeforeUnload, { capture: true });
+        
+        return() => {
+            window.removeEventListener('beforeunload', handleBeforeUnload, { capture: true });
+        }
+    },[hasChanged])
+
     return ( 
         <>
             <div className="flex flex-col  h-full">
@@ -75,7 +88,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                     <Button className="bg-indigo-800 text-gray-200 w-full mt-2 hover:bg-indigo-900 hover:text-gray-300"
                     onClick={onSave}
                     >
-                        Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
+                       Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                     </div>
                 </div>

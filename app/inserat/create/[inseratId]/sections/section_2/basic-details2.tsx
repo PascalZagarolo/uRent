@@ -2,7 +2,7 @@
 
 import { inserat } from "@/db/schema";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DescriptionInserat from "../../../_components/input-fields/description-inserat";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import ExtraTypeLkwCreation from "./_components/extra-type-lkw";
 import TransportExtraTypeCreation from "./_components/extra-type-transport";
 import TrailerExtraTypeCreation from "./_components/extra-type-trailer";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { extraType } from '../../../../../../drizzle/schema';
 
 interface BasicDetails2Props {
     thisInserat: typeof inserat.$inferSelect;
@@ -48,7 +49,10 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = false;
+    //@ts-ignore
+    const hasChanged = currentCategory !== thisInserat.category || extraType !== thisInserat?.currentCategory?.toLowerCase()?.extraType;
+
+    
 
     const renderExtraType = () => {
         const extraTypes = {
@@ -59,6 +63,19 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
         return extraTypes[currentCategory] || null;
     }
+
+    useEffect(() => {
+        if(!hasChanged) return
+        function handleBeforeUnload(event : BeforeUnloadEvent) {
+            event.preventDefault();
+            return(event.returnValue = '');
+        }
+        window.addEventListener('beforeunload', handleBeforeUnload, { capture: true });
+        
+        return() => {
+            window.removeEventListener('beforeunload', handleBeforeUnload, { capture: true });
+        }
+    },[hasChanged])
 
     return (
         <>

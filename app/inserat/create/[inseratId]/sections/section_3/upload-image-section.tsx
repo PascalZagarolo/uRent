@@ -10,9 +10,9 @@ import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import UploadImagesCreation from "./_components/upload-image";
-import { set } from 'date-fns';
-import { useParams, useRouter } from "next/navigation";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+
+
 
 
 
@@ -152,7 +152,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             
         </div>
         <div className=" flex flex-col mt-auto">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged)}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">

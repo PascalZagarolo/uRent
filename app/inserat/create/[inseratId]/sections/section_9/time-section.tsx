@@ -54,7 +54,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
     
 
 
-    
+    const hasChanged = false;
 
     
 
@@ -76,7 +76,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection } : TimeSectio
 
             </div>
             <div className="mt-auto flex flex-col">
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged)}>
                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
                     <div className="grid grid-cols-2 mt-2">

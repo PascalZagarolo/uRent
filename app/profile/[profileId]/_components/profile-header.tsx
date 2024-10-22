@@ -53,14 +53,15 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     return (
         <div className="sm:px-4 px-0">
 
-            <div className="">
+            {/* <div className="">
                 {isOwnProfile && !user.confirmedMail && (
                     <NotVerifiedYet
                         email={user.email}
                         isOwnProfile={isOwnProfile}
                     />
-                )}
+                )} 
             </div>
+            */}
             {user.isBusiness && (
                     <div className="w-full h-full">
                         <UploadBusinessPics

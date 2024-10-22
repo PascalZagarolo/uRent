@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { switchSectionOverview } from '../../../../../../hooks/inserat-creation/useRouterHistory';
+import SaveChangesDialog from "../_components/save-changes-dialog";
 
 interface BasicDetailsProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -22,8 +23,9 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
 
     const [currentTitle, setCurrentTitle] = useState(thisInserat.title || "");
     const [currentDescription, setCurrentDescription] = useState(thisInserat.description || "");
+    const [showDialog, setShowDialog] = useState(false);
 
-    const onSave = async () => {
+    const onSave = async (redirect? : boolean) => {
         try {
           if(hasChanged) {
             const values = {
@@ -34,6 +36,10 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
           
           }
           changeSection(currentSection + 1);
+          if(redirect) {
+            router.push(`/inserat/create/${thisInserat.id}`);
+            router.refresh();
+          }
         } catch(e : any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -80,18 +86,19 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                 
             </div>
             <div className="sm:mt-auto flex flex-col mt-8">
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                        <ArrowLeft className="w-4 h-4 mr-2"  /> Zu deiner Inseratsübersicht
                     </span>
                     <div className="grid grid-cols-2">
                     <div/>
                     <Button className="bg-indigo-800 text-gray-200 w-full mt-2 hover:bg-indigo-900 hover:text-gray-300"
-                    onClick={onSave}
+                    onClick={() => onSave()}
                     >
                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                     </div>
                 </div>
+                {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
             </>
      );
 }

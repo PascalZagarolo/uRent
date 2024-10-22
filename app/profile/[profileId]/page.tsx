@@ -159,15 +159,23 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     />
                 </div>
                 <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full space-x-8">
-                    <FeedbackModal
+                    {/* <FeedbackModal
                         show={false}
                         content="Informationen zum Feature.."
                         feature="uRent Kriegswaffen"
-                    />
+                    /> */}
 
-<div className='h-screen xl:flex hidden items-center xl:w-2/12 '>
-                        <div className='w-full xl:block hidden '>
-                            <AdsComponent dataAdSlot='3797720061' />
+                    <div className='h-screen 2xl:flex items-center justify-center w-2/12  p-16 hidden'>
+                        <div className=' w-full sm:block hidden space-y-4'>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
                         </div>
                     </div>
 
@@ -180,7 +188,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                             {
                                                 thisUser.isBusiness ? (
                                                     <h3 className="text-2xl flex font-bold p-2 items-center">
-                                                       <UsersIcon className="mr-2" />  Profilinformationen
+                                                        <UsersIcon className="mr-2" />  Profilinformationen
                                                         {!ownProfile && (
                                                             <div className="ml-auto">
                                                                 <MessageButton
@@ -200,7 +208,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                         {(ownProfile && !thisUser.isBusiness) && (
                                             <RegisterBusiness />
                                         )}
-                                        
+
 
                                         <ProfileHeader
                                             user={thisUser}
@@ -268,9 +276,17 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                         </div>
                     </div>
 
-                    <div className='h-screen xl:flex hidden items-center xl:w-2/12 '>
-                        <div className='w-full xl:block hidden '>
-                            <AdsComponent dataAdSlot='3797720061' />
+                    <div className='h-screen 2xl:flex items-center justify-center w-2/12  p-16 hidden'>
+                        <div className=' w-full sm:block hidden space-y-4'>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
+                            <div>
+                                <AdsComponent dataAdSlot='3797720061' />
+                            </div>
                         </div>
                     </div>
 

@@ -13,7 +13,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface ExtraTypeLkwCreationProps {
-
     currentValue : string;
     setCurrentValue : (value) => void;
 }
@@ -32,7 +31,7 @@ const ExtraTypeLkwCreation: React.FC<ExtraTypeLkwCreationProps> = ({
     const params = useParams();
 
     
-
+    console.log(currentValue)
     return ( 
         <div className="w-full">
             <div className="w-full">
@@ -42,7 +41,7 @@ const ExtraTypeLkwCreation: React.FC<ExtraTypeLkwCreationProps> = ({
           onValueChange={(application : typeof ApplicationEnumRender) => {
             setCurrentValue(application);
           }}
-          //@ts-ignore
+         
           value = {currentValue}
           disabled={isLoading}
         >

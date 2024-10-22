@@ -15,7 +15,7 @@ import ExtraTypeLkwCreation from "./_components/extra-type-lkw";
 import TransportExtraTypeCreation from "./_components/extra-type-transport";
 import TrailerExtraTypeCreation from "./_components/extra-type-trailer";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
-import { extraType } from '../../../../../../drizzle/schema';
+import { extraType, lkwAttribute, trailerAttribute } from '../../../../../../drizzle/schema';
 
 interface BasicDetails2Props {
     thisInserat: typeof inserat.$inferSelect;
@@ -26,17 +26,51 @@ interface BasicDetails2Props {
 const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDetails2Props) => {
 
     const [currentCategory, setCurrentCategory] = useState(thisInserat.category || "PKW");
-    const [extraType, setExtraType] = useState("");
 
+
+
+    useEffect(() => {
+        console.log("...")
+        if (thisInserat?.category !== "PKW") {
+            switch (thisInserat?.category) {
+                case "LKW":
+                    setExtraType(thisInserat?.lkwAttribute?.application);
+                    break;
+                case "TRANSPORT":
+                    setExtraType(thisInserat?.transportAttribute?.transport);
+                    break;
+                case "TRAILER":
+                    setExtraType(thisInserat?.trailerAttribute?.trailer);
+                    break;
+                default:
+                    setExtraType(undefined);
+            }
+        }
+    }, [])
+
+    const [extraType, setExtraType] = useState();
+
+    useEffect(() => {
+        if (currentCategory !== thisInserat?.category) {
+            setExtraType(undefined)
+        }
+    }, [currentCategory])
 
     const onSave = async () => {
         try {
             if (hasChanged) {
                 const values = {
-
+                    category: currentCategory
                 }
                 await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
-                toast.success("Hallo")
+
+
+                const usedKey = currentCategory === "LKW" ? "application" : "extraType";
+                const values2 = {
+                    [usedKey]: extraType ? extraType : null
+                };
+                await axios.patch(`/api/inserat/${thisInserat?.id}/${currentCategory?.toLowerCase()}`, values2)
+
             }
             changeSection(currentSection + 1);
         } catch (e: any) {
@@ -52,7 +86,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     //@ts-ignore
     const hasChanged = currentCategory !== thisInserat.category || extraType !== thisInserat?.currentCategory?.toLowerCase()?.extraType;
 
-    
+
 
     const renderExtraType = () => {
         const extraTypes = {
@@ -65,58 +99,58 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     }
 
     useEffect(() => {
-        if(!hasChanged) return
-        function handleBeforeUnload(event : BeforeUnloadEvent) {
+        if (!hasChanged) return
+        function handleBeforeUnload(event: BeforeUnloadEvent) {
             event.preventDefault();
-            return(event.returnValue = '');
+            return (event.returnValue = '');
         }
         window.addEventListener('beforeunload', handleBeforeUnload, { capture: true });
-        
-        return() => {
+
+        return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload, { capture: true });
         }
-    },[hasChanged])
+    }, [hasChanged])
 
     return (
         <>
-        <div className="flex flex-col">
-        <h3 className="text-lg font-semibold">
-            Grundlegende Angaben (2/2)
-            <p className="text-xs text-gray-200/60 font-medium text-left">
-                Hier kannst du die grundlegenden Angaben zu deinem Inserat machen. <br />
-                Gebe anderen Nutzern einen ersten Eindruck von deinem Inserat.
-            </p>
-        </h3>
-        <div className="mt-4">
-            <CategoryInseratCreation
-                thisInserat={thisInserat}
-                currentCategory={currentCategory as any}
-                setCurrentCategory={setCurrentCategory}
-            />
-        </div>
-        <div className="mt-4">
-            {renderExtraType()}
-        </div>
-    </div>
-        <div className=" mt-auto">
-        <div className="flex flex-col mt-auto">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
-                </span>
-                <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
-                        Zurück
-                    </Button>
-                    <Button
-                        className="bg-indigo-800 text-gray-200 w-full hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
-                    >
-                        Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+            <div className="flex flex-col">
+                <h3 className="text-lg font-semibold">
+                    Grundlegende Angaben (2/2)
+                    <p className="text-xs text-gray-200/60 font-medium text-left">
+                        Hier kannst du die grundlegenden Angaben zu deinem Inserat machen. <br />
+                        Gebe anderen Nutzern einen ersten Eindruck von deinem Inserat.
+                    </p>
+                </h3>
+                <div className="mt-4">
+                    <CategoryInseratCreation
+                        thisInserat={thisInserat}
+                        currentCategory={currentCategory as any}
+                        setCurrentCategory={setCurrentCategory}
+                    />
+                </div>
+                <div className="mt-4">
+                    {renderExtraType()}
                 </div>
             </div>
-            
-        </div>
+            <div className=" mt-auto">
+                <div className="flex flex-col mt-auto">
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={switchSectionOverview}>
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
+                    </span>
+                    <div className="grid grid-cols-2 mt-2">
+                        <Button className="" variant="ghost" onClick={onPrevious}>
+                            Zurück
+                        </Button>
+                        <Button
+                            className="bg-indigo-800 text-gray-200 w-full hover:bg-indigo-900 hover:text-gray-300"
+                            onClick={onSave}
+                        >
+                            Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
+                        </Button>
+                    </div>
+                </div>
+
+            </div>
         </>
     );
 

@@ -155,9 +155,9 @@ export async function POST(
             )
         }).returning();
 
-        await db.update(userTable).set({
+        const updatedUser = await db.update(userTable).set({
             subscriptionId : createdSubscription[0].id,
-        }).where(eq(userTable.id, session?.metadata?.userId))
+        }).where(eq(userTable.id, session?.metadata?.userId)).returning();
 
         
         const usedMessage = `Herzlichen Glückwunsch! Du hast erfolgreich ein Abonnement erworben und kannst nun alle Vorteile deines gewählten Pakets nutzen. 
@@ -171,8 +171,8 @@ export async function POST(
             content : usedMessage
         }).returning();
 
-        console.log(session?.metadata?.email)
-        await sendSubscriptionRedeemed(session?.metadata?.email as string)
+        console.log(updatedUser[0].email)
+        await sendSubscriptionRedeemed(updatedUser[0].email as string)
         
 
         //publish inserat if id was in the given querystring

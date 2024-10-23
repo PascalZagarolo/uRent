@@ -10,13 +10,14 @@ import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import axios from "axios";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import TransmissionFormCreation from "../../section_5/pkw/pkw-transmission";
 import FuelFormCreation from "../pkw/pkw-fuel";
 import LoadingFormCreation from "./lkw-loading";
 import DriveFormCreation from "./lkw-drive";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import SaveChangesDialog from "../../_components/save-changes-dialog";
 
 
 
@@ -38,11 +39,12 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     const [currentDrive, setCurrentDrive] = useState(lkwAttribute?.drive);
     const [currentFuel, setCurrentFuel] = useState(lkwAttribute?.fuel ? lkwAttribute?.fuel : null);
     const [currentLoading, setCurrentLoading] = useState(lkwAttribute?.loading ? lkwAttribute?.loading : null);
-
+    const [showDialog, setShowDialog] = useState(false);
     const inseratId = useParams()?.inseratId;
 
+    const router = useRouter();
 
-    const onSave = async () => {
+    const onSave = async (redirect?: boolean) => {
         try {
             const values = {
                 transmission: currentTransmission,
@@ -51,7 +53,13 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 loading: currentLoading
             }
             await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
-            changeSection(currentSection + 1);
+            if (redirect) {
+                router.push(`/inserat/create/${inseratId}`);
+                router.refresh();
+            } else {
+                changeSection(currentSection + 1);
+            }
+
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -107,7 +115,7 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
 
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged)}>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
@@ -115,12 +123,13 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
+                        onClick={() => onSave()}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>
+            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
         </>
 
     );

@@ -10,12 +10,13 @@ import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import axios from "axios";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import SeatsCreation from "../pkw/pkw-seats";
 import LkwWeightClassCreation from "./lkw-weight-class";
 import LkwAxisCreation from "./lkw-axis";
 import LkwBrandCreation from "./lkw-brand";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import SaveChangesDialog from "../../_components/save-changes-dialog";
 
 
 
@@ -38,20 +39,27 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
     const [currentAxis, setCurrentAxis] = useState(lkwAttribute?.axis ? lkwAttribute?.axis : null);
     const [currentBrand, setCurrentBrand] = useState(lkwAttribute?.lkwBrand ? lkwAttribute?.lkwBrand : null);
     const [currentSeats, setCurrentSeats] = useState(lkwAttribute?.seats ? lkwAttribute?.seats : null);
-
+    const [showDialog, setShowDialog] = useState(false);
     const inseratId = useParams()?.inseratId;
+    const router = useRouter();
 
 
-    const onSave = async () => {
+    const onSave = async (redirect?: boolean) => {
         try {
             const values = {
-                weightClass : currentWeight,
-                axis : currentAxis,
-                brand : currentBrand,
-                seats : currentSeats
+                weightClass: currentWeight,
+                axis: currentAxis,
+                brand: currentBrand,
+                seats: currentSeats
             }
             await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
-            changeSection(currentSection + 1);
+            if (redirect) {
+                router.push(`/inserat/create/${inseratId}`);
+                router.refresh();
+            } else {
+                changeSection(currentSection + 1);
+            }
+
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -65,7 +73,7 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
         changeSection(currentSection - 1);
     }
 
-    
+
 
     const hasChanged = false;
 
@@ -95,7 +103,7 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
 
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged)}>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
@@ -103,12 +111,15 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
+                        onClick={() => onSave()}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>
+
+
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
         </>
 
     );

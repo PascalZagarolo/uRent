@@ -10,13 +10,14 @@ import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import axios from "axios";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import SeatsCreation from "../pkw/pkw-seats";
 import TrailerTypeCreation from "./trailer-type";
 import TrailerWeightClassCreation from "./trailer-weight-class";
 import LkwAxisCreation from "../lkw/lkw-axis";
 import TrailerBrakeCreation from "./trailer-brake";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import SaveChangesDialog from "../../_components/save-changes-dialog";
 
 
 
@@ -39,11 +40,13 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
     const [currentWeight, setCurrentWeight] = useState(trailerAttribute?.weightClass ? trailerAttribute?.weightClass : null);
     const [currentAxis, setCurrentAxis] = useState(trailerAttribute?.axis ? trailerAttribute?.axis : null);
     const [currentBrake, setCurrentBrake] = useState(trailerAttribute?.brake ? trailerAttribute?.brake : undefined);
+    const [showDialog, setShowDialog] = useState(false);
 
     const inseratId = useParams()?.inseratId;
 
+    const router = useRouter();
 
-    const onSave = async () => {
+    const onSave = async (redirect? : boolean) => {
         try {
             const values = {
                 type: currentType,
@@ -52,7 +55,12 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
                 brake: currentBrake
             }
             await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
-            changeSection(currentSection + 1);
+            if(redirect) {
+                router.push(`/inserat/create/${inseratId}`);
+                router.refresh();
+              } else {
+                changeSection(currentSection + 1);
+              }
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -96,7 +104,8 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
 
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged)}>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}
+>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
@@ -104,12 +113,14 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
+                        onClick={() => onSave()}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>
+
+            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
         </>
 
     );

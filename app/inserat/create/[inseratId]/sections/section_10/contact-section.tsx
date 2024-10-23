@@ -16,6 +16,8 @@ import SelectLocationCreation from "./location";
 import SelectEmailCreation from "./email";
 import PhoneNumberCreation from "./phone-number";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { useRouter } from "next/navigation";
+import SaveChangesDialog from "../_components/save-changes-dialog";
 
 
 
@@ -32,22 +34,31 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
     const [currentEmail, setCurrentEmail] = useState<string | null>(thisInserat?.emailAddress ? thisInserat?.emailAddress : null);
     const [currentNumber, setCurrentNumber] = useState<string | null>(thisInserat?.phoneNumber ? thisInserat?.phoneNumber : null);
 
-    const onSave = async () => {
+    const [showDialog, setShowDialog] = useState(false);
+
+    const router = useRouter();
+
+    const onSave = async (redirect?: boolean) => {
         try {
 
             const values1 = {
-                emailAddress : currentEmail,
-                phoneNumber : currentNumber,
+                emailAddress: currentEmail,
+                phoneNumber: currentNumber,
             }
 
             await axios.patch(`/api/inserat/${thisInserat.id}`, values1);
 
             const values2 = {
-                locationString : currentLocation,
-                postalCode : currentZipCode,
+                locationString: currentLocation,
+                postalCode: currentZipCode,
             }
             await axios.patch(`/api/inserat/${thisInserat.id}/address`, values2);
-            changeSection(currentSection + 1);
+            if (redirect) {
+                router.push(`/inserat/create/${thisInserat.id}`);
+                router.refresh();
+            } else {
+                changeSection(currentSection + 1);
+            }
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -63,18 +74,18 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
 
     useEffect(() => {
-        if(!currentLocation || currentLocation.trim().length == 0 || currentLocation.trim().length < 3) {
+        if (!currentLocation || currentLocation.trim().length == 0 || currentLocation.trim().length < 3) {
             setError({ errorField: "location", errorText: "Bitte gebe einen gültigen Ort ein" });
-        } 
+        }
         else if (currentZipCode && currentZipCode?.length != 5 || !currentZipCode || !/^\d+$/.test(currentZipCode)) {
-           
-                setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
+
+            setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
 
         }
         else {
             setError(null);
         }
-    },[currentZipCode, currentLocation])
+    }, [currentZipCode, currentLocation])
 
 
     const hasChanged = false;
@@ -115,7 +126,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
             </div>
             <div className="mt-auto flex flex-col">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged)}>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
@@ -123,13 +134,14 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
+                        onClick={() => onSave()}
                         disabled={error != undefined}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>
+            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
         </>
     );
 }

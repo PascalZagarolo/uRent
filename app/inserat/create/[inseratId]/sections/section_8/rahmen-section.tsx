@@ -15,37 +15,46 @@ import RequiredAgeCreation from "./reqAge";
 import axios from "axios";
 import { RenderErrorMessage } from "../_components/render-messages";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { useRouter } from "next/navigation";
+import SaveChangesDialog from "../_components/save-changes-dialog";
 
 
 interface RahmenSectionProps {
-    thisInserat : typeof inserat.$inferSelect;
-    currentSection : number;
-    changeSection : (value : number) => void;
+    thisInserat: typeof inserat.$inferSelect;
+    currentSection: number;
+    changeSection: (value: number) => void;
 }
 
-const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSectionProps) => {
+const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSectionProps) => {
 
-    
-    
+
+
 
 
     const [currentCaution, setCurrentCaution] = useState(thisInserat?.caution ? thisInserat?.caution : undefined);
     const [currentReqAge, setCurrentReqAge] = useState(thisInserat?.reqAge);
     const [currentLicense, setCurrentLicense] = useState(thisInserat?.license);
 
-    
+    const [showDialog, setShowDialog] = useState(false);
 
-    const onSave = async () => {
+    const router = useRouter();
+
+    const onSave = async (redirect?: boolean) => {
         try {
-          
+
             const values = {
-                caution : currentCaution,
-                reqAge : currentReqAge,
-                license : currentLicense
+                caution: currentCaution,
+                reqAge: currentReqAge,
+                license: currentLicense
             }
-          await axios.patch(`/api/inserat/${thisInserat.id}`, values);
-          changeSection(currentSection + 1);
-        } catch(e : any) {
+            await axios.patch(`/api/inserat/${thisInserat.id}`, values);
+            if (redirect) {
+                router.push(`/inserat/create/${thisInserat.id}`);
+                router.refresh();
+            } else {
+                changeSection(currentSection + 1);
+            }
+        } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
         }
@@ -55,7 +64,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSe
         changeSection(currentSection - 1);
     }
 
-    const [error, setError] = useState< {errorField : string; errorText : string}|null>(undefined);
+    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(undefined);
 
     const hasChanged = false;
 
@@ -64,7 +73,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSe
         // Check if the value contains any non-numeric characters
         const cautionRegex = /^[0-9]+(\.[0-9]{2})?$/ // This allows only numbers and optionally one dot for decimals
         const parsedCaution = parseFloat(currentCaution as string);
-    
+
         if (currentCaution !== undefined && currentCaution !== "") {
             // If it doesn't match the regex or is not a positive number
             if (!cautionRegex.test(currentCaution) || isNaN(parsedCaution) || parsedCaution <= 0) {
@@ -75,9 +84,9 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSe
         }
     }, [currentCaution]);
 
-    
 
-    return ( 
+
+    return (
         <>
             <div className="flex flex-col h-full">
                 <h3 className="text-lg font-semibold">
@@ -87,36 +96,37 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection } : RahmenSe
                     </p>
                 </h3>
                 <div className="mt-4">
-                  <SelectCautionCreation currentValue={currentCaution} setCurrentValue={setCurrentCaution} />
-                  {error?.errorField === "caution" &&  <RenderErrorMessage error={error.errorText as string}/>}
+                    <SelectCautionCreation currentValue={currentCaution} setCurrentValue={setCurrentCaution} />
+                    {error?.errorField === "caution" && <RenderErrorMessage error={error.errorText as string} />}
                 </div>
                 <div className="mt-4">
-                <RequiredAgeCreation currentValue={currentReqAge as any} setCurrentValue={setCurrentReqAge} />
-               </div>
-                <div className="mt-4">
-                  <SelectLicenseCreation currentValue={currentLicense} setCurrentValue={setCurrentLicense} category={thisInserat?.category} />
+                    <RequiredAgeCreation currentValue={currentReqAge as any} setCurrentValue={setCurrentReqAge} />
                 </div>
-               
-                
+                <div className="mt-4">
+                    <SelectLicenseCreation currentValue={currentLicense} setCurrentValue={setCurrentLicense} category={thisInserat?.category} />
+                </div>
+
+
             </div>
             <div className="mt-auto flex flex-col">
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged)}>
-                       <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
-                    </span>
-                    <div className="grid grid-cols-2 mt-2">
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
+                </span>
+                <div className="grid grid-cols-2 mt-2">
                     <Button className="" variant="ghost" onClick={onPrevious}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                    onClick={onSave}
-                    disabled={error != undefined}
+                        onClick={() => onSave()}
+                        disabled={error != undefined}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
-                    </div>
                 </div>
-            </>
-     );
+            </div>
+            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+        </>
+    );
 }
- 
+
 export default RahmenSection;

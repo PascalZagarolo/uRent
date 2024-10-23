@@ -82,7 +82,7 @@ const Inserat: React.FC<InseratProps> = ({
                     <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
                         onClick={() => { !currentUser && router.push("/login") }}
                     >
-                        <CopyIcon className="w-4 h-4 xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
+                        <CopyIcon className="w-4 h-4 3xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
                     </Button>
                 ) : (
                     currentUser.isBusiness ? (

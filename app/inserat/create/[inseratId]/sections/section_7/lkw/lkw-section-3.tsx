@@ -10,7 +10,7 @@ import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import axios from "axios";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { RenderErrorMessage } from "../../_components/render-messages";
 import PkwLoadingVolumeCreation from "../pkw/pkw-loading-volume";
@@ -19,6 +19,7 @@ import InitialFormCreation from "../pkw/pkw-initial";
 import { lkwAttribute } from '../../../../../../../db/schema';
 import LkwSizeCreation from "./lkw-loading-size";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import SaveChangesDialog from "../../_components/save-changes-dialog";
 
 
 
@@ -44,7 +45,11 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     const [currentWidth, setCurrentWidth] = useState<string | number>(lkwAttribute?.loading_b ? lkwAttribute?.loading_b : undefined);
     const [currentHeight, setCurrentHeight] = useState<string | number>(lkwAttribute?.loading_h ? lkwAttribute?.loading_h : undefined);
 
+    const [showDialog, setShowDialog] = useState(false);
+
     const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
+
+    const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
 
@@ -73,7 +78,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         }
 
     },[currentPower, currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
-    const onSave = async () => {
+    const onSave = async (redirect? : boolean) => {
         try {
 
             if(currentPower !== undefined && Number.isNaN(currentPower)) {
@@ -90,7 +95,13 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 loading_h: currentHeight
             }
             await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
-            changeSection(currentSection + 1);
+            if(redirect) {
+                router.push(`/inserat/create/${inseratId}`);
+                router.refresh();
+              } else {
+                changeSection(currentSection + 1);
+              }
+    
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -150,7 +161,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged)}>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
@@ -158,13 +169,15 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
+                        onClick={() => onSave()}
                         disabled={error !== undefined}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>
+
+            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
         </>
 
     );

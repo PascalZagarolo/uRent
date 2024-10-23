@@ -10,7 +10,7 @@ import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 import axios from "axios";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import { RenderErrorMessage } from "../../_components/render-messages";
 import PkwLoadingVolumeCreation from "../pkw/pkw-loading-volume";
@@ -19,6 +19,7 @@ import InitialFormCreation from "../pkw/pkw-initial";
 import { lkwAttribute } from '../../../../../../../db/schema';
 import LkwSizeCreation from "../lkw/lkw-loading-size";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import SaveChangesDialog from "../../_components/save-changes-dialog";
 
 
 
@@ -35,9 +36,9 @@ interface TrailerSection3Props {
 
 const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: TrailerSection3Props) => {
 
-   
 
-    
+
+
     const [currentInitial, setCurrentInitial] = useState<string | number>(trailerAttribute?.initial ? trailerAttribute?.initial.getFullYear() : null);
     const [currentVolume, setCurrentVolume] = useState<string | number>(trailerAttribute?.loading_volume ? trailerAttribute?.loading_volume : undefined);
 
@@ -45,7 +46,11 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
     const [currentWidth, setCurrentWidth] = useState<string | number>(trailerAttribute?.loading_b ? trailerAttribute?.loading_b : undefined);
     const [currentHeight, setCurrentHeight] = useState<string | number>(trailerAttribute?.loading_h ? trailerAttribute?.loading_h : undefined);
 
-    const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
+    const [showDialog, setShowDialog] = useState(false);
+
+    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(null);
+
+    const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
 
@@ -55,24 +60,24 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
         const parsedVolume = parseFloat(currentVolume as string);
 
 
-       if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
-            setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});
-        }  else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
+        if (currentInitial !== undefined && Number.isNaN(currentInitial)) {
+            setError({ errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an" });
+        } else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
             setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
-        } else if(
-        (currentLength !== undefined && currentLength != "") && (isNaN(parseFloat(currentLength as string)) || parseFloat(currentLength as string) <= 0) ||
-        (currentWidth !== undefined && currentWidth != "") && (isNaN(parseFloat(currentWidth as string)) || parseFloat(currentWidth as string) <= 0) ||
-        (currentHeight !== undefined && currentHeight != "") && (isNaN(parseFloat(currentHeight as string)) || parseFloat(currentHeight as string) <= 0)
+        } else if (
+            (currentLength !== undefined && currentLength != "") && (isNaN(parseFloat(currentLength as string)) || parseFloat(currentLength as string) <= 0) ||
+            (currentWidth !== undefined && currentWidth != "") && (isNaN(parseFloat(currentWidth as string)) || parseFloat(currentWidth as string) <= 0) ||
+            (currentHeight !== undefined && currentHeight != "") && (isNaN(parseFloat(currentHeight as string)) || parseFloat(currentHeight as string) <= 0)
         ) {
-        
-        setError({ errorField: "size", errorText: "Bitte gebe eine gültige Lademaße ein" });
+
+            setError({ errorField: "size", errorText: "Bitte gebe eine gültige Lademaße ein" });
         }
         else {
             setError(undefined);
         }
 
-    },[ currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
-    const onSave = async () => {
+    }, [currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
+    const onSave = async (redirect?: boolean) => {
         try {
 
 
@@ -85,7 +90,12 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                 loading_h: currentHeight
             }
             await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
-            changeSection(currentSection + 1);
+            if (redirect) {
+                router.push(`/inserat/create/${inseratId}`);
+                router.refresh();
+            } else {
+                changeSection(currentSection + 1);
+            }
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -98,7 +108,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
 
     const hasChanged = true;
 
- 
+
 
     return (
         <>
@@ -115,31 +125,31 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                         currentValue={currentInitial as string}
                         setCurrentValue={(value) => setCurrentInitial(value)}
                     />
-                    
+
                 </div>
-                
+
                 <div className="mt-8">
-                <PkwLoadingVolumeCreation
-                currentValue={currentVolume}
-                setCurrentValue={(value) => setCurrentVolume(value)} 
-                />
-                {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
+                    <PkwLoadingVolumeCreation
+                        currentValue={currentVolume}
+                        setCurrentValue={(value) => setCurrentVolume(value)}
+                    />
+                    {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
 
                 </div>
                 <div>
-                    <LkwSizeCreation 
-                    currentHeight={currentHeight}
-                    currentLength={currentLength}
-                    currentWidth={currentWidth}
-                    setCurrentHeight={(value) => setCurrentHeight(value)}
-                    setCurrentLength={(value) => setCurrentLength(value)}
-                    setCurrentWidth={(value) => setCurrentWidth(value)}
+                    <LkwSizeCreation
+                        currentHeight={currentHeight}
+                        currentLength={currentLength}
+                        currentWidth={currentWidth}
+                        setCurrentHeight={(value) => setCurrentHeight(value)}
+                        setCurrentLength={(value) => setCurrentLength(value)}
+                        setCurrentWidth={(value) => setCurrentWidth(value)}
                     />
                 </div>
-                {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
+                {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged)}>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
@@ -147,13 +157,14 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={onSave}
+                        onClick={() => onSave()}
                         disabled={error !== undefined}
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>
+            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
         </>
 
     );

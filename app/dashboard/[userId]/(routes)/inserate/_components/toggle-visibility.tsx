@@ -87,11 +87,12 @@ const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
                 </div>
             ) : (
                 canPublish ? (
-                    <Button className="text-gray-200 text-xs" size="sm" variant="ghost" onClick={onPublish}>
+                    <div className="text-gray-200 text-xs hover:underline hover:cursor-pointer flex justify-center items-center" size="sm" variant="ghost" onClick={onPublish}>
                         <MdOutlineLockOpen  className="w-4 h-4 md:mr-2" />   <div className="hidden md:block">Veröffentlichen</div>
-                    </Button>
+                    </div>
                 ) : (
-                    <></>
+                    <>
+                    </>
                 )
             )}
         </div>

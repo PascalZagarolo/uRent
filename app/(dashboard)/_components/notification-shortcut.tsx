@@ -57,7 +57,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         setUnseenNotifications(foundNotifications.filter((notification) => !notification.seen));
     },[foundNotifications])
 
-    const onBlur = async () => {
+    const onOpen = async () => {
         if (foundNotifications?.length > 0) {
             try {
                 const patchedNotifications = await axios.patch("/api/notifications")
@@ -102,8 +102,8 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
     return (
         <Popover onOpenChange={(e) => {
-            if (!e) {
-                onBlur();
+            if (e) {
+                onOpen();
             }
         }}>
             <PopoverTrigger asChild>

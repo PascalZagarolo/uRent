@@ -66,10 +66,8 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         description: thisInserat.description?.length > 0 || false,
         price: Number(thisInserat.price) !== 0 && thisInserat.price,
         images: thisInserat.images?.length > 0,
-        date: (thisInserat.end && thisInserat.begin) !== null || thisInserat.annual,
         postalCode: thisInserat.address?.postalCode != null,
         location: thisInserat.address?.locationString != null,
-        state: thisInserat.address?.state != null,
     };
 
     return (

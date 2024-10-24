@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-import { ImageIcon, Trash2Icon, TrashIcon } from "lucide-react";
+import { ImageIcon, RotateCwIcon, SaveAllIcon, Trash2Icon, TrashIcon, X } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useDropzone } from "react-dropzone";
@@ -144,7 +144,42 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
             )}
             <Dialog open={showDialog} onOpenChange={(e) => {setShowDialog(e)}}>
                 <DialogContent className="dark:bg-[#191919] dark:border-none">
-                            {currentImage}
+                            <div>
+                                <div>
+                                    <h3 className="text-lg font-semibold">
+                                        Profilbanner bearbeiten
+                                    </h3>
+                                    <p className="text-gray-200/60 text-xs">
+                                        Dein Profilbanner wird öffentlich auf deinem Profil angezeigt und ist für viele Nutzer, das erste was sie sehen.
+                                    </p>
+                                </div>
+                                <div className="mt-4">
+                                    <Image 
+                                    width={500}
+                                    height={500}
+                                    src={currentImage}
+                                     className="w-full h-40 object-cover"
+                                     alt="Shitty Image Component i hate next/image"
+                                    />
+                                </div>
+                                <div>
+                                    <div className="mt-4">
+                                        <div className="flex flex-row items-center space-x-4">
+                                            <Button className="text-gray-200 bg-[#222222] hover:bg-[#242424] shadow-lg w-1/2 items-center">
+                                                <RotateCwIcon className="w-4 h-4 mr-2" />Banner ändern
+                                            </Button>
+                                            <Button className="text-gray-200 hover:text-gray-300 bg-rose-600 hover:bg-rose-700 w-1/2 items-center">
+                                               <X className="w-4 h-4 text-gray-200 mr-2" /> Banner löschen
+                                            </Button>
+                                        </div>
+                                        <div className="mt-2">
+                                            <Button className="bg-indigo-800 hover:bg-indigo-900 w-full text-gray-200 hover:text-gray-300 items-center">
+                                             <SaveAllIcon className="w-4 h-4 mr-2" />  Änderungen speichern
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                 </DialogContent>
             </Dialog>
         </div>

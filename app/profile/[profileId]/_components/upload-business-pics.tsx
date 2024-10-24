@@ -13,6 +13,9 @@ import toast from "react-hot-toast";
 import { ImageIcon, Trash2Icon, TrashIcon } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useDropzone } from "react-dropzone";
+import { GrAddCircle } from "react-icons/gr";
+import { cn } from "@/lib/utils";
 
 interface UploadBusinessPicsProps {
     usedImages: typeof businessImages.$inferSelect[];
@@ -28,18 +31,43 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
 
 
-    const [currentImage, setCurrentImage] = useState(usedImages ? usedImages[0] : null);
+    const [currentImage, setCurrentImage] = useState(usedImages[0]?.url ? usedImages[0]?.url : null);
 
     const [isLoading, setIsLoading] = useState(false);
+    const [showDialog, setShowDialog] = useState(false);
+
+
+
+    const onDrop = (acceptedFiles: File[], rejectedFiles: File[]) => {
+        const newImages = acceptedFiles.map((file: File) => {
+            // Create a temporary URL for the file
+            const imageUrl = URL.createObjectURL(file);
     
+            // Log the file and the generated URL
+            console.log('File:', file);
+            console.log('Image URL:', imageUrl);
+    
+            // You can now use the URL to set the image for preview or other purposes
+            setCurrentImage(imageUrl); // Assuming setCurrentImage is meant to handle the URL
+            setShowDialog(true);
+    
+            // Do any additional processing if needed...
+        });
+    };
 
-    const onUpload = async () => {
-
-    }
 
 
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
 
-
+    } = useDropzone({
+        //@ts-ignore
+        onDrop, maxFiles: 1, accept: {
+            'image/png': ['.jpeg', '.png', '.webp', '.jpg'],
+        }
+    });
 
 
 
@@ -67,7 +95,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                             </h3>
                             <div className="mt-4">
                                 <img
-                                    src={currentImage?.url}
+                                    src={currentImage}
 
 
                                     style={{ objectFit: "cover" }}
@@ -80,7 +108,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                     <ImageIcon className="w-4 h-4 mr-2" /> Bild ersetzen
                                 </Button>
                                 <Button className="w-1/2 bg-rose-600 text-gray-200 hover:bg-rose-700 hover:text-gray-300"
-                                onClick={() => {setCurrentImage(null)}}
+                                    onClick={() => { setCurrentImage(null) }}
                                 >
                                     <Trash2Icon className="w-4 h-4 mr-2" /> Bild löschen
                                 </Button>
@@ -94,6 +122,31 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                     </DialogContent>
                 </Dialog>
             )}
+
+            {!usedImages[0] && (
+                <div>
+                    <div>
+                        <h3 className="text-lg font-semibold">
+                            Profilbanner verwalten
+                        </h3>
+                    </div>
+                    <div className={cn(" text-gray-200/80 bg-[#272727] bg-indigo-600/15 text-sm  flex justify-center py-20 shadow-lg items-center")}
+                        {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <GrAddCircle className="w-4 h-4 mr-2" />
+                        {isDragActive ? (
+                            "Fotos hier ablegen.."
+                        ) : (
+                            "Fotos hinzufügen oder reinziehen.."
+                        )}
+                    </div>
+                </div>
+            )}
+            <Dialog open={showDialog} onOpenChange={(e) => {setShowDialog(e)}}>
+                <DialogContent className="dark:bg-[#191919] dark:border-none">
+                            {currentImage}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

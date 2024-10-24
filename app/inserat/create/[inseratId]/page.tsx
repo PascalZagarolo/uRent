@@ -62,6 +62,7 @@ const InseratCreation = async ({
                 eq(inserat.isPublished, true)
             )
         )
+    console.log(countInserate[0].count)
 
     const findInserat = db.query.inserat.findFirst({
         with: {
@@ -151,7 +152,7 @@ const InseratCreation = async ({
                         thisInserat={thisInserat}
                         currentUser={currentUser}
                         thisAddressComponent={thisAddressComponent}
-                        publishedLength={countInserate.length}
+                        publishedLength={countInserate[0].count}
                         isPublishable={isPublishable}
                         />
                     </div>

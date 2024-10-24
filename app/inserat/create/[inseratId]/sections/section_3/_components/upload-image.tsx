@@ -18,6 +18,8 @@ import ImageList from "@/app/inserat/create/_components/input-fields/image-list"
 import { v4 as uuidv4 } from 'uuid';
 import ImageListCreation from "./upload-image-list";
 import DeleteImagesCreation from "./delete-images";
+import { GrAddCircle } from "react-icons/gr";
+import { cn } from "@/lib/utils";
 
 
 
@@ -147,7 +149,7 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
             {
 
 
-                <div className="mt-4 bg-white p-4 mr-8 shadow-lg rounded-md dark:bg-[#0F0F0F] w-full">
+                <div className="mt-4 bg-white px-4 py-2 mr-8  rounded-md dark:bg-[#222222] shadow-lg w-full">
                     <ImageListCreation
                         onEdit={() => { }}
                         onReorder={setSelectedImages}
@@ -156,9 +158,10 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
                     />
                     {selectedImages.length < maxPicsize && (
 
-                        <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-20 border-dashed border
-                             dark:text-gray-100/80 dark:border-gray-500" {...getRootProps()}>
+                        <div className={cn(" text-gray-200/80 bg-[#272727] bg-indigo-600/15 text-sm  flex justify-center py-20 shadow-lg items-center" , selectedImages?.length > 0 && "mt-4 mb-4")}
+                        {...getRootProps()}>
                             <input {...getInputProps()} />
+                            <GrAddCircle className="w-4 h-4 mr-2" />
                             {isDragActive ? (
                                 "Fotos hier ablegen.."
                             ) : (

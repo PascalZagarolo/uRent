@@ -143,7 +143,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             {
 
 
-                <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#0F0F0F] w-full">
+                <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#171717] w-full">
                     <ImageList
                         onEdit={() => { }}
                         onReorder={onReorder}

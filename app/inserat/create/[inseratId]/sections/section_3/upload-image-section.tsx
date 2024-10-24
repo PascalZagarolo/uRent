@@ -13,6 +13,7 @@ import UploadImagesCreation from "./_components/upload-image";
 import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
+import { cn } from "@/lib/utils";
 
 
 
@@ -149,7 +150,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     Wähle Bilder aus, die dein Fahrzeug gut repräsentieren.
                 </p>
             </h3>
-            <div className="mt-4">
+            <div className={cn("mt-4", selectedImages?.length > 2 && "mb-4")}>
                 <UploadImagesCreation
                     selectedImages={selectedImages}
                     setSelectedImages={setSelectedImages}

@@ -69,16 +69,16 @@ const ImageListCreation: React.FC<ImageListCreationProps> = ({
                                 {(provided) => (
                                     <div
                                         className={cn(
-                                            `flex items-center bg-slate-200 border-slate-200  
-                                            h-[200px] text-slate-700 rounded-md p-2 text-sm
-                                            dark:bg-[#202020] dark:text-gray-100`
+                                            `flex items-center y
+                                            h-[200px] text-slate-700 bg-[#191919] shadow-lg rounded-md p-2 text-sm
+                                             dark:text-gray-100`
                                         )}
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                     >
                                         <div
                                             className={cn(`w-full p-2 border-r border-r-slate-200 hover:bg-slate-300 
-                                            dark:hover:bg-[#282828] dark:border-none rounded-l-md`)}
+                                            dark:hover:bg-[#282828] bg-[#191919] dark:border-none rounded-l-md`)}
                                             {...provided.dragHandleProps}
                                         >
                                             <div className="flex">

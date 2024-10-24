@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { AlertCircleIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface SaveChangesDialogProps {
@@ -16,7 +17,13 @@ const SaveChangesDialog = ({
 }: SaveChangesDialogProps) => {
 
 
+    const router = useRouter();
 
+    const params = useParams();
+
+    const onLeave = () => {
+        router.push(`/inserat/create/${params.inseratId}`)
+    }
 
     return (
         <Dialog open={open} onOpenChange={(e) => { onChange(e) }}>
@@ -37,7 +44,7 @@ const SaveChangesDialog = ({
                             </Button>
                         </DialogTrigger>
                         <DialogTrigger asChild>
-                            <Button className=" text-gray-200 hover:text-gray-300 " variant="ghost" >
+                            <Button className=" text-gray-200 hover:text-gray-300 " variant="ghost" onClick={onLeave} >
                                 Seite verlassen
                             </Button>
                         </DialogTrigger>

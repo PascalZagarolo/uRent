@@ -157,8 +157,10 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             </div>
             {ownSite && (
                     <Button
-                        className="flex items-center bg-indigo-800 hover:bg-indigo-900 text-white w-full mt-8  transition ease-in-out">
-                        <Pencil2Icon className="mr-2 h-4 w-4" /> Anzeige bearbeiten
+                        className="flex items-center bg-indigo-800 hover:bg-indigo-900 text-white w-full mt-8  transition ease-in-out"
+                        onClick={() => router.push(`/inserat/create/${params.inseratId}`)}
+                        >
+                        <Pencil2Icon className="mr-2 h-4 w-4" /> Inserat bearbeiten
                     </Button>
                 )}
             {ownSite ? (

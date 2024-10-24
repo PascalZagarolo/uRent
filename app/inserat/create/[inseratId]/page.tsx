@@ -62,7 +62,7 @@ const InseratCreation = async ({
                 eq(inserat.isPublished, true)
             )
         )
-    console.log(countInserate[0].count)
+    
 
     const findInserat = db.query.inserat.findFirst({
         with: {

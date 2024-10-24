@@ -13,7 +13,8 @@ interface DashboardTabProps {
 
 const DashboardTab = ({ views, foundInserate } : DashboardTabProps) => {
 
-    const releasedInserate = foundInserate?.filter((inserat) => inserat.isPublic)?.length;
+    const releasedInserate = foundInserate?.filter((inserat) => inserat?.isPublished)?.length;
+    
     const nonReleased = foundInserate?.length - releasedInserate;
 
     return (

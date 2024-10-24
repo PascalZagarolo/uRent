@@ -55,6 +55,10 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
         });
     };
 
+    const onImageClear = () => {
+        setCurrentImage(null);
+    }
+
 
 
     const {
@@ -154,21 +158,32 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                     </p>
                                 </div>
                                 <div className="mt-4">
-                                    <Image 
-                                    width={500}
-                                    height={500}
-                                    src={currentImage}
-                                     className="w-full h-40 object-cover"
-                                     alt="Shitty Image Component i hate next/image"
-                                    />
+                                    {currentImage ? (
+                                        <Image 
+                                        width={500}
+                                        height={500}
+                                        src={currentImage}
+                                         className="w-full h-40 object-cover"
+                                         alt="Shitty Image Component i hate next/image"
+                                        />
+                                    ) : (
+                                        <div className="bg-[#131313] shadow-lg w-full h-40">
+                                            <span className="text-sm text-gray-200/60 flex justify-center items-center h-full">
+                                                Kein Bild ausgewählt
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
                                 <div>
                                     <div className="mt-4">
                                         <div className="flex flex-row items-center space-x-4">
                                             <Button className="text-gray-200 bg-[#222222] hover:bg-[#242424] shadow-lg w-1/2 items-center">
-                                                <RotateCwIcon className="w-4 h-4 mr-2" />Banner ändern
+                                            <input {...getInputProps()} />
+                                                <RotateCwIcon className="w-4 h-4 mr-2" /> Banner ändern
                                             </Button>
-                                            <Button className="text-gray-200 hover:text-gray-300 bg-rose-600 hover:bg-rose-700 w-1/2 items-center">
+                                            <Button className="text-gray-200 hover:text-gray-300 bg-rose-600 hover:bg-rose-700 w-1/2 items-center"
+                                            onClick={onImageClear}
+                                            >
                                                <X className="w-4 h-4 text-gray-200 mr-2" /> Banner löschen
                                             </Button>
                                         </div>

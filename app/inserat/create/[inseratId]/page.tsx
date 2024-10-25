@@ -102,7 +102,7 @@ const InseratCreation = async ({
     }
 
 
-
+    
 
 
     const thisAddressComponent = await db.query.address.findFirst({

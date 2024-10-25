@@ -37,7 +37,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
 
     const router = useRouter();
 
-
+    //....
 
     const canPublish = () => {
         if (!thisInserat?.title || !thisInserat?.description || !thisInserat?.category || !thisInserat?.price

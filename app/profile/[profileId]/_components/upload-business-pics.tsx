@@ -101,7 +101,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 body: formData
             })
             const responseJson = await response.json();
-            imageUrl = responseJson.url;
+            imageUrl = responseJson?.url;
             return imageUrl;
         } catch (e: any) {
             console.log(e);
@@ -133,7 +133,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 <div>
                     <Button className="w-full h-[240px] relative overflow-hidden" onClick={() => { setShowDialog(true) }}>
                         <Image
-                            src={usedImages[0].url}
+                            src={usedImages[0]?.url}
                             quality={100}
                             fill
                             style={{ objectFit: "cover" }}
@@ -149,7 +149,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
             )}
 
-            {!currentImage.url && (
+            {!currentImage?.url && (
                 <div>
                     <div>
                         <h3 className="text-lg font-semibold">
@@ -184,7 +184,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                 <Image
                                     width={500}
                                     height={500}
-                                    src={currentImage.url}
+                                    src={currentImage?.url}
                                     className="w-full h-40 object-cover"
                                     alt="Shitty Image Component i hate next/image"
                                 />

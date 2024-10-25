@@ -128,7 +128,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     return (
         <div>
 
-            {usedImages[0] && (
+            {usedImages[0]?.url && (
 
                 <div>
                     <Button className="w-full h-[240px] relative overflow-hidden" onClick={() => { setShowDialog(true) }}>

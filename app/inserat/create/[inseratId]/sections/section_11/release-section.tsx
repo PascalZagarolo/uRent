@@ -3,7 +3,7 @@
 import { inserat, userSubscription } from "@/db/schema";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRightCircleIcon, ClipboardCopy, CopyCheckIcon, Link2 } from "lucide-react";
+import { ArrowLeft, ArrowRightCircleIcon, CircleIcon, ClipboardCopy, CopyCheckIcon, Link2 } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { HiLockClosed } from "react-icons/hi";
@@ -11,16 +11,17 @@ import { LockOpen1Icon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { checkIfValid } from "@/hooks/subscription/useCheckSubscription";
+import { BsCircleFill } from "react-icons/bs";
 
 interface ReleaseSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
-    existingSubscription : typeof userSubscription.$inferSelect;
+    existingSubscription: typeof userSubscription.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
     publishedLength: number;
 }
 
-const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSubscription, publishedLength}: ReleaseSectionProps) => {
+const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSubscription, publishedLength }: ReleaseSectionProps) => {
     const onPrevious = () => {
         changeSection(currentSection - 1);
     }
@@ -36,31 +37,31 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
 
     const router = useRouter();
 
-    
+
 
     const canPublish = () => {
-        if(!thisInserat?.title || !thisInserat?.description || !thisInserat?.category || !thisInserat?.price
-             || thisInserat?.images?.length < 1 || !thisInserat?.address?.postalCode || !thisInserat?.address?.locationString
-            ) {
-                return false;
-            } else {
-                return true;
-            }
+        if (!thisInserat?.title || !thisInserat?.description || !thisInserat?.category || !thisInserat?.price
+            || thisInserat?.images?.length < 1 || !thisInserat?.address?.postalCode || !thisInserat?.address?.locationString
+        ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     const onSave = async () => {
         try {
 
-            if(!checkIfValid(publishedLength, existingSubscription)) {
+            if (!checkIfValid(publishedLength, existingSubscription)) {
                 return router.push("/pricing")
             }
 
             setIsLoading(false);
             const values = {
-                isPublished : currentPrivacy
+                isPublished: currentPrivacy
             }
             await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
-            if(currentPrivacy) {
+            if (currentPrivacy) {
                 toast.success("Inserat wurde erfolgreich veröffentlicht.");
                 router.push(`/inserat/${thisInserat?.id}`);
             } else {
@@ -68,7 +69,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                 router.push(`/dashboard/${thisInserat?.userId}`);
             }
 
-        } catch(e : any) {
+        } catch (e: any) {
             console.log(e);
             toast.error("Etwas ist schief gelaufen. Bitte versuche es erneut.");
         }
@@ -85,9 +86,9 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                 Inserat veröffentlichen
             </h3>
             <p className="text-xs text-gray-200/60 text-center">
-                Hier kannst du entscheiden, ob dein Inserat öffentlich oder privat sein soll. <br/>
-                Öffentliche Inserate sind für alle Nutzer sichtbar und können von jedem eingesehen werden. <br/>
-                Private Inserate sind nur für dich sichtbar und können nicht von anderen Nutzern eingesehen werden. <br/>
+                Hier kannst du entscheiden, ob dein Inserat öffentlich oder privat sein soll. <br />
+                Öffentliche Inserate sind für alle Nutzer sichtbar und können von jedem eingesehen werden. <br />
+                Private Inserate sind nur für dich sichtbar und können nicht von anderen Nutzern eingesehen werden. <br />
                 Du kannst die Sichtbarkeit sowie alle Angaben jederzeit ändern.
             </p>
             <div className="flex justify-start font-semibold text-base mt-4">
@@ -95,7 +96,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
             </div>
             <div className="w-full bg-[#191919] p-1 rounded-lg flex justify-between items-center">
                 <Button
-                variant="ghost"
+                    variant="ghost"
                     className={`w-1/2 mr-2 ${!currentPrivacy ? 'bg-[#212121] hover:bg-[#212121] font-bold' : 'bg-[#191919] hover:bg-[#191919]'} text-gray-200`}
                     onClick={() => handlePrivacyChange(false)}
                 >
@@ -103,31 +104,54 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                 </Button>
                 <Button
                     className={`w-1/2 ${currentPrivacy ? 'bg-[#212121] hover:bg-[#212121] font-bold' : 'bg-[#191919] hover:bg-[#191919]'}  text-gray-200`}
-                    
+
                     onClick={() => handlePrivacyChange(true)}
                 >
-                    <LockOpen1Icon className="w-4 h-4 mr-2"/> Öffentlich
+                    <LockOpen1Icon className="w-4 h-4 mr-2" /> Öffentlich
                 </Button>
             </div>
             <div className="flex flex-col items-center  ">
-            <a className="hover:underline flex flex-row items-center text-sm text-gray-200 mt-4" href={`/inserat/${thisInserat?.id}`} target="_blank" rel="noReferrer">
+                <a className="hover:underline flex flex-row items-center text-sm text-gray-200 mt-4" href={`/inserat/${thisInserat?.id}`} target="_blank" rel="noReferrer">
                     <Link2 className="w-4 h-4 mr-2" /> Zu deiner Inserats-Vorschau
                 </a>
-               <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline hover:text-gray-200/80" onClick={copyToClipboard}>
-               <ClipboardCopy className="w-4 h-4 mr-2 text-gray-200 hover:cursor-pointer" /> www.urent-rental.de/inserat/{thisInserat?.id}
-               </span>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline hover:text-gray-200/80" onClick={copyToClipboard}>
+                    <ClipboardCopy className="w-4 h-4 mr-2 text-gray-200 hover:cursor-pointer" /> www.urent-rental.de/inserat/{thisInserat?.id}
+                </span>
 
+            </div>
+            <div>
+                {!canPublish() && (
+                    <div className="">
+                        <div className="text-base font-semibold text-gray-200 mt-4">
+                            Du kannst dein Inserat als Entwurf speichern & jederzeit bearbeiten. <br/>
+                            Um das Inserat zu veröffentlichen, müssen jedoch alle Pflichtfelder ausgefüllt sein.
+                        </div>
+                        <div>
+                            <div>
+                                {thisInserat?.title ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keinen Titel angegeben</div>}
+                                {thisInserat?.description ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Beschreibung angegeben</div>}
+                                {thisInserat?.category ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Kategorie angegebenn</div>}
+                                {thisInserat?.price ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keinen Preis angegeben </div>}
+                                {thisInserat?.images?.length > 0 ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Bilder angegeben</div>}
+                                
+                                {thisInserat?.address?.postalCode  ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Postleitzahl angegeben</div>}
+                                {thisInserat?.address?.locationString  ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Addresse angegeben</div>}
+
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
             <div className="flex flex-col w-full mt-16">
                 <Button className={cn("bg-indigo-800 hover:bg-indigo-900 text-gray-200 py-3 w-full rounded-lg shadow-lg transition-all duration-200",
                     !currentPrivacy ? 'bg-[#222222] hover:bg-[#232323] text-gray-200/80 hover:text-gray-200' : 'bg-indigo-800 hover:bg-indigo-900')}
-                onClick={onSave}
-                disabled={isLoading || !canPublish() && currentPrivacy}
+                    onClick={onSave}
+                    disabled={isLoading || !canPublish() && currentPrivacy}
                 >
                     Inserat  {currentPrivacy ? 'veröffentlichen' : 'als Entwurf speichern'}
                 </Button>
-                <Button className="flex items-center justify-center w-full text-gray-400 hover:text-gray-200 transition-all mt-2" variant="ghost" 
-                onClick={onPrevious} disabled={isLoading}>
+                <Button className="flex items-center justify-center w-full text-gray-400 hover:text-gray-200 transition-all mt-2" variant="ghost"
+                    onClick={onPrevious} disabled={isLoading}>
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Zurück
                 </Button>

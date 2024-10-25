@@ -73,19 +73,19 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
 
 
-    useEffect(() => {
-        if (!currentLocation || currentLocation.trim().length == 0 || currentLocation.trim().length < 3) {
-            setError({ errorField: "location", errorText: "Bitte gebe einen gültigen Ort ein" });
-        }
-        else if (currentZipCode && currentZipCode?.length != 5 || !currentZipCode || !/^\d+$/.test(currentZipCode)) {
+    // useEffect(() => {
+    //     if (!currentLocation || currentLocation.trim().length == 0 || currentLocation.trim().length < 3) {
+    //         setError({ errorField: "location", errorText: "Bitte gebe einen gültigen Ort ein" });
+    //     }
+    //     else if (currentZipCode && currentZipCode?.length != 5 || !currentZipCode || !/^\d+$/.test(currentZipCode)) {
 
-            setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
+    //         setError({ errorField: "postalCode", errorText: "Bitte gebe eine gültige Postleitzahl ein" });
 
-        }
-        else {
-            setError(null);
-        }
-    }, [currentZipCode, currentLocation])
+    //     }
+    //     else {
+    //         setError(null);
+    //     }
+    // }, [currentZipCode, currentLocation])
 
 
     const hasChanged = false;
@@ -135,7 +135,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
                         onClick={() => onSave()}
-                        disabled={error != undefined}
+                        
                     >
                         Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>

@@ -42,15 +42,15 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
         try {
 
             const values1 = {
-                emailAddress: currentEmail,
-                phoneNumber: currentNumber,
+                emailAddress: currentEmail ? currentEmail : null,
+                phoneNumber: currentNumber ? currentNumber : null,
             }
 
             await axios.patch(`/api/inserat/${thisInserat.id}`, values1);
 
             const values2 = {
-                locationString: currentLocation,
-                postalCode: currentZipCode,
+                locationString: currentLocation ? currentLocation : null,
+                postalCode: currentZipCode ? currentZipCode : null,
             }
             await axios.patch(`/api/inserat/${thisInserat.id}/address`, values2);
             if (redirect) {

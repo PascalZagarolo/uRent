@@ -55,7 +55,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
 
   
     
-    const [currentState, setCurrentState] = useState(thisAddressComponent?.state || "");
+    
 
     useEffect(() => {
         //@ts-ignore

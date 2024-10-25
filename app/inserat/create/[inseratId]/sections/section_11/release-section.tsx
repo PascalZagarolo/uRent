@@ -69,7 +69,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
         unfinishedSections.push(10)
     }
 
-
+    
 
     const onSave = async () => {
         try {
@@ -150,14 +150,50 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                         </div>
                         <div>
                             <div>
-                                {thisInserat?.title ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keinen Titel angegeben</div>}
-                                {thisInserat?.description ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Beschreibung angegeben</div>}
-                                {thisInserat?.category ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Kategorie angegebenn</div>}
-                                {thisInserat?.price ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keinen Preis angegeben </div>}
-                                {thisInserat?.images?.length > 0 ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Bilder angegeben</div>}
+                                {(!thisInserat?.title  || thisInserat?.title?.trim() == "") &&  
+                                <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
+                                onClick={() => changeSection(1)}
+                                > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keinen Titel angegeben 
+                                <span className="text-gray-200/60"> (Abschnitt 1) </span>
+                                </div>}
+                                {(!thisInserat?.description  || thisInserat?.description?.trim() == "") && 
+                                <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
+                                onClick={() => changeSection(1)}
+                                > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Beschreibung angegeben
+                                <span className="text-gray-200/60"> (Abschnitt 1) </span>
+                                </div>}
+                                {thisInserat?.category ? null : 
+                                <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
+                                onClick={() => changeSection(2)}
+                                > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Kategorie angegeben
+                                <span className="text-gray-200/60"> (Abschnitt 2) </span>
+                                </div>}
+                                {thisInserat?.images?.length > 0 ? null : 
+                                <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
+                                onClick={() => changeSection(3)}
+                                > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Bilder angegeben
+                                <span className="text-gray-200/60"> (Abschnitt 3) </span>
+                                </div>}
+                                {(!thisInserat?.price || thisInserat?.price == 0) &&
+                                 <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
+                                 onClick={() => changeSection(4)}
+                                 > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keinen Preis angegeben
+                                <span className="text-gray-200/60"> (Abschnitt 4) </span>
+                                 </div>}
+                               
                                 
-                                {thisInserat?.address?.postalCode  ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Postleitzahl angegeben</div>}
-                                {thisInserat?.address?.locationString  ? null : <div className="text-sm text-red-500 mt-2 flex flex-row items-center"> <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Addresse angegeben</div>}
+                                {(!thisInserat?.address?.postalCode || thisInserat?.address?.postalCode !== 5) && 
+                                <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
+                                onClick={() => changeSection(10)}
+                                > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Postleitzahl angegeben
+                                <span className="text-gray-200/60"> (Abschnitt 10) </span>
+                                </div>}
+                                {(!thisInserat?.address?.locationString || thisInserat?.address?.locationString?.trim() === "")  &&  
+                                <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
+                                onClick={() => changeSection(10)}>
+                                 <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Addresse angegeben
+                                <span className="text-gray-200/60"> (Abschnitt 10) </span>
+                                </div>}
 
                             </div>
                         </div>

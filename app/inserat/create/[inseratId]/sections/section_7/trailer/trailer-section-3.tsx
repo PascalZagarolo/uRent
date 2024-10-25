@@ -160,7 +160,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                         onClick={() => onSave()}
                         disabled={error !== undefined}
                     >
-                        Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
+                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>

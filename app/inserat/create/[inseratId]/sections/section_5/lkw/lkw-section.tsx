@@ -113,7 +113,7 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
                         onClick={() => onSave()}
                     >
-                        Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
+                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>

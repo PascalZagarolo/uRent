@@ -99,13 +99,13 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
             setIsLoading(true);
 
             const generatedId = uuidv4()
-
+            console.log(currentKilometer)
             const newInserted = {
                 id : generatedId,
                 title: currentType,
                 price: currentValue,
                 description: currentInfo,
-                kilometer: currentKilometer,
+                freeMiles: currentKilometer,
                 extraCost: currentExtratype,
                 getsAdded : true
             }
@@ -229,7 +229,9 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
                                                 const newValue = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
                                                 setCurrentKilometer(newValue);
                                             }}
+                                            
                                         />
+                                        
                                         <div className="ml-auto flex justify-end">
                                             <LetterRestriction limit={16} currentLength={currentKilometer?.length || 0} />
                                         </div>

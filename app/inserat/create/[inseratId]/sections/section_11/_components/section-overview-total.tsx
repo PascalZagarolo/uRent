@@ -53,7 +53,10 @@ const SectionOverviewTotal = ({ currentCategory, unfinishedSections }: SectionOv
 
     return (
         <div>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="text-base text-gray-200 font-semibold">
+                Abschnittsübersicht
+            </div>
+            <div className="flex flex-wrap justify-center gap-4 mt-4">
                 {Array.from({ length: sectionId }, (_, i) => i).map((index) => renderedSection(index))}
             </div>
             <div className="mt-4">

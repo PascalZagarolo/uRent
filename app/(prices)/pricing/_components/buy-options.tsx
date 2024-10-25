@@ -257,7 +257,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     Wie viele Inserate möchtest du schalten?
                 </div>
                 <div className="">
-                    <Select onValueChange={(value) => setAmountInserat(Number(value))}>
+                    <Select onValueChange={(value) => setAmountInserat(Number(value))} value={String(amountInserat)}>
                         <SelectTrigger className="sm:w-[180px] dark:bg-[#171717] dark:border-none"
 
                         >

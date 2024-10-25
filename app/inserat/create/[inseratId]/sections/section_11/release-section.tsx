@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { checkIfValid } from "@/hooks/subscription/useCheckSubscription";
 import { BsCircleFill } from "react-icons/bs";
+import SectionOverviewTotal from "./_components/section-overview-total";
 
 interface ReleaseSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -40,14 +41,35 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
     //....
 
     const canPublish = () => {
-        if (!thisInserat?.title || !thisInserat?.description || !thisInserat?.category || !thisInserat?.price
-            || thisInserat?.images?.length < 1 || !thisInserat?.address?.postalCode || !thisInserat?.address?.locationString
+        if (!thisInserat?.title || !thisInserat?.description || !thisInserat?.category || !thisInserat?.price || thisInserat?.price == 0
+            || thisInserat?.images?.length < 1 || !thisInserat?.address?.postalCode || !thisInserat?.address?.locationString || thisInserat?.locationString?.trim() == "" || thisInserat?.postalCode?.length !== 5
         ) {
             return false;
         } else {
             return true;
         }
     }
+
+
+    const unfinishedSections = []
+
+    if(!thisInserat?.title || !thisInserat?.description) {
+        unfinishedSections.push(1)
+    }
+
+    if(thisInserat?.images?.length < 1) {
+        unfinishedSections.push(3)
+    }
+
+    if(!thisInserat?.price || thisInserat?.price == 0) {
+        unfinishedSections.push(4)
+    }
+
+    if(!thisInserat?.postalCode || !thisInserat?.locationString || thisInserat?.locationString.trim() == "" || thisInserat?.postalCode.length !== 5) {
+        unfinishedSections.push(10)
+    }
+
+
 
     const onSave = async () => {
         try {
@@ -156,7 +178,12 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                     Zurück
                 </Button>
             </div>
-
+            <div className="mt-4">
+                <SectionOverviewTotal 
+                currentCategory = {thisInserat?.category}
+                unfinishedSections = {unfinishedSections}
+                />
+            </div>
         </div>
     );
 }

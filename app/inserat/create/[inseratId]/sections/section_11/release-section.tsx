@@ -52,7 +52,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
     const onSave = async () => {
         try {
 
-            if (!checkIfValid(publishedLength, existingSubscription)) {
+            if (currentPrivacy && !checkIfValid(publishedLength, existingSubscription)) {
                 return router.push("/pricing")
             }
 

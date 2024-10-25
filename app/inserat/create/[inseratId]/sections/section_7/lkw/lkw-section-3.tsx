@@ -87,12 +87,12 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
             }
 
             const values = {
-                power: currentPower,
-                initial: currentInitial,
-                loading_volume: currentVolume,
-                loading_l: currentLength,
-                loading_b: currentWidth,
-                loading_h: currentHeight
+                power: currentPower ? currentPower : null,
+                initial: currentInitial ? currentInitial : null,
+                loading_volume: currentVolume ? currentVolume : null,
+                loading_l: currentLength ? currentLength : null,
+                loading_b: currentWidth ? currentWidth : null,
+                loading_h: currentHeight ? currentHeight : null
             }
             await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
             if(redirect) {

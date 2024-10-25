@@ -83,11 +83,11 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
 
             const values = {
 
-                initial: currentInitial,
-                loading_volume: currentVolume,
-                loading_l: currentLength,
-                loading_b: currentWidth,
-                loading_h: currentHeight
+                initial: currentInitial ? currentInitial : null,
+                loading_volume: currentVolume ? currentVolume : null,
+                loading_l: currentLength ? currentLength : null,
+                loading_b: currentWidth ? currentWidth : null,
+                loading_h: currentHeight ? currentHeight : null
             }
             await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
             if (redirect) {

@@ -36,13 +36,18 @@ const Imprint = async () => {
                                 <p className="mt-2">
                                     uRent UG (haftungsbeschränkt)
                                 </p>
-                                <p className="mt-2">
+                                <p className="">
                                 Bozenerstr. 26
                                 </p>
-                                <p className="mt-2">
+                                <p className="">
                                     42659 Solingen, Deutschland
                                 </p>
                                 
+
+                                <p className="mt-2">
+                                    HRB 35082, Handelsregister B, Amtsgericht Wuppertal
+                                </p>
+
                                 <p className="mt-4 text-lg font-semibold">
                                     Vertreten durch:
                                 </p>
@@ -57,9 +62,9 @@ const Imprint = async () => {
                                         Kontakt:
                                     </p>
                                     <div>
-                                        <p className="mt-2">
+                                        {/* <p className="mt-2">
                                             Telefon: x
-                                        </p>
+                                        </p> */}
                                         <p className="mt-2">
                                             E-Mail: <a href="mailto:info@urent-rental.de">info@urent-rental.com</a>
                                         </p>

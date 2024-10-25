@@ -21,10 +21,15 @@ export async function POST(
             )
         })
 
+        //delete existing images
+        await db.delete(businessImages).where(
+            eq(businessImages.businessId, params.businessId)
+        )
+
         const newImage = await db.insert(businessImages).values({
             businessId : params.businessId,
             url : values.image,
-            position : existingImages.length + 1
+            position : 0
         }).returning();
 
         return NextResponse.json(newImage[0])

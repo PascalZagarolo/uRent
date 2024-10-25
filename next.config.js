@@ -19,7 +19,8 @@ const nextConfig = {
             "www.dropbox.com",
             "previews.dropbox.com",
             "res.cloudinary.com",
-            "lh3.googleusercontent.com"
+            "lh3.googleusercontent.com",
+            "api.cloudinary.com"
         ]
     }
 

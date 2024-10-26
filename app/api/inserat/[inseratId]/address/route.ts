@@ -13,21 +13,23 @@ export async function PATCH(
 
         const values = await req.json();
 
-        
-
-        let addressObject = await axios.get(`https://geocode.maps.co/search?q=${values.postalCode}&api_key=65db7269a0101559750093uena07e08`);
-       
-
-
-        
+        let addressObject
+        if(values?.postalCode) {
+            addressObject = await axios.get(`https://geocode.maps.co/search?q=${values.postalCode},Deutschland&api_key=65db7269a0101559750093uena07e08`);
+        }
         
        
-        
 
-        const pAddress: string[] = addressObject.data[0].display_name.split(",");
-        
-        console.log(addressObject.data[0].lat)
+
         console.log(addressObject.data[0].lon)
+        console.log(addressObject.data[0].lat)
+        
+       
+        
+
+       
+        
+        
 
         const existingAddressObject = await db.query.address.findFirst({
             where : eq(address.inseratId, params.inseratId)

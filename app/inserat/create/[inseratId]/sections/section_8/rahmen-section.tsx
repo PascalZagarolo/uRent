@@ -14,9 +14,10 @@ import SelectLicenseCreation from "./license";
 import RequiredAgeCreation from "./reqAge";
 import axios from "axios";
 import { RenderErrorMessage } from "../_components/render-messages";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
+import SaveChangesPrevious from "../_components/save-changes-previous";
 
 
 interface RahmenSectionProps {
@@ -36,10 +37,11 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
     const [currentLicense, setCurrentLicense] = useState(thisInserat?.license);
 
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
     const router = useRouter();
 
-    const onSave = async (redirect?: boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
 
             const values = {
@@ -51,6 +53,11 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
+            } else if (previous) {
+                
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(7))
+                window.history.pushState(null, '', `?${params.toString()}`)
             } else {
                 changeSection(currentSection + 1);
             }
@@ -113,7 +120,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 8)}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -125,6 +132,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
                 </div>
             </div>
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={8}/>}
         </>
     );
 }

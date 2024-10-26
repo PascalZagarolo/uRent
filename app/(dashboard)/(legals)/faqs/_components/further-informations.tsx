@@ -1,5 +1,8 @@
+'use client'
+
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { ArrowRight, MailIcon } from "lucide-react";
+import { ArrowRight, MailIcon, Router } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { GrContactInfo } from "react-icons/gr"
 
 const FurtherInformations = () => {
@@ -18,6 +21,8 @@ const FurtherInformations = () => {
             </div>
         )
     }
+
+    const router = useRouter();
 
     return (
         <div>
@@ -41,7 +46,7 @@ const FurtherInformations = () => {
                     <ArrowRight />
                 </div>
 
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center" onClick={() => {router.push(`/faqs/support`)}}>
                     {categoryRender(
                         "Zum Kontaktformular",
                         "Fülle das Kontaktformular aus, damit wir uns um dich kümmern können.",

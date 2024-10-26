@@ -151,7 +151,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     }
 
     
-
+    const shortedAddress = thisInserat?.address?.locationString?.split(", Deutschland")[0];
 
     const usedCategory: typeof CategoryEnumRender = thisInserat.category;
 
@@ -426,7 +426,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
                             <span className="text-gray-200 font-medium line-clamp-1 flex-grow break-all">
-                                {thisInserat?.address?.locationString}</span>
+                                {shortedAddress}</span>
                         </div>
                     </div>
                 </div>

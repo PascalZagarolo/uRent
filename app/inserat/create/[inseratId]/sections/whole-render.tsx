@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import PublishInserat from "../../_components/publish-inserat";
 import ContactInformation from "../_parts/contact-information";
 import SelectMinTime from "../../_components/input-fields/select-min-time";
-import RentPeriod from "../../_components/input-fields/rent-period";
+
 import ConditionsInformation from "../_parts/conditions-information";
 import CategoryInformation from "../_parts/category-information";
 import PriceProfiles from "../_parts/price-profiles";
@@ -123,7 +123,7 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                                     className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                 />
                                 <h1 className="flex justify-center text-lg font-semibold">
-                                    Zeitraum *
+                                    Zeitraum
                                 </h1>
                                 <Separator
                                     className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
@@ -134,9 +134,9 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                             </p>
                             <div className="mt-4">
 
-                                <RentPeriod
+                                {/* <RentPeriod
                                     thisInserat={thisInserat}
-                                />
+                                /> */}
 
                             </div>
                             <div className="mt-4">

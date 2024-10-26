@@ -8,10 +8,11 @@ import toast from "react-hot-toast";
 
 import { inserat } from "@/db/schema";
 import qs from "query-string"
+import { ClipboardCopy, Link2 } from "lucide-react";
 
 interface PublishInseratProps {
-    publishedLength : number;
-    existingSubscription : typeof inserat.$inferSelect;
+    publishedLength: number;
+    existingSubscription: typeof inserat.$inferSelect;
     isPublishable: object;
     thisInserat: typeof inserat.$inferSelect;
 }
@@ -31,20 +32,24 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
     const expirationDate = new Date(existingSubscription?.stripe_current_period_end);
 
-    
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(`www.urent-rental.de/inserat/${thisInserat?.id}`);
+        toast.success("Link wurde in die Zwischenablage kopiert.");
+    }
+
 
     const onPublish = () => {
         try {
             if (
                 expirationDate < currentDate || publishedLength >= existingSubscription?.amount || !existingSubscription
-                ) {
-                   
+            ) {
+
                 const url = qs.stringifyUrl({
                     url: "/pricing",
-                    query : {
-                        inseratId : thisInserat.id
+                    query: {
+                        inseratId: thisInserat.id
                     }
-                },{skipEmptyString: true, skipNull: true})
+                }, { skipEmptyString: true, skipNull: true })
 
                 router.push(url)
             } else {
@@ -127,10 +132,18 @@ const PublishInserat: React.FC<PublishInseratProps> = ({
 
     return (
         <div className="w-full mt-auto">
-            <p className="flex justify-center text-xs dark:text-gray-100/80  text-gray-900/50"> Pflichtfelder sind mit einem  *  markiert.</p>
+            <div className="flex flex-col items-center  ">
+                <a className="hover:underline flex flex-row items-center text-sm text-gray-200 mt-4" href={`/inserat/${thisInserat?.id}`} target="_blank" rel="noReferrer">
+                    <Link2 className="w-4 h-4 mr-2" /> Zu deiner Inserats-Vorschau
+                </a>
+                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline hover:text-gray-200/80" onClick={copyToClipboard}>
+                    <ClipboardCopy className="w-4 h-4 mr-2 text-gray-200 hover:cursor-pointer" /> www.urent-rental.de/inserat/{thisInserat?.id}
+                </span>
+            </div>
+            <p className="flex justify-center text-xs dark:text-gray-100/80  text-gray-900/50 mt-4"> Pflichtfelder sind mit einem  *  markiert.</p>
             {!thisInserat.isPublished ? (
-                <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full" 
-                disabled={!canPublish} onClick={onPublish}>
+                <Button variant="ghost" size="sm" className="dark:bg-green-700 hover:dark:bg-green-600 w-full"
+                    disabled={!canPublish} onClick={onPublish}>
                     Anzeige veröffentlichen
                 </Button>
             ) : (

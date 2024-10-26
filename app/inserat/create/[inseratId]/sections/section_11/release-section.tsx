@@ -139,7 +139,6 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline hover:text-gray-200/80" onClick={copyToClipboard}>
                     <ClipboardCopy className="w-4 h-4 mr-2 text-gray-200 hover:cursor-pointer" /> www.urent-rental.de/inserat/{thisInserat?.id}
                 </span>
-
             </div>
             <div>
                 {!canPublish() && (

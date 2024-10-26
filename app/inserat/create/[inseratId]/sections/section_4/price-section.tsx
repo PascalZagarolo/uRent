@@ -11,9 +11,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import SelectPriceCreation from "./_components/price";
 import PriceProfilesCreation from "./_components/price-profiles";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
+import SaveChangesPrevious from "../_components/save-changes-previous";
 
 interface PriceSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -44,8 +45,10 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
 
     const router = useRouter();
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
-    const onSave = async (redirect?: boolean) => {
+
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             if (currentPrice !== thisInserat?.price) {
                 const values = {
@@ -67,6 +70,10 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
+            } else if (previous) {
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(3))
+                window.history.pushState(null, '', `?${params.toString()}`)
             } else {
                 changeSection(currentSection + 1);
             }
@@ -106,7 +113,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 4)}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -117,6 +124,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                 </div>
             </div>
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={4}/>}
         </>
     );
 }

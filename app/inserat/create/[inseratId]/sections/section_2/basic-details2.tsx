@@ -34,7 +34,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
     useEffect(() => {
-        console.log("...")
+        
         if (thisInserat?.category !== "PKW") {
             switch (thisInserat?.category) {
                 case "LKW":
@@ -83,7 +83,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
             } else if (previous) {
-                console.log("previous")
+                
                 const params = new URLSearchParams("")
                 params.set('sectionId', String(1))
                 window.history.pushState(null, '', `?${params.toString()}`)

@@ -17,7 +17,7 @@ import { businessAddress, business } from '../../../../../db/schema';
 
 
 interface SelectLocationProps {
-  thisInserat: typeof inserat.$inferSelect;
+  thisInserat: typeof inserat.$inferSelect | any;
   thisAddressComponent?: typeof address.$inferSelect;
   usedContactOptions: typeof contactOptions.$inferSelect;
 }
@@ -42,13 +42,13 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   const debouncedValue = useDebounce(value);
 
   const router = useRouter();
-  const pathname = usePathname();
+  
   const searchParams = useSearchParams();
   const currentLocation = searchParams.get("location");
 
   const [currentAddress, setCurrentAddress] = useState(thisAddressComponent?.locationString || "");
   const [currentZipCode, setCurrentZipCode] = useState<null | number | string>(thisAddressComponent?.postalCode || null);
-  const [currentState, setCurrentState] = useState(thisAddressComponent?.state || "");
+
 
   useEffect(() => {
     //@ts-ignore
@@ -56,38 +56,17 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
       inputRef.current,
       options
     );
-
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-      
-      const place = autocomplete.getPlace();
-      
-      setCurrentZipCode("");
-      let foundZipcode;
-      for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
-        
-        if (addressType === "postal_code") {
-          foundZipcode = place.address_components[i].long_name;
-          setCurrentZipCode(place.address_components[i].long_name)
-        }
-      }
-      
-      if(!foundZipcode) { 
-        console.log("no zip code found")
-        getZipCode();
-      }
-    });
-
-
-
-
-
+    // google.maps.event.addListener(autocomplete, 'place_changed', function () {
+    //   autocomplete.getPlace();
+    // });
+    
   }, [currentLocation]);
 
 
 
   const onPrefill = (e: boolean) => {
     if (e) {
+      console.log(e)
       if (!thisInserat?.user?.business || !thisInserat?.user?.business?.businessAddresses) {
         setCurrentZipCode(usedContactOptions?.userAddress?.postalCode)
         let usedString = usedContactOptions?.userAddress?.street + ", " + usedContactOptions?.userAddress?.postalCode + ", "
@@ -119,50 +98,50 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
 
   //automatically converts the inputAddress to a zip code with the help of geocode maps api, and sets the currentZipCode state
-  const getZipCode = async () => {
-    //@ts-ignore
-    console.log(inputRef?.current?.value);
-    //@ts-ignore
-    const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
-    let extractedZipCode;
-    console.log(addressObject.data[0])
-    const addressString = addressObject.data[0]?.display_name;
-    const numberOfCommas = (addressString?.split(",").length - 1) > 2 ? 3 : 2;
-    const extractedState = addressString?.split(",").map((item: any) => item.trim());
-    const newState = extractedState?.[extractedState?.length - numberOfCommas]
-    console.log(newState);
-    //?retrieve data until state is delivered..
-    /* 
-    if (extractedState?.[extractedState?.length - 3] === undefined) {
-      for (let i = 0; i < addressObject.data.length; i++) {
-        extractedState = addressObject.data[i].display_name.split(",");
-        console.log(extractedState[extractedState?.length - 3])
-        if (extractedState[extractedState?.length - 3] !== undefined) {
-          setCurrentState(extractedState[extractedState?.length - 3]);
-          break;
-        }
-      }
-    }
-    */
-    setCurrentState(newState);
-    //retrieve data until zipCode is delivered..
-    for (let i = 0; i < addressObject.data.length; i++) {
-      extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
-      console.log(addressObject.data[i])
-      if (!isNaN(extractedZipCode)) {
-        setCurrentZipCode(extractedZipCode);
-        return;
-      }
-    }
-    console.log(extractedZipCode);
-    if (extractedZipCode) {
-      console.log(extractedZipCode)
-      setCurrentZipCode(extractedZipCode)
-    } else {
-      console.log(extractedZipCode)
-      setCurrentZipCode("");
-    }
-  }
+  // const getZipCode = async () => {
+  //   //@ts-ignore
+  //   console.log(inputRef?.current?.value);
+  //   //@ts-ignore
+  //   const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
+  //   let extractedZipCode;
+  //   console.log(addressObject.data[0])
+  //   const addressString = addressObject.data[0]?.display_name;
+  //   const numberOfCommas = (addressString?.split(",").length - 1) > 2 ? 3 : 2;
+  //   const extractedState = addressString?.split(",").map((item: any) => item.trim());
+  //   const newState = extractedState?.[extractedState?.length - numberOfCommas]
+  //   console.log(newState);
+  //   //?retrieve data until state is delivered..
+  //   /* 
+  //   if (extractedState?.[extractedState?.length - 3] === undefined) {
+  //     for (let i = 0; i < addressObject.data.length; i++) {
+  //       extractedState = addressObject.data[i].display_name.split(",");
+  //       console.log(extractedState[extractedState?.length - 3])
+  //       if (extractedState[extractedState?.length - 3] !== undefined) {
+  //         setCurrentState(extractedState[extractedState?.length - 3]);
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   */
+  //   setCurrentState(newState);
+  //   //retrieve data until zipCode is delivered..
+  //   for (let i = 0; i < addressObject.data.length; i++) {
+  //     extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
+  //     console.log(addressObject.data[i])
+  //     if (!isNaN(extractedZipCode)) {
+  //       setCurrentZipCode(extractedZipCode);
+  //       return;
+  //     }
+  //   }
+  //   console.log(extractedZipCode);
+  //   if (extractedZipCode) {
+  //     console.log(extractedZipCode)
+  //     setCurrentZipCode(extractedZipCode)
+  //   } else {
+  //     console.log(extractedZipCode)
+  //     setCurrentZipCode("");
+  //   }
+  // }
 
   useEffect(() => {
     //@ts-ignore
@@ -174,7 +153,6 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         //@ts-ignore
         locationString: inputRef?.current?.value || null,
         postalCode: currentZipCode,
-        state: currentState
       }
       
       axios.patch(`/api/inserat/${thisInserat.id}/address`, values).

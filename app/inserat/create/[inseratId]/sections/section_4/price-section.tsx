@@ -40,7 +40,40 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
             getsEdited?: boolean;
         }[]
     >(thisInserat?.priceprofiles ?? []);
+    
+    const oldPriceProfiles : {
+        id: string;
+        title: string;
+        description: string;
+        price: number;
+        freeMiles: number;
+        extraCost: number;
+        position: number;
+        getsDeleted?: boolean;
+        getsAdded?: boolean;
+        getsEdited?: boolean;
+    }[] = thisInserat?.priceprofiles ?? [];
 
+    const areProfilesEqual = (
+        profileA: typeof currentPriceProfiles[0],
+        profileB: typeof oldPriceProfiles[0]
+      ) => {
+        return (
+          profileA.id === profileB.id &&
+          profileA.title === profileB.title &&
+          profileA.description === profileB.description &&
+          profileA.price === profileB.price &&
+          profileA.freeMiles === profileB.freeMiles &&
+          profileA.extraCost === profileB.extraCost &&
+          profileA.position === profileB.position &&
+          profileA.getsDeleted === profileB.getsDeleted &&
+          profileA.getsAdded === profileB.getsAdded &&
+          profileA.getsEdited === profileB.getsEdited
+        );
+      };
+      
+      // Check if there is any difference in currentPriceProfiles or currentPrice
+      const hasChanged = (currentPrice != thisInserat?.price || JSON.stringify(currentPriceProfiles) != JSON.stringify(oldPriceProfiles));
 
 
     const router = useRouter();
@@ -50,7 +83,8 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            if (currentPrice !== thisInserat?.price) {
+            if (currentPrice != thisInserat?.price) {
+                console.log("...")
                 const values = {
                     price: currentPrice
                 }
@@ -58,7 +92,8 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                 router.refresh();
             }
 
-            if (currentPriceProfiles != thisInserat?.priceProfiles) {
+            if (JSON.stringify(currentPriceProfiles) != JSON.stringify(oldPriceProfiles)) {
+                
                 const submittedValues = currentPriceProfiles.map((profile) => {
                     if (profile.getsAdded || profile.getsDeleted) {
                         return profile;
@@ -88,7 +123,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = currentPrice !== thisInserat?.price || currentPriceProfiles !== thisInserat?.priceProfiles;
+    
 
     return (
         <>

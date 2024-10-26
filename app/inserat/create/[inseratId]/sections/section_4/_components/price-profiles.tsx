@@ -53,16 +53,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 
 
 
-    useEffect(() => {
-        if (priceType === "hours") {
-            setCurrentValue(thisInserat.priceHour);
-        } else if (priceType === "weekend") {
-            setCurrentValue(thisInserat.priceWeekend);
-
-        }
-
-        router.refresh()
-    }, [priceType])
+   
 
 
 

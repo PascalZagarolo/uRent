@@ -13,8 +13,9 @@ import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import LoadingFormCreation from "../lkw/lkw-loading";
 import TrailerCouplingCreation from "./trailer-coupling";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
+import SaveChangesPrevious from "../../_components/save-changes-previous";
 
 
 
@@ -38,13 +39,14 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
     const [currentLoading, setCurrentLoading] = useState(trailerAttributes?.loading ? trailerAttributes?.loading : undefined);
 
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
     const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
 
 
-    const onSave = async (redirect?: boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             const values = {
                 coupling: currentCoupling,
@@ -54,7 +56,13 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
-            } else {
+            } else if (previous) {
+
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(5))
+                window.history.pushState(null, '', `?${params.toString()}`)
+            }
+            else {
                 changeSection(currentSection + 1);
             }
         } catch (e: any) {
@@ -105,7 +113,7 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 6)}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -115,7 +123,8 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
                     </Button>
                 </div>
             </div>
-            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6} />}
         </>
 
     );

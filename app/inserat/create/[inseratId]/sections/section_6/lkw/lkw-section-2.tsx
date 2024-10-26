@@ -16,8 +16,9 @@ import TransmissionFormCreation from "../../section_5/pkw/pkw-transmission";
 import FuelFormCreation from "../pkw/pkw-fuel";
 import LoadingFormCreation from "./lkw-loading";
 import DriveFormCreation from "./lkw-drive";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
+import SaveChangesPrevious from "../../_components/save-changes-previous";
 
 
 
@@ -39,12 +40,15 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     const [currentDrive, setCurrentDrive] = useState(lkwAttribute?.drive);
     const [currentFuel, setCurrentFuel] = useState(lkwAttribute?.fuel ? lkwAttribute?.fuel : null);
     const [currentLoading, setCurrentLoading] = useState(lkwAttribute?.loading ? lkwAttribute?.loading : null);
+
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
+
     const inseratId = useParams()?.inseratId;
 
     const router = useRouter();
 
-    const onSave = async (redirect?: boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             const values = {
                 transmission: currentTransmission,
@@ -56,7 +60,13 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
-            } else {
+            } else if (previous) {
+
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(5))
+                window.history.pushState(null, '', `?${params.toString()}`)
+            }
+            else {
                 changeSection(currentSection + 1);
             }
 
@@ -119,7 +129,7 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 6)}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -129,7 +139,8 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                     </Button>
                 </div>
             </div>
-            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6}/>}
         </>
 
     );

@@ -14,8 +14,9 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import FuelFormCreation from "./pkw-fuel";
 import DoorsCreation from "./pkw-doors";
 import PkwAhkCreation from "./pkw-ahk";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
+import SaveChangesPrevious from "../../_components/save-changes-previous";
 
 
 
@@ -38,13 +39,14 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
     const [currentAhk, setCurrentAhk] = useState(pkwAttribute?.ahk ? pkwAttribute?.ahk : undefined);
 
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
     const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
 
 
-    const onSave = async (redirect?: boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             const values = {
                 fuel: currentFuel,
@@ -55,6 +57,11 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
+            } else if (previous) {
+                
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(5))
+                window.history.pushState(null, '', `?${params.toString()}`)
             } else {
                 changeSection(currentSection + 1);
             }
@@ -97,7 +104,7 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 6)}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -108,6 +115,7 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                 </div>
             </div>
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6}/>}
         </>
 
     );

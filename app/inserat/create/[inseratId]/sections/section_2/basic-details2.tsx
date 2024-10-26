@@ -19,6 +19,9 @@ import { extraType, lkwAttribute, trailerAttribute } from '../../../../../../dri
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import SaveChangesPrevious from "../_components/save-changes-previous";
+import { set } from 'date-fns';
+import InseratType from "./_components/inserat-type";
+import VehicleAmount from "./_components/vehicle-amount";
 
 interface BasicDetails2Props {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -29,6 +32,9 @@ interface BasicDetails2Props {
 const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDetails2Props) => {
 
     const [currentCategory, setCurrentCategory] = useState(thisInserat.category || "PKW");
+    const [isMulti, setIsMulti] = useState(thisInserat?.isMulti || false);
+    const [vehicleAmount, setVehicleAmount] = useState(thisInserat?.amount || 1);
+    
 
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
@@ -65,8 +71,11 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             if (hasChanged) {
+                
                 const values = {
-                    category: currentCategory
+                    category: currentCategory,
+                    isMulti: isMulti,
+                    amount : vehicleAmount
                 }
                 await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
 
@@ -88,6 +97,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                 params.set('sectionId', String(1))
                 window.history.pushState(null, '', `?${params.toString()}`)
             } else {
+                
                 changeSection(currentSection + 1);
             }
 
@@ -97,12 +107,15 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         }
     }
 
-    const onPrevious = () => {
-        changeSection(currentSection - 1);
-    }
+   
 
-    //@ts-ignore
-    const hasChanged = currentCategory !== thisInserat.category || extraType !== thisInserat?.currentCategory?.toLowerCase()?.extraType;
+    const dynamicPropertyName = `${thisInserat?.currentCategory?.toLowerCase()}Attributes`;
+    const hasChanged = (
+        currentCategory != thisInserat.category ||
+        extraType != thisInserat?.[dynamicPropertyName]?.extraType ||
+        isMulti != Boolean(thisInserat.isMulti) ||
+        vehicleAmount != thisInserat.amount
+    );
 
 
 
@@ -129,6 +142,14 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         }
     }, [hasChanged])
 
+    useEffect(() => {
+        if (isMulti && vehicleAmount < 2) {
+            setVehicleAmount(2);
+        } else if (!isMulti && vehicleAmount > 1) {
+            setVehicleAmount(1);
+        }
+    },[isMulti])
+
     return (
         <>
             <div className="flex flex-col">
@@ -144,6 +165,20 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                         thisInserat={thisInserat}
                         currentCategory={currentCategory as any}
                         setCurrentCategory={setCurrentCategory}
+                    />
+                </div>
+                <div className="mt-8">
+                    <InseratType
+                        thisInserat={thisInserat}
+                        isMulti={isMulti}
+                        setIsMulti={setIsMulti} 
+                    />
+                </div>
+                <div className="mt-4">
+                    <VehicleAmount
+                    thisInserat={thisInserat} 
+                    currentValue={vehicleAmount}
+                    setCurrentValue={setVehicleAmount}
                     />
                 </div>
                 <div className="mt-4">

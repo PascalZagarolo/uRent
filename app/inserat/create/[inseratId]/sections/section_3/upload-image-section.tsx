@@ -36,6 +36,14 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             position: image.position,
         })) || []
     );
+    
+    const oldImages : { id: string; url: string; position: number, wholeFile : any }[] = thisInserat?.images.map((image) => ({
+        id: image.id,
+        url: image.url,
+        position: image.position,
+    })) || []
+
+    const hasChanged = JSON.stringify(selectedImages) !== JSON.stringify(oldImages);
 
     const router = useRouter();
 
@@ -115,26 +123,25 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     };
     
 
-    const onPrevious = () => {
-        changeSection(currentSection - 1);
-    }
+    
 
 
-    const hasChanged = 
-    selectedImages.some((image) => image.wholeFile !== null) || 
-    thisInserat?.images.length !== selectedImages.length ||
-    //check if images were deleted 
-    thisInserat?.images.some((image, index) => {
-        return !selectedImages.some(selectedImage => selectedImage.id === image.id);
-    });
-    //check if images were added
-    selectedImages.some(selectedImage => {
-        return !thisInserat?.images.some(image => image.id === selectedImage.id);
-    });
-    //check if position were changed
-    selectedImages.some(selectedImage => {
-        return !thisInserat?.images.some(image => image.position === selectedImage.position);
-    })
+    
+    
+    // selectedImages.some((image) => image.wholeFile !== null) || 
+    // thisInserat?.images.length !== selectedImages.length ||
+    // //check if images were deleted 
+    // thisInserat?.images.some((image, index) => {
+    //     return !selectedImages.some(selectedImage => selectedImage.id === image.id);
+    // });
+    // //check if images were added
+    // selectedImages.some(selectedImage => {
+    //     return !thisInserat?.images.some(image => image.id === selectedImage.id);
+    // });
+    // //check if position were changed
+    // selectedImages.some(selectedImage => {
+    //     return !thisInserat?.images.some(image => image.position === selectedImage.position);
+    // })
 
     useEffect(() => {
         if(!hasChanged) return

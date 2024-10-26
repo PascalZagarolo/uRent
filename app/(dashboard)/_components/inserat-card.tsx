@@ -161,17 +161,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
     //thisInserat?.color ? HighlightColorsBackground[thisInserat?.color]
 
     return (
-        <div className="mt-4 flex flex-col">
-            {(thisInserat?.user?.subscription.subscriptionType === "ENTERPRISE" && thisInserat?.isHighlighted) && (
-                <div className="md:w-[760px] ">
-                    <div className=" text-sm font-semibold flex flex-row items-center w-2/12 ml-auto justify-center bg-gradient-to-r from-indigo-800 to-indigo-900 text-gray-200 p-2 rounded-t-md">
-                        <CarFrontIcon className="w-4 h-4 mr-2" /> Enterprise
-                    </div>
-                </div>
-            )}
-            <div className={cn(`md:w-[760px] sm:h-[428px] w-full h-full  items-center bg-[#1a1d28]
+        
+           
+            <div className={cn(`md:w-[760px] sm:h-[428px] w-full h-full  items-center bg-[#1a1d28] mt-4
           border-[#171923]  pt-2 rounded-b-md`, thisInserat?.isHighlighted && "border-indigo-800 border-2 ",
-                // thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
+                thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
 
 
             )}>
@@ -458,7 +452,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                           shadow-lg
                         p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-300 
                          sm:truncate text-sm justify-center hover:cursor-pointer bg-indigo-800`, 
-                        //thisInserat?.color ? HighlightColorsBackground[thisInserat?.color] : "bg-indigo-800"
+                        thisInserat?.color ? HighlightColorsBackground[thisInserat?.color] : "bg-indigo-800"
                         )}
                                 target="_blank"
                                 onClick={() => {
@@ -490,7 +484,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     </div>
                 </div>
             </div>
-        </div>
+       
     );
 }
 

@@ -15,8 +15,9 @@ import { transportAttribute } from '../../../../../../../db/schema';
 import TransmissionFormCreation from "../pkw/pkw-transmission";
 import TransportWeightClassCreation from "./transport-weight-class";
 import TransportBrandCreation from "./transport-brand";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
+import SaveChangesPrevious from "../../_components/save-changes-previous";
 
 
 
@@ -41,12 +42,15 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
     const [currentBrand, setCurrentBrand] = useState(transportAttribute?.transportBrand ? transportAttribute?.transportBrand : null);
     const [currentSeats, setCurrentSeats] = useState(transportAttribute?.seats ? transportAttribute?.seats : null);
     const [currentTransmission, setCurrentTransmission] = useState(transportAttribute?.transmission ? transportAttribute?.transmission : null);
+
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
+
     const inseratId = useParams()?.inseratId;
 
     const router = useRouter();
 
-    const onSave = async (redirect? : boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             const values = {
                 weightClass: currentWeight,
@@ -55,13 +59,18 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
                 seats: currentSeats
             }
             await axios.patch(`/api/inserat/${inseratId}/transport`, values);
-            if(redirect) {
+            if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
-              } else {
+            } else if (previous) {
+
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(4))
+                window.history.pushState(null, '', `?${params.toString()}`)
+            } else {
                 changeSection(currentSection + 1);
-              }
-    
+            }
+
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -109,7 +118,7 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 5)}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -120,7 +129,8 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
                 </div>
             </div>
 
-            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={5}/>}
         </>
 
     );

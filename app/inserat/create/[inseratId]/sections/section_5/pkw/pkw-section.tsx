@@ -15,8 +15,9 @@ import { brand } from '../../../../../../../drizzle/schema';
 import TransmissionFormCreation from "./pkw-transmission";
 import axios from "axios";
 import { useParams, useSearchParams, redirect, useRouter } from 'next/navigation';
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
+import SaveChangesPrevious from "../../_components/save-changes-previous";
 
 
 
@@ -38,14 +39,16 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
    const [currentSeats, setCurrentSeats] = useState(pkwAttribute?.seats);
    const [currentType, setCurrentType] = useState(pkwAttribute?.type ? pkwAttribute?.type : null);
    const [currentTransmission, setCurrentTransmission] = useState(pkwAttribute?.transmission ? pkwAttribute?.transmission : null);
+   
    const [showDialog, setShowDialog] = useState(false);
+   const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
    const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
     
 
-    const onSave = async (redirect? : boolean) => {
+    const onSave = async (redirect? : boolean, previous?: boolean) => {
         try {
             const values = {
                 brand: currentBrand,
@@ -57,7 +60,12 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
             if(redirect) {
             router.push(`/inserat/create/${inseratId}`);
             router.refresh();
-          } else {
+          } else if (previous) {
+                
+            const params = new URLSearchParams("")
+            params.set('sectionId', String(4))
+            window.history.pushState(null, '', `?${params.toString()}`)
+        } else {
             changeSection(currentSection + 1);
           }
 
@@ -108,7 +116,8 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 5)
+}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -120,6 +129,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
             </div>
 
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={5}/>}
         </>
 
     );

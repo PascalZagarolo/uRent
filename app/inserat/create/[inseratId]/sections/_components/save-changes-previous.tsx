@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { AlertCircleIcon } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface SaveChangesPreviousProps {
     open: boolean
     onChange: (value: boolean) => void;
-    onSave: (value : boolean) => void;
+    onSave: (value : boolean, value2 : boolean) => void;
     currentIndex?: number;
 }
 
@@ -47,7 +47,7 @@ const SaveChangesPrevious = ({
                     </div>
                     <div className="flex flex-row items-center justify-end ml-auto text-sm mt-4">
                         <DialogTrigger asChild>
-                            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg" onClick={() => {onSave(true)}}>
+                            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg" onClick={() => {onSave(false, true)}}>
                                 Änderungen speichern
                             </Button>
                         </DialogTrigger>

@@ -79,9 +79,11 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
             }
             if (redirect) {
+                console.log("redirect")
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
             } else if (previous) {
+                console.log("previous")
                 const params = new URLSearchParams("")
                 params.set('sectionId', String(1))
                 window.history.pushState(null, '', `?${params.toString()}`)

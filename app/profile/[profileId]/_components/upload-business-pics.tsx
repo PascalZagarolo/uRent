@@ -65,16 +65,18 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
     const onSave = async () => {
         try {
-            setIsLoading(true);
-            const uploadUrl = await handleUpload();
+            if (ownProfile) {
+                setIsLoading(true);
+                const uploadUrl = await handleUpload();
 
-            const values = {
-                image: uploadUrl
+                const values = {
+                    image: uploadUrl
+                }
+                await axios.post(`/api/business/${businessId}/images`, values)
+                setShowDialog(false);
+                toast.success("Bild erfolgreich gespeichert");
+                router.refresh()
             }
-            await axios.post(`/api/business/${businessId}/images`, values)
-            setShowDialog(false);
-            toast.success("Bild erfolgreich gespeichert");
-            router.refresh()
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern des Bildes");
@@ -128,10 +130,43 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     return (
         <div>
 
-            {usedImages[0]?.url && (
+            {(usedImages[0]?.url && !ownProfile) && (
 
                 <div>
-                    <Button className="w-full h-[240px] relative overflow-hidden" onClick={() => { setShowDialog(true) }}>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button className="w-full h-[320px] relative overflow-hidden">
+                                <Image
+                                    src={usedImages[0]?.url}
+                                    quality={100}
+                                    fill
+                                    style={{ objectFit: "cover" }}
+                                    className="shadow-lg hover:cursor-pointer"
+                                    alt="Shitty Image Component i hate next/image"
+                                />
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="h-[320px] w-full">
+                        <Image
+                                    src={usedImages[0]?.url}
+                                    quality={100}
+                                    fill
+                                    style={{ objectFit: "cover" }}
+                                    className="shadow-lg"
+                                    alt="Shitty Image Component i hate next/image"
+                                />
+                        </DialogContent>
+                    </Dialog>
+
+                </div>
+
+
+            )}
+
+            {(usedImages[0]?.url && ownProfile) && (
+
+                <div>
+                    <Button className="w-full h-[320px] relative overflow-hidden" onClick={() => { setShowDialog(true) }}>
                         <Image
                             src={usedImages[0]?.url}
                             quality={100}

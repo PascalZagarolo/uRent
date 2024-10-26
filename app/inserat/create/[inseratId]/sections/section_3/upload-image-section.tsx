@@ -55,7 +55,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                         setSelectedImages((prev) => prev.map((item) => {
                             if (item.id === pImage.id) {
                                 //remove wholeFile from item , so data doesnt get uploaded twice
-                                return { ...item, imageUrl: returnedUrl, wholeFile: null };
+                                return { ...item, url: returnedUrl, wholeFile: null };
                             }
                             return item;
                         }))
@@ -68,7 +68,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 const values = {
                     updatedImages: uploadData
                 };
-    
+                console.log(values)
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
                 router.refresh();
             }
@@ -106,6 +106,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             }
     
             const data = await response.json();
+            console.log(data.secure_url)
             return data.secure_url;  // Return the secure_url directly
         } catch (e: any) {
             console.log(e);

@@ -22,7 +22,7 @@ import { AiFillMediumCircle } from "react-icons/ai";
 interface InseratShowProps {
     thisInserat: typeof inserat.$inferSelect | any
     inseratBookings: typeof booking.$inferSelect[];
-    isOwner : boolean;
+    isOwner: boolean;
 }
 
 const InseratShow: React.FC<InseratShowProps> = ({
@@ -80,6 +80,9 @@ const InseratShow: React.FC<InseratShowProps> = ({
         return "";
     }
 
+    const sharedEmail = thisInserat?.emailAddress
+        ?? (thisInserat?.user?.sharesEmail ? thisInserat.user.email : null);
+
     const usedListPrices = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
 
     const usedImages = thisInserat?.images?.sort((a, b) => a.position - b.position) || [];
@@ -90,21 +93,21 @@ const InseratShow: React.FC<InseratShowProps> = ({
         <div className="sm:mt-4 bg-[#161923] shadow-lg  text-gray-200 sm:p-8 p-4 
                         sm:rounded-md  
                      ">
-                        {isOwner && (
-                            <span className="mb-2">
-                                {thisInserat?.isPublished ? (
-                                    <div className="text-xs  flex flex-row mb-2 text-emerald-600 font-semibold items-center">
-                                        <FaCircle className="w-2 h-2 mr-2 text-emerald-500" />
-                                        Das Inserat ist öffentlich und für alle sichtbar
-                                    </div>
-                                ) : (
-                                    <div className="text-xs text-gray-200/60 flex flex-row items-center mb-2">
-                                        <FaCircle  className="w-2 h-2 mr-2 text-gray-600" />
-                                        Das Inserat ist privat und nur für dich sichtbar
-                                    </div>
-                                )}
-                            </span>
-                        )}
+            {isOwner && (
+                <span className="mb-2">
+                    {thisInserat?.isPublished ? (
+                        <div className="text-xs  flex flex-row mb-2 text-emerald-600 font-semibold items-center">
+                            <FaCircle className="w-2 h-2 mr-2 text-emerald-500" />
+                            Das Inserat ist öffentlich und für alle sichtbar
+                        </div>
+                    ) : (
+                        <div className="text-xs text-gray-200/60 flex flex-row items-center mb-2">
+                            <FaCircle className="w-2 h-2 mr-2 text-gray-600" />
+                            Das Inserat ist privat und nur für dich sichtbar
+                        </div>
+                    )}
+                </span>
+            )}
             <div className="flex  justify-between  w-full">
                 <div className="bg-[#1d1f2b] w-1/8 rounded-lg p-4 shadow-lg">
                     {
@@ -265,26 +268,30 @@ const InseratShow: React.FC<InseratShowProps> = ({
             )}
 
 
-            <div className="mt-4">
-                <div className="flex sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" />
-                    Kontaktinformationen
+            {(sharedEmail || thisInserat?.phoneNumber || thisInserat.user?.contactOptions?.websiteAddress) && (
+                <div className="mt-4">
+                    <div className="flex sm:text-lg font-semibold items-center"><Contact2 className="mr-2 h-4 w-4" />
+                        Kontaktinformationen
+                    </div>
                 </div>
-            </div>
+            )}
 
             <div className="mt-2">
                 <div className=" ">
 
                     <div className="w-full sm:flex mt-2">
-                        <div className="sm:w-1/2 items-center">
-                            <div className="flex items-center">
+                        {sharedEmail && (
+                            <div className="sm:w-1/2 items-center">
+                                <div className="flex items-center">
 
 
-                                <MailIcon className="w-4 h-4 mr-2" /><p className="text-sm">
-                                    {thisInserat?.emailAddress ? thisInserat?.emailAddress : thisInserat.user.email}</p>
+                                    <MailIcon className="w-4 h-4 mr-2" /><p className="text-sm">
+                                        {sharedEmail}</p>
 
 
+                                </div>
                             </div>
-                        </div>
+                        )}
                         <div className="sm:w-1/2 items-center">
                             <div className="flex items-center sm:mt-0 mt-2">
                                 {thisInserat?.phoneNumber && (

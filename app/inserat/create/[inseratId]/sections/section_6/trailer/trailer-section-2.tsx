@@ -48,12 +48,14 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            const values = {
-                coupling: currentCoupling,
-                loading: currentLoading
+            if(hasChanged) {
+                const values = {
+                    coupling: currentCoupling,
+                    loading: currentLoading
+                }
+                await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -80,7 +82,10 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
     }
 
 
-    const hasChanged = false;
+    const hasChanged = (
+        currentCoupling !== trailerAttributes?.coupling ||
+        currentLoading !== trailerAttributes?.loading
+    );
 
 
     return (

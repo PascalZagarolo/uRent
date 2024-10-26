@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat, pkwAttribute, trailerAttribute } from "@/db/schema";
+import { inserat,  trailerAttribute } from "@/db/schema";
 
 import { useEffect, useState } from "react";
 
@@ -16,7 +16,7 @@ import { RenderErrorMessage } from "../../_components/render-messages";
 import PkwLoadingVolumeCreation from "../pkw/pkw-loading-volume";
 import PowerFormCreation from "../pkw/pkw-power";
 import InitialFormCreation from "../pkw/pkw-initial";
-import { lkwAttribute } from '../../../../../../../db/schema';
+
 import LkwSizeCreation from "../lkw/lkw-loading-size";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
@@ -50,49 +50,30 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
-    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(null);
+    
 
     const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
 
 
-    useEffect(() => {
-
-        const parsedVolume = parseFloat(currentVolume as string);
-
-
-        if (currentInitial !== undefined && Number.isNaN(currentInitial)) {
-            setError({ errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an" });
-        } else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
-            setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
-        } else if (
-            (currentLength !== undefined && currentLength != "") && (isNaN(parseFloat(currentLength as string)) || parseFloat(currentLength as string) <= 0) ||
-            (currentWidth !== undefined && currentWidth != "") && (isNaN(parseFloat(currentWidth as string)) || parseFloat(currentWidth as string) <= 0) ||
-            (currentHeight !== undefined && currentHeight != "") && (isNaN(parseFloat(currentHeight as string)) || parseFloat(currentHeight as string) <= 0)
-        ) {
-
-            setError({ errorField: "size", errorText: "Bitte gebe eine gültige Lademaße ein" });
-        }
-        else {
-            setError(undefined);
-        }
-
-    }, [currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
+   
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
 
 
-            const values = {
+            if(hasChanged) {
+                const values = {
 
-                initial: currentInitial ? currentInitial : null,
-                loading_volume: currentVolume ? currentVolume : null,
-                loading_l: currentLength ? currentLength : null,
-                loading_b: currentWidth ? currentWidth : null,
-                loading_h: currentHeight ? currentHeight : null
+                    initial: currentInitial ? currentInitial : null,
+                    loading_volume: currentVolume ? currentVolume : null,
+                    loading_l: currentLength ? currentLength : null,
+                    loading_b: currentWidth ? currentWidth : null,
+                    loading_h: currentHeight ? currentHeight : null
+                }
+                await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -114,7 +95,14 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = true;
+    const hasChanged = (
+
+        (currentInitial ? new Date(currentInitial).getFullYear() : null) != (trailerAttribute?.initial ? new Date(trailerAttribute.initial).getFullYear() : null) ||
+        (String(currentVolume ?? "").trim() != String(trailerAttribute?.loading_volume ?? "").trim()) ||
+        (String(currentLength ?? "").trim() != String(trailerAttribute?.loading_l ?? "").trim()) ||
+        (String(currentWidth ?? "").trim() != String(trailerAttribute?.loading_b ?? "").trim()) ||
+        (String(currentHeight ?? "").trim() != String(trailerAttribute?.loading_h ?? "").trim())
+    );
 
 
 
@@ -141,8 +129,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                         currentValue={currentVolume}
                         setCurrentValue={(value) => setCurrentVolume(value)}
                     />
-                    {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
-
+                   
                 </div>
                 <div>
                     <LkwSizeCreation
@@ -154,7 +141,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                         setCurrentWidth={(value) => setCurrentWidth(value)}
                     />
                 </div>
-                {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
+               
             </div>
             <div className=" flex flex-col mt-auto ">
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
@@ -166,7 +153,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
                         onClick={() => onSave()}
-                        disabled={error !== undefined}
+                      
                     >
                         Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>

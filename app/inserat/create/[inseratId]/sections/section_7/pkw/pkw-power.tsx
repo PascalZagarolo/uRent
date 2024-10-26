@@ -3,7 +3,7 @@
 
 import { PinIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
@@ -16,7 +16,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface PowerFormCreationProps {
     currentValue: any;
-    setCurrentValue: (value) => void;
+    setCurrentValue: (value : string) => void;
 }
 
 const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
@@ -25,13 +25,11 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
 }) => {
 
 
-    const router = useRouter();
-
-    const params = useParams();
+    
 
     const [usesPS, setUsesPS] = useState(true);
-    //@ts-ignore
-    const [currentKW, setCurrentKW] = useState<number | any>(Math.round(currentValue * 0.735499) || null);
+    
+    const [currentKW, setCurrentKW] = useState<string | number>(Math.round(currentValue * 0.735499) || undefined);
     
     const [isLoading, setIsLoading] = useState(false);
 
@@ -39,7 +37,15 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
 
 
 
-
+    useEffect(() => {
+        // Convert PS to KW if using PS
+        if (usesPS && currentValue) {
+            setCurrentKW((Number(currentValue) * 0.735499).toFixed(0));
+        } else if (!usesPS && currentKW) {
+            // Convert KW to PS if using KW
+            setCurrentValue((Number(currentKW) / 0.735499).toFixed(0));
+        }
+    }, [currentValue, currentKW, usesPS, setCurrentValue]);
 
 
 
@@ -59,10 +65,7 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
                     <Input
                         placeholder="Leistung in PS"
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
-                        onChange={(e) => {
-                            setCurrentValue(e.target.value);
-                            setCurrentKW(Math.round(Number(e.target.value) * 0.735499));
-                        }}
+                        onChange={(e) => setCurrentValue(e.target.value)}
                         
                         maxLength={5}
                         disabled={!usesPS}
@@ -79,11 +82,11 @@ const PowerFormCreation: React.FC<PowerFormCreationProps> = ({
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         onChange={(e) => {
                             setCurrentKW(Number(e.target.value));
-                            setCurrentValue(Math.round(Number(e.target.value) * 1.35962));
+
                         }}
                         maxLength={4}
                         disabled={usesPS}
-                        value={currentKW || ''}
+                        value={currentKW}
                     />
                 </div>
             </div>

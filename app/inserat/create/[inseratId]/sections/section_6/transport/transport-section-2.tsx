@@ -54,13 +54,15 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            const values = {
-                fuel: currentFuel,
-                doors: currentDoors,
-                loading: currentLoading
+            if(hasChanged) {
+                const values = {
+                    fuel: currentFuel,
+                    doors: currentDoors,
+                    loading: currentLoading
+                }
+                await axios.patch(`/api/inserat/${inseratId}/transport`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${inseratId}/transport`, values);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -87,7 +89,11 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
     }
 
 
-    const hasChanged = false;
+    const hasChanged = (
+        currentFuel != transportAttribute?.fuel ||
+        currentDoors != transportAttribute?.doors ||
+        currentLoading != transportAttribute?.loading
+    );
 
 
     return (

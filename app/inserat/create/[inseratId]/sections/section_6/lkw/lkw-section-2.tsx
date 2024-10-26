@@ -50,14 +50,16 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            const values = {
-                transmission: currentTransmission,
-                drive: currentDrive,
-                fuel: currentFuel,
-                loading: currentLoading
+            if(hasChanged) {
+                const values = {
+                    transmission: currentTransmission,
+                    drive: currentDrive,
+                    fuel: currentFuel,
+                    loading: currentLoading
+                }
+                await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -84,7 +86,12 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = true;
+    const hasChanged = (
+        currentTransmission !== lkwAttribute?.transmission ||
+        currentDrive !== lkwAttribute?.drive ||
+        currentFuel !== lkwAttribute?.fuel ||
+        currentLoading !== lkwAttribute?.loading
+    );
 
 
 

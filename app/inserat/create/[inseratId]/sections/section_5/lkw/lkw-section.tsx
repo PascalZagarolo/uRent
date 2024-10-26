@@ -50,14 +50,16 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            const values = {
-                weightClass: currentWeight,
-                axis: currentAxis,
-                brand: currentBrand,
-                seats: currentSeats
+            if(hasChanged) {
+                const values = {
+                    weightClass: currentWeight,
+                    axis: currentAxis,
+                    brand: currentBrand,
+                    seats: currentSeats
+                }
+                await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

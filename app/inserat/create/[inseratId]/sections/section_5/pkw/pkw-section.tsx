@@ -50,6 +50,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
 
     const onSave = async (redirect? : boolean, previous?: boolean) => {
         try {
+           if(hasChanged) {
             const values = {
                 brand: currentBrand,
                 seats: currentSeats,
@@ -58,6 +59,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
             }
             await axios.patch(`/api/inserat/${inseratId}/pkw`, values); 
             router.refresh();
+           }
             if(redirect) {
             router.push(`/inserat/create/${inseratId}`);
             router.refresh();

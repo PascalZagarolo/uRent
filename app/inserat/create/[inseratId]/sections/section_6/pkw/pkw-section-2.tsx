@@ -48,13 +48,16 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            const values = {
-                fuel: currentFuel,
-                doors: currentDoors,
-                ahk: currentAhk
+            if(hasChanged) {
+                console.log(hasChanged)
+                const values = {
+                    fuel: currentFuel,
+                    doors: currentDoors,
+                    ahk: currentAhk
+                }
+                await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -76,7 +79,11 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = true;
+    const hasChanged = (
+        currentFuel != pkwAttribute?.fuel ||
+        currentDoors != pkwAttribute?.doors ||
+        Boolean(currentAhk) != Boolean(pkwAttribute?.ahk)
+    );
 
     return (
         <>

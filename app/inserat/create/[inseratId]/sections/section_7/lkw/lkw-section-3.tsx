@@ -49,55 +49,32 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
-    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(null);
+   
 
     const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
 
 
-    useEffect(() => {
-
-        const parsedVolume = parseFloat(currentVolume as string);
-        const parsedPower = parseFloat(currentPower as string);
-
-        if ((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower))) {
-            setError({ errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an" });
-        } else if (currentInitial !== undefined && Number.isNaN(currentInitial)) {
-            setError({ errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an" });
-        } else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
-            setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
-        } else if (
-            (currentLength !== undefined && currentLength != "") && (isNaN(parseFloat(currentLength as string)) || parseFloat(currentLength as string) <= 0) ||
-            (currentWidth !== undefined && currentWidth != "") && (isNaN(parseFloat(currentWidth as string)) || parseFloat(currentWidth as string) <= 0) ||
-            (currentHeight !== undefined && currentHeight != "") && (isNaN(parseFloat(currentHeight as string)) || parseFloat(currentHeight as string) <= 0)
-        ) {
-
-            setError({ errorField: "size", errorText: "Bitte gebe eine gültige Lademaße ein" });
-        }
-        else {
-            setError(undefined);
-        }
-
-    }, [currentPower, currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
+    
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
 
-            if (currentPower !== undefined && Number.isNaN(currentPower)) {
-                toast.error("Bitte gib eine gültige Fahrzeugleistung an");
-                return;
-            }
+           
+            if(hasChanged) {
+                const values = {
+                    power: currentPower ? currentPower : null,
+                    initial: currentInitial ? currentInitial : null,
+                    loading_volume: currentVolume ? currentVolume : null,
+                    loading_l: currentLength ? currentLength : null,
+                    loading_b: currentWidth ? currentWidth : null,
+                    loading_h: currentHeight ? currentHeight : null
+                }
 
-            const values = {
-                power: currentPower ? currentPower : null,
-                initial: currentInitial ? currentInitial : null,
-                loading_volume: currentVolume ? currentVolume : null,
-                loading_l: currentLength ? currentLength : null,
-                loading_b: currentWidth ? currentWidth : null,
-                loading_h: currentHeight ? currentHeight : null
-            }
-            await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
+                await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
             router.refresh();
+            }
+            
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -120,7 +97,14 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = true;
+    const hasChanged = (
+        (String(currentPower ?? "").trim() != String(lkwAttribute?.power ?? "").trim()) ||
+        (currentInitial ? new Date(currentInitial).getFullYear() : null) != (pkwAttribute?.initial ? new Date(lkwAttribute.initial).getFullYear() : null) ||
+        (String(currentVolume ?? "").trim() != String(lkwAttribute?.loading_volume ?? "").trim()) ||
+        (String(currentLength ?? "").trim() != String(lkwAttribute?.loading_l ?? "").trim()) ||
+        (String(currentWidth ?? "").trim() != String(lkwAttribute?.loading_b ?? "").trim()) ||
+        (String(currentHeight ?? "").trim() != String(lkwAttribute?.loading_h ?? "").trim())
+    );
 
 
 
@@ -146,14 +130,14 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                         currentValue={currentPower}
                         setCurrentValue={(value) => setCurrentPower(value)}
                     />
-                    {error?.errorField === "power" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
+                    
                 </div>
                 <div className="mt-4">
                     <PkwLoadingVolumeCreation
                         currentValue={currentVolume}
                         setCurrentValue={(value) => setCurrentVolume(value)}
                     />
-                    {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
+                  
 
                 </div>
                 <div>
@@ -166,7 +150,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                         setCurrentWidth={(value) => setCurrentWidth(value)}
                     />
                 </div>
-                {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
+               
             </div>
             <div className=" flex flex-col mt-auto ">
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
@@ -178,7 +162,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
                         onClick={() => onSave()}
-                        disabled={error !== undefined}
+                        
                     >
                         Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>

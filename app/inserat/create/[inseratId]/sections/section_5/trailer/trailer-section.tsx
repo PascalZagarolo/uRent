@@ -51,6 +51,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
 
     const onSave = async (redirect? : boolean, previous?: boolean) => {
         try {
+           if(hasChanged) {
             const values = {
                 type: currentType,
                 weightClass: currentWeight,
@@ -59,6 +60,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
             }
             await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
             router.refresh();
+           }
             if(redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -87,7 +89,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
         currentType != trailerAttribute?.type ||
         currentWeight != trailerAttribute?.weightClass ||
         currentAxis != trailerAttribute?.axis ||
-        currentBrake != trailerAttribute?.brake
+       Boolean(currentBrake) != Boolean(trailerAttribute?.brake)
     );
 
 

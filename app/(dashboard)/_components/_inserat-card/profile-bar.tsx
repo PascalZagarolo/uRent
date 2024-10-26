@@ -51,7 +51,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
             try {
                 setIsLoading(true);
                 axios.post(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
-                    router.push(`/conversation?=${response.data.id}`)
+                    router.push(`/conversation?conversationId=${response.data.id}`)
                 })
             } catch {
                 toast.error("Fehler beim Erstellen der Konversation")

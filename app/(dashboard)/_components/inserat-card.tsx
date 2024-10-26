@@ -42,6 +42,7 @@ import Image from "next/image";
 import { GrLocation, GrMapLocation } from "react-icons/gr";
 import { IoMdOpen } from "react-icons/io";
 import { useOpenAvailabilityOnPageLoad } from "@/store";
+import { HighlightColorsBackground } from "@/hooks/inserat-card/useHighlightColors";
 
 
 interface InseratCardProps {
@@ -443,10 +444,10 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     : (<div className="text-[10px] ml-1 mr-1 hidden sm:block" > / Zeitraum</div>)}
                             </div>
                         </div>
-                        <a className="ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
-                         bg-indigo-800 shadow-lg
+                        <a className={cn(`ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
+                          shadow-lg
                         p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-300 
-                        sm:truncate text-sm justify-center hover:cursor-pointer"
+                        sm:truncate text-sm justify-center hover:cursor-pointer`, thisInserat?.color ? HighlightColorsBackground[thisInserat?.color] : "bg-indigo-800" )}
                             target="_blank"
                             onClick={() => {
                                 changeOpenOnPageLoad(true)

@@ -43,6 +43,7 @@ const ConversationPage = async () => {
 
 
     const receivedConversations = await findStartedConversationsGlobal(currentUser.id);
+    
 
     startedConversations = receivedConversations.filter((conversation: any) => {
 

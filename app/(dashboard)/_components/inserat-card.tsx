@@ -158,9 +158,11 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
     const { changeOpenOnPageLoad } = useOpenAvailabilityOnPageLoad();
 
+    //thisInserat?.color ? HighlightColorsBackground[thisInserat?.color]
+
     return (
-        <div className={cn(`md:w-[760px] sm:h-[412px] w-full h-full  items-center bg-[#1a1d28]
-        mt-4  border-[#171923]  pt-2 rounded-md`, thisInserat?.isHighlighted && "dark:border-2 border-2 ",
+        <div className={cn(`md:w-[760px] sm:h-[428px] w-full h-full  items-center bg-[#1a1d28]
+        mt-4  border-[#171923]  pt-2 rounded-md`, thisInserat?.isHighlighted && " border-2 ",
             thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
 
 
@@ -168,8 +170,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-            <h3 className={cn("flex flex-row   font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md px-2",)} >
-            <div className="bg-[#1c1f2b] shadow-xl p-2 px-2.5 rounded-md  sm:w-1/10 ">
+            <h3 className={cn("flex flex-row   font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md px-2 ",)} >
+            <div className={cn("shadow-lg py-4 px-2.5 rounded-md  sm:w-1/10 ")}>
                     {
                         {
                             'PKW': <CarFront className=" text-gray-200 h-6 w-6 " />,
@@ -180,7 +182,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         }[usedCategory]
                     }
                 </div>
-                <div className="w-full ml-4 mr-4 text-base font-semibold h-[24px]  text-gray-200 flex items-center ">
+                <div className="w-full ml-4 mr-4 text-base font-semibold h-[32px]  text-gray-200 flex items-center ">
 
                     <a
                         className="hover:underline h-[24px] overflow-hidden w-3/4  sm:line-clamp-1 break-all"

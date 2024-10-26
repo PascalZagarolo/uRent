@@ -149,7 +149,7 @@ const Main = cache(async ({
         userId={currentUser?.id || ""}
     />
 </div>
-<div className="sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar flex items-center justify-center h-[100%]">
+<div className="sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar flex flex-col items-center justify-center h-[100%]">
 
     <RelevanteInserate
         title={searchParams.title}

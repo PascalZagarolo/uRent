@@ -4,19 +4,19 @@ import { AlertCircleIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface SaveChangesDialogProps {
+interface SaveChangesPreviousProps {
     open: boolean
     onChange: (value: boolean) => void;
     onSave: (value : boolean) => void;
     currentIndex?: number;
 }
 
-const SaveChangesDialog = ({
+const SaveChangesPrevious = ({
     open,
     onChange,
     onSave,
     currentIndex
-}: SaveChangesDialogProps) => {
+}: SaveChangesPreviousProps) => {
 
 
     const router = useRouter();
@@ -53,7 +53,7 @@ const SaveChangesDialog = ({
                         </DialogTrigger>
                         <DialogTrigger asChild>
                             <Button className=" text-gray-200 hover:text-gray-300 " variant="ghost" onClick={onLeave} >
-                                Seite verlassen
+                                Abschnitt verlassen
                             </Button>
                         </DialogTrigger>
                     </div>
@@ -64,4 +64,4 @@ const SaveChangesDialog = ({
     );
 };
 
-export default SaveChangesDialog;
+export default SaveChangesPrevious;

@@ -14,10 +14,11 @@ import CategoryInseratCreation from "./_components/category";
 import ExtraTypeLkwCreation from "./_components/extra-type-lkw";
 import TransportExtraTypeCreation from "./_components/extra-type-transport";
 import TrailerExtraTypeCreation from "./_components/extra-type-trailer";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import { extraType, lkwAttribute, trailerAttribute } from '../../../../../../drizzle/schema';
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
+import SaveChangesPrevious from "../_components/save-changes-previous";
 
 interface BasicDetails2Props {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -30,6 +31,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     const [currentCategory, setCurrentCategory] = useState(thisInserat.category || "PKW");
 
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
     useEffect(() => {
         console.log("...")
@@ -60,7 +62,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
     const router = useRouter();
 
-    const onSave = async (redirect?: boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             if (hasChanged) {
                 const values = {
@@ -79,10 +81,14 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
+            } else if (previous) {
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(1))
+                window.history.pushState(null, '', `?${params.toString()}`)
             } else {
                 changeSection(currentSection + 1);
             }
-            
+
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -148,7 +154,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                         <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
                     <div className="grid grid-cols-2 mt-2">
-                        <Button className="" variant="ghost" onClick={onPrevious}>
+                        <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 2)}>
                             Zurück
                         </Button>
                         <Button
@@ -161,7 +167,8 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                 </div>
 
             </div>
-            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={2}/>}
         </>
     );
 

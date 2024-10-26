@@ -42,7 +42,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
 
     const canPublish = () => {
         if (!thisInserat?.title || !thisInserat?.description || !thisInserat?.category || !thisInserat?.price || thisInserat?.price == 0
-            || thisInserat?.images?.length < 1 || !thisInserat?.address?.postalCode || !thisInserat?.address?.locationString || thisInserat?.locationString?.trim() == "" || thisInserat?.postalCode?.length !== 5
+            || thisInserat?.images?.length < 1 || !thisInserat?.address?.postalCode || !thisInserat?.address?.locationString || thisInserat?.locationString?.trim() == "" || String(thisInserat?.address?.postalCode)?.length !== 5
         ) {
             return false;
         } else {
@@ -65,7 +65,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
         unfinishedSections.push(4)
     }
 
-    if(!thisInserat?.address?.postalCode?.length || !thisInserat?.locationString || thisInserat?.locationString.trim() == "" || thisInserat?.address?.postalCode?.length !== 5) {
+    if(!thisInserat?.address?.postalCode || !thisInserat?.address?.locationString || thisInserat?.address?.locationString.trim() == "" || String(thisInserat?.address?.postalCode)?.length !== 5 ) {
         unfinishedSections.push(10)
     }
 
@@ -181,7 +181,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                                  </div>}
                                
                                 
-                                {(!thisInserat?.address?.postalCode || thisInserat?.address?.postalCode?.length !== 5) && 
+                                {(!thisInserat?.address?.postalCode || String(thisInserat?.address?.postalCode)?.length !== 5) && 
                                 <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
                                 onClick={() => changeSection(10)}
                                 > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Postleitzahl angegeben

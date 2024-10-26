@@ -36,7 +36,7 @@ const ConversationPage = async () => {
 
 
 
-    let startedConversations: any = [];
+    
 
 
 
@@ -45,10 +45,7 @@ const ConversationPage = async () => {
     const receivedConversations = await findStartedConversationsGlobal(currentUser.id);
     
 
-    startedConversations = receivedConversations.filter((conversation: any) => {
-
-        return conversation.messages.length > 0;
-    });
+    
 
 
 
@@ -87,7 +84,7 @@ const ConversationPage = async () => {
                 <div className="sm:w-8/12 w-full sm:h-[920px]">
                 <ChatClient
                     currentUser={currentUser}
-                    startedConversations={startedConversations}
+                    startedConversations={receivedConversations}
                 />
                 </div>
                 

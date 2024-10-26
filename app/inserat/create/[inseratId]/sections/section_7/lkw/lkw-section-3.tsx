@@ -18,8 +18,9 @@ import PowerFormCreation from "../pkw/pkw-power";
 import InitialFormCreation from "../pkw/pkw-initial";
 import { lkwAttribute } from '../../../../../../../db/schema';
 import LkwSizeCreation from "./lkw-loading-size";
-import { switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
+import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
+import SaveChangesPrevious from "../../_components/save-changes-previous";
 
 
 
@@ -46,8 +47,9 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     const [currentHeight, setCurrentHeight] = useState<string | number>(lkwAttribute?.loading_h ? lkwAttribute?.loading_h : undefined);
 
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
-    const [error, setError] = useState< {errorField : string; errorText : string}|null>(null);
+    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(null);
 
     const router = useRouter();
 
@@ -59,29 +61,29 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         const parsedVolume = parseFloat(currentVolume as string);
         const parsedPower = parseFloat(currentPower as string);
 
-        if((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower))) {
-            setError({errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an"});
-        } else if(currentInitial !== undefined && Number.isNaN(currentInitial)) {
-            setError({errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an"});
-        }  else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
+        if ((currentPower !== undefined && currentPower != "") && (isNaN(parsedPower))) {
+            setError({ errorField: "power", errorText: "Bitte gib eine gültige Fahrzeugleistung an" });
+        } else if (currentInitial !== undefined && Number.isNaN(currentInitial)) {
+            setError({ errorField: "initial", errorText: "Bitte gib ein gültiges Baujahr an" });
+        } else if ((currentVolume !== undefined && currentVolume != "") && (isNaN(parsedVolume) || parsedVolume <= 0)) {
             setError({ errorField: "volume", errorText: "Bitte gib ein gültiges Ladevolumen an" });
-        } else if(
-        (currentLength !== undefined && currentLength != "") && (isNaN(parseFloat(currentLength as string)) || parseFloat(currentLength as string) <= 0) ||
-        (currentWidth !== undefined && currentWidth != "") && (isNaN(parseFloat(currentWidth as string)) || parseFloat(currentWidth as string) <= 0) ||
-        (currentHeight !== undefined && currentHeight != "") && (isNaN(parseFloat(currentHeight as string)) || parseFloat(currentHeight as string) <= 0)
+        } else if (
+            (currentLength !== undefined && currentLength != "") && (isNaN(parseFloat(currentLength as string)) || parseFloat(currentLength as string) <= 0) ||
+            (currentWidth !== undefined && currentWidth != "") && (isNaN(parseFloat(currentWidth as string)) || parseFloat(currentWidth as string) <= 0) ||
+            (currentHeight !== undefined && currentHeight != "") && (isNaN(parseFloat(currentHeight as string)) || parseFloat(currentHeight as string) <= 0)
         ) {
-        
-        setError({ errorField: "size", errorText: "Bitte gebe eine gültige Lademaße ein" });
+
+            setError({ errorField: "size", errorText: "Bitte gebe eine gültige Lademaße ein" });
         }
         else {
             setError(undefined);
         }
 
-    },[currentPower, currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
-    const onSave = async (redirect? : boolean) => {
+    }, [currentPower, currentInitial, currentVolume, currentLength, currentWidth, currentHeight]);
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
 
-            if(currentPower !== undefined && Number.isNaN(currentPower)) {
+            if (currentPower !== undefined && Number.isNaN(currentPower)) {
                 toast.error("Bitte gib eine gültige Fahrzeugleistung an");
                 return;
             }
@@ -95,13 +97,18 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 loading_h: currentHeight ? currentHeight : null
             }
             await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
-            if(redirect) {
+            if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
-              } else {
+            } else if (previous) {
+
+                const params = new URLSearchParams("")
+                params.set('sectionId', String(6))
+                window.history.pushState(null, '', `?${params.toString()}`)
+            } else {
                 changeSection(currentSection + 1);
-              }
-    
+            }
+
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -114,7 +121,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
 
     const hasChanged = true;
 
- 
+
 
     return (
         <>
@@ -131,41 +138,41 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                         currentValue={currentInitial as string}
                         setCurrentValue={(value) => setCurrentInitial(value)}
                     />
-                    
+
                 </div>
                 <div className="mt-8">
                     <PowerFormCreation
                         currentValue={currentPower}
                         setCurrentValue={(value) => setCurrentPower(value)}
                     />
-                    {error?.errorField === "power" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>} 
+                    {error?.errorField === "power" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
                 </div>
                 <div className="mt-4">
-                <PkwLoadingVolumeCreation
-                currentValue={currentVolume}
-                setCurrentValue={(value) => setCurrentVolume(value)} 
-                />
-                {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
+                    <PkwLoadingVolumeCreation
+                        currentValue={currentVolume}
+                        setCurrentValue={(value) => setCurrentVolume(value)}
+                    />
+                    {error?.errorField === "volume" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
 
                 </div>
                 <div>
-                    <LkwSizeCreation 
-                    currentHeight={currentHeight}
-                    currentLength={currentLength}
-                    currentWidth={currentWidth}
-                    setCurrentHeight={(value) => setCurrentHeight(value)}
-                    setCurrentLength={(value) => setCurrentLength(value)}
-                    setCurrentWidth={(value) => setCurrentWidth(value)}
+                    <LkwSizeCreation
+                        currentHeight={currentHeight}
+                        currentLength={currentLength}
+                        currentWidth={currentWidth}
+                        setCurrentHeight={(value) => setCurrentHeight(value)}
+                        setCurrentLength={(value) => setCurrentLength(value)}
+                        setCurrentWidth={(value) => setCurrentWidth(value)}
                     />
                 </div>
-                {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string}/> : <div className="py-4"/>}
+                {error?.errorField === "size" ? <RenderErrorMessage error={error.errorText as string} /> : <div className="py-4" />}
             </div>
             <div className=" flex flex-col mt-auto ">
                 <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                     <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                 </span>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={onPrevious}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 7)}>
                         Zurück
                     </Button>
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
@@ -177,7 +184,8 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 </div>
             </div>
 
-            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={7}/>}
         </>
 
     );

@@ -55,6 +55,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                     price: currentPrice
                 }
                 await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
+                router.refresh();
             }
 
             if (currentPriceProfiles != thisInserat?.priceProfiles) {
@@ -65,7 +66,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
 
                 })
                 await axios.post(`/api/inserat/${thisInserat?.id}/price-profiles/bulkUpdate`, submittedValues)
-
+                router.refresh();
             }
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);

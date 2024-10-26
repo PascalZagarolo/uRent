@@ -57,6 +57,7 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 loading: currentLoading
             }
             await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

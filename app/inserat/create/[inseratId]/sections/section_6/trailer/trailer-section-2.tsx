@@ -53,6 +53,7 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
                 loading: currentLoading
             }
             await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

@@ -25,6 +25,8 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
     const [currentDescription, setCurrentDescription] = useState(thisInserat.description || "");
     const [showDialog, setShowDialog] = useState(false);
 
+    
+
     const onSave = async (redirect? : boolean) => {
         try {
           if(hasChanged) {
@@ -32,8 +34,8 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                 title : currentTitle,
                 description : currentDescription
             }
-           await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
-          
+            await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
+            router.refresh();
           }
           if(redirect) {
             router.push(`/inserat/create/${thisInserat.id}`);

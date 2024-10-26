@@ -76,7 +76,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                     [usedKey]: extraType ? extraType : null
                 };
                 await axios.patch(`/api/inserat/${thisInserat?.id}/${currentCategory?.toLowerCase()}`, values2)
-
+                router.refresh();
             }
             if (redirect) {
                 console.log("redirect")

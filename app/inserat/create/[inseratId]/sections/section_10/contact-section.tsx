@@ -49,12 +49,13 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
             }
 
             await axios.patch(`/api/inserat/${thisInserat.id}`, values1);
-
+            router.refresh();
             const values2 = {
                 locationString: currentLocation ? currentLocation : null,
                 postalCode: currentZipCode ? currentZipCode : null,
             }
             await axios.patch(`/api/inserat/${thisInserat.id}/address`, values2);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();

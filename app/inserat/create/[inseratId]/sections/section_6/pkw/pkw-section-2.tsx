@@ -54,6 +54,7 @@ const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                 ahk: currentAhk
             }
             await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

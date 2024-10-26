@@ -60,6 +60,7 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
                 loading: currentLoading
             }
             await axios.patch(`/api/inserat/${inseratId}/transport`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

@@ -45,6 +45,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
                 minTime: currentMinTime,
             }
             await axios.patch(`/api/inserat/${thisInserat.id}`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();

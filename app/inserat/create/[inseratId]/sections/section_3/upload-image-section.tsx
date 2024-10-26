@@ -70,6 +70,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 };
     
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
+                router.refresh();
             }
             if(redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);

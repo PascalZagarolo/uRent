@@ -99,6 +99,7 @@ const TransportSection3 = ({ transportAttribute, currentSection, changeSection }
                 loading_h: currentHeight ? currentHeight : null
             }
             await axios.patch(`/api/inserat/${inseratId}/transport`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

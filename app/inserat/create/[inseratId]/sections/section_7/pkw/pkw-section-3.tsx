@@ -81,6 +81,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                 loading_volume: currentVolume ? currentVolume : null
             }
             await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

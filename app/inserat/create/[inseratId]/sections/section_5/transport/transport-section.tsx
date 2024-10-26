@@ -59,6 +59,7 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
                 seats: currentSeats
             }
             await axios.patch(`/api/inserat/${inseratId}/transport`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();

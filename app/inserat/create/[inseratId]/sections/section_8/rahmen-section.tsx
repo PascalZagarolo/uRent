@@ -50,6 +50,7 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
                 license: currentLicense
             }
             await axios.patch(`/api/inserat/${thisInserat.id}`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();

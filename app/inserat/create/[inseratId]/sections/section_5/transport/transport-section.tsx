@@ -87,7 +87,12 @@ const TransportSection = ({ transportAttribute, currentSection, changeSection }:
 
 
 
-    const hasChanged = false;
+    const hasChanged = (
+        currentWeight != transportAttribute?.weightClass ||
+        currentBrand != transportAttribute?.transportBrand ||
+        currentSeats != transportAttribute?.seats ||
+        currentTransmission != transportAttribute?.transmission
+    );
 
     return (
 

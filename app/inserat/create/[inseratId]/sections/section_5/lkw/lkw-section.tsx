@@ -85,7 +85,10 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
 
 
 
-    const hasChanged = false;
+    const hasChanged = (currentWeight != lkwAttribute?.weightClass 
+        || currentAxis != lkwAttribute?.axis 
+        || currentBrand != lkwAttribute?.lkwBrand 
+        || currentSeats != lkwAttribute?.seats);
 
     return (
 

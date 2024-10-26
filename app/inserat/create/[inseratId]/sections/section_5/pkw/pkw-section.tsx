@@ -83,7 +83,12 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = true;
+    const hasChanged = (
+        currentBrand != pkwAttribute?.brand ||
+        currentSeats != pkwAttribute?.seats ||
+        currentType != pkwAttribute?.type ||
+        currentTransmission != pkwAttribute?.transmission
+    );
 
 
 

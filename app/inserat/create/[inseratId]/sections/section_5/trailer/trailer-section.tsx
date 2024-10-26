@@ -83,7 +83,12 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = true;
+    const hasChanged = (
+        currentType != trailerAttribute?.type ||
+        currentWeight != trailerAttribute?.weightClass ||
+        currentAxis != trailerAttribute?.axis ||
+        currentBrake != trailerAttribute?.brake
+    );
 
 
 

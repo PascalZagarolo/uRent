@@ -31,8 +31,8 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
         try {
           if(hasChanged) {
             const values = {
-                title : currentTitle,
-                description : currentDescription
+                title : currentTitle?.trim(),
+                description : currentDescription?.trim()
             }
             await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
             router.refresh();
@@ -52,7 +52,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
     }
 
     const router = useRouter();
-    const hasChanged = currentTitle !== thisInserat.title || currentDescription !== thisInserat.description;
+    const hasChanged = currentTitle != thisInserat.title || currentTitle?.trim() != thisInserat?.title || currentDescription != thisInserat.description || currentDescription?.trim() != thisInserat?.description;
 
     useEffect(() => {
         if(!hasChanged) return

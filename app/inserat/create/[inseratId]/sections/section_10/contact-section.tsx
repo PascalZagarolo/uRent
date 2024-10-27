@@ -43,19 +43,22 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
 
-            const values1 = {
-                emailAddress: currentEmail ? currentEmail : null,
-                phoneNumber: currentNumber ? currentNumber : null,
+            if(hasChanged) {
+                console.log("...")
+                const values1 = {
+                    emailAddress: currentEmail ? currentEmail?.trim() : null,
+                    phoneNumber: currentNumber ? currentNumber?.trim() : null,
+                }
+    
+                await axios.patch(`/api/inserat/${thisInserat.id}`, values1);
+                router.refresh();
+                const values2 = {
+                    locationString: currentLocation ? currentLocation?.trim() : null,
+                    postalCode: currentZipCode ? currentZipCode?.trim() : null,
+                }
+                await axios.patch(`/api/inserat/${thisInserat.id}/address`, values2);
+                router.refresh();
             }
-
-            await axios.patch(`/api/inserat/${thisInserat.id}`, values1);
-            router.refresh();
-            const values2 = {
-                locationString: currentLocation ? currentLocation : null,
-                postalCode: currentZipCode ? currentZipCode : null,
-            }
-            await axios.patch(`/api/inserat/${thisInserat.id}/address`, values2);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
@@ -95,7 +98,12 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
     // }, [currentZipCode, currentLocation])
 
 
-    const hasChanged = false;
+    const hasChanged = (
+        String(currentLocation ?? "")?.trim() != String(thisInserat.address.locationString ?? "")?.trim() ||
+        currentZipCode != thisInserat.address.postalCode ||
+        String(currentEmail ?? "")?.trim() != String(thisInserat.emailAddress ?? "")?.trim() ||
+        String(currentNumber ?? "")?.trim() != String(thisInserat.phoneNumber ?? "")?.trim()
+    );
 
     return (
         <>

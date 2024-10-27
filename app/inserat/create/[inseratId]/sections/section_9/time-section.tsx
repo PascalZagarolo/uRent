@@ -41,11 +41,14 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
+           if(hasChanged) {
+            console.log("...")
             const values = {
                 minTime: currentMinTime,
             }
             await axios.patch(`/api/inserat/${thisInserat.id}`, values);
             router.refresh();
+           }
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
@@ -72,7 +75,9 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
 
 
 
-    const hasChanged = false;
+    const hasChanged = (
+        currentMinTime != thisInserat.minTime
+    );
 
 
 

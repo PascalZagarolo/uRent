@@ -43,14 +43,15 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-
-            const values = {
-                caution: currentCaution,
-                reqAge: currentReqAge,
-                license: currentLicense
+            if(hasChanged) {
+                const values = {
+                    caution: currentCaution ? currentCaution?.trim() : null,
+                    reqAge: currentReqAge ? currentReqAge : null,
+                    license: currentLicense ? currentLicense : null,
+                }
+                await axios.patch(`/api/inserat/${thisInserat.id}`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${thisInserat.id}`, values);
-            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
@@ -74,7 +75,11 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
 
     const [error, setError] = useState<{ errorField: string; errorText: string } | null>(undefined);
 
-    const hasChanged = false;
+    const hasChanged = (
+        String(currentCaution ?? "").trim() != String(thisInserat?.caution ?? "").trim() ||
+        currentReqAge != thisInserat?.reqAge ||
+        currentLicense != thisInserat?.license
+    );
 
 
     useEffect(() => {

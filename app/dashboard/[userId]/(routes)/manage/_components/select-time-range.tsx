@@ -48,26 +48,43 @@ const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
                         <SelectValue placeholder="Wähle eine Startzeit" />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                        {[...Array(48).keys()].map(index => {
-                            const hour = Math.floor(index / 2);
-                            const minute = index % 2 === 0 ? '00' : '30';
-                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                            return (
-                                <SelectGroup key={index}>
-                                {
-                                    {
-                                        "0" : <SelectLabel>Frühmorgen</SelectLabel>,
-                                        "510" : <SelectLabel>Morgens</SelectLabel>,
-                                        "990" : <SelectLabel>Nachmittags</SelectLabel>,
-                                    }[String(index * 30)]
-                                }
-                                <SelectItem disabled={
-                                    (isSameDay && Number(endTime) <= Number(index * 30) && !!endTime) 
-                                    
-                                    }  key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
-                                </SelectGroup>
-                            );
-                        })}
+                    {[...Array(36).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 12; // Adjust index to start from 6:00
+                                            const hour = Math.floor(actualIndex / 2);
+                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={actualIndex}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(actualIndex * 30)]
+                                                    }
+                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
+
+                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
+                                        {[...Array(12).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
+                                            const hour = Math.floor(index / 2);
+                                            const minute = index % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={index}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(index * 30)]
+                                                    }
+                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
 
                     </SelectContent>
                 </Select>
@@ -87,23 +104,43 @@ const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
                         <SelectValue placeholder="Wähle eine Endzeit" />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                        {[...Array(48).keys()].map(index => {
-                            const hour = Math.floor(index / 2);
-                            const minute = index % 2 === 0 ? '00' : '30';
-                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                            return (
-                                <SelectGroup key={index}>
-                                {
-                                    {
-                                        "0" : <SelectLabel>Frühmorgen</SelectLabel>,
-                                        "510" : <SelectLabel>Morgens</SelectLabel>,
-                                        "990" : <SelectLabel>Nachmittags</SelectLabel>,
-                                    }[String(index * 30)]
-                                }
-                                <SelectItem key={index} value={String(index * 30)} disabled={isSameDay && index === 0}>{formattedTime}</SelectItem>
-                                </SelectGroup>
-                            );
-                        })}
+                    {[...Array(36).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 12; // Adjust index to start from 6:00
+                                            const hour = Math.floor(actualIndex / 2);
+                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={actualIndex}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(actualIndex * 30)]
+                                                    }
+                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
+
+                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
+                                        {[...Array(12).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
+                                            const hour = Math.floor(index / 2);
+                                            const minute = index % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={index}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(index * 30)]
+                                                    }
+                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
 
                     </SelectContent>
                 </Select>

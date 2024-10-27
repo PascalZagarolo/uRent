@@ -140,164 +140,145 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
 
     return (
-        <>
-            <head>
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"//@ts-ignore
-                    crossorigin="anonymous"></script>
-            </head>
-            <div className="dark:bg-[#141414] w-full">
-                <div className="relative top-0 w-full z-50">
-                    <HeaderLogo
-                        currentUser={currentUser}
-                        foundNotifications={currentUser?.notifications}
-                    />
-                </div>
-                <div className="sm:hidden">
-                    <MobileHeader
-                        currentUser={currentUser}
-                        foundNotifications={currentUser?.notifications}
-                    />
-                </div>
-                <div className="flex justify-center lg:p-8 bg-[#404040]/10 h-full space-x-8">
-                    {/* <FeedbackModal
-                        show={false}
-                        content="Informationen zum Feature.."
-                        feature="uRent Kriegswaffen"
-                    /> */}
 
-                    <div className='h-screen 2xl:flex items-center justify-center w-2/12  p-16 hidden'>
-                        <div className=' w-full sm:block hidden space-y-4'>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                        </div>
+        <div className="dark:bg-[#141414] w-full min-h-screen flex flex-col">
+            {/* Header */}
+            <div className="relative top-0 w-full z-50">
+                <HeaderLogo currentUser={currentUser} foundNotifications={currentUser?.notifications} />
+            </div>
+            <div className="sm:hidden">
+                <MobileHeader currentUser={currentUser} foundNotifications={currentUser?.notifications} />
+            </div>
+
+            {/* Main Section */}
+            <div className="flex flex-row justify-center h-full w-full lg:p-8 bg-[#404040]/10 flex-grow space-x-8">
+                {/* Left Sidebar */}
+                {/* <div className="hidden xl:flex 2xl:flex-col h-full w-2/12 bg-rose-600">
+                <div className="w-full hidden sm:block space-y-4 2xl:flex 2xl:flex-col 2xl:justify-end ml-auto h-full">
+                    <div className="flex justify-center">
+                        <AdsComponent dataAdSlot="3797720061" />
                     </div>
+                    <div className="flex justify-center">
+                        <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                    <div className="flex justify-center">
+                        <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                </div>
+            </div> */}
 
-                    <div className="xl:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white pb-4 ">
-                        <div className="min-h-screen">
-                            {thisUser ? (
-                                <>
-                                    <div className="sm:p-4 p2">
-                                        <div>
-                                            {
-                                                thisUser.isBusiness ? (
-                                                    <h3 className="text-2xl flex font-bold p-2 items-center">
-                                                        <UsersIcon className="mr-2" />  Profilinformationen
-                                                        {!ownProfile && (
-                                                            <div className="ml-auto">
-                                                                <MessageButton
-                                                                    currentUserId={currentUser?.id}
-                                                                />
-                                                            </div>
-                                                        )}
-                                                    </h3>
-                                                ) : (
-                                                    <h3 className="text-2xl flex font-bold items-center">
-                                                        <UsersIcon className="mr-2" />  Profilübersicht
-                                                    </h3>
-                                                )
-                                            }
-                                        </div>
-                                        {(ownProfile && !thisUser.isBusiness) && (
-                                            <RegisterBusiness />
+                <div className=" h-screen w-2/12 flex flex-col items-start space-y-8">
+                    
+                    <div>
+                    <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                    <div>
+                    <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                    <div>
+                    <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                </div>
+
+                {/* Main Content */}
+                <div className="xl:w-[1044px] w-full max-w-[1044px] dark:bg-[#1c1c1c] h-full bg-white rounded-md p-4">
+                    <div className="min-h-screen">
+                        {thisUser ? (
+                            <>
+                                <div className="sm:p-4 p-2">
+                                    <div>
+                                        {thisUser.isBusiness ? (
+                                            <h3 className="text-2xl flex font-bold p-2 items-center">
+                                                <UsersIcon className="mr-2" /> Profilinformationen
+                                                {!ownProfile && (
+                                                    <div className="ml-auto">
+                                                        <MessageButton currentUserId={currentUser?.id} />
+                                                    </div>
+                                                )}
+                                            </h3>
+                                        ) : (
+                                            <h3 className="text-2xl flex font-bold items-center">
+                                                <UsersIcon className="mr-2" /> Profilübersicht
+                                            </h3>
                                         )}
-
-
-                                        <ProfileHeader
-                                            user={thisUser}
-                                            currentUser={currentUser}
-                                            thisContactOptions={thisUser?.contactOptions}
-                                            thisImages={thisBusinessImages}
-
-                                        />
-                                        {thisUser.isBusiness && (
-                                            <div className="sm:p-4">
-                                                <Openhours
-                                                    ownProfile={ownProfile}
-                                                    thisBusiness={thisUser.business}
-                                                />
-                                            </div>
-                                        )}
-                                        {/* {thisUser.isBusiness && (
-                                            <div className="sm:px-4">
-                                                <PaymentMethods
-                                                thisPaymentMethods={thisUser.paymentMethods}
-                                                currentUserId={currentUser?.id} 
-                                                isOwn={ownProfile}
-                                                />
-                                            </div>
-                                        )} */}
-                                        {thisUser.isBusiness && (
-                                            <div className="sm:px-4">
-                                                <AddImpressum
-                                                    ownProfile={ownProfile}
-                                                    user={thisUser}
-                                                />
-                                            </div>
-                                        )}
-                                        <div>
-
-                                        </div>
                                     </div>
-                                    {thisUser.isBusiness && (ownProfile || thisUser?.business.faqs.length > 0) && (
-                                        <div className="sm:px-8">
-                                            <BusinessFaqs
-                                                thisBusiness={thisUser.business}
-                                                ownProfile={ownProfile}
-                                            />
-                                        </div>
+                                    {ownProfile && !thisUser.isBusiness && (
+                                        <RegisterBusiness />
                                     )}
 
-                                    <div>
-
-                                        <OwnContentSlide
-                                            foundInserate={foundInserate}
-                                            currentUser={currentUser}
-                                        />
-                                    </div>
-
-
-
-                                </>
-                            ) : (
-                                <div className="w-full min-h-screen flex justify-center items-center">
-                                    <h3 className="flex text-xl font-semibold gap-x-4">
-                                        <FaCarCrash className="w-6 h-6" />    Dieser Nutzer scheint nicht zu existieren..
-                                    </h3>
+                                    <ProfileHeader
+                                        user={thisUser}
+                                        currentUser={currentUser as any}
+                                        thisContactOptions={thisUser?.contactOptions}
+                                        thisImages={thisBusinessImages}
+                                    />
+                                    {thisUser.isBusiness && (
+                                        <div className="sm:p-4">
+                                            <Openhours ownProfile={ownProfile} thisBusiness={thisUser.business} />
+                                        </div>
+                                    )}
+                                    {thisUser.isBusiness && (
+                                        <div className="sm:px-4">
+                                            <AddImpressum ownProfile={ownProfile} user={thisUser} />
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    </div>
 
-                    <div className='h-screen 2xl:flex items-center justify-center w-2/12  p-16 hidden'>
-                        <div className=' w-full sm:block hidden space-y-4'>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                            <div>
-                                <AdsComponent dataAdSlot='3797720061' />
-                            </div>
-                        </div>
-                    </div>
+                                {thisUser.isBusiness && (ownProfile || thisUser?.business.faqs.length > 0) && (
+                                    <div className="sm:px-8">
+                                        <BusinessFaqs thisBusiness={thisUser.business} ownProfile={ownProfile} />
+                                    </div>
+                                )}
 
+                                <div>
+                                    <OwnContentSlide foundInserate={foundInserate} currentUser={currentUser} />
+                                </div>
+                            </>
+                        ) : (
+                            <div className="w-full min-h-screen flex justify-center items-center">
+                                <h3 className="flex text-xl font-semibold gap-x-4">
+                                    <FaCarCrash className="w-6 h-6" /> Dieser Nutzer scheint nicht zu existieren..
+                                </h3>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
+                {/* Right Sidebar */}
+                {/* <div className="hidden 2xl:flex 2xl:flex-col h-full w-2/12 bg-rose-600">
+                <div className="w-full hidden sm:block space-y-4 2xl:flex 2xl:flex-col 2xl:justify-center ml-auto h-full">
+                    <div className="flex justify-center">
+                        <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                    <div className="flex justify-center">
+                        <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                    <div className="flex justify-center">
+                        <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                </div>
+            </div> */}
 
-
-                <div>
-                    <Footer />
+                <div className=" h-screen w-2/12 flex flex-col items-end space-y-8">
+                <div className="">
+                    <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                    <div className="">
+                    <AdsComponent dataAdSlot="3797720061" />
+                    </div>
+                    <div className="">
+                    <AdsComponent dataAdSlot="3797720061" />
+                    </div>
                 </div>
             </div>
-        </>
+
+            {/* Footer */}
+            <div>
+                <Footer />
+            </div>
+        </div>
+
+
     );
 }
 

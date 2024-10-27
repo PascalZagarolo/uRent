@@ -27,10 +27,10 @@ import { Label } from "@/components/ui/label";
 
 
 interface TimePeriodFormFilterProps {
-    isDisabled? : boolean
+    isDisabled?: boolean
 }
 
-const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
+const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
     isDisabled
 }) => {
 
@@ -83,7 +83,7 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
         //@ts-ignore
         setEndTime(usedTime);
         changeSearchParams("endTime", usedTime);
-         
+
 
     }
 
@@ -91,7 +91,7 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
         deleteSearchParams("startTime");
         setStartTime(null);
     }
-    
+
     const onDeleteEnd = () => {
         deleteSearchParams("endTime");
         setEndTime(null);
@@ -100,50 +100,50 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
 
     React.useEffect(() => {
         //@ts-ignore
-        if(isSameDay(currentObject["periodBegin"], currentObject["periodEnd"])){
+        if (isSameDay(currentObject["periodBegin"], currentObject["periodEnd"])) {
             setUsesSameDay(true);
-            if(Number(startTime) >= Number(endTime)){
+            if (Number(startTime) >= Number(endTime)) {
                 deleteSearchParams("startTime");
-            deleteSearchParams("endTime");
-            setStartTime(null);
-            setEndTime(null);
+                deleteSearchParams("endTime");
+                setStartTime(null);
+                setEndTime(null);
             }
         } else {
             setUsesSameDay(false);
         }
         //@ts-ignore
-    },[currentObject["periodBegin"], currentObject["periodEnd"]])
+    }, [currentObject["periodBegin"], currentObject["periodEnd"]])
 
     React.useEffect(() => {
-        if(usesSameDay) {
-            if(Number(startTime) > Number(endTime)){
+        if (usesSameDay) {
+            if (Number(startTime) > Number(endTime)) {
                 setEndTime(String(Number(startTime) + 30));
                 changeSearchParams("endTime", String(Number(startTime) + 30));
             }
         }
-    },[startTime])
+    }, [startTime])
 
     React.useEffect(() => {
-        if(usesSameDay) {
-            if(Number(startTime) > Number(endTime)){
+        if (usesSameDay) {
+            if (Number(startTime) > Number(endTime)) {
                 setStartTime(String(Number(endTime) - 30));
                 changeSearchParams("startTime", String(Number(endTime) - 30));
             }
         }
-    },[endTime])
+    }, [endTime])
 
 
     React.useEffect(() => {
         //@ts-ignore
         if (!currentObject["startTime"] && !paramsPeriodBegin) {
             setStartTime(null);
-            
+
         }
         //@ts-ignore
         if (!currentObject["endTime"] && !paramsPeriodEnd) {
             setEndTime(null);
 
-            
+
         }
 
     }, [currentObject, paramsPeriodBegin, paramsPeriodEnd])
@@ -161,7 +161,36 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
 
 
 
+    const generateTimeSlots = (start, end) => {
+        const timeSlots = [];
+        for (let index = start; index < end; index++) {
+            const hour = Math.floor(index / 2);
+            const minute = index % 2 === 0 ? '00' : '30';
+            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+            timeSlots.push(
+                <SelectGroup key={index}>
+                    {
+                        {
+                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                            "510": <SelectLabel>Morgens</SelectLabel>,
+                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                        }[String(index * 30)]
+                    }
+                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
+                </SelectGroup>
+            );
+        }
+        return timeSlots;
+    };
 
+    // Generate time slots from 6:00 to 23:30
+    const mainTimeSlots = generateTimeSlots(12, 48);  // Starts from index 12 (6:00) to 47 (23:30)
+
+    // Generate time slots from 0:00 to 5:30
+    const earlyTimeSlots = generateTimeSlots(0, 12);  // Starts from index 0 (0:00) to 11 (5:30)
+
+    // Combine the two sets of time slots
+    const timeSlots = [...mainTimeSlots, ...earlyTimeSlots];
 
 
 
@@ -181,12 +210,12 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
 
                         <div className="flex gap-x-4 w-full">
                             <div className="w-1/2">
-                            <Label className="text-sm font-medium">
+                                <Label className="text-sm font-medium">
                                     Startzeit
                                 </Label>
                                 <Select
                                     onValueChange={(value) => {
-                                        value ? setStart(value)  : onDeleteStart();
+                                        value ? setStart(value) : onDeleteStart();
 
                                     }}
                                     disabled={isDisabled}
@@ -196,8 +225,29 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
                                         <SelectValue placeholder="Startzeit" />
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
-                                    <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(48).keys()].map(index => {
+                                        <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
+
+                                        {[...Array(36).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 12; // Adjust index to start from 6:00
+                                            const hour = Math.floor(actualIndex / 2);
+                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={actualIndex}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(actualIndex * 30)]
+                                                    }
+                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
+
+                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
+                                        {[...Array(12).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
                                             const hour = Math.floor(index / 2);
                                             const minute = index % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -210,7 +260,7 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(index * 30)]
                                                     }
-                                                    <SelectItem  key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
+                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
                                                 </SelectGroup>
                                             );
                                         })}
@@ -225,7 +275,7 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
                                 </Label>
                                 <Select
                                     onValueChange={(value) => {
-                                        value ? setEnd(value)  : onDeleteEnd();
+                                        value ? setEnd(value) : onDeleteEnd();
                                     }}
                                     disabled={isDisabled}
                                     value={endTime}
@@ -236,7 +286,27 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                         <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(48).keys()].map(index => {
+                                        {[...Array(36).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 12; // Adjust index to start from 6:00
+                                            const hour = Math.floor(actualIndex / 2);
+                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={actualIndex}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(actualIndex * 30)]
+                                                    }
+                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
+
+                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
+                                        {[...Array(12).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
                                             const hour = Math.floor(index / 2);
                                             const minute = index % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -249,8 +319,7 @@ const TimePeriodFormFilter : React.FC<TimePeriodFormFilterProps> = ({
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(index * 30)]
                                                     }
-                                                    <SelectItem key={index} value={String(index * 30)}
-                                                        disabled={isSameDay && index === 0}>{formattedTime}</SelectItem>
+                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
                                                 </SelectGroup>
                                             );
                                         })}

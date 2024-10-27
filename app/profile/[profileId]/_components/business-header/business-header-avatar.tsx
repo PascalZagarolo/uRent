@@ -13,18 +13,19 @@ import { FiUpload } from "react-icons/fi";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { MdSaveAlt } from "react-icons/md";
 import Image from "next/image";
-import { SaveIcon } from "lucide-react";
+import { ImageIcon, SaveIcon } from "lucide-react";
 
-interface UploadProfilePicProps {
+
+interface BusinessHeaderAvatarProps {
     existingImageUrl: string;
-    userId : string;
+    userId: string;
 }
 
-const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
+const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
     existingImageUrl,
     userId,
 }) => {
-    
+
     const params = useParams();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -93,22 +94,7 @@ const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
 
 
 
-    const handleDeleteImage = () => {
-        try {
-            const usedParam = userId ? userId : params.profileId
-            setIsLoading(true)
-            axios.patch(`/api/profile/${usedParam}/profilepicture`, {
-                image: null
-            }).then(() => {
-                router.refresh();
-            })
-            toast.success("Profilbild entfernt")
-        } catch {
-            toast.error("Fehler beim Upload")
-        } finally {
-            setIsLoading(false)
-        }
-    }
+    
 
     const handleDeleteImageCurrent = () => {
         setCurrentUrl("");
@@ -136,58 +122,67 @@ const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
         <div className="">
             <Dialog>
                 <DialogTrigger>
-                    <Button className="dark:bg-[#191919] p-4 dark:text-gray-200 dark:hover:bg-[#171717] dark:hover:text-gray-300">
-                        <FiUpload className="w-4 h-4 mr-2" />  Profilbild bearbeiten
-                    </Button>
+                    <div className="relative sm:h-[132px] sm:w-[132px] h-[80px] w-[80px] shadow-lg rounded-full overflow-hidden group cursor-pointer">
+                        {/* Profile Image */}
+                        <img
+                            src={existingImageUrl || "/placeholder-person.jpg"}
+                            className="rounded-full object-cover sm:h-[132px] h-[80px] sm:w-[132px] w-[80px]"
+                            alt="Person"
+                        />
+
+                        {/* Hover overlay with camera emoji */}
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <span className="text-white text-xl sm:text-2xl"><ImageIcon className="w-6 h-6" /></span>
+                        </div>
+                    </div>
                 </DialogTrigger>
                 <DialogContent className="dark:border-none dark:bg-[#191919]">
                     <div>
                         <div className="flex justify-center">
                             {currentUrl ? (
-                                <div className=" mt-2 dark:bg-[#1C1C1C] rounded-full border border-dashed
-                                        dark:text-gray-200/90 items-center text-xs flex w-[200px] h-[200px] justify-center" {...getRootProps()}>
-                                <input {...getInputProps()} />
-                                <Image 
-                                src={currentUrl}
-                                width={160}
-                                height={160}
-                                className="rounded-full w-full h-full object-cover"
-                                alt="Profilbild"
-                                />
-                            </div>
+                                <div className=" mt-2 dark:bg-[#1C1C1C] rounded-full
+                                        dark:text-gray-200/90 items-center text-xs flex w-[160px] h-[160px] justify-center" {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <Image
+                                        src={currentUrl}
+                                        width={160}
+                                        height={160}
+                                        className="rounded-full w-full h-full object-cover"
+                                        alt="Profilbild"
+                                    />
+                                </div>
                             ) : (
-                                <div className="p-4 mt-2 dark:bg-[#1C1C1C] rounded-full border border-dashed
-                                        dark:text-gray-200/90 items-center text-xs flex w-[200px] h-[200px] justify-center" {...getRootProps()}>
-                                <input {...getInputProps()} />
-                                {isDragActive ? (
-                                    <p>Ziehe hier rein</p>
-                                ) : (
-                                    <p>Ziehe Bilder rein oder klicke hier</p>
-                                )}
-                            </div>
+                                <div className="p-4 mt-2 dark:bg-[#1C1C1C] rounded-full 
+                                        dark:text-gray-200/60 items-center text-xs flex w-[200px] h-[200px] justify-center text-center" {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    {isDragActive ? (
+                                        <p>Ziehe hier rein</p>
+                                    ) : (
+                                        <p>Ziehe Bilder rein <br/> oder klicke hier</p>
+                                    )}
+                                </div>
                             )}
 
                         </div>
                         <div className="text-sm hover:underline flex justify-center mt-2"
-                        {...getRootProps()}
+                            {...getRootProps()}
                         >
                             <input {...getInputProps()} />
                             Profilbild ändern
                         </div>
                         <div className="mt-4 w-full">
-                            
-                                <Button className="w-full bg-rose-800 hover:bg-rose-900
+
+                            <Button className="w-full bg-[#222222] shadow-lg
                              text-gray-200 hover:text-gray-300"
-                                    onClick={handleDeleteImageCurrent}>
-                                    <FaDeleteLeft className="w-4 h-4 mr-2" /> Profilbild entfernen
-                                </Button>
-                            
+                                onClick={handleDeleteImageCurrent}>
+                                <FaDeleteLeft className="w-4 h-4 mr-2" /> Profilbild entfernen
+                            </Button>
+
                             <DialogTrigger asChild>
-                                <Button className="w-full bg-[#131313] hover:bg-[#111111]
-                             text-gray-200 hover:text-gray-300 mt-2"
-                             disabled={isLoading || currentUrl === existingImageUrl}
+                                <Button className="w-full bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 mt-2"
+                                    disabled={isLoading || currentUrl === existingImageUrl}
                                     onClick={onUploadConfirm}>
-                                    <MdSaveAlt  className="w-4 h-4 mr-2" /> Profilbild speichern
+                                    <MdSaveAlt className="w-4 h-4 mr-2" /> Profilbild speichern
                                 </Button>
                             </DialogTrigger>
                         </div>
@@ -198,4 +193,4 @@ const UploadProfilePic: React.FC<UploadProfilePicProps> = ({
     );
 }
 
-export default UploadProfilePic;
+export default BusinessHeaderAvatar;

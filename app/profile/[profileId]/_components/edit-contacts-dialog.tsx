@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { business } from "@/db/schema";
 import axios from "axios";
-import { Contact2Icon, GlobeIcon, MailIcon, Share2Icon } from "lucide-react";
+import { Contact2Icon, GlobeIcon, MailIcon, Pencil, Share2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -58,7 +58,7 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="text-xs hover:underline flex sm:justify-end justify-center " variant="ghost" size="sm">
+                <Button className="text-sm hover:underline flex sm:justify-end justify-center ml-auto bg-indigo-800 hover:bg-indigo-900" variant="ghost" size="sm">
                     <Share2Icon className="w-4 h-4 mr-2" />  Kontaktinformationen verwalten
                 </Button>
             </DialogTrigger>

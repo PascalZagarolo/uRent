@@ -25,6 +25,8 @@ import getCurrentUserWithNotificationsAndFavourites from "@/actions/getCurrentUs
 import FeedbackModal from "@/components/feedback-modal";
 import PaymentMethods from "./_components/payment-methods";
 import AdsComponent from "@/components/ad-component";
+import BusinessRender from "./_components/business-render/business-render";
+import ProfileRender from "./_components/profile-render/profile-render";
 
 
 
@@ -89,18 +91,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
 
 
-    const foundInserate = await db.query.inserat.findMany({
-        where: (
-            and(
-                eq(inserat.userId, params.profileId),
-                eq(inserat.isPublished, true)
-            )
-        ), with: {
-            images: true,
-            user: true,
-            address: true
-        }
-    })
+ 
 
 
 
@@ -122,7 +113,12 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 }
             },
             paymentMethods: true,
-
+            inserat : {
+                with : {
+                    images : true,
+                    address : true
+                }
+            },            
         }
     })
 
@@ -157,21 +153,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             {/* Main Section */}
             <div className="flex flex-row justify-center h-full w-full lg:p-8 bg-[#404040]/10 flex-grow space-x-8">
                 {/* Left Sidebar */}
-                {/* <div className="hidden xl:flex 2xl:flex-col h-full w-2/12 bg-rose-600">
-                <div className="w-full hidden sm:block space-y-4 2xl:flex 2xl:flex-col 2xl:justify-end ml-auto h-full">
-                    <div className="flex justify-center">
-                        <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="flex justify-center">
-                        <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="flex justify-center">
-                        <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                </div>
-            </div> */}
+                
 
-                <div className=" h-screen w-2/12 flex flex-col justify-evenly items-start space-y-8">
+                {/* <div className=" h-screen w-2/12 flex flex-col justify-evenly items-start space-y-8">
                     
                     <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
@@ -182,62 +166,29 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
-                </div>
+                </div> */}
 
                 {/* Main Content */}
-                <div className="xl:w-[1044px] w-full max-w-[1044px] dark:bg-[#1c1c1c] h-full bg-white rounded-md p-4">
+                <div className="xl:w-[1044px] w-full max-w-[1044px] dark:bg-[#1c1c1c] h-full bg-white rounded-md">
                     <div className="min-h-screen">
                         {thisUser ? (
-                            <>
-                                <div className="sm:p-4 p-2">
-                                    <div>
-                                        {thisUser.isBusiness ? (
-                                            <h3 className="text-2xl flex font-bold p-2 items-center">
-                                                <UsersIcon className="mr-2" /> Profilinformationen
-                                                {!ownProfile && (
-                                                    <div className="ml-auto">
-                                                        <MessageButton currentUserId={currentUser?.id} />
-                                                    </div>
-                                                )}
-                                            </h3>
-                                        ) : (
-                                            <h3 className="text-2xl flex font-bold items-center">
-                                                <UsersIcon className="mr-2" /> Profilübersicht
-                                            </h3>
-                                        )}
-                                    </div>
-                                    {ownProfile && !thisUser.isBusiness && (
-                                        <RegisterBusiness />
-                                    )}
-
-                                    <ProfileHeader
-                                        user={thisUser}
-                                        currentUser={currentUser as any}
-                                        thisContactOptions={thisUser?.contactOptions}
-                                        thisImages={thisBusinessImages}
-                                    />
-                                    {thisUser.isBusiness && (
-                                        <div className="sm:p-4">
-                                            <Openhours ownProfile={ownProfile} thisBusiness={thisUser.business} />
-                                        </div>
-                                    )}
-                                    {thisUser.isBusiness && (
-                                        <div className="sm:px-4">
-                                            <AddImpressum ownProfile={ownProfile} user={thisUser} />
-                                        </div>
-                                    )}
-                                </div>
-
-                                {thisUser.isBusiness && (ownProfile || thisUser?.business.faqs.length > 0) && (
-                                    <div className="sm:px-8">
-                                        <BusinessFaqs thisBusiness={thisUser.business} ownProfile={ownProfile} />
-                                    </div>
-                                )}
-
+                            thisUser?.isBusiness ? (
                                 <div>
-                                    <OwnContentSlide foundInserate={foundInserate} currentUser={currentUser} />
+                                    <BusinessRender 
+                                    thisUser={thisUser}
+                                    ownProfile={ownProfile}
+                                    currentUser = {currentUser}
+                                    />
                                 </div>
-                            </>
+                            ) : (
+                                <div>
+                                    <ProfileRender 
+                                    thisUser={thisUser}
+                                    ownProfile={ownProfile}
+                                    currentUserId={currentUser.id}
+                                    />
+                                </div>
+                            )
                         ) : (
                             <div className="w-full min-h-screen flex justify-center items-center">
                                 <h3 className="flex text-xl font-semibold gap-x-4">
@@ -249,21 +200,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 </div>
 
                 {/* Right Sidebar */}
-                {/* <div className="hidden 2xl:flex 2xl:flex-col h-full w-2/12 bg-rose-600">
-                <div className="w-full hidden sm:block space-y-4 2xl:flex 2xl:flex-col 2xl:justify-center ml-auto h-full">
-                    <div className="flex justify-center">
-                        <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="flex justify-center">
-                        <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="flex justify-center">
-                        <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                </div>
-            </div> */}
+                
 
-                <div className=" h-screen w-2/12 flex flex-col items-end justify-evenly space-y-8">
+                {/* <div className=" h-screen w-2/12 flex flex-col items-end justify-evenly space-y-8">
                 <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
@@ -273,7 +212,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                     <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* Footer */}

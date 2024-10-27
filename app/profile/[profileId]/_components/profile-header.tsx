@@ -51,7 +51,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
     const ownProfile = currentUser?.id === user.id
 
     return (
-        <div className="sm:px-4 px-0">
+        <div className=" px-0">
 
             {/* <div className="">
                 {isOwnProfile && !user.confirmedMail && (
@@ -68,17 +68,19 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                             usedImages={thisImages}
                             businessId={user?.business?.id}
                             ownProfile={ownProfile}
+                            userImage={user.image}
                         />
 
                     </div>
                 )}
+            
             <div className="sm:flex w-full mt-4">
                 
                 <div className="flex rounded-md w-full pb-8 sm:pb-0 sm:w-2/5">
                     <div className="w-full sm:px-0 px-4">
 
                         <div className=" dark:text-gray-100 w-full">
-                            <div className="w-full text-lg  font-semibold line-clamp-1 whitespace-break-spaces break-all">
+                            <div className="w-full text-lg  font-semibold line-clamp-1 whitespace-break-spaces break-all mt-8">
                                 {user.name.charAt(0).toUpperCase() || ""}{user.name.slice(1)}
                             </div>
                             {(user.sharesRealName && (user.vorname || user.nachname)) && (
@@ -92,7 +94,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                 </div>
                             )}
                         </div>
-                        <div className="flex mt-4">
+                        {!currentUser?.isBusiness && (
+                            <div className="flex mt-4">
                             <Avatar
                                 imageUrl={user.image}
                             />
@@ -108,6 +111,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
                                 </div>
                             </div>
                         </div>
+                        )}
                     </div>
 
                 </div>

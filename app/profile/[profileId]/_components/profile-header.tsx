@@ -64,12 +64,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({
             */}
             {user.isBusiness && (
                     <div className="w-full h-full">
-                        <UploadBusinessPics
+                        {/* <UploadBusinessPics
                             usedImages={thisImages}
                             businessId={user?.business?.id}
                             ownProfile={ownProfile}
                             userImage={user.image}
-                        />
+                        /> */}
 
                     </div>
                 )}

@@ -70,6 +70,10 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         location: thisInserat.address?.locationString != null,
     };
 
+    const onClick = (inseratId : string) => {
+        router.push(`/inserat/create/${inseratId}`)
+    }
+
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
             <div className="flex">
@@ -156,11 +160,9 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                 </div>
                 <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">
                     <Button 
-                    className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full" 
-                    
-                    
-                    >
-                        <a href={`/inserat/create/${thisInserat.id}`} className="flex items-center" > <Edit3 className="w-4 h-4 xl:mr-2" /> <div className="xl:flex hidden"> Inserat bearbeiten</div> </a>
+                    className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full"
+                    onClick={() => onClick(thisInserat.id)} >
+                        <Edit3 className="w-4 h-4 xl:mr-2" />  Inserat bearbeiten
                     </Button>
                     <Dialog>
                         <DialogTrigger asChild>

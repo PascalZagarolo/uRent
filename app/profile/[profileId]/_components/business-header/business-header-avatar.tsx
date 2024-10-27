@@ -126,7 +126,7 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
                         {/* Profile Image */}
                         <img
                             src={existingImageUrl || "/placeholder-person.jpg"}
-                            className="rounded-full object-cover sm:h-[132px] h-[80px] sm:w-[132px] w-[80px]"
+                            className="rounded-full object-cover sm:h-[132px] h-[80px] sm:w-[132px] w-[80px] border border-black shadow-lg"
                             alt="Person"
                         />
 

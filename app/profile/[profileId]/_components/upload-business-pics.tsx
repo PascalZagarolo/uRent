@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { businessImages } from "@/db/schema";
+import { businessImages, userTable } from "@/db/schema";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -16,13 +16,14 @@ import { cn } from "@/lib/utils";
 import Avatar from "./avatar";
 import BusinessHeaderAvatar from "./business-header/business-header-avatar";
 import ProfilePicBusiness from "./business-header/profile-pic-business";
+import ContactUser from "./business-header/contact-user";
 
 interface UploadBusinessPicsProps {
     usedImages: typeof businessImages.$inferSelect[];
     userImage: string;
     businessId: string;
     ownProfile: boolean;
-    currentUserId: string;
+    currentUser : typeof userTable.$inferSelect
 }
 
 const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
@@ -30,7 +31,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     businessId,
     ownProfile,
     userImage,
-    currentUserId
+    currentUser
 }) => {
     const [currentImage, setCurrentImage] = useState<any>(usedImages[0] ? usedImages[0] : null);
     const [uploadedFile, setUploadedFile] = useState<any>(null);
@@ -197,16 +198,24 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 </DialogContent>
             </Dialog>
 
-            {/* Avatar component positioned to overlap with the banner */}
-           {ownProfile ? (
-            <div className="absolute bottom-[-40px] left-8">
-            <BusinessHeaderAvatar existingImageUrl={userImage} userId={currentUserId} />
-        </div>
-           ) : (
-            <div>
-                <ProfilePicBusiness imageUrl={userImage} />
-            </div>
-           )}
+
+            {ownProfile ? (
+                <div className="absolute bottom-[-40px] left-8">
+                    <BusinessHeaderAvatar existingImageUrl={userImage} userId={currentUser?.id} />
+                </div>
+            ) : (
+                <div className="absolute bottom-[-40px] left-8">
+                    <ProfilePicBusiness imageUrl={userImage} />
+                </div>
+            )}
+
+            {!ownProfile && (
+                <div className="absolute bottom-[-20px] right-8">
+                    <ContactUser
+                        currentUser={currentUser}
+                    />
+                </div>
+            )}
         </div>
     );
 };

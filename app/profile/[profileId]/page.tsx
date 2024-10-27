@@ -128,10 +128,10 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
 
 
-    const ownProfile = currentUser?.id === thisUser?.id ? true : false;
+    const ownProfile = currentUser?.id == thisUser?.id;
 
 
-
+    
 
 
 
@@ -185,7 +185,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                                     <ProfileRender 
                                     thisUser={thisUser}
                                     ownProfile={ownProfile}
-                                    currentUserId={currentUser.id}
+                                    currentUser={currentUser}
                                     />
                                 </div>
                             )

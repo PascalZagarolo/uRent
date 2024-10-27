@@ -9,11 +9,11 @@ const ProfilePicBusiness: React.FC<ProfilePicBusinessProps> = ({
     imageUrl
 }) => {
     return (
-        <div className="relative sm:h-[132px] sm:w-[132px] h-[80px] w-[80px] shadow-lg rounded-full overflow-hidden group cursor-pointer">
+        <div className="relative sm:h-[132px] sm:w-[132px] h-[80px] w-[80px] shadow-lg rounded-full overflow-hidden group cursor-pointer ">
           
-            <img
+          <img
                 src={imageUrl || "/placeholder-person.jpg"}
-                className="rounded-full object-cover sm:h-[132px] h-[80px] sm:w-[132px] w-[80px]"
+                className="rounded-full object-cover sm:h-[132px] h-[80px] shadow-lg sm:w-[132px] w-[80px] border border-black"
                 alt="Person"
             />
 

@@ -7,10 +7,10 @@ import RegisterBusiness from "../register-business";
 interface ProfileRenderProps {
     thisUser : typeof userTable.$inferSelect;
     ownProfile : boolean
-    currentUserId : string
+    currentUser : typeof userTable.$inferSelect;
 }
 
-const ProfileRender = ({ thisUser, ownProfile, currentUserId } : ProfileRenderProps) => {
+const ProfileRender = ({ thisUser, ownProfile, currentUser } : ProfileRenderProps) => {
     return ( 
 
             <div className="flex flex-col">
@@ -18,7 +18,7 @@ const ProfileRender = ({ thisUser, ownProfile, currentUserId } : ProfileRenderPr
                 <ProfileRenderHeader 
                 userImage={thisUser.image}
                 ownProfile={ownProfile}
-                currentUserId={currentUserId}
+                currentUser={currentUser}
                 />
             </div>
             <div className="flex flex-row items-center w-full space-x-4">

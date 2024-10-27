@@ -25,9 +25,9 @@ const BusinessRender = ({
                 <UploadBusinessPics
                     usedImages={thisUser.business.businessImages}
                     businessId={thisUser.business.id}
-                    ownProfile={true}
+                    ownProfile={ownProfile}
                     userImage={thisUser.image}
-                    currentUserId = {currentUser.id}
+                    currentUser = {currentUser}
                 />
             </div>
             <div className="flex flex-row items-center w-full space-x-4">

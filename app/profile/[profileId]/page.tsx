@@ -140,7 +140,11 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
 
     return (
-
+        <>
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore
+     crossorigin="anonymous"></script>
+</head>
         <div className="dark:bg-[#141414] w-full min-h-screen flex flex-col">
             {/* Header */}
             <div className="relative top-0 w-full z-50">
@@ -277,7 +281,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 <Footer />
             </div>
         </div>
-
+        </>
 
     );
 }

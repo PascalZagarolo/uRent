@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-import { useParams, useRouter  } from "next/navigation";
+import { useParams, useRouter, useSearchParams  } from "next/navigation";
 import { CldUploadButton } from 'next-cloudinary';
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
@@ -26,6 +26,8 @@ const UploadImage = ({
     otherUser,
     otherUserName
 } : UploadImageProps) => {
+
+    const conversationId = useSearchParams().get("conversationId");
 
     const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
         try {
@@ -102,7 +104,7 @@ const UploadImage = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleImageUpload = (result : any) => {
+    const handleImageUpload = async (result : any) => {
         try {
             
             const values = {
@@ -113,10 +115,10 @@ const UploadImage = ({
             }
 
             setIsLoading(true)
-            axios.post(`/api/message/${params.conversationId}/image`, values).then(() => {
+            await axios.post(`/api/message/${conversationId}/image`, values).then(() => {
                 setCurrentUrl("");
                 setCurrentNote("");
-                toast.success("Bild erfolgreich gesendet")
+
             })
             
         } catch(e : any) {
@@ -124,9 +126,9 @@ const UploadImage = ({
             console.log(e);
         } finally {
             setIsLoading(false)
-            setTimeout(() => {
+            
                 router.refresh()  
-            }, 1000)
+           
         }
     }
     

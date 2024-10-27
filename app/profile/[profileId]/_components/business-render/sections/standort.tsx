@@ -164,7 +164,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                         foundAddress
                             .sort((a, b) => (a.isPrimary === b.isPrimary ? 0 : a.isPrimary ? -1 : 1)) // Sort addresses with primary first
                             .map((address, index) => (
-                                <div className="">
+                                <div className="" key={index}>
                                     <StandortDisplay
                                     thisStandort={address}
                                     ownProfile={ownProfile}

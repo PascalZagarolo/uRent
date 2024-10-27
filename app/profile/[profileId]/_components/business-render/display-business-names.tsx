@@ -18,15 +18,15 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
             <div>
                 <p className="text-gray-200 text-2xl font-semibold">{name}</p>
             </div>
-            {sharesRealName && (
+            {sharesRealName && (firstName || lastName) && (
                 <div className="flex flex-row items-center">
-                    <span className="text-gray-200/60 flex flex-row items-center">  
+                    <span className="text-gray-200 flex flex-row items-center">  
                      <User2Icon className="w-4 h-4 mr-2" />   {firstName} {lastName}
                     </span>
                 </div>
             )}
-            <div className=" text-gray-200/60 ">
-                auf uRent seit {format(joinedAt, "dd.MM.yyyy")}
+            <div className=" text-gray-200/60 text-sm font-normal">
+            Mitglied seit {format(joinedAt, "dd.MM.yyyy")}
             </div>
         </div>
     );

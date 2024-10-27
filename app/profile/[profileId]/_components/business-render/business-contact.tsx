@@ -17,26 +17,24 @@ interface BusinessContactProps {
 
 const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusiness }: BusinessContactProps) => {
     return (
-        <div className="flex flex-col items-start text-gray-200/80">
+        <div className="flex flex-col items-start text-gray-200/80 space-y-1">
             {ownProfile && (
-                <div className="mt-4 ml-auto mr-8 mb-2">
+                <div className="mt-4 ml-auto mr-8 mb-4">
                     <EditContactsDialog 
                 thisBusiness={thisBusiness}
                 />
                 </div>
             )}
             {email && (
-                <div className="w-full text-gray-200 flex flex-row items-center">
-                    <div>
-                        <MailsIcon className="w-4 h-4 mr-2" />
-                    </div>
+                <div className="w-full text-gray-200 flex flex-row items-center font-semibold">
+                    
                     <span className="line-clamp-1 break-all w-3/4 ">
                         {email}
                     </span>
                 </div>
             )}
             {website && (
-                <div className="w-full text-gray-200/95 flex flex-row items-center">
+                <div className="w-full text-gray-200/95 flex flex-row items-center text-sm">
                     <div>
                         <Globe2Icon className="w-4 h-4 mr-2" />
                     </div>
@@ -47,7 +45,7 @@ const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusin
             )}
             
             {telephone && (
-                <div className="w-full text-gray-200/90 flex flex-row items-center">
+                <div className="w-full text-gray-200/90 flex flex-row items-center text-sm">
                     <div>
                         <PhoneCallIcon className="w-4 h-4 mr-2" />
                     </div>
@@ -57,7 +55,7 @@ const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusin
                 </div>
             )}
             {fax && (
-                <div className="w-full text-gray-200/90 flex flex-row items-center">
+                <div className="w-full text-gray-200/90 flex flex-row items-center text-sm">
                     <div>
                         <FaFax className="w-4 h-4 mr-2" />
                     </div>

@@ -26,17 +26,17 @@ const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusin
                 </div>
             )}
             {email && (
-                <div className="w-full text-gray-200/80/80 flex flex-row items-center">
+                <div className="w-full text-gray-200 flex flex-row items-center">
                     <div>
                         <MailsIcon className="w-4 h-4 mr-2" />
                     </div>
-                    <span className="line-clamp-1 break-all w-3/4 font-semibold">
+                    <span className="line-clamp-1 break-all w-3/4 ">
                         {email}
                     </span>
                 </div>
             )}
             {website && (
-                <div className="w-full text-gray-200/80/80 flex flex-row items-center">
+                <div className="w-full text-gray-200/95 flex flex-row items-center">
                     <div>
                         <Globe2Icon className="w-4 h-4 mr-2" />
                     </div>
@@ -47,7 +47,7 @@ const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusin
             )}
             
             {telephone && (
-                <div className="w-full text-gray-200/80 flex flex-row items-center">
+                <div className="w-full text-gray-200/90 flex flex-row items-center">
                     <div>
                         <PhoneCallIcon className="w-4 h-4 mr-2" />
                     </div>
@@ -57,7 +57,7 @@ const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusin
                 </div>
             )}
             {fax && (
-                <div className="w-full text-gray-200/80 flex flex-row items-center">
+                <div className="w-full text-gray-200/90 flex flex-row items-center">
                     <div>
                         <FaFax className="w-4 h-4 mr-2" />
                     </div>

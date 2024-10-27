@@ -12,6 +12,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { switchSectionOverview } from '../../../../../../hooks/inserat-creation/useRouterHistory';
 import SaveChangesDialog from "../_components/save-changes-dialog";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 interface BasicDetailsProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -52,7 +53,10 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
     }
 
     const router = useRouter();
-    const hasChanged = currentTitle != thisInserat.title || currentTitle?.trim() != thisInserat?.title || currentDescription != thisInserat.description || currentDescription?.trim() != thisInserat?.description;
+    const hasChanged = (
+        String(currentTitle ?? "")?.trim() != String(thisInserat.title ?? "")?.trim() ||
+        String(currentDescription ?? "")?.trim() != String(thisInserat.description ?? "")?.trim()
+    );
 
     useEffect(() => {
         if(!hasChanged) return
@@ -91,9 +95,14 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                 
             </div>
             <div className="sm:mt-auto flex flex-col mt-8">
+                    <div className="flex flex-row items-center">
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                        <ArrowLeft className="w-4 h-4 mr-2"  /> Zu deiner Inseratsübersicht
                     </span>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => changeSection(11)}>
+                        Zur Ende springen <MdOutlineKeyboardDoubleArrowRight  className="w-4 h-4 mr-2"  />
+                    </span>
+                    </div>
                     <div className="grid grid-cols-2">
                     <div/>
                     <Button className="bg-indigo-800 text-gray-200 w-full mt-2 hover:bg-indigo-900 hover:text-gray-300"

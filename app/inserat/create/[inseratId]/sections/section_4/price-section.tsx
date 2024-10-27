@@ -15,6 +15,7 @@ import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/us
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import SaveChangesPrevious from "../_components/save-changes-previous";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 interface PriceSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -40,8 +41,8 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
             getsEdited?: boolean;
         }[]
     >(thisInserat?.priceprofiles ?? []);
-    
-    const oldPriceProfiles : {
+
+    const oldPriceProfiles: {
         id: string;
         title: string;
         description: string;
@@ -57,23 +58,23 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
     const areProfilesEqual = (
         profileA: typeof currentPriceProfiles[0],
         profileB: typeof oldPriceProfiles[0]
-      ) => {
+    ) => {
         return (
-          profileA.id === profileB.id &&
-          profileA.title === profileB.title &&
-          profileA.description === profileB.description &&
-          profileA.price === profileB.price &&
-          profileA.freeMiles === profileB.freeMiles &&
-          profileA.extraCost === profileB.extraCost &&
-          profileA.position === profileB.position &&
-          profileA.getsDeleted === profileB.getsDeleted &&
-          profileA.getsAdded === profileB.getsAdded &&
-          profileA.getsEdited === profileB.getsEdited
+            profileA.id === profileB.id &&
+            profileA.title === profileB.title &&
+            profileA.description === profileB.description &&
+            profileA.price === profileB.price &&
+            profileA.freeMiles === profileB.freeMiles &&
+            profileA.extraCost === profileB.extraCost &&
+            profileA.position === profileB.position &&
+            profileA.getsDeleted === profileB.getsDeleted &&
+            profileA.getsAdded === profileB.getsAdded &&
+            profileA.getsEdited === profileB.getsEdited
         );
-      };
-      
-      // Check if there is any difference in currentPriceProfiles or currentPrice
-      const hasChanged = (currentPrice != thisInserat?.price || JSON.stringify(currentPriceProfiles) != JSON.stringify(oldPriceProfiles));
+    };
+
+    // Check if there is any difference in currentPriceProfiles or currentPrice
+    const hasChanged = (currentPrice != thisInserat?.price || JSON.stringify(currentPriceProfiles) != JSON.stringify(oldPriceProfiles));
 
 
     const router = useRouter();
@@ -93,7 +94,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
             }
 
             if (JSON.stringify(currentPriceProfiles) != JSON.stringify(oldPriceProfiles)) {
-                
+
                 const submittedValues = currentPriceProfiles.map((profile) => {
                     if (profile.getsAdded || profile.getsDeleted) {
                         return profile;
@@ -123,7 +124,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
         changeSection(currentSection - 1);
     }
 
-    
+
 
     return (
         <>
@@ -145,9 +146,14 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
 
             </div>
             <div className="mt-auto flex flex-col">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
-                </span>
+                <div className="flex flex-row items-center">
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
+                    </span>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 12)}>
+                        Zur Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
+                    </span>
+                </div>
                 <div className="grid grid-cols-2 mt-2">
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 4)}>
                         Zurück
@@ -159,8 +165,8 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                     </Button>
                 </div>
             </div>
-            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={4}/>}
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={4} />}
         </>
     );
 }

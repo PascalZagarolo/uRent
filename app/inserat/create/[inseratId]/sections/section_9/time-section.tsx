@@ -17,6 +17,7 @@ import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/us
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import SaveChangesPrevious from "../_components/save-changes-previous";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 
 interface TimeSectionProps {
@@ -99,9 +100,14 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
 
             </div>
             <div className="mt-auto flex flex-col">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
-                </span>
+            <div className="flex flex-row items-center">
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
+                    </span>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 12)}>
+                        Zur Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
+                    </span>
+                </div>
                 <div className="grid grid-cols-2 mt-2">
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 9)}>
                         Zurück

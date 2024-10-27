@@ -22,6 +22,7 @@ import SaveChangesPrevious from "../_components/save-changes-previous";
 import { set } from 'date-fns';
 import InseratType from "./_components/inserat-type";
 import VehicleAmount from "./_components/vehicle-amount";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 interface BasicDetails2Props {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -34,13 +35,13 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     const [currentCategory, setCurrentCategory] = useState(thisInserat.category || "PKW");
     const [isMulti, setIsMulti] = useState(thisInserat?.isMulti || false);
     const [vehicleAmount, setVehicleAmount] = useState(thisInserat?.amount || 1);
-    
+
 
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
     useEffect(() => {
-        
+
         if (thisInserat?.category !== "PKW") {
             switch (thisInserat?.category) {
                 case "LKW":
@@ -71,11 +72,11 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             if (hasChanged) {
-                
+
                 const values = {
                     category: currentCategory,
                     isMulti: isMulti,
-                    amount : vehicleAmount
+                    amount: vehicleAmount
                 }
                 await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
 
@@ -92,12 +93,12 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
             } else if (previous) {
-                
+
                 const params = new URLSearchParams("")
                 params.set('sectionId', String(1))
                 window.history.pushState(null, '', `?${params.toString()}`)
             } else {
-                
+
                 changeSection(currentSection + 1);
             }
 
@@ -107,7 +108,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         }
     }
 
-   
+
 
     const dynamicPropertyName = `${thisInserat?.currentCategory?.toLowerCase()}Attributes`;
     const hasChanged = (
@@ -148,7 +149,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         } else if (!isMulti && vehicleAmount > 1) {
             setVehicleAmount(1);
         }
-    },[isMulti])
+    }, [isMulti])
 
     return (
         <>
@@ -171,14 +172,14 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                     <InseratType
                         thisInserat={thisInserat}
                         isMulti={isMulti}
-                        setIsMulti={setIsMulti} 
+                        setIsMulti={setIsMulti}
                     />
                 </div>
                 <div className="mt-4">
                     <VehicleAmount
-                    thisInserat={thisInserat} 
-                    currentValue={vehicleAmount}
-                    setCurrentValue={setVehicleAmount}
+                        thisInserat={thisInserat}
+                        currentValue={vehicleAmount}
+                        setCurrentValue={setVehicleAmount}
                     />
                 </div>
                 <div className="mt-4">
@@ -187,9 +188,14 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
             </div>
             <div className=" mt-auto">
                 <div className="flex flex-col mt-auto">
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
-                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
-                    </span>
+                    <div className="flex flex-row items-center">
+                        <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
+                            <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
+                        </span>
+                        <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 12)}>
+                            Zur Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
+                        </span>
+                    </div>
                     <div className="grid grid-cols-2 mt-2">
                         <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 2)}>
                             Zurück
@@ -205,7 +211,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={2}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={2} />}
         </>
     );
 

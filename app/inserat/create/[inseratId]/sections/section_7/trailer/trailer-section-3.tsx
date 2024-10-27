@@ -21,6 +21,7 @@ import LkwSizeCreation from "../lkw/lkw-loading-size";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 
 
@@ -144,9 +145,14 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                
             </div>
             <div className=" flex flex-col mt-auto ">
-                <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer mt-2" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
-                </span>
+            <div className="flex flex-row items-center">
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
+                        <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
+                    </span>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 12)}>
+                        Zur Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
+                    </span>
+                </div>
                 <div className="grid grid-cols-2 mt-2">
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 7)}>
                         Zurück

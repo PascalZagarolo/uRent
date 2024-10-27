@@ -2,6 +2,7 @@ import { userTable } from "@/db/schema";
 import DisplayBusinessNames from "../business-render/display-business-names";
 import ProfileRenderHeader from "./profile-render-header";
 import ProfileDescription from "./profile-description";
+import RegisterBusiness from "../register-business";
 
 interface ProfileRenderProps {
     thisUser : typeof userTable.$inferSelect;
@@ -30,8 +31,8 @@ const ProfileRender = ({ thisUser, ownProfile, currentUserId } : ProfileRenderPr
                         joinedAt={thisUser?.createdAt}
                     />
                 </div>
-                <div className="w-1/2">
-                    
+                <div className="w-1/2 mr-8">
+                <RegisterBusiness />
                 </div>
             </div>
             <div>

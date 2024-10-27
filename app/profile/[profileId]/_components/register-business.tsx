@@ -9,6 +9,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { BsBuildingsFill } from "react-icons/bs";
 import { FaBusinessTime } from "react-icons/fa6";
+import { GiCarKey } from "react-icons/gi";
 import { MdSwapHoriz } from "react-icons/md";
 
 
@@ -35,8 +36,8 @@ const RegisterBusiness = () => {
     return (
         <div className="mt-4">
             <AlertDialog>
-                <Alert className="dark:bg-[#222222] shadow-lg dark:border-none">
-                    <BsBuildingsFill className="h-4 w-4" />
+                <Alert className="dark:bg-[#222222] shadow-lg dark:border-none rounded-r-none">
+                    <GiCarKey className="h-4 w-4" />
                     <AlertTitle>Du bist Vermieter?</AlertTitle>
                     <AlertDescription>
                         Klicke <AlertDialogTrigger className="underline px-0.5 hover:cursor-pointer"> hier </AlertDialogTrigger>

@@ -10,7 +10,7 @@ interface OpeningHoursProps {
     ownProfile : boolean;
 }
 
-const OpeningHours : React.FC<OpenhoursProps> = ({
+const OpeningHours : React.FC<OpeningHoursProps> = ({
     thisBusiness,
     ownProfile
 }) => {

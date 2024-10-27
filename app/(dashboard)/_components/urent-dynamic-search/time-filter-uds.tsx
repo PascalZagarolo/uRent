@@ -197,7 +197,27 @@ const TimeFilterUds : React.FC<TimeFilterUdsProps> = ({
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
                                     <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(48).keys()].map(index => {
+                                    {[...Array(32).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 16; // Adjust index to start from 6:00
+                                            const hour = Math.floor(actualIndex / 2);
+                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={actualIndex}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(actualIndex * 30)]
+                                                    }
+                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
+
+                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
+                                        {[...Array(16).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
                                             const hour = Math.floor(index / 2);
                                             const minute = index % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -206,11 +226,11 @@ const TimeFilterUds : React.FC<TimeFilterUdsProps> = ({
                                                     {
                                                         {
                                                             "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(index * 30)]
                                                     }
-                                                    <SelectItem  key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
+                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
                                                 </SelectGroup>
                                             );
                                         })}
@@ -236,7 +256,27 @@ const TimeFilterUds : React.FC<TimeFilterUdsProps> = ({
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                         <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(48).keys()].map(index => {
+                                        {[...Array(32).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 16; // Adjust index to start from 6:00
+                                            const hour = Math.floor(actualIndex / 2);
+                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                            return (
+                                                <SelectGroup key={actualIndex}>
+                                                    {
+                                                        {
+                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
+                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
+                                                        }[String(actualIndex * 30)]
+                                                    }
+                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
+                                                </SelectGroup>
+                                            );
+                                        })}
+
+                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
+                                        {[...Array(16).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
                                             const hour = Math.floor(index / 2);
                                             const minute = index % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -245,12 +285,11 @@ const TimeFilterUds : React.FC<TimeFilterUdsProps> = ({
                                                     {
                                                         {
                                                             "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(index * 30)]
                                                     }
-                                                    <SelectItem key={index} value={String(index * 30)}
-                                                        disabled={isSameDay && index === 0}>{formattedTime}</SelectItem>
+                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
                                                 </SelectGroup>
                                             );
                                         })}

@@ -17,26 +17,16 @@ interface BusinessContactProps {
 
 const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusiness }: BusinessContactProps) => {
     return (
-        <div className="flex flex-col items-start space-y-2">
+        <div className="flex flex-col items-start text-gray-200/80">
             {ownProfile && (
-                <div className="mt-4 ml-auto mr-8">
+                <div className="mt-4 ml-auto mr-8 mb-2">
                     <EditContactsDialog 
                 thisBusiness={thisBusiness}
                 />
                 </div>
             )}
-            {website && (
-                <div className="w-full text-gray-200 flex flex-row items-center">
-                    <div>
-                        <Globe2Icon className="w-4 h-4 mr-2" />
-                    </div>
-                    <span className="line-clamp-1 break-all w-3/4">
-                        {website}
-                    </span>
-                </div>
-            )}
             {email && (
-                <div className="w-full text-gray-200 flex flex-row items-center">
+                <div className="w-full text-gray-200/80/80 flex flex-row items-center">
                     <div>
                         <MailsIcon className="w-4 h-4 mr-2" />
                     </div>
@@ -45,8 +35,19 @@ const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusin
                     </span>
                 </div>
             )}
+            {website && (
+                <div className="w-full text-gray-200/80/80 flex flex-row items-center">
+                    <div>
+                        <Globe2Icon className="w-4 h-4 mr-2" />
+                    </div>
+                    <span className="line-clamp-1 break-all w-3/4">
+                        {website}
+                    </span>
+                </div>
+            )}
+            
             {telephone && (
-                <div className="w-full text-gray-200 flex flex-row items-center">
+                <div className="w-full text-gray-200/80 flex flex-row items-center">
                     <div>
                         <PhoneCallIcon className="w-4 h-4 mr-2" />
                     </div>
@@ -56,7 +57,7 @@ const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusin
                 </div>
             )}
             {fax && (
-                <div className="w-full text-gray-200 flex flex-row items-center">
+                <div className="w-full text-gray-200/80 flex flex-row items-center">
                     <div>
                         <FaFax className="w-4 h-4 mr-2" />
                     </div>

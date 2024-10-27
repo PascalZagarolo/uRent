@@ -161,36 +161,7 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
 
 
 
-    const generateTimeSlots = (start, end) => {
-        const timeSlots = [];
-        for (let index = start; index < end; index++) {
-            const hour = Math.floor(index / 2);
-            const minute = index % 2 === 0 ? '00' : '30';
-            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-            timeSlots.push(
-                <SelectGroup key={index}>
-                    {
-                        {
-                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                            "510": <SelectLabel>Morgens</SelectLabel>,
-                            "990": <SelectLabel>Nachmittags</SelectLabel>,
-                        }[String(index * 30)]
-                    }
-                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
-                </SelectGroup>
-            );
-        }
-        return timeSlots;
-    };
-
-    // Generate time slots from 6:00 to 23:30
-    const mainTimeSlots = generateTimeSlots(12, 48);  // Starts from index 12 (6:00) to 47 (23:30)
-
-    // Generate time slots from 0:00 to 5:30
-    const earlyTimeSlots = generateTimeSlots(0, 12);  // Starts from index 0 (0:00) to 11 (5:30)
-
-    // Combine the two sets of time slots
-    const timeSlots = [...mainTimeSlots, ...earlyTimeSlots];
+    
 
 
 
@@ -227,8 +198,8 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
                                         <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
 
-                                        {[...Array(36).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
-                                            const actualIndex = index + 12; // Adjust index to start from 6:00
+                                        {[...Array(32).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 16; // Adjust index to start from 6:00
                                             const hour = Math.floor(actualIndex / 2);
                                             const minute = actualIndex % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -237,7 +208,7 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                                     {
                                                         {
                                                             "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(actualIndex * 30)]
                                                     }
@@ -247,7 +218,7 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                         })}
 
                                         {/* Generate time slots from 0:00 to 5:30 and append them */}
-                                        {[...Array(12).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
+                                        {[...Array(16).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
                                             const hour = Math.floor(index / 2);
                                             const minute = index % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -256,7 +227,7 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                                     {
                                                         {
                                                             "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(index * 30)]
                                                     }
@@ -286,8 +257,8 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                     </SelectTrigger>
                                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
                                         <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(36).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
-                                            const actualIndex = index + 12; // Adjust index to start from 6:00
+                                        {[...Array(32).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
+                                            const actualIndex = index + 16; // Adjust index to start from 6:00
                                             const hour = Math.floor(actualIndex / 2);
                                             const minute = actualIndex % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -296,7 +267,7 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                                     {
                                                         {
                                                             "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(actualIndex * 30)]
                                                     }
@@ -306,7 +277,7 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                         })}
 
                                         {/* Generate time slots from 0:00 to 5:30 and append them */}
-                                        {[...Array(12).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
+                                        {[...Array(16).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
                                             const hour = Math.floor(index / 2);
                                             const minute = index % 2 === 0 ? '00' : '30';
                                             const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
@@ -315,7 +286,7 @@ const TimePeriodFormFilter: React.FC<TimePeriodFormFilterProps> = ({
                                                     {
                                                         {
                                                             "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
+                                                            "480": <SelectLabel>Morgens</SelectLabel>,
                                                             "990": <SelectLabel>Nachmittags</SelectLabel>,
                                                         }[String(index * 30)]
                                                     }

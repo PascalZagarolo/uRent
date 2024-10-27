@@ -161,8 +161,9 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
             )}
 
             <Dialog open={showDialog} onOpenChange={(e) => { setShowDialog(e) }}>
-                <DialogContent className="dark:bg-[#191919] dark:border-none">
-                    <h3 className="text-lg font-semibold">Profilbanner bearbeiten</h3>
+                <DialogContent className="dark:bg-[#191919] dark:border-none space-y-0">
+                   <div>
+                   <h3 className="text-lg font-semibold">Profilbanner bearbeiten</h3>
                     <p className="text-gray-200/60 text-xs">
                         Dein Profilbanner wird öffentlich auf deinem Profil angezeigt und ist für viele Nutzer das erste, was sie sehen.
                     </p>
@@ -181,7 +182,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                             </div>
                         )}
                     </div>
-                    <div className="mt-4 flex space-x-4">
+                    <div className=" flex space-x-2 mt-4">
                         <Button className="text-gray-200 bg-[#222222] hover:bg-[#242424] shadow-lg w-1/2" {...getRootProps()} disabled={isLoading}>
                             <input {...getInputProps()} />
                             <RotateCwIcon className="w-4 h-4 mr-2" /> Banner ändern
@@ -191,10 +192,11 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                         </Button>
                     </div>
                     <DialogTrigger asChild>
-                        <Button className="bg-indigo-800 hover:bg-indigo-900 w-full mt-2" onClick={onSave} disabled={isLoading}>
+                        <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 w-full mt-2" onClick={onSave} disabled={isLoading}>
                             <SaveAllIcon className="w-4 h-4 mr-2" /> Änderungen speichern
                         </Button>
                     </DialogTrigger>
+                    </div>
                 </DialogContent>
             </Dialog>
 

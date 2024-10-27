@@ -171,15 +171,15 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 </div>
             </div> */}
 
-                <div className=" h-screen w-2/12 flex flex-col items-start space-y-8">
+                <div className=" h-screen w-2/12 flex flex-col justify-evenly items-start space-y-8">
                     
-                    <div>
+                    <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
-                    <div>
+                    <div className="h-full w-full"> 
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
-                    <div>
+                    <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
                 </div>
@@ -263,14 +263,14 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                 </div>
             </div> */}
 
-                <div className=" h-screen w-2/12 flex flex-col items-end space-y-8">
-                <div className="">
+                <div className=" h-screen w-2/12 flex flex-col items-end justify-evenly space-y-8">
+                <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
-                    <div className="">
+                    <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
-                    <div className="">
+                    <div className="h-full w-full">
                     <AdsComponent dataAdSlot="3797720061" />
                     </div>
                 </div>

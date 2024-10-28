@@ -12,6 +12,7 @@ import { MdPostAdd } from "react-icons/md";
 import SaveChanges from "../../_components/save-changes";
 import { inserat, userTable } from "@/db/schema";
 import SwitchCreation from "./_components/switch-creation";
+import Warning from "../../_components/warning";
 
 
 interface WholeRenderProps {
@@ -33,6 +34,9 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                         <div className="w-full">
                             <div className="w-full flex justify-end ml-auto">
                                 <SwitchCreation />
+                            </div>
+                            <div className="mt-4">
+                                <Warning />
                             </div>
                             <h3 className="sm:text-2xl text-md font-bold flex items-center w-full mt-4">
                                 <MdPostAdd className="mr-2" />  Inserat bearbeiten

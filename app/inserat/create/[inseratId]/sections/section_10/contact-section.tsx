@@ -100,10 +100,10 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
 
     const hasChanged = (
-        String(currentLocation ?? "")?.trim() != String(thisInserat.address.locationString ?? "")?.trim() ||
-        currentZipCode != thisInserat.address.postalCode ||
-        String(currentEmail ?? "")?.trim() != String(thisInserat.emailAddress ?? "")?.trim() ||
-        String(currentNumber ?? "")?.trim() != String(thisInserat.phoneNumber ?? "")?.trim()
+        String(currentLocation ?? "")?.trim() != String(thisInserat?.address?.locationString ?? "")?.trim() ||
+        currentZipCode != thisInserat?.address?.postalCode ||
+        String(currentEmail ?? "")?.trim() != String(thisInserat?.emailAddress ?? "")?.trim() ||
+        String(currentNumber ?? "")?.trim() != String(thisInserat?.phoneNumber ?? "")?.trim()
     );
 
     return (

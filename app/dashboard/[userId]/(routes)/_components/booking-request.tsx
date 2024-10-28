@@ -66,7 +66,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     const onContact = async () => {
         try {
             const foundId = await findConversation(request.user.id, currentUserId);
-            router.push(`/conversation/${foundId}`);
+            console.log(foundId);
+            router.push(`/conversation?conversationId=${foundId}`);
         } catch(e : any){
             toast.error("Fehler beim Kontaktieren des Anfragers")
             console.log(e);
@@ -151,7 +152,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <div className="w-full mt-2">
                     <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex"
                         //@ts-ignore
-                        onClick={() => { router.push(`/conversation/${request.user.id}`) }}>
+                        onClick={() => { router.push(`/conversation?conversationId=${request.user.id}`) }}>
                         <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                     </Button>
                 </div>

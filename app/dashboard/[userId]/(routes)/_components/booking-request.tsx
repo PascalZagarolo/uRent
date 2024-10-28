@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { inserat } from '../../../../../db/schema';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import findConversation from "@/actions/findConversation";
+import { findOrCreateConversation } from "@/actions/conversation/linkConversation";
 
 
 interface BookingRequestRenderProps {
@@ -65,7 +66,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
 
     const onContact = async () => {
         try {
-            const foundId = await findConversation(request.user.id, currentUserId);
+            const foundId = await findOrCreateConversation(request.user.id, currentUserId);
             console.log(foundId);
             router.push(`/conversation?conversationId=${foundId}`);
         } catch(e : any){
@@ -152,7 +153,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <div className="w-full mt-2">
                     <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex"
                         //@ts-ignore
-                        onClick={() => { router.push(`/conversation?conversationId=${request.user.id}`) }}>
+                        onClick={onContact}>
                         <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
                     </Button>
                 </div>

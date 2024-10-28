@@ -5,8 +5,11 @@ import { conversation } from "@/db/schema";
 import { and, eq, or } from "drizzle-orm";
 
 
-const findConversation = async (user1: string, user2: string) => { 
-    const existingConversation = await db.query.conversation.findFirst({
+export const findOrCreateConversation = async (user1: string, user2: string) => {
+    
+    let respondedConversation;
+    
+    respondedConversation = await db.query.conversation.findFirst({
         where : (
             or(
                 and(
@@ -20,8 +23,16 @@ const findConversation = async (user1: string, user2: string) => {
             )
         )
     })
+
+    if(!respondedConversation) {
+        const createdConversation =  await db.insert(conversation).values({
+            user1Id: user1,
+            user2Id: user2
+        }).returning();
+
+        respondedConversation = createdConversation[0];
+    }
     
-    return existingConversation.id;
+    return respondedConversation.id;
 }
 
-export default findConversation;

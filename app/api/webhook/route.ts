@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { notification } from '../../../db/schema';
-import { sendSubscriptionRedeemed, sendSubscriptionRenewed } from "@/lib/mails/subscriptions";
+import { sendSubscriptionCanceledMail, sendSubscriptionRedeemed, sendSubscriptionRenewed } from "@/lib/mails/subscriptions";
 
 export async function POST(
     req : Request
@@ -17,7 +17,7 @@ export async function POST(
     
 
     const body = await req.text();
-    console.log(body)
+    
     const signature = headers().get("Stripe-Signature") as string
 
     const sig = signature.toString();
@@ -243,6 +243,16 @@ export async function POST(
             await sendSubscriptionRenewed(findMatchingUser?.email as string)
         }
         
+    }
+
+    if(event.type === "customer.subscription.updated" ) {
+        //@ts-ignore
+        if(session?.cancel_at_period_end) {
+            const correspondingCustomer = await stripe.customers.retrieve(session.customer as string);
+
+            //@ts-ignore
+            await sendSubscriptionCanceledMail(correspondingCustomer?.email as string)
+        }
     }
 
     return new NextResponse(null, {status : 200})

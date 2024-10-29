@@ -30,7 +30,7 @@ const ContactPage = () => {
                                 </div>
 
                             </div>
-                            <div className="mt-16 px-8">
+                            <div className="mt-32 px-8">
                                 <StepPlan />
                             </div>
                         </div>

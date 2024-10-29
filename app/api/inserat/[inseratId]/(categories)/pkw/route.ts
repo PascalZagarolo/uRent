@@ -42,7 +42,7 @@ export async function PATCH(
                 },
                 ...values
             }).where(eq(pkwAttribute.inseratId, params.inseratId)).returning();
-            console.log(values)
+            
             return NextResponse.json(patchedInserat[0]);
         }
 

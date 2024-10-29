@@ -399,11 +399,11 @@ export const LoadingEnumRender = z.enum(loadingEnum.enumValues).Enum;
 export const brandEnum = pgEnum("brand", [
     "Abarth", "Acura", "Audi", "Alfa Romeo", "Alpina", "Alpine", 
     "Aston Martin", "Bentley", "BMW", "Bugatti", "Buick", "BYD", "Cadillac", "Chevrolet", 
-    "Chrysler", "Citroën", "Corvette", "Cupra", "Dacia", "Daihatsu", "Dodge", "Ferrari", "Fiat", "Ford", 
+    "Chrysler", "Citroen", "Corvette", "Cupra", "Dacia", "Daihatsu", "Dodge", "Ferrari", "Fiat", "Ford", 
     "GMC", "Honda", "Hummer", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", "Koenigsegg", "KTM", 
     "Lada", "Lancia", "Land Rover", "Lamborghini", "Lexus", "Lincoln", "Lotus", "Maserati", "Mazda", "McLaren", 
     "Mercedes-Benz", "MG", "Mini", "Mitsubishi", "NIO", "Nissan", "Opel", "Pagani", "Peugeot", "Plymouth", "Polestar", 
-    "Pontiac", "Porsche", "RAM", "Renault", "Rolls Royce", "Rover", "Saab", "Seat", "Škoda", 
+    "Pontiac", "Porsche", "RAM", "Renault", "Rolls Royce", "Rover", "Saab", "Seat", "Skoda", 
     "Smart", "Subaru", "Suzuki", "Tesla", "Volkswagen", "Volvo", "Sonstige"
 ])
 

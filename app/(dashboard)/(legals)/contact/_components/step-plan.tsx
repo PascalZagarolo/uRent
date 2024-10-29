@@ -82,7 +82,7 @@ const StepPlan = () => {
                     Kontaktier uns
                 </h3>
                 <p className="text-sm text-gray-400 mt-2 h-24">
-                    Falls deine Frage oder dein Anliegen nicht geklärt werden konnte, kannst du uns gerne direkt kontaktieren. Wir kümmern uns gerne um dich.
+                    Falls deine Frage oder dein Anliegen nicht geklärt werden konnte, kannst du uns gerne direkt kontaktieren. <br/> Gerne helfen wir dir weiter.
                 </p>
                 <div className="mt-2">
                     <Button className="bg-[#383838] hover:bg-[#4a4a4a] shadow-md hover:shadow-lg transition rounded-md text-white flex items-center space-x-2"

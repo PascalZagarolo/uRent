@@ -39,6 +39,7 @@ import { de } from "date-fns/locale";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { LuCalendarPlus } from "react-icons/lu";
+import LetterRestriction from "@/components/letter-restriction";
 
 interface BookingsProps {
   user: typeof userTable.$inferSelect[];
@@ -121,7 +122,15 @@ const Bookings = () => {
     }
   }
 
+  const handleTextChange = (event) => {
+    const newText = event.target.value;
+    const lines = newText.split('\n');
 
+    // Only update text if line count is within limit
+    if (lines.length <= 30) {
+      setCurrentNotice(newText);
+    }
+};
 
   return (
     <Dialog>
@@ -352,11 +361,18 @@ const Bookings = () => {
                     control={form.control}
                     name="content"
                     render={({ field }) => (
-                      <FormItem className="mt-2 ">
+                      <FormItem className="mt-2 space-y-0">
                         <Textarea
-                          onChange={(e) => setCurrentContent(e.target.value)}
+                          onChange={handleTextChange}
+                          maxLength={2000}
                           className="focus:ring-0 focus:outline-none focus:border-0 bg-gray-200  dark:bg-[#0a0a0a] border-none"
                         />
+                        <div className="ml-auto w-full flex justify-end">
+                          <LetterRestriction
+                           limit={2000}
+                           currentLength={currentNotice.length}
+                          />
+                        </div>
                       </FormItem>
                     )}
                   />
@@ -364,8 +380,8 @@ const Bookings = () => {
 
                 <DialogTrigger asChild>
                   <Button
-                    className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] hover:bg-gray-200
-                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] border-none"
+                    className="bg-white border border-gray-300 text-gray-900  hover:bg-indigo-900
+                   dark:bg-indigo-800 dark:text-gray-100 dark:hover:bg-[#171717] border-none"
                     disabled={isLoading || !currentEnd || !currentStart || !currentStart || !currentEnd}
                     onClick={onSubmit}
                   >

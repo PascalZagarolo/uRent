@@ -48,6 +48,7 @@ import { TbListNumbers } from "react-icons/tb";
 import { checkAvailability } from "@/actions/check-availability";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
+import LetterRestriction from "@/components/letter-restriction";
 
 
 
@@ -192,6 +193,16 @@ const AddBooking: React.FC<AddBookingProps> = ({
             setIsLoading(false);
         }
     }
+
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
+
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setCurrentContent(newText);
+        }
+    };
 
     function convertMinutesToDayTime(minutes: number): string {
         // Calculate hours and minutes
@@ -492,7 +503,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
-                                            <FormItem >
+                                            <FormItem className="space-y-0">
                                                 <FormLabel className="flex items-center">
                                                     <MdOutlinePersonPin className="w-4 h-4 mr-2" />Name*</FormLabel>
                                                 <Input
@@ -501,6 +512,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                     dark:bg-[#0a0a0a]"
                                                     onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
                                                 />
+                                                <div className="flex justify-end">
+                                                    <LetterRestriction
+                                                        limit={160}
+                                                        currentLength={currentName?.length ?? 0} 
+                                                        />
+                                                </div>
                                             </FormItem>
                                         )} />
                                 </div>
@@ -519,7 +536,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                             className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
                                             onChange={(e) => { setCurrentInternal(e.target.value) }}
+                                            maxLength={160}
                                         />
+                                        <div className="flex justify-end">
+                                            <LetterRestriction 
+                                            limit={160}
+                                            currentLength={currentInternal?.length ?? 0}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
@@ -533,11 +557,18 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                             <FormItem className="mt-2 ">
 
                                                 <Textarea
-                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none max-h-[200px]
                             dark:bg-[#0a0a0a]"
-
-                                                    onChange={(e) => { setCurrentContent(e.target.value); field.onChange(e) }}
+                                                    value={currentContent}
+                                                    maxLength={2000}
+                                                    onChange={handleTextChange}
                                                 />
+                                                <div>
+                                                    <LetterRestriction 
+                                                    limit={2000}
+                                                    currentLength={currentContent?.length ?? 0}
+                                                    />
+                                                </div>
                                             </FormItem>
                                         )}
                                     />

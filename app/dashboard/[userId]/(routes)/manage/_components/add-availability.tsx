@@ -46,6 +46,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { checkAvailability } from "@/actions/check-availability";
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 import { Input } from "@/components/ui/input";
+import LetterRestriction from "@/components/letter-restriction";
 
 interface AddAvailabilityProps {
     foundInserate: typeof inserat.$inferSelect[];
@@ -71,11 +72,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     const [content, setContent] = useState("");
 
 
-    
 
 
 
-  
+
+
     const router = useRouter();
 
     const formSchema = z.object({
@@ -105,7 +106,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 content: content,
                 start: currentStart,
                 end: currentEnd,
-                name : currentTitle,
+                name: currentTitle,
                 //Hours
                 startPeriod: startTime,
                 endPeriod: endTime,
@@ -202,7 +203,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 content: content,
                 start: currentStart,
                 end: currentEnd,
-                name : currentTitle,
+                name: currentTitle,
                 //Hours
                 startPeriod: startTime,
                 endPeriod: endTime,
@@ -242,6 +243,16 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
             />
         )
     }
+
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
+
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setContent(newText);
+        }
+    };
 
     return (
         <Dialog>
@@ -446,14 +457,20 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                     />
                                 </div>
                                 <div>
-                                        <Label className="flex items-center"> Titel*</Label>
-                                        <Input
-                                            className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                    <Label className="flex items-center"> Titel*</Label>
+                                    <Input
+                                        className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
-                                                    value={currentTitle}
-                                                    maxLength={160}
-                                            onChange={(e) => { setCurrentTitle(e.target.value)}}
+                                        value={currentTitle}
+                                        maxLength={160}
+                                        onChange={(e) => { setCurrentTitle(e.target.value) }}
+                                    />
+                                    <div className="flex justify-end">
+                                        <LetterRestriction
+                                            limit={160}
+                                            currentLength={currentTitle.length}
                                         />
+                                    </div>
                                 </div>
                                 <div>
                                     <span className="font-semibold text-base flex">
@@ -463,14 +480,20 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         control={form.control}
                                         name="content"
                                         render={({ field }) => (
-                                            <FormItem className="mt-2 ">
+                                            <FormItem className="mt-2 space-y-0">
                                                 <Textarea
-                                                    onChange={(e) => { setContent(e.target.value) }}
+                                                    onChange={handleTextChange}
                                                     value={content}
                                                     maxLength={2000}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
                                                 />
+                                                <div className="flex justify-end">
+                                                    <LetterRestriction
+                                                        limit={2000}
+                                                        currentLength={currentTitle.length}
+                                                    />
+                                                </div>
                                             </FormItem>
                                         )}
                                     />
@@ -482,7 +505,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
                                         disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
-                                            !startTime || !endTime || !currentTitle }
+                                            !startTime || !endTime || !currentTitle}
                                         type="submit"
                                     >
                                         Verfügbarkeit anpassen</Button>

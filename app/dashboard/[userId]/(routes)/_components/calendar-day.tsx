@@ -119,16 +119,17 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
         return (
           <>
             {(isShowing(pBooking.inseratId, pBooking?.vehicleId)) &&
-              <div
+             
+                <Popover>
+                  <PopoverTrigger>
+                  <div
                 key={pBooking.id}
                 className={cn(
                   "rounded-md py-2 sm:px-2 text-left mt-3 text-white flex justify-between items-center bg-gradient-to-r",
                   pBooking.isAvailability ? "from-rose-600 to-rose-800" : "from-indigo-600 to-indigo-800"
                 )}
-                onClick={(e) => e.stopPropagation()}
+                
               >
-                <Popover>
-                  <PopoverTrigger>
                     <div className="w-full">
                       <div className="sm:flex justify-between items-center">
                         <div className="flex items-center sm:space-x-2 text-xs font-medium ">
@@ -136,6 +137,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                           <span className={cn("line-clamp break-all sm:block hidden text-left", !pBooking.name && "text-gray-200/60")}>{pBooking.name || "Keine Angaben"}</span>
                         </div>
                       </div>
+                    </div>
                     </div>
                   </PopoverTrigger>
                   <PopoverContent className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-lg max-w-sm">
@@ -193,7 +195,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                     </>
                   </PopoverContent>
                 </Popover>
-              </div>
+              
             }
           </>
         );

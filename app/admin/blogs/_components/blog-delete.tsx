@@ -44,7 +44,7 @@ const BlogDelete = ({ foundBlogs }: BlogDeleteProps) => {
                                 height={200}
                                 alt={blog?.title}
                                 className="rounded-md h-24 object-cover"
-                                placeholder={"blur"}
+
                             />
                             ) : (
                                 <div className="h-24 bg-[#191919] rounded-md flex items-center justify-center">

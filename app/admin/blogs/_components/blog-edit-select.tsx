@@ -49,11 +49,11 @@ const BlogEditSelect = ({ foundBlogs }: BlogEditSelectProps) => {
                 </div>
 
             ) : (
-                <div className="gap-y-4 mt-4">
+                <div className="gap-y-4 mt-4 space-y-4">
                     {
                         foundBlogs.length > 0 ? (
                             foundBlogs.map((blog) => (
-                                <div className="w-full bg-[#131313] rounded-md p-2 hover:cursor-pointer shadow-lg"
+                                <div className="w-full bg-[#222222] rounded-md p-2 hover:cursor-pointer shadow-lg"
                                 key={blog.id}
                                 >
                                     <div className="">
@@ -107,7 +107,7 @@ const BlogEditSelect = ({ foundBlogs }: BlogEditSelectProps) => {
                                                     height={200}
                                                     alt={blog?.title}
                                                     className="rounded-md h-24 object-cover"
-                                                    placeholder={"blur"}
+                                                   
                                                 />
                                             ) : (
                                                 <div className="h-24 bg-[#191919] rounded-md flex items-center justify-center">

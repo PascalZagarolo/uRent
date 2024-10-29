@@ -444,8 +444,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                               text-gray-200  px-4 sm:text-base 
                              text-xs items-center ">
 
-                                    {thisInserat.price} €  {thisInserat.dailyPrice ? (<div className="text-[10px] ml-1 mr-1" > / Tag</div>)
-                                        : (<div className="text-[10px] ml-1 mr-1 hidden sm:block" > / Zeitraum</div>)}
+                                    {thisInserat.price} €  <div className="text-[10px] ml-1 mr-1" > / Tag</div>
+                                       
                                 </div>
                             </div>
                             <a className={cn(`ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 

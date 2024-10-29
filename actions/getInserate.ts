@@ -734,7 +734,8 @@ export const getInserate = cache(async ({
                     with: {
                         subscription: {
                             select: {
-                                plan: true
+                                subscriptionType: true,
+                                stripe_current_period_end: true,
                             }
                         }
                     }
@@ -903,10 +904,11 @@ export const getInserate = cache(async ({
         }
 
         if (!filter || filter === "relevance") {
+            
             returnedArray.sort((a, b) => {
-
-                const aIsPremium = a.user?.subscription?.subscriptionType === "PREMIUM" || a.user?.subscription?.plan === "ENTERPRISE";
-                const bIsPremium = b.user?.subscription?.subscriptionType === "PREMIUM" || b.user?.subscription?.plan === "ENTERPRISE";
+                
+                const aIsPremium = a.user?.subscription?.subscriptionType === "PREMIUM" || a.user?.subscription?.subscriptionType === "ENTERPRISE";
+                const bIsPremium = b.user?.subscription?.subscriptionType === "PREMIUM" || b.user?.subscription?.subscriptionType === "ENTERPRISE";
 
                 if (aIsPremium && !bIsPremium) {
                     return -1; // a should come before b

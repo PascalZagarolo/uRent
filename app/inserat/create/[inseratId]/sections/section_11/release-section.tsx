@@ -81,15 +81,15 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
 
             setIsLoading(false);
             const values = {
-                isPublished: currentPrivacy
+                publish: currentPrivacy
             }
-            await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
+            await axios.patch(`/api/inserat/${thisInserat?.id}/publish`, values)
             if (currentPrivacy) {
                 toast.success("Dein Inserat ist nun öffentlich.");
                 router.push(`/inserat/${thisInserat?.id}`);
             } else {
                 toast.success("Dein Inserat ist nun privat.");
-                router.push(`/dashboard/${thisInserat?.userId}`);
+                router.push(`/dashboard/${thisInserat?.userId}?tab=inserate`);
             }
 
         } catch (e: any) {

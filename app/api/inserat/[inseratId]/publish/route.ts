@@ -66,26 +66,21 @@ export async function PATCH(
             where : (eq(address.inseratId, params.inseratId))
         })
 
-        let addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat.locationString}&api_key=65db7269a0101559750093uena07e08`);
+        let addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat?.postalCode},Deutschland&api_key=65db7269a0101559750093uena07e08`);
 
-        console.log("test")
+        
+
        
-        console.log(addressObject.data[0]);
-
-        if(!addressObject.data[0]) {
-            addressObject = await axios.get(`https://geocode.maps.co/search?q=${addressInserat?.postalCode}&api_key=65db7269a0101559750093uena07e08`);
-        }
 
         const pAddress: string[] = addressObject.data[0].display_name.split(",");
-        console.log(pAddress[address.length -3])
+       
+        console.log(publish)
+        console.log(addressObject.data[0].lon)
         console.log(addressObject.data[0].lat)
-        console.log(addressObject.data[0].lon) 
-
         if(publish) {
                 const patchedAddress : any = await db.update(address).set({
                     longitude: String(addressObject.data[0].lon),
                     latitude: String(addressObject.data[0].lat),
-                    state : address[address.length -3],
             }).where(eq(address.inseratId, params.inseratId)).returning();
 
             if(patchedAddress) {

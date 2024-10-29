@@ -71,7 +71,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            if (hasChanged) {     
+            if (hasChanged) {
                 const values = {
                     category: currentCategory,
                     isMulti: isMulti,
@@ -107,16 +107,23 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         }
     }
 
-
+    const xor = (a: boolean, b: boolean): boolean => {
+        return a !== b;
+    };
 
     const dynamicPropertyName = `${thisInserat?.currentCategory?.toLowerCase()}Attributes`;
+
     const hasChanged = (
         currentCategory != thisInserat.category ||
         extraType != thisInserat?.[dynamicPropertyName]?.extraType ||
+        xor(isMulti == "true", thisInserat.multi) ||
         vehicleAmount != thisInserat.amount
     );
 
+    
+    
 
+   
 
     const renderExtraType = () => {
         const extraTypes = {

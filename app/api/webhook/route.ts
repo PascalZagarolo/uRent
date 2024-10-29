@@ -253,7 +253,7 @@ export async function POST(
         
     }
 
-    if(event.type === "customer.subscription.updated" ) {
+    if(event.type === "customer.subscription.updated" && session?.metadata?.upgrade !== "true" ) {
         //@ts-ignore
         if(session?.cancel_at_period_end) {
             const correspondingCustomer = await stripe.customers.retrieve(session.customer as string);

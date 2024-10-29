@@ -26,6 +26,7 @@ import { booking, contactOptions, inserat, userTable } from "@/db/schema";
 import GoToDashboard from "./go-to-dashboard";
 import ManageAvailability from "@/app/dashboard/[userId]/(routes)/inserate/_components/manage-availability";
 import { BsHandIndexThumb } from "react-icons/bs";
+import LetterRestriction from "@/components/letter-restriction";
 
 
 interface InseratOptionsProps {
@@ -69,9 +70,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         "Telefon : " + (contactOptions?.phoneNumber ? contactOptions?.phoneNumber : "[Deine Telefonnummer]") + "\n"
     );
 
-    const handleTextChange = (event: any) => {
-        setText(event.target.value);
-    };
+   
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -143,6 +142,16 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     const usedPrice = Number(thisInserat?.price).toFixed(2);
 
 
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
+
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setText(newText);
+        }
+    };
+
     return (
         <div className="w-full rounded-lg bg-[#161923] p-6 shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-between mb-4">
@@ -181,18 +190,25 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                 <BsHandIndexThumb className="mr-2 h-4 w-4" /> Fahrzeug anfragen
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="bg-gray-900 p-6 rounded-lg shadow-xl">
+                        <DialogContent className="bg-[#171717] p-6 rounded-lg shadow-xl border-none">
                             <DialogHeader>
                                 <h3 className="text-xl font-semibold text-white flex flex-row items-center space-x-2">
                                     <Lightbulb className="mr-2 h-4 w-4" /> Händler sofort kontaktieren
                                 </h3>
                             </DialogHeader>
+                            <div>
                             <Textarea
-                                className="w-full h-[400px] mt-4 bg-gray-800 text-gray-300 border-none rounded-lg"
+                                className="w-full h-[400px] mt-4 bg-[#222222] shadow-lg text-gray-300 border-none rounded-lg"
                                 value={text}
                                 onChange={handleTextChange}
+                                maxLength={2000}
                             />
-                            <p className="text-xs text-gray-200/60">
+                            <div className="ml-auto w-full justify-end flex">
+                                <LetterRestriction 
+                                currentLength={text.length} limit={2000}
+                                />
+                            </div>
+                            <p className="text-xs text-gray-200/60 mt-2">
                                 * Die Nachricht wird direkt an den Händler gesendet. Bitte achte auf eine freundliche und respektvolle Kommunikation.
                             </p>
                             {/* <RadioGroup className="flex mt-4 space-x-4">
@@ -206,22 +222,23 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                 </Label>
                             </RadioGroup> */}
                             <Button
-                                className="w-full bg-indigo-800 hover:bg-blue-900 text-white py-3 rounded-lg transition ease-in-out"
+                                className="w-full bg-indigo-800 hover:bg-blue-900 text-white  rounded-lg transition ease-in-out mt-2"
                                 onClick={onInterest} disabled={!text}>
                                 Senden
                             </Button>
+                            </div>
                         </DialogContent>
                     </Dialog>
                     <div className="mt-4">
                         <BookingRequest />
                     </div>
                     <Button
-                        className="w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-3 mt-4 rounded-lg transition ease-in-out"
+                        className="w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-2 mt-4 rounded-lg transition ease-in-out"
                         onClick={onConversation}>
                         <Mail className="mr-2 h-4 w-4" /> Händler kontaktieren
                     </Button>
                     <Button
-                        className="w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-3 mt-4 rounded-lg transition ease-in-out"
+                        className="w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-2 mt-4 rounded-lg transition ease-in-out"
                         onClick={onStar}>
                         <Star className="mr-2 h-4 w-4" /> Anzeige vormerken
                     </Button>
@@ -231,7 +248,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
 
             <div className="flex space-x-4 mt-6">
                 <Button
-                    className="flex items-center justify-center w-full py-3 bg-indigo-800 hover:bg-indigo-900 text-gray-200  shadow-lg  rounded-lg transition ease-in-out"
+                    className="flex items-center justify-center w-full py-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200  shadow-lg  rounded-lg transition ease-in-out"
                     variant="secondary"
                     onClick={() => copyToClipboard(currentUrl)}>
                     <CopyIcon className="mr-2 h-4 w-4" /> Link kopieren
@@ -240,7 +257,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     <DialogTrigger asChild>
                         <Button
                             variant="secondary"
-                            className="flex items-center justify-center w-full py-3  shadow-lg  rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold transition ease-in-out">
+                            className="flex items-center justify-center w-full py-2  shadow-lg  rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold transition ease-in-out">
                             <Share className="mr-2 h-4 w-4" /> Teilen
                         </Button>
                     </DialogTrigger>

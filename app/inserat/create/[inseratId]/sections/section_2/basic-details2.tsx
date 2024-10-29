@@ -15,11 +15,11 @@ import ExtraTypeLkwCreation from "./_components/extra-type-lkw";
 import TransportExtraTypeCreation from "./_components/extra-type-transport";
 import TrailerExtraTypeCreation from "./_components/extra-type-trailer";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
-import { extraType, lkwAttribute, trailerAttribute } from '../../../../../../drizzle/schema';
+
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import SaveChangesPrevious from "../_components/save-changes-previous";
-import { set } from 'date-fns';
+
 import InseratType from "./_components/inserat-type";
 import VehicleAmount from "./_components/vehicle-amount";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
@@ -33,8 +33,8 @@ interface BasicDetails2Props {
 const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDetails2Props) => {
 
     const [currentCategory, setCurrentCategory] = useState(thisInserat.category || "PKW");
-    const [isMulti, setIsMulti] = useState(thisInserat?.isMulti || false);
-    const [vehicleAmount, setVehicleAmount] = useState(thisInserat?.amount || 1);
+    const [isMulti, setIsMulti] = useState<string>(String(thisInserat?.multi ?? false));
+    const [vehicleAmount, setVehicleAmount] = useState(thisInserat?.amount);
 
 
     const [showDialog, setShowDialog] = useState(false);
@@ -71,8 +71,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            if (hasChanged) {
-
+            if (hasChanged) {     
                 const values = {
                     category: currentCategory,
                     isMulti: isMulti,
@@ -114,7 +113,6 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     const hasChanged = (
         currentCategory != thisInserat.category ||
         extraType != thisInserat?.[dynamicPropertyName]?.extraType ||
-        isMulti != Boolean(thisInserat.isMulti) ||
         vehicleAmount != thisInserat.amount
     );
 
@@ -144,18 +142,18 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     }, [hasChanged])
 
     useEffect(() => {
-        if (isMulti && vehicleAmount < 2) {
-            setVehicleAmount(2);
-        } else if (!isMulti && vehicleAmount > 1) {
+        if (String(isMulti) === "false") {
             setVehicleAmount(1);
+        } else {
+            setVehicleAmount(2);
         }
-    }, [isMulti])
+    }, [isMulti]);
 
     return (
         <>
             <div className="flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    Grundlegende Angaben (2/2)
+                    Grundlegende Angaben (2/2) {isMulti}
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du die grundlegenden Angaben zu deinem Inserat machen. <br />
                         Gebe anderen Nutzern einen ersten Eindruck von deinem Inserat.
@@ -180,6 +178,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                         thisInserat={thisInserat}
                         currentValue={vehicleAmount}
                         setCurrentValue={setVehicleAmount}
+                        disabled={String(isMulti) === "false"}
                     />
                 </div>
                 <div className="mt-4">
@@ -202,6 +201,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                         </Button>
                         <Button
                             className="bg-indigo-800 text-gray-200 w-full hover:bg-indigo-900 hover:text-gray-300"
+                            disabled={String(isMulti) === "true" && vehicleAmount < 2}
                             onClick={() => onSave()}
                         >
                             Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />

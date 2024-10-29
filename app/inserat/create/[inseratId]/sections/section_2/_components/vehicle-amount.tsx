@@ -1,118 +1,48 @@
-'use client'
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { inserat } from "@/db/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import axios from "axios";
-
-import { Banknote, CarTaxiFrontIcon, EuroIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { z } from "zod";
-
 
 interface VehicleAmountProps {
-    thisInserat : typeof inserat.$inferSelect;
-    currentValue : number;
-    setCurrentValue : (value : number) => void;
+    thisInserat: typeof inserat.$inferSelect;
+    currentValue: number;
+    setCurrentValue: (value: number) => void;
+    disabled?: boolean;
 }
 
 const VehicleAmount: React.FC<VehicleAmountProps> = ({
     thisInserat,
     currentValue,
-    setCurrentValue
+    setCurrentValue,
+    disabled = false, // Default to false for flexibility
 }) => {
 
-    const router = useRouter();
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (disabled) return; // Prevent changes if disabled
 
-    const [isLoading, setIsLoading] = useState(false);
-   
-
-    const formSchema = z.object({
-        amount: z.preprocess(
-            (args) => (args === '' ? undefined : args),
-            z.coerce
-                .number({ invalid_type_error: 'Preis muss eine Nummer sein' })
-                .positive('Price must be positive')
-                .optional()
-        ),
-    })
-
-    useEffect(() => {
-        if(thisInserat.multi === false) {
-            setCurrentValue(1);
-            const values = {
-                amount : 1
-            }
-            axios.patch(`/api/inserat/${thisInserat.id}`, values);
-        } else if(thisInserat.multi === true) {
-            setCurrentValue(thisInserat.amount >= 2 ? thisInserat.amount : 2);
-            
-        }
-    }, [thisInserat.multi])
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            amount: thisInserat?.multi === true ? thisInserat.amount || 2 : 1
-        }
-    })
-
-   
-
-    const handleInputChange = (e : any) => {
         const inputValue = e.target.value;
-        let numericInput = inputValue.replace(/[^0-9]/g, ''); 
-        
-        
-        setCurrentValue(numericInput);
+        const numericValue = parseInt(inputValue.replace(/[^0-9]/g, ''), 10);
+
+        // Keep value within range 1-20
+        setCurrentValue(Math.min(20, Math.max(1, numericValue)));
     };
 
     return (
-        <div className=" ">
-            <Form {...form}>
-                <form >
-                    <FormLabel className="flex justify-start items-center">
-                        <CarTaxiFrontIcon className="w-4 h-4" /><p className="ml-2 font-semibold"> Anzahl deiner identischen Fahrzeuge </p>
-                    </FormLabel>
-                    <p className=" text-gray-800/50 text-xs dark:text-gray-200/60"> 1-20 Fahrzeuge </p>
-                    <FormField
-                        control={form.control}
-                        name="amount"
-                        render={({ field }) => (
-                            <FormField
-                                control={form.control}
-                                name="amount"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2 ">
-                                        <FormControl>
-                                            <Input
-                                                type="number"
-                                                {...field}
-                                                max={20}
-                                                name="price"
-                                                className=" dark:bg-[#151515] dark:border-none"
-                                                onChange={handleInputChange}
-                                                disabled={thisInserat.multi === false}
-                                                value={currentValue}
-                                                onBlur={() => {currentValue < 2 && setCurrentValue(2)}}
-                                            />
-                                        </FormControl>
-                                        
-                                        <FormMessage />
-                                    </FormItem>
-                                    
-                                )}
-                            />
-                        )}
-                    />
-                    
-                </form>
-            </Form>
+        <div>
+            <div>
+                <p className="text-sm font-semibold">Anzahl deiner identischen Fahrzeuge</p>
+            </div>
+            <p className="text-gray-800/50 text-xs dark:text-gray-200/60">2-20 Fahrzeuge</p>
+            <Input
+                type="number"
+                max={20}
+                name="vehicleAmount"
+                className="dark:bg-[#151515] dark:border-none"
+                onChange={handleInputChange}
+                disabled={disabled}
+                value={currentValue}
+                onBlur={() => { 
+                    setCurrentValue(Math.min(20, Math.max(2, currentValue)));
+                }}
+            />
         </div>
     );
 }

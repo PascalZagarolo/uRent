@@ -1,17 +1,14 @@
 'use client';
 
-import { useState } from "react";
+
 import { BiSolidCategory } from "react-icons/bi";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+
 import { z } from "zod";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { inserat } from "@/db/schema";
 
 import { AlertCircle } from "lucide-react";
@@ -19,19 +16,15 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 interface InseratTypeProps {
     thisInserat: typeof inserat.$inferSelect;
-    isMulti : boolean | string;
-    setIsMulti : (value : boolean | string) => void;
+    isMulti : string;
+    setIsMulti : (value : string) => void;
 }
 
-const InseratType: React.FC<InseratTypeProps> = ({ thisInserat, isMulti, setIsMulti }) => {
-    const formSchema = z.object({
-        multi: z.boolean({
-            required_error: "Bitte wähle eine Kategorie aus"
-        })
-    });
+const InseratType: React.FC<InseratTypeProps> = ({ isMulti, setIsMulti }) => {
+    
 
-    const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
+   
+   
     
 
     
@@ -59,15 +52,16 @@ const InseratType: React.FC<InseratTypeProps> = ({ thisInserat, isMulti, setIsMu
                     Hast du mehrere identische Fahrzeuge ?
                 </p>
                 <Select
-                    onValueChange={(selectedValue: string) => {
+                    onValueChange={(selectedValue) => {
+                        console.log(selectedValue);
                         setIsMulti(selectedValue);
                     }}
                     defaultValue={String(isMulti)}
-                    disabled={isLoading}
+                    
                 >
                     <SelectTrigger
                         className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md"
-                        disabled={isLoading}
+                       
                     >
                         <SelectValue placeholder="Wähle die Kategorie aus" />
                     </SelectTrigger>

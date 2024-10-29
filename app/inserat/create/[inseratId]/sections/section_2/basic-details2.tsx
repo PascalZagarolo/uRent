@@ -33,7 +33,7 @@ interface BasicDetails2Props {
 const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDetails2Props) => {
 
     const [currentCategory, setCurrentCategory] = useState(thisInserat.category || "PKW");
-    const [isMulti, setIsMulti] = useState<string>(String(thisInserat?.multi ?? false));
+    const [isMulti, setIsMulti] = useState<string>(thisInserat.multi ? "true" : "false");
     const [vehicleAmount, setVehicleAmount] = useState(thisInserat?.amount);
 
 
@@ -72,13 +72,15 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             if (hasChanged) {
+                
                 const values = {
                     category: currentCategory,
-                    isMulti: isMulti,
+                    multi: isMulti,
                     amount: vehicleAmount
                 }
+                
                 await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
-
+                router.refresh();
 
                 const usedKey = currentCategory === "LKW" ? "application" : "extraType";
                 const values2 = {
@@ -123,7 +125,13 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
     
     
 
-   
+    useEffect(() => {
+        if (String(isMulti) === "false") {
+            setVehicleAmount(1);
+        } else if(String(isMulti) === "true" && vehicleAmount < 2) {
+            setVehicleAmount(2);
+        }
+    }, [isMulti]);
 
     const renderExtraType = () => {
         const extraTypes = {
@@ -148,13 +156,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         }
     }, [hasChanged])
 
-    useEffect(() => {
-        if (String(isMulti) === "false") {
-            setVehicleAmount(1);
-        } else {
-            setVehicleAmount(2);
-        }
-    }, [isMulti]);
+    
 
     return (
         <>

@@ -39,6 +39,8 @@ export async function POST(
     }
     
     const session = event.data.object as Stripe.Checkout.Session
+    console.log(session)
+    console.log(event.type)
 
     if(session?.metadata?.upgrade === "true" && event.type === "checkout.session.completed") {
      
@@ -249,9 +251,10 @@ export async function POST(
         //@ts-ignore
         if(session?.cancel_at_period_end) {
             const correspondingCustomer = await stripe.customers.retrieve(session.customer as string);
-
+            console.log("send");
             //@ts-ignore
             await sendSubscriptionCanceledMail(correspondingCustomer?.email as string)
+            console.log(correspondingCustomer?.email)
         }
     }
 

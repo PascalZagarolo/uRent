@@ -254,6 +254,7 @@ export async function POST(
             console.log("send");
             //@ts-ignore
             await sendSubscriptionCanceledMail(correspondingCustomer?.email as string)
+            //@ts-ignore
             console.log(correspondingCustomer?.email)
         }
     }

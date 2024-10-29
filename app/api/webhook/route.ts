@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { notification } from '../../../db/schema';
-import { sendSubscriptionCanceledMail, sendSubscriptionRedeemed, sendSubscriptionRenewed } from "@/lib/mails/subscriptions";
+import { sendSubscriptionCanceledMail, sendSubscriptionRedeemed, sendSubscriptionRenewed, sendSubscriptionUpgraded } from "@/lib/mails/subscriptions";
 
 export async function POST(
     req : Request
@@ -79,7 +79,13 @@ export async function POST(
             }
         )
 
-        console.log(session?.metadata?.usedId)
+        const findUser = await db.query.userTable.findFirst({
+            where : eq(userTable.id, session?.metadata?.userId)
+        })
+
+        await sendSubscriptionUpgraded(findUser.email)
+
+        
 
         //publish inserat if id was in the given querystring
         if(session?.metadata?.usedId) {

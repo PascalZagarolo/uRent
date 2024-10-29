@@ -1,6 +1,7 @@
 import SubscriptionCanceled from "@/react-email-starter/emails/urent/subscriptions/subscription-canceled";
 import SubscriptionRedeemed from "@/react-email-starter/emails/urent/subscriptions/subscription-redeemed";
 import SubscriptionRenewed from "@/react-email-starter/emails/urent/subscriptions/subscription-renewed";
+import SubscriptionUpgraded from "@/react-email-starter/emails/urent/subscriptions/subscription-upgraded";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -26,6 +27,17 @@ export const sendSubscriptionRenewed = async (
     to : email,
     subject : "Abonnement verlängert",
     react : SubscriptionRenewed(),
+  })
+}
+
+export const sendSubscriptionUpgraded = async (
+  email : string
+) => {
+  await resend.emails.send({
+    from: 'uRent <mail@urent-rental.de>',
+    to : email,
+    subject : "Abonnement geändert",
+    react : SubscriptionUpgraded(),
   })
 }
 

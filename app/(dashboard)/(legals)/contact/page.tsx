@@ -1,4 +1,6 @@
 import ContactFormular from "./_components/contact-formular";
+import ContactOptions from "./_components/contact-options";
+import StepPlan from "./_components/step-plan";
 
 const ContactPage = () => {
     return (
@@ -11,17 +13,25 @@ const ContactPage = () => {
 
 
                         <div className="sm:p-4 mt-4  rounded-lg ">
-                            <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
-                                Kontaktmöglichkeiten
-                            </h3>
-                            <div className="p-4">
-                                Kontaktinformation:
-                                <div className="text-sm">
-                                    <p>E-mail: <span className="font-semibold">info@urent-rental.com</span></p>
-                                </div>
-                                <div className="mt-16">
+
+                            <div className="text-2xl font-semibold text-gray-200 mt-16 text-center">
+                                Kontaktiere uRent
+                            </div>
+                            <p className="text-center text-gray-200/60">
+                                Du bist Interessiert an uRent und möchtest mehr über uns erfahren? <br />
+                                Wir sind für dich da und freuen uns deine Fragen zu beantworten.
+                            </p>
+                            <div className="mt-16 flex flex-row  px-8 space-x-8">
+                                <div className="w-3/4">
                                     <ContactFormular />
                                 </div>
+                                <div className="w-1/4">
+                                    <ContactOptions />
+                                </div>
+
+                            </div>
+                            <div className="mt-16 px-8">
+                                <StepPlan />
                             </div>
                         </div>
                     </div>

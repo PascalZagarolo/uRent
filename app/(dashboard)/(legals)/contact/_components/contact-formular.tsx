@@ -158,7 +158,7 @@ const ContactFormular = () => {
                 </div>
 
                 <div className="w-full flex justify-end">
-                    <Button className="bg-[#1F2332] hover:text-gray-300 hover:bg-[#1b1f2c] text-gray-200 text-sm"
+                    <Button className="bg-indigo-800 w-full mt-4 hover:text-gray-300 hover:bg-indigo-900 text-gray-200 text-sm"
                         onClick={onSubmit}
                         disabled={
                             !acceptedTerms

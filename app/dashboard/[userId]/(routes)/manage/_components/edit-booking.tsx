@@ -178,7 +178,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
 
             if (isAvailable.isConflict) {
-                
+
                 setConflictedBooking(isAvailable.booking)
                 setShowConflict(true);
                 setIsLoading(false);
@@ -333,63 +333,63 @@ const EditBooking: React.FC<EditBookingProps> = ({
                     </div>
                     {currentInseratObject?.multi && currentInseratObject && (
                         <div className="pb-8 pr-8">
-                        <Label className="">
-                            Fahrzeug
-                        </Label>
-                        <Select
-                            onValueChange={(selectedValue) => {
-                                setCurrentVehicle(selectedValue);
-                            }}
-                            disabled={affectAll}
-                            value={currentVehicle || ''}
+                            <Label className="">
+                                Fahrzeug
+                            </Label>
+                            <Select
+                                onValueChange={(selectedValue) => {
+                                    setCurrentVehicle(selectedValue);
+                                }}
+                                disabled={affectAll}
+                                value={currentVehicle || ''}
 
-                        >
-                            <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
-                                disabled={//@ts-ignore
-                                    !currentInserat || currentInseratObject?.vehicles?.length <= 0}
                             >
-                                <SelectValue placeholder={affectAll ? "Buchung wird auf alle Fahrzeuge angewandt.." : "Bitte wähle dein Fahrzeug"} />
+                                <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
+                                    disabled={//@ts-ignore
+                                        !currentInserat || currentInseratObject?.vehicles?.length <= 0}
+                                >
+                                    <SelectValue placeholder={affectAll ? "Buchung wird auf alle Fahrzeuge angewandt.." : "Bitte wähle dein Fahrzeug"} />
 
-                                <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
+                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
 
-                                    {//@ts-ignore
-                                        currentInseratObject?.vehicles?.length > 0 ? (
-                                            //@ts-ignore
-                                            currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
-                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => { setAffectAll(false) }}>
-                                                    {thisVehicle.title}
+                                        {//@ts-ignore
+                                            currentInseratObject?.vehicles?.length > 0 ? (
+                                                //@ts-ignore
+                                                currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                    <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => { setAffectAll(false) }}>
+                                                        {thisVehicle.title}
+                                                    </SelectItem>
+                                                ))
+
+                                            ) : (
+                                                <SelectItem value={null}>
+                                                    Keine Fahrzeuge verfügbar
                                                 </SelectItem>
-                                            ))
+                                            )}
+                                    </SelectContent>
+                                </SelectTrigger>
+                            </Select>
+                            <div className="space-x-2 mt-2">
+                                <Checkbox
+                                    checked={affectAll}
+                                    onCheckedChange={(e) => {
+                                        setAffectAll(Boolean(e));
+                                        if (Boolean(e)) {
 
-                                        ) : (
-                                            <SelectItem value={null}>
-                                                Keine Fahrzeuge verfügbar
-                                            </SelectItem>
-                                        )}
-                                </SelectContent>
-                            </SelectTrigger>
-                        </Select>
-                        <div className="space-x-2 mt-2">
-                            <Checkbox
-                                checked={affectAll}
-                                onCheckedChange={(e) => {
-                                    setAffectAll(Boolean(e));
-                                    if (Boolean(e)) {
+                                            setCurrentVehicle(undefined);
+                                        }
+                                    }} />
 
+                                <Label className="hover:cursor-pointer" onClick={() => {
+                                    setAffectAll(!affectAll);
+                                    if (affectAll) {
                                         setCurrentVehicle(undefined);
                                     }
-                                }} />
-
-                            <Label className="hover:cursor-pointer" onClick={() => {
-                                setAffectAll(!affectAll);
-                                if (affectAll) {
-                                    setCurrentVehicle(undefined);
-                                }
-                            }}>
-                                Buchung auf alle Fahrzeuge anwenden
-                            </Label>
+                                }}>
+                                    Buchung auf alle Fahrzeuge anwenden
+                                </Label>
+                            </div>
                         </div>
-                    </div>
                     )}
                     <div className="flex">
                         <Form {...form}>
@@ -508,14 +508,21 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
-                                            <FormItem >
+                                            <FormItem className="space-y-0">
                                                 <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</FormLabel>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
+                                                    maxLength={160}
                                                     onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
                                                     value={currentName}
                                                 />
+                                                <div className="flex justify-end">
+                                                    <LetterRestriction
+                                                        limit={160}
+                                                        currentLength={currentInternal.length ?? 0}
+                                                    />
+                                                </div>
                                             </FormItem>
                                         )} />
                                 </div>
@@ -526,14 +533,15 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                     <div className="mt-2">
                                         <Input
                                             value={currentInternal}
+                                            maxLength={160}
                                             className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
                                             onChange={(e) => { setCurrentInternal(e.target.value) }}
                                         />
                                         <div className="flex justify-end">
-                                            <LetterRestriction 
-                                            limit={160}
-                                            currentLength={currentInternal.length ?? 0}
+                                            <LetterRestriction
+                                                limit={160}
+                                                currentLength={currentInternal.length ?? 0}
                                             />
                                         </div>
                                     </div>
@@ -558,8 +566,8 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 />
                                                 <div className="flex justify-end">
                                                     <LetterRestriction
-                                                    currentLength={currentContent.length ?? 0}
-                                                    limit={2000} />
+                                                        currentLength={currentContent.length ?? 0}
+                                                        limit={2000} />
                                                 </div>
                                             </FormItem>
                                         )}

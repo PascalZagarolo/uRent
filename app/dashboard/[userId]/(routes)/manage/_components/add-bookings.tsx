@@ -127,7 +127,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
             const values = {
-                content: value.content ? value.content : "",
+                content: currentContent ?? "",
 
                 //Days
                 start: currentStart,
@@ -160,7 +160,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
             if (isAvailable.isConflict) {
-                console.log(isAvailable.booking)
+           
                 setConflictedBooking(isAvailable.booking)
                 setShowConflict(true);
                 setIsLoading(false);
@@ -241,7 +241,6 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 endPeriod: currentEndTime,
 
 
-                userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
                 buchungsnummer: currentInternal,
                 name: currentName,
@@ -253,6 +252,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 .then(() => {
                     setIgnoreOnce(false);
                     setShowConflict(false);
+                    setCurrentContent("");
+                    setCurrentName("");
+                    setCurrentStart(new Date());
+                    setCurrentEnd(new Date());
+                    setCurrentStartTime("");
+                    setCurrentEndTime("");
+                    setCurrentVehicle(null);
+                    setCurrentInternal("");
                     setConflictedBooking(null)
                     router.refresh();
                 })

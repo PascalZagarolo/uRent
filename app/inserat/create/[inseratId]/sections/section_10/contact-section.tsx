@@ -47,15 +47,15 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
             if(hasChanged) {
                 console.log("...")
                 const values1 = {
-                    emailAddress: currentEmail ? currentEmail?.trim() : null,
-                    phoneNumber: currentNumber ? currentNumber?.trim() : null,
+                    emailAddress: currentEmail ? String(currentEmail ?? "")?.trim() : null,
+                    phoneNumber: currentNumber ? String(currentNumber ?? "")?.trim() : null,
                 }
     
                 await axios.patch(`/api/inserat/${thisInserat.id}`, values1);
                 router.refresh();
                 const values2 = {
-                    locationString: currentLocation ? currentLocation?.trim() : null,
-                    postalCode: currentZipCode ? currentZipCode?.trim() : null,
+                    locationString: currentLocation ? String(currentLocation ?? "")?.trim() : null,
+                    postalCode: currentZipCode ? String(currentZipCode ?? "")?.trim() : null,
                 }
                 await axios.patch(`/api/inserat/${thisInserat.id}/address`, values2);
                 router.refresh();

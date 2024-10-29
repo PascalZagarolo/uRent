@@ -36,8 +36,8 @@ import { Inter } from "next/font/google";
             <Text style={paragraph}>
             Wir haben deine Kündigung erhalten und dein Abonnement wurde gekündigt. <br/>
             Wir bedauern, dass du dich entschieden hast, dein Abonnement zu kündigen. <br/>
-            Wenn du unsere Dienste in Zukunft wieder nutzen möchtest, bist du jederzeit herzlich willkommen und kannst unkompliziert ein neues Abo abschließen. <br/>
-            <br/> <br/> 
+            Wenn du unsere Dienste in Zukunft wieder nutzen möchtest, bist du jederzeit herzlich willkommen und kannst unkompliziert ein neues Abo abschließen. <br/> <br/>
+           
             Wir wünschen dir weiterhin alles Gute und stehen dir bei Fragen jederzeit zur Verfügung. <br/> <br/>
 
             Dein Abo wird bis zum Ende des aktuellen Abrechnungszeitraums aktiv und funktionsfähig bleiben. <br/>

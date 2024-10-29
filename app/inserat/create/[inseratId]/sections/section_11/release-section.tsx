@@ -65,7 +65,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
         unfinishedSections.push(4)
     }
 
-    if(!thisInserat?.address?.postalCode || !thisInserat?.address?.locationString || thisInserat?.address?.locationString.trim() == "" || String(thisInserat?.address?.postalCode)?.length !== 5 ) {
+    if(!thisInserat?.address?.postalCode || !thisInserat?.address?.locationString || String(thisInserat?.address?.locationString).trim() == "" || String(thisInserat?.address?.postalCode)?.length !== 5 ) {
         unfinishedSections.push(10)
     }
 

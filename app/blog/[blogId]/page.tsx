@@ -88,9 +88,10 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                                 </a>
                             </div>
                             <div>
-                                <div className="px-16 mt-2 text-base text-gray-200 whitespace-pre-wrap w-full pb-8">
-                                    {thisBlog?.content}
-                                </div>
+                                <div
+                                    className="px-16 mt-2 text-base text-gray-200 whitespace-pre-wrap w-full pb-8"
+                                    dangerouslySetInnerHTML={{ __html: thisBlog?.content }}
+                                ></div>
                             </div>
                         </div>
                     </div>

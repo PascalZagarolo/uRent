@@ -14,19 +14,19 @@ import {
     ThumbsUp, TwitterIcon
 } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 
-import Bookings from "./bookings";
-import ManageBookings from "./manage-bookings";
+
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import BookingRequest from "./booking-request";
 import { booking, contactOptions, inserat, userTable } from "@/db/schema";
 import GoToDashboard from "./go-to-dashboard";
-import ManageAvailability from "@/app/dashboard/[userId]/(routes)/inserate/_components/manage-availability";
+
 import { BsHandIndexThumb } from "react-icons/bs";
 import LetterRestriction from "@/components/letter-restriction";
+import ManageAvailability from "./manage-availability";
 
 
 interface InseratOptionsProps {
@@ -35,6 +35,7 @@ interface InseratOptionsProps {
     ownUser: typeof userTable.$inferSelect;
     contactOptions: typeof contactOptions.$inferSelect;
     thisInserat: typeof inserat.$inferSelect;
+    inseratArray : typeof inserat.$inferSelect[];
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
@@ -42,7 +43,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     bookings,
     ownUser,
     contactOptions,
-    thisInserat
+    thisInserat,
+    inseratArray
 }) => {
 
 
@@ -175,7 +177,9 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
             {ownSite ? (
                 <div className="mt-4 flex flex-col w-full">
                     <div>
-                        <ManageAvailability thisInserat={thisInserat} inseratPage={true} />
+                        <ManageAvailability 
+                        thisInserat={thisInserat}
+                        />
                     </div>
                     <div className="mt-4">
                         <GoToDashboard userId={thisUser.id} inseratId={params.inseratId as any} />

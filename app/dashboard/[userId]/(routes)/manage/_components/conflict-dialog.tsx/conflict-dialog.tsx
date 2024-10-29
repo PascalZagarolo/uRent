@@ -3,7 +3,7 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CalendarCheck2 } from "lucide-react";
-import { format, set } from 'date-fns';
+import { format, set, addDays } from 'date-fns';
 import { useState } from "react";
 import { de } from "date-fns/locale";
 
@@ -38,6 +38,8 @@ const ConflictDialog = ({ title, conflictedBooking, reqStartDate, reqEndDate, re
 
     const [ignore, setIgnore] = useState(false);
 
+    console.log(conflictedBooking?.startDate)
+
     return (
         <AlertDialog open>
             <AlertDialogContent className="dark:border-none dark:bg-[#191919]">
@@ -63,7 +65,7 @@ const ConflictDialog = ({ title, conflictedBooking, reqStartDate, reqEndDate, re
                                 {conflictedBooking?.name}
                             </div>
                             <div className="text-sm text-gray-200/90">
-                                Zeitraum : {format(conflictedBooking?.startDate, "PPP", { locale: de })} - {format(conflictedBooking?.endDate, "PPP", { locale: de })}
+                                Zeitraum : {format(conflictedBooking?.startDate ?? new Date(), "PPP", { locale: de })} - {format(conflictedBooking?.endDate ?? new Date(), "PPP", { locale: de })}
                             </div>
                             <div className="w-full flex items-center text-sm gap-x-4">
                                 <div className="w-1/2">

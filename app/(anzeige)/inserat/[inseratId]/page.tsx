@@ -220,6 +220,7 @@ const InseratAnzeige = async ({
                             <div className='w-4/12 flex flex-col '>
                                 <div className='mt-10'>
                                     <InseratOptions
+                                        inseratArray = {inseratArray}
                                         thisUser={thisInserat.user}
                                         bookings={inseratBookings}
                                         ownUser={currentUser as any}

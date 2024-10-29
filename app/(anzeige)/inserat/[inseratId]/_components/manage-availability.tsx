@@ -38,22 +38,26 @@ import { booking, inserat, userTable } from "@/db/schema";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { vehicle } from '../../../../../../db/schema';
+
 import { de } from "date-fns/locale";
-import SelectTimeRange from "./select-time-range";
+
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { checkAvailability } from "@/actions/check-availability";
-import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
-import { Input } from "@/components/ui/input";
 
-interface AddAvailabilityProps {
-    foundInserate: typeof inserat.$inferSelect[];
+import { Input } from "@/components/ui/input";
+import ConflictDialog from "@/app/dashboard/[userId]/(routes)/manage/_components/conflict-dialog.tsx/conflict-dialog";
+import SelectTimeRange from "@/app/dashboard/[userId]/(routes)/manage/_components/select-time-range";
+import LetterRestriction from "@/components/letter-restriction";
+
+
+interface ManageAvailabilityProps {
+    thisInserat: typeof inserat.$inferSelect;
 }
 
 
-const AddAvailability: React.FC<AddAvailabilityProps> = ({
-    foundInserate
+const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
+    thisInserat
 }) => {
 
     const [currentStart, setCurrentStart] = useState(new Date());
@@ -63,7 +67,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(null);
+    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(thisInserat);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
 
     const [currentTitle, setCurrentTitle] = useState("");
@@ -71,11 +75,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     const [content, setContent] = useState("");
 
 
-    
 
 
 
-  
+
+
     const router = useRouter();
 
     const formSchema = z.object({
@@ -105,7 +109,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 content: content,
                 start: currentStart,
                 end: currentEnd,
-                name : currentTitle,
+                name: currentTitle,
                 //Hours
                 startPeriod: startTime,
                 endPeriod: endTime,
@@ -202,7 +206,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 content: content,
                 start: currentStart,
                 end: currentEnd,
-                name : currentTitle,
+                name: currentTitle,
                 //Hours
                 startPeriod: startTime,
                 endPeriod: endTime,
@@ -212,7 +216,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
             }
 
 
-            await axios.post(`/api/booking/${currentInserat.id}`, values)
+            await axios.post(`/api/booking/${thisInserat.id}`, values)
 
             setIgnoreOnce(false);
             setShowConflict(false);
@@ -243,12 +247,22 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
         )
     }
 
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
+
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setContent(newText);
+        }
+    };
+
     return (
         <Dialog>
 
             <div className="dark:bg-[#0F0F0F] bg-gray-200 rounded-md w-full">
                 <DialogTrigger asChild className="w-full">
-                    <Button className=" text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-[#141414] " variant="ghost">
+                    <Button className="bg-gray-200 hover:bg-gray-300 text-gray-800 hover:text-gray-700 " variant="ghost">
                         <CalendarCheck2 className="mr-2 h-4 w-4" /> Verfügbarkeit ändern
                     </Button>
                 </DialogTrigger>
@@ -270,22 +284,19 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                             Zugehöriges Inserat*
                         </Label>
                         <Select
-                            onValueChange={(selectedValue) => {
-
-                                setCurrentInserat(foundInserate.find((inserat) => inserat.id === selectedValue));
-                            }}
-                            value={currentInserat?.id || ''} // Ensures a falsy value like null doesn't break the component
+                            disabled
+                            value={thisInserat?.title} // Ensures a falsy value like null doesn't break the component
                         >
                             <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a] mt-2", !currentInserat && "text-gray-200/80")}>
                                 <SelectValue placeholder="Bitte wähle dein Inserat" />
                             </SelectTrigger>
 
                             <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                {foundInserate.map((thisInserat) => (
-                                    <SelectItem value={thisInserat.id} key={thisInserat.id}>
-                                        {thisInserat.title}
-                                    </SelectItem>
-                                ))}
+
+                                <SelectItem value={thisInserat.title} key={thisInserat.id}>
+                                    {thisInserat.title}
+                                </SelectItem>
+
                             </SelectContent>
                         </Select>
                     </div>
@@ -446,14 +457,20 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                     />
                                 </div>
                                 <div>
-                                        <Label className="flex items-center"> Titel*</Label>
-                                        <Input
-                                            className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                    <Label className="flex items-center"> Titel*</Label>
+                                    <Input
+                                        className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
-                                                    value={currentTitle}
-                                                    maxLength={160}
-                                            onChange={(e) => { setCurrentTitle(e.target.value)}}
+                                        value={currentTitle}
+                                        maxLength={160}
+                                        onChange={(e) => { setCurrentTitle(e.target.value) }}
+                                    />
+                                    <div className="flex justify-end">
+                                        <LetterRestriction
+                                            limit={160}
+                                            currentLength={currentTitle.length}
                                         />
+                                    </div>
                                 </div>
                                 <div>
                                     <span className="font-semibold text-base flex">
@@ -463,14 +480,20 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         control={form.control}
                                         name="content"
                                         render={({ field }) => (
-                                            <FormItem className="mt-2 ">
+                                            <FormItem className="mt-2 space-y-0">
                                                 <Textarea
-                                                    onChange={(e) => { setContent(e.target.value) }}
+                                                    onChange={handleTextChange}
                                                     value={content}
                                                     maxLength={2000}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
                                                 />
+                                                <div className="flex justify-end">
+                                                    <LetterRestriction
+                                                        limit={2000}
+                                                        currentLength={content.length}
+                                                    />
+                                                </div>
                                             </FormItem>
                                         )}
                                     />
@@ -482,7 +505,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
                                         disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
-                                            !startTime || !endTime || !currentTitle }
+                                            !startTime || !endTime || !currentTitle}
                                         type="submit"
                                     >
                                         Verfügbarkeit anpassen</Button>
@@ -497,4 +520,4 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     );
 }
 
-export default AddAvailability;
+export default ManageAvailability;

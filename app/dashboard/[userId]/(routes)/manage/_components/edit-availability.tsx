@@ -47,6 +47,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { TbListNumbers } from "react-icons/tb";
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 import { checkAvailability } from "@/actions/check-availability";
+import LetterRestriction from "@/components/letter-restriction";
 
 
 interface EditAvailabilityProps {
@@ -206,6 +207,16 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
             setCurrentEnd(currentStart)
         }
     }, [currentEnd, currentStart])
+
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
+
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setCurrentContent(newText);
+        }
+    };
 
     const onShowConflictConfirm = () => {
         try {
@@ -500,14 +511,21 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                         control={form.control}
                                         name="name"
                                         render={({ field }) => (
-                                            <FormItem >
+                                            <FormItem className="space-y-0">
                                                 <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Titel</FormLabel>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
                                                     onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
                                                     value={currentName}
+                                                    maxLength={160}
                                                 />
+                                                <div className="flex justify-end">
+                                                    <LetterRestriction 
+                                                    limit={160}
+                                                    currentLength={currentName.length ?? 0}
+                                                    />
+                                                </div>
                                             </FormItem>
                                         )} />
                                 </div>
@@ -526,9 +544,16 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
-                                                    onChange={(e) => { setCurrentContent(e.target.value); field.onChange(e) }}
+                                                    maxLength={2000}
+                                                    onChange={handleTextChange}
                                                     value={currentContent}
                                                 />
+                                                <div className="flex justify-end">
+                                                    <LetterRestriction 
+                                                    limit={2000}
+                                                    currentLength={currentContent.length ?? 0}
+                                                    />
+                                                </div>
                                             </FormItem>
                                         )}
                                     />

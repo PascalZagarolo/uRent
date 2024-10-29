@@ -47,6 +47,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { TbListNumbers } from "react-icons/tb";
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 import { checkAvailability } from "@/actions/check-availability";
+import LetterRestriction from "@/components/letter-restriction";
 
 
 interface EditBookingProps {
@@ -125,7 +126,15 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
 
 
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
 
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setCurrentContent(newText);
+        }
+    };
 
 
     const onSubmit = (value: z.infer<typeof formSchema>) => {
@@ -521,6 +530,12 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                     dark:bg-[#0a0a0a]"
                                             onChange={(e) => { setCurrentInternal(e.target.value) }}
                                         />
+                                        <div className="flex justify-end">
+                                            <LetterRestriction 
+                                            limit={160}
+                                            currentLength={currentInternal.length ?? 0}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -537,9 +552,15 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                             dark:bg-[#0a0a0a]"
-                                                    onChange={(e) => { setCurrentContent(e.target.value); field.onChange(e) }}
+                                                    onChange={handleTextChange}
+                                                    maxLength={2000}
                                                     value={currentContent}
                                                 />
+                                                <div className="flex justify-end">
+                                                    <LetterRestriction
+                                                    currentLength={currentContent.length ?? 0}
+                                                    limit={2000} />
+                                                </div>
                                             </FormItem>
                                         )}
                                     />

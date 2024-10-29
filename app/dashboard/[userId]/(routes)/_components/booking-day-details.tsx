@@ -73,6 +73,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         }
         
     }, [renderedInserate, startIndex, endIndex, selectedDate, filteredAppointedDay, foundInserate, appointedTimes])
+
     useMemo(() => {
         setAppointedTimes([]);
         setUsedBookings(relevantBookings);
@@ -92,25 +93,34 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                     } else {
                         newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
                     }
-                    // Populate appointed times array based on booking dates and periods
+                    
                     const index = newAppointedTimes.findIndex(item => item.bookingIds.includes(pBooking.id));
-                    if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
+                    if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(new Date(pBooking.endDate), selectedDate)) {
                         for (let i = 0; i <= 1440; i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
-                    } else if (isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
+                    } else if (isSameDay(pBooking.startDate, selectedDate) && isSameDay(new Date(pBooking.endDate), selectedDate)) {
                         for (let i = Number(pBooking.startPeriod); i <= Number(pBooking.endPeriod); i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
-                    } else if (isSameDay(pBooking.startDate, selectedDate) && !isSameDay(pBooking.endDate, selectedDate)) {
+                    } else if (isSameDay(pBooking.startDate, selectedDate) && !isSameDay(new Date(pBooking.endDate), selectedDate)) {
                         for (let i = Number(pBooking.startPeriod); i <= 1440; i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
-                    } else if (!isSameDay(pBooking.startDate, selectedDate) && isSameDay(pBooking.endDate, selectedDate)) {
+                    } else if (!isSameDay(pBooking.startDate, selectedDate) && isSameDay(new Date(pBooking.endDate), selectedDate)) {
                         for (let i = 0; i <= Number(pBooking.endPeriod); i += 30) {
                             newAppointedTimes[index].times.push(i);
                         }
                     }
+
+                    if (isSameDay(new Date(pBooking.endDate), selectedDate)) {
+                        for (let i = 0; i <= Number(pBooking.endPeriod); i += 30) {
+                            if (!newAppointedTimes[index].times.includes(i)) {
+                                newAppointedTimes[index].times.push(i);
+                            }
+                        }
+                    }
+
                     return newAppointedTimes;
                 });
             }

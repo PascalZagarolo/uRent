@@ -288,7 +288,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                 <div>
                     <div>
                         <h3 className="font-bold flex mb-8">
-                            <CalendarClockIcon className="mr-2" /> Buchung bearbeiten
+                            <CalendarClockIcon className="mr-2" /> Verfügbarkeit bearbeiten
                         </h3>
                     </div>
                     <div className="py-4 pr-8">

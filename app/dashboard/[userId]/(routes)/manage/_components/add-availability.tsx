@@ -98,7 +98,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     })
 
 
-    const onSubmit = async (value: z.infer<typeof formSchema>) => {
+    const onSubmit = async () => {
         try {
 
             setIsLoading(true);
@@ -136,7 +136,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
             } else {
 
-                console.log(currentInserat?.id)
+                
                 axios.post(`/api/booking/${currentInserat.id}`, values)
                     .then(() => {
                         router.refresh();
@@ -491,7 +491,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                 <div className="flex justify-end">
                                                     <LetterRestriction
                                                         limit={2000}
-                                                        currentLength={currentTitle.length}
+                                                        currentLength={content.length}
                                                     />
                                                 </div>
                                             </FormItem>

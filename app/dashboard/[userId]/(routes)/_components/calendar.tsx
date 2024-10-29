@@ -7,6 +7,7 @@ import {
     endOfWeek,
     format,
     getDay,
+    isSameDay,
     startOfMonth,
     startOfWeek,
 } from "date-fns";
@@ -21,6 +22,7 @@ import { de } from 'date-fns/locale';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { MdCalendarMonth, MdOutlineViewWeek } from "react-icons/md";
+import { isBefore } from 'date-fns';
 
 const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
@@ -91,7 +93,7 @@ const EventCalendar = ({ bookings, everyInserat, setSelectedDateParent, setRelev
             const endDate = new Date(pBooking.endDate);
 
             const currentDate = new Date(startDate);
-            while (currentDate <= endDate) {
+            while (isBefore(currentDate, endDate) || isSameDay(currentDate, endDate)) {
 
                 const dateKey = format(currentDate, "dd-MM-yyyy");
                 if (!acc[dateKey]) {

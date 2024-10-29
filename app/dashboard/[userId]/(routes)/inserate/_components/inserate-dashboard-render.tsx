@@ -53,18 +53,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         }
     }
 
-    const onBillingInformation = async () => {
-        try {
-            setIsLoading(true);
-            const values = {}
-            const res = await axios.patch(`/api/stripe/inserat/${thisInserat.id}`, values);
-            window.location.href = res.data.url
-        } catch {
-            toast.error("Etwas ist schief gelaufen")
-        } finally {
-            setIsLoading(false)
-        }
-    }
+    
 
     const isPublishable = {
         title: thisInserat.title.length > 0,
@@ -75,9 +64,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         location: thisInserat.address?.locationString != null,
     };
 
-    const onClick = (inseratId : string) => {
-        router.push(`/inserat/create/${inseratId}`)
-    }
+    
 
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
@@ -166,7 +153,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                 <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">
                     <Button 
                     className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full"
-                    onClick={() => onClick(thisInserat.id)} >
+                    onClick={() => {router.push(`/inserat/create/${thisInserat?.id}`)}} >
                         <Edit3 className="w-4 h-4 xl:mr-2" />  Inserat bearbeiten
                     </Button>
                     <Dialog>

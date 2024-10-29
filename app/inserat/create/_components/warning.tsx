@@ -4,6 +4,7 @@ import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { LinkIcon, XIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const Warning = () => {
@@ -14,16 +15,18 @@ const Warning = () => {
 
     const inseratId = useParams().inseratId;
 
+    const [isHidden, setIsHidden] = useState(hideAlert ? true : false);
+
     const onSwitch = () => {
         router.push(`/inserat/create/${inseratId}?sectionId=1`)
     }
 
     const onHide = () => {
         localStorage.setItem('hideAlert', JSON.stringify(true));
-        
+        setIsHidden(true);
     }
 
-    if (hideAlert) return null;
+    if (isHidden) return null;
 
     return (
         <Alert className="border border-indigo-800 bg-[#222222] shadow-lg p-4 rounded-lg">

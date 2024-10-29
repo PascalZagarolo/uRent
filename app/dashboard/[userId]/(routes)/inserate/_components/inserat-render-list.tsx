@@ -228,17 +228,17 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                     renderedInserate.length > 0 && (
 
                         <InserateDashboardRender
-                            thisInserat={inserat}
-                            currentUser={currentUser}
-                            reverseChanges={() => setRenderedInserate(inserateArray)}
-                            deleteInserat={(inseratId) => {
-                                // Here you would call your function with inseratId to delete the entry
-                                setRenderedInserate((prevInserate) => 
-                                    prevInserate.filter(item => item.id !== inseratId)
-                                );
-                            }}
-                            key={inserat.id}
-                        />
+                        thisInserat={inserat}
+                        currentUser={currentUser}
+                        reverseChanges={() => setRenderedInserate(inserateArray)}
+                        deleteInserat={(inseratId) => {
+                            // Here you would call your function with inseratId to delete the entry
+                            setRenderedInserate((prevInserate) => 
+                                prevInserate.filter(item => item.id !== inseratId)
+                            );
+                        }}
+                        key={inserat.id}
+                    /> 
 
 
 

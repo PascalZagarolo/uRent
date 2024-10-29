@@ -122,7 +122,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
               <div
                 key={pBooking.id}
                 className={cn(
-                  "rounded-md py-2 sm:px-4 mt-3 text-white flex justify-between items-center bg-gradient-to-r",
+                  "rounded-md py-2 sm:px-2 text-left mt-3 text-white flex justify-between items-center bg-gradient-to-r",
                   pBooking.isAvailability ? "from-rose-600 to-rose-800" : "from-indigo-600 to-indigo-800"
                 )}
                 onClick={(e) => e.stopPropagation()}
@@ -131,9 +131,9 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
                   <PopoverTrigger>
                     <div className="w-full">
                       <div className="sm:flex justify-between items-center">
-                        <div className="flex items-center sm:space-x-2 text-sm font-medium ">
+                        <div className="flex items-center sm:space-x-2 text-xs font-medium ">
                           
-                          <span className={cn("line-clamp break-all sm:block hidden", !pBooking.name && "text-gray-200/60")}>{pBooking.name || "Keine Angaben"}</span>
+                          <span className={cn("line-clamp break-all sm:block hidden text-left", !pBooking.name && "text-gray-200/60")}>{pBooking.name || "Keine Angaben"}</span>
                         </div>
                       </div>
                     </div>

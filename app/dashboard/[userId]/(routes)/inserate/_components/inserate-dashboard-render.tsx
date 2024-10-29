@@ -18,12 +18,16 @@ import { user } from "@/drizzle/schema";
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect | any;
     currentUser : typeof user.$inferSelect;
+    deleteInserat : (id : string) => void;
+    reverseChanges : () => void;
 
 }
 
 const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     thisInserat,
-    currentUser
+    currentUser,
+    reverseChanges,
+    deleteInserat
 }) => {
     const router = useRouter();
 
@@ -33,16 +37,17 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
    
 
-    const onDelete = () => {
+    const onDelete = async () => {
         try {
             setIsLoading(true);
-            axios.delete(`/api/inserat/${thisInserat.id}/delete`).then(() => {
-                toast.success("Inserat erfolgreich gelöscht");
-                router.refresh();
-            })
-
+            deleteInserat(thisInserat.id);
+            await axios.delete(`/api/inserat/${thisInserat.id}/delete`)
+            router.refresh();
+            toast.success("Inserat erfolgreich gelöscht");
         } catch {
-            toast.error("Fehler beim Löschen des Inserats")
+            toast.error("Fehler beim Löschen des Inserats");
+            router.refresh();
+            reverseChanges();
         } finally {
             setIsLoading(false);
         }

@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { checkIfValid } from "@/hooks/subscription/useCheckSubscription";
 import { BsCircleFill } from "react-icons/bs";
 import SectionOverviewTotal from "./_components/section-overview-total";
+import { RiCircleFill } from "react-icons/ri";
 
 interface ReleaseSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -84,10 +85,10 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
             }
             await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
             if (currentPrivacy) {
-                toast.success("Inserat wurde erfolgreich veröffentlicht.");
+                toast.success("Dein Inserat ist nun öffentlich.");
                 router.push(`/inserat/${thisInserat?.id}`);
             } else {
-                toast.success("Inserat wurde als Entwurf gespeichert.");
+                toast.success("Dein Inserat ist nun privat.");
                 router.push(`/dashboard/${thisInserat?.userId}`);
             }
 
@@ -199,13 +200,24 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                     </div>
                 )}
             </div>
-            <div className="flex flex-col w-full mt-16">
+            <div className="mt-8">
+                 {thisInserat?.isPublished ? (
+                    <span className="flex flex-row items-center text-sm font-semibold">
+                        <RiCircleFill className="w-2 h-2 mr-2 text-green-500" /> Dein Inserat ist zurzeit öffentlich
+                    </span>
+                 ) : (
+                    <span className="flex flex-row items-center text-sm font-semibold">
+                    <RiCircleFill className="w-4 h-4 mr-2 text-gray-500" /> Dein Inserat ist zurzeit privat und nur für dich sichtbar.
+                </span>
+                 )}       
+            </div>
+            <div className="flex flex-col w-full mt-8">
                 <Button className={cn("bg-indigo-800 hover:bg-indigo-900 text-gray-200 py-3 w-full rounded-lg shadow-lg transition-all duration-200",
                     !currentPrivacy ? 'bg-[#222222] hover:bg-[#232323] text-gray-200/80 hover:text-gray-200' : 'bg-indigo-800 hover:bg-indigo-900')}
                     onClick={onSave}
-                    disabled={isLoading || !canPublish() && currentPrivacy}
+                    disabled={isLoading || !canPublish() && currentPrivacy || thisInserat?.isPublished === currentPrivacy}
                 >
-                    Inserat  {currentPrivacy ? 'veröffentlichen' : 'als Entwurf speichern'}
+                    Inserat  {currentPrivacy ? 'veröffentlichen' : 'privat schalten'}
                 </Button>
                 <Button className="flex items-center justify-center w-full text-gray-400 hover:text-gray-200 transition-all mt-2" variant="ghost"
                     onClick={onPrevious} disabled={isLoading}>

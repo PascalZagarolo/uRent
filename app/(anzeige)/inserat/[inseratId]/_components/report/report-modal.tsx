@@ -1,5 +1,6 @@
 'use client';
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -35,6 +36,16 @@ const ReportModal = () => {
         }
 
     }
+
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
+
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setMoreContent(newText);
+        }
+    };
 
 
     return ( 
@@ -106,8 +117,16 @@ const ReportModal = () => {
                                 </Label>
                             <Textarea 
                             className="w-full  dark:bg-[#171717] dark:border-none"
-                            onChange={(e) => {setMoreContent(e.target.value)}}
+                            onChange={handleTextChange}
+                            value={moreContent}
+                            maxLength={5000}
                             />
+                            <div>
+                                <LetterRestriction 
+                                limit={5000}
+                                currentLength={moreContent?.length ?? 0}
+                                />
+                            </div>
                             </div>
                         </div>
                        

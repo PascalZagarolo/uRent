@@ -48,7 +48,7 @@ const ContactUser = ({ currentUser }) => {
 
     return ( 
         <div>
-            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg text-sm sm:text-xs"  variant="ghost"
+            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg sm:text-sm text-xs"  variant="ghost"
             disabled={isLoading} onClick={onConversation}>
                 <RiSendPlaneFill  className="w-4 h-4 mr-2" />
                 Nutzer kontaktieren

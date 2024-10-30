@@ -15,9 +15,9 @@ const ContactOptions = () => {
                 <div className="flex flex-row text-sm underline items-center">
                   <PaperPlaneIcon className="w-4 h-4 mr-2" />  auf uRent schreiben..
                 </div>
-                <div className="flex flex-row text-sm underline items-center">
+                <a className="flex flex-row text-sm underline items-center" href="mailto:info@urent-rental.de">
                     <MailIcon className="w-4 h-4 mr-2" /> Email schreiben..
-                </div>
+                </a>
             </div>
 
             <div className="text-base text-gray-200 font-semibold mt-8">

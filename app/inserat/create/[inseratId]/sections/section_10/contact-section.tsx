@@ -45,7 +45,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
         try {
 
             if(hasChanged) {
-                console.log("...")
+                
                 const values1 = {
                     emailAddress: currentEmail ? String(currentEmail ?? "")?.trim() : null,
                     phoneNumber: currentNumber ? String(currentNumber ?? "")?.trim() : null,

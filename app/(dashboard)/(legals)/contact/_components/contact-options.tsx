@@ -1,7 +1,44 @@
+'use client'
+
+import { findOrCreateConversation } from "@/actions/conversation/linkConversation";
+import { userTable } from "@/db/schema";
+import { useLoading, useLoadingState } from "@/store";
 import { InstagramLogoIcon, LinkedInLogoIcon, PaperPlaneIcon } from "@radix-ui/react-icons";
 import { MailIcon, TwitterIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-const ContactOptions = () => {
+interface ContactOptionsProps {
+    currentUser : typeof userTable.$inferSelect;
+}
+
+
+const ContactOptions = ({ currentUser } : ContactOptionsProps) => {
+
+    const router = useRouter();
+
+    const { isLoading, changeLoading } = useLoading();
+
+    const onLiveChat = async () => {
+        try {
+            if(isLoading) return;
+            changeLoading(true);
+            if(!currentUser) {
+                router.push("/login");
+                return;
+            }
+
+            const id = await findOrCreateConversation(currentUser.id, "zhv192zdl1409rq");
+            await router.push(`/conversation/?conversationId=${id}`);
+            
+        } catch(e : any) {
+            console.log(e);
+        } finally {
+            changeLoading(false);
+        }
+    }
+
+    
+
     return ( 
         <div className="flex flex-col ">
             <div className="text-base text-gray-200 font-semibold">
@@ -12,7 +49,7 @@ const ContactOptions = () => {
                 Wir werden uns so schnell wie möglich um dich kümmern.
             </p>
             <div className="mt-8 space-y-4">
-                <div className="flex flex-row text-sm underline items-center">
+                <div className="flex flex-row text-sm underline items-center hover:text-gray-200/90" onClick={onLiveChat}>
                   <PaperPlaneIcon className="w-4 h-4 mr-2" />  auf uRent schreiben..
                 </div>
                 <a className="flex flex-row text-sm underline items-center" href="mailto:info@urent-rental.de">

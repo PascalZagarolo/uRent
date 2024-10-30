@@ -1,8 +1,12 @@
+import getCurrentUser from "@/actions/getCurrentUser";
 import ContactFormular from "./_components/contact-formular";
 import ContactOptions from "./_components/contact-options";
 import StepPlan from "./_components/step-plan";
 
-const ContactPage = () => {
+const ContactPage = async () => {
+    
+    const currentUser = await getCurrentUser();
+
     return (
         <div>
 
@@ -26,7 +30,9 @@ const ContactPage = () => {
                                     <ContactFormular />
                                 </div>
                                 <div className="w-1/4">
-                                    <ContactOptions />
+                                    <ContactOptions 
+                                    currentUser = {currentUser as any}
+                                    />
                                 </div>
 
                             </div>

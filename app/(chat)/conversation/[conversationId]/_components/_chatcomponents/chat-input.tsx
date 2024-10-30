@@ -57,7 +57,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 if (newLines >= MAX_LINES) {
                     e.preventDefault();  // Prevent adding more than the max lines
                 }
-            } else if(!isLoading) {
+            } else if (!isLoading) {
                 e.preventDefault();
                 // Only allow to submit if Enter is pressed without Shift, and if line limit isn't exceeded
                 form.handleSubmit(onSubmit)();
@@ -134,7 +134,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                         dark:bg-[#0F0F0F] dark:text-gray-200 focus-visible:ring-0 focus-visible:border-none focus:outline-none dark:border-none px-3 py-2 rounded-md"
                         rows={1}
                         maxLength={2000}
-                        placeholder="Schreibe eine Nachricht..."
+                        placeholder={existingBlock.length > 0 ? "Du kannst nicht schreiben, da du blockiert wurdest." : "Schreibe eine Nachricht..."}
                         onChange={(e) => setCurrentValue(e.target.value)}
                         value={currentValue}
                         onKeyDown={handleKeyDown}
@@ -142,9 +142,11 @@ const ChatInput: React.FC<ChatInputProps> = ({
                         style={{ overflowY: 'hidden' }}  // Hide scrollbar initially
                     />
 
-                    <div className="ml-auto flex justify-end">
-                        <LetterRestriction limit={2000} currentLength={currentValue.length} />
-                    </div>
+                    {existingBlock.length === 0 && (
+                        <div className="ml-auto flex justify-end">
+                            <LetterRestriction limit={2000} currentLength={currentValue.length} />
+                        </div>
+                    )}
                 </div>
 
                 <div className="ml-2">

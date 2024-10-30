@@ -83,6 +83,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
             toast.error("Fehler beim Deaktivieren der 2FA");
         } finally {
             setIsLoading(true);
+            router.refresh();
         }
     }
 
@@ -92,6 +93,8 @@ const Select2Fa: React.FC<Select2FaProps> = ({
             const usedPin = values.pin;
             await abort2faConfirm(usedPin);
             setShowInput(false);
+            console.log("2FA wurde deaktiviert");
+            
             toast.success("2FA wurde deaktiviert");
             setIsActive(false);
         } catch (e: any) {
@@ -100,6 +103,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
             return null;
         } finally {
             setIsLoading(false);
+            router.refresh();
         }
     }
 
@@ -107,6 +111,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
         try {
             setIsLoading(true);
             await activate2Fa();
+            await sendTwoFactorActivating(thisUser.email)
             toast.success("2FA wurde aktiviert");
             setIsActive(true);
         } catch (e: any) {
@@ -268,7 +273,7 @@ const Select2Fa: React.FC<Select2FaProps> = ({
 
                 </div>
                 <div className="mt-2">
-                    {thisUser.usesTwoFactor ? returnDialogAbort() : returnDialogaActivate()}
+                    {thisUser?.usesTwoFactor ? returnDialogAbort() : returnDialogaActivate()}
                 </div>
             </div>
         </div>

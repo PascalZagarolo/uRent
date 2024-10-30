@@ -35,12 +35,12 @@ import { Inter } from "next/font/google";
             />
             <Hr style={hr} />
             <Text style={paragraph}>
-            wir möchten Ihnen mitteilen, dass die Zwei-Faktor-Authentifizierung (2FA) erfolgreich auf Ihrem uRent-Konto aktiviert wurde. 
-            Diese zusätzliche Sicherheitsmaßnahme gewährleistet einen erhöhten Schutz für Ihr Konto und Ihre persönlichen Daten.
+            wir möchten dir mitteilen, dass die Zwei-Faktor-Authentifizierung (2FA) erfolgreich auf deinem uRent-Konto aktiviert wurde. 
+            Diese zusätzliche Sicherheitsmaßnahme gewährleistet einen erhöhten Schutz für dein Konto und deine persönlichen Daten.
             </Text>
             <Text style={paragraph}>
-            Ab sofort wird bei jedem Login-Versuch auf Ihrem uRent-Konto neben Ihrem Passwort auch ein zweiter Authentifizierungsfaktor benötigt, 
-            um sicherzustellen, dass nur Sie auf Ihr Konto zugreifen können.
+            Ab sofort wird bei jedem Login-Versuch auf deinem uRent-Konto neben Ihrem Passwort auch ein zweiter Authentifizierungsfaktor benötigt, 
+            um sicherzustellen, dass nur du auf dein Konto zugreifen kannst.
             </Text>
             <Text style={paragraph}>
               

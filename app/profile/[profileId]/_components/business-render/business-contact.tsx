@@ -17,9 +17,9 @@ interface BusinessContactProps {
 
 const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusiness }: BusinessContactProps) => {
     return (
-        <div className="flex flex-col items-start text-gray-200/80 space-y-1">
+        <div className="flex flex-col items-start text-gray-200/80 space-y-1 px-4 md:px-0">
             {ownProfile && (
-                <div className="mt-4 ml-auto mr-8 mb-4">
+                <div className="mt-4 md:ml-auto mr-8 mb-4">
                     <EditContactsDialog 
                 thisBusiness={thisBusiness}
                 />

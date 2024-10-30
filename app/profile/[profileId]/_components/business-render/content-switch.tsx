@@ -30,16 +30,16 @@ const ContentSwitch = ({ ownProfile, thisUser, currentUser } : ContentSwitchProp
 
     return (
         <div className="w-full">
-            <div className="px-8">
+            <div className="md:px-8 px-4">
                 
-                <div className="flex justify-evenly space-x-4 py-4 rounded-md ">
+                <div className="flex justify-evenly md:space-x-4 py-4 rounded-md ">
                     {existingTabs.map((tab) => (
                         <button
                             key={tab.key}
                             onClick={() => setActiveTab(tab.key)}
-                            className={`px-4 py-2 rounded-t-md transition-all duration-300 ${
+                            className={`px-4 py-2 rounded-t-md transition-all duration-300 md:text-base text-xs ${
                                 activeTab === tab.key
-                                    ? "text-white border-b-2 border-indigo-800"
+                                    ? "text-white border-b-2 border-indigo-800 "
                                     : "text-gray-400 hover:text-white"
                             }`}
                         >

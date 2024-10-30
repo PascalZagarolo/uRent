@@ -21,7 +21,7 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
     const uRent = params == "zhv192zdl1409rq"
 
     return (
-        <div className="mt-12 px-8">
+        <div className="mt-12 md:px-8 px-4">
             <div className="flex flex-row items-center">
                 <p className="text-gray-200 text-2xl font-semibold">{name}</p> {uRent &&
                     <TooltipProvider>

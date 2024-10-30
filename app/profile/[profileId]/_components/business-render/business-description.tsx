@@ -108,7 +108,7 @@ const BusinessDescriptionNew: React.FC<ProfileDescriptionProps> = ({
     return (
         <div className="mt-4" >
 
-            <div className="px-8  rounded-md     
+            <div className="md:px-8 px-2  rounded-md     
                      w-full"
                      ref={ref}
                 >

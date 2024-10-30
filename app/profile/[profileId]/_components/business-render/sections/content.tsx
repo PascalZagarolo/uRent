@@ -71,7 +71,7 @@ const Content = ({ releasedContent, username, currentUser }: ContentSwitchProps)
                 {/* Content section */}
                 <div className="bg-[#2a2a2a] rounded-b-lg p-4">
                     <div className="flex justify-between items-center">
-                        <div className="line-clamp-1 text-xl text-gray-200 font-semibold">
+                        <div className="line-clamp-1  text-gray-200 font-semibold sm:text-xl text-lg">
                             {inserat.title}
                         </div>
                         <Button variant="ghost" size="sm" onClick={(e) => handleFavClick(e, inserat?.id)}>
@@ -81,19 +81,20 @@ const Content = ({ releasedContent, username, currentUser }: ContentSwitchProps)
                         </Button>
                     </div>
     
-                    <div className="flex items-center mt-2 text-gray-300">
-                        <MapPinIcon className="text-rose-600 w-5 h-5 mr-2" />
-                        <span className="font-semibold">
+                    <div className="flex sm:text-base text-sm  items-center  text-gray-300">
+                        <MapPinIcon className="text-rose-600 w-4 h-4 mr-2" />
+                        <span className="font-semibold text-gray-200">
                             {inserat?.address?.postalCode}
                         </span>
-                        <span className="mx-1">|</span>
+                        <span className="mx-2">|</span>
                         <span>{inserat?.address?.locationString}</span>
                     </div>
     
-                    <div className="mt-3 text-xl font-bold text-gray-200 flex items-center space-x-2">
+                    <div className="mt-2 sm:text-xl text-base font-bold text-gray-200 flex items-center space-x-1">
                         <span>{inserat?.price}</span>
-                        <span className="text-sm mb-1">/Tag</span>
-                        <span>€</span>
+                        <span className='font-medium text-gray-200/80 text-base'>€</span>
+                        <span className="text-sm mb-1 text-gray-200/80 font-medium">/Tag</span>
+                        
                     </div>
                 </div>
             </a>
@@ -105,7 +106,7 @@ const Content = ({ releasedContent, username, currentUser }: ContentSwitchProps)
             <div className='text-lg space-x-2 flex flex-row items-center w-full'>
                 <div className='whitespace-nowrap'> Mehr von </div> <span className='font-semibold line-clamp-1 break-all '>{username}</span> <div>({filteredContent?.length})</div>
             </div>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-8 pb-16 px-4 mt-4">
+            <div className="grid md:grid-cols-2 gap-x-8 gap-y-8 pb-16 sm:px-4 mt-4">
                 {filteredContent.map(content => (
                     <RenderedInseratCard key={content.id} inserat={content} /> // Pass content and add a key
                 ))}

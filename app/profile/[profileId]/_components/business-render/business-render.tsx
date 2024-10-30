@@ -11,7 +11,7 @@ import ContentSwitch from "./content-switch";
 interface BusinessrenderProps {
     thisUser: typeof userTable.$inferSelect;
     ownProfile: boolean;
-    currentUser : typeof userTable.$inferSelect;
+    currentUser: typeof userTable.$inferSelect;
 }
 
 const BusinessRender = ({
@@ -20,18 +20,18 @@ const BusinessRender = ({
     currentUser
 }: BusinessrenderProps) => {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
             <div>
-                <UploadBusinessPics
+            <UploadBusinessPics
                     usedImages={thisUser.business.businessImages}
                     businessId={thisUser.business.id}
                     ownProfile={ownProfile}
                     userImage={thisUser.image}
-                    currentUser = {currentUser}
+                    currentUser={currentUser}
                 />
             </div>
-            <div className="flex flex-row items-center w-full space-x-4">
-                <div className="w-1/2">
+            <div className="md:flex md:flex-row items-center w-full md:space-x-4">
+                <div className="md:w-1/2 w-full">
                     <DisplayBusinessNames
                         name={thisUser.name}
                         sharesRealName={thisUser?.sharesRealName}
@@ -40,8 +40,8 @@ const BusinessRender = ({
                         joinedAt={thisUser?.createdAt}
                     />
                 </div>
-                <div className="w-1/2">
-                    <BusinessContact 
+                <div className="md:w-1/2 w-full">
+                    <BusinessContact
                         telephone={thisUser.business.telephone_number}
                         email={thisUser.business.email}
                         website={thisUser.business.website}
@@ -58,10 +58,10 @@ const BusinessRender = ({
                 />
             </div>
             <div className="mt-8">
-                <ContentSwitch 
-                ownProfile={ownProfile}
-                thisUser={thisUser}
-                currentUser = {currentUser}
+                <ContentSwitch
+                    ownProfile={ownProfile}
+                    thisUser={thisUser}
+                    currentUser={currentUser}
                 />
             </div>
         </div>

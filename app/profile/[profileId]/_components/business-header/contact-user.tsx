@@ -5,6 +5,7 @@ import { SendIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { RiSendPlaneFill } from "react-icons/ri";
 
 
 interface ContactUserProps {
@@ -47,9 +48,9 @@ const ContactUser = ({ currentUser }) => {
 
     return ( 
         <div>
-            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg"  variant="ghost"
+            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 shadow-lg text-sm sm:text-xs"  variant="ghost"
             disabled={isLoading} onClick={onConversation}>
-                <SendIcon className="w-4 h-4 mr-2" />
+                <RiSendPlaneFill  className="w-4 h-4 mr-2" />
                 Nutzer kontaktieren
             </Button>
         </div>

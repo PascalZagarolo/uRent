@@ -132,7 +132,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
             {(usedImages[0]?.url && ownProfile) && (
                 <div>
-                    <Button className="w-full h-[320px] relative overflow-hidden rounded-none rounded-t-md" onClick={() => { setShowDialog(true) }}>
+                    <Button className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md" onClick={() => { setShowDialog(true) }}>
                         <Image
                             src={usedImages[0]?.url}
                             quality={100}

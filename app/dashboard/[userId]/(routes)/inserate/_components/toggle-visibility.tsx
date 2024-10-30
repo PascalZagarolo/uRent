@@ -15,15 +15,20 @@ interface ToggleVisibilityProps {
     thisInserat: typeof inserat.$inferSelect;
     isPublishable: Object;
     currentUser: any;
+    isPublished: boolean;
+    onEdit : (value) => void;
 }
 
 const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
     thisInserat,
     isPublishable,
-    currentUser
+    currentUser,
+    isPublished,
+    onEdit
 }) => {
 
     const [isLoading, setIsLoading] = useState(false);
+    
     const router = useRouter();
 
     const areAllValuesTrue = (obj: any): boolean => {
@@ -49,39 +54,53 @@ const ToggleVisibility: React.FC<ToggleVisibilityProps> = ({
 
     const onPublish = async () => {
         try {
+            if(isLoading) {
+                console.log("...")
+                return;
+            }
             setIsLoading(true);
+            onEdit(true);
             await axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish : true })
                 .then(() => {
                     toast.success("Inserat erfolgreich veröffentlicht")
-                    router.refresh();
+
                 })
         } catch(e : any) {
             toast.error("Fehler beim Veröffentlichen des Inserats")
+            onEdit(thisInserat?.isPublished)
             console.log(e)
         } finally {
             setIsLoading(false);
+            router.refresh();
         }
     }
 
     const onPrivate = async () => {
         try {
+            if(isLoading) {
+                console.log("...")
+                return;
+            }
             setIsLoading(true);
+            onEdit(false);
             await axios.patch(`/api/inserat/${thisInserat.id}/publish`, { publish : false })
                 .then(() => {
                     toast.success("Inserat erfolgreich privat gestellt ")
-                    router.refresh();
+                    
                 })
         } catch(e : any) {
             toast.error("Fehler beim Privat stellen des Inserats")
+            onEdit(thisInserat?.isPublished)
             console.log(e)
         } finally {
             setIsLoading(false);
+            router.refresh();
         }
     }
 
     return (
         <div>
-            {thisInserat?.isPublished ? (
+            {isPublished ? (
                 <div className="text-gray-200 text-xs hover:underline hover:cursor-pointer flex justify-center items-center"  onClick={onPrivate}>
                     <MdLockOutline className="w-4 h-4 md:mr-2" />   <div className="hidden md:block">Privat schalten</div>
                 </div>

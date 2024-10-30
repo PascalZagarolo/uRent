@@ -14,11 +14,13 @@ import ManageAvailability from "./manage-availability";
 import HighlightInseratDialog from "./highlight-inserat-dialog";
 import ToggleVisibility from "./toggle-visibility";
 import { user } from "@/drizzle/schema";
+import { is } from 'drizzle-orm';
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect | any;
     currentUser : typeof user.$inferSelect;
     deleteInserat : (id : string) => void;
+    // updateInserat : (inserat) => void;
     reverseChanges : () => void;
 
 }
@@ -27,6 +29,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     thisInserat,
     currentUser,
     reverseChanges,
+    // updateInserat,
     deleteInserat
 }) => {
     const router = useRouter();
@@ -35,7 +38,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
     const renderedPicture = thisInserat?.images.sort((a, b) => a.position - b.position)[0]?.url;
 
-   
+   const [isPublished, setIsPublished] = useState(thisInserat.isPublished);
 
     const onDelete = async () => {
         try {
@@ -96,10 +99,10 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                 </div>
                 )}
                 <div className="md:w-1/6 w-1/6 truncate">
-                    <div className={cn("text-sm  h-full", thisInserat.isPublished ? "text-emerald-600 font-semibold" :
+                    <div className={cn("text-sm  h-full", isPublished ? "text-emerald-600 font-semibold" :
                         "dark:text-gray-100/40 text-gray-700")}>
                         <div className="h-1/2">
-                        {thisInserat.isPublished ? <div className="flex items-center justify-center"> 
+                        {isPublished ? <div className="flex items-center justify-center"> 
                         <Globe2Icon className="sm:mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> 
                         <div className="hidden sm:block"> Veröffentlicht </div> </div> : "Entwurf"}
                         
@@ -107,7 +110,13 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         <div className="h-1/2">
                         <ToggleVisibility 
                         thisInserat={thisInserat}
+                        onEdit = {
+                            (isPublished) => {
+                                setIsPublished(isPublished);
+                            }
+                        }
                         isPublishable={isPublishable}
+                        isPublished={isPublished}
                         currentUser = {currentUser}
                         />
                         </div>

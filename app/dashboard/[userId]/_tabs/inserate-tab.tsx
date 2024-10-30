@@ -66,7 +66,7 @@ const InserateTab = ({ currentUser } : InserateTabProps) => {
                                 </div>
                             </div>
                             <div className="sm:p-4 ">
-                                {inserateArray.length > 0 ? (
+                            {inserateArray.length > 0 ? (
                                     <InserateRenderList 
                                     //@ts-ignore
                                     inserateArray={inserateArray}

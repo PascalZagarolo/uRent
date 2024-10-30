@@ -237,6 +237,13 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
                                 prevInserate.filter(item => item.id !== inseratId)
                             );
                         }}
+                        // updateInserat={(newInserat) => {
+                        //     setRenderedInserate((prevInserate) => 
+                        //         prevInserate.map(item => 
+                        //             item.id === newInserat?.id ? { ...newInserat } : item
+                        //         )
+                        //     );
+                        // }}
                         key={inserat.id}
                     /> 
 

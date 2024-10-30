@@ -2,7 +2,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 import { block, userTable } from "@/db/schema";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { MdBlock } from "react-icons/md";
@@ -21,13 +21,13 @@ const BlockUser: React.FC<BlockUserProps> = ({
     const userBlocked = foundBlocks.some(block => block.userId === currentUser.id);
 
     const [isLoading, setIsLoading] = useState(false);
-    const params = useParams();
+    const conversationId = useSearchParams().get("conversationId");
     const router = useRouter();
 
     const onBlock = async () => {
         try {
             setIsLoading(true);
-            await axios.patch(`/api/block/${params.conversationId}`)
+            await axios.patch(`/api/block/${conversationId}`)
                 .then(() => {
                     toast.success("Nutzer erfolgreich blockiert")
                     router.refresh();
@@ -42,7 +42,7 @@ const BlockUser: React.FC<BlockUserProps> = ({
     const onUnBlock = async () => {
         try {
             setIsLoading(true);
-            await axios.delete(`/api/block/${params.conversationId}`)
+            await axios.delete(`/api/block/${conversationId}`)
                 .then(() => {
                     toast.success("Nutzer erfolgreich freigegeben")
                     router.refresh();
@@ -82,6 +82,7 @@ const BlockUser: React.FC<BlockUserProps> = ({
                         </AlertDialogCancel>
                         <AlertDialogAction className="bg-rose-800 text-gray-200 font-semibold hover:bg-rose-900 hover:text-gray-300"
                             onClick={onBlock}
+                            disabled={isLoading}
                         >
                             Nutzer blockieren
                         </AlertDialogAction>

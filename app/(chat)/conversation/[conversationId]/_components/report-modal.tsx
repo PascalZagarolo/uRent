@@ -1,12 +1,13 @@
 'use client';
 
+import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -15,7 +16,7 @@ import { MdOutlineReportProblem } from "react-icons/md";
 
 const ReportModal = () => {
 
-    const params = useParams();
+    const conversationId = useSearchParams().get("conversationId");
 
     const [reportCause, setReportCause] = useState<"BELEIDIGUNG" | "DISKRIMINIERUNG" | "BETRUG" | "SPAM" | "SONSTIGES" >(null);
     const [moreContent, setMoreContent] = useState<string>("");
@@ -27,15 +28,26 @@ const ReportModal = () => {
                 content : moreContent,
             }
 
-            await axios.post(`/api/report/${params.conversationId}/conversation`, values)
+            await axios.post(`/api/report/${conversationId}/conversation`, values)
                 .then(() => {
                     toast.success("Anzeige wurde erfolgreich gemeldet.")
                 })
-        } catch {
+        } catch(e : any) {
             toast.error("Fehler beim melden der Anzeige.")
+            console.log(e);
         }
 
     }
+
+    const handleTextChange = (event) => {
+        const newText = event.target.value;
+        const lines = newText.split('\n');
+
+        // Only update text if line count is within limit
+        if (lines.length <= 30) {
+            setMoreContent(newText);
+        }
+    };
 
 
     return ( 
@@ -107,8 +119,16 @@ const ReportModal = () => {
                                 </Label>
                             <Textarea 
                             className="w-full  dark:bg-[#171717] dark:border-none"
-                            onChange={(e) => {setMoreContent(e.target.value)}}
+                            onChange={handleTextChange}
+                            value={moreContent}
+                            maxLength={5000}
                             />
+                            <div>
+                                <LetterRestriction 
+                                limit={5000}
+                                currentLength={moreContent.length}
+                                />
+                            </div>
                             </div>
                         </div>
                        

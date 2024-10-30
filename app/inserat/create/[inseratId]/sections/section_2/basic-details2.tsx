@@ -162,7 +162,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         <>
             <div className="flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    Grundlegende Angaben (2/2) {isMulti}
+                    Grundlegende Angaben (2/2) 
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du die grundlegenden Angaben zu deinem Inserat machen. <br />
                         Gebe anderen Nutzern einen ersten Eindruck von deinem Inserat.

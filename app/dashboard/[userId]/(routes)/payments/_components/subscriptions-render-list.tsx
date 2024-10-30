@@ -58,7 +58,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                         <TableCaption>Deine laufenden Abonnements, bei Unklarheiten kontaktiere uns unter support@urent-rental.de</TableCaption>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[120px]">Rechnungsnr.</TableHead>
+                                <TableHead className="w-[120px]">Abo-ID</TableHead>
                                 <TableHead className="">Anz. Inserate</TableHead>
                                 <TableHead>Ablaufdatum</TableHead>
                                 <TableHead>Verwalten</TableHead>

@@ -279,7 +279,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                 </FacebookShareButton>
                                 <TwitterShareButton
                                 className="p-2 bg-[#202020] rounded-md shadow-xl"
-                                    title="Dieses Produkt habe ich auf Urent gefunden, Wow!"
+                                    title="Dieses Fahrzeug habe ich auf Urent gefunden!"
                                     hashtags={["Urent", "Mietwagen", "Autovermietung", "Inserat"]}
                                     url={currentUrl}>
                                         <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
@@ -289,8 +289,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                 <EmailShareButton
                                 className="p-2 bg-[#202020] rounded-md shadow-xl"
                                     url={currentUrl}
-                                    subject="Dieses Produkt habe ich auf Urent gefunden, Wow!"
-                                    body="Hallo, ich habe dieses Produkt auf Urent gefunden und wollte es dir zeigen.">
+                                    subject="Dieses Fahrzeug habe ich auf uRent gefunden"
+                                    body="Hallo, ich habe dieses Fahrzeug auf Urent gefunden und wollte es dir zeigen.">
                                         <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
                                     <Mail size={24} className="text-white" />
                                     </div>

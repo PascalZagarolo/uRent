@@ -17,6 +17,7 @@ import Avatar from "./avatar";
 import BusinessHeaderAvatar from "./business-header/business-header-avatar";
 import ProfilePicBusiness from "./business-header/profile-pic-business";
 import ContactUser from "./business-header/contact-user";
+import UserOptions from "./business-render/user-options";
 
 interface UploadBusinessPicsProps {
     usedImages: typeof businessImages.$inferSelect[];
@@ -212,10 +213,11 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
             )}
 
             {!ownProfile && (
-                <div className="absolute bottom-[-20px] right-8">
+                <div className="absolute bottom-[-20px] right-8 flex flex-row items-center space-x-4">
                     <ContactUser
                         currentUser={currentUser}
                     />
+                    
                 </div>
             )}
         </div>

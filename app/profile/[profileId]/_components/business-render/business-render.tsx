@@ -38,6 +38,7 @@ const BusinessRender = ({
                         firstName={thisUser?.vorname}
                         lastName={thisUser?.nachname}
                         joinedAt={thisUser?.createdAt}
+                        ownProfile={ownProfile}
                     />
                 </div>
                 <div className="md:w-1/2 w-full">

@@ -22,6 +22,20 @@
       "when": 1725990837991,
       "tag": "0002_outgoing_jackal",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1730300320937,
+      "tag": "0003_classy_maximus",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1730312874519,
+      "tag": "0004_glossy_edwin_jarvis",
+      "breakpoints": true
     }
   ]
 }

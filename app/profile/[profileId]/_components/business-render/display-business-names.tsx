@@ -4,6 +4,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { format } from "date-fns";
 import { CheckIcon, User2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
+import UserOptions from "./user-options";
 
 interface DisplayBusinessNamesProps {
     name: string;
@@ -11,10 +12,11 @@ interface DisplayBusinessNamesProps {
     firstName: string;
     lastName: string;
     joinedAt: Date;
+    ownProfile?: boolean;
 }
 
 
-const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joinedAt }: DisplayBusinessNamesProps) => {
+const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joinedAt, ownProfile }: DisplayBusinessNamesProps) => {
 
     const params = useParams().profileId;
 
@@ -23,13 +25,19 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
     return (
         <div className="mt-12 md:px-8 px-4">
             <div className="flex flex-row items-center">
-                <p className="text-gray-200 text-2xl font-semibold">{name}</p> {uRent &&
+                <p className="text-gray-200 text-2xl font-semibold break-all line-clamp-1">{name}</p> 
+                {!ownProfile && (
+                    <div className="ml-auto pl-4">
+                        <UserOptions />
+                    </div>
+                )}
+                {uRent &&
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <CheckIcon className="w-6 h-6 ml-4 text-indigo-800" />
+                                <CheckIcon className="w-6 h-6 ml-2 text-indigo-800" />
                             </TooltipTrigger>
-                            <TooltipContent className="bg-[#222222] shadow-lg border-none">
+                            <TooltipContent className="bg-[#222222] shadow-lg border-none ">
                                 <div className="text-sm text-gray-200">
                                     <p>Offizieller Account</p>
                                 </div>

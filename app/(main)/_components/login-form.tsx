@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -30,15 +30,18 @@ import toast from "react-hot-toast";
 
 import { ClipLoader } from "react-spinners";
 import { FormConfirmEmail } from "./form-confirm-email";
+import { GrPowerReset } from "react-icons/gr";
+import { resend2Fa } from "@/actions/2fa/2fa-actions";
+import { set } from "lodash";
 
 
 
 interface LoginFormProps {
-  existingMessage? : string
+  existingMessage?: string
 }
 
 
-export const LoginForm = ({ existingMessage } : LoginFormProps) => {
+export const LoginForm = ({ existingMessage }: LoginFormProps) => {
   const searchParams = useSearchParams();
 
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
@@ -64,7 +67,16 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
     },
   });
 
+  useEffect(() => {
+    if(showTwoFactor) {
+      setTimeout(() => {
+        setShowResend(true)
+      }, 5000)
+    }
+  },[showTwoFactor])
+
   const [showPassword, setShowPassword] = useState(false);
+  const [showResend, setShowResend] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -74,7 +86,7 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
     setSuccess("");
     setConfirmEmail("");
     startTransition(() => {
-      
+
       login(values)
 
         .then((data) => {
@@ -88,7 +100,7 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
 
 
           if (data?.success) {
-            
+
             setSuccess(data.success);
             form.reset();
             toast.success("Erfolgreich eingeloggt");
@@ -100,14 +112,14 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
 
           }
 
-          if(data?.confirmEmail) {
+          if (data?.confirmEmail) {
             setConfirmEmail(data.confirmEmail);
             setAccountEmail(values.email);
             setIsLoading(false);
           }
 
           if (data?.twoFactor) {
-
+            setAccountEmail(values.email);
             setIsLoading(false);
             setShowTwoFactor(true);
           }
@@ -146,6 +158,20 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
     }, 200)
   }
 
+  const onResend = async () => {
+      try { 
+        setIsLoading(true)
+        console.log(accountEmail)
+        await resend2Fa(accountEmail)
+        setShowResend(false);
+        toast.success("Dir wurde ein neuer Code an deine Email gesendet.")
+      } catch(e : any) {
+        console.log(e)
+      } finally {
+        setIsLoading(false)
+      }
+  }
+
   return (
     <CardWrapper
       headerLabel="Willkommen zurück"
@@ -164,19 +190,26 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
                 control={form.control}
                 name="code"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>2FA Code</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        placeholder=""
-                        className="bg-[#1B1F2C]"
-                        maxLength={100}
+                  <FormItem className="space-y-0">
+                    <div>
+                      <FormLabel>2FA Code</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder=""
+                          className="bg-[#1B1F2C] border-none"
+                          maxLength={100}
 
-                      />
-                    </FormControl>
-                    <FormMessage />
+                        />
+                      </FormControl>
+                      <FormMessage />
+                      {showResend && (
+                        <div className="flex flex-row items-center mt-2 text-gray-200/60 text-sm text-center w-full hover:underline hover:text-gray-200" onClick={onResend}>
+                          <GrPowerReset className="w-4 h-4 mr-2 " /> <span className=""> Keinen Code erhalten? </span>
+                        </div>
+                      )}
+                    </div>
                   </FormItem>
                 )}
               />
@@ -191,7 +224,7 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
-                          {...field}
+                         {...field}
                           disabled={isPending}
                           placeholder=""
                           type="email"
@@ -254,7 +287,7 @@ export const LoginForm = ({ existingMessage } : LoginFormProps) => {
                 <ClipLoader color="#fff" loading={isLoading} size={20} />
               ) :
               (
-                 showTwoFactor? "Bestätigen": "Anmelden" 
+                showTwoFactor ? "Bestätigen" : "Anmelden"
               )}
           </Button>
         </form>

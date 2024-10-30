@@ -155,7 +155,8 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     };
 
     return (
-        <div className="w-full rounded-lg bg-[#161923] p-6 shadow-lg">
+        <div>
+            <div className="w-full rounded-lg bg-[#161923] p-6 shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-between mb-4">
                 <div className="flex  space-x-1">
                     <span className="text-4xl font-bold text-white">{usedPrice.slice(0, -3)}</span>
@@ -186,7 +187,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     </div>
                 </div>
             ) : (
-                <div>
+                <div className="w-full">
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button
@@ -250,7 +251,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                 </div>
             )}
 
-            <div className="flex space-x-4 mt-6">
+            <div className="flex flex-row w-full space-x-4 mt-6">
                 <Button
                     className="flex items-center justify-center w-full py-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200  shadow-lg  rounded-lg transition ease-in-out"
                     variant="secondary"
@@ -310,6 +311,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     </DialogContent>
                 </Dialog>
             </div>
+        </div>
         </div>
     );
 

@@ -42,7 +42,7 @@ const RenderAsHtml: React.FC<RenderAsHtmlProps> = ({
         <div>
             <PDFDownloadLink document={
                 <InvoiceTemplate
-                    price={price}
+                    price={price as any}
                     invoice_no={invoice_no}
                     address={address}
                     plan={plan}

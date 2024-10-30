@@ -188,15 +188,15 @@ const InseratAnzeige = async ({
                     />
                 </div>
                 <div className="h-full w-full">
-                    <div className='flex flex-row justify-center w-full mt-8'>
+                    <div className='md:flex md:flex-row justify-center w-full mt-8'>
                         <div className='h-screen xl:flex hidden items-center w-2/12 '>
                             <div className='w-full xl:block hidden '>
                                 <AdsComponent dataAdSlot='3797720061' />
                             </div>
                         </div>
                         {/* Inserat side left */}
-                        <div className='flex flex-row justify-center 3xl:w-6/12 w-full space-x-4'>
-                            <div className='w-7/12  flex flex-col '>
+                        <div className='md:flex md:flex-row justify-center 3xl:w-6/12 w-full md:space-x-4'>
+                            <div className='md:w-7/12 w-full  flex flex-col '>
                                 <div>
                                     <BreadCrumbs
                                         thisCategory={thisInserat.category}
@@ -211,15 +211,15 @@ const InseratAnzeige = async ({
                                     />
                                 </div>
                                 <div>
-                                    <InseratAttributes
+                                <InseratAttributes
                                         thisInserat={thisInserat}
                                     />
                                 </div>
                             </div>
                             {/* Inserat side right */}
-                            <div className='w-4/12 flex flex-col '>
-                                <div className='mt-10'>
-                                    <InseratOptions
+                            <div className='md:w-4/12 w-full flex flex-col '>
+                            <div className='mt-10'>
+                                <InseratOptions
                                         inseratArray = {inseratArray}
                                         thisUser={thisInserat.user}
                                         bookings={inseratBookings}
@@ -228,7 +228,7 @@ const InseratAnzeige = async ({
                                         thisInserat={thisInserat}
                                     />
                                 </div>
-                                <div className='mt-8'>
+                                 <div className='mt-8'>
                                     <ProfileView
                                         thisUser={thisInserat.user}
                                         inseratArray={inseratArray.length}
@@ -241,7 +241,7 @@ const InseratAnzeige = async ({
                                         thisUser={thisInserat.user}
                                         inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
                                     />
-                                </div>
+                                </div> 
                             </div>
                         </div>
 

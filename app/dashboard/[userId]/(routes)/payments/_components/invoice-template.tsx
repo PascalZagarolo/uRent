@@ -9,54 +9,45 @@ const styles = StyleSheet.create({
         paddingRight: 40,
         lineHeight: 1.5,
         flexDirection: 'column',
-        backgroundColor: '#2D314B',  // Lightened background for higher contrast
-        color: '#FFFFFF'  // Text remains white for readability
+        backgroundColor: '#FFFFFF',  // White background for a clean look
+        color: '#333333'  // Dark gray text for readability
     },
 
-    spaceBetween: {
+    headerContainer: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 10
-    },
-
-    titleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 20
+        marginBottom: 30
     },
 
     logo: {
-        width: 60
+        width: 80
+    },
+
+    companyDetails: {
+        textAlign: 'right'
     },
 
     reportTitle: {
-        fontSize: 16,
-        fontWeight: "demibold",
-        color: '#FFFFFF'  // White text for clarity
-    },
-
-    invoiceTitle: {
-        fontSize: 12,
-        fontWeight: 'bold',
-        color: '#FFFFFF',  // White text for clarity
-        marginBottom: 5
+        fontSize: 18,
+        fontWeight: "bold",
+        color: '#333333'
     },
 
     subHeading: {
         fontSize: 9,
-        color: '#D9D9D9'  // Lighter gray for subheadings
+        color: '#666666'
     },
 
     invoiceDetails: {
         fontSize: 10,
-        color: '#FFFFFF',  // White text for main invoice details
+        color: '#333333',
         marginBottom: 8
     },
 
     address: {
         fontSize: 10,
-        color: '#CCCCCC',  // Light gray for address text
+        color: '#666666',
         lineHeight: 1.4
     },
 
@@ -64,33 +55,31 @@ const styles = StyleSheet.create({
         fontSize: 9,
         fontWeight: 'bold',
         padding: 6,
-        backgroundColor: '#202336',  // The logo color for table headers
-        color: '#FFFFFF',  // White text for the table header
+        backgroundColor: '#F2F2F2',  // Light gray for table headers
+        color: '#333333',  // Dark text for table headers
         textAlign: 'center'
     },
 
     tableRow: {
         flexDirection: 'row',
-        paddingVertical: 6,
-  
-
+        paddingVertical: 8,
     },
 
     rowLight: {
-        backgroundColor: '#363B57'  // Subtle lighter shade for alternating row background
+        backgroundColor: '#F9F9F9'  // Alternating row background
     },
 
     column: {
         flex: 1,
         textAlign: 'center',
-        color: '#FFFFFF'  // White text for table columns
+        color: '#333333'
     },
 
     columnDesc: {
         flex: 3,
         textAlign: 'left',
         paddingLeft: 10,
-        color: '#FFFFFF'  // White text for descriptions
+        color: '#333333'
     },
 
     totalSection: {
@@ -99,20 +88,33 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         paddingVertical: 10,
         borderTopWidth: 1,
-        borderTopColor: '#363B57'  // Light gray for total section border
+        borderTopColor: '#DDDDDD'
     },
 
     totalLabel: {
-        fontWeight: 'black',
+        fontWeight: 'bold',
         fontSize: 11,
-        color: '#FFFFFF',  // White text for total label
+        color: '#333333',
         marginRight: 10
     },
 
     totalValue: {
         fontSize: 11,
-        color: '#FFFFFF'  // White text for total value
-    }
+        color: '#333333'
+    },
+
+    footer: {
+        marginTop: 20,
+        fontSize: 8,
+        color: '#888888',
+        textAlign: 'center'
+    },
+
+    spaceBetween: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10
+    },
 });
 
 const reciept_data = {
@@ -120,6 +122,7 @@ const reciept_data = {
     "invoice_no": "20200669",
     "address": "Gnieselbert Haselmus Muster Weg, 42833 Magnesiumsglocke, Rumänien",
     "date": "20.07.2024",
+    "vat_id": "DE123456789", // German VAT ID
     "items": [
         {
             "id": 1,
@@ -131,26 +134,21 @@ const reciept_data = {
 };
 
 const InvoiceTitle = () => (
-    <View style={styles.titleContainer}>
+    <View style={styles.headerContainer}>
         <Image style={styles.logo} src="/uRent.png" />
-        <Text style={styles.reportTitle}>uRent UG</Text>
+        <View style={styles.companyDetails}>
+            <Text style={styles.reportTitle}>uRent UG</Text>
+            <Text style={styles.subHeading}>Bozenerstr. 26, Solingen, NRW, Deutschland</Text>
+            <Text style={styles.subHeading}>VAT ID: DE123456789</Text> {/* VAT ID added */}
+        </View>
     </View>
 );
 
 const InvoiceDetails = ({ invoice_no, date }) => (
     <View style={styles.spaceBetween}>
         <View>
-            <Text style={styles.invoiceTitle}>Rechnung</Text>
-            <Text style={styles.subHeading}>Rechnungsnr.:</Text>
-            <Text style={styles.invoiceDetails}>{invoice_no}</Text>
-            <Text style={styles.subHeading}>Datum:</Text>
-            <Text style={styles.invoiceDetails}>{date}</Text>
-        </View>
-        <View>
-            <Text style={styles.subHeading}>Absender:</Text>
-            <Text style={styles.address}>Bozenerstr. 26</Text>
-            <Text style={styles.address}>Solingen, NRW</Text>
-            <Text style={styles.address}>Deutschland</Text>
+            <Text style={styles.invoiceDetails}>Rechnungsnr.: {invoice_no}</Text>
+            <Text style={styles.invoiceDetails}>Rechnungsdatum: {date}</Text>
         </View>
     </View>
 );
@@ -193,7 +191,7 @@ const TableTotal = ({ total }) => (
     </View>
 );
 
-const InvoiceTemplate = ({ price, invoice_no, address, date, plan, amount }) => {
+const InvoiceTemplate = ({ price, invoice_no, address, date }) => {
     const total = reciept_data.items.reduce((acc, item) => acc + (item.price * item.qty), 0);
 
     return (
@@ -205,6 +203,7 @@ const InvoiceTemplate = ({ price, invoice_no, address, date, plan, amount }) => 
                 <TableHead />
                 <TableBody items={reciept_data.items} />
                 <TableTotal total={total} />
+                <Text style={styles.footer}>Vielen Dank für Ihre Bestellung bei uRent UG. Bei Fragen zur Rechnung wenden Sie sich bitte an support@urent.com.</Text>
             </Page>
         </Document>
     );

@@ -13,8 +13,9 @@ const MobileLogoDialog = () => {
                     router.push('/')
                 }}>
                     
-                    <div className="text-[#4e5889] font-font-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</div>
-                    <p className="text-[#eaebf0] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.7)]">Rent</p>
+                    <span className="text-xl text-gray-200 font-semibold shadow-lg">
+                        uRent
+                    </span>
                 </h3>
             
     );

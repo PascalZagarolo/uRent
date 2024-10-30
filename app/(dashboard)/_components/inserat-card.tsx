@@ -441,16 +441,16 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         <div className="font-semibold text-gray-900 flex mt-2 items-center w-full ">
                             <div className="flex ">
                                 <div className="flex border-none   p-2 rounded-r-md 
-                              text-gray-200  px-4 sm:text-base 
-                             text-xs items-center ">
+                              text-gray-200  px-4 text-base 
+                              items-center ">
 
                                     {thisInserat.price} €  <div className="text-[10px] ml-1 mr-1" > / Tag</div>
                                        
                                 </div>
                             </div>
-                            <a className={cn(`ml-auto w-2/3 gap-x-2 hover:underline  sm:w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
+                            <a className={cn(`ml-auto  gap-x-2 hover:underline  w-1/2 flex items-center dark:[#171923] dark:border-[#171923] 
                           shadow-lg
-                        p-2 sm:pl-2 pl-0 sm:rounded-l-md text-gray-300 
+                        p-2 sm:pl-2 pl-0 rounded-l-md text-gray-300 
                          sm:truncate text-sm justify-center hover:cursor-pointer bg-indigo-800`, 
                         thisInserat?.color ? HighlightColorsBackground[thisInserat?.color] : "bg-indigo-800"
                         )}
@@ -465,7 +465,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     <div>
                                         <CalendarCheckIcon className="w-4 h-4 mr-2" />
                                     </div>
-                                    <span>
+                                    <span className="sm:text-base text-xs">
                                         Verfügbarkeit prüfen
                                     </span>
                                 </div>

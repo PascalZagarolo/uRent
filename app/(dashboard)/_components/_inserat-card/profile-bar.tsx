@@ -127,9 +127,9 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                             alt="User-Bild"
                         />
                     </div>
-                    <Link href={`/profile/${thisInserat.userId}`} className="w-1/2 truncate">
-                        <div className=" font-semibold text-gray-200  items-center flex truncate">
-                            <div className="w-3/4 line-clamp-1 text-base">
+                    <Link href={`/profile/${thisInserat.userId}`} className="w-1/2 ">
+                        <div className=" font-semibold text-gray-200  items-center flex ">
+                            <div className="w-3/4 line-clamp-1 sm:text-base text-sm break-all">
                                 {thisInserat.user?.name}
                             </div>
 

@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { businessAddress } from "@/db/schema";
 import Standort from "../../standort";
 import StandortDisplay from "./standort-display";
+import { FaExchangeAlt } from "react-icons/fa";
 
 
 
@@ -31,17 +32,18 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     foundAddress
 }) => {
 
-    console.log(foundAddress);
 
-    const onDrop = useCallback((acceptedFiles : any, rejectedFiles : any) => {
+
+    const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
         try {
             setIsLoading(true);
-            acceptedFiles.forEach((file : any) => {
-                setSelectedImages((prevState) => [...prevState, file]);
-                
+            acceptedFiles.forEach((file: any) => {
+                console.log(file)
+                setSelectedImage(file);
+
             });
-            
-            handleUpload(acceptedFiles);
+
+
         } catch (e: any) {
             console.log(e);
         } finally {
@@ -49,11 +51,11 @@ const StandortRender: React.FC<StandortRenderProps> = ({
         }
     }, []);
 
-    const [selectedImages, setSelectedImages] = useState([]);
+    const [selectedImage, setSelectedImage] = useState();
     const [isUploaded, setIsUploaded] = useState(false);
 
     const onDelete = () => {
-        setSelectedImages([]);
+        setSelectedImage(undefined);
         setIsUploaded(false);
         setCurrentUrl("");
     }
@@ -64,40 +66,46 @@ const StandortRender: React.FC<StandortRenderProps> = ({
         isDragActive,
         isDragAccept,
         isDragReject,
-    } = useDropzone({ onDrop, maxFiles: 1, accept : { 
-        'image/png': ['.jpeg', '.png', '.webp', '.jpg'],
-    } });
+    } = useDropzone({
+        onDrop, maxFiles: 1, accept: {
+            'image/png': ['.jpeg', '.png', '.webp', '.jpg'],
+        }
+    });
 
-    const handleUpload = (acceptedFiles? : any) => {
+    const handleUpload = async (acceptedFiles?: any) => {
         try {
             setIsLoading(true);
             const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
             const formData = new FormData();
-            
-            let file : any;
-            
-            if(acceptedFiles) {
+
+            let file: any;
+
+            if (acceptedFiles) {
                 file = acceptedFiles[0];
-                
+
             } else {
-                file = selectedImages[0];
-                
+                file = selectedImage;
+
             }
             formData.append("file", file);
             formData.append("upload_preset", "oblbw2xl");
-            fetch(url, {
+            const response = await fetch(url, {
                 method: "POST",
                 body: formData
             })
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    
-                    setCurrentUrl(data.secure_url);
-                    setIsUploaded(true);
-                });
-        } catch(e : any) {
+                // .then((response) => {
+                //     return response.json();
+                // })
+                // .then((data) => {
+
+                //     setCurrentUrl(data.secure_url);
+                //     setIsUploaded(true);
+                // });
+            const formattedResponse = await response.json();
+           
+            
+            return formattedResponse.secure_url;
+        } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Hochladen des Bildes");
         } finally {
@@ -120,12 +128,13 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     const onCreate = async () => {
         try {
             setIsLoading(true);
+            const uploadUrl = await handleUpload();
             const values = {
                 street: currentStreet,
                 city: currentCity,
                 postalCode: currentPostalCode,
-                image: currentUrl,
-                title : currentTitle
+                image: uploadUrl,
+                title: currentTitle
             }
 
             await axios.post(`/api/business/${businessId}/businessAddress`, values);
@@ -160,16 +169,16 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                     </h1>
                 </div>
                 <div className="pb-8">
-                {foundAddress?.length > 0 ? (
+                    {foundAddress?.length > 0 ? (
                         foundAddress
                             .sort((a, b) => (a.isPrimary === b.isPrimary ? 0 : a.isPrimary ? -1 : 1)) // Sort addresses with primary first
                             .map((address, index) => (
                                 <div className="" key={index}>
                                     <StandortDisplay
-                                    thisStandort={address}
-                                    ownProfile={ownProfile}
-                                    key={index}
-                                />
+                                        thisStandort={address}
+                                        ownProfile={ownProfile}
+                                        key={index}
+                                    />
                                 </div>
                             ))
                     ) : (
@@ -187,39 +196,44 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                     <div className="mt-4">
                         <div>
                             <Label className="flex gap-x-2 items-center">
-                                <ImageIcon className="w-4 h-4" />  Foto 
-                                
+                                <ImageIcon className="w-4 h-4" />  Foto
+
                             </Label>
                             <p className="text-xs dark:text-gray-200/70 flex items-center">
                                 Lade, falls gewünscht ein Bild von deinem Standort hoch
-                                
+
                             </p>
                             <div className="ml-auto relative flex justify-end w-full">{currentUrl && (
                                 <Button variant="ghost" size="sm" className="mt-2 " onClick={onDelete}>
-                                <TrashIcon className="w-4 h-4 text-rose-600" /> 
-                            </Button>
+                                    <TrashIcon className="w-4 h-4 text-rose-600" />
+                                </Button>
                             )}</div>
 
-                            {selectedImages.length > 0 ? (
+                            {selectedImage  ? (
                                 <>
-                                    {selectedImages.map((image, index) => (
-                                        <Image src={`${URL.createObjectURL(image)}`} key={index}
+                                   
+                                        <Image src={`${URL.createObjectURL(selectedImage)}`} 
                                             alt=""
                                             width={500}
                                             height={500}
                                             className="w-full object-cover h-[160px] mt-2"
                                         />
-                                    ))}
-                                    {isUploaded ? (
-                                        <div className="text-xs gap-1 flex mt-2">
+                                   
+                                    <div className="flex flex-row items-center w-full space-x-4 mt-2">
 
-                                            <CheckIcon className="w-4 h-4 text-green-600" /> Hochgeladen
-                                        </div>
-                                    ) : (
-                                        <Button onClick={handleUpload} variant="ghost" size="sm">
-                                            Verwenden
+                                        <Button className="bg-[#222222] shadow-lg hover:bg-[#292929] w-1/2" variant="ghost"
+                                            {...getRootProps()}
+                                        >
+                                            <input {...getInputProps()} />
+                                            <FaExchangeAlt className="w-4 h-4 mr-2" /> Bild ändern
                                         </Button>
-                                    )}
+
+                                        <Button className="w-1/2 bg-rose-600 hover:bg-rose-700 shadow-lg text-gray-200 hover:text-gray-300"
+                                            onClick={onDelete}
+                                        >
+                                            <TrashIcon className="w-4 h-4 mr-2" />  Bild löschen
+                                        </Button>
+                                    </div>
                                 </>
                             ) : (
                                 <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
@@ -245,11 +259,11 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                     <Label>
                                         Name des Standorts
                                     </Label>
-                                    <Input 
-                                    className="dark:bg-[#1C1C1C] border-none"
-                                    onChange={(e) => setCurrentTitle(e.target.value)}
-                                    placeholder="z.B. Autohaus Mömer"
-                                    maxLength={120}
+                                    <Input
+                                        className="dark:bg-[#1C1C1C] border-none"
+                                        onChange={(e) => setCurrentTitle(e.target.value)}
+                                        placeholder="z.B. Autohaus Mömer"
+                                        maxLength={120}
                                     />
                                 </div>
                                 <div className="w-full flex gap-4">
@@ -297,8 +311,8 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                     <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]"
                                         onClick={onCreate}
                                         disabled={currentStreet.trim() === "" || currentPostalCode === "" || currentCity.trim() === "" ||
-                                            currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode)) || isLoading || !currentTitle || 
-                                        currentTitle.trim() === ""
+                                            currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode)) || isLoading || !currentTitle ||
+                                            currentTitle.trim() === ""
                                         }
 
                                     >

@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
-import { FaRegEdit } from "react-icons/fa";
+import { FaExchangeAlt, FaRegEdit } from "react-icons/fa";
 import { IoMdInformationCircleOutline, IoMdLocate } from "react-icons/io";
 
 interface StandortDisplayProps {
@@ -34,12 +34,10 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
     const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
         try {
             setIsLoading(true);
+            setDeleteImage(false);
             acceptedFiles.forEach((file: any) => {
-                setSelectedImages((prevState) => [...prevState, file]);
-
+                setSelectedImage(file);
             });
-
-            handleUpload(acceptedFiles);
         } catch (e: any) {
             console.log(e);
         } finally {
@@ -47,9 +45,9 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
         }
     }, []);
 
-    const [selectedImages, setSelectedImages] = useState([]);
+    const [selectedImage, setSelectedImage] = useState();
     const [isUploaded, setIsUploaded] = useState(false);
-    const [currentUrl, setCurrentUrl] = useState(thisStandort?.image);
+
     const [currentTitle, setCurrentTitle] = useState(thisStandort?.title);
     const [currentStreet, setCurrentStreet] = useState(thisStandort?.street);
     const [currentCity, setCurrentCity] = useState(thisStandort?.city);
@@ -58,6 +56,8 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
     const [isPrimary, setIsPrimary] = useState(thisStandort?.isPrimary);
 
     const [shownImage, setShownImage] = useState<string>(thisStandort?.image);
+
+    const [deleteImage, setDeleteImage] = useState(false);
 
     const router = useRouter();
 
@@ -71,7 +71,7 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
 
 
 
-    const handleUpload = (acceptedFiles?: any) => {
+    const handleUpload = async (acceptedFiles?: any) => {
         try {
             setIsLoading(true);
             const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
@@ -83,23 +83,18 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
                 file = acceptedFiles[0];
 
             } else {
-                file = selectedImages[0];
+                file = selectedImage;
 
             }
             formData.append("file", file);
             formData.append("upload_preset", "oblbw2xl");
-            fetch(url, {
+            const response = await fetch(url, {
                 method: "POST",
                 body: formData
             })
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
+            const formattedResponse = await response.json();
+            return formattedResponse.secure_url;
 
-                    setCurrentUrl(data.secure_url);
-                    setIsUploaded(true);
-                });
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Hochladen des Bildes");
@@ -110,17 +105,30 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
 
     const onEdit = async () => {
         try {
+            let url;
+
+            if (selectedImage) {
+                console.log("selectedImage", selectedImage);
+                url = await handleUpload();
+            } else if (deleteImage) {
+                url = null;
+            }
+            else {
+                url = thisStandort?.image;
+            }
+            console.log(url)
             const values = {
                 street: currentStreet,
                 city: currentCity,
                 postalCode: Number(currentPostalCode),
-                image: currentUrl,
-                title : currentTitle
+                image: url,
+                title: currentTitle
             }
 
-            await axios.patch(`/api/businessAddress/${thisStandort.id}`, values).then(() => {
-                router.refresh();
-            })
+            setSelectedImage(undefined);
+            await axios.patch(`/api/businessAddress/${thisStandort.id}`, values)
+            router.refresh();
+
             toast.success("Standort erfolgreich geändert");
 
         } catch {
@@ -129,17 +137,8 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
     }
 
     const onDelete = async () => {
-        try {
-            setIsLoading(true);
-            await axios.delete(`/api/businessAddress/${thisStandort.id}`).then(() => {
-                router.refresh();
-            })
-            toast.success("Standort erfolgreich gelöscht");
-        } catch {
-            toast.error("Fehler beim Löschen");
-        } finally {
-            setIsLoading(false);
-        }
+        setDeleteImage(true);
+        setSelectedImage(undefined);
     }
 
     const onPrimary = async () => {
@@ -158,39 +157,41 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
     }
 
     const onDeleteImage = () => {
-        setSelectedImages([]);
+        setSelectedImage(undefined);
         setShownImage("");
         setIsUploaded(false);
-        setCurrentUrl("");
+
     }
 
     return (
         <Dialog>
             <AlertDialog>
                 <div className={cn("dark:bg-[#222222] mt-4 rounded-t-md shadow-lg rounded-lg")}>
-                    
+
                     {thisStandort?.image ? (
-                        <div className="w-full h-[200px]">
-                            <Image
-                                alt="map"
-                                src={thisStandort?.image}
+                        <>
+
+                            <Image src={thisStandort?.image}
+                                alt=""
                                 width={500}
-                                height={300}
-                                className="w-full object-cover h-[200px]"
+                                height={500}
+                                className="w-full object-cover h-[160px] mt-2"
                             />
-                        </div>
+
+
+                        </>
                     ) : (
-                        <div className="px-2 pb-2 text-xs flex justify-center ">
-                            <div className="dark:bg-[#1C1C1C] w-full p-8 dark:text-gray-200/70 flex justify-center">
-                                Kein Bild vorhanden..
-                            </div>
+                        <div className="w-full h-[160px] bg-[#222222] shadow-lg">
+                            <span className="flex justify-center h-full items-center">
+                                <IoMdLocate className="w-12 h-12 text-gray-200/60 mx-auto" />
+                            </span>
                         </div>
                     )}
                     <div className="sm:flex p-2  items-center" >
                         <div >
-                            
+
                             <div className="sm:text-base text-xs px-2 font-semibold w-full break-all line-clamp-1 gap-x-2  items-center">
-                            
+
                                 {thisStandort?.title}
                             </div>
                         </div>
@@ -229,11 +230,11 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
                         )}
                     </div>
                     <div className="flex p-2">
-                            <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
-                            <div className="sm:text-sm text-xs font-semibold text-gray-200/95">
-                                {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
-                            </div>
+                        <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
+                        <div className="sm:text-sm text-xs font-semibold text-gray-200/95">
+                            {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
                         </div>
+                    </div>
                 </div>
                 <DialogContent className="dark:bg-[#191919] dark:border-none">
                     <div>
@@ -252,56 +253,49 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
                                 <p className="text-xs dark:text-gray-200/70">
                                     Lade, falls gewünscht ein Bild von deinem Standort hoch
                                 </p>
-                                <div className="ml-auto relative flex justify-end w-full">{currentUrl && (
-                                    <Button variant="ghost" size="sm" className="mt-2 " onClick={onDeleteImage}>
-                                        <TrashIcon className="w-4 h-4 text-rose-600" />
-                                    </Button>
-                                )}</div>
 
-                                {selectedImages.length > 0 ? (
+
+                                {((selectedImage || thisStandort?.image) && !deleteImage) ? (
                                     <>
-                                        {selectedImages.map((image, index) => (
-                                            <Image src={`${URL.createObjectURL(image)}`} key={index}
-                                                alt=""
-                                                width={500}
-                                                height={500}
-                                                className="w-full object-cover h-[160px] mt-2"
-                                            />
-                                        ))}
-                                        {isUploaded ? (
-                                            <div className="text-xs gap-1 flex mt-2 items-center">
 
-                                                <CheckIcon className="w-4 h-4 text-green-600" /> Hochgeladen
-
-                                            </div>
-                                        ) : (
-                                            <Button onClick={handleUpload} variant="ghost" size="sm">
-                                                Verwenden
-                                            </Button>
-                                        )}
-                                    </>
-                                ) : (
-                                    shownImage ? (
-                                        <Image src={shownImage}
+                                        <Image src={
+                                            selectedImage ? URL.createObjectURL(selectedImage) : thisStandort?.image
+                                        }
                                             alt=""
                                             width={500}
                                             height={500}
                                             className="w-full object-cover h-[160px] mt-2"
                                         />
-                                    ) : (
-                                        <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
-                                        dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
-                                            <input {...getInputProps()} />
-                                            {isDragActive ? (
-                                                <p>Ziehe hier rein</p>
-                                            ) : (
-                                                <p>Ziehe Bilder rein oder klicke hier</p>
-                                            )}
+
+                                        <div className="flex flex-row items-center w-full space-x-4 mt-2">
+
+                                            <Button className="bg-[#222222] shadow-lg hover:bg-[#292929] w-1/2" variant="ghost"
+                                                {...getRootProps()}
+                                            >
+                                                <input {...getInputProps()} />
+                                                <FaExchangeAlt className="w-4 h-4 mr-2" /> Bild ändern
+                                            </Button>
+
+                                            <Button className="w-1/2 bg-rose-600 hover:bg-rose-700 shadow-lg text-gray-200 hover:text-gray-300"
+                                                onClick={onDelete}
+                                            >
+                                                <TrashIcon className="w-4 h-4 mr-2" />  Bild löschen
+                                            </Button>
                                         </div>
-                                    )
+                                    </>
+                                ) : (
+                                    <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
+                             dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
+                                        <input {...getInputProps()} />
+                                        {isDragActive ? (
+                                            <p>Ziehe hier rein</p>
+                                        ) : (
+                                            <p>Ziehe Bilder rein oder klicke hier</p>
+                                        )}
+                                    </div>
                                 )}
 
-                                
+
 
 
 
@@ -314,14 +308,14 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
                                 <div>
                                     <div className="w-full">
                                         <Label className="font-semibold">
-                                        Name des Standorts
+                                            Name des Standorts
                                         </Label>
-                                        <Input 
-                                        value={currentTitle}
-                                        className="dark:bg-[#1C1C1C] border-none"
-                                        onChange={(e) => setCurrentTitle(e.target.value)}
-                                        placeholder="z.B. Autohaus Mömer"
-                                        maxLength={120}
+                                        <Input
+                                            value={currentTitle}
+                                            className="dark:bg-[#1C1C1C] border-none"
+                                            onChange={(e) => setCurrentTitle(e.target.value)}
+                                            placeholder="z.B. Autohaus Mömer"
+                                            maxLength={120}
                                         />
                                     </div>
                                     <div className="w-full flex gap-4">

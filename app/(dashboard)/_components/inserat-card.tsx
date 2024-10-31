@@ -463,9 +463,14 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             >
                                 <div className="flex flex-row px-2 items-center ">
                                     <div>
-                                        <CalendarCheckIcon className="w-4 h-4 mr-2" />
+                                        <CalendarCheckIcon className={cn(
+                                            "w-4 h-4 mr-2 text-gray-200",
+                                            (thisInserat?.isHighlighted && thisInserat?.color === "WHITE") && "text-gray-800" 
+                                        )} />
                                     </div>
-                                    <span className="sm:text-base text-xs">
+                                    <span className={cn("sm:text-base text-xs",
+                                    (thisInserat?.isHighlighted && thisInserat?.color === "WHITE") && "text-gray-800" 
+                                    )}>
                                         Verfügbarkeit prüfen
                                     </span>
                                 </div>

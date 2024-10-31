@@ -87,7 +87,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
             {
                 sectionId ? (
                     <div>
-                        <div className="w-full sm:bg-[#222222] px-4 rounded-lg shadow-lg sm:p-4 mt-4 sm:mb-8 sm:block hidden">
+                        <div className="w-full sm:bg-[#222222] px-4 rounded-lg shadow-lg sm:p-4 mt-4 sm:mb-2 sm:block hidden">
                             <h3 className="sm:text-2xl text-lg font-bold flex items-center w-full">
                                 <MdPostAdd className="mr-2" />  Inserat erstellen
                                
@@ -96,8 +96,11 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 Gebe Informationen zu deinem Inserat an - desto genauer du bist, desto eher finden dich potientielle Kunden.
                                 Du kannst jederzeit deine Angaben bearbeiten.
                             </p>
+                            
                         </div>
-                        
+                        <div className="text-xs text-gray-200/40 ml-auto flex justify-end md:px-0 px-4">
+                            InseratId : {thisInserat?.id}
+                        </div>
                         <div className="sm:px-4 px-4 mt-4 min-h-[600px] flex flex-col h-full sm:pb-0 pb-4">
                         {
                             {
@@ -117,6 +120,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                             }[sectionId]
                         }
                         </div>
+                        
                     </div>
                 ) : (
                     <div>

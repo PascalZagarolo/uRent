@@ -183,6 +183,9 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
 
                     </div>
                 </div>
+                <div className="text-xs text-gray-200/40 ml-auto flex justify-end ">
+                            InseratId : {thisInserat?.id}
+                        </div>
             </div>
         </div>
     );

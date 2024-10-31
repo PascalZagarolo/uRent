@@ -223,7 +223,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
                                                     "BOOKING_REQUEST": (
                                                         <div className="w-full">
                                                             <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/inserat/${notification?.inseratId}`}
+                                                                href={`/dashboard/${notification?.userId}?tab=manage`}
                                                             >
                                                                 {notification?.content}
                                                             </a> <br />

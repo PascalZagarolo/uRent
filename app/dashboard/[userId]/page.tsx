@@ -38,6 +38,12 @@ const DashboardPage = async ({
         customer: currentUser?.subscription?.stripe_customer_id
     })
     
+    console.log(existingInvoices.data[0])
+
+    const existingPayments = await stripe.paymentIntents.list({
+        customer: currentUser?.subscription?.stripe_customer_id
+    })
+
     let retrievedSubscription;
 
     if (currentUser.subscription?.stripe_subscription_id) {
@@ -58,6 +64,7 @@ const DashboardPage = async ({
                             currentUser={currentUser as any}
                             existingInvoices = {JSON?.parse(JSON?.stringify(existingInvoices))}
                             retrievedSubscription = {JSON?.parse(JSON?.stringify(retrievedSubscription ? retrievedSubscription : null))}
+                            existingPayments = {JSON?.parse(JSON?.stringify(existingPayments))}
                         />
                     </div>
                 </div>

@@ -9,15 +9,16 @@ interface PaymentsTabProps {
     currentUser: typeof userTable.$inferSelect | any;
     existingInvoices: any
     retrievedSubscription: any
+    existingPayments: any
 }
 
-const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription }: PaymentsTabProps) => {
+const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, existingPayments }: PaymentsTabProps) => {
 
     const existingSubscription = currentUser
 
     const stripeSubscription = existingInvoices?.data.filter((invoice: any) => existingSubscription?.subscription?.stripe_subscription_id)
 
-    const countInserate = currentUser.inserat.filter((inserat: any) => !inserat.isPublished)?.length;
+    
 
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">

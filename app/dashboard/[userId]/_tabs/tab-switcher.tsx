@@ -16,9 +16,10 @@ interface TabSwitcherProps {
     currentUser : typeof userTable.$inferSelect | any;
     existingInvoices : any;
     retrievedSubscription : any;
+    existingPayments : any
 }
 
-const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription } : TabSwitcherProps) => {
+const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription, existingPayments } : TabSwitcherProps) => {
 
    
 
@@ -34,7 +35,9 @@ const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription } : 
                 return <InserateTab currentUser = {currentUser} />
             case "payments":
                 return <PaymentsTab currentUser = {currentUser} 
-                existingInvoices = {JSON.parse(JSON.stringify(existingInvoices))} retrievedSubscription={JSON.parse(JSON.stringify(retrievedSubscription))} />
+                existingInvoices = {JSON.parse(JSON.stringify(existingInvoices))} 
+                retrievedSubscription={JSON.parse(JSON.stringify(retrievedSubscription))} 
+                existingPayments={JSON.parse(JSON.stringify(existingPayments))} />
             case "favourites":
                 return <FavouritesTab currentUser = {currentUser} />
             default : 

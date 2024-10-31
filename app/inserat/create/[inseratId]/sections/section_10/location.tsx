@@ -56,15 +56,15 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
 
 
 
-    const [value, setValue] = useState("");
-    const debouncedValue = useDebounce(value);
+   
+    
 
 
     const searchParams = useSearchParams();
 
 
-    const [confirmedAddress, setConfirmedAddress] = useState("");
-    const [confirmedZipCode, setConfirmedZipCode] = useState("");
+    const [inputAddress, setInputAddress] = useState("");
+    const [inputPostalCode, setInputPostalCode] = useState("");
 
 
 
@@ -82,8 +82,8 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
             if (place && place.address_components) {
                 // Handle address change here
                 const city = place.address_components.find(comp => comp.types.includes("locality"))?.long_name;
-                
-                setConfirmedAddress(city || "");
+                setInputAddress(city || "");
+                setCurrentAddress(city || "");
 
             }
         });
@@ -104,8 +104,9 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
             const zipCode = place.address_components?.find(comp => comp.types.includes("postal_code"))?.long_name;
 
             if (zipCode) {
-                setConfirmedZipCode(zipCode);
+                setInputPostalCode(zipCode);
                 setCurrentZipCode(zipCode);
+                
             }
         });
     }, [pOptions]);
@@ -115,11 +116,7 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
 
 
 
-    useEffect(() => {
-        //@ts-ignore
-        setCurrentAddress(inputRef?.current?.value)
-        //@ts-ignore
-    }, [inputRef?.current?.value])
+   
 
 
 
@@ -147,9 +144,9 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
                     <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1  sm:hidden block"> Standort ? </div>
                     <Input ref={inputRef} placeholder="Standort.."
                         className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
-                        onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
-                        defaultValue={currentAddress}
+                        value={inputAddress}
                         maxLength={60}
+                        onChange={(e) => setInputAddress(e.target.value)}
                     />
                 </div>
                 <div className=" w-1/2">
@@ -162,13 +159,14 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
                     <p className="text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:hidden block"> 5-Stellig </p>
                     <Input
                         ref={postalRef}
+                        value={inputPostalCode}
+                        onChange={(e) => setInputPostalCode(e.target.value)}
                         className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md text-sm border mt-2 border-black dark:bg-[#151515]
             justify-start dark:focus-visible:ring-0"
                         type="text"
                         pattern="[0-9]{5}"
                         maxLength={5}
-                        onChange={(e) => { setCurrentZipCode(e.target.value) }}
-                        value={currentZipCode}
+                       
                     />
                 </div>
             </div>
@@ -184,9 +182,9 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
                 </div>
                 <div className="flex flex-row items-center w-full space-x-4">
                     <div className="w-1/2 mt-2">
-                        {confirmedAddress ? (
+                        {currentAddress ? (
                             <div className="flex flex-row items-center space-x-2">
-                                <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> <span className="text-sm"> {confirmedAddress} </span>
+                                <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> <span className="text-sm"> {currentAddress} </span>
                             </div>
                         ) : (
                             <div className="flex flex-row items-center space-x-2">
@@ -195,9 +193,9 @@ const SelectLocationCreation: React.FC<SelectLocationCreationProps> = ({
                         )}
                     </div>
                     <div className="w-1/2">
-                        {confirmedZipCode ? (
+                        {currentZipCode ? (
                             <div className="flex flex-row items-center space-x-2">
-                               <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> <span className="text-sm"> {confirmedZipCode} </span>
+                               <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> <span className="text-sm"> {currentZipCode} </span>
                             </div>
                         ) : (
                             <div className="flex flex-row items-center space-x-2">

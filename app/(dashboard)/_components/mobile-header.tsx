@@ -15,6 +15,7 @@ import DashboardSheet from "./dashboard-sheet";
 import MobileLoginButton from "./mobile-login-button";
 import { notification, userTable } from '../../../db/schema';
 import { getOpenConversations } from "@/actions/getOpenConversations";
+import LocationBarMobile from "./location-bar-mobile";
 
 interface MobileHeaderProps {
     currentUser: typeof userTable.$inferSelect;
@@ -37,7 +38,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 
 
     return (
-        <div className="bg-[#1f2332] h-[140px] w-full">
+        <div className="bg-[#1f2332] h-[180px] w-full">
             <div className="flex items-center w-full">
                 <div className="flex items-center ml-2 w-full">
                     <div className="mr-4">
@@ -81,6 +82,10 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
             </div>
             <div className="w-full px-4">
                 <SearchItem />
+            </div>
+
+            <div className="w-full px-4 mt-4">
+                <LocationBarMobile />
             </div>
         </div>
     );

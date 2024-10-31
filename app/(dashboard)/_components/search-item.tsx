@@ -172,7 +172,7 @@ const SearchItem = () => {
         <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4" >
             <div className="w-full relative" >
                 <Input
-                    className="2xl:w-[272px] w-full border-none rounded-none dark:focus:bring-0 dark:focus-visible:ring-0 focus:border-none bg-[#1B1F2C]"
+                    className="2xl:w-[272px] w-full border-none rounded-none dark:focus:bring-0 dark:focus-visible:ring-0 focus:border-none sm:bg-[#1B1F2C] bg-[#2b2f3f]  shadow-lg"
                     placeholder="Ich suche nach..."
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
@@ -211,7 +211,7 @@ const SearchItem = () => {
             </div>
 
 
-            <div className="px-3 py-3  rounded-none rounded-r-md bg-slate-800 dark:hover:bg-slate-700 hover: cursor-pointer lg:hidden xl:flex" onClick={onSearch}>
+            <div className="px-3 py-3  rounded-none rounded-r-md bg-[#141721]  sm:bg-slate-800 sm:dark:hover:bg-slate-700 hover: cursor-pointer lg:hidden xl:flex" onClick={onSearch}>
                 <Search
                     className=" text-white h-4 w-4"
                 />

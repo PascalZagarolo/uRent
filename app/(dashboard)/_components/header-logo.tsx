@@ -14,7 +14,7 @@ import { LogOutIcon, Truck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import MobileFilterSheet from "./mobile-filter-sheet";
-import LocationBar from "./location-bar";
+
 
 import LoggedInBarHeader from "./logged-in-header";
 
@@ -26,6 +26,7 @@ import { getOpenConversations } from "@/actions/getOpenConversations";
 import db from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import toast from "react-hot-toast";
+import AutoComplete from "./location-bar";
 
 
 
@@ -86,7 +87,7 @@ const Header: React.FC<HeaderProps> = cache(async ({
                     <SearchItem />
                 </div>
                 <div className="flex justify-center">
-                    <LocationBar />
+                    <AutoComplete />
                 </div>
             </div>
              {!currentUser ? (

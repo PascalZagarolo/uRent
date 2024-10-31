@@ -43,9 +43,9 @@ export const userTable = pgTable("user", {
     confirmedMail: boolean("confirmedMail").notNull().default(false),
     description: text("description"),
 
-    sharesEmail: boolean("sharesEmail").notNull().default(true),
-    sharesRealName : boolean("sharesRealName").notNull().default(true),
-    sharesPhoneNumber : boolean("sharesPhoneNumber").notNull().default(true),
+    sharesEmail: boolean("sharesEmail").notNull().default(false),
+    sharesRealName : boolean("sharesRealName").notNull().default(false),
+    sharesPhoneNumber : boolean("sharesPhoneNumber").notNull().default(false),
     
     newsletter : boolean("newsletter").default(false),
 

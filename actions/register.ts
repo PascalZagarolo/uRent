@@ -45,6 +45,9 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         name: name,
         email: email,
         password: hashedPassword,
+        sharesRealName : false,
+        sharesEmail : false,
+        sharesPhoneNumber : false,
         newsletter: receivesEmails
       })
       .returning({

@@ -191,7 +191,7 @@ const TableTotal = ({ total }) => (
     </View>
 );
 
-const InvoiceTemplate = ({ price, invoice_no, address, date }) => {
+const InvoiceTemplate = ({ price, invoice_no, address, date, plan, amount }) => {
     const total = reciept_data.items.reduce((acc, item) => acc + (item.price * item.qty), 0);
 
     return (

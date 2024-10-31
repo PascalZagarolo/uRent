@@ -19,7 +19,7 @@ const StepPlan = () => {
         Nicht gefunden wonach du suchst?
     </div>
     
-    <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 w-full">
+    <div className="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 w-full">
         {/* Card Component */}
         <div className="bg-[#1e1e1e] shadow-md hover:shadow-lg transition-transform transform hover:scale-105 rounded-lg w-full md:w-1/3">
             <img 

@@ -25,18 +25,18 @@ const ContactPage = async () => {
                                 Du bist Interessiert an uRent und möchtest mehr über uns erfahren? <br />
                                 Wir sind für dich da und freuen uns deine Fragen zu beantworten.
                             </p>
-                            <div className="mt-16 flex flex-row  px-8 space-x-8">
-                                <div className="w-3/4">
+                            <div className="mt-16 md:flex md:flex-row  md:px-8 px-4 md:space-x-8">
+                                <div className="md:w-3/4 w-full">
                                     <ContactFormular />
                                 </div>
-                                <div className="w-1/4">
+                                <div className="md:w-1/4 w-full mt-16 md:mt-0">
                                     <ContactOptions 
                                     currentUser = {currentUser as any}
                                     />
                                 </div>
 
                             </div>
-                            <div className="mt-32 px-8">
+                            <div className="md:mt-32 md:px-8 px-4 mt-16">
                                 <StepPlan />
                             </div>
                         </div>

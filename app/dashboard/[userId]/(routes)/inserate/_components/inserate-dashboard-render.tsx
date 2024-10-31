@@ -18,10 +18,10 @@ import { is } from 'drizzle-orm';
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect | any;
-    currentUser : typeof user.$inferSelect;
-    deleteInserat : (id : string) => void;
+    currentUser: typeof user.$inferSelect;
+    deleteInserat: (id: string) => void;
     // updateInserat : (inserat) => void;
-    reverseChanges : () => void;
+    reverseChanges: () => void;
 
 }
 
@@ -38,7 +38,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
     const renderedPicture = thisInserat?.images.sort((a, b) => a.position - b.position)[0]?.url;
 
-   const [isPublished, setIsPublished] = useState(thisInserat.isPublished);
+    const [isPublished, setIsPublished] = useState(thisInserat.isPublished);
 
     const onDelete = async () => {
         try {
@@ -56,7 +56,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         }
     }
 
-    
+
 
     const isPublishable = {
         title: thisInserat.title.length > 0,
@@ -67,7 +67,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         location: thisInserat.address?.locationString != null,
     };
 
-    
+
 
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
@@ -89,36 +89,36 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                 </div>
                 {thisInserat.isPublished ? (
                     <a className="w-1/4 truncate ml-4 text-sm font-base mr-2 hover:underline"
-                    href={`/inserat/${thisInserat.id}`} target="_blank">
-                    {thisInserat.title}
-                </a>
+                        href={`/inserat/${thisInserat.id}`} target="_blank">
+                        {thisInserat.title}
+                    </a>
                 ) : (
                     <div className="w-1/4 truncate ml-4 text-sm font-base mr-2 "
                     >
-                    {thisInserat.title}
-                </div>
+                        {thisInserat.title}
+                    </div>
                 )}
                 <div className="md:w-1/6 w-1/6 truncate">
                     <div className={cn("text-sm  h-full", isPublished ? "text-emerald-600 font-semibold" :
                         "dark:text-gray-100/40 text-gray-700")}>
                         <div className="h-1/2">
-                        {isPublished ? <div className="flex items-center justify-center"> 
-                        <Globe2Icon className="sm:mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" /> 
-                        <div className="hidden sm:block"> Veröffentlicht </div> </div> : "Entwurf"}
-                        
-                        </div>                                                         
+                            {isPublished ? <div className="flex items-center justify-center">
+                                <Globe2Icon className="sm:mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" />
+                                <div className="hidden sm:block"> Veröffentlicht </div> </div> : "Entwurf"}
+
+                        </div>
                         <div className="h-1/2">
-                        <ToggleVisibility 
-                        thisInserat={thisInserat}
-                        onEdit = {
-                            (isPublished) => {
-                                setIsPublished(isPublished);
-                            }
-                        }
-                        isPublishable={isPublishable}
-                        isPublished={isPublished}
-                        currentUser = {currentUser}
-                        />
+                            <ToggleVisibility
+                                thisInserat={thisInserat}
+                                onEdit={
+                                    (isPublished) => {
+                                        setIsPublished(isPublished);
+                                    }
+                                }
+                                isPublishable={isPublishable}
+                                isPublished={isPublished}
+                                currentUser={currentUser}
+                            />
                         </div>
                     </div>
                 </div>
@@ -137,22 +137,24 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                                     thisInserat={thisInserat}
                                 />
                             </div>
-                            <div className="h-1/2">
-                                {thisInserat.isHighlighted  ? (
+                             {(currentUser?.subscription?.subscriptionType === "ENTERPRISE" && currentUser?.subscription?.subscriptionType === "PREMIUM") && (
+                                <div className="h-1/2">
+                                {thisInserat.isHighlighted ? (
                                     <div className="items-center flex text-xs text-gray-200">
                                         <CheckIcon className="h-4 w-4 mr-2 text-indigo-800" /> <div className="hidden md:block"> Hervorgehoben </div>
                                     </div>
-                                ): (
+                                ) : (
                                     <>
                                         {thisInserat?.isPublished && (
                                             <HighlightInseratDialog
-                                        thisInserat = { thisInserat } />
+                                                thisInserat={thisInserat} />
                                         )}
-                                        
-                                       
-                                        </>
-                            )}
+
+
+                                    </>
+                                )}
                             </div>
+                             )}
                         </div>
 
                     </div>
@@ -160,9 +162,9 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
                 </div>
                 <div className="justify-center md:w-1/8 items-center h-full gap-y-2 ml-auto">
-                    <Button 
-                    className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full"
-                    onClick={() => {router.push(`/inserat/create/${thisInserat?.id}`)}} >
+                    <Button
+                        className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full"
+                        onClick={() => { router.push(`/inserat/create/${thisInserat?.id}`) }} >
                         <Edit3 className="w-4 h-4 xl:mr-2" />  Inserat bearbeiten
                     </Button>
                     <Dialog>

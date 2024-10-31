@@ -53,6 +53,7 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
     };
 
     const hightlightedInserate = foundInserate.filter((inserat: any) => inserat.isPublished && inserat?.isHighlighted);
+    console.log(hightlightedInserate)
     const availableHighlights = (existingSubscription?.subscriptionType === "ENTERPRISE" && existingSubscription?.amount > 1) ? 2 : 1
 
     const [isLoading, setIsLoading] = useState(false);

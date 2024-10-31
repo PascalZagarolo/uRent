@@ -21,8 +21,8 @@ export async function PATCH(
        
 
 
-        console.log(addressObject.data[0].lon)
-        console.log(addressObject.data[0].lat)
+        console.log(addressObject.data[0]?.lon)
+        console.log(addressObject.data[0]?.lat)
         
        
         

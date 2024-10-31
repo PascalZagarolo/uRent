@@ -12,6 +12,9 @@ import { user } from "@/drizzle/schema";
 import { set } from "lodash";
 import { Checkbox } from "@/components/ui/checkbox";
 import { MdOutlineUnfoldLess } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface InserateRenderListProps {
     inserateArray: typeof inserat.$inferSelect[];
@@ -25,8 +28,20 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
 
 }) => {
 
-    
 
+    const canPublishMore = () => {
+        const hightlightedLength = inserateArray.filter((inserat) => inserat.isHighlighted).length;
+
+        //@ts-ignore
+        if (currentUser?.subscription?.subscriptionType === "PREMIUM") {
+            return hightlightedLength < 1;
+            //@ts-ignore
+        } else if (currentUser?.subscription?.subscriptionType === "ENTERPRISE") {
+            return hightlightedLength < 2;
+        } else {
+            return false;
+        }
+    }
 
     //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
     const [renderAmount, setRenderAmount] = useState(5);
@@ -68,7 +83,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
             }
         }
 
-        
+
 
     }, [inserateArray, selectedVisibility, title])
 
@@ -89,7 +104,7 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         if (!selectedSort) {
             setRenderedInserate(inserateArray)
         } else if (selectedSort === "date_asc") {
-            
+
             console.log("...")
             const sortedInserate = [...renderedInserate].sort((a, b) => {
                 return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
@@ -147,6 +162,29 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
             setRenderedInserate(filtered)
         }
     }, [selectedVisibility])
+
+    const onDelete = async (inseratId) => {
+        try {
+            if (isLoading) return;
+            console.log(inseratId)
+            setIsLoading(true);
+            setRenderedInserate((prevInserate) =>
+                prevInserate.filter(item => item.id !== inseratId)
+            );
+            await axios.delete(`/api/inserat/${inseratId}/delete`)
+
+            toast.success("Inserat erfolgreich gelöscht");
+        } catch {
+            toast.error("Fehler beim Löschen des Inserats");
+            setRenderedInserate(inserateArray)
+        } finally {
+            setIsLoading(false);
+            router.refresh();
+        }
+    }
+
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     return (
         <div>
@@ -225,31 +263,20 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
             </div>
             <div>
                 {renderedInserate.slice(0, renderAmount).map((inserat: any) => (
-                    renderedInserate.length > 0 && (
 
-                        <InserateDashboardRender
+
+                    <InserateDashboardRender
                         thisInserat={inserat}
+                        isLoading={isLoading}
                         currentUser={currentUser}
-                        reverseChanges={() => setRenderedInserate(inserateArray)}
-                        deleteInserat={(inseratId) => {
-                            // Here you would call your function with inseratId to delete the entry
-                            setRenderedInserate((prevInserate) => 
-                                prevInserate.filter(item => item.id !== inseratId)
-                            );
-                        }}
-                        // updateInserat={(newInserat) => {
-                        //     setRenderedInserate((prevInserate) => 
-                        //         prevInserate.map(item => 
-                        //             item.id === newInserat?.id ? { ...newInserat } : item
-                        //         )
-                        //     );
-                        // }}
-                        key={inserat.id}
-                    /> 
+                        deleteInserat={onDelete}
+                        canPublishMore={canPublishMore()}
+                        key={inserat?.id}
+                    />
 
 
 
-                    )
+
                 ))}
                 {renderedInserate.length === 0 && (
                     <div className="mt-8 text-sm dark:text-gray-200/60 w-full flex justify-center">

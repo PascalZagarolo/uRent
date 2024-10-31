@@ -73,10 +73,10 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
     const onDehiglight = async (inseratId: string) => {
         try {
             await axios.patch(`/api/inserat/${inseratId}/dehighlight`)
-                .then(() => {
-                    toast.success("Hervorhebung erfolgreich entfernt");
-                    router.refresh();
-                })
+
+            toast.success("Hervorhebung erfolgreich entfernt");
+            router.refresh();
+
         } catch (error: any) {
             console.log(error);
             toast.error("Fehler beim Entfernen der Hervorhebung")
@@ -94,9 +94,9 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 {hightlightedInserate.map((inserat: any) => (
-                    <div className={cn("p-4 dark:bg-[#0F0F0F] rounded-md", 
-                    inserat?.color && `${Colors[inserat?.color]} border`,
-                    
+                    <div className={cn("p-4 dark:bg-[#0F0F0F] rounded-md",
+                        inserat?.color && `${Colors[inserat?.color]} border`,
+
                     )} key={inserat.id}>
                         <div className="text-sm w-full line-clamp-1 break-all">
                             {inserat.title}
@@ -113,7 +113,7 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                             />
                         </div>
                         <div className="mt-2 gap-y-2">
-                            
+
                             <p className="text-xs">
                                 erstellt: {format(new Date(inserat.createdAt), "dd.MM.yyyy")}
                             </p>
@@ -133,18 +133,18 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                     <Button
-                                        className={clsx("w-full  dark:text-gray-200", 
-                                        inserat.color && `${ColorsBG[inserat.color]}`,
-                                        inserat?.color == "WHITE" && "dark:text-gray-700 text-gray-800"
+                                        className={clsx("w-full  dark:text-gray-200",
+                                            inserat.color && `${ColorsBG[inserat.color]}`,
+                                            inserat?.color == "WHITE" && "dark:text-gray-700 text-gray-800"
                                         )}
                                         size="sm"
                                         variant="ghost"
-                                        >
+                                    >
                                         <X className={cn("dark:text-gray-200 w-4 h-4 mr-2",
-                                        inserat?.color == "WHITE" && "dark:text-gray-700 text-gray-800"
+                                            inserat?.color == "WHITE" && "dark:text-gray-700 text-gray-800"
                                         )}
-                                        
-                                         /> Hervorhebung entfernen
+
+                                        /> Hervorhebung entfernen
                                     </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent className="dark:border-none dark:text-gray-200 dark:bg-[#191919]">

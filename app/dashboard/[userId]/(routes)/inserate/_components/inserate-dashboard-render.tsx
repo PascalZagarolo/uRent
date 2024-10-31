@@ -14,47 +14,32 @@ import ManageAvailability from "./manage-availability";
 import HighlightInseratDialog from "./highlight-inserat-dialog";
 import ToggleVisibility from "./toggle-visibility";
 import { user } from "@/drizzle/schema";
-import { is } from 'drizzle-orm';
+
 
 interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect | any;
     currentUser: typeof user.$inferSelect;
     deleteInserat: (id: string) => void;
-    // updateInserat : (inserat) => void;
-    reverseChanges: () => void;
+    canPublishMore : boolean;
+    isLoading : boolean;
 
 }
 
 const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
     thisInserat,
     currentUser,
-    reverseChanges,
-    // updateInserat,
+    isLoading,
+    canPublishMore,
     deleteInserat
 }) => {
     const router = useRouter();
 
-    const [isLoading, setIsLoading] = useState(false);
 
     const renderedPicture = thisInserat?.images.sort((a, b) => a.position - b.position)[0]?.url;
 
     const [isPublished, setIsPublished] = useState(thisInserat.isPublished);
 
-    const onDelete = async () => {
-        try {
-            setIsLoading(true);
-            deleteInserat(thisInserat.id);
-            await axios.delete(`/api/inserat/${thisInserat.id}/delete`)
-            router.refresh();
-            toast.success("Inserat erfolgreich gelöscht");
-        } catch {
-            toast.error("Fehler beim Löschen des Inserats");
-            router.refresh();
-            reverseChanges();
-        } finally {
-            setIsLoading(false);
-        }
-    }
+    
 
 
 
@@ -67,7 +52,9 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         location: thisInserat.address?.locationString != null,
     };
 
-
+   
+    
+    
 
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
@@ -137,7 +124,8 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                                     thisInserat={thisInserat}
                                 />
                             </div>
-                             {(currentUser?.subscription?.subscriptionType === "ENTERPRISE" && currentUser?.subscription?.subscriptionType === "PREMIUM") && (
+                             {//@ts-ignore
+                             ((currentUser?.subscription?.subscriptionType === "ENTERPRISE" || currentUser?.subscription?.subscriptionType === "PREMIUM") && canPublishMore) && (
                                 <div className="h-1/2">
                                 {thisInserat.isHighlighted ? (
                                     <div className="items-center flex text-xs text-gray-200">
@@ -145,7 +133,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                                     </div>
                                 ) : (
                                     <>
-                                        {thisInserat?.isPublished && (
+                                        {isPublished && (
                                             <HighlightInseratDialog
                                                 thisInserat={thisInserat} />
                                         )}
@@ -169,7 +157,9 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     </Button>
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full mt-4">
+                            <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full mt-4"
+                            disabled={isLoading}
+                            >
                                 <Trash2 className="w-4 h-4 xl:mr-2 text-rose-600" />  <p className="xl:flex hidden">Inserat löschen</p>
                             </Button>
                         </DialogTrigger>
@@ -183,7 +173,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                             </DialogHeader>
                             <div className="flex ml-auto gap-x-2">
                                 <DialogTrigger asChild>
-                                    <Button className="bg-rose-600 hover:bg-rose-500 text-gray-200" onClick={onDelete}>
+                                    <Button className="bg-rose-600 hover:bg-rose-500 text-gray-200" onClick={() => deleteInserat(thisInserat?.id)}>
                                         Endgültig löschen
                                     </Button>
                                 </DialogTrigger>

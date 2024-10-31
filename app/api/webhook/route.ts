@@ -109,6 +109,18 @@ export async function POST(
             }).where(eq(inserat.id, session?.metadata?.usedId)).returning();
         }
 
+        const upgradedMessage = `Herzlichen Glückwunsch! Du hast erfolgreich dein Abonnement umgestellt und kannst nun alle zusätzlichen Vorteile genießen.
+        Deine neuen Vorteile sind ab sofort verfügbar.
+        Weitere Informationen findest du unter: Dashboard -> Zahlungsverkehr.
+        `
+
+
+        //send notification
+        await db.insert(notification).values({
+            userId : session?.metadata?.userId as string,
+            notificationType : "SUBSCRIPTION_REDEEMED",
+            content : upgradedMessage
+        }).returning();
         
         return new NextResponse(null, {status : 200})
     }

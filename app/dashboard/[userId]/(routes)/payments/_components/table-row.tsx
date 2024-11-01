@@ -15,6 +15,7 @@ interface TableRowProps {
   createdAt: string;
   periodStart: number;
   productId: string;
+  paid: boolean;
 }
 
 const TableRowRender = ({
@@ -23,7 +24,8 @@ const TableRowRender = ({
   description,
   createdAt,
   periodStart,
-  productId
+  productId,
+  paid
 }: TableRowProps) => {
 
   const [loading, setLoading] = useState(true)
@@ -47,13 +49,23 @@ const TableRowRender = ({
 
   const [product, setMatchingProduct] = useState<any>(null)
 
-  
+
 
   return (
     <TableRow key={invoiceId}>
       <TableCell className="font-medium break-all">{invoiceId}</TableCell>
-      <TableCell>!!!!</TableCell>
-      <TableCell>{description ? description : "ist Abo"}</TableCell>
+      <TableCell>
+        {paid ? (
+          <div>
+            <span>Bezahlt</span>
+          </div>
+        ) : (
+          <div>
+            <span>Ausstehend</span>
+          </div>
+        )}
+      </TableCell>
+      <TableCell>{description ? description : product?.name}</TableCell>
       <TableCell>{createdAt}</TableCell>
       <TableCell className="text-right">{unitAmount / 100} €</TableCell>
       <TableCell className="text-right">

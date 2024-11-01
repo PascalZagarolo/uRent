@@ -29,7 +29,7 @@ const PkwAttributeRender: React.FC<PkwAttributeRenderProps> = ({
             )}
             {attributes?.initial && (
                 <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "MM/yyyy")}
+                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "yyyy")}
                 </div>
             )}
             {attributes?.power && (

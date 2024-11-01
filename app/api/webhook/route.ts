@@ -89,7 +89,7 @@ export async function POST(
                 isUpgrade : "true",
                 oldSubscription : oldSubscription?.subscriptionType,
                 oldAmount : oldSubscription?.amount,
-            }
+            },
         })
 
         stripe.invoiceItems.create({
@@ -103,6 +103,8 @@ export async function POST(
             quantity : 1,
             description : `${session?.metadata?.subscriptionType} (${session?.metadata?.amount}) Abonnement-Upgrade`
         })
+
+        await stripe.invoices.pay(invoice.id)
         
         
 

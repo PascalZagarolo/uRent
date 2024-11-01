@@ -63,7 +63,7 @@ const invoices = [
   },
 ]
 
-type SortKey = 'rechnungsnr' | 'paymentStatus' | 'beschreibung' | 'preis' | 'erstellt' | 'upgrade'
+type SortKey = 'rechnungsnr' | 'status' | 'beschreibung' | 'preis' | 'erstellt' | 'upgrade'
 
 interface InvoiceTableProps {
   existingInvoices: any
@@ -114,11 +114,8 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
     return format(new Date(timestamp * 1000), "dd.MM.yyyy")
   }
 
-
-  existingInvoices.map((invoice) => {
-    console.log(invoice?.metadata?.isUpgrade !== undefined)
-    console.log(invoice?.lines?.data[0]?.description)
-  })
+console.log(existingInvoices)
+  
 
   return (
     <Table>
@@ -126,7 +123,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[120px]"><SortButton column="rechnungsnr" /></TableHead>
-          <TableHead><SortButton column="paymentStatus" /></TableHead>
+          <TableHead><SortButton column="status" /></TableHead>
           <TableHead><SortButton column="beschreibung" /></TableHead>
           <TableHead className="w-[80px] break-all"><SortButton column="erstellt" /></TableHead>
           <TableHead className="text-right"><SortButton column="preis" /></TableHead>
@@ -137,6 +134,8 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
         {existingInvoices.map((invoice) => (
          
           <TableRowRender
+            key={invoice.id}
+            paid={invoice?.paid}
             invoiceId={invoice.id}
             unitAmount={Number(invoice?.lines?.data[0]?.price?.unit_amount ?? 0)}
             createdAt={
@@ -150,12 +149,12 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
          
         ))}
       </TableBody>
-      <TableFooter>
+      {/* <TableFooter>
         <TableRow>
           <TableCell colSpan={5}>Total</TableCell>
           <TableCell className="text-right">$2,250.00</TableCell>
         </TableRow>
-      </TableFooter>
+      </TableFooter> */}
     </Table>
   )
 }

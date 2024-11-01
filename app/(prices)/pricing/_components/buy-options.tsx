@@ -70,7 +70,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
         const calculatePremiumPrice = () => {
             switch (amountInserat) {
                 case 1:
-                    return 39;
+                    return 35;
                 case 5:
                     return 53;
                 case 10:
@@ -166,7 +166,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     const calculatePremiumPrice = (amount: number) => {
         switch (amount) {
             case 1:
-                return 39;
+                return 35;
             case 5:
                 return 53;
             case 10:

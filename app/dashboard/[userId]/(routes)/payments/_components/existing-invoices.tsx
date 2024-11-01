@@ -24,15 +24,18 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = ({
 
 
 
-
-    const [matchingProduct, setMatchingProduct] = useState<any>();
+    const [loading, setLoading] = useState<boolean>(true)
+    const [matchingProduct, setMatchingProduct] = useState<any>(undefined);
 
     useEffect(() => {
         const loadProduct = async () => {
             try {
-                const retrieved = await getMatchingProduct(foundInvoice.lines.data[0].price.product as string)
-
+                const retrieved = await getMatchingProduct(foundInvoice.lines.data[0]?.price?.product as string)
+                if(!retrieved) {
+                    setLoading(false)
+                }
                 setMatchingProduct(retrieved)
+                setLoading(false)
             } catch (e: any) {
                 console.log(e)
             }
@@ -41,9 +44,9 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = ({
         loadProduct()
     }, [])
 
-    if (!matchingProduct) {
+    if (!matchingProduct && loading) {
         return (
-            <div className="p-4 dark:bg-[#171717] rounded-md text-sm animate-pulse">
+            <div className="p-4 dark:bg-[#171717] shadow-lg rounded-md text-sm animate-pulse">
                 <div className="flex items-center">
                     <div className="h-4 w-3/4 bg-[#191919] rounded-md shimmer-effect"></div>
                     <div className="ml-auto space-x-2 flex items-center">
@@ -64,6 +67,12 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = ({
             </div>
         )
     }
+
+
+    //If no product is found, return null
+    if(!loading && !matchingProduct) {
+        return null;
+    }
     
 
 
@@ -75,9 +84,9 @@ const ExistingInvoices: React.FC<ExistingInvoicesProps> = ({
     const usedAddress = foundInvoice.customer_address
 
     return (
-        <div className="mb-2">
+        <div className="mt-0 mb-4">
             <div className="">
-                <div className="p-4 dark:bg-[#171717] rounded-md text-sm">
+                <div className="p-4 dark:bg-[#222222] rounded-md text-sm shadow-lg">
                     <div className="flex items-center">
                         <div className="font-medium w-1/4 text-gray-200/90  line-clamp-1 break-all">
                             {foundInvoice.id}

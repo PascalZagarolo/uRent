@@ -20,6 +20,21 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
 
     
 
+    const { subscriptionInvoices, upgradeInvoices } = existingInvoices.data.reduce(
+        (result, invoice: any) => {
+          if (invoice?.metadata?.isUpgrade === "true") {
+            result.upgradeInvoices.push(invoice);
+          } else {
+            result.subscriptionInvoices.push(invoice);
+          }
+          return result;
+        },
+        { subscriptionInvoices: [], upgradeInvoices: [] } as { subscriptionInvoices: any[]; upgradeInvoices: any[] }
+      );
+      
+
+    
+
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">
 
@@ -124,10 +139,10 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                 <div className="mt-8">
                     <div>
                         <h3 className="text-lg font-semibold">
-                            Bezahlte Rechnungen
+                            Bezahlte Abonnements
                         </h3>
                     </div>
-                    <div className="mt-2 text-xs font-semibold flex items-center  px-4 text-gray-200/60">
+                    {/* <div className="mt-2 text-xs font-semibold flex items-center  px-4 text-gray-200/60">
                         <div className="w-1/4">
                             Rechnungsnr.
                         </div>
@@ -140,10 +155,41 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                         <div className="w-1/4">
                             Preis
                         </div>
-                    </div>
+                    </div> */}
                     {
-                        existingInvoices.data.map((invoice: any) => (
-                            <div className="" key={invoice?.id as string}>
+                        subscriptionInvoices.map((invoice: any) => (
+                            <div className="mt-2" key={invoice?.id as string}>
+                                <ExistingInvoices
+                                    foundInvoice={JSON.parse(JSON.stringify(invoice))}
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <div className="mt-8">
+                    <div>
+                        <h3 className="text-lg font-semibold">
+                            Bezahlte Käufe (Upgrades)
+                        </h3>
+                    </div>
+                    {/* <div className="mt-2 text-xs font-semibold flex items-center  px-4 text-gray-200/60">
+                        <div className="w-1/4">
+                            Rechnungsnr.
+                        </div>
+                        <div className="font-semibold w-1/6">
+                            Datum
+                        </div>
+                        <div className="w-1/4">
+                            Produkt
+                        </div>
+                        <div className="w-1/4">
+                            Preis
+                        </div>
+                    </div> */}
+                    {
+                        upgradeInvoices.map((invoice: any) => (
+                            <div className="mt-2" key={invoice?.id as string}>
                                 <ExistingInvoices
                                     foundInvoice={JSON.parse(JSON.stringify(invoice))}
                                 />

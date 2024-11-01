@@ -73,7 +73,8 @@ export async function PATCH(
                 productId : values.productId,
                 usedId : values.usedId,
                 priceId : price.id,
-                upgrade : "true"
+                upgrade : "true",
+                total : Number(values.diffrence)
             }
         })
 

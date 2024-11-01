@@ -39,8 +39,7 @@ export async function POST(
     }
     
     const session = event.data.object as Stripe.Checkout.Session
-    console.log(session)
-    console.log(event.type)
+    
 
     if(session?.metadata?.upgrade === "true" && event.type === "checkout.session.completed") {
      
@@ -55,6 +54,10 @@ export async function POST(
         if(!session?.metadata?.subscriptionType) {
             return new NextResponse("Keinen Typ gefunden", {status : 400})
         }
+
+        const oldSubscription = await db.query.userSubscription.findFirst({
+            where : eq(userSubscription.userId, session?.metadata?.userId)
+        })
 
         const [patchSubscription] = await db.update(userSubscription).set({
             //@ts-ignore
@@ -78,6 +81,30 @@ export async function POST(
                 ],proration_behavior: 'none'
             }
         )
+
+       
+        const invoice = await stripe.invoices.create({
+            customer :  patchSubscription.stripe_customer_id,
+            metadata : {
+                isUpgrade : "true",
+                oldSubscription : oldSubscription?.subscriptionType,
+                oldAmount : oldSubscription?.amount,
+            }
+        })
+
+        stripe.invoiceItems.create({
+            customer : patchSubscription.stripe_customer_id,
+            invoice : invoice.id,
+            price_data : {
+                currency : "eur",
+                product : session?.metadata?.productId,
+                unit_amount :  Number(session?.metadata?.total ?? 0)
+            },
+            quantity : 1,
+            description : `${session?.metadata?.subscriptionType} (${session?.metadata?.amount}) Abonnement-Upgrade`
+        })
+        
+        
 
         const findUser = await db.query.userTable.findFirst({
             where : eq(userTable.id, session?.metadata?.userId)
@@ -109,10 +136,9 @@ export async function POST(
             }).where(eq(inserat.id, session?.metadata?.usedId)).returning();
         }
 
-        const upgradedMessage = `Herzlichen Glückwunsch! Du hast erfolgreich dein Abonnement umgestellt und kannst nun alle zusätzlichen Vorteile genießen.
-        Deine neuen Vorteile sind ab sofort verfügbar.
-        Weitere Informationen findest du unter: Dashboard -> Zahlungsverkehr.
-        `
+            const upgradedMessage = `Herzlichen Glückwunsch! Du hast erfolgreich dein Abonnement umgestellt und kannst nun alle zusätzlichen Vorteile genießen.
+            Deine neuen Vorteile sind ab sofort verfügbar.
+            Weitere Informationen findest du unter: Dashboard -> Zahlungsverkehr.`
 
 
         //send notification
@@ -265,7 +291,7 @@ export async function POST(
         
     }
 
-    if(event.type === "customer.subscription.updated" && session?.metadata?.upgrade !== "true" ) {
+    if((event.type === "customer.subscription.updated" && session?.metadata?.upgrade !== "true") ) {
         //@ts-ignore
         if(session?.cancel_at_period_end) {
             const correspondingCustomer = await stripe.customers.retrieve(session.customer as string);

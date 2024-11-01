@@ -51,7 +51,7 @@ const RenderAsHtml: React.FC<RenderAsHtmlProps> = ({
 
                 />
             } fileName="fee_acceptance.pdf">
-                {({ blob, url, loading, error }) => (loading ? 'Lädt..' : <Button size="sm" variant="ghost" className="dark:bg-[#1C1C1C]"
+                {({ blob, url, loading, error }) => (loading ? 'Lädt..' : <Button size="sm" variant="ghost" className="dark:bg-[#222222] shadow-lg"
 
                 >
                     <FaFileDownload

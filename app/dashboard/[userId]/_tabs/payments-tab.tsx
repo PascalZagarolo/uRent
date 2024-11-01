@@ -1,9 +1,12 @@
+'use client'
+
 import { format } from "date-fns";
 import ExistingInvoices from "../(routes)/payments/_components/existing-invoices";
 import SubscriptionsRenderList from "../(routes)/payments/_components/subscriptions-render-list";
 import RenderAvailable from "../(routes)/payments/_components/render-available";
 import { BiCreditCardAlt } from "react-icons/bi";
 import { userTable } from "@/db/schema";
+import InvoiceTable from "../(routes)/payments/_components/invoice-table";
 
 interface PaymentsTabProps {
     currentUser: typeof userTable.$inferSelect | any;
@@ -14,25 +17,31 @@ interface PaymentsTabProps {
 
 const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, existingPayments }: PaymentsTabProps) => {
 
-    const existingSubscription = currentUser
+    const existingSubscription = currentUser;
 
     const stripeSubscription = existingInvoices?.data.filter((invoice: any) => existingSubscription?.subscription?.stripe_subscription_id)
 
     
 
-    const { subscriptionInvoices, upgradeInvoices } = existingInvoices.data.reduce(
-        (result, invoice: any) => {
-          if (invoice?.metadata?.isUpgrade === "true") {
-            result.upgradeInvoices.push(invoice);
-          } else {
-            result.subscriptionInvoices.push(invoice);
-          }
-          return result;
-        },
-        { subscriptionInvoices: [], upgradeInvoices: [] } as { subscriptionInvoices: any[]; upgradeInvoices: any[] }
-      );
+    // const { subscriptionInvoices, upgradeInvoices } = existingInvoices.data.reduce(
+    //     (result, invoice: any) => {
+    //       if (invoice?.metadata?.isUpgrade === "true") {
+    //         result.upgradeInvoices.push(invoice);
+    //       } else {
+    //         result.subscriptionInvoices.push(invoice);
+    //       }
+    //       return result;
+    //     },
+    //     { subscriptionInvoices: [], upgradeInvoices: [] } as { subscriptionInvoices: any[]; upgradeInvoices: any[] }
+    //   );
       
 
+    const correctInvoices = existingInvoices.data.filter((invoice) => {
+        const unitAmount = invoice?.lines?.data[0]?.price?.unit_amount;
+        return unitAmount !== undefined;
+    })
+
+    
     
 
     return (
@@ -136,66 +145,10 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                     )}
                 </div>
 
-                <div className="mt-8">
-                    <div>
-                        <h3 className="text-lg font-semibold">
-                            Bezahlte Abonnements
-                        </h3>
-                    </div>
-                    {/* <div className="mt-2 text-xs font-semibold flex items-center  px-4 text-gray-200/60">
-                        <div className="w-1/4">
-                            Rechnungsnr.
-                        </div>
-                        <div className="font-semibold w-1/6">
-                            Datum
-                        </div>
-                        <div className="w-1/4">
-                            Produkt
-                        </div>
-                        <div className="w-1/4">
-                            Preis
-                        </div>
-                    </div> */}
-                    {
-                        subscriptionInvoices.map((invoice: any) => (
-                            <div className="mt-2" key={invoice?.id as string}>
-                                <ExistingInvoices
-                                    foundInvoice={JSON.parse(JSON.stringify(invoice))}
-                                />
-                            </div>
-                        ))
-                    }
-                </div>
-
-                <div className="mt-8">
-                    <div>
-                        <h3 className="text-lg font-semibold">
-                            Bezahlte Käufe (Upgrades)
-                        </h3>
-                    </div>
-                    {/* <div className="mt-2 text-xs font-semibold flex items-center  px-4 text-gray-200/60">
-                        <div className="w-1/4">
-                            Rechnungsnr.
-                        </div>
-                        <div className="font-semibold w-1/6">
-                            Datum
-                        </div>
-                        <div className="w-1/4">
-                            Produkt
-                        </div>
-                        <div className="w-1/4">
-                            Preis
-                        </div>
-                    </div> */}
-                    {
-                        upgradeInvoices.map((invoice: any) => (
-                            <div className="mt-2" key={invoice?.id as string}>
-                                <ExistingInvoices
-                                    foundInvoice={JSON.parse(JSON.stringify(invoice))}
-                                />
-                            </div>
-                        ))
-                    }
+                <div className="mt-16">
+                    <InvoiceTable 
+                    existingInvoices = {correctInvoices}
+                    />
                 </div>
             </div>
         </div>

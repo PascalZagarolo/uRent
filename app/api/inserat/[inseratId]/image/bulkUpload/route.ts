@@ -28,7 +28,7 @@ export async function POST(
             return new NextResponse("Unauthorized" , { status : 401 } )
         }
 
-        const deleteOld = await db.delete(images).where(eq(images.inseratId, params.inseratId));
+        await db.delete(images).where(eq(images.inseratId, params.inseratId));
 
         //insert new images
 

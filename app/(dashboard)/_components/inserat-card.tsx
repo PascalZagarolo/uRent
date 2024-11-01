@@ -43,6 +43,8 @@ import { GrLocation, GrMapLocation } from "react-icons/gr";
 import { IoMdOpen } from "react-icons/io";
 import { useOpenAvailabilityOnPageLoad } from "@/store";
 import { HighlightColorsBackground } from "@/hooks/inserat-card/useHighlightColors";
+import { MdExpandMore } from "react-icons/md";
+import { IoChevronUpOutline } from "react-icons/io5";
 
 
 interface InseratCardProps {
@@ -410,8 +412,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 <a href={`/inserat/${thisInserat?.id}`}
                                 target="_blank"
 
-                                className="text-indigo-600 cursor-pointer text-xs underline mt-2">
-                                    Mehr details
+                                className="text-indigo-600 cursor-pointer text-xs underline mt-2 flex flex-row items-center">
+                                    Mehr erfahren <MdExpandMore className="w-4 h-4 " /> 
                                 </a>
                            
                         </div>

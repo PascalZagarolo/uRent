@@ -50,7 +50,7 @@ export async function PATCH(
             payment_method_types: ['card', 'paypal', 'sofort'],
 
             mode: "payment",
-            customer : findExistingSubscription.stripe_customer_id,
+             customer : findExistingSubscription.stripe_customer_id,
            
             line_items: [
                 {   

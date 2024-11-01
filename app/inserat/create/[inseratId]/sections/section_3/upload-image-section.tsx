@@ -51,77 +51,103 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
+    const MAX_RETRIES = 3;
+
     const onSave = async (redirect?: boolean, previous?: boolean) => {
-        try {
-            if (hasChanged) {
-                let uploadData: { url: string, position: number }[] = [];
+    try {
+        if (hasChanged) {
+            const uploadData: { url: string, position: number }[] = [];
 
-                for (const pImage of selectedImages) {
-                    let returnedUrl: string = pImage.url;
+            for (const pImage of selectedImages) {
+                let returnedUrl = "";
 
-                    if (pImage.wholeFile) {
-                        returnedUrl = await handleUpload2(pImage.wholeFile);
-                        setSelectedImages((prev) => prev.map((item) => {
-                            if (item.id === pImage.id) {
-                                //remove wholeFile from item , so data doesnt get uploaded twice
-                                return { ...item, url: returnedUrl, wholeFile: null };
-                            }
-                            return item;
-                        }))
+                if (pImage.wholeFile) {
+                    returnedUrl = await retryUpload(pImage.wholeFile);
 
+                    if (isValidUrl(returnedUrl)) {
+                        setSelectedImages((prev) =>
+                            prev.map((item) => item.id === pImage.id ? { ...item, url: returnedUrl, wholeFile: null } : item)
+                        );
+                    } else {
+                        console.error(`Failed to upload image after ${MAX_RETRIES} attempts.`);
+                        toast.error("Image upload failed. Please try again.");
+                        continue;  
                     }
-
-                    uploadData.push({ url: returnedUrl, position: pImage.position });
+                } else {
+                    returnedUrl = pImage.url;
                 }
 
-                const values = {
-                    updatedImages: uploadData
-                };
-                console.log(values)
-                await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
-                router.refresh();
+                if (isValidUrl(returnedUrl)) {
+                    uploadData.push({ url: returnedUrl, position: pImage.position });
+                }
             }
-            if (redirect) {
-                router.push(`/inserat/create/${thisInserat.id}`);
-                router.refresh();
-            } else if (previous) {
 
-                const params = new URLSearchParams("")
-                params.set('sectionId', String(2))
-                window.history.pushState(null, '', `?${params.toString()}`)
-            } else {
-                changeSection(currentSection + 1);
-            }
-        } catch (e: any) {
-            console.log(e);
-            toast.error("Fehler beim Speichern der Änderungen");
+            const values = { updatedImages: uploadData };
+            await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
+            router.refresh();
         }
-    };
 
-    const handleUpload2 = async (file: any) => {
-        try {
-            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "oblbw2xl");
-
-            const response = await fetch(url, {
-                method: "POST",
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log(data.secure_url)
-            return data.secure_url;  // Return the secure_url directly
-        } catch (e: any) {
-            console.log(e);
-            return ""; // Return an empty string if there's an error
+        if (redirect) {
+            router.push(`/inserat/create/${thisInserat.id}`);
+            router.refresh();
+        } else if (previous) {
+            const params = new URLSearchParams();
+            params.set('sectionId', String(2));
+            window.history.pushState(null, '', `?${params.toString()}`);
+        } else {
+            changeSection(currentSection + 1);
         }
-    };
+    } catch (e: any) {
+        console.error(e);
+        toast.error("Fehler beim Speichern der Änderungen");
+    }
+};
+
+const retryUpload = async (file: File): Promise<string> => {
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        const url = await handleUpload2(file);
+        if (isValidUrl(url)) {
+            return url;
+        }
+        console.warn(`Upload attempt ${attempt} failed, retrying...`);
+    }
+    return ""; // Return empty if all attempts fail
+};
+
+const handleUpload2 = async (file: File): Promise<string> => {
+    try {
+        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "oblbw2xl");
+
+        const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const data = await response.json();
+        console.log(`Uploaded URL: ${data.secure_url}`);
+        return data.secure_url;
+    } catch (e: any) {
+        console.error("Upload error:", e);
+        return "";
+    }
+};
+
+// Helper function to validate URLs
+const isValidUrl = (url: string): boolean => {
+    try {
+        new URL(url);
+        return true;
+    } catch (_) {
+        return false;
+    }
+};
+
+    
 
 
 

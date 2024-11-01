@@ -401,19 +401,19 @@ const InseratCard: React.FC<InseratCardProps> = ({
                             </div>
                         </div>
 
-                        <div className="ml-4 text-gray-200/80 border-none flex-col flex w-1/2 text-xs sm:mr-2 sm:block hidden relative overflow-hidden">
-                            <div className="line-clamp-6 whitespace-pre-wrap text-xs pr-2">
+                        <div className="ml-4 text-gray-200/80 border-none flex-col  w-1/2 text-xs sm:mr-2 sm:flex hidden relative overflow-hidden">
+                            <div className="line-clamp-6 whitespace-pre-wrap text-xs pr-2 ">
                                 {thisInserat.description}
                             </div>
                             {/* Optional "Read More" Link */}
-                            {thisInserat.description.length > 300 && ( // Adjust the condition as needed
+                            
                                 <a href={`/inserat/${thisInserat?.id}`}
                                 target="_blank"
 
-                                className="text-indigo-600 cursor-pointer text-xs underline">
+                                className="text-indigo-600 cursor-pointer text-xs underline mt-2">
                                     Mehr details
                                 </a>
-                            )}
+                           
                         </div>
 
                     </div>

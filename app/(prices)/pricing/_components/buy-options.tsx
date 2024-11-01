@@ -57,7 +57,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                 case 65:
                     return 93;
                 case 80:
-                    return 102;
+                    return 101;
                 case 100:
                     return 111;
                 case 250:
@@ -153,7 +153,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
             case 65:
                 return 93;
             case 80:
-                return 102;
+                return 101;
             case 100:
                 return 111;
             case 250:

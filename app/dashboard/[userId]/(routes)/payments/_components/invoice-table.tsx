@@ -111,6 +111,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
             description={invoice.description}
             periodStart={invoice.period_start}
             productId={invoice.lines?.data[0]?.price?.product || ''}
+            //@ts-ignore
             isUpgrade={invoice?.metadata?.upgrade == 'true'}
           />
         ))}

@@ -1,7 +1,7 @@
 'use client'
 
 import { useDebounce } from "@/hooks/use-debounce";
-import { AlertCircle, MapPin, PinIcon } from "lucide-react";
+import { AlertCircle, CheckIcon, MapPin, PinIcon, XCircle } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -30,138 +30,92 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
 
 
-  const autoCompleteRef = useRef();
+  
   const inputRef = useRef();
+  const postalRef = useRef();
+
   const options = {
     componentRestrictions: { country: "de" },
     fields: ["address_components", "geometry", "icon", "name"],
-    types : ['(cities)']
-    
+    types: ['(cities)']
   };
+
+  const pOptions = {
+    types: ['postal_code'],
+    fields: ['address_components'],
+    componentRestrictions: { country: "de" },
+}
+
+
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  
+
   const searchParams = useSearchParams();
-  const currentLocation = searchParams.get("location");
-
+  
+  
+  const [address, setAddress] = useState(thisAddressComponent?.locationString || "");
   const [currentAddress, setCurrentAddress] = useState(thisAddressComponent?.locationString || "");
-  const [currentZipCode, setCurrentZipCode] = useState<null | number | string>(thisAddressComponent?.postalCode || null);
+  const [zipCode, setZipCode] = useState(thisAddressComponent?.postalCode || "");
+  const [currentZipCode, setCurrentZipCode] = useState(thisAddressComponent?.postalCode || null);
 
 
   useEffect(() => {
-    //@ts-ignore
+    if (!window.google) return;
+
     const autocomplete = new window.google.maps.places.Autocomplete(
-      inputRef.current,
-      options
+        inputRef.current!,
+        options
     );
-    // google.maps.event.addListener(autocomplete, 'place_changed', function () {
-    //   autocomplete.getPlace();
-    // });
-    
-  }, [currentLocation]);
+
+    autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (place && place.address_components) {
+            // Handle address change here
+            const city = place.address_components.find(comp => comp.types.includes("locality"))?.long_name;
+            setAddress(city || "");
+            setCurrentAddress(city || "");
+
+        }
+    });
+}, [options]);
 
 
+useEffect(() => {
+    if (!window.google) return;
 
-  const onPrefill = (e: boolean) => {
-    if (e) {
-      console.log(e)
-      if (!thisInserat?.user?.business || !thisInserat?.user?.business?.businessAddresses) {
-        setCurrentZipCode(usedContactOptions?.userAddress?.postalCode)
-        let usedString = usedContactOptions?.userAddress?.street + ", " + usedContactOptions?.userAddress?.postalCode + ", "
-          + usedContactOptions?.userAddress?.city
+    const postalAutocomplete = new window.google.maps.places.Autocomplete(
+        postalRef.current!,
+        pOptions
+    );
 
-        usedString = usedString.trim();
-        //@ts-ignore
-        inputRef.current.value = usedString;
-        setCurrentAddress(usedString);
-      } else {
+    postalAutocomplete.addListener('place_changed', () => {
+        const place = postalAutocomplete.getPlace();
+        
+        const zipCode = place.address_components?.find(comp => comp.types.includes("postal_code"))?.long_name;
 
-        setCurrentZipCode(thisInserat?.user?.business?.businessAddresses[0]?.postalCode)
-        let usedString = thisInserat?.user?.business?.businessAddresses[0]?.street + ", " +
-          thisInserat?.user?.business?.businessAddresses[0]?.postalCode + ", "
-          + thisInserat?.user?.business?.businessAddresses[0]?.city
-        console.log(usedString)
-        usedString = usedString.trim();
-        //@ts-ignore
-        inputRef.current.value = usedString;
-        setCurrentAddress(usedString);
-      }
-    } else {
-      setCurrentZipCode(thisAddressComponent?.postalCode || "")
-      setCurrentAddress(thisAddressComponent?.locationString || "")
-      //@ts-ignore
-      inputRef.current.value = thisAddressComponent?.locationString || "";
-    }
-  }
-
-
-  //automatically converts the inputAddress to a zip code with the help of geocode maps api, and sets the currentZipCode state
-  // const getZipCode = async () => {
-  //   //@ts-ignore
-  //   console.log(inputRef?.current?.value);
-  //   //@ts-ignore
-  //   const addressObject = await axios.get(`https://geocode.maps.co/search?q=${inputRef?.current?.value}&api_key=65db7269a0101559750093uena07e08`);
-  //   let extractedZipCode;
-  //   console.log(addressObject.data[0])
-  //   const addressString = addressObject.data[0]?.display_name;
-  //   const numberOfCommas = (addressString?.split(",").length - 1) > 2 ? 3 : 2;
-  //   const extractedState = addressString?.split(",").map((item: any) => item.trim());
-  //   const newState = extractedState?.[extractedState?.length - numberOfCommas]
-  //   console.log(newState);
-  //   //?retrieve data until state is delivered..
-  //   /* 
-  //   if (extractedState?.[extractedState?.length - 3] === undefined) {
-  //     for (let i = 0; i < addressObject.data.length; i++) {
-  //       extractedState = addressObject.data[i].display_name.split(",");
-  //       console.log(extractedState[extractedState?.length - 3])
-  //       if (extractedState[extractedState?.length - 3] !== undefined) {
-  //         setCurrentState(extractedState[extractedState?.length - 3]);
-  //         break;
-  //       }
-  //     }
-  //   }
-  //   */
-  //   setCurrentState(newState);
-  //   //retrieve data until zipCode is delivered..
-  //   for (let i = 0; i < addressObject.data.length; i++) {
-  //     extractedZipCode = parseInt(addressObject.data[i]?.display_name.match(/\b0*\d{5}\b/));
-  //     console.log(addressObject.data[i])
-  //     if (!isNaN(extractedZipCode)) {
-  //       setCurrentZipCode(extractedZipCode);
-  //       return;
-  //     }
-  //   }
-  //   console.log(extractedZipCode);
-  //   if (extractedZipCode) {
-  //     console.log(extractedZipCode)
-  //     setCurrentZipCode(extractedZipCode)
-  //   } else {
-  //     console.log(extractedZipCode)
-  //     setCurrentZipCode("");
-  //   }
-  // }
-
-  useEffect(() => {
-    //@ts-ignore
-  }, [inputRef?.current?.value])
+        if (zipCode) {
+            setZipCode(zipCode);
+            setCurrentZipCode(zipCode);
+            
+        }
+    });
+}, [pOptions]);
 
   const onSubmit = async () => {
     try {
       const values = {
-        //@ts-ignore
-        locationString: inputRef?.current?.value || null,
-        postalCode: currentZipCode,
+        locationString: currentAddress ?? null,
+        postalCode: currentZipCode ?? null,
       }
-      
+
       axios.patch(`/api/inserat/${thisInserat.id}/address`, values).
-      then(() => {
-        setCurrentAddress(values.locationString);
-        setCurrentZipCode(values.postalCode);
-        toast.success("Standort erfolgreich hinzugefügt");
-        router.refresh();
-      })
+        then(() => {
+          toast.success("Standort erfolgreich hinzugefügt");
+          router.refresh();
+        })
     } catch {
       toast.error("Etwas ist schief gelaufen");
     }
@@ -191,8 +145,8 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           <div className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1  sm:hidden block"> Standort ? </div>
           <Input ref={inputRef} placeholder="Standort.."
             className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2  border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
-            onChange={(e) => { setValue(e.target.value); setCurrentAddress(e.target.value) }}
-            defaultValue={thisAddressComponent?.locationString}
+            onChange={(e) => { setAddress(e.target.value) }}
+            value={address}
             maxLength={60}
           />
         </div>
@@ -205,18 +159,19 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
           <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:block hidden"> 5-Stellige Plz </p>
           <p className="text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:hidden block"> 5-Stellig </p>
           <Input
+          ref={postalRef}
             className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md text-sm border mt-2 border-black dark:bg-[#151515] 
             justify-start dark:focus-visible:ring-0"
             type="text"
             pattern="[0-9]{5}"
             maxLength={20}
-            onChange={(e) => { setCurrentZipCode(e.target.value) }}
-            value={currentZipCode}
+            onChange={(e) => { setZipCode(e.target.value) }}
+            value={zipCode}
           />
         </div>
       </div>
 
-      <div className="flex mt-2">
+      {/* <div className="flex mt-2">
         <Checkbox
           className="sm:h-4 sm:w-4 mr-2"
           onCheckedChange={(e) => { onPrefill(Boolean(e)) }}
@@ -234,12 +189,37 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
         <Label className="sm:hidden block">
           aus dem Profil
         </Label>
+      </div> */}
+      <div className="flex flex-row items-center w-full space-x-4">
+        <div className="w-1/2 mt-2">
+          {currentAddress ? (
+            <div className="flex flex-row items-center space-x-2">
+              <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> <span className="text-sm"> {currentAddress} </span>
+            </div>
+          ) : (
+            <div className="flex flex-row items-center space-x-2">
+              <XCircle className="w-4 h-4 text-red-500" /> <span className="text-sm">  keine Adresse angegeben </span>
+            </div>
+          )}
+        </div>
+        <div className="w-1/2">
+          {currentZipCode ? (
+            <div className="flex flex-row items-center space-x-2">
+              <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> <span className="text-sm"> {currentZipCode} </span>
+            </div>
+          ) : (
+            <div className="flex flex-row items-center space-x-2">
+              <XCircle className="w-4 h-4 text-red-500" /> <span className="text-sm">  keine Postleitzahl angegeben </span>
+            </div>
+          )}
+        </div>
       </div>
       <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!inputRef?.current?.value || 
+        disabled={!inputRef?.current?.value ||
           //@ts-ignore
-          (thisAddressComponent?.locationString === inputRef?.current?.value && Number(currentZipCode) === Number(thisAddressComponent?.postalCode)) || !inputRef?.current?.value.length ||
-          String(currentZipCode).length !== 5 || isNaN(Number(currentZipCode))
+          (thisAddressComponent?.locationString == currentAddress && currentZipCode == thisAddressComponent?.postalCode) || 
+          String(currentZipCode).length !== 5 ||
+          isLoading
         }
       >
         <span className="">Addresse angeben</span>

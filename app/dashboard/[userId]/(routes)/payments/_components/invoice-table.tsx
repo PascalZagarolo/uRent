@@ -1,85 +1,58 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, ArrowUp, ArrowDown, CheckIcon, XIcon } from "lucide-react"
+import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react"
 import { format } from "date-fns"
-import RenderAsHtml from "./render-as-html"
 import TableRowRender from "./table-row"
 import { metadata } from '../../../../../(dashboard)/layout';
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-]
+type SortKey = 'rechnungsnr' | 'status' | 'beschreibung' | 'produkt Art' | 'preis' | 'erstellt'
 
-type SortKey = 'rechnungsnr' | 'status' | 'beschreibung' | 'preis' | 'erstellt' | 'upgrade'
+interface Invoice {
+  id: string
+  rechnungsnr: string
+  status: string
+  beschreibung: string
+  preis: number
+  erstellt: number
+  paid: boolean
+  lines: { data: { price: { unit_amount: number, product: string } }[] }
+  description: string
+  period_start: number
+  created: number
+}
 
 interface InvoiceTableProps {
-  existingInvoices: any
+  existingInvoices: Invoice[]
 }
 
 export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
-
-
   const [sortKey, setSortKey] = useState<SortKey>('rechnungsnr')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
+  const [sortedInvoices, setSortedInvoices] = useState<Invoice[]>([])
 
-  const sortedInvoices = [...invoices].sort((a, b) => {
-    if (a[sortKey] < b[sortKey]) return sortOrder === 'asc' ? -1 : 1
-    if (a[sortKey] > b[sortKey]) return sortOrder === 'asc' ? 1 : -1
-    return 0
-  })
+  // Update sortedInvoices whenever sortKey, sortOrder, or existingInvoices change
+  useEffect(() => {
+    const sorted = [...existingInvoices].sort((a, b) => {
+      const aValue = a[sortKey as keyof Invoice]
+      const bValue = b[sortKey as keyof Invoice]
+
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1
+      return 0
+    })
+    setSortedInvoices(sorted)
+  }, [sortKey, sortOrder, existingInvoices])
 
   const handleSort = (key: SortKey) => {
     if (key === sortKey) {
@@ -109,13 +82,9 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
     </Button>
   )
 
-  function formatUnixTimestamp(timestamp: number): string {
-    // Convert the Unix timestamp (in seconds) to milliseconds and format as locale string
-    return format(new Date(timestamp * 1000), "dd.MM.yyyy")
+  const formatUnixTimestamp = (timestamp: number) => {
+    return format(new Date(timestamp * 1000), "dd/MM/yyyy")
   }
-
-console.log(existingInvoices[1]?.description)
-  
 
   return (
     <Table>
@@ -125,36 +94,27 @@ console.log(existingInvoices[1]?.description)
           <TableHead className="w-[120px]"><SortButton column="rechnungsnr" /></TableHead>
           <TableHead><SortButton column="status" /></TableHead>
           <TableHead><SortButton column="beschreibung" /></TableHead>
+          <TableHead><SortButton column="produkt Art" /></TableHead>
           <TableHead className="w-[80px] break-all"><SortButton column="erstellt" /></TableHead>
           <TableHead className="text-right"><SortButton column="preis" /></TableHead>
           <TableHead className="text-right"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {existingInvoices.map((invoice) => (
-         
+        {sortedInvoices.map((invoice) => (
           <TableRowRender
             key={invoice.id}
-            paid={invoice?.paid}
+            paid={invoice.paid}
             invoiceId={invoice.id}
-            unitAmount={Number(invoice?.lines?.data[0]?.price?.unit_amount ?? 0)}
-            createdAt={
-              formatUnixTimestamp(invoice.created)
-            }
-            description={invoice?.description}
+            unitAmount={invoice.lines?.data[0]?.price?.unit_amount || 0}
+            createdAt={formatUnixTimestamp(invoice.created)}
+            description={invoice.description}
             periodStart={invoice.period_start}
-            productId={invoice?.lines?.data[0]?.price?.product}
-            
+            productId={invoice.lines?.data[0]?.price?.product || ''}
+            isUpgrade={invoice?.metadata?.upgrade == 'true'}
           />
-         
         ))}
       </TableBody>
-      {/* <TableFooter>
-        <TableRow>
-          <TableCell colSpan={5}>Total</TableCell>
-          <TableCell className="text-right">$2,250.00</TableCell>
-        </TableRow>
-      </TableFooter> */}
     </Table>
   )
 }

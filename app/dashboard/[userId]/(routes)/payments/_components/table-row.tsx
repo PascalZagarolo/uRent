@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getMatchingProduct } from "@/actions/stripe/action-stripe";
 
 
+
 interface TableRowProps {
   invoiceId: string;
   unitAmount: number;
@@ -16,6 +17,7 @@ interface TableRowProps {
   periodStart: number;
   productId: string;
   paid: boolean;
+  isUpgrade: boolean;
 }
 
 const TableRowRender = ({
@@ -25,7 +27,8 @@ const TableRowRender = ({
   createdAt,
   periodStart,
   productId,
-  paid
+  paid,
+  isUpgrade,
 }: TableRowProps) => {
 
   const [loading, setLoading] = useState(true)
@@ -49,23 +52,30 @@ const TableRowRender = ({
 
   const [product, setMatchingProduct] = useState<any>(null)
 
-
+  
 
   return (
     <TableRow key={invoiceId}>
-      <TableCell className="font-medium break-all">{invoiceId}</TableCell>
+      <TableCell className="font-medium break-all text-gray-200/60 ">{invoiceId}</TableCell>
       <TableCell>
         {paid ? (
-          <div>
+          <div className="text-emerald-500 font-semibold">
             <span>Bezahlt</span>
           </div>
         ) : (
-          <div>
+          <div className="text-rose-600">
             <span>Ausstehend</span>
           </div>
         )}
       </TableCell>
-      <TableCell>{description ? description : product?.name}</TableCell>
+      <TableCell className="font-semibold">{description ? description : product?.name + " (" +  product?.metadata?.amount + ") "}</TableCell>
+      <TableCell className="font-semibold">
+        {isUpgrade ? (
+          <span className="text-gray-200/60 font-medium">Einmalig</span>
+        ) : (
+          <span className="text-indigo-600 font-semibold">Abo-Zyklus</span>
+        )}
+      </TableCell>
       <TableCell>{createdAt}</TableCell>
       <TableCell className="text-right">{unitAmount / 100} €</TableCell>
       <TableCell className="text-right">

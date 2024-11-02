@@ -18,6 +18,7 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 import { SortableRow } from './price-profiles/rendered-price-profile';
 import { priceprofile } from '@/db/schema';
 import AddPriceProfile from './price-profiles/add-price-profile';
+import { ClipLoader } from 'react-spinners';
 
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), {
     ssr: false,
@@ -28,6 +29,7 @@ interface PriceProfilesProps {
 }
 
 const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const usedList = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
 
@@ -73,15 +75,18 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
     };
 
     const onSave = async () => {
-        const values = {
-            newProfiles: priceProfiles,
-        }
         try {
+            setIsLoading(true);
+            const values = {
+                newProfiles: priceProfiles,
+            }
             await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values);
             router.refresh();
             toast.success('Preisprofile neu angeordnet');
         } catch (error) {
             toast.error('Fehler beim Verschieben des Preisprofils');
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -101,12 +106,16 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
                         disabled={sameLists(usedList, priceProfiles)}
                         onClick={onSave}
                     >
-                        Änderungen speichern
+                        {isLoading ? (
+                            <ClipLoader color='#ffffff' size={20} loading={true} />
+                        ) : (
+                            "Änderungen speichern"
+                        )}
                     </Button>
                 </div>
             </div>
             <div className="flex flex-col gap-2 w-full mx-auto">
-                {priceProfiles.length > 0 && (
+                {priceProfiles?.length > 0 && (
                     <DndContextWithNoSSR
                         sensors={sensors}
                         collisionDetection={closestCenter}

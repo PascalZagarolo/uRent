@@ -31,14 +31,12 @@ const BookingRequestDialog = ({ thisBooking }: BookingRequestDialogProps) => {
         </DialogTrigger>
         <DialogContent className="border-none bg-[#191919] rounded-lg shadow-lg p-6 max-w-md">
             <div>
-                <div className="text-xl font-semibold text-gray-100 mb-4">
-                    Weitere Informationen
-                </div>
+                
                 
                 <div className="flex flex-col gap-4">
                     {/* Title and Image */}
                     <div className="space-y-2">
-                        <div className="text-sm font-semibold text-gray-200/80">
+                        <div className="text-lg font-semibold text-gray-200">
                             {thisBooking?.inserat?.title || 'Titel des Inserats'}
                         </div>
                         <Image

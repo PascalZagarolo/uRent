@@ -17,7 +17,10 @@ export async function POST(
         }
 
         const findInserat = await db.query.inserat.findFirst({
-            where : eq(inserat.id, params.inseratId)
+            where : eq(inserat.id, params.inseratId),
+            with : {
+                priceprofiles : true
+            }
         })
 
         if(!findInserat) {
@@ -27,6 +30,8 @@ export async function POST(
         if(findInserat.userId !== currentUser.id) {
             return new NextResponse("Nicht autorisiert", { status : 401 })
         }
+
+        console.log(findInserat?.priceprofiles?.length)
 
         const data = await req.json();
 
@@ -47,6 +52,10 @@ export async function POST(
                 editedData.push(profile);
             }
         })
+
+        if((findInserat?.priceproiles?.length + (insertedData?.length - deletedData?.length)) > 10) {
+            return new NextResponse("Maximale Anzahl an Preisprofilen erreicht", { status : 400 });
+        }
 
         for(const addedProfile of insertedData) {
             await db.insert(priceprofile).values({

@@ -53,7 +53,7 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
 
 
 
-   
+
 
 
 
@@ -100,7 +100,20 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
     //     }
     // }
 
+    const counts = currentPriceProfiles.reduce(
+        (acc, profile) => {
+            if (profile.getsDeleted) acc.deleted += 1;
+            if (profile.getsAdded) acc.added += 1;
+            return acc;
+        },
+        { deleted: 0, added: 0 }
+    );
 
+    const getsDeletedCount = counts.deleted;
+    const getsAddedCount = counts.added;
+
+
+    const currentLength = thisInserat?.priceprofiles.length + (getsAddedCount - getsDeletedCount);
 
     return (
         <div>
@@ -122,18 +135,18 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                     </Popover>
 
                 </div>
-                {thisInserat?.priceprofiles.length < 6 && (
+                {currentLength < 6 && (
                     <AddPriceProfileCreation thisInserat={thisInserat} setPriceProfiles={setCurrentPriceProfiles} />
                 )}
                 <div className="space-y-2">
-    {currentPriceProfiles
-        ?.filter((priceProfile: any) => {
-            return !priceProfile.getsDeleted;
-        })
-        .map((priceProfile: typeof priceprofile.$inferSelect, index: number) => (
-            <div className="dark:bg-[#141414] p-4 rounded-md" key={priceProfile.id}>
-                <div className="flex items-center gap-x-2">
-                    {/* <div className="w-1/4">
+                    {currentPriceProfiles
+                        ?.filter((priceProfile: any) => {
+                            return !priceProfile.getsDeleted;
+                        })
+                        .map((priceProfile: typeof priceprofile.$inferSelect, index: number) => (
+                            <div className="dark:bg-[#141414] p-4 rounded-md" key={priceProfile.id}>
+                                <div className="flex items-center gap-x-2">
+                                    {/* <div className="w-1/4">
                         <Button
                             size="sm"
                             variant="ghost"
@@ -151,37 +164,37 @@ const PriceProfilesCreation: React.FC<PriceProfilesCreationProps> = ({
                             <ArrowDown className="w-4 h-4" />
                         </Button>
                     </div> */}
-                    <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
-                        {priceProfile?.title}
-                    </div>
-                    <div className="text-sm font-medium dark:text-gray-200/60 w-1/12 line-clamp-1 break-all">
-                        {priceProfile?.price}€
-                    </div>
-                    <div className="text-sm font-medium dark:text-gray-200/60 w-1/12 line-clamp-1 break-all">
-                        {priceProfile?.freeMiles
-                            ? `${priceProfile?.freeMiles}Km`
-                            : "Keine Kilometerbegrenzung angegeben"}
-                    </div>
-                    <div className="text-sm font-medium flex justify-end w-3/12 break-all gap-x-2">
-                        <EditPriceProfilesCreation
-                            thisProfile={priceProfile}
-                            setCurrentPriceProfiles={setCurrentPriceProfiles}
-                        />
-                        <DeletePriceProfilesCreation
-                            thisProfileId={priceProfile?.id}
-                            setCurrentPriceProfiles={setCurrentPriceProfiles}
-                        />
-                    </div>
+                                    <div className="text-sm font-semibold w-1/4 line-clamp-1 break-all">
+                                        {priceProfile?.title}
+                                    </div>
+                                    <div className="text-sm font-medium dark:text-gray-200/60 w-1/12 line-clamp-1 break-all">
+                                        {priceProfile?.price}€
+                                    </div>
+                                    <div className="text-sm font-medium dark:text-gray-200/60 w-1/12 line-clamp-1 break-all">
+                                        {priceProfile?.freeMiles
+                                            ? `${priceProfile?.freeMiles}Km`
+                                            : "Keine Kilometerbegrenzung angegeben"}
+                                    </div>
+                                    <div className="text-sm font-medium flex justify-end w-3/12 break-all gap-x-2">
+                                        <EditPriceProfilesCreation
+                                            thisProfile={priceProfile}
+                                            setCurrentPriceProfiles={setCurrentPriceProfiles}
+                                        />
+                                        <DeletePriceProfilesCreation
+                                            thisProfileId={priceProfile?.id}
+                                            setCurrentPriceProfiles={setCurrentPriceProfiles}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+
+                    {currentPriceProfiles?.length === 0 && (
+                        <div className="text-sm dark:text-gray-200/60">
+                            Noch keine Preisprofile erstellt..
+                        </div>
+                    )}
                 </div>
-            </div>
-        ))}
-    
-    {currentPriceProfiles?.length === 0 && (
-        <div className="text-sm dark:text-gray-200/60">
-            Noch keine Preisprofile erstellt..
-        </div>
-    )}
-</div>
 
             </div>
         </div>

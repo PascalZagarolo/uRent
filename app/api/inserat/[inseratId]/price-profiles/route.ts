@@ -33,6 +33,10 @@ export async function PATCH(
 
         const usedIndex = findInserat?.priceprofiles ? findInserat?.priceprofiles?.length : 0;
 
+        if(findInserat?.priceprofiles?.length > 9) {
+            return new NextResponse("Maximale Anzahl an Preisprofilen erreicht", { status: 400 })
+        }
+
         const createdPriceProfile = await db.insert(priceprofile).values({
             title : values.title,
             price : values.price,

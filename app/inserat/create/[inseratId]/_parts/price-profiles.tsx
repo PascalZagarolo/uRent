@@ -109,7 +109,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
                         {isLoading ? (
                             <ClipLoader color='#ffffff' size={20} loading={true} />
                         ) : (
-                            "Änderungen speichern"
+                            "Anordnung speichern"
                         )}
                     </Button>
                 </div>

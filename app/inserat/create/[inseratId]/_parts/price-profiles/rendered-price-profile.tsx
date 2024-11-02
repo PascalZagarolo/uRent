@@ -3,6 +3,8 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/ui/button';
 import { priceprofile } from '@/db/schema';
+import EditPriceProfile from './edit-price-profile';
+import DeletePriceProfile from './delete-price-profile';
 
 type Props = {
     thisPriceProfile: typeof priceprofile.$inferSelect;
@@ -31,7 +33,7 @@ export function SortableRow({ thisPriceProfile, forceDragging = false }: Props) 
 
     return (
         <article className="flex flex-col w-full gap-2  mt-2" ref={setNodeRef} style={style}>
-            <div className=" w-full rounded-md flex items-center gap-2 overflow-hidden bg-[#222222] shadow-lg">
+            <div className=" w-full rounded-md flex items-center gap-2 overflow-hidden bg-[#202020] shadow-lg">
                 <div className="w-12 h-full flex items-center bg-[#171717] text-gray-200">
                     <p className="w-full text-center h-full">{Number(thisPriceProfile?.position ?? 0)}</p>
                 </div>
@@ -41,8 +43,16 @@ export function SortableRow({ thisPriceProfile, forceDragging = false }: Props) 
                     {...attributes}
                     {...listeners}
                 >
-                    <h2 className="text-base font-semibold text-gray-200">{thisPriceProfile.title}</h2>
+                    <h2 className="text-base font-semibold text-gray-200 line-clamp-1 break-all w-1/2">{thisPriceProfile.title}</h2>
                     <p className="text-sm text-gray-200/60">{thisPriceProfile.price}€</p>
+                </div>
+                <div className='px-4 space-x-2 flex flex-row items-center'>
+                    <div>
+                    <EditPriceProfile priceprofile={thisPriceProfile} />
+                    </div>
+                    <div>
+                    <DeletePriceProfile priceprofileId={thisPriceProfile?.id} />
+                    </div>
                 </div>
                 
             </div>

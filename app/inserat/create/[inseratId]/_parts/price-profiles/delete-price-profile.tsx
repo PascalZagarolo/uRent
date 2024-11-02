@@ -39,8 +39,8 @@ const DeletePriceProfile : React.FC<DeletePriceProfileProps> = ({
     return ( 
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#191919]">
-                    <TrashIcon className="w-4 h-4 text-rose-600 dark:text-rose-700" />
+                <Button className="bg-rose-800 hover:bg-rose-900  hover:text-gray-300">
+                    <TrashIcon className="w-4 h-4 text-gray-200 dark:text-rose-200" />
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="dark:border-none dark:bg-[#191919]">

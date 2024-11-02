@@ -123,7 +123,7 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#191919]">
+                <Button className="dark:bg-[#272727] shadow-lg dark:hover:bg-[#191919]">
                     <PencilIcon className="w-4 h-4 dark:text-gray-200 dark:hover:text-gray-" />
                 </Button>
 

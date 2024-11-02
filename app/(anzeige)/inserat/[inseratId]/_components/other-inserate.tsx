@@ -20,19 +20,17 @@ const OtherInserate: React.FC<OtherInserateProps> = ({
 
     return (
         <div className="w-full  bg-[#171923] px-4 py-4 rounded-md ">
-            <h3 className=" gap-x-2 font-medium text-gray-200">
-                <div className="flex items-center text-medium dark:text-gray-200/90">
-                <IoIosPaper className="w-4 h-4 mr-2" /> Weitere Inserate von
+            <h3 className="flex flex-col gap-1 text-gray-200 font-medium">
+                <div className="flex items-center text-sm dark:text-gray-200/90">
+                    
+                    <span>Weitere Inserate von</span>
                 </div>
-                <div className="w-full line-clamp-1 flex items-center font-semibold">
-                   <div>
-                   <UserIcon className="w-4 h-4 mr-2.5" /> 
-                   </div>
-                   <div className="w-full line-clamp-1">
-                   {thisUser?.name}
-                   </div>
-                   </div>
+                <div className="flex items-center font-semibold text-gray-100">
+                    
+                    <span className="line-clamp-1">{thisUser?.name}</span>
+                </div>
             </h3>
+
             <div className="px-2 mt-2">
                 <Separator className="w-full bg-[#393c53] h-[0.5px]" />
             </div>

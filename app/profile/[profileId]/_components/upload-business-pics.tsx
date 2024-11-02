@@ -151,7 +151,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
             {!currentImage?.url && (
                 <div>
-                    <h3 className="text-lg font-semibold">Profilbanner verwalten</h3>
+                    
                     <div className={cn("text-gray-200/80 bg-[#272727] bg-indigo-600/15 text-sm flex justify-center py-20 shadow-lg items-center")}
                         {...getRootProps()}>
                         <input {...getInputProps()} />

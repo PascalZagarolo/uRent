@@ -65,7 +65,9 @@ export async function PATCH(
                     
                 }
             ],
-            
+            invoice_creation : {
+                enabled : true,
+            },
             metadata: {
                 userId: params.userId,
                 amount: product.metadata.amount,

@@ -30,7 +30,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
 
 
 
-  
+
   const inputRef = useRef();
   const postalRef = useRef();
 
@@ -44,7 +44,7 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     types: ['postal_code'],
     fields: ['address_components'],
     componentRestrictions: { country: "de" },
-}
+  }
 
 
   const [value, setValue] = useState("");
@@ -54,8 +54,8 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  
-  
+
+
   const [address, setAddress] = useState(thisAddressComponent?.locationString || "");
   const [currentAddress, setCurrentAddress] = useState(thisAddressComponent?.locationString || "");
   const [zipCode, setZipCode] = useState(thisAddressComponent?.postalCode || "");
@@ -66,43 +66,43 @@ const SelectLocation: React.FC<SelectLocationProps> = ({
     if (!window.google) return;
 
     const autocomplete = new window.google.maps.places.Autocomplete(
-        inputRef.current!,
-        options
+      inputRef.current!,
+      options
     );
 
     autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (place && place.address_components) {
-            // Handle address change here
-            const city = place.address_components.find(comp => comp.types.includes("locality"))?.long_name;
-            setAddress(city || "");
-            setCurrentAddress(city || "");
+      const place = autocomplete.getPlace();
+      if (place && place.address_components) {
+        // Handle address change here
+        const city = place.address_components.find(comp => comp.types.includes("locality"))?.long_name;
+        setAddress(city || "");
+        setCurrentAddress(city || "");
 
-        }
+      }
     });
-}, [options]);
+  }, [options]);
 
 
-useEffect(() => {
+  useEffect(() => {
     if (!window.google) return;
 
     const postalAutocomplete = new window.google.maps.places.Autocomplete(
-        postalRef.current!,
-        pOptions
+      postalRef.current!,
+      pOptions
     );
 
     postalAutocomplete.addListener('place_changed', () => {
-        const place = postalAutocomplete.getPlace();
-        
-        const zipCode = place.address_components?.find(comp => comp.types.includes("postal_code"))?.long_name;
+      const place = postalAutocomplete.getPlace();
 
-        if (zipCode) {
-            setZipCode(zipCode);
-            setCurrentZipCode(zipCode);
-            
-        }
+      const zipCode = place.address_components?.find(comp => comp.types.includes("postal_code"))?.long_name;
+
+      if (zipCode) {
+        setZipCode(zipCode);
+        setCurrentZipCode(zipCode);
+
+      }
     });
-}, [pOptions]);
+  }, [pOptions]);
 
   const onSubmit = async () => {
     try {
@@ -111,15 +111,14 @@ useEffect(() => {
         postalCode: currentZipCode ?? null,
       }
 
-      axios.patch(`/api/inserat/${thisInserat.id}/address`, values).
-        then(() => {
-          toast.success("Standort erfolgreich hinzugefügt");
-          router.refresh();
-        })
+      await axios.patch(`/api/inserat/${thisInserat.id}/address`, values)
+      toast.success("Standort erfolgreich hinzugefügt");
+      router.refresh();
     } catch {
       toast.error("Etwas ist schief gelaufen");
     }
   }
+
 
   return (
     <div className="items-center w-full">
@@ -159,7 +158,7 @@ useEffect(() => {
           <p className=" text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:block hidden"> 5-Stellige Plz </p>
           <p className="text-gray-800/50 text-xs dark:text-gray-100/80 mt-1 sm:hidden block"> 5-Stellig </p>
           <Input
-          ref={postalRef}
+            ref={postalRef}
             className="p-2.5 2xl:pr-16 xl:pr-4 rounded-md text-sm border mt-2 border-black dark:bg-[#151515] 
             justify-start dark:focus-visible:ring-0"
             type="text"
@@ -190,8 +189,8 @@ useEffect(() => {
           aus dem Profil
         </Label>
       </div> */}
-      <div className="flex flex-row items-center w-full space-x-4">
-        <div className="w-1/2 mt-2">
+      <div className="flex flex-row items-center w-full space-x-4 mt-2">
+        <div className="w-1/2">
           {currentAddress ? (
             <div className="flex flex-row items-center space-x-2">
               <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" /> <span className="text-sm"> {currentAddress} </span>
@@ -214,12 +213,11 @@ useEffect(() => {
           )}
         </div>
       </div>
-      <Button onClick={() => { onSubmit() }} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
-        disabled={!inputRef?.current?.value ||
-          //@ts-ignore
-          (thisAddressComponent?.locationString == currentAddress && currentZipCode == thisAddressComponent?.postalCode) || 
-          String(currentZipCode).length !== 5 ||
-          isLoading
+      <Button onClick={onSubmit} className="mt-2 dark:bg-[#000000] dark:hover:bg-[#0b0b0b] dark:text-gray-100" //@ts-ignore
+        disabled={
+          (thisAddressComponent?.locationString?.trim() == currentAddress?.trim() &&
+            String(thisAddressComponent?.postalCode)?.trim() == String(currentZipCode)?.trim()) ||
+          !currentAddress || !currentZipCode
         }
       >
         <span className="">Addresse angeben</span>

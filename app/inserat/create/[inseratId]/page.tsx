@@ -101,9 +101,7 @@ const InseratCreation = async ({
     
 
 
-    const thisAddressComponent = await db.query.address.findFirst({
-        where: eq(address.id, thisInserat.addressId),
-    })
+    
 
     const isPublishable = {
         title: thisInserat.title.length > 0,
@@ -117,15 +115,7 @@ const InseratCreation = async ({
 
 
 
-    let canPublish = true;
-
-    for (let key in isPublishable) {
-        //@ts-ignore
-        if (!isPublishable[key]) {
-            canPublish = false;
-            break;
-        }
-    }
+    
 
     return (
         <div className="dark:bg-[#141414]">
@@ -147,7 +137,7 @@ const InseratCreation = async ({
                         <SectionTabs 
                         thisInserat={thisInserat}
                         currentUser={currentUser}
-                        thisAddressComponent={thisAddressComponent}
+                        thisAddressComponent={thisInserat?.address}
                         publishedLength={countInserate[0].count}
                         isPublishable={isPublishable}
                         />

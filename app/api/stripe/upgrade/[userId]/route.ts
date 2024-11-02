@@ -67,6 +67,23 @@ export async function PATCH(
             ],
             invoice_creation : {
                 enabled : true,
+                invoice_data : {
+                    description : `Upgrade von ${findExistingSubscription.subscriptionType} auf ${product.metadata.type}`,
+                    metadata : {
+                        userId : params.userId,
+                        amount : values.diffrence,
+                        subscriptionType : product.metadata.type,
+                        productId : values.productId,
+                        usedId : values.usedId,
+                        priceId : price.id,
+                        upgrade : "true",
+                        total : Number(values.diffrence)
+                    },
+                    rendering_options : {
+                        amount_tax_display : "include_inclusive_tax",
+                    },
+                    footer : "uRent UG (haftungsbeschränkt)"
+                }
             },
             metadata: {
                 userId: params.userId,

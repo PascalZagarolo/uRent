@@ -19,6 +19,7 @@ import { SortableRow } from './price-profiles/rendered-price-profile';
 import { priceprofile } from '@/db/schema';
 import AddPriceProfile from './price-profiles/add-price-profile';
 import { ClipLoader } from 'react-spinners';
+import { MdDragIndicator } from 'react-icons/md';
 
 const DndContextWithNoSSR = dynamic(() => import('@dnd-kit/core').then(mod => mod.DndContext), {
     ssr: false,
@@ -101,6 +102,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
                 <span>
                     Erstellte Preisprofile
                 </span>
+                
                 <div className='ml-auto'>
                     <Button className='bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300' size='sm'
                         disabled={sameLists(usedList, priceProfiles)}
@@ -114,6 +116,9 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
                     </Button>
                 </div>
             </div>
+            <p className="text-xs text-gray-200/60 flex flex-row items-center">
+                   <MdDragIndicator className='w-4 h-4 mr-2' /> Halte und ziehe Preisprofile um sie neu anzuordnen
+                </p>
             <div className="flex flex-col gap-2 w-full mx-auto">
                 {priceProfiles?.length > 0 && (
                     <DndContextWithNoSSR

@@ -133,6 +133,7 @@ const EditPriceProfile: React.FC<EditPriceProfileProps> = ({
                     <h1 className="font-semibold">
                         Preisprofil bearbeiten
                     </h1>
+                    
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
 

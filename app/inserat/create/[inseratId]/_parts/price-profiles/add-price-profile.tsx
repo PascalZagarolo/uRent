@@ -125,7 +125,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="ghost"
-                    className="w-full dark:bg-[#191919] rounded-md p-8 items-center dark:text-gray-200/70 text-sm mt-4 border border-dashed flex">
+                    className="w-full dark:bg-[#171717] rounded-md p-8 items-center dark:text-gray-200/70 text-sm mt-4  mb-4 flex">
                     <PlusSquareIcon className="w-4 h-4 mr-2" />  Preisprofil hinzufügen
                 </Button>
             </DialogTrigger>

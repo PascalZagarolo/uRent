@@ -31,7 +31,7 @@ export async function PATCH(
 
         const values = await req.json();
 
-        const usedIndex = findInserat?.priceprofiles ? findInserat?.priceprofiles?.length : 0;
+        const usedIndex = findInserat?.priceprofiles ? findInserat?.priceprofiles?.length + 1 : 1;
 
         if(findInserat?.priceprofiles?.length > 9) {
             return new NextResponse("Maximale Anzahl an Preisprofilen erreicht", { status: 400 })

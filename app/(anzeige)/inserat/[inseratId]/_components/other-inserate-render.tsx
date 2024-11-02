@@ -17,7 +17,7 @@ const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
     const router = useRouter();
     
     return ( 
-        <div className="w-full bg-[#1D1F2B]  pt-2 pb-2 rounded-md shadow-lg">
+        <div className="w-full bg-[#1D1F2B]  pb-2  rounded-md shadow-lg">
             <div className="flex h-[160px]">
             
             <div className="rounded-md w-2/3">
@@ -35,9 +35,9 @@ const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
             onClick={() => {router.push(`/inserat/${thisInserat.id}`)}}>
             {thisInserat?.title} 
             </h3>
-            <div className="h-1/2   p-2  bg-[#161923] shadow-lg rounded-l-md">
+            <div className="h-1/2   p-2  bg-[#0e1016] shadow-lg rounded-l-t-md">
                 <p className="text-sm text-gray-100 font-semibold truncate">
-                    {thisInserat?.price} € {thisInserat.dailyPrice && "/ Tag"}
+                    {thisInserat?.price} € / Tag
                 </p>
                 
             </div>

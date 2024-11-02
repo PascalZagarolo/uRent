@@ -21,6 +21,9 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
 
     const stripeSubscription = existingInvoices?.data.filter((invoice: any) => existingSubscription?.subscription?.stripe_subscription_id)
 
+    const currentSubscription = existingInvoices?.data.filter((invoice: any) => invoice?.metadata?.upgrade !== "true" && invoice?.metadata?.isUpgrade !== "true")
+
+    console.log(currentSubscription)
     
 
     // const { subscriptionInvoices, upgradeInvoices } = existingInvoices.data.reduce(
@@ -131,7 +134,7 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                     {existingSubscription.subscription ? (
                         <SubscriptionsRenderList
                             subscriptions={existingSubscription as any}
-                            invoiceSubscription={JSON.parse(JSON.stringify(stripeSubscription))}
+                            invoiceSubscription={JSON.parse(JSON.stringify(currentSubscription))}
                         />
                     ) : (
                         <div>

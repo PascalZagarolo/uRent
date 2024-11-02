@@ -178,7 +178,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                                 <UserPlus2 className="w-4 h-4 mr-2" /> Offene Anfragen <p className="text-sm ml-4"> {bookingRequests.length} </p>
                             </h3>
                             <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
-                                {bookingRequests?.map((request: typeof bookingRequest.$inferSelect) => (
+                            {bookingRequests?.map((request: typeof bookingRequest.$inferSelect) => (
                                     <BookingRequestRender
                                         currentUserId={currentUser?.id}
                                         request={request}

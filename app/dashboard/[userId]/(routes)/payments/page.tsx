@@ -48,7 +48,9 @@ const PaymentsPage = async () => {
 
     //console.log(matchingProduct.metadata)
 
-    const stripeSubscription = existingInvoices?.data.filter((invoice: any) => existingSubscription?.subscription?.stripe_subscription_id)
+    
+    
+    
     
     
 
@@ -171,7 +173,7 @@ const PaymentsPage = async () => {
                             {existingSubscription.subscription ? (
                                 <SubscriptionsRenderList
                                     subscriptions={existingSubscription as any}
-                                    invoiceSubscription={stripeSubscription}
+                                    invoiceSubscription={{}}
                                 />
                             ) : (
                                 <div>

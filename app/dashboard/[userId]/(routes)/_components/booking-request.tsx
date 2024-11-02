@@ -15,6 +15,7 @@ import { inserat } from '../../../../../db/schema';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import findConversation from "@/actions/findConversation";
 import { findOrCreateConversation } from "@/actions/conversation/linkConversation";
+import BookingRequestDialog from "./booking-request/booking-request-dialog";
 
 
 interface BookingRequestRenderProps {
@@ -84,7 +85,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     };
 
     return (
-        <Dialog>
+        
             <div className="dark:bg-[#141414] p-4 mb-4 rounded-md border dark:border-none ">
                 <div className="flex w-full truncate font-semibold items-center">
                     <CarFrontIcon className="w-4 h-4 mr-2" />    <p className="w-[200px] truncate">
@@ -102,7 +103,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                         </Button>
                     </div>
                 </div>
-                <DialogTrigger asChild>
+                
                     <div className="justify-center flex w-full h-[100px] mt-2">
                         <Image
                             className="min-h-[50px] w-full object-cover flex justify-center"
@@ -113,7 +114,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                             height={50}
                         />
                     </div>
-                </DialogTrigger>
+               
                 <div className="flex w-full mt-2">
 
                     <div className="text-sm w-3/5 flex items-center">
@@ -150,94 +151,19 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                 <div className="max-w-full mt-2 text-xs dark:text-gray-100/70 text-gray-700 max-h-[40px] truncate">
                     {request?.content ? request.content : "Keine Nachricht hinzugefügt..."}
                 </div>
-                <div className="w-full mt-2">
-                    <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex"
+                <div className="w-full mt-2 flex flex-row items-end space-x-2">
+                    <Button className="w-3/4 dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex shadow-lg"
+                    size="sm"
                         //@ts-ignore
                         onClick={onContact}>
-                        <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
+                        <MailCheck className=" h-4 w-4" /> 
                     </Button>
+                    <BookingRequestDialog thisBooking={request}/>
                 </div>
             </div>
-            <DialogContent className="dark:bg-[#141414] dark:border-none">
-                <div>
-                    <div>
-                        <h3 className="text-lg font-semibold flex items-center">
-                          <BookAIcon className="w-4 h-4 mr-2" />  Buchungen verwalten
-                        </h3>
-                        <div className="w-full flex items-center mt-8">
-                            <div className="w-2/4 overflow-hidden text-ellipsis h-[28px] text-md font-medium" >
-                                {//@ts-ignore
-                                request?.inserat?.title}
-                            </div>
-                            <div className="ml-auto flex justify-end">
-                                <Button className=" p-4 mr-2" variant="ghost" size="sm" onClick={onAccept}>
-                                    <Check className="h-4 w-4 text-emerald-600" />
-                                </Button>
-                                <Button className=" p-4" variant="ghost" size="sm" onClick={onDecline}>
-                                    <X className="h-4 w-4 text-rose-600" />
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="justify-center flex w-full h-[132px] mt-2">
-                        <Image
-                            className=" w-full object-cover flex justify-center"
-                            src={//@ts-ignore
-                                request.inserat?.images[0]?.url}
-                            alt="Inserat-Bild"
-                            width={500}
-                            height={500}
-                        />
-                    </div>
-                    <div className="flex w-full mt-2">
-
-                    <div className="text-sm w-3/5 flex items-center">
-
-                        <div className="mr-2">
-                            <Image
-                                className="w-[30px] h-[30px] rounded-full"
-                                src={//@ts-ignore
-                                    request?.user?.image || "/placeholder-person.jpg"}
-                                alt="Profilbild"
-                                width={30}
-                                height={30}
-                            />
-                        </div>
-                        <div>
-
-                            <p className="font-semibold">{//@ts-ignore
-                                request.user?.name}</p>
-                        </div>
-
-                    </div>
-                    <div className="text-sm w-2/5">
-                        <p className="text-xs font-semibold">Datum:</p>
-                        <div className="flex">
-                            <p className="mr-1">{format(new Date(request.startDate), "dd.MM")}</p>
-                            -
-                            <p className="ml-1">{format(new Date(request.endDate), "dd.MM.yy")}</p>
-                        </div>
-                    </div>
-                </div>
-                    <div className="mt-2">
-                        <p className="text-sm">
-                            Weitere Informationen :
-                        </p>
-                    <div className="max-w-full  text-sm dark:text-gray-100/70 text-gray-700 ">
-                    {request?.content ? request.content : "Keine Nachricht hinzugefügt..."}
-                </div>
-                <div className="w-full mt-2">
-                    <Button className="w-full dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex"
-                        //@ts-ignore
-                        onClick={onContact}>
-                        <MailCheck className="mr-2 h-4 w-4" /> Anfragensteller kontaktieren
-                    </Button>
-                </div>
-                    </div>
-                    </div>
-
-                </div>
-            </DialogContent>
-        </Dialog>
+         
+                
+           
     );
 }
 

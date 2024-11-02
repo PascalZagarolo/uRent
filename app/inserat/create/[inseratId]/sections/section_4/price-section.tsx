@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat } from "@/db/schema";
+import { inserat, priceprofile } from "@/db/schema";
 
 import { useState } from "react";
 import DescriptionInserat from "../../../_components/input-fields/description-inserat";
@@ -27,54 +27,42 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
 
 
     const [currentPrice, setCurrentPrice] = useState(thisInserat?.price);
-    const [currentPriceProfiles, setCurrentPriceProfiles] = useState<
-        {
-            id: string;
-            title: string;
-            description: string;
-            price: number;
-            freeMiles: number;
-            extraCost: number;
-            position: number;
-            getsDeleted?: boolean;
-            getsAdded?: boolean;
-            getsEdited?: boolean;
-        }[]
-    >(thisInserat?.priceprofiles ?? []);
+    const usedList = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
+    const [currentPriceProfiles, setCurrentPriceProfiles] = useState<typeof priceprofile.$inferSelect[] | undefined>(usedList);
 
-    const oldPriceProfiles: {
-        id: string;
-        title: string;
-        description: string;
-        price: number;
-        freeMiles: number;
-        extraCost: number;
-        position: number;
-        getsDeleted?: boolean;
-        getsAdded?: boolean;
-        getsEdited?: boolean;
-    }[] = thisInserat?.priceprofiles ?? [];
+    // const oldPriceProfiles: {
+    //     id: string;
+    //     title: string;
+    //     description: string;
+    //     price: number;
+    //     freeMiles: number;
+    //     extraCost: number;
+    //     position: number;
+    //     getsDeleted?: boolean;
+    //     getsAdded?: boolean;
+    //     getsEdited?: boolean;
+    // }[] = thisInserat?.priceprofiles ?? [];
 
-    const areProfilesEqual = (
-        profileA: typeof currentPriceProfiles[0],
-        profileB: typeof oldPriceProfiles[0]
-    ) => {
-        return (
-            profileA.id === profileB.id &&
-            profileA.title === profileB.title &&
-            profileA.description === profileB.description &&
-            profileA.price === profileB.price &&
-            profileA.freeMiles === profileB.freeMiles &&
-            profileA.extraCost === profileB.extraCost &&
-            profileA.position === profileB.position &&
-            profileA.getsDeleted === profileB.getsDeleted &&
-            profileA.getsAdded === profileB.getsAdded &&
-            profileA.getsEdited === profileB.getsEdited
-        );
-    };
+    // const areProfilesEqual = (
+    //     profileA: typeof currentPriceProfiles[0],
+    //     profileB: typeof oldPriceProfiles[0]
+    // ) => {
+    //     return (
+    //         profileA.id === profileB.id &&
+    //         profileA.title === profileB.title &&
+    //         profileA.description === profileB.description &&
+    //         profileA.price === profileB.price &&
+    //         profileA.freeMiles === profileB.freeMiles &&
+    //         profileA.extraCost === profileB.extraCost &&
+    //         profileA.position === profileB.position &&
+    //         profileA.getsDeleted === profileB.getsDeleted &&
+    //         profileA.getsAdded === profileB.getsAdded &&
+    //         profileA.getsEdited === profileB.getsEdited
+    //     );
+    // };
 
     // Check if there is any difference in currentPriceProfiles or currentPrice
-    const hasChanged = (currentPrice != thisInserat?.price || JSON.stringify(currentPriceProfiles) != JSON.stringify(oldPriceProfiles));
+    const hasChanged = (currentPrice != thisInserat?.price || JSON.stringify(currentPriceProfiles) != JSON.stringify(thisInserat?.priceprofiles));
 
 
     const router = useRouter();
@@ -85,7 +73,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             if (currentPrice != thisInserat?.price) {
-                console.log("...")
+               
                 const values = {
                     price: currentPrice
                 }
@@ -93,15 +81,13 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                 router.refresh();
             }
 
-            if (JSON.stringify(currentPriceProfiles) != JSON.stringify(oldPriceProfiles)) {
+            if (JSON.stringify(currentPriceProfiles) != JSON.stringify(thisInserat?.priceprofiles)) {
 
-                const submittedValues = currentPriceProfiles.map((profile) => {
-                    if (profile.getsAdded || profile.getsDeleted) {
-                        return profile;
-                    }
-
-                })
-                await axios.post(`/api/inserat/${thisInserat?.id}/price-profiles/bulkUpdate`, submittedValues)
+                const values = {
+                    newPriceProfiles : currentPriceProfiles
+                }
+                
+                await axios.post(`/api/inserat/${thisInserat?.id}/price-profiles/bulkUpdate`, values)
                 router.refresh();
             }
             if (redirect) {
@@ -139,7 +125,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                 <div className="mt-4">
                     <SelectPriceCreation thisInserat={thisInserat} currentValue={currentPrice} setCurrentValue={setCurrentPrice} />
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 mb-4">
                     <PriceProfilesCreation thisInserat={thisInserat} currentPriceProfiles={currentPriceProfiles} setCurrentPriceProfiles={setCurrentPriceProfiles} />
                 </div>
 
@@ -161,7 +147,8 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                     <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
                         onClick={() => onSave()}
                     >
-                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
+                        {hasChanged ? "Speichern & Fortfahren" : "Fortfahren"}
+                         <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>

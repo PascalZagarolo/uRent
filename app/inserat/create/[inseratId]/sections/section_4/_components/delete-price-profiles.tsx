@@ -10,11 +10,11 @@ import toast from "react-hot-toast";
 
 
 interface DeletePriceProfilesCreationProps {
-    thisProfileId : string
-    setCurrentPriceProfiles : (value) => void;
+    thisProfileId: string
+    setCurrentPriceProfiles: (value) => void;
 }
 
-const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> = ({
+const DeletePriceProfilesCreation: React.FC<DeletePriceProfilesCreationProps> = ({
     thisProfileId,
     setCurrentPriceProfiles
 }) => {
@@ -37,21 +37,23 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
         //     setIsLoading(false);
         // }
         try {
-            setCurrentPriceProfiles((prev) => prev.map((item) => {
-                if(item.id === thisProfileId) {
-                    return {
-                        ...item,
-                        getsDeleted : true
-                    }
-                }
-                return item;
-            }));
-        } catch(e : any) {
+            setCurrentPriceProfiles((prev) => {
+                // Filter out the profile with the specified id
+                const filteredItems = prev.filter(item => item.id !== thisProfileId);
+            
+                // Re-map the array to update positions sequentially
+                return filteredItems.map((item, index) => ({
+                    ...item,
+                    position: index + 1 // Set position to be 1-based index
+                }));
+            });
+            
+        } catch (e: any) {
             console.log(e);
         }
     }
 
-    return ( 
+    return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#191919]">
@@ -62,7 +64,7 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
                 <div>
                     <div>
                         <h3 className="text-md font-medium flex items-center">
-                          <X className="text-rose-600 w-4 h-4 mr-2" />  Preisprofil löschen?
+                            <X className="text-rose-600 w-4 h-4 mr-2" />  Preisprofil löschen?
                         </h3>
                         <p className="text-xs dark:text-gray-200/60">
                             Gelöschte Preisprofile können nicht wiederhergestellt werden.
@@ -70,8 +72,8 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
                     </div>
                     <div className="mt-4 flex justify-end">
                         <AlertDialogAction className="bg-rose-600 hover:bg-rose-700 text-gray-200 hover:text-gray-300"
-                        disabled={isLoading}
-                        onClick={onDelete}
+                            disabled={isLoading}
+                            onClick={onDelete}
                         >
                             Löschen
                         </AlertDialogAction>
@@ -82,7 +84,7 @@ const DeletePriceProfilesCreation : React.FC<DeletePriceProfilesCreationProps> =
                 </div>
             </AlertDialogContent>
         </AlertDialog>
-     );
+    );
 }
- 
+
 export default DeletePriceProfilesCreation;

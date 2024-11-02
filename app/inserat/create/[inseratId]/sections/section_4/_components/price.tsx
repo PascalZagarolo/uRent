@@ -33,7 +33,7 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
 
     const [isLoading, setIsLoading] = useState(false);
     
-    const [isDailyPrice, setDailyPrice] = useState(thisInserat.dailyPrice || false);
+    
 
     const { currentChanges, changeCurrent, deleteCurrent } = useUnsavedChanges()
 
@@ -42,43 +42,22 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
             if (currentValue) {
                 await changeCurrent("price", Number(currentValue)?.toFixed(2));
             } else {
-                console.log("delete")
+                
                 deleteCurrent("price");
             }
         }
         setAmount();
     }, [currentValue])
 
-    useEffect(() => {
-        isValidNumber(currentValue) ? setCorrectPrice(true) : setCorrectPrice(false);
-    }, [currentValue])
-
-    const [correctPrice, setCorrectPrice] = useState(false);
-
-
-
-    function isValidNumber(input: any) {
-        if (input?.startsWith("0")) {
-            return false;
-        }
-        const regex = /^\d+(\.\d{2})?$/;
-        return regex.test(input);
-    }
+  
 
     
 
-    useEffect(() => {
-        const values = {
-            dailyPrice: isDailyPrice
-        }
-        axios.patch(`/api/inserat/${thisInserat.id}`, values);
-    }, [isDailyPrice])
+    
 
-    useEffect(() => {
-        if (thisInserat.annual) {
-            setDailyPrice(true)
-        }
-    }, [thisInserat.annual])
+    
+
+  
 
 
 
@@ -113,21 +92,7 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
 
 
 
-            <div className="w-full flex items-center">
-               
-
-                <div className="ml-auto space-x-2 mt-2">
-                    <Label>
-                        Preis pro Tag
-                    </Label>
-                    <Checkbox
-                        onCheckedChange={(checked) => { setDailyPrice(!isDailyPrice) }}
-                        checked={isDailyPrice}
-                        disabled
-                    />
-
-                </div>
-            </div>
+          
 
 
         </div>

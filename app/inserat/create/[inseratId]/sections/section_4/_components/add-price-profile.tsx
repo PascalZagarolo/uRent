@@ -20,16 +20,18 @@ import toast from "react-hot-toast";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { z } from "zod";
 import {v4 as uuidv4} from 'uuid';
+import { priceprofile } from '../../../../../../../db/schema';
 
 interface AddPriceProfileCreationProps {
     thisInserat: typeof inserat.$inferSelect;
     setPriceProfiles : (value) => void;
-    
+    currentPriceProfiles : typeof priceprofile.$inferSelect[];
 }
 
 const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
     thisInserat,
-    setPriceProfiles
+    setPriceProfiles,
+    currentPriceProfiles
 }) => {
 
 
@@ -99,7 +101,7 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
             setIsLoading(true);
 
             const generatedId = uuidv4()
-            console.log(currentKilometer)
+           
             const newInserted = {
                 id : generatedId,
                 title: currentType,
@@ -107,7 +109,8 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
                 description: currentInfo,
                 freeMiles: currentKilometer,
                 extraCost: currentExtratype,
-                getsAdded : true
+                getsAdded : true,
+                position : currentPriceProfiles.length + 1
             }
             // console.log(values)
             // await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
@@ -121,7 +124,11 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
             //         form.reset();
             //     })
 
-            setPriceProfiles((prev) => [...prev, newInserted]);
+            if(currentPriceProfiles.length === 0){
+                setPriceProfiles([newInserted]);
+            } else {
+                setPriceProfiles((prev) => [...prev ?? null, newInserted]);
+            }
             toast.success("Preisprofil hinzugefügt")
         } catch {
             toast.error("Fehler beim hinzufügen des Preisprofils")

@@ -108,6 +108,7 @@ const EditPriceProfilesCreation: React.FC<EditPriceProfilesCreiationProps> = ({
                 description: currentInfo,
                 freeMiles: currentKilometer,
                 extraCost : currentExtratype,
+                position : thisProfile.position,
                 getsEdited : true,
             }
             

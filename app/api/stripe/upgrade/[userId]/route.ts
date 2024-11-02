@@ -93,7 +93,8 @@ export async function PATCH(
                 usedId : values.usedId,
                 priceId : price.id,
                 upgrade : "true",
-                total : Number(values.diffrence)
+                total : Number(values.diffrence),
+                usedDescription : `Upgrade von ${findExistingSubscription.subscriptionType}(${findExistingSubscription?.amount}) auf ${product.metadata.type}(product.metadata.amount)`
             }
         })
 

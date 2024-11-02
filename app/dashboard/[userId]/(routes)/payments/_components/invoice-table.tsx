@@ -114,7 +114,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
     return format(new Date(timestamp * 1000), "dd.MM.yyyy")
   }
 
-console.log(existingInvoices)
+console.log(existingInvoices[1]?.description)
   
 
   return (
@@ -141,7 +141,7 @@ console.log(existingInvoices)
             createdAt={
               formatUnixTimestamp(invoice.created)
             }
-            description={invoice?.metadata?.isUpgrade !== undefined ? invoice?.lines?.data[0]?.description : undefined}
+            description={invoice?.description}
             periodStart={invoice.period_start}
             productId={invoice?.lines?.data[0]?.price?.product}
             

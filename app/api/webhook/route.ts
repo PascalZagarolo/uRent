@@ -76,7 +76,7 @@ export async function POST(
                 items: [
                     {
                         id: subscriptions.data[0].items.data[0].id,
-                        price: session?.metadata?.priceId
+                        price: session?.metadata?.priceId,
                     }
                 ], proration_behavior: 'none'
             }
@@ -242,7 +242,7 @@ export async function POST(
                 return new NextResponse("Nicht autorisiert", { status: 401 })
             }
 
-            const patchedInserat = await db.update(inserat).set({
+             await db.update(inserat).set({
                 isPublished: true
             }).where(eq(inserat.id, session?.metadata?.usedId)).returning();
         }

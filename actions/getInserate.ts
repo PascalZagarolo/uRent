@@ -10,7 +10,7 @@ import {
 } from "@/db/schema";
 import axios from "axios";
 import { isAfter, isBefore, isEqual, isSameDay } from "date-fns";
-import { and, eq, gte, ilike, lte } from "drizzle-orm";
+import { and, eq, gte, ilike, lte, sql } from "drizzle-orm";
 import { cache } from "react";
 import { dynamicSearch } from "./dynamic-search";
 
@@ -481,7 +481,7 @@ export const getInserate = cache(async ({
     })
 
     const filterAvailability = cache((pInserat: any) => {
-        
+
         if (pInserat.bookings.length === 0) {
             return true;
         }
@@ -543,7 +543,7 @@ export const getInserate = cache(async ({
 
                 }
                 else {
-                    
+
                     console.log(booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd)
                     return false;
                 }
@@ -770,6 +770,15 @@ export const getInserate = cache(async ({
 
 
 
+
+
+        
+        
+
+
+
+
+
         const filteredArray = foundInserate.filter((pInserat) => {
 
             const validateUser = userId ? pInserat.userId === userId : true;
@@ -796,13 +805,7 @@ export const getInserate = cache(async ({
 
                 if (!available) return false;
             } else if (startDateDynamic && endDateDynamic) {
-                console.log("test")
-                console.log(pInserat.bookings)
-                console.log(startTime)
-                console.log(endTime)
-                console.log(startDateDynamic)
-                console.log(endDateDynamic)
-                console.log(reqTime)
+               
 
                 const usedStartTime = String(startTime);
                 const usedEndTime = String(endTime);
@@ -880,33 +883,38 @@ export const getInserate = cache(async ({
                 }
             }
             */
-            for (const pInserat of filteredArray) {
-                const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
-                    Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
-                if (distance < usedRadius) {
-                    returnedArray.push(pInserat);
+            if(addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
+                for (const pInserat of filteredArray) {
+                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
+                        Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
+                    if (distance < usedRadius) {
+                        returnedArray.push(pInserat);
+                    }
                 }
+            } else {
+                console.log("no address found")
+                returnedArray = filteredArray;
             }
         } else {
             returnedArray = filteredArray;
         }
 
-        if(filter === "date_newest") {
+        if (filter === "date_newest") {
             returnedArray.sort((a, b) => {
                 return new Date(b.firstRelease).getTime() - new Date(a.firstRelease).getTime();
             })
         }
 
-        if(filter === "date_oldest") {
+        if (filter === "date_oldest") {
             returnedArray.sort((a, b) => {
                 return new Date(a.firstRelease).getTime() - new Date(b.firstRelease).getTime();
             })
         }
 
         if (!filter || filter === "relevance") {
-            
+
             returnedArray.sort((a, b) => {
-                
+
                 const aIsPremium = a.user?.subscription?.subscriptionType === "PREMIUM" || a.user?.subscription?.subscriptionType === "ENTERPRISE";
                 const bIsPremium = b.user?.subscription?.subscriptionType === "PREMIUM" || b.user?.subscription?.subscriptionType === "ENTERPRISE";
 

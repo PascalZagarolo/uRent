@@ -98,6 +98,12 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
         }
     }
 
+    const onDraftSave = async () => {
+        toast.success("Entwurf gespeichert");
+        router.push(`/dashboard/${thisInserat?.userId}?tab=inserate`);
+
+    }
+
     const copyToClipboard = () => {
         navigator.clipboard.writeText(`www.urent-rental.de/inserat/${thisInserat?.id}`);
         toast.success("Link wurde in die Zwischenablage kopiert.");
@@ -212,13 +218,19 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                  )}       
             </div>
             <div className="flex flex-col w-full mt-8">
-                <Button className={cn("bg-indigo-800 hover:bg-indigo-900 text-gray-200 py-3 w-full rounded-lg shadow-lg transition-all duration-200",
+                {!thisInserat?.isPublished && !currentPrivacy ? (
+                    <Button className="bg-[#222222] hover:bg-[#232323] text-gray-200 hover:text-gray-300" onClick={onDraftSave}>
+                        Entwurf speichern
+                    </Button>
+                ) : (
+                    <Button className={cn("bg-indigo-800 hover:bg-indigo-900 text-gray-200 py-3 w-full rounded-lg shadow-lg transition-all duration-200",
                     !currentPrivacy ? 'bg-[#222222] hover:bg-[#232323] text-gray-200/80 hover:text-gray-200' : 'bg-indigo-800 hover:bg-indigo-900')}
                     onClick={onSave}
-                    disabled={isLoading || !canPublish() && currentPrivacy || thisInserat?.isPublished === currentPrivacy}
+                    disabled={isLoading || !canPublish() && currentPrivacy || (thisInserat?.isPublished === currentPrivacy)}
                 >
                     Inserat  {currentPrivacy ? 'veröffentlichen' : 'privat schalten'}
                 </Button>
+                )}
                 <Button className="flex items-center justify-center w-full text-gray-400 hover:text-gray-200 transition-all mt-2" variant="ghost"
                     onClick={onPrevious} disabled={isLoading}>
                     <ArrowLeft className="w-4 h-4 mr-2" />

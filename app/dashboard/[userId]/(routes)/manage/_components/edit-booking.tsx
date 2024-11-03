@@ -67,11 +67,11 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
 
 
-    const [currentStart, setCurrentStart] = useState(new Date(thisBooking?.startDate));
-    const [currentEnd, setCurrentEnd] = useState(new Date(thisBooking?.endDate));
-    const [currentPeriodStart, setCurrentPeriodStart] = useState(thisBooking?.startPeriod);
-    const [currentPeriodEnd, setCurrentPeriodEnd] = useState(thisBooking?.endPeriod);
-    const [currentInternal, setCurrentInternal] = useState(thisBooking?.buchungsnummer);
+    const [currentStart, setCurrentStart] = useState(new Date(thisBooking?.startDate) ?? new Date());
+    const [currentEnd, setCurrentEnd] = useState(new Date(thisBooking?.endDate) ?? new Date());
+    const [currentPeriodStart, setCurrentPeriodStart] = useState(thisBooking?.startPeriod ?? "");
+    const [currentPeriodEnd, setCurrentPeriodEnd] = useState(thisBooking?.endPeriod ?? "");
+    const [currentInternal, setCurrentInternal] = useState(thisBooking?.buchungsnummer ?? "");
     const [affectAll, setAffectAll] = useState(false);
 
     const [ignore, setIgnore] = useState(false);
@@ -520,7 +520,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 <div className="flex justify-end">
                                                     <LetterRestriction
                                                         limit={160}
-                                                        currentLength={currentInternal.length ?? 0}
+                                                        currentLength={currentInternal?.length ?? 0}
                                                     />
                                                 </div>
                                             </FormItem>
@@ -541,7 +541,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                         <div className="flex justify-end">
                                             <LetterRestriction
                                                 limit={160}
-                                                currentLength={currentInternal.length ?? 0}
+                                                currentLength={currentInternal?.length ?? 0}
                                             />
                                         </div>
                                     </div>
@@ -566,7 +566,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 />
                                                 <div className="flex justify-end">
                                                     <LetterRestriction
-                                                        currentLength={currentContent.length ?? 0}
+                                                        currentLength={currentContent?.length ?? 0}
                                                         limit={2000} />
                                                 </div>
                                             </FormItem>

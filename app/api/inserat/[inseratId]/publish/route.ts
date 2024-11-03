@@ -13,7 +13,14 @@ export async function PATCH(
 ) {
     try {
 
-    
+        const isValidUrl = (url: string): boolean => {
+            try {
+                new URL(url);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        };
 
         const { publish } = await req.json();
 
@@ -21,7 +28,8 @@ export async function PATCH(
             where : (
                 eq(inserat.id, params.inseratId)
             ), with : {
-                vehicles : true
+                vehicles : true,
+                images : true,
             }
         })
 
@@ -40,7 +48,7 @@ export async function PATCH(
                     const usedIndex = i < 10 ? "0" + (i + 1) : (i + 1);
                     const usedTitle = "Fahrzeug" + " " + usedIndex;
 
-                    const createVehicle = await db.insert(vehicle).values({
+                    await db.insert(vehicle).values({
                         title : usedTitle,
                         inseratId : findInserat.id,
                     })
@@ -72,16 +80,17 @@ export async function PATCH(
 
        
 
-        const pAddress: string[] = addressObject.data[0].display_name.split(",");
+        
        
-        console.log(publish)
-        console.log(addressObject.data[0].lon)
-        console.log(addressObject.data[0].lat)
+        
         if(publish) {
-                const patchedAddress : any = await db.update(address).set({
+            const patchedAddress : any = await db.update(address).set({
                     longitude: String(addressObject.data[0].lon),
                     latitude: String(addressObject.data[0].lat),
             }).where(eq(address.inseratId, params.inseratId)).returning();
+
+           
+
 
             if(patchedAddress) {
                 return NextResponse.json(patchedInserat[0]);
@@ -105,3 +114,5 @@ export async function PATCH(
 
     }
 }
+
+

@@ -59,7 +59,12 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            if (isLoading) return;
+            
+            if (isLoading) {
+                console.log("isLoading")
+                return;
+                
+            }
             setIsLoading(true);
             if (hasChanged) {
                 const uploadData: { url: string, position: number }[] = [];
@@ -75,7 +80,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                                 prev.map((item) => item.id === pImage.id ? { ...item, url: returnedUrl, wholeFile: null } : item)
                             );
                         } else {
-                            console.error(`Failed to upload image after ${MAX_RETRIES} attempts.`);
+                            console.log(`Failed to upload image after ${MAX_RETRIES} attempts.`);
                             toast.error("Image upload failed. Please try again.");
                             continue;
                         }
@@ -104,7 +109,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 changeSection(currentSection + 1);
             }
         } catch (e: any) {
-            console.error(e);
+            console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
         } finally {
             setIsLoading(false);
@@ -117,13 +122,14 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             if (isValidUrl(url)) {
                 return url;
             }
-            console.warn(`Upload attempt ${attempt} failed, retrying...`);
+            console.log(`Upload attempt ${attempt} failed, retrying...`);
         }
-        return ""; // Return empty if all attempts fail
+        return "";
     };
 
     const handleUpload2 = async (file: File): Promise<string> => {
         try {
+            console.log("Uploading image...");
             const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
             const formData = new FormData();
             formData.append("file", file);
@@ -134,13 +140,16 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 body: formData,
             });
 
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (!response.ok) {
+                console.log("Network response was not ok", response);
+                throw new Error('Network response was not ok');
+            }
 
             const data = await response.json();
-            console.log(`Uploaded URL: ${data.secure_url}`);
+            
             return data.secure_url;
         } catch (e: any) {
-            console.error("Upload error:", e);
+            console.log("Upload error:", e);
             return "";
         } finally {
             setIsLoading(false);
@@ -165,20 +174,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
 
 
-    // selectedImages.some((image) => image.wholeFile !== null) || 
-    // thisInserat?.images.length !== selectedImages.length ||
-    // //check if images were deleted 
-    // thisInserat?.images.some((image, index) => {
-    //     return !selectedImages.some(selectedImage => selectedImage.id === image.id);
-    // });
-    // //check if images were added
-    // selectedImages.some(selectedImage => {
-    //     return !thisInserat?.images.some(image => image.id === selectedImage.id);
-    // });
-    // //check if position were changed
-    // selectedImages.some(selectedImage => {
-    //     return !thisInserat?.images.some(image => image.position === selectedImage.position);
-    // })
+   
 
     useEffect(() => {
         if (!hasChanged) return

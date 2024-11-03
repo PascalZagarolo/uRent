@@ -52,6 +52,8 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
     }
 
 
+    
+
     const unfinishedSections = []
 
     if(!thisInserat?.title || !thisInserat?.description) {

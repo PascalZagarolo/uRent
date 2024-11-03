@@ -115,9 +115,9 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
             setCurrentInfo(undefined);
             setCurrentType(undefined);
           
-           
-            setCurrentPriceProfiles([...currentPriceProfiles, newProfile?.data[0]]);
             router.refresh();
+            setCurrentPriceProfiles([...currentPriceProfiles, newProfile?.data[0]]);
+            
             toast.success("Preisprofil hinzugefügt")
         } catch {
             toast.error("Fehler beim hinzufügen des Preisprofils")

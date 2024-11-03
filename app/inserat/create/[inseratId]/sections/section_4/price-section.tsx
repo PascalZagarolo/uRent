@@ -30,36 +30,8 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
     const usedList = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
     const [currentPriceProfiles, setCurrentPriceProfiles] = useState<typeof priceprofile.$inferSelect[] | undefined>(usedList);
 
-    // const oldPriceProfiles: {
-    //     id: string;
-    //     title: string;
-    //     description: string;
-    //     price: number;
-    //     freeMiles: number;
-    //     extraCost: number;
-    //     position: number;
-    //     getsDeleted?: boolean;
-    //     getsAdded?: boolean;
-    //     getsEdited?: boolean;
-    // }[] = thisInserat?.priceprofiles ?? [];
+    const [isLoading, setIsLoading] = useState(false);
 
-    // const areProfilesEqual = (
-    //     profileA: typeof currentPriceProfiles[0],
-    //     profileB: typeof oldPriceProfiles[0]
-    // ) => {
-    //     return (
-    //         profileA.id === profileB.id &&
-    //         profileA.title === profileB.title &&
-    //         profileA.description === profileB.description &&
-    //         profileA.price === profileB.price &&
-    //         profileA.freeMiles === profileB.freeMiles &&
-    //         profileA.extraCost === profileB.extraCost &&
-    //         profileA.position === profileB.position &&
-    //         profileA.getsDeleted === profileB.getsDeleted &&
-    //         profileA.getsAdded === profileB.getsAdded &&
-    //         profileA.getsEdited === profileB.getsEdited
-    //     );
-    // };
 
     // Check if there is any difference in currentPriceProfiles or currentPrice
     const hasChanged = (currentPrice != thisInserat?.price || JSON.stringify(currentPriceProfiles) != JSON.stringify(thisInserat?.priceprofiles));

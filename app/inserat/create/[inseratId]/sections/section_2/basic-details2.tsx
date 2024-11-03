@@ -23,6 +23,7 @@ import SaveChangesPrevious from "../_components/save-changes-previous";
 import InseratType from "./_components/inserat-type";
 import VehicleAmount from "./_components/vehicle-amount";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../_components/render-continue";
 
 interface BasicDetails2Props {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -34,6 +35,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
     const [currentCategory, setCurrentCategory] = useState(thisInserat.category || "PKW");
     const [isMulti, setIsMulti] = useState<string>(thisInserat.multi ? "true" : "false");
+    const [isLoading, setIsLoading] = useState(false);
     const [vehicleAmount, setVehicleAmount] = useState(thisInserat?.amount);
 
 
@@ -71,6 +73,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
+            setIsLoading(true);
             if (hasChanged) {
                 
                 const values = {
@@ -106,6 +109,8 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -208,13 +213,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                         <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 2)}>
                             Zurück
                         </Button>
-                        <Button
-                            className="bg-indigo-800 text-gray-200 w-full hover:bg-indigo-900 hover:text-gray-300"
-                            disabled={String(isMulti) === "true" && vehicleAmount < 2}
-                            onClick={() => onSave()}
-                        >
-                            Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                        </Button>
+                        <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                     </div>
                 </div>
 

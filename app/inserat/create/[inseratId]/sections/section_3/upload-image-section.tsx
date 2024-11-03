@@ -16,6 +16,8 @@ import SaveChangesDialog from "../_components/save-changes-dialog";
 import { cn } from "@/lib/utils";
 import SaveChangesPrevious from "../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../_components/render-continue";
+
 
 
 
@@ -38,6 +40,8 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
         })) || []
     );
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const oldImages: { id: string; url: string; position: number, wholeFile: any }[] = thisInserat?.images.map((image) => ({
         id: image.id,
         url: image.url,
@@ -54,100 +58,106 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     const MAX_RETRIES = 3;
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
-    try {
-        if (hasChanged) {
-            const uploadData: { url: string, position: number }[] = [];
+        try {
+            if (isLoading) return;
+            setIsLoading(true);
+            if (hasChanged) {
+                const uploadData: { url: string, position: number }[] = [];
 
-            for (const pImage of selectedImages) {
-                let returnedUrl = "";
+                for (const pImage of selectedImages) {
+                    let returnedUrl = "";
 
-                if (pImage.wholeFile) {
-                    returnedUrl = await retryUpload(pImage.wholeFile);
+                    if (pImage.wholeFile) {
+                        returnedUrl = await retryUpload(pImage.wholeFile);
+
+                        if (isValidUrl(returnedUrl)) {
+                            setSelectedImages((prev) =>
+                                prev.map((item) => item.id === pImage.id ? { ...item, url: returnedUrl, wholeFile: null } : item)
+                            );
+                        } else {
+                            console.error(`Failed to upload image after ${MAX_RETRIES} attempts.`);
+                            toast.error("Image upload failed. Please try again.");
+                            continue;
+                        }
+                    } else {
+                        returnedUrl = pImage.url;
+                    }
 
                     if (isValidUrl(returnedUrl)) {
-                        setSelectedImages((prev) =>
-                            prev.map((item) => item.id === pImage.id ? { ...item, url: returnedUrl, wholeFile: null } : item)
-                        );
-                    } else {
-                        console.error(`Failed to upload image after ${MAX_RETRIES} attempts.`);
-                        toast.error("Image upload failed. Please try again.");
-                        continue;  
+                        uploadData.push({ url: returnedUrl, position: pImage.position });
                     }
-                } else {
-                    returnedUrl = pImage.url;
                 }
 
-                if (isValidUrl(returnedUrl)) {
-                    uploadData.push({ url: returnedUrl, position: pImage.position });
-                }
+                const values = { updatedImages: uploadData };
+                await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
+                router.refresh();
             }
 
-            const values = { updatedImages: uploadData };
-            await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
-            router.refresh();
+            if (redirect) {
+                router.push(`/inserat/create/${thisInserat.id}`);
+                router.refresh();
+            } else if (previous) {
+                const params = new URLSearchParams();
+                params.set('sectionId', String(2));
+                window.history.pushState(null, '', `?${params.toString()}`);
+            } else {
+                changeSection(currentSection + 1);
+            }
+        } catch (e: any) {
+            console.error(e);
+            toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
+    };
 
-        if (redirect) {
-            router.push(`/inserat/create/${thisInserat.id}`);
-            router.refresh();
-        } else if (previous) {
-            const params = new URLSearchParams();
-            params.set('sectionId', String(2));
-            window.history.pushState(null, '', `?${params.toString()}`);
-        } else {
-            changeSection(currentSection + 1);
+    const retryUpload = async (file: File): Promise<string> => {
+        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+            const url = await handleUpload2(file);
+            if (isValidUrl(url)) {
+                return url;
+            }
+            console.warn(`Upload attempt ${attempt} failed, retrying...`);
         }
-    } catch (e: any) {
-        console.error(e);
-        toast.error("Fehler beim Speichern der Änderungen");
-    }
-};
+        return ""; // Return empty if all attempts fail
+    };
 
-const retryUpload = async (file: File): Promise<string> => {
-    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-        const url = await handleUpload2(file);
-        if (isValidUrl(url)) {
-            return url;
+    const handleUpload2 = async (file: File): Promise<string> => {
+        try {
+            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "oblbw2xl");
+
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const data = await response.json();
+            console.log(`Uploaded URL: ${data.secure_url}`);
+            return data.secure_url;
+        } catch (e: any) {
+            console.error("Upload error:", e);
+            return "";
+        } finally {
+            setIsLoading(false);
         }
-        console.warn(`Upload attempt ${attempt} failed, retrying...`);
-    }
-    return ""; // Return empty if all attempts fail
-};
+    };
 
-const handleUpload2 = async (file: File): Promise<string> => {
-    try {
-        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", "oblbw2xl");
+    // Helper function to validate URLs
+    const isValidUrl = (url: string): boolean => {
+        try {
+            new URL(url);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    };
 
-        const response = await fetch(url, {
-            method: "POST",
-            body: formData,
-        });
 
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const data = await response.json();
-        console.log(`Uploaded URL: ${data.secure_url}`);
-        return data.secure_url;
-    } catch (e: any) {
-        console.error("Upload error:", e);
-        return "";
-    }
-};
-
-// Helper function to validate URLs
-const isValidUrl = (url: string): boolean => {
-    try {
-        new URL(url);
-        return true;
-    } catch (_) {
-        return false;
-    }
-};
-
-    
 
 
 
@@ -217,11 +227,7 @@ const isValidUrl = (url: string): boolean => {
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 3)}>
                         Zurück
                     </Button>
-                    <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={() => onSave()}
-                    >
-                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}

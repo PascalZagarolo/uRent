@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { switchSectionOverview } from '../../../../../../hooks/inserat-creation/useRouterHistory';
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../_components/render-continue";
 
 interface BasicDetailsProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -24,12 +25,14 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
 
     const [currentTitle, setCurrentTitle] = useState(thisInserat.title || "");
     const [currentDescription, setCurrentDescription] = useState(thisInserat.description || "");
+    const [isLoading, setIsLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
 
     
 
     const onSave = async (redirect? : boolean) => {
         try {
+            setIsLoading(true);
           if(hasChanged) {
             const values = {
                 title : currentTitle?.trim(),
@@ -49,6 +52,8 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
         } catch(e : any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -105,11 +110,7 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                     </div>
                     <div className="grid grid-cols-2">
                     <div/>
-                    <Button className="bg-indigo-800 text-gray-200 w-full mt-2 hover:bg-indigo-900 hover:text-gray-300"
-                    onClick={() => onSave()}
-                    >
-                       Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                     </div>
                 </div>
                 {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}

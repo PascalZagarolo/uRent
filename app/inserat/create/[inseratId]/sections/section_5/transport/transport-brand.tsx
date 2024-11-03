@@ -78,7 +78,7 @@ const TransportBrandCreation: React.FC<CarBrandFormProps> = ({
                         
                         <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(TransportBrandEnumRender).map((brand, index) => (
-                                (brand !== "Fiat" && brand !== "Iveco" && brand !== "Mercedes-Benz" && brand !== "Volkswagen") && (
+                                (brand !== "Fiat" && brand !== "Iveco" && brand !== "Mercedes_Benz" && brand !== "Volkswagen") && (
                                     <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>

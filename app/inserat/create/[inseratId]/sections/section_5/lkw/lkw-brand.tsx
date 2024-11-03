@@ -79,7 +79,7 @@ const LkwBrandCreation: React.FC<LkwBrandCreationProps> = ({
                                 Beliebig
                             </SelectItem>
                         {Object.values(LkwBrandEnumRender).map((brand, index) => (
-                            !(brand === "MAN" || brand.trim() === "Scania" || brand === "Mercedes-Benz" || brand === "Volvo") 
+                            !(brand === "MAN" || brand.trim() === "Scania" || brand === "Mercedes_Benz" || brand === "Volvo") 
                             && (
                                 <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

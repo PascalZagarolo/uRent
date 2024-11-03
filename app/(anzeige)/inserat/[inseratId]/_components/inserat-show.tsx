@@ -18,6 +18,7 @@ import { MdOutlineOpenInNew } from "react-icons/md";
 import PriceProfileDialog from "./price-profile-dialog";
 import { GrLocation } from "react-icons/gr";
 import { AiFillMediumCircle } from "react-icons/ai";
+import { findLabelByValueMinTime } from "@/hooks/min-time/useMinTime";
 
 interface InseratShowProps {
     thisInserat: typeof inserat.$inferSelect | any
@@ -249,9 +250,14 @@ const InseratShow: React.FC<InseratShowProps> = ({
                     )}
                     */}
                             {thisInserat?.minTime && (
-                                <div className="w-1/2 mt-1 truncate font-semibold text-sm flex">
+                                <div className="w-1/2 mt-1 truncate font-semibold text-sm flex flex-row items-center ">
                                     <Clock2Icon className="w-4 h-4 mr-2 text-indigo-800" />
-                                    Mindestmietdauer : {thisInserat?.minTime.slice(0, 1)} {returnMinTimeType(Number(thisInserat.minTime.slice(0, 1)), thisInserat?.minTime.slice(1))}
+                                    <span className=" font-semibold mr-1">
+                                    Mindestmietdauer
+                                    </span>  
+                                    <div className=" text-gray-200/80 font-medium">
+                                        {findLabelByValueMinTime(Number(thisInserat?.minTime ?? 0))}
+                                        </div>
                                 </div>
                             )}
                             {thisInserat?.pkwAttribute?.extraCost && (

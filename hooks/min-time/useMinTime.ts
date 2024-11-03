@@ -47,3 +47,8 @@ export const minTimeValues = [
 ];
 
 
+export const findLabelByValueMinTime = (value) => {
+    console.log("value", value);
+    const result = minTimeValues.find(item => item.value === value);
+    return result ? result.label : null;
+};

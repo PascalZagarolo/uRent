@@ -33,7 +33,8 @@ export async function PATCH(
         }
 
         const highlightInserat = await db.update(inserat).set({
-            isHighlighted : true
+            isHighlighted : true,
+            color : "PURPLE"
         }).where(eq(inserat.id, params.inseratId)).returning();
 
         return NextResponse.json(highlightInserat)

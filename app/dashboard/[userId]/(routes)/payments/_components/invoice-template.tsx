@@ -117,28 +117,13 @@ const styles = StyleSheet.create({
     },
 });
 
-const reciept_data = {
-    "id": "642be0b4bbe5d71a5341dfb1",
-    "invoice_no": "20200669",
-    "address": "Gnieselbert Haselmus Muster Weg, 42833 Magnesiumsglocke, Rumänien",
-    "date": "20.07.2024",
-    "vat_id": "DE123456789", // German VAT ID
-    "items": [
-        {
-            "id": 1,
-            "desc": "uRent - Enterprise (50 Inserate)",
-            "qty": 1,
-            "price": 178.99,
-        },
-    ]
-};
 
 const InvoiceTitle = () => (
     <View style={styles.headerContainer}>
         <Image style={styles.logo} src="/uRent.png" />
         <View style={styles.companyDetails}>
-            <Text style={styles.reportTitle}>uRent UG</Text>
-            <Text style={styles.subHeading}>Bozenerstr. 26, Solingen, NRW, Deutschland</Text>
+            <Text style={styles.reportTitle}>uRent UG (haftungsbeschränkt)</Text>
+            <Text style={styles.subHeading}>Bozenerstr. 26, 42659 Solingen, Nordrhein-Westfalen, Deutschland</Text>
             <Text style={styles.subHeading}>VAT ID: DE123456789</Text> {/* VAT ID added */}
         </View>
     </View>
@@ -158,8 +143,18 @@ const UserAddress = ({ address }) => (
         <View>
             <Text style={styles.subHeading}>Rechnungsadresse:</Text>
             <Text style={styles.address}>
-                {`${address.line1}, ${address.line2 ? address.line2 + ', ' : ''}${address.postal_code} ${address.city}, ${address.state}, ${address.country}`}
+                {[
+                    address.line1,
+                    address.line2,
+                    address.postal_code && `${address.postal_code} ${address.city ?? ''}`,
+                    address.state,
+                    address.country
+                ]
+                    .filter(Boolean) 
+                    .join(', ')}     
             </Text>
+
+
         </View>
     </View>
 );
@@ -173,15 +168,15 @@ const TableHead = () => (
     </View>
 );
 
-const TableBody = ({ items }) => (
-    items.map((item, index) => (
-        <View style={[styles.tableRow, index % 2 === 0 && styles.rowLight]} key={item.id}>
-            <Text style={styles.columnDesc}>{item.desc}</Text>
-            <Text style={styles.column}>{item.price.toFixed(2)}</Text>
-            <Text style={styles.column}>{item.qty}</Text>
-            <Text style={styles.column}>{(item.price * item.qty).toFixed(2)}</Text>
-        </View>
-    ))
+const TableBody = ({ plan, price, index }) => (
+
+    <View style={[styles.tableRow, index % 2 === 0 && styles.rowLight]} >
+        <Text style={styles.columnDesc}>{plan}</Text>
+        <Text style={styles.column}>{price.toFixed(2)}</Text>
+        <Text style={styles.column}>{1}</Text>
+        <Text style={styles.column}>{(price).toFixed(2)}</Text>
+    </View>
+
 );
 
 const TableTotal = ({ total }) => (
@@ -192,7 +187,7 @@ const TableTotal = ({ total }) => (
 );
 
 const InvoiceTemplate = ({ price, invoice_no, address, date, plan, amount }) => {
-    const total = reciept_data.items.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
 
     return (
         <Document>
@@ -201,8 +196,8 @@ const InvoiceTemplate = ({ price, invoice_no, address, date, plan, amount }) => 
                 <InvoiceDetails invoice_no={invoice_no} date={date} />
                 <UserAddress address={address} />
                 <TableHead />
-                <TableBody items={reciept_data.items} />
-                <TableTotal total={total} />
+                <TableBody plan={plan} price={price} index={1} />
+                <TableTotal total={price} />
                 <Text style={styles.footer}>Vielen Dank für Ihre Bestellung bei uRent UG. Bei Fragen zur Rechnung wenden Sie sich bitte an support@urent.com.</Text>
             </Page>
         </Document>

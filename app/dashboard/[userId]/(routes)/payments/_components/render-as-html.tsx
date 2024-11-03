@@ -34,7 +34,7 @@ const RenderAsHtml: React.FC<RenderAsHtmlProps> = ({
     
 
 
-
+console.log(plan)
 
 
 

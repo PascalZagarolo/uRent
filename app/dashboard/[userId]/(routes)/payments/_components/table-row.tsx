@@ -5,7 +5,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import RenderAsHtml from "./render-as-html";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { getMatchingProduct } from "@/actions/stripe/action-stripe";
+import { getMatchingCustomer, getMatchingProduct } from "@/actions/stripe/action-stripe";
 
 
 
@@ -16,6 +16,7 @@ interface TableRowProps {
   createdAt: string;
   periodStart: number;
   productId: string;
+  customerId : string;
   paid: boolean;
   isUpgrade: boolean;
 }
@@ -27,6 +28,7 @@ const TableRowRender = ({
   createdAt,
   periodStart,
   productId,
+  customerId,
   paid,
   isUpgrade,
 }: TableRowProps) => {
@@ -37,10 +39,12 @@ const TableRowRender = ({
     const loadProduct = async () => {
       try {
         const retrieved = await getMatchingProduct(productId as string)
-        if (!retrieved) {
+        const retrievedCustomer = await getMatchingCustomer(customerId as string)
+        if (!retrieved || !retrievedCustomer) {
           setLoading(false)
         }
         setMatchingProduct(retrieved)
+        setCustomer(retrievedCustomer)
         setLoading(false)
       } catch (e: any) {
         console.log(e)
@@ -50,9 +54,12 @@ const TableRowRender = ({
     loadProduct()
   }, [])
 
-  const [product, setMatchingProduct] = useState<any>(null)
+  const [product, setMatchingProduct] = useState<any>(null);
+  const [customer, setCustomer] = useState<any>(null);
 
-  
+ 
+
+  const renderedDescription = description ? description : product?.name + " (" +  product?.metadata?.amount + ") "
 
   return (
     <TableRow key={invoiceId}>
@@ -68,7 +75,7 @@ const TableRowRender = ({
           </div>
         )}
       </TableCell>
-      <TableCell className="font-semibold">{description ? description : product?.name + " (" +  product?.metadata?.amount + ") "}</TableCell>
+      <TableCell className="font-semibold">{renderedDescription}</TableCell>
       <TableCell className="font-semibold">
         {isUpgrade ? (
           <span className="text-gray-200/60 font-medium">Einmalig</span>
@@ -85,17 +92,17 @@ const TableRowRender = ({
             invoice_no={invoiceId}
             address={
               {
-                city: "",
-                country: "",
-                line1: "",
-                line2: "",
-                postal_code: "",
-                state: ""
+                city: customer?.address?.city,
+                country: customer?.address?.country,
+                line1: customer?.address?.line1,
+                line2: customer?.address?.line2,
+                postal_code: customer?.address?.postal_code,
+                state: customer?.address?.state
               }
             }
-            plan={""}
+            plan={renderedDescription}
             amount={0}
-            date={format(new Date(periodStart * 1000), 'dd.MM.yyyy')}
+            date={createdAt}
           /></div>
       </TableCell>
     </TableRow>

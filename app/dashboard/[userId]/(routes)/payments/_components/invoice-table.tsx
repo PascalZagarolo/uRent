@@ -86,6 +86,10 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
     return format(new Date(timestamp * 1000), "dd/MM/yyyy")
   }
 
+  console.log(existingInvoices[0]?.customer)
+
+  
+
   return (
     <Table>
       <TableCaption>Eine Liste von allen ausgestellten Rechnungen in Verbindung zwischen dir und uRent.</TableCaption>
@@ -111,6 +115,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
             description={invoice.description}
             periodStart={invoice.period_start}
             productId={invoice.lines?.data[0]?.price?.product || ''}
+            customerId={invoice?.customer}
             //@ts-ignore
             isUpgrade={invoice?.metadata?.upgrade == 'true'}
           />

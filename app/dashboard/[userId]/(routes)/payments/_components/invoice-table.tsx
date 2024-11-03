@@ -86,7 +86,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
     return format(new Date(timestamp * 1000), "dd/MM/yyyy")
   }
 
-  console.log(existingInvoices[0]?.customer)
+  
 
   
 
@@ -115,6 +115,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
             description={invoice.description}
             periodStart={invoice.period_start}
             productId={invoice.lines?.data[0]?.price?.product || ''}
+            //@ts-ignore
             customerId={invoice?.customer}
             //@ts-ignore
             isUpgrade={invoice?.metadata?.upgrade == 'true'}

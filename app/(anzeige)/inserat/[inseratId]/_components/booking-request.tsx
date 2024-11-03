@@ -93,7 +93,7 @@ const Bookings = () => {
   })
 
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     try {
       console.log("getriggered")
       setIsLoading(true);
@@ -104,20 +104,17 @@ const Bookings = () => {
         endPeriod: endTime,
         endDate: currentEnd,
       }
-      axios.post(`/api/bookingrequest/${params.inseratId}`, values);
+      await axios.post(`/api/bookingrequest/${params.inseratId}`, values);
       toast.success("Buchunsanfrage wurde erfolgreich gesendet!");
       setCurrentEnd(new Date());
       setCurrentStart(new Date());
-      setCurrentStart(new Date());
-      setCurrentStart(new Date());
+      setStartTime(undefined);
+      setEndTime(undefined);
       setCurrentNotice("");
-
+      router.refresh();
     } catch (err) {
       toast.error("Fehler beim hinzufügen der Buchung", err)
     } finally {
-      setTimeout(() => {
-        router.refresh();
-      }, 1000)
       setIsLoading(false);
     }
   }

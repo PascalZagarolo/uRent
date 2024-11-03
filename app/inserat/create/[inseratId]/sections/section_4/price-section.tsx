@@ -118,7 +118,10 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 4)}>
+                        Zurück
+                    </Button>
+                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}

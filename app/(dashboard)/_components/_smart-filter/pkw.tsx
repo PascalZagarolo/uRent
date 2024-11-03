@@ -2,6 +2,7 @@ import UdsLayout from "../urent-dynamic-search/uds-layout";
 import DateFormFilter from "./_components/date-filter";
 import LocationSmartFilter from "./_components/location";
 import PriceFormFilter from "./_components/price";
+import ReqRentTime from "./_components/req-rent-time";
 
 
 const PKW = () => {
@@ -9,6 +10,9 @@ const PKW = () => {
         <div className="w-full">
             <div className="mt-4 flex justify-center">
             <PriceFormFilter/>
+            </div>
+            <div className="mt-4 flex justify-center px-2 mb-4">
+                <ReqRentTime />
             </div>
             <div className="mt-4 flex justify-center">
                 <DateFormFilter/>

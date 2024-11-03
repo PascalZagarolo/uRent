@@ -1,8 +1,9 @@
 'use client';
 
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { inserat } from "@/db/schema";
+import { minTimeValues } from "@/hooks/min-time/useMinTime";
 import { cn } from "@/lib/utils";
 
 
@@ -25,128 +26,44 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
   const [currentValue, setCurrentValue] = useState<string | null>(thisInserat.minTime ? thisInserat.minTime : null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentDateType, setCurrentDateType] = useState<string>(thisInserat.minTime ? thisInserat.minTime.slice(-1) : "d");
-  
+
   const router = useRouter();
 
   const params = useParams();
 
-  useEffect(() => {
-    let usedSuffix
-    
-    switch(currentDateType) {
-      case "h":
-        usedSuffix = "h";
-        break;
-      case "d":
-        usedSuffix = "d";
-        break;
-      case "w":
-        usedSuffix = "w";
-        break;
-      case "m":
-        usedSuffix = "m";
-        break;
-      case "y":
-        usedSuffix = "y";
-        break;
+  const renderCorresponding = (value: number) => {
+    switch (value) {
+      case 1: return (
+        <SelectLabel className="pl-4 font-semibold mb-4">
+          Stunden
+        </SelectLabel>
+      );
+      case 24 : return (
+        <SelectLabel className="pl-4 font-semibold mb-4 mt-4">
+          Tag(e)
+        </SelectLabel>
+      );
+      case 168: return (
+        <SelectLabel className="pl-4 font-semibold mb-4 mt-4 ">
+          Woche(n)
+        </SelectLabel>
+      );
+      case 720: return (
+        <SelectLabel className="pl-4 font-semibold mb-4  mt-4">
+          Monat(e)
+        </SelectLabel>
+      );
+      case 8760: return (
+        <SelectLabel className="pl-4 font-semibold mb-4  mt-4">
+          Jahr(e)
+        </SelectLabel>
+      )
     }
-
-    currentValue ? setCurrentValue(currentValue + usedSuffix) : null;
-  },[currentDateType])
-
-  const onHours = () => {
-    return (
-      <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-        <SelectItem value={null}>
-          Keine Mindestdauer
-        </SelectItem>
-        <SelectItem value="1h">1</SelectItem>
-        <SelectItem value="2h">2</SelectItem>
-        <SelectItem value="3h">3</SelectItem>
-        <SelectItem value="4h">4</SelectItem>
-        <SelectItem value="5h">5</SelectItem>
-        <SelectItem value="6h">6</SelectItem>
-        <SelectItem value="7h">7</SelectItem>
-        <SelectItem value="8h">8</SelectItem>
-        <SelectItem value="9h">9</SelectItem>
-        <SelectItem value="10h">10</SelectItem>
-        <SelectItem value="11h">11</SelectItem>
-        <SelectItem value="12h">12</SelectItem>s
-      </SelectContent>
-    )
-  }
-
-  const onDays = () => {
-    return (
-      <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-        <SelectItem value={null}>
-          Keine Mindestdauer
-        </SelectItem>
-        <SelectItem value="1d">1</SelectItem>
-        <SelectItem value="2d">2</SelectItem>
-        <SelectItem value="3d">3</SelectItem>
-        <SelectItem value="4d">4</SelectItem>
-        <SelectItem value="5d">5</SelectItem>
-        <SelectItem value="6d">6</SelectItem>
-      </SelectContent>
-    )
-  }
-
-  const onWeeks = () => {
-    return (
-      <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-        <SelectItem value={null}>
-          Keine Mindestdauer
-        </SelectItem>
-        <SelectItem value="1w">1</SelectItem>
-        <SelectItem value="2w">2</SelectItem>
-        <SelectItem value="3w">3</SelectItem>
-        <SelectItem value="4w">4</SelectItem>
-
-      </SelectContent>
-    )
   }
 
 
 
-  const onMonths = () => {
-    return (
-      <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-        <SelectItem value={null}>
-          Keine Mindestdauer
-        </SelectItem>
-        <SelectItem value="1m">1</SelectItem>
-        <SelectItem value="2m">2</SelectItem>
-        <SelectItem value="3m">3</SelectItem>
-        <SelectItem value="4m">4</SelectItem>
-        <SelectItem value="5m">5</SelectItem>
-        <SelectItem value="6m">6</SelectItem>
-        <SelectItem value="7m">7</SelectItem>
-        <SelectItem value="8m">8</SelectItem>
-        <SelectItem value="9m">9</SelectItem>
-        <SelectItem value="10m">10</SelectItem>
-        <SelectItem value="11m">11</SelectItem>
-
-
-      </SelectContent>
-    )
-  }
-
-  const onYears = () => {
-    return (
-      <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-        <SelectItem value={null}>
-          Keine Mindestdauer
-        </SelectItem>
-        <SelectItem value="1y">1</SelectItem>
-        <SelectItem value="2y">2</SelectItem>
-        <SelectItem value="3y">3</SelectItem>
-
-      </SelectContent>
-    )
-  }
-
-  const onSubmit = (selectedValue: string) => {
+  const onSubmit = async (selectedValue: string) => {
     try {
       setCurrentValue(selectedValue);
 
@@ -155,11 +72,9 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
       }
       console.log(values);
       setIsLoading(true);
-      axios.patch(`/api/inserat/${params.inseratId}`, values);
+      await axios.patch(`/api/inserat/${params.inseratId}`, values);
       toast.success("Mindestmietdauer gespeichert");
-      setTimeout(() => {
-        router.refresh();
-      }, 400)
+      router.refresh();
     } catch {
       toast.error("Fehler beim Speichern der Mindestmietdauer");
     } finally {
@@ -175,7 +90,7 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
         </Label>
         <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80  truncate"> Wie lange müssen Kunden das Fahrzeug mindestens mieten? </p>
         <div className="w-full flex items-center gap-x-4">
-          <div className="w-1/2">
+          <div className="w-full">
             <Select
               onValueChange={(value) => {
                 onSubmit(value);
@@ -192,49 +107,25 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
 
                 />
               </SelectTrigger>
-
-              {
-                {
-                  "h": onHours(),
-                  "d": onDays(),
-                  "w": onWeeks(),
-                  "m": onMonths(),
-                  "y": onYears()
-                }[currentDateType]
-              }
-            </Select>
-          </div>
-          <div className="w-1/2">
-            <Select
-              onValueChange={(value) => {
-                setCurrentDateType(value);
-              }}
-              value={currentDateType ? String(currentDateType) : null}
-              disabled={isLoading}
-            >
-
-              <SelectTrigger className={
-                cn("dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md ", !currentValue && "text-gray-200/60")
-              }
-                disabled={isLoading}>
-                <SelectValue
-                  placeholder="Wähle die Kategorie aus"
-
-
-                />
-              </SelectTrigger>
-
-              <SelectContent className={
-                cn("dark:bg-[#000000] border-white dark:border-none w-full", !currentValue && "text-gray-200/60")
-              }>
-                <SelectItem value="h">Stunden</SelectItem>
-                <SelectItem value="d">Tag(e)</SelectItem>
-                <SelectItem value="w">Woche(n)</SelectItem>
-                <SelectItem value="m">Monat(e)</SelectItem>
-                <SelectItem value="y">Jahr(e)</SelectItem>
+              <SelectContent className="bg-[#191919] border-none">
+              <SelectGroup>
+                <SelectItem value={null} className="mb-4">
+                  Keine Mindestmietdauer
+                </SelectItem>
+                {minTimeValues.map((item) => (
+                  <>
+                    {renderCorresponding(item.value)}
+                    <SelectItem key={item.value} value={String(item.value)} className="px-16">
+                      {item.label}
+                    </SelectItem>
+                  </>
+                ))}
+              </SelectGroup>
               </SelectContent>
+
             </Select>
           </div>
+
         </div>
       </div>
     </div>

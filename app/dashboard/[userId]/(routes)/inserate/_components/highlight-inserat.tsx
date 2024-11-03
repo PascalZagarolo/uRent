@@ -53,7 +53,7 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
     };
 
     const hightlightedInserate = foundInserate.filter((inserat: any) => inserat.isPublished && inserat?.isHighlighted);
-    console.log(hightlightedInserate)
+    
     const availableHighlights = (existingSubscription?.subscriptionType === "ENTERPRISE" && existingSubscription?.amount > 1) ? 2 : 1
 
     const [isLoading, setIsLoading] = useState(false);
@@ -98,7 +98,7 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                         inserat?.color && `${Colors[inserat?.color]} border`,
 
                     )} key={inserat.id}>
-                        <div className="text-sm w-full line-clamp-1 break-all">
+                        <div className="text-sm w-full line-clamp-1 break-all font-semibold">
                             {inserat.title}
                         </div>
                         <div className="w-full">
@@ -114,12 +114,10 @@ const HighlightInserat: React.FC<HighlightInseratProps> = ({
                         </div>
                         <div className="mt-2 gap-y-2">
 
-                            <p className="text-xs">
-                                erstellt: {format(new Date(inserat.createdAt), "dd.MM.yyyy")}
+                            <p className="text-xs text-gray-200/60">
+                                erstellt {format(new Date(inserat.createdAt), "dd.MM.yyyy")}
                             </p>
-                            <p className="text-xs">
-                                {formatNumber(inserat?.views)} Aufrufe
-                            </p>
+                            
                         </div>
                         {existingSubscription?.subscriptionType === "ENTERPRISE" && (
                             <div className="mt-2">

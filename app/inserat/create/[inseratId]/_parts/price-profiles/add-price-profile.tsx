@@ -23,10 +23,14 @@ import { z } from "zod";
 
 interface AddPriceProfileProps {
     thisInserat: typeof inserat.$inferSelect;
+    setCurrentPriceProfiles: (priceprofile) => void;
+    currentPriceProfiles: any;
 }
 
 const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
-    thisInserat
+    thisInserat,
+    setCurrentPriceProfiles,
+    currentPriceProfiles
 }) => {
 
 
@@ -101,18 +105,19 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                 freeMiles: currentKilometer,
                 extraCost: currentExtratype
             }
-           
-            await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
-                .then(() => {
-                    router.refresh();
-                    setCurrentValue(undefined);
-                    setCurrentExtratype(undefined);
-                    setCurrentKilometer(undefined);
-                    setCurrentInfo(undefined);
-                    setCurrentType(undefined);
-                    form.reset();
-                })
 
+            const newProfile = await axios.patch(`/api/inserat/${params.inseratId}/price-profiles`, values)
+
+    
+            setCurrentValue(undefined);
+            setCurrentExtratype(undefined);
+            setCurrentKilometer(undefined);
+            setCurrentInfo(undefined);
+            setCurrentType(undefined);
+          
+           
+            setCurrentPriceProfiles([...currentPriceProfiles, newProfile?.data[0]]);
+            router.refresh();
             toast.success("Preisprofil hinzugefügt")
         } catch {
             toast.error("Fehler beim hinzufügen des Preisprofils")
@@ -135,7 +140,7 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                         Preisprofil hinzufügen
                     </h1>
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <form >
 
                             <div className="w-full  gap-x-4">
                                 <h1 className="w-full font-semibold text-sm">
@@ -182,11 +187,11 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                                         }}
 
                                                     />
-                                                    
+
                                                 </FormControl>
                                                 <div className="ml-auto flex justify-end">
-                                                        <LetterRestriction limit={16} currentLength={currentValue?.length || 0} />
-                                                    </div>
+                                                    <LetterRestriction limit={16} currentLength={currentValue?.length || 0} />
+                                                </div>
 
                                             </FormItem>
 
@@ -263,8 +268,8 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                             maxLength={500}
                                         />
                                         <div className="ml-auto flex justify-end">
-                                        <LetterRestriction limit={500} currentLength={currentInfo?.length || 0} />
-                                    </div>
+                                            <LetterRestriction limit={500} currentLength={currentInfo?.length || 0} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +278,8 @@ const AddPriceProfile: React.FC<AddPriceProfileProps> = ({
                                     <Button
                                         className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
-                                        type="submit" disabled={isSubmitting ||
+                                        onClick={onSubmit}
+                                        disabled={isSubmitting ||
                                             currentValue > 1_000_000 ||
                                             !correctPrice || !correctKilometer || !currentValue
                                             || !currentType}

@@ -50,8 +50,15 @@ const SelectCautionCreation: React.FC<SelectCautionCreationProps> = ({
                                                 placeholder="Gebe deine Kaution ein"
                                                 max={999999}
                                                 maxLength={7}
-                                                onChange={(e) => setCurrentValue(e.target.value)}
-
+                                                onChange={(e) => {
+                                                    let value = e.target.value.replace(/,/g, '.');
+                                
+                                                    if (/^\d*\.?\d{0,2}$/.test(value)) {
+                                                        setCurrentValue(value); 
+                                                    }
+                                                }}
+                                                   
+                                            
                                             />
                                   
                                     

@@ -81,17 +81,16 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
 
             <Input
                 type="text"
-                value={currentValue}
+                value={currentValue ?? undefined}
                 name="price"
                 maxLength={10}
                 max={1_000_000}
                 className=" dark:bg-[#151515] dark:border-none mt-2"
                 placeholder="Mietpreis hinzufügen"
                 onChange={(e) => {
-                    // Replace commas with periods for decimal compatibility
+
                     let value = e.target.value.replace(/,/g, '.');
 
-                    // Match valid price format (up to two decimal places)
                     if (/^\d*\.?\d{0,2}$/.test(value)) {
                         setCurrentValue(value); // Update state if input is valid
                     }

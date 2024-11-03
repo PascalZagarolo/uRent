@@ -96,7 +96,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
     return (
         <div>
             <div>
-                <AddPriceProfile thisInserat={thisInserat} />
+            <AddPriceProfile thisInserat={thisInserat} currentPriceProfiles={priceProfiles} setCurrentPriceProfiles={setPriceProfiles}/>
             </div>
             <div className='text-lg font-semibold flex flex-row items-center mb-4'>
                 <span>

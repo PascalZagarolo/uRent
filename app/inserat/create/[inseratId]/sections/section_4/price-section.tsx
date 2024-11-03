@@ -46,13 +46,14 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             setIsLoading(true);
-            if (currentPrice != thisInserat?.price) {
+            if (currentPrice != thisInserat?.price && currentPrice) {
 
                 const values = {
-                    price: currentPrice
+                    price: currentPrice ?? null
                 }
                 await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
                 router.refresh();
+                
             }
 
             if (JSON.stringify(currentPriceProfiles) != JSON.stringify(thisInserat?.priceprofiles)) {

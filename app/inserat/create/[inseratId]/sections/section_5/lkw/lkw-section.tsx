@@ -19,6 +19,7 @@ import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/us
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../../_components/render-continue";
 
 
 
@@ -42,6 +43,8 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
     const [currentBrand, setCurrentBrand] = useState(lkwAttribute?.lkwBrand ? lkwAttribute?.lkwBrand : null);
     const [currentSeats, setCurrentSeats] = useState(lkwAttribute?.seats ? lkwAttribute?.seats : null);
     
+    const [isLoading, setIsLoading] = useState(false);
+    
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
@@ -51,6 +54,7 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
+            setIsLoading(true);
             if(hasChanged) {
                 const values = {
                     weightClass: currentWeight,
@@ -76,6 +80,8 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -132,11 +138,7 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
 }>
                         Zurück
                     </Button>
-                    <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={() => onSave()}
-                    >
-                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
 

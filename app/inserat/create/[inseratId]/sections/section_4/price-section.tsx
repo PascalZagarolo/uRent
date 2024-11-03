@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import SaveChangesPrevious from "../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../_components/render-continue";
 
 interface PriceSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -44,8 +45,9 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
+            setIsLoading(true);
             if (currentPrice != thisInserat?.price) {
-               
+
                 const values = {
                     price: currentPrice
                 }
@@ -56,9 +58,9 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
             if (JSON.stringify(currentPriceProfiles) != JSON.stringify(thisInserat?.priceprofiles)) {
 
                 const values = {
-                    newPriceProfiles : currentPriceProfiles
+                    newPriceProfiles: currentPriceProfiles
                 }
-                
+
                 await axios.post(`/api/inserat/${thisInserat?.id}/price-profiles/bulkUpdate`, values)
                 router.refresh();
             }
@@ -75,7 +77,10 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
+
     }
 
     const onPrevious = () => {
@@ -113,15 +118,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 4)}>
-                        Zurück
-                    </Button>
-                    <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={() => onSave()}
-                    >
-                        {hasChanged ? "Speichern & Fortfahren" : "Fortfahren"}
-                         <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+                <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}

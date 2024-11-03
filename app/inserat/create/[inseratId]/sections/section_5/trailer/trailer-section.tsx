@@ -20,6 +20,7 @@ import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/us
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../../_components/render-continue";
 
 
 
@@ -43,6 +44,8 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
     const [currentAxis, setCurrentAxis] = useState(trailerAttribute?.axis ? trailerAttribute?.axis : null);
     const [currentBrake, setCurrentBrake] = useState(trailerAttribute?.brake ? trailerAttribute?.brake : undefined);
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
@@ -52,6 +55,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
 
     const onSave = async (redirect? : boolean, previous?: boolean) => {
         try {
+            setIsLoading(true);
            if(hasChanged) {
             const values = {
                 type: currentType,
@@ -76,6 +80,8 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -133,11 +139,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 5)}>
                         Zurück
                     </Button>
-                    <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={() => onSave()}
-                    >
-                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
 

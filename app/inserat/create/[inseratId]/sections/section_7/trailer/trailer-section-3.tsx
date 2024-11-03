@@ -22,6 +22,7 @@ import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/us
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../../_components/render-continue";
 
 
 
@@ -48,6 +49,8 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
     const [currentWidth, setCurrentWidth] = useState<string | number>(trailerAttribute?.loading_b ? trailerAttribute?.loading_b : undefined);
     const [currentHeight, setCurrentHeight] = useState<string | number>(trailerAttribute?.loading_h ? trailerAttribute?.loading_h : undefined);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
@@ -61,7 +64,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
    
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-
+            setIsLoading(true);
 
             if(hasChanged) {
                 const values = {
@@ -89,6 +92,8 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -157,12 +162,7 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 7)}>
                         Zurück
                     </Button>
-                    <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={() => onSave()}
-                      
-                    >
-                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}

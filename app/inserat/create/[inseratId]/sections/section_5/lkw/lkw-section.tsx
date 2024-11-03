@@ -59,10 +59,12 @@ const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionP
                 const values = {
                     weightClass: currentWeight,
                     axis: currentAxis,
-                    brand: currentBrand,
+                    lkwBrand: currentBrand,
                     seats: currentSeats
                 }
-                await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
+
+                console.log(values);
+                await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
                 router.refresh();
             }
             if (redirect) {

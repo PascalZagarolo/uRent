@@ -106,6 +106,17 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 params.set('sectionId', String(2));
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
+                
+                if(selectedImages?.length > 0) {
+                    for (let i = 0; i < selectedImages.length; i++) {
+                        if (!selectedImages[i].url) {
+                            toast.error("Bitte lade alle Bilder hoch.");
+                            setIsLoading(false);
+                            return;
+                        }
+                    }
+                }
+
                 changeSection(currentSection + 1);
             }
         } catch (e: any) {

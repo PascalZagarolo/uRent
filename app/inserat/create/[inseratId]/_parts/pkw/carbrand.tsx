@@ -32,18 +32,16 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
     const params = useParams();
 
 
-    const onSubmit = (selectedValue: typeof BrandEnumRender) => {
+    const onSubmit = async (selectedValue: typeof BrandEnumRender) => {
         try {
             setCurrentBrand(selectedValue);
             const values = {
                 brand: selectedValue
             }
             setIsLoading(true);
-            axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
+            await axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
             toast.success("Automarke gespeichert");
-            setTimeout(() => {
-                router.refresh();
-            }, 400)
+            router.refresh();
         } catch {
             toast.error("Fehler beim Speichern der Kategorie");
         } finally {

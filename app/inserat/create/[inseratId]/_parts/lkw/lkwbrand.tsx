@@ -32,18 +32,16 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
     const params = useParams();
 
 
-    const onSubmit = (selectedValue: typeof LkwBrandEnumRender) => {
+    const onSubmit = async (selectedValue: typeof LkwBrandEnumRender) => {
         try {
             setCurrentBrand(selectedValue);
             const values = {
                 lkwBrand: selectedValue
             }
             setIsLoading(true);
-            axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
+            await axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
             toast.success("LKW Marke gespeichert");
-            setTimeout(() => {
-                router.refresh();
-            }, 400)
+            router.refresh()
         } catch {
             toast.error("Fehler beim Speichern der Kategorie");
         } finally {
@@ -94,7 +92,7 @@ const LkwBrandForm: React.FC<LkwBrandFormProps> = ({
                                 Beliebig
                             </SelectItem>
                         {Object.values(LkwBrandEnumRender).map((brand, index) => (
-                            !(brand === "MAN" || brand.trim() === "Scania" || brand === "Mercedes-Benz" || brand === "Volvo") 
+                            !(brand === "MAN" || brand.trim() === "Scania" || brand === "Mercedes_Benz" || brand === "Volvo") 
                             && (
                                 <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

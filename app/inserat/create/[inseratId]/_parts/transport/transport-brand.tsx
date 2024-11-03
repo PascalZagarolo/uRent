@@ -32,18 +32,16 @@ const TransportBrandForm: React.FC<CarBrandFormProps> = ({
     const params = useParams();
 
 
-    const onSubmit = (selectedValue: typeof transportBrandEnum) => {
+    const onSubmit = async (selectedValue: typeof transportBrandEnum) => {
         try {
             setCurrentBrand(selectedValue);
             const values = {
                 transportBrand: selectedValue
             }
             setIsLoading(true);
-            axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
+            await axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
             toast.success("Transporter Marke gespeichert");
-            setTimeout(() => {
-                router.refresh();
-            }, 400)
+            router.refresh();
         } catch {
             toast.error("Fehler beim Speichern der Kategorie");
         } finally {
@@ -94,7 +92,7 @@ const TransportBrandForm: React.FC<CarBrandFormProps> = ({
                         
                         <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(TransportBrandEnumRender).map((brand, index) => (
-                                (brand !== "Fiat" && brand !== "Iveco" && brand !== "Mercedes-Benz" && brand !== "Volkswagen") && (
+                                (brand !== "Fiat" && brand !== "Iveco" && brand !== "Mercedes_Benz" && brand !== "Volkswagen") && (
                                     <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}
                             </SelectItem>

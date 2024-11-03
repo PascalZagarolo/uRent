@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import SaveChangesPrevious from "../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import RenderContinue from "../_components/render-continue";
 
 
 
@@ -36,6 +37,8 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
     const [currentEmail, setCurrentEmail] = useState<string | null>(thisInserat?.emailAddress ? thisInserat?.emailAddress : null);
     const [currentNumber, setCurrentNumber] = useState<string | null>(thisInserat?.phoneNumber ? thisInserat?.phoneNumber : null);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
@@ -43,7 +46,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-
+            setIsLoading(true);
             if(hasChanged) {
                 
                 const values1 = {
@@ -73,6 +76,8 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -154,12 +159,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 9)}>
                         Zurück
                     </Button>
-                    <Button className="bg-indigo-800 text-gray-200 w-full  hover:bg-indigo-900 hover:text-gray-300"
-                        onClick={() => onSave()}
-                        
-                    >
-                        Speichern & Fortfahren <ArrowRightCircleIcon className="text-gray-200 w-4 h-4 ml-2" />
-                    </Button>
+                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}

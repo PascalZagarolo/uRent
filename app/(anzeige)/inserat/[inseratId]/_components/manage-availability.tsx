@@ -300,7 +300,7 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                             </SelectContent>
                         </Select>
                     </div>
-                    {currentInserat?.multi && currentInserat?.vehicles.length > 0 && (
+                    {currentInserat?.multi && currentInserat?.vehicles?.length > 0 && (
                         <div className="pb-8 pr-8">
                             <Label className="">
                                 Fahrzeug

@@ -19,8 +19,8 @@ import { z } from "zod";
 
 interface SelectPriceCreationProps {
     thisInserat: typeof inserat.$inferSelect;
-    currentValue : string | number;
-    setCurrentValue : (value) => void;
+    currentValue: string | number;
+    setCurrentValue: (value) => void;
 }
 
 const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
@@ -32,8 +32,8 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    
-    
+
+
 
     const { currentChanges, changeCurrent, deleteCurrent } = useUnsavedChanges()
 
@@ -42,22 +42,32 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
             if (currentValue) {
                 await changeCurrent("price", Number(currentValue)?.toFixed(2));
             } else {
-                
+
                 deleteCurrent("price");
             }
         }
         setAmount();
     }, [currentValue])
 
-  
 
-    
 
-    
 
-    
 
-  
+    function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : evt.keyCode;
+
+        // Allow only numbers, one decimal point ('.'), and basic control keys (e.g., backspace)
+        if (
+            charCode > 31 && // Ignore basic control keys
+            (charCode !== 46 && (charCode < 48 || charCode > 57)) // Allow only digits and one decimal point
+        ) {
+            evt.preventDefault(); // Prevent invalid character from being typed
+        }
+    }
+
+
+
+
 
 
 
@@ -78,10 +88,13 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
                 className=" dark:bg-[#151515] dark:border-none mt-2"
                 placeholder="Mietpreis hinzufügen"
                 onChange={(e) => {
-                    let value = e.target.value;
-                    value = value.replace(/,/g, '.');
+                    // Replace commas with periods for decimal compatibility
+                    let value = e.target.value.replace(/,/g, '.');
 
-                    setCurrentValue(value);
+                    // Match valid price format (up to two decimal places)
+                    if (/^\d*\.?\d{0,2}$/.test(value)) {
+                        setCurrentValue(value); // Update state if input is valid
+                    }
                 }}
 
             />
@@ -92,7 +105,7 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
 
 
 
-          
+
 
 
         </div>

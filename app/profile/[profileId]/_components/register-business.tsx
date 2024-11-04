@@ -36,7 +36,7 @@ const RegisterBusiness = () => {
     return (
         <div className="mt-4">
             <AlertDialog>
-                <Alert className="dark:bg-[#222222] shadow-lg dark:border-none rounded-r-none">
+                <Alert className="dark:bg-[#222222] shadow-lg dark:border-none md:rounded-r-none rounded-md">
                     <GiCarKey className="h-4 w-4" />
                     <AlertTitle>Du bist Vermieter?</AlertTitle>
                     <AlertDescription>

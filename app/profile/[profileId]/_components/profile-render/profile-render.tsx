@@ -21,8 +21,8 @@ const ProfileRender = ({ thisUser, ownProfile, currentUser } : ProfileRenderProp
                 currentUser={currentUser}
                 />
             </div>
-            <div className="flex flex-row items-center w-full space-x-4">
-                <div className="w-1/2">
+            <div className="md:flex md:flex-row items-center w-full md:space-x-4">
+                <div className="md:w-1/2 w-full">
                     <DisplayBusinessNames
                         name={thisUser.name}
                         sharesRealName={thisUser?.sharesRealName}
@@ -31,7 +31,7 @@ const ProfileRender = ({ thisUser, ownProfile, currentUser } : ProfileRenderProp
                         joinedAt={thisUser?.createdAt}
                     />
                 </div>
-                <div className="w-1/2 mr-8">
+                <div className="md:w-1/2 w-full mr-8 px-4 md:px-0">
                 <RegisterBusiness />
                 </div>
             </div>

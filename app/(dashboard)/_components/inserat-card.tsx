@@ -91,9 +91,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
         return `${day}.${month}`;
     };
 
-    const usedImage = thisInserat?.images.reduce((lowest, image) => {
+    const usedImage = thisInserat?.images?.reduce((lowest, image) => {
         return (lowest.position < image.position) ? lowest : image;
-    })
+    }) ?? []
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);

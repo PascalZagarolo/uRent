@@ -56,7 +56,7 @@ export const RegisterForm = () => {
   var format1 = /^.*[!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?-].*$/;
   const hasSymbol = format1.test(password1) && password1.length >= 6;
 
-  const value = useDebounce(name, 500);
+  const value = useDebounce(name, 50);
 
   useEffect(() => {
     const checkUserName = async () => {
@@ -79,7 +79,7 @@ export const RegisterForm = () => {
     }
     checkUserName()
 
-  },[name])
+  },[value])
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),

@@ -1,6 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import DateSearch from "./base-date/date-search";
 import TimeSearch from "./base-date/time-search";
+import MinTimeSearch from "./base-date/min-time-search";
 
 const TimespanSearchRender = () => {
     return ( 
@@ -12,12 +13,14 @@ const TimespanSearchRender = () => {
 
                 />
             </h3>
-            <div className="w-full sm:flex mt-4 sm:space-x-4 sm:space-y-0 space-y-2">
-                
-                <div className="sm:w-1/2">
+            <div className="w-full sm:flex mt-4 sm:space-x-4 sm:space-y-0 space-y-2sm:space-y-0 space-y-2">
+                <div className="sm:w-1/3">
+                    <MinTimeSearch />
+                </div>
+                <div className="sm:w-1/3">
                     <DateSearch />
                 </div>
-                <div className="sm:w-1/2">
+                <div className="sm:w-1/3">
                     <TimeSearch />
                 </div>
             </div>

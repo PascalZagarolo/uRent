@@ -48,7 +48,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
         position: image.position,
     })) || []
 
-    const hasChanged = JSON.stringify(selectedImages) !== JSON.stringify(oldImages);
+    let hasChanged = JSON.stringify(selectedImages) !== JSON.stringify(oldImages);
 
     const router = useRouter();
 
@@ -63,13 +63,15 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 console.log("isLoading");
                 return;
             }
+            
+            let uploadData : { url: string, position: number }[] = [];
+        
             setIsLoading(true);
             const oldData = [...selectedImages]; // Copy the current state, if something fails later..
     
             if (hasChanged || JSON.stringify(selectedImages) !== JSON.stringify(oldImages)) {
-                const uploadData: { url: string, position: number }[] = [];
+                uploadData
                 const updatedImages = [...selectedImages]; // Copy the current state
-                
     
                 for (const pImage of selectedImages) {
                     let returnedUrl = "";
@@ -113,12 +115,15 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 params.set('sectionId', String(2));
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
-                if (selectedImages?.some(img => !img.url) || selectedImages?.some((img) => isValidUrl(img.url) === false)) {
+                if (uploadData?.some((image) => !isValidUrl(image.url))) {
+                    
+                    hasChanged = true;
                     setSelectedImages(oldData);
                     setIsLoading(false);
-                    return toast.error("Bitte versuche es erneut...")
+                    return toast.error("Bitte versuche es erneut...");
+                } else {
+                    changeSection(currentSection + 1);
                 }
-                changeSection(currentSection + 1);
             }
         } catch (e: any) {
             console.log(e);
@@ -127,6 +132,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             setIsLoading(false);
         }
     };
+    
     
 
     const retryUpload = async (file: File): Promise<string> => {

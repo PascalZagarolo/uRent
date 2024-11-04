@@ -116,7 +116,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 if (selectedImages?.some(img => !img.url) || selectedImages?.some((img) => isValidUrl(img.url) === false)) {
                     setSelectedImages(oldData);
                     setIsLoading(false);
-                    toast.error("Bitte versuche es erneut...")
+                    return toast.error("Bitte versuche es erneut...")
                 }
                 changeSection(currentSection + 1);
             }

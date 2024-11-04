@@ -163,12 +163,14 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     };
     
 
-    // Helper function to validate URLs
     const isValidUrl = (url: string): boolean => {
         try {
+            // Try creating a new URL to ensure it's a valid URL
             new URL(url);
-            return true;
+            // Return false if the URL contains "blob:"
+            return !url.includes("blob:");
         } catch (_) {
+            // If new URL() fails, it’s an invalid URL
             return false;
         }
     };

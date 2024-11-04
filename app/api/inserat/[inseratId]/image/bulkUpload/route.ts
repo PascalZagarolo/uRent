@@ -35,11 +35,6 @@ export async function POST(
         const { updatedImages } = await req.json();
 
         for (const pImage of updatedImages) {
-            let url;
-
-            if(!isValidUrl(pImage.url)) {
-                await handleUpload2(pImage.wholeFile);
-            }
 
             await db.insert(images).values({
                 inseratId : params.inseratId,
@@ -57,39 +52,5 @@ export async function POST(
 }
 
 
-const isValidUrl = (url: string): boolean => {
-    try {
-        new URL(url);
-        return true;
-    } catch (_) {
-        return false;
-    }
-};
 
 
-const handleUpload2 = async (file: File): Promise<string> => {
-    try {
-        console.log("Uploading image...");
-        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", "oblbw2xl");
-
-        const response = await fetch(url, {
-            method: "POST",
-            body: formData,
-        });
-
-        if (!response.ok) {
-            console.log("Network response was not ok", response);
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        
-        return data.secure_url;
-    } catch (e: any) {
-        console.log("Upload error:", e);
-        return "";
-    }
-};

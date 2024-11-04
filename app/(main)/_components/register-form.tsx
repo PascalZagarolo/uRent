@@ -61,7 +61,7 @@ export const RegisterForm = () => {
   useEffect(() => {
     const checkUserName = async () => {
       try {
-        if(isLoading) return;
+      
         setIsLoading(true)
         if(name?.trim() !== "") {
           const isAvailable = await checkIsAvailable(name)

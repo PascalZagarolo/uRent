@@ -149,6 +149,7 @@ const Inserat: React.FC<InseratProps> = ({
                                     <Input
                                         className="w-full dark:border-none dark:bg-[#191919] dark:text-gray-200/80"
                                         maxLength={160}
+                                        placeholder="z.B. Bmw mieten in München"
                                         onChange={(e) => setCurrentTitle(e.target.value)}
                                     />
                                     <div className="ml-auto flex justify-end">

@@ -56,7 +56,7 @@ export const RegisterForm = () => {
   var format1 = /^.*[!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?-].*$/;
   const hasSymbol = format1.test(password1) && password1.length >= 6;
 
-  const value = useDebounce(name, 50);
+  const value = useDebounce(name, 100);
 
   useEffect(() => {
     const checkUserName = async () => {
@@ -92,7 +92,7 @@ export const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = async(values: z.infer<typeof RegisterSchema>) => {
 
     setError("");
     setSuccess("");
@@ -103,10 +103,17 @@ export const RegisterForm = () => {
       name: values.name,
       receivesEmails: receivesEmails
     }
-
+    const isAvailable = await checkIsAvailable(name)
+    
+    if(!isAvailable) {
+      setError("Nutzername ist bereits vergeben")
+      setNameAvailable(false)
+      return
+    }
     
 
     startTransition(() => {
+      
       register(value)
         .then((data) => {
           setError(data.error);

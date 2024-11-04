@@ -33,11 +33,11 @@ const ReqRentTime = () => {
     const setStart = (reqAge: string) => {
 
         if (!reqAge) {
-            deleteSearchParams("reqAge");
+            deleteSearchParams("minTime");
             setCurrentAge(null);
         } else {
             //@ts-ignore
-            changeSearchParams("reqAge", reqAge);
+            changeSearchParams("minTime", reqAge);
             setCurrentAge(reqAge);
         }
 

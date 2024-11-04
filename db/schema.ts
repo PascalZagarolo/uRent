@@ -31,7 +31,8 @@ import { profile } from "console"
 //@ts-ignore
 export const userTable = pgTable("user", {
     id: text("id").primaryKey(),
-    name: text("name"),
+    name: text("name").unique(),
+    displayname : text("displayname"),
     vorname : text("vorname"),
     nachname : text("lastname"),
     email: text("email").notNull(),
@@ -290,7 +291,7 @@ export const inserat = pgTable("inserat", {
     license: licenseEnum("license"),
     caution: decimal("caution"),
     reqAge: integer("reqAge"),
-    minTime : text("minTime"),
+    minTime : integer("minTime"),
 
     priceHour : decimal("priceHour"),
     priceWeekend : decimal("priceWeekend"),

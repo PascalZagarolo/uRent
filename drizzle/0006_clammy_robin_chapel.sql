@@ -1,0 +1,1 @@
+ALTER TABLE "inserat" ALTER COLUMN "minTime" SET DATA TYPE integer;

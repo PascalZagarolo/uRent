@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -27,16 +27,20 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import toast from "react-hot-toast";
+import { useDebounce } from "@/hooks/use-debounce";
+import { checkIsAvailable } from "@/actions/name/check-username";
 
 
 
 export const RegisterForm = () => {
+  const [name , setName] = useState<string>("")
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
   const [receivesEmails, setReceivesEmails] = useState<boolean>(true);
 
   const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -45,11 +49,37 @@ export const RegisterForm = () => {
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+  const [nameAvailable, setNameAvailable] = useState<boolean>(false);
 
   const passwordMatch = password1 === password2 && password1.length > 0 && password2.length > 0;
 
   var format1 = /^.*[!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?-].*$/;
   const hasSymbol = format1.test(password1) && password1.length >= 6;
+
+  const value = useDebounce(name, 500);
+
+  useEffect(() => {
+    const checkUserName = async () => {
+      try {
+        if(isLoading) return;
+        setIsLoading(true)
+        if(name?.trim() !== "") {
+          const isAvailable = await checkIsAvailable(name)
+          if(isAvailable) {
+            setNameAvailable(true)
+          } else {
+            setNameAvailable(false)
+          }
+        }
+      } catch(e : any) {
+        console.log(e)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    checkUserName()
+
+  },[name])
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -135,9 +165,24 @@ export const RegisterForm = () => {
                       placeholder="Max Mustermann"
                       className="bg-[#1B1F2C] border-none"
                       maxLength={60}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        setName(e.target.value);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
+                  {name?.trim() !== "" && (
+                    nameAvailable ? (
+                      <span className="text-gray-200 flex flex-row items-center py-1">
+                        <CheckIcon className="h-4 w-4 text-emerald-600 mr-2" /> <p className="text-xs">Nutzername ist verfügbar</p>
+                      </span>
+                    ) : (
+                      <span className="text-gray-200 flex flex-row items-center py-1">
+                        <X className="h-4 w-4 text-rose-600 mr-2" />  <p className="text-xs">Nutzername ist bereits vergeben</p>
+                      </span>
+                    )
+                  )}
                 </FormItem>
               )}
             />
@@ -292,7 +337,7 @@ export const RegisterForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button
-            disabled={isPending || !passwordMatch || !hasSymbol}
+            disabled={isPending || !passwordMatch || !hasSymbol || !nameAvailable}
             type="submit"
             className="w-full bg-indigo-800 hover:bg-indigo-900
              text-gray-200 hover:text-gray-300 shadow-lg"

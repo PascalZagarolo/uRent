@@ -112,6 +112,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
                 if (selectedImages?.some(img => !img.url) || selectedImages?.some((img) => isValidUrl(img.url) === false)) {
+                    setIsLoading(false);
                     return onSave();
                 }
                 changeSection(currentSection + 1);

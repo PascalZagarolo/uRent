@@ -12,7 +12,7 @@ interface DisplayBusinessNamesProps {
     firstName: string;
     lastName: string;
     joinedAt: Date;
-    ownProfile?: boolean;
+    ownProfile: boolean;
 }
 
 

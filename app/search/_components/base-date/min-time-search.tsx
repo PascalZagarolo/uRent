@@ -10,25 +10,27 @@ import { useEffect, useState } from "react";
 
 const MinTimeSearch = () => {
     const params = getSearchParamsFunction("minTime");
-    const minTime = useSearchParams().get("minTime");
+    
 
-    const [currentAge, setCurrentAge] = useState(minTime);
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentAge, setCurrentAge] = useState(currentObject["minTime"] ? currentObject["minTime"] : null);
     const [isLoading, setIsLoading] = useState(false);
 
+
+    
 
 
     const router = useRouter();
     const pathname = usePathname();
 
     useEffect(() => {
-        if (minTime) {
-            changeSearchParams("reqAge", minTime);
-            setCurrentAge(minTime);
-        }
-    }, [])
+      
+        changeSearchParams("minTime", currentAge);
+      },[currentAge])
 
 
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
+    
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 

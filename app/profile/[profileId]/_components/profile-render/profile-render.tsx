@@ -29,6 +29,7 @@ const ProfileRender = ({ thisUser, ownProfile, currentUser } : ProfileRenderProp
                         firstName={thisUser?.vorname}
                         lastName={thisUser?.nachname}
                         joinedAt={thisUser?.createdAt}
+                        ownProfile={ownProfile}
                     />
                 </div>
                 <div className="md:w-1/2 w-full mr-8 px-4 md:px-0">

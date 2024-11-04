@@ -65,7 +65,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             }
             setIsLoading(true);
     
-            if (hasChanged) {
+            if (hasChanged || JSON.stringify(selectedImages) !== JSON.stringify(oldImages)) {
                 const uploadData: { url: string, position: number }[] = [];
                 const updatedImages = [...selectedImages]; // Copy the current state
     
@@ -111,8 +111,8 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 params.set('sectionId', String(2));
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
-                if (selectedImages?.some(img => !img.url)) {
-                    toast.error("Bitte lade alle Bilder hoch.");
+                if (selectedImages?.some(img => !img.url) || selectedImages?.some((img) => isValidUrl(img.url) === false)) {
+                    toast.error("Bitte speichere erneut.");
                     setIsLoading(false);
                     return;
                 }
@@ -132,8 +132,12 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             const url = await handleUpload(file);
             if (isValidUrl(url)) {
                 return url;
+            } else {
+                console.log(`Upload attempt ${attempt} failed, retrying...`);
+                break;
+                
             }
-            console.log(`Upload attempt ${attempt} failed, retrying...`);
+            
         }
         return "";
     };

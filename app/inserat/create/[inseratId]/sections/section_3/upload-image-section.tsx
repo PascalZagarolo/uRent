@@ -64,10 +64,12 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 return;
             }
             setIsLoading(true);
+            const oldData = [...selectedImages]; // Copy the current state, if something fails later..
     
             if (hasChanged || JSON.stringify(selectedImages) !== JSON.stringify(oldImages)) {
                 const uploadData: { url: string, position: number }[] = [];
                 const updatedImages = [...selectedImages]; // Copy the current state
+                
     
                 for (const pImage of selectedImages) {
                     let returnedUrl = "";
@@ -112,8 +114,9 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
                 if (selectedImages?.some(img => !img.url) || selectedImages?.some((img) => isValidUrl(img.url) === false)) {
+                    setSelectedImages(oldData);
                     setIsLoading(false);
-                    return onSave();
+                    console.log("Bitte versuche es erneut...")
                 }
                 changeSection(currentSection + 1);
             }

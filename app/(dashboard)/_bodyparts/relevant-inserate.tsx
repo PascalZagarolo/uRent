@@ -41,6 +41,7 @@ interface RelevanteInserateProps {
 
     location: string;
     amount: string;
+    minTime : string;
     //conditions
 
     reqAge?: string;
@@ -112,6 +113,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     startDateDynamic,
     endDateDynamic,
     reqTime,
+    minTime,
 
     location,
     amount,
@@ -195,6 +197,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         startDateDynamic: startDateDynamic,
         endDateDynamic: endDateDynamic,
         reqTime: reqTime,
+        minTime: Number(minTime),
 
         location: location,
         amount: Number(amount),

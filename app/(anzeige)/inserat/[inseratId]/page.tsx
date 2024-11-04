@@ -49,9 +49,9 @@ export async function generateMetadata({ params }: Props,
 
         
         return {
-            title: res.title,
+            title: res.title + ` - ${res?.address?.locationString},  ${res?.address?.postalCode}`,
             openGraph: {
-                description: res?.address?.locationString + ", " + res?.description,
+                description: `${res?.address?.postalCode}, ${res?.address?.locationString} - ` + res?.description,
             },
         }
     } catch (error) {

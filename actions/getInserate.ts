@@ -40,6 +40,7 @@ type GetInserate = {
 
     reqAge?: number;
     reqLicense?: string;
+    minTime : number;
 
     //PKW
     thisBrand?: typeof BrandEnumRender[];
@@ -119,6 +120,7 @@ export const getInserate = cache(async ({
     startDateDynamic,
     endDateDynamic,
     reqTime,
+    minTime,
 
 
     location,
@@ -726,7 +728,7 @@ export const getInserate = cache(async ({
                     start ? gte(inserat.price as any, start) : undefined,
                     end ? lte(inserat.price as any, end) : undefined,
                     thisCategory ? eq(inserat.category, thisCategory as any) : undefined,
-
+                    minTime ? lte(inserat.minTime as any, minTime) : undefined
                 )
             ),
             with: {

@@ -584,7 +584,7 @@ export async function PATCH(
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
                     start ? gte(inserat.price, start) : undefined,
                     end ? lte(inserat.price, end) : undefined,
-                    minTime ? lte(inserat.minTime, minTime) : undefined,
+                    minTime ? lte(inserat.minTime, Number(minTime)) : undefined,
                 ),
             with: {
                 address: true,

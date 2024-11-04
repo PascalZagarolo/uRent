@@ -33,8 +33,8 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
 
 
 
-    const [currentMinTime, setCurrentMinTime] = useState<string | null>(thisInserat.minTime ? thisInserat.minTime : null);
-    const [currentDateType, setCurrentDateType] = useState<string>(thisInserat.minTime ? thisInserat.minTime.slice(-1) : "d");
+    const [currentMinTime, setCurrentMinTime] = useState<string | null>(thisInserat.minTime ? String(thisInserat.minTime) : null);
+    
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -49,7 +49,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
            if(hasChanged) {
             console.log("...")
             const values = {
-                minTime: currentMinTime,
+                minTime: currentMinTime ? Number(currentMinTime) : null,
             }
             await axios.patch(`/api/inserat/${thisInserat.id}`, values);
             router.refresh();
@@ -83,7 +83,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
 
 
     const hasChanged = (
-        currentMinTime != thisInserat.minTime
+        Number(currentMinTime ?? 0) != Number(thisInserat.minTime ?? 0)
     );
 
 
@@ -99,7 +99,7 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
                     </p>
                 </h3>
                 <div className="mt-4">
-                    <SelectMinTimeCreation currentValue={currentMinTime} setCurrentValue={setCurrentMinTime} currentDateType={currentDateType} setCurrentDateType={setCurrentDateType} />
+                    <SelectMinTimeCreation currentValue={currentMinTime} setCurrentValue={setCurrentMinTime}  />
 
                 </div>
 

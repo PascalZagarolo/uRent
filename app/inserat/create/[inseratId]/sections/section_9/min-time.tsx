@@ -18,15 +18,13 @@ import toast from "react-hot-toast";
 interface SelectMinTimeCreationProps {
   currentValue: string;
   setCurrentValue: (value) => void;
-  currentDateType: string;
-  setCurrentDateType: (value) => void;
+
 }
 
 const SelectMinTimeCreation: React.FC<SelectMinTimeCreationProps> = ({
   currentValue,
   setCurrentValue,
-  currentDateType,
-  setCurrentDateType
+  
 }) => {
 
 

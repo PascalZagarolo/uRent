@@ -14,12 +14,12 @@ import {
     ThumbsUp, TwitterIcon
 } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import {useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 
 
-import { Pencil2Icon } from "@radix-ui/react-icons";
+import { Pencil2Icon, StarFilledIcon } from "@radix-ui/react-icons";
 import BookingRequest from "./booking-request";
 import { booking, contactOptions, inserat, userTable } from "@/db/schema";
 import GoToDashboard from "./go-to-dashboard";
@@ -27,6 +27,8 @@ import GoToDashboard from "./go-to-dashboard";
 import { BsHandIndexThumb } from "react-icons/bs";
 import LetterRestriction from "@/components/letter-restriction";
 import ManageAvailability from "./manage-availability";
+import { set } from 'date-fns';
+import { cn } from "@/lib/utils";
 
 
 interface InseratOptionsProps {
@@ -35,7 +37,7 @@ interface InseratOptionsProps {
     ownUser: typeof userTable.$inferSelect;
     contactOptions: typeof contactOptions.$inferSelect;
     thisInserat: typeof inserat.$inferSelect;
-    inseratArray : typeof inserat.$inferSelect[];
+    inseratArray: typeof inserat.$inferSelect[];
 }
 
 const InseratOptions: React.FC<InseratOptionsProps> = ({
@@ -72,31 +74,42 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         "Telefon : " + (contactOptions?.phoneNumber ? contactOptions?.phoneNumber : "[Deine Telefonnummer]") + "\n"
     );
 
-   
-
-    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     const params = useParams();
 
-    const onStar = () => {
-        if (ownUser) {
-            try {
-                setIsLoading(true);
-                axios.patch(`/api/profile/${thisUser.id}/favourites`, { inseratId: params.inseratId })
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLiked, setIsLiked] = useState<boolean>(ownUser?.favourites?.some((favourite) => favourite?.inseratId == params.inseratId) || false);
 
-                setTimeout(() => {
-                    router.refresh();
-                }, 500)
-            } catch {
-                toast.error("Fehler beim Favorisieren der Anzeige")
+
+
+    const onStar = async () => {
+        if (ownUser) {
+            const currentlyLiked = ownUser?.favourites?.some((favourite) => favourite?.inseratId == params.inseratId) || false
+            try {
+                
+                setIsLoading(true);
+
+                // Optimistically update the UI
+                console.log("Currently liked", currentlyLiked);
+                setIsLiked(currentlyLiked ? false : true);
+
+                // Make the API call
+                await axios.patch(`/api/profile/${ownUser.id}/favourites`, { inseratId: params.inseratId });
+                toast.success(currentlyLiked ? "Anzeige aus Favouriten entfernt" : "Anzeige zu Favouriten hinzugefügt");
+            } catch (error) {
+                toast.error("Fehler beim Favorisieren der Anzeige");
+
+                // Reset to the previous state if the API call fails
+                setIsLiked(currentlyLiked);
             } finally {
                 setIsLoading(false);
+                router.refresh(); // Refresh data after the API call
             }
         } else {
-            router.push(`/login`)
+            router.push(`/login`);
         }
-    }
+    };
 
 
 
@@ -157,66 +170,66 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     return (
         <div>
             <div className="w-full rounded-lg bg-[#161923] p-6 shadow-lg">
-            <div className="flex flex-col md:flex-row items-center justify-between mb-4">
-                <div className="flex  space-x-1">
-                    <span className="text-4xl font-bold text-white">{usedPrice.slice(0, -3)}</span>
-                    <span className="font-semibold text-gray-200">
-                        {usedPrice.slice(-2)}€
-                    </span>
-                    <span className="text-lg font-medium text-gray-200 mt-3">/ Tag</span>
+                <div className="flex flex-col md:flex-row items-center justify-between mb-4">
+                    <div className="flex  space-x-1">
+                        <span className="text-4xl font-bold text-white">{usedPrice.slice(0, -3)}</span>
+                        <span className="font-semibold text-gray-200">
+                            {usedPrice.slice(-2)}€
+                        </span>
+                        <span className="text-lg font-medium text-gray-200 mt-3">/ Tag</span>
+                    </div>
+
                 </div>
-                
-            </div>
-            {ownSite && (
+                {ownSite && (
                     <Button
                         className="flex items-center bg-indigo-800 hover:bg-indigo-900 text-white w-full mt-8  transition ease-in-out"
                         onClick={() => router.push(`/inserat/create/${params.inseratId}`)}
-                        >
+                    >
                         <Pencil2Icon className="mr-2 h-4 w-4" /> Inserat bearbeiten
                     </Button>
                 )}
-            {ownSite ? (
-                <div className="mt-4 flex flex-col w-full">
-                    <div>
-                        <ManageAvailability 
-                        thisInserat={thisInserat}
-                        />
-                    </div>
-                    <div className="mt-4">
-                        <GoToDashboard userId={thisUser.id} inseratId={params.inseratId as any} />
-                    </div>
-                </div>
-            ) : (
-                <div className="w-full">
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button
-                                className="w-full bg-gradient-to-l from-emerald-700 to-emerald-800 text-gray-200 py-3  hover:text-gray-300 hover:bg-gradient-to-r duration-800 mt-4 rounded-lg transition ease-in">
-                                <BsHandIndexThumb className="mr-2 h-4 w-4" /> Fahrzeug anfragen
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="bg-[#171717] p-6 rounded-lg shadow-xl border-none">
-                            <DialogHeader>
-                                <h3 className="text-xl font-semibold text-white flex flex-row items-center space-x-2">
-                                    <Lightbulb className="mr-2 h-4 w-4" /> Händler sofort kontaktieren
-                                </h3>
-                            </DialogHeader>
-                            <div>
-                            <Textarea
-                                className="w-full h-[400px] mt-4 bg-[#222222] shadow-lg text-gray-300 border-none rounded-lg"
-                                value={text}
-                                onChange={handleTextChange}
-                                maxLength={2000}
+                {ownSite ? (
+                    <div className="mt-4 flex flex-col w-full">
+                        <div>
+                            <ManageAvailability
+                                thisInserat={thisInserat}
                             />
-                            <div className="ml-auto w-full justify-end flex">
-                                <LetterRestriction 
-                                currentLength={text.length} limit={2000}
-                                />
-                            </div>
-                            <p className="text-xs text-gray-200/60 mt-2">
-                                * Die Nachricht wird direkt an den Händler gesendet. Bitte achte auf eine freundliche und respektvolle Kommunikation.
-                            </p>
-                            {/* <RadioGroup className="flex mt-4 space-x-4">
+                        </div>
+                        <div className="mt-4">
+                            <GoToDashboard userId={thisUser.id} inseratId={params.inseratId as any} />
+                        </div>
+                    </div>
+                ) : (
+                    <div className="w-full">
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button
+                                    className="w-full bg-gradient-to-l from-emerald-700 to-emerald-800 text-gray-200 py-3  hover:text-gray-300 hover:bg-gradient-to-r duration-800 mt-4 rounded-lg transition ease-in">
+                                    <BsHandIndexThumb className="mr-2 h-4 w-4" /> Fahrzeug anfragen
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="bg-[#171717] p-6 rounded-lg shadow-xl border-none">
+                                <DialogHeader>
+                                    <h3 className="text-xl font-semibold text-white flex flex-row items-center space-x-2">
+                                        <Lightbulb className="mr-2 h-4 w-4" /> Händler sofort kontaktieren
+                                    </h3>
+                                </DialogHeader>
+                                <div>
+                                    <Textarea
+                                        className="w-full h-[400px] mt-4 bg-[#222222] shadow-lg text-gray-300 border-none rounded-lg"
+                                        value={text}
+                                        onChange={handleTextChange}
+                                        maxLength={2000}
+                                    />
+                                    <div className="ml-auto w-full justify-end flex">
+                                        <LetterRestriction
+                                            currentLength={text.length} limit={2000}
+                                        />
+                                    </div>
+                                    <p className="text-xs text-gray-200/60 mt-2">
+                                        * Die Nachricht wird direkt an den Händler gesendet. Bitte achte auf eine freundliche und respektvolle Kommunikation.
+                                    </p>
+                                    {/* <RadioGroup className="flex mt-4 space-x-4">
                                 <RadioGroupItem value="messenger" id="messenger" />
                                 <Label htmlFor="messenger" className="flex items-center text-white">
                                     <Send className="mr-2 h-4 w-4" /> Direktnachricht
@@ -226,92 +239,101 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                                     <Mail className="mr-2 h-4 w-4" /> E-Mail
                                 </Label>
                             </RadioGroup> */}
+                                    <Button
+                                        className="w-full bg-indigo-800 hover:bg-blue-900 text-white  rounded-lg transition ease-in-out mt-2"
+                                        onClick={onInterest} disabled={!text}>
+                                        Senden
+                                    </Button>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+                        <div className="mt-4">
+                            <BookingRequest />
+                        </div>
+                        <Button
+                            className="w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-2 mt-4 rounded-lg transition ease-in-out"
+                            onClick={onConversation}>
+                            <Mail className="mr-2 h-4 w-4" /> Händler kontaktieren
+                        </Button>
+                        <Button
+                            className={cn(
+                                "w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-2 mt-4 rounded-lg transition ease-in-out",
+                                isLiked && "bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-700"
+                            )
+                            }
+                            disabled={isLoading}
+                            onClick={onStar}>
+                            {isLiked ? (
+                                <StarFilledIcon className="mr-2 h-4 w-4 text-indigo-800" />
+                            ) : (
+                                <Star className="mr-2 h-4 w-4" />
+                            )} {!isLiked ? "Anzeige vormerken" : "Aus Favouriten entfernen"}
+                        </Button>
+
+                    </div>
+                )}
+
+                <div className="flex flex-row w-full space-x-4 mt-6">
+                    <Button
+                        className="flex items-center justify-center w-full py-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200  shadow-lg  rounded-lg transition ease-in-out"
+                        variant="secondary"
+                        onClick={() => copyToClipboard(currentUrl)}>
+                        <CopyIcon className="mr-2 h-4 w-4" /> Link kopieren
+                    </Button>
+                    <Dialog>
+                        <DialogTrigger asChild>
                             <Button
-                                className="w-full bg-indigo-800 hover:bg-blue-900 text-white  rounded-lg transition ease-in-out mt-2"
-                                onClick={onInterest} disabled={!text}>
-                                Senden
+                                variant="secondary"
+                                className="flex items-center justify-center w-full py-2  shadow-lg  rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold transition ease-in-out">
+                                <Share className="mr-2 h-4 w-4" /> Teilen
                             </Button>
+                        </DialogTrigger>
+                        <DialogContent className="bg-[#191919] border-none shadow-xl">
+                            <div className="text-lg font-semibold text-white flex items-center">
+                                <Share2Icon className="w-4 h-4 mr-2" /> Anzeige teilen
+                            </div>
+                            <div className="mt-4 space-y-4">
+                                <p className="text-gray-200 text-lg font-semibold">Teilen auf</p>
+                                <div className="flex justify-evenly space-x-4">
+                                    <FacebookShareButton url={currentUrl} hashtag="#Urent" >
+                                        <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
+                                            <FacebookIcon size={24} className="text-white" />
+                                        </div>
+                                    </FacebookShareButton>
+                                    <TwitterShareButton
+                                        className="p-2 bg-[#202020] rounded-md shadow-xl"
+                                        title="Dieses Fahrzeug habe ich auf Urent gefunden!"
+                                        hashtags={["Urent", "Mietwagen", "Autovermietung", "Inserat"]}
+                                        url={currentUrl}>
+                                        <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
+                                            <TwitterIcon size={24} className="text-white" />
+                                        </div>
+                                    </TwitterShareButton>
+                                    <EmailShareButton
+                                        className="p-2 bg-[#202020] rounded-md shadow-xl"
+                                        url={currentUrl}
+                                        subject="Dieses Fahrzeug habe ich auf uRent gefunden"
+                                        body="Hallo, ich habe dieses Fahrzeug auf Urent gefunden und wollte es dir zeigen.">
+                                        <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
+                                            <Mail size={24} className="text-white" />
+                                        </div>
+                                    </EmailShareButton>
+                                </div>
+                                <div className="flex items-center mt-4 space-x-2">
+                                    <CopyIcon className="ml-2 text-white hover:cursor-pointer w-4 h-4" onClick={() => copyToClipboard(currentUrl)} />
+                                    <Input
+                                        className="w-full  text-white border-none bg-[#202020]"
+                                        value={currentUrl}
+                                        readOnly
+                                        onClick={() => copyToClipboard(currentUrl)}
+                                    />
+
+                                </div>
                             </div>
                         </DialogContent>
                     </Dialog>
-                    <div className="mt-4">
-                        <BookingRequest />
-                    </div>
-                    <Button
-                        className="w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-2 mt-4 rounded-lg transition ease-in-out"
-                        onClick={onConversation}>
-                        <Mail className="mr-2 h-4 w-4" /> Händler kontaktieren
-                    </Button>
-                    <Button
-                        className="w-full bg-[#20232e] hover:bg-[#2b2f3e] shadow-lg text-white py-2 mt-4 rounded-lg transition ease-in-out"
-                        onClick={onStar}>
-                        <Star className="mr-2 h-4 w-4" /> Anzeige vormerken
-                    </Button>
-
                 </div>
-            )}
-
-            <div className="flex flex-row w-full space-x-4 mt-6">
-                <Button
-                    className="flex items-center justify-center w-full py-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200  shadow-lg  rounded-lg transition ease-in-out"
-                    variant="secondary"
-                    onClick={() => copyToClipboard(currentUrl)}>
-                    <CopyIcon className="mr-2 h-4 w-4" /> Link kopieren
-                </Button>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button
-                            variant="secondary"
-                            className="flex items-center justify-center w-full py-2  shadow-lg  rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold transition ease-in-out">
-                            <Share className="mr-2 h-4 w-4" /> Teilen
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="bg-[#191919] border-none shadow-xl">
-                        <div className="text-lg font-semibold text-white flex items-center">
-                            <Share2Icon className="w-4 h-4 mr-2" /> Anzeige teilen
-                        </div>
-                        <div className="mt-4 space-y-4">
-                            <p className="text-gray-200 text-lg font-semibold">Teilen auf</p>
-                            <div className="flex justify-evenly space-x-4">
-                                <FacebookShareButton url={currentUrl} hashtag="#Urent" >
-                                    <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
-                                    <FacebookIcon size={24} className="text-white" />
-                                    </div>
-                                </FacebookShareButton>
-                                <TwitterShareButton
-                                className="p-2 bg-[#202020] rounded-md shadow-xl"
-                                    title="Dieses Fahrzeug habe ich auf Urent gefunden!"
-                                    hashtags={["Urent", "Mietwagen", "Autovermietung", "Inserat"]}
-                                    url={currentUrl}>
-                                        <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
-                                    <TwitterIcon size={24} className="text-white" />
-                                    </div>
-                                </TwitterShareButton>
-                                <EmailShareButton
-                                className="p-2 bg-[#202020] rounded-md shadow-xl"
-                                    url={currentUrl}
-                                    subject="Dieses Fahrzeug habe ich auf uRent gefunden"
-                                    body="Hallo, ich habe dieses Fahrzeug auf Urent gefunden und wollte es dir zeigen.">
-                                        <div className="p-4 bg-[#202020] rounded-md shadow-lg hover:bg-[#222222]">
-                                    <Mail size={24} className="text-white" />
-                                    </div>
-                                </EmailShareButton>
-                            </div>
-                            <div className="flex items-center mt-4 space-x-2">
-                            <CopyIcon className="ml-2 text-white hover:cursor-pointer w-4 h-4" onClick={() => copyToClipboard(currentUrl)} />
-                                <Input
-                                    className="w-full  text-white border-none bg-[#202020]"
-                                    value={currentUrl}
-                                    readOnly
-                                    onClick={() => copyToClipboard(currentUrl)}
-                                />
-                                
-                            </div>
-                        </div>
-                    </DialogContent>
-                </Dialog>
             </div>
-        </div>
         </div>
     );
 

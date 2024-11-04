@@ -36,17 +36,6 @@ export async function PATCH(
             return NextResponse.json(newFavourite);
         }
         
-        
-        
-       
-
-        
-
-       
-
-        
-
-        
     } catch(error : any) {
         console.log("Fehler in favourites..", error);
         return new NextResponse(error, { status : 500 })

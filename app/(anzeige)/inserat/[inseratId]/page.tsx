@@ -25,6 +25,7 @@ import Footer from '@/app/(dashboard)/_components/footer';
 import MobileHeader from '@/app/(dashboard)/_components/mobile-header';
 import HeaderLogo from '@/app/(dashboard)/_components/header-logo';
 import { getCurrentUserWithNotifications } from '@/actions/getCurrentUserWithNotifications';
+import getCurrentUserWithNotificationsAndFavourites from '@/actions/getCurrentUserWithNotificationsAndFavourites';
 
 
 
@@ -70,7 +71,7 @@ const InseratAnzeige = async ({
 
 
 
-    const currentUser = await getCurrentUserWithNotifications();
+    const currentUser = await getCurrentUserWithNotificationsAndFavourites();
 
 
     const findInserat = db.query.inserat.findFirst({

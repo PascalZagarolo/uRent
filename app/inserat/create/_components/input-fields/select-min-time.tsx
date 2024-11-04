@@ -23,9 +23,9 @@ const SelectMinTime: React.FC<SelectMinTimeProps> = ({
   thisInserat
 }) => {
 
-  const [currentValue, setCurrentValue] = useState<string | null>(thisInserat.minTime ? thisInserat.minTime : null);
+  const [currentValue, setCurrentValue] = useState<string | null>(thisInserat.minTime ? String(thisInserat.minTime ?? "") : null);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentDateType, setCurrentDateType] = useState<string>(thisInserat.minTime ? thisInserat.minTime.slice(-1) : "d");
+  
 
   const router = useRouter();
 

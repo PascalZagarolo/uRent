@@ -116,7 +116,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 if (selectedImages?.some(img => !img.url) || selectedImages?.some((img) => isValidUrl(img.url) === false)) {
                     setSelectedImages(oldData);
                     setIsLoading(false);
-                    console.log("Bitte versuche es erneut...")
+                    toast.error("Bitte versuche es erneut...")
                 }
                 changeSection(currentSection + 1);
             }
@@ -136,10 +136,8 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 return url;
             } else {
                 console.log(`Upload attempt ${attempt} failed, retrying...`);
-                break;
-                
+                break;   
             }
-            
         }
         return "";
     };
@@ -153,7 +151,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     
         try {
             const response = await axios.post(url, formData);
-    
+
             return response.data.secure_url;
     
         } catch (error) {

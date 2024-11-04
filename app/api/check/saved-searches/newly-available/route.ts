@@ -49,6 +49,7 @@ export async function PATCH(
                 periodEnd: params?.periodEnd,
                 location: params?.location,
                 amount: Number(params?.amount),
+                minTime: Number(params?.minTime),
 
                 reqAge: Number(params?.reqAge),
                 reqLicense: params?.reqLicense,

@@ -59,26 +59,27 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            
             if (isLoading) {
-                console.log("isLoading")
+                console.log("isLoading");
                 return;
-                
             }
             setIsLoading(true);
+    
             if (hasChanged) {
                 const uploadData: { url: string, position: number }[] = [];
-
+                const updatedImages = [...selectedImages]; // Copy the current state
+    
                 for (const pImage of selectedImages) {
                     let returnedUrl = "";
-
+    
                     if (pImage.wholeFile) {
                         returnedUrl = await retryUpload(pImage.wholeFile);
-
+    
                         if (isValidUrl(returnedUrl)) {
-                            setSelectedImages((prev) =>
-                                prev.map((item) => item.id === pImage.id ? { ...item, url: returnedUrl, wholeFile: null } : item)
-                            );
+                            const index = updatedImages.findIndex((item) => item.id === pImage.id);
+                            if (index !== -1) {
+                                updatedImages[index] = { ...pImage, url: returnedUrl, wholeFile: null };
+                            }
                         } else {
                             console.log(`Failed to upload image after ${MAX_RETRIES} attempts.`);
                             toast.error("Image upload failed. Please try again.");
@@ -87,17 +88,21 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     } else {
                         returnedUrl = pImage.url;
                     }
-
+    
                     if (isValidUrl(returnedUrl)) {
                         uploadData.push({ url: returnedUrl, position: pImage.position });
                     }
                 }
-
+    
+                // Update the state with all images at once after loop
+                setSelectedImages(updatedImages);
+    
                 const values = { updatedImages: uploadData };
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
                 router.refresh();
             }
-
+    
+            // Redirection and Navigation Logic
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
@@ -106,17 +111,11 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 params.set('sectionId', String(2));
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
-                
-                if(selectedImages?.length > 0) {
-                    for (let i = 0; i < selectedImages.length; i++) {
-                        if (!selectedImages[i].url) {
-                            toast.error("Bitte lade alle Bilder hoch.");
-                            setIsLoading(false);
-                            return;
-                        }
-                    }
+                if (selectedImages?.some(img => !img.url)) {
+                    toast.error("Bitte lade alle Bilder hoch.");
+                    setIsLoading(false);
+                    return;
                 }
-
                 changeSection(currentSection + 1);
             }
         } catch (e: any) {
@@ -126,10 +125,11 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             setIsLoading(false);
         }
     };
+    
 
     const retryUpload = async (file: File): Promise<string> => {
         for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-            const url = await handleUpload2(file);
+            const url = await handleUpload(file);
             if (isValidUrl(url)) {
                 return url;
             }
@@ -138,34 +138,26 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
         return "";
     };
 
-    const handleUpload2 = async (file: File): Promise<string> => {
+    const handleUpload = async (file: File): Promise<string> => {
+        const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
+        const formData = new FormData();
+        
+        formData.append("file", file);
+        formData.append("upload_preset", "oblbw2xl");
+    
         try {
-            console.log("Uploading image...");
-            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "oblbw2xl");
-
-            const response = await fetch(url, {
-                method: "POST",
-                body: formData,
-            });
-
-            if (!response.ok) {
-                console.log("Network response was not ok", response);
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            
-            return data.secure_url;
-        } catch (e: any) {
-            console.log("Upload error:", e);
+            const response = await axios.post(url, formData);
+    
+            return response.data.secure_url;
+    
+        } catch (error) {
+            console.error("Error during upload:", error);
             return "";
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     // Helper function to validate URLs
     const isValidUrl = (url: string): boolean => {

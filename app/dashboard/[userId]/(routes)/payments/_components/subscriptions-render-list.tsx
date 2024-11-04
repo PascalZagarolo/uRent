@@ -24,7 +24,7 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
     invoiceSubscription
 }) => {
 
-    const currentPrice = invoiceSubscription[0].subtotal / 100;
+    const currentPrice = invoiceSubscription[0]?.subtotal ?? 0 / 100;
 
     const currentDate = new Date();
 

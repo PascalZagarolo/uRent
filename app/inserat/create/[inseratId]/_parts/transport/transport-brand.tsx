@@ -42,7 +42,8 @@ const TransportBrandForm: React.FC<CarBrandFormProps> = ({
             await axios.patch(`/api/inserat/${params.inseratId}/transport`, values);
             toast.success("Transporter Marke gespeichert");
             router.refresh();
-        } catch {
+        } catch(e : any) {
+            console.log(e);
             toast.error("Fehler beim Speichern der Kategorie");
         } finally {
             setIsLoading(false);

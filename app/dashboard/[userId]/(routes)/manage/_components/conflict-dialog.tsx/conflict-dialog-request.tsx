@@ -7,7 +7,7 @@ import { format, set, addDays } from 'date-fns';
 import { useState } from "react";
 import { de } from "date-fns/locale";
 
-interface ConflictDialogProps {
+interface ConflictDialogRequestProps {
     title: string;
     reqStartDate : Date;
     reqEndDate : Date;
@@ -18,8 +18,8 @@ interface ConflictDialogProps {
     onShowConflictConfirm: () => void;
 }
 
-const ConflictDialog = ({ title, conflictedBooking, reqStartDate, reqEndDate, reqStartPeriod, reqEndPeriod,
-                        setShowConflict, onShowConflictConfirm,  }: ConflictDialogProps) => {
+const ConflictDialogRequest = ({ title, conflictedBooking, reqStartDate, reqEndDate, reqStartPeriod, reqEndPeriod,
+                        setShowConflict, onShowConflictConfirm,  }: ConflictDialogRequestProps) => {
 
     function convertMinutesToDayTime(minutes: number): string {
         // Calculate hours and minutes
@@ -51,7 +51,7 @@ const ConflictDialog = ({ title, conflictedBooking, reqStartDate, reqEndDate, re
                         Das Fahrzeug ist in dem angegeben Zeitraum bereits gebucht.
                     </p>
                     <div className="mt-2 text-sm text-gray-200/90">
-                        Eine Buchung für diesen Zeitraum existiert bereits. <br /> Möchtest du trotzdem fortfahren?
+                        Eine Buchung für diesen Zeitraum existiert bereits. <br />
                     </div>
                     {conflictedBooking && (
                         <div className="mt-2">
@@ -94,7 +94,7 @@ const ConflictDialog = ({ title, conflictedBooking, reqStartDate, reqEndDate, re
                             </div>
                         </div>
                     </div>
-                    <div className="mt-4 space-x-2 flex items-center">
+                    {/* <div className="mt-4 space-x-2 flex items-center">
                         <Checkbox
                             onCheckedChange={(e) => { setIgnore(Boolean(e)) }}
                             checked={ignore}
@@ -102,18 +102,16 @@ const ConflictDialog = ({ title, conflictedBooking, reqStartDate, reqEndDate, re
                         <p className="text-xs">
                             Hinweis in Zukunft ausblenden
                         </p>
-                    </div>
-                    <div className="flex justify-end mt-2">
-                        <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
-                            onClick={onShowConflictConfirm}
-                        >
-                            Buchung eintragen
+                    </div> */}
+                    <div className="flex justify-end mt-4">
+                        <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 "
+                            onClick={() => {
+                                setShowConflict(false)
+                            }}>
+
+                            Zurück zur Buchungsanfrage
                         </AlertDialogAction>
-                        <AlertDialogCancel className="dark:border-none" onClick={() => {
-                            setShowConflict(false)
-                        }}>
-                            Abbrechen
-                        </AlertDialogCancel>
+                       
                     </div>
                 </div>
             </AlertDialogContent>
@@ -121,4 +119,4 @@ const ConflictDialog = ({ title, conflictedBooking, reqStartDate, reqEndDate, re
     );
 }
 
-export default ConflictDialog;
+export default ConflictDialogRequest;

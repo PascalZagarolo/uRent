@@ -182,6 +182,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                                     <BookingRequestRender
                                         currentUserId={currentUser?.id}
                                         request={request}
+                                        thisInserat={foundInserate.find((inserat) => inserat.id === request.inseratId)}
                                         key={request?.id || 1}
                                     />
                                 ))}

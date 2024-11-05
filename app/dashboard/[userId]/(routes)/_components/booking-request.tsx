@@ -16,18 +16,21 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import findConversation from "@/actions/findConversation";
 import { findOrCreateConversation } from "@/actions/conversation/linkConversation";
 import BookingRequestDialog from "./booking-request/booking-request-dialog";
+import CheckAvailability from "./booking-request/check-request-availability";
 
 
 interface BookingRequestRenderProps {
     request: typeof bookingRequest.$inferSelect | any;
+    thisInserat : typeof inserat.$inferSelect | any;
     currentUserId : string
 }
 
 const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     request,
+    thisInserat,
     currentUserId
 }) => {
-
+    
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -158,8 +161,12 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                         onClick={onContact}>
                         <MailCheck className=" h-4 w-4" /> 
                     </Button>
-                    <BookingRequestDialog thisBooking={request}/>
+                    <BookingRequestDialog 
+                    thisBooking={request}
+                    thisInserat={thisInserat}
+                    />
                 </div>
+                
             </div>
          
                 

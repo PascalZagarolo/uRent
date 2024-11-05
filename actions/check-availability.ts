@@ -11,10 +11,9 @@ export const checkAvailability = (
     bookingId? : string
 ) : Object => {
 
-    
-
     const filterAvailability = (pInserat: any) => {
-
+        console.log(pInserat?.bookings)
+        
         const usedBookings = pInserat?.bookings?.filter((booking) => booking.id !== bookingId);
 
         try {

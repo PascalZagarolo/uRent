@@ -38,7 +38,7 @@ const DashboardPage = async ({
         customer: currentUser?.subscription?.stripe_customer_id
     })
     
-    console.log(existingInvoices.data[0])
+    
 
     const existingPayments = await stripe.paymentIntents.list({
         customer: currentUser?.subscription?.stripe_customer_id

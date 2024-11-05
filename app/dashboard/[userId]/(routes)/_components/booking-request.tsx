@@ -17,6 +17,7 @@ import findConversation from "@/actions/findConversation";
 import { findOrCreateConversation } from "@/actions/conversation/linkConversation";
 import BookingRequestDialog from "./booking-request/booking-request-dialog";
 import CheckAvailability from "./booking-request/check-request-availability";
+import BookingRequestAccept from "./booking-request/booking-request-accept";
 
 
 interface BookingRequestRenderProps {
@@ -165,6 +166,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                     thisBooking={request}
                     thisInserat={thisInserat}
                     />
+                    
                 </div>
                 
             </div>

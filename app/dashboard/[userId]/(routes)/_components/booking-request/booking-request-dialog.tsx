@@ -5,6 +5,7 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import Image from "next/image";
 import CheckAvailability from "./check-request-availability";
+import BookingRequestAccept from "./booking-request-accept";
 
 
 
@@ -37,7 +38,7 @@ const BookingRequestDialog = ({ thisBooking, thisInserat }: BookingRequestDialog
                 <div>
 
 
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-2">
                         {/* Title and Image */}
                         <div className="space-y-2">
                             <div className="text-lg font-semibold text-gray-200">
@@ -109,6 +110,16 @@ const BookingRequestDialog = ({ thisBooking, thisInserat }: BookingRequestDialog
                             endTime={thisBooking?.endPeriod}
                             bookingId={thisBooking?.id}
                             />
+                        </div>
+                        <div className="">
+                        <BookingRequestAccept 
+                        pInserat={thisInserat}
+                        startTime={thisBooking?.startPeriod}
+                        endTime={thisBooking?.endPeriod}
+                        startDate={new Date(thisBooking?.startDate)}
+                        endDate={new Date(thisBooking?.endDate)}
+                        bookingId={thisBooking?.id}
+                        />
                         </div>
                     </div>
                 </div>

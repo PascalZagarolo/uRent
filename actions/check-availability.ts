@@ -1,6 +1,6 @@
 import { isSameDay } from "date-fns";
 import { NextResponse } from "next/server";
-import { booking } from '../drizzle/schema';
+
 
 export const checkAvailability = (
     pInserat : any,

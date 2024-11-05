@@ -45,6 +45,8 @@ const CheckAvailability = ({
         try {
             setIsLoading(true);
 
+           
+
             const isAvailable: {
                 isConflict?: boolean,
                 booking?: any
@@ -117,7 +119,7 @@ const CheckAvailability = ({
                 <ClipLoader size={20} color="#fffff" />
             ) : (
                 isAvailable === null ? (
-                    "Verfügbarkeit prüfen"
+                    "Fahrzeugverfügbarkeit prüfen"
                 ) : (
                     isAvailable ? (
                         "Verfügbar"

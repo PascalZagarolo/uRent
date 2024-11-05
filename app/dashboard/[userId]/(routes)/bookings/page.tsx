@@ -1,14 +1,3 @@
-import { CalendarSearchIcon } from "lucide-react";
-
-import FavouriteRenderList from "./_components/favourite-render-list";
-import BookingRenderList from "./_components/booking-render-list";
-import SidebarDashboard from "../../_components/sidebar-dashboard";
-import db from "@/db/drizzle";
-import { booking, favourite } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import MenuBar from "../../_components/menu-bar";
-import BreadCrumpPage from "../../_components/bread-crump-page";
-import getCurrentUser from "@/actions/getCurrentUser";
 
 const Bookings = async ({
     params
@@ -17,25 +6,25 @@ const Bookings = async ({
     
     
 
-    const bookings = await db.query.booking.findMany({
-        where : (
-            eq(booking.userId, params.userId)
-        ), with : {
-            inserat : {
-                with : {
-                    images : true,
-                    user : true
-                }
-            }
-        }
-    })
+    // const bookings = await db.query.booking.findMany({
+    //     where : (
+    //         eq(booking.userId, params.userId)
+    //     ), with : {
+    //         inserat : {
+    //             with : {
+    //                 images : true,
+    //                 user : true
+    //             }
+    //         }
+    //     }
+    // })
 
-    const currentUser = await getCurrentUser();
+    // const currentUser = await getCurrentUser();
     
     return (
             <div className="flex justify-center py-8 px-4 ">
                 
-                <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+                {/* <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className=" min-h-screen">
                     <div>
                         <MenuBar 
@@ -71,7 +60,7 @@ const Bookings = async ({
                         </div>
                         
                     </div>
-                </div>
+                </div> */}
             </div>
        
     );

@@ -1,62 +1,45 @@
 
 
-import { FilePieChartIcon } from "lucide-react"
-
-import getCurrentUser from "@/actions/getCurrentUser"
-
-import InserateRenderList from "./_components/inserat-render-list"
-
-
-import db from "@/db/drizzle"
-import { eq } from "drizzle-orm"
-import { inserat, userSubscription, vehicle } from "@/db/schema"
-import MenuBar from "../../_components/menu-bar"
-import BreadCrumpPage from "../../_components/bread-crump-page"
-import HighlightInserat from "./_components/highlight-inserat"
-import getCurrentUserWithSubscriptionAndInserate from "@/actions/getCurrentUserWithSubscriptionAndInserate"
-import { FaChartPie } from "react-icons/fa"
-
-
 
 const InserateOverview = async ({
     params
 }: { params: { userId: string } }) => {
 
-    const currentUser = await getCurrentUserWithSubscriptionAndInserate();
+    // const currentUser = await getCurrentUserWithSubscriptionAndInserate();
 
 
 
-    let publics = [];
-    let draft = [];
+    // let publics = [];
+    // let draft = [];
 
-    const findInserate = db.query.inserat.findMany({
-        where: (
-            eq(inserat.userId, currentUser?.id)
-        ),
-        with: {
-            images: true,
-            user: {
-                with: {
-                    subscription: true
-                }
-            },
-            vehicles: true,
-            address: true
-        }, orderBy: (inserat, { desc }) => [desc(inserat.createdAt)]
+    // const findInserate = db.query.inserat.findMany({
+    //     where: (
+    //         eq(inserat.userId, currentUser?.id)
+    //     ),
+    //     with: {
+    //         images: true,
+    //         user: {
+    //             with: {
+    //                 subscription: true
+    //             }
+    //         },
+    //         vehicles: true,
+    //         address: true
+    //     }, orderBy: (inserat, { desc }) => [desc(inserat.createdAt)]
 
-    }).prepare("findInserate")
+    // }).prepare("findInserate")
 
-    const inserateArray = await findInserate.execute();
+    // const inserateArray = await findInserate.execute();
 
 
 
-    for (let i = 0; i < inserateArray.length; i++) {
-        if (inserateArray[i].isPublished) {
-            publics.push(inserateArray[i])
-        } else {
-            draft.push(inserateArray[i])
-        }
-    }
+    // for (let i = 0; i < inserateArray.length; i++) {
+    //     if (inserateArray[i].isPublished) {
+    //         publics.push(inserateArray[i])
+    //     } else {
+    //         draft.push(inserateArray[i])
+    //     }
+    // }
 
 
 
@@ -69,7 +52,7 @@ const InserateOverview = async ({
 
         <div className="flex justify-center sm:py-8 sm:px-4">
 
-            <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
+            {/* <div className="w-[1044px] dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen">
                     <div>
                         <MenuBar
@@ -128,7 +111,7 @@ const InserateOverview = async ({
                     </div>
 
                 </div>
-            </div>
+            </div> */}
         </div>
 
 

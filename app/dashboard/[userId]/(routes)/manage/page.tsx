@@ -1,23 +1,3 @@
-import { UserPlus2 } from "lucide-react";
-
-import { MdManageSearch } from "react-icons/md";
-import db from "@/db/drizzle";
-import getCurrentUser from "@/actions/getCurrentUser";
-import { address, booking, bookingRequest, inserat, vehicle } from "@/db/schema";
-import { and, eq, sql } from "drizzle-orm";
-import SelectInserat from "./_components/select-inserat";
-import AddBooking from "./_components/add-bookings";
-import RenderedInserat from "./_components/rendered-inserat";
-import BookingRequestRender from "../_components/booking-request";
-import EventCalendar from "../_components/calendar";
-import RenderedVehicle from "./_components/rendered-vehicle";
-import MenuBar from "../../_components/menu-bar";
-import BreadCrumpPage from "../../_components/bread-crump-page";
-import AddAvailability from "./_components/add-availability";
-import BookingDayDetails from "../_components/booking-day-details";
-import CalendarAndDetails from "../_components/calendar-and-details";
-import SelectVehicle from "./_components/select-vehicle";
-import InfoHeadsUp from "./_components/info-heads-up";
 
 interface ManagePageProps {
     searchParams: {
@@ -30,98 +10,98 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     searchParams
 }) => {
 
-    const currentUser = await getCurrentUser();
+    // const currentUser = await getCurrentUser();
 
-    const findInserate = db.query.inserat.findMany({
-        where: (
-            and(
-                eq(inserat.userId, currentUser.id),
-                eq(inserat.isPublished, "true")
+    // const findInserate = db.query.inserat.findMany({
+    //     where: (
+    //         and(
+    //             eq(inserat.userId, currentUser.id),
+    //             eq(inserat.isPublished, "true")
 
-            )
-        ), with: {
-            images: true,
-            vehicles: {
-                with: {
-                    inserat: {
-                        with: {
-                            address: true
-                        }
-                    }
-                }
-            },
-            address: true,
-            bookings: {
-                with: {
-                    user: true,
-                    vehicle: true,
-                    inserat: true
-                }
-            },
-            bookingRequests: {
-                with: {
-                    inserat: {
-                        with: {
-                            images: true
-                        }
-                    }
-                }
-            },
-        }
-    }).prepare("findInserate")
+    //         )
+    //     ), with: {
+    //         images: true,
+    //         vehicles: {
+    //             with: {
+    //                 inserat: {
+    //                     with: {
+    //                         address: true
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //         address: true,
+    //         bookings: {
+    //             with: {
+    //                 user: true,
+    //                 vehicle: true,
+    //                 inserat: true
+    //             }
+    //         },
+    //         bookingRequests: {
+    //             with: {
+    //                 inserat: {
+    //                     with: {
+    //                         images: true
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //     }
+    // }).prepare("findInserate")
 
-    const foundInserate = await findInserate.execute();
+    // const foundInserate = await findInserate.execute();
 
-    let involvedBookings: any = [];
+    // let involvedBookings: any = [];
 
-    if (foundInserate.length > 0) {
-        for (let i = 0; i < foundInserate.length; i++) {
+    // if (foundInserate.length > 0) {
+    //     for (let i = 0; i < foundInserate.length; i++) {
 
-            const bookings = foundInserate[i].bookings;
+    //         const bookings = foundInserate[i].bookings;
 
-            involvedBookings.push(...bookings);
-        }
-    }
-
-
+    //         involvedBookings.push(...bookings);
+    //     }
+    // }
 
 
 
-    let thisInserat;
-
-    if (searchParams.inseratId) {
-        thisInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
-    }
-
-    let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
-
-    if (searchParams.inseratId) {
 
 
-        bookingRequests = await foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].bookingRequests;
-    } else {
-        if (foundInserate.length > 0) {
-            for (let i = 0; i < foundInserate.length; i++) {
+    // let thisInserat;
+
+    // if (searchParams.inseratId) {
+    //     thisInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
+    // }
+
+    // let bookingRequests: typeof bookingRequest.$inferSelect[] = [];
+
+    // if (searchParams.inseratId) {
+
+
+    //     bookingRequests = await foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].bookingRequests;
+    // } else {
+    //     if (foundInserate.length > 0) {
+    //         for (let i = 0; i < foundInserate.length; i++) {
 
 
 
-                const requests = foundInserate[i].bookingRequests;
+    //             const requests = foundInserate[i].bookingRequests;
 
 
-                bookingRequests.push(...requests);
-            }
-        }
-    }
+    //             bookingRequests.push(...requests);
+    //         }
+    //     }
+    // }
 
-    let thisVehicle: any;
+    // let thisVehicle: any;
 
-    if (searchParams.vehicleId) {
+    // if (searchParams.vehicleId) {
 
 
-        thisVehicle = foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].vehicles.find((vehicle) => vehicle.id === searchParams.vehicleId);
-    }
+    //     thisVehicle = foundInserate.filter((inserat) => inserat.id === searchParams.inseratId)[0].vehicles.find((vehicle) => vehicle.id === searchParams.vehicleId);
+    // }
 
-    const selectedInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
+    // const selectedInserat = foundInserate.find((inserat) => inserat.id === searchParams.inseratId);
 
 
 
@@ -129,7 +109,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">
 
-            <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
+            {/* <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen w-full">
                     <div>
                         <MenuBar
@@ -201,6 +181,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                                     <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
                                         {bookingRequests.map((request: typeof bookingRequest.$inferSelect) => (
                                             <BookingRequestRender
+
                                                 currentUserId={currentUser.id}
                                                 request={request}
                                                 key={request?.id || 1}
@@ -234,7 +215,7 @@ const ManagePage: React.FC<ManagePageProps> = async ({
                     </div>
                 </div>
 
-            </div>
+            </div> */}
         </div>
 
     );

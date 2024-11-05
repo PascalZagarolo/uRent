@@ -68,7 +68,7 @@ const LkwBrandCreation: React.FC<LkwBrandCreationProps> = ({
                                 Häufigsten
                             </SelectLabel>
                             <SelectItem value="MAN">MAN</SelectItem>
-                            <SelectItem value="Mercedes-Benz">Mercedes-Benz</SelectItem>
+                            <SelectItem value="Mercedes_Benz">Mercedes-Benz</SelectItem>
                             <SelectItem value="Scania">Scania</SelectItem>
                             <SelectItem value="Volvo">Volvo</SelectItem>
                             <SelectLabel>

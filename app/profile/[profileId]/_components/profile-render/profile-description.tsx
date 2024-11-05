@@ -194,9 +194,10 @@ const ProfileDescription: React.FC<ProfileDescriptionProps> = ({
                                     */}
                                 </div>
                             ) : (
-                                (user?.description && ownProfile) ? (
+                                (ownProfile) ? (
                                     <div className={cn(" font-base text-gray-900/50 p-4  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer hover:text-gray-200 hover:shadow-lg transition-all duration-200")} onClick={() => { ownProfile && onEdit() }}>
-                                        Erzähl anderen von dir..
+                                        Du hast noch nichts über dich geteilt.. <br/>
+                                        Klicke hier um deine Beschreibung zu bearbeiten.
                                     </div>
                                 ) : (
                                     <div className={cn(" font-base text-gray-900/50 p-4  dark:text-gray-200/60", ownProfile && "hover:cursor-pointer hover:text-gray-200 hover:shadow-lg transition-all duration-200")} onClick={() => { ownProfile && onEdit() }}>

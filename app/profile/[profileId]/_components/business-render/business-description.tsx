@@ -194,9 +194,9 @@ const BusinessDescriptionNew: React.FC<ProfileDescriptionProps> = ({
                                     */}
                                 </div>
                             ) : (
-                                (user?.business?.description && ownProfile) ? (
+                                (ownProfile) ? (
                                     <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => { ownProfile && onEdit() }}>
-                                        Erzähle potentiellen Kunden etwas über dich und dein Unternehmen..
+                                        Du hast noch nichts über dein Unternehmen geteilt.. <br/> Klicke hier um eine Beschreibung hinzuzufügen
                                     </div>
                                 ) : (
                                     <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => { ownProfile && onEdit() }}>

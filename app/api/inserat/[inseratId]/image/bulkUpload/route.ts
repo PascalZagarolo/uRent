@@ -1,3 +1,4 @@
+import { v2 as cloudinary } from 'cloudinary';
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
 import { images, inserat } from "@/db/schema";

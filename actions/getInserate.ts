@@ -10,7 +10,7 @@ import {
 } from "@/db/schema";
 import axios from "axios";
 import { isAfter, isBefore, isEqual, isSameDay } from "date-fns";
-import { and, eq, gte, ilike, lte, sql } from "drizzle-orm";
+import { and, eq, gte, ilike, isNull, lte, or, sql } from "drizzle-orm";
 import { cache } from "react";
 import { dynamicSearch } from "./dynamic-search";
 
@@ -484,6 +484,12 @@ export const getInserate = cache(async ({
 
     const filterAvailability = cache((pInserat: any) => {
 
+        const fitsMinTime = checkFitsMinTime(pInserat);
+
+        if (!fitsMinTime) {
+            return false;
+        }
+
         if (pInserat.bookings.length === 0) {
             return true;
         }
@@ -591,6 +597,11 @@ export const getInserate = cache(async ({
 
     const filterAvailabilityMulti = cache((pInserat: any) => {
 
+        const fitsMinTime = checkFitsMinTime(pInserat);
+
+        if (!fitsMinTime) {
+            return false;
+        }
 
         if (pInserat.bookings.length === 0) {
             return true;
@@ -716,6 +727,52 @@ export const getInserate = cache(async ({
         return false;
     })
 
+
+    const checkFitsMinTime = cache((pInserat) => {
+        try {
+            // Extract minimum time from pInserat, in hours
+            const minTime = pInserat?.minTime;
+    
+            // Ensure all required parameters are provided
+            if (!minTime || !periodBegin || !periodEnd) {
+                throw new Error("Missing required parameters");
+            }
+    
+            // Convert minTime from hours to milliseconds
+            const minTimeMs = minTime * 60 * 60 * 1000;
+    
+            // Convert period and times to milliseconds
+            const periodBeginMs = new Date(periodBegin).getTime();
+            const periodEndMs = new Date(periodEnd).getTime();
+    
+            // Use provided startTime or default to periodBegin
+            const startTimeMs = startTime ? new Date(startTime).getTime() : periodBeginMs;
+    
+            // Use provided endTime or default to periodEnd
+            const endTimeMs = endTime ? new Date(endTime).getTime() : periodEndMs;
+    
+            // Check if time range is valid
+            if (startTimeMs > endTimeMs || periodBeginMs > periodEndMs) {
+                throw new Error("Invalid time range");
+            }
+    
+            // Calculate effective time range within the period
+            const effectiveStartTime = Math.max(startTimeMs, periodBeginMs);
+            const effectiveEndTime = Math.min(endTimeMs, periodEndMs);
+    
+            // Calculate the available time within the searched period range
+            const availableTimeMs = effectiveEndTime - effectiveStartTime;
+    
+            // Check if available time within period is greater than or equal to minTime
+            return availableTimeMs >= minTimeMs;
+            
+        } catch (e) {
+            console.log(e);
+            return false; // Return false if an error occurs
+        }
+    });
+    
+
     try {
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
 
@@ -728,7 +785,10 @@ export const getInserate = cache(async ({
                     start ? gte(inserat.price as any, start) : undefined,
                     end ? lte(inserat.price as any, end) : undefined,
                     thisCategory ? eq(inserat.category, thisCategory as any) : undefined,
-                    minTime ? lte(inserat.minTime as any, minTime) : undefined
+                    minTime ? or(
+                        lte(inserat.minTime, Number(minTime)),
+                        isNull(inserat.minTime)
+                    ) : undefined
                 )
             ),
             with: {
@@ -894,7 +954,7 @@ export const getInserate = cache(async ({
                     }
                 }
             } else {
-                console.log("no address found")
+                
                 returnedArray = filteredArray;
             }
         } else {

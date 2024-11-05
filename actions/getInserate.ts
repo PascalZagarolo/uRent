@@ -9,10 +9,11 @@ import {
     transportAttribute
 } from "@/db/schema";
 import axios from "axios";
-import { isAfter, isBefore, isEqual, isSameDay } from "date-fns";
+import { differenceInHours, isAfter, isBefore, isEqual, isSameDay } from "date-fns";
 import { and, eq, gte, ilike, isNull, lte, or, sql } from "drizzle-orm";
 import { cache } from "react";
 import { dynamicSearch } from "./dynamic-search";
+import { createDateWithTime } from "@/hooks/date/combine-date-with-minutes";
 
 
 
@@ -730,42 +731,29 @@ export const getInserate = cache(async ({
 
     const checkFitsMinTime = cache((pInserat) => {
         try {
-            // Extract minimum time from pInserat, in hours
-            const minTime = pInserat?.minTime;
-    
-            // Ensure all required parameters are provided
-            if (!minTime || !periodBegin || !periodEnd) {
-                throw new Error("Missing required parameters");
+            if(!pInserat?.minTime) {
+                console.log(pInserat?.minTime)
+                return true;
             }
-    
-            // Convert minTime from hours to milliseconds
-            const minTimeMs = minTime * 60 * 60 * 1000;
-    
-            // Convert period and times to milliseconds
-            const periodBeginMs = new Date(periodBegin).getTime();
-            const periodEndMs = new Date(periodEnd).getTime();
-    
-            // Use provided startTime or default to periodBegin
-            const startTimeMs = startTime ? new Date(startTime).getTime() : periodBeginMs;
-    
-            // Use provided endTime or default to periodEnd
-            const endTimeMs = endTime ? new Date(endTime).getTime() : periodEndMs;
-    
-            // Check if time range is valid
-            if (startTimeMs > endTimeMs || periodBeginMs > periodEndMs) {
-                throw new Error("Invalid time range");
-            }
-    
-            // Calculate effective time range within the period
-            const effectiveStartTime = Math.max(startTimeMs, periodBeginMs);
-            const effectiveEndTime = Math.min(endTimeMs, periodEndMs);
-    
-            // Calculate the available time within the searched period range
-            const availableTimeMs = effectiveEndTime - effectiveStartTime;
-    
-            // Check if available time within period is greater than or equal to minTime
-            return availableTimeMs >= minTimeMs;
             
+            const usedStartTime = startTime ? Number(startTime) : 0;
+            const usedEndTime = endTime ? Number(endTime) : 1440;
+           
+
+            const usedStartDate = createDateWithTime(periodBegin, usedStartTime);
+            const usedEndDate = createDateWithTime(periodEnd, usedEndTime);
+
+           
+
+            const diffrence = differenceInHours(new Date(usedEndDate), new Date(usedStartDate));
+
+            if(pInserat?.minTime > diffrence) {
+                
+                return false;
+            } else {
+                return true;
+            }
+    
         } catch (e) {
             console.log(e);
             return false; // Return false if an error occurs

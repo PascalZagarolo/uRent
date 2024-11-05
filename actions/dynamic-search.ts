@@ -1,5 +1,6 @@
 
-import { addDays, format, isBefore, isSameDay, toDate } from 'date-fns';
+import { createDateWithTime } from '@/hooks/date/combine-date-with-minutes';
+import { addDays, differenceInHours, format, isBefore, isSameDay, toDate } from 'date-fns';
 import { cache } from 'react';
 
 
@@ -18,6 +19,13 @@ export function dynamicSearch (
 
    
     const filterAvailability = ((pInserat: any) => {
+
+        const checkMinTime = checkFitsMinTime(pInserat, startTime, endTime, startDateDynamic, endDateDynamic);
+
+        if(!checkMinTime) {
+            return false;
+        }
+
         //save found availabilities in array => can be type of Hours, days, weeks, months => e.g 3d => then check length of array, array.length >= reqTime.number -1
         //return true if length is >= reqTime.number -1 then break, else false
         //Sliding Window approach
@@ -160,6 +168,38 @@ export function dynamicSearch (
     
     
 }
+
+
+export const checkFitsMinTime = cache((pInserat, startTime, endTime, periodBegin, periodEnd) => {
+    try {
+        if(!pInserat?.minTime) {
+            console.log(pInserat?.minTime)
+            return true;
+        }
+        
+        const usedStartTime = startTime ? Number(startTime) : 0;
+        const usedEndTime = endTime ? Number(endTime) : 1440;
+       
+
+        const usedStartDate = createDateWithTime(periodBegin, usedStartTime);
+        const usedEndDate = createDateWithTime(periodEnd, usedEndTime);
+
+       
+
+        const diffrence = differenceInHours(new Date(usedEndDate), new Date(usedStartDate));
+
+        if(pInserat?.minTime > diffrence) {
+            
+            return false;
+        } else {
+            return true;
+        }
+
+    } catch (e) {
+        console.log(e);
+        return false; // Return false if an error occurs
+    }
+});
 
 
 

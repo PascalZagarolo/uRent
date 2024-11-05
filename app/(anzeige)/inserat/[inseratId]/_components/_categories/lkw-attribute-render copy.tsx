@@ -1,4 +1,3 @@
-
 import { GearIcon } from "@radix-ui/react-icons";
 import { ConstructionIcon, WeightIcon } from "lucide-react";
 import { FaTruckMoving } from "react-icons/fa";
@@ -12,51 +11,53 @@ import { GiResize } from "react-icons/gi";
 import { format } from "date-fns";
 
 interface LkwAttributeRenderProps {
-    attributes: typeof lkwAttribute.$inferSelect
-
+    attributes: typeof lkwAttribute.$inferSelect;
 }
 
-
 const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
-    attributes
+    attributes,
 }) => {
-
-    let shownItems = 0;
-
     return (
-        <div className="w-full grid grid-cols-2 gap-2 mt-4 text-gray-200">
+        <div className="w-full grid grid-cols-2 gap-4 mt-4 p-4 rounded-lg bg-[#13151C] shadow-md text-gray-200">
             {attributes?.lkwBrand && (
-
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <FaTruckMoving className="w-4 h-4 mr-2" />    {attributes.lkwBrand}
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <FaTruckMoving className="w-4 h-4 text-teal-400 mr-3" />
+                    <span className="font-medium">{attributes.lkwBrand}</span>
                 </div>
             )}
             {attributes?.initial && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <ConstructionIcon className="w-4 h-4 mr-2" />  Baujahr : {format(new Date(attributes?.initial), "yyyy")}
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <ConstructionIcon className="w-4 h-4 text-blue-400 mr-3" />
+                    <span className="font-medium">Baujahr: {format(new Date(attributes.initial), "yyyy")}</span>
                 </div>
             )}
             {attributes?.application && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <LiaTruckLoadingSolid className="w-4 h-4 mr-2" />    {attributes.application.substring(0, 1)}{attributes.application.substring(1).toLowerCase()}
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <LiaTruckLoadingSolid className="w-4 h-4 text-yellow-400 mr-3" />
+                    <span className="font-medium">
+                        {attributes.application.charAt(0).toUpperCase() + attributes.application.slice(1).toLowerCase()}
+                    </span>
                 </div>
             )}
             {attributes?.loading && (
-
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <TbCarCrane className="w-4 h-4 mr-2" />    {attributes.loading.substring(0, 1)}{attributes.loading.substring(1).toLowerCase()}
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <TbCarCrane className="w-4 h-4 text-red-400 mr-3" />
+                    <span className="font-medium">
+                        {attributes.loading.charAt(0).toUpperCase() + attributes.loading.slice(1).toLowerCase()}
+                    </span>
                 </div>
             )}
             {attributes?.drive && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <GearIcon className="w-4 h-4 mr-2" />    {attributes.drive.substring(1)}
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <GearIcon className="w-4 h-4 text-green-400 mr-3" />
+                    <span className="font-medium">{attributes.drive}</span>
                 </div>
             )}
-            {attributes?.weightClass && attributes?.weightClass != 0 && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <WeightIcon className="w-4 h-4 mr-2" />
-                    {
-                        {
+            {attributes?.weightClass && attributes.weightClass !== 0 && (
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <WeightIcon className="w-4 h-4 text-indigo-400 mr-3" />
+                    <span className="font-medium">
+                        {{
                             '75': " bis 0,75 t",
                             '150': " bis 1,5 t",
                             '280': " bis 2,8 t",
@@ -67,53 +68,53 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                             '2600': " bis 26 t",
                             '3200': " bis 32 t",
                             '3900': " bis 39 t",
-                            '5000': " {'>'} 39 t",
-                        }[attributes?.weightClass]
-                    }
+                            '5000': "> 39 t",
+                        }[attributes.weightClass]}
+                    </span>
                 </div>
             )}
-            
             {attributes?.seats && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <PiCouchFill className="w-4 h-4 mr-2" />    {attributes.seats} {attributes.seats > 1 ? 'Sitze' : 'Sitz'}
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <PiCouchFill className="w-4 h-4 text-purple-400 mr-3" />
+                    <span className="font-medium">{attributes.seats} {attributes.seats > 1 ? 'Sitze' : 'Sitz'}</span>
                 </div>
             )}
-
             {attributes?.axis && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <LuAxis3D className="w-4 h-4 mr-2" />    {
-                        {
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <LuAxis3D className="w-4 h-4 text-pink-400 mr-3" />
+                    <span className="font-medium">
+                        {{
                             '1': "Einachser",
                             '2': "Zweiachser",
                             '3': "Dreiachser",
                             '4': "Vierachser",
-                            '5': " > 4 Achsen"
-                        }[attributes?.axis]
-                    }
+                            '5': "> 4 Achsen",
+                        }[attributes.axis]}
+                    </span>
                 </div>
             )}
-
             {attributes?.power && (
-
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <PiEngine className="w-4 h-4 mr-2" />    {attributes.power} PS
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <PiEngine className="w-4 h-4 text-orange-400 mr-3" />
+                    <span className="font-medium">{attributes.power} PS</span>
                 </div>
             )}
-
             {attributes?.loading_volume && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <HiCubeTransparent className="w-4 h-4 mr-2" />    {attributes.loading_volume} l
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <HiCubeTransparent className="w-4 h-4 text-cyan-400 mr-3" />
+                    <span className="font-medium">{attributes.loading_volume} l</span>
                 </div>
             )}
-
-            {attributes?.loading_l || attributes?.loading_b || attributes?.loading_h && (
-                <div className="bg-[#13151C] p-4 font-semibold flex items-center  text-gray-200">
-                    <GiResize className="w-4 h-4 mr-2" />    {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
+            {(attributes?.loading_l || attributes?.loading_b || attributes?.loading_h) && (
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <GiResize className="w-4 h-4 text-gray-400 mr-3" />
+                    <span className="font-medium">
+                        {attributes?.loading_l} x {attributes?.loading_b} x {attributes?.loading_h} m
+                    </span>
                 </div>
             )}
-
         </div>
     );
-}
+};
 
 export default LkwAttributeRender;

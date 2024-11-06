@@ -10,7 +10,7 @@ export async function POST(
 ) {
     try {
 
-        let values = {};
+        let values : { inseratId? : string } = {};
         const bodyText = await req.text();
         if (bodyText) {
             values = JSON.parse(bodyText);

@@ -198,12 +198,12 @@ export const checkAvailability = (
                             startDateAppointments.add(i);
                         }
                         if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                            if(vehicleId === vehicle?.id && [...startDateAppointments].some(appointment => appointment.number === Number(i))) {
+                            
                                 return {
                                     isConflict : true,
-                                    booking : [...endDateAppointments].find(appointment => appointment.number === Number(i))
+                                    booking : booking
                                 }
-                            }
+                           
                             isAvailable = false;
                         }
                     } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
@@ -223,12 +223,12 @@ export const checkAvailability = (
                             endDateAppointments.add(i);
                         }
                         if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                            if(vehicleId === vehicle?.id && [...startDateAppointments].some(appointment => appointment.number === Number(i))) {
+                           
                                 return {
                                     isConflict : true,
-                                    booking : [...endDateAppointments].find(appointment => appointment.number === Number(i))
+                                    booking : booking
                                 }
-                            }
+                           
                             isAvailable = false;
                         } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
                             console.log(booking)
@@ -238,12 +238,7 @@ export const checkAvailability = (
 
                     }
                     else if (index === pInserat.vehicles.length) {
-                        if(vehicleId === vehicle?.id && [...startDateAppointments].some(appointment => appointment.number === Number(i))) {
-                            return {
-                                isConflict : true,
-                                booking : [...endDateAppointments].find(appointment => appointment.number === Number(i))
-                            }
-                        }
+                       
                         isAvailable = false;
                     }
                 }

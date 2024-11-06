@@ -29,7 +29,8 @@ const getCurrentUserDashboard = async () => {
                   with: {
                     address: true,
                   }
-                }
+                },
+                bookings : true,
               }
             },
             user : {

@@ -146,6 +146,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
             }
 
+            console.log(currentVehicle)
+
             const isAvailable: {
                 isConflict?: boolean,
                 booking?: any
@@ -155,19 +157,16 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 currentEnd,
                 currentStartTime,
                 currentEndTime,
+                null,
                 currentVehicle ? currentVehicle : null,
             )
 
+            
 
-
-            if (isAvailable.isConflict) {
-           
+            if (isAvailable?.isConflict) {
                 setConflictedBooking(isAvailable.booking)
                 setShowConflict(true);
                 setIsLoading(false);
-
-
-
             } else {
                 axios.post(`/api/booking/${currentInserat}`, values)
                     .then(() => {
@@ -186,11 +185,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
             }
 
         } catch (err) {
+            console.log(err);
             toast.error("Fehler beim hinzufügen der Buchung", err)
         } finally {
-            setTimeout(() => {
-                router.refresh();
-            }, 1000)
+            router.refresh();
             setIsLoading(false);
         }
     }

@@ -28,7 +28,7 @@ export async function PATCH(
         const values = await req.json();
 
         const { location, amount, thisCategory, reqAge, freeMiles, license, minPrice, maxPrice,
-             end, start, begin, startDateDynamic, endDateDynamic, reqTime, minTime,
+            end, start, begin, startDateDynamic, endDateDynamic, reqTime, minTime,
             //LKW
             lkwBrand, application, loading, drive, weightClass, weightClassMax, seats, seatsMax,
             //PKW
@@ -82,7 +82,7 @@ export async function PATCH(
             const startingIndex = seats ? seats : 0;
             const endingIndex = seatsMax ? seatsMax : 10;
 
-            
+
             const searchedDoors = doors || doorsMax ? true : false;
             const startingDoors = doors ? doors : 0;
             const endingDoors = doorsMax ? doorsMax : 10;
@@ -95,22 +95,22 @@ export async function PATCH(
             const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
             const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
 
-            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.pkwAttribute?.initial) || 
-            isBefore(minInitial, pInserat?.pkwAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.pkwAttribute?.initial) || isAfter(maxInitial, pInserat?.pkwAttribute?.initial))
-            : true;
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.pkwAttribute?.initial) ||
+                isBefore(minInitial, pInserat?.pkwAttribute?.initial)) &&
+                (isEqual(maxInitial, pInserat?.pkwAttribute?.initial) || isAfter(maxInitial, pInserat?.pkwAttribute?.initial))
+                : true;
 
             const bDoors = searchedDoors ? startingDoors <= pInserat?.pkwAttribute?.doors
-            && endingDoors >= pInserat?.pkwAttribute?.doors
-            : true;
+                && endingDoors >= pInserat?.pkwAttribute?.doors
+                : true;
 
-            const bSeats = searchedSeats ? Number(pInserat?.pkwAttribute?.seats) >= startingIndex && 
-            Number(pInserat?.pkwAttribute?.seats) <= endingIndex : true;
+            const bSeats = searchedSeats ? Number(pInserat?.pkwAttribute?.seats) >= startingIndex &&
+                Number(pInserat?.pkwAttribute?.seats) <= endingIndex : true;
 
-            const bPower = searchedPower ? pInserat?.pkwAttribute?.power >= minPower && 
-            pInserat?.pkwAttribute?.power <= maxPower
-            : true;
-            
+            const bPower = searchedPower ? pInserat?.pkwAttribute?.power >= minPower &&
+                pInserat?.pkwAttribute?.power <= maxPower
+                : true;
+
             const bExtraType = extraType ? extraType === pInserat?.pkwAttribute?.extraType : true;
             const bLoading = loading ? loading === pInserat?.pkwAttribute?.loading : true;
             const bWeightClass = weightClass ? pInserat?.pkwAttribute?.weightClass === weightClass : true;
@@ -119,7 +119,7 @@ export async function PATCH(
             const bType = type ? String(type) === pInserat.pkwAttribute?.type : true;
             const bTransmission = transmission ? transmission === pInserat?.pkwAttribute?.transmission : true;
             const bFuel = fuel ? fuel === pInserat?.pkwAttribute?.fuel : true;
-            
+
             const bBrand = thisBrand ? String(thisBrand) === String(pInserat?.pkwAttribute?.brand) : true;
 
             const bAhk = searchedAhk ? String(ahk) === String(pInserat?.pkwAttribute?.ahk) : true;
@@ -158,7 +158,7 @@ export async function PATCH(
             const searchedSeats = seats || seatsMax ? true : false;
             const startingIndex = seats ? seats : 0;
             const endingIndex = seatsMax ? seatsMax : 10;
-            
+
             const searchedPower = (power || powerMax) ? true : false;
             const minPower = power ? power : 0;
             const maxPower = powerMax ? powerMax : 100000;
@@ -171,33 +171,33 @@ export async function PATCH(
             const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
             const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
 
-            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.lkwAttribute?.initial) || 
-            isBefore(minInitial, pInserat?.lkwAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.lkwAttribute?.initial) || isAfter(maxInitial, pInserat?.lkwAttribute?.initial))
-            : true;
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.lkwAttribute?.initial) ||
+                isBefore(minInitial, pInserat?.lkwAttribute?.initial)) &&
+                (isEqual(maxInitial, pInserat?.lkwAttribute?.initial) || isAfter(maxInitial, pInserat?.lkwAttribute?.initial))
+                : true;
 
 
-            const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex && 
-            pInserat?.lkwAttribute?.seats <= endingIndex : true;
+            const bSeats = searchedSeats ? pInserat?.lkwAttribute?.seats >= startingIndex &&
+                pInserat?.lkwAttribute?.seats <= endingIndex : true;
 
-            const bWeightClass = searchedWeightClass ? 
-            Number(pInserat?.lkwAttribute?.weightClass) <= Number(endingWeightClass) &&
-            Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
-            : true;
-            
-            const bPower = searchedPower ? pInserat?.lkwAttribute?.power >= minPower && 
-            pInserat?.lkwAttribute?.power <= maxPower
-            : true;
+            const bWeightClass = searchedWeightClass ?
+                Number(pInserat?.lkwAttribute?.weightClass) <= Number(endingWeightClass) &&
+                Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
+                : true;
+
+            const bPower = searchedPower ? pInserat?.lkwAttribute?.power >= minPower &&
+                pInserat?.lkwAttribute?.power <= maxPower
+                : true;
 
             const bAxis = searchedAxis ? minAxis <= pInserat?.lkwAttribute?.axis && maxAxis >= pInserat?.lkwAttribute?.axis : true;
-            
+
             const bDrive = drive ? drive === pInserat?.lkwAttribute?.drive : true;
             const bLoading = loading ? loading === pInserat?.lkwAttribute?.loading : true;
             const bApplication = application ? application == pInserat?.lkwAttribute?.application : true;
             const bTransmission = transmission ? transmission === pInserat?.lkwAttribute?.transmission : true;
             const bLkwBrand = lkwBrand ? lkwBrand === pInserat?.lkwAttribute?.lkwBrand : true;
-            
-            
+
+
             const bFuel = fuel ? String(fuel) === String(pInserat?.lkwAttribute?.fuel) : true;
 
             const bVolume = volume ? volume <= pInserat?.lkwAttribute?.loading_volume : true;
@@ -213,7 +213,7 @@ export async function PATCH(
 
             const usedInitial = initial ? new Date(initial) : null;
 
-            
+
             const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
             const startingWeightClass = weightClass ? weightClass : 0;
             const endingWeightClass = weightClassMax ? weightClassMax : 100000;
@@ -226,16 +226,16 @@ export async function PATCH(
             const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
             const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
 
-            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.trailerAttribute?.initial) || 
-            isBefore(minInitial, pInserat?.trailerAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.trailerAttribute?.initial) || isAfter(maxInitial, pInserat?.trailerAttribute?.initial))
-            : true;
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.trailerAttribute?.initial) ||
+                isBefore(minInitial, pInserat?.trailerAttribute?.initial)) &&
+                (isEqual(maxInitial, pInserat?.trailerAttribute?.initial) || isAfter(maxInitial, pInserat?.trailerAttribute?.initial))
+                : true;
 
-            const bWeightClass = searchedWeightClass ? 
-            Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
-            Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
-            : true;
-            
+            const bWeightClass = searchedWeightClass ?
+                Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
+                Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
+                : true;
+
             const bAxis = searchedAxis ? minAxis <= pInserat?.trailerAttribute?.axis && maxAxis >= pInserat?.trailerAttribute?.axis : true;
 
             const bType = trailerType ? trailerType === pInserat?.trailerAttribute?.type : true;
@@ -243,10 +243,10 @@ export async function PATCH(
 
             const bCoupling = coupling ? coupling === pInserat?.trailerAttribute?.coupling : true;
             const bLoading = loading ? loading === pInserat?.trailerAttribute?.loading : true;
-            
-           
+
+
             const bBrake = brake ? String(brake).toUpperCase().trim() == String(pInserat?.trailerAttribute?.brake).toUpperCase().trim() : true;
-            
+
 
             const bVolume = volume ? volume <= pInserat?.trailerAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.trailerAttribute?.loading_l : true;
@@ -291,39 +291,39 @@ export async function PATCH(
             const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
             const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
 
-            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.transportAttribute?.initial) || 
-            isBefore(minInitial, pInserat?.transportAttribute?.initial)) &&
-            (isEqual(maxInitial, pInserat?.transportAttribute?.initial) || isAfter(maxInitial, pInserat?.transportAttribute?.initial))
-            : true;
-            
+            const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.transportAttribute?.initial) ||
+                isBefore(minInitial, pInserat?.transportAttribute?.initial)) &&
+                (isEqual(maxInitial, pInserat?.transportAttribute?.initial) || isAfter(maxInitial, pInserat?.transportAttribute?.initial))
+                : true;
 
-            const bPower = searchedPower ? pInserat?.transportAttribute?.power >= minPower && 
-            pInserat?.transportAttribute?.power <= maxPower
-            : true;
-            
 
-            const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex && 
-            pInserat?.transportAttribute?.seats <= endingIndex : true;
+            const bPower = searchedPower ? pInserat?.transportAttribute?.power >= minPower &&
+                pInserat?.transportAttribute?.power <= maxPower
+                : true;
+
+
+            const bSeats = searchedSeats ? pInserat?.transportAttribute?.seats >= startingIndex &&
+                pInserat?.transportAttribute?.seats <= endingIndex : true;
 
             const bDoors = searchedDoors ? startingDoors <= pInserat?.transportAttribute?.doors
-            && endingDoors >= pInserat?.transportAttribute?.doors
-            : true;
+                && endingDoors >= pInserat?.transportAttribute?.doors
+                : true;
 
-            const bWeightClass = searchedWeightClass ? 
-            Number(pInserat?.transportAttribute?.weightClass) <= Number(endingWeightClass) &&
-            Number(pInserat?.transportAttribute?.weightClass) >= Number(startingWeightClass)
-            : true;
+            const bWeightClass = searchedWeightClass ?
+                Number(pInserat?.transportAttribute?.weightClass) <= Number(endingWeightClass) &&
+                Number(pInserat?.transportAttribute?.weightClass) >= Number(startingWeightClass)
+                : true;
 
             const bLoading = loading ? loading === pInserat?.transportAttribute?.loading : true;
             const bTransmisson = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
-            
+
             const bExtraType = extraType ? extraType === pInserat?.transportAttribute?.extraType : true;
-            
-            
-            
+
+
+
             const bFuel = fuel ? fuel === pInserat?.transportAttribute?.fuel : true;
             const bBrand = transportBrand ? transportBrand === pInserat?.transportAttribute?.transportBrand : true
-            
+
 
             const bVolume = volume ? volume <= pInserat?.transportAttribute?.loading_volume : true;
             const bLength = loading_l ? loading_l <= pInserat?.transportAttribute?.loading_l : true;
@@ -336,41 +336,41 @@ export async function PATCH(
 
         const checkFitsMinTime = cache((pInserat) => {
             try {
-                if(!pInserat?.minTime) {
+                if (!pInserat?.minTime) {
                     console.log(pInserat?.minTime)
                     return true;
                 }
-                
+
                 const usedStartTime = startTime ? Number(startTime) : 0;
                 const usedEndTime = endTime ? Number(endTime) : 1440;
-               
+
 
                 const usedStartDate = createDateWithTime(periodBegin, usedStartTime);
                 const usedEndDate = createDateWithTime(periodEnd, usedEndTime);
 
-               
+
 
                 const diffrence = differenceInHours(new Date(usedEndDate), new Date(usedStartDate));
 
-                if(pInserat?.minTime > diffrence) {
-                    
+                if (pInserat?.minTime > diffrence) {
+
                     return false;
                 } else {
                     return true;
                 }
-        
+
             } catch (e) {
                 console.log(e);
                 return false; // Return false if an error occurs
             }
         });
-        
+
 
         const filterAvailability = cache((pInserat: typeof inserat) => {
 
             const checkMinTime = checkFitsMinTime(pInserat);
 
-            if(!checkMinTime) {
+            if (!checkMinTime) {
                 return false;
             }
 
@@ -481,150 +481,158 @@ export async function PATCH(
             return true;
         })
 
+
+        //rewrite this whole shit...
         const filterAvailabilityMulti = cache((pInserat: any) => {
-           
-
             try {
-                if (pInserat.bookings?.length <= 0) {
-                    return true;
+
+                const checkMinTime = checkFitsMinTime(pInserat);
+
+                if (!checkMinTime) {
+                    return false;
                 }
-                //set start and date to same date if the user only provides one
 
-                const usedPeriodBegin = new Date(periodBegin);
-                const usedPeriodEnd = new Date(periodEnd);
 
-                const usedVehicles = pInserat?.vehicles;
+                    if (pInserat.bookings?.length <= 0) {
+                        return true;
+                    }
+                    //set start and date to same date if the user only provides one
 
-                for (const vehicle of usedVehicles) {
+                    const usedPeriodBegin = new Date(periodBegin);
+                    const usedPeriodEnd = new Date(periodEnd);
 
-                    let startDateAppointments = new Set<any>();
-                    let endDateAppointments = new Set<any>();
+                    const usedVehicles = pInserat?.vehicles;
 
-                    let isAvailable = true;
+                    for (const vehicle of usedVehicles) {
 
-                    for (const booking of vehicle?.bookings) {
-                        //booking starts AND ends before the searched Period
-                        if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
-                            //booking starts or ends on the first OR last day of the searched period
-                            || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
-                                || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
-                            //booking
-                            && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
-                        ) {
-                            if ((isSameDay(booking.startDate, usedPeriodBegin) &&
-                                (isSameDay(booking.endDate, usedPeriodBegin))) ||
-                                isSameDay(booking.endDate, usedPeriodBegin)) {
+                        let startDateAppointments = new Set<any>();
+                        let endDateAppointments = new Set<any>();
 
-                                let usedStart;
+                        let isAvailable = true;
 
-                                if (isSameDay(booking.startDate, booking.endDate)) {
-                                    usedStart = booking.startPeriod;
-                                } else {
-                                    usedStart = "0"
-                                }
+                        for (const booking of vehicle?.bookings) {
+                            //booking starts AND ends before the searched Period
+                            if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                                //booking starts or ends on the first OR last day of the searched period
+                                || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
+                                    || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
+                                //booking
+                                && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
+                            ) {
+                                if ((isSameDay(booking.startDate, usedPeriodBegin) &&
+                                    (isSameDay(booking.endDate, usedPeriodBegin))) ||
+                                    isSameDay(booking.endDate, usedPeriodBegin)) {
 
-                                for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
-                                    startDateAppointments.add({ number: i, bookingId: booking.id });
-                                }
-                                if ([...startDateAppointments].some(appointment => appointment.number === "1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                                    
-                                    isAvailable = false;
-                                }
-                            } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
-                                || isSameDay(booking.startDate, usedPeriodEnd)) {
+                                    let usedStart;
 
-                                let usedEnd;
+                                    if (isSameDay(booking.startDate, booking.endDate)) {
+                                        usedStart = booking.startPeriod;
+                                    } else {
+                                        usedStart = "0"
+                                    }
 
-                                if (isSameDay(booking.startDate, booking.endDate)) {
-                                    usedEnd = booking.endPeriod;
-                                } else {
+                                    for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+                                        startDateAppointments.add({ number: i, bookingId: booking.id });
+                                    }
+                                    if ([...startDateAppointments].some(appointment => appointment.number === "1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
 
-                                    usedEnd = "1440";
-                                }
+                                        isAvailable = false;
+                                    }
+                                } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
+                                    || isSameDay(booking.startDate, usedPeriodEnd)) {
 
-                                for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+                                    let usedEnd;
 
-                                    endDateAppointments.add({ number: i, bookingId: booking.id });
-                                }
-                                if ([...endDateAppointments].some(appointment => appointment.number === "0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                                    if (isSameDay(booking.startDate, booking.endDate)) {
+                                        usedEnd = booking.endPeriod;
+                                    } else {
 
-                                    
-                                    isAvailable = false;
+                                        usedEnd = "1440";
+                                    }
 
+                                    for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+
+                                        endDateAppointments.add({ number: i, bookingId: booking.id });
+                                    }
+                                    if ([...endDateAppointments].some(appointment => appointment.number === "0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+
+
+                                        isAvailable = false;
+
+                                    } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+
+                                    }
                                 } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
 
                                 }
-                            } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
-
-                            }
-                            else {
-
-                               
-                                isAvailable = false;
-                            }
-                        }
-                    }
-
-                    if (startDateAppointments.size !== 0 || endDateAppointments.size !== 0 && (startTime || endTime)) {
-                        if (startTime) {
-                            let usedEnd;
-
-                            if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
-                                usedEnd = endTime;
-                            } else {
-                                usedEnd = "1440";
-                            }
-
-                            for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
-                                if ([...startDateAppointments].some(appointment => appointment.number === Number(i))) {
+                                else {
 
 
-                                    
                                     isAvailable = false;
                                 }
                             }
                         }
-                        if (endTime) {
 
-                            let usedEnd;
+                        if (startDateAppointments.size !== 0 || endDateAppointments.size !== 0 && (startTime || endTime)) {
+                            if (startTime) {
+                                let usedEnd;
 
-                            if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
-                                usedEnd = startTime;
-                            } else {
-                                usedEnd = "0";
+                                if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
+                                    usedEnd = endTime;
+                                } else {
+                                    usedEnd = "1440";
+                                }
+
+                                for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                                    if ([...startDateAppointments].some(appointment => appointment.number === Number(i))) {
+
+
+
+                                        isAvailable = false;
+                                    }
+                                }
                             }
+                            if (endTime) {
 
+                                let usedEnd;
 
-
-                            for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
-                                if ([...endDateAppointments].some(appointment => appointment.number === Number(i))) {
-                                    
-                                    isAvailable = false;
+                                if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
+                                    usedEnd = startTime;
+                                } else {
+                                    usedEnd = "0";
                                 }
 
 
+
+                                for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                                    if ([...endDateAppointments].some(appointment => appointment.number === Number(i))) {
+
+                                        isAvailable = false;
+                                    }
+
+
+                                }
                             }
+                        }
+
+                        startDateAppointments.clear();
+                        endDateAppointments.clear();
+
+
+                        if (isAvailable) {
+                            return true;
                         }
                     }
 
-                    startDateAppointments.clear();
-                    endDateAppointments.clear();
+                    return false;
 
-                   
-                    if(isAvailable){
-                        return true;
-                    }
+                } catch (e) {
+                    console.log(e);
+                    return new NextResponse("Error", { status: 500 });
                 }
+            });
 
-                return false;
 
-            } catch (e) {
-                console.log(e);
-                return new NextResponse("Error", { status: 500 });
-            }
-        });
-
-        
 
 
         const ilikeQuery = title ? title.split(' ').map((w: any) => ilike(inserat.title, `%${w}%`)) : "";
@@ -658,7 +666,7 @@ export async function PATCH(
             }
         })
 
-        const filteredArray = results.filter((pInserat : any) => {
+        const filteredArray = results.filter((pInserat: any) => {
 
             const conditions = ConditionFilter(pInserat);
 
@@ -674,19 +682,19 @@ export async function PATCH(
                 }
 
                 if (!available) return false;
-            } else if(startDateDynamic && endDateDynamic) {
+            } else if (startDateDynamic && endDateDynamic) {
                 const dSearchResult = dynamicSearch(
                     pInserat.bookings,
-                     startTime,
+                    startTime,
                     endTime,
                     startDateDynamic,
                     endDateDynamic,
                     reqTime,
                     pInserat
                 )
-                
+
                 console.log(dSearchResult)
-                if(!dSearchResult) return false;
+                if (!dSearchResult) return false;
             }
 
             switch (thisCategory) {
@@ -722,9 +730,9 @@ export async function PATCH(
             const usedRadius = radius ? radius : 50;
             let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
 
-            
 
-            if(addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
+
+            if (addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
                 for (const pInserat of filteredArray) {
                     const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
                         Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));

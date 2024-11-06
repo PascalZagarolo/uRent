@@ -41,7 +41,7 @@ type GetInserate = {
 
     reqAge?: number;
     reqLicense?: string;
-    minTime : number;
+    minTime: number;
 
     //PKW
     thisBrand?: typeof BrandEnumRender[];
@@ -597,9 +597,14 @@ export const getInserate = cache(async ({
     })
 
     const filterAvailabilityMulti = cache((pInserat: any) => {
-           
-
         try {
+
+            const fitsMinTime = checkFitsMinTime(pInserat);
+
+            if (!fitsMinTime) {
+                return false;
+            }
+
             if (pInserat.bookings?.length <= 0) {
                 return true;
             }
@@ -642,7 +647,7 @@ export const getInserate = cache(async ({
                                 startDateAppointments.add({ number: i, bookingId: booking.id });
                             }
                             if ([...startDateAppointments].some(appointment => appointment.number === "1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                                
+
                                 isAvailable = false;
                             }
                         } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
@@ -663,7 +668,7 @@ export const getInserate = cache(async ({
                             }
                             if ([...endDateAppointments].some(appointment => appointment.number === "0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
 
-                                
+
                                 isAvailable = false;
 
                             } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
@@ -674,7 +679,7 @@ export const getInserate = cache(async ({
                         }
                         else {
 
-                           
+
                             isAvailable = false;
                         }
                     }
@@ -694,7 +699,7 @@ export const getInserate = cache(async ({
                             if ([...startDateAppointments].some(appointment => appointment.number === Number(i))) {
 
 
-                                
+
                                 isAvailable = false;
                             }
                         }
@@ -713,7 +718,7 @@ export const getInserate = cache(async ({
 
                         for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
                             if ([...endDateAppointments].some(appointment => appointment.number === Number(i))) {
-                                
+
                                 isAvailable = false;
                             }
 
@@ -725,8 +730,8 @@ export const getInserate = cache(async ({
                 startDateAppointments.clear();
                 endDateAppointments.clear();
 
-               
-                if(isAvailable){
+
+                if (isAvailable) {
                     return true;
                 }
             }
@@ -741,35 +746,35 @@ export const getInserate = cache(async ({
 
     const checkFitsMinTime = cache((pInserat) => {
         try {
-            if(!pInserat?.minTime) {
+            if (!pInserat?.minTime) {
                 console.log(pInserat?.minTime)
                 return true;
             }
-            
+
             const usedStartTime = startTime ? Number(startTime) : 0;
             const usedEndTime = endTime ? Number(endTime) : 1440;
-           
+
 
             const usedStartDate = createDateWithTime(periodBegin, usedStartTime);
             const usedEndDate = createDateWithTime(periodEnd, usedEndTime);
 
-           
+
 
             const diffrence = differenceInHours(new Date(usedEndDate), new Date(usedStartDate));
 
-            if(pInserat?.minTime > diffrence) {
-                
+            if (pInserat?.minTime > diffrence) {
+
                 return false;
             } else {
                 return true;
             }
-    
+
         } catch (e) {
             console.log(e);
             return false; // Return false if an error occurs
         }
     });
-    
+
 
     try {
         const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
@@ -832,8 +837,8 @@ export const getInserate = cache(async ({
 
 
 
-        
-        
+
+
 
 
 
@@ -865,7 +870,7 @@ export const getInserate = cache(async ({
 
                 if (!available) return false;
             } else if (startDateDynamic && endDateDynamic) {
-               
+
 
                 const usedStartTime = String(startTime);
                 const usedEndTime = String(endTime);
@@ -943,7 +948,7 @@ export const getInserate = cache(async ({
                 }
             }
             */
-            if(addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
+            if (addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
                 for (const pInserat of filteredArray) {
                     const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
                         Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
@@ -952,7 +957,7 @@ export const getInserate = cache(async ({
                     }
                 }
             } else {
-                
+
                 returnedArray = filteredArray;
             }
         } else {

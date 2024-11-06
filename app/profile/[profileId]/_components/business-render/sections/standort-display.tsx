@@ -232,7 +232,7 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
                     <div className="flex p-2">
                         <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
                         <div className="sm:text-sm text-xs font-semibold text-gray-200/95">
-                            {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}, Deutschland
+                        {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}
                         </div>
                     </div>
                 </div>

@@ -156,8 +156,6 @@ export const checkAvailability = (
         }
 
         const filterAvailabilityMulti = (pInserat: any) => {
-
-
             const usedBookings = pInserat?.bookings?.filter((booking) => booking.id !== bookingId);
 
             try {
@@ -179,7 +177,7 @@ export const checkAvailability = (
 
                     let isAvailable = true;
 
-                    for (const booking of usedBookings) {
+                    for (const booking of vehicle?.bookings) {
                         //booking starts AND ends before the searched Period
                         if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
                             //booking starts or ends on the first OR last day of the searched period
@@ -333,9 +331,9 @@ export const checkAvailability = (
         let result;
 
         if (pInserat?.multi) {
-            console.log("multi")
+            
             result = filterAvailabilityMulti(pInserat);
-            console.log(result)
+            
         } else {
             result = filterAvailability(pInserat);
         }

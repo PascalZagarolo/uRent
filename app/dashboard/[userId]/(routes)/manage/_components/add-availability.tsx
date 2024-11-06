@@ -123,7 +123,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 currentStart,
                 currentEnd,
                 startTime,
-                endTime
+                endTime,
+                currentVehicle ? currentVehicle : null,
             )
 
 

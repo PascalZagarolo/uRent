@@ -164,7 +164,8 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                 currentEnd,
                 currentPeriodStart,
                 currentPeriodEnd,
-                thisBooking.id
+                thisBooking.id,
+                currentVehicle ? currentVehicle : null,
             )
 
 

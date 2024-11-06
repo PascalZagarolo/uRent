@@ -154,7 +154,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 currentStart,
                 currentEnd,
                 currentStartTime,
-                currentEndTime
+                currentEndTime,
+                currentVehicle ? currentVehicle : null,
             )
 
 

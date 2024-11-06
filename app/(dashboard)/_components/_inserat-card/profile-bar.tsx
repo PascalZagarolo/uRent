@@ -51,7 +51,11 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         if (currentUser) {
             try {
                 setIsLoading(true);
-                axios.post(`/api/conversation/${currentUser.id}/${thisInserat.userId}`).then((response) => {
+                const values = {
+                    inseratId : thisInserat.id,
+                }
+                axios.post(`/api/conversation/${currentUser.id}/${thisInserat.userId}`, values)
+                .then((response) => {
                     router.push(`/conversation?conversationId=${response.data.id}`)
                 })
             } catch {

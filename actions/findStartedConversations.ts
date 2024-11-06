@@ -30,7 +30,8 @@ export const findStartedConversationsGlobal = (async(currentUserId) => {
             user1: true,
             user2: true,
             blocks: true,
-            folderOnConversation : true
+            folderOnConversation : true,
+            inserat : true
 
 
         }

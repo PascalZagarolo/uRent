@@ -12,6 +12,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 interface RenderedChatsProps {
     user: typeof userTable.$inferSelect,
+    inseratTitle?: string;
     conversationId: string,
     lastMessage: string;
     lastMessageDate?: Date;
@@ -25,10 +26,11 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     lastMessage,
     openMessages,
     lastMessageDate,
-    isOwnMessage
+    isOwnMessage,
+    inseratTitle
 }) => {
 
-    
+
 
     let renderedDate = "";
 
@@ -38,7 +40,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
         renderedDate = isToday(lastMessageDate) ? format(lastMessageDate, "HH:mm") : format(lastMessageDate, "dd.MM")
     }
 
-    
+
 
     const onClick = (usedId: string) => {
         if (conversationId === params) {
@@ -55,47 +57,72 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     const isOnSite = params === conversationId ? true : false;
 
     return (
-        <div className={cn(`flex items-center mr-auto w-full  pl-2 py-2  
-         text-gray-800 dark:text-gray-200 font-semibold hover:cursor-pointer border-t border-b dark:border-[#1C1C1C]`,
-            !isOnSite ? "dark:bg-[#0F0F0F] bg-[#404040]/10" : "bg-white dark:bg-[#1c1c1c]")}
-            onClick={() => onClick(conversationId)}
-        >
-            <div className="flex w-full items-center py-2 space-y-1">
-                <div>
-                    <Image
-                        alt="Profile Picture"
-                        src={user.image || "/placeholder-person.jpg"}
-                        width={40}
-                        height={40}
-                        className="rounded-full h-[40px] w-[40px] object-cover mr-2"
-                    />
-                </div>
-                <div className="w-2/3 ">
-                    <div className=" w-full flex items-center">
-                        <div className="w-2/3 break-words line-clamp-1">
+        <div
+        className={cn(
+            `flex items-center w-full py-3 px-3 mr-auto border-t border-b cursor-pointer
+            text-gray-800 dark:text-gray-200 font-semibold hover:bg-gray-200/20 dark:border-[#1C1C1C]`,
+            !isOnSite ? "dark:bg-[#0F0F0F] bg-[#404040]/10" : "bg-white dark:bg-[#1C1C1C]"
+        )}
+        onClick={() => onClick(conversationId)}
+    >
+        <div className="flex items-center gap-2 w-full ">
+            {/* Profile Picture */}
+            <Image
+                alt="Profile Picture"
+                src={user.image || "/placeholder-person.jpg"}
+                width={40}
+                height={40}
+                className="rounded-full h-[40px] w-[40px] object-cover"
+            />
+    
+            {/* Content */}
+            <div className="flex flex-col w-11/12">
+                {/* Title */}
+                {inseratTitle && (
+                    <div className="text-base font-semibold truncate line-clamp-2">
+                        {inseratTitle}
+                    </div>
+                )}
+    
+                {/* Name and Last Message */}
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col w-3/4 ">
+                        <div
+                            className={cn(
+                                "text-sm line-clamp-1 font-normal ",
+                                inseratTitle ? "text-gray-200/60" : ""
+                            )}
+                        >
                             {user.name}
                         </div>
-                        {lastMessageDate && (
-                            <div className="ml-auto text-xs dark:text-gray-200/60 font-normal">
-                                {renderedDate}
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="flex w-full items-center gap-x-2  line-clamp-1">
-                        <div className={cn("text-xs font-medium inline-block break-all line-clamp-1 ",
-                            openMessages === 0 && "dark:text-gray-200/60")}>
-                            {isOwnMessage ? "Ich: " : ``}   {lastMessage}
+                        <div
+                            className={cn(
+                                "text-xs font-medium line-clamp-1 mt-1",
+                                openMessages === 0 && "dark:text-gray-200/60"
+                            )}
+                        >
+                            {isOwnMessage ? "Ich: " : ""}{lastMessage}
                         </div>
-                        {openMessages > 0 && (
-                            <div className="py-0.5 px-1 bg-rose-600 justify-end ml-auto text-xs rounded-md flex ">
-                                {openMessages > 9 ? "9+" : openMessages}
-                            </div>
-                        )}
                     </div>
+    
+                    {/* Unread Message Badge */}
+                    {openMessages > 0 && (
+                        <div className="flex items-center bg-rose-600 text-xs font-medium text-white rounded-md px-1 py-0.5">
+                            {openMessages > 9 ? "9+" : openMessages}
+                        </div>
+                    )}
                 </div>
+    
+                {/* Date */}
+                {lastMessageDate && (
+                    <div className="text-xs dark:text-gray-200/80 font-normal text-right">
+                        {renderedDate}
+                    </div>
+                )}
             </div>
         </div>
+    </div>
+    
     );
 }
 export default RenderedChats;

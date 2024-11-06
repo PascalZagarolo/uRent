@@ -7,6 +7,7 @@ import { and, eq, or } from "drizzle-orm";
 
 export const findOrCreateConversation = async (user1: string, user2: string) => {
     
+    console.log("...")
     let respondedConversation;
     
     respondedConversation = await db.query.conversation.findFirst({

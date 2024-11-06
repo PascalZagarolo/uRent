@@ -77,6 +77,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
                 lastMessage={lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet"}
                 lastMessageDate={lastMessage?.createdAt}
                 isOwnMessage={isOwnMessage}
+                inseratTitle={conversations.inserat?.title}
             />
         </div>
     );

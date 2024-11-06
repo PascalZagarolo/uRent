@@ -118,7 +118,10 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
         if (ownUser) {
             try {
                 setIsLoading(true);
-                const conversation = axios.post(`/api/conversation/${ownUser.id}/${thisUser.id}`).then((response) => {
+                const values = {
+                    inseratId : thisInserat?.id
+                }
+                const conversation = axios.post(`/api/conversation/${ownUser.id}/${thisUser.id}`, values).then((response) => {
                     router.push(`/conversation?conversationId=${response.data.id}`)
                 })
             } catch {
@@ -134,8 +137,15 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
     const onInterest = () => {
         if (ownUser) {
             try {
+                const values = {
+                    inseratId : thisInserat?.id
+                }
                 setIsLoading(true);
-                axios.post(`/api/interest/${params.inseratId}`, { text: text });
+                axios.post(`/api/interest/${params.inseratId}`, { text: text, inseratId : thisInserat?.id })
+                    .then((res) => {
+                        router.refresh();
+                        router.push(`/conversation?conversationId=${res?.data}`)
+                    })
             } catch {
                 toast.error("Etwas ist schief gelaufen");
             } finally {

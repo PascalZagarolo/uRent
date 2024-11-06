@@ -319,7 +319,8 @@ export const checkAvailability = (
                         return true;
                     }
                 }
-
+                
+                return false;
             } catch (e) {
                 console.log(e);
                 return new NextResponse("Error", { status: 500 });

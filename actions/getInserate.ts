@@ -597,136 +597,146 @@ export const getInserate = cache(async ({
     })
 
     const filterAvailabilityMulti = cache((pInserat: any) => {
+           
 
-        const fitsMinTime = checkFitsMinTime(pInserat);
+        try {
+            if (pInserat.bookings?.length <= 0) {
+                return true;
+            }
+            //set start and date to same date if the user only provides one
 
-        if (!fitsMinTime) {
-            return false;
-        }
+            const usedPeriodBegin = new Date(periodBegin);
+            const usedPeriodEnd = new Date(periodEnd);
 
-        if (pInserat.bookings.length === 0) {
-            return true;
-        }
-        //set start and date to same date if the user only provides one
+            const usedVehicles = pInserat?.vehicles;
 
-        const usedPeriodBegin = new Date(periodBegin);
-        const usedPeriodEnd = new Date(periodEnd);
+            for (const vehicle of usedVehicles) {
 
-        let index = 1;
+                let startDateAppointments = new Set<any>();
+                let endDateAppointments = new Set<any>();
 
-        for (const vehicle of pInserat?.vehicles) {
+                let isAvailable = true;
 
-            const startDateAppointments = new Set<any>()
-            const endDateAppointments = new Set<any>();
-            let isAvailable = true;
+                for (const booking of vehicle?.bookings) {
+                    //booking starts AND ends before the searched Period
+                    if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
+                        //booking starts or ends on the first OR last day of the searched period
+                        || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
+                            || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
+                        //booking
+                        && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
+                    ) {
+                        if ((isSameDay(booking.startDate, usedPeriodBegin) &&
+                            (isSameDay(booking.endDate, usedPeriodBegin))) ||
+                            isSameDay(booking.endDate, usedPeriodBegin)) {
 
+                            let usedStart;
 
+                            if (isSameDay(booking.startDate, booking.endDate)) {
+                                usedStart = booking.startPeriod;
+                            } else {
+                                usedStart = "0"
+                            }
 
-            for (const booking of vehicle?.bookings) {
-                //booking starts AND ends before the searched Period
+                            for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+                                startDateAppointments.add({ number: i, bookingId: booking.id });
+                            }
+                            if ([...startDateAppointments].some(appointment => appointment.number === "1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+                                
+                                isAvailable = false;
+                            }
+                        } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
+                            || isSameDay(booking.startDate, usedPeriodEnd)) {
 
+                            let usedEnd;
 
+                            if (isSameDay(booking.startDate, booking.endDate)) {
+                                usedEnd = booking.endPeriod;
+                            } else {
 
-                if (!(booking.startDate <= usedPeriodBegin) || !(booking.endDate <= usedPeriodBegin)
-                    //booking starts or ends on the first OR last day of the searched period
-                    || (isSameDay(booking.startDate, usedPeriodBegin) || isSameDay(booking.endDate, usedPeriodBegin)
-                        || isSameDay(booking.endDate, usedPeriodBegin) || isSameDay(booking.startDate, usedPeriodBegin))
-                    //booking
-                    && (!(booking.endDate > usedPeriodEnd) || !(booking.startDate > usedPeriodEnd))
-                ) {
-                    if ((isSameDay(booking.startDate, usedPeriodBegin) && (isSameDay(booking.endDate, usedPeriodBegin))) || isSameDay(booking.endDate, usedPeriodBegin)) {
-                        let usedStart;
-                        if (isSameDay(booking.startDate, booking.endDate)) {
-                            usedStart = booking.startPeriod;
-                        } else {
-                            usedStart = "0"
+                                usedEnd = "1440";
+                            }
+
+                            for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+
+                                endDateAppointments.add({ number: i, bookingId: booking.id });
+                            }
+                            if ([...endDateAppointments].some(appointment => appointment.number === "0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
+
+                                
+                                isAvailable = false;
+
+                            } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+
+                            }
+                        } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
+
                         }
+                        else {
 
-                        for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
-
-                            startDateAppointments.add(i);
-                        }
-                        if (startDateAppointments.has("1440") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                            console.log("this")
+                           
                             isAvailable = false;
                         }
-                    } else if ((isSameDay(booking.endDate, usedPeriodEnd) && isSameDay(booking.startDate, usedPeriodEnd))
-                        || isSameDay(booking.startDate, usedPeriodEnd)) {
+                    }
+                }
 
+                if (startDateAppointments.size !== 0 || endDateAppointments.size !== 0 && (startTime || endTime)) {
+                    if (startTime) {
                         let usedEnd;
 
-                        if (isSameDay(booking.startDate, booking.endDate)) {
-                            usedEnd = booking.endPeriod;
+                        if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
+                            usedEnd = endTime;
                         } else {
-
                             usedEnd = "1440";
                         }
 
-                        for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+                        for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                            if ([...startDateAppointments].some(appointment => appointment.number === Number(i))) {
 
-                            endDateAppointments.add(i);
+
+                                
+                                isAvailable = false;
+                            }
                         }
-                        if (endDateAppointments.has("0") && !isSameDay(usedPeriodBegin, usedPeriodEnd)) {
-                            console.log("this")
-                            isAvailable = false;
-                        } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
-                            console.log(booking)
+                    }
+                    if (endTime) {
 
+                        let usedEnd;
+
+                        if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
+                            usedEnd = startTime;
+                        } else {
+                            usedEnd = "0";
                         }
-                    } else if (booking.endDate > usedPeriodEnd && booking.startDate > usedPeriodEnd) {
 
-                    }
-                    else if (index === pInserat.vehicles.length) {
 
-                        isAvailable = false;
-                    }
-                }
 
-            }
+                        for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                            if ([...endDateAppointments].some(appointment => appointment.number === Number(i))) {
+                                
+                                isAvailable = false;
+                            }
 
-            if ((startTime || endTime)) {
 
-                if (startTime) {
-                    let usedEnd;
-
-                    if (isSameDay(usedPeriodBegin, usedPeriodEnd) && endTime) {
-                        usedEnd = endTime;
-                    } else {
-                        usedEnd = "1440";
-                    }
-
-                    for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
-                        if (startDateAppointments.has(Number(i))) {
-                            isAvailable = false;
                         }
                     }
                 }
-                if (endTime) {
-                    let usedEnd;
-                    if (isSameDay(usedPeriodBegin, usedPeriodEnd) && startTime) {
-                        usedEnd = startTime;
-                    } else {
-                        usedEnd = "0";
-                    }
 
+                startDateAppointments.clear();
+                endDateAppointments.clear();
 
-                    for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
-                        if (endDateAppointments.has(Number(i))) {
-                            isAvailable = false;
-                        }
-                    }
+               
+                if(isAvailable){
+                    return true;
                 }
             }
 
-            if (isAvailable) {
-                return true;
-            }
-            index++;
+            return false;
 
+        } catch (e) {
+            console.log(e);
         }
-
-        return false;
-    })
+    });
 
 
     const checkFitsMinTime = cache((pInserat) => {

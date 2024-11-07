@@ -4,13 +4,14 @@ import { cn } from "@/lib/utils";
 import { format, isAfter, isBefore, isSameDay } from "date-fns";
 import { de } from "date-fns/locale";
 import { CheckIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+
 import { RiCalendarEventFill } from "react-icons/ri";
 
 interface CalenderDayDetailProps {
     day_date: Date;
     affectedBookings: typeof booking.$inferSelect[];
     setCompletelyUnaivalable: (value: boolean) => void;
+    setIsPartiallyUnaivalable: (value: boolean) => void;
     isMulti?: boolean;
     vehicles?: typeof vehicle.$inferSelect[];
 }
@@ -19,11 +20,17 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
     day_date,
     affectedBookings,
     setCompletelyUnaivalable,
+    setIsPartiallyUnaivalable,
     isMulti,
     vehicles
 }) => {
 
     let appointedTimes = [];
+
+    
+
+
+
 
     if (isMulti) {
 
@@ -107,7 +114,14 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
         if (!isAvailable) {
             setCompletelyUnaivalable(true);
+            
+        } else if (appointedTimes.length === 0){
+            setCompletelyUnaivalable(false);
+        } else if(appointedTimes.length !== 1440){
+            setIsPartiallyUnaivalable(true);
         }
+
+        
 
 
     } else {
@@ -154,13 +168,14 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                     break;
                 }
             }
+
+            if(appointedTimes.length === 0){
+                setCompletelyUnaivalable(false);
+            } else if(appointedTimes?.length !== 0) {
+                setIsPartiallyUnaivalable(true)
+            }
         }
     }
-
-
-
-
-
 
     const checkBooked = (number: string) => {
         if (appointedTimes.includes(Number(number))) {

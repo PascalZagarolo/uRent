@@ -38,22 +38,11 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
 
   const searchParams = useSearchParams();
 
-  const inseratFilter = searchParams.get("inseratId");
-  const vehicleFilter = searchParams.get("vehicleId");
-  const router = useRouter();
+
 
   const [isCompletelyUnaivalable, setIsCompletelyUnaivalable] = useState(false);
+  const [isPartiallyUnaivalable, setIsPartiallyUnaivalable] = useState(false);
 
-  const isShowing = (id: string, vehicleId?: string) => {
-    if (inseratFilter) {
-      if (vehicleFilter) {
-
-        return vehicleId === vehicleFilter && id === inseratFilter;
-      }
-      return id === inseratFilter;
-    }
-    return true;
-  }
 
 
 
@@ -69,7 +58,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           "bg-gray-200": isToday(day),
           "font-black": isToday(day),
           "dark:bg-rose-800 bg-rose-800": isCompletelyUnaivalable,
-          "dark:bg-indigo-800 bg-indigo-500": (bookings.length > 0) && !isCompletelyUnaivalable,
+          "dark:bg-indigo-800 bg-indigo-500": isPartiallyUnaivalable && !isCompletelyUnaivalable,
         })}
       >
         {isCompletelyUnaivalable ? (
@@ -79,6 +68,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
             day_date={day}
             affectedBookings={bookings}
             setCompletelyUnaivalable={setIsCompletelyUnaivalable}
+            setIsPartiallyUnaivalable={setIsPartiallyUnaivalable}
             isMulti={isMulti}
             vehicles={vehicles}
           />

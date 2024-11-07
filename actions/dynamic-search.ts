@@ -33,7 +33,7 @@ export function dynamicSearch(
         const foundAvailability: string[] = [];
 
         const regAmount = Number(reqTime.slice(0, -1));
-        const regTime = reqTime.slice(-1);
+        
 
         if (pInserat.bookings.length === 0) {
             console.log("No Bookings")
@@ -47,7 +47,7 @@ export function dynamicSearch(
         let startDateAppointments = new Set<any>();
         let endDateAppointments = new Set<any>();
 
-        let startingPoint = addDays(usedPeriodBegin, regAmount);
+        let startingPoint = addDays(usedPeriodBegin, regAmount - 1);
 
 
 
@@ -57,7 +57,7 @@ export function dynamicSearch(
 
 
 
-            let windowStart = new Date(windowEnd.getDay() - regAmount);
+            let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
             let isAvailable = true;
 
             for (const booking of pInserat.bookings) {
@@ -168,13 +168,14 @@ export function dynamicSearch(
         const checkMinTime = checkFitsMinTime(pInserat, startTime, endTime, startDateDynamic, endDateDynamic);
 
         if (!checkMinTime) {
+            console.log("...")
             return false;
         }
 
         const regAmount = Number(reqTime.slice(0, -1));
         
 
-        for (let i = 0; !isAfter(addDays(startDateDynamic, i + regAmount - 1), endDateDynamic); i++) {
+        for (let i = 0; !isAfter(addDays(startDateDynamic, i + (regAmount - 1)), endDateDynamic); i++) {
             
             const usedStartDate = new Date(addDays(startDateDynamic, i));
             

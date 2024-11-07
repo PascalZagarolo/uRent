@@ -261,7 +261,7 @@ const DateFormFilter = () => {
             </div>
             <div className="mt-4">
               <TimePeriodFormFilter
-              isDisabled = {currentObject["dynamicSearch"]}
+              isDisabled = {currentObject["dynamicSearch"] || (!periodBegin && !periodEnd)}
               />
             </div>
             <div className="mt-2 flex justify-center  ">

@@ -126,7 +126,9 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                 currentStart,
                 currentEnd,
                 startTime,
-                endTime
+                endTime,
+                null,
+                currentVehicle ? currentVehicle : null
             )
 
 

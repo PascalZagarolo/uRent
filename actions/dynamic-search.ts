@@ -172,12 +172,13 @@ export function dynamicSearch(
         }
 
         const regAmount = Number(reqTime.slice(0, -1));
+        
 
-        for (let i = 0; !isAfter(addDays(startDateDynamic, i + regAmount), endDateDynamic); i++) {
+        for (let i = 0; !isAfter(addDays(startDateDynamic, i + regAmount - 1), endDateDynamic); i++) {
             
             const usedStartDate = new Date(addDays(startDateDynamic, i));
-            console.log(usedStartDate)
-            const usedEndDate = new Date(addDays(startDateDynamic, i + regAmount));
+            
+            const usedEndDate = new Date(addDays(startDateDynamic, i + regAmount - 1));
            
             const usedVehicles = pInserat?.vehicles;
 

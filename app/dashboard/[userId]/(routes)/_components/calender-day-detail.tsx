@@ -44,6 +44,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
         for (const vehicle of vehicles) {
             appointedTimes[index] = []
+            //@ts-ignore
             for (const pBooking of vehicle?.bookings) {
 
                 if (affectedBookings) {

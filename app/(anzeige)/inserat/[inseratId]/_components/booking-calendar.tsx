@@ -125,6 +125,8 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
                                 day={day}
                                 key={dateKey}
                                 bookings={todaysEvents}
+                                isMulti = {thisInserat?.multi}
+                                vehicles = {thisInserat?.vehicles}
                             />
                         </div>
                     );

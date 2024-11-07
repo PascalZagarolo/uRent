@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { booking } from "@/db/schema";
+import { booking, vehicle } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 import clsx from "clsx";
@@ -16,19 +16,24 @@ import { useEffect, useState } from "react";
 interface Event {
   date: Date;
   title: string;
+  
 }
 
 interface CalendarDayProps {
   index: number;
   day: Date;
   bookings: typeof booking.$inferSelect[];
+  isMulti ?: boolean;
+  vehicles ?: typeof vehicle.$inferSelect[];
 }
 
 
 const CalendarDay: React.FC<CalendarDayProps> = ({
   index,
   day,
-  bookings
+  bookings,
+  isMulti,
+  vehicles
 }) => {
 
   const searchParams = useSearchParams();
@@ -50,11 +55,13 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
     return true;
   }
 
+
+
   
 
   return (
     <>
-      
+
 
       <div
         key={index}
@@ -65,14 +72,16 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           "dark:bg-indigo-800 bg-indigo-500": (bookings.length > 0) && !isCompletelyUnaivalable,
         })}
       >
-        {isCompletelyUnaivalable ? ( 
-<>{format(new Date(day), "d")}</>
+        {isCompletelyUnaivalable ? (
+          <>{format(new Date(day), "d")}</>
         ) : (
-<CalenderDayDetail 
-        day_date={day}
-        affectedBookings={bookings}
-        setCompletelyUnaivalable={setIsCompletelyUnaivalable}
-        />
+          <CalenderDayDetail
+            day_date={day}
+            affectedBookings={bookings}
+            setCompletelyUnaivalable={setIsCompletelyUnaivalable}
+            isMulti={isMulti}
+            vehicles={vehicles}
+          />
         )}
 
 

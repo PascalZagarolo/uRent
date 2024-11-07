@@ -90,6 +90,11 @@ const InseratAnzeige = async ({
                     }
                 }
             },
+            vehicles : {
+                with : {
+                    bookings : true
+                }
+            },
             bookings: true,
             pkwAttribute: true,
             lkwAttribute: true,

@@ -683,6 +683,7 @@ export async function PATCH(
 
                 if (!available) return false;
             } else if (startDateDynamic && endDateDynamic) {
+                
                 const dSearchResult = dynamicSearch(
                     pInserat.bookings,
                     startTime,
@@ -693,7 +694,7 @@ export async function PATCH(
                     pInserat
                 )
 
-                console.log(dSearchResult)
+                
                 if (!dSearchResult) return false;
             }
 

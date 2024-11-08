@@ -60,7 +60,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
         <div
         className={cn(
             `flex items-center w-full py-3 px-3 mr-auto border-t border-b cursor-pointer
-            text-gray-800 dark:text-gray-200 font-semibold hover:bg-gray-200/20 dark:border-[#1C1C1C]`,
+            text-gray-800 dark:text-gray-200 font-semibold hover:bg-gray-800/20 dark:border-[#1C1C1C]`,
             !isOnSite ? "dark:bg-[#0F0F0F] bg-[#404040]/10" : "bg-white dark:bg-[#1C1C1C]"
         )}
         onClick={() => onClick(conversationId)}
@@ -76,10 +76,10 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
             />
     
             {/* Content */}
-            <div className="flex flex-col w-11/12">
+            <div className="flex flex-col mr-4">
                 {/* Title */}
                 {inseratTitle && (
-                    <div className="text-base font-semibold truncate line-clamp-2">
+                    <div className="text-base font-semibold  line-clamp-2 ">
                         {inseratTitle}
                     </div>
                 )}

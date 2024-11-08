@@ -74,8 +74,9 @@ const InitialForm: React.FC<InitialFormProps> = ({
 
     const onSubmit = async () => {
 
-        const dateInitial = new Date(Number(currentInitial), 0, 1);
-
+        
+        const dateInitial = new Date(Number(currentInitial), 11, 17, 0, 0, 0, 0);
+        
         const values = {
             initial : dateInitial
         }

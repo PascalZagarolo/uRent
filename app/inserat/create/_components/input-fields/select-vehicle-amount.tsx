@@ -129,7 +129,7 @@ const SelectVehicleAmount: React.FC<SelectVehicleAmountProps> = ({
                     />
                     <div>
                         <Button
-                            className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-2
+                            className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mt-6
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                             onClick={onSubmit} disabled={!currentValue || 
                                 currentValue == thisInserat.amount || thisInserat.multi === false

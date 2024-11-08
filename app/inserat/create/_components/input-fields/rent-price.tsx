@@ -100,7 +100,7 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
             <Label className="flex justify-start items-center">
                 <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Mietpreis *</p>
             </Label>
-            <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80"> Alle angaben in EUR </p>
+            <p className="text-gray-800/50 text-xs dark:text-gray-200/60"> Mietpreis pro Tag  </p>
 
             <Input
                 type="text"
@@ -127,24 +127,14 @@ const SelectPrice: React.FC<SelectPriceProps> = ({
 
             <div className="w-full flex items-center">
                 <Button
-                    className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]  mt-2
+                    className="bg-white hover:bg-gray-200 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                              dark:bg-black dark:text-gray-100 dark:hover:bg-gray-900"
                     onClick={onSubmit} disabled={!correctPrice || Number(currentValue) === Number(thisInserat?.price) || Number(currentValue) > 1_000_000}
                 >
                     Preis festlegen
                 </Button>
 
-                <div className="ml-auto space-x-2">
-                    <Label>
-                        Preis pro Tag
-                    </Label>
-                    <Checkbox
-                        onCheckedChange={(checked) => { setDailyPrice(!isDailyPrice) }}
-                        checked={isDailyPrice}
-                        disabled
-                    />
-
-                </div>
+                
             </div>
 
 

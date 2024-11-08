@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { booking } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { format, isBefore, minutesToHours } from "date-fns";
 import { ShareIcon } from "lucide-react";
 import { FaShareAlt } from "react-icons/fa";
 import { IoIosShareAlt } from "react-icons/io";
@@ -19,38 +19,57 @@ const formatTime = (minutes: number) => {
     return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')} Uhr`;
 };
 
-const renderFittingBookings = (booking: any, type: string) => {
+
+
+const currentTimeInMinutes = new Date().getMinutes() + new Date().getHours() * 60;
+
+
+
+
+
+
+const renderFittingBookings = (booking: any, type: string, isDisabled?: boolean) => {
     return (
-        <div key={booking.id} 
-        className={cn("relative w-full flex flex-row rounded-md h-full bg-[#0F0F0F] ",
-            booking.isAvailability ? "border-rose-800" : "border-indigo-800"
-        )}>
-    {/* Share Icon positioned in a circle on the upper left */}
-    <div className={cn(`absolute top-[-12px] left-[-12px]  border-2 shadow-lg border-gray-200  
+        <div key={booking.id}
+            className={cn("relative w-full flex flex-row rounded-md h-full bg-[#0F0F0F] ",
+                booking.isAvailability ? "border-rose-800" : "border-indigo-800",
+                isDisabled === true && "opacity-50 hover:opacity-80"
+            )}>
+            {/* Share Icon positioned in a circle on the upper left */}
+            <div className={cn(`absolute top-[-12px] left-[-12px]  border-2 shadow-lg border-gray-200  
     rounded-full p-2 flex justify-center items-center`, type === "ABGABE" ? "bg-[#0F0F0F]" : "bg-emerald-600")}>
-        {type === "ABGABE" ? (
-            <IoIosShareAlt className="text-white w-4 h-4" />
-        ) : (
-            <MdOutlineCallReceived  className="text-white w-4 h-4" />
-        )}
-    </div>
-    
-    <div className={cn("w-1/12 rounded-l-md", booking.isAvailability ? "bg-rose-800" : "bg-indigo-800")} />
-    <div className="w-11/12 pl-4 py-2">
-        <div className="text-sm font-bold underline flex flex-row items-center">
-            {type === "ABGABE" ? formatTime(booking.startPeriod) : formatTime(booking.endPeriod)}
-            <div className="justify-end ml-auto pr-2">
-                {renderDialog(booking)}
+                {type === "ABGABE" ? (
+                    <IoIosShareAlt className="text-white w-4 h-4" />
+                ) : (
+                    <MdOutlineCallReceived className="text-white w-4 h-4" />
+                )}
+            </div>
+
+            <div className={cn("w-1/12 rounded-l-md", booking.isAvailability ? "bg-rose-800" : "bg-indigo-800")} />
+            <div className="w-11/12 pl-4 py-2">
+                <div className="text-sm font-bold underline flex flex-row items-center">
+                    {type === "ABGABE" ? formatTime(booking.startPeriod) : formatTime(booking.endPeriod)}
+                    <div className="justify-end ml-auto pr-2">
+                        {renderDialog(booking)}
+                    </div>
+                </div>
+                <div className="text-base mt-4">
+                    {booking?.inserat?.title}
+                </div>
+                {booking?.inserat?.multi && (
+                    <div className="text-sm text-gray-200/60 underline">
+
+                        {booking?.vehicle?.title}
+                    </div>
+                )}
+                <div className={cn("font-medium mt-2", !booking?.name && "text-gray-200/60")}>
+                    {booking?.name ? booking?.name : "Kein Titel"}
+                </div>
+                <div className="text-sm text-gray-200/60">
+                    {format(new Date(booking?.startDate), "dd.MM")} - {format(new Date(booking?.endDate), "dd.MM")}
+                </div>
             </div>
         </div>
-        <div className={cn("font-medium mt-2", !booking?.name && "text-gray-200/60")}>
-            {booking?.name ? booking?.name : "Kein Titel"}
-        </div>
-        <div className="text-sm text-gray-200/60">
-            {format(new Date(booking?.startDate), "dd.MM")} - {format(new Date(booking?.endDate), "dd.MM")}
-        </div>
-    </div>
-</div>
     )
 }
 
@@ -62,7 +81,17 @@ const renderDialog = (booking: any) => {
             </DialogTrigger>
             <DialogContent className="border-none dark:bg-[#191919]">
                 <div>
-                    <div className="text-lg font-semibold">
+
+                    <div className="text-base ">
+                        {booking?.inserat?.title}
+                    </div>
+                    {booking?.inserat?.multi && (
+                        <div className="text-sm text-gray-200/60 underline">
+
+                            {booking?.vehicle?.title}
+                        </div>
+                    )}
+                    <div className="text-lg font-semibold mt-4">
                         {booking?.name}
                     </div>
                     <div className="flex flex-row items-center text-sm">
@@ -86,6 +115,19 @@ const renderDialog = (booking: any) => {
     )
 }
 
+const renderTimeline = () => {
+    return (
+        <div className="flex flex-row w-full items-center space-x-4">
+            <div
+                className="h-[1px] w-10/12 bg-blend-saturation bg-rose-600"
+            />
+            <span className="w-2/12 font-semibold text-gray-200">
+                {formatTime(currentTimeInMinutes)}
+            </span>
+        </div>
+    )
+}
+
 const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
     return (
         <div className="mb-8">
@@ -100,7 +142,20 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                     <div className="space-y-4 w-full mt-4 flex flex-col">
                         {
                             todaysBookings.length > 0 ? (
-                                todaysBookings.map((booking) => renderFittingBookings(booking, "ABGABE"))
+                                todaysBookings.map((booking, _index) =>
+                                    <>
+                                        {renderFittingBookings(booking,
+                                            "ABGABE",
+                                            currentTimeInMinutes > booking?.startPeriod)}
+
+                                        {
+                                            (currentTimeInMinutes > booking?.startPeriod && (currentTimeInMinutes < todaysBookings[_index + 1]?.startPeriod || !todaysBookings[_index + 1]) ) && (
+                                                renderTimeline()
+                                            )
+                                        }
+                                    </>
+
+                                )
                             ) : (
                                 <div className="text-gray-200/60">
                                     Keine Abgaben vorgemerkt..
@@ -116,7 +171,21 @@ const TodayAgenda = ({ todaysBookings, todaysReturns }: TodayAgendaProps) => {
                     <div className="space-y-4 w-full mt-4 flex flex-col">
                         {
                             todaysReturns.length > 0 ? (
-                                todaysReturns.map((booking) => renderFittingBookings(booking, "RETURN"))
+                                <>
+                                    {todaysReturns.map((booking, _index) =>
+                                        <>
+                                            {renderFittingBookings(booking, "RETURN",
+                                            currentTimeInMinutes > booking?.endPeriod )}
+                                            
+                                            {
+                                                (isBefore(booking?.endPeriod, currentTimeInMinutes) && (!todaysBookings[_index + 1] || !isBefore(todaysBookings[_index + 1]?.endPeriod, currentTimeInMinutes)), currentTimeInMinutes) && (
+                                                    renderTimeline()
+                                                )
+                                            }
+                                        </>
+                                    )}
+
+                                </>
                             ) : (
                                 <div className="text-gray-200/60">
                                     Keine Rückgaben vorgemerkt..

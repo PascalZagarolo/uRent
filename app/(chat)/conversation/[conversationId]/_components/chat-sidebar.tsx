@@ -25,6 +25,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
 
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentFilter, setCurrentFilter] = useState<"ALL" | "UNREAD" | null>(null);
+    const [currentType, setCurrentType] = useState<"INSERAT" | "PROFILE" | null>("INSERAT");
     const [currentFolder, setCurrentFolder] = useState<string | null>(null);
 
     const [renderedConversations, setRenderedConversations] = useState(
@@ -33,33 +34,88 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
             return new Date(b?.lastMessage?.createdAt) - new Date(a?.lastMessage?.createdAt);
         })
     );
+    
+    const filterType = (filteredConversations) => {
+        const returnedFilteredConversations = filteredConversations.filter((conversation) => {
+            if(currentType === "INSERAT") {
+                return conversation.inseratId !== null
+            } else if(currentType === "PROFILE") {
+                return conversation.inseratId === null
+            }
+        })
 
+        return returnedFilteredConversations;
+    }
 
-
-    useMemo(() => {
+    const filterTitle = (filteredConversations) => {
+        let returnedArray;
         if (currentTitle === "") {
-            setRenderedConversations(startedConversations)
+            returnedArray = filteredConversations;
         } else {
-            setRenderedConversations(startedConversations.filter((conversation) => {
+            returnedArray = filteredConversations.filter((conversation) => {
                 return conversation.user1.name.toLowerCase().includes(currentTitle.toLowerCase()) && conversation?.user1Id !== currentUser?.id
                     || conversation.user2.name.toLowerCase().includes(currentTitle.toLowerCase()) && conversation?.user2Id !== currentUser?.id
-            }))
+            })
         }
-    }, [currentTitle])
 
-    useMemo(() => {
+        return returnedArray
+    }
 
+    const filterSeenType = (filteredConversations) => {
+        let returnedArray;
         if (!currentFilter) {
-            setRenderedConversations(startedConversations)
+            returnedArray = filteredConversations;
         } else if (currentFilter === "UNREAD") {
-            setRenderedConversations(startedConversations.filter((conversation) => {
+            returnedArray = filteredConversations.filter((conversation) => {
                 return conversation.messages.some((message) => {
                     return message.senderId !== currentUser.id && !message.seen
                 })
-            }))
+            })
         }
-    }, [currentFilter])
 
+        return returnedArray;
+    }
+
+    const filterFolder = (filteredConversations) => {
+        let returnedArray;
+        if (!currentFolder) {
+            returnedArray = filteredConversations;
+        } else {
+            returnedArray = filteredConversations.filter((conversation) => {
+                return conversation.folderOnConversation.some((folder) => folder.folderId === currentFolder)
+            })
+        }
+
+        return returnedArray;
+    }
+
+    useMemo(() => {
+        let filteredConversations = startedConversations;
+        if (currentFolder) {
+            filteredConversations = startedConversations.filter((conversation) => {
+                return conversation.folderOnConversation.some((folder) => folder.folderId === currentFolder)
+            })
+        }
+
+        if (currentType) {
+            filteredConversations = filterType(filteredConversations);
+        }
+
+        if (currentTitle) {
+            filteredConversations = filterTitle(filteredConversations);
+        }
+
+        if (currentFilter) {
+            filteredConversations = filterSeenType(filteredConversations);
+        }
+        if(currentFolder) {
+            filteredConversations = filterFolder(filteredConversations);
+        }
+
+        setRenderedConversations(filteredConversations);
+    },[currentType, currentFilter, currentTitle, currentFolder])
+
+    
 
     useEffect(() => {
         pusherClient.bind("messages:new", (message) => {
@@ -77,15 +133,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
     }, [])
 
 
-    useMemo(() => {
-        if (currentFolder) {
-            setRenderedConversations(startedConversations.filter((conversation) => {
-                return conversation.folderOnConversation.some((folder) => folder.folderId === currentFolder)
-            }))
-        } else {
-            setRenderedConversations(startedConversations)
-        }
-    }, [currentFolder])
+    
 
     return (
         <div className="">
@@ -145,6 +193,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                         Alle Konversationen
                     </div>
                 )}
+                
                 <div className="ml-auto flex w-1/4 justify-end">
                     <ManageConversations
                         foundConversations={startedConversations}
@@ -152,6 +201,24 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                     />
                 </div>
             </div>
+            <div className="grid w-full grid-cols-2 bg-[#1C1C1C] rounded-md p-1 items-center ">
+                    <Button value="all" size="sm"
+                        onClick={() => {
+                            setCurrentType("INSERAT");
+
+                        }}
+
+                        className={currentType === "INSERAT" ? "bg-[#0F0F0F] text-gray-200 hover:bg-[#0F0F0F] " :
+                            "text-gray-200/60 bg-[#1C1C1C] hover:bg-[#1C1C1C] dark:text-gray-200/60 "}
+                    >Inserat</Button>
+                    <Button value="unread"
+
+                        onClick={() => setCurrentType("PROFILE")}
+                        size="sm"
+                        className={currentType === "PROFILE" ? "bg-[#0F0F0F] text-gray-200 hover:bg-[#0F0F0F]" :
+                            "text-gray-200/60 bg-[#1C1C1C] hover:bg-[#1C1C1C] dark:text-gray-200/60"}
+                    >Profil</Button>
+                </div>
             {renderedConversations.map((conversation) => (
                 <StartedChats
                     key={conversation.id}

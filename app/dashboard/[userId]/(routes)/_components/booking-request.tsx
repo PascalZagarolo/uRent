@@ -22,8 +22,8 @@ import BookingRequestAccept from "./booking-request/booking-request-accept";
 
 interface BookingRequestRenderProps {
     request: typeof bookingRequest.$inferSelect | any;
-    thisInserat : typeof inserat.$inferSelect | any;
-    currentUserId : string
+    thisInserat: typeof inserat.$inferSelect | any;
+    currentUserId: string
 }
 
 const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
@@ -31,7 +31,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     thisInserat,
     currentUserId
 }) => {
-    
+
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -74,7 +74,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
             const foundId = await findOrCreateConversation(request.user.id, currentUserId);
             console.log(foundId);
             router.push(`/conversation?conversationId=${foundId}`);
-        } catch(e : any){
+        } catch (e: any) {
             toast.error("Fehler beim Kontaktieren des Anfragers")
             console.log(e);
         }
@@ -83,96 +83,96 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     const convertMinutesToHours = (minutes: number): string => {
         const hours = Math.floor(minutes / 60);   // Calculate the full hours
         const remainingMinutes = minutes % 60;    // Calculate the remaining minutes
-    
+
         // Return the formatted time in "HH:MM Uhr" format
         return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')} Uhr`;
     };
 
     return (
-        
-            <div className="dark:bg-[#141414] p-4 mb-4 rounded-md border dark:border-none ">
-                <div className="flex w-full truncate font-semibold items-center">
-                    <CarFrontIcon className="w-4 h-4 mr-2" />    <p className="w-[200px] truncate">
-                        {//@ts-ignore
-                            request.inserat?.title}
-                    </p>
-                    <div className="ml-auto">
-                        {/*
+
+        <div className="dark:bg-[#141414] p-4 mb-4 rounded-md border dark:border-none ">
+            <div className="flex w-full truncate font-semibold items-center">
+                <CarFrontIcon className="w-4 h-4 mr-2" />    <p className="w-[200px] truncate">
+                    {//@ts-ignore
+                        request.inserat?.title}
+                </p>
+                <div className="ml-auto">
+                    {/*
                         <Button className=" p-4 mr-2" variant="ghost" size="sm" onClick={onAccept}>
                             <Check className="h-4 w-4 text-emerald-600" />
                         </Button>
                         */}
-                        <Button className=" p-4" variant="ghost" size="sm" onClick={onDecline}>
-                            <X className="h-4 w-4 text-rose-600" />
-                        </Button>
-                    </div>
+                    <Button className=" p-4" variant="ghost" size="sm" onClick={onDecline}>
+                        <X className="h-4 w-4 text-rose-600" />
+                    </Button>
                 </div>
-                
-                    <div className="justify-center flex w-full h-[100px] mt-2">
+            </div>
+
+            <div className="justify-center flex w-full h-[100px] mt-2">
+                <Image
+                    className="min-h-[50px] w-full object-cover flex justify-center"
+                    src={//@ts-ignore
+                        request?.inserat?.images[0]?.url}
+                    alt="Inserat-Bild"
+                    width={200}
+                    height={50}
+                />
+            </div>
+
+            <div className="flex w-full mt-2">
+
+                <div className="text-sm w-3/5 flex items-center">
+
+                    <div className="mr-2">
                         <Image
-                            className="min-h-[50px] w-full object-cover flex justify-center"
+                            className="w-[30px] h-[30px] rounded-full"
                             src={//@ts-ignore
-                                request?.inserat?.images[0]?.url}
-                            alt="Inserat-Bild"
-                            width={200}
-                            height={50}
+                                request?.user?.image || "/placeholder-person.jpg"}
+                            alt="Profilbild"
+                            width={30}
+                            height={30}
                         />
                     </div>
-               
-                <div className="flex w-full mt-2">
+                    <div>
 
-                    <div className="text-sm w-3/5 flex items-center">
-
-                        <div className="mr-2">
-                            <Image
-                                className="w-[30px] h-[30px] rounded-full"
-                                src={//@ts-ignore
-                                    request?.user?.image || "/placeholder-person.jpg"}
-                                alt="Profilbild"
-                                width={30}
-                                height={30}
-                            />
-                        </div>
-                        <div>
-
-                            <p className="font-semibold">{//@ts-ignore
-                                request.user?.name}</p>
-                        </div>
-
+                        <p className="font-semibold">{//@ts-ignore
+                            request.user?.name}</p>
                     </div>
-                    <div className="text-sm w-2/5">
-                        <p className="text-xs font-semibold">Datum:</p>
-                        <div className="flex">
-                            <p className="mr-1">{format(new Date(request.startDate), "dd.MM")}</p>
-                            -
-                            <p className="ml-1">{format(new Date(request.endDate), "dd.MM.yy")}</p>
-                        </div>
-                        <div className="text-gray-200/80 text-xs">
-                            {convertMinutesToHours(request.startPeriod)} - {convertMinutesToHours(request.endPeriod)}
-                        </div>
+
+                </div>
+                <div className="text-sm w-2/5">
+                    <p className="text-xs font-semibold">Datum:</p>
+                    <div className="flex">
+                        <p className="mr-1">{format(new Date(request.startDate), "dd.MM")}</p>
+                        -
+                        <p className="ml-1">{format(new Date(request.endDate), "dd.MM.yy")}</p>
+                    </div>
+                    <div className="text-gray-200/80 text-xs">
+                        {convertMinutesToHours(request.startPeriod)} - {convertMinutesToHours(request.endPeriod)}
                     </div>
                 </div>
-                <div className="max-w-full mt-2 text-xs dark:text-gray-100/70 text-gray-700 max-h-[40px] truncate">
-                    {request?.content ? request.content : "Keine Nachricht hinzugefügt..."}
-                </div>
-                <div className="w-full mt-2 flex flex-row items-end space-x-2">
-                    <Button className="w-3/4 dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex shadow-lg"
+            </div>
+            <div className="max-w-full mt-2 text-xs dark:text-gray-100/70 text-gray-700 max-h-[40px] truncate">
+                {request?.content ? request.content : "Keine Nachricht hinzugefügt..."}
+            </div>
+            <div className="w-full mt-2 flex flex-row items-end space-x-2">
+                <Button className="w-3/4 dark:bg-[#1C1C1C] hover:bg-[#141414] text-gray-200 flex shadow-lg"
                     size="sm"
-                        //@ts-ignore
-                        onClick={onContact}>
-                        <MailCheck className=" h-4 w-4" /> 
-                    </Button>
-                    <BookingRequestDialog 
+                    //@ts-ignore
+                    onClick={onContact}>
+                    <MailCheck className=" h-4 w-4" />
+                </Button>
+                <BookingRequestDialog
                     thisBooking={request}
                     thisInserat={thisInserat}
-                    />
-                    
-                </div>
-                
+                />
+
             </div>
-         
-                
-           
+
+        </div>
+
+
+
     );
 }
 

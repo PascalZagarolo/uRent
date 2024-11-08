@@ -53,29 +53,49 @@ import LetterRestriction from "@/components/letter-restriction";
 
 
 interface AddBookingProps {
-    foundInserate: typeof inserat.$inferSelect[]
+    foundInserate: typeof inserat.$inferSelect[];
+    open? : boolean;
+    onClose? : () => void;
+    usedInserat? : typeof inserat.$inferSelect;
+    usedStart? : Date;
+    usedEnd? : Date;
+    usedStartTime? : string;
+    usedEndTime? : string;
+    usedTitle? : string;
+    usedContent? : string
 }
 
 
 const AddBooking: React.FC<AddBookingProps> = ({
-    foundInserate
+    foundInserate,
+    open,
+    onClose,
+    usedInserat,
+    usedStart,
+    usedEnd,
+    usedStartTime,
+    usedEndTime,
+    usedTitle,
+    usedContent
 }) => {
 
 
 
-    const [currentStart, setCurrentStart] = useState(new Date());
-    const [currentEnd, setCurrentEnd] = useState(new Date());
+    const [currentStart, setCurrentStart] = useState(usedStart ? usedStart : new Date());
+    const [currentEnd, setCurrentEnd] = useState(usedEnd ? usedEnd : new Date());
     const [isLoading, setIsLoading] = useState(false);
-    const [currentInserat, setCurrentInserat] = useState<string | null>(null);
+    const [currentInserat, setCurrentInserat] = useState<string | null>(usedInserat ? usedInserat.id : null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
-    const [currentName, setCurrentName] = useState<string | null>(null);
+    const [currentName, setCurrentName] = useState<string | null>(usedTitle ? usedTitle : null);
     const [currentInternal, setCurrentInternal] = useState<string | null>(null);
-    const [currentContent, setCurrentContent] = useState<string | null>(null);
+    const [currentContent, setCurrentContent] = useState<string | null>(usedContent ? usedContent : null);
     const [affectAll, setAffectAll] = useState(false);
 
     const [currentStartTime, setCurrentStartTime] = useState("");
     const [currentEndTime, setCurrentEndTime] = useState("");
     const [selectAllDay, setSelectAllDay] = useState(false);
+
+    const [isOpen, setIsOpen] = useState(open);
 
 
     const selectedUser = usesearchUserByBookingStore((user) => user.user);
@@ -292,7 +312,13 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
     return (
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={(e) => {
+            setIsOpen(e);
+            if (e === false) {
+                onClose();
+            }
+
+        }}>
 
             <div className="dark:bg-[#0F0F0F] bg-gray-200  w-full">
                 <DialogTrigger asChild className="w-full">
@@ -502,6 +528,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         isSameDay={isSameDay(currentStart, currentEnd) || false}
                                         setStartTimeParent={setCurrentStartTime}
                                         setEndTimeParent={setCurrentEndTime}
+                                        prefilledStartTime={usedStartTime}
+                                        prefilledEndTime={usedEndTime}
                                     />
                                 </div>
                                 <div>
@@ -514,6 +542,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                     <MdOutlinePersonPin className="w-4 h-4 mr-2" />Name*</FormLabel>
                                                 <Input
                                                     maxLength={160}
+                                                    value={currentName}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#0a0a0a]"
                                                     onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
@@ -563,7 +592,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                             <FormItem className="mt-2 ">
 
                                                 <Textarea
-                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none max-h-[200px]
+                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none h-80
                             dark:bg-[#0a0a0a]"
                                                     value={currentContent}
                                                     maxLength={2000}

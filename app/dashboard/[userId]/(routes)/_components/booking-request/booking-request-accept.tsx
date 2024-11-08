@@ -2,15 +2,21 @@ import { checkAvailability } from "@/actions/check-availability";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, ForwardIcon } from "lucide-react";
 import { useState } from "react";
+import AddAvailability from "../../manage/_components/add-availability";
+import { inserat } from "@/db/schema";
+import AddBooking from "../../manage/_components/add-bookings";
+
 
 
 interface BookingRequestAcceptProps {
-   pInserat: string;
+   pInserat: typeof inserat.$inferSelect;
    startTime: string;
    endTime: string;
    startDate: Date;
    endDate: Date;
    bookingId: string;
+   title : string;
+   content : string;
 }
 
 
@@ -23,40 +29,23 @@ const BookingRequestAccept = ({
    endTime,
    startDate,
    endDate,
-   bookingId
+   bookingId,
+   title,
+   content
 }) => {
 
-   const [showVehicle, setShowVehicle] = useState(false);
-   const [showConflict, setShowConflict] = useState(false);
-   const [isLoading, setIsLoading] = useState(false);
-   const [isAvailable, setIsAvailable] = useState(null);
-   const [conflictedBooking, setConflictedBooking] = useState(null);
-   const [showBooking, setShowBooking] = useState(false);
+   const [showDialog, setShowDialog] = useState<"AVAILABILITY" | "BOOKING" | null>(null);
 
    const onAccept = async (isAvailability : boolean) => {
       try {
-
-         const isAvailable: {
-            isConflict?: boolean,
-            booking?: any
-         } = checkAvailability(
-            pInserat,
-            startDate,
-            endDate,
-            startTime,
-            endTime,
-
-         )
-
-         if (isAvailable.isConflict) {
-            setConflictedBooking(isAvailable.booking)
-            setShowConflict(true);
-            setIsAvailable(false);
-            setIsLoading(false);
+         
+         if(isAvailability) {
+            setShowDialog("AVAILABILITY");
          } else {
-            //display showBookingEdit with prefilled values, set vehicles on multi inserate, that are not available as disabled,
-            //after writing checkAvailability for multi inserate
+            console.log("BOOKING");
+            setShowDialog("BOOKING");
          }
+         
 
       } catch (e: any) {
          console.log(e);
@@ -64,9 +53,39 @@ const BookingRequestAccept = ({
       }
    }
 
-   if (showBooking) {
-
+   if(showDialog === "AVAILABILITY") {
+      return (
+         <AddAvailability 
+         foundInserate={[pInserat]}
+         open={true}
+         onClose={() => setShowDialog(null)}
+         usedInserat={pInserat}
+         usedStart={startDate}
+         usedEnd={endDate}
+         usedStartTime={startTime}
+         usedEndTime={endTime}
+         usedContent={content}
+         usedTitle={title}
+         />
+      )
+   } else if(showDialog === "BOOKING") {
+     return (
+      <AddBooking 
+      foundInserate={[pInserat]}
+         open={true}
+         onClose={() => setShowDialog(null)}
+         usedInserat={pInserat}
+         usedStart={startDate}
+         usedEnd={endDate}
+         usedStartTime={startTime}
+         usedEndTime={endTime}
+         usedContent={content}
+         usedTitle={title}
+      />
+     )
    }
+
+   console.log(title)
 
    return (
       <div className="space-y-2 mt-4">

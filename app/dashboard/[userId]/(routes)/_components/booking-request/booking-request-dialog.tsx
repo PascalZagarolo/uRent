@@ -119,6 +119,15 @@ const BookingRequestDialog = ({ thisBooking, thisInserat }: BookingRequestDialog
                         startDate={new Date(thisBooking?.startDate)}
                         endDate={new Date(thisBooking?.endDate)}
                         bookingId={thisBooking?.id}
+                        title={thisBooking?.inserat?.title + " - " + thisBooking?.user?.name}
+                        content={
+                            "Buchung für: " + thisBooking?.inserat?.title + "\n" +
+                            thisBooking?.user?.name + " möchte das Inserat buchen." + "\n" + "\n" +
+                            "Von: " + format(new Date(thisBooking?.startDate), 'dd.MM.yyyy') + " " + minutesToHours(thisBooking?.startPeriod) + "\n" +
+                            "Bis: " + format(new Date(thisBooking?.endDate), 'dd.MM.yyyy') + " " + minutesToHours(thisBooking?.endPeriod) + "\n" + "\n" +
+                            "Nachricht des Mieters: " +
+                            (thisBooking?.content ? thisBooking?.content : "Keine Nachricht angegeben")
+                        }
                         />
                         </div>
                     </div>

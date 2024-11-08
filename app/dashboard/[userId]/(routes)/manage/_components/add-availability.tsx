@@ -50,29 +50,47 @@ import LetterRestriction from "@/components/letter-restriction";
 
 interface AddAvailabilityProps {
     foundInserate: typeof inserat.$inferSelect[];
+    open? : boolean;
+    onClose? : () => void;
+    usedInserat? : typeof inserat.$inferSelect;
+    usedStart? : Date;
+    usedEnd? : Date;
+    usedStartTime? : string;
+    usedEndTime? : string;
+    usedTitle? : string;
+    usedContent? : string;
 }
 
 
 const AddAvailability: React.FC<AddAvailabilityProps> = ({
-    foundInserate
+    foundInserate,
+    open,
+    usedInserat,
+    usedStart,
+    usedEnd,
+    usedStartTime,
+    usedEndTime,
+    usedTitle,
+    usedContent,
+    onClose
 }) => {
 
-    const [currentStart, setCurrentStart] = useState(new Date());
-    const [currentEnd, setCurrentEnd] = useState(new Date());
-    const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
+    const [currentStart, setCurrentStart] = useState(usedStart ? usedStart : new Date());
+    const [currentEnd, setCurrentEnd] = useState(usedEnd ? usedEnd : new Date());
+    const [startTime, setStartTime] = useState(usedStartTime ? usedStartTime : null);
+    const [endTime, setEndTime] = useState(usedEndTime ? usedEndTime : null);
 
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(null);
+    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(usedInserat ? usedInserat : null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
 
-    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentTitle, setCurrentTitle] = useState(usedTitle? usedTitle : "");
 
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState(usedContent? usedContent : "");
 
 
-
+    const [isOpen, setIsOpen] = useState(open);
 
 
 
@@ -257,7 +275,12 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     };
 
     return (
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={(e) => {
+            if (e === false) {
+                onClose();
+            }
+            setIsOpen(e)}}
+    >
 
             <div className="dark:bg-[#0F0F0F] bg-gray-200 rounded-md w-full">
                 <DialogTrigger asChild className="w-full">
@@ -456,6 +479,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         isSameDay={isSameDay(currentStart, currentEnd)}
                                         setStartTimeParent={setStartTime}
                                         setEndTimeParent={setEndTime}
+                                        prefilledStartTime={startTime}
+                                        prefilledEndTime={endTime}
                                     />
                                 </div>
                                 <div>
@@ -488,7 +513,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                     value={content}
                                                     maxLength={2000}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                            dark:bg-[#0a0a0a]"
+                            dark:bg-[#0a0a0a] h-40"
                                                 />
                                                 <div className="flex justify-end">
                                                     <LetterRestriction

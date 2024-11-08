@@ -30,6 +30,8 @@ export async function POST(
             )
         })
 
+        console.log(values?.content)
+
         const request = await db.insert(bookingRequest).values({
             ...(startDate) && {
                 startDate : usedStart

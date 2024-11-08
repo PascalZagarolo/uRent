@@ -2,15 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { booking } from '../../../../../../db/schema';
-import { inserat } from "@/drizzle/schema";
+import { inserat, vehicle } from "@/drizzle/schema";
 import { checkAvailability } from "@/actions/check-availability";
 import { ClipLoader } from "react-spinners";
 import { CheckIcon, X } from "lucide-react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import ConflictDialog from "../../manage/_components/conflict-dialog.tsx/conflict-dialog";
 import ConflictDialogRequest from "../../manage/_components/conflict-dialog.tsx/conflict-dialog-request";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 
 
@@ -39,13 +40,17 @@ const CheckAvailability = ({
 
     const [isLoading, setIsLoading] = useState(false);
 
-    
+    const [currentVehicle, setCurrentVehicle] = useState(null);
+
+    useEffect(() => {
+        setIsAvailable(null);
+    },[currentVehicle])
 
     const checkAvailabilityFunction = async () => {
         try {
             setIsLoading(true);
 
-           
+
 
             const isAvailable: {
                 isConflict?: boolean,
@@ -56,11 +61,18 @@ const CheckAvailability = ({
                 periodEnd,
                 startTime,
                 endTime,
+                null,
+                currentVehicle ? currentVehicle : null
 
             )
 
             if (isAvailable.isConflict) {
                 setConflictedBooking(isAvailable.booking)
+                setShowConflict(true);
+                setIsAvailable(false);
+                setIsLoading(false);
+            } else if(!isAvailable) {
+                setConflictedBooking(null)
                 setShowConflict(true);
                 setIsAvailable(false);
                 setIsLoading(false);
@@ -88,47 +100,69 @@ const CheckAvailability = ({
                 reqEndPeriod={endTime}
                 conflictedBooking={conflictedBooking}
                 setShowConflict={setShowConflict}
-                onShowConflictConfirm={() => {}}
+                onShowConflictConfirm={() => { }}
+                isMulti={pInserat?.multi}
             />
         )
     }
 
     return (
-        <Button className={cn(
-            "bg-[#222222] shadow-lg hover:bg-[#242424] hover:text-gray-300 text-gray-200 w-full",
-            isLoading && "opacity-50 cursor-not-allowed",
-            (isAvailable === false && isAvailable !== null) && "bg-red-500 hover:bg-red-600",
-            (isAvailable === true && isAvailable !== null) && "bg-emerald-600 hover:bg-emerald-700"
-        )}
-            onClick={checkAvailabilityFunction}
-        >
-            {(isAvailable === false && isAvailable !== null) && (
-                <X className="w-4 h-4 mr-2" />
+        <div className="flex flex-col space-y-2">
+            {pInserat?.multi && (
+                <Select value={currentVehicle} onValueChange={(e) => {setCurrentVehicle(e)}}>
+                    <SelectTrigger className="w-full border-none font-semibold bg-[#131313] shadow-lg">
+                        <SelectValue placeholder="Wähle ein Fahrzeug" />
+                    </SelectTrigger>
+                    <SelectContent className="border-none dark:bg-[#131313] shadow-lg">
+                        <SelectGroup>
+                            
+                            <SelectItem value={null} className={cn("text-gray-200 font-medium", !currentVehicle && "text-gray-200 font-semibold bg-[#222222]")}>Beliebiges Fahrzeug</SelectItem>
+                            <SelectLabel className="py-4 ">Deine Fahrzeuge:</SelectLabel>
+                            {pInserat?.vehicles?.map((pVehicle : typeof vehicle.$inferSelect) => (
+                                <SelectItem className={cn(
+                                    "text-gray-200/60 pl-16", vehicle?.id === currentVehicle && "bg-[#222222] text-gray-200 font-semibold"
+                                )} key={pVehicle.id} value={pVehicle.id}>{pVehicle.title}</SelectItem>
+                            ))}
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             )}
-
-            {(isAvailable === true && isAvailable !== null) && (
-                <CheckIcon className="w-4 h-4 mr-2" />
+            <Button className={cn(
+                "bg-[#222222] shadow-lg hover:bg-[#242424] hover:text-gray-300 text-gray-200 w-full",
+                isLoading && "opacity-50 cursor-not-allowed",
+                (isAvailable === false && isAvailable !== null) && "bg-red-500 hover:bg-red-600",
+                (isAvailable === true && isAvailable !== null) && "bg-emerald-600 hover:bg-emerald-700"
             )}
+                onClick={checkAvailabilityFunction}
+            >
+                {(isAvailable === false && isAvailable !== null) && (
+                    <X className="w-4 h-4 mr-2" />
+                )}
 
-            {(isAvailable === null && (
-                <ReloadIcon className="w-4 h-4 mr-2" />
-            ))}
+                {(isAvailable === true && isAvailable !== null) && (
+                    <CheckIcon className="w-4 h-4 mr-2" />
+                )}
+
+                {(isAvailable === null && (
+                    <ReloadIcon className="w-4 h-4 mr-2" />
+                ))}
 
 
-            {isLoading ? (
-                <ClipLoader size={20} color="#fffff" />
-            ) : (
-                isAvailable === null ? (
-                    "Fahrzeugverfügbarkeit prüfen"
+                {isLoading ? (
+                    <ClipLoader size={20} color="#fffff" />
                 ) : (
-                    isAvailable ? (
-                        "Verfügbar"
+                    isAvailable === null ? (
+                        "Fahrzeugverfügbarkeit prüfen"
                     ) : (
-                        `Zeitraum ist nicht verfügbar`
+                        isAvailable ? (
+                            "Verfügbar"
+                        ) : (
+                            `Zeitraum ist nicht verfügbar`
+                        )
                     )
-                )
-            )}
-        </Button>
+                )}
+            </Button>
+        </div>
     );
 }
 

@@ -28,7 +28,7 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
       <div className="flex bg-indigo-800 rounded-l-md">
         <button
           onClick={() => toast.dismiss(t.id)}
-          className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium
+          className="w-full border border-transparent hover:cursor-pointer rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium
            text-gray-200 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
           <MessageCircleIcon className="w-4 h-4" />
@@ -49,7 +49,7 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
             <div className="flex flex-row">
               <p className="text-sm font-medium text-gray-200/60">
                 <span className="text-gray-200 font-bold hover:underline hover:cursor-pointer break-all">
-                  <a className="" href={`/profile/${notification.userId}`}
+                  <a className="" onClick={() => router.push(`/conversation?conversationId=${notification?.conversationId}`)}
                     target="_blank" rel="noreferrer"
                   >
                     {notification?.content}</a></span> hat dir eine Nachricht gesendet

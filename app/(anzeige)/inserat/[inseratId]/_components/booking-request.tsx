@@ -97,8 +97,9 @@ const Bookings = () => {
     try {
       console.log("getriggered")
       setIsLoading(true);
+      console.log(currentNotice)
       const values = {
-        content: currentContent,
+        content: currentNotice,
         startDate: currentStart,
         startPeriod: startTime,
         endPeriod: endTime,

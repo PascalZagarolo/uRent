@@ -1,3 +1,5 @@
+'use client'
+
 import { User2Icon } from "lucide-react";
 import SaveChangesSettings from "../_components/save-changes";
 import ProfilePicSettings from "../_components/profilepic-settings";
@@ -8,12 +10,17 @@ import ChangeEmail from "../_components/change-email";
 import { RiContactsBookFill } from "react-icons/ri";
 import ContactProfiles from "../_components/contact-profiles";
 import { userTable } from "@/db/schema";
+import { useState } from "react";
+import { set } from 'date-fns';
 
 interface AccountTabProps {
     currentUser : typeof userTable.$inferSelect | any;
 }
 
 const AccountTab = ({ currentUser } : AccountTabProps) => {
+
+    const [nameIsTaken, setNameIsTaken] = useState(false);
+
     return ( 
         <div>
             <div className="p-4 mt-4  rounded-lg ">
@@ -22,6 +29,7 @@ const AccountTab = ({ currentUser } : AccountTabProps) => {
                                 <div className="ml-auto">
                                     <SaveChangesSettings
                                         thisUser={currentUser}
+                                        disabled={nameIsTaken}
                                     />
                                 </div>
                             </h3>
@@ -36,6 +44,7 @@ const AccountTab = ({ currentUser } : AccountTabProps) => {
                                 <div>
                                     <UsernameInput
                                         thisUser={currentUser}
+                                        setNameIsTaken={setNameIsTaken}
                                     />
                                     <Vorname
                                         thisUser={currentUser}

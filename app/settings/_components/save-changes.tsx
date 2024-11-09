@@ -12,10 +12,12 @@ import toast from "react-hot-toast";
 
 interface SaveChangesSettingsProps {
     thisUser : typeof userTable.$inferSelect
+    disabled? : boolean
 }
 
 const SaveChangesSettings: React.FC<SaveChangesSettingsProps> = ({
-    thisUser
+    thisUser,
+    disabled
 }) => {
 
 
@@ -80,7 +82,7 @@ const SaveChangesSettings: React.FC<SaveChangesSettingsProps> = ({
         <div className="">
             <Button className="text-xs dark:bg-[#141414] dark:hover:bg-[#1C1C1C] 
             border dark:border-none bg-gray-200 hover:bg-gray-300 text-gray-700 dark:text-gray-200"
-            disabled={!hasChanged}
+            disabled={!hasChanged || disabled}
             onClick={onSubmit}
             >
                 Änderungen speichern

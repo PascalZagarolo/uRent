@@ -14,6 +14,7 @@ import { checkIfValid } from "@/hooks/subscription/useCheckSubscription";
 import { BsCircleFill } from "react-icons/bs";
 import SectionOverviewTotal from "./_components/section-overview-total";
 import { RiCircleFill } from "react-icons/ri";
+import qs from "query-string";
 
 interface ReleaseSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -78,7 +79,14 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
         try {
 
             if (currentPrivacy && !checkIfValid(publishedLength, existingSubscription)) {
-                return router.push("/pricing")
+                const url = qs.stringifyUrl({
+                    url: "/pricing",
+                    query: {
+                        inseratId: thisInserat.id
+                    }
+                }, { skipEmptyString: true, skipNull: true })
+
+                return router.push(url)
             }
 
             setIsLoading(false);

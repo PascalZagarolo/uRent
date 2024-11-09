@@ -88,7 +88,7 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
                             <SelectItem value="Mercedes_Benz">Mercedes Benz</SelectItem>
                             <SelectItem value="Opel">Opel</SelectItem>
                             
-                            <SelectItem value="SEAT">Seat</SelectItem>
+                            <SelectItem value="Seat">Seat</SelectItem>
                             <SelectItem value="Skoda">Skoda</SelectItem>
                             <SelectItem value="Toyota">Toyota</SelectItem>
                             <SelectItem value="Volkswagen">Volkswagen</SelectItem>
@@ -99,7 +99,7 @@ const CarBrandForm: React.FC<CarBrandFormProps> = ({
                         <SelectItem value={null}>Beliebig</SelectItem>
                         {Object.values(BrandEnumRender).map((brand, index) => (
                             //@ts-ignore
-                            !(brand === "Audi" || brand === "BMW" || brand === "Ford" || brand === "Mercedes_Benz" || brand === "Opel" || brand === "SEAT" || brand === "Skoda" || brand === "Toyota" || brand ==="Volkswagen") && 
+                            !(brand === "Audi" || brand === "BMW" || brand === "Ford" || brand === "Mercedes_Benz" || brand === "Opel" || brand === "Seat" || brand === "Skoda" || brand === "Toyota" || brand ==="Volkswagen") && 
                             (
                                 <SelectItem key={index} value={brand}>
                                 {removeUnderscore(brand)}

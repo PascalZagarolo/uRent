@@ -31,6 +31,7 @@ const MenuBar : React.FC<MenuBarProps> = ({
     return ( 
         <div className="w-full dark:bg-[#141414]">
             <div className="pt-4 sm:px-4 flex justify-evenly text-xs sm:text-sm font-semibold">
+            {isBusiness && (
             <a className={cn("sm:p-4 py-4 px-2 rounded-t-md dark:text-gray-200/70 text-gray-700/60", 
             isDashboard && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
         
@@ -38,6 +39,7 @@ const MenuBar : React.FC<MenuBarProps> = ({
             >
                 Übersicht
             </a>
+            )}
             {isBusiness && (
                 <a className={cn("sm:p-4 py-4 px-2rounded-t-md hover:cursor-pointer dark:text-gray-200/70 text-gray-700/60", 
                 isManage && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")} 

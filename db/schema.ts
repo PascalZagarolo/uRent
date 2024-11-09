@@ -665,9 +665,9 @@ export const trailerAttribute = pgTable("trailerAttribute", {
 })
 
 export const transportBrandEnum = pgEnum("transportBrand", [
-    "Citroën", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco", "Man", "Mazda", 
+    "Citroen", "Dacia", "DAF", "Fiat", "Ford", "Hyundai", "Iveco", "Man", "Mazda", 
     "Maxus", "Mercedes_Benz", "Mitsubishi", "Multicar", "Nissan", "Opel", 
-    "Peugeot", "Renault", "SEAT", "Škoda", "Suzuki", "Toyota", "Volkswagen",
+    "Peugeot", "Renault", "SEAT", "Skoda", "Suzuki", "Toyota", "Volkswagen",
      "Volvo", "Sonstige"
 ])
 

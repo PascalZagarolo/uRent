@@ -14,7 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import EnterpriseButton from "./_buy-buttons.tsx/enterprise-button";
 import PremiumButton from "./_buy-buttons.tsx/premium-button";
 import BasisButton from "./_buy-buttons.tsx/basis-button";
-import { MdUpgrade } from "react-icons/md";
+
 import { GiUpgrade } from "react-icons/gi";
 
 interface BuyOptionsProps {
@@ -27,7 +27,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
     existingSubscription
 }) => {
 
-    const [amountInserat, setAmountInserat] = useState(1)
+    const [amountInserat, setAmountInserat] = useState(existingSubscription ? Number(existingSubscription?.amount) : 1);
     const [basisPrice, setBasisPrice] = useState(25);
     const [premiumPrice, setPremiumPrice] = useState(25);
     const [enterprisePrice, setEnterprisePrice] = useState(25);
@@ -264,17 +264,38 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                             <SelectValue placeholder="Anzahl Inserate" />
                         </SelectTrigger>
                         <SelectContent className="dark:bg-[#171717] dark:border-none">
-                            <SelectItem value="1">bis zu 1 Inserat</SelectItem>
-                            <SelectItem value="5">bis zu 5 Inserate</SelectItem>
-                            <SelectItem value="10">bis zu 10 Inserate</SelectItem>
-                            <SelectItem value="15">bis zu 15 Inserate</SelectItem>
-                            <SelectItem value="25">bis zu 25 Inserate</SelectItem>
-                            <SelectItem value="35">bis zu 35 Inserate</SelectItem>
-                            <SelectItem value="50">bis zu 50 Inserate</SelectItem>
-                            <SelectItem value="65">bis zu 65 Inserate</SelectItem>
-                            <SelectItem value="80">bis zu 80 Inserate</SelectItem>
-                            <SelectItem value="100">bis zu 100 Inserate</SelectItem>
-                            <SelectItem value="250">über 100 Inserate</SelectItem>
+                            <SelectItem value="1"
+                            disabled={existingSubscription && 1 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 1 Inserat</SelectItem>
+                            <SelectItem value="5"
+                            disabled={existingSubscription && 5 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 5 Inserate</SelectItem>
+                            <SelectItem value="10"
+                            disabled={existingSubscription && 10 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 10 Inserate</SelectItem>
+                            <SelectItem value="15"
+                            disabled={existingSubscription && 15 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 15 Inserate</SelectItem>
+                            <SelectItem value="25"
+                            disabled={existingSubscription && 25 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 25 Inserate</SelectItem>
+                            <SelectItem value="35"
+                            disabled={existingSubscription && 35 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 35 Inserate</SelectItem>
+                            <SelectItem value="50"
+                            disabled={existingSubscription && 50 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 50 Inserate</SelectItem>
+                            <SelectItem value="65"
+                            disabled={existingSubscription && 65 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 65 Inserate</SelectItem>
+                            <SelectItem value="80"
+                            disabled={existingSubscription && 80 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 80 Inserate</SelectItem>
+                            <SelectItem value="100"
+                            disabled={existingSubscription && 100 < Number(existingSubscription?.amount) ? true : false}
+                            >bis zu 100 Inserate</SelectItem>
+                            <SelectItem value="250"
+                            disabled={existingSubscription && 250 < Number(existingSubscription?.amount) ? true : false}>über 100 Inserate</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

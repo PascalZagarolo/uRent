@@ -19,6 +19,7 @@ import MobileHeader from "../(dashboard)/_components/mobile-header";
 import TimespanSearchRender from "./_components/timespan-search-render";
 import ResetFields from "./_components/reset-fields";
 import BackToHome from "./_components/back-to-home";
+import DynamicSearchRender from "./_components/dynamic-search-render";
 
 const SearchPage = async () => {
 
@@ -75,6 +76,7 @@ const SearchPage = async () => {
                         <div className="sm:p-8 p-4 text-sm dark:text-gray-300/90 space-y-4">
                         <BaseDataSearch />
                         <TimespanSearchRender />
+                        <DynamicSearchRender />
                         <ConditionsSearch />
                         <CategorySearch />
                         <CategorySearchRender />

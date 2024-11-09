@@ -28,16 +28,18 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 const UdsLayout = () => {
 
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
     const [initialLoad, setIsInitialLoad] = useState(true);
 
-    const [reqTime, setReqTime] = useState("");
+    const [reqTime, setReqTime] = useState(currentObject["reqTime"] ? currentObject["reqTime"] : "1d");
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
-    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+    
 
     
 
@@ -111,6 +113,7 @@ const UdsLayout = () => {
                             <Select
                                 onValueChange={(value) => setReqTime(value)}
                                 disabled={!currentObject["dynamicSearch"]}
+                                value={reqTime}
 
                             >
                                 <SelectTrigger className="w-full bg-[#13141C] border-none">

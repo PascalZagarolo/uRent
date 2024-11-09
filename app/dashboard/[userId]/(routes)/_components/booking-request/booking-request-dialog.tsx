@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import CheckAvailability from "./check-request-availability";
 import BookingRequestAccept from "./booking-request-accept";
+import { useState } from "react";
 
 
 
@@ -27,8 +28,14 @@ const BookingRequestDialog = ({ thisBooking, thisInserat }: BookingRequestDialog
         return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')} Uhr`;
     }
 
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <Dialog>
+        <Dialog open={isOpen}
+        onOpenChange={(e) => {
+            setIsOpen(e);
+        }}
+        >
             <DialogTrigger asChild>
                 <Button className="w-1/4 bg-indigo-700 hover:bg-indigo-800 text-white transition duration-150 ease-in-out" size="sm">
                     <InfoCircledIcon className="w-4 h-4" />
@@ -113,6 +120,7 @@ const BookingRequestDialog = ({ thisBooking, thisInserat }: BookingRequestDialog
                         </div>
                         <div className="">
                         <BookingRequestAccept 
+                        onClose={() => setIsOpen(false)}
                         pInserat={thisInserat}
                         startTime={thisBooking?.startPeriod}
                         endTime={thisBooking?.endPeriod}

@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/popover"
 
 
-import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, PlusSquare } from "lucide-react"
+import { BookOpenCheck, CalendarClockIcon, CalendarIcon, PlusSquare } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,7 +35,7 @@ import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { booking, inserat } from "@/db/schema";
-import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
@@ -46,7 +46,7 @@ import SelectTimeRange from "./select-time-range";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TbListNumbers } from "react-icons/tb";
 import { checkAvailability } from "@/actions/check-availability";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
+
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 import LetterRestriction from "@/components/letter-restriction";
 
@@ -63,6 +63,7 @@ interface AddBookingProps {
     usedEndTime? : string;
     usedTitle? : string;
     usedContent? : string
+    requestId? : string;
 }
 
 
@@ -76,7 +77,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
     usedStartTime,
     usedEndTime,
     usedTitle,
-    usedContent
+    usedContent,
+    requestId
 }) => {
 
 
@@ -91,18 +93,18 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentContent, setCurrentContent] = useState<string | null>(usedContent ? usedContent : null);
     const [affectAll, setAffectAll] = useState(false);
 
-    const [currentStartTime, setCurrentStartTime] = useState("");
-    const [currentEndTime, setCurrentEndTime] = useState("");
-    const [selectAllDay, setSelectAllDay] = useState(false);
+    const [currentStartTime, setCurrentStartTime] = useState(usedStartTime ? usedStartTime : "");
+    const [currentEndTime, setCurrentEndTime] = useState(usedEndTime ? usedEndTime : "");
+
 
     const [isOpen, setIsOpen] = useState(open);
 
 
-    const selectedUser = usesearchUserByBookingStore((user) => user.user);
+    
 
     const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null>(null);
 
-    const [ignore, setIgnore] = useState(false);
+ 
     const [ignoreOnce, setIgnoreOnce] = useState(false);
     const [showConflict, setShowConflict] = useState(false);
 
@@ -140,9 +142,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
     }, [currentInserat])
 
-    const onSubmit = (value: z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
         try {
-
+            console.log("!!")
             setIsLoading(true);
 
 
@@ -158,15 +160,13 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 endPeriod: currentEndTime,
 
 
-                userId: selectedUser ? selectedUser?.id : null,
                 vehicleId: currentVehicle,
                 buchungsnummer: currentInternal,
                 name: currentName,
-
-
+                requestId : requestId
             }
 
-            console.log(currentVehicle)
+            
 
             const isAvailable: {
                 isConflict?: boolean,
@@ -188,10 +188,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 setShowConflict(true);
                 setIsLoading(false);
             } else {
+                setIsOpen(false);
+                onClose();
                 axios.post(`/api/booking/${currentInserat}`, values)
                     .then(() => {
                         router.refresh();
-                        form.reset();
                         setCurrentStart(new Date());
                         setCurrentEnd(new Date());
                         setCurrentInserat(null);
@@ -280,6 +281,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     setCurrentVehicle(null);
                     setCurrentInternal("");
                     setConflictedBooking(null)
+                    setIsOpen(false);
                     router.refresh();
                 })
         } catch (error: any) {
@@ -421,7 +423,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     )}
                     <div className="flex">
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                            <form  className="space-y-8">
                                 <div className="flex gap-x-8">
                                     <FormField
                                         control={form.control}
@@ -608,21 +610,17 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                         )}
                                     />
                                 </div>
-
-                                <DialogTrigger asChild>
                                     <Button
-                                        className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                   hover:bg-gray-200
-                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={(!selectedUser && (!currentName || currentName.trim() === ""))
-                                            || isLoading || !currentInserat || !currentStart || !currentEnd
-                                            || !currentStartTime || !currentEndTime ||
-                                            (currentInseratObject?.multi && !(currentVehicle || affectAll))
+                                        className="border border-gray-300  shadow-lg text-gray-200
+                                        bg-indigo-800 hover:bg-indigo-900 dark:border-none"
+                                        disabled={((!currentName || currentName.trim() === ""))
+                                        || isLoading || !currentInserat || !currentStart || !currentEnd
+                                        || !currentStartTime || !currentEndTime ||
+                                        (currentInseratObject?.multi && !(currentVehicle || affectAll))
                                         }
-                                        type="submit"
+                                        onClick={onSubmit}
                                     >
                                         Buchung hinzufügen</Button>
-                                </DialogTrigger>
                             </form>
                         </Form>
 

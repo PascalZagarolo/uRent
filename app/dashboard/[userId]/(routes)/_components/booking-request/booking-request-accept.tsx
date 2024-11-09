@@ -15,8 +15,9 @@ interface BookingRequestAcceptProps {
    startDate: Date;
    endDate: Date;
    bookingId: string;
-   title : string;
-   content : string;
+   title: string;
+   content: string;
+   onClose : () => void;
 }
 
 
@@ -31,21 +32,21 @@ const BookingRequestAccept = ({
    endDate,
    bookingId,
    title,
-   content
+   content,
+   onClose,
 }) => {
 
    const [showDialog, setShowDialog] = useState<"AVAILABILITY" | "BOOKING" | null>(null);
 
-   const onAccept = async (isAvailability : boolean) => {
+   const onAccept = async (isAvailability: boolean) => {
       try {
-         
-         if(isAvailability) {
+
+         if (isAvailability) {
             setShowDialog("AVAILABILITY");
          } else {
-            console.log("BOOKING");
             setShowDialog("BOOKING");
          }
-         
+
 
       } catch (e: any) {
          console.log(e);
@@ -53,49 +54,53 @@ const BookingRequestAccept = ({
       }
    }
 
-   if(showDialog === "AVAILABILITY") {
+  
+
+   if (showDialog === "AVAILABILITY") {
       return (
-         <AddAvailability 
-         foundInserate={[pInserat]}
-         open={true}
-         onClose={() => setShowDialog(null)}
-         usedInserat={pInserat}
-         usedStart={startDate}
-         usedEnd={endDate}
-         usedStartTime={startTime}
-         usedEndTime={endTime}
-         usedContent={content}
-         usedTitle={title}
+         <AddAvailability
+            foundInserate={[pInserat]}
+            open={true}
+            onClose={() => setShowDialog(null)}
+            usedInserat={pInserat}
+            usedStart={startDate}
+            usedEnd={endDate}
+            usedStartTime={startTime}
+            usedEndTime={endTime}
+            usedContent={content}
+            usedTitle={title}
+            requestId={bookingId}
          />
       )
-   } else if(showDialog === "BOOKING") {
-     return (
-      <AddBooking 
-      foundInserate={[pInserat]}
-         open={true}
-         onClose={() => setShowDialog(null)}
-         usedInserat={pInserat}
-         usedStart={startDate}
-         usedEnd={endDate}
-         usedStartTime={startTime}
-         usedEndTime={endTime}
-         usedContent={content}
-         usedTitle={title}
-      />
-     )
+   } else if (showDialog === "BOOKING") {
+      return (
+         <AddBooking
+            foundInserate={[pInserat]}
+            open={true}
+            onClose={() => setShowDialog(null)}
+            usedInserat={pInserat}
+            usedStart={startDate}
+            usedEnd={endDate}
+            usedStartTime={startTime}
+            usedEndTime={endTime}
+            usedContent={content}
+            usedTitle={title}
+            requestId={bookingId}
+         />
+      )
    }
 
-   console.log(title)
+   
 
    return (
       <div className="space-y-2 mt-4">
          <Button className="bg-[#222222] hover:bg-[#242424] shadow-lg text-gray-200 hover:text-gray-300 w-full border border-indigo-800"
-         onClick={() => onAccept(true)}
+            onClick={() => onAccept(true)}
          >
             <ForwardIcon className="w-4 h-4 mr-2" /> Als Verfügbarkeit übernehmen
          </Button>
          <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300 w-full"
-         onClick={() => onAccept(false)}
+            onClick={() => onAccept(false)}
          >
             <CalendarIcon className="w-4 h-4 mr-2" /> Als Buchung übernehmen
          </Button>

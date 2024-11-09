@@ -50,15 +50,16 @@ import LetterRestriction from "@/components/letter-restriction";
 
 interface AddAvailabilityProps {
     foundInserate: typeof inserat.$inferSelect[];
-    open? : boolean;
-    onClose? : () => void;
-    usedInserat? : typeof inserat.$inferSelect;
-    usedStart? : Date;
-    usedEnd? : Date;
-    usedStartTime? : string;
-    usedEndTime? : string;
-    usedTitle? : string;
-    usedContent? : string;
+    open?: boolean;
+    onClose?: () => void;
+    usedInserat?: typeof inserat.$inferSelect;
+    usedStart?: Date;
+    usedEnd?: Date;
+    usedStartTime?: string;
+    usedEndTime?: string;
+    usedTitle?: string;
+    usedContent?: string;
+    requestId?: string;
 }
 
 
@@ -72,7 +73,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     usedEndTime,
     usedTitle,
     usedContent,
-    onClose
+    onClose,
+    requestId
 }) => {
 
     const [currentStart, setCurrentStart] = useState(usedStart ? usedStart : new Date());
@@ -85,9 +87,9 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(usedInserat ? usedInserat : null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
 
-    const [currentTitle, setCurrentTitle] = useState(usedTitle? usedTitle : "");
+    const [currentTitle, setCurrentTitle] = useState(usedTitle ? usedTitle : "");
 
-    const [content, setContent] = useState(usedContent? usedContent : "");
+    const [content, setContent] = useState(usedContent ? usedContent : "");
 
 
     const [isOpen, setIsOpen] = useState(open);
@@ -131,6 +133,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
                 vehicleId: currentVehicle,
                 isAvailability: true,
+                requestId: requestId
             }
 
             const isAvailable: {
@@ -156,7 +159,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
             } else {
 
-                
+                setIsOpen(false);
+                onClose();
                 axios.post(`/api/booking/${currentInserat.id}`, values)
                     .then(() => {
                         router.refresh();
@@ -232,7 +236,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 isAvailability: true,
             }
 
-
+            setIsOpen(false);
+            onClose();
             await axios.post(`/api/booking/${currentInserat.id}`, values)
 
             setIgnoreOnce(false);
@@ -279,8 +284,9 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
             if (e === false) {
                 onClose();
             }
-            setIsOpen(e)}}
-    >
+            setIsOpen(e)
+        }}
+        >
 
             <div className="dark:bg-[#0F0F0F] bg-gray-200 rounded-md w-full">
                 <DialogTrigger asChild className="w-full">
@@ -526,17 +532,17 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                     />
                                 </div>
 
-                                <DialogTrigger asChild>
-                                    <Button
-                                        className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+
+                                <Button
+                                    className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
                    hover:bg-gray-200
                    dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
-                                            !startTime || !endTime || !currentTitle}
-                                        type="submit"
-                                    >
-                                        Verfügbarkeit anpassen</Button>
-                                </DialogTrigger>
+                                    disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
+                                        !startTime || !endTime || !currentTitle}
+                                    type="submit"
+                                >
+                                    Verfügbarkeit anpassen</Button>
+
                             </form>
                         </Form>
 

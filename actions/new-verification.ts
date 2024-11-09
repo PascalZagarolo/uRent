@@ -5,8 +5,10 @@ import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import db from "@/db/drizzle";
 import { notification, userTable, verificationTokens } from "@/db/schema";
+import { lucia } from "@/lib/lucia";
 import { sendWelcomeMail } from "@/lib/mail";
 import { and, eq } from "drizzle-orm";
+import { cookies } from "next/headers";
 
 
 
@@ -46,7 +48,7 @@ export const newVerification = async (token: string) => {
   })
 
   //@ts-ignore
-  if(!existingWelcomeMessage) {
+  if (!existingWelcomeMessage) {
     await db.insert(notification).values({
       userId: existingUser?.id as string,
       content: usedMessage,
@@ -54,13 +56,26 @@ export const newVerification = async (token: string) => {
     })
 
     await sendWelcomeMail(existingToken.email);
+
   }
 
-  
+
 
   setTimeout(async () => {
     await db.delete(verificationTokens).where(eq(verificationTokens.email, existingToken.email))
   }, 1000)
 
-  return { success: "Email erfolgreich verifiziert!" };
+  const session = await lucia.createSession(existingUser.id, {
+    expiresIn: 60 * 60 * 24 * 30,
+  })
+
+  const sessionCookie = lucia.createSessionCookie(session.id);
+
+  cookies().set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes
+  )
+
+  return { success: "Email erfolgreich verifiziert & eingeloggt!" };
 };

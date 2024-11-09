@@ -119,7 +119,7 @@ const ComparisonPlans = () => {
                 </table>
                 <div className="text-xs dark:text-gray-200/70  sm:p-0 p-2">
                     <div>
-                    * Die Hervorhebung von Inseraten und die Suchpriorisierung des Inserates sind an bestimmten Bedingungen 
+                    * Die Hervorhebung von Inseraten und die Suchpriorisierung des Inserates sind an bestimmte Bedingungen 
                     gekoppelt. </div> <div className="flex">Für mehr Informationen klicke <a 
                     className="underline px-1" target="_blank" href="/faqs/plan-features">hier</a></div>
                 </div>

@@ -12,7 +12,7 @@ interface CarTypeProps {
   thisBrake: boolean;
 }
 
-const PkwAhk: React.FC<CarTypeProps> = ({ thisBrake }) => {
+const LkwAhk: React.FC<CarTypeProps> = ({ thisBrake }) => {
   const [currentCoupling, setCurrentCoupling] = useState<boolean | null>(thisBrake || null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +32,7 @@ const PkwAhk: React.FC<CarTypeProps> = ({ thisBrake }) => {
       };
 
       setIsLoading(true);
-      await axios.patch(`/api/inserat/${params.inseratId}/pkw`, values);
+      await axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
       toast.success("Anhängerkupplung gespeichert");
       router.refresh();
     } catch {
@@ -75,4 +75,4 @@ const PkwAhk: React.FC<CarTypeProps> = ({ thisBrake }) => {
   );
 };
 
-export default PkwAhk;
+export default LkwAhk;

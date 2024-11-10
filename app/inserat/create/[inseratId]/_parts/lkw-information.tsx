@@ -15,6 +15,7 @@ import { lkwAttribute } from '../../../../../db/schema';
 import LkwTransmission from "./lkw/lkw-transmission";
 import LkwInitialForm from "./lkw/lkw-initial";
 import LkwFuelForm from "./lkw/lkw-fuel";
+import LkwAhk from "./lkw/lkw-ahk";
 
 
 
@@ -76,8 +77,8 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
 
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">
                 <div className="sm:w-1/2 w-full">
-                    <LkwFuelForm 
-                    thisFuel={thisInserat?.lkwAttribute?.fuel}
+                    <LkwFuelForm
+                        thisFuel={thisInserat?.lkwAttribute?.fuel}
                     />
                 </div>
                 <div className="sm:w-1/2 w-full">
@@ -87,6 +88,16 @@ const LkwInformation: React.FC<LkwInformationProps> = ({
 
                 </div>
 
+            </div>
+            <div className="sm:flex sm:space-y-0 space-y-4 w-full sm:gap-x-8 mt-4">
+                <div className="sm:w-1/2 w-full">
+                    <LkwAhk
+                        thisBrake={thisInserat?.lkwAttribute?.ahk}
+                    />
+                </div>
+                <div className="sm:w-1/2 w-full">
+
+                </div>
             </div>
 
             <div className="sm:flex sm:space-y-0 space-y-4 w-full gap-x-8 mt-4">

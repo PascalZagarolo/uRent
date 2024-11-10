@@ -82,14 +82,23 @@ const UsernameInput: React.FC<UsernameProps> = ({
                             <Input
                                 ref={inputRef}
                                 className="border-none dark:bg-[#141414] w-full border dark:border-none bg-gray-200 
-                        focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none"
+               focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none"
                                 value={username}
                                 placeholder="Nutzername hinzufügen..."
-                                onBlur={() => { setIsEditing(false) }}
-                                onChange={(e) => setUserName(e.target.value)}
+                                onBlur={() => { setIsEditing(false); }}
+                                onChange={(e) => {
+                                    // Allow letters, spaces, and the specified symbols: !, &, _, ., ,, :, (), and ()
+                                    let value = e.target.value;
+                                    // Remove any character that isn't a letter, space, or one of the allowed symbols
+                                    value = value.replace(/[^a-zA-Z\s!&_,.:()\[\]]/g, '');
+                                    // Trim leading spaces
+                                    value = value.replace(/^\s+/, '');
+                                    setUserName(value);
+                                }}
                                 maxLength={100}
                             />
-{username?.trim() !== "" && (username !== thisUser?.name) && (
+
+                            {username?.trim() !== "" && (username !== thisUser?.name) && (
                                 nameAvailable ? (
                                     <span className="text-gray-200 flex flex-row items-center py-1">
                                         <CheckIcon className="h-4 w-4 text-emerald-600 mr-2" /> <p className="text-xs">Nutzername ist verfügbar</p>

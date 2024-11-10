@@ -54,11 +54,19 @@ const Nachname: React.FC<UsernameProps> = ({
                         value={username}
                         placeholder="Nachname hinzufügen..."
                         onBlur={() => {setIsEditing(false)}}
-                        onChange={(e) => setUserName(e.target.value)}
-                        maxLength={30}
+                        onChange={(e) => {
+                            // Allow letters, spaces, and the specified symbols: !, &, _, ., ,, :, (), and ()
+                            let value = e.target.value;
+                            // Remove any character that isn't a letter, space, or one of the allowed symbols
+                            value = value.replace(/[^a-zA-Z\s!&_,.:()\[\]]/g, '');
+                            // Trim leading spaces
+                            value = value.replace(/^\s+/, '');
+                            setUserName(value);
+                        }}
+                        maxLength={60}
                         />
                         <div className="ml-auto flex justify-end">
-                                <LetterRestriction limit={30} currentLength={username?.length} />
+                                <LetterRestriction limit={60} currentLength={username?.length} />
                             </div>
                         </>
                     ) : (

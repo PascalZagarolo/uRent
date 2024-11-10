@@ -35,6 +35,13 @@ export async function POST(
 
         const { updatedImages } = await req.json();
 
+        //if inserat is published but deleted all images => then privatize this shit
+        if(updatedImages?.length == 0 && thisInserat?.isPublished) {
+            await db.update(inserat).set({
+                isPublished : false
+            }).where(eq(inserat.id, params.inseratId))
+        }
+
         for (const pImage of updatedImages) {
 
             await db.insert(images).values({

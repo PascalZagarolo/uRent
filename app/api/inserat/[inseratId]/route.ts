@@ -11,20 +11,31 @@ export async function PATCH(
 ) {
     try {
 
-        const { begin, end, initial, ...values } = await req.json();
+        const { initial, ...values } = await req.json();
         
-        const usedBegin = new Date(begin);
-        const usedEnd = new Date(end);
+        
+        
+        const thisInserat = await db.query.inserat.findFirst({
+            where : (
+                eq(inserat.id, params.inseratId)
+            )
+        })
+        
+        let privatize;
+
         
 
-        console.log(values)
+        if(thisInserat?.isPublished && (
+            values?.title?.trim() == "" || values?.description?.trim() == ""
+        )) {
+            
+            privatize = true;
+        }
 
         const patchedInserat = await db.update(inserat).set({
-            ...(begin) && {
-                begin : usedBegin
-            },
-            ...(end) && {
-                end : usedEnd
+            
+            ...(privatize == true) && {
+                isPublished : false
             },
             ...values,
         }).where(eq(inserat.id, params.inseratId)).returning();

@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import SaveChangesPrevious from "../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../_components/render-continue";
+import ShowPrivatizeDialog from "../_components/show-privatize-dialog";
 
 
 
@@ -54,16 +55,24 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
+    const [showPrivate, setShowPrivate] = useState(false);
+
+    const showPrivateDialog = selectedImages?.length == 0;
 
     const MAX_RETRIES = 3;
 
-    const onSave = async (redirect?: boolean, previous?: boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean, confirmDelete? : boolean) => {
         try {
             if (isLoading) {
-                console.log("isLoading");
+                
                 return;
             }
             
+            if(showPrivateDialog && !confirmDelete) {
+                setShowPrivate(true);
+                return
+            }
+
             let uploadData : { url: string, position: number }[] = [];
         
             setIsLoading(true);
@@ -243,6 +252,9 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
             {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={3} />}
+            {showPrivate && <ShowPrivatizeDialog  open={showPrivate} onChange={setShowPrivate} onSave={() => onSave(undefined, undefined, true)}
+                                text={"Du hast keine Bilder hochgeladen, oder deine Bilder entfernt."}
+                />}
         </>
     );
 }

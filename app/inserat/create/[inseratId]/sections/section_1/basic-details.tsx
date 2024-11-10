@@ -14,6 +14,7 @@ import { switchSectionOverview } from '../../../../../../hooks/inserat-creation/
 import SaveChangesDialog from "../_components/save-changes-dialog";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../_components/render-continue";
+import ShowPrivatizeDialog from "../_components/show-privatize-dialog";
 
 interface BasicDetailsProps {
     thisInserat : typeof inserat.$inferSelect;
@@ -27,17 +28,25 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
     const [currentDescription, setCurrentDescription] = useState(thisInserat.description || "");
     const [isLoading, setIsLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
+    const [showPrivate, setShowPrivate] = useState(false);
 
-    
+    const showPrivateDialog = (currentTitle?.trim() == "" || currentDescription?.trim() == "") && thisInserat?.isPublished;
 
-    const onSave = async (redirect? : boolean) => {
+    const onSave = async (redirect? : boolean, confirmDelete? : boolean) => {
         try {
             setIsLoading(true);
-          if(hasChanged) {
+
+        if(showPrivateDialog && !confirmDelete) {
+            setShowPrivate(true);
+            return
+        }
+
+          if(hasChanged || showPrivateDialog && confirmDelete) {
             const values = {
-                title : currentTitle?.trim(),
-                description : currentDescription?.trim()
+                title : currentTitle?.trim() != "" ? currentTitle?.trim() : "",
+                description : currentDescription?.trim() != "" ? currentDescription?.trim() : null
             }
+            console.log(values)
             await axios.patch(`/api/inserat/${thisInserat?.id}`, values)
             router.refresh();
           }
@@ -114,6 +123,13 @@ const BasicDetails = ({ thisInserat, currentSection, changeSection } : BasicDeta
                     </div>
                 </div>
                 {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+                {showPrivate && <ShowPrivatizeDialog  open={showPrivate} onChange={setShowPrivate} onSave={() => onSave(undefined, true)}
+                                text={
+                                    currentTitle?.trim() == "" ? 
+                                    "Du hast den Titel deines Inserats entfernt." :
+                                    "Du hast die Beschreibung deines Inserats entfernt."
+                                }
+                />}
             </>
      );
 }

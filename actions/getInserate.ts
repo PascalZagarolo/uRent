@@ -326,10 +326,14 @@ export const getInserate = cache(async ({
             : true;
 
         const searchedAxis = (axis || axisMax) ? true : false;
+        
         const minAxis = axis ? axis : 0;
         const maxAxis = axisMax ? axisMax : 10;
 
         const bAxis = searchedAxis ? minAxis <= pInserat?.lkwAttribute?.axis && maxAxis >= pInserat?.lkwAttribute?.axis : true;
+
+        const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
+        const bAhk = searchedAhk ? String(ahk) === String(pInserat?.lkwAttribute?.ahk) : true;
 
         const bDrive = drive ? drive === pInserat.lkwAttribute?.drive : true;
         const bLoading = loading ? loading === pInserat.lkwAttribute?.loading : true;
@@ -342,7 +346,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute?.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission && bPower && bFuel &&
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission && bPower && bFuel && bAhk &&
             bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 
@@ -468,6 +472,9 @@ export const getInserate = cache(async ({
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
         const bTransmission = transmission ? transmission === pInserat?.transportAttribute?.transmission : true;
 
+        const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
+        const bAhk = searchedAhk ? String(ahk) === String(pInserat?.transportAttribute?.ahk) : true;
+
         const bExtraType = extraType ? extraType === pInserat.transportAttribute.extraType : true;
 
         const bFuel = fuel ? fuel === pInserat.transportAttribute.fuel : true;
@@ -479,7 +486,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.transportAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.transportAttribute?.loading_h : true;
 
-        return bLoading && bTransmission && bSeats && bDoors && bFuel && bPower && bInitial && bBrand && bWeightClass
+        return bLoading && bTransmission && bSeats && bDoors && bFuel && bPower && bInitial && bBrand && bWeightClass && bAhk 
             && bExtraType && bVolume && bLength && bBreite && bHeight;
     })
 

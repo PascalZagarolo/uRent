@@ -15,6 +15,7 @@ import SetInitialSearch from "./pkw/initial";
 import PkwTransmissionSearch from "@/app/search/_components/_pkw/pkw-transmission-search";
 import PkwTransmissionBar from "./pkw/pkw-transmission";
 import PkwFuelBar from "./pkw/pkw-fuel";
+import PkwAhkBar from "./pkw/pkw-ahk";
 
 const LkwSearchComponent = () => {
     return ( 
@@ -55,6 +56,12 @@ const LkwSearchComponent = () => {
             
             <div className="w-full">
             <PkwSeatsBar />
+            </div>
+            <div className="w-full flex gap-x-2">
+                
+                <div className="w-1/2">
+                <PkwAhkBar/>
+                </div>
             </div>
             <PkwPowerBar />
             <div>

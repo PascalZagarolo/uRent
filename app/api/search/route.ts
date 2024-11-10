@@ -129,7 +129,7 @@ export async function PATCH(
             const bBreite = loading_b ? loading_b <= pInserat?.pkwAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.pkwAttribute?.loading_h : true;
 
-
+            
 
             return bSeats && bPower && bDoors && bFreeMiles && bInitial && bAhk &&
                 bExtraCost && bType && bTransmission && bFuel && bBrand &&
@@ -166,6 +166,9 @@ export async function PATCH(
             const searchedAxis = (axis || axisMax) ? true : false;
             const minAxis = axis ? axis : 0;
             const maxAxis = axisMax ? axisMax : 10;
+
+            const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
+            const bAhk = searchedAhk ? String(ahk) === String(pInserat?.lkwAttribute?.ahk) : true;
 
             const searchedInitial = (initial || initialMax) ? true : false;
             const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
@@ -206,7 +209,7 @@ export async function PATCH(
             const bHeight = loading_h ? loading_h <= pInserat?.lkwAttribute?.loading_h : true;
 
             return bSeats && bWeightClass && bDrive && bLoading && bApplication && bTransmission && bInitial && bFuel
-                && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight && bPower;
+                && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight && bPower && bAhk;
         }
 
         const TrailerFilter = (pInserat: typeof inserat) => {
@@ -291,6 +294,9 @@ export async function PATCH(
             const minInitial = initial ? new Date(initial) : new Date(1900, 0, 1);
             const maxInitial = initialMax ? new Date(initialMax) : new Date(2060, 0, 1);
 
+            const searchedAhk = (typeof (ahk) !== 'undefined' && ahk !== null);
+            const bAhk = searchedAhk ? String(ahk) === String(pInserat?.transportAttribute?.ahk) : true;
+
             const bInitial = searchedInitial ? (isEqual(minInitial, pInserat?.transportAttribute?.initial) ||
                 isBefore(minInitial, pInserat?.transportAttribute?.initial)) &&
                 (isEqual(maxInitial, pInserat?.transportAttribute?.initial) || isAfter(maxInitial, pInserat?.transportAttribute?.initial))
@@ -330,7 +336,7 @@ export async function PATCH(
             const bBreite = loading_b ? loading_b <= pInserat?.transportAttribute?.loading_b : true;
             const bHeight = loading_h ? loading_h <= pInserat?.transportAttribute?.loading_h : true;
 
-            return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bWeightClass && bBrand && bInitial
+            return bLoading && bTransmisson && bSeats && bDoors && bFuel && bPower && bWeightClass && bBrand && bInitial && bAhk
                 && bExtraType && bVolume && bLength && bBreite && bHeight;
         }
 

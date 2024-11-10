@@ -14,6 +14,7 @@ import SetInitialSearch from "./pkw/initial";
 import TransportWeightClass from "@/app/inserat/create/[inseratId]/_parts/transport/transport-weight-class";
 import TransportWeightClassBar from "./transport/transport-weightclass";
 import TransportBrandBar from "./transport/transport-brand";
+import PkwAhkBar from "./pkw/pkw-ahk";
 
 const TransportSearchComponents = () => {
     return (
@@ -40,7 +41,7 @@ const TransportSearchComponents = () => {
                     <PkwTransmissionBar />
                 </div>
                 <div className="w-1/2">
-
+                <PkwAhkBar/>
                 </div>
             </div>
 

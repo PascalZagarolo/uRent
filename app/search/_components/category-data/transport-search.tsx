@@ -2,6 +2,7 @@ import InitialSearch from "../_every/initial-search";
 import LoadingSizeSearch from "../_every/loading-size-search";
 import LoadingVolumeSearch from "../_every/loading-volume-search";
 import LkwLoadingSearch from "../_lkw/lkw-loading-search";
+import PkwAhkSearch from "../_pkw/pkw-ahk-search";
 import PkwBrandSearch from "../_pkw/pkw-brand-search";
 import PkwDoorsSearch from "../_pkw/pkw-doors-search";
 import PkwFuelSearch from "../_pkw/pkw-fuel-search";
@@ -47,10 +48,11 @@ const TransportSearch = () => {
                     <TransportWeightClassSearch />
                 </div>
                 <div className="sm:w-1/3">
-                    
+                <PkwAhkSearch />
                 </div>
 
             </div>
+            
             <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0 mt-4">
                 <div className="sm:w-1/3">
                 <InitialSearch />

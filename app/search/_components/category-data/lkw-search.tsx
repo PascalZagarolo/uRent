@@ -7,6 +7,7 @@ import LkwDriveSearch from "../_lkw/lkw-drive-search";
 import LkwLoadingSearch from "../_lkw/lkw-loading-search";
 import LkwSeatsSearch from "../_lkw/lkw-seats-search";
 import LkwWeightClassSearch from "../_lkw/lkw-weightclass-search";
+import PkwAhkSearch from "../_pkw/pkw-ahk-search";
 import PkwFuelSearch from "../_pkw/pkw-fuel-search";
 import PkwPowerSearch from "../_pkw/pkw-power-search";
 import PkwSeatsSearch from "../_pkw/pkw-seats-search";
@@ -48,6 +49,15 @@ const LkwSearch = () => {
                 <div className="sm:w-1/3">
                     <PkwFuelSearch />
                 </div>
+            </div>
+            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
+                <div className="sm:w-1/3">
+                    <PkwAhkSearch />
+                </div>
+                <div className="sm:w-1/3">
+
+                </div>
+
             </div>
             <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0 mt-4">
                 <div className="sm:w-1/3">

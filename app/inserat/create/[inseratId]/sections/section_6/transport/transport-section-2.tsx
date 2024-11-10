@@ -20,6 +20,7 @@ import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../../_components/render-continue";
+import PkwAhkCreation from "../pkw/pkw-ahk";
 
 
 
@@ -44,6 +45,7 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
 
     const [currentDoors, setCurrentDoors] = useState(transportAttribute?.doors ? transportAttribute?.doors : null);
     const [currentLoading, setCurrentLoading] = useState(transportAttribute?.loading ? transportAttribute?.loading : null);
+    const [currentAhk, setCurrentAhk] = useState(transportAttribute?.ahk ? transportAttribute?.ahk : undefined);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -63,7 +65,8 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
                 const values = {
                     fuel: currentFuel,
                     doors: currentDoors,
-                    loading: currentLoading
+                    loading: currentLoading,
+                    ahk : currentAhk
                 }
                 await axios.patch(`/api/inserat/${inseratId}/transport`, values);
                 router.refresh();
@@ -99,7 +102,8 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
     const hasChanged = (
         currentFuel != transportAttribute?.fuel ||
         currentDoors != transportAttribute?.doors ||
-        currentLoading != transportAttribute?.loading
+        currentLoading != transportAttribute?.loading ||
+        currentAhk != transportAttribute?.ahk
     );
 
 
@@ -124,7 +128,7 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
                     <LoadingFormCreation currentValue={currentLoading as any} setCurrentValue={setCurrentLoading} />
                 </div>
                 <div className="mt-4">
-
+                    <PkwAhkCreation currentValue={currentAhk as any} setCurrentValue={setCurrentAhk} />
                 </div>
 
             </div>

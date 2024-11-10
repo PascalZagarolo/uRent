@@ -39,6 +39,7 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
 
     const [currentCoupling, setCurrentCoupling] = useState(trailerAttributes?.coupling ? trailerAttributes?.coupling : null);
     const [currentLoading, setCurrentLoading] = useState(trailerAttributes?.loading ? trailerAttributes?.loading : undefined);
+    
 
     const [isLoading, setIsLoading] = useState(false);
 

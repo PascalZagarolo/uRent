@@ -141,11 +141,12 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                     <PkwLoadingVolumeCreation
                         currentValue={currentVolume}
                         setCurrentValue={(value) => setCurrentVolume(value)}
+                        isNotPkw={true}
                     />
                   
 
                 </div>
-                <div>
+                <div className="mt-4 mb-4">
                     <LkwSizeCreation
                         currentHeight={currentHeight}
                         currentLength={currentLength}

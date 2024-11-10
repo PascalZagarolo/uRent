@@ -21,6 +21,7 @@ import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../../_components/render-continue";
+import PkwAhkCreation from "../pkw/pkw-ahk";
 
 
 
@@ -42,6 +43,7 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     const [currentDrive, setCurrentDrive] = useState(lkwAttribute?.drive);
     const [currentFuel, setCurrentFuel] = useState(lkwAttribute?.fuel ? lkwAttribute?.fuel : null);
     const [currentLoading, setCurrentLoading] = useState(lkwAttribute?.loading ? lkwAttribute?.loading : null);
+    const [currentAhk, setCurrentAhk] = useState(lkwAttribute?.ahk ? lkwAttribute?.ahk : undefined);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -60,7 +62,8 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                     transmission: currentTransmission,
                     drive: currentDrive,
                     fuel: currentFuel,
-                    loading: currentLoading
+                    loading: currentLoading,
+                    ahk : currentAhk
                 }
                 await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
                 router.refresh();
@@ -97,7 +100,8 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         currentTransmission !== lkwAttribute?.transmission ||
         currentDrive !== lkwAttribute?.drive ||
         currentFuel !== lkwAttribute?.fuel ||
-        currentLoading !== lkwAttribute?.loading
+        currentLoading !== lkwAttribute?.loading || 
+        currentAhk !== lkwAttribute?.ahk
     );
 
 
@@ -137,7 +141,9 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                         setCurrentValue={setCurrentLoading}
                     />
                 </div>
-
+                <div className="mt-4">
+                    <PkwAhkCreation currentValue={currentAhk as any} setCurrentValue={setCurrentAhk} />
+                </div>
             </div>
             <div className=" flex flex-col mt-auto ">
                 <div className="flex flex-row items-center">

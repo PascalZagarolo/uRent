@@ -180,6 +180,9 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                         setCurrentCategory={setCurrentCategory}
                     />
                 </div>
+                <div className="mt-4">
+                    {renderExtraType()}
+                </div>
                 <div className="mt-8">
                     <InseratType
                         thisInserat={thisInserat}
@@ -195,9 +198,7 @@ const BasicDetails2 = ({ thisInserat, currentSection, changeSection }: BasicDeta
                         disabled={String(isMulti) === "false"}
                     />
                 </div>
-                <div className="mt-4">
-                    {renderExtraType()}
-                </div>
+                
             </div>
             <div className=" mt-auto">
                 <div className="flex flex-col mt-auto">

@@ -613,6 +613,7 @@ export const lkwAttribute = pgTable("lkwAttribute", {
     drive: driveEnum("drive"),
     loading: loadingEnum("loading"),
     application: applicationEnum("application"),
+    ahk : boolean("ahk").notNull().default(false),
 
     inseratId: uuid("inseratId")
         .references(() => inserat.id, { onDelete: "cascade" }).notNull(),
@@ -690,7 +691,7 @@ export const transportAttribute = pgTable("transportAttribute", {
     loading_b : decimal("loading_b"),
     loading_h : decimal("loading_h"),
     loading_size : decimal("loading_size"),
-
+    ahk : boolean("ahk").notNull().default(false),
     
 
     transportBrand : transportBrandEnum("transportBrand"),

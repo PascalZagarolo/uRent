@@ -102,32 +102,11 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
     return (
         <div className="relative">
-            {(usedImages[0]?.url && !ownProfile) && (
+            {(!currentImage?.url && !ownProfile) && (
                 <div>
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button className="w-full h-[320px] relative overflow-hidden">
-                                <Image
-                                    src={usedImages[0]?.url}
-                                    quality={100}
-                                    fill
-                                    style={{ objectFit: "cover" }}
-                                    className="shadow-lg hover:cursor-pointer"
-                                    alt="Banner Image"
-                                />
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="h-[320px] w-full">
-                            <Image
-                                src={usedImages[0]?.url}
-                                quality={100}
-                                fill
-                                style={{ objectFit: "cover" }}
-                                className="shadow-lg"
-                                alt="Banner Image"
-                            />
-                        </DialogContent>
-                    </Dialog>
+                    <div
+                    className="w-full py-20 relative overflow-hidden rounded-none sm:rounded-t-md bg-[#131313]"/>
+                    
                 </div>
             )}
 
@@ -149,10 +128,10 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 </div>
             )}
 
-            {!currentImage?.url && (
+            {(!currentImage?.url && ownProfile) && (
                 <div>
                     
-                    <div className={cn("text-gray-200/80 bg-[#272727] bg-indigo-600/15 text-sm flex justify-center py-20 shadow-lg items-center")}
+                    <div className={cn("text-gray-200/80 bg-[#222222]  text-sm flex justify-center py-20 shadow-lg items-center")}
                         {...getRootProps()}>
                         <input {...getInputProps()} />
                         <GrAddCircle className="w-4 h-4 mr-2" />

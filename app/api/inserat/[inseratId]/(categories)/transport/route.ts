@@ -36,9 +36,7 @@ export async function PATCH(
             
         } else {
             const patchedInserat = await db.update(transportAttribute).set({
-                ...(initial) && {
-                    initial : usedInitial
-                },
+                initial : initial ? usedInitial : null,
                 ...values
             }).where(eq(transportAttribute.inseratId, params.inseratId)).returning();
             return NextResponse.json(patchedInserat[0]);

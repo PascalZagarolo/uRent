@@ -37,9 +37,7 @@ export async function PATCH(
             
         } else {
             const patchedInserat : any = await db.update(pkwAttribute).set({
-                ...(initial) && {
-                    initial : usedInitial
-                },
+                initial : initial ? usedInitial : null,
                 ...values
             }).where(eq(pkwAttribute.inseratId, params.inseratId)).returning();
             

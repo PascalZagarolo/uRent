@@ -38,9 +38,7 @@ export async function PATCH(
             
         } else {
             const patchedInserat = await db.update(trailerAttribute).set({
-                ...(initial) && {
-                    initial : usedInitial
-                },
+                initial : initial ? usedInitial : null,
                 ...values
             }).where(eq(trailerAttribute.inseratId, params.inseratId)).returning();
             return NextResponse.json(patchedInserat[0]);

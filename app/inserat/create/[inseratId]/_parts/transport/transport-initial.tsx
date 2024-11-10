@@ -75,8 +75,10 @@ const TransportInitialForm: React.FC<TransportInitialFormProps> = ({
         const dateInitial = new Date(Number(currentInitial), 0, 1);
 
         const values = {
-            initial : dateInitial
+            initial : currentInitial ? dateInitial : null
         }
+
+        console.log(values)
 
         try {
             setIsLoading(true);
@@ -84,8 +86,9 @@ const TransportInitialForm: React.FC<TransportInitialFormProps> = ({
           toast.success("Baujahr gespeichert");
           router.refresh();
 
-        } catch {
+        } catch(e : any) {
             toast.error("Etwas ist schief gelaufen...");
+            console.log(e);
         }
 
     }
@@ -111,7 +114,7 @@ const TransportInitialForm: React.FC<TransportInitialFormProps> = ({
                             className="w-1/2 mt-2 bg-[#191919] dark:border-none justify-between"
                         >
                             {currentInitial
-                                ? years.find((framework) => framework.value == currentInitial)?.label
+                                ? years.find((framework) => framework?.value == currentInitial)?.label
                                 : "Beliebig"}
                             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
@@ -129,7 +132,7 @@ const TransportInitialForm: React.FC<TransportInitialFormProps> = ({
                                         value={"Beliebig"}
                                         onSelect={() => {
                                             setValue("");
-                                            setcurrentInitial(undefined)
+                                            setcurrentInitial(null)
                                             setOpen(false)
                                         }}
                                     >
@@ -161,7 +164,7 @@ const TransportInitialForm: React.FC<TransportInitialFormProps> = ({
             </div>
         </div>
         <Button onClick={onSubmit} className="mt-8 dark:bg-[#000000] dark:hover:bg-[#0c0c0c] dark:text-gray-100"  
-        disabled={thisInitial?.getFullYear() == Number(currentInitial)}
+        disabled={thisInitial?.getFullYear() == Number(currentInitial) || !thisInitial && !currentInitial}
         >
             <span className="">Baujahr angeben</span>
         </Button>

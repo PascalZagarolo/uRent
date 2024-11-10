@@ -67,7 +67,10 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
         ],
         content: currentContent,
         onUpdate: ({ editor }) => {
-            setCurrentContent(editor.getHTML()); // Sync editor content to state
+            let content = editor.getHTML();
+            // Add custom line breaks or other HTML tags
+            content = content.replace(/\n/g, '<br>');  // Replace newlines with <br> tags, for example
+            setCurrentContent(content);
         },
         editorProps: {
             attributes: {

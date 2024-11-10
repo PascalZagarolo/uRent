@@ -57,9 +57,15 @@ const Footer = () => {
                 </a>
               </div>
 
+              <div className="flex flex-col">
               <a className="hover:underline hover:cursor-pointer  sm:text-sm text-sm" href="/faqs">
                FAQs & Hilfe
               </a>
+              <a className="hover:underline hover:cursor-pointer  sm:text-sm text-sm" href="/blog">
+               Blogs & News
+              </a>
+              
+              </div>
 
               <div className="hidden sm:block">
                 <div className="hidden md:block">

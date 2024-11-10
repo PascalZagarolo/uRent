@@ -1,6 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import db from "@/db/drizzle";
 import { blog } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -35,7 +36,8 @@ export async function PATCH(
             tags,
             content,
             isPublic,
-        }).returning()
+        }).where(eq(blog.id, params?.blogId))
+        .returning()
 
         return NextResponse.json(createdBlog, { status : 201 });
 

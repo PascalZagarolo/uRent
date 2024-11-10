@@ -12,6 +12,9 @@ import Underline from '@tiptap/extension-underline'
 import { PiListBullets } from 'react-icons/pi';
 import BulletList from '@tiptap/extension-bullet-list';
 import Link from '@tiptap/extension-link';
+import HardBreak from '@tiptap/extension-hard-break';
+import {Slice, Fragment, Node} from 'prosemirror-model'
+
 interface TextAreaProps {
     currentContent: string;
     setCurrentContent: (content: string) => void;
@@ -55,6 +58,12 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
             autolink: true,
             defaultProtocol: 'https',
           }),
+          HardBreak.configure({
+            HTMLAttributes: {
+                class: 'hard-break', // Optional class for styling
+            },
+        }),
+        
         ],
         content: currentContent,
         onUpdate: ({ editor }) => {
@@ -63,14 +72,44 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
         editorProps: {
             attributes: {
                 class: 'min-h-[200px] bg-[#191919] rounded-md p-2.5 focus:outline-none',
-            }
+            },
+            clipboardTextParser: clipboardTextParser,
         }
     });
+
+    
+
+
+    function clipboardTextParser(text, context, plain) {
+        const blocks = text.split(/(?:\r\n?|\n)/); // Splits text on new lines
+        const nodes = [];
+    
+        blocks.forEach(line => {
+            if (line.length > 0) {
+                nodes.push(
+                    Node.fromJSON(context.doc.type.schema, {
+                        type: "paragraph",
+                        content: [{ type: "text", text: line }],
+                    })
+                );
+            } else {
+                // Handle empty lines with a hard break
+                nodes.push(
+                    Node.fromJSON(context.doc.type.schema, {
+                        type: "hardBreak",
+                    })
+                );
+            }
+        });
+    
+        const fragment = Fragment.fromArray(nodes);
+        return Slice.maxOpen(fragment);
+    }
 
     // Sync changes from external content source (Textarea) to the editor
     useEffect(() => {
         if (editor && editor.getHTML() !== currentContent) {
-            editor.commands.setContent(currentContent); // Update editor content if currentContent changes
+            editor.commands.setContent(currentContent.replace(/\n/g, '<br />'));// Update editor content if currentContent changes
         }
     }, [currentContent, editor]);
 
@@ -205,8 +244,8 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
 
 
 
-            {/* Tiptap Editor */}
-            <div className="text-sm rounded-md mb-4 h-full">
+            
+            <div className="text-sm rounded-md mb-4 h-full" style={{ whiteSpace: 'pre-wrap' }}>
                 <EditorContent
                     
                     editor={editor}

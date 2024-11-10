@@ -37,9 +37,10 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
         );
     };
 
-    function replaceWithBr() {
-        return thisBlog?.content.replace(/\n/g, "<br />")
-      }
+    // function replaceWithBr(text) {
+    //     // Converts line breaks into <br> tags, handling strings.
+    //     return text.replace(/\n/g, '<br />');
+    //   }
 
 
 
@@ -95,9 +96,10 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                             </div>
                             <div>
                                 <div
-                                    className="px-16 mt-2 text-base whitespace-pre-wrap text-gray-200  w-full pb-8 "
-                                    dangerouslySetInnerHTML={{ __html: replaceWithBr() }}
-                                ></div>
+                                    className="px-16 mt-2 text-base text-gray-200 w-full pb-8"
+                                    dangerouslySetInnerHTML={{ __html: thisBlog?.content }}
+                                    style={{ whiteSpace: 'pre-wrap' }}
+                                />
                             </div>
                         </div>
                     </div>

@@ -59,7 +59,8 @@ const BlogEdit = ({ thisBlog }: BlogCreationProps) => {
                 imageUrl: currentImage,
                 isPublic: isPublic,
                 category: currentCategory,
-                tags: usedTags
+                tags: usedTags,
+                
             }
 
             await axios.patch(`/api/blog/${thisBlog?.id}/edit`, values)

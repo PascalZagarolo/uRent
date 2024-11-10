@@ -713,7 +713,7 @@ export const transportAttribute = pgTable("transportAttribute", {
 export const address = pgTable("address", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 
-    postalCode: integer("postalCode"),
+    postalCode: text("postalCode"),
     state: text("state"),
     locationString: text("locationString"),
 

@@ -12,6 +12,7 @@ export async function PATCH(
     try {
 
         const values = await req.json();
+        console.log(values);
 
         let addressObject
         if(values?.postalCode) {
@@ -21,8 +22,7 @@ export async function PATCH(
        
 
 
-        console.log(addressObject.data[0]?.lon)
-        console.log(addressObject.data[0]?.lat)
+        
         
        
         

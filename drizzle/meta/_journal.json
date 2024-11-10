@@ -71,6 +71,13 @@
       "when": 1731239944418,
       "tag": "0009_fixed_grey_gargoyle",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1731266962213,
+      "tag": "0010_milky_amphibian",
+      "breakpoints": true
     }
   ]
 }

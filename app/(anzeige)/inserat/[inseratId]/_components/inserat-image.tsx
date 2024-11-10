@@ -39,8 +39,8 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
                     />
                     </div>
                   </DialogTrigger>
-                  <DialogContent className="dark:bg-[#0F0F0F] dark:border-none w-screen p-1">
-                    <div className="flex justify-center">
+                  <DialogContent className="dark:bg-[#0F0F0F] dark:border-none w-screen p-1 2xl:max-w-[1320px] xl:max-w-[920px] lg:max-w-[720px]" >
+                    <div className="flex justify-center w-full">
                     <Image
                         className="w-full h-full object-cover flex justify-center"
                         src={image.url}

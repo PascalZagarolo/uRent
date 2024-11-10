@@ -1,0 +1,1 @@
+ALTER TABLE "address" ALTER COLUMN "postalCode" SET DATA TYPE text;

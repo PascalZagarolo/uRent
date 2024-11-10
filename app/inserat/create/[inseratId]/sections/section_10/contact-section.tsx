@@ -56,9 +56,10 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
     
                 await axios.patch(`/api/inserat/${thisInserat.id}`, values1);
                 router.refresh();
+                console.log(currentZipCode)
                 const values2 = {
-                    locationString: currentLocation ? String(currentLocation ?? "")?.trim() : null,
-                    postalCode: currentZipCode ? String(currentZipCode ?? "")?.trim() : null,
+                    locationString: currentLocation ? currentLocation : null,
+                    postalCode: currentZipCode ? currentZipCode : null,
                 }
                 await axios.patch(`/api/inserat/${thisInserat.id}/address`, values2);
                 router.refresh();
@@ -115,7 +116,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
         <>
             <div className="flex flex-col h-full">
                 <h3 className="text-lg font-semibold">
-                    Kontaktdaten
+                    Kontaktdaten {currentZipCode}
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Gebe an wie potentielle Mieter dich außerhalb des uRent Chatsystems kontaktieren können. <br />
                         Kontaktdaten werden öffentlich in deinem Inserat angezeigt.

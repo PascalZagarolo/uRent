@@ -42,7 +42,9 @@ const TrailerSearch = () => {
                     <TrailerCouplingSearch />
                 </div>
                 <div className="sm:w-1/3">
-                    <TrailerAxisSearch />
+                    <TrailerAxisSearch 
+                    isTrailer={true}
+                    />
                 </div>
             </div>
             <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">

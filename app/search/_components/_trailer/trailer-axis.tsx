@@ -10,8 +10,13 @@ import { useState } from "react";
 
 
 
+interface TrailerAxisSearchProps {
+    isTrailer?: boolean;
+}
 
-const TrailerAxisSearch = () => {
+const TrailerAxisSearch = ({
+    isTrailer
+} : TrailerAxisSearchProps) => {
 
     const currentObject: any = useSavedSearchParams((state) => state.searchParams)
 
@@ -82,6 +87,9 @@ const TrailerAxisSearch = () => {
                                 <SelectItem key="beliebig" value={null} className="font-semibold">
                                     Beliebig
                                 </SelectItem>
+                                {isTrailer && (
+                                    <SelectItem value="1">1</SelectItem>
+                                )}
                                 <SelectItem value="2">2</SelectItem>
                                 <SelectItem value="3">3</SelectItem>
                                 <SelectItem value="4">4</SelectItem>
@@ -113,6 +121,9 @@ const TrailerAxisSearch = () => {
                                 <SelectItem key="beliebig" value={null} className="font-semibold">
                                     Beliebig
                                 </SelectItem>
+                                {isTrailer && (
+                                    <SelectItem value="1">1</SelectItem>
+                                )}
                                 <SelectItem value="2">2</SelectItem>
                                 <SelectItem value="3">3</SelectItem>
                                 <SelectItem value="4">4</SelectItem>

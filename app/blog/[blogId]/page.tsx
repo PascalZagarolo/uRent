@@ -7,9 +7,10 @@ import { blog } from "@/db/schema";
 import { getLabelByValue } from "@/hooks/blogs/convert-values";
 import { format } from "date-fns";
 import { eq } from "drizzle-orm";
-import { InstagramIcon, MailIcon, TwitchIcon, TwitterIcon } from "lucide-react";
+import { ArrowLeft, InstagramIcon, MailIcon, TwitchIcon, TwitterIcon } from "lucide-react";
 import Image from "next/image";
-import { EmailIcon } from "react-share";
+
+import BackToMain from "./_components/back-to-main";
 
 const BlogId = async ({ params }: { params: { blogId: string } }) => {
 
@@ -36,6 +37,10 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
         );
     };
 
+    function replaceWithBr() {
+        return thisBlog?.content.replace(/\n/g, "<br />")
+      }
+
 
 
     return (
@@ -56,6 +61,7 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                 <div className="flex justify-center sm:py-8 sm:px-4">
                     <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                         <div className="min-h-screen">
+                            <BackToMain />
                             <div className="pt-8">
                                 <div className="text-center text-sm text-gray-200/60">
                                     erstellt am {format(new Date(thisBlog?.createdAt), "dd. MMMM yyyy")}
@@ -89,8 +95,8 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                             </div>
                             <div>
                                 <div
-                                    className="px-16 mt-2 text-base text-gray-200 whitespace-pre-wrap w-full pb-8  break-all"
-                                    dangerouslySetInnerHTML={{ __html: thisBlog?.content }}
+                                    className="px-16 mt-2 text-base whitespace-pre-wrap text-gray-200  w-full pb-8 "
+                                    dangerouslySetInnerHTML={{ __html: replaceWithBr() }}
                                 ></div>
                             </div>
                         </div>

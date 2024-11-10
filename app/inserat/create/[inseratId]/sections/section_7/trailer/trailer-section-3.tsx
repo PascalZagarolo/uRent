@@ -134,10 +134,11 @@ const TrailerSection3 = ({ trailerAttribute, currentSection, changeSection }: Tr
                     <PkwLoadingVolumeCreation
                         currentValue={currentVolume}
                         setCurrentValue={(value) => setCurrentVolume(value)}
+                        isNotPkw={true}
                     />
                    
                 </div>
-                <div>
+                <div className="mt-4">
                     <LkwSizeCreation
                         currentHeight={currentHeight}
                         currentLength={currentLength}

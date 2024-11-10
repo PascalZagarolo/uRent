@@ -18,11 +18,13 @@ import { FaBoxOpen } from "react-icons/fa";
 interface PkwLoadingVolumeCreationProps {
     currentValue : number | string | any;
     setCurrentValue : (value) => void;
+    isNotPkw?: boolean;
 }
 
 const PkwLoadingVolumeCreation: React.FC<PkwLoadingVolumeCreationProps> = ({
     currentValue,
-    setCurrentValue
+    setCurrentValue,
+    isNotPkw
 }) => {
 
 
@@ -49,7 +51,7 @@ const PkwLoadingVolumeCreation: React.FC<PkwLoadingVolumeCreationProps> = ({
     return (
         <div className="items-center w-full">
             <Label className="font-semibold flex">
-             Kofferraumvolumen
+             {isNotPkw ? "Ladevolumen" : "Kofferraumvolumen"}
                 </Label>
 
             <div className="flex mt-4 w-full flex-row items-center space-x-8">

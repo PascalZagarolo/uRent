@@ -17,6 +17,7 @@ import SaveChangesDialog from "../_components/save-changes-dialog";
 import SaveChangesPrevious from "../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../_components/render-continue";
+import ShowPrivatizeDialog from "../_components/show-privatize-dialog";
 
 interface PriceSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
@@ -41,12 +42,21 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
     const router = useRouter();
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
+    const [showPrivate, setShowPrivate] = useState(false);
+
+    const showPrivateDialog = (currentPrice == 0 || currentPrice == null || !currentPrice);
 
 
-    const onSave = async (redirect?: boolean, previous?: boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean, confirmDelete? : boolean) => {
         try {
             setIsLoading(true);
-            if (currentPrice != thisInserat?.price && currentPrice) {
+
+            if(showPrivateDialog && !confirmDelete) {
+                setShowPrivate(true);
+                return
+            }
+
+            if ((currentPrice != thisInserat?.price && currentPrice) || confirmDelete) {
 
                 const values = {
                     price: currentPrice ?? null
@@ -127,6 +137,9 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
             {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={4} />}
+            {showPrivate && <ShowPrivatizeDialog  open={showPrivate} onChange={setShowPrivate} onSave={() => onSave(undefined, undefined, true)}
+                                text={"Du hast keinen Preis, oder einen ungültigen Preis festgelegt."}
+                />}
         </>
     );
 }

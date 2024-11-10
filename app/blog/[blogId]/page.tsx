@@ -98,7 +98,7 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                                 <div
                                     className="px-16 mt-2 text-base text-gray-200 w-full pb-8"
                                     dangerouslySetInnerHTML={{ __html: thisBlog?.content }}
-                                    style={{ whiteSpace: 'pre-wrap' }}
+                                    
                                 />
                             </div>
                         </div>

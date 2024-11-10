@@ -5,7 +5,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { useCallback, useEffect } from 'react';
 import { Bold, Italic,  Strikethrough, Code,  Heading1, Heading2, Heading3, UnderlineIcon, LinkIcon } from 'lucide-react'; // Icons for buttons
 import { Label } from '@/components/ui/label';
-
+import Paragraph from '@tiptap/extension-paragraph'
 import { cn } from '@/lib/utils';
 import Heading from "@tiptap/extension-heading"
 import Underline from '@tiptap/extension-underline'
@@ -22,8 +22,31 @@ interface TextAreaProps {
 
 const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) => {
     const editor = useEditor({
-        extensions: [StarterKit.configure({
-        }),  Heading.extend({
+        extensions: [
+        StarterKit,
+        Paragraph.extend({
+			parseHTML() {
+				return [{ tag: 'div' }]
+			},
+			renderHTML({ HTMLAttributes }) {
+				return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
+			},
+		}),
+        HardBreak.extend({
+            addKeyboardShortcuts() {
+                return {
+                    Enter: () => {
+                        
+                        if (this.editor.isActive('orderedList') || this.editor.isActive('bulletList')) {
+                            console.log("..")
+                            return this.editor.chain().createParagraphNear().run();
+                        }
+                        return this.editor.commands.setHardBreak();
+                    },
+                };
+            },
+        }),
+        Heading.extend({
             levels: [1, 2, 3],
             renderHTML({ node, HTMLAttributes }) {
               const level = this.options.levels.includes(node.attrs.level)
@@ -58,18 +81,17 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
             autolink: true,
             defaultProtocol: 'https',
           }),
-          HardBreak.configure({
+        Paragraph.configure({
             HTMLAttributes: {
-                class: 'hard-break', // Optional class for styling
+              class: 'my-custom-class',
             },
-        }),
+          })
         
         ],
         content: currentContent,
         onUpdate: ({ editor }) => {
             let content = editor.getHTML();
-            // Add custom line breaks or other HTML tags
-            content = content.replace(/\n/g, '<br>');  // Replace newlines with <br> tags, for example
+          
             setCurrentContent(content);
         },
         editorProps: {
@@ -79,6 +101,8 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
             clipboardTextParser: clipboardTextParser,
         }
     });
+
+    
 
     
 
@@ -112,7 +136,7 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
     // Sync changes from external content source (Textarea) to the editor
     useEffect(() => {
         if (editor && editor.getHTML() !== currentContent) {
-            editor.commands.setContent(currentContent.replace(/\n/g, '<br />'));// Update editor content if currentContent changes
+            editor.commands.setContent(currentContent);// Update editor content if currentContent changes
         }
     }, [currentContent, editor]);
 
@@ -248,9 +272,9 @@ const DescriptionArea = ({ currentContent, setCurrentContent }: TextAreaProps) =
 
 
             
-            <div className="text-sm rounded-md mb-4 h-full" style={{ whiteSpace: 'pre-wrap' }}>
+            <div className="text-sm rounded-md mb-4 h-full" >
                 <EditorContent
-                    
+                    value={currentContent}
                     editor={editor}
                     
                 />

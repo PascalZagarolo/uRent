@@ -24,7 +24,7 @@ interface UploadBusinessPicsProps {
     userImage: string;
     businessId: string;
     ownProfile: boolean;
-    currentUser : typeof userTable.$inferSelect
+    currentUser: typeof userTable.$inferSelect
 }
 
 const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
@@ -100,21 +100,24 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
         accept: { 'image/png': ['.jpeg', '.png', '.webp', '.jpg'] }
     });
 
+    console.log(currentImage?.url);
+    console.log(ownProfile);
+
     return (
         <div className="relative">
             {(!currentImage?.url && !ownProfile) && (
                 <div>
                     <div
-                    className="w-full py-20 relative overflow-hidden rounded-none sm:rounded-t-md bg-[#131313]"/>
-                    
+                        className="w-full py-20 relative overflow-hidden rounded-none sm:rounded-t-md bg-[#131313]" />
+
                 </div>
             )}
 
-            {(usedImages[0]?.url && ownProfile) && (
+            {(currentImage && ownProfile) && (
                 <div>
                     <Button className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md" onClick={() => { setShowDialog(true) }}>
                         <Image
-                            src={usedImages[0]?.url}
+                            src={currentImage?.url}
                             quality={100}
                             fill
                             style={{ objectFit: "cover" }}
@@ -128,9 +131,27 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 </div>
             )}
 
+            {(currentImage && !ownProfile) && (
+                <div className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md">
+
+                        <Image
+                            src={currentImage?.url}
+                            quality={100}
+                            fill
+                            style={{ objectFit: "cover" }}
+                            className="shadow-lg hover:cursor-pointer "
+                            alt="Banner Image"
+                        />
+                    
+                    {/* <div className="text-xs text-gray-200/60 mt-2 flex flex-row items-center">
+                        <RotateCwIcon className="w-4 h-4 mr-2" />Klicke auf deinen Banner um ihn zu bearbeiten oder zu löschen
+                    </div> */}
+                </div>
+            )}
+
             {(!currentImage?.url && ownProfile) && (
                 <div>
-                    
+
                     <div className={cn("text-gray-200/80 bg-[#222222]  text-sm flex justify-center py-20 shadow-lg items-center")}
                         {...getRootProps()}>
                         <input {...getInputProps()} />
@@ -142,40 +163,40 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
             <Dialog open={showDialog} onOpenChange={(e) => { setShowDialog(e) }}>
                 <DialogContent className="dark:bg-[#191919] dark:border-none space-y-0">
-                   <div>
-                   <h3 className="text-lg font-semibold">Profilbanner bearbeiten</h3>
-                    <p className="text-gray-200/60 text-xs">
-                        Dein Profilbanner wird öffentlich auf deinem Profil angezeigt und ist für viele Nutzer das erste, was sie sehen.
-                    </p>
-                    <div className="mt-4">
-                        {currentImage ? (
-                            <Image
-                                width={500}
-                                height={500}
-                                src={currentImage?.url}
-                                className="w-full h-40 object-cover"
-                                alt="Selected Image"
-                            />
-                        ) : (
-                            <div className="bg-[#131313] shadow-lg w-full h-40 flex justify-center items-center">
-                                <span className="text-sm text-gray-200/60">Kein Bild ausgewählt</span>
-                            </div>
-                        )}
-                    </div>
-                    <div className=" flex space-x-2 mt-4">
-                        <Button className="text-gray-200 bg-[#222222] hover:bg-[#242424] shadow-lg w-1/2" {...getRootProps()} disabled={isLoading}>
-                            <input {...getInputProps()} />
-                            <RotateCwIcon className="w-4 h-4 mr-2" /> Banner ändern
-                        </Button>
-                        <Button className="text-gray-200 bg-rose-600 hover:bg-rose-700 w-1/2" onClick={onImageClear} disabled={isLoading}>
-                            <X className="w-4 h-4 mr-2" /> Banner löschen
-                        </Button>
-                    </div>
-                    <DialogTrigger asChild>
-                        <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 w-full mt-2" onClick={onSave} disabled={isLoading}>
-                            <SaveAllIcon className="w-4 h-4 mr-2" /> Änderungen speichern
-                        </Button>
-                    </DialogTrigger>
+                    <div>
+                        <h3 className="text-lg font-semibold">Profilbanner bearbeiten</h3>
+                        <p className="text-gray-200/60 text-xs">
+                            Dein Profilbanner wird öffentlich auf deinem Profil angezeigt und ist für viele Nutzer das erste, was sie sehen.
+                        </p>
+                        <div className="mt-4">
+                            {currentImage ? (
+                                <Image
+                                    width={500}
+                                    height={500}
+                                    src={currentImage?.url}
+                                    className="w-full h-40 object-cover"
+                                    alt="Selected Image"
+                                />
+                            ) : (
+                                <div className="bg-[#131313] shadow-lg w-full h-40 flex justify-center items-center">
+                                    <span className="text-sm text-gray-200/60">Kein Bild ausgewählt</span>
+                                </div>
+                            )}
+                        </div>
+                        <div className=" flex space-x-2 mt-4">
+                            <Button className="text-gray-200 bg-[#222222] hover:bg-[#242424] shadow-lg w-1/2" {...getRootProps()} disabled={isLoading}>
+                                <input {...getInputProps()} />
+                                <RotateCwIcon className="w-4 h-4 mr-2" /> Banner ändern
+                            </Button>
+                            <Button className="text-gray-200 bg-rose-600 hover:bg-rose-700 w-1/2" onClick={onImageClear} disabled={isLoading}>
+                                <X className="w-4 h-4 mr-2" /> Banner löschen
+                            </Button>
+                        </div>
+                        <DialogTrigger asChild>
+                            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 w-full mt-2" onClick={onSave} disabled={isLoading}>
+                                <SaveAllIcon className="w-4 h-4 mr-2" /> Änderungen speichern
+                            </Button>
+                        </DialogTrigger>
                     </div>
                 </DialogContent>
             </Dialog>
@@ -196,7 +217,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                     <ContactUser
                         currentUser={currentUser}
                     />
-                    
+
                 </div>
             )}
         </div>

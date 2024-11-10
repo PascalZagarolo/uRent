@@ -18,7 +18,7 @@ import { useDropzone } from "react-dropzone";
 
 interface InseratImageUploadProps {
     thisImages: typeof images.$inferSelect[];
-    existingSubscription? : typeof userSubscription.$inferSelect;
+    existingSubscription?: typeof userSubscription.$inferSelect;
 
 }
 
@@ -31,7 +31,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
 
     if (existingSubscription?.subscriptionType === "PREMIUM") {
         maxPicsize = 12;
-    } else if(existingSubscription?.subscriptionType === "ENTERPRISE") {
+    } else if (existingSubscription?.subscriptionType === "ENTERPRISE") {
         maxPicsize = 20;
     }
 
@@ -124,7 +124,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                     image: data.secure_url
                 })
 
-            }).then(() => {router.refresh()})
+            }).then(() => { router.refresh() })
     };
 
     return (
@@ -132,24 +132,26 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
             <h3 className="flex justify-center font-semibold text-md items-center">
                 <ImageIcon className="mr-2 h-4 w-4" />
                 Fotos und Anhänge ({thisImages.length}/{maxPicsize}) *
-                
+
                 <div className="ml-auto">
                     <DeleteImageForm
                         thisImages={thisImages}
                     />
                 </div>
             </h3>
-            <p className="flex text-sm justify-start text-gray-900/50  dark:text-gray-100"> Halte um die Reihenfolge der Fotos zu ändern </p>
+            <p className="flex text-sm justify-start text-gray-900/50  dark:text-gray-200/60"> Halte um die Reihenfolge der Fotos zu ändern. <br/> Änderungen werden automatisch übernommen. </p>
             {
 
 
-                <div className="mt-8 bg-white p-4 mr-8 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] rounded-md dark:bg-[#171717] w-full">
-                    <ImageList
-                        onEdit={() => { }}
-                        onReorder={onReorder}
-                        items={thisImages || []}
+                <div className="mt-8 bg-white p-4 mr-8  rounded-md dark:bg-[#171717] w-full flex flex-col">
+                    <div>
+                        <ImageList
+                            onEdit={() => { }}
+                            onReorder={onReorder}
+                            items={thisImages || []}
 
-                    />
+                        />
+                    </div>
                     {thisImages.length < maxPicsize && (
 
                         <div className="text-gray-800/50  text-sm mt-4 flex justify-center py-20 border-dashed border
@@ -159,8 +161,8 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                                 "Fotos hier ablegen.."
                             ) : (
                                 "Fotos hinzufügen oder reinziehen.."
-                            ) }
-                            </div>
+                            )}
+                        </div>
 
                     )}
                 </div>

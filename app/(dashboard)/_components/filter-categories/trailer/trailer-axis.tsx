@@ -12,9 +12,13 @@ import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 
+interface TrailerAxisBarProps {
+    isTrailer? : boolean
+}
 
-
-const TrailerAxisBar = () => {
+const TrailerAxisBar = ({
+    isTrailer
+} : TrailerAxisBarProps) => {
 
     const currentState = useDeleteParams((state) => state.removeAttributes);
     
@@ -112,6 +116,9 @@ const TrailerAxisBar = () => {
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
                         <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                        {isTrailer && (
+                            <SelectItem value="1">1</SelectItem>
+                        )}
                         <SelectItem value="2">2</SelectItem>
                         <SelectItem value="3">3</SelectItem>
                         <SelectItem value="4">4</SelectItem>
@@ -143,6 +150,9 @@ const TrailerAxisBar = () => {
 
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center">
                         <SelectItem value={null} className="font-bold">Beliebig</SelectItem>
+                        {isTrailer && (
+                            <SelectItem value="1">1</SelectItem>
+                        )}
                         <SelectItem value="2">2</SelectItem>
                         <SelectItem value="3">3</SelectItem>
                         <SelectItem value="4">4</SelectItem>

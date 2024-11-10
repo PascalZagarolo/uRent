@@ -15,11 +15,13 @@ import toast from "react-hot-toast";
 interface CarTypeProps {
   currentValue : number;
   setCurrentValue : (value) => void;
+  isTrailer?: boolean;
 }
 
 const LkwAxisCreation: React.FC<CarTypeProps> = ({
   currentValue,
-  setCurrentValue
+  setCurrentValue,
+  isTrailer
 }) => {
 
   
@@ -55,6 +57,10 @@ const LkwAxisCreation: React.FC<CarTypeProps> = ({
           </SelectTrigger>
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
+          
+            {isTrailer && (
+              <SelectItem value="1">1</SelectItem>
+            )}
             <SelectItem value="2">2</SelectItem>
             <SelectItem value="3">3</SelectItem>
             <SelectItem value="4">4</SelectItem>

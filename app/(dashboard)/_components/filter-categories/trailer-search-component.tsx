@@ -42,7 +42,9 @@ const TrailerSearchComponent = () => {
                 </div>
             </div>
 <div className="w-full">
-<TrailerAxisBar />
+<TrailerAxisBar 
+isTrailer={true}
+/>
 </div>
             <TrailerWeightClassBar />
             <div>

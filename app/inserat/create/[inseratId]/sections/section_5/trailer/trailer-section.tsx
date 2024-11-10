@@ -119,7 +119,7 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
                   <TrailerWeightClassCreation currentValue={currentWeight} setCurrentValue={setCurrentWeight} />
                 </div>
                 <div className="mt-4">
-                    <LkwAxisCreation currentValue={currentAxis} setCurrentValue={setCurrentAxis} />
+                    <LkwAxisCreation currentValue={currentAxis} setCurrentValue={setCurrentAxis} isTrailer={true}/>
                 </div>
                 <div className="mt-4">
                     <TrailerBrakeCreation currentValue={currentBrake as any} setCurrentValue={setCurrentBrake} />

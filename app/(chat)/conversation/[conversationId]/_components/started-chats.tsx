@@ -7,7 +7,7 @@ import { and, eq } from "drizzle-orm";
 import { pusherClient } from "@/lib/pusher";
 import { useEffect, useState } from "react";
 import { find } from "lodash";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { MarkAsSeen } from '../../../../../actions/notifications/mark-as-seen';
 import { markAsSeenMessages } from "@/actions/messages/mark-as-seen";
 
@@ -43,14 +43,17 @@ const StartedChats: React.FC<StartedChatsProps> = ({
         
     },[])
 
+    const router = useRouter();
+
     useEffect(() => {
         if(paramsConversationId === conversations.id){ 
             setOpenChats(0);
         }
 
         const load = async () => {
-            await MarkAsSeen(conversations.id, currentUser.id)
+           
             await markAsSeenMessages(conversations.id, currentUser.id)
+            router.refresh();
         }
 
         if(paramsConversationId === conversations.id){ 

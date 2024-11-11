@@ -7,7 +7,7 @@ import { and, eq } from "drizzle-orm";
 export const MarkAsSeen = (conversationId, currentUserId) => {
     try {
         const patchNotifications = async () => {
-            const patchNotifications = await db.update(notification).set({
+            await db.update(notification).set({
                 seen: true
             }).where(
                 and(

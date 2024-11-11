@@ -32,7 +32,9 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
                 </PopoverTrigger>
                 <PopoverContent className="dark:bg-[#131313] dark:border-none w-[200px] space-y-2">
                     <div>
-                    <ReportModal/>
+                    <ReportModal
+                    isBlocked = {foundBlocks.some(block => block.userId === currentUser.id)}
+                    />
                     </div>
                     <div>
                         <BlockUser 

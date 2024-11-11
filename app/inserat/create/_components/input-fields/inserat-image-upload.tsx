@@ -19,12 +19,14 @@ import { useDropzone } from "react-dropzone";
 interface InseratImageUploadProps {
     thisImages: typeof images.$inferSelect[];
     existingSubscription?: typeof userSubscription.$inferSelect;
+    isPublic : boolean;
 
 }
 
 const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
     thisImages,
-    existingSubscription
+    existingSubscription,
+    isPublic
 }) => {
 
     let maxPicsize = 8;
@@ -136,6 +138,7 @@ const InseratImageUpload: React.FC<InseratImageUploadProps> = ({
                 <div className="ml-auto">
                     <DeleteImageForm
                         thisImages={thisImages}
+                        isPublic={isPublic}
                     />
                 </div>
             </h3>

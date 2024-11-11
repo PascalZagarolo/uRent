@@ -40,11 +40,11 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                             </div>
                             <h3 className="sm:text-2xl text-md font-bold flex items-center w-full mt-4">
                                 <MdPostAdd className="mr-2" />  Inserat bearbeiten
-                                <div className="ml-auto">
+                                {/* <div className="ml-auto">
                                     <SaveChanges
                                         thisInserat={thisInserat as any}
                                     />
-                                </div>
+                                </div> */}
                             </h3>
                             <p className="text-xs dark:text-gray-100/70 mt-2">
                                 Gebe Informationen zu deinem Inserat an - desto genauer du bist, desto eher finden dich potientielle Kunden.

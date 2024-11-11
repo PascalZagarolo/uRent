@@ -72,6 +72,7 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                 <InseratImageUpload
                     thisImages={usedImages}
                     existingSubscription={currentUser.subscription}
+                    isPublic={thisInserat.isPublished}
                 />    
             </div>
             <div className="mt-4 w-full sm:flex gap-x-4 sm:space-y-0 space-y-4">

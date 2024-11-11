@@ -82,9 +82,7 @@ const ImageList: React.FC<ImageListProps> = ({
         return null;
     }
 
-    const onDelete = (imageId : string) => {
-        console.log(imageId); 
-    }
+   
 
     return ( 
         <DragDropContext onDragEnd={onDragEnd}>

@@ -7,7 +7,7 @@ import { blog } from "@/db/schema";
 import { getLabelByValue } from "@/hooks/blogs/convert-values";
 import { format } from "date-fns";
 import { eq } from "drizzle-orm";
-import { ArrowLeft, InstagramIcon, MailIcon, TwitchIcon, TwitterIcon } from "lucide-react";
+import { ArrowLeft, InstagramIcon, LinkedinIcon, MailIcon, TwitchIcon, TwitterIcon } from "lucide-react";
 import Image from "next/image";
 
 import BackToMain from "./_components/back-to-main";
@@ -84,13 +84,25 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                                 />
                             </div>
                             <div className="flex flex-row items-center px-16 py-2 gap-x-4">
-                                <a>
+                                <a href="https://www.instagram.com/urent.de"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:cursor-pointer"
+                                >
                                     <InstagramIcon size={24} />
                                 </a>
-                                <a>
-                                    <TwitterIcon size={24} />
+                                <a
+                                href="https://www.linkedin.com/company/urentde"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:cursor-pointer"
+                                >
+                                    <LinkedinIcon size={24} />
                                 </a>
-                                <a>
+                                <a 
+                                href="mailto:support@urent-rental.de"
+                                
+                                className="hover:cursor-pointer">
                                     <MailIcon size={24} />
                                 </a>
                             </div>

@@ -93,6 +93,12 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
 
   useEffect(() => {
     setHasMoreMessages(messages.length > 15);
+
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+
+
   }, [conversationId])
 
 
@@ -129,11 +135,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
     }
   }
 
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [conversationId]);
+
 
   useEffect(() => {
     if (chatContainerRef.current) {

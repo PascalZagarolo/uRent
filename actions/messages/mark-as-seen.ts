@@ -1,13 +1,15 @@
 'use server'
 
 import db from "@/db/drizzle";
-import { message } from "@/db/schema";
+import { message, notification } from "@/db/schema";
 import { and, eq, ne } from "drizzle-orm";
 
 export const markAsSeenMessages = async (conversationId : string, userId : string) => {
     try {
 
-        const patchMessages = await db.update(message).set({
+       
+
+         await db.update(message).set({
             seen : true
         }).where(
             and(
@@ -16,6 +18,10 @@ export const markAsSeenMessages = async (conversationId : string, userId : strin
                 eq(message.seen, false)
             )
         )
+
+        await db.update(notification).set({
+            seen : true
+        }).where(eq(notification.conversationId, conversationId))
         
         return null;
     } catch(e : any) {

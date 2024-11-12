@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { format, isAfter, isBefore, isSameDay } from "date-fns";
 import { de } from "date-fns/locale";
 import { CheckIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 import { RiCalendarEventFill } from "react-icons/ri";
 
@@ -187,7 +187,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
     const renderSegments = () => {
         const segments = [];
-        const eightOClockRef = useRef(null);
+        
     
         for (let hour = 0; hour <= 23; hour++) {
             segments.push(

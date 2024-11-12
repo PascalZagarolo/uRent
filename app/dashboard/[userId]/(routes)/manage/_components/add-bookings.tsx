@@ -70,7 +70,7 @@ interface AddBookingProps {
 const AddBooking: React.FC<AddBookingProps> = ({
     foundInserate,
     open,
-    onClose,
+    onClose = () => {},
     usedInserat,
     usedStart,
     usedEnd,

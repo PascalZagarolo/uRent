@@ -73,7 +73,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
     usedEndTime,
     usedTitle,
     usedContent,
-    onClose,
+    onClose = () => {},
     requestId
 }) => {
 

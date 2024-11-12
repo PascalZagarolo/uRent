@@ -67,14 +67,14 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                                 <div className="text-center text-sm text-gray-200/60">
                                     erstellt am {format(new Date(thisBlog?.createdAt), "dd. MMMM yyyy")}
                                 </div>
-                                <div className="px-32 text-center pb-4 font-semibold text-xl">
+                                <div className="lg:px-32 md:px-8 px-4 text-center pb-4 font-semibold text-xl">
                                     {thisBlog?.title}
                                 </div>
                                 <div>
                                     {tagRenderer()}
                                 </div>
                             </div>
-                            <div className="flex justify-center mt-4 px-16">
+                            <div className="flex justify-center mt-4 lg:px-16 sm:px-8 px-4">
                                 <Image
                                     width={1000}
                                     height={600}
@@ -83,7 +83,7 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                                     alt="blog image"
                                 />
                             </div>
-                            <div className="flex flex-row items-center px-16 py-2 gap-x-4">
+                            <div className="flex flex-row items-center lg:px-16 sm:px-8 px-4 py-2 gap-x-4">
                                 <a href="https://www.instagram.com/urent.de"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -108,7 +108,7 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
                             </div>
                             <div>
                                 <div
-                                    className="px-16 mt-2 text-base text-gray-200 w-full pb-8"
+                                    className="lg:px-16 sm:px-8 px-4 mt-2 text-base text-gray-200 w-full pb-8"
                                     dangerouslySetInnerHTML={{ __html: thisBlog?.content }}
                                     
                                 />

@@ -71,7 +71,7 @@ const TrailerCoupling: React.FC<CarTypeProps> = ({
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
             <SelectItem value="KUGELKOPFKUPPLUNG">Kugelkopfkupplung</SelectItem>
             <SelectItem value="MAULKUPPLUNG">Maulkupplung</SelectItem>
-            <SelectItem value="Sattelkupplung">Sattelkupplung</SelectItem>
+            <SelectItem value="SATTELKUPPLUNG">Sattelkupplung</SelectItem>
             <SelectItem value={null}>Beliebig</SelectItem>
           </SelectContent>
         </Select>

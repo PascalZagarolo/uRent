@@ -68,7 +68,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 return;
             }
             
-            if(showPrivateDialog && !confirmDelete) {
+            if(showPrivateDialog && !confirmDelete && thisInserat?.isPublished) {
                 setShowPrivate(true);
                 return
             }

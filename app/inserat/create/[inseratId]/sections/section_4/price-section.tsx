@@ -51,7 +51,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
         try {
             setIsLoading(true);
 
-            if(showPrivateDialog && !confirmDelete) {
+            if(showPrivateDialog && !confirmDelete && thisInserat?.isPublished) {
                 setShowPrivate(true);
                 return
             }

@@ -202,7 +202,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                 </div>
             
                 {/* Right Section: Booking Slots */}
-                <div className="h-full ml-auto w-3/5 flex flex-col border-b-4 border-[#1a1a1a]">
+                <div className="h-full ml-auto w-3/5 flex flex-col ">
                     {/* First Slot */}
                     <div
                         className={`h-10 flex items-center justify-between p-2.5  
@@ -210,7 +210,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                             ${!checkBooked(String((hour * 60) + 30)) ? "rounded-b-none" : "rounded-b-none"}`}
                     >
                         {!checkBooked(String(hour * 60)) && checkBooked(String((hour * 60) - 30)) && (
-                            <span>Verfügbar ab {hour}:00 Uhr</span>
+                            <span className="text-sm text-gray-200 font-semibold">Verfügbar ab {hour}:00 Uhr</span>
                         )}
                     </div>
             
@@ -218,12 +218,12 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                     <div
                         className={`h-10 flex items-center justify-between p-2.5  
                             ${checkBooked(String((hour * 60) + 30)) ? "bg-red-600 text-white" : "bg-[#222222] dark:text-gray-200"} 
-                            ${!checkBooked(String((hour * 60) + 60)) ? "rounded-t-none" : "rounded-b-none"}`}
+                            ${!checkBooked(String((hour * 60) + 60)) ? "rounded-t-none border-b-4 border-[#1a1a1a]" : "rounded-b-none"}`}
                     >
                         {!checkBooked(String((hour * 60) + 30)) && checkBooked(String((hour * 60))) && (
                             <div className="flex items-center">
-                                <CheckIcon className="w-5 h-5 mr-2 text-green-500" />
-                                <span>Verfügbar ab {hour}:30 Uhr</span>
+                                <CheckIcon className="w-4 h-4 mr-2 text-green-500" />
+                                <span className="text-sm text-gray-200 font-semibold">Verfügbar ab {hour}:30 Uhr</span>
                             </div>
                         )}
                     </div>

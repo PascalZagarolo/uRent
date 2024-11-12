@@ -73,6 +73,7 @@ const TrailerCouplingSearch = () => {
                         </SelectItem>
                         <SelectItem value="KUGELKOPFKUPPLUNG">Kugelkopfkupplung</SelectItem>
                         <SelectItem value="MAULKUPPLUNG">Maulkupplung</SelectItem>
+                        <SelectItem value="SATTELKUPPLUNG">Sattelkupplung</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

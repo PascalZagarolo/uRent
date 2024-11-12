@@ -15,9 +15,11 @@ const TrailerWeightClassSearch = () => {
 
     const currentObject : any = useSavedSearchParams((state) => state.searchParams)
 
-    const [currentAge, setCurrentAge] = useState(currentObject['weightClass']);
-    const [currentEnd, setCurrentEnd] = useState(currentObject['weightClassMax']);
+    const [currentAge, setCurrentAge] = useState(currentObject['weightClass'] ? currentObject['weightClass'] : undefined);
+    const [currentEnd, setCurrentEnd] = useState(currentObject['weightClassMax'] ? currentObject['weightClassMax'] : undefined);
     const [isLoading, setIsLoading] = useState(false);
+
+    console.log(currentEnd)
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
@@ -91,6 +93,7 @@ const TrailerWeightClassSearch = () => {
                         <SelectItem value="1800">18 t</SelectItem>
                         <SelectItem value="2600">26 t</SelectItem>
                         <SelectItem value="3200">32 t</SelectItem>
+                        <SelectItem value="3400">34 t</SelectItem>
                         <SelectItem value="3900">39 t</SelectItem>
                         <SelectItem value="5000">{'>'} 39 t</SelectItem>
 
@@ -129,6 +132,7 @@ const TrailerWeightClassSearch = () => {
                         <SelectItem value="1800">18 t</SelectItem>
                         <SelectItem value="2600">26 t</SelectItem>
                         <SelectItem value="3200">32 t</SelectItem>
+                        <SelectItem value="3400">34 t</SelectItem>
                         <SelectItem value="3900">39 t</SelectItem>
                         <SelectItem value="5000">{'>'} 39 t</SelectItem>
 

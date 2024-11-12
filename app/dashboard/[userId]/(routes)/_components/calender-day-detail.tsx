@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { format, isAfter, isBefore, isSameDay } from "date-fns";
 import { de } from "date-fns/locale";
 import { CheckIcon } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 import { RiCalendarEventFill } from "react-icons/ri";
 
@@ -27,7 +28,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
     let appointedTimes = [];
 
-    
+    const eightOClockRef = useRef(null);
 
 
 
@@ -186,48 +187,71 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
     const renderSegments = () => {
         const segments = [];
-        for (let hour = 8; hour <= 23; hour++) {
+        const eightOClockRef = useRef(null);
+    
+        for (let hour = 0; hour <= 23; hour++) {
             segments.push(
-                <div key={hour} className="dark:bg-[#131313] text-sm flex items-center  dark:border border-[#191919]">
-                    <div>
-                        <div className="p-2 text-sm w-2/5">
-                            {hour}:00 Uhr
-                        </div>
+                <div
+                key={hour}
+                ref={hour === 8 ? eightOClockRef : null} // Ref for 8:00 hour
+                className="dark:bg-[#1a1a1a] bg-white text-sm flex  flex-row h-full items-start shadow-sm overflow-hidden"
+            >
+                {/* Left Section: Time Display */}
+                <div className="w-2/5 bg-[#222222] text-white shadow-md h-full flex justify-center items-center">
+                    <div className="p-2.5 font-semibold">{hour}:00 Uhr</div>
+                </div>
+            
+                {/* Right Section: Booking Slots */}
+                <div className="h-full ml-auto w-3/5 flex flex-col border-b-4 border-[#1a1a1a]">
+                    {/* First Slot */}
+                    <div
+                        className={`h-10 flex items-center justify-between p-2.5  
+                            ${checkBooked(String(hour * 60)) ? "bg-red-600 text-white" : "bg-[#222222] dark:text-gray-200"} 
+                            ${!checkBooked(String((hour * 60) + 30)) ? "rounded-b-none" : "rounded-b-none"}`}
+                    >
+                        {!checkBooked(String(hour * 60)) && checkBooked(String((hour * 60) - 30)) && (
+                            <span>Verfügbar ab {hour}:00 Uhr</span>
+                        )}
                     </div>
-                    <div className="h-full ml-auto w-3/5 flex flex-col">
-                        <div className={cn("h-[32px] w-full p-2",
-                            checkBooked(String(hour * 60)) ? " bg-rose-800" : "",
-                            checkBooked(String((hour * 60) + 30)) ? "" : "rounded-b-lg",
-                            checkBooked(String((hour * 60) - 30)) ? "" : "rounded-t-lg"
-                        )}>
-                            {(!checkBooked(String(hour * 60)) && checkBooked(String((hour * 60) - 30))) && (
-                                `Verfügbar ab ${hour}:00 Uhr`
-                            )}
-                        </div>
-                        <div className={cn("h-[32px] w-full p-2 font-semibold text-xs border-t border-dotted border-[#191919]",
-                            checkBooked(String((hour * 60) + 30)) ? " bg-rose-800" : "",
-                            checkBooked(String((hour * 60) + 60)) ? "" : "rounded-b-lg",
-                            checkBooked(String((hour * 60))) ? "" : "rounded-t-lg"
-                        )}>
-                            {(!checkBooked(String((hour * 60) + 30)) && checkBooked(String((hour * 60)))) && (
-                                <div className="flex">
-                                    <CheckIcon className="w-4 h-4 mr-2 text-emerald-600" />  Verfügbar ab {hour}:30 Uhr
-                                </div>
-                            )}
-                        </div>
+            
+                    {/* Second Slot */}
+                    <div
+                        className={`h-10 flex items-center justify-between p-2.5  
+                            ${checkBooked(String((hour * 60) + 30)) ? "bg-red-600 text-white" : "bg-[#222222] dark:text-gray-200"} 
+                            ${!checkBooked(String((hour * 60) + 60)) ? "rounded-t-none" : "rounded-b-none"}`}
+                    >
+                        {!checkBooked(String((hour * 60) + 30)) && checkBooked(String((hour * 60))) && (
+                            <div className="flex items-center">
+                                <CheckIcon className="w-5 h-5 mr-2 text-green-500" />
+                                <span>Verfügbar ab {hour}:30 Uhr</span>
+                            </div>
+                        )}
                     </div>
                 </div>
+            </div>
+            
+
             );
         }
+    
+        // Scroll to 8:00 segment on initial render
+        
+    
         return segments;
     };
 
+    useEffect(() => {
+        if (eightOClockRef.current) {
+            eightOClockRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, []);
+    
     return (
         <Dialog>
-
             <DialogTrigger>
                 {format(new Date(day_date), "d")}
             </DialogTrigger>
+    
             <DialogContent className="p-0 dark:border-none dark:bg-[#191919]">
                 <div className="h-[520px] overflow-y-auto no-scrollbar">
                     <h3 className="font-medium text-sm flex items-center gap-x-2 px-4 pt-6">
@@ -240,7 +264,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                     <p className="px-4 text-xs dark:text-gray-200/60">
                         Finde heraus, wann das Inserat verfügbar ist, und wann nicht.
                     </p>
-
+    
                     <div className="mt-4">
                         {renderSegments()}
                     </div>
@@ -248,6 +272,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
             </DialogContent>
         </Dialog>
     );
+    
 }
 
 export default CalenderDayDetail;

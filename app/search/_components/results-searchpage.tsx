@@ -16,19 +16,21 @@ const ResultsSearchPage = () => {
     const searchParams = useSavedSearchParams((state) => state.searchParams);
 
 
-    const [currentResults, setCurrentResults] = useState();
-    const pathname = usePathname();
+    const [currentResults, setCurrentResults] = useState(0);
+    
     const router = useRouter();
     //? Fix 429-Error in Axios, because of too many requests regarding location..
     useEffect(() => {
         const getSearchResults = async () => {
             const values = searchParams
             const results = await axios.patch('/api/search', values);
-            setCurrentResults(results.data);
+            setCurrentResults(results.data ? results.data : 0);
             router.refresh();
         }
         getSearchResults();
     }, [searchParams]);
+
+    
 
     const onRedirect = () => {
 
@@ -62,9 +64,12 @@ const ResultsSearchPage = () => {
 
     
 
+
     return (
         <Button className="bg-blue-800 hover:bg-blue-900 text-gray-100 font-base sm:p-8 text-xs sm:text-sm" onClick={onRedirect}>
-            <p className="font-bold px-1"> <NumberTicker value={currentResults ?? 0} /> </p> Ergebnisse <BiArrowToRight className="w-4 h-4 ml-2" />
+            <p className="font-bold px-1"> 
+            {currentResults ? <NumberTicker value={currentResults} /> : 0}
+             </p> Ergebnisse <BiArrowToRight className="w-4 h-4 ml-2" />
 
         </Button>
     );

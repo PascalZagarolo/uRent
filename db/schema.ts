@@ -389,6 +389,7 @@ export const userSubscription = pgTable("userSubscription" , {
 
 export const loadingEnum = pgEnum("loading", [
     "AUFFAHRRAMPE",
+    "KIPPER",
     "KRAN",
     "LADERAMPE",
     "LADEBORDWAND",

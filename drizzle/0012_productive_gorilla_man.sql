@@ -1,0 +1,1 @@
+ALTER TYPE "loading" ADD VALUE 'KIPPER';

@@ -69,9 +69,11 @@ const LoadingForm: React.FC<LoadingFormProps> = ({
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
           <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
+            <SelectItem value="KIPPER">Kipper</SelectItem>
+            <SelectItem value="KRAN">Kran</SelectItem>
             <SelectItem value="LADERAMPE">Laderampe</SelectItem>
             <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
-            <SelectItem value="KRAN">Kran</SelectItem>
+            
           </SelectContent>
         </Select>
       </div>

@@ -16,7 +16,7 @@ import { useDeleteParams, useSavedSearchParams } from "@/store";
 
 const LkwLoadingBar = () => {
     const currentState = useDeleteParams((state) => state.removeAttributes);
-    
+
     const brand = useSearchParams().get("loading");
     const [currentBrand, setCurrentBrand] = useState(brand);
     const [isLoading, setIsLoading] = useState(false);
@@ -27,39 +27,39 @@ const LkwLoadingBar = () => {
 
     const router = useRouter();
 
-   
+
 
 
     useEffect(() => {
-        if(brand && !currentState) {
-          changeSearchParams("loading", brand);
-          setCurrentBrand(brand);
+        if (brand && !currentState) {
+            changeSearchParams("loading", brand);
+            setCurrentBrand(brand);
         }
-      }, [])
-
-      
-  
-      
-      const currentObject = useSavedSearchParams((state) => state.searchParams)
-  
-      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-  
-      const setStart = (loading : string) => {
-        
-         if(!loading) {
-          deleteSearchParams("loading");
-          setCurrentBrand(null);
-         } else {
-           //@ts-ignore
-           changeSearchParams("loading", loading);
-           setCurrentBrand(loading);
-         }
-          
-      }
+    }, [])
 
 
 
-    
+
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (loading: string) => {
+
+        if (!loading) {
+            deleteSearchParams("loading");
+            setCurrentBrand(null);
+        } else {
+            //@ts-ignore
+            changeSearchParams("loading", loading);
+            setCurrentBrand(loading);
+        }
+
+    }
+
+
+
+
 
     return (
         <div className="w-full">
@@ -81,15 +81,16 @@ const LkwLoadingBar = () => {
                             placeholder="Wähle deinen Anwendungsbereich"
                         />
                     </SelectTrigger>
-                    
+
                     <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
                         <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
                         <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
-                        <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
-                        <SelectItem value="LADERAMPE">Laderampe</SelectItem>
+                        <SelectItem value="KIPPER">Kipper</SelectItem>
                         <SelectItem value="KRAN">Kran</SelectItem>
+                        <SelectItem value="LADERAMPE">Laderampe</SelectItem>
+                        <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

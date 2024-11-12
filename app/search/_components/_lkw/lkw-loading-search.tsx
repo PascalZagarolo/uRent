@@ -16,7 +16,7 @@ import { useState } from "react";
 
 const LkwLoadingSearch = () => {
 
-    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
 
     const [currentAge, setCurrentAge] = useState(currentObject['loading']);
     const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +51,7 @@ const LkwLoadingSearch = () => {
                 </Label>
                 <Select
                     onValueChange={(brand) => {
-                        !brand  ? deleteLoading() : onSubmit(brand)
+                        !brand ? deleteLoading() : onSubmit(brand)
                     }}
                     value={currentAge}
                     disabled={isLoading}
@@ -67,9 +67,10 @@ const LkwLoadingSearch = () => {
                             Beliebig
                         </SelectItem>
                         <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
+                        <SelectItem value="KIPPER">Kipper</SelectItem>
+                        <SelectItem value="KRAN">Kran</SelectItem>
                         <SelectItem value="LADERAMPE">Laderampe</SelectItem>
                         <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
-                        <SelectItem value="KRAN">Kran</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

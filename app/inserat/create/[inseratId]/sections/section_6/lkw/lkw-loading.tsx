@@ -13,52 +13,53 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface LoadingFormCreationProps {
-    currentValue : string;
-    setCurrentValue : (value) => void;
+  currentValue: string;
+  setCurrentValue: (value) => void;
 }
 
 const LoadingFormCreation: React.FC<LoadingFormCreationProps> = ({
-    currentValue,
-    setCurrentValue
+  currentValue,
+  setCurrentValue
 }) => {
 
-  
-    const [isLoading, setIsLoading] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
 
 
-    
 
-    return ( 
-        <div className="w-full">
-            <div className="w-full">
+
+  return (
+    <div className="w-full">
+      <div className="w-full">
         <Label>Ladevorrichtung</Label>
         <Select
           //@ts-ignore
-          onValueChange={(loading : typeof LoadingEnumRender) => {
+          onValueChange={(loading: typeof LoadingEnumRender) => {
             setCurrentValue(loading);
           }}
-           //@ts-ignore
+          //@ts-ignore
           value={currentValue}
           disabled={isLoading}
         >
-          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md " 
-          disabled={isLoading}>
+          <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
+            disabled={isLoading}>
             <SelectValue
               placeholder="Wähle die Kategorie aus"
             />
           </SelectTrigger>
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-          <SelectItem value={null}>Beliebig</SelectItem>
+            <SelectItem value={null}>Beliebig</SelectItem>
             <SelectItem value="AUFFAHRRAMPE">Auffahrrampe</SelectItem>
+            <SelectItem value="KIPPER">Kipper</SelectItem>
+            <SelectItem value="KRAN">Kran</SelectItem>
             <SelectItem value="LADERAMPE">Laderampe</SelectItem>
             <SelectItem value="LADEBORDWAND">Ladebordwand</SelectItem>
-            <SelectItem value="KRAN">Kran</SelectItem>
           </SelectContent>
         </Select>
       </div>
-        </div>
-     );
+    </div>
+  );
 }
- 
+
 export default LoadingFormCreation;

@@ -25,7 +25,7 @@ const TrailerCoupling: React.FC<CarTypeProps> = ({
 
     const params = useParams();
 
-    const onSubmit = (selectedValue:typeof CouplingEnumRender) => {
+    const onSubmit = async (selectedValue:typeof CouplingEnumRender) => {
         try {
     
             setCurrentCoupling(selectedValue);
@@ -35,11 +35,9 @@ const TrailerCoupling: React.FC<CarTypeProps> = ({
           }
     
           setIsLoading(true);
-          axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
+          await axios.patch(`/api/inserat/${params.inseratId}/trailer`, values);
           toast.success("Kupplungsart gespeichert");
-          setTimeout(() => {
-            router.refresh();
-          }, 400)
+          router.refresh();
         } catch {
           toast.error("Fehler beim Speichern der Kategorie");
         } finally {
@@ -73,6 +71,7 @@ const TrailerCoupling: React.FC<CarTypeProps> = ({
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
             <SelectItem value="KUGELKOPFKUPPLUNG">Kugelkopfkupplung</SelectItem>
             <SelectItem value="MAULKUPPLUNG">Maulkupplung</SelectItem>
+            <SelectItem value="Sattelkupplung">Sattelkupplung</SelectItem>
             <SelectItem value={null}>Beliebig</SelectItem>
           </SelectContent>
         </Select>

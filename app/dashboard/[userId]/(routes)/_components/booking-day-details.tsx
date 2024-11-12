@@ -8,7 +8,7 @@ import { format, isSameDay, set } from 'date-fns';
 import { de, fi } from "date-fns/locale";
 import { CheckIcon, LinkIcon, Share2Icon } from "lucide-react";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import BookingDayDetailsPopover from "./booking-day-details-popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { vehicle } from '../../../../../db/schema';
@@ -36,6 +36,10 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
     renderedInserate
 }) => {
 
+    const containerRef = useRef(null);
+
+    
+
     const [startIndex, setStartIndex] = useState(0);
     const [endIndex, setEndIndex] = useState(3);
 
@@ -57,13 +61,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
     useMemo(() => {
         let filteredI;
-        if(filteredAppointedDay) {
+        if (filteredAppointedDay) {
             filteredI = renderedInserate.filter((inserat) => {
                 const bookedTimes = appointedTimes.find(item => item.inseratId === inserat.id)?.times;
                 if (bookedTimes) {
                     return bookedTimes.length > 0;
                 }
-            
+
             })
             //! Include Pagination on filtered Inserate
             setRenderingInserate(filteredI.slice(startIndex, endIndex));
@@ -71,7 +75,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
             const usedList = renderedInserate.slice(startIndex, endIndex);
             setRenderingInserate(usedList);
         }
-        
+
     }, [renderedInserate, startIndex, endIndex, selectedDate, filteredAppointedDay, foundInserate, appointedTimes])
 
     useMemo(() => {
@@ -87,13 +91,13 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                             //@ts-ignore
                             inseratId: pBooking.inseratId,
                             bookingIds: [pBooking.id],
-                            vehicleId: [pBooking?.vehicleId]  || null,
+                            vehicleId: [pBooking?.vehicleId] || null,
                             times: []
                         });
                     } else {
                         newAppointedTimes[existingIndex].bookingIds.push(pBooking.id);
                     }
-                    
+
                     const index = newAppointedTimes.findIndex(item => item.bookingIds.includes(pBooking.id));
                     if (!isSameDay(pBooking.startDate, selectedDate) && !isSameDay(new Date(pBooking.endDate), selectedDate)) {
                         for (let i = 0; i <= 1440; i += 30) {
@@ -129,7 +133,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
     const renderSegments = () => {
         const segments = [];
-        for (let hour = 8; hour <= 23; hour++) {
+        for (let hour = 0; hour <= 23; hour++) {
             segments.push(
                 <div key={hour} className="text-sm flex items-center   h-[80px]">
                     <div>
@@ -149,7 +153,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
     const renderAvailability = (inseratId: string) => {
         const segments = [];
-        for (let hour = 8; hour <= 23; hour++) {
+        for (let hour = 0; hour <= 23; hour++) {
             segments.push(
                 <div key={hour} className=" text-sm flex items-center h-[80px]  ">
 
@@ -209,7 +213,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
 
     const renderAvailabilityMulti = (inseratId: string, vehicleId: string) => {
         const segments = [];
-        for (let hour = 8; hour <= 23; hour++) {
+        for (let hour = 0; hour <= 23; hour++) {
             segments.push(
                 <div key={`${vehicleId}-${hour}`} className="dark:bg-[#131313] text-sm flex items-center h-[80px] dark:border border-[#191919]">
                     <div className="h-full ml-auto w-full flex flex-col">
@@ -277,10 +281,10 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
         return segments;
     };
 
-    
+
 
     return (
-        <div className="w-full">
+        <div className="w-full" >
             <div>
                 <div className="sm:flex items-center w-full space-y-2 sm:space-y-0">
                     <Label className="text-md font-semibold flex items-center max-w-full gap-x-2 ">
@@ -302,7 +306,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 <Button size="sm" variant="ghost"
                                     disabled={startIndex === 0}
                                     onClick={() => {
-                                        
+
                                         setStartIndex(startIndex - 3 >= 0 ? startIndex - 3 : 0);
                                         setEndIndex(startIndex - 3 > 0 ? endIndex - 3 : 3);
                                     }}>
@@ -310,7 +314,7 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                 </Button>
                             </div>
                             <div className="w-full">
-                                Seite {startIndex / 3 + 1} 
+                                Seite {startIndex / 3 + 1}
                             </div>
                             <div>
                                 <Button size="sm" variant="ghost"
@@ -335,25 +339,25 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                         </>
                     )}
                     <div className="ml-auto text-gray-200 sm:mt-0 mt-2 gap-x-2 flex items-center text-xs">
-                        <Checkbox 
-                        checked={filteredAppointedDay}
-                        onCheckedChange={(e) => {
-                            setFilteredAppointedDay(e as boolean)
-                            setStartIndex(0);
-                            setEndIndex(3);
-                        }}
+                        <Checkbox
+                            checked={filteredAppointedDay}
+                            onCheckedChange={(e) => {
+                                setFilteredAppointedDay(e as boolean)
+                                setStartIndex(0);
+                                setEndIndex(3);
+                            }}
                         />
                         <div className="hover:underline hover:cursor-pointer"
-                        onClick={() => setFilteredAppointedDay(!filteredAppointedDay)}
+                            onClick={() => setFilteredAppointedDay(!filteredAppointedDay)}
                         >
                             Nur Inserate mit Buchungen anzeigen
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="mt-4 w-full ">
+            <div className="mt-4 w-full " >
 
-                <div className="mt-4 dark:bg-[#0F0F0F] rounded-md h-[720px] overflow-y-scroll ">
+                <div className="mt-4 dark:bg-[#0F0F0F] rounded-md h-[720px] overflow-y-scroll " ref={containerRef}>
                     <div className="w-full flex ">
 
                         <div className="w-1/4">
@@ -397,8 +401,8 @@ const BookingDayDetails: React.FC<BookingDayDetailsProps> = ({
                                             </div>
                                             {selectedDate && (
                                                 <div className="">
-                                                {renderAvailability(inserat.id)}
-                                            </div>
+                                                    {renderAvailability(inserat.id)}
+                                                </div>
                                             )}
                                         </div>
                                     ))

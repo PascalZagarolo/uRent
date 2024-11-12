@@ -631,6 +631,7 @@ export const TrailerEnumRender = z.enum(trailerEnum.enumValues).Enum;
 export const couplingEnum = pgEnum("coupling", [
     "KUGELKOPFKUPPLUNG",
     "MAULKUPPLUNG",
+    "SATTELKUPPLUNG"
 ])
 
 export const CouplingEnumRender = z.enum(couplingEnum.enumValues).Enum;

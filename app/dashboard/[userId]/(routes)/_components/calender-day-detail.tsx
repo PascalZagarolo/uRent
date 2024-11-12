@@ -28,7 +28,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
 
     let appointedTimes = [];
 
-    const eightOClockRef = useRef(null);
+  
 
 
 
@@ -239,11 +239,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
         return segments;
     };
 
-    useEffect(() => {
-        if (eightOClockRef.current) {
-            eightOClockRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, []);
+   
     
     return (
         <Dialog>

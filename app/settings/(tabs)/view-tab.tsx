@@ -1,5 +1,5 @@
-import { Footer } from "react-day-picker";
-import Notificationpreferences from "../(routes)/view/_components/notification-preferences";
+
+
 import ToggleDarkMode from "../(routes)/view/_components/toggle-dark-mode";
 import { User2Icon } from "lucide-react";
 
@@ -29,10 +29,13 @@ const ViewTab = () => {
 
                 <div className="w-full p-4 mt-2 rounded-md">
 
-
+{/* 
                 <div>
                         <Notificationpreferences />
-                    </div>
+                    </div> */}
+
+                </div>
+                <div>
 
                 </div>
             </div>

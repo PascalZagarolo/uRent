@@ -54,10 +54,10 @@ const NewMessageToast: React.FC<NewMessageToastProps> = ({
                   >
                     {notification?.content}</a></span> hat dir eine Nachricht gesendet
               </p>
-              <div className="ml-auto px-2 gap-x-2 flex flex-row" onClick={() => toast.dismiss(t.id)}>
-                <SettingsIcon 
+              <div className="ml-auto px-2 gap-x-2 flex flex-row hover:cursor-pointer" onClick={() => toast.dismiss(t.id)}>
+                {/* <SettingsIcon 
                 className="w-4 h-4"
-                />
+                /> */}
                 <XIcon className="w-4 h-4 text-gray-200 hover:text-gray-600 hover:cursor-pointer" />
               </div>
             </div>

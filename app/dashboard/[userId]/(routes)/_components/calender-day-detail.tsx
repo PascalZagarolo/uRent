@@ -193,7 +193,6 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
             segments.push(
                 <div
                 key={hour}
-                ref={hour === 8 ? eightOClockRef : null} // Ref for 8:00 hour
                 className="dark:bg-[#1a1a1a] bg-white text-sm flex  flex-row h-full items-start shadow-sm overflow-hidden"
             >
                 {/* Left Section: Time Display */}

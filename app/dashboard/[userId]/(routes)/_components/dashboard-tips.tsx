@@ -15,22 +15,22 @@ const DashboardTips = () => {
             </div>
             <div className="w-full flex flex-row items-center space-x-4 mt-2">
 
-            <div className="w-1/3 bg-[#131313] rounded-md shadow-md 
+                <div className="w-1/3 bg-[#131313] rounded-md shadow-md 
             hover:scale-105 transform transition-transform duration-300 ease-in-out
             ">
 
                     <div className="w-full h-[240px] bg-[#222222] ">
                         <img
                             className="w-full h-full object-cover"
-                            src="https://www.urent-rental.de/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdf1vnhnzp%2Fimage%2Fupload%2Fv1731256227%2Fjsqxprg0chz039z1kddh.jpg&w=1080&q=75"
+                            src="https://res.cloudinary.com/df1vnhnzp/image/upload/v1731256227/jsqxprg0chz039z1kddh.jpg"
                         />
                     </div>
                     <div className="p-4">
                         <div className="text-sm font-semibold flex flex-row items-center">
-                            <div className="w-2 h-2 mr-2  bg-indigo-800 rounded-md" /> So erstellst du das perfekte Inserat
+                            <div className="w-2 h-2 mr-2  bg-emerald-600 rounded-md" /> So erstellst du das perfekte Inserat
                         </div>
                         <div className="text-xs text-gray-200/60 mt-1">
-                        Ein gutes Inserat auf uRent ist der Schlüssel, um schnell Kunden zu gewinnen und deine Fahrzeuge öfter zu vermieten. Finde heraus wie es geht..
+                            Ein gutes Inserat auf uRent ist der Schlüssel, um schnell Kunden zu gewinnen und deine Fahrzeuge öfter zu vermieten. Finde heraus wie es geht..
                         </div>
                         <div className="mt-4">
                             <a href={`
@@ -53,7 +53,7 @@ const DashboardTips = () => {
                     <div className="w-full h-[240px] bg-[#222222] ">
                         <img
                             className="w-full h-full object-cover"
-                            src="https://www.urent-rental.de/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdf1vnhnzp%2Fimage%2Fupload%2Fv1731350751%2Fjfzmgdv7syobrlb91z92.jpg&w=1080&q=75"
+                            src="https://res.cloudinary.com/df1vnhnzp/image/upload/v1731350751/jfzmgdv7syobrlb91z92.jpg"
                         />
                     </div>
                     <div className="p-4">
@@ -86,20 +86,26 @@ const DashboardTips = () => {
                         <img
                             className="w-full h-full object-cover"
                             src=
-                            {`/uRentxRms.webp`}
+                            {`https://res.cloudinary.com/df1vnhnzp/image/upload/v1731442480/uxcgdspxsyt7l8srzool.webp`}
                         />
                     </div>
                     <div className="p-4">
                         <div className="text-sm font-semibold flex flex-row items-center">
-                            <div className="w-2 h-2 mr-2  bg-yellow-600 rounded-md" /> uRent RMS & weitere Zukunftspläne
+                            <div className="w-2 h-2 mr-2  bg-yellow-400 rounded-md" /> uRent RMS & weitere Zukunftspläne
                         </div>
                         <div className="text-xs text-gray-200/60 mt-1">
                             Erfahre mehr über geplante Funktionen und Verbesserungen, die in den nächsten Monaten auf dich zukommen.
                         </div>
                         <div className="mt-4">
-                            <Button variant="ghost" size="sm" className="bg-[#222222] shadow-lg ">
-                                Mehr erfahren
-                            </Button>
+                            <a href={`
+                    https://www.urent-rental.de/blog/ac1c4ac9-78ac-4c47-b4c1-cb7acbc3402e
+                    `}
+                                target="_blank" rel="noopener noreferrer"
+                            >
+                                <Button variant="ghost" size="sm" className="bg-[#222222] shadow-lg ">
+                                    Mehr erfahren
+                                </Button>
+                                </a>
                         </div>
                     </div>
                 </div>

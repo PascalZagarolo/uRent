@@ -37,7 +37,7 @@ const UdsLayoutSearchRender = () => {
 
     
 
-    const [reqTime, setReqTime] = useState(currentObject["reqTime"] ? currentObject["reqTime"] : "1d");
+    const [reqTime, setReqTime] = useState(currentObject["reqTime"] ? currentObject["reqTime"] : undefined);
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 

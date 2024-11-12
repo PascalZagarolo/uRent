@@ -31,30 +31,30 @@ const LkwApplicationBar = () => {
 
 
     useEffect(() => {
-        if(brand && !currentState) {
-          changeSearchParams("application", brand);
-          setCurrentBrand(brand);
+        if (brand && !currentState) {
+            changeSearchParams("application", brand);
+            setCurrentBrand(brand);
         }
-      }, [])
-  
-      
-  
-      
-      const currentObject = useSavedSearchParams((state) => state.searchParams)
-  
-      const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-  
-      const setStart = (application : string) => {
-         if(!application) {
-          deleteSearchParams("application");
-          setCurrentBrand(null);
-         } else {
-           //@ts-ignore
-           changeSearchParams("application", application);
-           setCurrentBrand(application);
-         }
-          
-      }
+    }, [])
+
+
+
+
+    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    const setStart = (application: string) => {
+        if (!application) {
+            deleteSearchParams("application");
+            setCurrentBrand(null);
+        } else {
+            //@ts-ignore
+            changeSearchParams("application", application);
+            setCurrentBrand(application);
+        }
+
+    }
 
 
 
@@ -93,18 +93,23 @@ const LkwApplicationBar = () => {
                         <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
+                        <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
+
                         <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 
-                        <SelectItem value="KASTENWAGEN">Kastenwagen</SelectItem>
+                        <SelectItem value="KIPPER">Kipper</SelectItem>
                         <SelectItem value="KOFFERAUFBAU">Kofferaufbau</SelectItem>
                         <SelectItem value="KUEHLWAGEN">Kühlwagen</SelectItem>
+                        <SelectItem value="KRANWAGEN">Kranwagen</SelectItem>
 
                         <SelectItem value="MOEBELTRANSPORT">Moebeltransport</SelectItem>
 
                         <SelectItem value="PERSONENTRANSPORT">Personentransport</SelectItem>
                         <SelectItem value="PLANWAGEN">Planwagen</SelectItem>
                         <SelectItem value="PRITSCHENWAGEN">Pritschenwagen</SelectItem>
+
+                        <SelectItem value="SATTELSCHLEPPER">Sattelschlepper</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

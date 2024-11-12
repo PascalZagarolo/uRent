@@ -79,7 +79,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
             
             <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 
-            
+            <SelectItem value="KIPPER">Kipper</SelectItem>
             <SelectItem value="KOFFERAUFBAU">Kofferaufbau</SelectItem>
             <SelectItem value="KUEHLWAGEN">Kühlwagen</SelectItem>
             <SelectItem value="KRANWAGEN">Kranwagen</SelectItem>

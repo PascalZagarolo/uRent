@@ -33,7 +33,7 @@ const LkwApplicationSearch = () => {
     }
 
     const deleteApplication = () => {
-       
+
         deleteSearchParams("application");
         setCurrentAge("beliebig")
         setCurrentAge(null)
@@ -74,19 +74,24 @@ const LkwApplicationSearch = () => {
                         </SelectItem>
 
 
-                        
+
+                        <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
+
                         <SelectItem value="FLUESSIGKEITSTRANSPORT">Flüssigkeitstransport</SelectItem>
 
-                        <SelectItem value="KASTENWAGEN">Kastenwagen</SelectItem>
+                        <SelectItem value="KIPPER">Kipper</SelectItem>
                         <SelectItem value="KOFFERAUFBAU">Kofferaufbau</SelectItem>
                         <SelectItem value="KUEHLWAGEN">Kühlwagen</SelectItem>
+                        <SelectItem value="KRANWAGEN">Kranwagen</SelectItem>
 
                         <SelectItem value="MOEBELTRANSPORT">Moebeltransport</SelectItem>
 
                         <SelectItem value="PERSONENTRANSPORT">Personentransport</SelectItem>
                         <SelectItem value="PLANWAGEN">Planwagen</SelectItem>
                         <SelectItem value="PRITSCHENWAGEN">Pritschenwagen</SelectItem>
+
+                        <SelectItem value="SATTELSCHLEPPER">Sattelschlepper</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

@@ -74,7 +74,7 @@ const LkwApplicationSearch = () => {
                         </SelectItem>
 
 
-
+                        <SelectItem value="BAUMATERIALTRANSPORT">Baumaterialtransport</SelectItem>
                         <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
 

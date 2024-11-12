@@ -31,7 +31,7 @@ const ExtraTypeLkwCreation: React.FC<ExtraTypeLkwCreationProps> = ({
     const params = useParams();
 
     
-    console.log(currentValue)
+    
     return ( 
         <div className="w-full">
             <div className="w-full">
@@ -57,6 +57,8 @@ const ExtraTypeLkwCreation: React.FC<ExtraTypeLkwCreationProps> = ({
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
           <SelectItem value={null}>Beliebig</SelectItem>
+
+          <SelectItem value="BAUMATERIALTRANSPORT">Baumaterialtransport</SelectItem>
           <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
           <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
             

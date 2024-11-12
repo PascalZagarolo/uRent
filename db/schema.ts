@@ -560,7 +560,7 @@ export const DriveEnumRender = z.enum(driveEnum.enumValues).Enum;
 
 export const applicationEnum = pgEnum("application", [
     "ABSETZKIPPERAUFBAU",
-
+    "BAUMATERIALTRANSPORT",
     "CONTAINERTRANSPORT",
     
     "DEICHSELANHAENGER",

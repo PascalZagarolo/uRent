@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { inserat } from "@/db/schema";
+import { blog, inserat } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { MetadataRoute } from "next";
 
@@ -10,6 +10,10 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         where : eq(inserat.isPublished, true)
     })
 
+    const foundBlogs : typeof blog.$inferSelect[] = await db.query.blog.findMany({
+        where : eq(blog.isPublic, true)
+    })
+
     console.log(foundInserate)
 
     //@ts-ignore
@@ -18,6 +22,14 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         url : `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${pInserat.id}`,
         lastModified : new Date(pInserat.updatedAt)
     }))
+
+    const blogSites = foundBlogs.map((pBlog) => ({
+            
+            url : `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${pBlog.id}`,
+            lastModified : new Date(pBlog.createdAt)
+    }))
+
+    
 
     return [
         {
@@ -53,7 +65,8 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         {
             url : `${process.env.NEXT_PUBLIC_BASE_URL}/faqs/vermieter`,
         },
-        ...inseratSites
+        ...inseratSites,
+        ...blogSites
     ]
 
 }

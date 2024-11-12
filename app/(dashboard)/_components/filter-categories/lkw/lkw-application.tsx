@@ -93,6 +93,7 @@ const LkwApplicationBar = () => {
                         <SelectItem key="beliebig" value={null} className="font-semibold">
                             Beliebig
                         </SelectItem>
+                        <SelectItem value="BAUMATERIALTRANSPORT">Baumaterialtransport</SelectItem>
                         <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
                         <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
 

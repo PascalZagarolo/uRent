@@ -27,7 +27,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
     const params = useParams();
 
-    const onSubmit = (selectedValue: typeof ApplicationEnumRender) => {
+    const onSubmit = async (selectedValue: typeof ApplicationEnumRender) => {
         try {
     
             setCurrentApplication(selectedValue);
@@ -37,11 +37,9 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
           }
     
           setIsLoading(true);
-          axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
-          toast.success("Anzahl Türen erfolgreich gespeichert : " + values.application);
-          setTimeout(() => {
-            router.refresh();
-          }, 400)
+          await axios.patch(`/api/inserat/${params.inseratId}/lkw`, values);
+          toast.success("Erweiterte Fahrzeugkategorie gespeichert");
+          router.refresh();
         } catch {
           toast.error("Fehler beim Speichern der Kategorie");
         } finally {
@@ -74,6 +72,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
           <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
           <SelectItem value={null}>Beliebig</SelectItem>
+          <SelectItem value="BAUMATERIALTRANSPORT">Baumaterialtransport</SelectItem>
           <SelectItem value="CONTAINERTRANSPORT">Containertransport</SelectItem>
           <SelectItem value="FAHRZEUGTRANSPORT">Fahrzeugtransport</SelectItem>
             

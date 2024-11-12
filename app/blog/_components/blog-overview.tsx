@@ -66,7 +66,7 @@ const BlogOverview = () => {
                     <ClipLoader color="white" loading={true} size={40} className="flex justify-center items-center " />
                 </div>
             ) : (
-                <div className="mt-8 px-8">
+                <div className="mt-8 sm:px-8 px-4">
                     {renderedBlogs.length > 0 && (
                         <RenderedBlogs foundBlogs={renderedBlogs} />
                     )}

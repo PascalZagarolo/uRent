@@ -26,6 +26,7 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 import UseUdsConfirm from "./use-uds";
 
 import TimeFilterUdsSearch from "./time-filter-uds";
+import { IoMdShareAlt } from "react-icons/io";
 
 const UdsLayoutSearchRender = () => {
 
@@ -87,6 +88,16 @@ const UdsLayoutSearchRender = () => {
                     <UseUdsConfirm />
                 </div>
             </h3>
+            <div>
+                <a
+                        href="/blog/71af42ef-e0b1-4881-bf7f-4de365cf5a98"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-gray-200/60 font-medium text-center hover:underline flex flex-row items-center py-2 px-2">
+
+                        Mehr Informationen findest du hier <IoMdShareAlt  className="w-4 h-4 ml-2 text-gray-400" />
+                    </a>
+                </div>
             <div>
                 <div className="w-full  px-2 flex flex-row items-center space-x-8 mt-4">
 

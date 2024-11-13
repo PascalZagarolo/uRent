@@ -69,14 +69,14 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                                 <div className="w-full h-full">
                                     <div>
                                         <a className="font-bold text-gray-200 flex items-center hover:underline"
-                                            href={`/inserat/${messages.inseratId}`}
+                                            href={`/inserat/${messages?.inseratId}`}
                                             target="_blank"
                                         >
                                             <BsChatSquareQuoteFill className="w-4 h-4 mr-2" /> Anfrage zu deinem Inserat
                                         </a>
                                         <div>
                                             {//@ts-ignore
-                                                messages.inserat.title}
+                                                messages?.inserat?.title}
                                         </div>
                                         <div className="w-full py-2 ">
 

@@ -79,6 +79,9 @@ export async function POST(
                     id : currentUser.id,
                     name : currentUser.name,
                     image : currentUser.image
+                }, inserat : {
+                    id : thisInserat?.id,
+                    title : thisInserat?.title
                 }
             }
 
@@ -108,6 +111,10 @@ export async function POST(
                     id : currentUser.id,
                     name : currentUser.name,
                     image : currentUser.image
+                },
+                inserat : {
+                    id : thisInserat?.id,
+                    title : thisInserat?.title
                 }
             }
 

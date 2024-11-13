@@ -15,17 +15,19 @@ import { FaFolder } from "react-icons/fa";
 
 interface ChatSideBarProps {
     startedConversations: any[],
-    currentUser: any
+    currentUser: any,
+    isProfileChat?: boolean
 }
 
 const ChatSideBar: React.FC<ChatSideBarProps> = ({
     startedConversations,
-    currentUser
+    currentUser,
+    isProfileChat
 }) => {
 
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentFilter, setCurrentFilter] = useState<"ALL" | "UNREAD" | null>(null);
-    const [currentType, setCurrentType] = useState<"INSERAT" | "PROFILE" | null>("INSERAT");
+    const [currentType, setCurrentType] = useState<"INSERAT" | "PROFILE" | null>(isProfileChat ? "PROFILE" : "INSERAT");
     const [currentFolder, setCurrentFolder] = useState<string | null>(null);
 
     const [renderedConversations, setRenderedConversations] = useState(
@@ -203,7 +205,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                     />
                 </div>
             </div>
-            <div className="grid w-full grid-cols-2 bg-[#1C1C1C] rounded-md p-1 items-center ">
+            <div className="grid w-full grid-cols-2 bg-[#1C1C1C] rounded-md p-1 items-center mb-4">
                     <Button value="all" size="sm"
                         onClick={() => {
                             setCurrentType("INSERAT");

@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle";
 import { conversation } from "@/db/schema";
-import { and, eq, or } from "drizzle-orm";
+import { and, eq, isNull, or } from "drizzle-orm";
 
 
 export const findOrCreateConversation = async (user1: string, user2: string, inseratId? : string) => {
@@ -18,13 +18,13 @@ export const findOrCreateConversation = async (user1: string, user2: string, ins
                     eq(conversation.user1Id, user1),
                     eq(conversation.user2Id, user2),
                     ...(inseratId ? [eq(conversation.inseratId, inseratId)] : [
-                        eq(conversation.inseratId, null)
+                        isNull(conversation.inseratId)
                     ])
                 ),
                 and (
                     eq(conversation.user1Id, user2),
                     eq(conversation.user2Id, user1),
-                    ...(inseratId ? [eq(conversation.inseratId, inseratId)] : [eq(conversation.inseratId, null)])
+                    ...(inseratId ? [eq(conversation.inseratId, inseratId)] : [isNull(conversation.inseratId)])
                 )     
             )
         )

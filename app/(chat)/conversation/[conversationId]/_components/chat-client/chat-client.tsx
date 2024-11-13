@@ -42,6 +42,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
                        <ChatSideBar
                             startedConversations={filteredConversations}
                             currentUser={currentUser}
+                            isProfileChat={currentConversation?.inseratId ? false : true}
                         />
                     </div>
                 ) : (

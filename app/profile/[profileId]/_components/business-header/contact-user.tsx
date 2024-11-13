@@ -33,7 +33,6 @@ const ContactUser = ({ currentUser }) => {
             const response = await axios.post(`/api/conversation/${currentUser.id}/${otherUser}`);
             
             if(response.data?.id) {
-
                 return router.push(`/conversation?conversationId=${response.data.id}`);
             } else {
                 return toast.error("Fehler beim Kontaktieren des Nutzers");

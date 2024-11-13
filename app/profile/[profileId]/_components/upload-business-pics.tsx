@@ -100,8 +100,6 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
         accept: { 'image/png': ['.jpeg', '.png', '.webp', '.jpg'] }
     });
 
-    console.log(currentImage?.url);
-    console.log(ownProfile);
 
     return (
         <div className="relative">

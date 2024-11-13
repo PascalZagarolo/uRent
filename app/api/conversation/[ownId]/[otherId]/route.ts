@@ -1,7 +1,8 @@
 
 import db from "@/db/drizzle";
 import { conversation } from "@/db/schema";
-import { and, eq, or } from "drizzle-orm";
+import { and, eq, isNull, or } from "drizzle-orm";
+
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -24,12 +25,12 @@ export async function POST(
                     and(
                         eq(conversation.user1Id, params.ownId),
                         eq(conversation.user2Id, params.otherId),
-                        values?.inseratId ? eq(conversation.inseratId, values?.inseratId) : undefined
+                        values?.inseratId ? eq(conversation.inseratId, values?.inseratId) : isNull(conversation.inseratId)
                     ),
                     and(
                         eq(conversation.user2Id, params.ownId),
                         eq(conversation.user1Id, params.otherId),
-                        values?.inseratId ? eq(conversation.inseratId, values?.inseratId) : undefined
+                        values?.inseratId ? eq(conversation.inseratId, values?.inseratId) : isNull(conversation.inseratId)
                     )
                 )
             )

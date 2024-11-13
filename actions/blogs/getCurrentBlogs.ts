@@ -7,7 +7,8 @@ import { eq } from "drizzle-orm";
 export const getPublishedBlogs = async () => {
     try {
         const publishedBlogs = await db.query.blog.findMany({
-            where : eq(blog.isPublic, true)
+            where : eq(blog.isPublic, true),
+            orderBy : (created_at, { desc }) => [desc(blog.createdAt)],
         })
         
         return publishedBlogs;

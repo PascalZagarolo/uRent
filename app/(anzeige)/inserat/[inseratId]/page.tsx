@@ -78,7 +78,9 @@ const InseratAnzeige = async ({
         where: eq(inserat.id, sql.placeholder("inseratId")),
         with: {
             address: true,
-            images: true,
+            images: {
+                orderBy : (images, {asc}) => [asc(images.position)]
+            },
             user: {
                 with: {
                     contactOptions: true,

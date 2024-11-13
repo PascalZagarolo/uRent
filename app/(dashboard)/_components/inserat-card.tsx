@@ -91,9 +91,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
         return `${day}.${month}`;
     };
 
-    const usedImage = thisInserat?.images?.reduce((lowest, image) => {
-        return (lowest.position < image.position) ? lowest : image;
-    }) ?? []
+    
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -383,7 +381,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                         <div className="sm:w-1/2 flex w-full">
                             <div className="w-full">
                                 <img
-                                    src={usedImage?.url}
+                                    src={thisInserat?.images[0]?.url}
 
                                     style={{ objectFit: "cover" }}
 

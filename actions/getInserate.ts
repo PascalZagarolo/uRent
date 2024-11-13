@@ -4,7 +4,7 @@
 import db from "@/db/drizzle";
 import {
     ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender,
-    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, inserat, lkwAttribute, LkwBrandEnumRender,
+    DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, images, inserat, lkwAttribute, LkwBrandEnumRender,
     LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender,
     transportAttribute
 } from "@/db/schema";
@@ -812,7 +812,10 @@ export const getInserate = cache(async ({
                         }
                     }
                 },
-                images: true,
+                images: {
+                    orderBy : (created_at, { desc }) => [desc(images.position)],
+                   
+                },
                 address: true,
                 lkwAttribute: true,
                 pkwAttribute: true,

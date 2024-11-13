@@ -813,7 +813,7 @@ export const getInserate = cache(async ({
                     }
                 },
                 images: {
-                    orderBy : (created_at, { desc }) => [desc(images.position)],
+                    orderBy : (created_at, { asc }) => [asc(images.position)],
                    
                 },
                 address: true,

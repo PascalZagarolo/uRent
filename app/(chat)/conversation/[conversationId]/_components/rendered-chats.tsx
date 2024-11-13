@@ -76,7 +76,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
             />
     
             {/* Content */}
-            <div className="flex flex-col mr-4">
+            <div className="flex flex-col mr-4 w-full">
                 {/* Title */}
                 {inseratTitle && (
                     <div className="text-base font-semibold  line-clamp-2 ">
@@ -86,10 +86,10 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     
                 {/* Name and Last Message */}
                 <div className="flex items-center justify-between">
-                    <div className="flex flex-col w-3/4 ">
+                    <div className="flex flex-col w-full ">
                         <div
                             className={cn(
-                                "text-sm line-clamp-1 font-normal ",
+                                "text-sm line-clamp-1 font-normal w-full break-all",
                                 inseratTitle ? "text-gray-200/60" : ""
                             )}
                         >
@@ -115,7 +115,7 @@ const RenderedChats: React.FC<RenderedChatsProps> = ({
     
                 {/* Date */}
                 {lastMessageDate && (
-                    <div className="text-xs dark:text-gray-200/80 font-normal text-right">
+                    <div className="text-xs dark:text-gray-200/80 font-normal text-right ml-auto flex justify-end">
                         {renderedDate}
                     </div>
                 )}

@@ -14,7 +14,7 @@ export async function POST(
 
         const values = await req.json();
 
-        console.log(values);
+        
 
         const thisInserat = await db.query.inserat.findFirst({
             where: (
@@ -24,7 +24,7 @@ export async function POST(
             }
         })
 
-        console.log(1)
+      
 
         const currentUser = await getCurrentUser();
 
@@ -32,7 +32,7 @@ export async function POST(
             return new NextResponse("You can't interest your own inserat", { status: 403 })
         }
 
-        console.log(1)
+        
 
         const createdConversation = await db.query.conversation.findFirst({
             where: (
@@ -55,7 +55,7 @@ export async function POST(
         if(createdConversation && 
             createdConversation?.lastMessage?.isInterest && createdConversation?.lastMessage?.senderId === currentUser.id && 
             createdConversation?.lastMessage?.inseratId === thisInserat.id) {
-                console.log("...")
+               
             return NextResponse.json(createdConversation?.id)
         }
 
@@ -109,7 +109,7 @@ export async function POST(
             
 
             await db.update(conversation).set({
-                message : createMessage,
+                
                 lastMessageId : createMessage.id
             }).where(eq(conversation.id, createdConversation.id))
 

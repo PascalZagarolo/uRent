@@ -119,11 +119,13 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
 
     useEffect(() => {
         pusherClient.bind("messages:new", (message) => {
-            console.log(message.conversationId)
+            
             setRenderedConversations((current) => {
-                const conversationIndex = current.findIndex((conversation) => conversation.id === message.conversationId);
+                const conversationIndex = current?.findIndex((conversation) => conversation.id === message.conversationId);
                 const newConversations = [...current];
-                newConversations[conversationIndex].lastMessage = message;
+                if(newConversations[conversationIndex]?.lastMessage) {
+                    newConversations[conversationIndex].lastMessage = message
+                } 
                 return newConversations.sort((a, b) => {
                     //@ts-ignore
                     return new Date(b?.lastMessage?.createdAt) - new Date(a?.lastMessage?.createdAt);

@@ -40,14 +40,11 @@ const BookingRequestAccept = ({
 
    const onAccept = async (isAvailability: boolean) => {
       try {
-
          if (isAvailability) {
             setShowDialog("AVAILABILITY");
          } else {
             setShowDialog("BOOKING");
          }
-
-
       } catch (e: any) {
          console.log(e);
 

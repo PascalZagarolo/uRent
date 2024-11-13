@@ -5,7 +5,7 @@ import { pusherServer } from "@/lib/pusher";
 import db from "@/db/drizzle";
 import { conversation, message, notification } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
-import axios from "axios";
+
 
 export async function POST(
     req : Request,
@@ -15,16 +15,18 @@ export async function POST(
 
         const currentUser = await getCurrentUser();
 
+        
+
         const {otherUser, otherUserName, ...values} = await req.json();
 
-
+        
         const [newMessage] : any = await db.insert(message).values({
             conversationId : params.conversationId,
             senderId : currentUser.id,
             ...values,
             
         }).returning();
-
+       
         const messageObject = {
             ...newMessage,
             sender : {
@@ -33,12 +35,15 @@ export async function POST(
                 image : currentUser.image
             }
         }
+        
+        console.log(newMessage?.id)
+
+        await db.update(conversation).set({
+            lastMessage : newMessage,
+            lastMessageId : newMessage?.id
+        }).where(eq(conversation.id, params.conversationId))
 
         
-        const updateLastMessage = await db.update(conversation).set({
-            message : newMessage,
-            lastMessageId : newMessage.id
-        }).where(eq(conversation.id, params.conversationId)).returning();
 
         //send the receiver only one notification that is unseen, if sees it => send new one in case
         const existingNotication = await db.query.notification.findFirst({
@@ -50,7 +55,7 @@ export async function POST(
             )
             )
         })
-
+     
         
 
         //! Add on the server side if app is available
@@ -63,24 +68,25 @@ export async function POST(
                 notificationType : "MESSAGE",
                 content : otherUserName
             }).returning()
-
+          
             
             const existingMessages = await db.query.message.findMany({
                 where : eq(message.conversationId, params.conversationId)
             })
-
+           
             await pusherServer.trigger(otherUser, 'notification:new', {
                 notification : createdNotification,
                 userId : otherUser,
                 imageUrl : currentUser?.image,
                 startedConversation : existingMessages ? false : true
              });
-
+             
              await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
              
             return NextResponse.json({newMessage, createdNotification})
+           
         } else {
-            
+           
             await pusherServer.trigger(params.conversationId, 'messages:new', messageObject);
             return NextResponse.json(newMessage)
         }
@@ -89,8 +95,8 @@ export async function POST(
 
         
 
-    } catch (error) {
-        console.log("Fehler beim erstellen einer Nachricht" , error);
+    } catch (e : any) {
+        console.log(e);
         return new NextResponse("Interner Server Error" , { status : 500 })
     }
 }

@@ -71,8 +71,8 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
 
     const onContact = async () => {
         try {
-            const foundId = await findOrCreateConversation(request.user.id, currentUserId);
-            console.log(foundId);
+            const foundId = await findOrCreateConversation(request.user.id, currentUserId, request?.inseratId);
+            
             router.push(`/conversation?conversationId=${foundId}`);
         } catch (e: any) {
             toast.error("Fehler beim Kontaktieren des Anfragers")

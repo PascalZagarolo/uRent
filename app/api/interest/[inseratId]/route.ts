@@ -70,7 +70,7 @@ export async function POST(
 
             await db.update(conversation).set({
                 message : createMessage,
-                lastMessageId : createMessage[0].id
+                lastMessageId : createMessage.id
             }).where(eq(conversation.id, createdConversation[0].id))
 
             const messageObject = {
@@ -82,7 +82,7 @@ export async function POST(
                 }
             }
 
-            await pusherServer.trigger(createdConversation[0].id, 'messages:new', createMessage);
+            await pusherServer.trigger(createdConversation[0].id, 'messages:new', messageObject);
 
             return NextResponse.json(createdConversation[0].id)
         } else {
@@ -99,7 +99,7 @@ export async function POST(
 
             await db.update(conversation).set({
                 message : createMessage,
-                lastMessageId : createMessage[0].id
+                lastMessageId : createMessage.id
             }).where(eq(conversation.id, createdConversation.id))
 
             const messageObject = {

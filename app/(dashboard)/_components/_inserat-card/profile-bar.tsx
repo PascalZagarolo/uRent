@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { LuMessagesSquare } from "react-icons/lu";
 import { userSubscription } from '../../../../db/schema';
 import LetterRestriction from "@/components/letter-restriction";
+import { ClipLoader } from "react-spinners";
 
 
 interface ProfileBarProps {
@@ -82,7 +83,8 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                         }
                     })
                 })
-            } catch {
+            } catch(e) {
+                console.log(e);
                 toast.error("Etwas ist schief gelaufen");
             } finally {
                 setIsLoading(false);
@@ -190,8 +192,12 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                             </RadioGroup> */}
                                             <Button
                                                 className="w-full bg-indigo-800 hover:bg-blue-900 text-white  rounded-lg transition ease-in-out mt-2"
-                                                onClick={onInterest} disabled={!text}>
-                                                Senden
+                                                onClick={onInterest} disabled={!text || isLoading}>
+                                                {isLoading ? (
+                                                    <ClipLoader color="#fff" loading={true} size={20} />
+                                                ) : (
+                                                    "Senden"
+                                                )}
                                             </Button>
                                         </div>
                                     </DialogContent>

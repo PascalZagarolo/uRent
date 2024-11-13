@@ -14,7 +14,7 @@ export async function POST(
 
         const values = await req.json();
 
-        
+        console.log(values);
 
         const thisInserat = await db.query.inserat.findFirst({
             where: (
@@ -24,13 +24,15 @@ export async function POST(
             }
         })
 
-
+        console.log(1)
 
         const currentUser = await getCurrentUser();
 
         if (thisInserat.user.id === currentUser.id) {
             return new NextResponse("You can't interest your own inserat", { status: 403 })
         }
+
+        console.log(1)
 
         const createdConversation = await db.query.conversation.findFirst({
             where: (
@@ -47,8 +49,11 @@ export async function POST(
                 )
             )
         })
+        console.log(createdConversation)
+        console.log(1)
 
         if (!createdConversation) {
+            console.log(1)
             const createdConversation = await db.insert(conversation).values({
                 user1Id: currentUser.id,
                 user2Id: thisInserat.user.id,
@@ -71,17 +76,18 @@ export async function POST(
 
             return NextResponse.json(createdConversation[0].id)
         } else {
+            
             const createMessage = await db.insert(message).values({
                 conversationId: createdConversation.id,
                 senderId: currentUser.id,
                 content: values?.text,
                 isInterest: true,
                 inseratId: thisInserat.id
-            })
-
+            }).returning();
+            console.log(createMessage[0].id)
             await db.update(conversation).set({
                 lastMessageId : createMessage[0].id
-            }).where(eq(conversation.id, createdConversation[0].id))
+            }).where(eq(conversation.id, createdConversation.id))
 
             await pusherServer.trigger(createdConversation.id, 'messages:new', createMessage);
 

@@ -162,9 +162,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                     <div className="flex flex-row items-center">
                     <MdManageSearch  className="mr-4" /> Suchfilter
                     </div>
-                    <p className="text-xs text-gray-200/60 text-center px-4 py-2">
-                        Wähle deine Filter aus, und gehe anschließend auf {`"`}Ergebnisse{`"`} um deine passenden Resultate zu sehen.
-                    </p>
+                    <p className="text-xs text-gray-200/60 text-center  py-2"> Wähle Filter aus und scrolle nach unten, um auf "Ergebnisse" zu klicken. </p>
                 </h3>
 
                 <a

@@ -25,6 +25,18 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     <span className="font-medium">{attributes.lkwBrand}</span>
                 </div>
             )}
+            {attributes?.transmission && (
+                <div className="flex items-center p-4 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <GearIcon className="w-4 h-4 text-green-400 mr-3" />
+                    <span className="text-gray-100 font-medium">
+                        {{
+                            MANUAL: "Schaltgetriebe",
+                            SEMI_AUTOMATIC: "Halbautomatikgetriebe",
+                            AUTOMATIC: "Automatikgetriebe",
+                        }[attributes.transmission]}
+                    </span>
+                </div>
+            )}
             {attributes?.initial && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
                     <ConstructionIcon className="w-4 h-4 text-blue-400 mr-3" />
@@ -113,6 +125,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
                     </span>
                 </div>
             )}
+            
         </div>
     );
 };

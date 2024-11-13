@@ -60,7 +60,7 @@ export async function POST(
                 inseratId: values?.inseratId ? values?.inseratId : null
             }).returning()
 
-            const createMessage = await db.insert(message).values({
+            const [createMessage] : any = await db.insert(message).values({
                 conversationId: createdConversation[0].id,
                 senderId: currentUser.id,
                 content: values?.text,
@@ -69,27 +69,49 @@ export async function POST(
             }).returning();
 
             await db.update(conversation).set({
+                message : createMessage,
                 lastMessageId : createMessage[0].id
             }).where(eq(conversation.id, createdConversation[0].id))
+
+            const messageObject = {
+                ...createMessage,
+                sender : {
+                    id : currentUser.id,
+                    name : currentUser.name,
+                    image : currentUser.image
+                }
+            }
 
             await pusherServer.trigger(createdConversation[0].id, 'messages:new', createMessage);
 
             return NextResponse.json(createdConversation[0].id)
         } else {
             
-            const createMessage = await db.insert(message).values({
+            const [createMessage] : any = await db.insert(message).values({
                 conversationId: createdConversation.id,
                 senderId: currentUser.id,
                 content: values?.text,
                 isInterest: true,
                 inseratId: thisInserat.id
             }).returning();
-            console.log(createMessage[0].id)
+            
+            
+
             await db.update(conversation).set({
+                message : createMessage,
                 lastMessageId : createMessage[0].id
             }).where(eq(conversation.id, createdConversation.id))
 
-            await pusherServer.trigger(createdConversation.id, 'messages:new', createMessage);
+            const messageObject = {
+                ...createMessage,
+                sender : {
+                    id : currentUser.id,
+                    name : currentUser.name,
+                    image : currentUser.image
+                }
+            }
+
+            await pusherServer.trigger(createdConversation.id, 'messages:new', messageObject);
 
             return NextResponse.json(createdConversation?.id)
         }

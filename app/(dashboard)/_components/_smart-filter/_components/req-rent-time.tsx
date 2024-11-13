@@ -86,7 +86,7 @@ const ReqRentTime = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center ">
-                    <p className=" font-semibold text-gray-200 flex"> Maximale Mindest Mietdauer </p>
+                    <p className=" font-semibold text-gray-200 flex"> Mindestmietzeit bis </p>
                 </Label>
 
                 <Select

@@ -11,11 +11,12 @@ const PKW = () => {
             <div className="mt-4 flex justify-center">
             <PriceFormFilter/>
             </div>
-            <div className="mt-4 flex justify-center px-2 mb-4">
-                <ReqRentTime />
-            </div>
+            
             <div className="mt-4 flex justify-center">
                 <DateFormFilter/>
+            </div>
+            <div className="mt-4 flex justify-center px-2 mb-4">
+                <ReqRentTime />
             </div>
             <div className="mt-4 flex justify-center">
                 <UdsLayout/>

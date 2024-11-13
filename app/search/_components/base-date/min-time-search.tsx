@@ -90,7 +90,7 @@ const MinTimeSearch = () => {
         <div className="w-full">
             <div className="w-full">
                 <Label className="flex justify-start items-center mt-2">
-                    <p className=" text-gray-200 flex"> Maximale Mindest Mietdauer </p>
+                    <p className=" text-gray-200 flex"> Mindestmietzeit bis </p>
                 </Label>
 
                 <Select

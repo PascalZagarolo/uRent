@@ -53,8 +53,9 @@ export async function POST(
         })
         
         if(createdConversation && 
-            createdConversation?.lastMessage?.isInterest && createdConversation?.lastMessage?.userId === currentUser.id && 
+            createdConversation?.lastMessage?.isInterest && createdConversation?.lastMessage?.senderId === currentUser.id && 
             createdConversation?.lastMessage?.inseratId === thisInserat.id) {
+                console.log("...")
             return NextResponse.json(createdConversation?.id)
         }
 

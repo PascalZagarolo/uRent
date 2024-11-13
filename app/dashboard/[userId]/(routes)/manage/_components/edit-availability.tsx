@@ -544,7 +544,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
 
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                            dark:bg-[#0a0a0a]"
+                            dark:bg-[#0a0a0a] h-40"
                                                     maxLength={2000}
                                                     onChange={handleTextChange}
                                                     value={currentContent}

@@ -560,7 +560,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                            dark:bg-[#0a0a0a]"
+                            dark:bg-[#0a0a0a] h-40"
                                                     onChange={handleTextChange}
                                                     maxLength={2000}
                                                     value={currentContent}

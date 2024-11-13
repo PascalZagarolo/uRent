@@ -594,7 +594,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                             <FormItem className="mt-2 ">
 
                                                 <Textarea
-                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none h-80
+                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none h-40
                             dark:bg-[#0a0a0a]"
                                                     value={currentContent}
                                                     maxLength={2000}

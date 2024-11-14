@@ -49,40 +49,7 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    // const handleImageUpload = async (result: any) => {
-    //     try {
-    //         setIsLoading(true)
-    //         axios.post(`/api/inserat/${params.inseratId}/image`, {
-    //             image: result?.info?.secure_url
-    //         }).then(() => {
-    //             toast.success("Bild erfolgreich hochgeladen")
-    //             router.refresh();
-    //         })
-
-    //     } catch {
-    //         toast.error("Fehler beim Upload")
-    //     } finally {
-    //         setIsLoading(false)
-    //     }
-    // }
-
-    // const onReorder = async (updateData: { id: string; position: number }[]) => {
-    //     try {
-    //         setIsLoading(true)
-    //         await axios.put(`/api/inserat/${params.inseratId}/image/reorder`, {
-    //             list: updateData
-    //         }).then(() => {
-    //             router.refresh();
-    //         })
-    //         setTimeout(() => {
-    //             router.refresh();
-    //         })
-    //     } catch {
-    //         toast.error("Fehler beim Reorder")
-    //     } finally {
-    //         setIsLoading(false)
-    //     }
-    // }
+    
 
 
     const onDrop = (acceptedFiles: File[], rejectedFiles: File[]) => {

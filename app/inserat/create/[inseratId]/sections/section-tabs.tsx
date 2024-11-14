@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import WholeRender from "./whole-render";
 import { inserat, userTable } from "@/db/schema";
 import BasicDetails from "./section_1/basic-details";
@@ -43,13 +43,14 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
 
     const sectionId = useSearchParams().get("sectionId");
 
-    const changeSection = (value : number) => {
+    const changeSection = async (value : number) => {
         const params = new URLSearchParams()
         params.set('sectionId', String(value))
         window.history.pushState(null, '', `?${params.toString()}`)
     }
 
-    let weightSection;
+
+    
     let firstSegment;
     let secondSegment;
     let thirdSegment

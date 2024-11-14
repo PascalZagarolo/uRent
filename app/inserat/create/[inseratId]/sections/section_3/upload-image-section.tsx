@@ -39,9 +39,14 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             url: image.url,
             position: image.position,
         })) || []
-    );
+    );  
+
+    useEffect(() => {
+        JSON.stringify(selectedImages) !== JSON.stringify(oldImages) ? setHasChanged(true) : setHasChanged(false)
+    },[selectedImages])
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
     const oldImages: { id: string; url: string; position: number, wholeFile: any }[] = thisInserat?.images.map((image) => ({
         id: image.id,
@@ -49,7 +54,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
         position: image.position,
     })) || []
 
-    let hasChanged = JSON.stringify(selectedImages) !== JSON.stringify(oldImages);
+    const [hasChanged, setHasChanged] = useState(JSON.stringify(selectedImages) !== JSON.stringify(oldImages));
 
     const router = useRouter();
 
@@ -64,10 +69,11 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     const onSave = async (redirect?: boolean, previous?: boolean, confirmDelete? : boolean) => {
         try {
             if (isLoading) {
-                
                 return;
             }
-            
+
+            setIsLoading(true);
+
             if(showPrivateDialog && !confirmDelete && thisInserat?.isPublished) {
                 setShowPrivate(true);
                 return
@@ -75,14 +81,15 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
             let uploadData : { url: string, position: number }[] = [];
         
-            setIsLoading(true);
+            
             const oldData = [...selectedImages]; // Copy the current state, if something fails later..
     
             if (hasChanged || JSON.stringify(selectedImages) !== JSON.stringify(oldImages)) {
+               setHasChanged(false);
                 uploadData
                 const updatedImages = [...selectedImages]; // Copy the current state
     
-                for (const pImage of selectedImages) {
+                for await (const pImage of selectedImages) {
                     let returnedUrl = "";
     
                     if (pImage.wholeFile) {
@@ -112,26 +119,28 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     
                 const values = { updatedImages: uploadData };
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
-                router.refresh();
+                // router.refresh();
             }
     
             // Redirection and Navigation Logic
             if (redirect) {
-                router.push(`/inserat/create/${thisInserat.id}`);
-                router.refresh();
+                
+                
             } else if (previous) {
                 const params = new URLSearchParams();
                 params.set('sectionId', String(2));
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
+
                 if (uploadData?.some((image) => !isValidUrl(image.url))) {
-                    
-                    hasChanged = true;
+                   
+                    setHasChanged(true);
                     setSelectedImages(oldData);
                     setIsLoading(false);
                     return toast.error("Bitte versuche es erneut...");
                 } else {
-                    changeSection(currentSection + 1);
+                    setIsTransitioning(true);
+                    router.push(`/inserat/create/${thisInserat?.id}?sectionId=4`);
                 }
             }
         } catch (e: any) {
@@ -146,6 +155,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
     const retryUpload = async (file: File): Promise<string> => {
         for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+            
             const url = await handleUpload(file);
             if (isValidUrl(url)) {
                 return url;
@@ -213,6 +223,8 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
         }
     }, [hasChanged])
 
+   
+
     return (
         <>
             <div className="h-full flex flex-col">
@@ -224,7 +236,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     </p>
                 </h3>
                 <div className={cn("mt-4", selectedImages?.length > 2 && "mb-4")}>
-                    <UploadImagesCreation
+                <UploadImagesCreation
                         selectedImages={selectedImages}
                         setSelectedImages={setSelectedImages}
                         existingSubscription={thisInserat?.user?.subscription}
@@ -247,7 +259,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 3)}>
                         Zurück
                     </Button>
-                    <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
+                    <RenderContinue isLoading={isLoading || isTransitioning} disabled={isLoading || isTransitioning} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}

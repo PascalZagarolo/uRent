@@ -96,7 +96,7 @@ const RenderedInserat: React.FC<RenderedInseratProps> = ({
                             </p>
                         )}
                         <div className="ml-auto text-sm flex font-semibold ">
-                            {thisInserat?.price ? thisInserat?.price : "n/A"} € <p className="text-xs">{thisInserat?.annual ? "/Zeitraum" : "/Tag"}</p>
+                            {thisInserat?.price ? thisInserat?.price : "nicht Angegeben"} € <p className="text-xs">/Tag</p>
                         </div>
                     </div>
                 </div>

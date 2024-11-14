@@ -37,22 +37,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
     const router = useRouter();
 
 
-    const onAccept = async () => {
-        try {
-            setIsLoading(true);
-            await axios.patch(`/api/bookingrequest/accept/${request.id}`).then(() => {
-                router.refresh();
-            })
-            toast.success("Anfrage angenommen");
-
-
-
-        } catch {
-            toast.error("Fehler beim Annehmen der Anfrage")
-        } finally {
-            setIsLoading(false);
-        }
-    }
+    
 
     const onDecline = async () => {
         try {
@@ -97,11 +82,7 @@ const BookingRequestRender: React.FC<BookingRequestRenderProps> = ({
                         request.inserat?.title}
                 </p>
                 <div className="ml-auto">
-                    {/*
-                        <Button className=" p-4 mr-2" variant="ghost" size="sm" onClick={onAccept}>
-                            <Check className="h-4 w-4 text-emerald-600" />
-                        </Button>
-                        */}
+                   
                     <Button className=" p-4" variant="ghost" size="sm" onClick={onDecline}>
                         <X className="h-4 w-4 text-rose-600" />
                     </Button>

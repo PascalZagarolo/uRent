@@ -99,7 +99,7 @@ const SetInitialSearch = () => {
         <div className="items-center w-full">
 
             <h3 className="flex justify-center text-md items-center font-semibold text-gray-200">
-                <Separator className="w-1/3 mr-2 bg-gray-200" /> Baujahr <Separator className="w-1/3 ml-2 bg-gray-200" />
+                Baujahr 
             </h3>
 
             <div className="mt-4 w-full gap-x-4">

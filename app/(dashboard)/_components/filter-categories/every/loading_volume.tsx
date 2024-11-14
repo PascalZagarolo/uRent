@@ -147,15 +147,7 @@ const LoadingVolumeBar = () => {
                     <Label htmlFor="KW" className="text-sm"><p className="text-sm"> m³ </p></Label>
                 </div>
             </RadioGroup>
-            
-            <Button onClick={() => {}} className="mt-2 bg-[#1B1F2C] hover:bg-[#222738] w-full dark:text-gray-100"
-
-                disabled={!currentLiter  || currentLiter == 0
-                    //@ts-ignore 
-                     || !!isNaN(Number(Math.round(currentLiter))) || !!isNaN(Number(Math.round(currentMeter)))}
-            >
-                <span className="">Volumen angeben</span>
-            </Button>
+         
         </div>
     );
 };

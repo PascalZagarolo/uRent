@@ -118,13 +118,13 @@ const PkwPowerBar = () => {
         <div className="items-center w-full">
 
             <h3 className="flex justify-center text-md items-center font-semibold text-gray-200">
-                <Separator className="w-1/3 mr-2 bg-gray-200" /> Leistung <Separator className="w-1/3 ml-2 bg-gray-200" />
+                Leistung 
             </h3>
             <div className="flex mt-4 w-full gap-x-4">
 
                 <div className="items-center  w-1/2">
                     <Label className="flex justify-start items-center text-gray-200">
-                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Von </p>
+                         Von 
                     </Label>
 
                     <Input
@@ -164,7 +164,7 @@ const PkwPowerBar = () => {
 
                 <div className="w-1/2">
                     <Label className="flex justify-start items-center text-gray-200">
-                        <PinIcon className="w-4 h-4" /> <div className="ml-2 font-semibold flex items-center w-full"> Bis
+                        <div className="ml-2 font-semibold flex items-center w-full"> Bis
                             <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} /> </div>
 
                     </Label>

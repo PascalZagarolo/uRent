@@ -986,7 +986,11 @@ export const getInserate = cache(async ({
             })
         }
 
+    
+
         if (!filter || filter === "relevance") {
+
+            
 
             returnedArray.sort((a, b) => {
 

@@ -17,14 +17,14 @@ import WeightInformation from "../_parts/weight-information";
 
 
 interface WholeRenderProps {
-    thisInserat : typeof inserat.$inferSelect | any;
-    currentUser : typeof userTable.$inferSelect | any;
-    thisAddressComponent : any;
-    publishedLength : number;
-    isPublishable : object
+    thisInserat: typeof inserat.$inferSelect | any;
+    currentUser: typeof userTable.$inferSelect | any;
+    thisAddressComponent: any;
+    publishedLength: number;
+    isPublishable: object
 }
 
-const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, publishedLength, isPublishable } : WholeRenderProps) => {
+const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, publishedLength, isPublishable }: WholeRenderProps) => {
     return (
         <div>
             <div className="min-h-screen">
@@ -85,15 +85,17 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                             </div>
                         </div>
                     </div>
-                    <div className="mt-8">
-                            <WeightInformation 
-                            thisInserat={thisInserat}
+                    {thisInserat?.category !== "PKW" && (
+                        <div className="mt-8">
+                            <WeightInformation
+                                thisInserat={thisInserat}
                             />
-                    </div>
+                        </div>
+                    )}
                     <div className="mt-8">
-                                <CategoryInformation
-                                    thisInserat={thisInserat}
-                                /> 
+                        <CategoryInformation
+                            thisInserat={thisInserat}
+                        />
                     </div>
                     <div className="mt-8">
                         <div>
@@ -183,8 +185,8 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                     </div>
                 </div>
                 <div className="text-xs text-gray-200/40 ml-auto flex justify-end ">
-                            InseratId : {thisInserat?.id}
-                        </div>
+                    InseratId : {thisInserat?.id}
+                </div>
             </div>
         </div>
     );

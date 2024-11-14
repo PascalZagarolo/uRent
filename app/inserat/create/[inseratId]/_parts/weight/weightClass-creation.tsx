@@ -8,47 +8,56 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-interface PayloadCreationProps {
+interface WeightClassCreationProps {
   thisInserat: typeof inserat.$inferSelect;
 }
 
-const PayloadCreation = ({ thisInserat }: PayloadCreationProps) => {
-  // Using useState to track the initial payload
-  const [initialPayload, setInitialPayload] = useState(() => {
-    switch (thisInserat.category) {
-      case "LKW":
-        return thisInserat.lkwAttribute?.payload ?? undefined;
-      case "TRAILER":
-        return thisInserat.trailerAttribute?.payload ?? undefined;
-      case "TRANSPORT":
-        return thisInserat.transportAttribute?.payload ?? undefined;
-      default:
-        return undefined; // Handle unexpected categories if needed
-    }
-  });
-
-  const [currentValue, setCurrentValue] = useState<string | undefined>(
-    initialPayload
-  );
+const WeightClassCreation = ({ thisInserat }: WeightClassCreationProps) => {
+  // Initialize initialWeightClass with useState
+  const [initialWeightClass, setInitialWeightClass] = useState<string | undefined>(undefined);
+  const [currentValue, setCurrentValue] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  // useEffect to determine and set the initialWeightClass
+  useEffect(() => {
+    if (!thisInserat?.category) return; // Early return if category is undefined
+
+    let weightClass;
+    switch (thisInserat.category) {
+      case "LKW":
+        weightClass = thisInserat.lkwAttribute?.weightClass;
+        break;
+      case "TRAILER":
+        weightClass = thisInserat.trailerAttribute?.weightClass;
+        break;
+      case "TRANSPORT":
+        weightClass = thisInserat.transportAttribute?.weightClass;
+        break;
+      default:
+        weightClass = undefined; // Handle unexpected categories if needed
+    }
+
+    setInitialWeightClass(weightClass);
+    setCurrentValue(weightClass);
+  }, [thisInserat]);
 
   const onSave = async () => {
     try {
       setIsLoading(true);
 
       const values = {
-        payload: currentValue,
+        weightClass: currentValue,
       };
 
       await axios.patch(
         `/api/inserat/${thisInserat?.id}/${thisInserat?.category?.toLowerCase()}`,
         values
       );
-      setInitialPayload(currentValue);
+      setInitialWeightClass(currentValue);
       router.refresh();
-      toast.success("Nutzlast wurde gespeichert");
+      toast.success("Zul. Gesamtgewicht wurde gespeichert");
     } catch (e: any) {
       console.log(e);
       toast.error("Fehler beim Speichern der Änderungen");
@@ -58,15 +67,15 @@ const PayloadCreation = ({ thisInserat }: PayloadCreationProps) => {
   };
 
   return (
-    <div className="">
+    <div className=" ">
       <Label className="flex justify-start items-center">
-        <p className="ml-2 font-semibold"> Nutzlast </p>
+        <p className="ml-2 font-semibold"> zul Gesamtgewicht </p>
       </Label>
 
       <div className="flex flex-row items-center space-x-2">
         <Input
           value={currentValue ?? ""}
-          name="price"
+          name="weightClass"
           maxLength={5}
           max={1_000_000}
           className="dark:bg-[#151515] dark:border-none mt-2 w-full"
@@ -94,7 +103,7 @@ const PayloadCreation = ({ thisInserat }: PayloadCreationProps) => {
           onClick={onSave}
           disabled={
             Number(currentValue) > 1_000_000 ||
-            Number(currentValue ?? 0) === Number(initialPayload ?? 0)
+            Number(currentValue ?? 0) === Number(initialWeightClass ?? 0)
           }
         >
           Nutzlast festlegen
@@ -104,4 +113,4 @@ const PayloadCreation = ({ thisInserat }: PayloadCreationProps) => {
   );
 };
 
-export default PayloadCreation;
+export default WeightClassCreation;

@@ -546,7 +546,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                         </div>
                         <Button
                             className="border border-gray-300  shadow-lg text-gray-200
-                                        bg-indigo-800 hover:bg-indigo-900 dark:border-none"
+                                        bg-indigo-800 hover:bg-indigo-900 dark:border-none w-full"
                             disabled={((!currentName || currentName.trim() === ""))
                                 || isLoading || !currentInserat || !currentStart || !currentEnd
                                 || !currentStartTime || !currentEndTime ||

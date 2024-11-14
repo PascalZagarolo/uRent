@@ -66,20 +66,16 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             {attributes?.weightClass && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
                     <WeightIcon className="w-4 h-4 text-indigo-400 mr-3" />
-                    <span className="font-medium">
-                        {{
-                            '75': " bis 0,75 t",
-                            '150': " bis 1,5 t",
-                            '280': " bis 2,8 t",
-                            '350': " bis 3,5 t",
-                            '750': " bis 7,5 t",
-                            '1200': " bis 12 t",
-                            '1800': " bis 18 t",
-                            '2600': " bis 26 t",
-                            '3200': " bis 32 t",
-                            '3900': " bis 39 t",
-                            '5000': "> 39 t",
-                        }[attributes.weightClass]}
+                    <span className="font-medium text-sm">
+                        {attributes?.weightClass} kg <br/> zulässiges Gesamtgewicht
+                    </span>
+                </div>
+            )}
+            {attributes?.payload && (
+                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
+                    <WeightIcon className="w-4 h-4 text-emerald-400 mr-3" />
+                    <span className="font-medium text-sm">
+                        {attributes?.payload} kg <br/> Nutzlast
                     </span>
                 </div>
             )}

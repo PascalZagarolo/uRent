@@ -28,7 +28,7 @@ const PayloadCreation = ({ thisInserat }: PayloadCreationProps) => {
   });
 
   const [currentValue, setCurrentValue] = useState<string | undefined>(
-    initialPayload
+    initialPayload ? initialPayload : undefined
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,7 +39,7 @@ const PayloadCreation = ({ thisInserat }: PayloadCreationProps) => {
       setIsLoading(true);
 
       const values = {
-        payload: currentValue,
+        payload: currentValue ? currentValue : null,
       };
 
       await axios.patch(

@@ -15,7 +15,7 @@ interface WeightClassCreationProps {
 const WeightClassCreation = ({ thisInserat }: WeightClassCreationProps) => {
   // Initialize initialWeightClass with useState
   const [initialWeightClass, setInitialWeightClass] = useState<string | undefined>(undefined);
-  const [currentValue, setCurrentValue] = useState<string | undefined>();
+  const [currentValue, setCurrentValue] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -48,14 +48,14 @@ const WeightClassCreation = ({ thisInserat }: WeightClassCreationProps) => {
       setIsLoading(true);
 
       const values = {
-        weightClass: currentValue,
+        weightClass: currentValue ? currentValue : null,
       };
 
       await axios.patch(
         `/api/inserat/${thisInserat?.id}/${thisInserat?.category?.toLowerCase()}`,
         values
       );
-      setInitialWeightClass(currentValue);
+      setInitialWeightClass(currentValue ? currentValue : null);
       router.refresh();
       toast.success("Zul. Gesamtgewicht wurde gespeichert");
     } catch (e: any) {
@@ -79,7 +79,7 @@ const WeightClassCreation = ({ thisInserat }: WeightClassCreationProps) => {
           maxLength={5}
           max={1_000_000}
           className="dark:bg-[#151515] dark:border-none mt-2 w-full"
-          placeholder="Nutzlast in kg"
+          placeholder="zul. Gesamtgewicht"
           pattern="^[0-9]*$"
           onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
           onChange={(e) => {

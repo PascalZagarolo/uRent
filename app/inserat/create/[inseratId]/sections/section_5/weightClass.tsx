@@ -26,8 +26,8 @@ const WeightClass = ({
                     name="price"
                     maxLength={5}
                     max={1_000_000}
-                    className=" dark:bg-[#151515] dark:border-none mt-2 w-1/3"
-                    placeholder="Nutzlast in kg"
+                    className=" dark:bg-[#151515] dark:border-none mt-2 w-2/3"
+                    placeholder="zul. Gesamtgewicht in kg"
 
                     pattern="^[0-9]*$"
 

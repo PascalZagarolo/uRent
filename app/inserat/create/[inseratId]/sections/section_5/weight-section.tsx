@@ -57,32 +57,36 @@ const WeightSection = ({ thisInserat, currentSection, changeSection }: WeightSec
     let startingPayload;
     let startingWeight;
 
+    
+
     useEffect(() => {
         if (!thisInserat?.category) return; // Early return if category is undefined
-        
+      
+        let initialPayload;
+        let initialWeight;
+      
         switch (thisInserat.category) {
           case "LKW":
-            
-            startingPayload = thisInserat.lkwAttribute?.payload;
-            startingWeight = thisInserat.lkwAttribute?.weightClass;
+            initialPayload = thisInserat.lkwAttribute?.payload;
+            initialWeight = thisInserat.lkwAttribute?.weightClass;
             break;
           case "TRAILER":
-            
-            startingPayload = thisInserat.trailerAttribute?.payload;
-            startingWeight = thisInserat.trailerAttribute?.weightClass;
+            initialPayload = thisInserat.trailerAttribute?.payload;
+            initialWeight = thisInserat.trailerAttribute?.weightClass;
             break;
           case "TRANSPORT":
-            
-            startingPayload = thisInserat.transportAttribute?.payload;
-            startingWeight = thisInserat.transportAttribute?.weightClass;
+            initialPayload = thisInserat.transportAttribute?.payload;
+            initialWeight = thisInserat.transportAttribute?.weightClass;
             break;
           default:
-            // Optional default case
-            setCurrentPayload(null);
-            setCurrentWeight(null);
-            break;
+            return; // Handle unexpected categories if needed
         }
+      
+        setCurrentPayload(initialPayload);
+        setCurrentWeight(initialWeight);
       }, []);
+
+      
 
 
         const [currentPayload, setCurrentPayload] = useState(startingPayload);
@@ -97,7 +101,7 @@ const WeightSection = ({ thisInserat, currentSection, changeSection }: WeightSec
                     payload : currentPayload,
                 }
                
-                axios.patch(`/api/inserat/${thisInserat?.id}/${thisInserat?.category?.toLowerCase()}`, values);
+                await axios.patch(`/api/inserat/${thisInserat?.id}/${thisInserat?.category?.toLowerCase()}`, values);
                 router.refresh();
             }
             if (redirect) {

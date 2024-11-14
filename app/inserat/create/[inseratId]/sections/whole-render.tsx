@@ -13,6 +13,7 @@ import SaveChanges from "../../_components/save-changes";
 import { inserat, userTable } from "@/db/schema";
 import SwitchCreation from "./_components/switch-creation";
 import Warning from "../../_components/warning";
+import WeightInformation from "../_parts/weight-information";
 
 
 interface WholeRenderProps {
@@ -35,10 +36,10 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                             <div className="w-full flex justify-end ml-auto">
                                 <SwitchCreation />
                             </div>
-                            <div className="mt-4">
+                            <div className="mt-8">
                                 <Warning />
                             </div>
-                            <h3 className="sm:text-2xl text-md font-bold flex items-center w-full mt-4">
+                            <h3 className="sm:text-2xl text-md font-bold flex items-center w-full mt-8">
                                 <MdPostAdd className="mr-2" />  Inserat bearbeiten
                                 {/* <div className="ml-auto">
                                     <SaveChanges
@@ -55,7 +56,7 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                     <FloatingNav
                         thisInserat={thisInserat}
                     />
-                    <div className="mt-4">
+                    <div className="mt-8">
                         <div>
                             <div className="flex justify-evenly items-center">
                                 <Separator
@@ -68,7 +69,7 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                                     className="sm:w-1/3 sm:block hidden h-[0.5px] dark:bg-gray-100/20"
                                 />
                             </div>
-                            <div className="mt-4">
+                            <div className="mt-8">
 
                                 <BasicInformation
                                     thisInserat={thisInserat}
@@ -77,26 +78,24 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                                 />
 
                             </div>
-                            <div className="mt-4">
+                            <div className="mt-8">
                                 <PriceProfiles
                                     thisInserat={thisInserat}
                                 />
                             </div>
                         </div>
                     </div>
-                    <div className="mt-4">
-                        <div>
-
-                            <div className="mt-4">
+                    <div className="mt-8">
+                            <WeightInformation 
+                            thisInserat={thisInserat}
+                            />
+                    </div>
+                    <div className="mt-8">
                                 <CategoryInformation
                                     thisInserat={thisInserat}
-                                />
-
-
-                            </div>
-                        </div>
+                                /> 
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-8">
                         <div>
                             <div className="flex justify-evenly items-center">
                                 <Separator
@@ -120,7 +119,7 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                             </div>
                         </div>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-8">
                         <div>
                             <div className="flex  justify-evenly items-center">
                                 <Separator
@@ -136,20 +135,20 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                             <p className="text-xs dark:text-gray-200/60 flex justify-center">
                                 Du kannst nach dem Veröffentlichen die Verfügbarkeit deines Inserats jederzeit in deinem Dashboard anpassen.
                             </p>
-                            <div className="mt-4">
+                            <div className="mt-8">
 
                                 {/* <RentPeriod
                                     thisInserat={thisInserat}
                                 /> */}
 
                             </div>
-                            <div className="mt-4">
+                            <div className="mt-8">
                                 <SelectMinTime
                                     thisInserat={thisInserat as any} />
                             </div>
                         </div>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-8">
 
                         <div className="flex justify-evenly items-center">
                             <Separator
@@ -172,7 +171,7 @@ const WholeRender = ({ thisInserat, currentUser, thisAddressComponent, published
                         />
 
                     </div>
-                    <div className="w-full mt-4  flex items-center">
+                    <div className="w-full mt-8  flex items-center">
 
                         <PublishInserat
                             isPublishable={isPublishable}

@@ -1,0 +1,131 @@
+'use client'
+
+
+
+import { useEffect, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import { Label } from "@/components/ui/label";
+
+
+import { Separator } from "@/components/ui/separator";
+import { MdDateRange } from "react-icons/md";
+
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import { useSavedSearchParams } from "@/store";
+import { useSearchParams } from "next/navigation";
+import { getYear } from "date-fns";
+import { Input } from "@/components/ui/input";
+
+
+
+const PayloadSearch = () => {
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
+
+    const [currentWeight, setCurrentWeight] = useState<any>(currentObject["payload"] ? currentObject["payload"] : undefined);
+    const [currentWeightEnd, setCurrentWeightEnd] = useState<any>(currentObject["payloadMax"] ? currentObject["payloadMax"] : undefined);
+
+   
+
+
+
+    
+    
+
+
+
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+
+    useEffect(() => {
+        if (currentWeight) {
+            changeSearchParams("payload", currentWeight)
+        } else {
+            deleteSearchParams("payload")
+        }
+
+        if(currentWeightEnd){
+            changeSearchParams("payloadMax", currentWeightEnd)
+        } else {
+            deleteSearchParams("payloadMax")
+        }
+    },[currentWeight, currentWeightEnd])
+
+
+
+   
+
+
+    return (
+        <div className="items-center w-full">
+
+
+
+            <div className="w-full gap-x-4">
+                <Label className="flex items-center">
+                    Nutzlast
+                    <div className="ml-auto">
+
+                    </div>
+                </Label>
+                <div className="w-full flex items-center gap-x-2">
+                    <div className="w-1/2">
+                        <Input
+
+                            value={currentWeight}
+
+                            maxLength={5}
+
+                            max={1_000_000}
+                            className=" dark:bg-[#151515] dark:border-none mt-2 w-full"
+                            placeholder="Von"
+
+                            pattern="^[0-9]*$"
+
+                            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+                            onChange={(e) => {
+                                const value = e.target.value;
+
+                                if (/^[0-9]*$/.test(value)) {
+                                    setCurrentWeight(value);
+                                }
+                            }}
+
+                        />
+                    </div>
+                    <div className="w-1/2">
+                        <Input
+
+                            value={currentWeightEnd}
+
+                            maxLength={5}
+
+                            max={1_000_000}
+                            className=" dark:bg-[#151515] dark:border-none mt-2 w-full"
+                            placeholder="Bis"
+
+                            pattern="^[0-9]*$"
+
+                            onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
+                            onChange={(e) => {
+                                const value = e.target.value;
+
+                                if (/^[0-9]*$/.test(value)) {
+                                    setCurrentWeightEnd(value);
+                                }
+                            }}
+
+                        />
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    );
+};
+export default PayloadSearch;

@@ -14,10 +14,12 @@ import TrailerExtraTypeSearch from "../_trailer/trailer-extra-type-search";
 import TrailerWeightClassSearch from "../_trailer/trailer-weight-search";
 import TransportBrandSearch from "../_transport/transport-brand-search";
 import TransportWeightClassSearch from "../_transport/transport-weight-search";
+import PayloadSearch from "../_weight-search/payload-search";
+import WeightClassSearch from "../_weight-search/weightClass-search";
 
 const TransportSearch = () => {
     return (
-        <div className="w-full">
+        <div className="w-full space-y-8">
             <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0">
                 <div className="sm:w-1/3">
                     <LkwLoadingSearch />
@@ -58,10 +60,10 @@ const TransportSearch = () => {
                 <InitialSearch />
                 </div>
                 <div className="sm:w-1/3">
-                
+                    <WeightClassSearch />
                 </div>
                 <div className="sm:w-1/3">
-
+                    <PayloadSearch />
                 </div>
             </div>
             <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-4  sm:space-y-0">

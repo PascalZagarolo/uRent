@@ -30,9 +30,7 @@ const LkwSearchComponent = () => {
                 <PkwTransmissionBar />
                 </div>
             </div>
-            <div className="w-full">
-            <LkwWeightClassBar />
-            </div>
+            
             <div className="w-full flex gap-x-2">
             <div className="w-1/2">
             <LkwApplicationBar />

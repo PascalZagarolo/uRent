@@ -15,6 +15,8 @@ import TransportWeightClass from "@/app/inserat/create/[inseratId]/_parts/transp
 import TransportWeightClassBar from "./transport/transport-weightclass";
 import TransportBrandBar from "./transport/transport-brand";
 import PkwAhkBar from "./pkw/pkw-ahk";
+import WeightClassBar from "./weight/weight-class";
+import Payload from "./weight/payload";
 
 const TransportSearchComponents = () => {
     return (
@@ -41,7 +43,7 @@ const TransportSearchComponents = () => {
                     <PkwTransmissionBar />
                 </div>
                 <div className="w-1/2">
-                <PkwAhkBar/>
+                    <PkwAhkBar />
                 </div>
             </div>
 
@@ -59,8 +61,23 @@ const TransportSearchComponents = () => {
                 <SetInitialSearch />
             </div>
             <div className="w-full gap-x-2 space-y-4">
+                <h3 className="flex justify-center text-md items-center font-semibold mt-4 text-gray-200">
+                    zul. Gesamtgewicht
+                </h3>
+                <WeightClassBar />
+
+            </div>
+
+            <div className="w-full gap-x-2 space-y-4">
+                <h3 className="flex justify-center text-md items-center font-semibold mt-4 text-gray-200">
+                    Nutzlast
+                </h3>
+                <Payload />
+
+            </div>
+            <div className="w-full gap-x-2 space-y-4">
                 <h3 className="flex justify-center text-md items-center font-semibold  mt-4 text-gray-200">
-                    <Separator className="w-1/3 mr-2 bg-gray-200 h-[0.5px]" /> Laderaum <Separator className="w-1/3 ml-2 bg-gray-200 h-[0.5px]" />
+                    Laderaum
                 </h3>
                 <LoadingVolumeBar />
                 <LoadingSizeBar />

@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat, pkwAttribute } from "@/db/schema";
+import { inserat,  transportAttribute } from "@/db/schema";
 
 import { useEffect, useState } from "react";
 
@@ -11,11 +11,13 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import PowerFormCreation from "./pkw-power";
-import InitialFormCreationn from "./pkw-initial";
-import InitialFormCreation from "./pkw-initial";
-import PkwLoadingVolumeCreation from "./pkw-loading-volume";
+
 import { RenderErrorMessage } from "../../_components/render-messages";
+import PkwLoadingVolumeCreation from "../pkw/pkw-loading-volume";
+import PowerFormCreation from "../pkw/pkw-power";
+import InitialFormCreation from "../pkw/pkw-initial";
+
+import LkwSizeCreation from "../lkw/lkw-loading-size";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
@@ -28,45 +30,53 @@ import RenderContinue from "../../_components/render-continue";
 
 
 
-interface PkwSection3Props {
-    pkwAttribute: typeof pkwAttribute.$inferSelect;
+
+interface TransportSection3Props {
+    transportAttribute: typeof transportAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection3Props) => {
+const TransportSection3 = ({ transportAttribute, currentSection, changeSection }: TransportSection3Props) => {
 
 
 
-    const [currentPower, setCurrentPower] = useState<string>(pkwAttribute?.power ? String(pkwAttribute?.power) : "");
-    const [currentInitial, setCurrentInitial] = useState<string | number>(pkwAttribute?.initial ? pkwAttribute?.initial.getFullYear() : undefined);
-    const [currentVolume, setCurrentVolume] = useState<string | number>(pkwAttribute?.loading_volume ? pkwAttribute?.loading_volume : undefined);
+    const [currentPower, setCurrentPower] = useState<string | number>(transportAttribute?.power ? transportAttribute?.power : undefined);
+    const [currentInitial, setCurrentInitial] = useState<string | number>(transportAttribute?.initial ? transportAttribute?.initial.getFullYear() : null);
+    const [currentVolume, setCurrentVolume] = useState<string | number>(transportAttribute?.loading_volume ? transportAttribute?.loading_volume : undefined);
+
+    const [currentLength, setCurrentLength] = useState<string | number>(transportAttribute?.loading_l ? transportAttribute?.loading_l : undefined);
+    const [currentWidth, setCurrentWidth] = useState<string | number>(transportAttribute?.loading_b ? transportAttribute?.loading_b : undefined);
+    const [currentHeight, setCurrentHeight] = useState<string | number>(transportAttribute?.loading_h ? transportAttribute?.loading_h : undefined);
 
     const [isLoading, setIsLoading] = useState(false);
 
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
-    
+
 
     const router = useRouter();
 
     const inseratId = useParams()?.inseratId;
 
 
-   
+    
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             setIsLoading(true);
+            
             if(hasChanged) {
-                
                 const values = {
                     power: currentPower ? currentPower : null,
                     initial: currentInitial ? currentInitial : null,
-                    loading_volume: currentVolume ? currentVolume : null
+                    loading_volume: currentVolume ? currentVolume : null,
+                    loading_l: currentLength ? currentLength : null,
+                    loading_b: currentWidth ? currentWidth : null,
+                    loading_h: currentHeight ? currentHeight : null
                 }
-                await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
+                await axios.patch(`/api/inserat/${inseratId}/transport`, values);
                 router.refresh();
             }
             if (redirect) {
@@ -75,7 +85,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
             } else if (previous) {
                 
                 const params = new URLSearchParams("")
-                params.set('sectionId', String(6))
+                params.set('sectionId', String(7))
                 window.history.pushState(null, '', `?${params.toString()}`)
             } else {
                 changeSection(currentSection + 1);
@@ -93,11 +103,13 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
     }
 
     const hasChanged = (
-        (String(currentPower ?? "").trim() !== String(pkwAttribute?.power ?? "").trim()) ||
-        (currentInitial ? new Date(currentInitial).getFullYear() : null) !== (pkwAttribute?.initial ? new Date(pkwAttribute.initial).getFullYear() : null) ||
-        (String(currentVolume ?? "").trim() !== String(pkwAttribute?.loading_volume ?? "").trim())
+        (String(currentPower ?? "").trim() != String(transportAttribute?.power ?? "").trim()) ||
+        (currentInitial ? new Date(currentInitial).getFullYear() : null) != (transportAttribute?.initial ? new Date(transportAttribute.initial).getFullYear() : null) ||
+        (String(currentVolume ?? "").trim() != String(transportAttribute?.loading_volume ?? "").trim()) ||
+        (String(currentLength ?? "").trim() != String(transportAttribute?.loading_l ?? "").trim()) ||
+        (String(currentWidth ?? "").trim() != String(transportAttribute?.loading_b ?? "").trim()) ||
+        (String(currentHeight ?? "").trim() != String(transportAttribute?.loading_h ?? "").trim())
     );
-    
 
 
 
@@ -105,7 +117,7 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
         <>
             <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    PKW - Eigenschaften (3/3)
+                    Transport - Eigenschaften (3/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                         Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
@@ -123,18 +135,26 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                         currentValue={currentPower}
                         setCurrentValue={(value) => setCurrentPower(value)}
                     />
-                    
+                   
                 </div>
-                <div className="mt-4">
+                <div className="mt-8">
                     <PkwLoadingVolumeCreation
                         currentValue={currentVolume}
                         setCurrentValue={(value) => setCurrentVolume(value)}
                     />
                     
-
                 </div>
-
-
+                <div className="mt-8 mb-4">
+                    <LkwSizeCreation
+                        currentHeight={currentHeight}
+                        currentLength={currentLength}
+                        currentWidth={currentWidth}
+                        setCurrentHeight={(value) => setCurrentHeight(value)}
+                        setCurrentLength={(value) => setCurrentLength(value)}
+                        setCurrentWidth={(value) => setCurrentWidth(value)}
+                    />
+                </div>
+                
             </div>
             <div className=" flex flex-col mt-auto ">
             <div className="flex flex-row items-center">
@@ -146,17 +166,18 @@ const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 7)}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 8)}>
                         Zurück
                     </Button>
                     <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
+
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={7}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={8}/>}
         </>
 
     );
 }
 
-export default PkwSection3;
+export default TransportSection3;

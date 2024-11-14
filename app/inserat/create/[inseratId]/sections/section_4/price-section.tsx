@@ -83,7 +83,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                 params.set('sectionId', String(3))
                 window.history.pushState(null, '', `?${params.toString()}`)
             } else {
-                changeSection(currentSection + 1);
+                changeSection(usedNumber + 1);
             }
         } catch (e: any) {
             console.log(e);
@@ -99,6 +99,8 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
     }
 
 
+    const usedNumber = thisInserat?.category == "PKW" ? 5 : 4;
+    
 
     return (
         <>
@@ -124,7 +126,7 @@ const PriceSection = ({ thisInserat, currentSection, changeSection }: PriceSecti
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                         <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 12)}>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 13)}>
                         Zur Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
                     </span>
                 </div>

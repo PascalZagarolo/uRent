@@ -10,23 +10,24 @@ import BasicDetails2 from "./section_2/basic-details2";
 import UploadImagesSection from "./section_3/upload-image-section";
 import PriceSection from "./section_4/price-section";
 import { category } from '../../../../../drizzle/schema';
-import PkwSection from "./section_5/pkw/pkw-section";
-import { pkwAttribute } from '../../../../../db/schema';
-import PkwSection2 from "./section_6/pkw/pkw-section-2";
-import PkwSection3 from "./section_7/pkw/pkw-section-3";
-import LkwSection from "./section_5/lkw/lkw-section";
-import LkwSection2 from "./section_6/lkw/lkw-section-2";
-import LkwSection3 from "./section_7/lkw/lkw-section-3";
-import TrailerSection from "./section_5/trailer/trailer-section";
-import TrailerSection2 from "./section_6/trailer/trailer-section-2";
-import TrailerSection3 from "./section_7/trailer/trailer-section-3";
-import TransportSection from "./section_5/transport/transport-section";
-import TransportSection2 from "./section_6/transport/transport-section-2";
-import TransportSection3 from "./section_7/transport/transport-section-3";
-import RahmenSection from "./section_8/rahmen-section";
-import TimeSection from "./section_9/time-section";
-import ContactSection from "./section_10/contact-section";
-import ReleaseSection from "./section_11/release-section";
+import TransportSection3 from "./section_8/transport/transport-section-3";
+import TransportSection2 from "./section_7/transport/transport-section-2";
+import TransportSection from "./section_6/transport/transport-section";
+import TrailerSection3 from "./section_8/trailer/trailer-section-3";
+import TrailerSection2 from "./section_7/trailer/trailer-section-2";
+import TrailerSection from "./section_6/trailer/trailer-section";
+import LkwSection3 from "./section_8/lkw/lkw-section-3";
+import LkwSection2 from "./section_7/lkw/lkw-section-2";
+import LkwSection from "./section_6/lkw/lkw-section";
+import PkwSection3 from "./section_8/pkw/pkw-section-3";
+import PkwSection2 from "./section_7/pkw/pkw-section-2";
+import PkwSection from "./section_6/pkw/pkw-section";
+import RahmenSection from "./section_9/rahmen-section";
+import TimeSection from "./section_10/time-section";
+import ContactSection from "./section_11/contact-section";
+import ReleaseSection from "./section_12/release-section";
+import WeightSection from "./section_5/weight-section";
+
 
 
 interface SectionTabsProps {
@@ -48,6 +49,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
         window.history.pushState(null, '', `?${params.toString()}`)
     }
 
+    let weightSection;
     let firstSegment;
     let secondSegment;
     let thirdSegment
@@ -108,13 +110,14 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
                                 2: <BasicDetails2 thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 3 : <UploadImagesSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
                                 4 : <PriceSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
-                                5 : firstSegment,
-                                6 : secondSegment,
-                                7 : thirdSegment,
-                                8 : <RahmenSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
-                                9 : <TimeSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
-                                10 : <ContactSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
-                                11 : <ReleaseSection thisInserat={thisInserat} currentSection={Number(sectionId)} 
+                                5 : <WeightSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                6 : firstSegment,
+                                7 : secondSegment,
+                                8 : thirdSegment,
+                                9 : <RahmenSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                10 : <TimeSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                11 : <ContactSection thisInserat={thisInserat} currentSection={Number(sectionId)} changeSection={changeSection} />,
+                                12 : <ReleaseSection thisInserat={thisInserat} currentSection={Number(sectionId)} 
                                 changeSection={changeSection} existingSubscription={currentUser?.subscription} publishedLength={publishedLength} />
 
                             }[sectionId]

@@ -1,5 +1,6 @@
 'use client'
 
+import { inserat, lkwAttribute, pkwAttribute } from "@/db/schema";
 
 import { useState } from "react";
 
@@ -10,17 +11,16 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-
-import { transportAttribute } from '../../../../../../../db/schema';
-import FuelFormCreation from "../pkw/pkw-fuel";
-import DoorsCreation from "../pkw/pkw-doors";
-import LoadingFormCreation from "../lkw/lkw-loading";
+import SeatsCreation from "../pkw/pkw-seats";
+import LkwWeightClassCreation from "./lkw-weight-class";
+import LkwAxisCreation from "./lkw-axis";
+import LkwBrandCreation from "./lkw-brand";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../../_components/render-continue";
-import PkwAhkCreation from "../pkw/pkw-ahk";
+import TransmissionFormCreation from "../pkw/pkw-transmission";
 
 
 
@@ -29,53 +29,50 @@ import PkwAhkCreation from "../pkw/pkw-ahk";
 
 
 
-
-
-interface TransportSection2Props {
-    transportAttribute: typeof transportAttribute.$inferSelect;
+interface LkwSectionProps {
+    lkwAttribute: typeof lkwAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const TransportSection2 = ({ transportAttribute, currentSection, changeSection }: TransportSection2Props) => {
+const LkwSection = ({ lkwAttribute, currentSection, changeSection }: LkwSectionProps) => {
 
 
 
-    const [currentFuel, setCurrentFuel] = useState(transportAttribute?.fuel ? transportAttribute?.fuel : null);
-
-    const [currentDoors, setCurrentDoors] = useState(transportAttribute?.doors ? transportAttribute?.doors : null);
-    const [currentLoading, setCurrentLoading] = useState(transportAttribute?.loading ? transportAttribute?.loading : null);
-    const [currentAhk, setCurrentAhk] = useState(transportAttribute?.ahk ? transportAttribute?.ahk : undefined);
-
+    const [currentTransmission, setCurrentTransmission] = useState(lkwAttribute?.transmission ? lkwAttribute?.transmission : null);
+    const [currentAxis, setCurrentAxis] = useState(lkwAttribute?.axis ? lkwAttribute?.axis : null);
+    const [currentBrand, setCurrentBrand] = useState(lkwAttribute?.lkwBrand ? lkwAttribute?.lkwBrand : null);
+    const [currentSeats, setCurrentSeats] = useState(lkwAttribute?.seats ? lkwAttribute?.seats : null);
+    
     const [isLoading, setIsLoading] = useState(false);
-
+    
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
-
-    const router = useRouter();
-
     const inseratId = useParams()?.inseratId;
+    const router = useRouter();
 
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             setIsLoading(true);
-            if (hasChanged) {
+            if(hasChanged) {
                 const values = {
-                    fuel: currentFuel,
-                    doors: currentDoors,
-                    loading: currentLoading,
-                    ahk : currentAhk
+                    transmission: currentTransmission,
+                    axis: currentAxis,
+                    lkwBrand: currentBrand,
+                    seats: currentSeats
                 }
-                await axios.patch(`/api/inserat/${inseratId}/transport`, values);
+
+                console.log(values);
+                await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
                 router.refresh();
             }
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
             } else if (previous) {
-
+                
                 const params = new URLSearchParams("")
                 params.set('sectionId', String(5))
                 window.history.pushState(null, '', `?${params.toString()}`)
@@ -99,41 +96,45 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
     }
 
 
-    const hasChanged = (
-        currentFuel != transportAttribute?.fuel ||
-        currentDoors != transportAttribute?.doors ||
-        currentLoading != transportAttribute?.loading ||
-        currentAhk != transportAttribute?.ahk
-    );
 
+    const hasChanged = (
+         currentTransmission != lkwAttribute?.transmission ||
+        currentAxis != lkwAttribute?.axis 
+        || currentBrand != lkwAttribute?.lkwBrand 
+        || currentSeats != lkwAttribute?.seats);
 
     return (
 
         <>
             <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    Transport - Eigenschaften (2/3)
+                    LKW - Eigenschaften (1/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                         Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
                     </p>
                 </h3>
+                {/* <div className="mt-4">
+                    <LkwWeightClassCreation currentValue={currentWeight} setCurrentValue={setCurrentWeight} />
+                </div> */}
                 <div className="mt-4">
-                    <FuelFormCreation currentValue={currentFuel} setCurrentValue={setCurrentFuel} />
+                    <LkwAxisCreation currentValue={currentAxis as any} setCurrentValue={setCurrentAxis} />
                 </div>
                 <div className="mt-4">
-                    <DoorsCreation currentValue={currentDoors as any} setCurrentValue={setCurrentDoors} />
+                    <LkwBrandCreation currentValue={currentBrand as any} setCurrentValue={setCurrentBrand} />
                 </div>
                 <div className="mt-4">
-                    <LoadingFormCreation currentValue={currentLoading as any} setCurrentValue={setCurrentLoading} />
+                    <SeatsCreation currentValue={currentSeats as any} setCurrentValue={setCurrentSeats} />
                 </div>
                 <div className="mt-4">
-                    <PkwAhkCreation currentValue={currentAhk as any} setCurrentValue={setCurrentAhk} />
+                    <TransmissionFormCreation
+                        currentValue={currentTransmission}
+                        setCurrentValue={setCurrentTransmission}
+                    />
                 </div>
-
             </div>
             <div className=" flex flex-col mt-auto ">
-                <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center">
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                         <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
@@ -142,17 +143,20 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 6)}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 6)
+}>
                         Zurück
                     </Button>
                     <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
+
+
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6}/>}
         </>
 
     );
 }
 
-export default TransportSection2;
+export default LkwSection;

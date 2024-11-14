@@ -1,6 +1,5 @@
 'use client'
 
-import { inserat, lkwAttribute, pkwAttribute } from "@/db/schema";
 
 import { useState } from "react";
 
@@ -11,17 +10,16 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-
-import TransmissionFormCreation from "../../section_5/pkw/pkw-transmission";
-import FuelFormCreation from "../pkw/pkw-fuel";
-import LoadingFormCreation from "./lkw-loading";
-import DriveFormCreation from "./lkw-drive";
+import SeatsCreation from "../pkw/pkw-seats";
+import { transportAttribute } from '../../../../../../../db/schema';
+import TransmissionFormCreation from "../pkw/pkw-transmission";
+import TransportWeightClassCreation from "./transport-weight-class";
+import TransportBrandCreation from "./transport-brand";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../../_components/render-continue";
-import PkwAhkCreation from "../pkw/pkw-ahk";
 
 
 
@@ -29,21 +27,23 @@ import PkwAhkCreation from "../pkw/pkw-ahk";
 
 
 
-interface LkwSection2Props {
-    lkwAttribute: typeof lkwAttribute.$inferSelect;
+
+
+interface TransportSectionProps {
+    transportAttribute: typeof transportAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection2Props) => {
+const TransportSection = ({ transportAttribute, currentSection, changeSection }: TransportSectionProps) => {
 
 
 
-    const [currentTransmission, setCurrentTransmission] = useState(lkwAttribute?.transmission ? lkwAttribute?.transmission : null);
-    const [currentDrive, setCurrentDrive] = useState(lkwAttribute?.drive);
-    const [currentFuel, setCurrentFuel] = useState(lkwAttribute?.fuel ? lkwAttribute?.fuel : null);
-    const [currentLoading, setCurrentLoading] = useState(lkwAttribute?.loading ? lkwAttribute?.loading : null);
-    const [currentAhk, setCurrentAhk] = useState(lkwAttribute?.ahk ? lkwAttribute?.ahk : undefined);
+   
+
+    const [currentBrand, setCurrentBrand] = useState(transportAttribute?.transportBrand ? transportAttribute?.transportBrand : null);
+    const [currentSeats, setCurrentSeats] = useState(transportAttribute?.seats ? transportAttribute?.seats : null);
+    const [currentTransmission, setCurrentTransmission] = useState(transportAttribute?.transmission ? transportAttribute?.transmission : null);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -56,18 +56,16 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
+
             setIsLoading(true);
-            if (hasChanged) {
-                const values = {
-                    transmission: currentTransmission,
-                    drive: currentDrive,
-                    fuel: currentFuel,
-                    loading: currentLoading,
-                    ahk : currentAhk
-                }
-                await axios.patch(`/api/inserat/${inseratId}/lkw`, values);
-                router.refresh();
+
+            const values = {
+                transmission: currentTransmission,
+                transportBrand: currentBrand,
+                seats: currentSeats
             }
+            await axios.patch(`/api/inserat/${inseratId}/transport`, values);
+            router.refresh();
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
@@ -76,14 +74,13 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                 const params = new URLSearchParams("")
                 params.set('sectionId', String(5))
                 window.history.pushState(null, '', `?${params.toString()}`)
-            }
-            else {
+            } else {
                 changeSection(currentSection + 1);
             }
 
         } catch (e: any) {
             console.log(e);
-             toast.error("Fehler beim Speichern der Änderungen");
+            toast.error("Fehler beim Speichern der Änderungen");
         } finally {
             setIsLoading(false);
         }
@@ -96,54 +93,39 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         changeSection(currentSection - 1);
     }
 
+
+
     const hasChanged = (
-        currentTransmission !== lkwAttribute?.transmission ||
-        currentDrive !== lkwAttribute?.drive ||
-        currentFuel !== lkwAttribute?.fuel ||
-        currentLoading !== lkwAttribute?.loading || 
-        currentAhk !== lkwAttribute?.ahk
+        // currentWeight != transportAttribute?.weightClass ||
+        currentBrand != transportAttribute?.transportBrand ||
+        currentSeats != transportAttribute?.seats ||
+        currentTransmission != transportAttribute?.transmission
     );
-
-
 
     return (
 
         <>
             <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    LKW - Eigenschaften (2/3)
+                    Transport - Eigenschaften (1/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                         Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
                     </p>
                 </h3>
+                {/* <div className="mt-4">
+                    <TransportWeightClassCreation currentValue={currentWeight as any} setCurrentValue={setCurrentWeight} />
+                </div> */}
                 <div className="mt-4">
-                    <TransmissionFormCreation
-                        currentValue={currentTransmission}
-                        setCurrentValue={setCurrentTransmission}
-                    />
+                    <TransportBrandCreation currentValue={currentBrand as any} setCurrentValue={setCurrentBrand} />
                 </div>
                 <div className="mt-4">
-                    <DriveFormCreation
-                        currentValue={currentDrive as any}
-                        setCurrentValue={setCurrentDrive}
-                    />
+                    <SeatsCreation currentValue={currentSeats as any} setCurrentValue={setCurrentSeats} />
                 </div>
                 <div className="mt-4">
-                    <FuelFormCreation
-                        currentValue={currentFuel as any}
-                        setCurrentValue={setCurrentFuel}
-                    />
+                    <TransmissionFormCreation currentValue={currentTransmission as any} setCurrentValue={setCurrentTransmission} />
                 </div>
-                <div className="mt-4">
-                    <LoadingFormCreation
-                        currentValue={currentLoading as any}
-                        setCurrentValue={setCurrentLoading}
-                    />
-                </div>
-                <div className="mt-4">
-                    <PkwAhkCreation currentValue={currentAhk as any} setCurrentValue={setCurrentAhk} />
-                </div>
+
             </div>
             <div className=" flex flex-col mt-auto ">
                 <div className="flex flex-row items-center">
@@ -161,6 +143,7 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
                     <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
+
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
             {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6} />}
         </>
@@ -168,4 +151,4 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
     );
 }
 
-export default LkwSection2;
+export default TransportSection;

@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat } from "@/db/schema";
+import { inserat, pkwAttribute } from "@/db/schema";
 
 import { useEffect, useState } from "react";
 
@@ -9,58 +9,68 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
-import SelectCautionCreation from "./caution";
-import SelectLicenseCreation from "./license";
-import RequiredAgeCreation from "./reqAge";
 import axios from "axios";
-import { RenderErrorMessage } from "../_components/render-messages";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import PowerFormCreation from "./pkw-power";
+import InitialFormCreationn from "./pkw-initial";
+import InitialFormCreation from "./pkw-initial";
+import PkwLoadingVolumeCreation from "./pkw-loading-volume";
+import { RenderErrorMessage } from "../../_components/render-messages";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
-import { useRouter } from "next/navigation";
-import SaveChangesDialog from "../_components/save-changes-dialog";
-import SaveChangesPrevious from "../_components/save-changes-previous";
+import SaveChangesDialog from "../../_components/save-changes-dialog";
+import SaveChangesPrevious from "../../_components/save-changes-previous";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-import RenderContinue from "../_components/render-continue";
+import RenderContinue from "../../_components/render-continue";
 
 
-interface RahmenSectionProps {
-    thisInserat: typeof inserat.$inferSelect;
+
+
+
+
+
+interface PkwSection3Props {
+    pkwAttribute: typeof pkwAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSectionProps) => {
+const PkwSection3 = ({ pkwAttribute, currentSection, changeSection }: PkwSection3Props) => {
 
 
 
-
-
-    const [currentCaution, setCurrentCaution] = useState(thisInserat?.caution ? thisInserat?.caution : undefined);
-    const [currentReqAge, setCurrentReqAge] = useState(thisInserat?.reqAge);
-    const [currentLicense, setCurrentLicense] = useState(thisInserat?.license);
+    const [currentPower, setCurrentPower] = useState<string>(pkwAttribute?.power ? String(pkwAttribute?.power) : "");
+    const [currentInitial, setCurrentInitial] = useState<string | number>(pkwAttribute?.initial ? pkwAttribute?.initial.getFullYear() : undefined);
+    const [currentVolume, setCurrentVolume] = useState<string | number>(pkwAttribute?.loading_volume ? pkwAttribute?.loading_volume : undefined);
 
     const [isLoading, setIsLoading] = useState(false);
 
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
+    
+
     const router = useRouter();
+
+    const inseratId = useParams()?.inseratId;
+
+
+   
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
-            
             setIsLoading(true);
-
             if(hasChanged) {
+                
                 const values = {
-                    caution: currentCaution ? currentCaution?.trim() : null,
-                    reqAge: currentReqAge ? currentReqAge : null,
-                    license: currentLicense ? currentLicense : null,
+                    power: currentPower ? currentPower : null,
+                    initial: currentInitial ? currentInitial : null,
+                    loading_volume: currentVolume ? currentVolume : null
                 }
-                await axios.patch(`/api/inserat/${thisInserat.id}`, values);
+                await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
                 router.refresh();
             }
             if (redirect) {
-                router.push(`/inserat/create/${thisInserat.id}`);
+                router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
             } else if (previous) {
                 
@@ -76,61 +86,57 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     const onPrevious = () => {
         changeSection(currentSection - 1);
     }
 
-    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(undefined);
-
     const hasChanged = (
-        String(currentCaution ?? "").trim() != String(thisInserat?.caution ?? "").trim() ||
-        currentReqAge != thisInserat?.reqAge ||
-        currentLicense != thisInserat?.license
+        (String(currentPower ?? "").trim() !== String(pkwAttribute?.power ?? "").trim()) ||
+        (currentInitial ? new Date(currentInitial).getFullYear() : null) !== (pkwAttribute?.initial ? new Date(pkwAttribute.initial).getFullYear() : null) ||
+        (String(currentVolume ?? "").trim() !== String(pkwAttribute?.loading_volume ?? "").trim())
     );
-
-
-    useEffect(() => {
-        // Check if the value contains any non-numeric characters
-        const cautionRegex = /^[0-9]+(\.[0-9]{2})?$/ // This allows only numbers and optionally one dot for decimals
-        const parsedCaution = parseFloat(currentCaution as string);
-
-        if (currentCaution !== undefined && currentCaution !== "") {
-            // If it doesn't match the regex or is not a positive number
-            if (!cautionRegex.test(currentCaution) || isNaN(parsedCaution) || parsedCaution <= 0) {
-                setError({ errorField: "caution", errorText: "Bitte gebe eine gültige Kaution an." });
-            } else {
-                setError(undefined);
-            }
-        }
-    }, [currentCaution]);
+    
 
 
 
     return (
         <>
-            <div className="flex flex-col h-full">
+            <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    Rahmenbedingungen
+                    PKW - Eigenschaften (3/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
-                        Gebe die Rahmenbedingungen für dein Inserat an, wie bspw. die Mindestmietdauer oder die maximale Anzahl an Kilometern.
+                        Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
+                        Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
                     </p>
                 </h3>
                 <div className="mt-4">
-                    <SelectCautionCreation currentValue={currentCaution} setCurrentValue={setCurrentCaution} />
-                    {error?.errorField === "caution" && <RenderErrorMessage error={error.errorText as string} />}
+                    <InitialFormCreation
+                        currentValue={currentInitial as string}
+                        setCurrentValue={(value) => setCurrentInitial(value)}
+                    />
+
                 </div>
-                <div className="mt-4">
-                    <RequiredAgeCreation currentValue={currentReqAge as any} setCurrentValue={setCurrentReqAge} />
+                <div className="mt-8">
+                    <PowerFormCreation
+                        currentValue={currentPower}
+                        setCurrentValue={(value) => setCurrentPower(value)}
+                    />
+                    
                 </div>
-                <div className="mt-4">
-                    <SelectLicenseCreation currentValue={currentLicense} setCurrentValue={setCurrentLicense} category={thisInserat?.category} />
+                <div className="mt-8 mb-4">
+                    <PkwLoadingVolumeCreation
+                        currentValue={currentVolume}
+                        setCurrentValue={(value) => setCurrentVolume(value)}
+                    />
+                    
+
                 </div>
 
 
             </div>
-            <div className="mt-auto flex flex-col">
+            <div className=" flex flex-col mt-auto ">
             <div className="flex flex-row items-center">
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                         <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
@@ -149,7 +155,8 @@ const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSec
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
             {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={8}/>}
         </>
+
     );
 }
 
-export default RahmenSection;
+export default PkwSection3;

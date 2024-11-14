@@ -69,7 +69,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
                 router.refresh();
             } else if (previous) {
                 const params = new URLSearchParams("")
-                params.set('sectionId', String(8))
+                params.set('sectionId', String(10))
                 window.history.pushState(null, '', `?${params.toString()}`)
             } else {
                 changeSection(currentSection + 1);
@@ -157,14 +157,14 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 9)}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 11)}>
                         Zurück
                     </Button>
                     <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={10}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={11}/>}
         </>
     );
 }

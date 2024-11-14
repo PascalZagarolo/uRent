@@ -1,6 +1,6 @@
 'use client'
 
-import { inserat, lkwAttribute, pkwAttribute, trailerAttribute } from "@/db/schema";
+import { inserat, pkwAttribute } from "@/db/schema";
 
 import { useState } from "react";
 
@@ -11,8 +11,9 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import LoadingFormCreation from "../lkw/lkw-loading";
-import TrailerCouplingCreation from "./trailer-coupling";
+import FuelFormCreation from "./pkw-fuel";
+import DoorsCreation from "./pkw-doors";
+import PkwAhkCreation from "./pkw-ahk";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
@@ -25,21 +26,19 @@ import RenderContinue from "../../_components/render-continue";
 
 
 
-
-
-interface TrailerSection2Props {
-    trailerAttributes: typeof trailerAttribute.$inferSelect;
+interface PkwSection2Props {
+    pkwAttribute: typeof pkwAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: TrailerSection2Props) => {
+const PkwSection2 = ({ pkwAttribute, currentSection, changeSection }: PkwSection2Props) => {
 
 
 
-    const [currentCoupling, setCurrentCoupling] = useState(trailerAttributes?.coupling ? trailerAttributes?.coupling : null);
-    const [currentLoading, setCurrentLoading] = useState(trailerAttributes?.loading ? trailerAttributes?.loading : undefined);
-    
+    const [currentFuel, setCurrentFuel] = useState(pkwAttribute?.fuel ? pkwAttribute?.fuel : null);
+    const [currentDoors, setCurrentDoors] = useState(pkwAttribute?.doors);
+    const [currentAhk, setCurrentAhk] = useState(pkwAttribute?.ahk ? pkwAttribute?.ahk : undefined);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -55,23 +54,24 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
         try {
             setIsLoading(true);
             if(hasChanged) {
+                console.log(hasChanged)
                 const values = {
-                    coupling: currentCoupling,
-                    loading: currentLoading
+                    fuel: currentFuel,
+                    doors: currentDoors,
+                    ahk: currentAhk
                 }
-                await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
+                await axios.patch(`/api/inserat/${inseratId}/pkw`, values);
                 router.refresh();
             }
             if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
             } else if (previous) {
-
+                
                 const params = new URLSearchParams("")
-                params.set('sectionId', String(5))
+                params.set('sectionId', String(6))
                 window.history.pushState(null, '', `?${params.toString()}`)
-            }
-            else {
+            } else {
                 changeSection(currentSection + 1);
             }
         } catch (e: any) {
@@ -80,44 +80,37 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
         } finally {
             setIsLoading(false);
         }
+
     };
-
-
-
 
     const onPrevious = () => {
         changeSection(currentSection - 1);
     }
 
-
     const hasChanged = (
-        currentCoupling !== trailerAttributes?.coupling ||
-        currentLoading !== trailerAttributes?.loading
+        currentFuel != pkwAttribute?.fuel ||
+        currentDoors != pkwAttribute?.doors ||
+        Boolean(currentAhk) != Boolean(pkwAttribute?.ahk)
     );
 
-
     return (
-
         <>
             <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    Anhänger - Eigenschaften (2/3)
+                    PKW - Eigenschaften (2/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                         Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
                     </p>
                 </h3>
                 <div className="mt-4">
-                    <TrailerCouplingCreation
-                        currentValue={currentCoupling as any}
-                        setCurrentValue={setCurrentCoupling}
-                    />
+                    <FuelFormCreation currentValue={currentFuel} setCurrentValue={setCurrentFuel} />
                 </div>
                 <div className="mt-4">
-                    <LoadingFormCreation
-                        currentValue={currentLoading as any}
-                        setCurrentValue={setCurrentLoading}
-                    />
+                    <DoorsCreation currentValue={currentDoors as any} setCurrentValue={setCurrentDoors} />
+                </div>
+                <div className="mt-4">
+                    <PkwAhkCreation currentValue={currentAhk as any} setCurrentValue={setCurrentAhk} />
                 </div>
 
 
@@ -132,17 +125,17 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 6)}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 7)}>
                         Zurück
                     </Button>
                     <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
-            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6} />}
+            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={7}/>}
         </>
 
     );
 }
 
-export default TrailerSection2;
+export default PkwSection2;

@@ -9,10 +9,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRightCircleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
-
+import SelectCautionCreation from "./caution";
+import SelectLicenseCreation from "./license";
+import RequiredAgeCreation from "./reqAge";
 import axios from "axios";
 import { RenderErrorMessage } from "../_components/render-messages";
-import SelectMinTimeCreation from "./min-time";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import { useRouter } from "next/navigation";
 import SaveChangesDialog from "../_components/save-changes-dialog";
@@ -21,20 +22,21 @@ import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import RenderContinue from "../_components/render-continue";
 
 
-interface TimeSectionProps {
+interface RahmenSectionProps {
     thisInserat: typeof inserat.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSectionProps) => {
+const RahmenSection = ({ thisInserat, currentSection, changeSection }: RahmenSectionProps) => {
 
 
 
 
 
-    const [currentMinTime, setCurrentMinTime] = useState<string | null>(thisInserat.minTime ? String(thisInserat.minTime) : null);
-    
+    const [currentCaution, setCurrentCaution] = useState(thisInserat?.caution ? thisInserat?.caution : undefined);
+    const [currentReqAge, setCurrentReqAge] = useState(thisInserat?.reqAge);
+    const [currentLicense, setCurrentLicense] = useState(thisInserat?.license);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -45,15 +47,18 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
 
     const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
+            
             setIsLoading(true);
-           if(hasChanged) {
-            console.log("...")
-            const values = {
-                minTime: currentMinTime ? Number(currentMinTime) : null,
+
+            if(hasChanged) {
+                const values = {
+                    caution: currentCaution ? currentCaution?.trim() : null,
+                    reqAge: currentReqAge ? currentReqAge : null,
+                    license: currentLicense ? currentLicense : null,
+                }
+                await axios.patch(`/api/inserat/${thisInserat.id}`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${thisInserat.id}`, values);
-            router.refresh();
-           }
             if (redirect) {
                 router.push(`/inserat/create/${thisInserat.id}`);
                 router.refresh();
@@ -77,14 +82,29 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
         changeSection(currentSection - 1);
     }
 
-    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(null);
-
-
-
+    const [error, setError] = useState<{ errorField: string; errorText: string } | null>(undefined);
 
     const hasChanged = (
-        Number(currentMinTime ?? 0) != Number(thisInserat.minTime ?? 0)
+        String(currentCaution ?? "").trim() != String(thisInserat?.caution ?? "").trim() ||
+        currentReqAge != thisInserat?.reqAge ||
+        currentLicense != thisInserat?.license
     );
+
+
+    useEffect(() => {
+        // Check if the value contains any non-numeric characters
+        const cautionRegex = /^[0-9]+(\.[0-9]{2})?$/ // This allows only numbers and optionally one dot for decimals
+        const parsedCaution = parseFloat(currentCaution as string);
+
+        if (currentCaution !== undefined && currentCaution !== "") {
+            // If it doesn't match the regex or is not a positive number
+            if (!cautionRegex.test(currentCaution) || isNaN(parsedCaution) || parsedCaution <= 0) {
+                setError({ errorField: "caution", errorText: "Bitte gebe eine gültige Kaution an." });
+            } else {
+                setError(undefined);
+            }
+        }
+    }, [currentCaution]);
 
 
 
@@ -92,15 +112,20 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
         <>
             <div className="flex flex-col h-full">
                 <h3 className="text-lg font-semibold">
-                    Mietdauer
+                    Rahmenbedingungen
                     <p className="text-xs text-gray-200/60 font-medium text-left">
-                        Gebe deine Mindestmietdauer an, also den Zeitraum die der Mieter mindestens mieten muss. <br />
-                        Falls du keine Mindestmietdauer hast, lasse das Feld einfach leer oder klicke auf {`"`}Beliebig{`"`}.
+                        Gebe die Rahmenbedingungen für dein Inserat an, wie bspw. die Mindestmietdauer oder die maximale Anzahl an Kilometern.
                     </p>
                 </h3>
                 <div className="mt-4">
-                    <SelectMinTimeCreation currentValue={currentMinTime} setCurrentValue={setCurrentMinTime}  />
-
+                    <SelectCautionCreation currentValue={currentCaution} setCurrentValue={setCurrentCaution} />
+                    {error?.errorField === "caution" && <RenderErrorMessage error={error.errorText as string} />}
+                </div>
+                <div className="mt-4">
+                    <RequiredAgeCreation currentValue={currentReqAge as any} setCurrentValue={setCurrentReqAge} />
+                </div>
+                <div className="mt-4">
+                    <SelectLicenseCreation currentValue={currentLicense} setCurrentValue={setCurrentLicense} category={thisInserat?.category} />
                 </div>
 
 
@@ -127,4 +152,4 @@ const TimeSection = ({ thisInserat, currentSection, changeSection }: TimeSection
     );
 }
 
-export default TimeSection;
+export default RahmenSection;

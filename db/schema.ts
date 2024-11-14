@@ -611,6 +611,7 @@ export const lkwAttribute = pgTable("lkwAttribute", {
     loading_size : decimal("loading_size"),
 
     weightClass: integer("weightClass"),
+    payload : integer("payload"),
     drive: driveEnum("drive"),
     loading: loadingEnum("loading"),
     application: applicationEnum("application"),
@@ -660,6 +661,7 @@ export const trailerAttribute = pgTable("trailerAttribute", {
 
     axis: integer("axis"),
     weightClass: integer("weight"),
+    payload : integer("payload"),
 
     brake: boolean("brake").notNull().default(false),
 
@@ -699,6 +701,7 @@ export const transportAttribute = pgTable("transportAttribute", {
     transportBrand : transportBrandEnum("transportBrand"),
 
     weightClass: integer("weightClass"),
+    payload : integer("payload"),
 
     power: integer("power"),
 

@@ -1,6 +1,6 @@
 'use client'
 
-import {  trailerAttribute } from "@/db/schema";
+import { inserat, lkwAttribute, pkwAttribute, trailerAttribute } from "@/db/schema";
 
 import { useState } from "react";
 
@@ -11,11 +11,8 @@ import toast from "react-hot-toast";
 
 import axios from "axios";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import SeatsCreation from "../pkw/pkw-seats";
-import TrailerTypeCreation from "./trailer-type";
-import TrailerWeightClassCreation from "./trailer-weight-class";
-import LkwAxisCreation from "../lkw/lkw-axis";
-import TrailerBrakeCreation from "./trailer-brake";
+import LoadingFormCreation from "../lkw/lkw-loading";
+import TrailerCouplingCreation from "./trailer-coupling";
 import { previousPage, switchSectionOverview } from "@/hooks/inserat-creation/useRouterHistory";
 import SaveChangesDialog from "../../_components/save-changes-dialog";
 import SaveChangesPrevious from "../../_components/save-changes-previous";
@@ -29,54 +26,54 @@ import RenderContinue from "../../_components/render-continue";
 
 
 
-interface TrailerSectionProps {
-    trailerAttribute: typeof trailerAttribute.$inferSelect;
+
+interface TrailerSection2Props {
+    trailerAttributes: typeof trailerAttribute.$inferSelect;
     currentSection: number;
     changeSection: (value: number) => void;
 }
 
-const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: TrailerSectionProps) => {
+const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: TrailerSection2Props) => {
 
 
 
-    const [currentType, setCurrentType] = useState(trailerAttribute?.type ? trailerAttribute?.type : null);
-    const [currentWeight, setCurrentWeight] = useState(trailerAttribute?.weightClass ? trailerAttribute?.weightClass : null);
-    const [currentAxis, setCurrentAxis] = useState(trailerAttribute?.axis ? trailerAttribute?.axis : null);
-    const [currentBrake, setCurrentBrake] = useState(trailerAttribute?.brake ? trailerAttribute?.brake : undefined);
+    const [currentCoupling, setCurrentCoupling] = useState(trailerAttributes?.coupling ? trailerAttributes?.coupling : null);
+    const [currentLoading, setCurrentLoading] = useState(trailerAttributes?.loading ? trailerAttributes?.loading : undefined);
+    
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogPrevious, setShowDialogPrevious] = useState(false);
 
-    const inseratId = useParams()?.inseratId;
-
     const router = useRouter();
 
-    const onSave = async (redirect? : boolean, previous?: boolean) => {
+    const inseratId = useParams()?.inseratId;
+
+
+    const onSave = async (redirect?: boolean, previous?: boolean) => {
         try {
             setIsLoading(true);
-           if(hasChanged) {
-            const values = {
-                type: currentType,
-                weightClass: currentWeight,
-                axis: currentAxis,
-                brake: currentBrake
+            if(hasChanged) {
+                const values = {
+                    coupling: currentCoupling,
+                    loading: currentLoading
+                }
+                await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
+                router.refresh();
             }
-            await axios.patch(`/api/inserat/${inseratId}/trailer`, values);
-            router.refresh();
-           }
-            if(redirect) {
+            if (redirect) {
                 router.push(`/inserat/create/${inseratId}`);
                 router.refresh();
-              } else if (previous) {
-                
+            } else if (previous) {
+
                 const params = new URLSearchParams("")
-                params.set('sectionId', String(4))
+                params.set('sectionId', String(6))
                 window.history.pushState(null, '', `?${params.toString()}`)
-            } else {
+            }
+            else {
                 changeSection(currentSection + 1);
-              }
+            }
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
@@ -92,13 +89,11 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
         changeSection(currentSection - 1);
     }
 
-    const hasChanged = (
-        currentType != trailerAttribute?.type ||
-        currentWeight != trailerAttribute?.weightClass ||
-        currentAxis != trailerAttribute?.axis ||
-       Boolean(currentBrake) != Boolean(trailerAttribute?.brake)
-    );
 
+    const hasChanged = (
+        currentCoupling !== trailerAttributes?.coupling ||
+        currentLoading !== trailerAttributes?.loading
+    );
 
 
     return (
@@ -106,24 +101,25 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
         <>
             <div className="h-full flex flex-col">
                 <h3 className="text-lg font-semibold">
-                    Anhänger - Eigenschaften (1/3)
+                    Anhänger - Eigenschaften (2/3)
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Hier kannst du weitere Kategorie abhängige Attribute deines Fahrzeuges angeben. <br />
                         Diese Informationen helfen potentiellen Käufern, schneller das passende Fahrzeug zu finden.
                     </p>
                 </h3>
                 <div className="mt-4">
-                   <TrailerTypeCreation currentValue={currentType} setCurrentValue={setCurrentType} />
+                    <TrailerCouplingCreation
+                        currentValue={currentCoupling as any}
+                        setCurrentValue={setCurrentCoupling}
+                    />
                 </div>
                 <div className="mt-4">
-                  <TrailerWeightClassCreation currentValue={currentWeight} setCurrentValue={setCurrentWeight} />
+                    <LoadingFormCreation
+                        currentValue={currentLoading as any}
+                        setCurrentValue={setCurrentLoading}
+                    />
                 </div>
-                <div className="mt-4">
-                    <LkwAxisCreation currentValue={currentAxis} setCurrentValue={setCurrentAxis} isTrailer={true}/>
-                </div>
-                <div className="mt-4">
-                    <TrailerBrakeCreation currentValue={currentBrake as any} setCurrentValue={setCurrentBrake} />
-                </div>
+
 
             </div>
             <div className=" flex flex-col mt-auto ">
@@ -136,18 +132,17 @@ const TrailerSection = ({ trailerAttribute, currentSection, changeSection }: Tra
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 5)}>
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 7)}>
                         Zurück
                     </Button>
                     <RenderContinue isLoading={isLoading} disabled={isLoading} onClick={() => onSave()} hasChanged={hasChanged} />
                 </div>
             </div>
-
-            {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={5}/>}
+            {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={7} />}
         </>
 
     );
 }
 
-export default TrailerSection;
+export default TrailerSection2;

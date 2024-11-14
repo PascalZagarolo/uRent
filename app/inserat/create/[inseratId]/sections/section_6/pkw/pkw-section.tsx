@@ -71,7 +71,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
           } else if (previous) {
                 
             const params = new URLSearchParams("")
-            params.set('sectionId', String(4))
+            params.set('sectionId', String(5))
             window.history.pushState(null, '', `?${params.toString()}`)
         } else {
             changeSection(currentSection + 1);
@@ -88,9 +88,8 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
    
     
 
-    const onPrevious = () => {
-        changeSection(currentSection - 1);
-    }
+    
+   
 
     const hasChanged = (
         currentBrand != pkwAttribute?.brand ||
@@ -136,7 +135,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
-                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 5)
+                    <Button className="" variant="ghost" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 6)
 }>
                         Zurück
                     </Button>
@@ -145,7 +144,7 @@ const PkwSection = ({ pkwAttribute, currentSection, changeSection }: PkwSectionP
             </div>
 
             {showDialog && <SaveChangesDialog  open={showDialog} onChange={setShowDialog} onSave={onSave}/>}
-            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={5}/>}
+            {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={6}/>}
         </>
 
     );

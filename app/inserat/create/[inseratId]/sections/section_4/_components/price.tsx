@@ -29,9 +29,7 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
     setCurrentValue
 }) => {
 
-    const router = useRouter();
-
-    const [isLoading, setIsLoading] = useState(false);
+ 
 
 
 
@@ -100,13 +98,6 @@ const SelectPriceCreation: React.FC<SelectPriceCreationProps> = ({
             <div className="ml-auto flex justify-end">
                 <LetterRestriction limit={10} currentLength={currentValue ? String(currentValue).length : 0} />
             </div>
-
-
-
-
-
-
-
         </div>
     );
 }

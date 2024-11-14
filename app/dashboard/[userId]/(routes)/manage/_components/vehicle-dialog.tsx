@@ -66,33 +66,7 @@ const VehicleDialog: React.FC<VehicleDialogProps> = ({
                     <h1 className="text-sm flex">
                         <p className="font-semibold ">{thisInserat.title}</p>
                     </h1>
-                    {/*
-                    <div className="w-full">
-                    <CldUploadButton
-                        onUpload={() => {}}
-                        uploadPreset="oblbw2xl"
-                        options={{ maxFiles: 1 }}
-                        className="w-full"
-                        
-                    >
-                        {!currentImage ? (
-                            <div className="text-sm p-16 w-full justify-center flex border-dashed border border-gray-500 mt-2">
-                            Foto hinzufügen
-                        </div>
-                        ) : (
-                            <div>
-                                <Image
-                                alt="Vehicle Image" 
-                                src={currentImage}
-                                width={200}
-                                height={200}
-                                className="w-full h-16 object-cover"
-                                />
-                            </div>
-                        )}
-                    </CldUploadButton>
-                    </div>
-*/}
+                    
                     <div className="mt-4">
                         <Label>
                             Titel *

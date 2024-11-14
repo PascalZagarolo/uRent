@@ -48,6 +48,7 @@ const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription, exi
     
 
     const switchTab = (newTab : string) => {
+        console.log(newTab)
         const params = new URLSearchParams("");
         params.set('tab', newTab);
         window.history.pushState(null, '', `?${params?.toString()}`)

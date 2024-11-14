@@ -1,23 +1,15 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
+
 
 import { format, getDate, isBefore, isSameDay, set } from 'date-fns';
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+
+
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import {
-    Form,
-    FormControl,
 
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
 import {
     Popover,
     PopoverContent,
@@ -31,7 +23,7 @@ import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
 import toast from "react-hot-toast";
-import { usesearchUserByBookingStore } from "@/store";
+
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { booking, inserat } from "@/db/schema";
@@ -54,23 +46,23 @@ import LetterRestriction from "@/components/letter-restriction";
 
 interface AddBookingProps {
     foundInserate: typeof inserat.$inferSelect[];
-    open? : boolean;
-    onClose? : () => void;
-    usedInserat? : typeof inserat.$inferSelect;
-    usedStart? : Date;
-    usedEnd? : Date;
-    usedStartTime? : string;
-    usedEndTime? : string;
-    usedTitle? : string;
-    usedContent? : string
-    requestId? : string;
+    open?: boolean;
+    onClose?: () => void;
+    usedInserat?: typeof inserat.$inferSelect;
+    usedStart?: Date;
+    usedEnd?: Date;
+    usedStartTime?: string;
+    usedEndTime?: string;
+    usedTitle?: string;
+    usedContent?: string
+    requestId?: string;
 }
 
 
 const AddBooking: React.FC<AddBookingProps> = ({
     foundInserate,
     open,
-    onClose = () => {},
+    onClose = () => { },
     usedInserat,
     usedStart,
     usedEnd,
@@ -100,38 +92,20 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [isOpen, setIsOpen] = useState(open);
 
 
-    
+
 
     const [currentInseratObject, setCurrentInseratObject] = useState<typeof inserat.$inferSelect | null>(null);
 
- 
+
     const [ignoreOnce, setIgnoreOnce] = useState(false);
     const [showConflict, setShowConflict] = useState(false);
 
     const [conflictedBooking, setConflictedBooking] = useState<typeof booking.$inferSelect | null>(null);
 
-    const params = useParams();
+
     const router = useRouter();
 
-    const formSchema = z.object({
-        start: z.date({
-            required_error: "A date of birth is required.",
-        }), end: z.date({
-            required_error: "A date of birth is required.",
-        }), content: z.string().optional(),
-        name: z.string().optional()
-    })
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            start: new Date(),
-            end: new Date(),
-            content: "",
-            name: ""
-
-        }
-    })
 
 
     useEffect(() => {
@@ -144,7 +118,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
     const onSubmit = () => {
         try {
-            console.log("!!")
+
             setIsLoading(true);
 
 
@@ -163,10 +137,10 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 vehicleId: currentVehicle,
                 buchungsnummer: currentInternal,
                 name: currentName,
-                requestId : requestId
+                requestId: requestId
             }
 
-            
+
 
             const isAvailable: {
                 isConflict?: boolean,
@@ -181,7 +155,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 currentVehicle ? currentVehicle : null,
             )
 
-            
+
 
             if (isAvailable?.isConflict) {
                 setConflictedBooking(isAvailable.booking)
@@ -192,7 +166,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 onClose();
                 axios.post(`/api/booking/${currentInserat}`, values)
                     .then(() => {
-                        router.refresh();
+                       
                         setCurrentStart(new Date());
                         setCurrentEnd(new Date());
                         setCurrentInserat(null);
@@ -203,13 +177,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
                         setCurrentEndTime("");
                     })
                 toast.success("Buchung hinzugefügt");
+                router.refresh();    
             }
 
         } catch (err) {
             console.log(err);
             toast.error("Fehler beim hinzufügen der Buchung", err)
         } finally {
-            router.refresh();
+
             setIsLoading(false);
         }
     }
@@ -224,20 +199,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
         }
     };
 
-    function convertMinutesToDayTime(minutes: number): string {
-        // Calculate hours and minutes
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
 
-        // Format hours and minutes to two digits
-        const formattedHours = hours.toString().padStart(2, '0');
-        const formattedMinutes = remainingMinutes.toString().padStart(2, '0');
-
-        // Construct the time string in HH:MM format
-        const dayTime = `${formattedHours}:${formattedMinutes} Uhr`;
-
-        return dayTime;
-    }
 
     useEffect(() => {
         if (currentStart > currentEnd) {
@@ -317,6 +279,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
         <Dialog open={isOpen} onOpenChange={(e) => {
             setIsOpen(e);
             if (e === false) {
+                console.log("...")
                 onClose();
             }
 
@@ -331,13 +294,13 @@ const AddBooking: React.FC<AddBookingProps> = ({
             </div>
 
             <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none">
-                <div>
+                <div className="flex flex-col h-full w-full">
                     <div>
                         <h3 className="font-bold flex mb-8">
                             <CalendarClockIcon className="mr-2" /> Buchungen hinzufügen
                         </h3>
                     </div>
-                    <div className="py-4 pr-8">
+                    <div className="py-4 ">
                         <Label className="">
                             Zugehöriges Inserat*
                         </Label>
@@ -348,8 +311,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
                             }}
                             value={currentInserat || ''} // Ensures a falsy value like null doesn't break the component
                         >
-                            <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a] mt-2", !currentInserat && "text-gray-200/80")}>
-                                <SelectValue placeholder="Bitte wähle dein Inserat"/>
+                            <SelectTrigger className={cn("dark:border-none dark:bg-[#222222] shadow-lg w-full", !currentInserat && "text-gray-200/80")}>
+                                <SelectValue placeholder="Bitte wähle dein Inserat" />
                             </SelectTrigger>
 
                             <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
@@ -421,208 +384,178 @@ const AddBooking: React.FC<AddBookingProps> = ({
                             </div>
                         </div>
                     )}
-                    <div className="flex">
-                        <Form {...form}>
-                            <form  className="space-y-8">
-                                <div className="flex gap-x-8">
-                                    <FormField
-                                        control={form.control}
-                                        name="start"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Anfangsdatum*</FormLabel>
-                                                <Popover>
-                                                    <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]
-                                                         dark:border-none">
-                                                            <Button
-                                                                variant={"outline"}
-                                                                className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground  "
-                                                                )}
-                                                            >
-                                                                {currentStart ? (
-                                                                    format(currentStart, "PPP", { locale: de })
-                                                                ) : (
-                                                                    <span>Wähle ein Datum</span>
-                                                                )}
-                                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                                            </Button>
-                                                        </FormControl>
-                                                    </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
-                                                        <Calendar
-                                                            mode="single"
-                                                            locale={de}
-                                                            selected={currentStart}
-                                                            className="dark:bg-[#0a0a0a] dark:border-none"
-                                                            onSelect={(date) => {
-                                                                field.onChange(date);
-                                                                setCurrentStart(date);
+                    <div className="flex-col">
 
-                                                            }}
-                                                            disabled={(date) =>
-                                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
-                                                            }
-                                                            initialFocus
-                                                        />
-                                                    </PopoverContent>
-                                                </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                        <div className="flex flex-row gap-x-8">
+                            <div className='w-1/2'>
+                                <Label>Anfangsdatum*</Label>
+                                <Popover>
+                                    <PopoverTrigger asChild>
 
+                                        <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                                "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg",
+                                                !currentStart && "text-muted-foreground"
+                                            )}
+                                        >
+                                            {currentStart ? (
+                                                format(currentStart, "PPP", { locale: de })
+                                            ) : (
+                                                <span>Wähle ein Datum</span>
+                                            )}
+                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                        </Button>
 
-                                    <FormField
-                                        control={form.control}
-                                        name="end"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Enddatum*</FormLabel>
-                                                <Popover>
-                                                    <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]">
-                                                            <Button
-                                                                variant={"outline"}
-                                                                className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground"
-                                                                )}
-                                                            >
-                                                                {currentEnd ? (
-                                                                    format(currentEnd, "PPP", { locale: de })
-                                                                ) : (
-                                                                    <span>Wähle ein Datum</span>
-                                                                )}
-                                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                                            </Button>
-                                                        </FormControl>
-                                                    </PopoverTrigger>
-                                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
-                                                        <Calendar
-                                                            mode="single"
-                                                            selected={currentEnd}
-                                                            className="dark:bg-[#0a0a0a]"
-                                                            locale={de}
-                                                            onSelect={(date) => {
-                                                                field.onChange(date);
-                                                                setCurrentEnd(date);
-                                                            }}
-                                                            disabled={(date) =>
-                                                                date < currentStart || date < new Date("1900-01-01")
-                                                            }
-                                                            initialFocus
-                                                        />
-                                                    </PopoverContent>
-                                                </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
+                                        <Calendar
+                                            mode="single"
+                                            locale={de}
+                                            selected={currentStart}
+                                            className="dark:bg-[#0a0a0a] dark:border-none"
+                                            onSelect={(date) => {
 
+                                                setCurrentStart(date);
 
-                                </div>
-
-                                <div className="">
-                                    <SelectTimeRange
-                                        isSameDay={isSameDay(currentStart, currentEnd) || false}
-                                        setStartTimeParent={setCurrentStartTime}
-                                        setEndTimeParent={setCurrentEndTime}
-                                        prefilledStartTime={usedStartTime}
-                                        prefilledEndTime={usedEndTime}
-                                    />
-                                </div>
-                                <div>
-                                    <FormField
-                                        control={form.control}
-                                        name="name"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-0">
-                                                <FormLabel className="flex items-center">
-                                                    <MdOutlinePersonPin className="w-4 h-4 mr-2" />Name*</FormLabel>
-                                                <Input
-                                                    maxLength={160}
-                                                    value={currentName}
-                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#0a0a0a]"
-                                                    onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
-                                                />
-                                                <div className="flex justify-end">
-                                                    <LetterRestriction
-                                                        limit={160}
-                                                        currentLength={currentName?.length ?? 0} 
-                                                        />
-                                                </div>
-                                            </FormItem>
-                                        )} />
-                                </div>
-                                {/*
-                                <div>
-                                    <SearchRent />
-                                </div>
-                                */}
-                                <div className="mt-2">
-                                    <Label className="font-semibold text-sm flex items-center">
-                                        <TbListNumbers className="w-4 h-4 mr-2" /> Interne Buchungsnr.
-                                    </Label>
-                                    <div className="mt-2">
-                                        <Input
-                                            value={currentInternal}
-                                            className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#0a0a0a]"
-                                            onChange={(e) => { setCurrentInternal(e.target.value) }}
-                                            maxLength={160}
+                                            }}
+                                            disabled={(date) =>
+                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
+                                            }
+                                            initialFocus
                                         />
-                                        <div className="flex justify-end">
-                                            <LetterRestriction 
-                                            limit={160}
-                                            currentLength={currentInternal?.length ?? 0}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span className="font-semibold text-sm  flex">
-                                        <BookOpenCheck className="mr-2" />  Anmerkungen:
-                                    </span>
-                                    <FormField
-                                        control={form.control}
-                                        name="content"
-                                        render={({ field }) => (
-                                            <FormItem className="mt-2 ">
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
 
-                                                <Textarea
-                                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none h-40
-                            dark:bg-[#0a0a0a]"
-                                                    value={currentContent}
-                                                    maxLength={2000}
-                                                    onChange={handleTextChange}
-                                                />
-                                                <div>
-                                                    <LetterRestriction 
-                                                    limit={2000}
-                                                    currentLength={currentContent?.length ?? 0}
-                                                    />
-                                                </div>
-                                            </FormItem>
-                                        )}
+
+
+                            <div className='w-1/2'>
+                                <Label>Enddatum*</Label>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+
+                                        <Button
+                                            variant={"outline"}
+                                            className={cn(
+                                                "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg",
+                                                !currentEnd && "text-muted-foreground"
+                                            )}
+                                        >
+                                            {currentEnd ? (
+                                                format(currentEnd, "PPP", { locale: de })
+                                            ) : (
+                                                <span>Wähle ein Datum</span>
+                                            )}
+                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                        </Button>
+
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
+                                        <Calendar
+                                            mode="single"
+                                            selected={currentEnd}
+                                            className="dark:bg-[#0a0a0a]"
+                                            locale={de}
+                                            onSelect={(date) => {
+
+                                                setCurrentEnd(date);
+                                            }}
+                                            disabled={(date) =>
+                                                date < currentStart || date < new Date("1900-01-01")
+                                            }
+                                            initialFocus
+                                        />
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
+
+
+
+                        </div>
+
+                        <div className="mt-4">
+                            <SelectTimeRange
+                                isSameDay={isSameDay(currentStart, currentEnd) || false}
+                                setStartTimeParent={setCurrentStartTime}
+                                setEndTimeParent={setCurrentEndTime}
+                                prefilledStartTime={usedStartTime}
+                                prefilledEndTime={usedEndTime}
+                            />
+                        </div>
+                        <div>
+
+                            <Label className="flex items-center mt-8">
+                                Name*</Label>
+                            <Input
+                                maxLength={160}
+                                value={currentName}
+                                className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                dark:bg-[#222222] shadow-lg"
+                                onChange={(e) => { setCurrentName(e.target.value) }}
+                            />
+                            <div className="flex justify-end">
+                                <LetterRestriction
+                                    limit={160}
+                                    currentLength={currentName?.length ?? 0}
+                                />
+                            </div>
+
+                        </div>
+
+                        <div className="mt-2">
+                            <Label className="font-semibold text-sm flex items-center">
+                                Interne Buchungsnr.
+                            </Label>
+                            <div className="">
+                                <Input
+                                    value={currentInternal}
+                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
+                                                    dark:bg-[#222222] shadow-lg"
+                                    onChange={(e) => { setCurrentInternal(e.target.value) }}
+                                    maxLength={160}
+                                />
+                                <div className="flex justify-end">
+                                    <LetterRestriction
+                                        limit={160}
+                                        currentLength={currentInternal?.length ?? 0}
                                     />
                                 </div>
-                                    <Button
-                                        className="border border-gray-300  shadow-lg text-gray-200
+                            </div>
+                        </div>
+                        <div>
+                            <span className="font-semibold text-sm  flex">
+                                 Anmerkungen:
+                            </span>
+
+
+                            <Textarea
+                                className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none h-40
+                            dark:bg-[#222222] shadow-lg"
+                                value={currentContent}
+                                maxLength={2000}
+                                onChange={handleTextChange}
+                            />
+                            <div className='flex justify-end'>
+                                <LetterRestriction
+                                    limit={2000}
+                                    currentLength={currentContent?.length ?? 0}
+                                />
+                            </div>
+
+                        </div>
+                        <Button
+                            className="border border-gray-300  shadow-lg text-gray-200
                                         bg-indigo-800 hover:bg-indigo-900 dark:border-none"
-                                        disabled={((!currentName || currentName.trim() === ""))
-                                        || isLoading || !currentInserat || !currentStart || !currentEnd
-                                        || !currentStartTime || !currentEndTime ||
-                                        (currentInseratObject?.multi && !(currentVehicle || affectAll))
-                                        }
-                                        onClick={onSubmit}
-                                    >
-                                        Buchung hinzufügen</Button>
-                            </form>
-                        </Form>
+                            disabled={((!currentName || currentName.trim() === ""))
+                                || isLoading || !currentInserat || !currentStart || !currentEnd
+                                || !currentStartTime || !currentEndTime ||
+                                (currentInseratObject?.multi && !(currentVehicle || affectAll))
+                            }
+                            onClick={onSubmit}
+                        >
+                            Buchung hinzufügen</Button>
+
 
                     </div>
                 </div>

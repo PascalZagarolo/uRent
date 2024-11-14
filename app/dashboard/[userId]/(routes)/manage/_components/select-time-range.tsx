@@ -44,7 +44,7 @@ const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
                 }}
                 value={startTime ? startTime : undefined}
                 >
-                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">
+                    <SelectTrigger className="w-full dark:bg-[#222222] shadow-lg dark:border-none">
                         <SelectValue placeholder="Wähle eine Startzeit" />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
@@ -100,7 +100,7 @@ const SelectTimeRange : React.FC<SelectTimeRangeProps> = ({
                 }}
                 value={endTime ? endTime : undefined}
                 >
-                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">
+                    <SelectTrigger className="w-full dark:bg-[#222222] shadow-lg dark:border-none">
                         <SelectValue placeholder="Wähle eine Endzeit" />
                     </SelectTrigger>
                     <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">

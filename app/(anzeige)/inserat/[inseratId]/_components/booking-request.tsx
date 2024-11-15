@@ -378,12 +378,12 @@ const Bookings = () => {
 
                 <DialogTrigger asChild>
                   <Button
-                    className="bg-white border border-gray-300 text-gray-900  hover:bg-indigo-900
-                   dark:bg-indigo-800 dark:text-gray-100 dark:hover:bg-[#171717] border-none w-full"
-                    disabled={isLoading || !currentEnd || !currentStart || !currentStart || !currentEnd}
+                    className="bg-white border border-gray-300 text-gray-900  dark:hover:bg-indigo-900
+                   dark:bg-indigo-800 dark:text-gray-100 border-none w-full"
+                    disabled={isLoading || !currentEnd || !currentStart || !currentStart || !currentEnd || !startTime || !endTime}
                     onClick={onSubmit}
                   >
-                    Vorschlag senden</Button>
+                    Buchungsvorschlag senden</Button>
 
                 </DialogTrigger>
               </form>

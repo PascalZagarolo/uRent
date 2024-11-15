@@ -95,9 +95,9 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {(attributes?.loading_l || attributes?.loading_b || attributes?.loading_h) && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <GiResize className="w-4 h-4 text-gray-400 mr-3" />
-                    <span className="font-medium">
-                        {attributes.loading_l} x {attributes.loading_b} x {attributes.loading_h} m
+                    <GiResize className="w-4 h-4 text-rose-400 mr-3" />
+                    <span className="font-medium text-sm">
+                    {attributes?.loading_l && `${attributes?.loading_l}m Länge, `}  {attributes?.loading_b && `${attributes?.loading_b}m Breite, ` } <br/>  {attributes?.loading_h && `${attributes?.loading_b}m Höhe`}
                     </span>
                 </div>
             )}

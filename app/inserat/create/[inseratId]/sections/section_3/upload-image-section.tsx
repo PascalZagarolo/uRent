@@ -235,7 +235,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     Fahrzeug Bilder
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Gute Bilder erhöhen die Chance auf ein erfolgreiches Inserat und sind deine Visitenkarte. <br/>
-                        Hinweis : Die Bilder werden im Hintergrund nach dem klicken auf "Weiter" hochgeladen. Falls du die Seite vorzeitig verlässt, können Änderungen verloren gehen.
+                        Hinweis : Die Bilder werden im Hintergrund nach dem klicken auf {`"`}Weiter{`"`} hochgeladen. Falls du die Seite vorzeitig verlässt, können Änderungen verloren gehen.
                         
                     </p>
                 </h3>

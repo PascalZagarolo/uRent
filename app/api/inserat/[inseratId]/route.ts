@@ -30,7 +30,7 @@ export async function PATCH(
             values?.title?.trim() == "" || values?.description?.trim() == "" ||
             (typeof(values?.price) != "undefined" && values?.price == null || values?.price == 0)
         )) {
-            console.log("...")
+           
             privatize = true;
         }
 

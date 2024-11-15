@@ -4,12 +4,20 @@ import getCurrentUser from "./getCurrentUser"
 import { deleteUserToken, userTable } from '../db/schema';
 import { eq } from "drizzle-orm";
 import { sendConfirmAccountDeleted } from "@/lib/mail";
+import { stripe } from "@/lib/stripe";
 
 export const confirmDeleteUser = async (token: string) => {
 
     try {
 
         const currentUser = await getCurrentUser();
+
+        const findUserWithSubscriptions = await db.query.userTable.findFirst({
+            where: eq(userTable.id, currentUser.id),
+            with : {
+                subscription : true
+            }
+        })
 
         if (!currentUser) {
             return { error: "Nutzer existiert nicht." }
@@ -28,13 +36,38 @@ export const confirmDeleteUser = async (token: string) => {
             
         }
 
+        //get all customers with the email of the current user
+        const customer = await stripe.customers.list({
+            email : currentUser.email
+        })
+
+        console.log(customer)
+
+        for(const pCustomer of customer.data) {
+            const retrievedSubscriptions = await stripe.subscriptions.list({
+                customer: pCustomer.id
+            })
+            console.log(retrievedSubscriptions?.data)
+            for(const subscription of retrievedSubscriptions.data) {
+                await stripe.subscriptions.cancel(subscription.id)
+            }
+            console.log(retrievedSubscriptions?.data)
+            for (const subscription of findUserWithSubscriptions?.subscription ?? []) {
+                await stripe.subscriptions.cancel(subscription?.stripeSubscriptionId)
+            }
+            console.log(retrievedSubscriptions?.data)
+        }
+
+        //get all subscriptions of every user
+        //for each subscription => cancel it
+
         const userEmail = currentUser.email;
 
         
-        const deletedUser = await db.delete(userTable).where(eq(userTable.id, currentUser.id))
+        await db.delete(userTable).where(eq(userTable.id, currentUser.id))
         
-        const sendEmail = await sendConfirmAccountDeleted(userEmail);
-
+        await sendConfirmAccountDeleted(userEmail);
+        console.log("...")
         return { success: "Account gelöscht." }
         
 

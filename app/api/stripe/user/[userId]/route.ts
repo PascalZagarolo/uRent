@@ -39,9 +39,7 @@ export async function PATCH(
             const stripeSession = await stripe.billingPortal.sessions.create({
                 customer: existingSubscription.stripe_customer_id,
                 return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/${params.userId}?tab=payments`,
-                metadata : {
-                    isChange : true,
-                }
+                
             })
 
             return new NextResponse(JSON.stringify({ url: stripeSession.url }))

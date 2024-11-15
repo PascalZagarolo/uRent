@@ -298,7 +298,7 @@ export async function POST(
     
 
     if (event.type === "customer.subscription.updated" && 
-        session?.metadata?.isChange) {
+        session?.metadata?.upgrade != "true") {
         const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
         
         if (//@ts-ignore

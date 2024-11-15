@@ -341,7 +341,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                                     <WeightIcon className="h-4 w-4 mr-1" />
                                                     <p className="mr-1 text-rose-200 w-full">
                                                         {//@ts-ignore
-                                                            thisInserat.trailerAttribute.weightClass / 100}t
+                                                            thisInserat.trailerAttribute.weightClass / 1000}t
                                                     </p>
                                                 </Badge>
                                             )}

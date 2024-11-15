@@ -294,10 +294,15 @@ export async function POST(
         }
 
     }
+            
+    
 
-    if ((event.type === "customer.subscription.updated" && session?.metadata?.upgrade !== "true")) {
-        //@ts-ignore
-        if (session?.cancel_at_period_end) {
+    if (event.type === "customer.subscription.updated" && 
+        session?.metadata?.isChange) {
+        const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+        
+        if (//@ts-ignore
+            session?.cancel_at_period_end) {
             const correspondingCustomer = await stripe.customers.retrieve(session.customer as string);
             console.log("send");
             //@ts-ignore

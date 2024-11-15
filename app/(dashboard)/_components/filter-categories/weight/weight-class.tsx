@@ -22,14 +22,13 @@ import { useSavedSearchParams } from "@/store";
 const WeightClassBar = () => {
 
 
-    const router = useRouter();
-
-    const params = getSearchParamsFunction("volume");
-    const volume = useSearchParams().get("volume");
+    
+    const weightClass = useSearchParams().get("weightClass");
+    const weightClassMax = useSearchParams().get("weightClassMax");
   
 
-    const [currentWeight, setCurrentWeight] = useState<string | null>(null);
-    const [currentWeightEnd, setCurrentWeightEnd] = useState<string | null>(null);
+    const [currentWeight, setCurrentWeight] = useState<string | null>(weightClass ? weightClass : null);
+    const [currentWeightEnd, setCurrentWeightEnd] = useState<string | null>(weightClassMax ? weightClassMax : null);
 
 
 

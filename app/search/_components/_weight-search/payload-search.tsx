@@ -26,6 +26,8 @@ import { Input } from "@/components/ui/input";
 const PayloadSearch = () => {
     const currentObject: any = useSavedSearchParams((state) => state.searchParams)
 
+    
+
     const [currentWeight, setCurrentWeight] = useState<any>(currentObject["payload"] ? currentObject["payload"] : undefined);
     const [currentWeightEnd, setCurrentWeightEnd] = useState<any>(currentObject["payloadMax"] ? currentObject["payloadMax"] : undefined);
 

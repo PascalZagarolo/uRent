@@ -36,9 +36,7 @@ const WeightClassSearch = () => {
 
 
 
-    const pSearchparams = useSearchParams();
-    const existingYear = pSearchparams.get("initial")
-    const existingYearEnd = pSearchparams.get("initialMax")
+   
 
 
 
@@ -71,9 +69,7 @@ const WeightClassSearch = () => {
             <div className="w-full gap-x-4">
                 <Label className="flex items-center">
                     zul. Gesamtgewicht (in kg)
-                    <div className="ml-auto">
-
-                    </div>
+                    
                 </Label>
                 <div className="w-full flex items-center gap-x-2">
                     <div className="w-1/2">

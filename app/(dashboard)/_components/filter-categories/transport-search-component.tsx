@@ -53,9 +53,7 @@ const TransportSearchComponents = () => {
             <div className="w-full">
                 <PkwSeatsBar />
             </div>
-            <div>
-                <TransportWeightClassBar />
-            </div>
+            
             <PkwPowerBar />
             <div>
                 <SetInitialSearch />

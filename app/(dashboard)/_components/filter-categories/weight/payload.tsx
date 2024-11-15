@@ -24,12 +24,13 @@ const Payload = () => {
 
     const router = useRouter();
 
-    const params = getSearchParamsFunction("volume");
-    const volume = useSearchParams().get("volume");
+    const payloadInitial = useSearchParams().get("payload");
+    const payloadMaxInitial = useSearchParams().get("payloadMax");
+    
   
 
-    const [currentWeight, setCurrentWeight] = useState<string | null>(null);
-    const [currentWeightEnd, setCurrentWeightEnd] = useState<string | null>(null);
+    const [currentWeight, setCurrentWeight] = useState<string | null>(payloadInitial ? payloadInitial : null);
+    const [currentWeightEnd, setCurrentWeightEnd] = useState<string | null>(payloadMaxInitial ? payloadMaxInitial : null);
 
 
 

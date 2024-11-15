@@ -66,6 +66,8 @@ interface RelevanteInserateProps {
     //LKW
     weightClass?: string;
     weightClassMax?: string;
+    payload?: string;
+    payloadMax?: string;
     drive?: typeof DriveEnumRender;
     loading?: typeof LoadingEnumRender;
     application: typeof ApplicationEnumRender;
@@ -138,6 +140,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
 
     weightClass,
     weightClassMax,
+    payload,
+    payloadMax,
     drive,
     loading,
     application,
@@ -222,6 +226,8 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
 
         weightClass: Number(weightClass),
         weightClassMax: Number(weightClassMax),
+        payload: Number(payload),
+        payloadMax: Number(payloadMax),
         drive: drive,
         loading: loading,
         application: application,

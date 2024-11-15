@@ -62,6 +62,8 @@ type GetInserate = {
     //LKW
     weightClass?: number;
     weightClassMax?: number;
+    payload?: number;
+    payloadMax?: number;
     drive?: typeof DriveEnumRender;
     loading?: typeof LoadingEnumRender;
     application?: typeof ApplicationEnumRender;
@@ -147,6 +149,8 @@ export const getInserate = cache(async ({
 
     weightClass,
     weightClassMax,
+    payload,
+    payloadMax,
     drive,
     loading,
     application,
@@ -285,6 +289,17 @@ export const getInserate = cache(async ({
             isValidDate = false;
         }
 
+        const searchedPayload = (payload || payloadMax) ? true : false;
+        const startingPayload = payload ? payload : 0;
+        const endingPayload = payloadMax ? payloadMax : 100000;
+    
+        
+
+        const bPayload = searchedPayload ?
+            Number(pInserat?.lkwAttribute?.payload ?? 1000000000) <= Number(endingPayload) &&
+            Number(pInserat?.lkwAttribute?.payload ?? 0) >= Number(startingPayload)
+            : true;
+
         const searchedSeats = seats || seatsMax ? true : false;
         const startingIndex = seats ? seats : 0;
         const endingIndex = seatsMax ? seatsMax : 10;
@@ -321,8 +336,8 @@ export const getInserate = cache(async ({
             pInserat?.lkwAttribute?.seats <= endingIndex : true;
 
         const bWeightClass = searchedWeightClass ?
-            Number(pInserat?.lkwAttribute?.weightClass) <= Number(endingWeightClass) &&
-            Number(pInserat?.lkwAttribute?.weightClass) >= Number(startingWeightClass)
+            Number(pInserat?.lkwAttribute?.weightClass ?? 1000000000) <= Number(endingWeightClass) &&
+            Number(pInserat?.lkwAttribute?.weightClass ?? 0) >= Number(startingWeightClass)
             : true;
 
         const searchedAxis = (axis || axisMax) ? true : false;
@@ -346,15 +361,23 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.lkwAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.lkwAttribute?.loading_h : true;
 
-        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission && bPower && bFuel && bAhk &&
+        return bSeats && bWeightClass && bDrive && bLoading && bApplication && bInitial && bTransmission && bPower && bFuel && bAhk && bPayload &&
             bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight;
     })
 
     const TrailerFilter = cache((pInserat: any) => {
 
 
-
-
+        //
+        const searchedPayload = (payload || payloadMax) ? true : false;
+        const startingPayload = payload ? payload : 0;
+        const endingPayload = payloadMax ? payloadMax : 100000;
+    
+        const bPayload = searchedPayload ?
+            Number(pInserat?.trailerAttribute?.payload ?? 1000000000) <= Number(endingPayload) &&
+            Number(pInserat?.trailerAttribute?.payload ?? 0) >= Number(startingPayload)
+            : true;
+        //
 
         const searchedWeightClass = (weightClass || weightClassMax) ? true : false;
         const startingWeightClass = weightClass ? weightClass : 0;
@@ -382,8 +405,8 @@ export const getInserate = cache(async ({
         const bAxis = searchedAxis ? minAxis <= pInserat?.trailerAttribute?.axis && maxAxis >= pInserat?.trailerAttribute?.axis : true;
 
         const bWeightClass = searchedWeightClass ?
-            Number(pInserat?.trailerAttribute?.weightClass) <= Number(endingWeightClass) &&
-            Number(pInserat?.trailerAttribute?.weightClass) >= Number(startingWeightClass)
+            Number(pInserat?.trailerAttribute?.weightClass ?? 1000000000) <= Number(endingWeightClass) &&
+            Number(pInserat?.trailerAttribute?.weightClass ?? 0) >= Number(startingWeightClass)
             : true;
 
 
@@ -403,7 +426,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.trailerAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.trailerAttribute?.loading_h : true;
 
-        return bType && bExtraType && bCoupling && bLoading && bAxis && bInitial
+        return bType && bExtraType && bCoupling && bLoading && bAxis && bInitial && bPayload
             && bWeightClass && bBrake && bVolume && bLength && bBreite && bHeight;
     })
 
@@ -420,6 +443,18 @@ export const getInserate = cache(async ({
 
             isValidDate = false;
         }
+
+        //
+        const searchedPayload = (payload || payloadMax) ? true : false;
+        const startingPayload = payload ? payload : 0;
+        const endingPayload = payloadMax ? payloadMax : 100000;
+    
+        const bPayload = searchedPayload ?
+            Number(pInserat?.transportAttribute?.payload ?? 1000000000) <= Number(endingPayload) &&
+            Number(pInserat?.transportAttribute?.payload ?? 0) >= Number(startingPayload)
+            : true;
+        //
+
 
         const searchedSeats = seats || seatsMax ? true : false;
         const startingIndex = seats ? seats : 0;
@@ -465,8 +500,8 @@ export const getInserate = cache(async ({
             : true;
 
         const bWeightClass = searchedWeightClass ?
-            Number(pInserat?.transportAttribute?.weightClass) <= Number(endingWeightClass) &&
-            Number(pInserat?.transportAttribute?.weightClass) >= Number(startingWeightClass)
+            Number(pInserat?.transportAttribute?.weightClass ?? 1000000000) <= Number(endingWeightClass) &&
+            Number(pInserat?.transportAttribute?.weightClass ?? 0) >= Number(startingWeightClass)
             : true;
 
         const bLoading = loading ? loading === pInserat.transportAttribute.loading : true;
@@ -486,7 +521,7 @@ export const getInserate = cache(async ({
         const bBreite = loading_b ? loading_b <= pInserat.transportAttribute?.loading_b : true;
         const bHeight = loading_h ? loading_h <= pInserat.transportAttribute?.loading_h : true;
 
-        return bLoading && bTransmission && bSeats && bDoors && bFuel && bPower && bInitial && bBrand && bWeightClass && bAhk 
+        return bLoading && bTransmission && bSeats && bDoors && bFuel && bPower && bInitial && bBrand && bWeightClass && bAhk && bPayload
             && bExtraType && bVolume && bLength && bBreite && bHeight;
     })
 

@@ -70,7 +70,7 @@ const WeightClassSearch = () => {
 
             <div className="w-full gap-x-4">
                 <Label className="flex items-center">
-                    zul. Gesamtgewicht
+                    zul. Gesamtgewicht (in kg)
                     <div className="ml-auto">
 
                     </div>

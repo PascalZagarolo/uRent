@@ -66,7 +66,7 @@ const PayloadSearch = () => {
 
             <div className="w-full gap-x-4">
                 <Label className="flex items-center">
-                    Nutzlast
+                    Nutzlast (in kg)
                     <div className="ml-auto">
 
                     </div>

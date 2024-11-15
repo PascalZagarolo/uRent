@@ -53,7 +53,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
     }
 
 
-    
+    const addPkwNonPkwSections = thisInserat?.category == "PKW" ? 0 : 1; 
 
     const unfinishedSections = []
 
@@ -70,7 +70,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
     }
 
     if(!thisInserat?.address?.postalCode || !thisInserat?.address?.locationString || String(thisInserat?.address?.locationString).trim() == "" || String(thisInserat?.address?.postalCode)?.length !== 5 ) {
-        unfinishedSections.push(10)
+        unfinishedSections.push(10 + addPkwNonPkwSections)
     }
 
     
@@ -202,13 +202,13 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                                 <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
                                 onClick={() => changeSection(10)}
                                 > <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Postleitzahl angegeben
-                                <span className="text-gray-200/60"> (Abschnitt 10) </span>
+                                <span className="text-gray-200/60"> (Abschnitt 11) </span>
                                 </div>}
                                 {(!thisInserat?.address?.locationString || thisInserat?.address?.locationString?.trim() === "")  &&  
                                 <div className="text-sm text-red-500 mt-2 flex flex-row items-center space-x-2 hover:underline"
                                 onClick={() => changeSection(10)}>
                                  <BsCircleFill className="w-2 h-2 mr-2 text-rose-600" /> Keine Addresse angegeben
-                                <span className="text-gray-200/60"> (Abschnitt 10) </span>
+                                <span className="text-gray-200/60"> (Abschnitt 11) </span>
                                 </div>}
 
                             </div>
@@ -251,6 +251,7 @@ const ReleaseSection = ({ thisInserat, currentSection, changeSection, existingSu
                 <SectionOverviewTotal 
                 currentCategory = {thisInserat?.category}
                 unfinishedSections = {unfinishedSections}
+                isPkw = {thisInserat?.category == "PKW" ? true : false}
                 />
             </div>
         </div>

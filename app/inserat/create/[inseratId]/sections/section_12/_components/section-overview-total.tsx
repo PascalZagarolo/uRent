@@ -4,9 +4,10 @@ import { useSearchParams } from "next/navigation";
 interface SectionOverviewTotalProps {
     currentCategory: string;
     unfinishedSections: number[];
+    isPkw : boolean;
 }
 
-const SectionOverviewTotal = ({ currentCategory, unfinishedSections }: SectionOverviewTotalProps) => {
+const SectionOverviewTotal = ({ currentCategory, unfinishedSections, isPkw }: SectionOverviewTotalProps) => {
     const sectionId = Number(useSearchParams().get("sectionId")) - 1;
 
     const sectionData = [
@@ -14,6 +15,9 @@ const SectionOverviewTotal = ({ currentCategory, unfinishedSections }: SectionOv
         "Grundlegende Angaben (2/2)",
         "Fahrzeug Bilder",
         "Preisdetails",
+        ...(!isPkw) ? 
+        ["Gewichtsangaben"] : 
+        [],
         `${currentCategory.toUpperCase()} - Eigenschaften (1/3)`,
         `${currentCategory.toUpperCase()} - Eigenschaften (2/3)`,
         `${currentCategory.toUpperCase()} - Eigenschaften (3/3)`,
@@ -23,7 +27,7 @@ const SectionOverviewTotal = ({ currentCategory, unfinishedSections }: SectionOv
     ];
 
 
-
+    const subtractedValue = isPkw ? 1 : 0;
 
     const changeSection = (value: number) => {
         const params = new URLSearchParams()
@@ -57,7 +61,7 @@ const SectionOverviewTotal = ({ currentCategory, unfinishedSections }: SectionOv
                 Abschnittsübersicht
             </div>
             <div className="flex flex-wrap justify-center gap-4 mt-4">
-                {Array.from({ length: sectionId }, (_, i) => i).map((index) => renderedSection(index))}
+            {Array.from({ length: sectionId - subtractedValue }, (_, i) => i).map((index) => renderedSection(index))}
             </div>
             <div className="mt-4">
                 <p className="text-xs text-gray-200/60">

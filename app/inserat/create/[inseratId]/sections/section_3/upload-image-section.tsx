@@ -28,7 +28,7 @@ import ShowPrivatizeDialog from "../_components/show-privatize-dialog";
 interface UploadImagesSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
     currentSection: number;
-    changeSection: (value: number) => Promise<void>;
+    changeSection: (value: number) => void;
 }
 
 const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: UploadImagesSectionProps) => {
@@ -121,11 +121,11 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 }
     
                 const values = { updatedImages: uploadData };
+                setSelectedImages(updatedImages);
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
-                
-                
+                router.refresh()
             }
-            router.refresh()
+            
             if (previous) {
                 console.log("Failed to upload images, reverting changes...");
                 const params = new URLSearchParams();
@@ -141,7 +141,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     return toast.error("Bitte versuche es erneut...");
                 } else {
                     
-                    await changeSection(4);
+                    changeSection(4);
                     
                 }
             }

@@ -44,7 +44,7 @@ const SectionTabs = ({ thisInserat, currentUser, thisAddressComponent, published
     const sectionId = useSearchParams().get("sectionId");
 
     const changeSection = async (value : number) => {
-        const params = new URLSearchParams()
+        const params =  new URLSearchParams()
         params.set('sectionId', String(value))
         window.history.pushState(null, '', `?${params.toString()}`)
     }

@@ -28,10 +28,12 @@ import ShowPrivatizeDialog from "../_components/show-privatize-dialog";
 interface UploadImagesSectionProps {
     thisInserat: typeof inserat.$inferSelect | any;
     currentSection: number;
-    changeSection: (value: number) => void;
+    changeSection: (value: number) => Promise<void>;
 }
 
 const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: UploadImagesSectionProps) => {
+
+    
 
     const [selectedImages, setSelectedImages] = useState<{ id: string; url: string; position: number, wholeFile: any }[]>(
         thisInserat?.images.map((image) => ({
@@ -42,8 +44,12 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     );  
 
     useEffect(() => {
-        JSON.stringify(selectedImages) !== JSON.stringify(oldImages) ? setHasChanged(true) : setHasChanged(false)
+        if(!isLoading) {
+            JSON.stringify(selectedImages) !== JSON.stringify(oldImages) ? setHasChanged(true) : setHasChanged(false)
+        }
     },[selectedImages])
+
+    
 
     const [isLoading, setIsLoading] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
@@ -69,7 +75,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     const onSave = async (redirect?: boolean, previous?: boolean, confirmDelete? : boolean) => {
         try {
             if (isLoading) {
-                return setIsLoading(true);
+                return null;
             }
 
             setIsLoading(true);
@@ -85,7 +91,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             const oldData = [...selectedImages]; // Copy the current state, if something fails later..
     
             if (hasChanged) {
-                setHasChanged(false);
+               setHasChanged(false);
                const updatedImages = [...selectedImages]; // Copy the current state
     
                 for await (const pImage of selectedImages) {
@@ -114,34 +120,36 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     }
                 }
     
-               
-               
-    
                 const values = { updatedImages: uploadData };
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
-                router.refresh();
+                
+                
             }
-    
+            router.refresh()
             if (previous) {
+                console.log("Failed to upload images, reverting changes...");
                 const params = new URLSearchParams();
                 params.set('sectionId', String(2));
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
 
                 if (uploadData?.some((image) => !isValidUrl(image.url))) {
+                    console.log("Failed to upload images, reverting changes...");
                     setHasChanged(true);
                     setSelectedImages(oldData);
                     setIsLoading(false);
                     return toast.error("Bitte versuche es erneut...");
                 } else {
-                    router.refresh();
-                    changeSection(4);
+                    
+                    await changeSection(4);
+                    
                 }
             }
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
         } finally {
+            console.log("...")
             setIsLoading(false);
         }
     };
@@ -226,8 +234,9 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 <h3 className="text-lg font-semibold">
                     Fahrzeug Bilder
                     <p className="text-xs text-gray-200/60 font-medium text-left">
-                        Lade Bilder von deinem Fahrzeug hoch. <br />
-                        Wähle Bilder aus, die dein Fahrzeug gut repräsentieren.
+                        Gute Bilder erhöhen die Chance auf ein erfolgreiches Inserat und sind deine Visitenkarte. <br/>
+                        Hinweis : Die Bilder werden im Hintergrund nach dem klicken auf "Weiter" hochgeladen. Falls du die Seite vorzeitig verlässt, können Änderungen verloren gehen.
+                        
                     </p>
                 </h3>
                 <div className={cn("mt-4", selectedImages?.length > 2 && "mb-4")}>

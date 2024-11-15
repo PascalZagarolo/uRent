@@ -69,7 +69,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     const onSave = async (redirect?: boolean, previous?: boolean, confirmDelete? : boolean) => {
         try {
             if (isLoading) {
-                return;
+                return setIsLoading(true);
             }
 
             setIsLoading(true);
@@ -84,10 +84,9 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             
             const oldData = [...selectedImages]; // Copy the current state, if something fails later..
     
-            if (hasChanged || JSON.stringify(selectedImages) !== JSON.stringify(oldImages)) {
-               setHasChanged(false);
-                uploadData
-                const updatedImages = [...selectedImages]; // Copy the current state
+            if (hasChanged) {
+                setHasChanged(false);
+               const updatedImages = [...selectedImages]; // Copy the current state
     
                 for await (const pImage of selectedImages) {
                     let returnedUrl = "";
@@ -99,6 +98,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                             const index = updatedImages.findIndex((item) => item.id === pImage.id);
                             if (index !== -1) {
                                 updatedImages[index] = { ...pImage, url: returnedUrl, wholeFile: null };
+                                
                             }
                         } else {
                             console.log(`Failed to upload image after ${MAX_RETRIES} attempts.`);
@@ -114,33 +114,28 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     }
                 }
     
-                // Update the state with all images at once after loop
-                setSelectedImages(updatedImages);
+               
+               
     
                 const values = { updatedImages: uploadData };
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
-                // router.refresh();
+                router.refresh();
             }
     
-            // Redirection and Navigation Logic
-            if (redirect) {
-                
-                
-            } else if (previous) {
+            if (previous) {
                 const params = new URLSearchParams();
                 params.set('sectionId', String(2));
                 window.history.pushState(null, '', `?${params.toString()}`);
             } else {
 
                 if (uploadData?.some((image) => !isValidUrl(image.url))) {
-                   
                     setHasChanged(true);
                     setSelectedImages(oldData);
                     setIsLoading(false);
                     return toast.error("Bitte versuche es erneut...");
                 } else {
-                    setIsTransitioning(true);
-                    router.push(`/inserat/create/${thisInserat?.id}?sectionId=4`);
+                    router.refresh();
+                    changeSection(4);
                 }
             }
         } catch (e: any) {

@@ -97,6 +97,7 @@
     "nodemailer": "^6.9.7",
     "nprogress": "^0.2.0",
     "oslo": "^1.2.0",
+    "p-limit": "^6.1.0",
     "postgres": "^3.4.3",
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",

@@ -295,19 +295,26 @@ export async function POST(
 
     }
             
-    
+    console.log("...")
 
     if (event.type === "customer.subscription.updated" && 
         !session?.metadata?.upgrade) {
        
+      
+        const foundSubscription = await stripe.subscriptions.retrieve(session?.id as string)
+       
+        const correspondingUser = await stripe.customers.retrieve(session?.customer as string)
+       
         
-        if (//@ts-ignore
-            session?.cancel_at_period_end) {
+        if (foundSubscription?.cancel_at_period_end) {
            
-            session?.customer_details.email
+            
+
+            const usedEmail = correspondingUser?.email
+           
             const findExisting = await db.query.cancelMail.findFirst({
                 where : eq(
-                    cancelMail.stripe_customer_id, session?.customer_details.email as string
+                    cancelMail.stripe_customer_id, foundSubscription?.customer as string
                 )
             })
 
@@ -316,7 +323,7 @@ export async function POST(
                 await sendSubscriptionCanceledMail(session?.customer_email as string)
                 
                 await db.insert(cancelMail).values({
-                    email : session?.customer_details.email as string,
+                    email : usedEmail as string,
                     stripe_customer_id : session?.customer as string
                 })
             }

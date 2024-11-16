@@ -304,10 +304,10 @@ export async function POST(
         if (//@ts-ignore
             session?.cancel_at_period_end) {
            
-            
+            session?.customer_details.email
             const findExisting = await db.query.cancelMail.findFirst({
                 where : eq(
-                    cancelMail.stripe_customer_id, session?.customer as string
+                    cancelMail.stripe_customer_id, session?.customer_details.email as string
                 )
             })
 
@@ -315,8 +315,8 @@ export async function POST(
             if(!findExisting) {
                 await sendSubscriptionCanceledMail(session?.customer_email as string)
                 
-                const createCancelMail = await db.insert(cancelMail).values({
-                    email : session?.customer_email as string,
+                await db.insert(cancelMail).values({
+                    email : session?.customer_details.email as string,
                     stripe_customer_id : session?.customer as string
                 })
             }

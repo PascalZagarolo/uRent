@@ -85,8 +85,8 @@ const AddBooking: React.FC<AddBookingProps> = ({
     const [currentContent, setCurrentContent] = useState<string | null>(usedContent ? usedContent : null);
     const [affectAll, setAffectAll] = useState(false);
 
-    const [currentStartTime, setCurrentStartTime] = useState(usedStartTime ? usedStartTime : "");
-    const [currentEndTime, setCurrentEndTime] = useState(usedEndTime ? usedEndTime : "");
+    const [currentStartTime, setCurrentStartTime] = useState(usedStartTime ? usedStartTime : undefined);
+    const [currentEndTime, setCurrentEndTime] = useState(usedEndTime ? usedEndTime : undefined);
 
 
     const [isOpen, setIsOpen] = useState(open);
@@ -202,9 +202,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
     useEffect(() => {
+       
         if (currentStart > currentEnd) {
             setCurrentEnd(currentStart)
         }
+
+       
     }, [currentEnd, currentStart])
 
     const onShowConflictConfirm = () => {
@@ -279,7 +282,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
         <Dialog open={isOpen} onOpenChange={(e) => {
             setIsOpen(e);
             if (e === false) {
-                console.log("...")
+              
                 onClose();
             }
 
@@ -462,7 +465,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                                 setCurrentEnd(date);
                                             }}
                                             disabled={(date) =>
-                                                date < currentStart || date < new Date("1900-01-01")
+                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
                                             }
                                             initialFocus
                                         />
@@ -476,7 +479,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                         <div className="mt-4">
                             <SelectTimeRange
-                                isSameDay={isSameDay(currentStart, currentEnd) || false}
+                                isSameDay={isSameDay(currentStart, currentEnd)}
                                 setStartTimeParent={setCurrentStartTime}
                                 setEndTimeParent={setCurrentEndTime}
                                 prefilledStartTime={usedStartTime}

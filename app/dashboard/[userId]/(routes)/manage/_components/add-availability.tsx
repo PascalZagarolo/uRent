@@ -432,7 +432,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                             }}
                                                             locale={de}
                                                             disabled={(date) =>
-                                                                date < currentStart || date < new Date("1900-01-01")
+                                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
                                                             }
                                                             initialFocus
                                                         />

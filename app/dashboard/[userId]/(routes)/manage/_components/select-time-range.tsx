@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 interface SelectTimeRangeProps {
@@ -78,7 +80,7 @@ const SelectTimeRange: React.FC<SelectTimeRangeProps> = ({
     return formattedTime;
   }
 
-  const generateTimeOptions = (startIndex: number, endIndex: number) =>
+  const generateTimeOptions = (startIndex: number, endIndex: number, isStart : boolean) =>
     Array.from({ length: endIndex - startIndex + 1 }, (_, index) => {
       const adjustedIndex = index + startIndex;
       const hour = Math.floor(adjustedIndex / 2);
@@ -91,7 +93,13 @@ const SelectTimeRange: React.FC<SelectTimeRangeProps> = ({
             "480": <SelectLabel>Morgens</SelectLabel>,
             "990": <SelectLabel>Nachmittags</SelectLabel>,
           }[String(adjustedIndex * 30)]}
-          <SelectItem value={String(adjustedIndex * 30)}>{formattedTime}</SelectItem>
+          <Button className={cn(
+            "w-full",
+            isStart && startTime === String(adjustedIndex * 30) && "bg-[#222222] font-semibold",
+            !isStart && endTime === String(adjustedIndex * 30) && "bg-[#222222] font-semibold",
+          )} variant="ghost"
+          onClick={() => 
+          isStart ? setStartTime(String(adjustedIndex * 30)) : setEndTime(String(adjustedIndex * 30))}>{formattedTime}</Button>
         </SelectGroup>
       );
     });
@@ -111,8 +119,8 @@ const SelectTimeRange: React.FC<SelectTimeRangeProps> = ({
             {startTime ? convertMinutesToHourString(startTime) : "Wähle eine Startzeit"}
           </SelectTrigger>
           <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-            {generateTimeOptions(16, 47)}
-            {generateTimeOptions(0, 15)}
+            {generateTimeOptions(16, 47, true)}
+            {generateTimeOptions(0, 15, true)}
           </SelectContent>
         </Select>
       </div>
@@ -130,8 +138,8 @@ const SelectTimeRange: React.FC<SelectTimeRangeProps> = ({
            {endTime ? convertMinutesToHourString(endTime) : "Wähle eine Endzeit"}
           </SelectTrigger>
           <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-            {generateTimeOptions(16, 47)}
-            {generateTimeOptions(0, 15)}
+            {generateTimeOptions(16, 47, false)}
+            {generateTimeOptions(0, 15, false)}
           </SelectContent>
         </Select>
       </div>

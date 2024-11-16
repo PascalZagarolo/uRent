@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { userTable, userSubscription, inserat } from "@/db/schema";
+import { userTable, userSubscription, inserat, cancelMail } from "@/db/schema";
 
 import { stripe } from "@/lib/stripe";
 
@@ -303,12 +303,25 @@ export async function POST(
         
         if (//@ts-ignore
             session?.cancel_at_period_end) {
-            const correspondingCustomer = await stripe.customers.retrieve(session.customer as string);
-            console.log("send");
-            //@ts-ignore
-            await sendSubscriptionCanceledMail(correspondingCustomer?.email as string)
-            //@ts-ignore
-            console.log(correspondingCustomer?.email)
+           
+            
+            const findExisting = await db.query.cancelMail.findFirst({
+                where : eq(
+                    cancelMail.stripe_customer_id, session?.customer as string
+                )
+            })
+
+            
+            if(!findExisting) {
+                await sendSubscriptionCanceledMail(session?.customer_email as string)
+                
+                const createCancelMail = await db.insert(cancelMail).values({
+                    email : session?.customer_email as string,
+                    stripe_customer_id : session?.customer as string
+                })
+            }
+            
+            
         }
     }
 

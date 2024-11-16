@@ -1082,6 +1082,13 @@ export const block = pgTable("block", {
                 .references(() => conversation.id, { onDelete: "cascade" }),
 })
 
+export const cancelMail = pgTable("cancelMail", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+    email : text("email"),
+    stripe_customer_id : text("stripe_customer_id")
+})
+
 //every array of a user => e.g liked posts etc..
 
 export const conversationFolderRelations = relations(conversationFolder, ({ one, many}) => ({

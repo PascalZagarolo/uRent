@@ -319,7 +319,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                 value={currentVehicle}
 
                             >
-                                <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
+                                <SelectTrigger className="dark:border-none dark:bg-[#222222] shadow-lg"
                                     disabled={//@ts-ignore
                                         !currentInserat || currentInserat?.vehicles.length <= 0}>
                                     {currentVehicle ? (
@@ -491,12 +491,10 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
 
 
                                 <Button
-                                    className="bg-white border border-gray-300 text-gray-900 shadow-lgs
-                   hover:bg-gray-200
-                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
+                                    className="text-gray-200 hover:text-gray-300 shadow-lg bg-indigo-800 hover:bg-indigo-900"
                                     disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
-                                        !startTime || !endTime || !currentTitle}
-                                    type="submit"
+                                        !startTime || !endTime || !currentTitle || currentInserat?.multi && !currentVehicle}
+                                    onClick={onSubmit}
                                 >
                                     Verfügbarkeit anpassen</Button>
 

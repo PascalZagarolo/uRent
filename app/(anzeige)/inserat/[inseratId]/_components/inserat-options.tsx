@@ -202,7 +202,7 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     <div className="mt-4 flex flex-col w-full">
                         <div>
                             <ManageAvailability
-                                thisInserat={thisInserat}
+                                foundInserate={[thisInserat]}
                             />
                         </div>
                         <div className="mt-4">

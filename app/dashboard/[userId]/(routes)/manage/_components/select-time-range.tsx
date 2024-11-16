@@ -99,7 +99,15 @@ const SelectTimeRange: React.FC<SelectTimeRangeProps> = ({
             !isStart && endTime === String(adjustedIndex * 30) && "bg-[#222222] font-semibold",
           )} variant="ghost"
           onClick={() => 
-          isStart ? setStartTime(String(adjustedIndex * 30)) : setEndTime(String(adjustedIndex * 30))}>{formattedTime}</Button>
+            isStart ? (
+              (setStartTime(String(adjustedIndex * 30)),
+              setStartTimeParent(String(adjustedIndex * 30)))
+            ) : (
+              (setEndTime(String(adjustedIndex * 30)),
+              setEndTimeParent(String(adjustedIndex * 30)))
+            )
+          }
+          >{formattedTime}</Button>
         </SelectGroup>
       );
     });

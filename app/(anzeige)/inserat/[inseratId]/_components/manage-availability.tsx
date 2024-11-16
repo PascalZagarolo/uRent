@@ -3,21 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { format, isBefore, isSameDay, set } from 'date-fns';
-import { useForm } from "react-hook-form"
+
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
+
 import {
     Popover,
     PopoverContent,
@@ -41,67 +33,69 @@ import { Label } from "@/components/ui/label";
 
 import { de } from "date-fns/locale";
 
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent } from "@/components/ui/alert-dialog";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { checkAvailability } from "@/actions/check-availability";
 
 import { Input } from "@/components/ui/input";
+import LetterRestriction from "@/components/letter-restriction";
 import ConflictDialog from "@/app/dashboard/[userId]/(routes)/manage/_components/conflict-dialog.tsx/conflict-dialog";
 import SelectTimeRange from "@/app/dashboard/[userId]/(routes)/manage/_components/select-time-range";
-import LetterRestriction from "@/components/letter-restriction";
-
 
 interface ManageAvailabilityProps {
-    thisInserat: typeof inserat.$inferSelect;
+    foundInserate: typeof inserat.$inferSelect[];
+    open?: boolean;
+    onClose?: () => void;
+    usedInserat?: typeof inserat.$inferSelect;
+    usedStart?: Date;
+    usedEnd?: Date;
+    usedStartTime?: string;
+    usedEndTime?: string;
+    usedTitle?: string;
+    usedContent?: string;
+    requestId?: string;
 }
 
 
 const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
-    thisInserat
+    foundInserate,
+    open,
+    usedInserat,
+    usedStart,
+    usedEnd,
+    usedStartTime,
+    usedEndTime,
+    usedTitle,
+    usedContent,
+    onClose = () => {},
+    requestId
 }) => {
 
-    const [currentStart, setCurrentStart] = useState(new Date());
-    const [currentEnd, setCurrentEnd] = useState(new Date());
-    const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
+    const [currentStart, setCurrentStart] = useState(usedStart ? usedStart : new Date());
+    const [currentEnd, setCurrentEnd] = useState(usedEnd ? usedEnd : new Date());
+    const [startTime, setStartTime] = useState(usedStartTime ? usedStartTime : null);
+    const [endTime, setEndTime] = useState(usedEndTime ? usedEndTime : null);
 
 
     const [isLoading, setIsLoading] = useState(false);
-    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(thisInserat);
+    const [currentInserat, setCurrentInserat] = useState<typeof inserat.$inferSelect | any>(usedInserat ? usedInserat : null);
     const [currentVehicle, setCurrentVehicle] = useState<string | null>(null);
 
-    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentTitle, setCurrentTitle] = useState(usedTitle ? usedTitle : "");
 
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState(usedContent ? usedContent : "");
 
 
-
+    const [isOpen, setIsOpen] = useState(open);
 
 
 
 
     const router = useRouter();
 
-    const formSchema = z.object({
-        start: z.date({
-            required_error: "A date of birth is required.",
-        }), end: z.date({
-            required_error: "A date of birth is required.",
-        }), content: z.string().optional()
-    })
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            start: new Date(),
-            end: new Date(),
-            content: ""
-
-        }
-    })
+    
 
 
-    const onSubmit = async (value: z.infer<typeof formSchema>) => {
+    const onSubmit = async () => {
         try {
 
             setIsLoading(true);
@@ -116,6 +110,7 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
 
                 vehicleId: currentVehicle,
                 isAvailability: true,
+                requestId: requestId
             }
 
             const isAvailable: {
@@ -128,7 +123,7 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                 startTime,
                 endTime,
                 null,
-                currentVehicle ? currentVehicle : null
+                currentVehicle ? currentVehicle : null,
             )
 
 
@@ -141,7 +136,8 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
 
             } else {
 
-                console.log(currentInserat?.id)
+                setIsOpen(false);
+                onClose();
                 axios.post(`/api/booking/${currentInserat.id}`, values)
                     .then(() => {
                         router.refresh();
@@ -217,8 +213,9 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                 isAvailability: true,
             }
 
-
-            await axios.post(`/api/booking/${thisInserat.id}`, values)
+            setIsOpen(false);
+            onClose();
+            await axios.post(`/api/booking/${currentInserat.id}`, values)
 
             setIgnoreOnce(false);
             setShowConflict(false);
@@ -260,11 +257,17 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
     };
 
     return (
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={(e) => {
+            if (e === false) {
+                onClose();
+            }
+            setIsOpen(e)
+        }}
+        >
 
             <div className="dark:bg-[#0F0F0F] bg-gray-200 rounded-md w-full">
                 <DialogTrigger asChild className="w-full">
-                    <Button className="bg-gray-200 hover:bg-gray-300 text-gray-800 hover:text-gray-700 " variant="ghost">
+                    <Button className=" text-gray-800 hover:text-gray-900 bg-gray-200 hover:bg-gray-300 " variant="ghost">
                         <CalendarCheck2 className="mr-2 h-4 w-4" /> Verfügbarkeit ändern
                     </Button>
                 </DialogTrigger>
@@ -281,29 +284,32 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                             Gebe unkompliziert, Zeiträume an, an denen dein Fahrzeug NICHT verfügbar ist.
                         </p>
                     </div>
-                    <div className="py-4 pr-8">
+                    <div className="py-4 ">
                         <Label className="">
                             Zugehöriges Inserat*
                         </Label>
                         <Select
-                            disabled
-                            value={thisInserat?.title} // Ensures a falsy value like null doesn't break the component
+                            onValueChange={(selectedValue) => {
+
+                                setCurrentInserat(foundInserate.find((inserat) => inserat.id === selectedValue));
+                            }}
+                            value={currentInserat?.id || ''} // Ensures a falsy value like null doesn't break the component
                         >
-                            <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a] mt-2", !currentInserat && "text-gray-200/80")}>
+                            <SelectTrigger className={cn("dark:border-none dark:bg-[#222222] shadow-lg ", !currentInserat && "text-gray-200/80")}>
                                 <SelectValue placeholder="Bitte wähle dein Inserat" />
                             </SelectTrigger>
 
                             <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-
-                                <SelectItem value={thisInserat.title} key={thisInserat.id}>
-                                    {thisInserat.title}
-                                </SelectItem>
-
+                                {foundInserate.map((thisInserat) => (
+                                    <SelectItem value={thisInserat.id} key={thisInserat.id}>
+                                        {thisInserat.title}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
-                    {currentInserat?.multi && currentInserat?.vehicles?.length > 0 && (
-                        <div className="pb-8 pr-8">
+                    {currentInserat?.multi && currentInserat?.vehicles.length > 0 && (
+                        <div className="pb-8">
                             <Label className="">
                                 Fahrzeug
                             </Label>
@@ -315,7 +321,7 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                                 value={currentVehicle}
 
                             >
-                                <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a]"
+                                <SelectTrigger className="dark:border-none dark:bg-[#222222] shadow-lg"
                                     disabled={//@ts-ignore
                                         !currentInserat || currentInserat?.vehicles.length <= 0}>
                                     {currentVehicle ? (
@@ -349,24 +355,21 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                             </Select>
                         </div>
                     )}
-                    <div className="flex">
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                <div className="flex gap-x-8">
-                                    <FormField
-                                        control={form.control}
-                                        name="start"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Anfangsdatum*</FormLabel>
+                    <div className="flex flex-col">
+                   
+                           
+                                <div className="flex flex-row gap-x-8">
+                                   
+                                                <div className="w-1/2">
+                                                <Label>Anfangsdatum*</Label>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]">
+                                                        
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground  "
+                                                                    "w-full dark:bg-[#222222] shadow-lg text-left font-normal dark:border-none ",
+                                                                    !currentStart && "text-muted-foreground  "
                                                                 )}
                                                             >
                                                                 {currentStart ? (
@@ -376,15 +379,14 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
-                                                        </FormControl>
-                                                    </PopoverTrigger>
+                                                       </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
                                                             mode="single"
                                                             selected={currentStart}
                                                             className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
-                                                                field.onChange(date);
+                                                              
                                                                 setCurrentStart(date);
                                                             }}
                                                             locale={de}
@@ -396,36 +398,30 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                                </div>
+                                    
 
 
-                                    <FormField
-                                        control={form.control}
-                                        name="end"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Enddatum*</FormLabel>
+                                  
+                                                <div className="w-1/2">
+                                                <Label>Enddatum*</Label>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c] ">
+                                                       
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground"
+                                                                    "w-full dark:bg-[#222222] shadow-lg text-left font-normal dark:border-none",
+                                                                    !currentEnd && "text-muted-foreground"
                                                                 )}
                                                             >
-                                                                {(currentEnd && field.value) ? (
+                                                                {(currentEnd) ? (
                                                                     format(currentEnd, "PPP", { locale: de })
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
-                                                        </FormControl>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
@@ -433,36 +429,36 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                                                             selected={currentEnd}
                                                             className="dark:bg-[#0a0a0a] "
                                                             onSelect={(date) => {
-                                                                field.onChange(date);
+                                                            
                                                                 setCurrentEnd(date);
                                                             }}
                                                             locale={de}
                                                             disabled={(date) =>
-                                                                date < currentStart || date < new Date("1900-01-01")
+                                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
                                                             }
                                                             initialFocus
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                                </div>
+                                     
 
 
                                 </div>
-                                <div>
+                                <div className="mt-4">
                                     <SelectTimeRange
                                         isSameDay={isSameDay(currentStart, currentEnd)}
                                         setStartTimeParent={setStartTime}
                                         setEndTimeParent={setEndTime}
+                                        prefilledStartTime={startTime}
+                                        prefilledEndTime={endTime}
                                     />
                                 </div>
-                                <div>
+                                <div className="mt-8">
                                     <Label className="flex items-center"> Titel*</Label>
                                     <Input
                                         className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#0a0a0a]"
+                                        dark:bg-[#222222] shadow-lg"
                                         value={currentTitle}
                                         maxLength={160}
                                         onChange={(e) => { setCurrentTitle(e.target.value) }}
@@ -476,19 +472,15 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                                 </div>
                                 <div>
                                     <span className="font-semibold text-base flex">
-                                        <BookOpenCheck className="mr-2" />  Notiz
+                                        Notiz
                                     </span>
-                                    <FormField
-                                        control={form.control}
-                                        name="content"
-                                        render={({ field }) => (
-                                            <FormItem className="mt-2 space-y-0">
+                                 
                                                 <Textarea
                                                     onChange={handleTextChange}
                                                     value={content}
                                                     maxLength={2000}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                            dark:bg-[#0a0a0a]"
+                            dark:bg-[#222222] shadow-lg h-40"
                                                 />
                                                 <div className="flex justify-end">
                                                     <LetterRestriction
@@ -496,25 +488,19 @@ const ManageAvailability: React.FC<ManageAvailabilityProps> = ({
                                                         currentLength={content.length}
                                                     />
                                                 </div>
-                                            </FormItem>
-                                        )}
-                                    />
+                                          
                                 </div>
 
-                                <DialogTrigger asChild>
-                                    <Button
-                                        className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                   hover:bg-gray-200
-                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
-                                        disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
-                                            !startTime || !endTime || !currentTitle}
-                                        type="submit"
-                                    >
-                                        Verfügbarkeit anpassen</Button>
-                                </DialogTrigger>
-                            </form>
-                        </Form>
 
+                                <Button
+                                    className="shadow-lg bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
+                                    disabled={isLoading || !currentInserat || !currentStart || !currentEnd ||
+                                        !startTime || !endTime || !currentTitle || (currentInserat?.multi && !currentVehicle)}
+                                    onClick={onSubmit}
+                                >
+                                    Verfügbarkeit anpassen</Button>
+
+                           
                     </div>
                 </div>
             </DialogContent>

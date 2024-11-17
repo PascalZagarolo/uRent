@@ -309,7 +309,7 @@ export async function POST(
         if (foundSubscription?.cancel_at_period_end) {
            
             
-
+            //@ts-ignore
             const usedEmail = correspondingUser?.email
            
             const findExisting = await db.query.cancelMail.findFirst({

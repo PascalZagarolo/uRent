@@ -43,14 +43,14 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
 
   // Update sortedInvoices whenever sortKey, sortOrder, or existingInvoices change
   useEffect(() => {
-    const sorted = [...existingInvoices].sort((a, b) => {
+    const sorted = existingInvoices ? [...existingInvoices].sort((a, b) => {
       const aValue = a[sortKey as keyof Invoice]
       const bValue = b[sortKey as keyof Invoice]
 
       if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1
       if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1
       return 0
-    })
+    }) : null;
     setSortedInvoices(sorted)
   }, [sortKey, sortOrder, existingInvoices])
 
@@ -105,7 +105,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {sortedInvoices.map((invoice) => (
+        {sortedInvoices?.map((invoice) => (
           <TableRowRender
             key={invoice.id}
             paid={invoice.paid}

@@ -7,6 +7,8 @@ import RenderAvailable from "../(routes)/payments/_components/render-available";
 import { BiCreditCardAlt } from "react-icons/bi";
 import { userTable } from "@/db/schema";
 import InvoiceTable from "../(routes)/payments/_components/invoice-table";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 interface PaymentsTabProps {
     currentUser: typeof userTable.$inferSelect | any;
@@ -24,7 +26,7 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
     const currentSubscription = existingInvoices?.data.filter((invoice: any) => invoice?.metadata?.upgrade !== "true" && invoice?.metadata?.isUpgrade !== "true")
 
     console.log(currentSubscription)
-    
+
 
     // const { subscriptionInvoices, upgradeInvoices } = existingInvoices.data.reduce(
     //     (result, invoice: any) => {
@@ -37,15 +39,15 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
     //     },
     //     { subscriptionInvoices: [], upgradeInvoices: [] } as { subscriptionInvoices: any[]; upgradeInvoices: any[] }
     //   );
-      
 
-    const correctInvoices = existingInvoices.data.filter((invoice) => {
+
+    const correctInvoices = existingInvoices?.data?.filter((invoice) => {
         const unitAmount = invoice?.lines?.data[0]?.price?.unit_amount;
         return unitAmount !== undefined;
-    })
+    }) ?? null
 
-    
-    
+
+
 
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">
@@ -82,8 +84,34 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                         {existingSubscription.subscription ? (
                             <div className="text-2xl font-semibold flex gap-x-1 mt-2">
                                 <p className="font-semibold text-indigo-800">
-                                    {existingSubscription?.subscription?.subscriptionType}
+                                    {existingSubscription?.subscription?.subscriptionType} 
                                 </p>
+                                {existingSubscription?.subscription?.isGift && (
+                                    <div className="ml-2 text-sm">
+                                        (Eingelöstes Abo)
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <InfoCircledIcon 
+                                                 className="w-4 h-4 ml-2"
+                                                />
+                                            </PopoverTrigger>
+                                            <PopoverContent className="dark:border-none dark:bg-[#222222] shadow-lg">
+                                                <div>
+                                                    <div>
+                                                        <h3 className="text-base text-gray-200 font-semibold underline">
+                                                            Informationen zu deinem Abonnement
+                                                        </h3>
+                                                    </div>
+                                                    <div className="text-sm mt-2 text-gray-200/80">
+                                                        Bei deinem Abo handelt es sich um ein eingelöstes Abo. <br/> 
+                                                         Das bedeutet, dass du dieses Abo nicht gekauft, sondern über einen Promo-Code eingelöst hast. <br/>
+                                                         Es kann demnach also nicht automatisch verlängert werden.
+                                                    </div>
+                                                </div>
+                                            </PopoverContent>
+                                        </Popover>
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <div className="text-2xl font-medium flex gap-x-1 mt-2">
@@ -112,13 +140,23 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                                     </div>
                                 </div>
                             ) : (
-                                <div className="font-semibold text-emerald-600 gap-x-1 flex items-center text-sm">
-                                    Aktiv
-                                    <div className="text-gray-200 text-xs">
-                                        (wird verlängert am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end),
-                                            "dd.MM.yyyy")})
+                                existingSubscription?.subscription?.isGift ? (
+                                    <div className="font-semibold text-indigo-600 gap-x-1 flex flex-col  text-sm">
+                                        Eingelöstes Abonnement
+                                        <div className="text-gray-200 text-xs">
+                                            (läuft ab am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end),
+                                                "dd.MM.yyyy")})
+                                        </div>
                                     </div>
-                                </div>
+                                ) : (
+                                    <div className="font-semibold text-emerald-600 gap-x-1 flex items-center text-sm">
+                                        Aktiv
+                                        <div className="text-gray-200 text-xs">
+                                            (wird verlängert am: {format(new Date(existingSubscription?.subscription.stripe_current_period_end),
+                                                "dd.MM.yyyy")})
+                                        </div>
+                                    </div>
+                                )
                             )
                         ) : (
                             <div className="text-2xl font-medium flex gap-x-1 mt-2">
@@ -134,7 +172,7 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                     {existingSubscription.subscription ? (
                         <SubscriptionsRenderList
                             subscriptions={existingSubscription as any}
-                            invoiceSubscription={JSON.parse(JSON.stringify(currentSubscription))}
+                            invoiceSubscription={currentSubscription ? JSON.parse(JSON.stringify(currentSubscription)) : null}
                         />
                     ) : (
                         <div>
@@ -149,8 +187,8 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                 </div>
 
                 <div className="mt-16">
-                    <InvoiceTable 
-                    existingInvoices = {correctInvoices}
+                    <InvoiceTable
+                        existingInvoices={correctInvoices}
                     />
                 </div>
             </div>

@@ -34,21 +34,21 @@ const DashboardPage = async ({
         views += inserat?.views
     }
 
-    const existingInvoices = await stripe.invoices.list({
+    const existingInvoices = currentUser?.subscription?.stripe_customer_id ?  await stripe.invoices.list({
         customer: currentUser?.subscription?.stripe_customer_id
-    })
+    }) : null
     
     
 
-    const existingPayments = await stripe.paymentIntents.list({
-        customer: currentUser?.subscription?.stripe_customer_id
-    })
+    const existingPayments = currentUser?.subscription?.stripe_customer_id ? await stripe.paymentIntents.list({
+        customer: currentUser?.subscription?.stripe_customer_id ?? ""
+    }) : null
 
     let retrievedSubscription;
 
     if (currentUser.subscription?.stripe_subscription_id) {
         retrievedSubscription = await stripe.subscriptions.retrieve(
-            currentUser?.subscription?.stripe_subscription_id
+            currentUser?.subscription?.stripe_subscription_id ?? ""
         )
     }
 
@@ -60,7 +60,7 @@ const DashboardPage = async ({
             <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div className="min-h-screen">
                     <div>
-                        <TabSwitcher
+                    <TabSwitcher
                             currentUser={currentUser as any}
                             existingInvoices = {JSON?.parse(JSON?.stringify(existingInvoices))}
                             retrievedSubscription = {JSON?.parse(JSON?.stringify(retrievedSubscription ? retrievedSubscription : null))}

@@ -4,6 +4,7 @@
 
 
 
+
 import {
     timestamp,
     pgTable,
@@ -1088,6 +1089,26 @@ export const cancelMail = pgTable("cancelMail", {
     email : text("email"),
     stripe_customer_id : text("stripe_customer_id")
 })
+
+export const userGifts = pgTable("userGifts", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    createdAt : timestamp("createdAt", { mode: "date" }).defaultNow(),
+    userId : text("userId")
+                .references(() => userTable.id, { onDelete: "cascade" }),
+    giftCodeId : uuid("giftCodeId")
+                .references(() => giftCode.id, { onDelete: "cascade" }),
+})
+
+export const userGiftsRelations = relations(userGifts, ({ one }) => ({
+    users : one(userTable, {
+        fields : [userGifts.userId],
+        references : [userTable.id]
+    }),
+    giftCode : one(giftCode, {
+        fields : [userGifts.giftCodeId],
+        references : [giftCode.id]
+    })
+}))
 
 //every array of a user => e.g liked posts etc..
 

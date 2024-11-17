@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { MdOutlineRedeem } from "react-icons/md";
+import { ClipLoader } from "react-spinners";
 import { z } from "zod";
 
 
@@ -67,7 +68,7 @@ const RedeemCode = () => {
                                     <MdOutlineRedeem className="w-4 h-4 mr-2" />  Code einlösen
                                 </h3>
                                 <p className="text-xs dark:text-gray-200/70">
-                                    Gebe hier deinen 16-stelligen Code ein, um dein Abo einzulösen.
+                                    Gebe hier deinen 16-stelligen Code oder diverse Promocodes ein, Abos & Vorteile einzulösen.
                                 </p>
                             </div>
                             <div className="mt-2">
@@ -83,10 +84,10 @@ const RedeemCode = () => {
                                                         <Input 
                                                         
                                                         name="pin"
-                                                        className="dark:bg-[#151515] sm:w-1/2 dark:border-none"
+                                                        className="dark:bg-[#131313] shadow-lg sm:w-1/2 dark:border-none"
                                                         onChange={(e) => setUsedCode(e.target.value)}
                                                         value={usedCode}
-                                                        placeholder="xxxxxxxxxxxxxxxx"
+                                                        placeholder="Promocode.."
                                                         />
                                                     </FormControl>
                                                     <div className="text-xs dark:text-gray-200/60">
@@ -105,10 +106,15 @@ const RedeemCode = () => {
                                         />
 
                                         <Button variant="ghost" 
-                                        className="mt-2 dark:bg-[#151515] dark:hover:text-gray-300"
+                                        className="mt-2 text-gray-200 bg-indigo-800 hover:bg-indigo-900 dark:hover:text-gray-300"
                                         disabled={!usedCode || isLoading}
                                         >
-                                            Code überprüfen</Button>
+                                            {isLoading ? <ClipLoader
+                                                color="#2563EB"
+                                                loading={true}
+                                                size={20}
+                                            /> : "Code überprüfen"}
+                                        </Button>
                                     </form>
                                 </Form>
                             </div>

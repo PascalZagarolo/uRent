@@ -128,7 +128,12 @@ const GenerateCode = () => {
                                 <SelectItem value="10">10</SelectItem>
                                 <SelectItem value="15">15</SelectItem>
                                 <SelectItem value="25">25</SelectItem>
-                                <SelectItem value="40">40</SelectItem>
+                                <SelectItem value="40">35</SelectItem>
+                                <SelectItem value="50">50</SelectItem>
+                                <SelectItem value="65">65</SelectItem>
+                                <SelectItem value="80">80</SelectItem>
+                                <SelectItem value="100">100</SelectItem>
+                                <SelectItem value="500">{`>`}100</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

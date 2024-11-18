@@ -1,6 +1,7 @@
 'use client'
 
 
+import RevertChanges from "@/app/inserat/create/_components/revert-changes";
 import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
@@ -23,8 +24,8 @@ import { z } from "zod";
 
 interface DescriptionInseratCreationProps {
     thisInserat: typeof inserat.$inferSelect;
-    currentDescription : string;
-    setCurrentDescription : (value) => void;
+    currentDescription: string;
+    setCurrentDescription: (value) => void;
 }
 
 const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
@@ -35,7 +36,7 @@ const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
 
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-   
+
 
     const { deleteCurrent, currentChanges, changeCurrent } = useUnsavedChanges()
 
@@ -125,7 +126,12 @@ const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
                 Beschreibung *
 
             </h1>
-
+            <div className="w-full">
+                <RevertChanges
+                    hasChanged={currentDescription?.trim() != thisInserat.description?.trim() && thisInserat?.description}
+                    onRevert={() => setCurrentDescription(thisInserat.description)}
+                />
+            </div>
             <div className=" bg-white dark:bg-[#202020]  shadow-xl hover:bg-[#212121] hover:cursor-pointer p-4 rounded-md  h-[320px]" onClick={() => { setIsEditing(true) }} >
                 {isEditing ? (
                     <div className="flex w-full h-full">
@@ -143,7 +149,7 @@ const DescriptionInseratCreation: React.FC<DescriptionInseratCreationProps> = ({
                                                     className="dark:bg-[#202020] hover:bg-[#212121]  h-full text-gray-200/80"
                                                     ref={textareaRef}
                                                     maxLength={5000}
-                                                    onChange={(e) => {setCurrentDescription(e.target.value)}}
+                                                    onChange={(e) => { setCurrentDescription(e.target.value) }}
                                                     value={currentDescription}
                                                     onBlur={(e) => { setIsEditing(false) }}
                                                 />

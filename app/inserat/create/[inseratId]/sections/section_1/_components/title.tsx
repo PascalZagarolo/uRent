@@ -1,6 +1,7 @@
 'use client'
 
 import { onKeyPressForm } from "@/actions/form-actions";
+import RevertChanges from "@/app/inserat/create/_components/revert-changes";
 import LetterRestriction from "@/components/letter-restriction";
 import { Button } from "@/components/ui/button";
 
@@ -88,7 +89,12 @@ const TitleInseratCreation: React.FC<TitleInseratCreationProps> = ({
                 Titel deiner Anzeige *
             
             </h1>
-           
+           <div className="w-full">
+           <RevertChanges 
+           hasChanged={currentTitle?.trim() != thisInserat.title?.trim() && thisInserat?.title}
+           onRevert={() => setCurrentTitle(thisInserat.title)}
+           />
+           </div>
             <div className="p-4 bg-white dark:bg-[#202020] hover:bg-[#212121] shadow-xl  rounded-md">
                 {isEditing ? (
                     <div className="flex"> 

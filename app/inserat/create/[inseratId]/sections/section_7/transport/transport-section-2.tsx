@@ -98,12 +98,13 @@ const TransportSection2 = ({ transportAttribute, currentSection, changeSection }
         changeSection(currentSection - 1);
     }
 
+  
 
     const hasChanged = (
-        currentFuel != transportAttribute?.fuel ||
-        currentDoors != transportAttribute?.doors ||
-        currentLoading != transportAttribute?.loading ||
-        currentAhk != transportAttribute?.ahk
+        String(currentFuel ?? "") != String(transportAttribute?.fuel ?? "") ||
+        String(currentDoors ?? "") != String(transportAttribute?.doors ?? "") ||
+        String(currentLoading ?? "") != String(transportAttribute?.loading ?? "") ||
+        String(currentAhk ?? "false") != String(transportAttribute?.ahk ?? "false")
     );
 
 

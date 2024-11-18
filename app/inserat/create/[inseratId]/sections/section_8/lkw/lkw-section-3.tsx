@@ -104,7 +104,7 @@ const LkwSection3 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
 
     const hasChanged = (
         (String(currentPower ?? "").trim() != String(lkwAttribute?.power ?? "").trim()) ||
-        (currentInitial ? new Date(currentInitial).getFullYear() : null) != (pkwAttribute?.initial ? new Date(lkwAttribute.initial).getFullYear() : null) ||
+        (currentInitial ? new Date(currentInitial).getFullYear() : null) != (lkwAttribute?.initial ? new Date(lkwAttribute.initial).getFullYear() : null) ||
         (String(currentVolume ?? "").trim() != String(lkwAttribute?.loading_volume ?? "").trim()) ||
         (String(currentLength ?? "").trim() != String(lkwAttribute?.loading_l ?? "").trim()) ||
         (String(currentWidth ?? "").trim() != String(lkwAttribute?.loading_b ?? "").trim()) ||

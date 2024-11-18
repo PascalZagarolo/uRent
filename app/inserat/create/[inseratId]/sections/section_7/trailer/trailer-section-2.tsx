@@ -89,10 +89,12 @@ const TrailerSection2 = ({ trailerAttributes, currentSection, changeSection }: T
         changeSection(currentSection - 1);
     }
 
+    console.log(currentCoupling);
+    console.log(currentLoading);
 
     const hasChanged = (
-        currentCoupling !== trailerAttributes?.coupling ||
-        currentLoading !== trailerAttributes?.loading
+        String(currentCoupling ?? "") != String(trailerAttributes?.coupling ?? "") ||
+        String(currentLoading ?? "") != String(trailerAttributes?.loading ?? "")
     );
 
 

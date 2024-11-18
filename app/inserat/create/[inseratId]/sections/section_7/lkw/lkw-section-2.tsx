@@ -100,7 +100,7 @@ const LkwSection2 = ({ lkwAttribute, currentSection, changeSection }: LkwSection
         currentDrive !== lkwAttribute?.drive ||
         currentFuel !== lkwAttribute?.fuel ||
         currentLoading !== lkwAttribute?.loading || 
-        currentAhk !== lkwAttribute?.ahk
+        String(currentAhk ?? "false") != String(lkwAttribute?.ahk ?? "false")
     );
 
 

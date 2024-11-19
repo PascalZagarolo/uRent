@@ -10,14 +10,14 @@ export const connectExistingSubscription = async (findEmail : string) => {
         })
 
         const allSubscriptions = [];
-
+        console.log(".")
         for (let i = 0; i < findCorrespondingUser?.data?.length; i++) {
             const findSubscriptions = await stripe.subscriptions.list({
                 customer : findCorrespondingUser.data[0].id,
             })
             allSubscriptions.push(findSubscriptions?.data);
         }
-        
+        console.log(".")
 
         if(allSubscriptions.length === 0) {
             return {
@@ -26,17 +26,17 @@ export const connectExistingSubscription = async (findEmail : string) => {
                 latestSubscription : null
             }
         }
-
+        console.log(".")
         let latestSubscription;
 
-        for (let i = 0; allSubscriptions?.length; i++) {
+        for (let i = 0; i < allSubscriptions?.length; i++) {
             if(allSubscriptions[i]?.current_period_end > latestSubscription?.current_period_end) {
                 latestSubscription = allSubscriptions[i];
             }
         }
-
+        console.log(".")
         console.log(latestSubscription);
-
+        console.log(".")
         return {
             success : true,
             message : "Abonnement gefunden",

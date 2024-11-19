@@ -17,7 +17,7 @@ export const Social = () => {
  
   const onGoogle = async () => {
     const res = await createAuthorizationURL();
-
+    console.log(res)
     if(res.error) {
       toast.error("Etwas ist schief gelaufen")
     } else if (res.success) {

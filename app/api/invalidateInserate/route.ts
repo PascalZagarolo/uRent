@@ -25,8 +25,9 @@ export async function PATCH(
                 }
             }
         })
-
+        
         const currentDate = new Date();
+        const privatizedInserate : typeof inserat.$inferSelect = [];
 
         //privatize all inserate that are published and the user has no subscription or the subscription is expired
         for (const pInserat of findMatchingInserate) {
@@ -35,23 +36,16 @@ export async function PATCH(
             if(!pInserat.user?.subscription || pInserat.user?.subscription.length === 0 || 
                 
                 isAfter(currentDate, comparedDate)) {
+                    privatizedInserate.push(pInserat); 
                     await db.update(inserat).set({
                         isPublished : false,
                         isHighlighted : false,
-                        
                     }).where(eq(inserat.userId , pInserat.userId))
                 }
 
                 
         }
-
-
-        //Todo : Add checks whether capabilities are available or not do it by person
-    
-               
-            
-                
-
+        console.log(privatizedInserate?.length + " Inserate wurden invalidiert, [/api/invalidateInserate]");
         return NextResponse.json({ message: "Inserate erfolgreich invalidiert" });
 
     } catch(error : any) {

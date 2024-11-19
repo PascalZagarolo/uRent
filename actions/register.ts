@@ -16,6 +16,7 @@ import { cookies } from "next/headers";
 import { generateCodeVerifier, generateState } from "arctic";
 
 import { google } from "@/lib/lucia/oauth";
+import { connectExistingSubscription } from "./register/connect-existing-subscription";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -33,10 +34,10 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Email existiert bereits" };
   }
 
- 
+
 
   try {
-
+    console.log("...")
     const userId = generateId(15)
 
     await db.insert(userTable)
@@ -45,9 +46,9 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         name: name,
         email: email,
         password: hashedPassword,
-        sharesRealName : false,
-        sharesEmail : false,
-        sharesPhoneNumber : false,
+        sharesRealName: false,
+        sharesEmail: false,
+        sharesPhoneNumber: false,
         newsletter: receivesEmails
       })
       .returning({
@@ -55,8 +56,10 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         name: userTable.name,
       })
 
+    const result = await connectExistingSubscription(email);
 
-      /*
+    console.log(result)
+    /*
     const session = await lucia.createSession(userId, {
       expiresIn: 60 * 60 * 24 * 30,
     })
@@ -64,7 +67,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     const sessionToken = lucia.createSessionCookie(session.id);
     
     cookies().set(sessionToken.name, sessionToken.value, sessionToken.attributes);
-*/
+    */
     const verificationToken = await generateVerificationToken(email);
     await sendVerificationEmail(
       verificationToken.email,
@@ -83,33 +86,36 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
 export const createAuthorizationURL = async () => {
 
- try {
-  
-  const state = generateState();
-  const codeVerifier = generateCodeVerifier();
+  try {
 
-  cookies().set("codeVerifier", codeVerifier, {
-    httpOnly: true,
-  })
+    const state = generateState();
+    const codeVerifier = generateCodeVerifier();
 
-  cookies().set("state", state, {
-    httpOnly: true,
-  })
+    cookies().set("codeVerifier", codeVerifier, {
+      httpOnly: true,
+    })
 
-  const authorizationURL = await google.createAuthorizationURL(state, codeVerifier, {
-    scopes: ["email", "profile"]
-  });
+    cookies().set("state", state, {
+      httpOnly: true,
+    })
 
-  return {
-    success : true,
-    data : authorizationURL
+    const authorizationURL = await google.createAuthorizationURL(state, codeVerifier, {
+      scopes: ["email", "profile"]
+    });
+
+    
+    
+
+    return {
+      success: true,
+      data: authorizationURL
+    }
+
+
+  } catch (error: any) {
+    console.log(error)
+    return { error: "Fehler beim Erstellen der Autorisierungs URL" }
   }
-
-
- } catch(error : any) {
-  console.log(error)
-  return { error : "Fehler beim Erstellen der Autorisierungs URL" }
- }
 }
 
 //const tokens = await google.validateAuthorizationCode(code);

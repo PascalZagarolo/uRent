@@ -8,16 +8,16 @@ export const connectExistingSubscription = async (findEmail : string) => {
         const findCorrespondingUser = await stripe.customers.list({
             email : findEmail
         })
-
+        console.log(findCorrespondingUser)
         const allSubscriptions = [];
-        console.log(".")
+       
         for (let i = 0; i < findCorrespondingUser?.data?.length; i++) {
             const findSubscriptions = await stripe.subscriptions.list({
                 customer : findCorrespondingUser.data[0].id,
             })
             allSubscriptions.push(findSubscriptions?.data);
         }
-        console.log(".")
+        
 
         if(allSubscriptions.length === 0) {
             return {
@@ -26,7 +26,7 @@ export const connectExistingSubscription = async (findEmail : string) => {
                 latestSubscription : null
             }
         }
-        console.log(".")
+        console.log(allSubscriptions)
         let latestSubscription;
 
         for (let i = 0; i < allSubscriptions?.length; i++) {

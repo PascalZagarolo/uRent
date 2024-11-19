@@ -2,6 +2,8 @@ import { connectExistingSubscription } from "@/actions/register/connect-existing
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
+import { CheckIcon, X, XCircleIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
@@ -19,13 +21,23 @@ const CheckPreviousSubscription = ({
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [foundSoubscription, setFoundSubscription] = useState(false);
+    const [isError, setError] = useState(false);
+    const [isSuccess, setSuccess] = useState(false);
 
     const handleCheckSubscription = async () => {
         try {
             setIsLoading(true);
             setIsOpen(true);
             const foundResult = await connectExistingSubscription(userEmail as string);
-            console.log(foundResult);
+            console.log(foundResult)
+            if(foundResult?.success && foundResult?.latestSubscription != null) {
+                setError(false);
+                setSuccess(true);
+            } else {
+                setSuccess(false);
+                setError(true);
+            }
+            
         } catch(e : any) {
             console.log(e);
         } finally {
@@ -50,10 +62,35 @@ const CheckPreviousSubscription = ({
                         </div>
                         <div className="mt-4">
                             {isLoading ? (
-                                <ClipLoader size={40} color="#ffffff" />
+                                <div className="p-4 flex flex-row items-center justify-center">
+                                    <ClipLoader size={40} color="#ffffff" />
+                                </div>
                             ) : (
-                                <div>
-                                    1
+                                <div className="flex flex-col">
+
+                                    <div>
+                                        <div className="flex flex-row items-center justify-center">
+                                            {(isSuccess && !isError) ? (
+                                                <CheckIcon 
+                                                className="w-12 h-12 text-green-500"
+                                                />
+                                            ) : 
+                                            (
+                                                <XCircleIcon 
+                                                className="w-12 h-12 text-gray-200"
+                                                />
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className={cn("text-gray-200 font-semibold flex flex-row justify-center mt-4", isSuccess && "text-green-500", isError && "text-rose-600")}>
+                                                {foundSoubscription ? (
+                                                    "Abonnement gefunden"
+                                                ) : (
+                                                    "Es wurden keine vergangenen Abonnements gefunden"
+                                                )}
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>

@@ -30,7 +30,7 @@ export async function PATCH() {
             const comparedDate = subscriptionEnd ? addHours(new Date(subscriptionEnd), 1) : null;
 
             // Check if the subscription is missing or expired
-            if (!subscriptionEnd || isAfter(currentDate, comparedDate)) {
+            if (isAfter(currentDate, comparedDate)) {
                 privatizedInserate.push(pInserat);
 
                 // Update Inserate to mark it as unpublished and not highlighted

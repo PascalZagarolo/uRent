@@ -1,11 +1,15 @@
 import { connectExistingSubscription } from "@/actions/register/connect-existing-subscription";
+import { connectSubscription } from "@/actions/user/connect-subscription";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
 import { CheckIcon, X, XCircleIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
+
 
 
 
@@ -20,7 +24,8 @@ const CheckPreviousSubscription = ({
 
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [foundSoubscription, setFoundSubscription] = useState(false);
+    const [foundSubscription, setFoundSubscription] = useState(null);
+    const [foundProduct, setFoundProduct] = useState(null);
     const [isError, setError] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
 
@@ -29,10 +34,12 @@ const CheckPreviousSubscription = ({
             setIsLoading(true);
             setIsOpen(true);
             const foundResult = await connectExistingSubscription(userEmail as string);
-            console.log(foundResult)
+            console.log(foundResult?.product)
             if(foundResult?.success && foundResult?.latestSubscription != null) {
                 setError(false);
                 setSuccess(true);
+                setFoundProduct(foundResult?.product ?? null);
+                setFoundSubscription(foundResult?.latestSubscription[0] ?? null);
             } else {
                 setSuccess(false);
                 setError(true);
@@ -45,6 +52,21 @@ const CheckPreviousSubscription = ({
         }
     }
 
+    const onConnect = async () => {
+        try {
+            
+            await connectSubscription(userEmail as string, foundSubscription?.id as string);
+        } catch(e : any) {
+            console.log(e);
+        }
+    }
+
+    function convertUnixTimestamp(timestamp: number): string {
+        // Convert the timestamp to milliseconds (as Date expects milliseconds)
+        const date = new Date(timestamp * 1000);
+        // Format it as a readable string
+        return format(new Date(date), `dd. MMMM. yyyy`, { locale : de}) // Outputs as 'YYYY-MM-DD HH:MM:SS'
+    }
 
     if(isOpen) {
         return (
@@ -54,47 +76,55 @@ const CheckPreviousSubscription = ({
             }}
             >
                 <DialogContent className="dark:border-none dark:bg-[#191919]">
-                    <div>
-                        <div>
-                            <h3 className="text-lg font-semibold">
-                                Existierendes Abonnement verknüpfen
-                            </h3>
-                        </div>
-                        <div className="mt-4">
-                            {isLoading ? (
-                                <div className="p-4 flex flex-row items-center justify-center">
-                                    <ClipLoader size={40} color="#ffffff" />
-                                </div>
-                            ) : (
-                                <div className="flex flex-col">
+                <div className=" rounded-xl">
+    <h3 className="text-xl font-semibold text-gray-200">Existierendes Abonnement verknüpfen</h3>
+    
+    {isLoading ? (
+        <div className="flex justify-center items-center p-6">
+            <ClipLoader size={40} color="#4B5563" />
+        </div>
+    ) : (
+        <div className="space-y-4">
+            <div className="flex justify-center">
+                {isSuccess && !isError ? (
+                    <CheckIcon className="w-12 h-12 text-green-500" />
+                ) : (
+                    <XCircleIcon className="w-12 h-12 text-gray-400" />
+                )}
+            </div>
+            
+            <div className={`text-center text-lg font-bold ${isSuccess ? 'text-green-500' : isError ? 'text-red-500' : 'text-gray-500'}`}>
+                {foundSubscription ? 'Abonnement gefunden' : 'Es wurden keine vergangenen Abonnements gefunden'}
+            </div>
 
-                                    <div>
-                                        <div className="flex flex-row items-center justify-center">
-                                            {(isSuccess && !isError) ? (
-                                                <CheckIcon 
-                                                className="w-12 h-12 text-green-500"
-                                                />
-                                            ) : 
-                                            (
-                                                <XCircleIcon 
-                                                className="w-12 h-12 text-gray-200"
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className={cn("text-gray-200 font-semibold flex flex-row justify-center mt-4", isSuccess && "text-green-500", isError && "text-rose-600")}>
-                                                {foundSoubscription ? (
-                                                    "Abonnement gefunden"
-                                                ) : (
-                                                    "Es wurden keine vergangenen Abonnements gefunden"
-                                                )}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+            {foundSubscription && (
+                <div className="border-t border-gray-200 pt-4">
+                    
+                    <div className="text-lg font-semibold text-gray-200">
+                        {foundProduct?.name} - {foundProduct?.metadata?.amount} Inserat(e)
                     </div>
+                    <div className="text-base text-gray-300">
+                        Eingelöst am {convertUnixTimestamp(foundSubscription?.created)}
+                    </div>
+                    <div className="text-base text-gray-300">
+                        Läuft ab am {convertUnixTimestamp(foundSubscription?.current_period_end)}
+                    </div>
+                    <div className="mt-4 flex flex-row justify-end">
+                        <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300"
+                        onClick={onConnect}
+                        >
+                            Abonnement verknüpfen
+                        </Button>
+                        <Button className="text-gray-200 hover:text-gray-300" variant="ghost">
+                            Abbrechen
+                        </Button>
+                    </div>
+                </div>
+            )}
+        </div>
+    )}
+</div>
+
                 </DialogContent>
             </Dialog>
         )

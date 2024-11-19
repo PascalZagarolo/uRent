@@ -9,6 +9,7 @@ import { userTable } from "@/db/schema";
 import InvoiceTable from "../(routes)/payments/_components/invoice-table";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
+import CheckPreviousSubscription from "../_components/check-previous-subscription";
 
 interface PaymentsTabProps {
     currentUser: typeof userTable.$inferSelect | any;
@@ -50,10 +51,10 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
 
 
     return (
-        <div className="flex justify-center sm:py-8 sm:px-4  ">
+        <div className="flex flex-col  sm:py-8 sm:px-4  ">
 
 
-            <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
+            <div className="sm:p-4 p-2 mt-4 w-full rounded-lg h-full">
                 <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center w-full">
                     <div className="w-2/3 flex">
                         <BiCreditCardAlt className="mr-4" /> Zahlungsverkehr
@@ -84,15 +85,15 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                         {existingSubscription.subscription ? (
                             <div className="text-2xl font-semibold flex gap-x-1 mt-2">
                                 <p className="font-semibold text-indigo-800">
-                                    {existingSubscription?.subscription?.subscriptionType} 
+                                    {existingSubscription?.subscription?.subscriptionType}
                                 </p>
                                 {existingSubscription?.subscription?.isGift && (
                                     <div className="ml-2 text-sm">
                                         (Eingelöstes Abo)
                                         <Popover>
                                             <PopoverTrigger>
-                                                <InfoCircledIcon 
-                                                 className="w-4 h-4 ml-2"
+                                                <InfoCircledIcon
+                                                    className="w-4 h-4 ml-2"
                                                 />
                                             </PopoverTrigger>
                                             <PopoverContent className="dark:border-none dark:bg-[#222222] shadow-lg">
@@ -103,9 +104,9 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                                                         </h3>
                                                     </div>
                                                     <div className="text-sm mt-2 text-gray-200/80">
-                                                        Bei deinem Abo handelt es sich um ein eingelöstes Abo. <br/> 
-                                                         Das bedeutet, dass du dieses Abo nicht gekauft, sondern über einen Promo-Code eingelöst hast. <br/>
-                                                         Es kann demnach also nicht automatisch verlängert werden.
+                                                        Bei deinem Abo handelt es sich um ein eingelöstes Abo. <br />
+                                                        Das bedeutet, dass du dieses Abo nicht gekauft, sondern über einen Promo-Code eingelöst hast. <br />
+                                                        Es kann demnach also nicht automatisch verlängert werden.
                                                     </div>
                                                 </div>
                                             </PopoverContent>
@@ -191,6 +192,12 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                         existingInvoices={correctInvoices}
                     />
                 </div>
+
+            </div>
+            <div className="items-end justify-end mt-8">
+                <CheckPreviousSubscription 
+                userEmail={currentUser.email}
+                />
             </div>
         </div>
 

@@ -3,11 +3,12 @@
 import { NextResponse } from "next/server";
 import getCurrentUser from "../getCurrentUser";
 import { stripe } from "@/lib/stripe";
-import { userSubscription } from "@/db/schema";
+import { userSubscription, userTable } from "@/db/schema";
 import db from "@/db/drizzle";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { find } from "lodash";
+import { eq } from "drizzle-orm";
 
 
 export async function connectSubscription(findEmail: string, subscriptionId: string) {
@@ -50,13 +51,18 @@ export async function connectSubscription(findEmail: string, subscriptionId: str
             stripe_customer_id: findCustomer.id,
             stripe_subscription_id: findSubscription.id,
             stripe_current_period_end: formattedDate,
-            stripe_product_id: findProduct.id,
-            stripe_current_price_id : priceId,
+            stripe_product_id: findProduct.id as any,
+            stripe_price_id : priceId as any,
             amount: usedAmount,
             subscriptionType : usedType as any
             
-        })
+        }).returning()
 
+        const connectSubscription = await db.update(userTable).set({
+            subscriptionId: createSubscription[0].id
+        }).where(eq(userTable.id, currentUser.id));
+
+        return { success : true }
 
     } catch (e: any) {
         console.log(e);

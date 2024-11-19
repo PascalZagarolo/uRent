@@ -26,7 +26,7 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
 
     const currentSubscription = existingInvoices?.data.filter((invoice: any) => invoice?.metadata?.upgrade !== "true" && invoice?.metadata?.isUpgrade !== "true")
 
-    console.log(currentSubscription)
+    
 
 
     // const { subscriptionInvoices, upgradeInvoices } = existingInvoices.data.reduce(
@@ -194,11 +194,13 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                 </div>
 
             </div>
-            <div className="items-end justify-end mt-8">
+            {!existingSubscription.subscription && (
+                <div className="items-end justify-end mt-8">
                 <CheckPreviousSubscription 
                 userEmail={currentUser.email}
                 />
             </div>
+            )}
         </div>
 
     );

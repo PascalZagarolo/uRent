@@ -41,7 +41,7 @@ export const confirmDeleteUser = async (token: string) => {
         console.log(customers?.data);
 
         for await (const pCustomer of customers.data) {
-            console.log(pCustomer);
+            
 
             // Retrieve subscriptions for the customer
             const retrievedSubscriptions = await stripe.subscriptions.list({
@@ -54,7 +54,10 @@ export const confirmDeleteUser = async (token: string) => {
             // Cancel all retrieved subscriptions
             for (const subscription of retrievedSubscriptions.data) {
                 if (subscription.status !== 'canceled') {
-                    await stripe.subscriptions.cancel(subscription.id);
+                    //await stripe.subscriptions.cancel(subscription.id);
+                    await stripe.subscriptions.update(subscription.id, {
+                        cancel_at_period_end: true
+                    })
                 }
             }
         }
@@ -67,9 +70,15 @@ export const confirmDeleteUser = async (token: string) => {
                     findUserWithSubscriptions.subscription.stripe_subscription_id
                 );
                 if (userSubscription.status !== 'canceled') {
-                    await stripe.subscriptions.cancel(
-                        findUserWithSubscriptions.subscription.stripe_subscription_id
-                    );
+                    // await stripe.subscriptions.cancel(
+                    //     findUserWithSubscriptions.subscription.stripe_subscription_id
+                    // );
+                    await stripe.subscriptions.update(
+                        findUserWithSubscriptions.subscription.stripe_subscription_id,
+                        {
+                            cancel_at_period_end: true
+                        }
+                    )
                 }
             } catch (error) {
                 console.log(

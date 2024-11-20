@@ -6,7 +6,8 @@ import {
     ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender,
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, images, inserat, lkwAttribute, LkwBrandEnumRender,
     LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender,
-    transportAttribute
+    transportAttribute,
+    userTable
 } from "@/db/schema";
 import axios from "axios";
 import { differenceInHours, isAfter, isBefore, isEqual, isSameDay } from "date-fns";
@@ -14,6 +15,7 @@ import { and, eq, gte, ilike, isNull, lte, or, sql } from "drizzle-orm";
 import { cache } from "react";
 import { dynamicSearch } from "./dynamic-search";
 import { createDateWithTime } from "@/hooks/date/combine-date-with-minutes";
+import { user } from "@/drizzle/schema";
 
 
 
@@ -292,8 +294,8 @@ export const getInserate = cache(async ({
         const searchedPayload = (payload || payloadMax) ? true : false;
         const startingPayload = payload ? payload : 0;
         const endingPayload = payloadMax ? payloadMax : 100000;
-    
-        
+
+
 
         const bPayload = searchedPayload ?
             Number(pInserat?.lkwAttribute?.payload ?? 1000000000) <= Number(endingPayload) &&
@@ -341,7 +343,7 @@ export const getInserate = cache(async ({
             : true;
 
         const searchedAxis = (axis || axisMax) ? true : false;
-        
+
         const minAxis = axis ? axis : 0;
         const maxAxis = axisMax ? axisMax : 10;
 
@@ -372,7 +374,7 @@ export const getInserate = cache(async ({
         const searchedPayload = (payload || payloadMax) ? true : false;
         const startingPayload = payload ? payload : 0;
         const endingPayload = payloadMax ? payloadMax : 100000;
-    
+
         const bPayload = searchedPayload ?
             Number(pInserat?.trailerAttribute?.payload ?? 1000000000) <= Number(endingPayload) &&
             Number(pInserat?.trailerAttribute?.payload ?? 0) >= Number(startingPayload)
@@ -448,7 +450,7 @@ export const getInserate = cache(async ({
         const searchedPayload = (payload || payloadMax) ? true : false;
         const startingPayload = payload ? payload : 0;
         const endingPayload = payloadMax ? payloadMax : 100000;
-    
+
         const bPayload = searchedPayload ?
             Number(pInserat?.transportAttribute?.payload ?? 1000000000) <= Number(endingPayload) &&
             Number(pInserat?.transportAttribute?.payload ?? 0) >= Number(startingPayload)
@@ -819,7 +821,13 @@ export const getInserate = cache(async ({
 
 
     try {
-        const ilikeQuery = title ? title.split(' ').map((w) => ilike(inserat.title, `%${w}%`)) : "";
+        const ilikeQuery = title
+            ? title.split(' ').map((w) =>
+                or(
+                    ilike(inserat.title, `%${w}%`),
+                )
+            )
+            : "";
 
         const findInserate = await db.query.inserat.findMany({
             where: (
@@ -848,8 +856,8 @@ export const getInserate = cache(async ({
                     }
                 },
                 images: {
-                    orderBy : (created_at, { asc }) => [asc(images.position)],
-                   
+                    orderBy: (created_at, { asc }) => [asc(images.position)],
+
                 },
                 address: true,
                 lkwAttribute: true,
@@ -874,13 +882,15 @@ export const getInserate = cache(async ({
                 orderBy: (price, { desc }) => [desc(inserat.price)]
             },
 
-        }).prepare("findInserate");
+         }).prepare("findInserate");
+
+
+        
 
         const foundInserate = await findInserate.execute();
 
 
-
-
+        
 
 
 
@@ -1021,11 +1031,11 @@ export const getInserate = cache(async ({
             })
         }
 
-    
+
 
         if (!filter || filter === "relevance") {
 
-            
+
 
             returnedArray.sort((a, b) => {
 

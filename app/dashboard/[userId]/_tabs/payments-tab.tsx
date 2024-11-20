@@ -48,8 +48,6 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
     }) ?? null
 
 
-
-
     return (
         <div className="flex flex-col  sm:py-8 sm:px-4  ">
 

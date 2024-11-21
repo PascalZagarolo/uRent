@@ -5,9 +5,11 @@ import db from "@/db/drizzle";
 import {
     ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender,
     DriveEnumRender, ExtraTypeEnumRender, FuelTypeEnumRender, images, inserat, lkwAttribute, LkwBrandEnumRender,
-    LoadingEnumRender, pkwAttribute, TrailerEnumRender, TransmissionEnumRender,
+    LoadingEnumRender, pkwAttribute, trailerAttribute, TrailerEnumRender, TransmissionEnumRender,
     transportAttribute,
-    userTable
+    userSubscription,
+    userTable,
+    vehicle
 } from "@/db/schema";
 import axios from "axios";
 import { differenceInHours, isAfter, isBefore, isEqual, isSameDay } from "date-fns";
@@ -15,7 +17,8 @@ import { and, eq, gte, ilike, isNull, lte, or, sql } from "drizzle-orm";
 import { cache } from "react";
 import { dynamicSearch } from "./dynamic-search";
 import { createDateWithTime } from "@/hooks/date/combine-date-with-minutes";
-import { user } from "@/drizzle/schema";
+import { address, booking, user } from "@/drizzle/schema";
+import bookings from "@/app/(anzeige)/inserat/[inseratId]/_components/bookings";
 
 
 
@@ -885,12 +888,28 @@ export const getInserate = cache(async ({
          }).prepare("findInserate");
 
 
-        
+
 
         const foundInserate = await findInserate.execute();
-
+         /*
+        const foundInserate = await db
+            .select()
+            .from(inserat)
+            .where(eq(inserat.isPublished, true))
+            .leftJoin(user, eq(user.id, inserat.userId))
+            .leftJoin(userSubscription, eq(userSubscription.userId, user.id))
+            .leftJoin(images, eq(images.inseratId, inserat.id))
+            .leftJoin(address, eq(address.id, inserat.addressId))
+            .leftJoin(lkwAttribute, eq(lkwAttribute.id, inserat.lkwAttributeId))
+            .leftJoin(pkwAttribute, eq(pkwAttribute.id, inserat.pkwAttributeId))
+            .leftJoin(trailerAttribute, eq(trailerAttribute.id, inserat.trailerAttributeId))
+            .leftJoin(transportAttribute, eq(transportAttribute.id, inserat.transportAttributeId))
+            .leftJoin(booking, eq(booking.inseratId, inserat.id))
+            .leftJoin(vehicle, eq(vehicle.inseratId, inserat.id))
+           */
 
         
+
 
 
 

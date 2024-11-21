@@ -1,8 +1,8 @@
 
 import db from "@/db/drizzle";
-import { inserat } from "@/db/schema";
+import { inserat, userTable } from "@/db/schema";
 import axios from "axios";
-import { and, eq, gte, ilike, isNull, lte, or } from "drizzle-orm";
+import { and, eq, gte, ilike, inArray, isNull, lte, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { lkwAttribute, pkwAttribute } from '../../../db/schema';
 import { cache } from "react";
@@ -680,8 +680,24 @@ export async function PATCH(
             where:
                 and(
                     eq(inserat.isPublished, true),
-                    //@ts-ignore
-                    ...ilikeQuery,
+                    or(
+                        ...(
+                            title
+                                ? title.split(' ').map((w) =>
+                                    or(
+                                        ilike(inserat.title, `%${w}%`),
+                                        inArray(
+                                            inserat.userId,
+                                            db
+                                                .select({ userId: userTable.id })
+                                                .from(userTable)
+                                                .where(ilike(userTable.name, `%${w}%`))
+                                        )
+                                    )
+                                )
+                                : []
+                        )
+                    ),
                     thisCategory ? eq(inserat.category, thisCategory) : undefined,
                     start ? gte(inserat.price, start) : undefined,
                     end ? lte(inserat.price, end) : undefined,

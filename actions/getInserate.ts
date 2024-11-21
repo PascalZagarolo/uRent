@@ -13,7 +13,7 @@ import {
 } from "@/db/schema";
 import axios from "axios";
 import { differenceInHours, isAfter, isBefore, isEqual, isSameDay } from "date-fns";
-import { and, eq, gte, ilike, isNull, lte, or, sql } from "drizzle-orm";
+import { and, eq, gte, ilike, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import { cache } from "react";
 import { dynamicSearch } from "./dynamic-search";
 import { createDateWithTime } from "@/hooks/date/combine-date-with-minutes";
@@ -824,20 +824,31 @@ export const getInserate = cache(async ({
 
 
     try {
-        const ilikeQuery = title
-            ? title.split(' ').map((w) =>
-                or(
-                    ilike(inserat.title, `%${w}%`),
-                )
-            )
-            : "";
+        
 
         const findInserate = await db.query.inserat.findMany({
             where: (
                 and(
                     eq(inserat.isPublished, true),
-                    //@ts-ignore
-                    ...ilikeQuery,
+                    
+                    or(
+                        ...(
+                            title
+                                ? title.split(' ').map((w) =>
+                                    or(
+                                        ilike(inserat.title, `%${w}%`),
+                                        inArray(
+                                            inserat.userId,
+                                            db
+                                                .select({ userId: userTable.id })
+                                                .from(userTable)
+                                                .where(ilike(userTable.name, `%${w}%`))
+                                        )
+                                    )
+                                )
+                                : []
+                        )
+                    ),
                     start ? gte(inserat.price as any, start) : undefined,
                     end ? lte(inserat.price as any, end) : undefined,
                     thisCategory ? eq(inserat.category, thisCategory as any) : undefined,

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { AlertCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 
@@ -24,6 +25,7 @@ const RedeemCode = () => {
 
     const [usedCode, setUsedCode] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const router = useRouter();
 
@@ -31,13 +33,16 @@ const RedeemCode = () => {
         try {
             setIsLoading(true);
             await axios.patch(`/api/redeem/giftcode/${usedCode}`)
-                .then(() => {
-                    toast.success("Gutscheincode erfolgreich eingelöst");
+                .then((res) => {
+                    setError("");
+                    setUsedCode("")
                     router.refresh();
                 })
-            setUsedCode("")
+            
+            
         } catch(error : any) {
-            console.log(error);
+            console.log(error?.response?.data);
+            setError(error?.response?.data);
             toast.error("Dieser Gutscheincode kann nicht verwendet werden.");
         } finally {
             setIsLoading(false);
@@ -70,6 +75,15 @@ const RedeemCode = () => {
                                 <p className="text-xs dark:text-gray-200/70">
                                     Gebe hier deinen 16-stelligen Code oder diverse Promocodes ein, Abos & Vorteile einzulösen.
                                 </p>
+                            </div>
+                            <div className="text-sm py-2 bg-rose-600/20 p-4 border border-rose-800/20 mt-2 mb-2 shadow-lg">
+                                <div className="flex flex-row items-center gap-x-2 text-base font-semibold">
+                                    <AlertCircleIcon className="w-4 h-4 text-rose-800" />
+                                    Beim Einlösen deines Codes ist ein Fehler aufgetreten.
+                                </div>
+                                <div className="text-sm text-gray-200/80 mt-2">
+                                {error}
+                                </div>
                             </div>
                             <div className="mt-2">
                                 <Form {...form}>

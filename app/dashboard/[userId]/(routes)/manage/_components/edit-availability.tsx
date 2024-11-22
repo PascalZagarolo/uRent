@@ -3,21 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { format, set, isSameDay, isBefore } from 'date-fns';
-import { useForm } from "react-hook-form"
+
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
+
 import {
     Popover,
     PopoverContent,
@@ -25,7 +17,7 @@ import {
 } from "@/components/ui/popover"
 
 
-import { BookOpenCheck, CalendarCheck2, CalendarClockIcon, CalendarIcon, PencilIcon, PlusSquare } from "lucide-react"
+import { BookOpenCheck,  CalendarClockIcon, CalendarIcon, PencilIcon, PlusSquare } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,7 +27,7 @@ import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { booking, inserat } from "@/db/schema";
-import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
@@ -44,7 +36,7 @@ import { MdOutlinePersonPin } from "react-icons/md";
 import { de } from "date-fns/locale";
 import SelectTimeRange from "./select-time-range";
 import { Checkbox } from "@/components/ui/checkbox";
-import { TbListNumbers } from "react-icons/tb";
+
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 import { checkAvailability } from "@/actions/check-availability";
 import LetterRestriction from "@/components/letter-restriction";
@@ -113,16 +105,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
         name: z.string().optional()
     })
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            start: new Date(),
-            end: new Date(),
-            content: "",
-            name: ""
-
-        }
-    })
+   
 
 
 
@@ -182,7 +165,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                 axios.patch(`/api/booking/edit/${thisBooking.id}`, values)
                     .then(() => {
                         router.refresh();
-                        form.reset();
+                        
                         setCurrentStart(new Date());
                         setCurrentEnd(new Date());
                         setCurrentInserat(null);
@@ -250,7 +233,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                     setShowConflict(false);
                     setConflictedBooking(null)
                     router.refresh();
-                    form.reset();
+                   
                     setCurrentStart(new Date());
                     setCurrentEnd(new Date());
                     setCurrentInserat(null);
@@ -303,7 +286,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                             <CalendarClockIcon className="mr-2" /> Verfügbarkeit bearbeiten
                         </h3>
                     </div>
-                    <div className="py-4 pr-8">
+                    <div className="py-4">
                         <Label className="">
                             Zugehöriges Inserat
                         </Label>
@@ -320,7 +303,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                 currentInserat}
 
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2" value={//@ts-ignore
+                            <SelectTrigger className="dark:border-none dark:bg-[#222222] shadow-lg mt-2" value={//@ts-ignore
                                 currentInserat}>
                                 <SelectValue defaultValue={currentInserat} placeholder="Wähle dein Inserat" />
                             </SelectTrigger>
@@ -348,7 +331,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                             value={currentVehicle || ''}
 
                         >
-                            <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
+                            <SelectTrigger className={cn("dark:border-none dark:bg-[#222222] shadow-lg", !currentVehicle && "text-gray-200/80")}
                                 disabled={//@ts-ignore
                                     !currentInserat || currentInseratObject?.vehicles?.length <= 0}
                             >
@@ -395,25 +378,19 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                         </div>
                     </div>
                     )}
-                    <div className="flex">
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                <div className="flex gap-x-8">
-                                    <FormField
-                                        control={form.control}
-                                        name="start"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Anfangsdatum</FormLabel>
+                    <div className="flex flex-col">
+                        
+                                <div className="flex flex-row gap-x-8">
+                                <div className="w-1/2">
+                                                <Label>Anfangsdatum</Label>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]
-                                                         dark:border-none">
+                                                     
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground  "
+                                                                    "w-full bg-[#222222] shadow-lg text-left font-normal dark:border-none",
+                                                                    !currentStart && "text-muted-foreground  "
                                                                 )}
                                                             >
                                                                 {currentStart ? (
@@ -423,7 +400,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
-                                                        </FormControl>
+                                                       
                                                     </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
@@ -432,7 +409,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                             className="dark:bg-[#0a0a0a] dark:border-none"
                                                             locale={de}
                                                             onSelect={(date) => {
-                                                                field.onChange(date);
+                                                               
                                                                 setCurrentStart(date);
                                                             }}
                                                             disabled={(date) =>
@@ -442,26 +419,20 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                             </div>
 
 
-                                    <FormField
-                                        control={form.control}
-                                        name="end"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Enddatum</FormLabel>
+                                    
+                                               <div className="w-1/2">
+                                               <Label>Enddatum</Label>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]">
+                                                        
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground"
+                                                                    "w-full bg-[#222222] shadow-lg text-left font-normal dark:border-none",
+                                                                    !currentEnd && "text-muted-foreground"
                                                                 )}
                                                             >
                                                                 {currentEnd ? (
@@ -471,7 +442,6 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
-                                                        </FormControl>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
@@ -480,7 +450,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                             className="dark:bg-[#0a0a0a]"
                                                             locale={de}
                                                             onSelect={(date) => {
-                                                                field.onChange(date);
+                                                               
                                                                 setCurrentEnd(date);
                                                             }}
                                                             disabled={(date) =>
@@ -490,14 +460,12 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                               </div>
+                                               
 
 
                                 </div>
-                                <div className="mt-2">
+                                <div className="mt-4">
                                     <SelectTimeRange
                                         isSameDay={isSameDay(currentStart, currentEnd)}
                                         setStartTimeParent={setCurrentPeriodStart}
@@ -507,17 +475,13 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
 
                                     />
                                 </div>
-                                <div>
-                                    <FormField
-                                        control={form.control}
-                                        name="name"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-0">
-                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Titel</FormLabel>
+                                <div className="mt-8">
+                                    
+                                                <Label className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Titel</Label>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#0a0a0a]"
-                                                    onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
+                                                    dark:bg-[#222222] shadow-lg"
+                                                    onChange={(e) => { setCurrentName(e.target.value) }}
                                                     value={currentName}
                                                     maxLength={160}
                                                 />
@@ -527,8 +491,7 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                     currentLength={currentName.length ?? 0}
                                                     />
                                                 </div>
-                                            </FormItem>
-                                        )} />
+                                           
                                 </div>
                                 
 
@@ -536,15 +499,11 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                     <span className="font-semibold text-base flex">
                                         <BookOpenCheck className="mr-2" />  Anmerkungen:
                                     </span>
-                                    <FormField
-                                        control={form.control}
-                                        name="content"
-                                        render={({ field }) => (
-                                            <FormItem className="mt-2 ">
+                                   
 
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                            dark:bg-[#0a0a0a] h-40"
+                            dark:bg-[#222222] shadow-lg h-40"
                                                     maxLength={2000}
                                                     onChange={handleTextChange}
                                                     value={currentContent}
@@ -555,22 +514,19 @@ const EditAvailability: React.FC<EditAvailabilityProps> = ({
                                                     currentLength={currentContent.length ?? 0}
                                                     />
                                                 </div>
-                                            </FormItem>
-                                        )}
-                                    />
+                                            
                                 </div>
                                 <DialogTrigger asChild>
                                     <Button
-                                        className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                                        className="bg-white border border-gray-300 text-gray-900 
                    hover:bg-gray-200
-                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
+                   dark:bg-indigo-800 dark:text-gray-100 dark:hover:bg-indigo-900 dark:border-none"
                                         disabled={(!selectedUser && (!currentName || currentName.trim() === "")) || isLoading || !currentInserat || !currentStart || !currentEnd}
                                         type="submit"
                                     >
                                         Änderungen speichern</Button>
                                 </DialogTrigger>
-                            </form>
-                        </Form>
+                           
 
                     </div>
                 </div>

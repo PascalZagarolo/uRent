@@ -70,8 +70,8 @@ const ConversationPage = async () => {
                     foundNotifications={currentUser?.notifications}
                 />
             </div>
-            <div className="flex flex-row justify-center h-full sm:py-4 sm:px-4 w-full min-h-screen">
-                <div className='h-screen sm:flex items-center justify-center sm:w-2/12  p-16 hidden'>
+            <div className="flex flex-row justify-center h-full lg:py-4 sm:px-4 w-full min-h-screen">
+                <div className='h-screen sm:flex items-center justify-center xl:w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>
                             <AdsComponent dataAdSlot='3797720061' />
@@ -81,7 +81,7 @@ const ConversationPage = async () => {
                 </div>
 
                 
-                <div className="sm:w-8/12 w-full sm:h-[920px]">
+                <div className="xl:w-8/12 w-full xl:h-[920px] h-screen">
                 <ChatClient
                     currentUser={currentUser}
                     startedConversations={receivedConversations}
@@ -89,7 +89,7 @@ const ConversationPage = async () => {
                 </div>
                 
 
-                <div className='h-screen sm:flex items-center justify-center sm:w-2/12  p-16 hidden'>
+                <div className='h-screen sm:flex items-center justify-center xl:w-2/12  p-16 hidden'>
                     <div className=' w-full sm:block hidden space-y-4'>
                         <div>
                             <AdsComponent dataAdSlot='3797720061' />

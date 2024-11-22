@@ -46,7 +46,7 @@ const AgbsPage = async () => {
                                         Geltungsbereich
                                     </h1>
                                     <div className="text-sm">
-                                        Die nachfolgenden Allgemeinen Geschäftsbedingungen (AGB) <br /> regeln die Vertragsbeziehungen zwischen der uRent UG, Straße,
+                                        Die nachfolgenden Allgemeinen Geschäftsbedingungen (AGB) <br /> regeln die Vertragsbeziehungen zwischen der uRent UG, Bozenerstraße 26,
                                         42659 Solingen (im Folgenden {`"`}uRent{`"`}), <br />
                                         sowie den Nutzern des von uRent betriebenen Internetportals https://www.urent-rental.de
                                         (im Folgenden {`"`}Plattform{`"`}).
@@ -55,8 +55,7 @@ const AgbsPage = async () => {
                                         Kontaktdaten
                                     </h1>
                                     <div className="text-sm">
-                                        Telefon: x <br />
-                                        Telefax: x <br />
+                                       
                                         E-Mail: support@urent-rental.de <br />
                                     </div>
                                     <div className="mt-2 text-sm">

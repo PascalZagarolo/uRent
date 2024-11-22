@@ -3,21 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { format, set, isSameDay, isBefore } from 'date-fns';
-import { useForm } from "react-hook-form"
+
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
+
 import {
     Popover,
     PopoverContent,
@@ -35,7 +27,7 @@ import { usesearchUserByBookingStore } from "@/store";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { booking, inserat } from "@/db/schema";
-import SearchRent from "@/app/(anzeige)/inserat/[inseratId]/_components/search-rent";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
@@ -104,25 +96,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
     const params = useParams();
     const router = useRouter();
 
-    const formSchema = z.object({
-        start: z.date({
-            required_error: "A date of birth is required.",
-        }), end: z.date({
-            required_error: "A date of birth is required.",
-        }), content: z.string().optional(),
-        name: z.string().optional()
-    })
+    
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            start: new Date(),
-            end: new Date(),
-            content: "",
-            name: ""
-
-        }
-    })
+   
 
 
 
@@ -137,7 +113,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
     };
 
 
-    const onSubmit = (value: z.infer<typeof formSchema>) => {
+    const onSubmit = () => {
         try {
 
             setIsLoading(true);
@@ -190,7 +166,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                 axios.patch(`/api/booking/edit/${thisBooking.id}`, values)
                     .then(() => {
                         router.refresh();
-                        form.reset();
+                        
                         setCurrentStart(new Date());
                         setCurrentEnd(new Date());
                         setCurrentInserat(null);
@@ -247,7 +223,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                     setShowConflict(false);
                     setConflictedBooking(null)
                     router.refresh();
-                    form.reset();
+                    
                     setCurrentStart(new Date());
                     setCurrentEnd(new Date());
                     setCurrentInserat(null);
@@ -300,7 +276,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                             <CalendarClockIcon className="mr-2" /> Buchung bearbeiten
                         </h3>
                     </div>
-                    <div className="py-4 pr-8">
+                    <div className="py-4">
                         <Label className="">
                             Zugehöriges Inserat
                         </Label>
@@ -316,7 +292,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                 currentInserat}
 
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#222222] shadow-lg mt-2" value={//@ts-ignore
+                            <SelectTrigger className="w-full dark:border-none dark:bg-[#222222] shadow-lg" value={//@ts-ignore
                                 currentInserat}>
                                 <SelectValue defaultValue={currentInserat} placeholder="Wähle dein Inserat" />
                             </SelectTrigger>
@@ -391,25 +367,20 @@ const EditBooking: React.FC<EditBookingProps> = ({
                             </div>
                         </div>
                     )}
-                    <div className="flex">
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                <div className="flex gap-x-8">
-                                    <FormField
-                                        control={form.control}
-                                        name="start"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Anfangsdatum</FormLabel>
+                    <div className="flex flex-col">
+                        
+                                <div className="flex flex-row gap-x-8">
+                                   
+                                               <div className="w-1/2">
+                                               <Label>Anfangsdatum</Label>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#222222] shadow-lg
-                                                         dark:border-none">
+                                                        
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground  "
+                                                                    "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg",
+                                                                    !currentStart && "text-muted-foreground  "
                                                                 )}
                                                             >
                                                                 {currentStart ? (
@@ -419,7 +390,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
-                                                        </FormControl>
+                                                        
                                                     </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
@@ -428,7 +399,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                             className="dark:bg-[#0a0a0a] dark:border-none"
                                                             locale={de}
                                                             onSelect={(date) => {
-                                                                field.onChange(date);
+                                                               
                                                                 setCurrentStart(date);
                                                             }}
                                                             disabled={(date) =>
@@ -438,26 +409,21 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                               </div>
+                                              
 
 
-                                    <FormField
-                                        control={form.control}
-                                        name="end"
-                                        render={({ field }) => (
-                                            <FormItem className="flex flex-col">
-                                                <FormLabel>Enddatum</FormLabel>
+                                   
+                                               <div className="w-1/2">
+                                               <Label>Enddatum</Label>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#222222] shadow-lg">
+                                                        
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
-                                                                    "w-[200px] pl-3 text-left font-normal dark:border-none",
-                                                                    !field.value && "text-muted-foreground"
+                                                                    "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg",
+                                                                    !currentEnd && "text-muted-foreground"
                                                                 )}
                                                             >
                                                                 {currentEnd ? (
@@ -467,7 +433,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                                 )}
                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                                             </Button>
-                                                        </FormControl>
+                                                   
                                                     </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
@@ -476,7 +442,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                             className="dark:bg-[#0a0a0a]"
                                                             locale={de}
                                                             onSelect={(date) => {
-                                                                field.onChange(date);
+                                                              
                                                                 setCurrentEnd(date);
                                                             }}
                                                             disabled={(date) =>
@@ -486,35 +452,30 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                         />
                                                     </PopoverContent>
                                                 </Popover>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                                               </div>
+                                              
 
 
                                 </div>
-                                <div className="mt-2">
+                                <div className="mt-4">
                                     <SelectTimeRange
                                         isSameDay={isSameDay(currentStart, currentEnd)}
                                         setStartTimeParent={setCurrentPeriodStart}
                                         setEndTimeParent={setCurrentPeriodEnd}
                                         prefilledStartTime={thisBooking?.startPeriod}
                                         prefilledEndTime={thisBooking?.endPeriod}
+                                        
 
                                     />
                                 </div>
-                                <div>
-                                    <FormField
-                                        control={form.control}
-                                        name="name"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-0">
-                                                <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</FormLabel>
+                                <div className="mt-8">
+                                    
+                                                <Label className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</Label>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
                                                     dark:bg-[#222222] shadow-lg"
                                                     maxLength={160}
-                                                    onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
+                                                    onChange={(e) => { setCurrentName(e.target.value) }}
                                                     value={currentName}
                                                 />
                                                 <div className="flex justify-end">
@@ -523,8 +484,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                         currentLength={currentInternal?.length ?? 0}
                                                     />
                                                 </div>
-                                            </FormItem>
-                                        )} />
+                                            
                                 </div>
                                 <div className="mt-2">
                                     <Label className="font-semibold text-sm flex items-center">
@@ -551,11 +511,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                     <span className="font-semibold text-base flex">
                                         <BookOpenCheck className="mr-2" />  Anmerkungen:
                                     </span>
-                                    <FormField
-                                        control={form.control}
-                                        name="content"
-                                        render={({ field }) => (
-                                            <FormItem className="mt-2 ">
+                                    
 
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
@@ -569,9 +525,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                         currentLength={currentContent?.length ?? 0}
                                                         limit={2000} />
                                                 </div>
-                                            </FormItem>
-                                        )}
-                                    />
+                                            
                                 </div>
                                 <DialogTrigger asChild>
                                     <Button
@@ -583,9 +537,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                     >
                                         Änderungen speichern</Button>
                                 </DialogTrigger>
-                            </form>
-                        </Form>
-
+                            
                     </div>
                 </div>
             </DialogContent>

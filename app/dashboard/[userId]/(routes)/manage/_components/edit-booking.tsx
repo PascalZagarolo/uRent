@@ -306,8 +306,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
-                                console.log(selectedValue)
-                                console.log(currentInserat)
+                               
                                 setCurrentInserat(selectedValue);
 
                                 setCurrentVehicle(null);
@@ -317,7 +316,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                 currentInserat}
 
                         >
-                            <SelectTrigger className="dark:border-none dark:bg-[#0a0a0a] mt-2" value={//@ts-ignore
+                            <SelectTrigger className="dark:border-none dark:bg-[#222222] shadow-lg mt-2" value={//@ts-ignore
                                 currentInserat}>
                                 <SelectValue defaultValue={currentInserat} placeholder="Wähle dein Inserat" />
                             </SelectTrigger>
@@ -345,7 +344,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                 value={currentVehicle || ''}
 
                             >
-                                <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
+                                <SelectTrigger className={cn("dark:border-none dark:bg-[#222222] shadow-lg", !currentVehicle && "text-gray-200/80")}
                                     disabled={//@ts-ignore
                                         !currentInserat || currentInseratObject?.vehicles?.length <= 0}
                                 >
@@ -404,7 +403,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 <FormLabel>Anfangsdatum</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]
+                                                        <FormControl className="dark:bg-[#222222] shadow-lg
                                                          dark:border-none">
                                                             <Button
                                                                 variant={"outline"}
@@ -453,7 +452,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 <FormLabel>Enddatum</FormLabel>
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <FormControl className="dark:bg-[#0a0a0a] dark:hover:bg-[#1c1c1c]">
+                                                        <FormControl className="dark:bg-[#222222] shadow-lg">
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
@@ -513,7 +512,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                                 <FormLabel className="flex items-center"><MdOutlinePersonPin className="w-4 h-4 mr-2" /> Name</FormLabel>
                                                 <Input
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#0a0a0a]"
+                                                    dark:bg-[#222222] shadow-lg"
                                                     maxLength={160}
                                                     onChange={(e) => { setCurrentName(e.target.value); field.onChange(e) }}
                                                     value={currentName}
@@ -536,7 +535,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                             value={currentInternal}
                                             maxLength={160}
                                             className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#0a0a0a]"
+                                            dark:bg-[#222222] shadow-lg"
                                             onChange={(e) => { setCurrentInternal(e.target.value) }}
                                         />
                                         <div className="flex justify-end">
@@ -560,7 +559,7 @@ const EditBooking: React.FC<EditBookingProps> = ({
 
                                                 <Textarea
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                            dark:bg-[#0a0a0a] h-40"
+                                                    dark:bg-[#222222] shadow-lg h-40"
                                                     onChange={handleTextChange}
                                                     maxLength={2000}
                                                     value={currentContent}
@@ -576,9 +575,9 @@ const EditBooking: React.FC<EditBookingProps> = ({
                                 </div>
                                 <DialogTrigger asChild>
                                     <Button
-                                        className="bg-white border border-gray-300 text-gray-900 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                                        className="bg-white border border-gray-300 text-gray-900 
                    hover:bg-gray-200
-                   dark:bg-[#0a0a0a] dark:text-gray-100 dark:hover:bg-[#171717] dark:border-none"
+                   dark:bg-indigo-800 dark:text-gray-100 dark:hover:bg-indigo-900 w-full dark:border-none"
                                         disabled={(!selectedUser && (!currentName || currentName.trim() === "")) || isLoading || !currentInserat || !currentStart || !currentEnd}
                                         type="submit"
                                     >

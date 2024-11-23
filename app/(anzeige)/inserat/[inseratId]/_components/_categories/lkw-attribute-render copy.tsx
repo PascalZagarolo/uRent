@@ -62,7 +62,7 @@ const LkwAttributeRender: React.FC<LkwAttributeRenderProps> = ({
             {attributes?.drive && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
                     <GearIcon className="w-4 h-4 text-green-400 mr-3" />
-                    <span className="font-medium">{attributes.drive}</span>
+                    <span className="font-medium">{attributes.drive.substring(1)}</span>
                 </div>
             )}
             {attributes?.weightClass && (

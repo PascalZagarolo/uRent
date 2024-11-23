@@ -36,7 +36,9 @@ const ManageTab: React.FC<ManageTabProps> = ({
     const [thisInserat, setThisInserat] = useState<any | null>(null);
 
 
-    const foundInserate = currentUser?.inserat
+    const foundInserate = currentUser?.inserat?.sort((a, b) =>
+        a?.title?.localeCompare(b.title)
+    );
 
     let involvedBookings: any = [];
 
@@ -86,7 +88,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
     const selectedInserat = foundInserate?.find((inserat) => inserat.id === searchParams?.inseratId);
 
 
-   
+
 
     return (
         <div className="flex justify-center sm:py-8 sm:px-4  ">
@@ -94,16 +96,16 @@ const ManageTab: React.FC<ManageTabProps> = ({
 
             <div className="sm:p-4 p-2 mt-4 w-full rounded-lg ">
                 <div>
-                    <TodayAgenda 
-                    todaysBookings={
-                        involvedBookings
-                        ?.filter((booking) => isToday(booking.startDate))
-                        ?.sort((a, b) => a.startPeriod - b.startPeriod)
+                    <TodayAgenda
+                        todaysBookings={
+                            involvedBookings
+                                ?.filter((booking) => isToday(booking.startDate))
+                                ?.sort((a, b) => a.startPeriod - b.startPeriod)
 
-                    }
-                    todaysReturns={involvedBookings
-                        ?.filter((booking) => isToday(booking.endDate))
-                        ?.sort((a, b) => a.endPeriod - b.endPeriod)}
+                        }
+                        todaysReturns={involvedBookings
+                            ?.filter((booking) => isToday(booking.endDate))
+                            ?.sort((a, b) => a.endPeriod - b.endPeriod)}
                     />
                 </div>
                 <div className=" sm:px-4">
@@ -117,7 +119,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                     />
                 </div>
                 <div className="w-full sm:mb-16 mb-8">
-                <CalendarAndDetails
+                    <CalendarAndDetails
                         foundInserate={foundInserate as any}
                         involvedBookings={involvedBookings}
                     />
@@ -178,7 +180,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                                 <UserPlus2 className="w-4 h-4 mr-2" /> Offene Anfragen <p className="text-sm ml-4"> {bookingRequests.length} </p>
                             </h3>
                             <div className="max-h-[620px] overflow-y-scroll no-scrollbar mt-2">
-                            {bookingRequests?.map((request: typeof bookingRequest.$inferSelect) => (
+                                {bookingRequests?.map((request: typeof bookingRequest.$inferSelect) => (
                                     <BookingRequestRender
                                         currentUserId={currentUser?.id}
                                         request={request}

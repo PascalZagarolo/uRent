@@ -322,13 +322,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 {foundInserate.map((thisInserat) => (
                                     <SelectItem value={thisInserat.id} key={thisInserat.id}>
                                         {thisInserat.title}
+                                        
                                     </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
                     {currentInseratObject && currentInseratObject.multi && (
-                        <div className="pb-8 pr-8">
+                        <div className="pb-8 ">
                             <Label className="">
                                 Fahrzeug
                             </Label>
@@ -340,7 +341,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 value={currentVehicle || ''}
 
                             >
-                                <SelectTrigger className={cn("dark:border-none dark:bg-[#0a0a0a]", !currentVehicle && "text-gray-200/80")}
+                                <SelectTrigger className={cn("dark:border-none dark:bg-[#222222] shadow-lg", !currentVehicle && "text-gray-200/80")}
                                     disabled={//@ts-ignore
                                         !currentInserat || currentInseratObject?.vehicles?.length <= 0}
                                 >

@@ -52,10 +52,12 @@ export function dynamicSearch(
 
 
 
-        for (let windowEnd = startingPoint; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd));
-            windowEnd.setDate(windowEnd.getDate() + 1)) {
 
-            let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
+        for (let windowEnd = startingPoint; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd));
+            windowEnd = addDays(windowEnd, 1)) {
+
+            //let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
+            let windowStart = subDays(windowEnd, regAmount + 1);
             let isAvailable = true;
 
             for (const booking of pInserat.bookings) {
@@ -107,8 +109,7 @@ export function dynamicSearch(
 
                     }
                     else {
-                        console.log(booking)
-                        console.log(booking.endDate > windowEnd && booking.startDate > windowEnd)
+
                         isAvailable = false;
                     }
                 }
@@ -160,7 +161,7 @@ export function dynamicSearch(
     })
 
     const filterAvailabilityHours = ((pInserat: any) => {
-        console.log("right")
+
         const checkMinTime = checkFitsMinTime(pInserat, startTime, endTime, startDateDynamic, endDateDynamic);
 
         if (!checkMinTime) {
@@ -173,11 +174,11 @@ export function dynamicSearch(
         //Sliding Window approach
         // const foundAvailability: string[] = [];
 
-        const regAmount = Number(reqTime.slice(0, -1));
-        
+
+
 
         if (pInserat.bookings.length === 0) {
-            
+
             return true;
         }
 
@@ -188,7 +189,7 @@ export function dynamicSearch(
         let startDateAppointments = new Set<any>();
         let endDateAppointments = new Set<any>();
 
-        
+
 
         const addedTime = Number(reqTime.slice(0, 1));
 
@@ -197,21 +198,22 @@ export function dynamicSearch(
 
 
 
-      
-        
+
+
         for (let windowEnd = usedPeriodBegin; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd));
             windowEnd = addDays(windowEnd, 1)) {
-               
+
             //give it the lowest startTime 0:00 Uhr if user didnt select any
             const retrievedStartTime = String(startTime) == "undefined" ? 0 : Number(startTime);
             const retrievedEndTime = String(endTime) == "undefined" ? 1440 : Number(endTime);
 
-            let windowStart = subDays(windowEnd, regAmount - 1);
-            for (let usedStartTime = retrievedStartTime; usedStartTime <= retrievedEndTime; usedStartTime = usedStartTime + (addedTime * 60)) {
-                
+
+            let windowStart = subDays(windowEnd, 1);
+            for (let usedStartTime = retrievedStartTime; usedStartTime + (addedTime * 60) <= retrievedEndTime; usedStartTime = usedStartTime + (addedTime * 60)) {
+
                 const usedEndTime = usedStartTime + (addedTime * 60);
 
-                
+
                 let isAvailable = true;
 
                 for (const booking of pInserat.bookings) {
@@ -263,13 +265,15 @@ export function dynamicSearch(
 
                         }
                         else {
-
+                            console.log(booking.endDate, windowEnd)
+                            console.log(booking.startDate, windowEnd)
+                            console.log(pInserat.title)
                             isAvailable = false;
                         }
                     }
                 }
 
-
+                console.log("s")
                 if ((usedStartTime || usedEndTime)) {
                     if (usedStartTime) {
                         let usedEnd;
@@ -286,7 +290,7 @@ export function dynamicSearch(
                             }
                         }
                     }
-                    if (endTime) {
+                    if (usedEndTime) {
                         let usedEnd;
                         if (isSameDay(windowStart, windowEnd) && usedStartTime) {
                             usedEnd = usedStartTime;
@@ -311,6 +315,8 @@ export function dynamicSearch(
                 endDateAppointments.clear();
 
             }
+
+
         }
 
         return false;
@@ -476,14 +482,14 @@ export function dynamicSearch(
             return false;
         }
 
-        const regAmount = Number(reqTime.slice(0, -1));
+        
 
 
-        for (let i = 0; !isAfter(addDays(startDateDynamic, i + (regAmount - 1)), endDateDynamic); i++) {
+        for (let i = 0; !isAfter(addDays(startDateDynamic, i + 1), endDateDynamic); i++) {
 
             const usedStartDate = new Date(addDays(startDateDynamic, i));
 
-            const usedEndDate = new Date(addDays(startDateDynamic, i + regAmount - 1));
+            const usedEndDate = new Date(addDays(startDateDynamic, i + 1));
 
             const usedVehicles = pInserat?.vehicles;
 
@@ -495,8 +501,11 @@ export function dynamicSearch(
                 let isAvailable = true;
 
                 const addedTime = Number(reqTime.slice(0, 1));
+                //give it the lowest startTime 0:00 Uhr if user didnt select any
+                const retrievedStartTime = String(startTime) == "undefined" ? 0 : Number(startTime);
+                const retrievedEndTime = String(endTime) == "undefined" ? 1440 : Number(endTime);
 
-                for (let usedStartTime = startTime; usedStartTime <= endTime; usedStartTime = usedStartTime + (addedTime * 60)) {
+                for (let usedStartTime = retrievedStartTime; usedStartTime + (addedTime * 60) <= retrievedEndTime; usedStartTime = usedStartTime + (addedTime * 60)) {
                     const usedEndTime = usedStartTime + (addedTime * 60);
 
                     let isAvailable = true;
@@ -560,7 +569,7 @@ export function dynamicSearch(
                     if ((usedStartTime || usedEndTime)) {
                         if (usedStartTime) {
                             let usedEnd;
-                            console.log(startDateAppointments)
+
                             if (isSameDay(usedStartDate, usedEndDate) && usedEndTime) {
                                 usedEnd = usedEndTime;
                             } else {

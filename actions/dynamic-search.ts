@@ -1,6 +1,6 @@
 
 import { createDateWithTime } from '@/hooks/date/combine-date-with-minutes';
-import { addDays, differenceInHours, format, isAfter, isBefore, isSameDay, toDate } from 'date-fns';
+import { addDays, differenceInHours, format, isAfter, isBefore, isSameDay, subDays, toDate } from 'date-fns';
 import { cache } from 'react';
 
 
@@ -160,23 +160,24 @@ export function dynamicSearch(
     })
 
     const filterAvailabilityHours = ((pInserat: any) => {
-
+        console.log("right")
         const checkMinTime = checkFitsMinTime(pInserat, startTime, endTime, startDateDynamic, endDateDynamic);
 
         if (!checkMinTime) {
+            console.log("....")
             return false;
         }
 
         //save found availabilities in array => can be type of Hours, days, weeks, months => e.g 3d => then check length of array, array.length >= reqTime.number -1
         //return true if length is >= reqTime.number -1 then break, else false
         //Sliding Window approach
-        const foundAvailability: string[] = [];
+        // const foundAvailability: string[] = [];
 
         const regAmount = Number(reqTime.slice(0, -1));
-
+        
 
         if (pInserat.bookings.length === 0) {
-            console.log("No Bookings")
+            
             return true;
         }
 
@@ -187,7 +188,7 @@ export function dynamicSearch(
         let startDateAppointments = new Set<any>();
         let endDateAppointments = new Set<any>();
 
-        let startingPoint = addDays(usedPeriodBegin, regAmount - 1);
+        
 
         const addedTime = Number(reqTime.slice(0, 1));
 
@@ -196,13 +197,21 @@ export function dynamicSearch(
 
 
 
+      
+        
+        for (let windowEnd = usedPeriodBegin; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd));
+            windowEnd = addDays(windowEnd, 1)) {
+               
+            //give it the lowest startTime 0:00 Uhr if user didnt select any
+            const retrievedStartTime = String(startTime) == "undefined" ? 0 : Number(startTime);
+            const retrievedEndTime = String(endTime) == "undefined" ? 1440 : Number(endTime);
 
-        for (let windowEnd = startingPoint; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd));
-            windowEnd.setDate(windowEnd.getDate() + 1)) {
-
-            for (let usedStartTime = startTime; usedStartTime <= endTime; usedStartTime = usedStartTime + (addedTime * 60)) {
+            let windowStart = subDays(windowEnd, regAmount - 1);
+            for (let usedStartTime = retrievedStartTime; usedStartTime <= retrievedEndTime; usedStartTime = usedStartTime + (addedTime * 60)) {
+                
                 const usedEndTime = usedStartTime + (addedTime * 60);
-                let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
+
+                
                 let isAvailable = true;
 
                 for (const booking of pInserat.bookings) {
@@ -264,7 +273,7 @@ export function dynamicSearch(
                 if ((usedStartTime || usedEndTime)) {
                     if (usedStartTime) {
                         let usedEnd;
-                        console.log(startDateAppointments)
+
                         if (isSameDay(windowStart, windowEnd) && usedEndTime) {
                             usedEnd = usedEndTime;
                         } else {
@@ -656,7 +665,7 @@ export function dynamicSearch(
     let isAvailable;
 
     const isHourBased = requireHours.includes(reqTime);
-
+    console.log(isHourBased)
     if (pInserat?.multi) {
         isAvailable = isHourBased ? filterAvailabilityMultiHours(pInserat) : filterAvailabilityMulti(pInserat);
     } else {

@@ -196,20 +196,20 @@ export function dynamicSearch(
 
 
 
-        
+
 
 
 
         for (let windowEnd = usedPeriodBegin; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd));
             windowEnd = addDays(windowEnd, 1)) {
-            
+
             //give it the lowest startTime 0:00 Uhr if user didnt select any
             const retrievedStartTime = String(startTime) == "undefined" ? 0 : Number(startTime);
             const retrievedEndTime = String(endTime) == "undefined" ? 1440 : Number(endTime);
 
 
             let windowStart = windowEnd;
-            
+
             for (let usedStartTime = retrievedStartTime; usedStartTime + (addedTime * 60) <= retrievedEndTime; usedStartTime = usedStartTime + (addedTime * 60)) {
 
                 const usedEndTime = usedStartTime + (addedTime * 60);
@@ -274,7 +274,7 @@ export function dynamicSearch(
                     }
                 }
 
-                
+
                 if ((usedStartTime || usedEndTime)) {
                     if (usedStartTime) {
                         let usedEnd;
@@ -482,19 +482,20 @@ export function dynamicSearch(
             console.log("...")
             return false;
         }
-
         
+        const usedVehicles = pInserat?.vehicles;
+
+        for (const vehicle of usedVehicles) {
+            console.log(format(startDateDynamic, "dd.MM.yyyy"), format(endDateDynamic, "dd.MM.yyyy"))
+            
+            for (let i = 0; ((isBefore(addDays(startDateDynamic, i), endDateDynamic) || isSameDay(addDays(startDateDynamic, i), endDateDynamic))); i++) {
+                console.log(i)
+                const usedStartDate = new Date(addDays(startDateDynamic, i));
+                const usedEndDate = usedStartDate;
+
+                
 
 
-        for (let i = 0; !isAfter(addDays(startDateDynamic, i + 1), endDateDynamic); i++) {
-
-            const usedStartDate = new Date(addDays(startDateDynamic, i));
-
-            const usedEndDate = usedStartDate;
-
-            const usedVehicles = pInserat?.vehicles;
-
-            for (const vehicle of usedVehicles) {
 
                 let startDateAppointments = new Set<any>();
                 let endDateAppointments = new Set<any>();
@@ -505,11 +506,12 @@ export function dynamicSearch(
                 //give it the lowest startTime 0:00 Uhr if user didnt select any
                 const retrievedStartTime = String(startTime) == "undefined" ? 0 : Number(startTime);
                 const retrievedEndTime = String(endTime) == "undefined" ? 1440 : Number(endTime);
-
+               
+               
                 for (let usedStartTime = retrievedStartTime; usedStartTime + (addedTime * 60) <= retrievedEndTime; usedStartTime = usedStartTime + (addedTime * 60)) {
+
+                    
                     const usedEndTime = usedStartTime + (addedTime * 60);
-                    console.log(usedStartTime, usedEndTime)
-                    console.log(format(usedStartDate, "dd.MM.yyyy"), format(usedEndDate, "dd.MM.yyyy"))
                     let isAvailable = true;
 
                     for (const booking of vehicle?.bookings) {
@@ -577,7 +579,7 @@ export function dynamicSearch(
                             } else {
                                 usedEnd = "1440";
                             }
-s
+                            
                             for (let i = Number(usedStartTime); i <= Number(usedEnd); i = i + 30) {
                                 if (startDateAppointments.has(Number(i))) {
                                     isAvailable = false;
@@ -601,72 +603,21 @@ s
                         }
                     }
                     if (isAvailable) {
-
                         return true;
 
                     }
-                    startDateAppointments.clear();
-                    endDateAppointments.clear();
 
                 }
-
-                if (startDateAppointments.size !== 0 || endDateAppointments.size !== 0 && (startTime || endTime)) {
-                    if (startTime) {
-                        let usedEnd;
-
-                        if (isSameDay(usedStartDate, usedEndDate) && endTime) {
-                            usedEnd = endTime;
-                        } else {
-                            usedEnd = "1440";
-                        }
-
-                        for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
-                            if ([...startDateAppointments].some(appointment => appointment.number === Number(i))) {
-
-
-
-                                isAvailable = false;
-                            }
-                        }
-                    }
-                    if (endTime) {
-
-                        let usedEnd;
-
-                        if (isSameDay(usedStartDate, usedEndDate) && startTime) {
-                            usedEnd = startTime;
-                        } else {
-                            usedEnd = "0";
-                        }
-
-
-
-                        for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
-                            if ([...endDateAppointments].some(appointment => appointment.number === Number(i))) {
-
-                                isAvailable = false;
-                            }
-
-
-                        }
-                    }
-                }
-
-
-
-
-                if (isAvailable) {
-                    console.log(usedStartDate);
-                    console.log(usedEndDate);
-                    return true;
-                }
+                startDateAppointments.clear();
+                endDateAppointments.clear();
             }
 
+           
         }
 
         return false;
-
     })
+
 
     const requireHours = [
         "1h",
@@ -676,7 +627,7 @@ s
     let isAvailable;
 
     const isHourBased = requireHours.includes(reqTime);
-    console.log(isHourBased)
+
     if (pInserat?.multi) {
         isAvailable = isHourBased ? filterAvailabilityMultiHours(pInserat) : filterAvailabilityMulti(pInserat);
     } else {

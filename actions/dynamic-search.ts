@@ -58,8 +58,10 @@ export function dynamicSearch(
                 
 
             if (String(startTime) != "undefined" || String(endTime) != "undefined") {
-               console.log(startTime, endTime)
-                //let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
+               
+                const usedStartTime = String(startTime) != "undefined" ? startTime : endTime;
+                const usedEndTime = String(endTime) != "undefined" ? endTime : startTime;
+                
                 let windowStart = subDays(windowEnd, regAmount);
                 let isAvailable = true;
 
@@ -118,18 +120,18 @@ export function dynamicSearch(
                     }
                 }
 
-
-                if ((startTime || endTime)) {
-                    if (startTime) {
+                
+                if ((usedStartTime || usedEndTime)) {
+                    if (usedStartTime) {
                         let usedEnd;
                         
-                        if (isSameDay(windowStart, windowEnd) && endTime) {
-                            usedEnd = endTime;
+                        if (isSameDay(windowStart, windowEnd) && usedEndTime) {
+                            usedEnd = usedEndTime;
                         } else {
                             usedEnd = "1440";
                         }
 
-                        for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                        for (let i = Number(usedStartTime); i <= Number(usedEnd); i = i + 30) {
                             if (startDateAppointments.has(Number(i))) {
                                 isAvailable = false;
                             }
@@ -137,14 +139,14 @@ export function dynamicSearch(
                     }
                     if (endTime) {
                         let usedEnd;
-                        if (isSameDay(windowStart, windowEnd) && startTime) {
-                            usedEnd = startTime;
+                        if (isSameDay(windowStart, windowEnd) && usedStartTime) {
+                            usedEnd = usedStartTime;
                         } else {
                             usedEnd = "0";
                         }
 
 
-                        for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                        for (let i = Number(usedEndTime); i >= Number(usedEnd); i = i - 30) {
                             if (endDateAppointments.has(Number(i))) {
                                 isAvailable = false;
                             }
@@ -152,7 +154,7 @@ export function dynamicSearch(
                     }
                 }
                 if (isAvailable) {
-                    console.log("Available");
+                    
                     return true;
 
                 }

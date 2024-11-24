@@ -18,7 +18,7 @@ export function dynamicSearch(
 
 ) {
 
-    console.log("...")
+
     const filterAvailability = ((pInserat: any) => {
 
         const checkMinTime = checkFitsMinTime(pInserat, startTime, endTime, startDateDynamic, endDateDynamic);
@@ -36,7 +36,7 @@ export function dynamicSearch(
 
 
         if (pInserat.bookings.length === 0) {
-            console.log("No Bookings")
+            
             return true;
         }
 
@@ -48,110 +48,218 @@ export function dynamicSearch(
         let endDateAppointments = new Set<any>();
 
         let startingPoint = addDays(usedPeriodBegin, regAmount - 1);
-
+        
 
 
 
 
         for (let windowEnd = startingPoint; (isBefore(windowEnd, usedPeriodEnd) || isSameDay(windowEnd, usedPeriodEnd));
             windowEnd = addDays(windowEnd, 1)) {
+                
 
-            //let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
-            let windowStart = subDays(windowEnd, regAmount + 1);
-            let isAvailable = true;
+            if (String(startTime) != "undefined" || String(endTime) != "undefined") {
+               console.log(startTime, endTime)
+                //let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
+                let windowStart = subDays(windowEnd, regAmount);
+                let isAvailable = true;
 
-            for (const booking of pInserat.bookings) {
-                //booking starts AND ends before the searched Period
-                if (!(booking.startDate <= windowStart) || !(booking.endDate <= windowStart)
-                    //booking starts or ends on the first OR last day of the searched period
-                    || (isSameDay(booking.startDate, windowStart) || isSameDay(booking.endDate, windowStart)
-                        || isSameDay(booking.endDate, windowStart) || isSameDay(booking.startDate, windowStart))
-                    //booking
-                    && (!(booking.endDate > windowEnd) || !(booking.startDate > windowEnd))
-                ) {
-                    if ((isSameDay(booking.startDate, windowStart) && (isSameDay(booking.endDate, windowStart))) || isSameDay(booking.endDate, windowStart)) {
-                        let usedStart;
-                        if (isSameDay(booking.startDate, booking.endDate)) {
-                            usedStart = booking.startPeriod;
-                        } else {
-                            usedStart = "0"
+                for (const booking of pInserat.bookings) {
+                    //booking starts AND ends before the searched Period
+                    if (!(booking.startDate <= windowStart) || !(booking.endDate <= windowStart)
+                        //booking starts or ends on the first OR last day of the searched period
+                        || (isSameDay(booking.startDate, windowStart) || isSameDay(booking.endDate, windowStart)
+                            || isSameDay(booking.endDate, windowStart) || isSameDay(booking.startDate, windowStart))
+                        //booking
+                        && (!(booking.endDate > windowEnd) || !(booking.startDate > windowEnd))
+                    ) {
+                        if ((isSameDay(booking.startDate, windowStart) && (isSameDay(booking.endDate, windowStart))) || isSameDay(booking.endDate, windowStart)) {
+                            let usedStart;
+                            if (isSameDay(booking.startDate, booking.endDate)) {
+                                usedStart = booking.startPeriod;
+                            } else {
+                                usedStart = "0"
+                            }
+
+                            for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+
+                                startDateAppointments.add(i);
+                            }
+                            if (startDateAppointments.has("1440") && !isSameDay(windowStart, windowEnd)) {
+                                isAvailable = false;
+                            }
+                        } else if ((isSameDay(booking.endDate, windowEnd) && isSameDay(booking.startDate, windowEnd))
+                            || isSameDay(booking.startDate, windowEnd)) {
+
+                            let usedEnd;
+
+                            if (isSameDay(booking.startDate, booking.endDate)) {
+                                usedEnd = booking.endPeriod;
+                            } else {
+
+                                usedEnd = "1440";
+                            }
+
+                            for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+
+                                endDateAppointments.add(i);
+                            }
+                            if (endDateAppointments.has("0") && !isSameDay(windowStart, windowEnd)) {
+                                isAvailable = false;
+                            } else if (booking.endDate > windowEnd && booking.startDate > windowEnd) {
+
+                            }
+                        } else if (isAfter(booking.endDate, windowEnd) && isAfter(booking.startDate, windowEnd)) {
+
                         }
+                        else {
 
-                        for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
-
-                            startDateAppointments.add(i);
-                        }
-                        if (startDateAppointments.has("1440") && !isSameDay(windowStart, windowEnd)) {
                             isAvailable = false;
                         }
-                    } else if ((isSameDay(booking.endDate, windowEnd) && isSameDay(booking.startDate, windowEnd))
-                        || isSameDay(booking.startDate, windowEnd)) {
+                    }
+                }
 
+
+                if ((startTime || endTime)) {
+                    if (startTime) {
                         let usedEnd;
-
-                        if (isSameDay(booking.startDate, booking.endDate)) {
-                            usedEnd = booking.endPeriod;
+                        
+                        if (isSameDay(windowStart, windowEnd) && endTime) {
+                            usedEnd = endTime;
                         } else {
-
                             usedEnd = "1440";
                         }
 
-                        for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
-
-                            endDateAppointments.add(i);
+                        for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                            if (startDateAppointments.has(Number(i))) {
+                                isAvailable = false;
+                            }
                         }
-                        if (endDateAppointments.has("0") && !isSameDay(windowStart, windowEnd)) {
-                            isAvailable = false;
-                        } else if (booking.endDate > windowEnd && booking.startDate > windowEnd) {
-
+                    }
+                    if (endTime) {
+                        let usedEnd;
+                        if (isSameDay(windowStart, windowEnd) && startTime) {
+                            usedEnd = startTime;
+                        } else {
+                            usedEnd = "0";
                         }
-                    } else if (isAfter(booking.endDate, windowEnd) && isAfter(booking.startDate, windowEnd)) {
-
-                    }
-                    else {
-
-                        isAvailable = false;
-                    }
-                }
-            }
 
 
-            if ((startTime || endTime)) {
-                if (startTime) {
-                    let usedEnd;
-                    console.log(startDateAppointments)
-                    if (isSameDay(windowStart, windowEnd) && endTime) {
-                        usedEnd = endTime;
-                    } else {
-                        usedEnd = "1440";
-                    }
-
-                    for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
-                        if (startDateAppointments.has(Number(i))) {
-                            isAvailable = false;
+                        for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                            if (endDateAppointments.has(Number(i))) {
+                                isAvailable = false;
+                            }
                         }
                     }
                 }
-                if (endTime) {
-                    let usedEnd;
-                    if (isSameDay(windowStart, windowEnd) && startTime) {
-                        usedEnd = startTime;
-                    } else {
-                        usedEnd = "0";
-                    }
+                if (isAvailable) {
+                    console.log("Available");
+                    return true;
 
+                }
+            } else {
+                
+                for (let usedTime = 0; usedTime < 1440; usedTime = usedTime + 30) {
+                    //let windowStart = new Date(windowEnd.getDay() - regAmount + 1);
+                    
+                    let windowStart = subDays(windowEnd, regAmount);
+                    
+                    let isAvailable = true;
+                    const usedStartTime = usedTime;
+                    const usedEndTime = usedTime + 30;
+                    for (const booking of pInserat.bookings) {
+                        //booking starts AND ends before the searched Period
+                        if (!(booking.startDate <= windowStart) || !(booking.endDate <= windowStart)
+                            //booking starts or ends on the first OR last day of the searched period
+                            || (isSameDay(booking.startDate, windowStart) || isSameDay(booking.endDate, windowStart)
+                                || isSameDay(booking.endDate, windowStart) || isSameDay(booking.startDate, windowStart))
+                            //booking
+                            && (!(booking.endDate > windowEnd) || !(booking.startDate > windowEnd))
+                        ) {
+                            if ((isSameDay(booking.startDate, windowStart) && (isSameDay(booking.endDate, windowStart))) || isSameDay(booking.endDate, windowStart)) {
+                                let usedStart;
+                                if (isSameDay(booking.startDate, booking.endDate)) {
+                                    usedStart = booking.startPeriod;
+                                } else {
+                                    usedStart = "0"
+                                }
 
-                    for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
-                        if (endDateAppointments.has(Number(i))) {
-                            isAvailable = false;
+                                for (let i = Number(usedStart); i <= Number(booking.endPeriod); i = i + 30) {
+
+                                    startDateAppointments.add(i);
+                                }
+                                if (startDateAppointments.has("1440") && !isSameDay(windowStart, windowEnd)) {
+                                    isAvailable = false;
+                                }
+                            } else if ((isSameDay(booking.endDate, windowEnd) && isSameDay(booking.startDate, windowEnd))
+                                || isSameDay(booking.startDate, windowEnd)) {
+
+                                let usedEnd;
+
+                                if (isSameDay(booking.startDate, booking.endDate)) {
+                                    usedEnd = booking.endPeriod;
+                                } else {
+
+                                    usedEnd = "1440";
+                                }
+
+                                for (let i = Number(booking.startPeriod); i <= Number(usedEnd); i = i + 30) {
+
+                                    endDateAppointments.add(i);
+                                }
+                                if (endDateAppointments.has("0") && !isSameDay(windowStart, windowEnd)) {
+                                    isAvailable = false;
+                                } else if (booking.endDate > windowEnd && booking.startDate > windowEnd) {
+
+                                }
+                            } else if (isAfter(booking.endDate, windowEnd) && isAfter(booking.startDate, windowEnd)) {
+
+                            }
+                            else {
+
+                                isAvailable = false;
+                            }
                         }
                     }
-                }
-            }
-            if (isAvailable) {
-                console.log("Available");
-                return true;
 
+
+                    if ((usedStartTime || usedEndTime)) {
+                        if (usedStartTime) {
+                            let usedEnd;
+                            
+                            if (isSameDay(windowStart, windowEnd) && usedEndTime) {
+                                usedEnd = usedEndTime;
+                            } else {
+                                usedEnd = "1440";
+                            }
+
+                            for (let i = Number(usedStartTime); i <= Number(usedEnd); i = i + 30) {
+                                if (startDateAppointments.has(Number(i))) {
+                                    isAvailable = false;
+                                }
+                            }
+                        }
+                        if (usedEndTime) {
+                            let usedEnd;
+                            if (isSameDay(windowStart, windowEnd) && usedStartTime) {
+                                usedEnd = usedStartTime;
+                            } else {
+                                usedEnd = "0";
+                            }
+
+
+                            for (let i = Number(usedEndTime); i >= Number(usedEnd); i = i - 30) {
+                                if (endDateAppointments.has(Number(i))) {
+                                    isAvailable = false;
+                                }
+                            }
+                        }
+                    }
+                    if (isAvailable) {
+                      
+                        return true;
+
+                    }
+                }
             }
             startDateAppointments.clear();
             endDateAppointments.clear();
@@ -482,18 +590,18 @@ export function dynamicSearch(
             console.log("...")
             return false;
         }
-        
+
         const usedVehicles = pInserat?.vehicles;
 
         for (const vehicle of usedVehicles) {
-            console.log(format(startDateDynamic, "dd.MM.yyyy"), format(endDateDynamic, "dd.MM.yyyy"))
-            
+
+
             for (let i = 0; ((isBefore(addDays(startDateDynamic, i), endDateDynamic) || isSameDay(addDays(startDateDynamic, i), endDateDynamic))); i++) {
-                console.log(i)
+
                 const usedStartDate = new Date(addDays(startDateDynamic, i));
                 const usedEndDate = usedStartDate;
 
-                
+
 
 
 
@@ -506,11 +614,11 @@ export function dynamicSearch(
                 //give it the lowest startTime 0:00 Uhr if user didnt select any
                 const retrievedStartTime = String(startTime) == "undefined" ? 0 : Number(startTime);
                 const retrievedEndTime = String(endTime) == "undefined" ? 1440 : Number(endTime);
-               
-               
+
+
                 for (let usedStartTime = retrievedStartTime; usedStartTime + (addedTime * 60) <= retrievedEndTime; usedStartTime = usedStartTime + (addedTime * 60)) {
 
-                    
+
                     const usedEndTime = usedStartTime + (addedTime * 60);
                     let isAvailable = true;
 
@@ -579,7 +687,7 @@ export function dynamicSearch(
                             } else {
                                 usedEnd = "1440";
                             }
-                            
+
                             for (let i = Number(usedStartTime); i <= Number(usedEnd); i = i + 30) {
                                 if (startDateAppointments.has(Number(i))) {
                                     isAvailable = false;
@@ -612,7 +720,7 @@ export function dynamicSearch(
                 endDateAppointments.clear();
             }
 
-           
+
         }
 
         return false;

@@ -781,8 +781,9 @@ export async function PATCH(
         let filteredResult = [];
 
 
-
+      
         if (location) {
+            console.log(location)
             const usedRadius = radius ? radius : 50;
             let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
 

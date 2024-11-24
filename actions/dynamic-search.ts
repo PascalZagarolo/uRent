@@ -453,8 +453,14 @@ export function dynamicSearch(
 
             const usedEndDate = new Date(addDays(startDateDynamic, i + regAmount - 1));
 
+           
+
             const usedVehicles = pInserat?.vehicles;
             if (String(startTime) != "undefined" || String(endTime) != "undefined") {
+
+                const usedStartTime = String(startTime) != "undefined" ? startTime : endTime;
+                const usedEndTime = String(endTime) != "undefined" ? endTime : startTime;
+
                 for (const vehicle of usedVehicles) {
 
                     let startDateAppointments = new Set<any>();
@@ -526,16 +532,16 @@ export function dynamicSearch(
                     }
     
                     if (startDateAppointments.size !== 0 || endDateAppointments.size !== 0 && (startTime || endTime)) {
-                        if (startTime) {
+                        if (usedStartTime) {
                             let usedEnd;
     
-                            if (isSameDay(usedStartDate, usedEndDate) && endTime) {
-                                usedEnd = endTime;
+                            if (isSameDay(usedStartDate, usedEndDate) && usedEndTime) {
+                                usedEnd = usedEndTime;
                             } else {
                                 usedEnd = "1440";
                             }
     
-                            for (let i = Number(startTime); i <= Number(usedEnd); i = i + 30) {
+                            for (let i = Number(usedStartTime); i <= Number(usedEnd); i = i + 30) {
                                 if ([...startDateAppointments].some(appointment => appointment.number === Number(i))) {
     
     
@@ -548,15 +554,15 @@ export function dynamicSearch(
     
                             let usedEnd;
     
-                            if (isSameDay(usedStartDate, usedEndDate) && startTime) {
-                                usedEnd = startTime;
+                            if (isSameDay(usedStartDate, usedEndDate) && usedStartTime) {
+                                usedEnd = usedStartTime;
                             } else {
                                 usedEnd = "0";
                             }
     
     
     
-                            for (let i = Number(endTime); i >= Number(usedEnd); i = i - 30) {
+                            for (let i = Number(usedEndTime); i >= Number(usedEnd); i = i - 30) {
                                 if ([...endDateAppointments].some(appointment => appointment.number === Number(i))) {
     
                                     isAvailable = false;
@@ -571,8 +577,6 @@ export function dynamicSearch(
     
     
                     if (isAvailable) {
-                        console.log(usedStartDate);
-                        console.log(usedEndDate);
                         return true;
                     }
                 }

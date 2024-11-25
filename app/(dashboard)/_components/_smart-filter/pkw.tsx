@@ -1,3 +1,4 @@
+import UdsDialog from "../urent-dynamic-search/uds-dialog/uds-dialog";
 import UdsLayout from "../urent-dynamic-search/uds-layout";
 import DateFormFilter from "./_components/date-filter";
 import LocationSmartFilter from "./_components/location";
@@ -18,10 +19,12 @@ const PKW = () => {
             <div className="mt-4 flex justify-center px-2 mb-4">
                 <ReqRentTime />
             </div>
-            <div className="mt-4 flex justify-center">
+             <div className="mt-4 flex justify-center">
                 <UdsLayout/>
-            </div>
-            
+            </div> 
+            {/* <div className="mt-4 flex justify-center">
+                <UdsDialog />
+            </div> */}
         </div>
      );
 }

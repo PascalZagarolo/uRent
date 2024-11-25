@@ -122,9 +122,12 @@ const UdsLayout = () => {
                         />
                     </div>
                     <div className="w-full mt-1 ">
-                        <Label className="pb-1">
+                        <Label className="">
                             Mietdauer
                         </Label>
+                        <p className="text-xs text-gray-200/60">
+                        Wie lange brauchst du das Fahrzeug?
+                        </p>
                         <div className="">
                             <Select
                                 onValueChange={(value) => setReqTime(value)}

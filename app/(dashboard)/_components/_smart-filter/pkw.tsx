@@ -19,12 +19,12 @@ const PKW = () => {
             <div className="mt-4 flex justify-center px-2 mb-4">
                 <ReqRentTime />
             </div>
-             <div className="mt-4 flex justify-center">
+             {/* <div className="mt-4 flex justify-center">
                 <UdsLayout/>
-            </div> 
-            {/* <div className="mt-4 flex justify-center">
+            </div>  */}
+             <div className="mt-4 flex justify-center">
                 <UdsDialog />
-            </div> */}
+            </div> 
         </div>
      );
 }

@@ -445,7 +445,7 @@ export function dynamicSearch(
         }
 
         const regAmount = Number(reqTime.slice(0, -1));
-
+        
 
         for (let i = 0; !isAfter(addDays(startDateDynamic, i + (regAmount - 1)), endDateDynamic); i++) {
 

@@ -43,7 +43,10 @@ export async function PATCH(
 
             volume, loading_l, loading_b, loading_h, title, radius, caution,
             ...filteredValues } = values;
-
+            console.log(startDateDynamic, endDateDynamic)
+            console.log(startTime)
+            console.log(endTime)
+            console.log(minTime)
             
 
         const ConditionFilter = (pInserat: typeof inserat) => {

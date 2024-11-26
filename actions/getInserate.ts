@@ -538,7 +538,7 @@ export const getInserate = cache(async ({
             return false;
         }
 
-        if (pInserat.bookings.length === 0) {
+        if (pInserat?.bookings?.length === 0) {
             return true;
         }
         //set start and date to same date if the user only provides one

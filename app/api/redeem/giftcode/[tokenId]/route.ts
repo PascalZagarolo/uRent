@@ -82,7 +82,7 @@ export async function PATCH(
 
         await db.update(userTable).set({
             subscriptionId: createSubscription.id
-        })
+        }).where(eq(userTable.id, currentUser.id))
 
 
 

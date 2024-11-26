@@ -16,7 +16,7 @@ const SupportPage = () => {
                                 Support - Hilfe & Kontakt
                             </h3>
                             <p className="text-xs text-gray-200/60">
-                                Falls du Fragen oder Anregungen hast, kannst du uns gerne über das Kontaktformular kontaktieren. <br />
+                                Falls du Hilfe benötigst oder ein Problem hast, kannst du uns über das Kontaktformular erreichen. <br />
                                 Wir werden uns so schnell wie möglich bei ihnen melden.
                             </p>
                             <div className="mt-8">

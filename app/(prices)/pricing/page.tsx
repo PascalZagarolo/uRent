@@ -53,8 +53,8 @@ const PricingMainPage = async () => {
                     <div className="mt-2 ">
                     <RedeemCode />
                     </div>
-                    <div>
-                        <ComparisonPlans 
+                    <div className="w-full">
+                    <ComparisonPlans 
                         
                         />
                     </div>

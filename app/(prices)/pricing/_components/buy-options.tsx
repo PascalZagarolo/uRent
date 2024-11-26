@@ -305,9 +305,9 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                     <GiUpgrade className="w-6 h-6 mr-2 text-indigo-600" />   Bestehenden Plan Upgraden
                 </div>
             )}
-            <div className="w-full  sm:mt-0 sm:flex sm:space-x-4 space-y-4 sm:space-y-0  sm:p-4  p-2">
+            <div className="w-full  sm:mt-0 lg:flex lg:space-x-4 space-y-4 lg:space-y-0  sm:p-4  p-2">
 
-                <div className="sm:w-1/3 w-full dark:bg-[#232323] p-4 rounded-md shadow-xl">
+                <div className="lg:w-1/3 w-full dark:bg-[#232323] p-4 rounded-md shadow-xl">
                 <h3 className="text-md ">
                         Basis
                     </h3>
@@ -368,7 +368,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
                     </div>
                 </div>
-                <div className="sm:w-1/3 w-full border-blue-900  border-2 dark:bg-[#232323] p-4 rounded-md shadow-xl">
+                <div className="lg:w-1/3 w-full border-blue-900  border-2 dark:bg-[#232323] p-4 rounded-md shadow-xl">
                     <h3 className="text-lg font-semibold w-full flex">
                         Premium <div className="ml-auto"> <Badge className="bg-blue-900 hover:bg-blue-700 text-gray-100"> Am beliebtesten <FaFireFlameCurved className="w-4 h-4 ml-2" /> </Badge> </div>
                     </h3>
@@ -439,7 +439,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className="sm:w-1/3 w-full dark:bg-[#232323] p-4 rounded-md shadow-xl">
+                <div className="lg:w-1/3 w-full dark:bg-[#232323] p-4 rounded-md shadow-xl">
                     <h3 className="text-lg font-semibold">
                         Enterprise
                     </h3>

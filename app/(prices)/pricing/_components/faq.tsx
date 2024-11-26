@@ -44,7 +44,7 @@ const Faq = () => {
                     </AccordionItem>
 
                     <AccordionItem value="item-4">
-                        <AccordionTrigger>Kann ich mein Abonnement jederzeit kündigen?</AccordionTrigger>
+                        <AccordionTrigger className="text-left">Kann ich mein Abonnement jederzeit kündigen?</AccordionTrigger>
                         <AccordionContent>
                             Ja, Sie können Ihr Abonnement jederzeit kündigen. Die Kündigung tritt zum Ende des aktuellen Abrechnungszeitraums in Kraft.
                             Sie haben jedoch weiterhin Zugriff auf alle Features bis zum Ende dieses Zeitraums.
@@ -52,7 +52,7 @@ const Faq = () => {
                     </AccordionItem>
 
                     <AccordionItem value="item-5">
-                        <AccordionTrigger>Gibt es eine Kündigungsfrist für mein Abonnement?</AccordionTrigger>
+                        <AccordionTrigger className="text-left">Gibt es eine Kündigungsfrist für mein Abonnement?</AccordionTrigger>
                         <AccordionContent>
                             Nein, es gibt keine Kündigungsfrist für Ihr Abonnement.
                             Sie können jederzeit vor Ablauf des aktuellen Abrechnungszeitraums kündigen, und die Kündigung tritt zum Ende dieses Zeitraums in Kraft.

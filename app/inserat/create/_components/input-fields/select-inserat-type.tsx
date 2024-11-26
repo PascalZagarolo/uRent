@@ -76,9 +76,9 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ thisInserat }) =>
                         </Popover>
                    
                 </Label>
-                <p className="font-semibold text-gray-800/50 text-xs dark:text-gray-100/80">
-                    Hast du mehrere identische Fahrzeuge ?
-                </p>
+                <div className="flex-row hidden lg:flex text-gray-800/50 text-xs dark:text-gray-200/60 gap-x-1">
+                    <p className="hidden xl:block">Hast du</p> <p>mehrere identische Fahrzeuge ?</p>
+                </div>
                 <Select
                     onValueChange={(selectedValue: string) => {
                         onSubmit(selectedValue);
@@ -87,7 +87,7 @@ const SelectInseratType: React.FC<SelectInseratTypeProps> = ({ thisInserat }) =>
                     disabled={isLoading}
                 >
                     <SelectTrigger
-                        className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md"
+                        className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 lg:mt-2 sm:mt-6 mt-2 rounded-md"
                         disabled={isLoading}
                     >
                         <SelectValue placeholder="Wähle die Kategorie aus" />

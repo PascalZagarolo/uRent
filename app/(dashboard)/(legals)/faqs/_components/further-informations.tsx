@@ -59,13 +59,15 @@ const FurtherInformations = () => {
                     <ArrowRight />
                 </div>
 
-                <div className="w-full flex justify-center">
+                <a className="w-full flex justify-center"
+                href="mailto:support@urent-rental.com"
+                >
                     {categoryRender(
                         "Schreib uns eine Email",
-                        "Falls das Kontaktformular nicht ausreichen sollte, kannst du uns über support@urent-rental.de erreichen.",
+                        "Falls das Kontaktformular nicht ausreichen sollte, kannst du uns über support@urent-rental.com erreichen.",
                         <MailIcon className="w-6 h-6" />
                     )}
-                </div>
+                </a>
             </div>
             </div>
         </div>

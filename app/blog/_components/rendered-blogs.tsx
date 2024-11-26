@@ -55,9 +55,9 @@ const RenderedBlogs = ({ foundBlogs }: RenderedBlogsProps) => {
           <span className="flex items-center bg-[#292929] hover:bg-[#323232] p-2 rounded-md text-gray-200 cursor-pointer" onClick={() => onClick(foundBlogs[0]?.id)}>
             Mehr erfahren <ArrowUpRight className="w-4 h-4 ml-2" />
           </span>
-          <Badge className="bg-indigo-600 text-gray-100 px-2 py-0.5 rounded-full text-xs">
+          {/* <Badge className="bg-indigo-600 text-gray-100 px-2 py-0.5 rounded-full text-xs">
             {String(foundBlogs[0]?.category ?? "").slice(0, 1).toUpperCase() + String(foundBlogs[0]?.category ?? "").slice(1)}
-          </Badge>
+          </Badge> */}
         </div>
       </div>
 

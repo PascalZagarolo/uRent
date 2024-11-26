@@ -12,7 +12,7 @@ import { AlertCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -48,6 +48,10 @@ const RedeemCode = () => {
             setIsLoading(false);
         }
     }
+
+    useEffect(() => {
+        setError("");
+    },[usedCode])
 
     const formSchema = z.object({
         pin: z.string().optional()

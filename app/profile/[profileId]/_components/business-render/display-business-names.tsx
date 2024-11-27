@@ -20,7 +20,7 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
 
     const params = useParams().profileId;
 
-    const uRent = params == "zhv192zdl1409rq"
+    const uRent = params == "n6k2d5vokh971t5"
 
     return (
         <div className="mt-12 md:px-8 px-4">

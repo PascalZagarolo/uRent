@@ -27,7 +27,7 @@ const ContactOptions = ({ currentUser } : ContactOptionsProps) => {
                 return;
             }
 
-            const id = await findOrCreateConversation(currentUser.id, "zhv192zdl1409rq");
+            const id = await findOrCreateConversation(currentUser.id, "n6k2d5vokh971t5");
             await router.push(`/conversation/?conversationId=${id}`);
             
         } catch(e : any) {

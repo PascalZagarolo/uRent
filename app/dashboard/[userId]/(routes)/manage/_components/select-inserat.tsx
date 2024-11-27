@@ -37,7 +37,9 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
 
     const alphabeticOrder = (published) => {
 
-        const filteredArray = foundInserate
+        const filteredArray = foundInserate.filter((thisInserat) => {
+            return thisInserat?.multi == true
+        })
             .filter((thisInserat) => { 
                 if(published) {
                     return thisInserat.isPublished === true
@@ -58,7 +60,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
 
     const [foundInseratePublic, setFoundInseratePublic] = React.useState<any[]>(alphabeticOrder(true));
     const [foundInseratePrivate, setFoundInseratePrivate] = React.useState<any[]>(alphabeticOrder(false));
-    const [renderedInserate, setRenderedInserate] = React.useState(foundInserate);
+    const [renderedInserate, setRenderedInserate] = React.useState(foundInserate.filter((pInserat) => pInserat?.multi == true));
 
 
 

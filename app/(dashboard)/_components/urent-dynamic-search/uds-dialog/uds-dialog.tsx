@@ -12,6 +12,7 @@ import { format, isSameDay } from "date-fns";
 import UdsMinTime from "./uds-min-time";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string"
+import DynamicSearchConfirm from "../use-dynamic-search";
 
 
 
@@ -30,8 +31,8 @@ const UdsDialog = () => {
 
     const convertReqTime = (reqTime) => {
         let returnedValue = reqTime.slice(0, -1) ?? "";
-        
-        switch(reqTime.slice(-1)){
+
+        switch (reqTime.slice(-1)) {
             case "h":
                 returnedValue += " Stunden";
                 break;
@@ -47,32 +48,32 @@ const UdsDialog = () => {
             default:
                 returnedValue += "";
         }
-        
+
         return returnedValue;
     }
-    
+
     useEffect(() => {
-        if(params.get("minTime")){
+        if (params.get("minTime")) {
             changeSearchParams("reqTime", params.get("reqTime"))
             setReqTime(currentObject["reqTime"])
         }
-        if(params.get("startTime")){
+        if (params.get("startTime")) {
             changeSearchParams("startTime", params.get("startTime"))
             setStartTime(currentObject["startTime"])
         }
-        if(params.get("endTime")){
+        if (params.get("endTime")) {
             changeSearchParams("endTime", params.get("endTime"))
             setEndTime(currentObject["endTime"])
         }
-        if(params.get("startDateDynamic")){
+        if (params.get("startDateDynamic")) {
             changeSearchParams("startDateDynamic", params.get("startDateDynamic"))
             setStartDate(new Date(currentObject["startDateDynamic"]))
         }
-        if(params.get("endDateDynamic")){
+        if (params.get("endDateDynamic")) {
             changeSearchParams("endDateDynamic", params.get("endDateDynamic"))
             setEndDate(new Date(currentObject["endDateDynamic"]))
         }
-    },[])
+    }, [])
 
     const router = useRouter();
 
@@ -155,9 +156,13 @@ const UdsDialog = () => {
             <p className="text-xs text-gray-200/60 pl-2 hover:underline">
                 Was ist ein flexibler Mietzeitraum?
             </p>
-            <div className="mt-4 px-2 mb-4">
+            <div className="py-2 px-2">
+                <DynamicSearchConfirm />
+            </div>
+            <div className="px-2 mb-4">
                 <Dialog>
-                    <DialogTrigger asChild className="">
+                    {currentObject["dynamicSearch"] == "true" && (
+                        <DialogTrigger asChild className="">
                         <Button className="w-full bg-[#1a1e29] shadow-lg h-full" variant="ghost">
                             <div className="flex flex-col items-start w-full space-y-2">
                                 <div className="flex flex-col items-start text-gray-200">
@@ -206,7 +211,7 @@ const UdsDialog = () => {
                                 </div>
 
                                 <div className="flex flex-col items-start text-gray-200">
-                                    <div>s
+                                    <div>
                                         Rückgabezeit
                                     </div>
                                     <span className={cn(
@@ -231,6 +236,7 @@ const UdsDialog = () => {
                             </div>
                         </Button>
                     </DialogTrigger>
+                    )}
                     <DialogContent className="bg-[#191919] border-none">
                         <div>
                             <div>
@@ -324,7 +330,7 @@ const UdsDialog = () => {
                     </DialogContent>
                 </Dialog>
             </div>
-            
+
         </div>
     );
 }

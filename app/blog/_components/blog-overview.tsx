@@ -36,15 +36,25 @@ const BlogOverview = () => {
      }, []);
 
      useEffect(() => {
+        let returnedBlogs = allBlogs.current;
+    
+        // Filter by title if a title is set
         if (currentTitle) {
-            const filteredBlogs = allBlogs.current.filter((blog) => 
+            returnedBlogs = returnedBlogs.filter((blog) =>
                 blog.title.toLowerCase().includes(currentTitle.toLowerCase())
             );
-            setRenderedBlogs(filteredBlogs);
-        } else {  
-            setRenderedBlogs(allBlogs.current);
         }
-    }, [currentTitle, renderedBlogs]);
+    
+        // Filter by category if a category is set
+        if (currentCategory) {
+            returnedBlogs = returnedBlogs.filter((blog) => 
+                blog.category === currentCategory
+            );
+        }
+    
+        setRenderedBlogs(returnedBlogs);
+    }, [currentTitle, currentCategory]);
+    
 
 
     return (

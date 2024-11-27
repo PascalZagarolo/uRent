@@ -1,3 +1,4 @@
+import { useBlogCategories } from "@/hooks/blogs/useBlogCategories";
 import { cn } from "@/lib/utils";
 
 interface BlogCategorySelectProps {
@@ -7,16 +8,7 @@ interface BlogCategorySelectProps {
 
 const BlogCategorySelect = ({ currentCategory, setCurrentCategory }: BlogCategorySelectProps) => {
 
-    const renderedCategories = [
-        {
-            label : "Alle",
-            value : null
-        },
-        {
-            label : "Inserate",
-            value : "inserate"
-        }
-    ]
+    const renderedCategories = useBlogCategories()
     return ( 
         <div>
             <div className="w-full px-8">
@@ -26,7 +18,7 @@ const BlogCategorySelect = ({ currentCategory, setCurrentCategory }: BlogCategor
                             <button
                                 onClick={() => setCurrentCategory(category.value)}
                                 key={index}
-                                className={cn("text-base font-semibold text-gray-400 hover:text-gray-200",
+                                className={cn("text-sm pb-2 font-semibold text-gray-400 hover:text-gray-200",
                                     currentCategory === category.value ? "text-gray-200 border-b-2 border-gray-200" : ""
                                 )}
                             >

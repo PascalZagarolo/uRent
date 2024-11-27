@@ -25,12 +25,8 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
     return (
         <div className="mt-12 md:px-8 px-4">
             <div className="flex flex-row items-center">
+                
                 <p className="text-gray-200 text-2xl font-semibold break-all line-clamp-1">{name}</p> 
-                {!ownProfile && (
-                    <div className="ml-auto pl-4">
-                        <UserOptions />
-                    </div>
-                )}
                 {uRent &&
                     <TooltipProvider>
                         <Tooltip>
@@ -45,6 +41,12 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
                         </Tooltip>
                     </TooltipProvider>
                 }
+                {!ownProfile && (
+                    <div className="ml-auto pl-4">
+                        <UserOptions />
+                    </div>
+                )}
+                
             </div>
             {sharesRealName && (firstName || lastName) && (
                 <div className="flex flex-row items-center">

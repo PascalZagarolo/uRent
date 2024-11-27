@@ -53,7 +53,7 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                                     </div>
                                 </>
                             )}
-                            {currentUser.password && (
+                            {/* {currentUser.password && (
                                 <>
                                     <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                         <div className="flex items-center">
@@ -73,7 +73,7 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                                         </div>
                                     </div>
                                 </>
-                            )}
+                            )} */}
                             <div>
                                 {!currentUser?.accounts && (
                                     <div>

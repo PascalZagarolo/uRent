@@ -58,9 +58,6 @@ const UdsTimeRange: React.FC<UdsTimeRangeProps> = ({
   }, [startTime]);
 
   useEffect(() => {
-
-   
-
     if (isSameDay && startTime && endTime && Number(startTime) >= Number(endTime) && Number(endTime) !== 0) {
       const adjustedStart = String(Number(endTime) - 30);
       setStartTime(adjustedStart);

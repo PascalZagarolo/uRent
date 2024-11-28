@@ -27,6 +27,9 @@ import UseUdsConfirm from "./use-uds";
 
 import TimeFilterUdsSearch from "./time-filter-uds";
 import { IoMdShareAlt } from "react-icons/io";
+import UdsMinTime from "@/app/(dashboard)/_components/urent-dynamic-search/uds-dialog/uds-min-time";
+import UdsReqTimeSearch from "./uds-min-time";
+import UdsTimeSpanSearch from "./uds-time-range";
 
 const UdsLayoutSearchRender = () => {
 
@@ -106,20 +109,16 @@ const UdsLayoutSearchRender = () => {
                             Mietzeitraum
                         </Label>
                         <div className="">
-                            <DateRangePicker
-                                onUpdate={(values) => {
-                                    setStartDate(values.range.from);
-                                    setEndDate(values.range.to);
-                                }}
-                                
-                                initialDateFrom={startDate ? startDate : new Date()}
-                                initialDateTo={endDate ? endDate : new Date()}
-                                align="start"
-                                locale="de"
-                                showCompare={false}
-                                isDisabled={!currentObject["dynamicSearch"]}
-
-
+                            <UdsTimeSpanSearch
+                            disabled = {!currentObject["dynamicSearch"]}
+                            startDate={[currentObject["startDateDynamic"] ? new Date(currentObject["startDateDynamic"]) : null]}
+                            endDate={[currentObject["endDateDynamic"] ? new Date(currentObject["endDateDynamic"]) : null]}
+                            setStartDate={(date) => {
+                                changeSearchParams("startDateDynamic", date.toISOString())
+                            }}
+                            setEndDate={(date) => {
+                                changeSearchParams("endDateDynamic", date.toISOString())
+                            }}
                             />
                         </div>
                     </div>
@@ -129,7 +128,7 @@ const UdsLayoutSearchRender = () => {
                         <Label className="pb-1 text-sm font-semibold">
                             Mietdauer
                         </Label>
-                        <div className="">
+                        {/* <div className="">
                             <Select
                                 onValueChange={(value) => setReqTime(value)}
                                 disabled={!currentObject["dynamicSearch"]}
@@ -152,6 +151,14 @@ const UdsLayoutSearchRender = () => {
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
+                        </div> */}
+                        <div>
+                            <UdsReqTimeSearch 
+                            isDisabled={!currentObject["dynamicSearch"]}
+                            onChange = {(value) => {
+                                changeSearchParams("reqTime", value)
+                            }}
+                            />
                         </div>
                     </div>
                     

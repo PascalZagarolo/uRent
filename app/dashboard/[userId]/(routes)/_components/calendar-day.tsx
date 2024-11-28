@@ -115,6 +115,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
       )}>
         {format(day, "d")}
       </div>
+      <div className="flex flex-col">
       {bookings?.map((pBooking) => {
         return (
           <>
@@ -200,6 +201,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
           </>
         );
       })}
+      </div>
     </div>
 
 

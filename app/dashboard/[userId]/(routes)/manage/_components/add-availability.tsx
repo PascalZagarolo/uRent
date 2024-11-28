@@ -218,6 +218,8 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
             setIgnoreOnce(false);
             setShowConflict(false);
             setConflictedBooking(null)
+            setStartTime("");
+            setEndTime("");
             router.refresh();
 
         } catch (error: any) {

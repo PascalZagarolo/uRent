@@ -25,8 +25,9 @@ const formatTime = (minutes: number) => {
 
 
 function CurrentTimeInMinutes() {
+    const usedStart = new Date().getMinutes() + new Date().getHours() * 60
     const [currentTimeInMinutes, setCurrentTimeInMinutes] = useState(
-      new Date().getMinutes() + new Date().getHours() * 60
+      usedStart
     );
   
     useEffect(() => {

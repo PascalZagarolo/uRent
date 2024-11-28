@@ -35,7 +35,7 @@ const TabSwitcher = ({ currentUser }: TabSwitcherProps) => {
         <div>
             <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                 <div>
-                    <MenuBar 
+                <MenuBar 
                     currentValue = {tab}
                     setCurrentValue = {setTab}
                     />

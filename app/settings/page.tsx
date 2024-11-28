@@ -47,7 +47,7 @@ const SettingsPage = async () => {
                 />
             </div>
             <div className="flex justify-center sm:py-8 sm:px-4">
-                <TabSwitcher 
+            <TabSwitcher 
                 currentUser={currentUser}
                 />
             </div>

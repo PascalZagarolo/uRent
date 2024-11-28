@@ -29,7 +29,7 @@ const MenuBar = ({ currentValue, setCurrentValue } : MenuBarProps) => {
 
     return ( 
         <div className="w-full dark:bg-[#141414]">
-            <div className="pt-4 px-4 flex justify-evenly text-sm font-semibold">
+            <div className="pt-4 px-4 flex justify-evenly sm:text-sm text-xs font-semibold">
             <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60",
              isDashboard && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-800")}
             onClick={() => {setCurrentValue("account")}}

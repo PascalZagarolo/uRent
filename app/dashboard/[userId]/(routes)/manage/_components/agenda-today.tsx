@@ -24,7 +24,7 @@ const formatTime = (minutes: number) => {
 
 
 
-function currentTimeInMinutes() {
+function CurrentTimeInMinutes() {
     const [currentTimeInMinutes, setCurrentTimeInMinutes] = useState(
       new Date().getMinutes() + new Date().getHours() * 60
     );
@@ -143,7 +143,7 @@ function currentTimeInMinutes() {
                     className="h-[1px] w-10/12 bg-blend-saturation bg-rose-600"
                 />
                 <span className="w-2/12 font-semibold text-gray-200">
-                    {formatTime(currentTimeInMinutes())}
+                    {formatTime(CurrentTimeInMinutes())}
                 </span>
             </div>
         )
@@ -167,10 +167,10 @@ function currentTimeInMinutes() {
                                         <>
                                             {renderFittingBookings(booking,
                                                 "ABGABE",
-                                                currentTimeInMinutes > booking?.startPeriod)}
+                                                CurrentTimeInMinutes > booking?.startPeriod)}
 
                                             {
-                                                (currentTimeInMinutes > booking?.startPeriod && (currentTimeInMinutes < todaysBookings[_index + 1]?.startPeriod || !todaysBookings[_index + 1])) && (
+                                                (CurrentTimeInMinutes > booking?.startPeriod && (CurrentTimeInMinutes < todaysBookings[_index + 1]?.startPeriod || !todaysBookings[_index + 1])) && (
                                                     renderTimeline()
                                                 )
                                             }
@@ -196,10 +196,10 @@ function currentTimeInMinutes() {
                                         {todaysReturns.map((booking, _index) =>
                                             <>
                                                 {renderFittingBookings(booking, "RETURN",
-                                                    currentTimeInMinutes > booking?.endPeriod)}
+                                                    CurrentTimeInMinutes > booking?.endPeriod)}
 
                                                 {
-                                                    (isBefore(booking?.endPeriod, currentTimeInMinutes) && (!todaysBookings[_index + 1] || !isBefore(todaysBookings[_index + 1]?.endPeriod, currentTimeInMinutes)), currentTimeInMinutes) && (
+                                                    (isBefore(booking?.endPeriod, CurrentTimeInMinutes) && (!todaysBookings[_index + 1] || !isBefore(todaysBookings[_index + 1]?.endPeriod, CurrentTimeInMinutes)), CurrentTimeInMinutes) && (
                                                         renderTimeline()
                                                     )
                                                 }

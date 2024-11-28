@@ -267,6 +267,23 @@ const ExistingFilterBubble: React.FC<ExistingFilterBubbleProps> = ({
             case 'startDateDynamic': {
                 return "von " + format(new Date(usedValue), 'dd.MM.yyyy');
             }
+            case "filter" : {
+                switch (usedValue) {
+                    case "relevance":
+                        return "Relevanteste zuerst";
+                    case "asc":
+                        return "Preis aufsteigend";
+                    case "desc":
+                        return "Preis absteigend";
+                    case "date_newest":
+                        return "Neueste zuerst";
+                    case "date_oldest":
+                        return "Älteste zuerst";
+                    default:
+                        return usedValue;
+                    
+                }
+            }
             case 'endDateDynamic': {
                 return "bis " + format(new Date(usedValue), 'dd.MM.yyyy');
             }

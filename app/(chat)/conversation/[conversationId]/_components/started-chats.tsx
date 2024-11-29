@@ -25,7 +25,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
 }) => {
 
     
-
+    
     const [lastMessage, setLastMessage] = useState(conversations.lastMessage);
     
     const userImage = conversations?.user1Id === currentUser.id ? conversations.user2 : conversations.user1;
@@ -77,7 +77,9 @@ const StartedChats: React.FC<StartedChatsProps> = ({
                 user={userImage as any}
                 conversationId={conversations.id}
                 openMessages={openChats.length}
-                lastMessage={lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet"}
+                lastMessage={
+                    lastMessage ? (lastMessage?.content ? lastMessage.content : "Hat ein Bild gesendet") : ""
+                }
                 lastMessageDate={lastMessage?.createdAt}
                 isOwnMessage={isOwnMessage}
                 inseratTitle={conversations.inserat?.title}

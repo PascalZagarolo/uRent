@@ -3,7 +3,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { format, isBefore } from "date-fns";
+import { format, isBefore, isValid } from "date-fns";
 import { de } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
@@ -21,6 +21,8 @@ const UdsTimeSpanSearch = ({ setStartDate, setEndDate, endDate, startDate, disab
   const [currentStart, setCurrentStart] = useState<Date | undefined>(startDate ? startDate : undefined);
   const [currentEnd, setCurrentEnd] = useState<Date | undefined>(endDate ? endDate : undefined);
 
+  console.log(String(currentStart))
+
     return ( 
         <div>
             <div className="flex flex-row gap-x-8">
@@ -37,7 +39,7 @@ const UdsTimeSpanSearch = ({ setStartDate, setEndDate, endDate, startDate, disab
                                                 !currentStart && "text-muted-foreground"
                                             )}
                                         >
-                                            {currentStart ? (
+                                            {isValid(currentStart) ? (
                                                 format(currentStart, "PPP", { locale: de })
                                             ) : (
                                                 <span>Wähle ein Datum</span>
@@ -81,7 +83,7 @@ const UdsTimeSpanSearch = ({ setStartDate, setEndDate, endDate, startDate, disab
                                                 !currentEnd && "text-muted-foreground"
                                             )}
                                         >
-                                            {currentEnd ? (
+                                            {isValid(currentEnd) ? (
                                                 format(currentEnd, "PPP", { locale: de })
                                             ) : (
                                                 <span>Wähle ein Datum</span>

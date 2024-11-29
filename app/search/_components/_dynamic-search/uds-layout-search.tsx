@@ -102,9 +102,9 @@ const UdsLayoutSearchRender = () => {
                     </a>
                 </div>
             <div>
-                <div className="w-full  px-2 flex flex-row items-center space-x-8 mt-4">
+                <div className="w-full  px-2 sm:flex sm:flex-row items-center sm:space-x-8 mt-4">
 
-                    <div className="flex flex-col w-1/2">
+                    <div className="flex flex-col sm:w-1/2 w-full">
                         <Label className="pb-1 text-sm font-semibold">
                             Mietzeitraum
                         </Label>
@@ -124,7 +124,7 @@ const UdsLayoutSearchRender = () => {
                     </div>
 
 
-                    <div className="w-1/2 flex flex-col">
+                    <div className="sm:w-1/2 flex flex-col w-full sm:mt-0 mt-2">
                         <Label className="pb-1 text-sm font-semibold">
                             Mietdauer
                         </Label>
@@ -152,7 +152,7 @@ const UdsLayoutSearchRender = () => {
                                 </SelectContent>
                             </Select>
                         </div> */}
-                        <div>
+                        <div className="sm:mt-0">
                             <UdsReqTimeSearch 
                             isDisabled={!currentObject["dynamicSearch"]}
                             onChange = {(value) => {

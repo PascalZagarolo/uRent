@@ -138,7 +138,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
 
 
                 </h3>
-                <p className="text-xs dark:text-gray-200/60 ">
+                <p className="text-xs dark:text-gray-200/60 mt-2 sm:mt-0">
                     Verwalte deine Buchungen, trage Fahrzeuge, Mieter und Verfügbarkeiten ein, behalte
                     <br className="sm:block hidden" /> vollen Überblick über deine Inserate und Fahrzeuge.
                 </p>

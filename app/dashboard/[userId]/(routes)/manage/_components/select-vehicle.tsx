@@ -134,7 +134,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
                         </div>
                     )}
                 </div>
-                <SelectContent className="dark:bg-[#0F0F0F] dark:border-none">
+                <SelectContent className="dark:bg-[#0F0F0F] dark:border-none w-full">
 
                     <SelectItem value={null}>
                         Beliebig
@@ -142,7 +142,7 @@ const SelectVehicle: React.FC<SelectVehicleProps> = ({
                     {selectedInserat?.vehicles?.map((vehicle : any) => (
                         <>
                             <SelectItem value={vehicle.id} key={vehicle.id}
-                                className="w-[400px]  line-clamp-1 break-all h-[30px]">
+                                className="sm:w-[400px] w-full  line-clamp-1 break-all h-[30px]">
                                 {vehicle.title}
                             </SelectItem>
                             

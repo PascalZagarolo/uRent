@@ -185,7 +185,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                     <Separator className="mb-4 border-gray-600" />
                     {foundInseratePublic.map((thisInserat) => (
                         <SelectItem value={thisInserat.id} key={thisInserat.id}
-                            className="w-[400px] line-clamp-1 break-all h-[30px] text-gray-200 hover:bg-gray-700 p-2 rounded-md">
+                            className="sm:w-[400px] w-full sm:line-clamp-1 line-clamp-2 break-all h-[30px] text-gray-200 hover:bg-gray-700 p-2 rounded-md">
                             {thisInserat.title}
                         </SelectItem>
                     ))}
@@ -200,7 +200,7 @@ const SelectInserat: React.FC<SelectInseratProps> = ({
                     <Separator className="mb-4 border-gray-600" />
                     {foundInseratePrivate.map((thisInserat) => (
                         <SelectItem value={thisInserat.id} key={thisInserat.id}
-                            className="w-[400px] line-clamp-1 break-all h-[30px] text-gray-200 hover:bg-gray-700 p-2 rounded-md">
+                            className="sm:w-[400px] w-full sm:line-clamp-1 line-clamp-2 break-all sm:h-[30px] text-gray-200 hover:bg-gray-700 p-2 rounded-md">
                             {thisInserat.title}
                         </SelectItem>
                     ))}

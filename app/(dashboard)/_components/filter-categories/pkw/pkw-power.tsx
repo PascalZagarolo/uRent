@@ -211,13 +211,7 @@ const PkwPowerBar = () => {
                     <Label htmlFor="airplane-mode">KW</Label>
                 </div>
             </RadioGroup>
-            <Button className="mt-2 w-full bg-[#1B1F2C] hover:bg-[#222738] text-gray-100 font-semibold" disabled={
-                (!currentPS && !currentKW) || (currentPS === Number(power))
-            }
-                onClick={() => { }}
-            >
-                Nach Leistung filtern
-            </Button>
+            
         </div>
     );
 };

@@ -161,7 +161,7 @@ const DateFormFilter = () => {
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-1/2">
                         <FormLabel className="text-gray-100/80">Mietbeginn</FormLabel>
-                        <Popover>
+                        <Popover modal={true}>
                           <PopoverTrigger asChild disabled={currentObject["dynamicSearch"]}>
                             <FormControl>
                               <Button
@@ -210,7 +210,7 @@ const DateFormFilter = () => {
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-1/2">
                         <FormLabel className="text-gray-100/70">Mietende</FormLabel>
-                        <Popover>
+                        <Popover modal={true}>
                           <PopoverTrigger asChild disabled={currentObject["dynamicSearch"]}>
                             <FormControl>
                               <Button

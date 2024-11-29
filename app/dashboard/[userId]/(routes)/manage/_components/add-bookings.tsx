@@ -303,7 +303,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                             <CalendarClockIcon className="mr-2" /> Buchungen hinzufügen
                         </h3>
                     </div>
-                    <div className="sm:py-4 mb-4">
+                    <div className="sm:py-4 mb-4 sm:mb-0">
                         <Label className="">
                             Zugehöriges Inserat*
                         </Label>

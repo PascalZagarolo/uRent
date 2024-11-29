@@ -120,8 +120,8 @@ const UdsTimeRange: React.FC<UdsTimeRangeProps> = ({
           }}
           value={startTime || undefined}
         >
-          <SelectTrigger className="w-full dark:bg-[#222222] shadow-lg dark:border-none">
-            {startTime ? convertMinutesToHourString(startTime) : "Wähle eine Startzeit"}
+          <SelectTrigger className={cn("w-full dark:bg-[#222222] shadow-lg dark:border-none", !startTime && "text-gray-200/60")}>
+            {startTime ? convertMinutesToHourString(startTime) : "Startzeit wählen"}
           </SelectTrigger>
           <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
             {generateTimeOptions(16, 47, true)}
@@ -139,8 +139,8 @@ const UdsTimeRange: React.FC<UdsTimeRangeProps> = ({
           }}
           value={endTime || undefined}
         >
-          <SelectTrigger className="w-full dark:bg-[#222222] shadow-lg dark:border-none">
-           {endTime ? convertMinutesToHourString(endTime) : "Wähle eine Endzeit"}
+          <SelectTrigger className={cn("w-full dark:bg-[#222222] shadow-lg dark:border-none", !endTime && "text-gray-200/60")}>
+           {endTime ? convertMinutesToHourString(endTime) : "Endzeit wählen"}
           </SelectTrigger>
           <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
             {generateTimeOptions(16, 47, false)}

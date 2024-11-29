@@ -163,79 +163,79 @@ const UdsDialog = () => {
                 <Dialog>
                     {currentObject["dynamicSearch"] == "true" && (
                         <DialogTrigger asChild className="">
-                        <Button className="w-full bg-[#1a1e29] shadow-lg h-full" variant="ghost">
-                            <div className="flex flex-col items-start w-full space-y-2">
-                                <div className="flex flex-col items-start text-gray-200">
-                                    <div>
-                                        Dynamische Suche
+                            <Button className="w-full bg-[#1a1e29] shadow-lg h-full" variant="ghost">
+                                <div className="flex flex-col items-start w-full space-y-2">
+                                    <div className="flex flex-col items-start text-gray-200">
+                                        <div>
+                                            Dynamische Suche
+                                        </div>
+                                        <span className={cn(
+                                            "py-1 rounded-md text-xs font-semibold",
+                                            currentObject["dynamicSearch"] ? "text-emerald-600" : "text-gray-200/60"
+                                        )}>
+                                            {currentObject["dynamicSearch"] ? "Aktiv" : "Nicht aktiv"}
+                                        </span>
                                     </div>
-                                    <span className={cn(
-                                        "py-1 rounded-md text-xs font-semibold",
-                                        currentObject["dynamicSearch"] ? "text-emerald-600" : "text-gray-200/60"
-                                    )}>
-                                        {currentObject["dynamicSearch"] ? "Aktiv" : "Nicht aktiv"}
-                                    </span>
-                                </div>
 
-                                <div className="flex flex-col items-start text-gray-200">
-                                    <div>
-                                        Zeitraum
+                                    <div className="flex flex-col items-start text-gray-200">
+                                        <div>
+                                            Zeitraum
+                                        </div>
+                                        <span className={cn(
+                                            "  py-1 rounded-md text-xs font-semibold",
+                                            currentObject["startDateDynamic"] ? "text-emerald-600" : "text-gray-200/60"
+                                        )}>
+                                            {currentObject["startDateDynamic"] ? format(currentObject["startDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
+                                        </span>
+                                        <span className="">
+                                            -
+                                        </span>
+                                        <span className={cn(
+                                            "py-1 rounded-md text-xs font-semibold",
+                                            currentObject["endDateDynamic"] ? "text-emerald-600" : "text-gray-200/60"
+                                        )}>
+                                            {currentObject["endDateDynamic"] ? format(currentObject["endDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
+                                        </span>
                                     </div>
-                                    <span className={cn(
-                                        "  py-1 rounded-md text-xs font-semibold",
-                                        currentObject["startDateDynamic"] ? "text-emerald-600" : "text-gray-200/60"
-                                    )}>
-                                        {currentObject["startDateDynamic"] ? format(currentObject["startDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
-                                    </span>
-                                    <span className="">
-                                        -
-                                    </span>
-                                    <span className={cn(
-                                        "py-1 rounded-md text-xs font-semibold",
-                                        currentObject["endDateDynamic"] ? "text-emerald-600" : "text-gray-200/60"
-                                    )}>
-                                        {currentObject["endDateDynamic"] ? format(currentObject["endDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
-                                    </span>
-                                </div>
 
-                                <div className="flex flex-col items-start w-full text-gray-200">
-                                    <div>
-                                        Abholzeit
+                                    <div className="flex flex-col items-start w-full text-gray-200">
+                                        <div>
+                                            Abholzeit
+                                        </div>
+                                        <span className={cn(
+                                            "py-1 rounded-md text-xs font-semibold",
+                                            currentObject["startTime"] ? "text-emerald-600" : "text-gray-200/60"
+                                        )}>
+                                            {currentObject["startTime"] ? minutesToTime(Number(currentObject["startTime"] ?? 0)) : "Keine Angabe"}
+                                        </span>
                                     </div>
-                                    <span className={cn(
-                                        "py-1 rounded-md text-xs font-semibold",
-                                        currentObject["startTime"] ? "text-emerald-600" : "text-gray-200/60"
-                                    )}>
-                                        {currentObject["startTime"] ? minutesToTime(Number(currentObject["startTime"] ?? 0)) : "Keine Angabe"}
-                                    </span>
-                                </div>
 
-                                <div className="flex flex-col items-start text-gray-200">
-                                    <div>
-                                        Rückgabezeit
+                                    <div className="flex flex-col items-start text-gray-200">
+                                        <div>
+                                            Rückgabezeit
+                                        </div>
+                                        <span className={cn(
+                                            " py-1 rounded-md text-xs font-semibold",
+                                            currentObject["endTime"] ? "text-emerald-600" : "text-gray-200/60"
+                                        )}>
+                                            {currentObject["endTime"] ? minutesToTime(Number(currentObject["endTime"] ?? 0)) : "Keine Angabe"}
+                                        </span>
                                     </div>
-                                    <span className={cn(
-                                        " py-1 rounded-md text-xs font-semibold",
-                                        currentObject["endTime"] ? "text-emerald-600" : "text-gray-200/60"
-                                    )}>
-                                        {currentObject["endTime"] ? minutesToTime(Number(currentObject["endTime"] ?? 0)) : "Keine Angabe"}
-                                    </span>
-                                </div>
 
-                                <div className="flex flex-col items-start text-gray-200">
-                                    <div>
-                                        Benötigte Zeit
+                                    <div className="flex flex-col items-start text-gray-200">
+                                        <div>
+                                            Benötigte Zeit
+                                        </div>
+                                        <span className={cn(
+                                            "py-1 rounded-md text-xs font-semibold",
+                                            currentObject["reqTime"] ? "text-emerald-600" : "text-gray-200/60"
+                                        )}>
+                                            {currentObject["reqTime"] ? convertReqTime(currentObject["reqTime"]) : "Keine Angabe"}
+                                        </span>
                                     </div>
-                                    <span className={cn(
-                                        "py-1 rounded-md text-xs font-semibold",
-                                        currentObject["reqTime"] ? "text-emerald-600" : "text-gray-200/60"
-                                    )}>
-                                        {currentObject["reqTime"] ? convertReqTime(currentObject["reqTime"]) : "Keine Angabe"}
-                                    </span>
                                 </div>
-                            </div>
-                        </Button>
-                    </DialogTrigger>
+                            </Button>
+                        </DialogTrigger>
                     )}
                     <DialogContent className="bg-[#191919] border-none">
                         <div>
@@ -255,8 +255,8 @@ const UdsDialog = () => {
                                     <p className="text-xs  text-gray-200/60">
                                         Von wann bis wann bist du offen für die Miete eines Fahrzeugs?
                                     </p>
-                                    <div className="mt-2">
-                                        <UdsTimeSpan
+                                    <div className="mt-2 w-full ">
+                                    <UdsTimeSpan
                                             currentStart={startDate}
                                             currentEnd={endDate}
                                             setCurrentStart={(value) => {
@@ -267,7 +267,7 @@ const UdsDialog = () => {
                                                 setEndDate(value);
                                                 //changeSearchParams("endDateDynamic", value.toISOString());
                                             }}
-                                        />
+                                        />     
                                     </div>
                                 </div>
 
@@ -313,7 +313,7 @@ const UdsDialog = () => {
                                             }}
                                         />
                                     </div>
-                                </div>
+                                </div> 
 
                                 <div className="mt-4">
                                     <DialogTrigger asChild>

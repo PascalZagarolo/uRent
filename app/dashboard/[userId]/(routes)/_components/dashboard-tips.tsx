@@ -13,9 +13,9 @@ const DashboardTips = () => {
             <div className="text-lg font-semibold">
                 Weiteres zum Dashboard (3)
             </div>
-            <div className="w-full flex flex-row items-center space-x-4 mt-2">
+            <div className="w-full md:flex md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 mt-2">
 
-                <div className="w-1/3 bg-[#131313] rounded-md shadow-md 
+                <div className="md:w-1/3 w-full bg-[#131313] rounded-md shadow-md 
             hover:scale-105 transform transition-transform duration-300 ease-in-out
             ">
 
@@ -46,7 +46,7 @@ const DashboardTips = () => {
                     </div>
                 </div>
 
-                <div className="w-1/3 bg-[#131313] rounded-md shadow-md 
+                <div className="md:w-1/3 w-full bg-[#131313] rounded-md shadow-md 
             hover:scale-105 transform transition-transform duration-300 ease-in-out
             ">
 
@@ -78,7 +78,7 @@ const DashboardTips = () => {
                 </div>
 
 
-                <div className="w-1/3 bg-[#131313] rounded-md shadow-md
+                <div className="md:w-1/3 w-full bg-[#131313] rounded-md shadow-md
             hover:scale-105 transform transition-transform duration-300 ease-in-out
             ">
 

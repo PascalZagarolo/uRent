@@ -296,14 +296,14 @@ const AddBooking: React.FC<AddBookingProps> = ({
                 </DialogTrigger>
             </div>
 
-            <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none">
-                <div className="flex flex-col h-full w-full">
+            <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none overflow-y-auto max-h-[80vh] sm:max-h-[100vh] no-scrollbar">
+                <div className="flex flex-col  w-full">
                     <div>
                         <h3 className="font-bold flex mb-8">
                             <CalendarClockIcon className="mr-2" /> Buchungen hinzufügen
                         </h3>
                     </div>
-                    <div className="py-4 ">
+                    <div className="sm:py-4 mb-4">
                         <Label className="">
                             Zugehöriges Inserat*
                         </Label>
@@ -390,16 +390,17 @@ const AddBooking: React.FC<AddBookingProps> = ({
                     )}
                     <div className="flex-col">
 
-                        <div className="flex flex-row gap-x-8">
+                    <div className="flex flex-row gap-x-8  w-full">
                             <div className='w-1/2'>
                                 <Label>Anfangsdatum*</Label>
-                                <Popover>
+                                <Popover modal={true}>
                                     <PopoverTrigger asChild>
 
+                                        <div className='w-full'>
                                         <Button
                                             variant={"outline"}
                                             className={cn(
-                                                "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg",
+                                                "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg sm:flex ",
                                                 !currentStart && "text-muted-foreground"
                                             )}
                                         >
@@ -408,9 +409,12 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                             ) : (
                                                 <span>Wähle ein Datum</span>
                                             )}
-                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            {!currentStart && (
+                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            )}
                                         </Button>
 
+                                        </div>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                         <Calendar
@@ -436,9 +440,9 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                             <div className='w-1/2'>
                                 <Label>Enddatum*</Label>
-                                <Popover>
+                                <Popover modal={true}>
                                     <PopoverTrigger asChild>
-
+                                    <div className='w-full'>
                                         <Button
                                             variant={"outline"}
                                             className={cn(
@@ -451,9 +455,11 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                             ) : (
                                                 <span>Wähle ein Datum</span>
                                             )}
-                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            {!currentEnd && (
+                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            )}
                                         </Button>
-
+</div>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                         <Calendar
@@ -489,7 +495,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                         </div>
                         <div>
 
-                            <Label className="flex items-center mt-8">
+                            <Label className="flex items-center sm:mt-8 mt-4">
                                 Name*</Label>
                             <Input
                                 maxLength={160}
@@ -507,7 +513,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
                         </div>
 
-                        <div className="mt-2">
+                        <div className="sm:mt-2">
                             <Label className="font-semibold text-sm flex items-center">
                                 Interne Buchungsnr.
                             </Label>
@@ -534,7 +540,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
 
 
                             <Textarea
-                                className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none h-40
+                                className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none sm:h-40 h-8
                             dark:bg-[#222222] shadow-lg"
                                 value={currentContent}
                                 maxLength={2000}
@@ -547,7 +553,7 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 />
                             </div>
 
-                        </div>
+                        </div> 
                         <Button
                             className="border border-gray-300  shadow-lg text-gray-200
                                         bg-indigo-800 hover:bg-indigo-900 dark:border-none w-full"

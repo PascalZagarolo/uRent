@@ -273,9 +273,9 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                 </DialogTrigger>
             </div>
 
-            <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none">
+            <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none overflow-y-auto max-h-[80vh] sm:max-h-[100vh] no-scrollbar">
                 <div>
-                    <div className="mb-8">
+                    <div className="sm:mb-8">
                         <h3 className="font-bold flex ">
                             <CalendarClockIcon className="mr-2" /> Verfügbarkeit ändern
 
@@ -362,10 +362,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                    
                                                 <div className="w-1/2">
                                                 <Label>Anfangsdatum*</Label>
-                                                <Popover>
+                                                <Popover modal={true}>
                                                     <PopoverTrigger asChild>
                                                         
-                                                            <Button
+                                                           <div className="w-full">
+                                                           <Button
                                                                 variant={"outline"}
                                                                 className={cn(
                                                                     "w-full dark:bg-[#222222] shadow-lg text-left font-normal dark:border-none ",
@@ -377,8 +378,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
-                                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                               {!currentStart && (
+                                                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                               )}
                                                             </Button>
+                                                           </div>
                                                        </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
@@ -405,9 +409,9 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                   
                                                 <div className="w-1/2">
                                                 <Label>Enddatum*</Label>
-                                                <Popover>
+                                                <Popover modal={true}>
                                                     <PopoverTrigger asChild>
-                                                       
+                                                    <div className="w-full">
                                                             <Button
                                                                 variant={"outline"}
                                                                 className={cn(
@@ -420,8 +424,11 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                                 ) : (
                                                                     <span>Wähle ein Datum</span>
                                                                 )}
-                                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                                {!currentEnd && (
+                                                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                                )}
                                                             </Button>
+                                                        </div>
                                                     </PopoverTrigger>
                                                     <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
                                                         <Calendar
@@ -454,7 +461,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                         prefilledEndTime={endTime}
                                     />
                                 </div>
-                                <div className="mt-8">
+                                <div className="sm:mt-8 mt-4">
                                     <Label className="flex items-center"> Titel*</Label>
                                     <Input
                                         className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
@@ -480,7 +487,7 @@ const AddAvailability: React.FC<AddAvailabilityProps> = ({
                                                     value={content}
                                                     maxLength={2000}
                                                     className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                            dark:bg-[#222222] shadow-lg h-40"
+                            dark:bg-[#222222] shadow-lg sm:h-40 h-8"
                                                 />
                                                 <div className="flex justify-end">
                                                     <LetterRestriction

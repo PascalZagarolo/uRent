@@ -39,9 +39,16 @@ const HighlightInseratDialog: React.FC<HighlightInseratDialogProps> = ({
 
     return (
         <Dialog>
-            <DialogTrigger className="dark:text-gray-200 text-xs hover:underline hover:cursor-pointer">
+            <DialogTrigger className="dark:text-gray-200 text-xs hover:underline hover:cursor-pointer sm:flex hidden">
 
                 Inserat hervorheben
+
+            </DialogTrigger>
+            <DialogTrigger  asChild>
+
+                <Button className="sm:hidden block text-xs bg-[#222222] shadow-lg w-full" size="sm" variant="ghost">
+                    Inserat hervorheben
+                </Button>
 
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#191919]">

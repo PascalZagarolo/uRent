@@ -20,8 +20,8 @@ interface InserateDashboardRenderProps {
     thisInserat: typeof inserat.$inferSelect | any;
     currentUser: typeof user.$inferSelect;
     deleteInserat: (id: string) => void;
-    canPublishMore : boolean;
-    isLoading : boolean;
+    canPublishMore: boolean;
+    isLoading: boolean;
 
 }
 
@@ -39,7 +39,7 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
 
     const [isPublished, setIsPublished] = useState(thisInserat.isPublished);
 
-    
+
 
 
 
@@ -52,9 +52,9 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
         location: thisInserat.address?.locationString != null,
     };
 
-   
-    
-    
+
+
+
 
     return (
         <div className="w-full dark:bg-[#141414] border dark:border-none rounded-md p-4 mt-2">
@@ -74,24 +74,28 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                         </div>
                     )}
                 </div>
-                {thisInserat.isPublished ? (
-                    <a className="w-1/4 truncate ml-4 text-sm font-base mr-2 hover:underline"
-                        href={`/inserat/${thisInserat.id}`} target="_blank">
-                        {thisInserat.title}
-                    </a>
-                ) : (
-                    <div className="w-1/4 truncate ml-4 text-sm font-base mr-2 "
-                    >
-                        {thisInserat.title}
-                    </div>
-                )}
+                <div className="w-1/4 h-full">
+                    {thisInserat.isPublished ? (
+                        <a className=" line-clamp-4 
+                     ml-4 text-sm font-base mr-2 hover:underline"
+                            href={`/inserat/${thisInserat.id}`} target="_blank">
+                            {thisInserat.title}
+                        </a>
+                    ) : (
+                        <div className="line-clamp-3 ml-4 text-sm font-base mr-2"
+                        >
+                            {thisInserat.title}
+                        </div>
+                    )}
+
+                </div>
                 <div className="md:w-1/6 w-1/6 truncate">
                     <div className={cn("text-sm  h-full", isPublished ? "text-emerald-600 font-semibold" :
                         "dark:text-gray-100/40 text-gray-700")}>
-                        <div className="h-1/2">
-                            {isPublished ? <div className="flex items-center justify-center">
+                        <div className="h-1/2 sm:text-sm text-xs">
+                            {isPublished ? <div className="flex items-center justify-center ">
                                 <Globe2Icon className="sm:mr-2 h-4 w-4 dark:text-gray-100/80 text-gray-700" />
-                                <div className="hidden sm:block"> Veröffentlicht </div> </div> : "Entwurf"}
+                                <div className="hidden sm:block sm:text-sm text-xs"> Veröffentlicht </div> </div> : "Entwurf"}
 
                         </div>
                         <div className="h-1/2">
@@ -106,6 +110,10 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                                 isPublished={isPublished}
                                 currentUser={currentUser}
                             />
+                        </div>
+                        <div>
+                            <HighlightInseratDialog
+                                thisInserat={thisInserat} />
                         </div>
                     </div>
                 </div>
@@ -124,25 +132,26 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                                     thisInserat={thisInserat}
                                 />
                             </div>
-                             {//@ts-ignore
-                             ((currentUser?.subscription?.subscriptionType === "ENTERPRISE" || currentUser?.subscription?.subscriptionType === "PREMIUM") && canPublishMore) && (
-                                <div className="h-1/2">
-                                {thisInserat.isHighlighted ? (
-                                    <div className="items-center flex text-xs text-gray-200">
-                                        <CheckIcon className="h-4 w-4 mr-2 text-indigo-800" /> <div className="hidden md:block"> Hervorgehoben </div>
-                                    </div>
-                                ) : (
-                                    <>
-                                        {isPublished && (
-                                            <HighlightInseratDialog
-                                                thisInserat={thisInserat} />
+                            {//@ts-ignore
+                                ((currentUser?.subscription?.subscriptionType === "ENTERPRISE" || currentUser?.subscription?.subscriptionType === "PREMIUM") && canPublishMore) && (
+                                    <div className="h-1/2">
+                                        {thisInserat.isHighlighted ? (
+                                            <div className="items-center flex text-xs text-gray-200">
+                                                <CheckIcon className="h-4 w-4 mr-2 text-indigo-800" /> <div className="hidden md:block"> Hervorgehoben </div>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                {isPublished && (
+                                                    <HighlightInseratDialog
+                                                        thisInserat={thisInserat} />
+                                                )}
+
+
+                                            </>
                                         )}
-
-
-                                    </>
+                                    </div>
                                 )}
-                            </div>
-                             )}
+
                         </div>
 
                     </div>
@@ -153,12 +162,12 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                     <Button
                         className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full"
                         onClick={() => { router.push(`/inserat/create/${thisInserat?.id}`) }} >
-                        <Edit3 className="w-4 h-4 xl:mr-2" />  Inserat bearbeiten
+                        <Edit3 className="w-4 h-4 xl:mr-2" />  <span className="sm:block hidden">Inserat bearbeiten</span>
                     </Button>
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button className="dark:bg-[#1C1C1C] dark:hover:bg-[#252525] dark:text-gray-100 flex text-xs w-full mt-4"
-                            disabled={isLoading}
+                                disabled={isLoading}
                             >
                                 <Trash2 className="w-4 h-4 xl:mr-2 text-rose-600" />  <p className="xl:flex hidden">Inserat löschen</p>
                             </Button>
@@ -185,6 +194,12 @@ const InserateDashboardRender: React.FC<InserateDashboardRenderProps> = ({
                             </div>
                         </DialogContent>
                     </Dialog>
+                </div>
+            </div>
+            <div>
+                <div className="h-1/2 items-center justify-center flex flex-col mt-4 sm:hidden">
+                    <HighlightInseratDialog
+                        thisInserat={thisInserat} />
                 </div>
             </div>
         </div>

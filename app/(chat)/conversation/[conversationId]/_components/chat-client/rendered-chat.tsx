@@ -69,7 +69,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation }:
 
 
                 {/* Chat Messages */}
-                <div className="flex-grow overflow-y-auto no-scrollbar p-4 dark:bg-[#151515] bg-white" id="chat-render">
+                <div className="flex-grow overflow-y-auto min-h-screen no-scrollbar p-4 dark:bg-[#151515] bg-white" id="chat-render">
                     <ChatComponent
                         //@ts-ignore
                         messages={thisConversation?.messages}

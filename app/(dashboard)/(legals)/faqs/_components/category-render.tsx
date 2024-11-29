@@ -11,7 +11,7 @@ const FaqCategoryRender = () => {
 
     const categoryRender = (name, description, icons, value) => {
         return (
-            <div className="flex flex-col items-center px-4 py-4 bg-[#191919] shadow-lg rounded-md w-3/4 justify-center hover:bg-[#181818] hover:cursor-pointer"
+            <div className="flex flex-col items-center px-4 py-4 bg-[#222222] shadow-lg rounded-md sm:w-3/4 w-full justify-center hover:bg-[#181818] hover:cursor-pointer"
             onClick={() => onClick(value)}>
                 <div>
                     {icons}
@@ -95,7 +95,7 @@ const FaqCategoryRender = () => {
     return ( 
         <div className="mt-4">
             <div className="flex flex-col">
-                <div className="grid grid-cols-3 items-center gap-y-4 justify-center">
+                <div className="grid md:grid-cols-3 grid-cols-2 items-center gap-y-4 gap-x-4 sm:gap-x-0 justify-center">
                     {existingCategorys.map((category, index) => (
                         <div className="w-full flex justify-center" key={index}> 
                     {categoryRender(category.title, category.description, category.icons, category.value)}

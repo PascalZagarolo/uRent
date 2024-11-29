@@ -32,7 +32,7 @@ const FurtherInformations = () => {
                 </h3>
             </div>
             <div className="">
-            <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-x-4 gap-y-4 justify-center mt-4">
+            <div className="sm:grid  sm:grid-cols-[1fr_auto_1fr_auto_1fr] items-center space-y-4 sm:space-y-0 sm:gap-x-4 gap-y-4 justify-center mt-4">
                 <div className="w-full flex justify-center">
                     {categoryRender(
                         "FAQs durchsuchen",
@@ -42,7 +42,7 @@ const FurtherInformations = () => {
                 </div>
 
                 {/* Arrow between the first and second category */}
-                <div className="flex justify-center">
+                <div className=" justify-center hidden sm:flex">
                     <ArrowRight />
                 </div>
 
@@ -55,7 +55,7 @@ const FurtherInformations = () => {
                 </div>
 
                 {/* Arrow between the second and third category */}
-                <div className="flex justify-center">
+                <div className="sm:flex justify-center hidden ">
                     <ArrowRight />
                 </div>
 

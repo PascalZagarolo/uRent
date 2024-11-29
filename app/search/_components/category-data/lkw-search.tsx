@@ -19,7 +19,7 @@ import WeightClassSearch from "../_weight-search/weightClass-search";
 const LkwSearch = () => {
     return (
         <div className="w-full sm:space-y-8">
-            <div className="w-full sm:flex sm:gap-x-2  sm:space-y-0">
+            <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0">
                 <div className="sm:w-1/3">
                     <LkwBrandSearch />
                 </div>

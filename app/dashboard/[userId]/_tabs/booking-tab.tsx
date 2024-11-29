@@ -189,7 +189,7 @@ const ManageTab: React.FC<ManageTabProps> = ({
                                     />
                                 ))}
                                 {bookingRequests?.length === 0 && (
-                                    <div className="sm:mt-8 mt-4 flex justify-center text-sm  text-gray-100/60">
+                                    <div className="sm:mt-8 mt-4 mb-8 flex justify-center text-sm  text-gray-100/60">
                                         Du hast keine offenen Anfragen...
                                     </div>
                                 )}

@@ -19,7 +19,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
         <div className="w-full grid grid-cols-2 gap-4 mt-4 p-4 rounded-lg bg-[#13151C] shadow-md text-gray-200">
             {attributes?.type && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <CaravanIcon className="w-4 h-4 text-teal-400 mr-3" />
+                    <CaravanIcon className="w-4 h-4 text-teal-400 mr-2" />
                     <span className="font-medium">
                         {attributes.type.charAt(0).toUpperCase() + attributes.type.slice(1).toLowerCase()}
                     </span>
@@ -27,7 +27,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {attributes?.extraType && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <RiCaravanFill className="w-4 h-4 text-blue-400 mr-3" />
+                    <RiCaravanFill className="w-4 h-4 text-blue-400 mr-2" />
                     <span className="font-medium">
                         {attributes.extraType.charAt(0).toUpperCase() + attributes.extraType.slice(1).toLowerCase()}
                     </span>
@@ -35,15 +35,17 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {attributes?.coupling && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <FaGears className="w-4 h-4 text-yellow-400 mr-3" />
-                    <span className="font-medium">
+                    <div>
+                    <FaGears className="w-4 h-4 text-yellow-400 mr-2" />
+                    </div>
+                    <span className="font-medium break-all">
                         {attributes.coupling.charAt(0).toUpperCase() + attributes.coupling.slice(1).toLowerCase()}
                     </span>
                 </div>
             )}
             {attributes?.loading && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <TbCrane className="w-4 h-4 text-red-400 mr-3" />
+                    <TbCrane className="w-4 h-4 text-red-400 mr-2" />
                     <span className="font-medium">
                         {attributes.loading.charAt(0).toUpperCase() + attributes.loading.slice(1).toLowerCase()}
                     </span>
@@ -51,7 +53,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {attributes?.axis && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <LuAxis3D className="w-4 h-4 text-green-400 mr-3" />
+                    <LuAxis3D className="w-4 h-4 text-green-400 mr-2" />
                     <span className="font-medium">
                         {{
                             '1': "Einachser",
@@ -65,7 +67,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {attributes?.weightClass && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <WeightIcon className="w-4 h-4 text-indigo-400 mr-3" />
+                    <WeightIcon className="w-4 h-4 text-indigo-400 mr-2" />
                     <span className="font-medium text-sm">
                         {attributes?.weightClass} kg <br/> zulässiges Gesamtgewicht
                     </span>
@@ -73,7 +75,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {attributes?.payload && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <WeightIcon className="w-4 h-4 text-emerald-400 mr-3" />
+                    <WeightIcon className="w-4 h-4 text-emerald-400 mr-2" />
                     <span className="font-medium text-sm">
                         {attributes?.payload} kg <br/> Nutzlast
                     </span>
@@ -81,7 +83,7 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {attributes?.brake && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <GiStoneWheel className="w-4 h-4 text-purple-400 mr-3" />
+                    <GiStoneWheel className="w-4 h-4 text-purple-400 mr-2" />
                     <span className="font-medium">
                         {attributes.brake ? "Hat Auflaufbremse" : "Keine Bremse"}
                     </span>
@@ -89,13 +91,13 @@ const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
             )}
             {attributes?.loading_volume && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <HiCubeTransparent className="w-4 h-4 text-cyan-400 mr-3" />
+                    <HiCubeTransparent className="w-4 h-4 text-cyan-400 mr-2" />
                     <span className="font-medium">{attributes.loading_volume} l</span>
                 </div>
             )}
             {(attributes?.loading_l || attributes?.loading_b || attributes?.loading_h) && (
                 <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <GiResize className="w-4 h-4 text-rose-400 mr-3" />
+                    <GiResize className="w-4 h-4 text-rose-400 mr-2" />
                     <span className="font-medium text-sm">
                     {attributes?.loading_l && `${attributes?.loading_l}m Länge, `}  {attributes?.loading_b && `${attributes?.loading_b}m Breite, ` } <br/>  {attributes?.loading_h && `${attributes?.loading_b}m Höhe`}
                     </span>

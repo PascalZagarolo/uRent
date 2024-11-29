@@ -185,7 +185,7 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
                     )}
                 </div>
 
-                <div className="mt-16">
+                <div className="mt-16 mb-8 sm:mb-0">
                     <InvoiceTable
                         existingInvoices={correctInvoices}
                     />

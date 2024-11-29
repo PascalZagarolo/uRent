@@ -92,7 +92,7 @@ export default function InvoiceTable({ existingInvoices }: InvoiceTableProps) {
 
   return (
     <Table>
-      <TableCaption>Eine Liste von allen ausgestellten Rechnungen in Verbindung zwischen dir und uRent.</TableCaption>
+      <TableCaption className="pt-4 pb-8 sm:pt-0 sm:pb-0">Eine Liste von allen ausgestellten Rechnungen in Verbindung zwischen dir und uRent.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[120px]"><SortButton column="rechnungsnr" /></TableHead>

@@ -16,7 +16,7 @@ import axios from "axios";
 
 interface SubscriptionsRenderListProps {
     subscriptions: typeof userTable.$inferSelect | any;
-    invoiceSubscription : any
+    invoiceSubscription: any
 }
 
 const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
@@ -28,17 +28,17 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
 
     const currentDate = new Date();
 
-    const onAdvocateSubscription = async (usedId : string) => {
+    const onAdvocateSubscription = async (usedId: string) => {
         try {
             const values = {}
             const res = await axios.patch(`/api/stripe/user/${usedId}`, values);
             window.location.href = res.data.url
-        } catch(e : any) {
+        } catch (e: any) {
             console.log(e)
         }
     }
 
-    let usedType : typeof inseratPriceType;
+    let usedType: typeof inseratPriceType;
 
     return (
         <div>
@@ -59,45 +59,52 @@ const SubscriptionsRenderList: React.FC<SubscriptionsRenderListProps> = ({
                                 <TableHead className="w-[120px]">Abo-ID</TableHead>
                                 <TableHead className="">Anz. Inserate</TableHead>
                                 <TableHead>Ablaufdatum</TableHead>
-                                <TableHead>Verwalten</TableHead>
+                                <TableHead></TableHead>
                                 <TableHead></TableHead>
                                 <TableHead>Plan</TableHead>
                                 <TableHead className="text-right">Kosten</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                           
-                                <TableRow>
-                                    <TableCell className="font-medium">{subscriptions.subscription?.id}</TableCell>
-                                    <TableCell className="font-medium max-w-[160px] truncate">{subscriptions.subscription?.amount}</TableCell>
-                                    <TableCell>{format(new Date(subscriptions?.subscription?.stripe_current_period_end), "dd.MM.yyyy", { locale: de })}
-                                        {
-                                            new Date(subscriptions?.subscription?.stripe_current_period_end) < currentDate && (
-                                                <span className="text-red-600"> (Abgelaufen)</span>
-                                            )
-                                        }
-                                        </TableCell>
-                                    <TableCell>
-                                    <div className="hover:underline hover:cursor-pointer" onClick={() => 
-                                        {onAdvocateSubscription(subscriptions?.subscription?.userId)}}>
-                                            Abo verwalten
-                                        </div>
-                                    </TableCell>
-                                    
-                                    <TableCell>
-                                       
+
+                            <TableRow>
+                                <TableCell className="font-medium">{subscriptions.subscription?.id}</TableCell>
+                                <TableCell className="font-medium max-w-[160px] truncate">{subscriptions.subscription?.amount}</TableCell>
+                                <TableCell>{format(new Date(subscriptions?.subscription?.stripe_current_period_end), "dd.MM.yyyy", { locale: de })}
+                                    {
+                                        new Date(subscriptions?.subscription?.stripe_current_period_end) < currentDate && (
+                                            <span className="text-red-600"> (Abgelaufen)</span>
+                                        )
+                                    }
+                                </TableCell>
+                                <TableCell>
+                                {!subscriptions.subscription.isGift && (
+                                    <div className="hover:underline hover:cursor-pointer" onClick={() => { onAdvocateSubscription(subscriptions?.subscription?.userId) }}>
+                                        Abo verwalten
+                                    </div>
+                                )}
+                                </TableCell>
+
+                                <TableCell>
+
+                                    {!subscriptions.subscription.isGift && (
                                         <a className="hover:underline hover:cursor-pointer" href={`/pricing`}>
                                             Upgraden
                                         </a>
-                                    
-                                    </TableCell>
-                                    <TableCell className="text-indigo-800 font-bold">
-                                        {subscriptions.subscription?.subscriptionType}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                       {currentPrice} €
-                                    </TableCell>
-                                </TableRow>
+
+                                    )}
+                                </TableCell>
+                                <TableCell className="text-indigo-800 font-bold">
+                                    {subscriptions.subscription?.subscriptionType}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    {subscriptions.subscription.isGift ? (
+                                        "(Gutscheincode)"
+                                    ) : (
+                                        `${currentPrice} €`
+                                    )}
+                                </TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </div>

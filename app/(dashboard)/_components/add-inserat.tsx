@@ -27,12 +27,14 @@ import { z } from "zod";
 
 interface InseratProps {
     currentUser: typeof userTable.$inferSelect;
-    isntLoggedIn?: boolean
+    isntLoggedIn?: boolean;
+    isEvent?: boolean;
 }
 
 const Inserat: React.FC<InseratProps> = ({
     currentUser,
-    isntLoggedIn
+    isntLoggedIn,
+    isEvent
 }) => {
     const router = useRouter();
 
@@ -78,58 +80,75 @@ const Inserat: React.FC<InseratProps> = ({
         <div>
 
             <Dialog >
-                {isntLoggedIn ? (
-                    <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
-                        onClick={() => { !currentUser && router.push("/login") }}
-                    >
-                        <CopyIcon className="w-4 h-4 3xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
-                    </Button>
+                {isEvent ? (
+                    <DialogTrigger asChild>
+                        <div>
+                            <button className="ml-4 px-6 py-3 mt-4 border border-indigo-500 rounded-lg text-indigo-500 hover:bg-indigo-500 hover:text-white transition">
+                                Jetzt Vermieten
+                            </button>
+                        </div>
+                    </DialogTrigger>
                 ) : (
-                    currentUser.isBusiness ? (
-                        <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
-
-                            <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm">
-                                <CopyIcon className="w-4 h-4 3xl:mr-2" /> <span className="hidden 3xl:block"> Inserat erstellen </span>
-                            </Button>
-
-
-                        </DialogTrigger>
+                    isntLoggedIn ? (
+                        <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
+                            onClick={() => { !currentUser && router.push("/login") }}
+                        >
+                            <CopyIcon className="w-4 h-4 3xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
+                        </Button>
                     ) : (
-                        <Dialog>
-                            <DialogTrigger>
-                                <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2 rounded-md text-sm items-center 
+                        isntLoggedIn ? (
+                            <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
+                                onClick={() => { !currentUser && router.push("/login") }}
+                            >
+                                <CopyIcon className="w-4 h-4 3xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
+                            </Button>
+                        ) : (
+                            currentUser.isBusiness ? (
+                                <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
+
+                                    <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm">
+                                        <CopyIcon className="w-4 h-4 3xl:mr-2" /> <span className="hidden 3xl:block"> Inserat erstellen </span>
+                                    </Button>
+
+
+                                </DialogTrigger>
+                            ) : (
+                                <Dialog>
+                                    <DialogTrigger>
+                                        <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2 rounded-md text-sm items-center 
                 font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" >
-                                    <PlusIcon className="w-4 h-4 3xl:mr-2 flex justify-center" /> <p className="hidden 3xl:flex mr-1 text-sm">Inserat erstellen</p>
-                                </div>
-                            </DialogTrigger>
-                            <DialogContent className="bg-[#191919] rounded-md border-none">
-                                <div className="">
-                                    <h3 className="text-lg font-semibold flex flex-row items-center">
-                                       <FaExchangeAlt  className="w-4 h-4 mr-2" /> Profil umwandeln?
-                                    </h3>
-                                    <div className="">
-                                        <p className="text-xs text-gray-200/80">
-                                            Um Inserate zu schalten, musst du dein Profil in ein Vermieter-Konto umwandeln. <br/>
-                                            Dies kannst du unter {`"`} Mein Profil {`"`} völlig kostenlos & schnell machen.
-                                        </p>
-                                    </div>
-                                    <div className="mt-4 flex justify-end">
-                                        <DialogTrigger asChild>
-                                            <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300" onClick={() => { router.push(`/profile/${currentUser?.id}`)}}>
-                                                Zum Vermieter werden
-                                            </Button>
-                                        </DialogTrigger>
-                                        <DialogTrigger asChild>
-                                            <Button variant="ghost" className="border-none">
-                                                Abbrechen
-                                            </Button>
-                                        </DialogTrigger>
-                                    </div>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
-                    )
-                )}
+                                            <PlusIcon className="w-4 h-4 3xl:mr-2 flex justify-center" /> <p className="hidden 3xl:flex mr-1 text-sm">Inserat erstellen</p>
+                                        </div>
+                                    </DialogTrigger>
+                                    <DialogContent className="bg-[#191919] rounded-md border-none">
+                                        <div className="">
+                                            <h3 className="text-lg font-semibold flex flex-row items-center">
+                                                <FaExchangeAlt className="w-4 h-4 mr-2" /> Profil umwandeln?
+                                            </h3>
+                                            <div className="">
+                                                <p className="text-xs text-gray-200/80">
+                                                    Um Inserate zu schalten, musst du dein Profil in ein Vermieter-Konto umwandeln. <br />
+                                                    Dies kannst du unter {`"`} Mein Profil {`"`} völlig kostenlos & schnell machen.
+                                                </p>
+                                            </div>
+                                            <div className="mt-4 flex justify-end">
+                                                <DialogTrigger asChild>
+                                                    <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300" onClick={() => { router.push(`/profile/${currentUser?.id}`) }}>
+                                                        Zum Vermieter werden
+                                                    </Button>
+                                                </DialogTrigger>
+                                                <DialogTrigger asChild>
+                                                    <Button variant="ghost" className="border-none">
+                                                        Abbrechen
+                                                    </Button>
+                                                </DialogTrigger>
+                                            </div>
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
+                            )
+                        )
+                    ))}
                 <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
                     <div>
                         <div>

@@ -52,13 +52,13 @@ const BasicUrentBanner = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Section */}
         <div className="space-y-0">
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-4xl font-bold text-gray-200">
             Fahrzeuge in <span className="text-indigo-500">nur ein paar Klicks</span>
           </h2>
-          <p className="text-xl flex items-center">
+          <p className="text-base text-gray-300 flex items-center">
             Wähle aus Pkw, Lkw, Anhängern und Transportern{" "}
 
-            <PiCursorClickLight className="w-8 h-8 text-indigo-500 ml-2 animate-bounce" />
+            <PiCursorClickLight className="w-8 h-8 text-gray-200 ml-2 animate-bounce" />
           </p>
 
           <div className="flex gap-8 items-center mt-8 mb-8">
@@ -104,9 +104,10 @@ const BasicUrentBanner = ({
               className="w-full h-full object-contain"
             />
           </div>
-          <p className="text-lg text-center text-gray-400">
-            Egal ob Mieter oder Vermieter, bei <span className="font-semibold text-gray-200">uRent</span> findest du dein passendes Fahrzeug!
-          </p>
+          <div className="text-base text-center text-gray-400">
+            Miete & Vermiete Fahrzeuge so einfach wie noch nie. 
+            {/* <span className="font-semibold text-gray-200">uRent</span> */}
+          </div> 
         </div>
       </div>
     </div>

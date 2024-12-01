@@ -186,7 +186,7 @@ export async function POST(
         })
 
         if (findExistingSubscription) {
-            const deleteSubscription = await db.delete(userSubscription).where(
+            await db.delete(userSubscription).where(
                 eq(userSubscription.userId, session?.metadata?.userId)
             )
         }
@@ -211,7 +211,7 @@ export async function POST(
 
 
         const usedMessage = `Herzlichen Glückwunsch! Du hast erfolgreich ein Abonnement erworben und kannst nun alle Vorteile deines gewählten Pakets nutzen. 
-        Mehr Informationen findest du unter: Dashboard -> Zahlungsverkehr
+        Mehr Informationen findest du unter: Dashboard -> Zahlungsverkehr.
         Vielen Dank, dass du dich für uRent entschieden hast!`
 
         //send notification

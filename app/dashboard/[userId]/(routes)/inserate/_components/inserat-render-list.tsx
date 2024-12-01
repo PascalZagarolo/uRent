@@ -100,12 +100,13 @@ const InserateRenderList: React.FC<InserateRenderListProps> = ({
         }
     }, [debouncedValue])
 
-    useMemo(() => {
+    useEffect(() => {
+        console.log("...")
         if (!selectedSort) {
             setRenderedInserate(inserateArray)
         } else if (selectedSort === "date_asc") {
 
-            console.log("...")
+
             const sortedInserate = [...renderedInserate].sort((a, b) => {
                 return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
             })

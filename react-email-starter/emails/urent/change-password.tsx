@@ -13,6 +13,7 @@ import {
   } from "@react-email/components";
 import { Inter } from "next/font/google";
   import * as React from "react";
+import EmailFooter from "../email-template/email-footer";
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     ? `${process.env.NEXT_PUBLIC_BASE_URL}`
@@ -48,23 +49,7 @@ import { Inter } from "next/font/google";
               Passwort zurücksetzen
             </Button>
             <Hr style={hr} />
-            
-            
-            
-            <Text style={paragraph2}>
-            Wir möchten sicherstellen, dass Ihre uRent-Erfahrung reibungslos verläuft. 
-            Falls Sie Fragen oder Anliegen haben, zögern Sie bitte nicht, sich an unser Support-Team support@urent-rental.de zu wenden.  <br/>
-            Wir stehen Ihnen jederzeit gerne zur Verfügung.
-            </Text>
-            <Text style={paragraph2}>
-            Wir freuen uns darauf, Ihnen bei der Erfüllung Ihrer Bedürfnisse im Bereich Mieten und Vermieten behilflich zu sein. <br/>
-            
-            </Text>
-            <Text style={paragraph2}>— Das uRent Team</Text>
-            <Hr style={hr} />
-            <Text style={footer}>
-            uRent UG (haftungsbeschränkt), Bozenerstr.26, 42659 Solingen, NRW, Deutschland
-            </Text>
+            <EmailFooter />
           </Section>
         </Container>
       </Body>

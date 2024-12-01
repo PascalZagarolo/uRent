@@ -12,6 +12,7 @@ import {
   } from "@react-email/components";
 import { Inter } from "next/font/google";
   import * as React from "react";
+import EmailFooter from "../email-template/email-footer";
 
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -62,7 +63,7 @@ interface SupportMessageToUrentProps {
             
             <Hr style={hr} />
             
-            
+            <EmailFooter />
             
            
           </Section>

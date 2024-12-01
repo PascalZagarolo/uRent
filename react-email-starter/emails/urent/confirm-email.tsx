@@ -13,6 +13,7 @@ import {
   } from "@react-email/components";
 import { Inter } from "next/font/google";
   import * as React from "react";
+import EmailFooter from "../email-template/email-footer";
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     ? `${process.env.NEXT_PUBLIC_BASE_URL}`
@@ -49,23 +50,10 @@ import { Inter } from "next/font/google";
               Account aktivieren
             </Button>
             <Hr style={hr} />
+            <EmailFooter />
             
             
             
-            <Text style={paragraph2}>
-            Wir möchten sicherstellen, dass Ihre uRent-Erfahrung reibungslos verläuft. 
-            Falls Sie Fragen oder Anliegen haben, zögern Sie bitte nicht, sich an unser Support-Team support@urent-rental.de zu wenden.  <br/>
-            Wir stehen Ihnen jederzeit gerne zur Verfügung.
-            </Text>
-            <Text style={paragraph2}>
-            Wir freuen uns darauf, Ihnen bei der Erfüllung Ihrer Bedürfnisse im Bereich Mieten und Vermieten behilflich zu sein. <br/>
-            
-            </Text>
-            <Text style={paragraph2}>— Das uRent Team</Text>
-            <Hr style={hr} />
-            <Text style={footer}>
-            uRent UG (haftungsbeschränkt), Bozenerstr.26, 42659 Solingen, NRW, Deutschland
-            </Text>
           </Section>
         </Container>
       </Body>
@@ -92,10 +80,7 @@ import { Inter } from "next/font/google";
     padding: "0 48px",
   };
   
-  const hr = {
-    borderColor: "#e6ebf1",
-    margin: "20px 0",
-  };
+
   
   const paragraph = {
     color: "#525f7f",
@@ -105,13 +90,6 @@ import { Inter } from "next/font/google";
     textAlign: "left" as const,
   };
 
-  const paragraph2 = {
-    color: "#525f7f",
-    fontWeight : "400",
-    fontSize: "12px",
-    lineHeight: "20px",
-    textAlign: "left" as const,
-  };
   
   const anchor = {
     color: "#556cd6",
@@ -130,9 +108,10 @@ import { Inter } from "next/font/google";
     padding: "10px",
   };
   
-  const footer = {
-    color: "#8898aa",
-    fontSize: "12px",
-    lineHeight: "16px",
+  
+  const hr = {
+    borderColor: "#e6ebf1",
+    margin: "20px 0",
   };
+  
   

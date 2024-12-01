@@ -30,34 +30,64 @@ const EnterpriseButton: React.FC<EnterpriseButtonProps> = ({
 
    
 
+    // const calculateEnterprisePrice = () => {
+    //     switch (selectedAmount) {
+    //         case 1:
+    //             return "prod_PtR9L9XRjwzC0N";
+    //         case 5:
+    //             return "prod_Pv4FF7MAUT1wGI";
+    //         case 10:
+    //             return "prod_Pv4FiNttsprGyN";
+    //         case 15:
+    //             return "prod_Pv4Fl9cfjK2RqC";
+    //         case 25:
+    //             return "prod_Pv4GtxdFiRuu1P";
+    //         case 35:
+    //             return "prod_Pv4Gh88pCZq6ao";
+    //         case 50:
+    //             return "prod_Q200a6I4WAhns9";
+    //         case 65:
+    //             return "prod_Q200PwTz5sLcDD";
+    //         case 80:
+    //             return "prod_Q2017X3zQWhFyu";
+    //         case 100:
+    //             return "prod_Q201WTq6XQ348g";
+    //         case 250:
+    //             return "prod_Q2021mUCfveige";
+    //         default:
+    //             return ""
+    //     }
+    // };
+
     const calculateEnterprisePrice = () => {
         switch (selectedAmount) {
             case 1:
-                return "prod_PtR9L9XRjwzC0N";
+                return "prod_RK0WvvWoeRgn6u";
             case 5:
-                return "prod_Pv4FF7MAUT1wGI";
+                return "prod_RK0V0veCyHxpgH";
             case 10:
-                return "prod_Pv4FiNttsprGyN";
+                return "prod_RK0Va4ZdsE6u4H";
             case 15:
-                return "prod_Pv4Fl9cfjK2RqC";
+                return "prod_RK0V0RnQEdNuXw";
             case 25:
-                return "prod_Pv4GtxdFiRuu1P";
+                return "prod_RK0V03TxG8CBPw";
             case 35:
-                return "prod_Pv4Gh88pCZq6ao";
+                return "prod_RK0VxVnZxIg0sr";
             case 50:
-                return "prod_Q200a6I4WAhns9";
+                return "prod_RK0VrrNpyhUSUV";
             case 65:
-                return "prod_Q200PwTz5sLcDD";
+                return "prod_RK0e48S5xFIhrU";
             case 80:
-                return "prod_Q2017X3zQWhFyu";
+                return "prod_RK0Vn2USNEHdOq";
             case 100:
-                return "prod_Q201WTq6XQ348g";
+                return "prod_RK0VDVqPVC337d";
             case 250:
-                return "prod_Q2021mUCfveige";
+                return "prod_RK0VVnYuNlbNU0";
             default:
-                return ""
+                return "";
         }
     };
+    
 
     const productId = calculateEnterprisePrice();
 

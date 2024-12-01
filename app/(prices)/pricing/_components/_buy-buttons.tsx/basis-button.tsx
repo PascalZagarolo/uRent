@@ -34,34 +34,64 @@ const BasisButton: React.FC<BasisButtonProps> = ({
     const [isLoading, setIsLoading] = useState(false);
 
 
+    // const calculateBasisPrice = () => {
+    //     switch (selectedAmount) {
+    //         case 1:
+    //             return "prod_PtR8PGAnWvM9nW";
+    //         case 5:
+    //             return "prod_Pv48D9B2K1BgJ0";
+    //         case 10:
+    //             return "prod_Pv4AzleLuJaR9j";
+    //         case 15:
+    //             return "prod_Pv4AbOgkOYWJJt";
+    //         case 25:
+    //             return "prod_Pv4B2zmZ19Apen";
+    //         case 35:
+    //             return "prod_Pv4BipnesUBoNJ";
+    //         case 50:
+    //             return "prod_Q20K4v8dmCv6bn";
+    //         case 65:
+    //             return "prod_Q20KFG8pPNIG7d";
+    //         case 80:
+    //             return "prod_Q20LBBjGUKhBfC";
+    //         case 100:
+    //             return "prod_Q20MzN3iFoqH2Q";
+    //         case 250:
+    //             return "prod_Q20MuQfWTXNX7L";
+    //         default:
+    //             return ""
+    //     }
+    // };
+
     const calculateBasisPrice = () => {
         switch (selectedAmount) {
             case 1:
-                return "prod_PtR8PGAnWvM9nW";
+                return "prod_RK0WycHV8yApMH";
             case 5:
-                return "prod_Pv48D9B2K1BgJ0";
+                return "prod_RK0W2S3cToAp2U";
             case 10:
-                return "prod_Pv4AzleLuJaR9j";
+                return "prod_RK0WLWhZi2Jc7D";
             case 15:
-                return "prod_Pv4AbOgkOYWJJt";
+                return "prod_RK0VHVRrCbio2f";
             case 25:
-                return "prod_Pv4B2zmZ19Apen";
+                return "prod_RK0VmxWN4bZg5u";
             case 35:
-                return "prod_Pv4BipnesUBoNJ";
+                return "prod_RK0VB5jvMnCAfg";
             case 50:
-                return "prod_Q20K4v8dmCv6bn";
+                return "prod_RK0SU7IX4CqPtO";
             case 65:
-                return "prod_Q20KFG8pPNIG7d";
+                return "prod_RK0bxCsTaP3NQa";
             case 80:
-                return "prod_Q20LBBjGUKhBfC";
+                return "prod_RK0SEusOLhIxZi";
             case 100:
-                return "prod_Q20MzN3iFoqH2Q";
+                return "prod_RK0Sa9tFRmSZRa";
             case 250:
-                return "prod_Q20MuQfWTXNX7L";
+                return "prod_RK0SUEo0h0hHfd";
             default:
-                return ""
+                return "";
         }
     };
+    
 
     const productId = calculateBasisPrice();
 

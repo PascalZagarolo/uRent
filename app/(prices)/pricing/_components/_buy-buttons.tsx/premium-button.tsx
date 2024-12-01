@@ -27,35 +27,65 @@ const PremiumButton: React.FC<PremiumButtonProps> = ({
     const searchParams = useSearchParams();
     const usedId = searchParams.get("inseratId");
 
+    // const calculatePremiumPrice = () => {
+    //     switch (selectedAmount) {
+    //         case 1:
+    //             return "prod_PtR9WSahLFPqOD";
+    //         case 5:
+    //             return "prod_Pv4Cwyv4F8cO4D";
+    //         case 10:
+    //             return "prod_Pv4DPuk8W4aRCZ";
+    //         case 15:
+    //             return "prod_Pv4E0Xe7Y8qKng";
+    //         case 25:
+    //             return "prod_Pv4EsXYyaMgfSi";
+    //         case 35:
+    //             return "prod_Pv4FJEde6W2ReF";
+    //         case 50:
+    //             return "prod_Q207WlGgK5nFUN";
+    //         case 65:
+    //             return "prod_Q208pcSj2470c0";
+    //         case 80:
+    //             return "prod_Q208qdbHH1Z7EZ";
+    //         case 100:
+    //             return "prod_Q209LCa2h0i3kS";
+    //         case 250:
+    //             return "prod_Q20Azhl53HsvEi";
+    //         default:
+    //             return ""
+
+    //     }
+    // };
+
     const calculatePremiumPrice = () => {
         switch (selectedAmount) {
             case 1:
-                return "prod_PtR9WSahLFPqOD";
+                return "prod_RK0W37qFJKWgqz";
             case 5:
-                return "prod_Pv4Cwyv4F8cO4D";
+                return "prod_RK0VpPiTheDO8W";
             case 10:
-                return "prod_Pv4DPuk8W4aRCZ";
+                return "prod_RK0VT0MFteYmbf";
             case 15:
-                return "prod_Pv4E0Xe7Y8qKng";
+                return "prod_RK0VLWMV7A20Ga";
             case 25:
-                return "prod_Pv4EsXYyaMgfSi";
+                return "prod_RK0VeHnNu0PstL";
             case 35:
-                return "prod_Pv4FJEde6W2ReF";
+                return "prod_RK0V1qXbcSmWvD";
             case 50:
-                return "prod_Q207WlGgK5nFUN";
+                return "prod_RK0VsbUm38kAkT";
             case 65:
-                return "prod_Q208pcSj2470c0";
+                return "prod_RK0SIMvG7o3IOY";
             case 80:
-                return "prod_Q208qdbHH1Z7EZ";
+                return "prod_RK0S4tkGI4KAEf";
             case 100:
-                return "prod_Q209LCa2h0i3kS";
+                return "prod_RK0SOsIgMne6QG";
             case 250:
-                return "prod_Q20Azhl53HsvEi";
+                return "prod_RK0StYKlyUoDfq";
             default:
-                return ""
-
+                return "";
         }
     };
+    
 
     const productId = calculatePremiumPrice();
 

@@ -6,17 +6,18 @@ import { eq, is } from "drizzle-orm";
 import { userSubscription } from "@/db/schema";
 import { stripe } from '@/lib/stripe';
 import { title } from 'process';
+import { redirect } from 'next/navigation';
 
 export async function PATCH(
     req : Request,
     { params } : { params : { userId : string }}
 ) {
     try {
-        
+        console.log("...")
         const currentUser = await getCurrentUser();
         
         if(!currentUser) {
-            return new NextResponse("Nicht autorisiert", { status : 401 })
+            return  redirect("/login")
         }
         
         

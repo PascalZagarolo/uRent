@@ -5,7 +5,7 @@ import { userSubscription } from "@/db/schema";
 
 import { CheckIcon } from "@radix-ui/react-icons";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast, { CheckmarkIcon } from "react-hot-toast";
 
@@ -63,6 +63,8 @@ const EnterpriseButton: React.FC<EnterpriseButtonProps> = ({
 
     const [isLoading, setIsLoading] = useState(false)
 
+    const router = useRouter();
+
     const onSubscribe = async () => {
         try {
 
@@ -76,7 +78,9 @@ const EnterpriseButton: React.FC<EnterpriseButtonProps> = ({
             }
             console.log("gedrückt...")
 
-
+            if(!userId) {
+                return router.push("/login")
+            }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
         } catch (error: any) {

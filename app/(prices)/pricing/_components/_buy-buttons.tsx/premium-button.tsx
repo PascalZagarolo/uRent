@@ -5,7 +5,7 @@ import { userSubscription } from "@/db/schema";
 
 import axios from "axios";
 import { CheckIcon } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -61,6 +61,8 @@ const PremiumButton: React.FC<PremiumButtonProps> = ({
 
     const [isLoading, setIsLoading] = useState(false)
 
+    const router = useRouter();
+
     const onSubscribe = async () => {
         try {
             setIsLoading(true);
@@ -69,6 +71,9 @@ const PremiumButton: React.FC<PremiumButtonProps> = ({
                 productId: productId,
                 amount: selectedAmount,
                 ...usedId && { usedId: usedId }
+            }
+            if(!userId) {
+                return router.push("/login")
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url

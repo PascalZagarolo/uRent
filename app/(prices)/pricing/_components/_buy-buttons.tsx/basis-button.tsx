@@ -7,7 +7,7 @@ import { userSubscription } from "@/db/schema";
 import axios from "axios";
 
 import { CheckIcon } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -65,7 +65,7 @@ const BasisButton: React.FC<BasisButtonProps> = ({
 
     const productId = calculateBasisPrice();
 
-
+    const router = useRouter();
 
     const onSubscribe = async () => {
         try {
@@ -74,11 +74,15 @@ const BasisButton: React.FC<BasisButtonProps> = ({
                 subscriptionType: "BASIS",
                 productId: productId,
                 amount: selectedAmount,
-                ...usedId && { usedId: usedId }
+                ...usedId && { usedId: usedId  }
+            }
+            if(!userId) {
+                return router.push("/login")
             }
             const res = await axios.patch(`/api/stripe/user/${userId}`, values);
             window.location.href = res.data.url
-        } catch {
+        } catch(e : any) {
+            console.log(e)
             toast.error("Etwas ist schief gelaufen")
         } finally {
             setIsLoading(false)

@@ -50,7 +50,7 @@ console.log(plan)
                     date={date}
 
                 />
-            } fileName="fee_acceptance.pdf">
+            } fileName="Rechnung.pdf">
                 {({ blob, url, loading, error }) => (loading ? 'Lädt..' : <Button size="sm" variant="ghost" className="dark:bg-[#222222] shadow-lg"
 
                 >

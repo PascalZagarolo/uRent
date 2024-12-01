@@ -1,0 +1,1 @@
+ALTER TABLE "openingTimes" ADD COLUMN "sunday" text;

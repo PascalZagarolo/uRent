@@ -124,7 +124,7 @@ const InvoiceTitle = () => (
         <View style={styles.companyDetails}>
             <Text style={styles.reportTitle}>uRent UG (haftungsbeschränkt)</Text>
             <Text style={styles.subHeading}>Bozenerstr. 26, 42659 Solingen, Nordrhein-Westfalen, Deutschland</Text>
-            <Text style={styles.subHeading}>VAT ID: DE123456789</Text> {/* VAT ID added */}
+            {/* <Text style={styles.subHeading}>VAT ID: DE123456789</Text> VAT ID added */}
         </View>
     </View>
 );

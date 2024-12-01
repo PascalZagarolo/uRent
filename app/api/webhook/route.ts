@@ -264,7 +264,7 @@ export async function POST(
         const retrievedInvoice = await stripe.invoices.retrieve(session.id)
 
         //get new amount and subscriptionType in case user downgraded
-        require('stripe')('sk_test_51OXL4bGRyqashQ2wAaNYkzVV68vGMgReR45Ct3q8BfZO6KCXnZ2BNhiotRuYCwAAOwQxy4iZy2B8WEgRQa2PIG2I00tApjW5eR');
+        //require('stripe')('sk_test_51OXL4bGRyqashQ2wAaNYkzVV68vGMgReR45Ct3q8BfZO6KCXnZ2BNhiotRuYCwAAOwQxy4iZy2B8WEgRQa2PIG2I00tApjW5eR');
 
         //query for price to get matching productId
         const connectedPrice = await stripe.prices.retrieve(retrievedInvoice.lines.data[0].price.id as string);

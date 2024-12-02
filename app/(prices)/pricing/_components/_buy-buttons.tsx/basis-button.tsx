@@ -126,13 +126,13 @@ const BasisButton: React.FC<BasisButtonProps> = ({
             const values = {
                 diffrence: diffrence * 100,
                 productId: productId,
-                subscriptionType: "ENTERPRISE",
+                subscriptionType: "BASIS",
                 ...usedId && { usedId: usedId }
             }
 
             const res = await axios.patch(`/api/stripe/upgrade/${userId}`, values);
             window.location.href = res.data.url
-        } catch {
+        } catch(e : any) {
             toast.error("Etwas ist schief gelaufen")
         } finally {
             setIsLoading(false)

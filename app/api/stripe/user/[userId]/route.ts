@@ -73,7 +73,7 @@ export async function PATCH(
             `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/${params.userId}?tab=payments`
             ,
             cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing/${params.userId}`,
-            payment_method_types: ['card', 'paypal', 'sofort'],
+            payment_method_types: ['card', 'paypal'],
 
             mode: "subscription",
 

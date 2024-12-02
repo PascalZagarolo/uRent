@@ -74,9 +74,11 @@ const NewVerificationPage = () => {
                 {success}
             </div>
             <div className="flex justify-center">
-                <Button variant="ghost" onClick={() => {router.push("/")}} className="dark:bg-[#080808] mt-4">
+                {(error || success) && (
+                    <Button variant="ghost" onClick={() => {router.push("/")}} className="dark:bg-indigo-800 shadow-lg mt-4">
                     zurück zur Homepage
                 </Button>
+                )}
             </div>
             </div>
         </div>

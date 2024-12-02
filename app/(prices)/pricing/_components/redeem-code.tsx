@@ -36,6 +36,7 @@ const RedeemCode = () => {
                 .then((res) => {
                     setError("");
                     setUsedCode("")
+                    toast.success("Der Gutscheincode wurde erfolgreich eingelöst.");
                     router.refresh();
                 })
 

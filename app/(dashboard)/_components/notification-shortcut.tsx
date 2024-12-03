@@ -52,7 +52,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
 
     const [usedFilter, setUsedFilter] = useState<"ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST" | "ANDERE">("ALL");
 
-    useMemo(() => {
+    useEffect(() => {
         setRenderedNotifications(foundNotifications);
         setUnseenNotifications(foundNotifications.filter((notification) => !notification.seen));
     },[foundNotifications])
@@ -74,9 +74,7 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         }
     };
 
-    const onAll = () => {
-        setRenderedNotifications(foundNotifications);
-    }
+    
 
     useEffect(() => {
         switch (usedFilter) {

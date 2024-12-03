@@ -16,6 +16,7 @@ import PremiumButton from "./_buy-buttons.tsx/premium-button";
 import BasisButton from "./_buy-buttons.tsx/basis-button";
 
 import { GiUpgrade } from "react-icons/gi";
+import { isBefore, isAfter } from 'date-fns';
 
 interface BuyOptionsProps {
     currentUserId: string;
@@ -258,44 +259,55 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                 </div>
                 <div className="">
                     <Select onValueChange={(value) => setAmountInserat(Number(value))} value={String(amountInserat)}>
-                        <SelectTrigger className="sm:w-[180px] dark:bg-[#171717] dark:border-none"
+                        {existingSubscription?.isGift && !isAfter(new Date(), existingSubscription?.stripe_current_period_end) ? (
+                            <SelectTrigger className="sm:w-[180px] dark:bg-[#171717] dark:border-none"
+                            disabled
+                            >
+                                <div className="font-bold text-indigo-800">
+                                    Geschenkabo
+                                </div>
+                            </SelectTrigger>
+                        ) : (
+                            <SelectTrigger className="sm:w-[180px] dark:bg-[#171717] dark:border-none"
 
-                        >
-                            <SelectValue placeholder="Anzahl Inserate" />
-                        </SelectTrigger>
+                            >
+                                <SelectValue placeholder="Anzahl Inserate" />
+                            </SelectTrigger>
+                        )}
                         <SelectContent className="dark:bg-[#171717] dark:border-none">
                             <SelectItem value="1"
-                            disabled={existingSubscription && 1 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 1 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 1 Inserat</SelectItem>
                             <SelectItem value="5"
-                            disabled={existingSubscription && 5 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 5 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 5 Inserate</SelectItem>
                             <SelectItem value="10"
-                            disabled={existingSubscription && 10 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 10 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 10 Inserate</SelectItem>
                             <SelectItem value="15"
-                            disabled={existingSubscription && 15 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 15 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 15 Inserate</SelectItem>
                             <SelectItem value="25"
-                            disabled={existingSubscription && 25 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 25 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 25 Inserate</SelectItem>
                             <SelectItem value="35"
-                            disabled={existingSubscription && 35 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 35 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 35 Inserate</SelectItem>
                             <SelectItem value="50"
-                            disabled={existingSubscription && 50 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 50 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 50 Inserate</SelectItem>
                             <SelectItem value="65"
-                            disabled={existingSubscription && 65 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 65 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 65 Inserate</SelectItem>
                             <SelectItem value="80"
-                            disabled={existingSubscription && 80 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 80 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 80 Inserate</SelectItem>
                             <SelectItem value="100"
-                            disabled={existingSubscription && 100 < Number(existingSubscription?.amount) ? true : false}
+                                disabled={existingSubscription && 100 < Number(existingSubscription?.amount) ? true : false}
                             >bis zu 100 Inserate</SelectItem>
                             <SelectItem value="250"
-                            disabled={existingSubscription && 250 < Number(existingSubscription?.amount) ? true : false}>über 100 Inserate</SelectItem>
+                                disabled={existingSubscription && 250 < Number(existingSubscription?.amount) ? true : false}>über 100 Inserate</SelectItem>
+
                         </SelectContent>
                     </Select>
                 </div>
@@ -308,7 +320,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
             <div className="w-full  sm:mt-0 lg:flex lg:space-x-4 space-y-4 lg:space-y-0  sm:p-4  p-2">
 
                 <div className="lg:w-1/3 w-full dark:bg-[#232323] p-4 rounded-md shadow-xl">
-                <h3 className="text-md ">
+                    <h3 className="text-md ">
                         Basis
                     </h3>
                     <p className="text-xs dark:text-gray-200/70 mt-1 h-[32px]">
@@ -329,7 +341,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                                 existingSubscription ? (
                                     <div className="flex">
                                         <div className="sm:text-4xl text-xl font-bold">im Besitz</div>
-                                        
+
                                     </div>
                                 ) : (
                                     <div className="flex">
@@ -341,8 +353,8 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                                 <div className="">
                                     <div className="sm:text-4xl text-xl font-bold">{basisDiffrence} €</div>
                                     <div className="text-xs dark:text-gray-200/60">
-                                    danach {basisPrice} € /Monat
-                                </div>
+                                        danach {basisPrice} € /Monat
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -405,7 +417,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                             <div className="">
                                 <div className="text-4xl font-bold">
                                     {premiumDiffrence}   €</div>
-                                    <div className="text-xs dark:text-gray-200/60">
+                                <div className="text-xs dark:text-gray-200/60">
                                     danach {premiumPrice} € /Monat
                                 </div>
                             </div>
@@ -460,15 +472,15 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                             existingSubscription ? (
                                 <div className="flex">
 
-                                <div className="sm:text-4xl text-xl font-bold">im Besitz</div>
-                                
-                            </div>
+                                    <div className="sm:text-4xl text-xl font-bold">im Besitz</div>
+
+                                </div>
                             ) : (
                                 <div className="flex">
 
-                                <div className="sm:text-4xl text-xl font-bold">{enterprisePrice} €</div>
-                                <div className="text-xs text-gray-200/70 px-1">/Monat</div>
-                            </div>
+                                    <div className="sm:text-4xl text-xl font-bold">{enterprisePrice} €</div>
+                                    <div className="text-xs text-gray-200/70 px-1">/Monat</div>
+                                </div>
                             )
                         ) : (
                             <div className="">

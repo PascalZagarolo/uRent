@@ -72,7 +72,7 @@ export async function PATCH(
             `${process.env.NEXT_PUBLIC_BASE_URL}/inserat/${values.usedId}` :
             `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/${params.userId}?tab=payments`
             ,
-            cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing/${params.userId}`,
+            cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing`,
             payment_method_types: ['card', 'paypal'],
 
             mode: "subscription",

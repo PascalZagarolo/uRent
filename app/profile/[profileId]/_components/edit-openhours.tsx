@@ -26,6 +26,7 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
     const [sThu, eThu]: string[] = openTimes?.thursday?.split('-') || ["", ""];
     const [sFri, eFri]: string[] = openTimes?.friday?.split('-') || ["", ""];
     const [sSat, eSat]: string[] = openTimes?.saturday?.split('-') || ["", ""];
+    const [sSun, eSun]: string[] = openTimes?.sunday?.split('-') || ["", ""];
 
     
 
@@ -42,6 +43,8 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
     const [endFriday, setEndFriday] = useState(eFri.trim());
     const [startSaturday, setStartSaturday] = useState(sSat.trim());
     const [endSaturday, setEndSaturday] = useState(eSat.trim());
+    const [startSunday, setStartSunday] = useState(eSun.trim());
+    const [endSunday, setEndSunday] = useState(sSun.trim());
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -56,7 +59,8 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
                 wednesday : startWednesday + " - " + endWednesday,
                 thursday : startThursday + " - "  + endThursday,
                 friday : startFriday + " - " + endFriday,
-                saturday : startSaturday + " - " + endSaturday
+                saturday : startSaturday + " - " + endSaturday,
+                sunday : startSunday + " - " + endSunday
             }
             
             await axios.patch(`/api/business/${businessId}/openingTimes`, values)
@@ -216,7 +220,26 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
                                 </div>
                             </div>
 
-
+                            <div className="flex items-center gap-x-2 w-full font-medium">
+                                Sonntag
+                                <div className="flex ml-auto justify-end w-full items-center gap-x-2">
+                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
+                                        onChange={(e) => {
+                                            setStartSunday(e.target.value)
+                                        }}
+                                        value={startSunday}
+                                        placeholder="9:00"
+                                    />
+                                    -
+                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
+                                        onChange={(e) => {
+                                            setEndSunday(e.target.value)
+                                        }}
+                                        value={endSunday}
+                                        placeholder="20:00" />
+                                    Uhr
+                                </div>
+                            </div>
 
 
                         </div>

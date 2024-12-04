@@ -29,13 +29,14 @@ const Openhours : React.FC<OpenhoursProps> = ({
                 </h1>
                 <div>
                     {thisBusiness.openingTimes ? (
-                        <div className="grid grid-cols-6 grid-rows-2 gap-2 mt-4">
+                        <div className="grid grid-cols-7 grid-rows-2 gap-2 mt-4">
                         <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Montag</div>
                         <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Dienstag</div>
                         <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Mittwoch</div>
                         <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Donners<br className="sm:hidden block"/>tag</div>
                         <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Freitag</div>
                         <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Samstag</div>
+                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Sonntag</div>
 
                         <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.monday}</div>
                         <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.tuesday}</div>
@@ -43,6 +44,7 @@ const Openhours : React.FC<OpenhoursProps> = ({
                         <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.thursday}</div>
                         <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.friday}</div>
                         <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.saturday}</div>
+                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.sunday}</div>
                     </div>
                     ) : (
                         <div className="p-8 flex justify-center items-center">

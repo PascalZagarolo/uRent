@@ -195,7 +195,7 @@ const AutoComplete = () => {
               value={value}
               onKeyDown={handleKeyDown}
               className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none 2xl:w-[272px]
-        input: text-sm input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
+         input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
               onChange={handleInput}
               disabled={!ready}
               placeholder="Standort.."

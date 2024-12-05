@@ -173,7 +173,7 @@ const LocationBarMobile = () => {
                 <Input
                     value={value}
                     onKeyDown={handleKeyDown}
-                    className="p-3 rounded-l-md rounded-r-none w-full text-sm bg-[#2b2f3f] shadow-lg border-none text-white"
+                    className="p-3 rounded-l-md rounded-r-none w-full  bg-[#2b2f3f] shadow-lg border-none text-white"
                     onChange={handleInput}
                     disabled={!ready}
                     placeholder="Standort suchen..."

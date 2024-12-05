@@ -33,7 +33,7 @@ const AccountTab = ({ currentUser } : AccountTabProps) => {
                                     />
                                 </div>
                             </h3>
-                            <div className="w-full p-4 mt-2 rounded-md">
+                            <div className="w-full sm:p-4 mt-2 rounded-md">
                                 <div className="pb-4 px-4">
                                     <ProfilePicSettings
                                         imageUrl={currentUser?.image}
@@ -63,7 +63,7 @@ const AccountTab = ({ currentUser } : AccountTabProps) => {
                                 <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center">
                                     <RiContactsBookFill  className="mr-4" /> Kontaktprofile verwalten  <p className="ml-4 text-lg"> </p>
                                 </h3>
-                                <div className="w-full p-4 mt-2 rounded-md">
+                                <div className="w-full sm:p-4 mt-2 rounded-md">
                                     <ContactProfiles 
                                     foundProfiles = {currentUser?.userContactprofiles}
                                     foundEmail = {currentUser?.email}

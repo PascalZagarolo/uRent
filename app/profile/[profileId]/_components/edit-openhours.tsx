@@ -1,8 +1,10 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { openingTimes } from "@/db/schema";
 import axios from "axios";
 import { Clock7Icon } from "lucide-react";
@@ -50,6 +52,39 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
 
     const router = useRouter();
 
+    const onClosed = (day : string) => {
+        switch(day) {
+            case "monday":
+                setStartMonday("Geschlossen");
+                setEndMonday("");
+                break;
+            case "tuesday":
+                setStartTuesday("Geschlossen");
+                setEndTuesday("");
+                break;
+            case "wednesday":
+                setStartWednesday("Geschlossen");
+                setEndWednesday("");
+                break;
+            case "thursday":
+                setStartThursday("Geschlossen");
+                setEndThursday("");
+                break;
+            case "friday":
+                setStartFriday("Geschlossen");
+                setEndFriday("");
+                break;
+            case "saturday":
+                setStartSaturday("Geschlossen");
+                setEndSaturday("");
+                break;
+            case "sunday":
+                setStartSunday("Geschlossen");
+                setEndSunday("");
+                break;
+        }
+    }
+
     const onSubmit = async () => {
         try {
             setIsLoading(true);
@@ -73,6 +108,25 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
         } finally {
             setIsLoading(false);
         }
+    }
+
+    const checkBox = (day : string) => {
+        return (
+            <div className="">
+                <div className="flex flex-row items-center">
+                    <Label>
+                        Geschlossen
+                    </Label>
+                    <Checkbox
+                    onChange={(e) => {
+                        if(e) {
+                            onClosed(day)
+                        }
+                    }} 
+                    />
+                </div>
+            </div>
+        )
     }
 
     return (
@@ -114,7 +168,7 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
                                     Uhr
                                 </div>
                             </div>
-
+                            
                             <div className="flex items-center gap-x-2 w-full font-semibold">
                                 Dienstag
                                 <div className="flex ml-auto justify-end w-full items-center gap-x-2">

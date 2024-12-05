@@ -22,7 +22,7 @@ const PrivacyTab = ({ currentUser } : PrivacyTabProps) => {
                     />
                 </div>
 
-                <div className="p-4">
+                <div className="sm:p-4 mt-4 sm:mt-0">
                     <DataUsage
                         usesNewsletter={currentUser?.newsletter}
                         currentUserId={currentUser?.id}

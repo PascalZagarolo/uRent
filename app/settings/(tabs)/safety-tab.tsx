@@ -25,8 +25,8 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
 
                                 </div>
                             </h3>
-                            <div className="w-full p-4 mt-2 rounded-md">
-                                <div className="pb-4 px-4">
+                            <div className="w-full sm:p-4 mt-2 rounded-md">
+                                <div className="pb-4 sm:px-4">
                                     <ChangePassword
                                         userEmail={currentUser?.email}
                                     />
@@ -34,7 +34,7 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                             </div>
                             {currentUser.password && (
                                 <>
-                                    <h3 className="dark:text-gray-100 text-2xl font-semibold">
+                                    <h3 className="dark:text-gray-100 text-2xl font-semibold mt-4 sm:mt-0">
                                         <div className="flex items-center">
                                             <LockClosedIcon className="mr-4 h-6 w-6" /> Zwei-Faktor Authentifizierung
                                         </div>
@@ -43,8 +43,8 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                                         </p>
 
                                     </h3>
-                                    <div className="w-full p-4 mt-2 rounded-md">
-                                        <div className="pb-4 px-4">
+                                    <div className="w-full sm:p-4 mt-2 rounded-md">
+                                        <div className="pb-4 sm:px-4">
                                             <Select2Fa
 
                                                 thisUser={currentUser}
@@ -76,7 +76,7 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                             )} */}
                             <div>
                                 {!currentUser?.accounts && (
-                                    <div>
+                                    <div className="mt-4 sm:mt-0">
                                         <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                             <div className="flex items-center">
                                                 <FaSignOutAlt className="mr-4 h-6 w-6" /> Alle Nutzer ausloggen
@@ -86,8 +86,8 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                                             </p>
 
                                         </h3>
-                                        <div className="w-full p-4 mt-2 rounded-md">
-                                            <div className="pb-4 px-4">
+                                        <div className="w-full sm:p-4 mt-2 rounded-md">
+                                            <div className="pb-4 sm:px-4">
                                                 <form action={logoutAllUsers}>
                                                     <Button className="dark:bg-[#141414] text-sm" variant="ghost">
                                                         <PiSignOutThin className='w-4 h-4 mr-2' />  Ausloggen
@@ -99,7 +99,7 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                                 )}
                             </div>
 
-                            <div>
+                            <div className="mt-4 sm:mt-0">
                                 <h3 className="dark:text-gray-100 text-2xl font-semibold">
                                     <div className="flex items-center">
                                         <DeleteIcon className="mr-4 h-6 w-6" /> Account löschen
@@ -109,7 +109,7 @@ const SafetyTab = ({ currentUser } : SafetyTabProps) => {
                                     </p>
 
                                 </h3>
-                                <div className="w-full px-8 mt-2 rounded-md">
+                                <div className="w-full sm:px-8 mt-2 rounded-md">
                                     <DeleteUser 
                                     userId={currentUser.id}
                                     />

@@ -95,7 +95,7 @@ const LoadingVolumeBar = () => {
 
                     <Input
                         placeholder="Volumen in Liter"
-                        className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
+                        className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md  border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                          onChange={(e) => {
                             const rawValue = e.currentTarget.value;
@@ -120,7 +120,7 @@ const LoadingVolumeBar = () => {
 
                     <Input
                         placeholder="Volumen in m³"
-                        className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md input: text-sm border mt-2 
+                        className="p-2.5 2xl:pr-16 xl:pr-4  rounded-md  border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         type="decimal"
                         onChange={(e) => {

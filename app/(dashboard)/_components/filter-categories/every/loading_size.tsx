@@ -121,7 +121,7 @@ const LoadingSizeBar = () => {
 
                     <Input
                         placeholder="in Metern"
-                        className="p-2.5 rounded-md input: text-sm border mt-2.5
+                        className="p-2.5 rounded-md border mt-2.5
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0 w-full"
                          onChange={(e) => {
                             const rawValue = e.currentTarget.value;
@@ -143,7 +143,7 @@ const LoadingSizeBar = () => {
 
                     <Input
                         placeholder="in Metern"
-                        className="p-2.5 rounded-md input: text-sm border mt-2.5
+                        className="p-2.5 rounded-md  border mt-2.5
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         type="decimal"
                         onChange={(e) => {
@@ -167,7 +167,7 @@ const LoadingSizeBar = () => {
 
                     <Input
                         placeholder="in Metern"
-                        className="p-2.5 rounded-md input: text-sm border mt-2 
+                        className="p-2.5 rounded-md  border mt-2 
                          border-black dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0"
                         type="decimal"
                         onChange={(e) => {

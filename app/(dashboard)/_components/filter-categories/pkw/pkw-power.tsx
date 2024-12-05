@@ -129,7 +129,7 @@ const PkwPowerBar = () => {
 
                     <Input
                         placeholder="Von"
-                        className="p-2.5 rounded-md input: text-sm border mt-2  
+                        className="p-2.5 rounded-md  border mt-2  
                         border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0 w-full"
                         onChange={(e) => {
                             if (usesPS) {
@@ -171,7 +171,7 @@ const PkwPowerBar = () => {
 
                     <Input
                         placeholder="Bis"
-                        className="p-2.5   rounded-md input: text-sm border mt-2 
+                        className="p-2.5   rounded-md  border mt-2 
                          border-none dark:bg-[#151515] input: justify-start dark:focus-visible:ring-0 w-full"
                         onChange={(e) => {
                             if (usesPS) {

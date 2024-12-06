@@ -22,6 +22,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import NewMessageToast from "./used-toasts/new-message-toast";
 import { pusherClient } from "@/lib/pusher";
+import AddInseratMobile from "./add-inserat-mobile";
 
 
 interface LoggedInBarHeaderProps {
@@ -93,7 +94,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
   useEffect(() => {
     +
 
-    setRenderedNotifications(foundNotifications);
+      setRenderedNotifications(foundNotifications);
   }, [foundNotifications])
 
   return (
@@ -145,7 +146,12 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
           />
         </div>
       </div>
-
+      <div className="ml-auto sm:hidden mr-4">
+       <AddInseratMobile 
+       currentUser={currentUser}
+       
+       />
+      </div>
       <Popover>
         <TooltipProvider>
           <Tooltip>

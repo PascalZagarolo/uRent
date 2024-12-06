@@ -19,7 +19,7 @@ import LocationBarMobile from "./location-bar-mobile";
 
 interface MobileHeaderProps {
     currentUser: typeof userTable.$inferSelect;
-    foundNotifications : typeof notification.$inferSelect[];
+    foundNotifications: typeof notification.$inferSelect[];
 }
 
 const MobileHeader: React.FC<MobileHeaderProps> = ({
@@ -28,13 +28,13 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 }) => {
 
 
-    
+
 
     const pathname = usePathname();
 
     const isDashboard = pathname.includes('dashboard');
 
-    
+
 
 
     return (
@@ -65,13 +65,13 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                                 <div className="flex w-full ml-auto ">
                                     
                                     <LoggedInBarHeader
-                                    savedSearches={null}
+                                        savedSearches={null}
                                         currentUser={currentUser}
                                         foundNotifications={foundNotifications}
                                         foundConversations={0}
                                         isMobile={true}
                                     />
-                                    
+
 
                                 </div>
                             )

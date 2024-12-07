@@ -47,6 +47,9 @@ const Imprint = async () => {
                                 <p className="mt-2">
                                     HRB 35082, Handelsregister B, Amtsgericht Wuppertal
                                 </p>
+                                <p className="mt-2">
+                                Umsatzsteuer-Identifikationsnummer nach § 27 a Umsatzsteuergesetz: DE449786181
+                                </p>
 
                                 <p className="mt-4 text-lg font-semibold">
                                     Vertreten durch:

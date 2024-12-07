@@ -19,6 +19,7 @@ const EmailFooter = () => {
       <Text style={footer}>
         uRent UG (haftungsbeschränkt), Bozenerstr. 26, 42659 Solingen, NRW, Deutschland <br/>
         HRB 35082, Handelsregister B, Amtsgericht Wuppertal <br/>
+        USt-IdNr: DE449786181 <br/>
         Vertreten durch: Pascal Zagarolo, Vincent Garber
       </Text>
     </>

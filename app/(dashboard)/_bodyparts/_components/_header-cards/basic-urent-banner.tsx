@@ -80,8 +80,8 @@ const BasicUrentBanner = ({
             </div>
           </div>
 
-          <div className="flex flex-row items-center">
-            <button className="px-6 py-3 bg-indigo-600 rounded-lg text-white font-semibold hover:bg-indigo-500 transition mt-4" onClick={onMiet}>
+          <div className="flex flex-row items-center mt-4">
+            <button className="px-6 py-3 bg-indigo-600 rounded-lg text-white font-semibold hover:bg-indigo-500 transition " onClick={onMiet}>
               Jetzt Mieten
             </button>
             {(!isLoggedIn || !isBusiness) ? (

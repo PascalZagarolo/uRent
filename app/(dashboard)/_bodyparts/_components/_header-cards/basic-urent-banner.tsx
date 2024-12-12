@@ -2,7 +2,7 @@
 
 import Inserat from "@/app/(dashboard)/_components/add-inserat";
 import { userTable } from "@/db/schema";
-import { TruckIcon, CarIcon, CaravanIcon } from "lucide-react";
+import { TruckIcon, CarIcon, CaravanIcon, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaRegHandPointer } from "react-icons/fa";
@@ -53,7 +53,8 @@ const BasicUrentBanner = ({
         {/* Left Section */}
         <div className="space-y-0">
           <h2 className="text-4xl font-bold text-gray-200">
-            Fahrzeuge in <span className="text-indigo-500">nur ein paar Klicks</span>
+            Fahrzeuge in <span className="text-indigo-500 mr-2">nur ein paar Klicks</span>
+            mieten & vermieten
           </h2>
           <p className="text-base text-gray-300 flex items-center">
             Wähle aus Pkw, Lkw, Anhängern und Transportern{" "}
@@ -80,17 +81,17 @@ const BasicUrentBanner = ({
             </div>
           </div>
 
-          <div className="flex flex-row items-center mt-4">
-            <button className="px-6 py-3 bg-indigo-600 rounded-lg text-white font-semibold hover:bg-indigo-500 transition " onClick={onMiet}>
-              Jetzt Mieten
+          <div className="flex flex-row items-center ">
+            <button className="px-6 py-3 bg-indigo-600 rounded-lg text-white font-semibold flex flex-row justify-center items-center hover:bg-indigo-500 transition mt-4 w-full" onClick={onMiet}>
+             <UserIcon className="w-6 h-6 mr-2" /> Jetzt kostenlos registrieren & loslegen
             </button>
-            {(!isLoggedIn || !isBusiness) ? (
+            {/* {(!isLoggedIn || !isBusiness) ? (
               <button className="ml-4 px-6 py-3 border border-indigo-500 rounded-lg text-indigo-500 hover:bg-indigo-500 hover:text-white transition" onClick={onRent}>
               Jetzt Vermieten
             </button>
             ) : (
               <Inserat currentUser={currentUser} isEvent={true} />
-            )}
+            )} */}
           </div>
         </div>
 

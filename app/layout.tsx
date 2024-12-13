@@ -27,25 +27,24 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  
-  
+
+
 
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/uRent.png"/>
+        <link rel="icon" href="/uRent.png" />
         <meta name="keywords" content="mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger" />
 
-        
-        
-        
 
-        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16814367985"></script>
+       
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTJ3FVZ2R4"></script>
-        
+
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore
-     crossorigin="anonymous"></script>
-        
+          crossorigin="anonymous"></script>
+
       </head>
       <body className={inter.className}>
         <ThemeProvider
@@ -53,23 +52,23 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange>
-            
+
           <LoadingProvider>
             <ActiveStatus />
             <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
             </script>
-            <Suspense fallback={<LoadingFallBack/>}>
-            {children}
+            <Suspense fallback={<LoadingFallBack />}>
+              {children}
             </Suspense>
             <ToasterContext />
-            <Toaster 
-            
+            <Toaster
+
             />
-          
-          <SpeedInsights />
-          <Analytics />
+
+            <SpeedInsights />
+            <Analytics />
           </LoadingProvider>
-         
+
         </ThemeProvider>
       </body>
     </html>

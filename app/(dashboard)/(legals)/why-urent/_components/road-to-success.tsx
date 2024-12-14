@@ -1,4 +1,5 @@
 import { ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 
 
@@ -18,10 +19,17 @@ const RoadToSuccess = () => {
                     <div className="text-lg font-semibold">
                     1.) Erstelle Inserate
                     </div>
-                    <div className="p-8">
-                        <ImageIcon className="w-16 h-16  text-gray-200/60" />
+                    <div className="py-2">
+                        <Image 
+                        alt="Erstelle Inserate"
+                        src="https://res.cloudinary.com/df1vnhnzp/image/upload/v1734212183/r2evpxliskta15hziyck.gif"
+                        width={2000}
+                        height={2000}
+                        quality={100}
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg"
+                        />
                     </div>
-                    <div className="mt-4 w-1/2 text-gray-200/80">
+                    <div className="w-1/2 text-gray-200/80">
                         Erstelle Inserate für deine Fahrzeuge in nur ein paar Klicks und sei schon nach wenigen Minuten bereit für die ersten Anfragen.
                     </div>
                 </div>

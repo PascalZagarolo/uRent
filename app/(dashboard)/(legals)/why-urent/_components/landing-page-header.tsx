@@ -1,14 +1,25 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { FaBrush } from "react-icons/fa";
 import { GiCrystalShine } from "react-icons/gi";
 import { RiToolsFill } from "react-icons/ri";
 import { TbClick } from "react-icons/tb";
 
 const LandingPageHeader = () => {
+    
+    const router = useRouter();
+
+    const onRedirect = () => {
+        try {
+            router.push('/register')
+        } catch(e : any) {
+            console.log(e)
+        }
+    }
+    
     return (
-
-
-
         <div className="p-6">
         <div className="mt-8 bg-gradient-to-r from-[#222222] via-indigo-800/40 to-[#202020] p-8 shadow-2xl rounded-xl">
        
@@ -68,8 +79,10 @@ const LandingPageHeader = () => {
                 </div>
             </div>
     
-            <div className="mt-10 text-center">
-                <Button className="bg-indigo-700 hover:bg-indigo-800  text-gray-200 font-bold py-8 text-base px-8 rounded-md shadow-lg">
+            <div className="mt-8 text-center">
+                <Button className="bg-indigo-700 hover:bg-indigo-800  text-gray-200 font-bold py-8 text-base px-8 rounded-md shadow-lg"
+                onClick={onRedirect}
+                >
                    <TbClick className="w-4 h-4 mr-2" />  Kostenlos Account erstellen & loslegen
                 </Button>
             </div>

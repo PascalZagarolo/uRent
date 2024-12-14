@@ -1,5 +1,6 @@
 import LandingPageHeader from "./_components/landing-page-header";
 import RoadToSuccess from "./_components/road-to-success";
+import Start from "./_components/start";
 import URentSolution from "./_components/urent";
 
 const WhyUrent = () => {
@@ -16,6 +17,12 @@ const WhyUrent = () => {
                        </div>
                        <div className="mt-8 px-4">
                         <RoadToSuccess />
+                       </div>
+                       <div className="mt-16 px-4">
+                        <Start />
+                       </div>
+                       <div className="mt-16">
+
                        </div>
                     </div>
                 </div>

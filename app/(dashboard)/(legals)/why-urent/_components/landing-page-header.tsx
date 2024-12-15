@@ -80,7 +80,7 @@ const LandingPageHeader = () => {
             </div>
     
             <div className="mt-8 text-center">
-                <Button className="bg-indigo-700 hover:bg-indigo-800  text-gray-200 font-bold py-8 text-base px-8 rounded-md shadow-lg"
+                <Button className="bg-indigo-700 hover:bg-indigo-800  text-gray-200 font-bold py-8 text-sm sm:text-base sm:px-8 rounded-md shadow-lg"
                 onClick={onRedirect}
                 >
                    <TbClick className="w-4 h-4 mr-2" />  Kostenlos Account erstellen & loslegen

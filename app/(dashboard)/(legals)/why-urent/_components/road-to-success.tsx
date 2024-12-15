@@ -16,7 +16,7 @@ const RoadToSuccess = () => {
             </div>
             <div className="mt-4 flex flex-col space-y-32">
                 <div>
-                    <div className="text-lg font-semibold">
+                    <div className="text-xl font-semibold">
                     1.) Erstelle Inserate
                     </div>
                     <div className="py-2">
@@ -26,7 +26,7 @@ const RoadToSuccess = () => {
                         width={2000}
                         height={2000}
                         quality={100}
-                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg"
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg border border-black"
                         />
                     </div>
                     <div className="w-1/2 text-gray-200/80">
@@ -34,7 +34,7 @@ const RoadToSuccess = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="text-right text-lg font-semibold">
+                    <div className="text-right text-xl font-semibold">
                         2.) Erreiche Kunden
                     </div>
                     <div className="py-2 ml-auto justify-end">
@@ -44,7 +44,7 @@ const RoadToSuccess = () => {
                         width={2000}
                         height={2000}
                         quality={100}
-                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg ml-auto justify-end"
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg ml-auto justify-end border border-black"
                         />
                     </div>
                     <div className="mt-4 w-1/2 text-gray-200/80 ml-auto">
@@ -53,7 +53,7 @@ const RoadToSuccess = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="text-lg font-semibold">
+                    <div className="text-xl font-semibold">
                     3.) Reibungslose Kontaktaufnahme
                     </div>
                     <div className="py-2">
@@ -62,8 +62,8 @@ const RoadToSuccess = () => {
                         src="https://res.cloudinary.com/df1vnhnzp/image/upload/v1734262169/fg1aa5bnq7whs44rnmb1.gif"
                         width={2000}
                         height={2000}
-                        quality={100}
-                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg"
+                        quality={100} 
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg border border-black"
                         />
                     </div>
                     <div className="mt-4 w-1/2 text-gray-200/80">
@@ -72,7 +72,7 @@ const RoadToSuccess = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="text-right text-lg font-semibold">
+                    <div className="text-right text-xl font-semibold">
                     4.) Verwalte deine Fahrzeuge & Inserate
                     </div>
                     <div className="py-2">
@@ -82,7 +82,7 @@ const RoadToSuccess = () => {
                         width={2000}
                         height={2000}
                         quality={100}
-                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg ml-auto justify-end"
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-xl ml-auto justify-end border border-black"
                         />
                     </div>
                     <div className="mt-4 w-1/2 text-gray-200/80 ml-auto">

@@ -13,6 +13,7 @@ import BasicUrentBanner from "./_header-cards/basic-urent-banner"
 import { useEffect, useState } from "react"
 import BasicUrentNewsletter from "./_header-cards/basic-urent-newsletter"
 import { userTable } from "@/db/schema"
+import WhyURent from "./_header-cards/why-urent-banner"
 
 interface HeaderInfoProps {
   subscribedToNewsletter?: boolean
@@ -42,13 +43,14 @@ const HeaderInfo = ({ subscribedToNewsletter, userId, isBusiness, currentUser }:
   }, [api])
 
   const renderedBanner = [
-    <FreeRentCard key={1} />,
+    <WhyURent key={0} />,
     <BasicUrentBanner 
     isLoggedIn={userId ? true : false}
     isBusiness={isBusiness}
     currentUser={currentUser}
     key={2} />,
-    !subscribedToNewsletter && <BasicUrentNewsletter key={3} userId={userId} />
+    !subscribedToNewsletter && <BasicUrentNewsletter key={3} userId={userId} />,
+    <FreeRentCard key={1} />,
   ].filter(Boolean) // This filters out `false`, `null`, or `undefined`
 
   return (
@@ -58,7 +60,7 @@ const HeaderInfo = ({ subscribedToNewsletter, userId, isBusiness, currentUser }:
         className=""
         plugins={[
           Autoplay({
-            delay: 4000,
+            delay: 12000,
           }),
         ]}
       >

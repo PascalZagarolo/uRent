@@ -14,7 +14,7 @@ const RoadToSuccess = () => {
                     ist kürzer als du denkst.
                 </p>
             </div>
-            <div className="mt-4 flex flex-col space-y-8">
+            <div className="mt-4 flex flex-col space-y-32">
                 <div>
                     <div className="text-lg font-semibold">
                     1.) Erstelle Inserate
@@ -37,8 +37,15 @@ const RoadToSuccess = () => {
                     <div className="text-right text-lg font-semibold">
                         2.) Erreiche Kunden
                     </div>
-                    <div className="p-8 ml-auto justify-end">
-                        <ImageIcon className="w-16 h-16 ml-auto text-gray-200/60" />
+                    <div className="py-2 ml-auto justify-end">
+                    <Image 
+                        alt="Erstelle Inserate"
+                        src="https://res.cloudinary.com/df1vnhnzp/image/upload/v1734265485/y9tu5cncoiovrlr6zshu.gif"
+                        width={2000}
+                        height={2000}
+                        quality={100}
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg ml-auto justify-end"
+                        />
                     </div>
                     <div className="mt-4 w-1/2 text-gray-200/80 ml-auto">
                        Profitiere von uRents gesonderter Mietgesellschaft und erreiche Kunden, die nur darauf warten deine Fahrzeuge zu mieten. <br/>
@@ -68,8 +75,15 @@ const RoadToSuccess = () => {
                     <div className="text-right text-lg font-semibold">
                     4.) Verwalte deine Fahrzeuge & Inserate
                     </div>
-                    <div className="p-8 ml-auto justify-end">
-                        <ImageIcon className="w-16 h-16 ml-auto text-gray-200/60" />
+                    <div className="py-2">
+                        <Image 
+                        alt="Erstelle Inserate"
+                        src="https://res.cloudinary.com/df1vnhnzp/image/upload/v1734272552/maomdysib8wmtd7s1qmb.gif"
+                        width={2000}
+                        height={2000}
+                        quality={100}
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg ml-auto justify-end"
+                        />
                     </div>
                     <div className="mt-4 w-1/2 text-gray-200/80 ml-auto">
                        uRent bietet dir eine übersichtliche Fahrzeug- & Buchungsverwaltung, in der du alle deine Fahrzeuge und Inserate verwalten kannst.<br/>

@@ -49,8 +49,15 @@ const RoadToSuccess = () => {
                     <div className="text-lg font-semibold">
                     3.) Reibungslose Kontaktaufnahme
                     </div>
-                    <div className="p-8">
-                        <ImageIcon className="w-16 h-16  text-gray-200/60" />
+                    <div className="py-2">
+                        <Image 
+                        alt="Erstelle Inserate"
+                        src="https://res.cloudinary.com/df1vnhnzp/image/upload/v1734262169/fg1aa5bnq7whs44rnmb1.gif"
+                        width={2000}
+                        height={2000}
+                        quality={100}
+                        className="w-[720px] h-[405px] object-cover rounded-md shadow-lg"
+                        />
                     </div>
                     <div className="mt-4 w-1/2 text-gray-200/80">
                        Durch uRents integrierte Chat & Kommunikationsfunktionen kannst du den Kundenkontakt so einfach und reibungslos wie noch nie gestalten.<br/>

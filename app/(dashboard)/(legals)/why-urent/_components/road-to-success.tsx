@@ -17,7 +17,7 @@ const RoadToSuccess = () => {
             <div className="mt-4 flex flex-col space-y-32">
                 <div>
                     <div className="text-xl font-semibold">
-                    1.) Erstelle Inserate
+                    1.) Erstelle Inserate - <br className="md:hidden block"/> und sei in wenigen Moment präsent.
                     </div>
                     <div className="py-2">
                         <Image 
@@ -35,7 +35,7 @@ const RoadToSuccess = () => {
                 </div>
                 <div>
                     <div className="text-right text-xl font-semibold">
-                        2.) Erreiche Kunden
+                        2.) Erreiche Kunden - <br className="md:hidden block"/> die nur darauf warten deine Fahrzeuge zu mieten.
                     </div>
                     <div className="py-2 ml-auto justify-end">
                     <Image 
@@ -54,7 +54,7 @@ const RoadToSuccess = () => {
                 </div>
                 <div>
                     <div className="text-xl font-semibold">
-                    3.) Reibungslose Kontaktaufnahme
+                    3.) Reibungslose Kontaktaufnahme - <br className="md:hidden block"/> in nur wenigen Sekunden
                     </div>
                     <div className="py-2">
                         <Image 
@@ -73,7 +73,7 @@ const RoadToSuccess = () => {
                 </div>
                 <div>
                     <div className="text-right text-xl font-semibold">
-                    4.) Verwalte deine Fahrzeuge & Inserate
+                    4.) Verwalte deine Fahrzeuge & Inserate - <br className="md:hidden block"/> kinderleicht
                     </div>
                     <div className="py-2">
                         <Image 

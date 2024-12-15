@@ -90,7 +90,7 @@ const Mieter = ({ loggedIn } : MieterProps) => {
                             Finde mittels unserer Suchfunktion ohne Probleme das passende Fahrzeug für deine Bedürfnisse und wähle aus einer vielzahl von Anbietern deine passende Lösung
                         </div>
                         <div className="mt-4">
-                            <Button className="bg-[#191919] shadow-lg  hover:bg-indigo-900 text-gray-200 hover:text-gray-300" onClick={() => { router.push("/search")}}>
+                            <Button className="bg-[#191919] shadow-lg  hover:bg-[#212121] text-gray-200 hover:text-gray-300" onClick={() => { router.push("/search")}}>
                                 Vermieter finden <ArrowRight size={16} className="ml-2" />
                             </Button>
                         </div>

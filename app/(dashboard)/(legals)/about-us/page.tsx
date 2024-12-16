@@ -18,8 +18,8 @@ const AboutUsPage = () => {
                 <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
                     <div className="  min-h-screen">
                         <div className="p-4 mt-4  rounded-lg ">
-                            <h3 className="dark:text-gray-100 text-2xl font-semibold flex items-center gap-x-1">
-                                über <div className="font-bold text-gray-200">uRent</div>
+                            <h3 className="dark:text-gray-100 text-4xl font-semibold flex justify-center items-center gap-x-3">
+                                Wer ist <div className="font-bold text-gray-200">uRent?</div>
                             </h3>
                             <div className="mt-4 md:mt-0">
                                 <div className="px-4">
@@ -176,7 +176,7 @@ const AboutUsPage = () => {
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> 
                         </div>
 
                     </div>

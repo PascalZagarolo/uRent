@@ -30,7 +30,7 @@ const AboutUsPage = () => {
         },
         {
           quote:
-            "Profitiere von uRents integriertem Chat-System und trete direkt mit dem Anbieter in Kontakt - und das schneller als du dein Email Postfach öffnen könntest.",
+            "Profitiere von uRents integriertem Chat-System und trete direkt mit dem Anbieter in Kontakt - schneller als du dein Email Postfach öffnen könntest.",
           name: "Kontaktaufnehmen & Buchen",
           designation: "Direkt und unkompliziert",
           src: "https://res.cloudinary.com/df1vnhnzp/image/upload/v1734262169/fg1aa5bnq7whs44rnmb1.gif",

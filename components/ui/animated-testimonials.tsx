@@ -80,7 +80,7 @@ export const AnimatedTestimonials = ({
                   className="absolute inset-0 origin-bottom"
                 >
                   <Image
-                    src={isActive(index) ? testimonial.src : "/urent.png"} // Only load the GIF source if active
+                    src={isActive(index) ? testimonial.src : "https://res.cloudinary.com/df1vnhnzp/image/upload/v1734552290/jiaguvqxlhasikzpwxky.png"} // Only load the GIF source if active
                     alt={testimonial.name}
                     width={500}
                     height={500}

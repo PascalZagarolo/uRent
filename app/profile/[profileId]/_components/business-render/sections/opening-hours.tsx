@@ -31,23 +31,25 @@ const OpeningHours : React.FC<OpeningHoursProps> = ({
                 </h1>
                 <div>
                     {thisBusiness.openingTimes ? (
-                        <div className="grid grid-cols-7 grid-rows-2 gap-2 mt-4">
-                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Montag</div>
-                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Dienstag</div>
-                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Mittwoch</div>
-                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Donners<br className="sm:hidden block"/>tag</div>
-                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Freitag</div>
-                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Samstag</div>
-                        <div className="col-span-1 row-span-1 font-medium sm:text-sm text-xs">Sonntag</div>
-
-                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.monday}</div>
-                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.tuesday}</div>
-                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.wednesday}</div>
-                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.thursday}</div>
-                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.friday}</div>
-                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.saturday}</div>
-                        <div className="col-span-1 row-span-2 font-semibold text-sm">{thisBusiness?.openingTimes?.sunday ?? "/"}</div>
-                    </div>
+                       <div className="mt-4">
+                       {[
+                         { day: "Montag", time: thisBusiness?.openingTimes?.monday },
+                         { day: "Dienstag", time: thisBusiness?.openingTimes?.tuesday },
+                         { day: "Mittwoch", time: thisBusiness?.openingTimes?.wednesday },
+                         { day: "Donnerstag", time: thisBusiness?.openingTimes?.thursday },
+                         { day: "Freitag", time: thisBusiness?.openingTimes?.friday },
+                         { day: "Samstag", time: thisBusiness?.openingTimes?.saturday },
+                         { day: "Sonntag", time: thisBusiness?.openingTimes?.sunday ?? "/" },
+                       ].map(({ day, time }) => (
+                         <div
+                           key={day}
+                           className="flex justify-between items-center border-b  border-[#242424]  py-4 text-sm sm:text-base"
+                         >
+                           <span className="font-medium">{day}:</span>
+                           <span className="font-semibold">{time}</span>
+                         </div>
+                       ))}
+                     </div>
                     ) : (
                         <div className="p-8 flex justify-center items-center">
                             <p className="dark:text-gray-200/60 text-sm text-gray-700/70">Keine Öffnungszeiten hinterlegt</p>

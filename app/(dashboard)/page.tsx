@@ -96,9 +96,9 @@ interface MainPageProps {
 
 export const metadata: Metadata = {
     title: 'Mieten und Vermieten auf uRent',
-    description: `PKW, Transporter, LKW, Anhänger und vieles mehr. Mieten oder Vermieten Sie Ihre Nutzfahrzeuge mit uRent. 
-    Mieten Sie Ihr gewünschtes Fahrzeug oder Vermieten Sie schnell und bequem, ob privat oder gewerblich, auf uRent.`,
-    keywords: "mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger",
+    description: `PKW, Transporter, LKW, Anhänger und vieles mehr. Miete oder Vermiete deine Fahrzeuge mit uRent. 
+    Miete dein gewünschtes Fahrzeug oder Vermiete es schnell und bequem, ob privat oder gewerblich, auf uRent.`,
+    keywords: "mieten, vermieten, Nutzfahrzeuge, Pkw, Lkw, Transporter, Anhaenger, Mietwagen, Miettransporter, Mietlkw, Mietanhänger, uRent",
 }
 
 const Main = cache(async ({

@@ -190,7 +190,7 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
                     <div className="sm:flex p-2  items-center" >
                         <div >
 
-                            <div className="sm:text-base text-xs px-2 font-semibold w-full break-all line-clamp-1 gap-x-2  items-center">
+                            <div className="text-base  px-2 font-semibold w-full break-all line-clamp-1 gap-x-2  items-center">
 
                                 {thisStandort?.title}
                             </div>
@@ -230,7 +230,7 @@ const StandortDisplay: React.FC<StandortDisplayProps> = ({
                         )}
                     </div>
                     <div className="flex p-2">
-                        <MapPinIcon className="sm:h-4 w-6 h-6 sm:w-4 mr-2 text-rose-900" />
+                        <MapPinIcon className="h-4 w-4 mr-2 text-rose-900" />
                         <div className="sm:text-sm text-xs font-semibold text-gray-200/95">
                         {thisStandort?.street}, {thisStandort?.postalCode} {thisStandort?.city}
                         </div>

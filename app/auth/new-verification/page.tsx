@@ -50,7 +50,7 @@ const NewVerificationPage = () => {
     }, []);
 
     useEffect(() => {
-        onSubmit();
+        
 
         // Google Analytics conversion tracking
         //@ts-ignore
@@ -62,7 +62,7 @@ const NewVerificationPage = () => {
                 'send_to': 'AW-16814367985/CDDuCNfq4P0ZEPHJ29E-'
             });
         }
-    }, [onSubmit]);
+    }, []);
 
 
 

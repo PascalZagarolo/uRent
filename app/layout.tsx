@@ -38,8 +38,24 @@ export default function RootLayout({
 
 
 
+
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16814367985"></script>
-       
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16814367985"></script>
+        <script>
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'AW-16814367985');
+          `}
+        </script>
+
+
+
+
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTJ3FVZ2R4"></script>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore

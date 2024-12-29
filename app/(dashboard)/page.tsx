@@ -33,8 +33,8 @@ interface MainPageProps {
         endTime: number,
         startDateDynamic: string,
         endDateDynamic: string,
-        reqTime : string,
-        minTime : string,
+        reqTime: string,
+        minTime: string,
 
         location: string,
         amount: string,
@@ -107,7 +107,7 @@ const Main = cache(async ({
 
 
 
-    
+
 
 
     const currentUser = await getCurrentUserWithFavourites();
@@ -119,145 +119,146 @@ const Main = cache(async ({
 
 
     return (
+       
+            
+            <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
+                <div>
+                    {//@ts-ignore
+                        (searchParams.page === "1" || !searchParams.page) && (
+                            <div className="xl:flex hidden justify-center py-2">
+                                <HeaderInfo
+                                    currentUser={currentUser}
+                                    subscribedToNewsletter={currentUser?.newsletter}
+                                    userId={currentUser?.id || ""}
+                                    isBusiness={currentUser?.isBusiness}
+                                />
+                            </div>
+                        )}
+                    <div className="relative flex justify-center mt-4">
 
-        <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
-            <div>
-                {//@ts-ignore
-                    (searchParams.page === "1" || !searchParams.page) && (
-                        <div className="xl:flex hidden justify-center py-2">
-                            <HeaderInfo 
-                            currentUser={currentUser}
-                            subscribedToNewsletter={currentUser?.newsletter}
-                            userId={currentUser?.id || ""}
-                            isBusiness={currentUser?.isBusiness}
+                        <div className='h-screen 2xl:flex items-center justify-center w-2/12  p-16 hidden'>
+                            <div className=' w-full sm:block hidden space-y-4'>
+                                <div>
+                                    <AdsComponent dataAdSlot='3797720061' />
+                                </div>
+                                <div>
+                                    <AdsComponent dataAdSlot='3797720061' />
+                                </div>
+                                <div>
+                                    <AdsComponent dataAdSlot='3797720061' />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="top-0 sm:mr-4 ">
+                            <MainPageSideBar
+                                userId={currentUser?.id || ""}
                             />
                         </div>
-                    )}
-                <div className="relative flex justify-center mt-4">
+                        <div className="sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar flex flex-col items-center justify-center h-[100%]">
 
-<div className='h-screen 2xl:flex items-center justify-center w-2/12  p-16 hidden'>
-    <div className=' w-full sm:block hidden space-y-4'>
-        <div>
-            <AdsComponent dataAdSlot='3797720061' />
-        </div>
-        <div>
-            <AdsComponent dataAdSlot='3797720061' />
-        </div>
-        <div>
-            <AdsComponent dataAdSlot='3797720061' />
-        </div>
-    </div>
-</div>
+                            <RelevanteInserate
+                                title={searchParams.title}
+                                thisCategory={searchParams.category}
+                                filter={searchParams.filter}
+                                start={searchParams.start}
+                                end={searchParams.end}
+                                page={searchParams.page}
+                                //Date and Time filter
+                                periodBegin={searchParams.periodBegin}
+                                periodEnd={searchParams.periodEnd}
+                                startTime={searchParams.startTime}
+                                endTime={searchParams.endTime}
+                                startDateDynamic={searchParams.startDateDynamic}
+                                endDateDynamic={searchParams.endDateDynamic}
+                                reqTime={searchParams.reqTime}
+                                minTime={searchParams.minTime}
 
-<div className="top-0 sm:mr-4 ">
-<MainPageSideBar
-        userId={currentUser?.id || ""}
-    />
-</div>
-<div className="sm:block overflow-y-auto sm:overflow-hidden  no-scrollbar flex flex-col items-center justify-center h-[100%]">
+                                location={searchParams.location}
+                                amount={searchParams.amount}
 
-    <RelevanteInserate
-        title={searchParams.title}
-        thisCategory={searchParams.category}
-        filter={searchParams.filter}
-        start={searchParams.start}
-        end={searchParams.end}
-        page={searchParams.page}
-        //Date and Time filter
-        periodBegin={searchParams.periodBegin}
-        periodEnd={searchParams.periodEnd}
-        startTime={searchParams.startTime}
-        endTime={searchParams.endTime}
-        startDateDynamic={searchParams.startDateDynamic}
-        endDateDynamic={searchParams.endDateDynamic}
-        reqTime = {searchParams.reqTime}
-        minTime = {searchParams.minTime}
+                                reqAge={searchParams.reqAge}
+                                reqLicense={searchParams.license}
 
-        location={searchParams.location}
-        amount={searchParams.amount}
+                                // Car specific attributes
+                                thisBrand={searchParams.thisBrand}
+                                doors={searchParams.doors}
+                                doorsMax={searchParams.doorsMax}
+                                initial={searchParams.initial}
+                                initialMax={searchParams.initialMax}
+                                power={searchParams.power}
+                                powerMax={searchParams.powerMax}
+                                seats={searchParams.seats}
+                                seatsMax={searchParams.seatsMax}
+                                fuel={searchParams.fuel}
+                                transmission={searchParams.transmission}
+                                thisType={searchParams.type}
+                                freeMiles={searchParams.freeMiles}
+                                extraCost={searchParams.extraCost}
+                                ahk={searchParams.ahk}
 
-        reqAge={searchParams.reqAge}
-        reqLicense={searchParams.license}
+                                //LKW specific attributes
+                                weightClass={searchParams.weightClass}
+                                weightClassMax={searchParams.weightClassMax}
+                                payload={searchParams.payload}
+                                payloadMax={searchParams.payloadMax}
+                                drive={searchParams.drive}
+                                loading={searchParams.loading}
+                                application={searchParams.application}
+                                lkwBrand={searchParams.lkwBrand}
 
-        // Car specific attributes
-        thisBrand={searchParams.thisBrand}
-        doors={searchParams.doors}
-        doorsMax={searchParams.doorsMax}
-        initial={searchParams.initial}
-        initialMax={searchParams.initialMax}
-        power={searchParams.power}
-        powerMax={searchParams.powerMax}
-        seats={searchParams.seats}
-        seatsMax={searchParams.seatsMax}
-        fuel={searchParams.fuel}
-        transmission={searchParams.transmission}
-        thisType={searchParams.type}
-        freeMiles={searchParams.freeMiles}
-        extraCost={searchParams.extraCost}
-        ahk={searchParams.ahk}
+                                //TRANSPORT specific attributes
+                                transportBrand={searchParams.transportBrand}
 
-        //LKW specific attributes
-        weightClass={searchParams.weightClass}
-        weightClassMax={searchParams.weightClassMax}
-        payload={searchParams.payload}
-        payloadMax={searchParams.payloadMax}
-        drive={searchParams.drive}
-        loading={searchParams.loading}
-        application={searchParams.application}
-        lkwBrand={searchParams.lkwBrand}
+                                trailerType={searchParams.trailerType}
+                                coupling={searchParams.coupling}
+                                extraType={searchParams.extraType}
+                                axis={searchParams.axis}
+                                axisMax={searchParams.axisMax}
+                                brake={searchParams.brake}
 
-        //TRANSPORT specific attributes
-        transportBrand={searchParams.transportBrand}
+                                currentUser={currentUser as any}
 
-        trailerType={searchParams.trailerType}
-        coupling={searchParams.coupling}
-        extraType={searchParams.extraType}
-        axis={searchParams.axis}
-        axisMax={searchParams.axisMax}
-        brake={searchParams.brake}
+                                volume={searchParams.volume}
+                                loading_l={searchParams.loading_l}
+                                loading_b={searchParams.loading_b}
+                                loading_h={searchParams.loading_h}
 
-        currentUser={currentUser as any}
+                                radius={searchParams.radius}
+                                userId={searchParams.user}
+                                caution={searchParams.caution}
+                            />
+                        </div>
 
-        volume={searchParams.volume}
-        loading_l={searchParams.loading_l}
-        loading_b={searchParams.loading_b}
-        loading_h={searchParams.loading_h}
+                        <div className='h-screen 2xl:flex items-center justify-center w-2/12 p-16 hidden'>
+                            <div className=' w-full sm:block hidden space-y-4'>
+                                <div>
+                                    <AdsComponent dataAdSlot='3797720061' />
+                                </div>
+                                <div>
+                                    <AdsComponent dataAdSlot='3797720061' />
+                                </div>
+                                <div>
+                                    <AdsComponent dataAdSlot='3797720061' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        radius={searchParams.radius}
-        userId={searchParams.user}
-        caution={searchParams.caution}
-    />
-</div>
+                    <div className="sm:p-4 flex justify-center w-full">
+                        <PaginationComponent />
+                    </div>
 
-<div className='h-screen 2xl:flex items-center justify-center w-2/12 p-16 hidden'>
-    <div className=' w-full sm:block hidden space-y-4'>
-        <div>
-            <AdsComponent dataAdSlot='3797720061' />
-        </div>
-        <div>
-            <AdsComponent dataAdSlot='3797720061' />
-        </div>
-        <div>
-            <AdsComponent dataAdSlot='3797720061' />
-        </div>
-    </div>
-</div>
-</div>
-
-                <div className="sm:p-4 flex justify-center w-full">
-                    <PaginationComponent />
                 </div>
 
+                <div>
+                    <Footer />
+                </div>
             </div>
 
-            <div>
-                <Footer />
-            </div>
-        </div>
 
 
-
-
+        
     );
 });
 

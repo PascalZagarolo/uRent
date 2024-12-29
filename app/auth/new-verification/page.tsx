@@ -49,6 +49,21 @@ const NewVerificationPage = () => {
         onSubmit();
     }, []);
 
+    useEffect(() => {
+        onSubmit();
+
+        // Google Analytics conversion tracking
+        //@ts-ignore
+        if (typeof window !== "undefined" && window.gtag) {
+            //@ts-ignore
+            window.gtag('config', 'AW-16814367985');
+            //@ts-ignore
+            window.gtag('event', 'conversion', {
+                'send_to': 'AW-16814367985/CDDuCNfq4P0ZEPHJ29E-'
+            });
+        }
+    }, [onSubmit]);
+
 
 
     return (

@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props,
 
         const res = await findInserat.execute();
 
-        
+
         return {
             title: res.title + ` - ${res?.address?.locationString},  ${res?.address?.postalCode}`,
             openGraph: {
@@ -79,7 +79,7 @@ const InseratAnzeige = async ({
         with: {
             address: true,
             images: {
-                orderBy : (images, {asc}) => [asc(images.position)]
+                orderBy: (images, { asc }) => [asc(images.position)]
             },
             user: {
                 with: {
@@ -92,9 +92,9 @@ const InseratAnzeige = async ({
                     }
                 }
             },
-            vehicles : {
-                with : {
-                    bookings : true
+            vehicles: {
+                with: {
+                    bookings: true
                 }
             },
             bookings: true,
@@ -183,6 +183,19 @@ const InseratAnzeige = async ({
             <head>
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762"
                     crossOrigin="anonymous"></script>
+                <script dangerouslySetInnerHTML={{
+                    __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        dataLayer.push(arguments);
+                        }
+                    gtag('js', new Date());
+
+                    gtag('config', 'AW-16814367985');
+                    `
+                }}>
+                    
+                </script>
             </head>
             <div className=" bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen">
                 <HeaderLogo
@@ -219,16 +232,16 @@ const InseratAnzeige = async ({
                                     />
                                 </div>
                                 <div>
-                                <InseratAttributes
+                                    <InseratAttributes
                                         thisInserat={thisInserat}
                                     />
                                 </div>
                             </div>
                             {/* Inserat side right */}
                             <div className='md:w-4/12 w-full flex flex-col '>
-                            <div className='mt-10'>
-                                <InseratOptions
-                                        inseratArray = {inseratArray}
+                                <div className='mt-10'>
+                                    <InseratOptions
+                                        inseratArray={inseratArray}
                                         thisUser={thisInserat.user}
                                         bookings={inseratBookings}
                                         ownUser={currentUser as any}
@@ -236,7 +249,7 @@ const InseratAnzeige = async ({
                                         thisInserat={thisInserat}
                                     />
                                 </div>
-                                 <div className='mt-8'>
+                                <div className='mt-8'>
                                     <ProfileView
                                         thisUser={thisInserat.user}
                                         inseratArray={inseratArray.length}
@@ -249,7 +262,7 @@ const InseratAnzeige = async ({
                                         thisUser={thisInserat.user}
                                         inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
                                     />
-                                </div> 
+                                </div>
                             </div>
                         </div>
 

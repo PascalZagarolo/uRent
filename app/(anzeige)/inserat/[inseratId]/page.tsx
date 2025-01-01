@@ -193,7 +193,7 @@ const InseratAnzeige = async ({
 
                     gtag('config', 'AW-16814367985');
                     `
-                }}>
+                }} async>
                     
                 </script>
             </head>

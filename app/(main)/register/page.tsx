@@ -7,16 +7,20 @@ const RegisterPage = () => {
       <head>
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16814367985"></script>
         <script dangerouslySetInnerHTML={{
-          __html: `
-        window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+                    __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        dataLayer.push(arguments);
+                        }
+                    gtag('js', new Date());
 
-  gtag('config', 'AW-16814367985');
-        `
-        }} async>
+                    gtag('config', 'AW-16814367985');
+                    `
+                }} async>
+                    
+                </script>
 
-        </script>
+       
       </head>
       <div className="w-full flex justify-center">
         <RegisterForm />

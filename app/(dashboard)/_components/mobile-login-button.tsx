@@ -14,7 +14,7 @@ const MobileLoginButton = () => {
            <LogInIcon className="h-4 w-4 mr-2" />Login 
         </Button>
        
-        <Button className="bg-slate-800 dark:border-none  hover:bg-slate-700 text-gray-100 text-xs" onClick={() => {router.push("/login")}} >
+        <Button className="bg-slate-800 dark:border-none  hover:bg-slate-700 text-gray-100 text-xs" onClick={() => {router.push("/register")}} >
         <LogInIcon className="h-4 w-4 mr-2" />Registrieren 
      </Button>
         </div>

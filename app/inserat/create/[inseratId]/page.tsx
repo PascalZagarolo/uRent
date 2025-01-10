@@ -118,6 +118,11 @@ const InseratCreation = async ({
     
 
     return (
+        <>
+        <head>
+        <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
+            </script>
+            </head>
         <div className="dark:bg-[#141414]">
              <div className="relative top-0 w-full z-50">
                 <HeaderLogo
@@ -148,7 +153,7 @@ const InseratCreation = async ({
                 <Footer />
             </div>
         </div>
-
+        </>
 
 
 

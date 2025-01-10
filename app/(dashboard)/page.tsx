@@ -120,6 +120,11 @@ const Main = cache(async ({
 
     return (
        
+            <>
+            <head>
+            <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
+            </script>
+            </head>
             
             <div className="sm:h-full sm:overflow-y-auto no-scrollbar ">
                 <div>
@@ -255,7 +260,7 @@ const Main = cache(async ({
                     <Footer />
                 </div>
             </div>
-
+            </>
 
 
         

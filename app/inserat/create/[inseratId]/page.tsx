@@ -5,22 +5,14 @@
 
 
 import HeaderLogo from "@/app/(dashboard)/_components/header-logo";
-import getCurrentUser from "@/actions/getCurrentUser";
 
-import { Separator } from "@/components/ui/separator";
-import BasicInformation from "./_parts/basic-information";
-import ContactInformation from "./_parts/contact-information";
-import PublishInserat from "../_components/publish-inserat";
-import RentPeriod from "../_components/input-fields/rent-period";
 import Footer from "@/app/(dashboard)/_components/footer";
-import CategoryInformation from "./_parts/category-information";
-import ConditionsInformation from "./_parts/conditions-information";
-import { MdPostAdd } from "react-icons/md";
+
 import db from "@/db/drizzle";
 import { and, count, eq, sql } from "drizzle-orm";
 import {
-    address, businessAddress, contactOptions, images, inserat, lkwAttribute, notification,
-    pkwAttribute, priceprofile, trailerAttribute, transportAttribute, userAddress, userTable
+    inserat,
+
 } from "@/db/schema";
 
 import { redirect } from "next/navigation";
@@ -58,7 +50,7 @@ const InseratCreation = async ({
                 eq(inserat.isPublished, true)
             )
         )
-    
+
 
     const findInserat = db.query.inserat.findFirst({
         with: {
@@ -72,9 +64,9 @@ const InseratCreation = async ({
                         }
                     },
                     userContactprofiles: true,
-                    subscription : true
+                    subscription: true
                 },
-                
+
             },
             pkwAttribute: true,
             lkwAttribute: true,
@@ -98,10 +90,10 @@ const InseratCreation = async ({
     }
 
 
-    
 
 
-    
+
+
 
     const isPublishable = {
         title: thisInserat.title.length > 0,
@@ -110,49 +102,49 @@ const InseratCreation = async ({
         images: thisInserat.images?.length > 0,
         postalCode: thisInserat.address?.postalCode != null,
         location: thisInserat.address?.locationString != null,
-        
+
     };
 
 
 
-    
+
 
     return (
         <>
-        <head>
-        <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
-            </script>
+            <head>
+                <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_CLOUD_SECRET}&libraries=places&callback=initMap`} async>
+                </script>
             </head>
-        <div className="dark:bg-[#141414]">
-             <div className="relative top-0 w-full z-50">
-                <HeaderLogo
-                    currentUser={currentUser}
-                    foundNotifications={currentUser?.notifications}
-                />
-            </div>
-            <div className="sm:hidden">
-                 <MobileHeader
-                    currentUser={currentUser}
-                    foundNotifications={currentUser?.notifications}
-                /> 
-            </div> 
-            <div className="flex justify-center sm:p-8 bg-[#404040]/10 sm:min-h-screen ">
-                <div className="sm:w-[1044px] w-full  rounded-md ">
-                    <div className="dark:bg-[#1c1c1c]">
-                        <SectionTabs 
-                        thisInserat={thisInserat}
+            <div className="dark:bg-[#141414]">
+                <div className="relative top-0 w-full z-50">
+                    <HeaderLogo
                         currentUser={currentUser}
-                        thisAddressComponent={thisInserat?.address}
-                        publishedLength={countInserate[0].count}
-                        isPublishable={isPublishable}
-                        />
+                        foundNotifications={currentUser?.notifications}
+                    />
+                </div>
+                <div className="sm:hidden">
+                    <MobileHeader
+                        currentUser={currentUser}
+                        foundNotifications={currentUser?.notifications}
+                    />
+                </div>
+                <div className="flex justify-center sm:p-8 bg-[#404040]/10 sm:min-h-screen ">
+                    <div className="sm:w-[1044px] w-full  rounded-md ">
+                        <div className="dark:bg-[#1c1c1c]">
+                            <SectionTabs
+                                thisInserat={thisInserat}
+                                currentUser={currentUser}
+                                thisAddressComponent={thisInserat?.address}
+                                publishedLength={countInserate[0].count}
+                                isPublishable={isPublishable}
+                            />
+                        </div>
                     </div>
                 </div>
+                <div className="mt-auto">
+                    <Footer />
+                </div>
             </div>
-            <div className="mt-auto">
-                <Footer />
-            </div>
-        </div>
         </>
 
 

@@ -71,8 +71,19 @@ fbq('track', 'PageView');
         }} async>
 
         </script>
+        
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-707G05WJ6M"></script>
+<script dangerouslySetInnerHTML={{
+          __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-707G05WJ6M');
+                    `
+        }} async>
 
-
+        </script>
 
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTJ3FVZ2R4"></script>

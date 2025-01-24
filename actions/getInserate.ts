@@ -1067,19 +1067,34 @@ export const getInserate = cache(async ({
 
 
 
+            function shuffleArray(array) {
+                return array.sort(() => Math.random() - 0.5);
+            }
+            
             returnedArray.sort((a, b) => {
-
                 const aIsPremium = a.user?.subscription?.subscriptionType === "PREMIUM" || a.user?.subscription?.subscriptionType === "ENTERPRISE";
                 const bIsPremium = b.user?.subscription?.subscriptionType === "PREMIUM" || b.user?.subscription?.subscriptionType === "ENTERPRISE";
-
+            
                 if (aIsPremium && !bIsPremium) {
                     return -1; // a should come before b
                 } else if (!aIsPremium && bIsPremium) {
-                    return 1;
+                    return 1; // b should come before a
                 } else {
-                    return 0;
+                    return 0; // keep them at the same level for now
                 }
             });
+            
+            // Shuffle each group separately
+            const premiumUsers = returnedArray.filter(user => user.user?.subscription?.subscriptionType === "PREMIUM" || user.user?.subscription?.subscriptionType === "ENTERPRISE");
+            const nonPremiumUsers = returnedArray.filter(user => !(user.user?.subscription?.subscriptionType === "PREMIUM" || user.user?.subscription?.subscriptionType === "ENTERPRISE"));
+            
+            // Shuffle both groups
+            const shuffledPremium = shuffleArray(premiumUsers);
+            const shuffledNonPremium = shuffleArray(nonPremiumUsers);
+            
+            // Combine the shuffled groups
+            returnedArray = [...shuffledPremium, ...shuffledNonPremium];
+            
         }
 
         return returnedArray;

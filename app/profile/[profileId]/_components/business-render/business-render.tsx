@@ -41,8 +41,8 @@ const BusinessRender = ({
                         ownProfile={ownProfile}
                     />
                 </div>
-                <div className="md:w-1/2 w-full">
-                    <BusinessContact
+                <div className="md:w-1/2 w-full mt-8">
+                <BusinessContact
                         telephone={thisUser.business.telephone_number}
                         email={thisUser.business.email}
                         website={thisUser.business.website}

@@ -174,7 +174,7 @@ export const LoginForm = ({ existingMessage }: LoginFormProps) => {
 
   return (
     <CardWrapper
-      headerLabel="Willkommen zurück"
+      headerLabel="Melde dich mit deinem bestehenden uRent Account oder Google Profil an."
       backButtonLabel="Noch keinen Account?"
       backButtonHref="/register"
       showSocial={!showTwoFactor}

@@ -29,11 +29,12 @@ import { Label } from "@/components/ui/label";
 import toast from "react-hot-toast";
 import { useDebounce } from "@/hooks/use-debounce";
 import { checkIsAvailable } from "@/actions/name/check-username";
+import { FaRegCircle } from "react-icons/fa";
 
 
 
 export const RegisterForm = () => {
-  const [name , setName] = useState<string>("")
+  const [name, setName] = useState<string>("")
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
@@ -61,17 +62,17 @@ export const RegisterForm = () => {
   useEffect(() => {
     const checkUserName = async () => {
       try {
-      
+
         setIsLoading(true)
-        if(name?.trim() !== "") {
+        if (name?.trim() !== "") {
           const isAvailable = await checkIsAvailable(name)
-          if(isAvailable) {
+          if (isAvailable) {
             setNameAvailable(true)
           } else {
             setNameAvailable(false)
           }
         }
-      } catch(e : any) {
+      } catch (e: any) {
         console.log(e)
       } finally {
         setIsLoading(false)
@@ -79,7 +80,7 @@ export const RegisterForm = () => {
     }
     checkUserName()
 
-  },[value])
+  }, [value])
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -92,7 +93,7 @@ export const RegisterForm = () => {
     },
   });
 
-  const onSubmit = async(values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
 
     setError("");
     setSuccess("");
@@ -104,21 +105,21 @@ export const RegisterForm = () => {
       receivesEmails: receivesEmails
     }
     const isAvailable = await checkIsAvailable(name)
-    
-    if(!isAvailable) {
+
+    if (!isAvailable) {
       setError("Nutzername ist bereits vergeben")
       setNameAvailable(false)
       return
     }
-    
+
 
     startTransition(() => {
-      
+
       register(value)
         .then((data) => {
           setError(data.error);
           setSuccess(data.success);
-          if(data.success) {
+          if (data.success) {
             toast.success("Account erfolgreich erstellt. Wir haben dir eine E-Mail geschickt, um deine E-Mail-Adresse zu bestätigen.")
           }
         });
@@ -126,16 +127,16 @@ export const RegisterForm = () => {
     });
   };
 
-  const onHold = (index : number) => {
-    if(index === 1) {
+  const onHold = (index: number) => {
+    if (index === 1) {
       setShowPassword(true)
     } else {
       setShowPassword2(true)
     }
   }
 
-  const onRelease = (index : number) => {
-    if(index === 1) {
+  const onRelease = (index: number) => {
+    if (index === 1) {
       setTimeout(() => {
         setShowPassword(false)
       }, 200)
@@ -148,7 +149,7 @@ export const RegisterForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Account erstellen"
+      headerLabel="Account erstellen oder mit Google registrieren"
       backButtonLabel="Du besitzt bereits einen Account ?"
       backButtonHref="/login"
       showSocial
@@ -170,7 +171,7 @@ export const RegisterForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="Max Mustermann"
-                      className="bg-[#1B1F2C] border-none"
+                      className="bg-[#292e41] shadow-lg border-none"
                       maxLength={60}
                       onChange={(e) => {
                         field.onChange(e);
@@ -206,7 +207,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="max.muster@email.com"
                       type="email"
-                      className="bg-[#1B1F2C] border-none"
+                      className="bg-[#292e41] shadow-lgborder-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -227,7 +228,7 @@ export const RegisterForm = () => {
                         placeholder="**********"
                         maxLength={20}
                         type={showPassword ? "text" : "password"}
-                        className="rounded-none rounded-l-md bg-[#1B1F2C] border-none"
+                        className="rounded-none rounded-l-md bg-[#292e41] shadow-lg border-none"
                         onChange={(e) => {
                           setPassword1(e.target.value);
                           field.onChange(e);
@@ -235,8 +236,8 @@ export const RegisterForm = () => {
                       />
                     </FormControl>
                     <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
-                      onMouseDown={() => {onHold(1)}}
-                      onMouseUp={() => {onRelease(1)}}
+                      onMouseDown={() => { onHold(1) }}
+                      onMouseUp={() => { onRelease(1) }}
                       type="button"
                       onClick={() => { }}
                     >
@@ -261,7 +262,7 @@ export const RegisterForm = () => {
                         placeholder="**********"
                         maxLength={20}
                         type={showPassword2 ? "text" : "password"}
-                        className="rounded-none rounded-l-md bg-[#1B1F2C] border-none"
+                        className="rounded-none rounded-l-md bg-[#292e41] shadow-lg border-none"
                         onChange={(e) => {
                           setPassword2(e.target.value);
                           field.onChange(e);
@@ -269,8 +270,8 @@ export const RegisterForm = () => {
                       />
                     </FormControl>
                     <Button variant="ghost" className="bg-[#1a1c2c] rounded-none rounded-r-md"
-                      onMouseDown={() => {onHold(2)}}
-                      onMouseUp={() => {onRelease(2)}}
+                      onMouseDown={() => { onHold(2) }}
+                      onMouseUp={() => { onRelease(2) }}
                       type="button"
                       onClick={() => { }}
                     >
@@ -283,14 +284,14 @@ export const RegisterForm = () => {
             />
 
           </div>
-          <div className="flex flex-col">
-          <div className="flex flex-row items-center space-x-4">
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-row items-center space-x-4">
               {hasSymbol ? (
                 <CheckIcon className="h-4 w-4 text-emerald-600" />
               ) : (
-                <X className="w-4 h-4 text-rose-600" />
+                <FaRegCircle className="w-4 h-4 text-gray-200/80" />
               )}
-              <Label className="text-sm">
+              <Label className="text-sm text-gray-200/80">
                 6 - 20 Zeichen (+ Sonderzeichen)
               </Label>
             </div>
@@ -298,15 +299,15 @@ export const RegisterForm = () => {
               {passwordMatch ? (
                 <CheckIcon className="h-4 w-4 text-emerald-600" />
               ) : (
-                <X className="w-4 h-4 text-rose-600" />
+                <FaRegCircle className="w-4 h-4 text-gray-200/80" />
               )}
-              <Label className="text-sm">
+              <Label className="text-sm text-gray-200/80">
                 Passwörter stimmen überein
               </Label>
             </div>
-            
+
           </div>
-          <div className="text-xs text-gray-200 space-y-0">
+          {/* <div className="text-xs text-gray-200 space-y-0">
             <div>uRent schickt dir regelmäßig E-Mails mit Produktupdates, Angeboten und weiteren hilfreichen Informationen.</div> <br />
 
 
@@ -340,6 +341,26 @@ export const RegisterForm = () => {
               Weitere Informationen, wie uRent deine Daten verwendet, <br /> findest du in den <a href="/data-privacy" target="_blank" rel="noreferrer noopener"
                 className="font-semibold hover:underline">Datenschutzrichtlinien</a>
             </div>
+          </div> */}
+
+          <div className="">
+            <div className="flex flex-row space-x-4 mt-4 mb-4">
+              <Checkbox
+                checked={!receivesEmails}
+                onCheckedChange={() => setReceivesEmails(!receivesEmails)}
+              />
+              <div className="text-sm">
+                Ich stimme zu, dass uRent mir personalisierte Emails mit Produktupdates, Angeboten und weiteren hilfreichen Informationen schickt. <br />
+                Ich kann diese Einwilligung jederzeit widerrufen.
+              </div>
+            </div>
+            <div className="text-sm text-gray-200/80">
+              Die Nutzung von uRent unterliegt den
+              <a href="/agb" target="_blank" className="text-indigo-400 font-semibold hover:underline"> AGB </a>
+              von uRent. Details zur Verarbeitung Ihrer Daten finden Sie in unserer
+              <a href="/data-privacy" target="_blank" className="text-indigo-400 font-semibold hover:underline"> Datenschutzerklärung </a>.
+            </div>
+
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
@@ -348,7 +369,7 @@ export const RegisterForm = () => {
             type="submit"
             className="w-full bg-indigo-800 hover:bg-indigo-900
              text-gray-200 hover:text-gray-300 shadow-lg"
-             
+
           >
             Account erstellen
           </Button>

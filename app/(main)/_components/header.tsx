@@ -26,9 +26,9 @@ export const Header = ({
  
 
   return (
-    <div className="w-full flex flex-col gap-y-2 items-center justify-center">
+    <div className="w-full flex flex-col  ">
       <h1 className={cn(
-        "text-3xl font-semibold flex items-center",
+        "text-3xl font-semibold flex text-left",
         font.className,
       )}>
         {isLogin ? (
@@ -37,7 +37,7 @@ export const Header = ({
           isReset ? (
             "Passwort zurücksetzen"
           ) : (
-            "Registrieren"
+            "Registriere dich auf uRent"
           )
         )}
       </h1>

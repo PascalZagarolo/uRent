@@ -6,6 +6,7 @@ import BuyOptions from "./_components/buy-options";
 import RedeemCode from "./_components/redeem-code";
 import ComparisonPlans from "./_components/comparison-plans";
 import Faq from "./_components/faq";
+import PricingHeader from "./_components/pricing-header";
 
 
 
@@ -33,7 +34,12 @@ const PricingMainPage = async () => {
 
         <div>
             <div className="sm:p-4  items-center">
-            <div>
+                {!existingSubscription && (
+                    <div className="px-4">
+                        <PricingHeader />
+                    </div>
+                )}
+            <div className="mt-8">
                 {existingSubscription && (
                     <div className="text-md font-semibold sm:flex items-center gap-x-2 sm:p-0 p-4">
                         Dein aktuelles Abonnement:

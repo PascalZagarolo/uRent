@@ -253,11 +253,11 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
 
     return (
         <div>
-            <div className="w-full sm:flex sm:p-0 p-2  sm:space-x-4 items-center">
+            <div className="w-full sm:flex sm:p-0 sm:px-4 px-2  sm:space-x-4 items-center">
                 <div className="ml-auto sm:mt-0 mt-4 flex sm:justify-end text-sm font-medium">
                     Wie viele Inserate möchtest du schalten?
                 </div>
-                <div className="">
+                <div className="sm:px-4 sm:mt-0 mt-2 sm:mb-0 mb-2">
                     <Select onValueChange={(value) => setAmountInserat(Number(value))} value={String(amountInserat)}>
                         {existingSubscription?.isGift && !isAfter(new Date(), existingSubscription?.stripe_current_period_end) ? (
                             <SelectTrigger className="sm:w-[180px] dark:bg-[#171717] dark:border-none"
@@ -268,7 +268,7 @@ const BuyOptions: React.FC<BuyOptionsProps> = ({
                                 </div>
                             </SelectTrigger>
                         ) : (
-                            <SelectTrigger className="sm:w-[180px] dark:bg-[#171717] dark:border-none"
+                            <SelectTrigger className="sm:w-[180px] dark:bg-[#0f0f0f] shadow-lg dark:border-none"
 
                             >
                                 <SelectValue placeholder="Anzahl Inserate" />

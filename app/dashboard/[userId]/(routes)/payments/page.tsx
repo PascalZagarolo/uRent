@@ -46,7 +46,7 @@ const PaymentsPage = async () => {
 
     console.log(existingInvoices.data[0].subscription)
 
-    //console.log(matchingProduct.metadata)
+    
 
     
     

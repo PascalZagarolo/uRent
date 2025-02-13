@@ -22,9 +22,9 @@ const PaymentsTab = ({ currentUser, existingInvoices, retrievedSubscription, exi
 
     const existingSubscription = currentUser;
 
-    const stripeSubscription = existingInvoices?.data.filter((invoice: any) => existingSubscription?.subscription?.stripe_subscription_id)
+    const stripeSubscription = existingInvoices?.data?.filter((invoice: any) => existingSubscription?.subscription?.stripe_subscription_id)
 
-    const currentSubscription = existingInvoices?.data.filter((invoice: any) => invoice?.metadata?.upgrade !== "true" && invoice?.metadata?.isUpgrade !== "true")
+    const currentSubscription = existingInvoices?.data?.filter((invoice: any) => invoice?.metadata?.upgrade !== "true" && invoice?.metadata?.isUpgrade !== "true")
 
     
 

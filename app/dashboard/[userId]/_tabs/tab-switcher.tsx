@@ -1,16 +1,18 @@
 'use client'
 
-import getCurrentUser from "@/actions/getCurrentUser";
+
 import BreadCrumpPage from "../_components/bread-crump-page";
 import MenuBar from "../_components/menu-bar";
 import { userTable } from "@/db/schema";
-import { useState } from "react";
+
 import DashboardTab from "./dashboard-tab";
 import ManageTab from "./booking-tab";
 import InserateTab from "./inserate-tab";
 import PaymentsTab from "./payments-tab";
 import FavouritesTab from "./favourites-tab";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
 
 interface TabSwitcherProps {
     currentUser : typeof userTable.$inferSelect | any;
@@ -21,7 +23,15 @@ interface TabSwitcherProps {
 
 const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription, existingPayments } : TabSwitcherProps) => {
 
-   
+    const [usedInvoices, setUsedInvoices] = useState(existingInvoices ? existingInvoices : null);
+    const [usedSubscription, setUsedSubscription] = useState(existingInvoices ? existingInvoices : null);
+    const [usedPayments, setUsedPayments] = useState(existingPayments ? existingPayments : null)
+
+   useEffect(() => {
+        setUsedInvoices(existingInvoices);
+        setUsedSubscription(retrievedSubscription);
+        setUsedPayments(existingPayments);
+   },[existingInvoices, retrievedSubscription, existingPayments])
 
     const currentTab = useSearchParams().get("tab");
 
@@ -35,9 +45,9 @@ const TabSwitcher = ({ currentUser, existingInvoices, retrievedSubscription, exi
                 return <InserateTab currentUser = {currentUser} />
             case "payments":
                 return <PaymentsTab currentUser = {currentUser} 
-                existingInvoices = {JSON.parse(JSON.stringify(existingInvoices))} 
-                retrievedSubscription={JSON.parse(JSON.stringify(retrievedSubscription))} 
-                existingPayments={JSON.parse(JSON.stringify(existingPayments))} />
+                existingInvoices = {JSON.parse(JSON.stringify(usedInvoices))} 
+                retrievedSubscription={JSON.parse(JSON.stringify(usedSubscription))} 
+                existingPayments={JSON.parse(JSON.stringify(usedPayments))} />
             case "favourites":
                 return <FavouritesTab currentUser = {currentUser} />
             default : 

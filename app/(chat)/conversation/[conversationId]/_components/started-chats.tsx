@@ -72,7 +72,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
     const isOwnMessage = lastMessage?.senderId === currentUser.id ? true : false;
 
     return (
-        <div className="flex justify-center ">
+        <div className="">
             <RenderedChats
                 user={userImage as any}
                 conversationId={conversations.id}
@@ -84,6 +84,7 @@ const StartedChats: React.FC<StartedChatsProps> = ({
                 isOwnMessage={isOwnMessage}
                 inseratTitle={conversations.inserat?.title}
             />
+
         </div>
     );
 }

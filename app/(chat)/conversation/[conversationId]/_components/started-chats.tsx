@@ -62,9 +62,6 @@ const StartedChats: React.FC<StartedChatsProps> = ({
 
     },[paramsConversationId])
 
-    //@ts-ignore
-    
-
     const [openChats, setOpenChats] = useState(conversations.messages.filter((message) => {
         return !message.seen && message.senderId !== currentUser.id
     }))

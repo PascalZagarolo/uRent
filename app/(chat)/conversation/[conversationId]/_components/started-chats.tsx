@@ -51,7 +51,6 @@ const StartedChats: React.FC<StartedChatsProps> = ({
         }
 
         const load = async () => {
-           
             await markAsSeenMessages(conversations.id, currentUser.id)
             router.refresh();
         }

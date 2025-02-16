@@ -39,8 +39,6 @@ const StartedChats: React.FC<StartedChatsProps> = ({
                 setLastMessage(message)
             }
         })
-        
-        
     },[])
 
     const router = useRouter();

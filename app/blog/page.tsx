@@ -4,6 +4,25 @@ import MobileHeader from "../(dashboard)/_components/mobile-header";
 import Footer from "../(dashboard)/_components/footer";
 import BlogOverview from "./_components/blog-overview";
 import { Badge } from "@/components/ui/badge";
+import type { ResolvingMetadata, Metadata } from "next";
+
+export async function generateMetadata(
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    try {
+      
+
+        return {
+            title: "Aktuelles um uRent",
+            description : "News & Aktuelles um uRent, dem Anzeigenportal zum Mieten und Vermieten von Pkws, Lkws, Transportern und Anhängern."
+        }
+    } catch (error) {
+        return {
+            title: "Mieten & Vermieten auf uRent.",
+            description: "Mieten & Vermieten auf uRent."
+        }
+    }
+}
 
 const BlogPage = async () => {
 

@@ -10,7 +10,40 @@ import { eq } from "drizzle-orm";
 import { ArrowLeft, InstagramIcon, LinkedinIcon, MailIcon, TwitchIcon, TwitterIcon } from "lucide-react";
 import Image from "next/image";
 
+import type{ Metadata, ResolvingMetadata } from "next";
 import BackToMain from "./_components/back-to-main";
+
+
+type Props = {
+    params: { blogId: string }
+
+}
+
+export async function generateMetadata({ params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    try {
+        const findInserat = db.query.blog.findFirst({
+            where: eq(blog.id, params.blogId),
+           
+        }).prepare("findInserat")
+
+        const res = await findInserat.execute();
+
+
+        return {
+            title: res?.title ?? "",
+            openGraph: {
+                description: res?.content ?? "",
+            },
+        }
+    } catch (error) {
+        return {
+            title: "Mieten & Vermieten auf uRent.",
+            description: "Mieten & Vermieten auf uRent."
+        }
+    }
+}
 
 const BlogId = async ({ params }: { params: { blogId: string } }) => {
 
@@ -37,11 +70,7 @@ const BlogId = async ({ params }: { params: { blogId: string } }) => {
         );
     };
 
-    // function replaceWithBr(text) {
-    //     // Converts line breaks into <br> tags, handling strings.
-    //     return text.replace(/\n/g, '<br />');
-    //   }
-
+   
 
 
     return (

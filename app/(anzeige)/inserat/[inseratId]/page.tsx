@@ -4,16 +4,14 @@
 import type { Metadata, ResolvingMetadata } from 'next'
 import ProfileView from "./_components/profile-view";
 import InseratOptions from "./_components/inserat-options";
-import getCurrentUser from "@/actions/getCurrentUser";
 
-import { lazy } from "react";
 import InseratAttributes from "./_components/inserat-attributes";
 
 
 import { FaCarCrash } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import { booking, inserat, business, CategoryEnumRender, userSubscription } from '../../../../db/schema';
+import { inserat,  } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 
 import BreadCrumbs from "./bread-crumbs";
@@ -24,7 +22,7 @@ import AdsComponent from '@/components/ad-component';
 import Footer from '@/app/(dashboard)/_components/footer';
 import MobileHeader from '@/app/(dashboard)/_components/mobile-header';
 import HeaderLogo from '@/app/(dashboard)/_components/header-logo';
-import { getCurrentUserWithNotifications } from '@/actions/getCurrentUserWithNotifications';
+
 import getCurrentUserWithNotificationsAndFavourites from '@/actions/getCurrentUserWithNotificationsAndFavourites';
 
 

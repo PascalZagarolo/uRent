@@ -22,7 +22,7 @@ import CalendarDay from "./booking-day";
 import { booking, inserat } from "@/db/schema";
 import { FaSquare } from "react-icons/fa6";
 
-const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const WEEKDAYS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
 
 
@@ -49,7 +49,7 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
         end: lastDayOfMonth,
     });
 
-    const startingDayIndex = getDay(firstDayOfMonth);
+    const startingDayIndex = (getDay(firstDayOfMonth) + 6) % 7;
 
     const increaseMonth = () => {
         const newDate = new Date(currentDate);

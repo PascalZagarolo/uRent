@@ -12,12 +12,10 @@ import { PiSteeringWheel, PiVanFill } from "react-icons/pi";
 import InseratImageCarousel from "./inserat-image";
 import ReportModal from "./report/report-modal";
 import { format } from "date-fns";
-import { VscMilestone } from "react-icons/vsc";
-import TransferCarAdvert from "./transfer-car-advert";
-import { MdOutlineOpenInNew } from "react-icons/md";
+
 import PriceProfileDialog from "./price-profile-dialog";
 import { GrLocation } from "react-icons/gr";
-import { AiFillMediumCircle } from "react-icons/ai";
+
 import { findLabelByValueMinTime } from "@/hooks/min-time/useMinTime";
 
 interface InseratShowProps {

@@ -29,7 +29,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
     let appointedTimes = [];
 
   
-
+    
 
 
 
@@ -40,7 +40,7 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
         if (affectedBookings.length === 0) {
             setCompletelyUnaivalable(false);
         }
-
+        
         let index = 0;
 
         for (const vehicle of vehicles) {
@@ -130,15 +130,14 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
         
         for (const pBooking of affectedBookings) {
             if (affectedBookings) {
+                console.log(format(day_date, "dd. MMMM"));
                 //Buchung startet vor dem aktuellen Tag und endet nach dem aktuellen Tag, kompletter Tag ist belegt
                 if (isBefore(pBooking.startDate, day_date) && isAfter(pBooking.endDate, day_date)) {
                     for (let i = 0; i <= 1440; i = i + 30) {
                         appointedTimes.push(i);
-
-
                     }
                     setCompletelyUnaivalable(true);
-                    break;
+                   
                 }
                 //Buchung liegt auf aktuellen Tag, Buchung started & endet am selben Tag
                 if (isSameDay(pBooking.startDate, day_date) && isSameDay(pBooking.startDate, pBooking.endDate)) {
@@ -153,10 +152,11 @@ const CalenderDayDetail: React.FC<CalenderDayDetailProps> = ({
                         appointedTimes.push(i);
                     }
                 }
-
+                
                 //Buchung endet am aktuellen Tag und startet nicht am aktuellen Tag
                 if (isSameDay(pBooking?.endDate, day_date) && isBefore(pBooking?.startDate, day_date)) {
                     for (let i = 0; i <= Number(pBooking.endPeriod); i = i + 30) {
+                        
                         appointedTimes.push(i);
                     }
                 }

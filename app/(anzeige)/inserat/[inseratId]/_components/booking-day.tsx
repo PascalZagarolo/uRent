@@ -8,9 +8,8 @@ import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { format, isToday } from "date-fns";
 
-import { useRouter, useSearchParams } from "next/navigation";
 import CalenderDayDetail from '../../../../dashboard/[userId]/(routes)/_components/calender-day-detail';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 interface Event {
@@ -36,7 +35,7 @@ const CalendarDay: React.FC<CalendarDayProps> = ({
   vehicles
 }) => {
 
-  const searchParams = useSearchParams();
+
 
 
 

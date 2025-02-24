@@ -21,6 +21,7 @@ import { de } from 'date-fns/locale';
 import CalendarDay from "./booking-day";
 import { booking, inserat } from "@/db/schema";
 import { FaSquare } from "react-icons/fa6";
+import { isSameDay } from 'date-fns';
 
 const WEEKDAYS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
@@ -69,7 +70,7 @@ const BookingCalendar = ({ receivedBookings, thisInserat }: EventCalendarProps) 
             const endDate = new Date(pBooking.endDate);
 
             const currentDate = new Date(startDate);
-            while (currentDate <= endDate) {
+            while (currentDate <= endDate || isSameDay(currentDate, endDate)) {
                 const dateKey = format(currentDate, "yyyy-MM-dd");
                 if (!acc[dateKey]) {
                     acc[dateKey] = [];

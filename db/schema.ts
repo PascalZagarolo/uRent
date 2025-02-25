@@ -904,8 +904,8 @@ export const booking = pgTable("booking", {
     buchungsnummer : text("buchungsnummer"),
     content: text("content"),
 
-    startDate: timestamp("startDate", {mode: "date"}),
-    endDate: timestamp("endDate", {mode: "date"}),
+    startDate: timestamp("startDate", {mode: "date", withTimezone : true}),
+    endDate: timestamp("endDate", {mode: "date", withTimezone : true}),
 
     startPeriod : text("startPeriod"),
     endPeriod : text("endPeriod"),

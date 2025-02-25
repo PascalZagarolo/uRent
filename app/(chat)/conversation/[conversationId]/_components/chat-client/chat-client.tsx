@@ -22,13 +22,13 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
     useMemo(() => {
         if(conversationId) {
             
-            setCurrentConversation(startedConversations.find((conversation) => conversation.id === conversationId))
+            setCurrentConversation(startedConversations?.find((conversation) => conversation?.id === conversationId))
      } else {
       setCurrentConversation(null)
      }
     },[conversationId, startedConversations])
 
-    const filteredConversations = startedConversations.filter((conversation) => (conversation.id === conversationId || conversation?.messages?.length > 0));
+    const filteredConversations = startedConversations.filter((conversation) => (conversation?.id === conversationId || conversation?.messages?.length > 0));
 
     return (
         <div className="sm:flex sm:flex-row sm:justify-center h-full max-h-[920px]">

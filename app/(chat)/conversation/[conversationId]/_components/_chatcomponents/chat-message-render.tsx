@@ -31,11 +31,11 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
     const router = useRouter();
 
-    const [usedImage, setUsedImage] = useState(messages.sender?.image ? messages.sender?.image : "/images/default-profile.png");
+    const [usedImage, setUsedImage] = useState(messages?.sender?.image ? messages.sender?.image : "/images/default-profile.png");
     
     useEffect(() => {
         if (messages.sender?.image) {
-            setUsedImage(messages.sender?.image)
+            setUsedImage(messages?.sender?.image)
         }
     }, [messages])
 
@@ -43,24 +43,24 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
 
     return (
         <div className={cn("w-full  py-2 flex items-center dark:text-gray-200 text-sm", isOwn && " justify-end",)}>
+            
             <div className="flex space-x-2 ">
-                {!isOwn && (
+            {!isOwn && (
                     <a className="mt-auto hover:cursor-pointer"
                         href={`/profile/${messages.senderId}`} target="_blank">
                         <Image
-                            src={//@ts-ignore
-                                messages.sender?.image}
+                            src={messages?.sender?.image ?? "/placeholder-person.jpg"}
                             width={60}
                             height={60}
                             className="w-[32px] h-[32px] rounded-full object-cover"
                             alt="pfp"
                         />
                     </a>
-                )}
+                )} 
 
                 <div>
 
-                    <div className={cn("max-w-lg text-sm font-medium p-2.5 rounded-md ",
+                <div className={cn("max-w-lg text-sm font-medium p-2.5 rounded-md ",
                         !isOwn ? "dark:bg-[#1f1f1f]" : "dark:bg-[#262b3d]/60 ",
                         messages.isInterest && "border "
                     )}>
@@ -126,12 +126,12 @@ const ChatMessageRender: React.FC<ChatMessageRenderProps> = ({
                         <div className={cn("text-xs font-normal mt-0.5  text-gray-200/80", isOwn ? "flex justify-end" : "")}>
                             {format(new Date(messages.createdAt), "HH:mm")} Uhr
                         </div>
-                    </div>
+                    </div>   
 
                 </div>
 
             </div>
-
+          
 
 
         </div>

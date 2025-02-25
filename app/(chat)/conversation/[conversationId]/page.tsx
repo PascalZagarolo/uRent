@@ -136,10 +136,10 @@ const ConversationPage = async ({
                                     alt="Profile Picture"
                                 />
                                 <a className="w-2/4 truncate hover:underline" href={`/profile/${otherUserDetails?.id}`}>
-                                    {otherUserDetails.name}
+                                    {otherUserDetails?.name}
                                 </a>
                                 <div className="ml-auto">
-                                    <ChatHeader
+                                <ChatHeader
                                         otherUser={otherUserDetails}
                                         // @ts-ignore
                                         foundBlocks={thisConversation?.blocks}
@@ -154,7 +154,7 @@ const ConversationPage = async ({
                                     currentUser={currentUser}
                                     thisConversation={thisConversation}
                                 />
-                                {thisConversation?.blocks.length > 0 && (
+                                {thisConversation?.blocks?.length > 0 && (
                                     <div className="w-full flex justify-center items-center py-8">
                                         <p className="text-sm text-gray-300/60">Du kannst keine Nachrichten mehr senden, da einer der Gesprächsteilnehmer die Konversation blockiert hat</p>
                                     </div>
@@ -162,7 +162,7 @@ const ConversationPage = async ({
                                 )}
                             </div>
                             <div className="sticky bottom-0 w-full flex items-center border-t border-gray-600/10 ">
-                                <ChatInput
+                            <ChatInput
                                     otherUser={otherUserDetails.id}
                                     otherUserName={currentUser?.name}
                                     //@ts-ignore

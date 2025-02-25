@@ -36,7 +36,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation }:
                         {otherUserDetails.name}
                     </a>
                     <div className="ml-auto">
-                        <ChatHeader
+                    <ChatHeader
                             otherUser={otherUserDetails}
                             //@ts-ignore
                             foundBlocks={thisConversation?.blocks}
@@ -70,7 +70,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation }:
 
                 {/* Chat Messages */}
                 <div className="flex-grow overflow-y-auto min-h-screen no-scrollbar p-4 dark:bg-[#151515] bg-white" id="chat-render">
-                    <ChatComponent
+                <ChatComponent
                         //@ts-ignore
                         messages={thisConversation?.messages}
                         currentUser={currentUser}

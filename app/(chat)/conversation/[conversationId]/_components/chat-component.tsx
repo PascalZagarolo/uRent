@@ -44,7 +44,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
 
 
 
-  const [renderedMessages, setRenderedMessages] = useState(messages.sort((a: any, b: any) => a.createdAt - b.createdAt));
+  const [renderedMessages, setRenderedMessages] = useState(messages?.sort((a: any, b: any) => a?.createdAt - b?.createdAt));
 
 
   useEffect(() => {
@@ -108,20 +108,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
 
 
 
-  // useEffect(() => {
-  //     if (pMessages.length > 0) {
-  //         const lastMessage = document.getElementById(`message-${pMessages[pMessages.length - 1].id}`);
-  //         if (lastMessage) {
-  //             lastMessage.scrollIntoView({ behavior: "smooth", block: "end", inline: "center" });
-  //         }
-  //     }
-
-  //     if (bottomRef.current) {
-
-
-  //         bottomRef.current.scrollIntoView({  block: "end", inline: "center" });
-  //     }
-  // }, [pMessages, renderedMessages, messages]);
+ 
 
   let markedDates: any = [];
 
@@ -167,7 +154,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
               )}
               <ChatMessageRender
                 messages={message}
-                isOwn={message.senderId === currentUser.id}
+                isOwn={message?.senderId === currentUser?.id}
               />
               <div ref={bottomRef} />
             </div>

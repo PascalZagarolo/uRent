@@ -29,7 +29,9 @@ export const confirmDeleteUser = async (token: string) => {
             return { error: "Token nicht gefunden." };
         }
 
-       
+        if (findToken.userId !== currentUser.id) {
+            return { error: "Nicht eingeloggt." };
+        }
 
         // Retrieve Stripe customer(s) with the email of the current user
         const customers = await stripe.customers.list({

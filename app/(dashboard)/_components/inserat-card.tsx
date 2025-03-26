@@ -16,7 +16,7 @@ import { format } from "date-fns";
 import {
     Calendar,
     CalendarCheckIcon,
-    CarFront, CarFrontIcon, CarIcon, CaravanIcon, CheckCheckIcon, EyeIcon, FlameIcon, ImageIcon,
+    CarFront, CarFrontIcon, CarIcon, CaravanIcon, CheckCheckIcon, CheckIcon, EyeIcon, FlameIcon, ImageIcon,
     MapPinned, SofaIcon, Star, Truck,
     WeightIcon,
 } from "lucide-react";
@@ -45,6 +45,7 @@ import { useOpenAvailabilityOnPageLoad } from "@/store";
 import { HighlightColorsBackground } from "@/hooks/inserat-card/useHighlightColors";
 import { MdExpandMore } from "react-icons/md";
 import { IoChevronUpOutline } from "react-icons/io5";
+import { Label } from "@/components/ui/label";
 
 
 interface InseratCardProps {
@@ -81,9 +82,9 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
     console.log(thisInserat?.images)
-    
 
-    
+
+
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -155,7 +156,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     return (
 
 
-        <div className={cn(`md:w-[760px] sm:h-[428px] w-full h-full  items-center bg-[#1a1d28] mt-4
+        <div className={cn(`md:w-[760px] sm:h-[364px] w-full h-full  items-center bg-[#1a1d28] mt-4 rounded-md
           border-[#171923]  pt-2 rounded-b-md`, thisInserat?.isHighlighted && "border-indigo-800 border-2 ",
             thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
 
@@ -164,248 +165,85 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-            <h3 className={cn("flex flex-row   font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md px-2 ",)} >
-                <div className={cn("shadow-lg py-4 px-2.5 rounded-md  sm:w-1/10 ")}>
-                    {
-                        {
-                            'PKW': <CarFront className=" text-gray-200 h-6 w-6 " />,
-                            'LKW': <Truck className=" text-gray-300 h-6 w-6 " />,
-                            'TRANSPORT': <PiVanFill className=" text-gray-300 h-6 w-6 " />,
-                            'TRAILER': <RiCaravanLine className="text-gray-300 w-6 h-6" />
-                            //@ts-ignore
-                        }[usedCategory]
-                    }
-                </div>
-                <div className="w-full ml-4 mr-4 text-base font-semibold h-[32px]  text-gray-200 flex items-center ">
 
-                    <a
-                        className="hover:underline h-[24px] overflow-hidden w-3/4  sm:line-clamp-1 break-all"
-                        href={`/inserat/${thisInserat.id}`}
-                        target="_blank"
-                    >
-                        {thisInserat.title}
-                    </a>
-                    <div className="ml-auto ">
-                        {!olderThan24Hours && (
-                            <Badge className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 gap-x-1">
-                                Neu <FlameIcon className="w-4 h-4" />
-                            </Badge>
-                        )}
-                    </div>
-
-                </div>
-                {currentUser?.id !== thisInserat?.userId && (
-                    <div className="ml-auto items-center sm:flex hidden ">
-                        <Button variant="ghost" onClick={onFav} className="
-          hover:none ">
-                            <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
-                        </Button>
-                    </div>
-                )}
-
-
-            </h3>
-
+            <div className="sm:hidden block px-4 mt-2">
+            <a
+                className="hover:underline  font-semibold text-base  overflow-hidden w-12/12  sm:line-clamp-1 break-all"
+                href={`/inserat/${thisInserat.id}`}
+                target="_blank"
+            >
+                {thisInserat.title}
+            </a>
+            </div>
             <div className="flex justify-center h-[200px] items-center  w-full">
                 <div className="flex p-4  w-full">
-                    <div className="mr-2 sm:w-[80px] ">
 
-                        <div className="sm:block hidden">
-                            {
-                                {
-                                    'PKW':
-                                        <div className="space-y-1">
-                                            {thisInserat.pkwAttribute?.seats && (
-                                                <Badge className="bg-blue-800   drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                                  dark:text-gray-100  dark:hover:bg-[#181818]/60">
-                                                    <SofaIcon className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-blue-200"> {thisInserat.pkwAttribute?.seats} </p> Sitze
-                                                </Badge>
-                                            )}
-                                            {thisInserat.pkwAttribute?.power && (
-
-                                                <Badge className="bg-blue-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                                  dark:text-gray-100  dark:hover:bg-[#181818]/60">
-                                                    <FaCar className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-blue-200"> {thisInserat.pkwAttribute?.power} </p> PS
-                                                </Badge>
-                                            )}
-
-                                        </div>,
-                                    'LKW': <div className="space-y-1">
-                                        {thisInserat.lkwAttribute?.loading && (
-
-                                            <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                             dark:text-gray-100 hover:bg-yellow-600">
-                                                <TbCrane className="h-4 w-4 mr-1" />
-                                                <p className="mr-1 text-yellow-800">
-                                                    {thisInserat.lkwAttribute?.loading.substring(0, 1)}
-                                                    {thisInserat.lkwAttribute?.loading.substring(1).toLowerCase()}
-                                                </p>
-                                            </Badge>
-                                        )}
-                                        {thisInserat.lkwAttribute?.application && (
-
-                                            <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                          dark:text-gray-100 hover:bg-yellow-600 ">
-                                                <BsTools className="h-4 w-4 mr-1" />
-                                                <p className="mr-1 text-yellow-800">
-                                                    {thisInserat.lkwAttribute?.application.substring(0, 1)}
-                                                    {thisInserat.lkwAttribute?.application.substring(1).toLowerCase()}
-                                                </p>
-                                            </Badge>
-                                        )}
-                                        {//@ts-ignore
-                                            thisInserat.lkwAttribute?.drive && (
-
-                                                <Badge className="bg-yellow-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                                dark:text-gray-100  hover:bg-yellow-600">
-                                                    <GiCarWheel className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-yellow-800"> {thisInserat.lkwAttribute?.drive.substring(1)} </p>
-                                                </Badge>
-                                            )}
-                                    </div>,
-                                    'TRANSPORT': <div className="space-y-1">
-                                        {//@ts-ignore
-                                            thisInserat.transportAttribute?.loading && (
-
-                                                <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                         dark:text-gray-100 hover:bg-gray-600">
-                                                    <TbCrane className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-gray-800">
-                                                        {//@ts-ignore
-                                                            thisInserat.transportAttribute?.loading.substring(0, 1)}
-                                                        {//@ts-ignore
-                                                            thisInserat.transportAttribute?.loading.substring(1).toLowerCase()}
-                                                    </p>
-                                                </Badge>
-                                            )}
-                                        {//@ts-ignore
-                                            thisInserat.transportAttribute?.seats && (
-
-                                                <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                            dark:text-gray-100 hover:bg-gray-600">
-
-                                                    <SofaIcon className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-gray-800"> {thisInserat.transportAttribute?.seats} </p> Sitze
-                                                </Badge>
-                                            )}
-                                        {//@ts-ignore
-                                            thisInserat.transportAttribute?.fuel && (
-
-                                                <Badge className="bg-gray-500  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                            dark:text-gray-100 hover:bg-gray-600">
-                                                    <FaGasPump className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-gray-800">
-                                                        {//@ts-ignore
-                                                            thisInserat.transportAttribute?.fuel.substring(0, 1)}
-                                                        {//@ts-ignore
-                                                            thisInserat.transportAttribute?.fuel.substring(1).toLowerCase()}
-                                                    </p>
-                                                </Badge>
-                                            )}
-                                    </div>,
-                                    'TRAILER': <div className="space-y-1">
-                                        {//@ts-ignore
-                                            thisInserat.trailerAttribute?.type && (
-
-                                                <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                     dark:text-gray-100 hover:bg-rose-900  ">
-                                                    <CaravanIcon className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-rose-200">
-                                                        {//@ts-ignore
-                                                            thisInserat.trailerAttribute?.type?.substring(0, 1)}
-                                                        {//@ts-ignore
-                                                            thisInserat.trailerAttribute?.type?.substring(1).toLowerCase()}
-                                                    </p>
-                                                </Badge>
-                                            )}
-                                        {//@ts-ignore
-                                            thisInserat.trailerAttribute?.loading && (
-
-                                                <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                            dark:text-gray-100 hover:bg-rose-900">
-                                                    <TbCrane className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-rose-200">
-                                                        {//@ts-ignore
-                                                            thisInserat.trailerAttribute?.loading.substring(0, 1)}
-                                                        {//@ts-ignore
-                                                            thisInserat.trailerAttribute?.loading.substring(1).toLowerCase()}
-                                                    </p>
-                                                </Badge>
-                                            )}
-                                        {//@ts-ignore
-                                            thisInserat.trailerAttribute?.weightClass && (
-                                                <Badge className="bg-rose-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] 
-                                            dark:text-gray-100 hover:bg-rose-900">
-                                                    <WeightIcon className="h-4 w-4 mr-1" />
-                                                    <p className="mr-1 text-rose-200 w-full">
-                                                        {//@ts-ignore
-                                                            thisInserat.trailerAttribute.weightClass / 1000}t
-                                                    </p>
-                                                </Badge>
-                                            )}
-                                    </div>,
-                                    //@ts-ignore
-                                }[usedCategory]
-                            }
-
-
-                        </div>
-                        {/* 
-                        <div className="mt-1 sm:block hidden">
-                            <Badge className="bg-[#171923] flex  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
-                                dark:text-gray-100 dark:bg-[#181818]/95  dark:hover:bg-[#181818]/60
-                                ">
-                                <EyeIcon className="w-4 h-4 mr-1" /> {formattedViews}
-                            </Badge>
-                        </div> */}
-                        <div className="mt-1 sm:block hidden">
-                            <Badge className="bg-emerald-800  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.0)]
-                                dark:bg-emerald-800 dark:text-gray-200  dark:hover:bg-emerald-700
-                                ">
-                                <CheckCheckIcon className="w-4 h-4 mr-1" /> verfügbar
-                            </Badge>
-                        </div>
-
-                    </div>
                     <div className="flex w-full">
-                        <div className="sm:w-1/2 flex w-full">
+                        <div className="sm:w-1/2 flex w-full relative">
                             <div className="w-full">
                                 <img
                                     src={thisInserat?.images[0]?.url}
-
                                     style={{ objectFit: "cover" }}
-
-                                    className="transform: translate3d(0px, 0px, 0.1px) 
-                                    rounded-md hover:cursor-pointer  dark:border-gray-900 h-[160px] 
-                                    w-full "
+                                    className="rounded-lg hover:cursor-pointer dark:border-gray-900 h-[160px] w-full"
                                     onClick={onRedirect}
                                     alt={thisInserat.title}
                                     loading="lazy"
                                 />
-                                <div className="text-xs justify-end text-gray-200/60 mt-1">
-                                    veröffentlicht  {format(new Date(thisInserat.firstRelease), "dd.MM")}
+
+                                {/* Image Counter in the Top-Right Corner */}
+                                <div className="absolute font-semibold flex flex-row items-center top-2 right-2 bg-black bg-opacity-70 text-gray-200 text-xs px-2 py-1 rounded">
+                                    <ImageIcon
+                                        className="w-4 h-4 mr-2 text-gray-200/80"
+                                    />
+                                    (1/{thisInserat?.images?.length})
                                 </div>
-                            </div>
-                            <div className="flex text-xs font-bold text-gray-200">
-                                <ImageIcon className="w-4 h-4 mr-1 ml-1" />  {thisInserat.images.length}
                             </div>
                         </div>
 
                         <div className="ml-4 text-gray-200/80 border-none flex-col  w-1/2 text-xs sm:mr-2 sm:flex hidden relative overflow-hidden">
-                            <div className="line-clamp-6 whitespace-pre-wrap text-xs pr-2 ">
+                            <h3 className={cn("flex flex-row  font-semibold   text-lg hover:cursor-pointer  text-ellipsis  items-center w-full rounded-md ",)} >
+
+                                <div className="w-full  mr-4 text-base font-bold h-[32px]  text-white  flex items-center ">
+
+                                    <a
+                                        className="hover:underline h-[24px] overflow-hidden w-12/12  sm:line-clamp-1 break-all"
+                                        href={`/inserat/${thisInserat.id}`}
+                                        target="_blank"
+                                    >
+                                        {thisInserat.title}
+                                    </a>
+                                    <div className="ml-auto ">
+                                        {!olderThan24Hours && (
+                                            <Badge className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 gap-x-1">
+                                                Neu <FlameIcon className="w-4 h-4" />
+                                            </Badge>
+                                        )}
+                                    </div>
+
+                                </div>
+                                {currentUser?.id !== thisInserat?.userId && (
+                                    <div className="ml-auto items-center sm:flex hidden ">
+                                        <Button variant="ghost" onClick={onFav} className="
+          hover:none ">
+                                            <Star className={cn("w-4 h-4", isFaved ? "text-yellow-300" : "text-gray-200")} />
+                                        </Button>
+                                    </div>
+                                )}
+
+
+                            </h3>
+                            <div className="line-clamp-6 whitespace-pre-wrap text-xs pr-2  mt-4">
                                 {thisInserat.description}
                             </div>
                             {/* Optional "Read More" Link */}
-                            
-                                <a href={`/inserat/${thisInserat?.id}`}
+
+                            <a href={`/inserat/${thisInserat?.id}`}
                                 target="_blank"
 
                                 className="text-indigo-600 cursor-pointer text-xs underline mt-2 flex flex-row items-center">
-                                    Mehr erfahren <MdExpandMore className="w-4 h-4 " /> 
-                                </a>
-                           
+                                Mehr erfahren <MdExpandMore className="w-4 h-4 " />
+                            </a>
+
                         </div>
 
                     </div>
@@ -469,7 +307,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                         (thisInserat?.isHighlighted && thisInserat?.color === "WHITE") && "text-gray-800"
                                     )} />
                                 </div>
-                                <span className={cn("sm:text-base text-xs",
+                                <span className={cn("sm:text-sm text-xs",
                                     (thisInserat?.isHighlighted && thisInserat?.color === "WHITE") && "text-gray-800"
                                 )}>
                                     Verfügbarkeit prüfen

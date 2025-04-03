@@ -11,7 +11,7 @@ import InseratAttributes from "./_components/inserat-attributes";
 import { FaCarCrash } from "react-icons/fa";
 import OtherInserate from "./_components/other-inserate";
 import db from "@/db/drizzle";
-import { inserat,  } from '../../../../db/schema';
+import { inserat, } from '../../../../db/schema';
 import { and, eq, sql } from "drizzle-orm";
 
 import BreadCrumbs from "./bread-crumbs";
@@ -48,15 +48,15 @@ export async function generateMetadata({ params }: Props,
 
 
         return {
-            title: res.title + ` - ${res?.address?.locationString},  ${res?.address?.postalCode}`,
+            title: `${res.title} in ${res?.address?.locationString} | Günstig & Verfügbar`,
             openGraph: {
-                description: `${res?.address?.postalCode}, ${res?.address?.locationString} - ` + res?.description,
+                description: `Jetzt ${res.title} in ${res?.address?.postalCode} ${res?.address?.locationString} mieten. ${res?.description}`,
             },
         }
     } catch (error) {
         return {
             title: "Mieten auf uRent",
-            description: "Vermiete dein Fahrzeug auf uRent und verdiene Geld damit."
+            description: "Günstig & schnell auf uRent Fahrzeuge mieten."
         }
     }
 }
@@ -192,7 +192,7 @@ const InseratAnzeige = async ({
                     gtag('config', 'AW-16814367985');
                     `
                 }} async>
-                    
+
                 </script>
             </head>
             <div className=" bg-[#404040]/10 dark:bg-[#0F0F0F] min-h-screen">

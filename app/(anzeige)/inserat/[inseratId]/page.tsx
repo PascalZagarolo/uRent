@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props,
 
 
         return {
-            title: `${res.title} in ${res?.address?.locationString} | Günstig & Verfügbar`,
+            title: `${res.title} in ${res?.address?.locationString} mieten | Günstig & Verfügbar`,
             openGraph: {
                 description: `Jetzt ${res.title} in ${res?.address?.postalCode} ${res?.address?.locationString} mieten. ${res?.description}`,
             },

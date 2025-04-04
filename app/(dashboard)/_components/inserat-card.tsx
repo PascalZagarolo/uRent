@@ -156,7 +156,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
     return (
 
 
-        <div className={cn(`md:w-[760px] sm:h-[368px] w-full h-full  items-center bg-[#1a1d28] mt-4 rounded-md
+        <div className={cn(`md:w-[760px] sm:h-[370px] w-full h-full  items-center bg-[#1a1d28] mt-4 rounded-md
           border-[#171923]  pt-2 rounded-b-md`, thisInserat?.isHighlighted && "border-indigo-800 border-2 ",
             thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
 

@@ -5,6 +5,7 @@ import { userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
+import { de } from "date-fns/locale";
 import { CalendarCheck2Icon, MailIcon, MailWarningIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -77,7 +78,7 @@ const RenderedUser = ({ thisUser }: RenderedUser) => {
                                 <CalendarCheck2Icon
                                     className="w-4 h-4 mr-2"
                                 />
-                                {format(thisUser?.createdAt ?? new Date(), "dd MMMM yyyy")}
+                                {format(thisUser?.createdAt ?? new Date(), "dd MMMM yyyy", { locale : de })}
                             </div>
                         </div>
                         <div className="py-4">

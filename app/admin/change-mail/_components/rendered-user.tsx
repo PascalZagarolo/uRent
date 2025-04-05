@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { userTable } from "@/db/schema";
+import { inserat, userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
@@ -14,7 +14,7 @@ import { IoInformationCircle } from "react-icons/io5";
 import { RiFolderUserFill } from "react-icons/ri";
 
 interface RenderedUser {
-    thisUser: typeof userTable.$inferSelect;
+    thisUser: typeof userTable.$inferSelect & { inserat : typeof inserat.$inferSelect[] };
 }
 
 const RenderedUser = ({ thisUser }: RenderedUser) => {

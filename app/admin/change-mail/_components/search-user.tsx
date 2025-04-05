@@ -61,9 +61,11 @@ const SearchUser = () => {
                 <div className="flex flex-col space-y-4 mt-8">
                     {results.length > 0 ? (
                         results?.map((thisResult) => (
-                            <RenderedUser 
+                            <div key={thisResult.id}>
+                                <RenderedUser 
                             thisUser={thisResult}
                             />
+                            </div>
                         ))
                     ) : (
                         <div className="text-gray-200/40">

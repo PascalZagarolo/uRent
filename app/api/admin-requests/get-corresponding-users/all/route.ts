@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(
     req: Request,
-    { params }: { params: { searchedTerm: string } }
+    
 ) {
     try {
 
@@ -19,15 +19,13 @@ export async function POST(
 
 
 
-        const searchedTerm = params.searchedTerm;
+        
 
 
 
 
         const findUsers = await db.query.userTable.findMany({
-            where: (
-                ilike(userTable.name, `%${searchedTerm}%`)
-            ), with: {
+            with: {
                 inserat: true
             }
         });

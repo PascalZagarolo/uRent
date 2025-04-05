@@ -22,6 +22,7 @@ const MenuBar = () => {
     const isPopup = pathname.includes("popup");
     const isBlogs = pathname.includes("blogs");
     const isFaqs = pathname.includes("faqs");
+    const isUser = pathname.includes("user")
 
 
     const isDashboard = !isManage && !isReports && !isNotification && !isBooking && !isPopup && !isBlogs && !isFaqs;
@@ -60,6 +61,11 @@ const MenuBar = () => {
             href={`${baseUrl}/faqs`}
             >
                 FAQS
+            </a>
+            <a className={cn("p-4 rounded-t-md dark:text-gray-200/70 text-gray-700/60", isFaqs && "dark:bg-[#1C1C1C] dark:text-gray-200 text-gray-700")}
+            href={`${baseUrl}/user`}
+            >
+                Nutzer verwalten
             </a>
             </div>
         </div>

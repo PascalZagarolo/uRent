@@ -3,8 +3,18 @@ import BreadCrumpPage from "../_components/bread-crump-page";
 import MenuBar from "../_components/menu-bar";
 import { MailIcon } from "lucide-react";
 import SearchUser from "./_components/search-user";
+import getCurrentUser from "@/actions/getCurrentUser";
+import { redirect } from "next/navigation";
 
-const ChangeMailAdminPage = () => {
+
+const ChangeMailAdminPage = async () => {
+
+    const currentUser = await getCurrentUser();
+
+    if(!currentUser) {
+        return redirect("/")
+    }
+
     return ( 
         <div className="flex justify-center sm:py-8  sm:px-4">
             <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">

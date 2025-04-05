@@ -184,7 +184,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                 <img
                                     src={thisInserat?.images[0]?.url}
                                     style={{ objectFit: "cover" }}
-                                    className="rounded-lg hover:cursor-pointer dark:border-gray-900 h-[160px] w-full"
+                                    className="rounded-lg hover:cursor-pointer dark:border-gray-900 h-[180px] w-full"
                                     onClick={onRedirect}
                                     alt={thisInserat.title}
                                     loading="lazy"

@@ -21,13 +21,13 @@ const InseratImageCarousel: React.FC<InseratImageCarouselProps> = ({
   const sortedImages = [...imagesData].sort((a, b) => a.position - b.position);
 
   return (
-    <Carousel className="w-full items-center md:h-[320px]">
+    <Carousel className="w-full items-center md:h-[400px]">
       <CarouselContent className="items-center">
         {sortedImages.map((image, index) => (
           <>
 
             <CarouselItem key={index}>
-              <div className="w-full md:h-[320px] h-[240px]   overflow-hidden">
+              <div className="w-full md:h-[400px] h-[240px]   overflow-hidden">
                 <Dialog>
                   <DialogTrigger asChild>
                     <div style={{ height: '100%', width: '100%', position: 'relative' }} className="w-full">

@@ -1,0 +1,1 @@
+ALTER TABLE "transferAccountToken" ADD COLUMN "createdAt" timestamp DEFAULT now();

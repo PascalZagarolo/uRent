@@ -159,7 +159,7 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
               <PopoverTrigger asChild>
                 <img
                   src={currentUser?.image || "/placeholder-person.jpg"}
-                  className="sm:ml-0 sm:mr-0 mr-4 w-[40px] h-[40px] rounded-full hover:cursor-pointer"
+                  className="sm:ml-0 sm:mr-0 mr-4 w-10 h-10 rounded-full hover:cursor-pointer"
                   alt="User Avatar"
                 />
               </PopoverTrigger>

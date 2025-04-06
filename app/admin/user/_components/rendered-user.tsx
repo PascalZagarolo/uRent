@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { inserat, userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { PersonIcon } from "@radix-ui/react-icons";
+import axios from "axios";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { AlertCircleIcon, CalendarCheck2Icon, MailIcon, MailWarningIcon } from "lucide-react";
@@ -50,15 +51,17 @@ const RenderedUser = ({ thisUser }: RenderedUserProps) => {
     setNewAddress("");
   };
 
-  const onMailSend = () => {
+  const onMailSend = async () => {
     try {
         const values = {
-            newAddress : newAddress
+            newAddress : newAddress,
+            userId : thisUser?.id
         }
 
-        
+        await axios.post(`/api/admin-requests/user-actions/transfer-account`, values)
 
         toast.success("Email versendet.")
+        handleTransfer()
     } catch(e : any) {
         console.log(e);
         toast.error("Etwas ist schiefgelaufen. " + e);
@@ -80,7 +83,9 @@ const RenderedUser = ({ thisUser }: RenderedUserProps) => {
                 Der Erhalter der Email, kann das <span className="text-rose-400 font-semibold">Passwort</span> und Email-Addresse von diesem Account ändern und alle sensiblen Daten einsehen.
               </div>
               <div className="flex justify-end space-x-2 mt-6">
-              <Button onClick={handleTransfer} className="bg-rose-600 text-gray-100 hover:bg-rose-800">
+              <Button onClick={onMailSend} className="bg-rose-600 text-gray-100 hover:bg-rose-800"
+              
+              >
                   <AlertCircleIcon 
                    className="w-4 h-4 mr-2"
                   />

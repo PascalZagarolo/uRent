@@ -1046,6 +1046,16 @@ export const businessFaqs = pgTable("businessFaqs", {
                 .references(() => business.id, { onDelete: "cascade" }),
 })
 
+export const transferAccountToken = pgTable("transferAccountToken", {
+    id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    nativePasscode : text("nativePasscode"),
+    confirmMailToken : text("confirmMailToken").notNull(),
+    userId : text("userId"),
+    expirationDate : timestamp("expirationDate", { mode: "date" }).notNull(),
+    lastSentDate : timestamp("lastSentDate", { mode: "date" }).defaultNow().notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+})
+
 export const report = pgTable("report", {
     id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
 

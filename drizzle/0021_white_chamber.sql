@@ -1,0 +1,1 @@
+ALTER TABLE "transferAccountToken" ADD COLUMN "lastSentDate" timestamp DEFAULT now() NOT NULL;

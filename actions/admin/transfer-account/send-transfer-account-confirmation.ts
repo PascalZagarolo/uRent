@@ -18,7 +18,7 @@ export const sendTransferAccountConfirmation = async (token: string): Promise<{ 
 
         const currentDate = new Date()
 
-        if (isAfter(currentDate, transferAccountObject.expirationDate)) return { error: "Token ist abgelaufen" }
+        //if (isAfter(currentDate, transferAccountObject.expirationDate)) return { error: "Token ist abgelaufen" }
 
         //check lastSentDate is older than 30sec or 1 minute
         //if(older) => send new Mail
@@ -27,12 +27,15 @@ export const sendTransferAccountConfirmation = async (token: string): Promise<{ 
             where: eq(userTable.id, transferAccountObject.userId)
         })
 
-        if (findUser) return { error: "Nutzer existiert nicht." };
+        if (!findUser) return { error: "Nutzer existiert nicht." };
         
         //append Token to Email
         //send Email
         await sendAccountTransferConfirm(findUser.email, transferAccountObject.confirmMailToken)
 
+        await db.update(transferAccountToken).set({
+            lastSentDate : currentDate
+        })
 
 
         return { success: "Email wurde erfolgreich gesendet." };

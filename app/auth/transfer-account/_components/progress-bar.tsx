@@ -11,11 +11,11 @@ const ProgressBar = ({ currentStep } : ProgressBarProps) => {
 
     return (
         <div>
-            <div className="w-full flex justify-between items-center px-4 py-6">
+            <div className="w-full flex justify-center items-center  py-6">
                 {steps.map((step, index) => (
                     <div key={index} className="flex items-center w-full">
                         {/* Circle */}
-                        <div className={cn("flex flex-col items-center w-40", )}>
+                        <div className={cn("flex flex-col items-center w-60", )}>
                             <div className={cn(
                                 "w-12 h-12 items-center justify-center flex flex-row border font-semibold border-gray-200 rounded-full",
                                 currentStep >= index + 1 && "border-2 border-indigo-600", currentStep > index + 1 && "bg-indigo-800"
@@ -39,7 +39,8 @@ const ProgressBar = ({ currentStep } : ProgressBarProps) => {
                 ))}
 
             </div>
-            <div>
+            {currentStep < 4 ? (
+                <div>
                 <div className="text-lg font-semibold flex flex-row">
                     <TbTransferVertical 
                     className="w-4 h-4 mr-2"
@@ -50,6 +51,11 @@ const ProgressBar = ({ currentStep } : ProgressBarProps) => {
                     Übertrage deinen Account in wenigen Sekunden, gebe deine Email an welche du verknüpfen möchtest und lege ein neues Passwort fest.
                 </div>
             </div>
+            ) : (
+                <div className="mb-24">
+               
+            </div>
+            )}
         </div>
     );
 };

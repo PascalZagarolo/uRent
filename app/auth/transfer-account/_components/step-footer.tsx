@@ -17,7 +17,9 @@ const StepFooter = ({ currentPage, setCurrentPage, isDisabledPage1, isDisabledPa
 
     return (
         <div className="w-full flex flex-row items-center space-x-4">
-            {currentPage > 1 && (
+            {currentPage < 4 && (
+                <>
+                {currentPage > 1 && (
                 <Button className="w-1/2 text-gray-200 bg-[#222222] hover:bg-[#242424]" onClick={() => setCurrentPage(currentPage - 1)}
                 disabled={currentPage < 2}
                 >
@@ -25,7 +27,8 @@ const StepFooter = ({ currentPage, setCurrentPage, isDisabledPage1, isDisabledPa
                     Zurück
                 </Button>
             )}
-            <Button
+            {currentPage < 3 && (
+                <Button
                 className="w-1/2 ml-auto bg-indigo-800 hover:bg-indigo-900 text-gray-200"
                 disabled={isCurrentPageDisabled}
                 onClick={() => {
@@ -35,6 +38,9 @@ const StepFooter = ({ currentPage, setCurrentPage, isDisabledPage1, isDisabledPa
                 Fortfahren 
                 <ArrowRightCircle className="w-4 h-4 ml-2" />
             </Button>
+            )}
+            </>
+            )}
         </div>
     );
 };

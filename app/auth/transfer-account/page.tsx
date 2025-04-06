@@ -13,7 +13,7 @@ const TransferAccountPage = async () => {
 
     return (
         <div className=" dark:bg-[#101114] min-h-screen no-scrollbar">
-            <div className="sm:hidden">
+            {/* <div className="sm:hidden">
                 <MobileHeader
                     currentUser={currentUser as any}
                     foundNotifications={currentUser?.notifications}
@@ -24,7 +24,7 @@ const TransferAccountPage = async () => {
                     currentUser={currentUser as any}
                     foundNotifications={currentUser?.notifications}
                 />
-            </div>
+            </div> */}
             <div className="flex flex-col justify-center items-center">
                 <div className="w-[720px]">
                    <TransferAccountBody />

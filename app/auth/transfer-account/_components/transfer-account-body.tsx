@@ -6,6 +6,8 @@ import StepFooter from "./step-footer";
 import ChangeMail from "./change-mail";
 import ChangePassword from "./change-password";
 import ConfirmChanges from "./confirm-changes";
+import { ArrowLeftFromLineIcon, ArrowRightFromLine } from "lucide-react";
+import SuccessfullTransfer from "./successful-transfer";
 
 const TransferAccountBody = () => {
 
@@ -23,7 +25,19 @@ const TransferAccountBody = () => {
 
     return (
         <div>
-            <div>
+            <div className="flex">
+            <a className="mt-16  text-sm text-gray-200/60 hover:underline flex flex-row items-center w-content"
+            href="/"
+            >
+              <ArrowLeftFromLineIcon 
+            className="w-4 h-4 mr-4"
+              />  Zurück zur Startseite
+            </a>
+            </div>
+            <div className="text-4xl mt-4 flex flex-row items-center font-bold shadow-lg justify-center">
+                uRent
+            </div>
+            <div className="mt-8">
                 <ProgressBar currentStep={currentPage} />
             </div>
             <div className="h-[400px] mt-8">
@@ -45,8 +59,9 @@ const TransferAccountBody = () => {
                         />,
                         3: <ConfirmChanges 
                         newMail={newMail}
-                        
+                        newPassword={newPassword}
                         />,
+                        4 : <SuccessfullTransfer />
                     }[currentPage]
                 }
             </div>

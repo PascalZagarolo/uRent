@@ -42,7 +42,7 @@ import EmailFooter from "../../email-template/email-footer";
         />
         <Hr style={hr} />
         <Text style={paragraph}>
-          Du hast es fast geschafft!
+          Du hast es fast geschafft.
         </Text>
         <Text style={paragraph}>
           Um deine Accountübertragung zu bestätigen, nutze folgenden Code:

@@ -11,34 +11,40 @@ const ProgressBar = ({ currentStep } : ProgressBarProps) => {
 
     return (
         <div>
-            <div className="w-full flex justify-center items-center  py-6">
-                {steps.map((step, index) => (
-                    <div key={index} className="flex items-center w-full">
-                        {/* Circle */}
-                        <div className={cn("flex flex-col items-center w-60", )}>
-                            <div className={cn(
-                                "w-12 h-12 items-center justify-center flex flex-row border font-semibold border-gray-200 rounded-full",
-                                currentStep >= index + 1 && "border-2 border-indigo-600", currentStep > index + 1 && "bg-indigo-800"
-                            )}>
-                                {currentStep > index + 1 ? (
-                                    <CheckIcon 
-                                    className="w-4 h-4"
-                                    />
-                                ) : (
-                                    index + 1
-                                )}
-                            </div>
-                            <span className={cn("mt-2 text-sm text-center ", currentStep == index + 1 && "font-bold")}>{step}</span>
-                        </div>
+            <div className="w-full flex justify-center items-center py-6">
+  <div className="flex justify-between w-full max-w-4xl">
+    {steps.map((step, index) => (
+      <div key={index} className="flex items-center flex-1">
+        {/* Circle */}
+        <div className="flex flex-col items-center w-full">
+          <div className={cn(
+            "w-12 h-12 items-center justify-center flex flex-row border font-semibold border-gray-200 rounded-full",
+            currentStep >= index + 1 && "border-2 border-indigo-600",
+            currentStep > index + 1 && "bg-indigo-800"
+          )}>
+            {currentStep > index + 1 ? (
+              <CheckIcon className="w-4 h-4 text-white" />
+            ) : (
+              index + 1
+            )}
+          </div>
+          <span className={cn(
+            "mt-2 text-sm text-center h-20",
+            currentStep === index + 1 && "font-bold"
+          )}>
+            {step}
+          </span>
+        </div>
 
-                        {/* Dotted Line */}
-                        {index < steps.length - 1 && (
-                            <div className="flex-grow border-t-4 border-dotted border-gray-300 mx-4" />
-                        )}
-                    </div>
-                ))}
+        {/* Dotted Line */}
+        {index < steps.length - 1 && (
+          <div className="flex-1 border-t-2 border-dotted border-gray-300 mx-2" />
+        )}
+      </div>
+    ))}
+  </div>
+</div>
 
-            </div>
             {currentStep < 4 ? (
                 <div>
                 <div className="text-lg font-semibold flex flex-row">

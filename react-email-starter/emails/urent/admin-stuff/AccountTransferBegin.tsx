@@ -54,9 +54,6 @@ import EmailFooter from "../../email-template/email-footer";
         <Button style={button} href={confirmLink}>
           Account jetzt aktivieren
         </Button>
-        <Text style={paragraph}>
-          Dein Sicherheitscode: {nativePasscode} 
-        </Text>
         <Hr style={hr} />
         <EmailFooter />
       </Section>

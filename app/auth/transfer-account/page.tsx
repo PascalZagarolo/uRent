@@ -25,8 +25,8 @@ const TransferAccountPage = async () => {
                     foundNotifications={currentUser?.notifications}
                 />
             </div> */}
-            <div className="flex flex-col justify-center items-center">
-                <div className="w-[720px]">
+            <div className="flex flex-col justify-center items-center w-full">
+                <div className="md:w-[720px] w-full bg-blue md:p-0 px-4">
                    <TransferAccountBody />
                 </div>
             </div>

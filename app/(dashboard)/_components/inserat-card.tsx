@@ -172,7 +172,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                 href={`/inserat/${thisInserat.id}`}
                 target="_blank"
             >
-                {thisInserat.title}
+                {thisInserat.title} 
             </a>
             </div>
             <div className="flex justify-center h-[200px] items-center  w-full">
@@ -181,7 +181,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                     <div className="flex w-full">
                         <div className="sm:w-1/2 flex w-full relative">
                             <div className="w-full">
-                                <img
+                            <img
                                     src={thisInserat?.images[0]?.url}
                                     style={{ objectFit: "cover" }}
                                     className="rounded-lg hover:cursor-pointer dark:border-gray-900 h-[180px] w-full"
@@ -291,7 +291,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                           shadow-lg
                         p-2 sm:pl-2 pl-0 rounded-l-md text-gray-300 
                          sm:truncate text-sm justify-center hover:cursor-pointer bg-indigo-800`,
-                            thisInserat?.color ? HighlightColorsBackground[thisInserat?.color] : "bg-indigo-800"
+                         (thisInserat?.isHighlighted && thisInserat?.color) ? HighlightColorsBackground[thisInserat?.color] : "bg-indigo-800"
                         )}
                             target="_blank"
                             onClick={() => {
@@ -308,7 +308,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                                     )} />
                                 </div>
                                 <span className={cn("sm:text-sm text-xs",
-                                    (thisInserat?.isHighlighted && thisInserat?.color === "WHITE") && "text-gray-800"
+                                    (thisInserat?.isHighlighted && thisInserat?.color == "WHITE") && "text-gray-800"
                                 )}>
                                     Verfügbarkeit prüfen
                                 </span>

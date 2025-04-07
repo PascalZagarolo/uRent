@@ -6,7 +6,7 @@ import { sendAccountTransferConfirm } from "@/lib/mails/admin-stuff";
 import { isAfter } from "date-fns";
 import { eq } from "drizzle-orm";
 
-export const sendTransferAccountConfirmation = async (token: string): Promise<{ error?: string, success?: string }> => {
+export const sendTransferAccountConfirmation = async (token: string, newMail : string): Promise<{ error?: string, success?: string }> => {
     try {
 
         //get already generated Token from DB
@@ -28,10 +28,18 @@ export const sendTransferAccountConfirmation = async (token: string): Promise<{ 
         })
 
         if (!findUser) return { error: "Nutzer existiert nicht." };
+
+        const findExistingEmail = await db.query.userTable.findFirst({
+            where : (
+                eq(userTable.email, newMail)
+            )
+        })
         
+        if(findExistingEmail) return { error : "Diese Email wird bereits benutzt."};
+
         //append Token to Email
         //send Email
-        await sendAccountTransferConfirm(findUser.email, transferAccountObject.confirmMailToken)
+        await sendAccountTransferConfirm(newMail, transferAccountObject.confirmMailToken)
 
         await db.update(transferAccountToken).set({
             lastSentDate : currentDate

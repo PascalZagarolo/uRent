@@ -3,12 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { Share2Icon } from "@radix-ui/react-icons";
 import { ArrowLeftFromLineIcon, CheckCircleIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { FaRightToBracket } from "react-icons/fa6";
 import { RiTextDirectionL } from "react-icons/ri";
 
 
 
 const SuccessfullTransfer = () => {
+    
+    const router = useRouter();
+    
     return (<div className="max-w-md mx-auto mt-10 p-6  rounded-2xl shadow-lg ">
     <div className="text-center">
         <CheckCircleIcon className="w-14 h-14 text-emerald-600 mx-auto mb-4" />
@@ -21,7 +25,11 @@ const SuccessfullTransfer = () => {
     </div>
 
     <div className="mt-6">
-        <Button className="w-full text-sm font-medium bg-[#242424] hover:bg-[#2a2a2a] text-gray-200">
+        <Button className="w-full text-sm font-medium bg-[#242424] hover:bg-[#2a2a2a] text-gray-200"
+        onClick={() => {
+            router.push("/")
+        }}
+        >
             <ArrowLeftFromLineIcon className="w-4 h-4 mr-2" />
             Zurück zur Startseite
         </Button>

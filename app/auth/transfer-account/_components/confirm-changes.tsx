@@ -18,9 +18,10 @@ import { newPassword } from '../../../../actions/new-password';
 interface ConfirmChangeProps {
     newMail: string,
     newPassword : string
+    changePage : (number) => void;
 }
 
-const ConfirmChanges = ({ newMail, newPassword }: ConfirmChangeProps) => {
+const ConfirmChanges = ({ newMail, newPassword, changePage }: ConfirmChangeProps) => {
    
     const [currentCode, setCurrentCode] = useState("");
 
@@ -39,12 +40,13 @@ const ConfirmChanges = ({ newMail, newPassword }: ConfirmChangeProps) => {
 
             setIsLoading(true);
 
-            const res = await sendTransferAccountConfirmation(token)
+            const res = await sendTransferAccountConfirmation(token, newMail)
             if (res?.error) {
                 console.log(res?.error)
             }
             if (res?.success) {
                 codeWasSent(true);
+                toast.success("Email erfolgreich versendet.")
             }
         } catch (e: any) {
             console.log(e);
@@ -64,13 +66,15 @@ const ConfirmChanges = ({ newMail, newPassword }: ConfirmChangeProps) => {
                     currentCode,
                     token,
                     newMail,
-                    ""
+                    newPassword
             )
             
             if(res.success && !res.error) {
                 setSuccess(true);
+                changePage(4)
             } else if(res.error) {
                 setError(res.error)
+                
             }
 
         } catch(e : any) {
@@ -122,6 +126,7 @@ const ConfirmChanges = ({ newMail, newPassword }: ConfirmChangeProps) => {
                     />
                     <div className="mt-4">
                         <Button className="text-sm text-gray-200 w-full bg-indigo-800 hover:bg-indigo-900"
+                        onClick={checkCode}
                         disabled={isLoading}
                         >
                            {isLoading ? (
@@ -139,6 +144,11 @@ const ConfirmChanges = ({ newMail, newPassword }: ConfirmChangeProps) => {
                            )}
                         </Button>
                     </div>
+                    {error && (
+                        <div className="text-rose-600 font-semibold">
+                            {error}
+                        </div>
+                    )}
                 </div>
                 
             )}

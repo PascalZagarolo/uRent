@@ -35,7 +35,7 @@ const TransferAccountBody = () => {
             </a>
             </div>
             <div className="text-4xl mt-4 flex flex-row items-center font-bold shadow-lg justify-center">
-                uRent
+                uRent 
             </div>
             <div className="mt-8">
                 <ProgressBar currentStep={currentPage} />
@@ -60,6 +60,7 @@ const TransferAccountBody = () => {
                         3: <ConfirmChanges 
                         newMail={newMail}
                         newPassword={newPassword}
+                        changePage={() => {setCurrentPage(4)}}
                         />,
                         4 : <SuccessfullTransfer />
                     }[currentPage]

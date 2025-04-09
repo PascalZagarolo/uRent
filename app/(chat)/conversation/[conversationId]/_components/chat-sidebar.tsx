@@ -10,7 +10,7 @@ import { pusherClient } from "@/lib/pusher";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ChatFolder from "./chat-folder";
 import ManageConversations from "./_manage-chat-components/manage-conversations";
-import { FileIcon } from "lucide-react";
+import { FileIcon, MessageCircleIcon } from "lucide-react";
 import { FaFolder } from "react-icons/fa";
 
 interface ChatSideBarProps {
@@ -230,8 +230,15 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
                 Noch keine Konversationen diesen Ordner hinzugefügt..
             </div>
         ) : (
-            <div className="text-sm mt-4 text-gray-200/60 px-8 flex justify-between">
+            <div className="text-sm mt-4 text-gray-200/60 px-4 h-full flex-col items-center justify-center">
+                <div className="flex flex-row items-center justify-center">
+                <MessageCircleIcon 
+                 className="w-8 h-8"
+                />
+                </div>
+                <div className="mt-4 flex flex-row justify-center px-8 text-center">
                 {currentFilter === "UNREAD" ? "Keine ungelesenen Konversationen.." : "Keine Konversationen gefunden.."}
+                </div>
             </div>
         )
     )}

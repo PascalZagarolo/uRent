@@ -20,7 +20,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation }:
 
 
     return (
-        <div className="w-full dark:bg-[#191919] h-full bg-white max-h-screen overflow-y-scroll sm:overflow-hidden rounded-md shadow-lg">
+        <div className="w-full dark:bg-[#191919] h-full bg-white  sm:overflow-hidden rounded-md shadow-lg">
             <div className="h-full flex flex-col">
                 {/* Chat Header */}
                 <div className="flex items-center p-4 dark:bg-[#131313] bg-gray-50  dark:border-gray-700 sticky top-0 z-10">
@@ -36,7 +36,7 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation }:
                         {otherUserDetails.name}
                     </a>
                     <div className="ml-auto">
-                    <ChatHeader
+                        <ChatHeader
                             otherUser={otherUserDetails}
                             //@ts-ignore
                             foundBlocks={thisConversation?.blocks}
@@ -69,14 +69,14 @@ const RenderedChatClient = ({ otherUserDetails, currentUser, thisConversation }:
 
 
                 {/* Chat Messages */}
-                <div className="flex-grow overflow-y-auto min-h-screen no-scrollbar p-4 dark:bg-[#151515] bg-white" id="chat-render">
-                <ChatComponent
+                <div className="flex-grow overflow-y-auto  no-scrollbar p-4 dark:bg-[#151515] bg-white" id="chat-render">
+                    <ChatComponent
                         //@ts-ignore
                         messages={thisConversation?.messages}
                         currentUser={currentUser}
                         thisConversation={thisConversation}
-                    />
-
+                    /> 
+                    
 
                 </div>
 

@@ -55,7 +55,7 @@ const ChatClient = ({ startedConversations, currentUser } : ChatClientProps) => 
     )}
 
     {currentConversation ? (
-        <div className="sm:flex sm:justify-center sm:px-4 w-full sm:w-[760px] h-full">
+        <div className="sm:flex sm:justify-center sm:px-4 w-full sm:w-[760px] h-full ">
             <RenderedChatClient 
                 otherUserDetails={currentConversation.user1Id === currentUser.id ? currentConversation.user2 : currentConversation.user1}
                 thisConversation={currentConversation}

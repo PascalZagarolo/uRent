@@ -134,7 +134,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
   }, [renderedMessages]);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-y-scroll">
       {/* Header or Chat start info */}
 
 

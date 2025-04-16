@@ -105,7 +105,7 @@ const AddPriceProfileCreation: React.FC<AddPriceProfileCreationProps> = ({
             const newInserted = {
                 id : generatedId,
                 title: currentType,
-                price: currentValue,
+                price: Number(currentValue ?? 0)?.toFixed(2),
                 description: currentInfo,
                 freeMiles: currentKilometer,
                 extraCost: currentExtratype,

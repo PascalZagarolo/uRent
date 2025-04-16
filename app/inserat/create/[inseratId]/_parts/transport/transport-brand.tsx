@@ -84,7 +84,7 @@ const TransportBrandForm: React.FC<CarBrandFormProps> = ({
                             </SelectLabel>
                             <SelectItem value="Fiat">Fiat</SelectItem>
                             <SelectItem value="Iveco">Iveco</SelectItem>
-                            <SelectItem value="Mercedes-Benz">Mercedes-Benz</SelectItem>
+                            <SelectItem value="Mercedes_Benz">Mercedes-Benz</SelectItem>
                             <SelectItem value="Volkswagen">Volkswagen</SelectItem>
                             <SelectLabel>
                                 <Separator className="w-full"/>

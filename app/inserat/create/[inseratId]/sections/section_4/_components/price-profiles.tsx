@@ -81,21 +81,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat, currentPrice
         return listA.every((item, index) => JSON.stringify(item) === JSON.stringify(listB[index]));
     };
 
-    // const onSave = async () => {
-    //     try {
-    //         setIsLoading(true);
-    //         const values = {
-    //             newProfiles: priceProfiles,
-    //         }
-    //         await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values);
-    //         router.refresh();
-    //         toast.success('Preisprofile neu angeordnet');
-    //     } catch (error) {
-    //         toast.error('Fehler beim Verschieben des Preisprofils');
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // }
+   
 
     const handleDragCancel = () => setActiveItem(null);
 

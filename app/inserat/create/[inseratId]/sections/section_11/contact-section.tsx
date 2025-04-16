@@ -116,7 +116,7 @@ const ContactSection = ({ thisInserat, currentSection, changeSection }: ContactS
         <>
             <div className="flex flex-col h-full">
                 <h3 className="text-lg font-semibold">
-                    Kontaktdaten {currentZipCode}
+                    Kontaktdaten
                     <p className="text-xs text-gray-200/60 font-medium text-left">
                         Gebe an wie potentielle Mieter dich außerhalb des uRent Chatsystems kontaktieren können. <br />
                         Kontaktdaten werden öffentlich in deinem Inserat angezeigt.

@@ -33,7 +33,7 @@ interface UploadImagesSectionProps {
 
 const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: UploadImagesSectionProps) => {
 
-    
+
 
     const [selectedImages, setSelectedImages] = useState<{ id: string; url: string; position: number, wholeFile: any }[]>(
         thisInserat?.images.map((image) => ({
@@ -41,15 +41,15 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             url: image.url,
             position: image.position,
         })) || []
-    );  
+    );
 
     useEffect(() => {
-        if(!isLoading) {
+        if (!isLoading) {
             JSON.stringify(selectedImages) !== JSON.stringify(oldImages) ? setHasChanged(true) : setHasChanged(false)
         }
-    },[selectedImages])
+    }, [selectedImages])
 
-    
+
 
     const [isLoading, setIsLoading] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
@@ -72,7 +72,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
     const MAX_RETRIES = 3;
 
-    const onSave = async (redirect?: boolean, previous?: boolean, confirmDelete? : boolean) => {
+    const onSave = async (redirect?: boolean, previous?: boolean, confirmDelete?: boolean) => {
         try {
             if (isLoading) {
                 return null;
@@ -80,31 +80,31 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
             setIsLoading(true);
 
-            if(showPrivateDialog && !confirmDelete && thisInserat?.isPublished) {
+            if (showPrivateDialog && !confirmDelete && thisInserat?.isPublished) {
                 setShowPrivate(true);
                 return
             }
 
-            let uploadData : { url: string, position: number }[] = [];
-        
-            
+            let uploadData: { url: string, position: number }[] = [];
+
+
             const oldData = [...selectedImages]; // Copy the current state, if something fails later..
-    
+
             if (hasChanged) {
-               setHasChanged(false);
-               const updatedImages = [...selectedImages]; // Copy the current state
-    
+                setHasChanged(false);
+                const updatedImages = [...selectedImages]; // Copy the current state
+
                 for await (const pImage of selectedImages) {
                     let returnedUrl = "";
-    
+
                     if (pImage.wholeFile) {
                         returnedUrl = await retryUpload(pImage.wholeFile);
-    
+
                         if (isValidUrl(returnedUrl)) {
                             const index = updatedImages.findIndex((item) => item.id === pImage.id);
                             if (index !== -1) {
                                 updatedImages[index] = { ...pImage, url: returnedUrl, wholeFile: null };
-                                
+
                             }
                         } else {
                             console.log(`Failed to upload image after ${MAX_RETRIES} attempts.`);
@@ -114,18 +114,18 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     } else {
                         returnedUrl = pImage.url;
                     }
-    
+
                     if (isValidUrl(returnedUrl)) {
                         uploadData.push({ url: returnedUrl, position: pImage.position });
                     }
                 }
-    
+
                 const values = { updatedImages: uploadData };
-                
+
                 await axios.post(`/api/inserat/${thisInserat?.id}/image/bulkUpload`, values);
                 router.refresh()
             }
-            
+
             if (previous) {
                 console.log("Failed to upload images, reverting changes...");
                 const params = new URLSearchParams();
@@ -140,31 +140,31 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     setIsLoading(false);
                     return toast.error("Bitte versuche es erneut...");
                 } else {
-                    
+
                     await changeSection(4);
-                    
+
                 }
             }
         } catch (e: any) {
             console.log(e);
             toast.error("Fehler beim Speichern der Änderungen");
         } finally {
-            
+
             setIsLoading(false);
         }
     };
-    
-    
+
+
 
     const retryUpload = async (file: File): Promise<string> => {
         for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-            
+
             const url = await handleUpload(file);
             if (isValidUrl(url)) {
                 return url;
             } else {
                 console.log(`Upload attempt ${attempt} failed, retrying...`);
-                break;   
+                break;
             }
         }
         return "";
@@ -173,21 +173,21 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
     const handleUpload = async (file: File): Promise<string> => {
         const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
         const formData = new FormData();
-        
+
         formData.append("file", file);
         formData.append("upload_preset", "oblbw2xl");
-    
+
         try {
             const response = await axios.post(url, formData);
 
             return response.data.secure_url;
-    
+
         } catch (error) {
             console.error("Error during upload:", error);
             return "";
         }
     };
-    
+
 
     const isValidUrl = (url: string): boolean => {
         try {
@@ -209,7 +209,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
 
 
 
-   
+
 
     useEffect(() => {
         if (!hasChanged) return
@@ -224,7 +224,7 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
         }
     }, [hasChanged])
 
-   
+
 
     return (
         <>
@@ -232,15 +232,18 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                 <h3 className="text-lg font-semibold">
                     Fahrzeug Bilder
                     <p className="text-xs text-gray-200/60 font-medium text-left">
-                        Gute Bilder erhöhen die Chance auf ein erfolgreiches Inserat und sind deine Visitenkarte. <br/>
+                        Gute Bilder erhöhen die Chance auf ein erfolgreiches Inserat und sind deine Visitenkarte. <br />
                         Hinweis : Die Bilder werden im Hintergrund nach dem klicken auf {`"`}Weiter{`"`} hochgeladen. Falls du die Seite vorzeitig verlässt, können Änderungen verloren gehen.
-                        
+
                     </p>
                 </h3>
                 <div className={cn("mt-4", selectedImages?.length > 2 && "mb-4")}>
-                <UploadImagesCreation
+                    <UploadImagesCreation
                         selectedImages={selectedImages}
-                        setSelectedImages={setSelectedImages}
+                        setSelectedImages={(images) => {
+                            setSelectedImages(images)
+                            setHasChanged(true)
+                        }}
                         existingSubscription={thisInserat?.user?.subscription}
                     />
                 </div>
@@ -253,9 +256,9 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                         <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" 
-                    onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 13)}>
-                    Zum  Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto"
+                        onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 13)}>
+                        Zum  Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
                     </span>
                 </div>
                 <div className="grid grid-cols-2 mt-2">
@@ -267,9 +270,9 @@ const UploadImagesSection = ({ thisInserat, currentSection, changeSection }: Upl
             </div>
             {showDialog && <SaveChangesDialog open={showDialog} onChange={setShowDialog} onSave={onSave} />}
             {showDialogPrevious && <SaveChangesPrevious open={showDialogPrevious} onChange={setShowDialogPrevious} onSave={onSave} currentIndex={3} />}
-            {showPrivate && <ShowPrivatizeDialog  open={showPrivate} onChange={setShowPrivate} onSave={() => onSave(undefined, undefined, true)}
-                                text={"Du hast keine Bilder hochgeladen, oder deine Bilder entfernt."}
-                />}
+            {showPrivate && <ShowPrivatizeDialog open={showPrivate} onChange={setShowPrivate} onSave={() => onSave(undefined, undefined, true)}
+                text={"Du hast keine Bilder hochgeladen, oder deine Bilder entfernt."}
+            />}
         </>
     );
 }

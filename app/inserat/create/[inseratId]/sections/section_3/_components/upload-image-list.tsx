@@ -10,61 +10,55 @@ import {
 import { cn } from "@/lib/utils";
 
 interface ImageListCreationProps {
-    onEdit: (id: string) => void;
+   
     onReorder: (updateData: { id: string, position: number }[]) => void;
     items: { id: string, url: string, position: number }[];
 }
 
 const ImageListCreation: React.FC<ImageListCreationProps> = ({
-    onEdit,
+   
     onReorder,
     items,
 }) => {
-    const [isMounted, setIsMounted] = useState(false);
-    const [chapters, setChapters] = useState(items);
+    
+    
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    
 
-    useEffect(() => {
-        setChapters(items);
-    }, [items]);
-
+    
     const onDragEnd = (result: DropResult) => {
         if (!result.destination) {
             return;
         }
-
-        const updatedChapters = Array.from(chapters);
-        const [movedItem] = updatedChapters.splice(result.source.index, 1);
-        updatedChapters.splice(result.destination.index, 0, movedItem);
-
-        // Update positions
-        const bulkUpdatedData = updatedChapters.map((item, index) => ({
-            id: item.id,
+    
+        // Clone the items array
+        const updatedItems = Array.from(items);
+    
+        // Remove and re-insert the moved item
+        const [movedItem] = updatedItems.splice(result.source.index, 1);
+        updatedItems.splice(result.destination.index, 0, movedItem);
+    
+        // Preserve all properties, including wholeFile, and update positions
+        const bulkUpdatedData = updatedItems.map((item, index) => ({
+            ...item, // spread to keep id, url, position, wholeFile, etc.
             position: index,
-            url: item.url,
         }));
-
-        setChapters(updatedChapters);
+    
+        // Send back the updated array
         onReorder(bulkUpdatedData);
     };
+    
 
-    if (!isMounted) {
-        return null;
-    }
+    
 
-    const onDelete = (imageId: string) => {
-        console.log(imageId);
-    };
+    
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="image">
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2 w-full">
-                        {chapters.map((image, index) => (
+                        {items.map((image, index) => (
                             <Draggable key={image.id} draggableId={image.id} index={index}>
                                 {(provided) => (
                                     <div

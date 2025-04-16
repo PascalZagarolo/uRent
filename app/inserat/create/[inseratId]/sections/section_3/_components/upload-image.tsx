@@ -118,7 +118,7 @@ const UploadImagesCreation: React.FC<UploadImagesCreationProps> = ({
 
                 <div className="mt-4 bg-white px-4 py-2 mr-8  rounded-md dark:bg-[#222222] shadow-lg w-full">
                     <ImageListCreation
-                        onEdit={() => { }}
+                        
                         onReorder={setSelectedImages}
                         items={selectedImages || []}
 

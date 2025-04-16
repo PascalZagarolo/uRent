@@ -32,7 +32,9 @@ interface PriceProfilesProps {
 const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    const usedList = thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [];
+    
+
+    const [usedList, setUsedList] = useState(thisInserat?.priceprofiles?.sort((a, b) => a.position - b.position) || [])
 
     const [priceProfiles, setPriceProfiles] = useState<typeof priceprofile.$inferSelect[]>(usedList);
     const [activeItem, setActiveItem] = useState<typeof priceprofile.$inferSelect | null>(null);
@@ -82,6 +84,7 @@ const PriceProfiles: React.FC<PriceProfilesProps> = ({ thisInserat }) => {
                 newProfiles: priceProfiles,
             }
             await axios.patch(`/api/priceprofile/reorder/${thisInserat?.id}`, values);
+            setUsedList(priceProfiles)
             router.refresh();
             toast.success('Preisprofile neu angeordnet');
         } catch (error) {

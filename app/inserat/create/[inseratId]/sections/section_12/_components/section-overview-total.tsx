@@ -10,6 +10,17 @@ interface SectionOverviewTotalProps {
 const SectionOverviewTotal = ({ currentCategory, unfinishedSections, isPkw }: SectionOverviewTotalProps) => {
     const sectionId = Number(useSearchParams().get("sectionId")) - 1;
 
+    function getDisplayCategoryName(category) {
+        const categoryMap = {
+            LKW: "Lkw",
+            TRANSPORT: "Transporter",
+            PKW: "Pkw",
+            TRAILER: "Anhänger"
+        };
+    
+        return categoryMap[category.toUpperCase()] || category;
+    }
+
     const sectionData = [
         "Grundlegende Angaben (1/2)",
         "Grundlegende Angaben (2/2)",
@@ -18,9 +29,9 @@ const SectionOverviewTotal = ({ currentCategory, unfinishedSections, isPkw }: Se
         ...(!isPkw) ? 
         ["Gewichtsangaben"] : 
         [],
-        `${currentCategory.toUpperCase()} - Eigenschaften (1/3)`,
-        `${currentCategory.toUpperCase()} - Eigenschaften (2/3)`,
-        `${currentCategory.toUpperCase()} - Eigenschaften (3/3)`,
+        `${getDisplayCategoryName(currentCategory)} - Eigenschaften (1/3)`,
+        `${getDisplayCategoryName(currentCategory)} - Eigenschaften (2/3)`,
+        `${getDisplayCategoryName(currentCategory)} - Eigenschaften (3/3)`,
         "Rahmenbedingungen",
         "Mietdauer",
         "Kontaktdaten",

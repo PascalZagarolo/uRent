@@ -161,7 +161,8 @@ const TransportSection3 = ({ transportAttribute, currentSection, changeSection }
                     <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer" onClick={() => switchSectionOverview(hasChanged, (show) => setShowDialog(show))}>
                         <ArrowLeft className="w-4 h-4 mr-2" /> Zu deiner Inseratsübersicht
                     </span>
-                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 12)}>
+                    <span className="text-xs text-gray-200/60 flex flex-row items-center hover:underline cursor-pointer ml-auto" 
+                    onClick={() => previousPage(hasChanged, (show) => setShowDialogPrevious(show), 13)}>
                     Zum Ende springen <MdOutlineKeyboardDoubleArrowRight className="w-4 h-4 mr-2" />
                     </span>
                 </div>

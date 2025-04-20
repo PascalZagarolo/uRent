@@ -5,7 +5,7 @@ import { businessImages, userTable } from "@/db/schema";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ImageIcon, RotateCwIcon, SaveAllIcon, Trash2Icon, TrashIcon, X } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -18,6 +18,12 @@ import BusinessHeaderAvatar from "./business-header/business-header-avatar";
 import ProfilePicBusiness from "./business-header/profile-pic-business";
 import ContactUser from "./business-header/contact-user";
 import UserOptions from "./business-render/user-options";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "@/lib/cropImage";
+import { HiInformationCircle } from "react-icons/hi";
+import { FaDeleteLeft } from "react-icons/fa6";
+import { IoCropSharp } from "react-icons/io5";
+import { FaExchangeAlt } from "react-icons/fa";
 
 interface UploadBusinessPicsProps {
     usedImages: typeof businessImages.$inferSelect[];
@@ -34,171 +40,259 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     userImage,
     currentUser
 }) => {
+    const [finalImage, setFinalImage] = useState(usedImages[0]?.url ? usedImages[0]?.url : null);
     const [currentImage, setCurrentImage] = useState<any>(usedImages[0] ? usedImages[0] : null);
     const [uploadedFile, setUploadedFile] = useState<any>(null);
+    const [imageSrc, setImageSrc] = useState<string | null>(null);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
+    const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
+    const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null);
 
-    const onDrop = (acceptedFiles: File[], rejectedFiles: File[]) => {
-        acceptedFiles.forEach((file) => {
-            setUploadedFile(file);
-            const imageUrl = URL.createObjectURL(file);
-            const imageObject = { ...file, url: imageUrl };
-            setCurrentImage(imageObject as any);
-            setShowDialog(true);
-        });
-    };
-
-    const onImageClear = () => {
-        setCurrentImage(null);
-    };
 
     const router = useRouter();
 
-    const onSave = async () => {
+    const onDrop = useCallback((acceptedFiles: File[]) => {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+            setImageSrc(reader.result as string);
+            setShowDialog(true);
+        });
+        reader.readAsDataURL(acceptedFiles[0]);
+        setUploadedFile(acceptedFiles[0]);
+    }, []);
+
+    const onCropComplete = useCallback((_: any, croppedAreaPixels: any) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
+
+    const uploadCroppedImage = async () => {
         try {
-            if (ownProfile) {
-                setIsLoading(true);
-                const uploadUrl = await handleUpload();
-                const values = { image: uploadUrl };
-                await axios.post(`/api/business/${businessId}/images`, values);
-                setShowDialog(false);
-                toast.success("Bild erfolgreich gespeichert");
-                router.refresh();
-            }
-        } catch (e: any) {
-            console.log(e);
-            toast.error("Fehler beim Speichern des Bildes");
+            setIsLoading(true);
+            const cropped = await getCroppedImg(imageSrc!, croppedAreaPixels);
+
+            // Convert blob to a local object URL so it can be shown immediately
+            const previewUrl = URL.createObjectURL(cropped);
+
+            // Save cropped blob and show preview
+            setCroppedBlob(cropped);
+            setCurrentImage({ url: previewUrl }); // Show locally
+            setImageSrc(null); // Close cropper
+
+
+        } catch (e) {
+            console.error(e);
+            toast.error("Fehler beim Zuschneiden des Bildes");
         } finally {
             setIsLoading(false);
         }
     };
 
-    const handleUpload = async () => {
+
+
+    const onSave = async () => {
+        if (!croppedBlob || !currentImage?.url.startsWith("blob:")) return;
+
         try {
             setIsLoading(true);
-            const url = "https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload";
             const formData = new FormData();
-            formData.append("file", uploadedFile);
+            formData.append("file", croppedBlob);
             formData.append("upload_preset", "oblbw2xl");
 
-            const response = await fetch(url, { method: "POST", body: formData });
-            const responseJson = await response.json();
-            return responseJson?.url;
-        } catch (e: any) {
-            console.log(e);
-            toast.error("Fehler beim Hochladen des Bildes");
+            const response = await fetch("https://api.cloudinary.com/v1_1/df1vnhnzp/image/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await response.json();
+            const uploadedImageUrl = data.secure_url;
+            setFinalImage(uploadedImageUrl)
+            // Update the real image URL in currentImage
+            setCurrentImage({ url: uploadedImageUrl });
+
+            const values = { image: uploadedImageUrl };
+
+            // Persist to your DB
+            await axios.post(`/api/business/${businessId}/images`, values);
+
+            toast.success("Bild erfolgreich gespeichert.");
+            
+        } catch (e) {
+            console.error(e);
+            toast.error("Fehler beim Speichern.");
+            setFinalImage(usedImages[0]?.url ? usedImages[0]?.url : "")
         } finally {
             setIsLoading(false);
         }
+    };
+
+
+
+
+
+    const onImageClear = () => {
+        setCurrentImage(null);
+        setImageSrc(null);
+        setUploadedFile(null);
+        setZoom(1);
+        setCrop({ x: 0, y: 0 });
+        setCroppedAreaPixels(null);
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        //@ts-ignore
         onDrop,
         maxFiles: 1,
         accept: { 'image/png': ['.jpeg', '.png', '.webp', '.jpg'] }
     });
 
-
     return (
         <div className="relative">
             {(!currentImage?.url && !ownProfile) && (
-                <div>
-                    <div
-                        className="w-full py-20 relative overflow-hidden rounded-none sm:rounded-t-md bg-[#131313]" />
-
-                </div>
+                <div className="w-full py-20 relative overflow-hidden rounded-none sm:rounded-t-md bg-[#131313]" />
             )}
 
             {(currentImage && ownProfile) && (
                 <div>
                     <Button className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md" onClick={() => { setShowDialog(true) }}>
                         <Image
-                            src={currentImage?.url}
+                            src={finalImage}
                             quality={100}
                             fill
                             style={{ objectFit: "cover" }}
-                            className="shadow-lg hover:cursor-pointer "
+                            className="shadow-lg hover:cursor-pointer"
                             alt="Banner Image"
                         />
                     </Button>
-                    {/* <div className="text-xs text-gray-200/60 mt-2 flex flex-row items-center">
-                        <RotateCwIcon className="w-4 h-4 mr-2" />Klicke auf deinen Banner um ihn zu bearbeiten oder zu löschen
-                    </div> */}
                 </div>
             )}
 
             {(currentImage && !ownProfile) && (
                 <div className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md">
-
-                        <Image
-                            src={currentImage?.url}
-                            quality={100}
-                            fill
-                            style={{ objectFit: "cover" }}
-                            className="shadow-lg hover:cursor-pointer "
-                            alt="Banner Image"
-                        />
-                    
-                    {/* <div className="text-xs text-gray-200/60 mt-2 flex flex-row items-center">
-                        <RotateCwIcon className="w-4 h-4 mr-2" />Klicke auf deinen Banner um ihn zu bearbeiten oder zu löschen
-                    </div> */}
+                    <Image
+                        src={currentImage?.url}
+                        quality={100}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        className="shadow-lg hover:cursor-pointer"
+                        alt="Banner Image"
+                    />
                 </div>
             )}
 
             {(!currentImage?.url && ownProfile) && (
-                <div>
-
-                    <div className={cn("text-gray-200/80 bg-[#222222]  text-sm flex justify-center py-20 shadow-lg items-center")}
-                        {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <GrAddCircle className="w-4 h-4 mr-2" />
-                        {isDragActive ? "Fotos hier ablegen.." : "Fotos hinzufügen oder reinziehen.."}
-                    </div>
+                <div className={cn("text-gray-200/80 bg-[#222222] text-sm flex justify-center py-10 shadow-lg items-center")}
+                    {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <GrAddCircle className="w-4 h-4 mr-2" />
+                    {isDragActive ? "Fotos hier ablegen.." : "Fotos hinzufügen oder reinziehen.."}
                 </div>
             )}
 
-            <Dialog open={showDialog} onOpenChange={(e) => { setShowDialog(e) }}>
-                <DialogContent className="dark:bg-[#191919] dark:border-none space-y-0">
-                    <div>
+            <Dialog open={showDialog} onOpenChange={(e) => setShowDialog(e)}>
+                <DialogContent className="dark:bg-[#191919] dark:border-none flex flex-col space-y-0 gap-0">
+                    <div className="mb-2">
                         <h3 className="text-lg font-semibold">Profilbanner bearbeiten</h3>
-                        <p className="text-gray-200/60 text-xs">
-                            Dein Profilbanner wird öffentlich auf deinem Profil angezeigt und ist für viele Nutzer das erste, was sie sehen.
-                        </p>
-                        <div className="mt-4">
-                            {currentImage ? (
-                                <Image
-                                    width={500}
-                                    height={500}
-                                    src={currentImage?.url}
-                                    className="w-full h-40 object-cover"
-                                    alt="Selected Image"
-                                />
-                            ) : (
-                                <div className="bg-[#131313] shadow-lg w-full h-40 flex justify-center items-center">
-                                    <span className="text-sm text-gray-200/60">Kein Bild ausgewählt</span>
-                                </div>
-                            )}
-                        </div>
-                        <div className=" flex space-x-2 mt-4">
-                            <Button className="text-gray-200 bg-[#222222] hover:bg-[#242424] shadow-lg w-1/2" {...getRootProps()} disabled={isLoading}>
-                                <input {...getInputProps()} />
-                                <RotateCwIcon className="w-4 h-4 mr-2" /> Banner ändern
-                            </Button>
-                            <Button className="text-gray-200 bg-rose-600 hover:bg-rose-700 w-1/2" onClick={onImageClear} disabled={isLoading}>
-                                <X className="w-4 h-4 mr-2" /> Banner löschen
-                            </Button>
-                        </div>
-                        <DialogTrigger asChild>
-                            <Button className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 w-full mt-2" onClick={onSave} disabled={isLoading}>
-                                <SaveAllIcon className="w-4 h-4 mr-2" /> Änderungen speichern
-                            </Button>
-                        </DialogTrigger>
                     </div>
+
+
+                    {imageSrc && (
+                        <div className="relative w-full h-[300px] bg-black">
+                            <Cropper
+                                image={imageSrc}
+                                crop={crop}
+                                zoom={zoom}
+                                aspect={3 / 1}
+                                onCropChange={setCrop}
+                                onZoomChange={setZoom}
+                                onCropComplete={onCropComplete}
+                            />
+                        </div>
+                    )}
+
+                    {!imageSrc && currentImage?.url && (
+                        <div className="pb-4 hover:cursor-pointer" {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <Image
+                                width={500}
+                                height={150}
+                                src={currentImage?.url}
+                                className="w-full h-40 object-cover shadow-lg"
+                                alt="Selected Image"
+                            />
+                        </div>
+                    )}
+
+                    {!imageSrc && currentImage?.url && (
+                        <div className="flex flex-row items-center text-sm text-gray-200/60">
+                            <HiInformationCircle
+                                className="w-4 h-4 mr-2"
+                            />
+                            Klicke auf den Banner, um ihn zu bearbeiten
+                        </div>
+                    )}
+
+                    {imageSrc && (
+                        <div>
+                            <Button className="bg-indigo-700 hover:bg-indigo-800 text-white w-full mt-4" onClick={uploadCroppedImage} disabled={isLoading}>
+                                <IoCropSharp className="w-4 h-4 mr-2" />
+                                Bild zuschneiden
+                            </Button>
+                            <div className="mt-2 flex flex-row items-center space-x-2">
+                                <Button className="w-1/2 bg-[#222222] hover:bg-[#242424] text-gray-200 hover:text-gray-200/60"  {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <FaExchangeAlt
+                                        className="w-4 h-4 mr-2"
+                                    />
+                                    Bild ändern
+                                </Button>
+                                <Button className="w-1/2 bg-rose-600 hover:bg-rose-700 text-gray-200 hover:text-gray-200/60"
+                                    onClick={() => {
+                                        setImageSrc("");
+                                        setZoom(1);
+                                        setCroppedAreaPixels(null);
+                                    }}
+                                >
+                                    <X
+                                        className="w-4 h-4 mr-2"
+                                    />
+                                    Bild entfernen
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+
+                    {!imageSrc && (
+                        <div className="">
+                            <Button className="text-gray-200 bg-[#222222] hover:bg-[#282828] w-full mt-4" onClick={onImageClear} disabled={isLoading}>
+                                <FaDeleteLeft className="w-4 h-4 mr-2" /> Banner entfernen
+                            </Button>
+                        </div>
+                    )}
+
+
+                    <DialogTrigger asChild>
+                        {!imageSrc && croppedBlob && (
+                            <div>
+                                <Button
+                                    className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 w-full mt-2"
+                                    onClick={onSave}
+                                    disabled={isLoading}
+                                >
+                                    <SaveAllIcon className="w-4 h-4 mr-2" /> Änderungen speichern
+                                </Button>
+                            </div>
+                        )}
+                    </DialogTrigger>
+
+
+
+
+
                 </DialogContent>
             </Dialog>
-
 
             {ownProfile ? (
                 <div className="absolute bottom-[-40px] left-8">
@@ -212,10 +306,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
             {!ownProfile && (
                 <div className="absolute bottom-[-20px] right-8 flex flex-row items-center space-x-4">
-                    <ContactUser
-                        currentUser={currentUser}
-                    />
-
+                    <ContactUser currentUser={currentUser} />
                 </div>
             )}
         </div>

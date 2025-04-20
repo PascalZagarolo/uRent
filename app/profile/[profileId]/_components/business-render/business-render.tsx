@@ -9,7 +9,7 @@ import ContentSwitch from "./content-switch";
 
 
 interface BusinessrenderProps {
-    thisUser: typeof userTable.$inferSelect;
+    thisUser: typeof userTable.$inferSelect & { business };
     ownProfile: boolean;
     currentUser: typeof userTable.$inferSelect;
 }
@@ -32,7 +32,7 @@ const BusinessRender = ({
             </div>
             <div className="md:flex md:flex-row items-center w-full md:space-x-4">
                 <div className="md:w-1/2 w-full">
-                    <DisplayBusinessNames
+                <DisplayBusinessNames
                         name={thisUser.name}
                         sharesRealName={thisUser?.sharesRealName}
                         firstName={thisUser?.vorname}

@@ -128,7 +128,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                         <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border border-[#1A1D28]"></div>
                     </div>
                     <div className="ml-4 group-hover:text-indigo-400 transition-colors">
-                        <div className="font-medium text-sm text-white truncate max-w-[240px]">
+                        <div className="font-medium text-base text-white truncate max-w-[240px]">
                             {thisInserat.user?.name || 'Benutzer'}
                         </div>
                         <div className="text-gray-400 text-xs">

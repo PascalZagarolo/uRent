@@ -271,7 +271,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
                        
                         
                         {/* Description Text - Shortened */}
-                        <div className="line-clamp-2 text-sm text-gray-300/90 pr-1 overflow-hidden whitespace-pre-wrap mb-2">
+                        <div className="line-clamp-5 text-xs text-gray-300/90 pr-1 overflow-hidden whitespace-pre-wrap mb-2">
                             {thisInserat.description}
                         </div>
                         

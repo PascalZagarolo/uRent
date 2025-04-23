@@ -268,7 +268,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                     </div>
                 </div>
             )}
-            <div className="lg:hidden w-full mt-4  px-2 xl:px-0">
+            <div className="lg:hidden w-full mt-4 sm:mt-0  px-2 xl:px-0">
                 <MobileFilterSheet 
                 userId={currentUser?.id || ""}
                 />
@@ -277,7 +277,7 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                 </div>
             </div>
             <div className="sm:flex sm:justify-center w-full px-0.5">
-                <InseratRenderedList
+            <InseratRenderedList
                     inserateArray={foundInserate}
                     currentUser={currentUser}
                 //@ts-ignore

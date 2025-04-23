@@ -82,7 +82,7 @@ const InseratCard: React.FC<InseratCardProps> = ({
 
 
 
-    console.log(thisInserat?.images)
+    
 
 
 
@@ -191,12 +191,12 @@ const InseratCard: React.FC<InseratCardProps> = ({
     //thisInserat?.color ? HighlightColorsBackground[thisInserat?.color]
 
     return (
-        <div className={cn(`md:w-[760px] sm:h-[370px] w-full h-full bg-[#1a1d28] mt-4 rounded-md overflow-hidden shadow-lg`,
+        <div className={cn(`md:w-[760px] sm:h-[370px] w-full h-full bg-[#1a1d28] mb-4 rounded-md overflow-hidden shadow-lg`,
             thisInserat?.isHighlighted && "border-indigo-800 border-2",
             thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
         )}>
             {/* Mobile Title - Only visible on small screens */}
-            <div className="sm:hidden block px-4 py-3">
+            <div className="sm:hidden block px-4 py-4">
                 <a className="hover:underline font-semibold text-base overflow-hidden w-full line-clamp-1 break-all text-white"
                     href={`/inserat/${thisInserat.id}`}
                     target="_blank">

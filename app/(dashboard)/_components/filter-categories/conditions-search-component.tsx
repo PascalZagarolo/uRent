@@ -8,7 +8,7 @@ import CautionBar from "./conditions/conditions-caution";
 const ConditionsSearchComponent = () => {
     return (
         <div className="  space-y-4">
-            <div className="p-2 bg-[#1B1F2C] ">
+            <div className="p-2  ">
 
                 <div className="w-full flex justify-start items-center text-lg text-gray-200">
                     <IoIosPaper className="h-6 w-6 mr-4"/>    Mietkonditionen

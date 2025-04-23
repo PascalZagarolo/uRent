@@ -22,7 +22,7 @@ const PKW = () => {
              {/* <div className="mt-4 flex justify-center">
                 <UdsLayout/>
             </div>  */}
-             <div className="mt-4 flex justify-center">
+             <div className="mt-4 px-2 flex justify-center">
              <UdsDialog />
             </div> 
         </div>

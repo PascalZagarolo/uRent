@@ -149,7 +149,7 @@ const UdsDialog = () => {
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
     return (
-        <div className="w-full bg-[#1e2235] rounded-lg overflow-hidden shadow-md">
+        <div className="w-full bg-[#272c44] rounded-lg overflow-hidden  shadow-lg">
             <div className="px-4 py-3 bg-[#21263a]">
                 <h3 className="text-sm font-medium text-gray-200 flex items-center gap-2">
                     <LuCalendarSearch className="text-indigo-400 w-4 h-4" /> Flexibler Mietzeitraum
@@ -168,7 +168,7 @@ const UdsDialog = () => {
                     {currentObject["dynamicSearch"] == "true" && (
                         <DialogTrigger asChild>
                             <Button 
-                                className="w-full bg-[#252a40] hover:bg-[#282d45] rounded-md py-3 px-3 shadow-sm text-left h-auto transition-all duration-200"
+                                className="w-full bg-[#22273c] shadow-lg hover:bg-[#282d45] rounded-md py-4 border-indigo-600 border px-4  text-left h-auto transition-all duration-200"
                                 variant="ghost"
                             >
                                 <div className="flex flex-col items-start w-full gap-3">

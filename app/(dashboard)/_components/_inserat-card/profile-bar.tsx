@@ -6,9 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { inserat, inseratRelations, userTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
-
 import axios from "axios";
-import { Check, Lightbulb, MailCheckIcon, Settings2Icon, ThumbsUpIcon } from "lucide-react";
+import { Check, Lightbulb, MailCheckIcon, MessageSquare, Settings2Icon, ThumbsUpIcon, UserCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,7 +17,7 @@ import { LuMessagesSquare } from "react-icons/lu";
 import { userSubscription } from '../../../../db/schema';
 import LetterRestriction from "@/components/letter-restriction";
 import { ClipLoader } from "react-spinners";
-
+import { motion } from "@/components/motion";
 
 interface ProfileBarProps {
     thisInserat: typeof inserat.$inferSelect | any,
@@ -29,10 +28,8 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     thisInserat,
     currentUser
 }) => {
-
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-
     const isOwn = currentUser?.id === thisInserat.userId;
 
     const [text, setText] = useState(
@@ -44,11 +41,9 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         (currentUser?.name ? currentUser?.name + " " + "\n\n" : "[Dein Name] ") +
         "Meine Kontaktdaten : \n" +
         "E-Mail : " + (currentUser?.email ? currentUser?.email : "[Deine E-Mail Addresse]") + "\n"
-
     );
 
     const onConversation = () => {
-
         if (currentUser) {
             try {
                 setIsLoading(true);
@@ -104,8 +99,6 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
         router.push(`/inserat/create/${thisInserat.id}`);
     }
 
-
-
     const handleTextChange = (event) => {
         const newText = event.target.value;
         const lines = newText.split('\n');
@@ -117,111 +110,113 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
     };
 
     return (
-        <div className="w-full h-full mt-2">
-
-            <div className={cn("bg-[#1b1e2d]  w-full position:absolute  dark:bg-[#171821] shadow-lg",
-
-            )}>
-                <div className="flex  items-center  w-full rounded-md p-2">
-                    <div className="w-[40px] mr-2">
+        <div className="py-2.5 px-4 mt-4 border-t border-[#252838]/50">
+            <div className="flex items-center justify-between max-w-3xl mx-auto">
+                {/* User Profile Section */}
+                <Link 
+                    href={`/profile/${thisInserat.userId}`} 
+                    className="flex items-center group"
+                >
+                    <div className="relative">
                         <Image
-                            className="rounded-full  object-cover shadow-lg  w-[32px] h-[32px]"
                             src={thisInserat.user?.image || "/placeholder-person.jpg"}
-                            height={40}
-                            width={40}
-
-                            alt="User-Bild"
+                            height={32}
+                            width={32}
+                            className="rounded-full object-cover h-10 w-10 ring-2 ring-indigo-500/30 group-hover:ring-indigo-500/70 transition-all duration-200"
+                            alt={`${thisInserat.user?.name || 'Benutzer'} Profilbild`}
                         />
+                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border border-[#1A1D28]"></div>
                     </div>
-                    <Link href={`/profile/${thisInserat.userId}`} className="w-1/2 ">
-                        <div className=" font-semibold text-gray-200  items-center flex ">
-                            <div className="w-3/4 line-clamp-1 sm:text-base text-sm break-all">
-                                {thisInserat.user?.name}
-                            </div>
-
+                    <div className="ml-4 group-hover:text-indigo-400 transition-colors">
+                        <div className="font-medium text-sm text-white truncate max-w-[240px]">
+                            {thisInserat.user?.name || 'Benutzer'}
                         </div>
-
-                    </Link>
-
-                    <div className="flex ml-auto">
-
-                        {!isOwn ? (
-                            <div className="flex flex-row items-center">
-                                <Dialog>
-                                    <DialogTrigger className="" asChild>
-
-                                        <Button className="flex items-center mr-4 ml-auto bg-[#1e202d] rounded-md p-2  font-semibold
-                                                 dark:text-gray-100 dark:hover:bg-[#181818]/60 px-4 sm:px-8" onClick={onOpen}>
-                                            <ThumbsUpIcon className="w-4 h-4 sm:mr-2" />
-                                            <p className="sm:block hidden">
-                                                Anfragen
-                                            </p>
-                                        </Button>
-
-                                    </DialogTrigger>
-                                    <DialogContent className="bg-[#171717] p-6 rounded-lg shadow-xl border-none">
-                                        <DialogHeader>
-                                            <h3 className="text-xl font-semibold text-white flex flex-row items-center space-x-2">
-                                                <Lightbulb className="mr-2 h-4 w-4" /> Händler sofort kontaktieren
-                                            </h3>
-                                        </DialogHeader>
-                                        <div>
-                                            <Textarea
-                                                className="w-full h-[400px] mt-4 bg-[#222222] shadow-lg text-gray-300 border-none rounded-lg"
-                                                value={text}
-                                                onChange={handleTextChange}
-                                                maxLength={2000}
-                                            />
-                                            <div className="ml-auto w-full justify-end flex">
-                                                <LetterRestriction
-                                                    currentLength={text.length} limit={2000}
-                                                />
-                                            </div>
-                                            <p className="text-xs text-gray-200/60 mt-2">
-                                                * Die Nachricht wird direkt an den Händler gesendet. Bitte achte auf eine freundliche und respektvolle Kommunikation.
-                                            </p>
-                                            {/* <RadioGroup className="flex mt-4 space-x-4">
-                                <RadioGroupItem value="messenger" id="messenger" />
-                                <Label htmlFor="messenger" className="flex items-center text-white">
-                                    <Send className="mr-2 h-4 w-4" /> Direktnachricht
-                                </Label>
-                                <RadioGroupItem value="email" id="email" />
-                                <Label htmlFor="email" className="flex items-center text-white">
-                                    <Mail className="mr-2 h-4 w-4" /> E-Mail
-                                </Label>
-                            </RadioGroup> */}
-                                            <Button
-                                                className="w-full bg-indigo-800 hover:bg-blue-900 text-white  rounded-lg transition ease-in-out mt-2"
-                                                onClick={onInterest} disabled={!text || isLoading}>
-                                                {isLoading ? (
-                                                    <ClipLoader color="#fff" loading={true} size={20} />
-                                                ) : (
-                                                    "Senden"
-                                                )}
-                                            </Button>
-                                        </div>
-                                    </DialogContent>
-                                </Dialog>
-
-                                <Button className="flex items-center mr-4  bg-[#1e202d] rounded-md p-2 px-4 sm:px-8 font-semibold
-                                     dark:text-gray-100 dark:hover:bg-[#181818]/60" onClick={onConversation}>
-                                    <LuMessagesSquare className="w-4 h-4 sm:mr-2" />
-                                    <p className="sm:block hidden">
-                                        Kontaktieren
-                                    </p>
-                                </Button>
-                            </div>
-                        ) : (
-                            <Button className="flex items-center mr-4  bg-[#1D202D] text-gray-200  rounded-md p-2 px-4 sm:px-8 font-semibold
-                                      hover:bg-[#242838] " onClick={onEdit}>
-                                <Settings2Icon className="w-4 h-4 mr-2" />
-                                <p className=" hidden sm:block">Inserat bearbeiten</p>
-                                <p className="sm:hidden block">Bearbeiten</p>
-                            </Button>
-                        )}
+                        <div className="text-gray-400 text-xs">
+                            Anbieter
+                        </div>
                     </div>
+                </Link>
+                
+                {/* Action Buttons */}
+                <div className="flex space-x-2">
+                    {!isOwn ? (
+                        <>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={onOpen}
+                                        className="flex items-center text-white bg-[#262a3b] hover:bg-[#2e3348] py-2 px-3 rounded-lg transition-colors text-xs"
+                                    >
+                                        <ThumbsUpIcon className="w-3.5 h-3.5 sm:mr-1.5" />
+                                        <span className="sm:inline hidden">Anfragen</span>
+                                    </motion.button>
+                                </DialogTrigger>
+                                <DialogContent className="bg-[#1e2130] p-6 rounded-lg shadow-xl border border-[#252838] max-w-md">
+                                    <DialogHeader>
+                                        <h3 className="text-xl font-semibold text-white flex items-center">
+                                            <Lightbulb className="mr-2 h-4 w-4 text-indigo-400" /> 
+                                            Händler kontaktieren
+                                        </h3>
+                                    </DialogHeader>
+                                    <div className="mt-4">
+                                        <Textarea
+                                            className="w-full bg-[#262a3b] shadow-md text-gray-200 border-[#252838] rounded-lg resize-none"
+                                            value={text}
+                                            onChange={handleTextChange}
+                                            maxLength={2000}
+                                            rows={10}
+                                        />
+                                        <div className="ml-auto w-full justify-end flex mt-1">
+                                            <LetterRestriction
+                                                currentLength={text.length} limit={2000}
+                                            />
+                                        </div>
+                                        <p className="text-xs text-gray-400 mt-2">
+                                            Die Nachricht wird direkt an den Anbieter gesendet
+                                        </p>
+                                        <motion.button
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            className="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white rounded-lg transition-all duration-200 py-2 mt-4 flex items-center justify-center"
+                                            onClick={onInterest} 
+                                            disabled={!text || isLoading}
+                                        >
+                                            {isLoading ? (
+                                                <ClipLoader color="#fff" loading={true} size={16} />
+                                            ) : (
+                                                <>
+                                                    <MailCheckIcon className="w-4 h-4 mr-2" />
+                                                    Nachricht senden
+                                                </>
+                                            )}
+                                        </motion.button>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
 
-
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={onConversation}
+                                className="flex items-center text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 py-2 px-4 rounded-lg transition-colors text-sm"
+                            >
+                                <MessageSquare className="w-4 h-4s sm:mr-1.5" />
+                                <span className="sm:inline hidden">Kontaktieren</span>
+                            </motion.button>
+                        </>
+                    ) : (
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={onEdit}
+                            className="flex items-center text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 py-2 px-4 rounded-lg transition-colors text-sm"
+                        >
+                            <Settings2Icon className="w-4 h-4 sm:mr-1.5" />
+                            <span className="sm:inline hidden">Bearbeiten</span>
+                        </motion.button>
+                    )}
                 </div>
             </div>
         </div>

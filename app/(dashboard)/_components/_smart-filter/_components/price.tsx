@@ -124,7 +124,7 @@ const PriceFormFilter = () => {
 
     return (
         <div className="w-full ">
-            <h3 className="flex justify-start text-lg text-gray-100 items-center   w-full bg-[#1b1f2c] 
+            <h3 className="flex justify-start text-lg text-gray-100 items-center   w-full s 
             p-2 border-[#1f2332]">
                 <IoIosPricetags className="mr-4" /> Preisrahmen
             </h3>
@@ -221,12 +221,14 @@ const PriceFormFilter = () => {
                 </div>
 
             </div>
+            {/*
             <div className="mt-2 flex justify-center  ">
                 <Button className="bg-[#1a1d2c] w-full border  dark:text-gray-100
                       dark:hover:bg-[#212538]" onClick={onPriceReset} disabled={!currentStart && !currentEnd && !startPrice && !endPrice}>
                     Filter zurücksetzen
                 </Button>
-            </div>
+            </div
+            */}
         </div>
     );
 }

@@ -1,10 +1,6 @@
-
-
 import { getInserate } from "@/actions/getInserate";
 
 import OrderBy from "../_components/_smart-filter/order-by";
-
-
 
 import { cache } from "react";
 import db from "@/db/drizzle";
@@ -21,7 +17,6 @@ import { TbDeviceDesktopSearch, TbListSearch, TbReportSearch } from "react-icons
 import { FaAlignLeft, FaSearch } from "react-icons/fa";
 import MobileFilterSheet from "../_components/mobile-filter-sheet";
 import MobileFilter from "../_components/mobile-filter";
-
 
 interface RelevanteInserateProps {
     title: string;
@@ -107,7 +102,6 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     end,
     page,
 
-
     periodBegin,
     periodEnd,
     startTime,
@@ -167,14 +161,6 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     transportBrand,
     ahk
 }) => {
-
-
-
-
-
-
-
-
     let favedInserate: typeof favourite.$inferSelect[] = [];
 
     if (currentUser) {
@@ -183,8 +169,6 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         })
     }
 
-
-
     const foundInserate = await getInserate({
         title: title,
         thisCategory: thisCategory,
@@ -192,7 +176,6 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         start: Number(start),
         end: Number(end),
         page: Number(page),
-
 
         periodBegin: periodBegin,
         periodEnd: periodEnd,
@@ -253,47 +236,33 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
         caution: caution
     });
 
-
-
-
-
-
-
-
     return (
         <div className="w-full">
-
             {!title ? (
-                <div className="h-full flex sm:block sm:mt-0 items-center font-semibold w-full py-4 text-gray-100 bg-[#171925]">
-                    <div className="ml-4 flex w-full items-center">
-                        <div className="p-2 sm:block hidden rounded-lg">
-                            <TbListSearch className="w-6 h-6 sm:mr-2" />
+                <div className="bg-[#1a1d28] rounded-lg shadow-sm overflow-hidden mb-4">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-[#252838]/40">
+                        <div className="flex items-center gap-2">
+                            <TbListSearch className="w-5 h-5 text-indigo-400" />
+                            <h3 className="font-medium text-gray-100">Relevante Inserate</h3>
                         </div>
-                        <h3 className="  flex font-semibold text-base items-center text-gray-200 sm:text-lg h-full w-full">
-                            Relevante
-                            Inserate
-                            <div className="flex ml-4 sm:ml-auto mr-2 sm:mr-8 text-black">
-                                <OrderBy />
-                            </div>
-                        </h3>
+                        <div className="flex items-center">
+                            <OrderBy />
+                        </div>
                     </div>
                 </div>
             ) : (
-                <div className="h-full py-4 bg-[#171925] text-gray-200 flex flex-col sm:flex-row items-center sm:justify-between">
-                    <div className="flex items-center ml-4">
-                        <div className="rounded-lg hidden sm:block">
-                        <FaSearch  className="w-4 h-4 mr-2" />
+                <div className="bg-[#1a1d28] rounded-lg shadow-sm overflow-hidden mb-4">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-[#252838]/40">
+                        <div className="flex items-center gap-2">
+                            <FaSearch className="w-4 h-4 text-indigo-400" />
+                            <h3 className="font-medium text-gray-100 line-clamp-1 max-w-[300px]">
+                                {title}
+                            </h3>
+                            <span className="text-xs text-gray-400 ml-2">
+                                {foundInserate.length} {foundInserate.length === 1 ? "Ergebnis" : "Ergebnisse"}
+                            </span>
                         </div>
-                        <h3 className="text-base font-semibold   text-gray-200 break-all line-clamp-1 w-[300px]">
-                            {`${title}`}
-                        </h3>
-                    </div>
-
-                    <div className="flex items-center mt-4 text-gray-200/60 sm:mt-0 sm:ml-auto sm:mr-8 w-full sm:w-auto justify-between">
-                        <span className="font-semibold text-sm">
-                            {foundInserate.length} {foundInserate.length === 1 ? "Ergebnis" : "Ergebnisse"}...
-                        </span>
-                        <div className="ml-auto sm:ml-4">
+                        <div className="flex items-center">
                             <OrderBy />
                         </div>
                     </div>
@@ -315,7 +284,6 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
                 />
             </div>
         </div>
-
     );
 });
 

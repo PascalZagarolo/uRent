@@ -50,15 +50,19 @@ const PkwSearchComponents = () => {
 
 
 
+            <div className="pb-4 pt-8">
             <PkwPowerBar />
-            <div>
+            </div>
+            <div className="pb-4">
                 <SetInitialSearch />
             </div>
-            <div className="w-full gap-x-2 space-y-4">
+            <div className="w-full gap-x-2 space-y-4 s">
                 <h3 className="flex justify-center text-md items-center font-semibold  mt-4 text-gray-200">
                     Laderaum 
                 </h3>
+                <div className="">
                 <LoadingVolumeBar />
+                </div>
 
             </div>
         </div>

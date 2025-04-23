@@ -23,7 +23,7 @@ import LetterRestriction from "@/components/letter-restriction";
 
 interface ProfileDescriptionProps {
     ownProfile: boolean;
-    user: typeof userTable.$inferSelect;
+    user: typeof userTable.$inferSelect & { business };
 }
 
 

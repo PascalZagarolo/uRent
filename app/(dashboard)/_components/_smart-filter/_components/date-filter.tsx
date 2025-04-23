@@ -145,7 +145,7 @@ const DateFormFilter = () => {
 
     return (
         <div className="mb-2 w-full ">
-            <h3 className="flex justify-start text-lg text-gray-100 items-center  bg-[#1b1f2c] p-2 border-[#1f2332] ">
+            <h3 className="flex justify-start text-lg text-gray-100 items-center   p-2 border-[#1f2332] ">
                 <FaRegCalendarAlt className="mr-4" /> Mietzeitraum
             </h3>
             <div className="flex gap-x-4 mt-2 w-full">
@@ -264,6 +264,7 @@ const DateFormFilter = () => {
               isDisabled = {currentObject["dynamicSearch"] || (!periodBegin && !periodEnd)}
               />
             </div>
+            {/*
             <div className="mt-2 flex justify-center  ">
                     <Button className="bg-[#1a1d2c] w-full border 
                     dark:text-gray-100  dark:hover:bg-[#212538]
@@ -273,6 +274,7 @@ const DateFormFilter = () => {
                         Filter zurücksetzen
                     </Button>
                 </div>
+            */}
                 
         </div>
     );

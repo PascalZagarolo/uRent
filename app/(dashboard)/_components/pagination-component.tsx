@@ -15,102 +15,154 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { useGetFilterAmount, useResultsPerPage } from "@/store";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
-import { BsArrowRightSquareFill } from "react-icons/bs";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "@/components/motion";
 
 const PaginationComponent = () => {
-
-
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  
   const router = useRouter();
 
-  const currentPage = searchParams.getAll("page");
-
+  const currentPage = Number(searchParams.get("page") || "1");
   const params = getSearchParamsFunction("page");
 
-  const changePage = (page : number) => {
+  const changePage = (page: number) => {
     const url = qs.stringifyUrl({
       url: pathname,
       query: {
         page: page,
         ...params
       }
-    }, { skipEmptyString : true, skipNull : true })
+    }, { skipEmptyString: true, skipNull: true })
 
     router.push(url)
   }
 
-  let renderedPages : number[] = [];
-
   const itemsPerPage = useResultsPerPage((state) => state.results);
   const globalResults = useGetFilterAmount((state) => state.amount);
 
-  const expectedPages = (Math.ceil(globalResults / itemsPerPage)) ? Math.ceil(globalResults / itemsPerPage) : 1;
+  const expectedPages = Math.max(Math.ceil(globalResults / itemsPerPage), 1);
   
-  if (expectedPages > 5 && Number(currentPage) >= 3) {
-    const pageIndex = Number(currentPage);
+  let renderedPages: (number | string)[] = [];
 
-    const startingIndex = pageIndex - 2;
-    const endingIndex = pageIndex + 2;
-
-    for(let i = startingIndex; i < endingIndex + 1; i++) {
-      if (i > 0 && i < Number(expectedPages) + 1) {
-        renderedPages.push(i);
-      }
-    }
-  } else if(expectedPages > 5 && Number(currentPage) < 3) {
-    for(let i = 1; i < 6; i++) {
+  // Calculate which page numbers to show
+  if (expectedPages <= 5) {
+    // Show all pages if 5 or fewer
+    for (let i = 1; i <= expectedPages; i++) {
       renderedPages.push(i);
     }
-    
   } else {
+    // Always include first and last page
+    renderedPages.push(1);
     
-      for(let i = 1; i < expectedPages + 1; i++) {
-        renderedPages.push(i);
+    // Middle pages
+    if (currentPage <= 3) {
+      // Near the start
+      renderedPages.push(2, 3, 4);
+    } else if (currentPage >= expectedPages - 2) {
+      // Near the end
+      renderedPages.push(expectedPages - 3, expectedPages - 2, expectedPages - 1);
+    } else {
+      // Middle
+      renderedPages.push(currentPage - 1, currentPage, currentPage + 1);
+    }
+    
+    // Add last page if not already included
+    if (!renderedPages.includes(expectedPages)) {
+      renderedPages.push(expectedPages);
+    }
+    
+    // Sort and deduplicate
+    renderedPages = [...new Set(renderedPages)].sort((a, b) => Number(a) - Number(b));
+    
+    // Add ellipses indicators
+    const finalRenderedPages: (number | string)[] = [];
+    renderedPages.forEach((page, index) => {
+      if (index > 0 && Number(page) - Number(renderedPages[index - 1]) > 1) {
+        finalRenderedPages.push("...");
       }
-   
+      finalRenderedPages.push(page);
+    });
+    
+    renderedPages = finalRenderedPages;
   }
 
-    return ( 
-    <>
-    {expectedPages > 1 && (
-      <div className=" dark:bg-[#13141C] 
-       bg-white  py-4 mt-2 sm:mt-0 sm:p-4 w-full sm:w-[1060px] flex justify-center">
-      <Pagination>
-      <PaginationContent>
-        {Number(currentPage) > 1 && (
-          <PaginationItem onClick={() => {changePage(Number(currentPage) - 1)}} className="">
-          <PaginationPrevious/>
-        </PaginationItem>
-        )}
-        
-       
-        {renderedPages.map((page) => (
-          
-            <PaginationItem className={cn(`bg-[##14151E]
-            text-gray-200 rounded-md hover:cursor-pointer`, 
-            Number(currentPage) == page && "bg-[#252838] border-b border-[#252838] text-gray-300")} 
-            onClick={() => {changePage(page)}} key={page}>
-            <PaginationLink className="hover:bg-[#242738] hover:text-gray-300">{page}</PaginationLink>
-          </PaginationItem>
-         
-        ))}
-        
-        {Number(currentPage) < expectedPages && expectedPages > 1 &&  (
-          <PaginationItem onClick={() => {changePage(Number(currentPage) + 1)}} className="hover:cursor-pointer">
-          <PaginationNext/>
-        </PaginationItem>
-        )}
-      </PaginationContent>
-    </Pagination> 
+  if (expectedPages <= 1) {
+    return null;  // Don't show pagination if there's only one page
+  }
 
-    
-  </div>
-    )}
-    </>
-      );
+  return (
+    <div className="dark:bg-[#13141C] bg-white py-4 mt-2 sm:mt-0 sm:p-4 w-full sm:w-[1060px] flex justify-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="flex items-center gap-1 md:gap-2 bg-[#1a1d28]/80 backdrop-blur-sm rounded-full py-2 px-2 border border-indigo-500/10 shadow-lg"
+      >
+        {/* Previous Button */}
+        {currentPage > 1 && (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => changePage(currentPage - 1)}
+            className="flex items-center justify-center h-9 w-9 rounded-full bg-[#252838] text-gray-300 hover:bg-indigo-600 hover:text-white transition-all duration-200"
+            aria-label="Previous page"
+          >
+            <ChevronLeft size={18} />
+          </motion.button>
+        )}
+
+        {/* Page Numbers */}
+        {renderedPages.map((page, index) => {
+          if (page === "...") {
+            return (
+              <span key={`ellipsis-${index}`} className="text-gray-400 px-2">
+                ...
+              </span>
+            );
+          }
+
+          const pageNumber = Number(page);
+          return (
+            <motion.button
+              key={`page-${page}`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => changePage(pageNumber)}
+              className={cn(
+                "relative h-9 min-w-9 px-3 flex items-center justify-center rounded-full text-sm font-medium transition-all duration-200",
+                currentPage === pageNumber
+                  ? "bg-indigo-600 text-white"
+                  : "bg-[#252838] text-gray-300 hover:bg-[#2a2e40] hover:text-white"
+              )}
+            >
+              {page}
+              {currentPage === pageNumber && (
+                <motion.span
+                  layoutId="activePage"
+                  className="absolute inset-0 rounded-full bg-indigo-600 -z-10"
+                  transition={{ duration: 0.2 }}
+                />
+              )}
+            </motion.button>
+          );
+        })}
+
+        {/* Next Button */}
+        {currentPage < expectedPages && (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => changePage(currentPage + 1)}
+            className="flex items-center justify-center h-9 w-9 rounded-full bg-[#252838] text-gray-300 hover:bg-indigo-600 hover:text-white transition-all duration-200"
+            aria-label="Next page"
+          >
+            <ChevronRight size={18} />
+          </motion.button>
+        )}
+      </motion.div>
+    </div>
+  );
 }
  
 export default PaginationComponent;

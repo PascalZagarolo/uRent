@@ -164,8 +164,9 @@ const PkwPowerBar = () => {
 
                 <div className="w-1/2">
                     <Label className="flex justify-start items-center text-gray-200">
-                        <div className="ml-2 font-semibold flex items-center w-full"> Bis
-                            <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} /> </div>
+                       <div className="ml-2 font-semibold flex items-center w-full"> Bis{/*
+                            <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} /> */}</div>
+ 
 
                     </Label>
 

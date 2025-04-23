@@ -45,7 +45,7 @@ const DynamicSearchConfirm = () => {
     return ( 
         <div className="flex items-center gap-x-2 justify-center bg-indigo-800 p-2 rounded-md">
             <Label className="font-semibold">
-                Dynamische Suche nutzen
+                Dynamische Suche
             </Label>
             <div>
                 <Switch

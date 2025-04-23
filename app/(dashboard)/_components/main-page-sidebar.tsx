@@ -2,20 +2,15 @@
 
 import { CarFront, FilterIcon, Settings2, Truck, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-
 import qs from "query-string";
 import PKW from "./_smart-filter/pkw";
-
 import { cn } from "@/lib/utils";
-
-
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import CategoryOverview from "./filter-categories/category-overview";
 import { useDeleteParams, useSavedSearchParams } from "@/store";
-import { MdManageSearch, MdOutlineCancel } from "react-icons/md";
+import { MdManageSearch, MdOutlineCancel, MdFilterList } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import MainPageResults from "./main-page-results";
 import { CategoryEnumRender } from "@/db/schema";
@@ -35,21 +30,10 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
     const pathname = usePathname();
     const usedSearchParams = useSearchParams();
     const currentCategory = usedSearchParams.get("category");
-
-
     const router = useRouter();
-
     const isMounted = useRef(false)
-
     const params = getSearchParamsFunction("category");
-
     const linkedParams = getSearchParamsFunction("");
-
-
-
-
-
-
 
     useEffect(() => {
         if (!isMounted.current) {
@@ -57,54 +41,33 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
         }
     }, [])
 
-
-
     const onReset = () => {
         const url = process.env.NEXT_PUBLIC_BASE_URL
-
         router.push(url)
-
-
     }
 
-
-
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-
     const currentObject = useSavedSearchParams((state) => state.searchParams)
-
-
     const { changeAttributes } = useDeleteParams();
 
     const setCategory = (category: typeof CategoryEnumRender) => {
         deleteAttributes();
         //@ts-ignore
         changeSearchParams("thisCategory", category);
-
     }
 
     useEffect(() => {
         if (currentCategory) {
             changeSearchParams("thisCategory", currentCategory);
         }
-
     }, [])
 
-
-
     const deleteCategory = () => {
-
         deleteAttributes();
         deleteSearchParams("thisCategory")
     }
 
-
-
-
-
-
     const deleteAttributes = () => {
-
         changeAttributes(true);
 
         //ALLGEMEIN
@@ -145,122 +108,167 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
         //TRANSPORT
         deleteSearchParams("transportBrand")
-
-
-
     }
 
-
-
-
-
-
     return (
-        <div>
-            <div className=" no-scrollbar w-[280px] rounded-md hidden lg:block bg-[#202336]  sm:overflow-auto    ">
-                <h3 className="text-bold text-2xl p-4 font-medium  flex flex-col justify-center text-gray-100 items-center  bg-[#1b1e2c]">
-                    <div className="flex flex-row items-center">
-                    <MdManageSearch  className="mr-4" /> Suchfilter
+        <div className="hidden lg:block">
+            <div className="w-[280px] rounded-lg overflow-hidden shadow-lg bg-[#1e2235]">
+                {/* Header */}
+                <div className=" px-4 py-4">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <MdFilterList className="w-4 h-4 text-indigo-400" />
+                            <h3 className="font-medium text-lg text-gray-200">Suchfilter</h3>
+                        </div>
+                        <button 
+                            className="text-xs text-rose-500 hover:text-rose-400 flex items-center gap-1"
+                            onClick={onReset}
+                        >
+                            <MdOutlineCancel className="w-3.5 h-3.5" />
+                            <span>Zurücksetzen</span>
+                        </button>
                     </div>
-                    <p className="text-xs text-gray-200/60 text-center  py-2"> Wähle Filter aus und scrolle nach unten, um auf {`"`}Ergebnisse{`"`} zu klicken. </p>
-                </h3>
-
-                <a
-                    className="w-full flex bg-[#1b1e2c] justify-center items-center text-xs pb-2 hover:underline hover:cursor-pointer"
-                    href={process.env.NEXT_PUBLIC_BASE_URL}>
-                    <MdOutlineCancel className="w-4 h-4 mr-2 text-rose-600" />  Filter zurücksetzen
-                </a>
-                <div className="py-2 bg-[#1b1e2c]">
-                    <SaveSearch
-                        userId={userId || ""}
-                    />
+                    <p className="text-xs text-gray-400 mt-2">Wähle Filter und klicke auf "Ergebnisse anzeigen"</p>
                 </div>
+
+                {/* Save Search Section */}
+                <div className="px-4 py-3 bg-[#21263a]s">
+                    <SaveSearch userId={userId || ""} />
+                </div>
+
+                {/* Existing Filters (if any) */}
                 {usedSearchParams !== null && (
-                    <div className="">
+                    <div className="px-4 py-2">
                         <ExistingFilter />
                     </div>
                 )}
 
-                <div className="">
-                    <h3 className="text-gray-100 font-semibold    p-2 flex justify-center  bg-[#1b1f2c] dark:border-[#1f2332]">
-                        Fahrzeugkategorie
-                    </h3>
-                    <div className="flex justify-between ml-12 mr-12 mt-8 ">
-                        <div className="">
-                            <p className={cn("p-4 rounded-md text-gray-200  border-2 hover:cursor-pointer bg-[#1c1f2f]",
-                                //@ts-ignore
-                                currentObject["thisCategory"] === "PKW" ? "border-blue-800" : "border-[#212539]")}
-                                onClick={//@ts-ignore
-                                    () => currentObject["thisCategory"] === "PKW" ? deleteCategory() : setCategory("PKW")}>
-                                <CarFront />
-                            </p>
-                            <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
-                                PKW
-                            </p>
+                {/* Vehicle Categories */}
+                <div className="px-4 pt-3 pb-4">
+                    <h4 className="text-sm font-medium text-gray-200 mb-3">Fahrzeugkategorie</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                        {/* PKW */}
+                        <div 
+                            onClick={() => {
+                                if (currentObject["thisCategory"] === "PKW") {
+                                    deleteCategory();
+                                } else {
+                                    // @ts-ignore
+                                    setCategory("PKW");
+                                }
+                            }}
+                            className={cn(
+                                "flex flex-col items-center p-3 rounded-md transition-all duration-200 cursor-pointer",
+                                currentObject["thisCategory"] === "PKW" 
+                                    ? "bg-indigo-600/20 shadow-md" 
+                                    : "bg-[#252a40] hover:bg-[#282d45] shadow-sm"
+                            )}
+                        >
+                            <CarFront className={cn(
+                                "w-6 h-6 mb-1", 
+                                currentObject["thisCategory"] === "PKW" ? "text-indigo-400" : "text-gray-300"
+                            )} />
+                            <span className="text-xs font-medium text-gray-200">PKW</span>
                         </div>
 
-                        <div>
-                            <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
-                                //@ts-ignore
-                                currentObject["thisCategory"] === "LKW" ? "border-blue-800" : "border-[#212539]")}
-                                onClick={//@ts-ignore
-                                    () => currentObject["thisCategory"] === "LKW" ? deleteCategory() : setCategory("LKW")}>
-                                <Truck />
-                            </p>
-                            <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
-                                LKW
-                            </p>
+                        {/* LKW */}
+                        <div 
+                            onClick={() => {
+                                if (currentObject["thisCategory"] === "LKW") {
+                                    deleteCategory();
+                                } else {
+                                    // @ts-ignore
+                                    setCategory("LKW");
+                                }
+                            }}
+                            className={cn(
+                                "flex flex-col items-center p-3 rounded-md transition-all duration-200 cursor-pointer",
+                                currentObject["thisCategory"] === "LKW" 
+                                    ? "bg-indigo-600/20 shadow-md" 
+                                    : "bg-[#252a40] hover:bg-[#282d45] shadow-sm"
+                            )}
+                        >
+                            <Truck className={cn(
+                                "w-6 h-6 mb-1", 
+                                currentObject["thisCategory"] === "LKW" ? "text-indigo-400" : "text-gray-300"
+                            )} />
+                            <span className="text-xs font-medium text-gray-200">LKW</span>
                         </div>
 
-                    </div>
-
-                    <div className="flex justify-between ml-12 mr-12 mt-4 ">
-                        <div>
-                            <p className={cn("p-4 rounded-md text-gray-200 border-2 hover:cursor-pointer bg-[#1c1f2f]",
-                                //@ts-ignore
-                                currentObject["thisCategory"] === "TRAILER" ? "border-blue-800" : "border-[#212539]")}
-                                onClick={//@ts-ignore
-                                    () => currentObject["thisCategory"] === "TRAILER" ? deleteCategory() : setCategory("TRAILER")}>
-                                <RiCaravanLine className="w-6 h-6" />
-                            </p>
-                            <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1">
-                                Anhänger
-                            </p>
+                        {/* Anhänger */}
+                        <div 
+                            onClick={() => {
+                                if (currentObject["thisCategory"] === "TRAILER") {
+                                    deleteCategory();
+                                } else {
+                                    // @ts-ignore
+                                    setCategory("TRAILER");
+                                }
+                            }}
+                            className={cn(
+                                "flex flex-col items-center p-3 rounded-md transition-all duration-200 cursor-pointer",
+                                currentObject["thisCategory"] === "TRAILER" 
+                                    ? "bg-indigo-600/20 shadow-md" 
+                                    : "bg-[#252a40] hover:bg-[#282d45] shadow-sm"
+                            )}
+                        >
+                            <RiCaravanLine className={cn(
+                                "w-6 h-6 mb-1", 
+                                currentObject["thisCategory"] === "TRAILER" ? "text-indigo-400" : "text-gray-300"
+                            )} />
+                            <span className="text-xs font-medium text-gray-200">Anhänger</span>
                         </div>
 
-                        <div className="w-[60px]">
-                            <p className={cn("p-4 rounded-md text-gray-200 border-2   flex justify-center hover:cursor-pointer bg-[#1c1f2f]",
-                                //@ts-ignore
-                                currentObject["thisCategory"] === "TRANSPORT" ? "border-blue-800" : "border-[#212539]")}
-                                onClick={//@ts-ignore
-                                    () => currentObject["thisCategory"] === "TRANSPORT" ? deleteCategory() : setCategory("TRANSPORT")}>
-                                <PiVanFill className="w-6 h-6" />
-                            </p>
-                            <p className="flex justify-center text-gray-100 text-xs font-semibold mt-1 ">
-                                Transporter
-                            </p>
+                        {/* Transporter */}
+                        <div 
+                            onClick={() => {
+                                if (currentObject["thisCategory"] === "TRANSPORT") {
+                                    deleteCategory();
+                                } else {
+                                    // @ts-ignore
+                                    setCategory("TRANSPORT");
+                                }
+                            }}
+                            className={cn(
+                                "flex flex-col items-center p-3 rounded-md transition-all duration-200 cursor-pointer",
+                                currentObject["thisCategory"] === "TRANSPORT" 
+                                    ? "bg-indigo-600/20 shadow-md" 
+                                    : "bg-[#252a40] hover:bg-[#282d45] shadow-sm"
+                            )}
+                        >
+                            <PiVanFill className={cn(
+                                "w-6 h-6 mb-1", 
+                                currentObject["thisCategory"] === "TRANSPORT" ? "text-indigo-400" : "text-gray-300"
+                            )} />
+                            <span className="text-xs font-medium text-gray-200">Transporter</span>
                         </div>
-
-
                     </div>
+                </div>
 
-                    <div className="flex justify-between ml-12 mr-12 mt-4 ">
-                    </div>
-                    <div>
-                        <PKW />
-                    </div>
-                    <div>
+                {/* PKW Filter Component */}
+                <div className="px-4 py-2 mt-2">
+                    <PKW />
+                </div>
 
-                        <CategoryOverview />
+                {/* Category Overview */}
+                <div className="px-4 py-2">
+                    <CategoryOverview />
+                </div>
 
-                    </div>
-                    <div className="text-xs flex justify-center text-gray-100 underline hover:cursor-pointer" onClick={() => { router.push("/search") }}>
-                        <Settings2 className="mr-2 h-4 w-4" /> Zu der Erweiterten Suche
-                    </div>
-                    <div className="flex justify-center mt-2 mb-2 rounded-md">
-                        <MainPageResults />
-                    </div>
+                {/* Advanced Search Link */}
+                <div className="px-4 py-2s">
+                    <button 
+                        onClick={() => { router.push("/search") }}
+                        className="w-full flex items-center justify-center gap-2 text-xs text-indigo-400 hover:text-indigo-300 py-2"
+                    >
+                        <Settings2 className="w-4 h-4s" />
+                        <span>Erweiterte Suche öffnen</span>
+                    </button>
+                </div>
 
+                {/* Results Button */}
+                <div className=" mt-1">
+                    <MainPageResults />
                 </div>
             </div>
         </div>

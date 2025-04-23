@@ -90,7 +90,7 @@ const LoadingVolumeBar = () => {
                 
                 <div className="  items-center  ">
                     <Label className="flex justify-start items-center">
-                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Liter </p>
+                        <p className="ml-2  font-semibold"> Liter </p>
                     </Label>
 
                     <Input
@@ -114,8 +114,10 @@ const LoadingVolumeBar = () => {
                 </div>
                 <div className="ml-4">
                     <Label className="flex justify-start items-center">
-                        <PinIcon className="w-4 h-4" /> <p className="ml-2  font-semibold"> Kubikmeter </p>
+                        <p className="ml-2  font-semibold"> Kubikmeter </p>
+                        {/*
                         <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} />
+                        */}
                     </Label>
 
                     <Input

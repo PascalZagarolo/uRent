@@ -162,7 +162,9 @@ const LoadingSizeBar = () => {
                 <div className="ml-4">
                     <Label className="flex justify-start items-center">
                          <p className="ml-2  font-semibold"> Höhe
-                         </p><MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} />
+                         </p>{/*
+                         <MdCancel className="w-4 h-4 text-rose-600 ml-auto cursor-pointer" onClick={onClear} />
+                         */}
                     </Label>
 
                     <Input
@@ -188,6 +190,7 @@ const LoadingSizeBar = () => {
                 
             </RadioGroup>
             
+            {/*
             <Button onClick={() => {}} className="w-full bg-[#1B1F2C] hover:bg-[#222738] dark:text-gray-100"
 
                 disabled={
@@ -200,6 +203,7 @@ const LoadingSizeBar = () => {
                 <span className="">Laderaumangeben</span>
                 
             </Button>
+            */}
                 
         </div>
     );

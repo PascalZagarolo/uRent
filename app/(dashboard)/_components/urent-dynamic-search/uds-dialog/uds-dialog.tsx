@@ -149,86 +149,85 @@ const UdsDialog = () => {
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
     return (
-        <div className="w-full">
-            <h3 className="flex justify-start text-lg text-gray-100 items-center  bg-[#1b1f2c] w-full p-2 border-[#1f2332] ">
-                <LuCalendarSearch className="mr-4" /> Flexibler Mietzeitraum
-            </h3>
-            <p className="text-xs text-gray-200/60 pl-2 hover:underline">
-                Was ist ein flexibler Mietzeitraum?
-            </p>
-            <div className="py-2 px-2">
+        <div className="w-full bg-[#1e2235] rounded-lg overflow-hidden shadow-md">
+            <div className="px-4 py-3 bg-[#21263a]">
+                <h3 className="text-sm font-medium text-gray-200 flex items-center gap-2">
+                    <LuCalendarSearch className="text-indigo-400 w-4 h-4" /> Flexibler Mietzeitraum
+                </h3>
+                <p className="text-xs text-gray-400 mt-1 hover:text-gray-300 transition-colors cursor-help">
+                    Was ist ein flexibler Mietzeitraum?
+                </p>
+            </div>
+            
+            <div className="px-4 py-3">
                 <DynamicSearchConfirm />
             </div>
-            <div className="px-2 mb-4">
+            
+            <div className="px-4 py-3">
                 <Dialog>
                     {currentObject["dynamicSearch"] == "true" && (
-                        <DialogTrigger asChild className="">
-                            <Button className="w-full bg-[#1a1e29] shadow-lg h-full" variant="ghost">
-                                <div className="flex flex-col items-start w-full space-y-2">
-                                    <div className="flex flex-col items-start text-gray-200">
-                                        <div>
-                                            Dynamische Suche
-                                        </div>
+                        <DialogTrigger asChild>
+                            <Button 
+                                className="w-full bg-[#252a40] hover:bg-[#282d45] rounded-md py-3 px-3 shadow-sm text-left h-auto transition-all duration-200"
+                                variant="ghost"
+                            >
+                                <div className="flex flex-col items-start w-full gap-3">
+                                    <div className="flex justify-between w-full items-center">
+                                        <span className="text-sm font-medium text-gray-200">Dynamische Suche</span>
                                         <span className={cn(
-                                            "py-1 rounded-md text-xs font-semibold",
-                                            currentObject["dynamicSearch"] ? "text-emerald-600" : "text-gray-200/60"
+                                            "text-xs font-medium py-0.5 px-1.5 rounded",
+                                            currentObject["dynamicSearch"] ? "bg-indigo-900/40 text-indigo-400" : "text-gray-400"
                                         )}>
                                             {currentObject["dynamicSearch"] ? "Aktiv" : "Nicht aktiv"}
                                         </span>
                                     </div>
 
-                                    <div className="flex flex-col items-start text-gray-200">
-                                        <div>
-                                            Zeitraum
+                                    <div className="flex flex-col items-start text-gray-200 w-full">
+                                        <div className="text-xs text-gray-400 mb-1">Zeitraum</div>
+                                        <div className="flex items-center gap-2">
+                                            <span className={cn(
+                                                "text-xs font-medium",
+                                                currentObject["startDateDynamic"] ? "text-gray-200" : "text-gray-500"
+                                            )}>
+                                                {currentObject["startDateDynamic"] ? format(currentObject["startDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
+                                            </span>
+                                            <span className="text-gray-500">-</span>
+                                            <span className={cn(
+                                                "text-xs font-medium",
+                                                currentObject["endDateDynamic"] ? "text-gray-200" : "text-gray-500"
+                                            )}>
+                                                {currentObject["endDateDynamic"] ? format(currentObject["endDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
+                                            </span>
                                         </div>
-                                        <span className={cn(
-                                            "  py-1 rounded-md text-xs font-semibold",
-                                            currentObject["startDateDynamic"] ? "text-emerald-600" : "text-gray-200/60"
-                                        )}>
-                                            {currentObject["startDateDynamic"] ? format(currentObject["startDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
-                                        </span>
-                                        <span className="">
-                                            -
-                                        </span>
-                                        <span className={cn(
-                                            "py-1 rounded-md text-xs font-semibold",
-                                            currentObject["endDateDynamic"] ? "text-emerald-600" : "text-gray-200/60"
-                                        )}>
-                                            {currentObject["endDateDynamic"] ? format(currentObject["endDateDynamic"], "dd.MM.yyyy") : "Keine Angabe"}
-                                        </span>
                                     </div>
 
-                                    <div className="flex flex-col items-start w-full text-gray-200">
-                                        <div>
-                                            Abholzeit
+                                    <div className="grid grid-cols-2 gap-3 w-full">
+                                        <div className="flex flex-col">
+                                            <div className="text-xs text-gray-400 mb-1">Abholzeit</div>
+                                            <span className={cn(
+                                                "text-xs font-medium",
+                                                currentObject["startTime"] ? "text-gray-200" : "text-gray-500"
+                                            )}>
+                                                {currentObject["startTime"] ? minutesToTime(Number(currentObject["startTime"] ?? 0)) : "Keine Angabe"}
+                                            </span>
                                         </div>
-                                        <span className={cn(
-                                            "py-1 rounded-md text-xs font-semibold",
-                                            currentObject["startTime"] ? "text-emerald-600" : "text-gray-200/60"
-                                        )}>
-                                            {currentObject["startTime"] ? minutesToTime(Number(currentObject["startTime"] ?? 0)) : "Keine Angabe"}
-                                        </span>
+
+                                        <div className="flex flex-col">
+                                            <div className="text-xs text-gray-400 mb-1">Rückgabezeit</div>
+                                            <span className={cn(
+                                                "text-xs font-medium",
+                                                currentObject["endTime"] ? "text-gray-200" : "text-gray-500"
+                                            )}>
+                                                {currentObject["endTime"] ? minutesToTime(Number(currentObject["endTime"] ?? 0)) : "Keine Angabe"}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <div className="flex flex-col items-start text-gray-200">
-                                        <div>
-                                            Rückgabezeit
-                                        </div>
+                                    <div className="flex flex-col items-start text-gray-200 w-full">
+                                        <div className="text-xs text-gray-400 mb-1">Benötigte Zeit</div>
                                         <span className={cn(
-                                            " py-1 rounded-md text-xs font-semibold",
-                                            currentObject["endTime"] ? "text-emerald-600" : "text-gray-200/60"
-                                        )}>
-                                            {currentObject["endTime"] ? minutesToTime(Number(currentObject["endTime"] ?? 0)) : "Keine Angabe"}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex flex-col items-start text-gray-200">
-                                        <div>
-                                            Benötigte Zeit
-                                        </div>
-                                        <span className={cn(
-                                            "py-1 rounded-md text-xs font-semibold",
-                                            currentObject["reqTime"] ? "text-emerald-600" : "text-gray-200/60"
+                                            "text-xs font-medium",
+                                            currentObject["reqTime"] ? "text-gray-200" : "text-gray-500"
                                         )}>
                                             {currentObject["reqTime"] ? convertReqTime(currentObject["reqTime"]) : "Keine Angabe"}
                                         </span>
@@ -237,25 +236,23 @@ const UdsDialog = () => {
                             </Button>
                         </DialogTrigger>
                     )}
-                    <DialogContent className="bg-[#191919] border-none">
+                    <DialogContent className="bg-[#1e2235] border border-[#252838]/30 rounded-lg shadow-xl">
                         <div>
                             <div>
-                                <h3 className="text-lg font-semibold">
-                                    Dynamische Suche
+                                <h3 className="text-lg font-medium text-gray-100 flex items-center gap-2">
+                                    <LuCalendarSearch className="text-indigo-400 w-5 h-5" /> Dynamische Suche
                                 </h3>
-                                <p className="text-xs text-gray-200/60">
+                                <p className="text-xs text-gray-400 mt-1">
                                     Falls du flexibler bist, ermöglicht dir unsere dynamische Mietzeitraumsuche, dir die passenden Fahrzeuge zu finden.
                                 </p>
                             </div>
-                            <div className="flex flex-col mt-4 space-y-8">
+                            <div className="flex flex-col mt-4 space-y-6">
                                 <div>
-                                    <div className=" font-semibold">
-                                        Zeitraum
-                                    </div>
-                                    <p className="text-xs  text-gray-200/60">
+                                    <div className="font-medium text-gray-200">Zeitraum</div>
+                                    <p className="text-xs text-gray-400 mb-2">
                                         Von wann bis wann bist du offen für die Miete eines Fahrzeugs?
                                     </p>
-                                    <div className="mt-2 w-full ">
+                                    <div className="mt-2 w-full">
                                     <UdsTimeSpan
                                             currentStart={startDate}
                                             currentEnd={endDate}
@@ -273,10 +270,8 @@ const UdsDialog = () => {
 
 
                                 <div>
-                                    <div>
-                                        Abhol und Rückgabezeit
-                                    </div>
-                                    <p className="text-xs text-gray-200/60">
+                                    <div className="font-medium text-gray-200">Abhol- und Rückgabezeit</div>
+                                    <p className="text-xs text-gray-400 mb-2">
                                         Falls du eine genaue Abhol- und Rückgabezeit festlegen möchtest, kannst du dies hier tun.
                                     </p>
                                     <div className="mt-2">
@@ -297,10 +292,8 @@ const UdsDialog = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div>
-                                        Benötigte Zeit
-                                    </div>
-                                    <p className="text-xs text-gray-200/60">
+                                    <div className="font-medium text-gray-200">Benötigte Zeit</div>
+                                    <p className="text-xs text-gray-400 mb-2">
                                         Für wie lange benötigst du das Fahrzeug?
                                     </p>
                                     <div>
@@ -317,7 +310,8 @@ const UdsDialog = () => {
 
                                 <div className="mt-4">
                                     <DialogTrigger asChild>
-                                        <Button className="w-full text-gray-200 bg-indigo-800 hover:text-gray-300 hover:bg-indigo-900"
+                                        <Button 
+                                            className="w-full text-white bg-indigo-600 hover:bg-indigo-700 py-2 rounded-md shadow-md transition-all duration-200"
                                             onClick={onRedirect}
                                             disabled={!startDate || !endDate || !reqTime}
                                         >
@@ -330,7 +324,6 @@ const UdsDialog = () => {
                     </DialogContent>
                 </Dialog>
             </div>
-
         </div>
     );
 }

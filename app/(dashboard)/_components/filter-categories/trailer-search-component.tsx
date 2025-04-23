@@ -48,9 +48,11 @@ const TrailerSearchComponent = () => {
 isTrailer={true}
 />
 
+                <div className="pt-8 pb-4">
                 <SetInitialSearch />
+                </div>
             </div>
-            <div className="w-full gap-x-2 space-y-4">
+            <div className="w-full gap-x-2 space-y-4 pb-4">
             <h3 className="flex justify-center text-md items-center font-semibold mt-4 text-gray-200">
                 zul. Gesamtgewicht 
             </h3>
@@ -58,7 +60,7 @@ isTrailer={true}
            
             </div>
 
-            <div className="w-full gap-x-2 space-y-4">
+            <div className="w-full gap-x-2 space-y-4 pb-4">
             <h3 className="flex justify-center text-md items-center font-semibold mt-4 text-gray-200">
                 Nutzlast
             </h3>
@@ -66,12 +68,16 @@ isTrailer={true}
            
             </div>
             
-            <div className="w-full gap-x-2 space-y-4">
+            <div className="w-full gap-x-2 space-y-4 pb-4">
             <h3 className="flex justify-center text-md items-center font-semibold  mt-4 text-gray-200">
                 Laderaum 
             </h3>
+            <div>
             <LoadingVolumeBar />
+            </div>
+            <div className="pt-4">
             <LoadingSizeBar />
+            </div>
             </div>
 
         </div>

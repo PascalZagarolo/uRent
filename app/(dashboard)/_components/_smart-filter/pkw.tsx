@@ -9,21 +9,21 @@ import ReqRentTime from "./_components/req-rent-time";
 const PKW = () => {
     return ( 
         <div className="w-full">
-            <div className="mt-4 flex justify-center">
+            <div className=" flex justify-center">
             <PriceFormFilter/>
             </div>
             
-            <div className="mt-4 flex justify-center">
+            <div className="mt-8 flex justify-center">
                 <DateFormFilter/>
             </div>
-            <div className="mt-4 flex justify-center px-2 mb-4">
+            <div className=" flex justify-center px-2 mb-4">
                 <ReqRentTime />
             </div>
              {/* <div className="mt-4 flex justify-center">
                 <UdsLayout/>
             </div>  */}
              <div className="mt-4 flex justify-center">
-                <UdsDialog />
+             <UdsDialog />
             </div> 
         </div>
      );

@@ -5,7 +5,7 @@ import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import qs from "query-string";
-import { SearchIcon } from "lucide-react";
+import { ArrowRight, Search, SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NumberTicker from "@/components/magicui/number-ticker";
 
@@ -24,31 +24,31 @@ const MainPageResults = () => {
             const values = searchParams
             const results = await axios.patch('/api/search', values);
             setCurrentResults(results.data);
-            
+
         }
         getSearchResults();
     }, [searchParams]);
 
     const onRedirect = () => {
-        
+
 
         const {//@ts-ignore
-            thisCategory, ...filteredValues} = searchParams;
+            thisCategory, ...filteredValues } = searchParams;
 
-            
+
         //@ts-ignore
         const usedStart = filteredValues.periodBegin;
 
         let usedEnd = null;
-        
-        
-    //@ts-ignore
-        if(filteredValues.periodEnd){
+
+
         //@ts-ignore
-        usedEnd = filteredValues.periodEnd;
+        if (filteredValues.periodEnd) {
+            //@ts-ignore
+            usedEnd = filteredValues.periodEnd;
         } else {
             //@ts-ignore
-            if(filteredValues.periodBegin) {
+            if (filteredValues.periodBegin) {
                 //@ts-ignore
                 usedEnd = filteredValues.periodBegin;
             }
@@ -71,8 +71,8 @@ const MainPageResults = () => {
             },
 
         }, { skipEmptyString: true, skipNull: true })
-        
-        
+
+
         router.push(url);
     }
 
@@ -82,17 +82,28 @@ const MainPageResults = () => {
         isMounted.current = true;
     }, [])
 
-    if(!isMounted) return null;
+    if (!isMounted) return null;
 
-    return ( 
-        <Button className="bg-blue-800 w-full h-[100px]  ml-2 mr-2  flex 
-                    justify-center 
-                    dark:text-gray-100 dark:hover:bg-sky-700" onClick={onRedirect}>
-                        <SearchIcon className="h-5 w-5 mr-2" /> <p className="font-bold mr-1 "> 
+    return (
+        <div className="px-4 mb-4">
+            <button
+                onClick={onRedirect}
+                className="w-full h-24 rounded-md flex flex-col px-2.5  bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white flex items-center justify-center gap-3 shadow-md hover:shadow-lg transition-all duration-200"
+            >
+
+                <div className="flex flex-col items-center justify-center">
+                    <div className="font-semibold text-base flex items-center ">
+                        <SearchIcon className="h-4 w-4" />
+
+                    </div>
+                    <div className="flex items-center justify-center font-semibold mt-2">
                         {currentResults ? <NumberTicker value={currentResults as any} /> : 0}
-                         </p> Ergebnisse
-                    </Button>
-     );
+                    </div>
+                    <div className="text-sm">Ergebnisse gefunden</div>
+                </div>
+            </button>
+        </div>
+    );
 }
- 
+
 export default MainPageResults;

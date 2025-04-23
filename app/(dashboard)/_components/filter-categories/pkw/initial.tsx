@@ -104,10 +104,10 @@ const SetInitialSearch = () => {
 
             <div className="mt-4 w-full gap-x-4">
                 <Label className="flex items-center">
+                    {/*
                     <MdDateRange className="w-4 h-4 mr-2" />    Baujahr wählen
-                    <div className="ml-auto">
-                        
-                    </div>
+                    */}
+                    
                 </Label>
                 <div className="flex items-center gap-x-2">
                     <div className="w-1/2">

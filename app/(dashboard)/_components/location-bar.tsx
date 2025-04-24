@@ -190,20 +190,21 @@ const AutoComplete = () => {
     <div className="lg:flex items-center mr-4 hidden relative" ref={ref}>
       <div className="flex items-center mt-2 w-full flex-shrink" >
         <div className="flex sm:pr-2">
-          <div className="flex">
-          <Input
+          <div className="flex relative group">
+            <div className="absolute left-3.5 text-indigo-400/80 z-10 pointer-events-none group-hover:text-indigo-300 transition-colors">
+              <MapPinned className="h-3.5 w-3.5 mt-3" />
+            </div>
+            <Input
               value={value}
               onKeyDown={handleKeyDown}
-              className="p-2.5 2xl:pr-16 xl:pr-4 rounded-none 2xl:w-[272px]
-         input: justify-start dark:focus-visible:ring-0 bg-[#1B1F2C] border-none"
+              className="2xl:w-[280px] w-full pl-10 border-none rounded-l-md dark:focus-visible:ring-0 sm:bg-[#1B1F2C]/90 bg-[#252a3d] hover:bg-[#252a3d] focus:bg-[#252a3d] focus:ring-1 focus:ring-indigo-500/60 transition-all duration-200 shadow-md text-sm h-10"
               onChange={handleInput}
               disabled={!ready}
               placeholder="Standort.."
             />
 
-
-            <Button className="p-3 bg-slate-800 dark:hover:bg-slate-700 rounded-none" onClick={() => { onSearch() }}>
-              <MapPinned className="text-white h-4 w-4 lg:block hidden hover:cursor-pointer" />
+            <Button className="px-3 h-10 bg-[#1B1F2C]/90 hover:bg-[#252a3d] rounded-none transition-all duration-200 border-l border-indigo-500/10" onClick={() => { onSearch() }}>
+              <PinIcon className="text-indigo-400 hover:text-indigo-300 h-4 w-4 lg:block hidden hover:cursor-pointer stroke-[2.2px]" />
             </Button>
           </div>
           <Proximity />
@@ -211,17 +212,17 @@ const AutoComplete = () => {
       </div>
 
 
-      <div className="absolute 2xl:w-[272px]  top-full bg-[#1f2231] rounded-b-md space-y-2 text-sm  z-10">
+      <div className="absolute 2xl:w-[280px] top-full bg-[#1B1F2C]/90 rounded-b-md space-y-2 text-sm z-10">
         {status === "OK" && (
-          <div className="absolute top-full left-0 w-full mt-2 py-2 bg-[#26293a] rounded-lg shadow-lg z-10 ">
-          <ul className=" overflow-y-auto ">
-            {renderSuggestions()}
-          </ul>
-          
-          <span className="font-roboto font-medium text-sm leading-4 p-2 pr-4 tracking-[0.0575em] text-gray-400 flex justify-end">
-            Google
-          </span>
-        </div>
+          <div className="absolute top-full left-0 w-full mt-1 py-2 bg-[#1B1F2C]/95 backdrop-blur-sm rounded-md shadow-lg z-10 border border-indigo-500/10">
+            <ul className="overflow-y-auto max-h-[240px]">
+              {renderSuggestions()}
+            </ul>
+            
+            <span className="font-roboto font-medium text-xs leading-4 p-2 pr-4 tracking-[0.0575em] text-gray-400 flex justify-end">
+              Google
+            </span>
+          </div>
         )}
       </div>
     </div>

@@ -21,18 +21,15 @@ import { PiHandWaving } from "react-icons/pi";
 import { pusherClient } from "@/lib/pusher";
 import { set } from "lodash";
 
-
-
+// Define a type for the filter values
+type NotificationFilter = "ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST" | "ANDERE";
 
 interface NotificationShortCutProps {
     foundNotifications: typeof notification.$inferSelect[];
-  
 }
-
 
 const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
     foundNotifications,
-   
 }) => {
 
     const router = useRouter();
@@ -50,7 +47,9 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         typeof notification.$inferSelect[]
     >(foundNotifications);
 
-    const [usedFilter, setUsedFilter] = useState<"ALL" | "MESSAGES" | "BOOKING" | "BOOKING_REQUEST" | "ANDERE">("ALL");
+    const [usedFilter, setUsedFilter] = useState<NotificationFilter>("ALL");
+
+    const [displayLimit, setDisplayLimit] = useState<number>(5);
 
     useEffect(() => {
         setRenderedNotifications(foundNotifications);
@@ -74,29 +73,165 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
         }
     };
 
-    
-
     useEffect(() => {
         switch (usedFilter) {
             case "ALL":
-                setRenderedNotifications(foundNotifications);
+                setRenderedNotifications(foundNotifications.slice(0, displayLimit));
                 break;
             case "MESSAGES":
-                setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "MESSAGE"));
+                setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "MESSAGE").slice(0, displayLimit));
                 break;
             case "BOOKING":
-                setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "BOOKING"));
+                setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "BOOKING").slice(0, displayLimit));
                 break;
             case "BOOKING_REQUEST":
-                setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "BOOKING_REQUEST"));
+                setRenderedNotifications(foundNotifications.filter((notification) => notification.notificationType === "BOOKING_REQUEST").slice(0, displayLimit));
                 break;
 
             default:
-                setRenderedNotifications(foundNotifications);
+                setRenderedNotifications(foundNotifications.slice(0, displayLimit));
         }
-    }, [usedFilter])
+    }, [usedFilter, displayLimit, foundNotifications])
 
-    let usedNotificationType: typeof notificationTypeEnum;
+    const loadMoreNotifications = () => {
+        setDisplayLimit((prev) => prev + 5);
+    };
+
+    // A component mapper for notification types
+    const NotificationContent = ({ notification }: { notification: any }) => {
+        const notificationType = notification.notificationType;
+        
+        switch (notificationType) {
+            case "BOOKING":
+                return (
+                    <div className="w-full">
+                        <a className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors"
+                            href={`/inserat/${notification.inseratId}`}
+                        >
+                            {notification?.content}
+                        </a>
+                        <div className="text-gray-400 mt-0.5">Buchung hinzugefügt</div>
+                        <div className="text-gray-500 text-[10px] mt-1">
+                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                            {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                        </div>
+                    </div>
+                );
+            case "MESSAGE":
+                return (
+                    <div className="w-full">
+                        <a className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors"
+                            href={`/conversation?conversationId=${notification?.conversationId}`}
+                        >
+                            {notification?.content}
+                        </a>
+                        <div className="text-gray-400 mt-0.5">Neue Nachricht</div>
+                        <div className="flex justify-between mt-1">
+                            <div className="text-gray-500 text-[10px]">
+                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                            </div>
+                            {!notification.seen && (
+                                <div className="bg-rose-500/90 text-[10px] font-medium px-1.5 rounded-full text-white">
+                                    Neu
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                );
+            case "BOOKING_REQUEST":
+                return (
+                    <div className="w-full">
+                        <a className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors"
+                            href={`/dashboard/${notification?.userId}?tab=manage`}
+                        >
+                            {notification?.content}
+                        </a>
+                        <div className="text-gray-400 mt-0.5">Neue Anfrage</div>
+                        <div className="text-gray-500 text-[10px] mt-1">
+                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                            {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                        </div>
+                    </div>
+                );
+            case "REPORT_ACTION":
+                return (
+                    <div className="w-full">
+                        <a className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors"
+                            href={`/inserat/${notification?.inseratId}`}
+                        >
+                            {notification?.content}
+                        </a>
+                        <div className="text-gray-400 mt-0.5">Inhalt verändert</div>
+                        <div className="text-gray-500 text-[10px] mt-1">
+                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                            {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                        </div>
+                    </div>
+                );
+            case "SUBSCRIPTION_ALMOST_EXPIRED":
+                return (
+                    <div className="w-full">
+                        <a className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors"
+                            href={`/dashboard/${notification?.userId}/payments`}
+                        >
+                            {notification?.content}
+                        </a>
+                        <div className="text-gray-400 mt-0.5">Abonnement läuft aus</div>
+                        <div className="text-gray-500 text-[10px] mt-1">
+                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                            {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                        </div>
+                    </div>
+                );
+            case "SUBSCRIPTION_REDEEMED":
+                return (
+                    <div className="w-full">
+                        <a className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors"
+                            href={`/dashboard/${notification?.userId}/payments`}
+                        >
+                            {notification?.content}
+                        </a>
+                        <div className="text-gray-400 mt-0.5">Abonnement eingelöst</div>
+                        <div className="text-gray-500 text-[10px] mt-1">
+                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                            {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                        </div>
+                    </div>
+                );
+            case "WELCOME":
+                return (
+                    <div className="w-full">
+                        <a className="text-indigo-400 font-medium hover:text-indigo-300 transition-colors"
+                            href={`/faqs`}
+                        >
+                            {notification?.content}
+                        </a>
+                        <div className="text-gray-400 mt-0.5">Willkommen</div>
+                        <div className="text-gray-500 text-[10px] mt-1">
+                            {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
+                            {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
+                        </div>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+    
+    // Helper function to get the appropriate icon for a notification type
+    const getNotificationIcon = (type: string) => {
+        switch (type) {
+            case "BOOKING": return <CiBookmark className="w-4 h-4" />;
+            case "MESSAGE": return <MessageCircle className="w-4 h-4" />;
+            case "BOOKING_REQUEST": return <LuMailWarning className="w-4 h-4" />;
+            case "REPORT_ACTION": return <MdOutlineReportProblem className="w-4 h-4 text-rose-500/90" />;
+            case "SUBSCRIPTION_ALMOST_EXPIRED": return <TbClockExclamation className="w-4 h-4 text-amber-500/90" />;
+            case "SUBSCRIPTION_REDEEMED": return <IoGiftSharp className="w-4 h-4 text-indigo-400/80" />;
+            case "WELCOME": return <PiHandWaving className="w-4 h-4 text-indigo-400/80" />;
+            default: return <BellDotIcon className="w-4 h-4" />;
+        }
+    };
 
     return (
         <Popover onOpenChange={(e) => {
@@ -105,236 +240,104 @@ const NotificationShortCut: React.FC<NotificationShortCutProps> = ({
             }
         }}>
             <PopoverTrigger asChild>
-
-                <Button className=" text-gray-200" variant="ghost" size="sm">
-                    <BellDotIcon className="w-6 h-6" />
+                <Button className="w-8 h-8 rounded-full p-0 bg-transparent hover:bg-[#1B1F2C]/80 text-indigo-400/80 hover:text-indigo-400 transition-all duration-200 relative" variant="ghost">
+                    <BellDotIcon className="w-5 h-5 " />
                     {unseenNotifications?.length > 0 ? (
-                        <span className="bg-rose-600 text-xs font-bold px-1 flex rounded-md text-gray-200">
-                            {unseenNotifications?.length}
+                        <span className="absolute -top-1 -right-1 bg-rose-500/90 text-[10px] font-medium w-4 h-4 flex items-center justify-center rounded-full text-white">
+                            {unseenNotifications?.length > 9 ? '9+' : unseenNotifications?.length}
                         </span>
-                    ) :
-                        <span className=" text-xs font-bold px-1 flex rounded-md text-gray-200">
-                            0
-                        </span>
-                    }
+                    ) : null}
                 </Button>
-
-
-
-
             </PopoverTrigger>
-            <PopoverContent className="dark:bg-[#0F0F0F] w-[400px] dark:border-gray-800 border-none" >
-                <div>
-                    <h3 className="flex">
-                        <BellPlus className="h-4 w-4 " />
-                        <span className="ml-2 text-sm">Meine Benachrichtigungen</span>
-                    </h3>
-                </div>
-                <div className="mt-4 max-h-[240px] overflow-scroll no-scrollbar">
-                    {foundNotifications?.length === 0 ? (
-                        <p className="text-gray-900/80 dark:text-gray-100/80 text-xs italic"> Du bist auf dem neuesten Stand...</p>
-                    ) : (
-
-                        <div>
-                            <div className="flex justify-between">
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
-                                    usedFilter === "ALL" ? "border border-blue-900" : "border border-[#161616]")}
-                                    onClick={() => { setUsedFilter("ALL") }}>
-                                    Alle
-                                </button>
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
-                                    usedFilter === "MESSAGES" ? "border border-blue-900" : "border border-[#161616]")}
-                                    onClick={() => { setUsedFilter("MESSAGES") }}>
-                                    Nachrichten
-                                </button>
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
-                                    usedFilter === "BOOKING_REQUEST" ? "border border-blue-900" : "border border-[#161616]")}
-                                    onClick={() => { setUsedFilter("BOOKING_REQUEST") }}>
-                                    Anfragen
-                                </button>
-                                <button className={cn("text-xs dark:bg-[#161616] px-4 py-1 rounded-md",
-                                    usedFilter === "BOOKING" ? "border border-blue-900" : "border border-[#161616]")}
-                                    onClick={() => { setUsedFilter("BOOKING") }}>
-                                    Buchungen
-                                </button>
-
-                            </div>
-
-
-
-                            {renderedNotifications?.length > 0 ? (
-                                renderedNotifications?.map((notification: any) => (
-                                    usedNotificationType = notification.notificationType,
-                                    <div className="dark:bg-[#161616] p-2 mt-1 w-full flex" key={notification.id}>
-                                        <div className="w-1/8 px-2">
-                                            {
-                                                {
-                                                    "BOOKING": <CiBookmark className="w-4 h-4" />,
-
-                                                    "MESSAGE": <MessageCircle className="w-4 h-4" />,
-
-                                                    "BOOKING_REQUEST": <LuMailWarning className="w-4 h-4" />,
-
-                                                    "REPORT_ACTION": <MdOutlineReportProblem className="w-4 h-4 text-rose-600" />,
-                                                    "SUBSCRIPTION_ALMOST_EXPIRED": <TbClockExclamation className="w-4 h-4 text indigo-600" />,
-                                                    "SUBSCRIPTION_REDEEMED": <IoGiftSharp className="w-4 h-4 text-indigo-600" />,
-                                                    "WELCOME": <PiHandWaving className="w-4 h-4 text-indigo-600" />,
-                                                    //@ts-ignore
-                                                }[usedNotificationType]
-                                            }
-                                        </div>
-                                        <div className="text-xs font-semibold">
-                                            {
-                                                {
-                                                    "BOOKING": (
-                                                        <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/inserat/${notification.inseratId}`}
-                                                            >
-                                                                {notification?.content}
-                                                            </a> <br />
-                                                            Du wurdest zu einer Buchung hinzugefügt <br />
-                                                            <div className="text-xs font-light font-size: 0.6rem">
-                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
-                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
-                                                            </div>
-                                                        </div>),
-                                                    "MESSAGE": (
-                                                        <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/conversation?conversationId=${notification?.conversationId}`}
-                                                            >
-                                                                {notification?.content}
-                                                            </a> <br />
-                                                            Hat dir eine Nachricht gesendet <br />
-                                                            <div className="text-xs font-light font-size: 0.6rem flex w-full">
-                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
-                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
-                                                                {!notification.seen && (
-                                                                    <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
-                                                                        Neu
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    ),
-                                                    "BOOKING_REQUEST": (
-                                                        <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/dashboard/${notification?.userId}?tab=manage`}
-                                                            >
-                                                                {notification?.content}
-                                                            </a> <br />
-                                                            Dir wurde eine Anfrage gesendet <br />
-                                                            <div className="text-xs font-light font-size: 0.6rem flex">
-                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
-                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
-                                                                {!notification.seen && (
-                                                                    <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
-                                                                        Neu
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-
-                                                    ),
-                                                    "REPORT_ACTION": (
-                                                        <div className="w-full">
-                                                            <a className=" w-[240px] text-blue-600 break-words font-bold underline-offset-1 hover:underline"
-                                                                href={`/inserat/${notification?.inseratId}`}
-                                                            >
-                                                                {notification?.content}
-                                                            </a> <br />
-                                                            Aufgrund eines Verstoßes gegen unsere Richtlinien wurde einer deiner Inhalte verändert. <br />
-                                                            Für weitere Informationen über unsere Richtlinien, besuche unsere <a href="/agb" className="text-blue-600 font-bold underline-offset-1 hover:underline">AGB</a> <br />
-                                                            <div className="text-xs font-light font-size: 0.6rem flex">
-                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
-                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
-                                                                {!notification.seen && (
-                                                                    <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
-                                                                        Neu
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-
-                                                    ),
-                                                    "SUBSCRIPTION_ALMOST_EXPIRED": (
-                                                        <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/dashboard/${notification?.userId}/payments`}
-                                                            >
-                                                                Abonnement läuft aus!
-                                                            </a> <br />
-                                                            {notification?.content} <br />
-                                                            Mehr Informationen findest du unter Dashboard {'>'} Zahlungsverkehr <br />
-                                                            <div className="text-xs font-light font-size: 0.6rem flex w-full">
-                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
-                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
-                                                                {!notification.seen && (
-                                                                    <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
-                                                                        Neu
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    ), "SUBSCRIPTION_REDEEMED": (
-                                                        <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/dashboard/${notification?.userId}/payments`}
-                                                            >
-                                                                Abonnement eingelöst!
-                                                            </a> <br />
-                                                            {notification?.content} <br />
-                                                            <div className="text-xs font-light font-size: 0.6rem flex w-full">
-                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
-                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
-                                                                {!notification.seen && (
-                                                                    <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
-                                                                        Neu
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    ),
-                                                    "WELCOME": (
-                                                        <div className="w-full">
-                                                            <a className="truncate w-[240px] text-blue-600 font-bold underline-offset-1 hover:underline"
-                                                                href={`/faqs`}
-                                                            >
-                                                                Schön dich zu sehen!
-                                                            </a> <br />
-                                                            {notification?.content} <br />
-                                                            <div className="text-xs font-light font-size: 0.6rem flex w-full">
-                                                                {!isToday(new Date(notification.createdAt)) && (format(new Date(notification.createdAt), "dd.MM.yy", { locale: de }) + ", ")}
-                                                                {format(new Date(notification.createdAt), "HH:mm", { locale: de })} Uhr
-                                                                {!notification.seen && (
-                                                                    <div className="bg-rose-600 text-xs font-bold ml-auto px-2 flex rounded-md text-gray-200">
-                                                                        Neu
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    ),
-                                                    //@ts-ignore
-                                                }[usedNotificationType]
-                                            }
-                                        </div>
-                                    </div>
-
-                                ))
-                            ) : (
-                                <div className="p-4 dark:bg-[#161616] mt-2 rounded-md">
-                                    <p className="text-gray-900/80 dark:text-gray-100/80 text-xs "> Keine Benachrichtigungen gefunden...</p>
-                                </div>
-                            )}
-
+            <PopoverContent className="bg-[#141721]/95 backdrop-blur-sm border border-indigo-500/10 p-3 text-gray-200 rounded-md shadow-md w-[380px]">
+                <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center">
+                        <BellDotIcon className="h-4 w-4 text-indigo-400/80" />
+                        <span className="ml-2 text-sm font-medium">Benachrichtigungen</span>
+                    </div>
+                    {unseenNotifications?.length > 0 && (
+                        <div className="bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full text-[10px] font-medium">
+                            {unseenNotifications?.length} neu
                         </div>
-
-
                     )}
                 </div>
-
+                
+                <div className="flex gap-1 mb-3">
+                    <button className={cn("text-xs py-1 px-2.5 rounded transition-all duration-200", 
+                        usedFilter === "ALL" ? "bg-indigo-500/20 text-indigo-300" : "bg-[#1B1F2C]/60 text-gray-400 hover:bg-[#1B1F2C]")}
+                        onClick={() => { setUsedFilter("ALL") }}>
+                        Alle
+                    </button>
+                    <button className={cn("text-xs py-1 px-2.5 rounded transition-all duration-200",
+                        usedFilter === "MESSAGES" ? "bg-indigo-500/20 text-indigo-300" : "bg-[#1B1F2C]/60 text-gray-400 hover:bg-[#1B1F2C]")}
+                        onClick={() => { setUsedFilter("MESSAGES") }}>
+                        Nachrichten
+                    </button>
+                    <button className={cn("text-xs py-1 px-2.5 rounded transition-all duration-200", 
+                        usedFilter === "BOOKING_REQUEST" ? "bg-indigo-500/20 text-indigo-300" : "bg-[#1B1F2C]/60 text-gray-400 hover:bg-[#1B1F2C]")}
+                        onClick={() => { setUsedFilter("BOOKING_REQUEST") }}>
+                        Anfragen
+                    </button>
+                    <button className={cn("text-xs py-1 px-2.5 rounded transition-all duration-200",
+                        usedFilter === "BOOKING" ? "bg-indigo-500/20 text-indigo-300" : "bg-[#1B1F2C]/60 text-gray-400 hover:bg-[#1B1F2C]")}
+                        onClick={() => { setUsedFilter("BOOKING") }}>
+                        Buchungen
+                    </button>
+                </div>
+                
+                <style jsx global>{`
+                    .no-scrollbar::-webkit-scrollbar {
+                        display: none;
+                    }
+                    .no-scrollbar {
+                        -ms-overflow-style: none;
+                        scrollbar-width: none;
+                    }
+                `}</style>
+                
+                <div className="max-h-[320px] overflow-y-auto no-scrollbar">
+                    {foundNotifications?.length === 0 ? (
+                        <div className="p-4 bg-[#1B1F2C]/60 rounded text-center flex flex-col items-center gap-2">
+                            <BellDotIcon className="h-5 w-5 text-gray-500/50" />
+                            <p className="text-gray-400 text-xs">Keine Benachrichtigungen</p>
+                        </div>
+                    ) : (
+                        renderedNotifications?.length > 0 ? (
+                            renderedNotifications?.map((notification) => (
+                                <div className="bg-[#1B1F2C]/60 hover:bg-[#1B1F2C] p-2.5 mb-1.5 rounded flex gap-2.5 transition-colors" key={notification.id}>
+                                    <div className="text-indigo-400/80 flex-shrink-0 mt-0.5 bg-indigo-500/10 rounded-full p-1.5">
+                                        {getNotificationIcon(notification.notificationType)}
+                                    </div>
+                                    <div className="text-xs flex-1">
+                                        <NotificationContent notification={notification} />
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="p-4 bg-[#1B1F2C]/60 rounded text-center flex flex-col items-center gap-2">
+                                {usedFilter === "MESSAGES" ? <MessageCircle className="h-5 w-5 text-gray-500/50" /> :
+                                 usedFilter === "BOOKING" ? <CiBookmark className="h-5 w-5 text-gray-500/50" /> :
+                                 usedFilter === "BOOKING_REQUEST" ? <LuMailWarning className="h-5 w-5 text-gray-500/50" /> :
+                                 <BellDotIcon className="h-5 w-5 text-gray-500/50" />}
+                                <p className="text-gray-400 text-xs">Keine {usedFilter.toLowerCase() === "all" ? "Benachrichtigungen" : 
+                                    usedFilter === "MESSAGES" ? "Nachrichten" : 
+                                    usedFilter === "BOOKING" ? "Buchungen" : "Anfragen"} gefunden</p>
+                            </div>
+                        )
+                    )}
+                </div>
+                
+                {/* Add helpful footer */}
+                {foundNotifications?.length > renderedNotifications?.length && (
+                    <div className="mt-2 pt-2 border-t border-indigo-500/10 flex justify-center">
+                        <button 
+                            onClick={loadMoreNotifications}
+                            className="text-indigo-400/80 hover:text-indigo-300 text-[10px] transition-colors"
+                        >
+                            Mehr Benachrichtigungen anzeigen
+                        </button>
+                    </div>
+                )}
             </PopoverContent>
         </Popover>
     );

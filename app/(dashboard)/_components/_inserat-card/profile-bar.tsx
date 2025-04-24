@@ -122,7 +122,7 @@ const ProfileBar: React.FC<ProfileBarProps> = ({
                             src={thisInserat.user?.image || "/placeholder-person.jpg"}
                             height={32}
                             width={32}
-                            className="rounded-full object-cover h-10 w-10 ring-2 ring-indigo-500/30 group-hover:ring-indigo-500/70 transition-all duration-200"
+                            className="rounded-full object-cover h-8 w-8 ring-2 ring-indigo-500/30 group-hover:ring-indigo-500/70 transition-all duration-200"
                             alt={`${thisInserat.user?.name || 'Benutzer'} Profilbild`}
                         />
                         <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border border-[#1A1D28]"></div>

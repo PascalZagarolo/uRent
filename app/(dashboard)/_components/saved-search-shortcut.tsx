@@ -76,7 +76,7 @@ const SavedSearchShortCut: React.FC<SavedSearchesShortCutProps> = ({
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="ghost" size="sm">
-                    <MdContentPasteSearch className="w-6 h-6" />
+                    <MdContentPasteSearch className="w-5 h-5" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="dark:border-none dark:bg-[#191919] p-0">

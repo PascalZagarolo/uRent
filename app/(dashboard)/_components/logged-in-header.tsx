@@ -2,9 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-
 import { LogOutIcon, MailCheck, SettingsIcon, StarIcon, TrendingUp, UserIcon } from "lucide-react";
-
 import { useRouter } from "next/navigation";
 import ConversationShortCut from "./conversation-shortcut";
 import FavouritesShortCut from "./favourites-shortcut";
@@ -18,7 +16,7 @@ import { signOut } from "@/actions/signout";
 import { RiAdminFill } from "react-icons/ri";
 import { IoIosPricetags } from "react-icons/io";
 import SavedSearchShortCut from "./saved-search-shortcut";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import NewMessageToast from "./used-toasts/new-message-toast";
 import { pusherClient } from "@/lib/pusher";
@@ -41,30 +39,17 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
   isMobile
 }) => {
 
-
-
   const [renderedNotifications, setRenderedNotifications] = useState(foundNotifications ? foundNotifications : []);
-
   const router = useRouter();
-
   const [savedIds, setSavedIds] = useState([]);
 
-
-
-
-
-
   useEffect(() => {
-
     if (!isMobile) {
       pusherClient.subscribe(currentUser.id);
 
-
       // Initialize the function inside useEffect to ensure it's only created once
       const onNewNotification = (data) => {
-
         if (savedIds.includes(data.notification.id)) {
-
           return;
         } else {
           setRenderedNotifications((current) => [...current, data.notification]);
@@ -76,198 +61,193 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
               notification={data.notification}
             />
           ));
-
         }
       };
-
 
       pusherClient.bind('notification:new', onNewNotification);
 
       return () => {
         pusherClient.unsubscribe(currentUser.id);
         pusherClient.unbind("notification:new", onNewNotification);
-
       };
     }
   }, [])
 
   useEffect(() => {
-    +
-
-      setRenderedNotifications(foundNotifications);
+    setRenderedNotifications(foundNotifications);
   }, [foundNotifications])
 
   return (
-    <div className="flex ml-auto items-center sm:mt-2">
-      <div className="font-semibold  text-xs text-gray-200 2xl:mr-8 lg:mr-4  hidden items-center 2xl:block">
-
-        <div className="text-xs max-w-[160px] break-all line-clamp-1 font-medium">
-          🎉 {currentUser.name.toUpperCase() || ""} 🎉
+    <div className="flex ml-auto items-center space-x-3">
+      {/* User greeting - only on larger screens */}
+      <div className="hidden 2xl:flex flex-col text-xs mr-6">
+        <div className="text-gray-200/90 font-medium tracking-wide max-w-[160px] truncate">
+          {currentUser.name || ""}
         </div>
 
-        {currentUser?.isBusiness && (
-          <div className="flex justify-center items-center font-semibold text-indigo-600">
+        {currentUser?.isBusiness ? (
+          <div className="text-indigo-400/90 text-xs font-medium">
             Vermieter
           </div>
-        )}
-
-        {(!currentUser.isBusiness && currentUser) && (
-          <div className="flex justify-center items-center
-                     hover:underline dark:text-gray-200/60 font-medium hover:cursor-pointer" onClick={() => { router.push(`/profile/${currentUser.id}`) }}>
-            Du bist Vermieter? Klicke hier
+        ) : (
+          <div className="text-gray-400/80 text-xs hover:text-indigo-300 transition-colors cursor-pointer" 
+               onClick={() => { router.push(`/profile/${currentUser.id}`) }}>
+            Vermieter werden
           </div>
         )}
       </div>
-      <div className="flex lg:gap-x-2">
+      
+      {/* Action buttons */}
+      <div className="flex items-center space-x-1.5 mr-2">
         <div className="sm:block hidden">
           <NotificationShortCut
             foundNotifications={renderedNotifications}
-
           />
         </div>
+        
         <div className="xl:block hidden">
-
           <SavedSearchShortCut
             //@ts-ignore
             savedSearches={savedSearches}
           />
-
         </div>
+        
         <div className="lg:block hidden">
-
           <FavouritesShortCut
             currentUser={currentUser}
           />
-
         </div>
-        <div className="items-center mr-4 sm:block hidden">
+        
+        <div className="sm:block hidden">
           <ConversationShortCut
             foundConversations={foundConversations || 0}
           />
         </div>
       </div>
-      <div className="ml-auto sm:hidden mr-4">
-       <AddInseratMobile 
-       currentUser={currentUser}
-       
-       />
+      
+      {/* Mobile add button */}
+      <div className="ml-auto sm:hidden">
+        <AddInseratMobile 
+          currentUser={currentUser}
+        />
       </div>
+      
+      {/* User avatar and dropdown */}
       <Popover>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <PopoverTrigger asChild>
-                <img
-                  src={currentUser?.image || "/placeholder-person.jpg"}
-                  className="sm:ml-0 sm:mr-0 mr-4 w-10 h-10 rounded-full hover:cursor-pointer"
-                  alt="User Avatar"
-                />
+                <div className="relative overflow-hidden rounded-full border-2 border-transparent hover:border-indigo-500/30 transition-all duration-200">
+                  <img
+                    src={currentUser?.image || "/placeholder-person.jpg"}
+                    className="w-9 h-9 rounded-full object-cover cursor-pointer"
+                    alt="User Avatar"
+                  />
+                </div>
               </PopoverTrigger>
             </TooltipTrigger>
-            <TooltipContent className="dark:bg-[#0F0F0F] text-sm">
+            <TooltipContent className="bg-[#141721]/95 border-none text-xs font-medium backdrop-blur-sm">
               <p>Mein Profil</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
 
-        <PopoverContent className="dark:bg-[#0F0F0F] dark:text-gray-100 text-sm bg-white shadow-lg rounded-lg p-4">
-          <div className="mb-2">
-            <h3 className="flex">
-              <span className="ml-2 text-base flex">
-                {currentUser.isBusiness ? (
-                  <div className="font-semibold flex items-center text-indigo-800 gap-x-1">
-                    Vermieter <div className="text-gray-400">Account</div>
-                  </div>
-                ) : (
-                  <div className="font-semibold">
-                    Mieter Account
-                    <p className="text-xs font-normal">
-                      Du bist Vermieter? <a className="text-blue-500 hover:underline" href={`/profile/${currentUser.id}`}>Hier klicken</a>
-                    </p>
-                  </div>
-                )}
-              </span>
-            </h3>
+        <PopoverContent className="bg-[#141721]/95 backdrop-blur-sm border border-indigo-500/10 text-gray-200 text-sm rounded-md shadow-md p-3 w-60">
+          <div className="mb-3">
+            <div className="flex items-center gap-2 pb-2">
+              <img 
+                src={currentUser?.image || "/placeholder-person.jpg"} 
+                className="w-8 h-8 rounded-full object-cover" 
+              />
+              <div>
+                <div className="font-medium text-sm text-gray-100">{currentUser.name}</div>
+                <div className="text-xs text-gray-400">{currentUser.isBusiness ? "Vermieter" : "Mieter"}</div>
+              </div>
+            </div>
+            
+            {!currentUser.isBusiness && (
+              <div className="text-xs text-gray-400 mt-1">
+                Du bist Vermieter? <a className="text-indigo-400 hover:text-indigo-300 transition-colors" href={`/profile/${currentUser.id}`}>Hier klicken</a>
+              </div>
+            )}
           </div>
 
           {currentUser.isAdmin && (
             <a
               href="/admin"
-              className=" bg-indigo-800 text-white rounded-md w-full flex items-center p-2 hover:bg-indigo-900 transition"
+              className="bg-indigo-600/20 text-indigo-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-indigo-600/30 transition-colors border border-indigo-500/20 mb-2 text-xs"
             >
-              <RiAdminFill className="mr-4 w-4 h-4" />
+              <RiAdminFill className="mr-2 w-4 h-4" />
               <p>Admin Dashboard</p>
             </a>
           )}
 
-          <a
-            href={`/profile/${currentUser.id}`}
-            className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
-          >
-            <UserIcon className="mr-4 w-4 h-4" />
-            <p>Mein Profil</p>
-          </a>
-
-          {currentUser?.isBusiness ? (
+          <div className="space-y-1">
             <a
-              href={`/dashboard/${currentUser.id}?tab=dashboard`}
-              className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+              href={`/profile/${currentUser.id}`}
+              className="bg-[#1B1F2C]/60 text-gray-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-[#1B1F2C] transition-colors text-xs"
             >
-              <TrendingUp className="mr-4 w-4 h-4" />
-              <p>Dashboard</p>
+              <UserIcon className="mr-2 w-4 h-4" />
+              <p>Mein Profil</p>
             </a>
-          ) : (
+
+            {currentUser?.isBusiness ? (
+              <a
+                href={`/dashboard/${currentUser.id}?tab=dashboard`}
+                className="bg-[#1B1F2C]/60 text-gray-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-[#1B1F2C] transition-colors text-xs"
+              >
+                <TrendingUp className="mr-2 w-4 h-4" />
+                <p>Dashboard</p>
+              </a>
+            ) : (
+              <a
+                href={`/dashboard/${currentUser.id}?tab=favourites`}
+                className="bg-[#1B1F2C]/60 text-gray-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-[#1B1F2C] transition-colors text-xs"
+              >
+                <StarIcon className="mr-2 w-4 h-4" />
+                <p>Meine Favouriten</p>
+              </a>
+            )}
+
             <a
-              href={`/dashboard/${currentUser.id}?tab=favourites`}
-              className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+              href="/conversation"
+              className="bg-[#1B1F2C]/60 text-gray-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-[#1B1F2C] transition-colors text-xs"
             >
-              <StarIcon className="mr-4 w-4 h-4" />
-              <p>Meine Favouriten</p>
+              <MailCheck className="mr-2 w-4 h-4" />
+              <p>Konversationen</p>
             </a>
-          )}
 
-          <a
-            href="/conversation"
-            className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
-          >
-            <MailCheck className="mr-4 w-4 h-4" />
-            <p>Konversationen</p>
-          </a>
+            {currentUser.isBusiness && (
+              <a
+                href="/pricing"
+                className="bg-[#1B1F2C]/60 text-gray-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-[#1B1F2C] transition-colors text-xs"
+              >
+                <IoIosPricetags className="mr-2 w-4 h-4" />
+                <p>Pläne und Upgrades</p>
+              </a>
+            )}
 
-          {currentUser.isBusiness && (
             <a
-              href="/pricing"
-              className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
+              href="/settings"
+              className="bg-[#1B1F2C]/60 text-gray-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-[#1B1F2C] transition-colors text-xs"
             >
-              <IoIosPricetags className="mr-4 w-4 h-4" />
-              <p>Pläne und Upgrades</p>
+              <SettingsIcon className="mr-2 w-4 h-4" />
+              <p>Einstellungen</p>
             </a>
-          )}
+          </div>
 
-          <a
-            href="/settings"
-            className=" bg-gray-100 dark:bg-[#1b1b1b] text-gray-700 dark:text-gray-300 rounded-md w-full flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition mt-2"
-          >
-            <SettingsIcon className="mr-4 w-4 h-4" />
-            <p>Einstellungen</p>
-          </a>
+          <Separator className="bg-indigo-500/10 my-2" />
 
-          <Separator className="dark:bg-gray-100/80 mt-2 mb-2 w-1/2" />
-
-          <a
+          <button
             onClick={() => signOut()}
-            className=" bg-indigo-800 text-white rounded-md w-full flex items-center p-2 hover:bg-indigo-900 transition mt-2 hover:cursor-pointer"
+            className="bg-indigo-600/20 text-indigo-300 rounded w-full flex items-center p-1.5 px-2 hover:bg-indigo-600/30 transition-colors border border-indigo-500/10 text-xs"
           >
-            <LogOutIcon className="mr-4 w-4 h-4" />
+            <LogOutIcon className="mr-2 w-4 h-4" />
             <p>Abmelden</p>
-          </a>
+          </button>
         </PopoverContent>
       </Popover>
-
-
-
-
-
     </div>
   );
 }

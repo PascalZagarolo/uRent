@@ -62,15 +62,12 @@ const Header: React.FC<HeaderProps> = cache(async ({
 
 
     return (
-        <div className="bg-[#1f2332] h-[90px] flex-shrink-1 hidden sm:block">
+        <div className="bg-[#1f2332] h-[80px] flex-shrink-1 hidden sm:block">
     <div className="flex 2xl:justify-start md:justify-evenly">
         <div className="block relative">
             <a className="flex flex-col justify-start items-center py-6  ml-8 
-            sm:text-2xl font-semibold text-white hover:cursor-pointer" href="/">
-                {/* <div className="flex items-center relative">
-                    <div className="text-[#363d5e] font-font-black drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">u</div>
-                    <p className="text-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Rent</p>
-                </div> */}
+            sm:text-xl font-semibold text-white hover:cursor-pointer" href="/">
+               
                 uRent
             </a>
             

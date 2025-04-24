@@ -2,12 +2,13 @@
 
 import Inserat from "@/app/(dashboard)/_components/add-inserat";
 import { userTable } from "@/db/schema";
-import { TruckIcon, CarIcon, CaravanIcon, UserIcon } from "lucide-react";
+import { TruckIcon, CarIcon, UserIcon, ArrowRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { FaRegHandPointer } from "react-icons/fa";
-import { PiCursorClickLight, PiVanFill } from "react-icons/pi";
+import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 interface BasicUrentBannerProps {
     isLoggedIn? : boolean;
@@ -47,72 +48,138 @@ const BasicUrentBanner = ({
         }
     }
 
-  return (
-    <div className="w-full bg-[#1B1E2C]  text-white rounded-lg p-12 shadow-lg">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Left Section */}
-        <div className="space-y-0">
-          <h2 className="text-4xl font-bold text-gray-200">
-            Fahrzeuge in <span className="text-indigo-500 mr-2">nur ein paar Klicks</span>
-            mieten & vermieten
-          </h2>
-          <p className="text-base text-gray-300 flex items-center">
-            Wähle aus Pkw, Lkw, Anhängern und Transportern{" "}
+    const vehicleTypes = [
+        { icon: CarIcon, label: "Pkw" },
+        { icon: TruckIcon, label: "Lkw" },
+        { icon: RiCaravanLine, label: "Anhänger" },
+        { icon: PiVanFill, label: "Transporter" }
+    ];
 
-            <PiCursorClickLight className="w-8 h-8 text-gray-200 ml-2 animate-bounce" />
-          </p>
-
-          <div className="flex gap-8 items-center mt-8 mb-8">
-            <div className="flex flex-col items-center">
-              <CarIcon className="w-12 h-12 text-indigo-500 hover:text-indigo-400 transition" />
-              <p className="mt-2 text-lg">Pkw</p>
+    return (
+        <div className="w-full h-full bg-gradient-to-br from-[#1A1D2A] to-[#232738] text-white flex items-center">
+            <div className="w-full h-full flex flex-col md:flex-row items-center p-6">
+                {/* Left content area */}
+                <div className="md:w-3/5 space-y-4">
+                    <div className="flex items-center h-6">
+                        <div className="bg-indigo-500/20 p-1.5 rounded-full flex items-center justify-center">
+                            <CarIcon className="h-3.5 w-3.5 text-indigo-400" />
+                        </div>
+                        <span className="text-xs font-medium text-indigo-400 ml-2">Fahrzeuge</span>
+                    </div>
+                    
+                    <h2 className="text-xl md:text-2xl font-bold text-white">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">Fahrzeuge</span> mieten & vermieten
+                    </h2>
+                    
+                    <p className="text-sm text-gray-300 max-w-md">
+                        Finde das passende Fahrzeug oder biete deine eigenen zur Vermietung an
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2">
+                        {vehicleTypes.map((vehicle, index) => (
+                            <motion.div 
+                                key={index}
+                                whileHover={{ y: -2 }}
+                                className="flex items-center gap-2 bg-white/10 px-2 py-1.5 rounded-lg"
+                            >
+                                <vehicle.icon className="w-3 h-3 text-indigo-400" />
+                                <span className="text-xs font-medium">{vehicle.label}</span>
+                            </motion.div>
+                        ))}
+                    </div>
+                    
+                    <div className="flex items-center space-x-3 pt-2">
+                        <Button 
+                            onClick={onMiet}
+                            className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs h-10 px-4 rounded-lg group"
+                        >
+                            Jetzt registrieren
+                            <ArrowRightIcon className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
+                        </Button>
+                        
+                        {(!isLoggedIn) ? (
+                            <Button 
+                                variant="outline"
+                                onClick={onRent}
+                                className="border-white/20 text-white hover:bg-white/10 hover:border-white/20 text-xs h-10 px-4"
+                            >
+                                Vermieten
+                            </Button>
+                        ) : (
+                            !isBusiness ? (
+                                <Button 
+                                    variant="outline"
+                                    onClick={onRent}
+                                    className="border-white/20 text-white hover:bg-white/10 hover:border-white/20 text-xs h-10 px-4"
+                                >
+                                    Vermieten
+                                </Button>
+                            ) : (
+                                <Inserat currentUser={currentUser} isEvent={true} />
+                            )
+                        )}
+                    </div>
+                </div>
+                
+                {/* Right content area */}
+                <div className="hidden md:flex md:w-2/5 h-full items-center justify-center">
+                    <motion.div 
+                        animate={{ 
+                            rotate: [0, 360],
+                        }}
+                        transition={{ 
+                            duration: 40,
+                            repeat: Infinity, 
+                            ease: "linear"
+                        }}
+                        className="relative w-36 h-36"
+                    >
+                        <div className="absolute inset-0 rounded-full border-2 border-indigo-500/20"></div>
+                        <div className="absolute inset-4 rounded-full border-2 border-indigo-500/30 rotate-45"></div>
+                        
+                        <motion.div 
+                            className="absolute inset-0 flex items-center justify-center"
+                            animate={{ 
+                                scale: [1, 1.05, 1],
+                            }}
+                            transition={{ 
+                                duration: 4,
+                                repeat: Infinity, 
+                                ease: "easeInOut"
+                            }}
+                        >
+                            <div className="bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-full w-24 h-24 flex items-center justify-center">
+                                <img
+                                    src="/uRent.png"
+                                    alt="uRent Logo"
+                                    className="w-20 h-20 object-contain"
+                                />
+                            </div>
+                        </motion.div>
+                        
+                        {/* Dots around circle */}
+                        {[0, 72, 144, 216, 288].map((degree, i) => (
+                            <motion.div 
+                                key={i}
+                                className="absolute w-1.5 h-1.5 rounded-full bg-indigo-500"
+                                style={{
+                                    top: `${50 + 45 * Math.sin(degree * Math.PI / 180)}%`,
+                                    left: `${50 + 45 * Math.cos(degree * Math.PI / 180)}%`,
+                                }}
+                                animate={{ opacity: [0.5, 1, 0.5] }}
+                                transition={{ 
+                                    duration: 2,
+                                    repeat: Infinity, 
+                                    ease: "easeInOut",
+                                    delay: i * 0.3,
+                                }}
+                            />
+                        ))}
+                    </motion.div>
+                </div>
             </div>
-            <div className="flex flex-col items-center">
-              <TruckIcon className="w-12 h-12 text-indigo-500 hover:text-indigo-400 transition" />
-              <p className="mt-2 text-lg">Lkw</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <RiCaravanLine className="w-12 h-12 text-indigo-500 hover:text-indigo-400 transition" />
-              <p className="mt-2 text-lg">Anhänger</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <PiVanFill className="w-12 h-12 text-indigo-500 hover:text-indigo-400 transition" />
-              <p className="mt-2 text-lg">Transporter</p>
-            </div>
-          </div>
-
-          <div className="flex flex-row items-center ">
-            <button className="px-6 py-3 bg-indigo-600 rounded-lg text-white font-semibold flex flex-row justify-center items-center hover:bg-indigo-500 transition mt-4 w-full" onClick={onMiet}>
-             <UserIcon className="w-6 h-6 mr-2" /> Jetzt kostenlos registrieren & loslegen
-            </button>
-            {/* {(!isLoggedIn || !isBusiness) ? (
-              <button className="ml-4 px-6 py-3 border border-indigo-500 rounded-lg text-indigo-500 hover:bg-indigo-500 hover:text-white transition" onClick={onRent}>
-              Jetzt Vermieten
-            </button>
-            ) : (
-              <Inserat currentUser={currentUser} isEvent={true} />
-            )} */}
-          </div>
         </div>
-
-        {/* Right Section */}
-        <div className="flex flex-col items-center justify-center space-y-0">
-          <h3 className="text-2xl font-semibold">Mieten? Vermieten?</h3>
-          <div className="relative w-[200px] h-[200px]">
-            <img
-              src="/uRent.png"
-              alt="uRent"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <div className="text-base text-center text-gray-400">
-            Miete & Vermiete Fahrzeuge so einfach wie noch nie. 
-            {/* <span className="font-semibold text-gray-200">uRent</span> */}
-          </div> 
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BasicUrentBanner;

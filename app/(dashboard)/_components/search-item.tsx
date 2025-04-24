@@ -169,52 +169,45 @@ const SearchItem = () => {
     };
 
     return (
-        <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4" >
-            <div className="w-full relative" >
-                <Input
-                    className="2xl:w-[272px] w-full border-none rounded-none dark:focus:bring-0 dark:focus-visible:ring-0 focus:border-none sm:bg-[#1B1F2C] bg-[#2b2f3f]  shadow-lg"
-                    placeholder="Ich suche nach..."
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    onFocus={() => {setShowDropdown(true); setIsSearching(true)}}
-                    maxLength={200}
-                />
-                
-                    
-               
-                {showDropdown && (
-                    <div className="absolute w-full bg-[#141721] rounded-b-md space-y-2 text-sm" onBlur={() => {setShowDropdown(false)}}>
-                        {/*
-                        {selectedUser ? (
-                            <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
-                            key={selectedUser.id}>
-                                <FaUserTie className="w-4 h-4" />  {selectedUser.name} 
-                                <X className="w-4 h-4 ml-auto text-rose-600" onClick={() => {onUserDelete()}} />
+        <div className="flex w-full items-center justify-start sm:position: static sm:mr-4 md:mr-4 2xl:mr-4">
+            <div className="w-full relative group">
+                <div className="flex items-center w-full">
+                    <div className="absolute left-3.5 text-indigo-400/80 z-10 pointer-events-none group-hover:text-indigo-300 transition-colors">
+                        <Search className="h-3.5 w-3.5 stroke-[2.2px]" />
+                    </div>
+                    <Input
+                        className="2xl:w-[280px] w-full pl-10 
+                        border-none rounded-l-md dark:focus-visible:ring-0 focus:border-none sm:bg-[#1B1F2C]/90 bg-[#252a3d] hover:bg-[#252a3d] 
+                        focus:bg-[#252a3d] focus:ring-1 focus:ring-indigo-500/60 transition-all duration-200 shadow-md text-sm "
+                        placeholder="Ich suche nach..."
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        onFocus={() => {setShowDropdown(true); setIsSearching(true)}}
+                        maxLength={200}
+                    />
+                    {value && (
+                        <div 
+                            className="absolute right-3.5 text-gray-400 hover:text-gray-200 transition-colors cursor-pointer"
+                            onClick={() => setValue("")}
+                        >
+                            <X className="h-3.5 w-3.5 stroke-[2.2px]" />
                         </div>
-                        ) : (
-                            foundProfiles.length > 0 && (
-                                foundProfiles?.map((profile : typeof userTable.$inferSelect) => (
-                                    <div className="p-4 font-semibold flex gap-x-2 hover:cursor-pointer" 
-                                    key={profile.id} onClick={() => {onUserSearch(profile)}} >
-                                        <FaUserTie className="w-4 h-4" />  {profile.name}
-                                    </div>
-                                ))
-                            )
-                        )}
-                        */}
-                       
-                            
-                        
+                    )}
+                </div>
+                
+                {showDropdown && (
+                    <div className="absolute w-full bg-[#1B1F2C]/95 backdrop-blur-sm rounded-b-md space-y-2 text-sm shadow-lg z-20 mt-1 border border-indigo-500/10" onBlur={() => {setShowDropdown(false)}}>
+                        {/* Dropdown content */}
                     </div>
                 )}
             </div>
 
-
-            <div className="px-3 py-3  rounded-none rounded-r-md bg-[#141721]  sm:bg-slate-800 sm:dark:hover:bg-slate-700 hover: cursor-pointer lg:hidden xl:flex" onClick={onSearch}>
-                <Search
-                    className=" text-white h-4 w-4"
-                />
+            <div 
+                className="px-4  h-10 rounded-none rounded-r-md bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 hover:cursor-pointer lg:hidden xl:flex flex-shrink-0 shadow-md flex items-center justify-center"
+                onClick={onSearch}
+            >
+                <Search className="text-white h-4 w-4 stroke-[2.5px]" />
             </div>
         </div>
     );

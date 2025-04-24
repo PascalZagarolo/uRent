@@ -11,6 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { userTable } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+
+import { RxCardStackPlus } from "react-icons/rx";
 import axios from "axios";
 
 
@@ -83,63 +85,66 @@ const Inserat: React.FC<InseratProps> = ({
                 {isEvent ? (
                     <DialogTrigger asChild>
                         <div>
-                            <button className="ml-4 px-6 py-3 mt-4 border border-indigo-500 rounded-lg text-indigo-500 hover:bg-indigo-500 hover:text-white transition">
+                            <button className="px-4 h-10 border border-indigo-500/30 rounded-md text-white bg-indigo-600/20 hover:bg-indigo-600/30 text-sm font-medium transition-colors flex items-center gap-2">
+                                <RxCardStackPlus className="h-4 w-4" />
                                 Jetzt Vermieten
                             </button>
                         </div>
                     </DialogTrigger>
                 ) : (
                     isntLoggedIn ? (
-                        <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
+                        <Button 
+                            className="flex items-center gap-1.5 px-2.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-gray-200 rounded-md shadow-md transition-colors"
                             onClick={() => { !currentUser && router.push("/login") }}
                         >
-                            <CopyIcon className="w-4 h-4 3xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
+                            <RxCardStackPlus  className="w-4 h-4" />
+                            <span className="text-sm font-medium">Inserat erstellen</span>
                         </Button>
                     ) : (
                         isntLoggedIn ? (
-                            <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm"
+                            <Button 
+                                className="flex items-center gap-1.5  px-2.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-gray-200 rounded-md shadow-md transition-colors"
                                 onClick={() => { !currentUser && router.push("/login") }}
                             >
-                                <CopyIcon className="w-4 h-4 3xl:mr-2" />  <span className="hidden 3xl:block">Inserat erstellen</span>
+                                <RxCardStackPlus  className="w-4 h-4" />
+                                <span className="text-sm font-medium">Inserat erstellen</span>
                             </Button>
                         ) : (
                             currentUser.isBusiness ? (
                                 <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
-
-                                    <Button className="mt-2 bg-indigo-800 hover:bg-indigo-900 text-gray-200 hover:text-gray-300" variant="ghost" size="sm">
-                                        <CopyIcon className="w-4 h-4 3xl:mr-2" /> <span className="hidden 3xl:block"> Inserat erstellen </span>
+                                    <Button className="flex items-center gap-2  mt-2 px-2.5 py-0 bg-indigo-600 hover:bg-indigo-700 text-gray-200 items-center flex-row rounded-md shadow-md transition-colors">
+                                    <RxCardStackPlus  className="w-4 h-4" />
+                                        <span className="text-xs font-medium hidden md:block">Inserat erstellen</span>
                                     </Button>
-
-
                                 </DialogTrigger>
                             ) : (
                                 <Dialog>
                                     <DialogTrigger>
-                                        <div className="bg-[#12141f] ml-4  mt-2 flex justify-center text-gray-300 p-2 rounded-md text-sm items-center 
-                font-semibold  dark:bg-[#161723] w-full hover:cursor-pointer" >
-                                            <PlusIcon className="w-4 h-4 3xl:mr-2 flex justify-center" /> <p className="hidden 3xl:flex mr-1 text-sm">Inserat erstellen</p>
+                                        <div className="flex items-center gap-1.5 px-2.5 py-0 bg-indigo-600 hover:bg-indigo-700 text-gray-200 rounded-md shadow-md cursor-pointer transition-colors">
+                                        <RxCardStackPlus  className="w-4 h-4" />
+                                            <span className="text-sm font-medium hidden md:block">Inserat erstellen</span>
                                         </div>
                                     </DialogTrigger>
-                                    <DialogContent className="bg-[#191919] rounded-md border-none">
+                                    <DialogContent className="bg-[#141721] rounded-md border-none shadow-lg">
                                         <div className="">
                                             <h3 className="text-lg font-semibold flex flex-row items-center">
-                                                <FaExchangeAlt className="w-4 h-4 mr-2" /> Profil umwandeln?
+                                                <FaExchangeAlt className="w-4 h-4 mr-2 text-indigo-400" /> Profil umwandeln?
                                             </h3>
                                             <div className="">
-                                                <p className="text-xs text-gray-200/80">
+                                                <p className="text-sm text-gray-200/80 mt-2">
                                                     Um Inserate zu schalten, musst du dein Profil in ein Vermieter-Konto umwandeln. <br />
                                                     Dies kannst du unter {`"`} Mein Profil {`"`} völlig kostenlos & schnell machen.
                                                 </p>
                                             </div>
-                                            <div className="mt-4 flex justify-end">
+                                            <div className="mt-6 flex justify-end gap-2">
                                                 <DialogTrigger asChild>
-                                                    <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300" onClick={() => { router.push(`/profile/${currentUser?.id}`) }}>
-                                                        Zum Vermieter werden
+                                                    <Button variant="ghost" className="text-gray-300 hover:text-gray-200 hover:bg-[#1a1f2c] transition-colors">
+                                                        Abbrechen
                                                     </Button>
                                                 </DialogTrigger>
                                                 <DialogTrigger asChild>
-                                                    <Button variant="ghost" className="border-none">
-                                                        Abbrechen
+                                                    <Button className="bg-indigo-600 hover:bg-indigo-700 text-gray-200 transition-colors" onClick={() => { router.push(`/profile/${currentUser?.id}`) }}>
+                                                        Zum Vermieter werden
                                                     </Button>
                                                 </DialogTrigger>
                                             </div>
@@ -149,66 +154,64 @@ const Inserat: React.FC<InseratProps> = ({
                             )
                         )
                     ))}
-                <DialogContent className="dark:bg-[#0F0F0F] dark:border-none">
+                <DialogContent className="dark:bg-[#141721] border-none shadow-lg">
                     <div>
                         <div>
                             <h3 className="font-semibold text-md flex items-center">
-                                <MdAddToPhotos className="w-4 h-4 mr-2" />Anzeige erstellen
+                                <PlusIcon className="w-4 h-4 mr-2 text-indigo-400" />Anzeige erstellen
                             </h3>
-                            <p className="text-xs dark:text-gray-200/60">
+                            <p className="text-sm text-gray-200/80 mt-1">
                                 Die angegebenen Informationen können jederzeit geändert werden.
                             </p>
                         </div>
                         <div>
-                            <div className="mt-8">
-                                <Label className="font-medium text-sm">
+                            <div className="mt-6">
+                                <Label className="font-medium text-sm text-gray-200">
                                     Titel
                                 </Label>
                                 <div>
                                     <Input
-                                        className="w-full dark:border-none dark:bg-[#191919] dark:text-gray-200/80"
+                                        className="w-full mt-1 border-none bg-[#1B1F2C] text-gray-200 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                         maxLength={160}
                                         placeholder="z.B. Bmw mieten in München"
                                         onChange={(e) => setCurrentTitle(e.target.value)}
                                     />
-                                    <div className="ml-auto flex justify-end">
+                                    <div className="ml-auto flex justify-end mt-1">
                                         <LetterRestriction limit={160} currentLength={currentTitle.length} />
                                     </div>
                                 </div>
                             </div>
                             <div className="mt-4">
-                                <Label>
+                                <Label className="font-medium text-sm text-gray-200">
                                     Fahrzeugkategorie
                                 </Label>
                                 <Select
                                     onValueChange={(value) => setCurrentCategory(value)}
                                 >
-                                    <SelectTrigger className="dark:border-none dark:bg-[#191919] w-full">
+                                    <SelectTrigger className="w-full mt-1 border-none bg-[#1B1F2C] text-gray-200 focus:ring-1 focus:ring-indigo-500 transition-colors">
                                         <SelectValue placeholder="Wähle eine Kategorie" />
                                     </SelectTrigger>
-                                    <SelectContent className="dark:bg-[#191919] dark:border-none">
+                                    <SelectContent className="border-none bg-[#141721] border-indigo-200/20 shadow-lg">
                                         <SelectGroup>
-                                            <SelectLabel>Fahrzeugkategorie</SelectLabel>
-                                            <SelectItem value="PKW">PKW</SelectItem>
-                                            <SelectItem value="LKW">LKW</SelectItem>
-                                            <SelectItem value="TRAILER">Anhänger</SelectItem>
-                                            <SelectItem value="TRANSPORT">Transporter</SelectItem>
-
+                                            <SelectLabel className="text-indigo-400">Fahrzeugkategorie</SelectLabel>
+                                            <SelectItem value="PKW" className="hover:bg-indigo-500/10">PKW</SelectItem>
+                                            <SelectItem value="LKW" className="hover:bg-indigo-500/10">LKW</SelectItem>
+                                            <SelectItem value="TRAILER" className="hover:bg-indigo-500/10">Anhänger</SelectItem>
+                                            <SelectItem value="TRANSPORT" className="hover:bg-indigo-500/10">Transporter</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div className="mt-4 w-full flex justify-end">
-                                <Button className="bg-indigo-800 text-gray-200 hover:bg-indigo-900 hover:text-gray-300"
+                            <div className="mt-6 w-full flex justify-end">
+                                <Button 
+                                    className="bg-indigo-600 hover:bg-indigo-700 text-gray-200 transition-colors"
                                     onClick={onSubmit}
                                     disabled={!currentCategory || !currentTitle || currentTitle.trim() === ""}
-
                                 >
                                     Anzeige erstellen
                                 </Button>
                             </div>
                         </div>
-
                     </div>
                 </DialogContent>
             </Dialog>

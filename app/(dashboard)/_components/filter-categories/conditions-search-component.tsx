@@ -11,7 +11,8 @@ const ConditionsSearchComponent = () => {
             <div className="p-2  ">
 
                 <div className="w-full flex justify-start items-center text-lg text-gray-200">
-                    <IoIosPaper className="h-6 w-6 mr-4"/>    Mietkonditionen
+                    <IoIosPaper className="h-6 w-6 mr-4"/> 
+                    Mietkonditionen
                 </div>
             </div>
             <div className="w-full flex gap-x-4 px-2">

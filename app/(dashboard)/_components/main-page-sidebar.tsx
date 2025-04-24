@@ -128,7 +128,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
                             <span>Zurücksetzen</span>
                         </button>
                     </div>
-                    <p className="text-xs text-gray-400 mt-2">Wähle Filter und klicke auf "Ergebnisse anzeigen"</p>
+                    <p className="text-xs text-gray-400 mt-2">Wähle Filter und klicke auf {`"`}Ergebnisse anzeigen{`"`}</p>
                 </div>
 
                 {/* Save Search Section */}

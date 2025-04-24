@@ -222,7 +222,7 @@ const InseratAnzeige = async ({
                                         thisTitle={thisInserat.title}
                                     />
                                 </div>
-                                <div>
+                                <div className='mt-4'>
                                     <InseratShow
                                         thisInserat={thisInserat}
                                         inseratBookings={inseratBookings}
@@ -258,7 +258,7 @@ const InseratAnzeige = async ({
                                 <div className='mt-8'>
                                     <OtherInserate
                                         thisUser={thisInserat.user}
-                                        inserateArray={inseratArray.filter((inserat) => inserat.id !== params.inseratId)}
+                                        inserateArray={inseratArray.filter((inserat : any) => inserat.id !== params.inseratId)}
                                     />
                                 </div>
                             </div>

@@ -1,51 +1,65 @@
 'use client'
 
-
 import { inserat } from "@/db/schema";
 import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 
 interface OtherInserateRenderProps {
-    thisInserat : typeof inserat.$inferSelect
+    thisInserat: typeof inserat.$inferSelect | any;
 }
 
 const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
     thisInserat
 }) => {
-
     const router = useRouter();
     
     return ( 
-        <div className="w-full bg-[#1D1F2B]  pb-2  rounded-md shadow-lg">
-            <div className="flex h-[160px]">
-            
-            <div className="rounded-md w-2/3">
-                <Image
-                src={thisInserat?.images[0]?.url} 
-                width={320}
-                height={160}
-                alt="Inserat Image"
-                className="w-full h-[160px] px-2 py-2 rounded-md object-cover"
-                />
-            </div>
-            
-            <div className="w-1/3 space-y-2">
-            <h3 className=" font-medium h-1/2 overflow-hidden  text-gray-200 text-sm w-full hover:underline hover:cursor-pointer" 
-            onClick={() => {router.push(`/inserat/${thisInserat.id}`)}}>
-            {thisInserat?.title} 
-            </h3>
-            <div className="h-1/2   p-2  bg-[#0e1016] shadow-lg rounded-l-t-md">
-                <p className="text-sm text-gray-100 font-semibold truncate">
-                    {thisInserat?.price} € / Tag
-                </p>
+        <div 
+            onClick={() => router.push(`/inserat/${thisInserat.id}`)}
+            className="bg-[#1B1F2E] hover:bg-[#232842] border-b border-gray-800/30 transition-colors cursor-pointer p-3"
+        >
+            <div className="flex space-x-3">
+                {/* Image */}
+                <div className="h-16 w-16 rounded-md overflow-hidden flex-shrink-0 relative">
+                    {thisInserat?.images?.[0]?.url ? (
+                        <Image
+                            src={thisInserat?.images?.[0]?.url} 
+                            alt={thisInserat.title || "Inserat"}
+                            fill
+                            className="object-cover"
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-[#151823] flex items-center justify-center">
+                            <span className="text-gray-500 text-xs">No image</span>
+                        </div>
+                    )}
+                </div>
                 
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between">
+                        <h3 className="font-medium text-gray-200 text-sm line-clamp-1 pr-2">
+                            {thisInserat?.title}
+                        </h3>
+                        <ArrowUpRight className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                    </div>
+                    
+                    <p className="text-gray-400 text-xs mt-1 line-clamp-1">
+                        {thisInserat?.category} • {format(new Date(thisInserat?.createdAt || new Date()), "dd.MM.yyyy")}
+                    </p>
+                    
+                    <div className="mt-2">
+                        <span className="text-sm font-semibold text-white">
+                            {thisInserat?.price} €
+                        </span>
+                        <span className="text-xs text-gray-400 ml-1">/Tag</span>
+                    </div>
+                </div>
             </div>
-            </div>
-            </div>
-            
         </div>
-     );
+    );
 }
  
 export default OtherInserateRender;

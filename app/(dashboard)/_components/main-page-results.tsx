@@ -92,11 +92,12 @@ const MainPageResults = () => {
             >
 
                 <div className="flex flex-col items-center justify-center">
+                    
+                    <div className="flex items-center justify-center font-semibold mt-2">
                     <div className="font-semibold text-base flex items-center ">
-                        <SearchIcon className="h-4 w-4" />
+                        <SearchIcon className="h-4 w-4 mr-2" />
 
                     </div>
-                    <div className="flex items-center justify-center font-semibold mt-2">
                         {currentResults ? <NumberTicker value={currentResults as any} /> : 0}
                     </div>
                     <div className="text-sm">Ergebnisse gefunden</div>

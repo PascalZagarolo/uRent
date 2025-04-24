@@ -55,7 +55,7 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
     <BreadcrumbSeparator>
     <MdArrowRight />
     </BreadcrumbSeparator>
-    <BreadcrumbItem className="font-semibold dark:text-gray-200 max-w-[232px] truncate">
+    <BreadcrumbItem className="font-semibold dark:text-gray-200 max-w-[248px] line-clamp-1">
       <BreadcrumbLink>{thisTitle}</BreadcrumbLink>
     </BreadcrumbItem>
   </BreadcrumbList>

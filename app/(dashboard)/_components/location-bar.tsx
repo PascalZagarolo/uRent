@@ -197,17 +197,14 @@ const AutoComplete = () => {
             <Input
               value={value}
               onKeyDown={handleKeyDown}
-              className="2xl:w-[280px] w-full pl-10 border-none rounded-l-md dark:focus-visible:ring-0 sm:bg-[#1B1F2C]/90 bg-[#252a3d] hover:bg-[#252a3d] focus:bg-[#252a3d] focus:ring-1 focus:ring-indigo-500/60 transition-all duration-200 shadow-md text-sm h-10"
+              className="2xl:w-[280px] w-full 
+              pl-10 border-none rounded-l-md rounded-r-none dark:focus-visible:ring-0 sm:bg-[#1B1F2C]/90 bg-[#252a3d] hover:bg-[#252a3d] focus:bg-[#252a3d] focus:ring-1 focus:ring-indigo-500/60 transition-all duration-200 shadow-md text-sm h-10"
               onChange={handleInput}
               disabled={!ready}
               placeholder="Standort.."
             />
-
-            <Button className="px-3 h-10 bg-[#1B1F2C]/90 hover:bg-[#252a3d] rounded-none transition-all duration-200 border-l border-indigo-500/10" onClick={() => { onSearch() }}>
-              <PinIcon className="text-indigo-400 hover:text-indigo-300 h-4 w-4 lg:block hidden hover:cursor-pointer stroke-[2.2px]" />
-            </Button>
+            <Proximity />
           </div>
-          <Proximity />
         </div>
       </div>
 

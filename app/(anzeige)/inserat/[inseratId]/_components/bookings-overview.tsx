@@ -69,8 +69,11 @@ const BookingsOverview: React.FC<BookingsOverviewProps> = ({
     return ( 
         <Dialog open={isOpen} onOpenChange={(e) => {setIsOpen(e)}}>
             <DialogTrigger asChild>
-            <Button className="w-full font-semibold text-gray-200 bg-indigo-900  hover:underline" variant="ghost">
-            <CalendarCheck className="w-4 h-4 mr-2"/> Verfügbarkeit prüfen
+            <Button 
+                className="w-full font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 shadow-md border-none rounded-lg transition-all duration-300 py-2.5 group"
+            >
+                <CalendarCheck className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300"/> 
+                <span className="tracking-wide">Verfügbarkeit prüfen</span>
             </Button>
             </DialogTrigger>
             <DialogContent  className="dark:bg-[#0F0F0F] border-none">

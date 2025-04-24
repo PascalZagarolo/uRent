@@ -68,9 +68,9 @@ const BasicUrentNewsletter = ({ userId }: BasicUrentNewsletterProps) => {
                     <Dialog open={isOpen} onOpenChange={setIsOpen}>
                         <DialogTrigger asChild className="mt-8">
                             <Button 
-                                className="bg-gradient-to-r from-purple-600 mt-8 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs px-4 h-10 rounded-lg group"
+                                className="bg-gradient-to-r from-purple-600 mt-8 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-gray-200 text-sm  px-4 h-10 rounded-lg group"
                             >
-                                <FaRegNewspaper className="w-3 h-3 mr-1.5" /> 
+                                <FaRegNewspaper className="w-4 h-4 mr-1.5" /> 
                                 Newsletter abonnieren
                             </Button>
                         </DialogTrigger>
@@ -112,7 +112,7 @@ const BasicUrentNewsletter = ({ userId }: BasicUrentNewsletterProps) => {
                                             </span>
                                         ) : (
                                             <span className="flex items-center">
-                                                <CheckIcon className="w-3.5 h-3.5 mr-1.5" /> Anmelden
+                                                <CheckIcon className="w-4 h-4 mr-1.5" /> Anmelden
                                             </span>
                                         )}
                                     </Button>

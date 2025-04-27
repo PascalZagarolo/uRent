@@ -1,30 +1,63 @@
 'use client'
 
 import qs from "query-string";
-
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/components/ui/pagination"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import { useGetFilterAmount, useResultsPerPage } from "@/store";
+import { useGetFilterAmount, useResultsPerPage, useSavedSearchParams } from "@/store";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "@/components/motion";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const PaginationComponent = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+  
+  // Track whether pagination should be shown even when no results in store
+  const [shouldShow, setShouldShow] = useState(false);
+  // Track total results count from direct API call
+  const [totalResults, setTotalResults] = useState(0);
+  // Track if we're currently loading results
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentPage = Number(searchParams.get("page") || "1");
   const params = getSearchParamsFunction("page");
+  const filter = searchParams.get("filter");
+  
+  // Get saved search params from store
+  const savedSearchParams = useSavedSearchParams((state) => state.searchParams);
+  const itemsPerPage = useResultsPerPage((state) => state.results);
+
+  // Direct API call to get total count
+  useEffect(() => {
+    const fetchTotalCount = async () => {
+      if (!savedSearchParams) return;
+      
+      setIsLoading(true);
+      try {
+        const response = await axios.patch('/api/search', savedSearchParams);
+        if (response.data !== undefined) {
+          // Set total count from API response
+          const count = Number(response.data);
+          setTotalResults(count);
+          
+          // If we have a filter, ensure pagination is shown
+          if (filter) {
+            setShouldShow(true);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching total count:", error);
+        setTotalResults(0);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTotalCount();
+  }, [savedSearchParams, filter]);
 
   const changePage = (page: number) => {
     const url = qs.stringifyUrl({
@@ -38,10 +71,29 @@ const PaginationComponent = () => {
     router.push(url)
   }
 
-  const itemsPerPage = useResultsPerPage((state) => state.results);
-  const globalResults = useGetFilterAmount((state) => state.amount);
+  // Make pagination visible when a sorting filter is applied
+  useEffect(() => {
+    // Check if there's a filter param and force pagination to show
+    if (filter) {
+      setShouldShow(true);
+      
+      // If we have a sort filter but no results,
+      // we need to force at least one page to be shown
+      if (totalResults <= 0) {
+        // Set a minimum of 1 page when filter is applied
+        // This ensures pagination is visible even if result count isn't properly updated
+        setShouldShow(true);
+      }
+    } else {
+      setShouldShow(filter ? true : false);
+    }
+  }, [filter, totalResults]);
 
-  const expectedPages = Math.max(Math.ceil(globalResults / itemsPerPage), 1);
+  // Calculate total pages based on the total number of results from API
+  // If sorting filter is applied and no results, show at least one page
+  const expectedPages = shouldShow && totalResults <= 0 
+    ? 1 
+    : Math.max(Math.ceil(totalResults / itemsPerPage), 1);
   
   let renderedPages: (number | string)[] = [];
 
@@ -87,8 +139,16 @@ const PaginationComponent = () => {
     renderedPages = finalRenderedPages;
   }
 
-  if (expectedPages <= 1) {
-    return null;  // Don't show pagination if there's only one page
+  // If current page is greater than expected pages, redirect to the first page
+  useEffect(() => {
+    if (currentPage > expectedPages && expectedPages > 0) {
+      changePage(1);
+    }
+  }, [expectedPages, currentPage]);
+
+  // Don't show pagination if there's only one page and no filter applied
+  if ((expectedPages <= 1 && !shouldShow) || isLoading) {
+    return null;
   }
 
   return (

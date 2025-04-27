@@ -1,6 +1,6 @@
 'use client'
 
-import { useSavedSearchParams } from "@/store";
+import { useSavedSearchParams, useGetFilterAmount } from "@/store";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -13,6 +13,7 @@ import NumberTicker from "@/components/magicui/number-ticker";
 const MainPageResults = () => {
 
     const searchParams = useSavedSearchParams((state) => state.searchParams);
+    const changeAmount = useGetFilterAmount((state) => state.changeAmount);
 
 
     const [currentResults, setCurrentResults] = useState(null);
@@ -21,13 +22,32 @@ const MainPageResults = () => {
     //? Fix 429-Error in Axios, because of too many requests regarding location..
     useEffect(() => {
         const getSearchResults = async () => {
-            const values = searchParams
-            const results = await axios.patch('/api/search', values);
-            setCurrentResults(results.data);
-
+            try {
+                const values = searchParams;
+                // Make sure we're passing any filters correctly
+                const results = await axios.patch('/api/search', values);
+                
+                // Check if we have results data and it's a number (total count)
+                if (results.data !== undefined) {
+                    // Store the current result count for display
+                    setCurrentResults(results.data);
+                    
+                    // Ensure we're setting a numeric value to the filter amount
+                    const resultCount = Number(results.data);
+                    
+                    // Always update the global store with the total count
+                    // This ensures pagination works correctly even with sorting applied
+                    changeAmount(resultCount > 0 ? resultCount : 0);
+                }
+            } catch (error) {
+                console.error("Error fetching search results:", error);
+                // Set a default value on error
+                setCurrentResults(0);
+                changeAmount(0);
+            }
         }
         getSearchResults();
-    }, [searchParams]);
+    }, [searchParams, changeAmount]);
 
     const onRedirect = () => {
 

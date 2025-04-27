@@ -15,92 +15,149 @@ interface TrailerAttributeRenderProps {
 const TrailerAttributeRender: React.FC<TrailerAttributeRenderProps> = ({
     attributes,
 }) => {
+    if (!attributes) return null;
+    
     return (
-        <div className="w-full grid grid-cols-2 gap-4 mt-4 p-4 rounded-lg bg-[#13151C] shadow-md text-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {attributes?.type && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <CaravanIcon className="w-4 h-4 text-teal-400 mr-2" />
-                    <span className="font-medium">
-                        {attributes.type.charAt(0).toUpperCase() + attributes.type.slice(1).toLowerCase()}
-                    </span>
-                </div>
-            )}
-            {attributes?.extraType && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <RiCaravanFill className="w-4 h-4 text-blue-400 mr-2" />
-                    <span className="font-medium">
-                        {attributes.extraType.charAt(0).toUpperCase() + attributes.extraType.slice(1).toLowerCase()}
-                    </span>
-                </div>
-            )}
-            {attributes?.coupling && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <div>
-                    <FaGears className="w-4 h-4 text-yellow-400 mr-2" />
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500/20 to-cyan-500/10 flex items-center justify-center mr-3 border border-teal-500/20">
+                        <CaravanIcon className="w-4 h-4 text-teal-400" />
                     </div>
-                    <span className="font-medium break-all">
-                        {attributes.coupling.charAt(0).toUpperCase() + attributes.coupling.slice(1).toLowerCase()}
-                    </span>
+                    <div>
+                        <div className="text-xs text-gray-400">Typ</div>
+                        <div className="font-medium text-gray-200">
+                            {attributes.type.charAt(0).toUpperCase() + attributes.type.slice(1).toLowerCase()}
+                        </div>
+                    </div>
                 </div>
             )}
+            
+            {attributes?.extraType && (
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/10 flex items-center justify-center mr-3 border border-blue-500/20">
+                        <RiCaravanFill className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Aufbauart</div>
+                        <div className="font-medium text-gray-200">
+                            {attributes.extraType.charAt(0).toUpperCase() + attributes.extraType.slice(1).toLowerCase()}
+                        </div>
+                    </div>
+                </div>
+            )}
+            
+            {attributes?.coupling && (
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500/20 to-amber-500/10 flex items-center justify-center mr-3 border border-yellow-500/20">
+                        <FaGears className="w-4 h-4 text-yellow-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Anschluss</div>
+                        <div className="font-medium text-gray-200">
+                            {attributes.coupling.charAt(0).toUpperCase() + attributes.coupling.slice(1).toLowerCase()}
+                        </div>
+                    </div>
+                </div>
+            )}
+            
             {attributes?.loading && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <TbCrane className="w-4 h-4 text-red-400 mr-2" />
-                    <span className="font-medium">
-                        {attributes.loading.charAt(0).toUpperCase() + attributes.loading.slice(1).toLowerCase()}
-                    </span>
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500/20 to-rose-500/10 flex items-center justify-center mr-3 border border-red-500/20">
+                        <TbCrane className="w-4 h-4 text-red-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Beladung</div>
+                        <div className="font-medium text-gray-200">
+                            {attributes.loading.charAt(0).toUpperCase() + attributes.loading.slice(1).toLowerCase()}
+                        </div>
+                    </div>
                 </div>
             )}
+            
             {attributes?.axis && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <LuAxis3D className="w-4 h-4 text-green-400 mr-2" />
-                    <span className="font-medium">
-                        {{
-                            '1': "Einachser",
-                            '2': "Zweiachser",
-                            '3': "Dreiachser",
-                            '4': "Vierachser",
-                            '5': "> 4 Achsen",
-                        }[attributes.axis]}
-                    </span>
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/10 flex items-center justify-center mr-3 border border-green-500/20">
+                        <LuAxis3D className="w-4 h-4 text-green-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Achsen</div>
+                        <div className="font-medium text-gray-200">
+                            {{
+                                '1': "Einachser",
+                                '2': "Zweiachser",
+                                '3': "Dreiachser",
+                                '4': "Vierachser",
+                                '5': "> 4 Achsen",
+                            }[attributes.axis] || attributes.axis}
+                        </div>
+                    </div>
                 </div>
             )}
+            
             {attributes?.weightClass && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <WeightIcon className="w-4 h-4 text-indigo-400 mr-2" />
-                    <span className="font-medium text-sm">
-                        {attributes?.weightClass} kg <br/> zulässiges Gesamtgewicht
-                    </span>
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500/20 to-violet-500/10 flex items-center justify-center mr-3 border border-indigo-500/20">
+                        <WeightIcon className="w-4 h-4 text-indigo-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Gewichtsklasse</div>
+                        <div className="font-medium text-gray-200">{attributes.weightClass} kg</div>
+                    </div>
                 </div>
             )}
+            
             {attributes?.payload && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <WeightIcon className="w-4 h-4 text-emerald-400 mr-2" />
-                    <span className="font-medium text-sm">
-                        {attributes?.payload} kg <br/> Nutzlast
-                    </span>
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500/20 to-green-500/10 flex items-center justify-center mr-3 border border-emerald-500/20">
+                        <WeightIcon className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Nutzlast</div>
+                        <div className="font-medium text-gray-200">{attributes.payload} kg</div>
+                    </div>
                 </div>
             )}
+            
             {attributes?.brake && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <GiStoneWheel className="w-4 h-4 text-purple-400 mr-2" />
-                    <span className="font-medium">
-                        {attributes.brake ? "Hat Auflaufbremse" : "Keine Bremse"}
-                    </span>
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500/20 to-violet-500/10 flex items-center justify-center mr-3 border border-purple-500/20">
+                        <GiStoneWheel className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Bremse</div>
+                        <div className="font-medium text-gray-200">
+                            {attributes.brake ? "Hat Auflaufbremse" : "Keine Bremse"}
+                        </div>
+                    </div>
                 </div>
             )}
+            
             {attributes?.loading_volume && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <HiCubeTransparent className="w-4 h-4 text-cyan-400 mr-2" />
-                    <span className="font-medium">{attributes.loading_volume} l</span>
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500/20 to-sky-500/10 flex items-center justify-center mr-3 border border-cyan-500/20">
+                        <HiCubeTransparent className="w-4 h-4 text-cyan-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Ladevolumen</div>
+                        <div className="font-medium text-gray-200">{attributes.loading_volume} l</div>
+                    </div>
                 </div>
             )}
+            
             {(attributes?.loading_l || attributes?.loading_b || attributes?.loading_h) && (
-                <div className="flex items-center p-3 bg-[#1a1d25] rounded-lg shadow-sm transition hover:bg-[#2a2d35]">
-                    <GiResize className="w-4 h-4 text-rose-400 mr-2" />
-                    <span className="font-medium text-sm">
-                    {attributes?.loading_l && `${attributes?.loading_l}m Länge, `}  {attributes?.loading_b && `${attributes?.loading_b}m Breite, ` } <br/>  {attributes?.loading_h && `${attributes?.loading_b}m Höhe`}
-                    </span>
+                <div className="flex items-center p-3 bg-[#1B1F2E]/80 rounded-lg border border-gray-800/10">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-rose-500/20 to-red-500/10 flex items-center justify-center mr-3 border border-rose-500/20">
+                        <GiResize className="w-4 h-4 text-rose-400" />
+                    </div>
+                    <div>
+                        <div className="text-xs text-gray-400">Laderaum</div>
+                        <div className="font-medium text-gray-200 text-sm">
+                            {attributes?.loading_l && `${attributes?.loading_l}m Länge`}{attributes?.loading_l && attributes?.loading_b ? ", " : ""}
+                            {attributes?.loading_b && `${attributes?.loading_b}m Breite`}{((attributes?.loading_l || attributes?.loading_b) && attributes?.loading_h) ? ", " : ""}
+                            {attributes?.loading_h && `${attributes?.loading_h}m Höhe`}
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

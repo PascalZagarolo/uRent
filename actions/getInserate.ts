@@ -1,6 +1,3 @@
-
-
-
 import db from "@/db/drizzle";
 import {
     ApplicationEnumRender, BrandEnumRender, CategoryEnumRender, CouplingEnumRender,
@@ -20,10 +17,6 @@ import { createDateWithTime } from "@/hooks/date/combine-date-with-minutes";
 import { address, booking, user } from "@/drizzle/schema";
 import bookings from "@/app/(anzeige)/inserat/[inseratId]/_components/bookings";
 
-
-
-
-
 type GetInserate = {
     title?: string;
     thisCategory?: typeof CategoryEnumRender;
@@ -31,6 +24,7 @@ type GetInserate = {
     start?: number;
     end?: number;
     page?: number;
+    pageSize?: number;
 
     periodBegin?: string;
     periodEnd?: string;
@@ -111,8 +105,6 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
     return 2 * r * Math.asin(Math.sqrt(a));
 }
 
-
-
 export const getInserate = cache(async ({
     title,
     thisCategory,
@@ -120,6 +112,7 @@ export const getInserate = cache(async ({
     start,
     end,
     page,
+    pageSize,
 
     periodBegin,
     periodEnd,
@@ -826,6 +819,9 @@ export const getInserate = cache(async ({
     try {
         
 
+        const usedPage = page && page > 0 ? page : 1;
+        const usedPageSize = pageSize && pageSize > 0 ? pageSize : 10;
+
         const findInserate = await db.query.inserat.findMany({
             where: (
                 and(
@@ -895,7 +891,14 @@ export const getInserate = cache(async ({
             ...(filter === "desc") && {
                 orderBy: (price, { desc }) => [desc(inserat.price)]
             },
-
+            ...(filter === "date_newest") && {
+                orderBy: (firstRelease, { desc }) => [desc(inserat.firstRelease)]
+            },
+            ...(filter === "date_oldest") && {
+                orderBy: (firstRelease, { asc }) => [asc(inserat.firstRelease)]
+            },
+            limit: usedPageSize,
+            offset: (usedPage - 1) * usedPageSize,
          }).prepare("findInserate");
 
 
@@ -1049,20 +1052,6 @@ export const getInserate = cache(async ({
             returnedArray = filteredArray;
         }
 
-        if (filter === "date_newest") {
-            returnedArray.sort((a, b) => {
-                return new Date(b.firstRelease).getTime() - new Date(a.firstRelease).getTime();
-            })
-        }
-
-        if (filter === "date_oldest") {
-            returnedArray.sort((a, b) => {
-                return new Date(a.firstRelease).getTime() - new Date(b.firstRelease).getTime();
-            })
-        }
-
-
-
         if (!filter || filter === "relevance") {
 
 
@@ -1096,7 +1085,7 @@ export const getInserate = cache(async ({
             returnedArray = [...shuffledPremium, ...shuffledNonPremium];
             
         }
-
+        console.log(returnedArray.length)
         return returnedArray;
 
     } catch (error: any) {

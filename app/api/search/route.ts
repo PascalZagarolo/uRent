@@ -1,4 +1,3 @@
-
 import db from "@/db/drizzle";
 import { inserat, userTable } from "@/db/schema";
 import axios from "axios";
@@ -139,7 +138,7 @@ export async function PATCH(
                 bExtraType && bLoading && bWeightClass && bVolume && bLength && bBreite && bHeight;
         }
 
-        const LkwFilter = (pInserat: typeof inserat) => {
+        const LkwFilter = (pInserat: typeof inserat & {  lkwAttribute }) => {
 
             const usedInitial = initial ? new Date(initial) : null;
 
@@ -229,7 +228,7 @@ export async function PATCH(
                 && bLkwBrand && bAxis && bVolume && bLength && bBreite && bHeight && bPower && bAhk;
         }
 
-        const TrailerFilter = (pInserat: typeof inserat) => {
+        const TrailerFilter = (pInserat: typeof inserat & { trailerAttribute }) => {
 
             const usedInitial = initial ? new Date(initial) : null;
 
@@ -408,7 +407,7 @@ export async function PATCH(
         });
 
 
-        const filterAvailability = cache((pInserat: typeof inserat) => {
+        const filterAvailability = cache((pInserat: typeof inserat & { bookings }) => {
 
             const checkMinTime = checkFitsMinTime(pInserat);
 
@@ -783,14 +782,10 @@ export async function PATCH(
 
         let filteredResult = [];
 
-
-      
         if (location) {
             console.log(location)
             const usedRadius = radius ? radius : 50;
             let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-
-
 
             if (addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
                 for (const pInserat of filteredArray) {
@@ -809,6 +804,8 @@ export async function PATCH(
             filteredResult = filteredArray;
         }
 
+        // Always return the total count of all filtered results
+        // This ensures pagination works correctly regardless of sorting
         return NextResponse.json(filteredResult.length);
 
     } catch (error: any) {

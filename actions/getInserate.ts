@@ -897,8 +897,7 @@ export const getInserate = cache(async ({
             ...(filter === "date_oldest") && {
                 orderBy: (firstRelease, { asc }) => [asc(inserat.firstRelease)]
             },
-            limit: usedPageSize,
-            offset: (usedPage - 1) * usedPageSize,
+          
          }).prepare("findInserate");
 
 

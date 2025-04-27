@@ -3,153 +3,138 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSavedSearchParams } from "@/store";
-
-
-
-import axios from "axios";
-import { User2Icon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Users } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-
-
 
 const PkwSeatsSearch = () => {
-
-    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
-
-    const [currentAge, setCurrentAge] = useState(currentObject["seats"]);
-    const [currentEnd, setCurrentEnd] = useState(currentObject["seatsMax"]);
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams);
+    const [currentSeats, setCurrentSeats] = useState(currentObject["seats"]);
+    const [currentMaxSeats, setCurrentMaxSeats] = useState(currentObject["seatsMax"]);
     const [isLoading, setIsLoading] = useState(false);
-
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-
     const router = useRouter();
-
     const params = useParams();
 
-    const onSubmit = (selectedValue: string) => {
-        setCurrentAge(selectedValue);
+    const onSubmitStart = (selectedValue: string) => {
+        setCurrentSeats(selectedValue);
         changeSearchParams("seats", selectedValue);
-
     }
 
     const onSubmitEnd = (selectedValue: string) => {
-        setCurrentEnd(selectedValue);
+        setCurrentMaxSeats(selectedValue);
         changeSearchParams("seatsMax", selectedValue);
-
     }
 
     useEffect(() => {
-        if (currentAge && currentEnd) {
-            if (Number(currentAge) > Number(currentEnd)) {
-                changeSearchParams("seatsMax", currentAge);
-                setCurrentEnd(currentAge);
+        if (currentSeats && currentMaxSeats) {
+            if (Number(currentSeats) > Number(currentMaxSeats)) {
+                changeSearchParams("seatsMax", currentSeats);
+                setCurrentMaxSeats(currentSeats);
             }
-
         }
-    }, [currentAge])
+    }, [currentSeats]);
 
     useEffect(() => {
-        if (currentAge && currentEnd) {
-            if (Number(currentAge) > Number(currentEnd)) {
-                changeSearchParams("seats", currentEnd);
-                setCurrentAge(currentEnd);
+        if (currentSeats && currentMaxSeats) {
+            if (Number(currentSeats) > Number(currentMaxSeats)) {
+                changeSearchParams("seats", currentMaxSeats);
+                setCurrentSeats(currentMaxSeats);
             }
-
         }
-    }, [currentEnd])
-
+    }, [currentMaxSeats]);
 
     const deleteSeats = () => {
-        setCurrentAge(null);
-        deleteSearchParams("seats")
+        setCurrentSeats(null);
+        deleteSearchParams("seats");
     }
 
     const deleteSeatsEnd = () => {
-        setCurrentEnd(null);
-        deleteSearchParams("seatsMax")
-    }
-
-    function removeUnderscore(inputString: string): string {
-        const outputString = inputString.replace(/_/g, ' ');
-        return outputString;
+        setCurrentMaxSeats(null);
+        deleteSearchParams("seatsMax");
     }
 
     return (
-        <div className="w-full">
-            <div className="w-full">
-                <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Sitze </p>
-                </Label>
-
-                <div className="w-full flex items-center gap-x-2">
-                    <div className="w-1/2">
-                        <Select
-                            onValueChange={(brand) => {
-                                !brand ? deleteSeats() : onSubmit(brand)
-                            }}
-                            value={currentAge}
+        <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-indigo-900/20 text-indigo-400">
+                    <Users className="w-4 h-4" />
+                </div>
+                <h3 className="font-medium text-sm text-gray-100">Sitze</h3>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-3">
+                <div className="group">
+                    <Select
+                        onValueChange={(value) => {
+                            !value ? deleteSeats() : onSubmitStart(value);
+                        }}
+                        value={currentSeats}
+                        disabled={isLoading}
+                    >
+                        <SelectTrigger 
+                            className={cn(
+                                "h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]",
+                                !currentSeats && "text-gray-500"
+                            )}
                             disabled={isLoading}
                         >
-
-                            <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                                disabled={isLoading}  >
-                                <SelectValue
-                                    placeholder="Von"
-
-
-                                />
-                            </SelectTrigger>
-
-                            <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                                <SelectItem key="beliebig" value={null} className="font-semibold">
-                                    Beliebig
+                            <SelectValue placeholder="Von" />
+                        </SelectTrigger>
+                        
+                        <SelectContent className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md">
+                            <SelectItem value={null} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">
+                                Beliebig
+                            </SelectItem>
+                            {[1, 2, 3, 4, 5, 6, 7].map((seat) => (
+                                <SelectItem 
+                                    key={seat} 
+                                    value={String(seat)}
+                                    className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer"
+                                >
+                                    {seat}
                                 </SelectItem>
-                                <SelectItem value="1">1</SelectItem>
-                                <SelectItem value="2">2</SelectItem>
-                                <SelectItem value="3">3</SelectItem>
-                                <SelectItem value="4">4</SelectItem>
-                                <SelectItem value="5">5</SelectItem>
-                                <SelectItem value="6">6</SelectItem>
-                                <SelectItem value="7">7</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${currentSeats ? 'w-full' : 'w-0'}`}></div>
+                </div>
 
-                    <div className="w-1/2">
-                        <Select
-                            onValueChange={(brand) => {
-                                !brand ? deleteSeatsEnd() : onSubmitEnd(brand)
-                            }}
-                            value={currentEnd}
+                <div className="group">
+                    <Select
+                        onValueChange={(value) => {
+                            !value ? deleteSeatsEnd() : onSubmitEnd(value);
+                        }}
+                        value={currentMaxSeats}
+                        disabled={isLoading}
+                    >
+                        <SelectTrigger 
+                            className={cn(
+                                "h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]",
+                                !currentMaxSeats && "text-gray-500"
+                            )}
                             disabled={isLoading}
                         >
-
-                            <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                                disabled={isLoading}  >
-                                <SelectValue
-                                    placeholder="Bis"
-
-
-                                />
-                            </SelectTrigger>
-
-                            <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                                <SelectItem key="beliebig" value={null} className="font-semibold">
-                                    Beliebig
+                            <SelectValue placeholder="Bis" />
+                        </SelectTrigger>
+                        
+                        <SelectContent className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md">
+                            <SelectItem value={null} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">
+                                Beliebig
+                            </SelectItem>
+                            {[1, 2, 3, 4, 5, 6, 7].map((seat) => (
+                                <SelectItem 
+                                    key={seat} 
+                                    value={String(seat)}
+                                    className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer"
+                                >
+                                    {seat}
                                 </SelectItem>
-                                <SelectItem value="1">1</SelectItem>
-                                <SelectItem value="2">2</SelectItem>
-                                <SelectItem value="3">3</SelectItem>
-                                <SelectItem value="4">4</SelectItem>
-                                <SelectItem value="5">5</SelectItem>
-                                <SelectItem value="6">6</SelectItem>
-                                <SelectItem value="7">7</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${currentMaxSeats ? 'w-full' : 'w-0'}`}></div>
                 </div>
             </div>
         </div>

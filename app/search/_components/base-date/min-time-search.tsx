@@ -5,129 +5,99 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { minTimeValues } from "@/hooks/min-time/useMinTime";
 import { useSavedSearchParams } from "@/store";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ClockIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
+interface TimeValue {
+    value: number;
+    label: string;
+}
+
+interface GroupedTimeValues {
+    [key: string]: TimeValue[];
+}
+
 const MinTimeSearch = () => {
-    const params = getSearchParamsFunction("minTime");
-    
-
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
-
-    const [currentAge, setCurrentAge] = useState(currentObject["minTime"] ? currentObject["minTime"] : null);
+    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    const currentObject = useSavedSearchParams((state) => state.searchParams);
+    const [currentTime, setCurrentTime] = useState(currentObject["minTime"] ? currentObject["minTime"] : null);
     const [isLoading, setIsLoading] = useState(false);
 
-
-    
-
-
-    const router = useRouter();
-    const pathname = usePathname();
-
     useEffect(() => {
-      
-        changeSearchParams("minTime", currentAge);
-      },[currentAge])
-
-
-    
-
-    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-
-    const setStart = (reqAge: string) => {
-
-        if (!reqAge) {
-            deleteSearchParams("minTime");
-            setCurrentAge(null);
+        if (currentTime) {
+            changeSearchParams("minTime", currentTime);
         } else {
-            //@ts-ignore
-            changeSearchParams("minTime", reqAge);
-            setCurrentAge(reqAge);
+            deleteSearchParams("minTime");
         }
+    }, [currentTime]);
 
-    }
-
-    const renderCorresponding = (value: number) => {
-        switch (value) {
-            case 1: return (
-                <SelectLabel className="pl-4 font-semibold mb-4">
-                    Stunden
-                </SelectLabel>
-            );
-            case 24: return (
-                <SelectLabel className="pl-4 font-semibold mb-4 mt-4">
-                    Tag(e)
-                </SelectLabel>
-            );
-            case 168: return (
-                <SelectLabel className="pl-4 font-semibold mb-4 mt-4 ">
-                    Woche(n)
-                </SelectLabel>
-            );
-            case 720: return (
-                <SelectLabel className="pl-4 font-semibold mb-4  mt-4">
-                    Monat(e)
-                </SelectLabel>
-            );
-            case 8760: return (
-                <SelectLabel className="pl-4 font-semibold mb-4  mt-4">
-                    Jahr(e)
-                </SelectLabel>
-            )
+    // Group our time values by unit (hours, days, weeks, etc.)
+    const groupedTimeValues: GroupedTimeValues = minTimeValues.reduce((acc: GroupedTimeValues, item: TimeValue) => {
+        const unitValue = item.label.split(' ')[1]; // Extract 'Stunden', 'Tage', etc.
+        if (!acc[unitValue]) {
+            acc[unitValue] = [];
         }
-    }
-
-
-
-
-
-    function removeUnderscore(inputString: string): string {
-        const outputString = inputString.replace(/_/g, ' ');
-        return outputString;
-    }
+        acc[unitValue].push(item);
+        return acc;
+    }, {});
 
     return (
-        <div className="w-full">
+        <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-indigo-900/20 text-indigo-400">
+                    <ClockIcon className="w-4 h-4" />
+                </div>
+                <h3 className="font-medium text-sm text-gray-100">Mindestmietzeit</h3>
+            </div>
+            
             <div className="w-full">
-                <Label className="flex justify-start items-center mt-2">
-                    <p className=" text-gray-200 flex"> Mindestmietzeit bis </p>
-                </Label>
-
-                <Select
-                    onValueChange={(brand) => {
-                        setStart(brand)
-                    }}
-                    value={currentAge}
-                    disabled={isLoading}
-                >
-
-                    <SelectTrigger className="dark:bg-[#0F0F0F] dark:border-gray-200 dark:border-none   focus-visible:ring-0 mt-2 rounded-md "
+                <div className="text-xs text-gray-400 mb-1 font-medium">Mindestzeit</div>
+                <div className="group">
+                    <Select
+                        onValueChange={(value) => setCurrentTime(value)}
+                        value={currentTime}
                         disabled={isLoading}
-
                     >
-                        <SelectValue
-                            placeholder="Wie viele Sitze?"
-                            className="flex justify-center"
+                        <SelectTrigger 
+                            className="h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]"
+                            disabled={isLoading}
+                        >
+                            <SelectValue 
+                                placeholder="Zeitraum wählen"
+                                className="placeholder:text-gray-500"
+                            />
+                        </SelectTrigger>
 
-                        />
-                    </SelectTrigger>
-
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full flex justify-center" >
-                        <SelectGroup>
-                            <SelectItem key="beliebig" value={null} className="font-semibold mb-4">
+                        <SelectContent 
+                            className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md"
+                        >
+                            <SelectItem value={null} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">
                                 Beliebig
                             </SelectItem>
-                            {minTimeValues.map((item) => (
-                                <>
-                                    {renderCorresponding(item.value)}
-                                    <SelectItem key={item.value} value={String(item.value)} className="px-16">
-                                        {item.label}
-                                    </SelectItem>
-                                </>
+                            
+                            {Object.entries(groupedTimeValues).map(([unit, items]) => (
+                                <SelectGroup key={unit}>
+                                    <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">
+                                        {unit === 'Stunden' ? 'Stunden' : 
+                                         unit === 'Tag' || unit === 'Tage' ? 'Tage' : 
+                                         unit === 'Woche' || unit === 'Wochen' ? 'Wochen' : 
+                                         unit === 'Monat' || unit === 'Monate' ? 'Monate' : 'Jahre'}
+                                    </SelectLabel>
+                                    {items.map((item) => (
+                                        <SelectItem 
+                                            key={item.value} 
+                                            value={String(item.value)}
+                                            className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer"
+                                        >
+                                            {item.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
                             ))}
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
+                        </SelectContent>
+                    </Select>
+                    <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${currentTime ? 'w-full' : 'w-0'}`}></div>
+                </div>
             </div>
         </div>
     );

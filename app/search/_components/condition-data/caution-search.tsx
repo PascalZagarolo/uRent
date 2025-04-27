@@ -3,37 +3,25 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { useSavedSearchParams } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-
-import { Banknote} from "lucide-react";
+import { Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
 import { z } from "zod";
 
-
-
 const CautionSearch = () => {
-
-
-    const currentObject: any = useSavedSearchParams((state) => state.searchParams)
-
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams);
     const router = useRouter();
-
     const [isLoading, setIsLoading] = useState(false);
-    const [currentValue, setCurrentValue] = useState<number | string | null>(null);
+    const [currentValue, setCurrentValue] = useState<string>(currentObject["caution"] || "");
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-    const savedParams = useSavedSearchParams((state) => state.searchParams);
 
-    const setCaution = async (currentCaution: number) => {
-        await changeSearchParams("caution", currentCaution);
-    }
-
-    
-
-    const deleteCaution = () => {
-        deleteSearchParams("caution")
+    const setCaution = (currentCaution: number) => {
+        if (currentCaution) {
+            changeSearchParams("caution", currentCaution);
+        } else {
+            deleteSearchParams("caution");
+        }
     }
 
     const formSchema = z.object({
@@ -44,64 +32,42 @@ const CautionSearch = () => {
                 .positive('Price must be positive')
                 .optional()
         ),
-    })
+    });
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            caution: currentObject["caution"] ? currentObject["caution"] : null
+            caution: currentObject["caution"] || undefined
         }
-    })
+    });
 
-    const onSubmit = () => {
-        console.log(2)
-    }
+    const { isSubmitting, isValid } = form.formState;
 
-
-    const { isSubmitting, isValid } = form.formState
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value.replace(/[^0-9]/g, '');
+        setCurrentValue(newValue);
+        setCaution(Number(newValue));
+    };
 
     return (
-        <div className=" ">
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <FormLabel className="flex justify-start items-center">
-                        <Banknote className="w-4 h-4" /><p className="ml-2 font-semibold"> Kautionsgebühr </p>
-                    </FormLabel>
-
-                    <FormField
-                        control={form.control}
-                        name="caution"
-                        render={({ field }) => (
-                            <FormField
-                                control={form.control}
-                                name="caution"
-                                render={({ field }) => (
-                                    <FormItem className="mt-2 ">
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                value={currentValue}
-                                                name="price"
-                                                className="dark:bg-[#151515] dark:border-none"
-                                                placeholder="Wie hoch darf die Kaution sein?"
-                                                onChange={(e) => {
-                                                    const newValue = e.target.value.replace(/[^0-9]/g, '');
-                                                    setCurrentValue(newValue); 
-                                                    setCaution(Number(newValue));
-                                                }}
-                                            />
-                                        </FormControl>
-
-                                        <FormMessage />
-                                    </FormItem>
-
-                                )}
-                            />
-                        )}
-                    />
-
-                </form>
-            </Form>
+        <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-indigo-900/20 text-indigo-400">
+                    <Banknote className="w-4 h-4" />
+                </div>
+                <h3 className="font-medium text-sm text-gray-100">Kautionsgebühr</h3>
+            </div>
+            
+            <div className="group">
+                <Input
+                    type="text"
+                    value={currentValue}
+                    className="h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24] placeholder:text-gray-500"
+                    placeholder="Maximale Kaution in €"
+                    onChange={handleInputChange}
+                />
+                <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${currentValue ? 'w-full' : 'w-0'}`}></div>
+            </div>
         </div>
     );
 }

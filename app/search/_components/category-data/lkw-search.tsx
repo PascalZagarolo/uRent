@@ -18,65 +18,58 @@ import WeightClassSearch from "../_weight-search/weightClass-search";
 
 const LkwSearch = () => {
     return (
-        <div className="w-full sm:space-y-8">
-            <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0">
-                <div className="sm:w-1/3">
+        <div className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div>
                     <LkwBrandSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <LkwApplicationSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <LkwLoadingSearch />
                 </div>
-            </div>
-            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
-                <div className="sm:w-1/3">
+                
+                <div>
                     <LkwDriveSearch />
                 </div>
-                <div className="sm:w-1/3">
-                <PkwSeatsSearch />
+                <div>
+                    <PkwSeatsSearch />
                 </div>
-                <div className="sm:w-1/3">
-                <TrailerAxisSearch />
+                <div>
+                    <TrailerAxisSearch />
                 </div>
-            </div>
-            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
-                <div className="sm:w-1/3">
-                <PkwTransmissionSearch />
+                
+                <div>
+                    <PkwTransmissionSearch />
                 </div>
-                <div className="sm:w-1/3">
-                <PkwFuelSearch />
+                <div>
+                    <PkwFuelSearch />
                 </div>
-                <div className="sm:w-1/3">
-                <PkwAhkSearch />
+                <div>
+                    <PkwAhkSearch />
                 </div>
-            </div>
-            
-            <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0 mt-4">
-                <div className="sm:w-1/3">
+                
+                <div>
                     <InitialSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <WeightClassSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <PayloadSearch />
                 </div>
-            </div>
-            
-            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-4 sm:space-y-0">
-                <div className="sm:w-1/3">
+                
+                <div>
                     <PkwPowerSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <LoadingVolumeSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <LoadingSizeSearch />
                 </div>
             </div>
-
         </div>
     );
 }

@@ -7,17 +7,12 @@ import UdsLayoutSearchRender from "./_dynamic-search/uds-layout-search";
 const DynamicSearchRender = () => {
     return ( 
         <div>
-            {/* <h3 className="font-semibold text-md flex items-center dark:text-gray-100">
+            <h3 className="font-semibold text-md dark:text-gray-100 mb-5">
                 Dynamischer Mietzeitraum
-                <Separator
-                    className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
-
-                />
-            </h3> */}
+            </h3>
             <div className="w-full">
-                <UdsLayoutSearchRender/>
+            <UdsLayoutSearchRender/>
             </div>
-            
         </div>
      );
 }

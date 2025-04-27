@@ -1,216 +1,146 @@
 'use client'
 
-
-import * as React from "react"
-import qs from "query-string"
-
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { Banknote, CalendarClockIcon, CalendarIcon, Clock10Icon, Clock12, Link } from "lucide-react";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { z } from "zod";
-import { useForm, FieldValues } from 'react-hook-form';
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
 import { useSavedSearchParams } from "@/store";
-
+import { Calendar } from "@/components/ui/calendar";
+import { CalendarIcon } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
+import { useEffect, useState } from "react";
 
 const DateSearch = () => {
-
-  const currentObject: any = useSavedSearchParams((state) => state.searchParams)
-
-   
- 
-   
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-    const [periodBegin, setPeriodBegin] = React.useState(currentObject["periodBegin"]);
-    const [periodEnd, setPeriodEnd] = React.useState(currentObject["periodEnd"]);
-
-  
-  
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+    const currentObject = useSavedSearchParams((state) => state.searchParams);
     
-
-    
-
-
-    
-
-    React.useEffect(() => {
-      
-      changeSearchParams("periodBegin", periodBegin);
-    },[periodBegin])
-
-    React.useEffect(() => {
-      
-      changeSearchParams("periodEnd", periodEnd);
-    },[periodEnd])
-
-        
- 
-
-    
-
-    const formSchema = z.object({
-        start: z.string().optional(),
-        end: z.string().optional()
-    })
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver : zodResolver(formSchema),
-        defaultValues : {
-            start : null,
-            end : null
+    useEffect(() => {
+        if (currentObject["startDate"] && currentObject["startDate"]) {
+            setStartDate(new Date(currentObject["startDate"]));
         }
-    })
-   
 
-    
+        if (currentObject["endDate"] && currentObject["endDate"]) {
+            setEndDate(new Date(currentObject["endDate"]));
+        }
 
-    const onSubmit = () => {
-        console.log("...")
-    }
+    }, [currentObject["startDate"], currentObject["endDate"]]);
 
+    const handleStartDateChange = (date: Date | undefined) => {
+        if (date) {
+            if (endDate && date > endDate) {
+                setEndDate(null);
+                deleteSearchParams("endDate");
+            }
+            setStartDate(date);
+            changeSearchParams("startDate", date.toString());
+        } else {
+            setStartDate(null);
+            deleteSearchParams("startDate");
+        }
+    };
 
-    
-
-    
+    const handleEndDateChange = (date: Date | undefined) => {
+        if (date) {
+            if (startDate && date < startDate) {
+                // If end date is before start date, set start date to the day before end date
+                const newStartDate = new Date(date);
+                newStartDate.setDate(date.getDate() - 1);
+                setStartDate(newStartDate);
+                changeSearchParams("startDate", newStartDate.toString());
+            }
+            setEndDate(date);
+            changeSearchParams("endDate", date.toString());
+        } else {
+            setEndDate(null);
+            deleteSearchParams("endDate");
+        }
+    };
 
     return (
-        <div>
-            
-            <div className="flex gap-x-4">
-            <div className="w-full">
-          
-          <div className="flex">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-                <div className="flex gap-x-2">
-                  <FormField
-                    control={form.control}
-                    name="start"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col w-full">
-                        <FormLabel className="text-gray-100/80 mb-1 font-semibold flex"> <CalendarClockIcon className="h-4 w-4 mr-2" /> 
-                        <div className="sm:ml-2 font-semibold flex "> Startdatum </div>
-                        </FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild className="w-full">
-                            <FormControl>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full pl-3 text-left font-semibold dark:bg-[#0F0F0F] dark:border-none",
-                                  !field.value && "text-muted-foreground  dark:border-none"
-                                )}
-                              >
-                                {periodBegin ? (
-                                  format(periodBegin, "dd.MM")
-                                ) : (
-                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80 sm:block hidden">Start</span>
-                                )}
-                                <CalendarIcon className="sm:ml-auto h-4 w-4 opacity-50 " />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0 border-none" align="start">
-                            <Calendar
-                              mode="single"
-                              //@ts-ignore
-                              
-                              selected={field.value}
-                              onSelect={(date) => {
-                                field.onChange(date);
-                                setPeriodBegin(date);
-                              }}
-                              disabled={(date) =>
-                                date < new Date() || date < new Date("1900-01-01")
-                              }
-                              className="dark:bg-[#0F0F0F] border-none"
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-
-                  <FormField
-                    control={form.control}
-                    name="end"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col w-full">
-                        <FormLabel className="mb-1 font-semibold flex"> <CalendarClockIcon className="h-4 w-4 mr-2" /> 
-                        <div className="sm:ml-2 font-semibold flex"> Enddatum </div> </FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "w-full pl-3 text-left  font-semibold dark:bg-[#0F0F0F] dark:border-none",
-                                  !field.value && "text-muted-foreground"
-                                )}
-                              >
-                                {periodEnd ? (
-                                  format(periodEnd, "dd.MM")
-                                ) : (
-                                  <span className="font-semibold text-gray-900 dark:text-gray-100/80 sm:block hidden">Ende</span>
-                                )}
-                                <CalendarIcon className="sm:ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0 border-none" align="start">
-                            <Calendar
-                              mode="single"
-                              //@ts-ignore
-                              selected={field.value}
-                              onSelect={(date) => {
-                                field.onChange(date);
-                                setPeriodEnd(date);
-                              }}
-                              disabled={(date) =>
-                                date < periodBegin || date < new Date("1900-01-01")
-                              }
-                              initialFocus
-                              className="dark:bg-[#0F0F0F] border-none"
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-
+        <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-indigo-900/20 text-indigo-400">
+                    <CalendarIcon className="w-4 h-4" />
                 </div>
-                
-                
-                
-                
-              </form>
-            </Form>
-            
-          </div>
-        </div>
-                
+                <h3 className="font-medium text-sm text-gray-100">Mietzeitraum</h3>
             </div>
-           
-                
+
+            <div className="grid grid-cols-2 gap-3">
+                <div>
+                    <div className="text-xs text-gray-400 mb-1 font-medium">Startdatum</div>
+                    <div className="group">
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "flex h-10 w-full rounded-md justify-start text-left font-normal border-0 bg-[#1e1e2a] text-gray-200 hover:bg-[#1e1e2a] hover:text-white focus-visible:ring-1 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]",
+                                        !startDate && "text-gray-500"
+                                    )}
+                                >
+                                    <CalendarIcon className=" h-4 w-4" />
+                                    {startDate ? (
+                                        format(startDate, "dd.MM.yyyy", { locale: de })
+                                    ) : (
+                                        <span>Datum wählen</span>
+                                    )}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-[#1e1e2a] border border-indigo-900/30">
+                                <Calendar
+                                    mode="single"
+                                    selected={startDate || undefined}
+                                    onSelect={handleStartDateChange}
+                                    initialFocus
+                                    locale={de}
+                                    className="rounded-md bg-[#1e1e2a]"
+                                />
+                            </PopoverContent>
+                        </Popover>
+                        <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${startDate ? 'w-full' : 'w-0'}`}></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div className="text-xs text-gray-400 mb-1 font-medium">Enddatum</div>
+                    <div className="group">
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "flex h-10 w-full rounded-md justify-start text-left font-normal border-0 bg-[#1e1e2a] text-gray-200 hover:bg-[#1e1e2a] hover:text-white focus-visible:ring-1 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]",
+                                        !endDate && "text-gray-500"
+                                    )}
+                                >
+                                    <CalendarIcon className=" h-4 w-4" />
+                                    {endDate ? (
+                                        format(endDate, "dd.MM.yyyy", { locale: de })
+                                    ) : (
+                                        <span>Datum wählen</span>
+                                    )}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-[#1e1e2a] border border-indigo-900/30">
+                                <Calendar
+                                    mode="single"
+                                    selected={endDate || undefined}
+                                    onSelect={handleEndDateChange}
+                                    disabled={(date) =>
+                                        startDate ? date < startDate : false
+                                    }
+                                    initialFocus
+                                    locale={de}
+                                    className="rounded-md bg-[#1e1e2a]"
+                                />
+                            </PopoverContent>
+                        </Popover>
+                        <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${endDate ? 'w-full' : 'w-0'}`}></div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

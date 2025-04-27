@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import DateSearch from "./base-date/date-search";
 import TimeSearch from "./base-date/time-search";
 import MinTimeSearch from "./base-date/min-time-search";
@@ -6,21 +5,17 @@ import MinTimeSearch from "./base-date/min-time-search";
 const TimespanSearchRender = () => {
     return ( 
         <div>
-            <h3 className="font-semibold text-md flex items-center dark:text-gray-100">
+            <h3 className="text-lg font-semibold text-gray-100 mb-5">
                 Mietzeitraum
-                <Separator
-                    className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
-
-                />
             </h3>
-            <div className="w-full sm:flex mt-4 sm:space-x-4 sm:space-y-0 space-y-2sm:space-y-0 space-y-2">
-                <div className="sm:w-1/3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4">
+                <div className="bg-[#18181f]/70 rounded-lg p-4 hover:bg-[#18181f] transition-colors">
                     <MinTimeSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div className="bg-[#18181f]/70 rounded-lg p-4 hover:bg-[#18181f] transition-colors">
                     <DateSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div className="bg-[#18181f]/70 rounded-lg p-4 hover:bg-[#18181f] transition-colors">
                     <TimeSearch />
                 </div>
             </div>

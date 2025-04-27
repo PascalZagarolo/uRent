@@ -1,6 +1,5 @@
 'use client'
 
-import { Separator } from "@/components/ui/separator";
 import LocationSearch from "./base-date/location-search";
 import DateSearch from "./base-date/date-search";
 import PriceSearch from "./base-date/price-search";
@@ -9,21 +8,17 @@ import TitleSearch from "./base-date/title-search";
 const BaseDataSearch = () => {
     return (
         <div>
-            <h3 className="font-semibold text-md flex items-center dark:text-gray-100">
+            <h3 className="text-lg font-semibold text-gray-100 mb-5">
                 Basisdaten
-                <Separator
-                    className="h-[0.5px] dark:bg-gray-100/20 w-2/3 ml-6"
-
-                />
             </h3>
-            <div className="w-full sm:flex mt-4 sm:space-x-4 space-y-2 sm:space-y-0">
-                <div className="sm:w-1/3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4">
+                <div className="bg-[#18181f]/70 rounded-lg p-4 hover:bg-[#18181f] transition-colors">
                     <TitleSearch />
                 </div>
-                <div className="sm:w-1/3">
-                <LocationSearch />
+                <div className="bg-[#18181f]/70 rounded-lg p-4 hover:bg-[#18181f] transition-colors">
+                    <LocationSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div className="bg-[#18181f]/70 rounded-lg p-4 hover:bg-[#18181f] transition-colors">
                     <PriceSearch />
                 </div>
             </div>

@@ -191,8 +191,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
     //thisInserat?.color ? HighlightColorsBackground[thisInserat?.color]
 
     return (
-        <div className={cn(`md:w-[760px] sm:h-[370px] w-full h-full bg-[#1a1d28] mb-4 rounded-md overflow-hidden shadow-lg`,
-            thisInserat?.isHighlighted && "border-indigo-800 border-2",
+        <div className={cn(`md:w-[760px] sm:h-[374px] w-full h-full bg-[#1a1d28] mb-4 rounded-md overflow-hidden shadow-lg`,
+            thisInserat?.isHighlighted && "border-indigo-800 border",
             thisInserat?.color ? Colors[thisInserat?.color] : "border-blue-800",
         )}>
             {/* Mobile Title - Only visible on small screens */}

@@ -70,20 +70,25 @@ const UdsLayoutSearchRender = () => {
 
     return (
         <div className="mb-2 w-full ">
-            <h3 className="flex justify-start text-md font-semibold text-gray-100 items-center  bg-[#131313] p-4 border-[#1f2332] rounded-md shadow-lg">
-                <LuCalendarSearch className="w-4 h-4 mr-2" />   Dynamischer Mietzeitraum
+            <h3 className="flex justify-start text-md font-semibold text-gray-100 items-center bg-[#1e1e2a] p-4 border-[#1f2332] rounded-md shadow-md">
+                <LuCalendarSearch className="w-4 h-4 mr-2 text-indigo-400" />
+                Dynamischer Mietzeitraum
                 <Popover>
                     <PopoverTrigger>
-                        <InfoCircledIcon className="w-4 h-4 ml-2 text-gray-400" />
+                        <InfoCircledIcon className="w-4 h-4 ml-2 text-indigo-400 hover:text-indigo-300 transition-colors" />
                     </PopoverTrigger>
-                    <PopoverContent className="dark:border-none">
+                    <PopoverContent className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md p-3">
                         <div className="text-xs">
-                            <h3 className="text-sm font-semibold mb-1">
+                            <h3 className="text-sm font-semibold mb-1 text-indigo-400">
                                 Dynamischer Mietzeitraum
                             </h3>
-                            Falls du flexibler bist, ermöglicht dir unsere dynamische Mietzeitraumsuche,
-                            den perfekten Mietzeitraum für dein Fahrzeug zu finden: <br /> Lege den verfügbaren Zeitraum und die gewünschte Mietdauer
-                            fest und wähle präzise deinen Abhol- und Rückgabezeitpunkt. <br /> So passt sich die Buchung optimal deinen individuellen Bedürfnissen an.
+                            <p className="text-gray-300 leading-relaxed">
+                                Falls du flexibler bist, ermöglicht dir unsere dynamische Mietzeitraumsuche,
+                                den perfekten Mietzeitraum für dein Fahrzeug zu finden. <br /> 
+                                Lege den verfügbaren Zeitraum und die gewünschte Mietdauer
+                                fest und wähle präzise deinen Abhol- und Rückgabezeitpunkt. <br /> 
+                                So passt sich die Buchung optimal deinen individuellen Bedürfnissen an.
+                            </p>
                         </div>
                     </PopoverContent>
                 </Popover>
@@ -93,14 +98,14 @@ const UdsLayoutSearchRender = () => {
             </h3>
             <div>
                 <a
-                        href="/blog/71af42ef-e0b1-4881-bf7f-4de365cf5a98"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-xs text-gray-200/60 font-medium text-center hover:underline flex flex-row items-center py-2 px-2">
-
-                        Mehr Informationen findest du hier <IoMdShareAlt  className="w-4 h-4 ml-2 text-gray-400" />
-                    </a>
-                </div>
+                    href="/blog/71af42ef-e0b1-4881-bf7f-4de365cf5a98"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center py-2 px-2 transition-colors">
+                    Mehr Informationen findest du hier 
+                    <IoMdShareAlt className="w-4 h-4 ml-2" />
+                </a>
+            </div>
             <div>
                 <div className="w-full  px-2 sm:flex sm:flex-row items-center sm:space-x-8 mt-4">
 
@@ -164,7 +169,7 @@ const UdsLayoutSearchRender = () => {
                     
                 </div>
                 <div className="mt-1">
-                        <TimeFilterUdsSearch
+                <TimeFilterUdsSearch
                             isDisabled={!currentObject["dynamicSearch"]}
                         />
                     </div>

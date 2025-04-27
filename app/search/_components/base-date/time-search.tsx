@@ -1,265 +1,111 @@
 'use client'
 
-
-import * as React from "react"
-import qs from "query-string"
-
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-
-
-import { isSameDay } from "date-fns";
-import { getSearchParamsFunction } from "@/actions/getSearchParams";
-
-
 import { useSavedSearchParams } from "@/store";
-import { Label } from "@/components/ui/label";
+import { Clock } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import TimeSelector from "./time-selector";
+import { cn } from "@/lib/utils";
 
-
-const TimeSearchFormFilter = () => {
-
-    const router = useRouter();
-    const pathname = usePathname();
-    const usedSearchParams = useSearchParams();
-
-    const [usesSameDay, setUsesSameDay] = React.useState(false);
-
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
-
-
-
-    const paramsPeriodBegin = usedSearchParams.get("startTime");
-    const paramsPeriodEnd = usedSearchParams.get("endTime");
-
-
-
-
-    const [startTime, setStartTime] = React.useState(currentObject["startTime"] ? currentObject["startTime"] : null);
-    const [endTime, setEndTime] = React.useState(currentObject["endTime"] ? currentObject["endTime"] : null);
-
-    React.useEffect(() => {
-        if (paramsPeriodBegin) {
-            //@ts-ignore
-            changeSearchParams("startTime", paramsPeriodBegin);
-            setStartTime(paramsPeriodBegin);
-        }
-
-        if (paramsPeriodEnd) {
-            //@ts-ignore
-            changeSearchParams("endTime", paramsPeriodEnd);
-            setEndTime(paramsPeriodEnd);
-        }
-    }, [])
-
-
-    const params = getSearchParamsFunction("startTime", "endTime");
-
+const TimeSearch = () => {
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    const [startTime, setStartTime] = useState<string | null>(null);
+    const [endTime, setEndTime] = useState<string | null>(null);
+    const currentObject = useSavedSearchParams((state) => state.searchParams);
 
-    const setStart = (usedTime: string) => {
-        //@ts-ignore
-        setStartTime(usedTime);
-        changeSearchParams("startTime", usedTime);
+    useEffect(() => {
+        if (currentObject["startTime"]) {
+            setStartTime(currentObject["startTime"]);
+        }
 
-    }
+        if (currentObject["endTime"]) {
+            setEndTime(currentObject["endTime"]);
+        }
+    }, [currentObject["startTime"], currentObject["endTime"]]);
 
-    const setEnd = (usedTime: string) => {
-        //@ts-ignore
-        setEndTime(usedTime);
-        changeSearchParams("endTime", usedTime);
-         
+    // Generate time options from 00:00 to 23:30 in 30-minute intervals
+    const timeOptions = useMemo(() => {
+        const options = [];
+        for (let hour = 0; hour < 24; hour++) {
+            for (let minute = 0; minute < 60; minute += 30) {
+                const hourStr = hour.toString().padStart(2, '0');
+                const minuteStr = minute.toString().padStart(2, '0');
+                options.push(`${hourStr}:${minuteStr}`);
+            }
+        }
+        return options;
+    }, []);
 
-    }
+    const handleStartTimeChange = (time: string | null) => {
+        if (time) {
+            setStartTime(time);
+            changeSearchParams("startTime", time);
 
-    const onDeleteStart = () => {
-        deleteSearchParams("startTime");
-        setStartTime(null);
-    }
-    
-    const onDeleteEnd = () => {
-        deleteSearchParams("endTime");
-        setEndTime(null);
-    }
-
-
-    React.useEffect(() => {
-        //@ts-ignore
-        if(isSameDay(currentObject["periodBegin"], currentObject["periodEnd"])){
-            setUsesSameDay(true);
-            if(Number(startTime) >= Number(endTime)){
-                deleteSearchParams("startTime");
-            deleteSearchParams("endTime");
-            setStartTime(null);
-            setEndTime(null);
+            // If end time is earlier than start time, reset end time
+            if (endTime && time > endTime) {
+                setEndTime(null);
+                deleteSearchParams("endTime");
             }
         } else {
-            setUsesSameDay(false);
-        }
-        //@ts-ignore
-    },[currentObject["periodBegin"], currentObject["periodEnd"]])
-
-    React.useEffect(() => {
-        if(usesSameDay) {
-            if(Number(startTime) > Number(endTime)){
-                setEndTime(String(Number(startTime) + 30));
-                changeSearchParams("endTime", String(Number(startTime) + 30));
-            }
-        }
-    },[startTime])
-
-    React.useEffect(() => {
-        if(usesSameDay) {
-            if(Number(startTime) > Number(endTime)){
-                setStartTime(String(Number(endTime) - 30));
-                changeSearchParams("startTime", String(Number(endTime) - 30));
-            }
-        }
-    },[endTime])
-
-
-    React.useEffect(() => {
-        //@ts-ignore
-        if (!currentObject["startTime"] && !paramsPeriodBegin) {
             setStartTime(null);
-            
+            deleteSearchParams("startTime");
         }
-        //@ts-ignore
-        if (!currentObject["endTime"] && !paramsPeriodEnd) {
+    };
+
+    const handleEndTimeChange = (time: string | null) => {
+        if (time) {
+            // If start time is later than end time, set start time to null
+            if (startTime && time < startTime) {
+                const timeIndex = timeOptions.indexOf(time);
+                if (timeIndex > 0) {
+                    const previousTime = timeOptions[timeIndex - 1];
+                    setStartTime(previousTime);
+                    changeSearchParams("startTime", previousTime);
+                } else {
+                    setStartTime(null);
+                    deleteSearchParams("startTime");
+                }
+            }
+            setEndTime(time);
+            changeSearchParams("endTime", time);
+        } else {
             setEndTime(null);
-
-            
+            deleteSearchParams("endTime");
         }
-
-    }, [currentObject, paramsPeriodBegin, paramsPeriodEnd])
-
-
-
-    const deleteDates = () => {
-        deleteSearchParams("startPeriod");
-        deleteSearchParams("endPeriod");
-        setStartTime(null);
-        setEndTime(null);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    };
 
     return (
-        <div className=" w-full ">
-
-            <div className="flex gap-x-4 w-full">
-                <div className="w-full">
-
-                    <div className="flex w-full sm:px-2">
-
-                        <div className="flex gap-x-4 w-full">
-                            <div className="w-1/2">
-                            <Label className="text-sm font-semibold">
-                                    Startzeit
-                                </Label>
-                                <Select
-                                    onValueChange={(value) => {
-                                        value ? setStart(value)  : onDeleteStart();
-
-                                    }}
-                                    value={startTime}
-                                >
-                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none mt-2" value={startTime}>
-                                        <SelectValue placeholder="Startzeit" />
-                                    </SelectTrigger>
-                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
-                                    <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(48).keys()].map(index => {
-                                            const hour = Math.floor(index / 2);
-                                            const minute = index % 2 === 0 ? '00' : '30';
-                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                                            return (
-                                                <SelectGroup key={index}>
-                                                    {
-                                                        {
-                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
-                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
-                                                        }[String(index * 30)]
-                                                    }
-                                                    <SelectItem  key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
-                                                </SelectGroup>
-                                            );
-                                        })}
-
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
-                            <div className="w-1/2">
-                                <Label className="text-sm font-semibold">
-                                    Endzeit
-                                </Label>
-                                <Select
-                                    onValueChange={(value) => {
-                                        value ? setEnd(value)  : onDeleteEnd();
-                                    }}
-                                    value={endTime}
-                                >
-
-                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none mt-2">
-                                        <SelectValue placeholder="Endzeit" />
-                                    </SelectTrigger>
-                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                        <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(48).keys()].map(index => {
-                                            const hour = Math.floor(index / 2);
-                                            const minute = index % 2 === 0 ? '00' : '30';
-                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                                            return (
-                                                <SelectGroup key={index}>
-                                                    {
-                                                        {
-                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "510": <SelectLabel>Morgens</SelectLabel>,
-                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
-                                                        }[String(index * 30)]
-                                                    }
-                                                    <SelectItem key={index} value={String(index * 30)}
-                                                        disabled={isSameDay && index === 0}>{formattedTime}</SelectItem>
-                                                </SelectGroup>
-                                            );
-                                        })}
-
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-                    </div>
+        <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-indigo-900/20 text-indigo-400">
+                    <Clock className="w-4 h-4" />
                 </div>
-
+                <h3 className="font-medium text-sm text-gray-100">Abhol- & Rückgabezeit</h3>
             </div>
 
+            <div className="grid grid-cols-2 gap-3">
+                <div>
+                    <div className="text-xs text-gray-400 mb-1 font-medium">Abholzeit</div>
+                    <TimeSelector
+                        value={startTime}
+                        onChange={handleStartTimeChange}
+                        timeOptions={timeOptions}
+                    />
+                    <div className={cn(`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70`, startTime ? 'w-full' : 'w-0')}></div>
+                </div>
 
-
+                <div>
+                    <div className="text-xs text-gray-400 mb-1 font-medium">Rückgabezeit</div>
+                    <TimeSelector
+                        value={endTime}
+                        onChange={handleEndTimeChange}
+                        timeOptions={timeOptions}
+                        disabled={!startTime}
+                    />
+                    <div className={cn(`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70`, endTime ? 'w-full' : 'w-0')}></div>
+                </div>
+            </div>
         </div>
     );
-}
+};
 
-export default TimeSearchFormFilter;
+export default TimeSearch;

@@ -3,143 +3,127 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSavedSearchParams } from "@/store";
-
 import { useParams, useRouter } from "next/navigation";
-
 import { useState } from "react";
-
-
-
+import { Weight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const TrailerWeightClassSearch = () => {
-
-    const currentObject : any = useSavedSearchParams((state) => state.searchParams)
-
-    const [currentAge, setCurrentAge] = useState(currentObject['weightClass'] ? currentObject['weightClass'] : undefined);
-    const [currentEnd, setCurrentEnd] = useState(currentObject['weightClassMax'] ? currentObject['weightClassMax'] : undefined);
+    const currentObject: any = useSavedSearchParams((state) => state.searchParams);
+    const [currentWeight, setCurrentWeight] = useState(currentObject['weightClass'] ? currentObject['weightClass'] : undefined);
+    const [currentWeightEnd, setCurrentWeightEnd] = useState(currentObject['weightClassMax'] ? currentObject['weightClassMax'] : undefined);
     const [isLoading, setIsLoading] = useState(false);
-
-    console.log(currentEnd)
-
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
-
     const router = useRouter();
-
     const params = useParams();
 
     const onSubmit = (selectedValue: string) => {
         changeSearchParams("weightClass", selectedValue);
-        setCurrentAge(selectedValue)
-        console.log(selectedValue)
+        setCurrentWeight(selectedValue);
     }
 
     const deleteWeight = () => {
-        deleteSearchParams("weightClass")
-        setCurrentAge(null)
+        deleteSearchParams("weightClass");
+        setCurrentWeight(null);
     }
 
     const onSubmitEnd = (selectedValue: string) => {
         changeSearchParams("weightClassMax", selectedValue);
-        setCurrentEnd(selectedValue)
-        console.log(selectedValue)
+        setCurrentWeightEnd(selectedValue);
     }
 
     const deleteWeightEnd = () => {
-        deleteSearchParams("weightClassMax")
-        setCurrentEnd(null)
-    }
-
-    function removeUnderscore(inputString: string): string {
-        const outputString = inputString.replace(/_/g, ' ');
-        return outputString;
+        deleteSearchParams("weightClassMax");
+        setCurrentWeightEnd(null);
     }
 
     return (
-        <div className="w-full">
-            <div className="w-full">
-                <Label className="flex justify-start items-center ">
-                    <p className="ml-2 font-semibold"> Gewichtsklasse </p>
-                </Label>
-
-                <div className="flex items-center gap-x-2">
-                    <div className="w-1/2">
+        <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-md bg-indigo-900/20 text-indigo-400">
+                    <Weight className="w-4 h-4" />
+                </div>
+                <h3 className="font-medium text-sm text-gray-100">Gewichtsklasse</h3>
+            </div>
+            
+            <div className="flex items-center gap-x-2">
+                <div className="w-1/2 group">
                     <Select
-                    onValueChange={(brand) => {
-                        !brand  ? deleteWeight() : onSubmit(brand)
-                    }}
-                    value={currentAge}
-                    disabled={isLoading}
-                >
+                        onValueChange={(value) => {
+                            value === "BELIEBIG" ? deleteWeight() : onSubmit(value);
+                        }}
+                        value={currentWeight || "BELIEBIG"}
+                        disabled={isLoading}
+                    >
+                        <SelectTrigger 
+                            className={cn(
+                                "h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]",
+                                !currentWeight && "text-gray-500"
+                            )}
+                            disabled={isLoading}
+                        >
+                            <SelectValue placeholder="Von" />
+                        </SelectTrigger>
+                        
+                        <SelectContent className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md">
+                            <SelectItem value="BELIEBIG" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">
+                                Beliebig
+                            </SelectItem>
+                            <SelectItem value="75" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">0,75 t</SelectItem>
+                            <SelectItem value="150" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">1,5 t</SelectItem>
+                            <SelectItem value="280" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">2,8 t</SelectItem>
+                            <SelectItem value="350" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">3,5 t</SelectItem>
+                            <SelectItem value="750" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">7,5 t</SelectItem>
+                            <SelectItem value="1200" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">12 t</SelectItem>
+                            <SelectItem value="1800" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">18 t</SelectItem>
+                            <SelectItem value="2600" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">26 t</SelectItem>
+                            <SelectItem value="3200" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">32 t</SelectItem>
+                            <SelectItem value="3400" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">34 t</SelectItem>
+                            <SelectItem value="3900" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">39 t</SelectItem>
+                            <SelectItem value="5000" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">{'>'} 39 t</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${currentWeight ? 'w-full' : 'w-0'}`}></div>
+                </div>
 
-                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                        disabled={isLoading}  >
-                        <SelectValue
-                            placeholder="Von"
-
-
-                        />
-                    </SelectTrigger>
-
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value={null} className="font-semibold">
-                            Beliebig
-                        </SelectItem>
-                        <SelectItem value="75">0,75 t</SelectItem>
-                        <SelectItem value="150">1,5 t</SelectItem>
-                        <SelectItem value="280">2,8 t</SelectItem>
-                        <SelectItem value="350">3,5 t</SelectItem>
-                        <SelectItem value="750">7,5 t</SelectItem>
-                        <SelectItem value="1200">12 t</SelectItem>
-                        <SelectItem value="1800">18 t</SelectItem>
-                        <SelectItem value="2600">26 t</SelectItem>
-                        <SelectItem value="3200">32 t</SelectItem>
-                        <SelectItem value="3400">34 t</SelectItem>
-                        <SelectItem value="3900">39 t</SelectItem>
-                        <SelectItem value="5000">{'>'} 39 t</SelectItem>
-
-                    </SelectContent>
-                </Select>
-                    </div>
-
-                    <div className="w-1/2">
+                <div className="w-1/2 group">
                     <Select
-                    onValueChange={(brand) => {
-                        !brand  ? deleteWeightEnd() : onSubmitEnd(brand)
-                    }}
-                    value={currentEnd}
-                    disabled={isLoading}
-                >
-
-                    <SelectTrigger className="dark:bg-[#151515] dark:border-gray-200 dark:border-none focus-visible:ring-0 mt-2 rounded-md "
-                        disabled={isLoading}  >
-                        <SelectValue
-                            placeholder="Bis"
-
-
-                        />
-                    </SelectTrigger>
-
-                    <SelectContent className="dark:bg-[#000000] border-white dark:border-none w-full">
-                        <SelectItem key="beliebig" value={null} className="font-semibold">
-                            Beliebig
-                        </SelectItem>
-                        <SelectItem value="75">0,75 t</SelectItem>
-                        <SelectItem value="150">1,5 t</SelectItem>
-                        <SelectItem value="280">2,8 t</SelectItem>
-                        <SelectItem value="350">3,5 t</SelectItem>
-                        <SelectItem value="750">7,5 t</SelectItem>
-                        <SelectItem value="1200">12 t</SelectItem>
-                        <SelectItem value="1800">18 t</SelectItem>
-                        <SelectItem value="2600">26 t</SelectItem>
-                        <SelectItem value="3200">32 t</SelectItem>
-                        <SelectItem value="3400">34 t</SelectItem>
-                        <SelectItem value="3900">39 t</SelectItem>
-                        <SelectItem value="5000">{'>'} 39 t</SelectItem>
-
-                    </SelectContent>
-                </Select>
-                    </div>
-                </div> 
+                        onValueChange={(value) => {
+                            value === "BELIEBIG" ? deleteWeightEnd() : onSubmitEnd(value);
+                        }}
+                        value={currentWeightEnd || "BELIEBIG"}
+                        disabled={isLoading}
+                    >
+                        <SelectTrigger 
+                            className={cn(
+                                "h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]",
+                                !currentWeightEnd && "text-gray-500"
+                            )}
+                            disabled={isLoading}
+                        >
+                            <SelectValue placeholder="Bis" />
+                        </SelectTrigger>
+                        
+                        <SelectContent className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md">
+                            <SelectItem value="BELIEBIG" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">
+                                Beliebig
+                            </SelectItem>
+                            <SelectItem value="75" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">0,75 t</SelectItem>
+                            <SelectItem value="150" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">1,5 t</SelectItem>
+                            <SelectItem value="280" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">2,8 t</SelectItem>
+                            <SelectItem value="350" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">3,5 t</SelectItem>
+                            <SelectItem value="750" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">7,5 t</SelectItem>
+                            <SelectItem value="1200" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">12 t</SelectItem>
+                            <SelectItem value="1800" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">18 t</SelectItem>
+                            <SelectItem value="2600" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">26 t</SelectItem>
+                            <SelectItem value="3200" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">32 t</SelectItem>
+                            <SelectItem value="3400" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">34 t</SelectItem>
+                            <SelectItem value="3900" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">39 t</SelectItem>
+                            <SelectItem value="5000" className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">{'>'} 39 t</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${currentWeightEnd ? 'w-full' : 'w-0'}`}></div>
+                </div>
             </div>
         </div>
     );

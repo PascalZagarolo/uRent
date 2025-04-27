@@ -904,33 +904,9 @@ export const getInserate = cache(async ({
 
 
         const foundInserate = await findInserate.execute();
-         /*
-        const foundInserate = await db
-            .select()
-            .from(inserat)
-            .where(eq(inserat.isPublished, true))
-            .leftJoin(user, eq(user.id, inserat.userId))
-            .leftJoin(userSubscription, eq(userSubscription.userId, user.id))
-            .leftJoin(images, eq(images.inseratId, inserat.id))
-            .leftJoin(address, eq(address.id, inserat.addressId))
-            .leftJoin(lkwAttribute, eq(lkwAttribute.id, inserat.lkwAttributeId))
-            .leftJoin(pkwAttribute, eq(pkwAttribute.id, inserat.pkwAttributeId))
-            .leftJoin(trailerAttribute, eq(trailerAttribute.id, inserat.trailerAttributeId))
-            .leftJoin(transportAttribute, eq(transportAttribute.id, inserat.transportAttributeId))
-            .leftJoin(booking, eq(booking.inseratId, inserat.id))
-            .leftJoin(vehicle, eq(vehicle.inseratId, inserat.id))
-           */
+         
 
         
-
-
-
-
-
-
-
-
-
         const filteredArray = foundInserate.filter((pInserat) => {
 
             const validateUser = userId ? pInserat.userId === userId : true;

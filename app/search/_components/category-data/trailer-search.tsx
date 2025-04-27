@@ -1,4 +1,3 @@
-
 import LkwApplicationSearch from "../_lkw/lkw-application-search";
 import LkwBrandSearch from "../_lkw/lkw-brand-search";
 import LkwDriveSearch from "../_lkw/lkw-drive-search";
@@ -11,6 +10,8 @@ import TrailerExtraTypeSearch from "../_trailer/trailer-extra-type-search";
 import TrailerCouplingSearch from "../_trailer/trailer-coupling";
 import TrailerBrakeSearch from "../_trailer/trailer-brakes";
 import TrailerAxisSearch from "../_trailer/trailer-axis";
+import TrailerBrandSearch from "../_trailer/trailer-brand-search";
+import TrailerSeatsSearch from "../_trailer/trailer-seats-search";
 import LoadingVolumeSearch from "../_every/loading-volume-search";
 import LoadingSizeSearch from "../_every/loading-size-search";
 import InitialSearch from "../_every/initial-search";
@@ -18,68 +19,54 @@ import WeightClassSearch from "../_weight-search/weightClass-search";
 import PayloadSearch from "../_weight-search/payload-search";
 
 const TrailerSearch = () => {
-
-
-
-
-
     return (
-        <div className="w-full space-y-8">
-            <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0">
-                <div className="sm:w-1/3">
+        <div className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div>
                     <TrailerTypeSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
+                    <TrailerBrandSearch />
+                </div>
+                <div>
                     <TrailerExtraTypeSearch />
                 </div>
-                <div className="sm:w-1/3">
+                
+                <div>
                     <LkwLoadingSearch />
                 </div>
-            </div>
-            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
-                <div className="sm:w-1/3">
+                <div>
                     <TrailerWeightClassSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <TrailerCouplingSearch />
                 </div>
-                <div className="sm:w-1/3">
-                    <TrailerAxisSearch 
-                    isTrailer={true}
-                    />
+                
+                <div>
+                    <TrailerAxisSearch isTrailer={true} />
                 </div>
-            </div>
-            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-2 sm:space-y-0">
-                <div className="sm:w-1/3">
+                <div>
                     <TrailerBrakeSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
+                    <TrailerSeatsSearch />
+                </div>
                 
+                <div>
+                    <InitialSearch />
                 </div>
-                <div className="sm:w-1/3">
-
-                </div>
-            </div>
-            <div className="w-full sm:flex sm:gap-x-2 space-y-2 sm:space-y-0 mt-4">
-                <div className="sm:w-1/3">
-                <InitialSearch />
-                </div>
-                <div className="sm:w-1/3">
+                <div>
                     <WeightClassSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <PayloadSearch />
                 </div>
-            </div>
-            <div className="w-full sm:flex sm:gap-x-2 mt-4 space-y-4 sm:space-y-0">
-                <div className="sm:w-1/3">
+                
+                <div>
                     <LoadingVolumeSearch />
                 </div>
-                <div className="sm:w-1/3">
+                <div>
                     <LoadingSizeSearch />
-                </div>
-                <div className="sm:w-1/3">
-
                 </div>
             </div>
         </div>

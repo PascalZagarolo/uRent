@@ -173,138 +173,131 @@ const TimeFilterUdsSearch : React.FC<TimeFilterUdsSearchProps> = ({
 
     return (
         <div className="mb-2 w-full px-2">
-
-            <div className="flex gap-x-8 mt-2 w-full">
+            <div className="flex gap-x-4 mt-2 w-full">
                 <div className="w-full">
-
-                    <div className="flex w-full ">
-
-                        <div className="flex gap-x-8 w-full">
+                    <div className="flex w-full">
+                        <div className="flex gap-x-4 w-full">
                             <div className="w-1/2">
-                            <Label className="text-sm font-medium">
+                                <Label className="text-xs text-gray-400 mb-1 font-medium">
                                     Abholzeit
                                 </Label>
-                                <Select
-                                    onValueChange={(value) => {
-                                        value ? setStart(value)  : onDeleteStart();
-
-                                    }}
-                                    value={startTime}
-                                    disabled={isDisabled}
-                                >
-                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none" value={startTime}>
-                                        <SelectValue placeholder="Startzeit" />
-                                    </SelectTrigger>
-                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none" >
-                                    <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                    {[...Array(32).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
-                                            const actualIndex = index + 16; // Adjust index to start from 6:00
-                                            const hour = Math.floor(actualIndex / 2);
-                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
-                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                                            return (
-                                                <SelectGroup key={actualIndex}>
-                                                    {
+                                <div className="group">
+                                    <Select
+                                        onValueChange={(value) => {
+                                            value ? setStart(value) : onDeleteStart();
+                                        }}
+                                        value={startTime}
+                                        disabled={isDisabled}
+                                    >
+                                        <SelectTrigger className="h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]">
+                                            <SelectValue placeholder="Zeit wählen" className="placeholder:text-gray-500" />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md">
+                                            <SelectItem value={null} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">Beliebig</SelectItem>
+                                            {[...Array(32).keys()].map(index => {
+                                                const actualIndex = index + 16;
+                                                const hour = Math.floor(actualIndex / 2);
+                                                const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                                const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                                return (
+                                                    <SelectGroup key={actualIndex}>
                                                         {
-                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "480": <SelectLabel>Morgens</SelectLabel>,
-                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
-                                                        }[String(actualIndex * 30)]
-                                                    }
-                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
-                                                </SelectGroup>
-                                            );
-                                        })}
+                                                            {
+                                                                "0": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Frühmorgen</SelectLabel>,
+                                                                "480": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Morgens</SelectLabel>,
+                                                                "990": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Nachmittags</SelectLabel>,
+                                                            }[String(actualIndex * 30)]
+                                                        }
+                                                        <SelectItem key={actualIndex} value={String(actualIndex * 30)} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">{formattedTime}</SelectItem>
+                                                    </SelectGroup>
+                                                );
+                                            })}
 
-                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
-                                        {[...Array(16).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
-                                            const hour = Math.floor(index / 2);
-                                            const minute = index % 2 === 0 ? '00' : '30';
-                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                                            return (
-                                                <SelectGroup key={index}>
-                                                    {
+                                            {[...Array(16).keys()].map(index => {
+                                                const hour = Math.floor(index / 2);
+                                                const minute = index % 2 === 0 ? '00' : '30';
+                                                const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                                return (
+                                                    <SelectGroup key={index}>
                                                         {
-                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "480": <SelectLabel>Morgens</SelectLabel>,
-                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
-                                                        }[String(index * 30)]
-                                                    }
-                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
-                                                </SelectGroup>
-                                            );
-                                        })}
-
-                                    </SelectContent>
-                                </Select>
+                                                            {
+                                                                "0": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Frühmorgen</SelectLabel>,
+                                                                "480": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Morgens</SelectLabel>,
+                                                                "990": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Nachmittags</SelectLabel>,
+                                                            }[String(index * 30)]
+                                                        }
+                                                        <SelectItem key={index} value={String(index * 30)} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">{formattedTime}</SelectItem>
+                                                    </SelectGroup>
+                                                );
+                                            })}
+                                        </SelectContent>
+                                    </Select>
+                                    <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${startTime ? 'w-full' : 'w-0'}`}></div>
+                                </div>
                             </div>
 
                             <div className="w-1/2">
-                                <Label className="text-sm font-medium">
+                                <Label className="text-xs text-gray-400 mb-1 font-medium">
                                     Abgabezeit
                                 </Label>
-                                <Select
-                                    onValueChange={(value) => {
-                                        value ? setEnd(value)  : onDeleteEnd();
-                                    }}
-                                    value={endTime}
-                                    disabled={isDisabled}
-                                >
-
-                                    <SelectTrigger className="w-full dark:bg-[#0a0a0a] dark:border-none">
-                                        <SelectValue placeholder="Endzeit" />
-                                    </SelectTrigger>
-                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                        <SelectItem value={null} className="font-medium">Beliebig</SelectItem>
-                                        {[...Array(32).keys()].map(index => { // From 6:00 (index 12) to 23:30 (index 47)
-                                            const actualIndex = index + 16; // Adjust index to start from 6:00
-                                            const hour = Math.floor(actualIndex / 2);
-                                            const minute = actualIndex % 2 === 0 ? '00' : '30';
-                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                                            return (
-                                                <SelectGroup key={actualIndex}>
-                                                    {
+                                <div className="group">
+                                    <Select
+                                        onValueChange={(value) => {
+                                            value ? setEnd(value) : onDeleteEnd();
+                                        }}
+                                        value={endTime}
+                                        disabled={isDisabled}
+                                    >
+                                        <SelectTrigger className="h-10 transition-all duration-200 rounded-md focus-visible:ring-1 focus-visible:ring-indigo-500 border-0 bg-[#1e1e2a] text-gray-200 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1a1a24]">
+                                            <SelectValue placeholder="Zeit wählen" className="placeholder:text-gray-500" />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-[#1e1e2a] border border-indigo-900/30 rounded-md">
+                                            <SelectItem value={null} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">Beliebig</SelectItem>
+                                            {[...Array(32).keys()].map(index => {
+                                                const actualIndex = index + 16;
+                                                const hour = Math.floor(actualIndex / 2);
+                                                const minute = actualIndex % 2 === 0 ? '00' : '30';
+                                                const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                                return (
+                                                    <SelectGroup key={actualIndex}>
                                                         {
-                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "480": <SelectLabel>Morgens</SelectLabel>,
-                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
-                                                        }[String(actualIndex * 30)]
-                                                    }
-                                                    <SelectItem key={actualIndex} value={String(actualIndex * 30)}>{formattedTime}</SelectItem>
-                                                </SelectGroup>
-                                            );
-                                        })}
+                                                            {
+                                                                "0": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Frühmorgen</SelectLabel>,
+                                                                "480": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Morgens</SelectLabel>,
+                                                                "990": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Nachmittags</SelectLabel>,
+                                                            }[String(actualIndex * 30)]
+                                                        }
+                                                        <SelectItem key={actualIndex} value={String(actualIndex * 30)} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">{formattedTime}</SelectItem>
+                                                    </SelectGroup>
+                                                );
+                                            })}
 
-                                        {/* Generate time slots from 0:00 to 5:30 and append them */}
-                                        {[...Array(16).keys()].map(index => { // From 0:00 (index 0) to 5:30 (index 11)
-                                            const hour = Math.floor(index / 2);
-                                            const minute = index % 2 === 0 ? '00' : '30';
-                                            const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
-                                            return (
-                                                <SelectGroup key={index}>
-                                                    {
+                                            {[...Array(16).keys()].map(index => {
+                                                const hour = Math.floor(index / 2);
+                                                const minute = index % 2 === 0 ? '00' : '30';
+                                                const formattedTime = `${hour < 10 ? '0' + hour : hour}:${minute} Uhr`;
+                                                return (
+                                                    <SelectGroup key={index}>
                                                         {
-                                                            "0": <SelectLabel>Frühmorgen</SelectLabel>,
-                                                            "480": <SelectLabel>Morgens</SelectLabel>,
-                                                            "990": <SelectLabel>Nachmittags</SelectLabel>,
-                                                        }[String(index * 30)]
-                                                    }
-                                                    <SelectItem key={index} value={String(index * 30)}>{formattedTime}</SelectItem>
-                                                </SelectGroup>
-                                            );
-                                        })}
-
-                                    </SelectContent>
-                                </Select>
+                                                            {
+                                                                "0": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Frühmorgen</SelectLabel>,
+                                                                "480": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Morgens</SelectLabel>,
+                                                                "990": <SelectLabel className="text-indigo-400 text-xs font-medium pt-2">Nachmittags</SelectLabel>,
+                                                            }[String(index * 30)]
+                                                        }
+                                                        <SelectItem key={index} value={String(index * 30)} className="text-gray-300 hover:bg-indigo-900/10 cursor-pointer">{formattedTime}</SelectItem>
+                                                    </SelectGroup>
+                                                );
+                                            })}
+                                        </SelectContent>
+                                    </Select>
+                                    <div className={`h-0.5 bg-gradient-to-r from-indigo-700 to-indigo-500 transition-all duration-300 rounded-full mt-0.5 opacity-70 ${endTime ? 'w-full' : 'w-0'}`}></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
-
         </div>
     );
 }

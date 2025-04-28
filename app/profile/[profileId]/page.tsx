@@ -1,4 +1,3 @@
-
 import ProfileHeader from "./_components/profile-header";
 import getCurrentUser from "@/actions/getCurrentUser";
 
@@ -143,45 +142,29 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 </head>
         <div className="dark:bg-[#141414] w-full min-h-screen flex flex-col">
             {/* Header */}
-            <div className="relative top-0 w-full z-50">
+            <div className="relative top-0 w-full z-50 border-b border-gray-800">
                 <HeaderLogo currentUser={currentUser} foundNotifications={currentUser?.notifications} />
             </div>
-            <div className="sm:hidden">
+            <div className="sm:hidden border-b border-gray-800">
                 <MobileHeader currentUser={currentUser} foundNotifications={currentUser?.notifications} />
             </div>
 
             {/* Main Section */}
-            <div className="flex flex-row justify-center h-full w-full lg:p-8 bg-[#404040]/10 flex-grow space-x-8">
-                {/* Left Sidebar */}
-                
-
-                {/* <div className=" h-screen w-2/12 flex flex-col justify-evenly items-start space-y-8">
-                    
-                    <div className="h-full w-full">
-                    <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="h-full w-full"> 
-                    <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="h-full w-full">
-                    <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                </div> */}
-
+            <div className="flex flex-row justify-center h-full w-full lg:p-8 bg-[#404040]/10 flex-grow">
                 {/* Main Content */}
-                <div className="xl:w-[1044px] w-full max-w-[1044px] dark:bg-[#1c1c1c] h-full bg-white rounded-md">
+                <div className="xl:w-[1044px] w-full max-w-[1044px] dark:bg-[#1c1c1c] h-full bg-white rounded-xl shadow-xl">
                     <div className="min-h-screen">
                         {thisUser ? (
                             thisUser?.isBusiness ? (
-                                <div>
+                                <div className="p-4 md:p-8 space-y-8">
                                     <BusinessRender 
                                     thisUser={thisUser}
                                     ownProfile={ownProfile}
-                                    currentUser = {currentUser}
+                                    currentUser={currentUser}
                                     />
                                 </div>
                             ) : (
-                                <div>
+                                <div className="p-4 md:p-8 space-y-8">
                                     <ProfileRender 
                                     thisUser={thisUser}
                                     ownProfile={ownProfile}
@@ -191,32 +174,20 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                             )
                         ) : (
                             <div className="w-full min-h-screen flex justify-center items-center">
-                                <h3 className="flex text-xl font-semibold gap-x-4">
-                                    <FaCarCrash className="w-6 h-6" /> Dieser Nutzer scheint nicht zu existieren..
-                                </h3>
+                                <div className="flex flex-col items-center gap-y-4">
+                                    <FaCarCrash className="w-12 h-12 text-gray-400" />
+                                    <h3 className="text-xl font-semibold text-gray-200">
+                                        Dieser Nutzer scheint nicht zu existieren..
+                                    </h3>
+                                </div>
                             </div>
                         )}
                     </div>
                 </div>
-
-                {/* Right Sidebar */}
-                
-
-                {/* <div className=" h-screen w-2/12 flex flex-col items-end justify-evenly space-y-8">
-                <div className="h-full w-full">
-                    <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="h-full w-full">
-                    <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                    <div className="h-full w-full">
-                    <AdsComponent dataAdSlot="3797720061" />
-                    </div>
-                </div> */}
             </div>
 
             {/* Footer */}
-            <div>
+            <div className="mt-8 border-t border-gray-800">
                 <Footer />
             </div>
         </div>

@@ -20,9 +20,9 @@ const BusinessRender = ({
     currentUser
 }: BusinessrenderProps) => {
     return (
-        <div className="flex flex-col w-full">
-            <div>
-            <UploadBusinessPics
+        <div className="flex flex-col w-full space-y-8">
+            <div className="w-full">
+                <UploadBusinessPics
                     usedImages={thisUser.business.businessImages}
                     businessId={thisUser.business.id}
                     ownProfile={ownProfile}
@@ -30,9 +30,9 @@ const BusinessRender = ({
                     currentUser={currentUser}
                 />
             </div>
-            <div className="md:flex md:flex-row items-center w-full md:space-x-4">
-                <div className="md:w-1/2 w-full">
-                <DisplayBusinessNames
+            <div className="grid md:grid-cols-2 gap-8 w-full">
+                <div className="w-full">
+                    <DisplayBusinessNames
                         name={thisUser.name}
                         sharesRealName={thisUser?.sharesRealName}
                         firstName={thisUser?.vorname}
@@ -41,8 +41,8 @@ const BusinessRender = ({
                         ownProfile={ownProfile}
                     />
                 </div>
-                <div className="md:w-1/2 w-full mt-8">
-                <BusinessContact
+                <div className="w-full">
+                    <BusinessContact
                         telephone={thisUser.business.telephone_number}
                         email={thisUser.business.email}
                         website={thisUser.business.website}
@@ -52,13 +52,13 @@ const BusinessRender = ({
                     />
                 </div>
             </div>
-            <div>
+            <div className="w-full">
                 <BusinessDescriptionNew
                     ownProfile={ownProfile}
                     user={thisUser}
                 />
             </div>
-            <div className="mt-8">
+            <div className="w-full pt-4 border-t border-gray-800">
                 <ContentSwitch
                     ownProfile={ownProfile}
                     thisUser={thisUser}

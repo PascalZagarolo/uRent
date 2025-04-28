@@ -1,4 +1,3 @@
-
 import { Globe2Icon, MailsIcon, PencilIcon, PhoneCallIcon } from "lucide-react";
 
 import EditContactsDialog from "../edit-contacts-dialog";
@@ -17,53 +16,49 @@ interface BusinessContactProps {
 
 const BusinessContact = ({ telephone, email, website, fax, ownProfile, thisBusiness }: BusinessContactProps) => {
     return (
-        <div className="flex flex-col items-start text-gray-200/80 space-y-1 px-4 md:px-0">
-            {ownProfile && (
-                <div className="mt-4 md:ml-auto mr-8 mb-4">
+        <div className="flex flex-col items-start text-gray-200/80 space-y-4 p-6 bg-[#222222] rounded-lg shadow-sm border border-gray-800">
+            <div className="flex items-center justify-between w-full">
+                <h3 className="text-lg font-semibold text-gray-200">Kontakt</h3>
+                {ownProfile && (
                     <EditContactsDialog 
-                thisBusiness={thisBusiness}
-                />
-                </div>
-            )}
-            {email && (
-                <div className="w-full text-gray-200 flex flex-row items-center font-semibold">
-                    
-                    <span className="line-clamp-1 break-all w-3/4 ">
-                        {email}
-                    </span>
-                </div>
-            )}
-            {website && (
-                <div className="w-full text-gray-200/95 flex flex-row items-center text-sm">
-                    <div>
-                        <Globe2Icon className="w-4 h-4 mr-2" />
+                        thisBusiness={thisBusiness}
+                    />
+                )}
+            </div>
+            <div className="w-full space-y-4">
+                {email && (
+                    <div className="w-full text-gray-200 flex flex-row items-center font-medium hover:bg-gray-800/50 p-2 rounded-md transition-all duration-200">
+                        <MailsIcon className="w-5 h-5 mr-3 text-indigo-400" />
+                        <span className="line-clamp-1 break-all">
+                            {email}
+                        </span>
                     </div>
-                    <span className="line-clamp-1 break-all w-3/4">
-                        {website}
-                    </span>
-                </div>
-            )}
-            
-            {telephone && (
-                <div className="w-full text-gray-200/90 flex flex-row items-center text-sm">
-                    <div>
-                        <PhoneCallIcon className="w-4 h-4 mr-2" />
+                )}
+                {website && (
+                    <div className="w-full text-gray-200 flex flex-row items-center hover:bg-gray-800/50 p-2 rounded-md transition-all duration-200">
+                        <Globe2Icon className="w-5 h-5 mr-3 text-indigo-400" />
+                        <span className="line-clamp-1 break-all">
+                            {website}
+                        </span>
                     </div>
-                    <span className="line-clamp-1 break-all w-3/4">
-                        {telephone}
-                    </span>
-                </div>
-            )}
-            {fax && (
-                <div className="w-full text-gray-200/90 flex flex-row items-center text-sm">
-                    <div>
-                        <FaFax className="w-4 h-4 mr-2" />
+                )}
+                {telephone && (
+                    <div className="w-full text-gray-200 flex flex-row items-center hover:bg-gray-800/50 p-2 rounded-md transition-all duration-200">
+                        <PhoneCallIcon className="w-5 h-5 mr-3 text-indigo-400" />
+                        <span className="line-clamp-1 break-all">
+                            {telephone}
+                        </span>
                     </div>
-                    <span className="line-clamp-1 break-all w-3/4">
-                        {fax}
-                    </span>
-                </div>
-            )}
+                )}
+                {fax && (
+                    <div className="w-full text-gray-200 flex flex-row items-center hover:bg-gray-800/50 p-2 rounded-md transition-all duration-200">
+                        <FaFax className="w-5 h-5 mr-3 text-indigo-400" />
+                        <span className="line-clamp-1 break-all">
+                            {fax}
+                        </span>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

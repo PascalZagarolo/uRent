@@ -23,39 +23,41 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
     const uRent = params == "n6k2d5vokh971t5"
 
     return (
-        <div className="mt-12 md:px-8 px-4">
-            <div className="flex flex-row items-center">
-                
-                <p className="text-gray-200 text-2xl font-semibold break-all line-clamp-1">{name}</p> 
-                {uRent &&
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <CheckIcon className="w-6 h-6 ml-2 text-indigo-800" />
-                            </TooltipTrigger>
-                            <TooltipContent className="bg-[#222222] shadow-lg border-none ">
-                                <div className="text-sm text-gray-200">
-                                    <p>Offizieller Account</p>
-                                </div>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                }
+        <div className="p-6 bg-[#222222] rounded-lg shadow-sm border border-gray-800">
+            <div className="flex flex-row items-center justify-between">
+                <div className="flex items-center gap-x-2">
+                    <p className="text-gray-200 text-2xl font-semibold break-all line-clamp-1">{name}</p> 
+                    {uRent && (
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500/20">
+                                        <CheckIcon className="w-4 h-4 text-indigo-400" />
+                                    </div>
+                                </TooltipTrigger>
+                                <TooltipContent className="bg-[#222222] shadow-lg border border-gray-800">
+                                    <div className="text-sm text-gray-200">
+                                        <p>Offizieller Account</p>
+                                    </div>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    )}
+                </div>
                 {!ownProfile && (
-                    <div className="ml-auto pl-4">
+                    <div>
                         <UserOptions />
                     </div>
                 )}
-                
             </div>
             {sharesRealName && (firstName || lastName) && (
-                <div className="flex flex-row items-center">
-                    <span className="text-gray-200 flex flex-row items-center">
-                        <User2Icon className="w-4 h-4 mr-2" />   {firstName} {lastName}
+                <div className="flex flex-row items-center mt-3">
+                    <span className="text-gray-200/80 flex flex-row items-center">
+                        <User2Icon className="w-4 h-4 mr-2 text-indigo-400" /> {firstName} {lastName}
                     </span>
                 </div>
             )}
-            <div className=" text-gray-200/60 text-sm font-normal">
+            <div className="text-gray-200/60 text-sm font-normal mt-3">
                 Mitglied seit {format(joinedAt, "dd.MM.yyyy")}
             </div>
         </div>

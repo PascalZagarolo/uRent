@@ -30,32 +30,35 @@ const ContentSwitch = ({ ownProfile, thisUser, currentUser } : ContentSwitchProp
 
     return (
         <div className="w-full">
-            <div className="md:px-8 px-4">
-                
-                <div className="flex justify-evenly md:space-x-4 py-4 rounded-md ">
+            <div className="">
+                <div className="flex justify-evenly md:space-x-4 py-4 rounded-md bg-[#16161f] border border-indigo-900/30">
                     {existingTabs.map((tab) => (
                         <button
                             key={tab.key}
                             onClick={() => setActiveTab(tab.key)}
-                            className={`px-4 py-2 rounded-t-md transition-all duration-300 md:text-base text-xs ${
-                                activeTab === tab.key
-                                    ? "text-white border-b-2 border-indigo-800 "
-                                    : "text-gray-400 hover:text-white"
-                            }`}
+                            className={`px-4 py-2 rounded-md transition-all duration-300 md:text-base text-xs relative
+                                ${activeTab === tab.key
+                                    ? "text-white bg-gradient-to-r from-indigo-600/20 to-indigo-700/20"
+                                    : "text-gray-400 hover:text-white hover:bg-indigo-900/20"
+                                }`}
                         >
                             {tab.label}
+                            {activeTab === tab.key && (
+                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full" />
+                            )}
                         </button>
                     ))}
                 </div>
-                {
-                    {   
-                        "content" : <Content releasedContent={thisUser?.inserat} username={thisUser?.name} currentUser={currentUser} />,
-                        "location" : <StandortRender ownProfile={ownProfile} businessId={thisUser?.businessId} foundAddress={thisUser?.business?.businessAddresses}  />,
-                        "imprint" : <Imprint ownProfile={ownProfile} user={thisUser} />,
-                        "opening_hours" : <OpeningHours ownProfile={ownProfile} thisBusiness={thisUser?.business} />
-                    }[activeTab]
-                }
-               
+                <div className="mt-4">
+                    {
+                        {   
+                            "content" : <Content releasedContent={thisUser?.inserat} username={thisUser?.name} currentUser={currentUser} />,
+                            "location" : <StandortRender ownProfile={ownProfile} businessId={thisUser?.businessId} foundAddress={thisUser?.business?.businessAddresses}  />,
+                            "imprint" : <Imprint ownProfile={ownProfile} user={thisUser} />,
+                            "opening_hours" : <OpeningHours ownProfile={ownProfile} thisBusiness={thisUser?.business} />
+                        }[activeTab]
+                    }
+                </div>
             </div>
         </div>
     );

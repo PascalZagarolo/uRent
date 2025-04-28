@@ -132,176 +132,81 @@ const EditOpenhours : React.FC<EditOpenHoursProps> = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="ml-auto text-xs" size="sm" variant="ghost">
+                <Button className="ml-auto text-xs bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white 
+                    transition-all duration-300 hover:shadow-indigo-900/20" size="sm" variant="ghost">
                     <Clock7Icon className="w-4 h-4 mr-2" /> Öffnungszeiten bearbeiten
                 </Button>
             </DialogTrigger>
-            <DialogContent className="dark:bg-[#191919] dark:border-none dark:text-gray-200">
+            <DialogContent className="dark:bg-[#1a1a25] dark:border-indigo-900/30">
                 <div>
-                    <h1 className="flex font-semibold">
-                        <Clock7Icon className="w-4 h-4 mr-2" /> Öffnungszeiten bearbeiten
+                    <h1 className="font-semibold text-gray-200 flex items-center">
+                        <Clock7Icon className="w-4 h-4 mr-2 text-indigo-400" /> Öffnungszeiten bearbeiten
                     </h1>
                     <div className="mt-4">
-                        <h3 className="font-semibold">
+                        <h3 className="font-semibold text-gray-200">
                             Wochentage
                         </h3>
-                        <div className="mt-2 space-y-2 text-sm">
-
-                            <div className="flex items-center gap-x-2 w-full font-medium">
-                                Montag
-                                <div className="flex justify-end w-full items-center gap-x-2">
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setStartMonday(e.target.value)
-                                            console.log(e.target.value)
-                                        }}
-                                        placeholder="9:00"
-                                        value={startMonday}
-                                    />
-                                    -
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setEndMonday(e.target.value)
-                                        }}
-                                        value={endMonday}
-                                        placeholder="20:00" />
-                                    Uhr
+                        <div className="mt-4 space-y-4">
+                            {[
+                                { day: "Montag", start: startMonday, end: endMonday, setStart: setStartMonday, setEnd: setEndMonday },
+                                { day: "Dienstag", start: startTuesday, end: endTuesday, setStart: setStartTuesday, setEnd: setEndTuesday },
+                                { day: "Mittwoch", start: startWednesday, end: endWednesday, setStart: setStartWednesday, setEnd: setEndWednesday },
+                                { day: "Donnerstag", start: startThursday, end: endThursday, setStart: setStartThursday, setEnd: setEndThursday },
+                                { day: "Freitag", start: startFriday, end: endFriday, setStart: setStartFriday, setEnd: setEndFriday },
+                                { day: "Samstag", start: startSaturday, end: endSaturday, setStart: setStartSaturday, setEnd: setEndSaturday },
+                                { day: "Sonntag", start: startSunday, end: endSunday, setStart: setStartSunday, setEnd: setEndSunday }
+                            ].map(({ day, start, end, setStart, setEnd }) => (
+                                <div key={day} className="flex flex-col space-y-2 p-3 rounded-md bg-[#1a1a25] border border-indigo-900/30">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-medium text-gray-200">{day}</span>
+                                        <div className="flex items-center gap-x-2">
+                                            <Input 
+                                                className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40
+                                                    focus:border-indigo-400/30 transition-all duration-300 w-[120px]" 
+                                                type="time" 
+                                                step="0"
+                                                onChange={(e) => setStart(e.target.value)}
+                                                value={start}
+                                                placeholder="9:00"
+                                            />
+                                            <span className="text-gray-200/60">-</span>
+                                            <Input 
+                                                className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40
+                                                    focus:border-indigo-400/30 transition-all duration-300 w-[120px]" 
+                                                type="time" 
+                                                step="0"
+                                                onChange={(e) => setEnd(e.target.value)}
+                                                value={end}
+                                                placeholder="20:00"
+                                            />
+                                            <span className="text-gray-200/60">Uhr</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-x-2">
+                                        <Checkbox
+                                            className="border-indigo-900/30 data-[state=checked]:bg-indigo-600"
+                                            onCheckedChange={(checked) => {
+                                                if (checked) {
+                                                    onClosed(day.toLowerCase());
+                                                }
+                                            }}
+                                        />
+                                        <Label className="text-gray-200/80 text-sm">Geschlossen</Label>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div className="flex items-center gap-x-2 w-full font-semibold">
-                                Dienstag
-                                <div className="flex ml-auto justify-end w-full items-center gap-x-2">
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setStartTuesday(e.target.value)
-                                        }}
-                                        value={startTuesday}
-                                        placeholder="9:00"
-                                    />
-                                    -
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setEndTuesday(e.target.value)
-                                        }}
-                                        value={endTuesday}
-                                        placeholder="20:00" />
-                                    Uhr
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-x-2 w-full font-medium">
-                                Mittwoch
-                                <div className="flex ml-auto justify-end w-full items-center gap-x-2">
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setStartWednesday(e.target.value)
-                                        }}
-                                        value={startWednesday}
-                                        placeholder="9:00"
-                                    />
-                                    -
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setEndWednesday(e.target.value)
-                                        }}
-                                        value={endWednesday}
-                                        placeholder="20:00" />
-                                    Uhr
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-x-2 w-full font-medium">
-                                Donnerstag
-                                <div className="flex ml-auto justify-end w-full items-center gap-x-2">
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setStartThursday(e.target.value)
-                                        }}
-                                        value={startThursday}
-                                        placeholder="9:00"
-                                    />
-                                    -
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setEndThursday(e.target.value)
-                                        }}
-                                        value={endThursday}
-                                        placeholder="20:00" />
-                                    Uhr
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-x-2 w-full font-medium">
-                                Freitag
-                                <div className="flex ml-auto justify-end w-full items-center gap-x-2">
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setStartFriday(e.target.value)
-                                        }}
-                                        value={startFriday}
-                                        placeholder="9:00"
-                                    />
-                                    -
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setEndFriday(e.target.value)
-                                        }}
-                                        value={endFriday}
-                                        placeholder="20:00" />
-                                    Uhr
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-x-2 w-full font-medium">
-                                Samstag
-                                <div className="flex ml-auto justify-end w-full items-center gap-x-2">
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setStartSaturday(e.target.value)
-                                        }}
-                                        value={startSaturday}
-                                        placeholder="9:00"
-                                    />
-                                    -
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setEndSaturday(e.target.value)
-                                        }}
-                                        value={endSaturday}
-                                        placeholder="20:00" />
-                                    Uhr
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-x-2 w-full font-medium">
-                                Sonntag
-                                <div className="flex ml-auto justify-end w-full items-center gap-x-2">
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setStartSunday(e.target.value)
-                                        }}
-                                        value={startSunday}
-                                        placeholder="9:00"
-                                    />
-                                    -
-                                    <Input className=" dark:bg-[#1C1C1C] border-none w-[100px]" type="time" step="0"
-                                        onChange={(e) => {
-                                            setEndSunday(e.target.value)
-                                        }}
-                                        value={endSunday}
-                                        placeholder="20:00" />
-                                    Uhr
-                                </div>
-                            </div>
-
-
+                            ))}
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-6">
                             <DialogTrigger asChild>
-                            <Button className="w-full dark:bg-[#1C1C1C]" variant="ghost" size="sm" onClick={onSubmit}>
-                                Speichern
-                            </Button>
+                                <Button 
+                                    className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white
+                                        transition-all duration-300 hover:shadow-indigo-900/20"
+                                    size="sm" 
+                                    onClick={onSubmit}
+                                    disabled={isLoading}
+                                >
+                                    Speichern
+                                </Button>
                             </DialogTrigger>
                         </div>
                     </div>

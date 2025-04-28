@@ -23,7 +23,7 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
     const uRent = params == "n6k2d5vokh971t5"
 
     return (
-        <div className="p-6 bg-[#222222] rounded-lg shadow-sm border border-gray-800">
+        <div className="p-6 bg-[#16161f] rounded-lg shadow-sm border border-indigo-900/30">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex items-center gap-x-2">
                     <p className="text-gray-200 text-2xl font-semibold break-all line-clamp-1">{name}</p> 
@@ -31,11 +31,11 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500/20">
+                                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600/20">
                                         <CheckIcon className="w-4 h-4 text-indigo-400" />
                                     </div>
                                 </TooltipTrigger>
-                                <TooltipContent className="bg-[#222222] shadow-lg border border-gray-800">
+                                <TooltipContent className="bg-[#16161f] shadow-lg border border-indigo-900/30">
                                     <div className="text-sm text-gray-200">
                                         <p>Offizieller Account</p>
                                     </div>
@@ -53,7 +53,10 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
             {sharesRealName && (firstName || lastName) && (
                 <div className="flex flex-row items-center mt-3">
                     <span className="text-gray-200/80 flex flex-row items-center">
-                        <User2Icon className="w-4 h-4 mr-2 text-indigo-400" /> {firstName} {lastName}
+                        <div className="bg-indigo-600/20 p-1.5 rounded-md mr-2">
+                            <User2Icon className="w-4 h-4 text-indigo-400" />
+                        </div>
+                        {firstName} {lastName}
                     </span>
                 </div>
             )}

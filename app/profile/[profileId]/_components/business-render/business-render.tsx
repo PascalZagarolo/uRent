@@ -22,7 +22,7 @@ const BusinessRender = ({
     return (
         <div className="flex flex-col w-full space-y-8">
             <div className="w-full">
-                <UploadBusinessPics
+            <UploadBusinessPics
                     usedImages={thisUser.business.businessImages}
                     businessId={thisUser.business.id}
                     ownProfile={ownProfile}
@@ -32,7 +32,7 @@ const BusinessRender = ({
             </div>
             <div className="grid md:grid-cols-2 gap-8 w-full">
                 <div className="w-full">
-                    <DisplayBusinessNames
+                <DisplayBusinessNames
                         name={thisUser.name}
                         sharesRealName={thisUser?.sharesRealName}
                         firstName={thisUser?.vorname}
@@ -58,7 +58,7 @@ const BusinessRender = ({
                     user={thisUser}
                 />
             </div>
-            <div className="w-full pt-4 border-t border-gray-800">
+            <div className="w-full pt-4 border-t border-indigo-900/20">
                 <ContentSwitch
                     ownProfile={ownProfile}
                     thisUser={thisUser}

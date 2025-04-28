@@ -140,19 +140,18 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9497499351411762" //@ts-ignore
      crossorigin="anonymous"></script>
 </head>
-        <div className="dark:bg-[#141414] w-full min-h-screen flex flex-col">
+        <div className="bg-[#12121a] min-h-screen">
             {/* Header */}
-            <div className="relative top-0 w-full z-50 border-b border-gray-800">
+            <div className="relative top-0 w-full z-50 border-b border-indigo-800/20 bg-[#16161f]/95 backdrop-blur-sm">
                 <HeaderLogo currentUser={currentUser} foundNotifications={currentUser?.notifications} />
-            </div>
-            <div className="sm:hidden border-b border-gray-800">
-                <MobileHeader currentUser={currentUser} foundNotifications={currentUser?.notifications} />
+                <div className="sm:hidden">
+                    <MobileHeader currentUser={currentUser} foundNotifications={currentUser?.notifications} />
+                </div>
             </div>
 
             {/* Main Section */}
-            <div className="flex flex-row justify-center h-full w-full lg:p-8 bg-[#404040]/10 flex-grow">
-                {/* Main Content */}
-                <div className="xl:w-[1044px] w-full max-w-[1044px] dark:bg-[#1c1c1c] h-full bg-white rounded-xl shadow-xl">
+            <div className="max-w-[1044px] mx-auto py-8 px-4">
+                <div className="bg-gradient-to-b from-[#16161f] to-[#1a1a24] rounded-xl overflow-hidden shadow-xl border border-indigo-900/30">
                     <div className="min-h-screen">
                         {thisUser ? (
                             thisUser?.isBusiness ? (
@@ -175,7 +174,9 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
                         ) : (
                             <div className="w-full min-h-screen flex justify-center items-center">
                                 <div className="flex flex-col items-center gap-y-4">
-                                    <FaCarCrash className="w-12 h-12 text-gray-400" />
+                                    <div className="bg-indigo-600/20 p-3 rounded-lg">
+                                        <FaCarCrash className="w-8 h-8 text-indigo-400" />
+                                    </div>
                                     <h3 className="text-xl font-semibold text-gray-200">
                                         Dieser Nutzer scheint nicht zu existieren..
                                     </h3>
@@ -187,7 +188,7 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             </div>
 
             {/* Footer */}
-            <div className="mt-8 border-t border-gray-800">
+            <div className="mt-8 border-t border-indigo-800/20">
                 <Footer />
             </div>
         </div>

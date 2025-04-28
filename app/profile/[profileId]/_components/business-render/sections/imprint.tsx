@@ -86,27 +86,24 @@ const Imprint: React.FC<ProfileDescriptionProps> = ({
 
     return (
         <div className="">
-
-            <div className="  p-4     rounded-md  border-gray-200    
-                     w-full">
-                <div className=" flex items-center" >
-
-                    <p className="text-gray-900 font-semibold  dark:text-gray-100 text-md flex w-full items-center">
-                        <GoLaw className="w-4 h-4 mr-2" /> Impressum
+            <div className="p-4 rounded-md bg-[#1a1a25] border border-indigo-900/20 w-full">
+                <div className="flex items-center">
+                    <p className="text-gray-200 font-semibold text-md flex w-full items-center">
+                        <GoLaw className="w-4 h-4 mr-2 text-indigo-400" /> Impressum
                     </p>
                     {ownProfile && (
                         <div className="ml-auto">
-                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-indigo-900 dark:text-gray-200 
-                                      dark:bg-indigo-800 hover:bg-gray-100 mt-2" size="sm" onClick={onChange}
+                            <Button className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white" 
+                                size="sm" 
+                                onClick={onChange}
                                 disabled={!currentContent || currentContent === user.business?.impressum || currentContent.trim() === ""}
                             >
                                 Impressum speichern
                             </Button>
                         </div>
                     )}
-
                 </div>
-                <div className="mt-4" >
+                <div className="mt-4">
                     {isEditing ? (
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onChange)}>
@@ -117,7 +114,8 @@ const Imprint: React.FC<ProfileDescriptionProps> = ({
                                         <FormItem>
                                             <FormControl>
                                                 <Textarea
-                                                    {...field} className="dark:bg-[#171717] border-none h-[200px]"
+                                                    {...field} 
+                                                    className="bg-[#1a1a25] border-indigo-900/30 h-[200px] text-gray-200"
                                                     onBlur={() => {
                                                         setIsEditing(false);
                                                     }}
@@ -133,51 +131,31 @@ const Imprint: React.FC<ProfileDescriptionProps> = ({
                                             </div>
                                         </FormItem>
                                     )}
-
                                 />
-                                <div>
-
-                                </div>
                             </form>
                         </Form>
                     ) : (
                         <div className="mt-2 text-sm font-medium">
-
                             {(currentContent?.trim() !== "" && currentContent) ? (
-
-
                                 <div>
-                                    <div className={cn("dark:text-gray-200/90 whitespace-pre-wrap break-words",
-                                        isUnfolded ? "h-full" : "h-full", ownProfile && "hover:cursor-pointer")} style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                    <div className={cn("text-gray-200/90 whitespace-pre-wrap break-words",
+                                        isUnfolded ? "h-full" : "h-full", ownProfile && "hover:cursor-pointer")} 
+                                        style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                         onClick={() => { ownProfile && onEdit() }}
                                     >
                                         {currentContent}
-
                                     </div>
-                                    {/* 
-                            
-                            {user?.business?.impressum?.length > 400 && (
-                                <Button className=" w-full bg-gray-200 
-                                focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
-                                " variant="ghost" onClick={() => {setIsUnfolded(setIsUnfolded => !setIsUnfolded)}}>
-                                    {isUnfolded ? "Weniger anzeigen" : "Mehr anzeigen"}
-                                </Button>
-                            )}
-
-                            */}
                                 </div>
                             ) : (
-                                <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => { ownProfile && onEdit() }}>
+                                <div className={cn("font-base text-gray-200/60", ownProfile && "hover:cursor-pointer")} 
+                                    onClick={() => { ownProfile && onEdit() }}>
                                     Das Unternehmen hat noch nichts über sich geteilt..
                                 </div>
                             )}
-
                         </div>
                     )}
                 </div>
-
             </div>
-
         </div>
     );
 }

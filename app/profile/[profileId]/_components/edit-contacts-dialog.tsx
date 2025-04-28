@@ -58,27 +58,28 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="text-sm hover:underline flex sm:justify-end justify-center ml-auto bg-indigo-800 hover:bg-indigo-900" variant="ghost" size="sm">
+                <Button className="text-sm bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white 
+                    transition-all duration-300 hover:shadow-indigo-900/20" variant="ghost" size="sm">
                     <Share2Icon className="w-4 h-4 mr-2" />  Kontaktinformationen verwalten
                 </Button>
             </DialogTrigger>
-            <DialogContent className="dark:bg-[#191919] dark:text-gray-200 text-gray-700 dark:border-none">
+            <DialogContent className="dark:bg-[#1a1a25] dark:border-indigo-900/30">
                 <div>
-                    <h1 className="flex items-center font-semibold">
-                        <Contact2Icon className="w-4 h-4 mr-2" /> Kontakte verwalten
+                    <h1 className="flex items-center font-semibold text-gray-200">
+                        <Contact2Icon className="w-4 h-4 mr-2 text-indigo-400" /> Kontakte verwalten
                     </h1>
-                    <p className="text-xs dark:text-gray-200/70">
+                    <p className="text-xs text-gray-200/60 mt-1">
                         Verwalte deine Kontaktdaten. Angegebene Kontaktdaten werden öffentlich auf deinem
                         Profil sowie neben deinen Inseraten angezeigt.
                     </p>
-                    <div className="w-full space-y-4 ">
+                    <div className="w-full space-y-4 mt-4">
 
-                        <div className="w-full mt-4">
-                            <Label className="font-semibold flex items-center">
-                                <GlobeIcon className="w-4 h-4 mr-2" /> Website
+                        <div className="w-full">
+                            <Label className="font-semibold flex items-center text-gray-200">
+                                <GlobeIcon className="w-4 h-4 mr-2 text-indigo-400" /> Website
                             </Label>
                             <Input
-                                className="dark:bg-[#1C1C1C] border-none"
+                                className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40"
                                 onChange={(e) => setCurrentWebsite(e.target.value)}
                                 value={currentWebsite}
                                 placeholder="www.urent-rental.de"
@@ -90,11 +91,11 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                         </div>
 
                         <div className="w-full">
-                            <Label className="font-semibold flex items-center">
-                                <MailIcon className="w-4 h-4 mr-2" /> Email
+                            <Label className="font-semibold flex items-center text-gray-200">
+                                <MailIcon className="w-4 h-4 mr-2 text-indigo-400" /> Email
                             </Label>
                             <Input
-                                className="dark:bg-[#1C1C1C] border-none"
+                                className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40"
                                 onChange={(e) => setCurrentEmail(e.target.value)}
                                 value={currentEmail}
                                 placeholder="test@urent-rental.de"
@@ -106,12 +107,12 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                         </div>
 
                         <div className="w-full">
-                            <Label className="font-semibold flex items-center">
-                                <TfiMobile className="w-4 h-4 mr-2" /> Telefonnummer
+                            <Label className="font-semibold flex items-center text-gray-200">
+                                <TfiMobile className="w-4 h-4 mr-2 text-indigo-400" /> Telefonnummer
                             </Label>
                             <Input
                                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                                className="dark:bg-[#1C1C1C] border-none"
+                                className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40"
                                 value={currentNumber}
                                 onChange={(e) => setCurrentNumber(e.target.value)}
                                 placeholder="+49 123456789"
@@ -123,11 +124,11 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                         </div>
 
                         <div className="w-full">
-                            <Label className="font-semibold flex items-center">
-                                <FaFax className="w-4 h-4 mr-2" /> Fax
+                            <Label className="font-semibold flex items-center text-gray-200">
+                                <FaFax className="w-4 h-4 mr-2 text-indigo-400" /> Fax
                             </Label>
                             <Input
-                                className="dark:bg-[#1C1C1C] border-none"
+                                className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40"
                                 onChange={(e) => setCurrentFax(e.target.value)}
                                 value={currentFax}
                                 placeholder="040-999 8888"
@@ -139,7 +140,12 @@ const EditContactsDialog: React.FC<EditContactsDialogProps> = ({
                         </div>
                         <div>
                             <DialogTrigger asChild>
-                                <Button className="w-full dark:bg-[#1C1C1C]" variant="ghost" size="sm" onClick={onSave} disabled={isLoading}>
+                                <Button className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white 
+                                    transition-all duration-300 hover:shadow-indigo-900/20" 
+                                    size="sm" 
+                                    onClick={onSave} 
+                                    disabled={isLoading}
+                                >
                                     Speichern
                                 </Button>
                             </DialogTrigger>

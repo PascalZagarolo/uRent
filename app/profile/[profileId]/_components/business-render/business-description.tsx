@@ -106,36 +106,34 @@ const BusinessDescriptionNew: React.FC<ProfileDescriptionProps> = ({
     }
 
     return (
-        <div className="mt-4" >
-
-            <div className="md:px-8 px-2  rounded-md     
-                     w-full"
-                     ref={ref}
-                >
-                <div className=" flex items-center" >
-
-                    
+        <div className="mt-4">
+            <div className="p-6 bg-[#16161f] rounded-lg shadow-sm border border-indigo-900/30" ref={ref}>
+                <div className="flex items-center">
                     {(ownProfile && isEditing) && (
-                        
                         <div className="ml-auto mb-4 space-x-4">
-                            <Button className="bg-gray-300 dark:border-none dark:hover:bg-indigo-900 dark:text-gray-200 
-                                      dark:bg-indigo-800  mt-2"  type="submit" onClick={onChange}
+                            <Button 
+                                className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 
+                                         text-white border-none shadow-lg transition-all duration-200"  
+                                type="submit" 
+                                onClick={onChange}
                                 disabled={!currentContent || currentContent === user.business?.description || currentContent.trim() === ""}
                             >
                                 Beschreibung speichern
                             </Button>
-                        
-                        
-                        <Button className="bg-[#222222] shadow-lg" variant="ghost"  type="submit" onClick={onDiscard}
-                            disabled={!currentContent || currentContent === user.business?.description || currentContent.trim() === ""}
-                        >
-                            Änderungen verwerfen
-                        </Button>
-                    </div>
-                    )} 
-
+                            <Button 
+                                className="bg-[#16161f] hover:bg-indigo-900/20 text-gray-200 border border-indigo-900/30 
+                                         shadow-lg transition-all duration-200" 
+                                variant="ghost"  
+                                type="submit" 
+                                onClick={onDiscard}
+                                disabled={!currentContent || currentContent === user.business?.description || currentContent.trim() === ""}
+                            >
+                                Änderungen verwerfen
+                            </Button>
+                        </div>
+                    )}
                 </div>
-                <div className="" >
+                <div>
                     {isEditing ? (
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onChange)}>
@@ -146,8 +144,9 @@ const BusinessDescriptionNew: React.FC<ProfileDescriptionProps> = ({
                                         <FormItem>
                                             <FormControl>
                                                 <Textarea
-                                                    {...field} className="dark:bg-[#171717] border-none h-[600px]"
-                                                    
+                                                    {...field} 
+                                                    className="bg-[#16161f] border border-indigo-900/30 focus:border-indigo-600 
+                                                             focus:ring-indigo-600/20 h-[600px] text-gray-200"
                                                     onChange={(e) => { setCurrentContent(e.target.value) }}
                                                     value={currentContent}
                                                     ref={textareaRef}
@@ -155,62 +154,50 @@ const BusinessDescriptionNew: React.FC<ProfileDescriptionProps> = ({
                                                 />
                                             </FormControl>
                                             <FormMessage />
-                                            <div className="ml-auto flex justify-end">
+                                            <div className="ml-auto flex justify-end mt-2">
                                                 <LetterRestriction limit={5000} currentLength={currentContent?.length} />
                                             </div>
                                         </FormItem>
                                     )}
-
                                 />
-                                <div>
-
-                                </div>
                             </form>
                         </Form>
                     ) : (
-                        <div className=" text-sm font-medium">
-
+                        <div className="text-sm font-medium">
                             {currentContent?.trim() !== "" && currentContent ? (
-
-
                                 <div>
-                                    <div className={cn("dark:text-gray-200/80 whitespace-pre-wrap break-words p-2",
-                                        isUnfolded ? "h-full" : "", ownProfile && "hover:cursor-pointer hover:text-gray-200 hover:shadow-lg transition-all duration-200")} style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
+                                    <div 
+                                        className={cn(
+                                            "text-gray-200/80 whitespace-pre-wrap break-words p-4 rounded-md",
+                                            isUnfolded ? "h-full" : "",
+                                            ownProfile && "hover:bg-indigo-900/20 hover:text-gray-200 transition-all duration-200"
+                                        )} 
+                                        style={{ overflow: 'hidden', wordWrap: 'break-word', whiteSpace: 'pre-line' }}
                                         onClick={() => { ownProfile && onEdit() }}
                                     >
                                         {currentContent}
-
                                     </div>
-                                    {/*
-                                    
-                                    {user?.business?.description?.length > 200 && (
-                                        <Button className=" w-full bg-gray-200 
-                                focus-visible:ring-0 dark:bg-[#171717] dark:hover:bg-[#1f1f1f]
-                                " variant="ghost" onClick={() => { setIsUnfolded(setIsUnfolded => !setIsUnfolded) }}>
-                                            {isUnfolded ? "Weniger anzeigen" : "Mehr anzeigen"}
-                                        </Button>
-                                    )}
-
-                                    */}
                                 </div>
                             ) : (
                                 (ownProfile) ? (
-                                    <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => { ownProfile && onEdit() }}>
-                                        Du hast noch nichts über dich und dein Unternehmen geteilt.. <br/> Klicke hier um eine Beschreibung hinzuzufügen
+                                    <div 
+                                        className="font-base text-gray-200/70 hover:text-gray-200 hover:bg-indigo-900/20 
+                                                 p-4 rounded-md transition-all duration-200 cursor-pointer" 
+                                        onClick={() => { ownProfile && onEdit() }}
+                                    >
+                                        Du hast noch nichts über dich und dein Unternehmen geteilt.. <br/> 
+                                        Klicke hier um eine Beschreibung hinzuzufügen
                                     </div>
                                 ) : (
-                                    <div className={cn(" font-base text-gray-900/50  dark:text-gray-200/70", ownProfile && "hover:cursor-pointer")} onClick={() => { ownProfile && onEdit() }}>
+                                    <div className="font-base text-gray-200/70 p-4 rounded-md">
                                         Der Vermieter hat noch nichts über sich geteilt..
                                     </div>
                                 )
                             )}
-
                         </div>
                     )}
                 </div>
-
             </div>
-
         </div>
     );
 }

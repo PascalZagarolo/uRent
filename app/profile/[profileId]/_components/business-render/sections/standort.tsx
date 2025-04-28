@@ -152,15 +152,16 @@ const StandortRender: React.FC<StandortRenderProps> = ({
     return (
         <Dialog>
             <div>
-                <div className="p-4 rounded-t-md ">
-                    <h1 className="text-md font-semibold sm:flex items-center">
+                <div className="p-4 rounded-t-md bg-gradient-to-b from-[#1a1a25] to-[#1a1a25]/90 border border-indigo-900/20">
+                    <h1 className="text-md font-semibold sm:flex items-center text-gray-200">
                         <div className="flex items-center">
-                            <BiLandscape className="w-4 h-4 mr-2" />  Standort
+                            <BiLandscape className="w-4 h-4 mr-2 text-indigo-400" />  Standort
                         </div>
                         {ownProfile && (
                             <div className="sm:ml-auto w-full flex sm:justify-end justify-center">
                                 <DialogTrigger asChild>
-                                    <Button className="text-xs hover:underline bg-indigo-800 hover:bg-indigo-900" variant="ghost" size="sm">
+                                    <Button className="text-xs bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white 
+                                        transition-all duration-300 hover:shadow-indigo-900/20" variant="ghost" size="sm">
                                         <PlusSquareIcon className="w-4 h-4 mr-2" />   Standort hinzufügen
                                     </Button>
                                 </DialogTrigger>
@@ -171,7 +172,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                 <div className="pb-8">
                     {foundAddress?.length > 0 ? (
                         foundAddress
-                            .sort((a, b) => (a.isPrimary === b.isPrimary ? 0 : a.isPrimary ? -1 : 1)) // Sort addresses with primary first
+                            .sort((a, b) => (a.isPrimary === b.isPrimary ? 0 : a.isPrimary ? -1 : 1))
                             .map((address, index) => (
                                 <div className="" key={index}>
                                     <StandortDisplay
@@ -182,53 +183,50 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                 </div>
                             ))
                     ) : (
-                        <div className="p-4 flex items-center justify-center text-sm dark:text-gray-200/70 text-gray-700/70">
+                        <div className="p-4 flex items-center justify-center text-sm text-gray-200/70">
                             Es wurden noch keine Standorte hinzugefügt..
                         </div>
                     )}
                 </div>
             </div>
-            <DialogContent className="dark:bg-[#191919] dark:border-none">
+            <DialogContent className="dark:bg-[#1a1a25] dark:border-indigo-900/30">
                 <div>
-                    <h1 className="font-semibold">
-                        Standort hinzufügen
+                    <h1 className="font-semibold text-gray-200 flex items-center">
+                        <MapPinIcon className="w-4 h-4 mr-2 text-indigo-400" /> Standort hinzufügen
                     </h1>
                     <div className="mt-4">
                         <div>
-                            <Label className="flex gap-x-2 items-center">
-                                <ImageIcon className="w-4 h-4" />  Foto
-
+                            <Label className="flex gap-x-2 items-center text-gray-200">
+                                <ImageIcon className="w-4 h-4 text-indigo-400" />  Foto
                             </Label>
-                            <p className="text-xs dark:text-gray-200/70 flex items-center">
+                            <p className="text-xs text-gray-200/60 flex items-center mt-1">
                                 Lade, falls gewünscht ein Bild von deinem Standort hoch
-
                             </p>
                             <div className="ml-auto relative flex justify-end w-full">{currentUrl && (
-                                <Button variant="ghost" size="sm" className="mt-2 " onClick={onDelete}>
-                                    <TrashIcon className="w-4 h-4 text-rose-600" />
+                                <Button variant="ghost" size="sm" className="mt-2 hover:bg-indigo-900/20" onClick={onDelete}>
+                                    <TrashIcon className="w-4 h-4 text-rose-400" />
                                 </Button>
                             )}</div>
 
-                            {selectedImage  ? (
+                            {selectedImage ? (
                                 <>
-                                   
-                                        <Image src={`${URL.createObjectURL(selectedImage)}`} 
-                                            alt=""
-                                            width={500}
-                                            height={500}
-                                            className="w-full object-cover h-[160px] mt-2"
-                                        />
-                                   
+                                    <Image src={`${URL.createObjectURL(selectedImage)}`} 
+                                        alt=""
+                                        width={500}
+                                        height={500}
+                                        className="w-full object-cover h-[160px] mt-2 rounded-lg border border-indigo-900/30 hover:border-indigo-400/30 transition-all duration-300"
+                                    />
                                     <div className="flex flex-row items-center w-full space-x-4 mt-2">
-
-                                        <Button className="bg-[#222222] shadow-lg hover:bg-[#292929] w-1/2" variant="ghost"
+                                        <Button className="bg-[#1a1a25] hover:bg-indigo-900/20 w-1/2 border border-indigo-900/30 
+                                            transition-all duration-300 hover:border-indigo-400/30" variant="ghost"
                                             {...getRootProps()}
                                         >
                                             <input {...getInputProps()} />
-                                            <FaExchangeAlt className="w-4 h-4 mr-2" /> Bild ändern
+                                            <FaExchangeAlt className="w-4 h-4 mr-2 text-indigo-400" /> Bild ändern
                                         </Button>
 
-                                        <Button className="w-1/2 bg-rose-600 hover:bg-rose-700 shadow-lg text-gray-200 hover:text-gray-300"
+                                        <Button className="w-1/2 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-gray-200
+                                            transition-all duration-300 hover:shadow-rose-900/20"
                                             onClick={onDelete}
                                         >
                                             <TrashIcon className="w-4 h-4 mr-2" />  Bild löschen
@@ -236,85 +234,84 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                                     </div>
                                 </>
                             ) : (
-                                <div className="p-16 mt-2 dark:bg-[#1C1C1C] border border-dashed
-                             dark:text-gray-200/90 items-center text-xs flex w-full justify-center" {...getRootProps()}>
+                                <div className="p-16 mt-2 bg-[#1a1a25] border border-dashed border-indigo-900/30
+                                    text-gray-200/90 items-center text-xs flex w-full justify-center rounded-lg
+                                    hover:border-indigo-400/30 transition-all duration-300" {...getRootProps()}>
                                     <input {...getInputProps()} />
                                     {isDragActive ? (
-                                        <p>Ziehe hier rein</p>
+                                        <p className="text-indigo-400">Ziehe hier rein</p>
                                     ) : (
                                         <p>Ziehe Bilder rein oder klicke hier</p>
                                     )}
                                 </div>
                             )}
-
-
                         </div>
 
                         <div className="mt-4">
-                            <Label className="font-semibold text-base flex gap-x-2 items-center">
-                                <MapPinIcon className="w-4 h-4" /> Addresse
+                            <Label className="font-semibold text-base flex gap-x-2 items-center text-gray-200">
+                                <MapPinIcon className="w-4 h-4 text-indigo-400" /> Addresse
                             </Label>
-                            <div>
-                                <div className="w-full ">
-                                    <Label>
+                            <div className="space-y-4 mt-2">
+                                <div className="w-full">
+                                    <Label className="text-gray-200/80">
                                         Name des Standorts
                                     </Label>
                                     <Input
-                                        className="dark:bg-[#1C1C1C] border-none"
+                                        className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40
+                                            focus:border-indigo-400/30 transition-all duration-300"
                                         onChange={(e) => setCurrentTitle(e.target.value)}
                                         placeholder="z.B. Autohaus Mömer"
                                         maxLength={120}
                                     />
                                 </div>
-                                <div className="w-full flex gap-4">
-                                    <div className="w-full mt-2">
-                                        <Label className="font-semibold">
-                                            Straße
-                                        </Label>
-                                        <Input
-                                            className="dark:bg-[#1C1C1C] border-none"
-                                            onChange={(e) => setCurrentStreet(e.target.value)}
-                                            placeholder="Musterstraße 13"
-                                            maxLength={60}
-                                        />
-                                    </div>
-
+                                <div className="w-full">
+                                    <Label className="font-semibold text-gray-200/80">
+                                        Straße
+                                    </Label>
+                                    <Input
+                                        className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40
+                                            focus:border-indigo-400/30 transition-all duration-300"
+                                        onChange={(e) => setCurrentStreet(e.target.value)}
+                                        placeholder="Musterstraße 13"
+                                        maxLength={60}
+                                    />
                                 </div>
                                 <div className="w-full flex gap-4">
-                                    <div className="w-1/2 mt-2">
-                                        <Label className="font-semibold">
+                                    <div className="w-1/2">
+                                        <Label className="font-semibold text-gray-200/80">
                                             Stadt
                                         </Label>
                                         <Input
-                                            className="dark:bg-[#1C1C1C] border-none"
+                                            className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40
+                                                focus:border-indigo-400/30 transition-all duration-300"
                                             onChange={(e) => setCurrentCity(e.target.value)}
                                             placeholder="Musterstadt"
                                             maxLength={60}
                                         />
                                     </div>
-                                    <div className="w-1/2 mt-2">
-                                        <Label className="font-semibold">
+                                    <div className="w-1/2">
+                                        <Label className="font-semibold text-gray-200/80">
                                             PLZ
                                         </Label>
                                         <Input
-                                            className="dark:bg-[#1C1C1C] border-none"
+                                            className="bg-[#1a1a25] border-indigo-900/30 text-gray-200 placeholder:text-gray-200/40
+                                                focus:border-indigo-400/30 transition-all duration-300"
                                             maxLength={5}
                                             onChange={(e) => setCurrentPostalCode(e.target.value)}
                                             placeholder="10100"
                                         />
                                     </div>
-
                                 </div>
                             </div>
-                            <div className="mt-4 w-full" >
+                            <div className="mt-6 w-full" >
                                 <DialogTrigger asChild disabled={isLoading}>
-                                    <Button size="sm" variant="ghost" className="w-full dark:bg-[#1C1C1C]"
+                                    <Button size="sm" className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white
+                                        transition-all duration-300 hover:shadow-indigo-900/20"
                                         onClick={onCreate}
                                         disabled={currentStreet.trim() === "" || currentPostalCode === "" || currentCity.trim() === "" ||
                                             currentPostalCode.length !== 5 || isNaN(Number(currentPostalCode)) || isLoading || !currentTitle ||
                                             currentTitle.trim() === ""
                                         }
-
                                     >
                                         Standort hinzufügen
                                     </Button>

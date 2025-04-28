@@ -110,39 +110,40 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
         <div>
             <Dialog>
                 <DialogTrigger>
-                    <div className="relative sm:h-[132px] sm:w-[132px] h-[80px] w-[80px] shadow-lg rounded-full overflow-hidden group cursor-pointer">
+                    <div className="relative sm:h-[132px] sm:w-[132px] h-[80px] w-[80px] shadow-lg rounded-full overflow-hidden group cursor-pointer border-2 border-indigo-900/30">
                         <img
                             src={existingImageUrl || "/placeholder-person.jpg"}
-                            className="rounded-full object-cover sm:h-[132px] h-[80px] sm:w-[132px] w-[80px] border border-black shadow-lg"
+                            className="rounded-full object-cover sm:h-[132px] h-[80px] sm:w-[132px] w-[80px] transition-all duration-300 group-hover:scale-110"
                             alt="Person"
                         />
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                             <span className="text-white text-xl sm:text-2xl"><ImageIcon className="w-6 h-6" /></span>
                         </div>
                     </div>
                 </DialogTrigger>
-                <DialogContent className="dark:border-none dark:bg-[#191919]">
+                <DialogContent className="dark:border-indigo-900/30 dark:bg-[#16161f]">
                     <div className="flex flex-col items-center">
 
                         {!imageSrc && (
                             <div {...getRootProps()} 
                             className={cn(
-                                "p-4  rounded-full text-gray-300 text-center flex items-center justify-center  h-[200px] cursor-pointer",
-                                imageSrc && "dark:bg-[#1C1C1C]"
+                                "p-4 rounded-full text-gray-300 text-center flex items-center justify-center h-[200px] cursor-pointer border-2 border-dashed border-indigo-900/30",
+                                imageSrc && "dark:bg-[#1C1C1C]",
+                                isDragActive && "border-indigo-600/40 bg-indigo-900/10"
                             )}>
                                 <input {...getInputProps()} />
                                 {currentUrl ? (
-                                    <div className="flex flex-col items-center ">
+                                    <div className="flex flex-col items-center">
                                         <Image
                                             src={currentUrl}
                                             width={160}
                                             height={160}
-                                            className="rounded-full object-cover w-[160px]"
+                                            className="rounded-full object-cover w-[160px] border-2 border-indigo-900/30"
                                             alt="Profilbild"
                                         />
                                         <p className="text-sm flex flex-row items-center text-gray-200/60 w-full mt-2">
                                             <HiInformationCircle 
-                                             className="w-4 h-4 mr-2 "
+                                             className="w-4 h-4 mr-2 text-indigo-400"
                                             />
                                             Klicke auf das Bild, um es zu ändern
                                         </p>
@@ -153,9 +154,8 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
                             </div>
                         )}
 
-
                         {imageSrc && (
-                            <div className="relative w-[250px] h-[250px] bg-black">
+                            <div className="relative w-[250px] h-[250px] bg-black rounded-full overflow-hidden">
                                 <Cropper
                                     image={imageSrc}
                                     crop={crop}
@@ -169,14 +169,14 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
                         )}
 
                         {imageSrc && (
-                            <Button className="mt-4 bg-indigo-700 w-full text-white hover:bg-indigo-800" onClick={uploadCroppedImage} disabled={isLoading}>
+                            <Button className="mt-4 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 w-full text-white" onClick={uploadCroppedImage} disabled={isLoading}>
                                 <FiUpload className="mr-2" /> Bild zuschneiden
                             </Button>
                         )}
                         {imageSrc && (
                             <div className="flex flex-row items-center mt-2 space-x-2 w-full">
                                 <Button {...getRootProps()}
-                                    className="bg-[#222222] hover:bg-[#242424] hover:text-gray-300 text-gray-200 w-1/2">
+                                    className="bg-[#16161f] hover:bg-indigo-900/20 text-gray-200 border border-indigo-900/30 w-1/2">
                                     <input {...getInputProps()} />
                                     <FaExchangeAlt
                                         className="w-4 h-4 mr-2"
@@ -189,7 +189,7 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
                                         setCroppedAreaPixels(null);
                                         setZoom(1)
                                     }}
-                                    className="w-1/2 bg-rose-600 hover:bg-rose-700 hover:text-rose-300 text-gray-200">
+                                    className="w-1/2 bg-rose-600/90 hover:bg-rose-700 text-gray-200">
                                     <XIcon
                                         className="w-4 h-4 mr-2"
                                     />
@@ -198,14 +198,13 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
                             </div>
                         )}
 
-
                         {!imageSrc && (
                             <div className="mt-4 w-full">
-                                <Button className="w-full bg-[#222222] hover:bg-[#242424] text-gray-200" onClick={handleDeleteImageCurrent}>
+                                <Button className="w-full bg-[#16161f] hover:bg-indigo-900/20 text-gray-200 border border-indigo-900/30" onClick={handleDeleteImageCurrent}>
                                     <FaDeleteLeft className="mr-2" /> Profilbild entfernen
                                 </Button>
                                 <DialogTrigger asChild>
-                                    <Button className="w-full bg-indigo-800 hover:bg-indigo-900 text-white mt-2" onClick={onUploadConfirm} disabled={isLoading || currentUrl === existingImageUrl}>
+                                    <Button className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white mt-2" onClick={onUploadConfirm} disabled={isLoading || currentUrl === existingImageUrl}>
                                         <MdSaveAlt className="mr-2" /> Profilbild speichern
                                     </Button>
                                 </DialogTrigger>

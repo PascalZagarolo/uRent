@@ -151,20 +151,23 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     return (
         <div className="relative">
             {(!currentImage?.url && !ownProfile) && (
-                <div className="w-full py-20 relative overflow-hidden rounded-none sm:rounded-t-md bg-[#131313]" />
+                <div className="w-full py-20 relative overflow-hidden rounded-none sm:rounded-t-md bg-gradient-to-b from-[#16161f] to-[#1a1a25]" />
             )}
 
             {(currentImage && ownProfile) && (
                 <div>
-                    <Button className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md" onClick={() => { setShowDialog(true) }}>
+                    <Button className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md group" onClick={() => { setShowDialog(true) }}>
                         <Image
                             src={finalImage}
                             quality={100}
                             fill
                             style={{ objectFit: "cover" }}
-                            className="shadow-lg hover:cursor-pointer"
+                            className="shadow-lg hover:cursor-pointer transition-all duration-300 group-hover:scale-105"
                             alt="Banner Image"
                         />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span className="text-white text-lg font-medium">Banner bearbeiten</span>
+                        </div>
                     </Button>
                 </div>
             )}
@@ -176,30 +179,30 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                         quality={100}
                         fill
                         style={{ objectFit: "cover" }}
-                        className="shadow-lg hover:cursor-pointer"
+                        className="shadow-lg"
                         alt="Banner Image"
                     />
                 </div>
             )}
 
             {(!currentImage?.url && ownProfile) && (
-                <div className={cn("text-gray-200/80 bg-[#222222] text-sm flex justify-center py-10 shadow-lg items-center")}
+                <div className={cn("text-gray-200/80 bg-gradient-to-b from-[#16161f] to-[#1a1a25] text-sm flex justify-center py-10 shadow-lg items-center border border-indigo-900/20",
+                    isDragActive && "border-indigo-600/40 bg-indigo-900/10")}
                     {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <GrAddCircle className="w-4 h-4 mr-2" />
+                    <GrAddCircle className="w-4 h-4 mr-2 text-indigo-400" />
                     {isDragActive ? "Fotos hier ablegen.." : "Fotos hinzufügen oder reinziehen.."}
                 </div>
             )}
 
             <Dialog open={showDialog} onOpenChange={(e) => setShowDialog(e)}>
-                <DialogContent className="dark:bg-[#191919] dark:border-none flex flex-col space-y-0 gap-0">
+                <DialogContent className="dark:bg-[#16161f] dark:border-indigo-900/30 flex flex-col space-y-0 gap-0">
                     <div className="mb-2">
-                        <h3 className="text-lg font-semibold">Profilbanner bearbeiten</h3>
+                        <h3 className="text-lg font-semibold text-gray-200">Profilbanner bearbeiten</h3>
                     </div>
 
-
                     {imageSrc && (
-                        <div className="relative w-full h-[300px] bg-black">
+                        <div className="relative w-full h-[300px] bg-black rounded-lg overflow-hidden">
                             <Cropper
                                 image={imageSrc}
                                 crop={crop}
@@ -213,13 +216,13 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                     )}
 
                     {!imageSrc && currentImage?.url && (
-                        <div className="pb-4 hover:cursor-pointer" {...getRootProps()}>
+                        <div className="pb-4 hover:cursor-pointer group" {...getRootProps()}>
                             <input {...getInputProps()} />
                             <Image
                                 width={500}
                                 height={150}
                                 src={currentImage?.url}
-                                className="w-full h-40 object-cover shadow-lg"
+                                className="w-full h-40 object-cover shadow-lg rounded-lg transition-all duration-300 group-hover:scale-105"
                                 alt="Selected Image"
                             />
                         </div>
@@ -228,7 +231,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                     {!imageSrc && currentImage?.url && (
                         <div className="flex flex-row items-center text-sm text-gray-200/60">
                             <HiInformationCircle
-                                className="w-4 h-4 mr-2"
+                                className="w-4 h-4 mr-2 text-indigo-400"
                             />
                             Klicke auf den Banner, um ihn zu bearbeiten
                         </div>
@@ -236,19 +239,19 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
                     {imageSrc && (
                         <div>
-                            <Button className="bg-indigo-700 hover:bg-indigo-800 text-white w-full mt-4" onClick={uploadCroppedImage} disabled={isLoading}>
+                            <Button className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white w-full mt-4" onClick={uploadCroppedImage} disabled={isLoading}>
                                 <IoCropSharp className="w-4 h-4 mr-2" />
                                 Bild zuschneiden
                             </Button>
                             <div className="mt-2 flex flex-row items-center space-x-2">
-                                <Button className="w-1/2 bg-[#222222] hover:bg-[#242424] text-gray-200 hover:text-gray-200/60"  {...getRootProps()}>
+                                <Button className="w-1/2 bg-[#16161f] hover:bg-indigo-900/20 text-gray-200 border border-indigo-900/30"  {...getRootProps()}>
                                     <input {...getInputProps()} />
                                     <FaExchangeAlt
                                         className="w-4 h-4 mr-2"
                                     />
                                     Bild ändern
                                 </Button>
-                                <Button className="w-1/2 bg-rose-600 hover:bg-rose-700 text-gray-200 hover:text-gray-200/60"
+                                <Button className="w-1/2 bg-rose-600/90 hover:bg-rose-700 text-gray-200"
                                     onClick={() => {
                                         setImageSrc("");
                                         setZoom(1);
@@ -266,18 +269,17 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
                     {!imageSrc && (
                         <div className="">
-                            <Button className="text-gray-200 bg-[#222222] hover:bg-[#282828] w-full mt-4" onClick={onImageClear} disabled={isLoading}>
+                            <Button className="text-gray-200 bg-[#16161f] hover:bg-indigo-900/20 w-full mt-4 border border-indigo-900/30" onClick={onImageClear} disabled={isLoading}>
                                 <FaDeleteLeft className="w-4 h-4 mr-2" /> Banner entfernen
                             </Button>
                         </div>
                     )}
 
-
                     <DialogTrigger asChild>
                         {!imageSrc && croppedBlob && (
                             <div>
                                 <Button
-                                    className="bg-indigo-800 hover:bg-indigo-900 text-gray-200 w-full mt-2"
+                                    className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-gray-200 w-full mt-2"
                                     onClick={onSave}
                                     disabled={isLoading}
                                 >
@@ -286,11 +288,6 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                             </div>
                         )}
                     </DialogTrigger>
-
-
-
-
-
                 </DialogContent>
             </Dialog>
 

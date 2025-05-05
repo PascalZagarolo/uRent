@@ -156,7 +156,7 @@ const Main = cache(async ({
                         </div>
 
                         <div className="top-0 sm:mr-4 ">
-                            <MainPageSideBar
+                        <MainPageSideBar
                                 userId={currentUser?.id || ""}
                             />
                         </div>

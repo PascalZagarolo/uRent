@@ -111,7 +111,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
     }
 
     return (
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
             <div className="w-[280px] rounded-lg overflow-hidden shadow-lg bg-[#1e2235]">
                 {/* Header */}
                 <div className=" px-4 py-4">

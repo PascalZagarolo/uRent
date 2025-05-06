@@ -80,7 +80,8 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
         setCurrentUrl("");
     };
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles: 1,
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop, maxFiles: 1,
         accept: {
             'image/jpeg': [],
             'image/png': [],
@@ -125,12 +126,14 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
                     <div className="flex flex-col items-center">
 
                         {!imageSrc && (
-                            <div {...getRootProps()} 
-                            className={cn(
-                                "p-4 rounded-full text-gray-300 text-center flex items-center justify-center h-[200px] cursor-pointer border-2 border-dashed border-indigo-900/30",
-                                imageSrc && "dark:bg-[#1C1C1C]",
-                                isDragActive && "border-indigo-600/40 bg-indigo-900/10"
-                            )}>
+                            <div {...getRootProps()}
+                                className={cn(
+                                    `p-4 rounded-full w-[200px] text-gray-300 text-center flex items-center justify-center h-[200px] 
+                                cursor-pointer  border-indigo-900/30`,
+                                    imageSrc && "dark:bg-[#1C1C1C]",
+                                    !currentUrl && "border-2 border-dashed",
+                                    isDragActive && "border-indigo-600/40 bg-indigo-900/10"
+                                )}>
                                 <input {...getInputProps()} />
                                 {currentUrl ? (
                                     <div className="flex flex-col items-center">
@@ -141,19 +144,19 @@ const BusinessHeaderAvatar: React.FC<BusinessHeaderAvatarProps> = ({
                                             className="rounded-full object-cover w-[160px] border-2 border-indigo-900/30"
                                             alt="Profilbild"
                                         />
-                                        <p className="text-sm flex flex-row items-center text-gray-200/60 w-full mt-2">
-                                            <HiInformationCircle 
-                                             className="w-4 h-4 mr-2 text-indigo-400"
-                                            />
-                                            Klicke auf das Bild, um es zu ändern
-                                        </p>
+
                                     </div>
                                 ) : (
                                     <p className="text-sm text-gray-200 text-center">Bild hochladen <br /> oder <br /> hinein ziehen</p>
                                 )}
                             </div>
                         )}
-
+                        <p className="text-sm flex flex-row items-center text-gray-200/60 w-full flex justify-center ">
+                            <HiInformationCircle
+                                className="w-4 h-4 mr-2 text-indigo-400"
+                            />
+                            Klicke auf das Bild,  um es zu ändern
+                        </p>
                         {imageSrc && (
                             <div className="relative w-[250px] h-[250px] bg-black rounded-full overflow-hidden">
                                 <Cropper

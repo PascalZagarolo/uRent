@@ -22,7 +22,7 @@ const BusinessRender = ({
     return (
         <div className="flex flex-col w-full space-y-8">
             <div className="w-full">
-            <UploadBusinessPics
+                <UploadBusinessPics
                     usedImages={thisUser.business.businessImages}
                     businessId={thisUser.business.id}
                     ownProfile={ownProfile}
@@ -41,7 +41,7 @@ const BusinessRender = ({
                         ownProfile={ownProfile}
                     />
                 </div>
-                <div className="w-full">
+                <div className="w-full h-full">
                     <BusinessContact
                         telephone={thisUser.business.telephone_number}
                         email={thisUser.business.email}

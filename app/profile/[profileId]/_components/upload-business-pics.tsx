@@ -53,7 +53,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null);
 
 
-    const router = useRouter();
+    
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const reader = new FileReader();
@@ -72,7 +72,19 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
     const uploadCroppedImage = async () => {
         try {
             setIsLoading(true);
-            const cropped = await getCroppedImg(imageSrc!, croppedAreaPixels);
+            // Validate that imageSrc is not null, undefined, or empty
+            if (!imageSrc) {
+                toast.error("Kein Bild zum Zuschneiden vorhanden");
+                return;
+            }
+            
+            // Also check for valid croppedAreaPixels
+            if (!croppedAreaPixels) {
+                toast.error("Bitte wählen Sie einen Bildbereich aus");
+                return;
+            }
+            
+            const cropped = await getCroppedImg(imageSrc, croppedAreaPixels);
 
             // Convert blob to a local object URL so it can be shown immediately
             const previewUrl = URL.createObjectURL(cropped);
@@ -81,8 +93,6 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
             setCroppedBlob(cropped);
             setCurrentImage({ url: previewUrl }); // Show locally
             setImageSrc(null); // Close cropper
-
-
         } catch (e) {
             console.error(e);
             toast.error("Fehler beim Zuschneiden des Bildes");
@@ -94,7 +104,11 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
 
 
     const onSave = async () => {
-        if (!croppedBlob || !currentImage?.url.startsWith("blob:")) return;
+        // Check if we have a blob to upload and a valid currentImage
+        if (!croppedBlob || !currentImage || !currentImage.url || !currentImage.url.startsWith("blob:")) {
+            toast.error("Bitte zuerst ein Bild zuschneiden");
+            return;
+        }
 
         try {
             setIsLoading(true);
@@ -158,7 +172,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 <div>
                     <Button className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md group" onClick={() => { setShowDialog(true) }}>
                         <Image
-                            src={finalImage}
+                            src={finalImage || "/placeholder-banner.jpg"}
                             quality={100}
                             fill
                             style={{ objectFit: "cover" }}
@@ -172,7 +186,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                 </div>
             )}
 
-            {(currentImage && !ownProfile) && (
+{(currentImage && !ownProfile) && (
                 <div className="w-full h-[320px] relative overflow-hidden rounded-none sm:rounded-t-md">
                     <Image
                         src={currentImage?.url}
@@ -186,7 +200,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
             )}
 
             {(!currentImage?.url && ownProfile) && (
-                <div className={cn("text-gray-200/80 bg-gradient-to-b from-[#16161f] to-[#1a1a25] text-sm flex justify-center py-10 shadow-lg items-center border border-indigo-900/20",
+                <div className={cn("text-gray-200/80 bg-gradient-to-b from-[#16161f] to-[#1a1a25] text-sm flex justify-center py-24 shadow-lg items-center border border-indigo-900/20",
                     isDragActive && "border-indigo-600/40 bg-indigo-900/10")}
                     {...getRootProps()}>
                     <input {...getInputProps()} />
@@ -253,7 +267,7 @@ const UploadBusinessPics: React.FC<UploadBusinessPicsProps> = ({
                                 </Button>
                                 <Button className="w-1/2 bg-rose-600/90 hover:bg-rose-700 text-gray-200"
                                     onClick={() => {
-                                        setImageSrc("");
+                                        setImageSrc(null);
                                         setZoom(1);
                                         setCroppedAreaPixels(null);
                                     }}

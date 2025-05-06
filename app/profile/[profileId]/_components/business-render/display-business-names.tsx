@@ -26,7 +26,7 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
         <div className="p-6 bg-[#16161f] rounded-lg shadow-sm border border-indigo-900/30">
             <div className="flex flex-row items-center justify-between">
                 <div className="flex items-center gap-x-2">
-                    <p className="text-gray-200 text-2xl font-semibold break-all line-clamp-1">{name}</p> 
+                    <p className="text-gray-200 text-2xl font-semibold line-clamp-2">{name}</p> 
                     {uRent && (
                         <TooltipProvider>
                             <Tooltip>
@@ -45,9 +45,7 @@ const DisplayBusinessNames = ({ name, sharesRealName, firstName, lastName, joine
                     )}
                 </div>
                 {!ownProfile && (
-                    <div>
-                        <UserOptions />
-                    </div>
+                    <UserOptions />
                 )}
             </div>
             {sharesRealName && (firstName || lastName) && (

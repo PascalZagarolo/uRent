@@ -36,29 +36,29 @@ const RegisterBusiness = () => {
     return (
         <div className="mt-4">
             <AlertDialog>
-                <Alert className="dark:bg-[#222222] shadow-lg dark:border-none md:rounded-r-none rounded-md">
-                    <GiCarKey className="h-4 w-4" />
+                <Alert className="bg-gradient-to-b from-[#181a2a] to-[#16161f] shadow-2xl border-2 border-indigo-700 md:rounded-r-none rounded-md text-gray-200">
+                    <GiCarKey className="h-4 w-4 text-indigo-400" />
                     <AlertTitle>Du bist Vermieter?</AlertTitle>
                     <AlertDescription>
                         Klicke <AlertDialogTrigger className="underline px-0.5 hover:cursor-pointer"> hier </AlertDialogTrigger>
                         , um dein Konto kostenlos in ein Vermieterprofil umzuwandeln.
                     </AlertDescription>
                 </Alert>
-                <AlertDialogContent className="dark:bg-[#191919] dark:border-none">
+                <AlertDialogContent className="bg-gradient-to-b from-[#23244a] to-[#19191f] border-2 border-indigo-700 text-gray-200 shadow-2xl">
                     <div>
                         <h3 className="font-semibold text-lg flex items-center">
-                        <MdSwapHoriz className="w-4 h-4 mr-2" />  Konto umwandeln ?
+                        <MdSwapHoriz className="w-4 h-4 mr-2 text-indigo-400" />  Konto umwandeln ?
                         </h3>
-                        <div className="text-xs dark:text-gray-200/70">
+                        <div className="text-xs text-gray-400">
                             <p>Ein gewerbliches Konto bietet dir zusätzliche Funktionen wie die Möglichkeit, deinen Auftritt, weiter zu personalisieren,
                                 und die Möglichkeit ein Impressum, Standorte und Öffnungszeiten hinzuzufügen.
                             </p>
-                            <p>Das erstellen eines gewerblichen Kontos, unterliegt unseren <a className="hover:cursor underline" href="/agbs" target="_blank"> 
+                            <p>Das erstellen eines gewerblichen Kontos, unterliegt unseren <a className="hover:cursor underline text-indigo-400" href="/agbs" target="_blank"> 
                             Allgemeinen Geschäftsbedingungen </a></p>
                         </div>
                         <AlertDialogFooter className="mt-2">
-                            <AlertDialogCancel className="dark:border-none">Abbrechen</AlertDialogCancel>
-                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 dark:text-gray-200"
+                            <AlertDialogCancel className="border-none text-gray-300">Abbrechen</AlertDialogCancel>
+                            <AlertDialogAction className="bg-indigo-800 hover:bg-indigo-900 text-gray-200"
                             onClick={onBusinessRegister} disabled={isLoading}>
                             Umwandeln
                             </AlertDialogAction>

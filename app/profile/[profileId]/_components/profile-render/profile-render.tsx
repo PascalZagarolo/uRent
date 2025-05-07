@@ -15,13 +15,13 @@ const ProfileRender = ({ thisUser, ownProfile, currentUser } : ProfileRenderProp
 
             <div className="flex flex-col">
             <div>
-                <ProfileRenderHeader 
+            <ProfileRenderHeader 
                 userImage={thisUser.image}
                 ownProfile={ownProfile}
                 currentUser={currentUser}
                 />
             </div>
-            <div className="md:flex md:flex-row items-center w-full md:space-x-4">
+            <div className="md:flex md:flex-row items-center w-full md:space-x-4 md:mt-12">
                 <div className="md:w-1/2 w-full">
                     <DisplayBusinessNames
                         name={thisUser.name}

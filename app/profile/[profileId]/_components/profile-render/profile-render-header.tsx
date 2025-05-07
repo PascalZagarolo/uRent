@@ -25,7 +25,7 @@ const ProfileRenderHeader: React.FC<ProfileRenderHeaderProps> = ({
    
     return (
         <div className="relative">
-            <div className="h-[320px] w-full bg-[#222222] shadow-lg" />
+            <div className="h-[320px] w-full  shadow-lg" />
            {ownProfile ? (
             <div className="absolute bottom-[-40px] left-8">
             <BusinessHeaderAvatar existingImageUrl={userImage} userId={currentUser?.id} />

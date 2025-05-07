@@ -145,21 +145,17 @@ const PremiumButton: React.FC<PremiumButtonProps> = ({
                 existingSubscription ? (
                     canUpgrade ? (
                         //@ts-ignore
-
-                        <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2" onClick={onUpgrade}
-                        >
+                        <Button className="w-full text-sm bg-white text-indigo-700 border border-indigo-300 shadow-sm hover:bg-indigo-700 hover:text-white hover:border-indigo-700 transition-colors duration-200 mt-2 mb-2 rounded-xl font-semibold" onClick={onUpgrade}>
                             Upgraden
                         </Button>
                     ) : (
-                        <Button className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-500 mt-2 mb-2" disabled
-                        >
-                            <CheckIcon className="mr-2 w-4 h-4" />   im Besitz
+                        <Button className="w-full text-sm bg-gray-100 text-indigo-300 border border-gray-200 shadow-sm mt-2 mb-2 rounded-xl font-semibold cursor-not-allowed" disabled>
+                            <CheckIcon className="mr-2 w-4 h-4 text-indigo-200" />   im Besitz
                         </Button >
                     )
 
                 ) : (
-                    <Button className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-gray-200 mt-2 mb-2"
-                        onClick={onSubscribe}>
+                    <Button className="w-full text-sm bg-white text-indigo-700 border border-indigo-300 shadow-sm hover:bg-indigo-700 hover:text-white hover:border-indigo-700 transition-colors duration-200 mt-2 mb-2 rounded-xl font-semibold" onClick={onSubscribe}>
                         Vorteile sichern
                     </Button >
 

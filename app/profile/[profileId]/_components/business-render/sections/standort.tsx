@@ -93,14 +93,7 @@ const StandortRender: React.FC<StandortRenderProps> = ({
                 method: "POST",
                 body: formData
             })
-                // .then((response) => {
-                //     return response.json();
-                // })
-                // .then((data) => {
-
-                //     setCurrentUrl(data.secure_url);
-                //     setIsUploaded(true);
-                // });
+              
             const formattedResponse = await response.json();
            
             

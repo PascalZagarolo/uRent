@@ -112,13 +112,13 @@ const LoggedInBarHeader: React.FC<LoggedInBarHeaderProps> = ({
           />
         </div>
         
-        <div className="lg:block hidden">
+        <div className="xl:block hidden">
           <FavouritesShortCut
             currentUser={currentUser}
           />
         </div>
         
-        <div className="sm:block hidden">
+        <div className="xl:block hidden">
           <ConversationShortCut
             foundConversations={foundConversations || 0}
           />

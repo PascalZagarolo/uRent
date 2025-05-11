@@ -62,7 +62,7 @@ const Proximity = () => {
       onValueChange={(e) => onClick(e)}
       value={currentRadius.toString()}
     >
-      <SelectTrigger className="w-[120px] h-10 bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white text-sm font-medium border-none rounded-l-none rounded-r-md transition-all duration-300 focus:ring-1 focus:ring-indigo-500/60 shadow-md">
+      <SelectTrigger className="w-[140px] h-10 bg-gradient-to-r from-indigo-600 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white text-sm font-medium border-none rounded-l-none rounded-r-md transition-all duration-300 focus:ring-1 focus:ring-indigo-500/60 shadow-md">
         <div className="flex items-center">
           <MapPin className="h-3.5 w-3.5 mr-1.5 text-white/90 stroke-[2.2px] group-hover:scale-110 transition-transform duration-300" />
           <SelectValue placeholder="Umkreis" />

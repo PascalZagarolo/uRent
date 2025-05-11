@@ -85,7 +85,8 @@ const Inserat: React.FC<InseratProps> = ({
                 {isEvent ? (
                     <DialogTrigger asChild>
                         <div>
-                            <button className="px-4 h-10 border border-indigo-500/30 rounded-md text-white bg-indigo-600/20 hover:bg-indigo-600/30 text-sm font-medium transition-colors flex items-center gap-2">
+                            <button className="px-4 h-10 border border-indigo-500/30 
+                            rounded-md text-white bg-indigo-600/20 hover:bg-indigo-600/30 text-sm font-medium transition-colors flex items-center gap-2">
                                 <RxCardStackPlus className="h-4 w-4" />
                                 Jetzt Vermieten
                             </button>
@@ -98,7 +99,7 @@ const Inserat: React.FC<InseratProps> = ({
                             onClick={() => { !currentUser && router.push("/login") }}
                         >
                             <RxCardStackPlus  className="w-4 h-4" />
-                            <span className="text-sm font-medium">Inserat erstellen</span>
+                            <span className="text-sm font-medium hidden xl:block">Inserat erstellen</span>
                         </Button>
                     ) : (
                         isntLoggedIn ? (
@@ -107,14 +108,14 @@ const Inserat: React.FC<InseratProps> = ({
                                 onClick={() => { !currentUser && router.push("/login") }}
                             >
                                 <RxCardStackPlus  className="w-4 h-4" />
-                                <span className="text-sm font-medium">Inserat erstellen</span>
+                                <span className="text-sm font-medium hidden xl:block">Inserat erstellen</span>
                             </Button>
                         ) : (
                             currentUser.isBusiness ? (
                                 <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
                                     <Button className="flex items-center gap-2  mt-2 px-2.5 py-0 bg-indigo-600 hover:bg-indigo-700 text-gray-200 items-center flex-row rounded-md shadow-md transition-colors">
                                     <RxCardStackPlus  className="w-4 h-4" />
-                                        <span className="text-xs font-medium hidden md:block">Inserat erstellen</span>
+                                        <span className="text-xs font-medium hidden xl:block">Inserat erstellen</span>
                                     </Button>
                                 </DialogTrigger>
                             ) : (

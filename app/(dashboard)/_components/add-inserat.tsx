@@ -113,7 +113,7 @@ const Inserat: React.FC<InseratProps> = ({
                         ) : (
                             currentUser.isBusiness ? (
                                 <DialogTrigger className="" onClick={() => { !currentUser && router.push("/login") }} asChild>
-                                    <Button className="flex items-center gap-2  mt-2 px-2.5 py-0 bg-indigo-600 hover:bg-indigo-700 text-gray-200 items-center flex-row rounded-md shadow-md transition-colors">
+                                    <Button className="flex gap-2  mt-2 px-2.5 py-0 bg-indigo-600 hover:bg-indigo-700 text-gray-200 items-center flex-row rounded-md shadow-md transition-colors">
                                     <RxCardStackPlus  className="w-4 h-4" />
                                         <span className="text-xs font-medium hidden xl:block">Inserat erstellen</span>
                                     </Button>
@@ -123,7 +123,7 @@ const Inserat: React.FC<InseratProps> = ({
                                     <DialogTrigger>
                                         <div className="flex items-center gap-1.5 px-2.5 py-0 bg-indigo-600 hover:bg-indigo-700 text-gray-200 rounded-md shadow-md cursor-pointer transition-colors">
                                         <RxCardStackPlus  className="w-4 h-4" />
-                                            <span className="text-sm font-medium hidden md:block">Inserat erstellen</span>
+                                            <span className="text-sm font-medium hidden xl:block">Inserat erstellen</span>
                                         </div>
                                     </DialogTrigger>
                                     <DialogContent className="bg-[#141721] rounded-md border-none shadow-lg">

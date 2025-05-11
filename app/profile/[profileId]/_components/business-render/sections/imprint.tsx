@@ -122,12 +122,12 @@ const Imprint: React.FC<ProfileDescriptionProps> = ({
                                                     onChange={(e) => { setCurrentContent(e.target.value) }}
                                                     value={currentContent}
                                                     ref={textareaRef}
-                                                    maxLength={5000}
+                                                    maxLength={30000}
                                                 />
                                             </FormControl>
                                             <FormMessage />
                                             <div className="ml-auto flex justify-end">
-                                                <LetterRestriction limit={5000} currentLength={currentContent?.length ? currentContent?.length : 0} />
+                                                <LetterRestriction limit={30000} currentLength={currentContent?.length ? currentContent?.length : 0} />
                                             </div>
                                         </FormItem>
                                     )}

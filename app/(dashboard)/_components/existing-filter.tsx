@@ -31,7 +31,6 @@ const ExistingFilter = () => {
                                 {Object.entries(searchParams)
                                     .filter(([key, value]) => value !== null)
                                     .map(([pKey, value]) => (
-
                                         <ExistingFilterBubble key={pKey} value={value} pKey={pKey} />
                                     ))}
                             </div>

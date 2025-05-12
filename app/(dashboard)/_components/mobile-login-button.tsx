@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 const MobileLoginButton = () => {
 
     const router = useRouter();
-
     return ( 
         <div className="flex flex-row items-center space-x-4">
          <Button className="bg-slate-800 dark:border-none  hover:bg-slate-700 text-gray-100" onClick={() => {router.push("/login")}} >

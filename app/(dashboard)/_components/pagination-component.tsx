@@ -10,7 +10,15 @@ import { motion } from "@/components/motion";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const PaginationComponent = () => {
+// Add props for category, city, and extraType
+interface PaginationComponentProps {
+  category?: string;
+  city?: string;
+  extraType?: string;
+  radius?: number;
+}
+
+const PaginationComponent = ({ category, city, extraType, radius }: PaginationComponentProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -26,7 +34,7 @@ const PaginationComponent = () => {
   const params = getSearchParamsFunction("page");
   const filter = searchParams.get("filter");
   
-  // Get saved search params from store
+  // Get saved search params from store 
   const savedSearchParams = useSavedSearchParams((state) => state.searchParams);
   const itemsPerPage = useResultsPerPage((state) => state.results);
 
@@ -37,7 +45,20 @@ const PaginationComponent = () => {
       
       setIsLoading(true);
       try {
-        const response = await axios.patch('/api/search', savedSearchParams);
+        // Overwrite or add category, city, extraType if provided
+        const mergedParams: Record<string, any> = { ...savedSearchParams };
+        if (category) mergedParams.thisCategory = category.toUpperCase();
+        if (radius) mergedParams.radius = radius;
+        if (city) {
+          let location = city;
+          if (location.includes('oe')) {
+            location = location.replace(/oe/g, 'ö');
+          }
+          mergedParams.location = location;
+        }
+        if (extraType) mergedParams.extraType = extraType;
+        console.log(mergedParams) + "!!!!!!!!!!!"
+        const response = await axios.patch('/api/search', mergedParams);
         if (response.data !== undefined) {
           // Set total count from API response
           const count = Number(response.data);
@@ -57,7 +78,7 @@ const PaginationComponent = () => {
     };
 
     fetchTotalCount();
-  }, [savedSearchParams, filter]);
+  }, [savedSearchParams, filter, category, city, extraType]);
 
   const changePage = (page: number) => {
     const url = qs.stringifyUrl({
@@ -152,7 +173,7 @@ const PaginationComponent = () => {
   }
 
   return (
-    <div className="dark:bg-[#13141C] bg-white py-4 mt-2 sm:mt-0 sm:p-4 w-full sm:w-[1060px] flex justify-center">
+    <div className=" py-4 mt-2 sm:mt-0 sm:p-4 w-full sm:w-[1060px] flex justify-center">
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -217,7 +238,7 @@ const PaginationComponent = () => {
             className="flex items-center justify-center h-9 w-9 rounded-full bg-[#252838] text-gray-300 hover:bg-indigo-600 hover:text-white transition-all duration-200"
             aria-label="Next page"
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={18} /> 
           </motion.button>
         )}
       </motion.div>

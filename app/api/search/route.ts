@@ -42,10 +42,7 @@ export async function PATCH(
 
             volume, loading_l, loading_b, loading_h, title, radius, caution,
             ...filteredValues } = values;
-            console.log(startDateDynamic, endDateDynamic)
-            console.log(startTime)
-            console.log(endTime)
-            console.log(minTime)
+            console.log(location + "!!!!!!!!!!")
             
 
         const ConditionFilter = (pInserat: typeof inserat) => {
@@ -676,7 +673,7 @@ export async function PATCH(
 
 
 
-        const ilikeQuery = title ? title.split(' ').map((w: any) => ilike(inserat.title, `%${w}%`)) : "";
+        
 
         const results = await db.query.inserat.findMany({
             where:

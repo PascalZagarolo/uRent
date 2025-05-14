@@ -1,93 +1,52 @@
 'use client'
 
-
-import { Instagram, MailCheckIcon, MailIcon, TruckIcon, Twitter } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { EmailIcon } from "react-share";
+import { Instagram, MailIcon, Twitter } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
-
-  const router = useRouter();
-
   return (
-    <div className=" bottom-0 mt-1 dark:bg-[#0F0F0F] bg-[#191B27] w-full sticky border-y border-gray-300/10">
-      <div className="flex flex-row items-center p-4 sm:hidden ">
-                  <a
-                  href="https://www.instagram.com/urent.de/"
-                  >
-                  <Instagram className="w-6 h-6 mr-4" />
-                  </a>
-                  <a>
-                    <Twitter className="w-6 h-6 mr-4" />
-                  </a>
-                  <a href="mailto:support@urent-rental.de">
-  <MailIcon className="w-6 h-6 mr-4" />
-</a>
-                </div>
-      <div className="flex justify-center text-gray-200   dark:text-gray-900 sm:mt-2    w-full">
-      
-        <div className="2xl:w-[1044px]  w-full bg-[#0b0c13]bg-[#0b0c13] rounded-lg pb-4 px-4 sm:p-4">
-          <div className="flex items-center">
-            
-            <div className="dark:text-gray-100 text-lg sm:text-xl font-semibold md:block hidden pl-16"> uRent </div>
-
-            <div className="flex justify-evenly gap-x-8 sm:gap-x-0 dark:text-gray-200 font-medium sm:font-semibold w-full sm:text-sm text-xs">
-            <div className="font-medium flex-col">
-
-<a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/about-us">
-    Über uns
-  </a>
-  <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/contact">
-    Kontakt
-  </a>
-  <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/career">
-    Karriere
-  </a>
-</div>
-
-              <div className="font-medium flex-col">
-                <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/imprint">
-                  Impressum
-                </a>
-                <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/data-privacy">
-                  Datenschutz
-                </a>
-                <a className="hover:underline hover:cursor-pointer  text-sm sm:text-sm block" href="/agbs">
-                  AGBs
-                </a>
-              </div>
-
-              <div className="flex flex-col">
-              <a className="hover:underline hover:cursor-pointer  sm:text-sm text-sm" href="/faqs">
-               FAQs & Hilfe
-              </a>
-              <a className="hover:underline hover:cursor-pointer  sm:text-sm text-sm" href="/blog">
-               Blogs & News
-              </a>
-              
-              </div>
-
-              <div className="hidden sm:block">
-                
-                <div className="flex flex-row items-center mt-2">
-                  <a
-                  href="https://www.instagram.com/urent.de/"
-                  >
-                  <Instagram className="w-6 h-6 mr-4" />
-                  </a>
-                  <a>
-                    <Twitter className="w-6 h-6 mr-4" />
-                  </a>
-                  <a href="mailto:support@urent-rental.de">
-  <MailIcon className="w-6 h-6 mr-4" />
-</a>
-                </div>
-              </div>
-            </div>
+    <footer className="w-full border-t border-gray-700/30 bg-[#191B27]/80 dark:bg-[#0F0F0F]/80 backdrop-blur-md py-6 px-2">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Left: Logo and Socials */}
+        <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 w-full md:w-auto">
+          <span className="text-lg font-semibold text-white/90 tracking-tight">uRent</span>
+          <div className="flex gap-3 mt-1 md:mt-0">
+            <a href="https://www.instagram.com/urent.de/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <Instagram className="w-5 h-5 text-gray-400 hover:text-white transition" />
+            </a>
+            <a href="#" aria-label="Twitter">
+              <Twitter className="w-5 h-5 text-gray-400 hover:text-white transition" />
+            </a>
+            <a href="mailto:support@urent-rental.de" aria-label="E-Mail">
+              <MailIcon className="w-5 h-5 text-gray-400 hover:text-white transition" />
+            </a>
           </div>
         </div>
+        {/* Center: Navigation Links */}
+        <div className="flex flex-wrap justify-center gap-4 text-gray-400 text-xs font-normal w-full md:w-auto">
+          <a className="hover:underline" href="/about-us">Über uns</a>
+          <a className="hover:underline" href="/contact">Kontakt</a>
+          <a className="hover:underline" href="/career">Karriere</a>
+          <a className="hover:underline" href="/imprint">Impressum</a>
+          <a className="hover:underline" href="/data-privacy">Datenschutz</a>
+          <a className="hover:underline" href="/agbs">AGBs</a>
+          <a className="hover:underline" href="/faqs">FAQs & Hilfe</a>
+          <a className="hover:underline" href="/blog">Blogs & News</a>
+        </div>
+        {/* Right: Jetzt mieten Button */}
+        <div className="w-full md:w-auto flex justify-center md:justify-end">
+          <Button
+            asChild
+            className="bg-indigo-600 text-white px-6 py-2 text-sm font-medium rounded-full shadow hover:bg-indigo-700 transition"
+          >
+            <a href="/mieten">Jetzt mieten</a>
+          </Button>
+        </div>
       </div>
-    </div>
+      <div className="border-t border-gray-700/30 mt-6 pt-3 text-center text-xs text-gray-500/80">
+        &copy; {new Date().getFullYear()} uRent. Alle Rechte vorbehalten.
+      </div>
+    </footer>
   );
 }
 

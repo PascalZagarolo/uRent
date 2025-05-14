@@ -2,6 +2,8 @@ import db from "@/db/drizzle";
 import { blog, inserat } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { MetadataRoute } from "next";
+import { cities } from "@/data/cities/getCitites";
+import { extraTypes } from "@/data/cities/getExtraTypes";
 
 
 export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
@@ -29,7 +31,41 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
             lastModified : new Date(pBlog.createdAt)
     }))
 
-    
+    const categorySlugs = ["pkw", "lkw", "transporter", "anhaenger"];
+
+    function slugifyCity(str: string) {
+        return str
+            .toLowerCase()
+            .replace(/ä/g, "ae")
+            .replace(/ö/g, "oe")
+            .replace(/ü/g, "ue")
+            .replace(/ß/g, "ss")
+            .replace(/ /g, "-");
+    }
+
+    const mietenRoutes = [
+        { url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten` }
+    ];
+
+    const mietenCityCategoryRoutes = [];
+    const mietenCityCategoryExtraTypeRoutes = [];
+
+    for (const city of cities) {
+        for (const category of categorySlugs) {
+            mietenCityCategoryRoutes.push({
+                url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/${category}`
+            });
+
+            // Only for PKW, add extraType routes
+            if (category === "pkw") {
+                for (const extra of extraTypes) {
+                    mietenCityCategoryExtraTypeRoutes.push({
+                        url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/pkw/${extra.name}`
+                    });
+                }
+            }
+        }
+    }
 
     return [
         {
@@ -65,6 +101,9 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         {
             url : `${process.env.NEXT_PUBLIC_BASE_URL}/faqs/vermieter`,
         },
+        ...mietenRoutes,
+        ...mietenCityCategoryRoutes,
+        ...mietenCityCategoryExtraTypeRoutes,
         ...inseratSites,
         ...blogSites
     ]

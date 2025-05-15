@@ -780,20 +780,29 @@ export async function PATCH(
         let filteredResult = [];
 
         if (location) {
-            console.log(location)
+            
             const usedRadius = radius ? radius : 50;
             let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
 
             if (addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
-                for (const pInserat of filteredArray) {
-                    const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
-                        Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
-                    if (distance < usedRadius) {
-                        filteredResult.push(pInserat);
+                if(radius == 1) {
+                    //radius == 1 means, that only inserate in the same locations should be display ==> compare Location Strings.
+                    for (const pInserat of filteredArray) {
+                        if(location == pInserat?.address?.locationString) {
+                            filteredArray.push(pInserat)
+                        }
+}
+                } else {
+                    for (const pInserat of filteredArray) {
+                        const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
+                            Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
+                        if (distance < usedRadius) {
+                            filteredArray.push(pInserat);
+                        }
                     }
                 }
             } else {
-                console.log("no address found")
+                
                 filteredResult = filteredArray;
             }
 

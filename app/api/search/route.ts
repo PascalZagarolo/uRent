@@ -42,7 +42,7 @@ export async function PATCH(
 
             volume, loading_l, loading_b, loading_h, title, radius, caution,
             ...filteredValues } = values;
-            console.log(location + "!!!!!!!!!!")
+            console.log(values)
             
 
         const ConditionFilter = (pInserat: typeof inserat) => {
@@ -776,20 +776,21 @@ export async function PATCH(
             }
             return true;
         });
-
+        
         let filteredResult = [];
 
         if (location) {
             
             const usedRadius = radius ? radius : 50;
             let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-
+            
             if (addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
                 if(radius == 1) {
+                    const cleanLocation = location?.replace(/,?\s*Deutschland$/, '').trim();
                     //radius == 1 means, that only inserate in the same locations should be display ==> compare Location Strings.
                     for (const pInserat of filteredArray) {
-                        if(location == pInserat?.address?.locationString) {
-                            filteredArray.push(pInserat)
+                        if(location == pInserat?.address?.locationString || cleanLocation == pInserat?.address?.locationString) {
+                            filteredResult.push(pInserat)
                         }
 }
                 } else {
@@ -797,7 +798,7 @@ export async function PATCH(
                         const distance = calculateDistance(addressObject.data[0].lat, addressObject.data[0].lon,
                             Number(pInserat.address?.latitude), Number(pInserat.address?.longitude));
                         if (distance < usedRadius) {
-                            filteredArray.push(pInserat);
+                            filteredResult.push(pInserat);
                         }
                     }
                 }

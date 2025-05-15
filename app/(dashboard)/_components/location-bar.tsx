@@ -122,7 +122,12 @@ const AutoComplete = () => {
   const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
   
 
-
+  useEffect(() => {
+    if(usedLocation) {
+      changeSearchParams("location", usedLocation)
+      setValue(usedLocation)
+    }
+  },[])
 
 
   useEffect(() => {

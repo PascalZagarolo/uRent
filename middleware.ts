@@ -14,11 +14,14 @@ export const config = {
 };
 
 export default async function middleware(request: NextRequest) {
-  // You could alternatively limit based on user ID or similar
+  // Only apply rate limiting in production
+  if (process.env.NODE_ENV !== 'production') {
+    return NextResponse.next(); // Skip rate limiting in development
+  }
+
   const ip = request.ip ?? '127.0.0.1';
-  const { success, pending, limit, reset, remaining } = await ratelimit.limit(
-    ip
-  );
+  const { success } = await ratelimit.limit(ip);
+
   return success
     ? NextResponse.next()
     : NextResponse.redirect(new URL('/blocked', request.url));

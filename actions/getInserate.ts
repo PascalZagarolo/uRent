@@ -992,28 +992,13 @@ export const getInserate = cache(async ({
 
             const usedRadius = radius ? radius : 50;
             let addressObject = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=${process.env.GEOCODING_API}`);
-           
-            /*
-            if(!addressObject?.data[0]?.lat || !addressObject?.data[0]?.lon) {
-                const words = location.split(' ');
-                console.log(words)
-                for (let word of words) {
-                    addressObject = await axios.get(`https://geocode.maps.co/search?q=${word}&api_key=${process.env.GEOCODING_API}`);
-                    console.log(word)
-                    if(addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
-                        console.log(addressObject?.data[0]?.lat);
-                        console.log(addressObject?.data[0]?.lon);
-                        console.log("test2")
-                        break;
-                    }
-                }
-            }
-            */
+          
             if (addressObject?.data[0]?.lat && addressObject?.data[0]?.lon) {
                 if(radius == 1) {
+                    const cleanLocation = location?.replace(/,?\s*Deutschland$/, '').trim();
                     //radius == 1 means, that only inserate in the same locations should be display ==> compare Location Strings.
                     for (const pInserat of filteredArray) {
-                        if(location == pInserat?.address?.locationString) {
+                        if(location == pInserat?.address?.locationString || cleanLocation == pInserat?.address?.locationString) {
                             returnedArray.push(pInserat)
                         }
                     }
@@ -1067,7 +1052,7 @@ export const getInserate = cache(async ({
             returnedArray = [...shuffledPremium, ...shuffledNonPremium];
             
         }
-        console.log(returnedArray.length)
+        
         return returnedArray;
 
     } catch (error: any) {

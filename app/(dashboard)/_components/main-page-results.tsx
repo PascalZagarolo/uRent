@@ -108,7 +108,7 @@ const MainPageResults = () => {
         <div className="px-4 mb-4">
             <button
                 onClick={onRedirect}
-                className="w-full h-24 rounded-md flex flex-col px-2.5  bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white flex items-center justify-center gap-3 shadow-md hover:shadow-lg transition-all duration-200"
+                className="w-full h-24 rounded-md  flex-col px-2.5  bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white flex items-center justify-center gap-3 shadow-md hover:shadow-lg transition-all duration-200"
             >
 
                 <div className="flex flex-col items-center justify-center">

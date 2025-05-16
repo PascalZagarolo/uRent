@@ -21,17 +21,7 @@ const MietenGeneralPageLayout = cache(async (
     { children }: { children: React.ReactNode }
 ) => {
 
-    
-
-
-
     const currentUser = await getCurrentUserWithNotifications();
-
-    
-
-    
-
-
 
     return (
         <div className=" dark:bg-[#101114] min-h-screen no-scrollbar">

@@ -28,17 +28,17 @@ const SearchItem = () => {
 
     const [value, setValue] = useState(currentTitle || "");
 
-    const [isLoading, setIsLoading] = useState(false);
+  
     const [showDropdown, setShowDropdown] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [isSearching, setIsSearching] = useState(true);
 
     
 
-    const params = getSearchParamsFunction("user");
+    
+
+  
 
 
-    const debouncedValue = useDebounce(value, 250);
+
 
     
 
@@ -54,8 +54,9 @@ const SearchItem = () => {
         } else {
             setValue("");
         }
-    }, [searchParams, currentTitle])
-      useEffect(() => {
+    }, [currentTitle])
+      
+    useEffect(() => {
         
         changeSearchParams("title", value);
         if(!value && !currentTitle) {
@@ -64,7 +65,6 @@ const SearchItem = () => {
             setValue("");
         }
       },[value])
-
       
 
 
@@ -137,7 +137,7 @@ const SearchItem = () => {
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        onFocus={() => {setShowDropdown(true); setIsSearching(true)}}
+
                         maxLength={200}
                     />
                     {value && (

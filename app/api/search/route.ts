@@ -44,7 +44,7 @@ export async function PATCH(
 
             volume, loading_l, loading_b, loading_h, title, radius, caution,
             ...filteredValues } = values;
-            console.log(values)
+            
             
 
         const ConditionFilter = (pInserat: typeof inserat) => {
@@ -816,6 +816,7 @@ export async function PATCH(
         // Always return the total count of all filtered results
         // This ensures pagination works correctly regardless of sorting
         console.log(filteredResult.length)
+        console.log(title)
         return NextResponse.json(filteredResult.length);
 
     } catch (error: any) {

@@ -161,13 +161,9 @@ const RelevanteInserate: React.FC<RelevanteInserateProps> = cache(async ({
     transportBrand,
     ahk
 }) => {
-    let favedInserate: typeof favourite.$inferSelect[] = [];
+    
 
-    if (currentUser) {
-        favedInserate = await db.query.favourite.findMany({
-            where: eq(favourite?.userId, currentUser?.id)
-        })
-    }
+    
 
     const foundInserate = await getInserate({
         title: title,

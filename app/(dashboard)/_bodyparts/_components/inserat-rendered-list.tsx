@@ -2,7 +2,7 @@
 
 
 import InseratCard from "../../_components/inserat-card";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAvailableInseratePresent, useGetFilterAmount, useResultsPerPage } from "@/store";
 import {  inserat, 
@@ -31,12 +31,14 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
     const { changeAvailableAmount } = useAvailableInseratePresent()
     
     
-    useGetFilterAmount.setState({ amount: inserateArray.length })
+    
 
-    useMemo(() => {
+    
+    useEffect(() => {
         useGetFilterAmount.setState({ amount: inserateArray.length })
         changeAvailableAmount(inserateArray.length)
     }, [inserateArray])
+    
 
 
 

@@ -74,7 +74,7 @@ const AutoComplete = () => {
 
   const onSearch = (keyword?: string, backupCity? : string) => {
     const {//@ts-ignore
-      thisCategory, location, ...filteredValues } = searchParams;
+      thisCategory, location, title, ...filteredValues } = searchParams;
 
     //@ts-ignore
     const usedStart = filteredValues.periodBegin;
@@ -107,7 +107,7 @@ const AutoComplete = () => {
         type: filteredValues.thisType,
         location: keyword || location,
         locationCity : backupCity,
-
+        title: title,
         ...filteredValues
       },
 
@@ -181,12 +181,6 @@ const AutoComplete = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (usedLocation) {
-  //     setValue(usedLocation)
-  //     changeSearchParams("location", usedLocation)
-  //   }
-  // }, [])
 
 
 

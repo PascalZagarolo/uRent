@@ -3,7 +3,7 @@
 import { useSavedSearchParams, useGetFilterAmount } from "@/store";
 import axios from "axios";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import qs from "query-string";
 import { ArrowRight, Search, SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -48,23 +48,13 @@ const MainPageResults = () => {
 
     const router = useRouter();
 
-    const firstLoad = useRef(true);
+    
    
-    useEffect(() => {
-       console.log()
-        if(firstLoad.current) {
-            firstLoad.current = false;
-            getSearchResults();
-            return;
-        }
-    }, [savedSearchParams]);
+    
 
    
-    useEffect(() => {
-        if(!firstLoad.current) {
-            getSearchResults();
-            return;
-        }
+    useMemo(() => {
+        getSearchResults();
     }, [searchParams]);
   
     const onRedirect = () => {

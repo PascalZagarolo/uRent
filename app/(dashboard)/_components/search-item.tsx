@@ -41,11 +41,13 @@ const SearchItem = () => {
       const pathname = usePathname();
 
       useEffect(() => {
+        console.log(debouncedValue + "debounced!")
         changeSearchParams("title", debouncedValue);
       },[debouncedValue])
 
 
       useEffect(() => {
+        console.log(currentTitle + "currentTitle!")
          setValue(currentTitle || "")
          changeSearchParams("title", currentTitle || "");
       }, [currentTitle])

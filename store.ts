@@ -209,3 +209,16 @@ export const useOpenAvailabilityOnPageLoad = create<openAvailabilityOnPageLoadPa
         set({ openOnPageLoad : action })
     }
 }))
+
+
+type availableInseratePresent = {
+    availableAmount : number;
+    changeAvailableAmount : (action : number) => void;
+}
+
+export const useAvailableInseratePresent = create<availableInseratePresent>((set) => ({
+    availableAmount : 0,
+    changeAvailableAmount : (action : number) => {
+        set({ availableAmount : action })
+    }
+}))

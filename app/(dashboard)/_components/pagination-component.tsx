@@ -3,7 +3,7 @@
 import qs from "query-string";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
-import { useGetFilterAmount, useResultsPerPage, useSavedSearchParams } from "@/store";
+import { useAvailableInseratePresent, useGetFilterAmount, useResultsPerPage, useSavedSearchParams } from "@/store";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "@/components/motion";
@@ -38,47 +38,12 @@ const PaginationComponent = ({ category, city, extraType, radius }: PaginationCo
   const savedSearchParams = useSavedSearchParams((state) => state.searchParams);
   const itemsPerPage = useResultsPerPage((state) => state.results);
 
-  // Direct API call to get total count
-  useEffect(() => {
-    const fetchTotalCount = async () => {
-      if (!savedSearchParams) return;
-      
-      setIsLoading(true);
-      try {
-        // Overwrite or add category, city, extraType if provided
-        const mergedParams: Record<string, any> = { ...savedSearchParams };
-        if (category) mergedParams.thisCategory = category.toUpperCase();
-        if (radius) mergedParams.radius = radius;
-        if (city) {
-          let location = city;
-          if (location.includes('oe')) {
-            location = location.replace(/oe/g, 'ö');
-          }
-          mergedParams.location = location;
-        }
-        if (extraType) mergedParams.extraType = extraType;
-        console.log(mergedParams) + "!!!!!!!!!!!"
-        const response = await axios.patch('/api/search', mergedParams);
-        if (response.data !== undefined) {
-          // Set total count from API response
-          const count = Number(response.data);
-          setTotalResults(count);
-          
-          // If we have a filter, ensure pagination is shown
-          if (filter) {
-            setShouldShow(true);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching total count:", error);
-        setTotalResults(0);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const availableInseratePresent = useAvailableInseratePresent((state) => state.availableAmount);
 
-    fetchTotalCount();
-  }, [savedSearchParams, filter, category, city, extraType]);
+  useEffect(() => {
+    setTotalResults(availableInseratePresent)
+  },[availableInseratePresent])
+
 
   const changePage = (page: number) => {
     const url = qs.stringifyUrl({
@@ -91,6 +56,8 @@ const PaginationComponent = ({ category, city, extraType, radius }: PaginationCo
 
     router.push(url)
   }
+
+  
 
   // Make pagination visible when a sorting filter is applied
   useEffect(() => {

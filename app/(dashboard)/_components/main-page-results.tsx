@@ -2,7 +2,7 @@
 
 import { useSavedSearchParams, useGetFilterAmount } from "@/store";
 import axios from "axios";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import qs from "query-string";
 import { ArrowRight, Search, SearchIcon } from "lucide-react";
@@ -15,40 +15,58 @@ const MainPageResults = () => {
     const searchParams = useSavedSearchParams((state) => state.searchParams);
     const changeAmount = useGetFilterAmount((state) => state.changeAmount);
 
+    const savedSearchParams = useSearchParams();
 
     const [currentResults, setCurrentResults] = useState(null);
-    const pathname = usePathname();
-    const router = useRouter();
-    //? Fix 429-Error in Axios, because of too many requests regarding location..
-    useEffect(() => {
-        const getSearchResults = async () => {
-            try {
-                const values = searchParams;
-                // Make sure we're passing any filters correctly
-                const results = await axios.patch('/api/search', values);
-                
-                // Check if we have results data and it's a number (total count)
-                if (results.data !== undefined) {
-                    // Store the current result count for display
-                    setCurrentResults(results.data);
-                    
-                    // Ensure we're setting a numeric value to the filter amount
-                    const resultCount = Number(results.data);
-                    
-                    // Always update the global store with the total count
-                    // This ensures pagination works correctly even with sorting applied
-                    changeAmount(resultCount > 0 ? resultCount : 0);
-                }
-            } catch (error) {
-                console.error("Error fetching search results:", error);
-                // Set a default value on error
-                setCurrentResults(0);
-                changeAmount(0);
-            }
-        }
-        getSearchResults();
-    }, [searchParams, changeAmount]);
 
+
+    const getSearchResults = async () => {
+        try {
+            const values = searchParams;
+            // Make sure we're passing any filters correctly
+            const results = await axios.patch('/api/search', values);
+            
+            // Check if we have results data and it's a number (total count)
+            if (results.data !== undefined) {
+                // Store the current result count for display
+                setCurrentResults(results.data);
+                
+                // Ensure we're setting a numeric value to the filter amount
+                const resultCount = Number(results.data);
+                
+                // Always update the global store with the total count
+                // This ensures pagination works correctly even with sorting applied
+                changeAmount(resultCount > 0 ? resultCount : 0);
+            }
+        } catch (error) {
+            console.error("Error fetching search results:", error);
+            // Set a default value on error
+            setCurrentResults(0);
+            changeAmount(0);
+        }
+    }
+
+    const router = useRouter();
+
+    const firstLoad = useRef(true);
+   
+    useEffect(() => {
+       console.log()
+        if(firstLoad.current) {
+            firstLoad.current = false;
+            getSearchResults();
+            return;
+        }
+    }, [savedSearchParams]);
+
+   
+    useEffect(() => {
+        if(!firstLoad.current) {
+            getSearchResults();
+            return;
+        }
+    }, [searchParams]);
+  
     const onRedirect = () => {
 
 
@@ -102,7 +120,7 @@ const MainPageResults = () => {
         isMounted.current = true;
     }, [])
 
-    if (!isMounted) return null;
+    if (!isMounted.current) return null;
 
     return (
         <div className="px-4 mb-4">

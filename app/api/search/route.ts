@@ -1,3 +1,5 @@
+'use server';
+
 import db from "@/db/drizzle";
 import { inserat, userTable } from "@/db/schema";
 import axios from "axios";
@@ -813,6 +815,7 @@ export async function PATCH(
 
         // Always return the total count of all filtered results
         // This ensures pagination works correctly regardless of sorting
+        console.log(filteredResult.length)
         return NextResponse.json(filteredResult.length);
 
     } catch (error: any) {

@@ -4,7 +4,7 @@
 import InseratCard from "../../_components/inserat-card";
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { useGetFilterAmount, useResultsPerPage } from "@/store";
+import { useAvailableInseratePresent, useGetFilterAmount, useResultsPerPage } from "@/store";
 import {  inserat, 
     userTable } from "@/db/schema";
 
@@ -26,13 +26,16 @@ const InseratRenderedList: React.FC<InseratRenderedListProps> = ({
 
     const searchParams = useSearchParams();
     const currentPage = searchParams.get("page");
-   
+    
+
+    const { changeAvailableAmount } = useAvailableInseratePresent()
     
     
     useGetFilterAmount.setState({ amount: inserateArray.length })
 
     useMemo(() => {
         useGetFilterAmount.setState({ amount: inserateArray.length })
+        changeAvailableAmount(inserateArray.length)
     }, [inserateArray])
 
 

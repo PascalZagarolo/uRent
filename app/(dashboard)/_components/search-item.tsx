@@ -6,7 +6,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { Search, X } from "lucide-react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getSearchParamsFunction } from "@/actions/getSearchParams";
 import axios from "axios";
 
@@ -31,85 +31,56 @@ const SearchItem = () => {
   
     const [showDropdown, setShowDropdown] = useState(false);
 
-    
 
-    
-
-  
-
-
-
-
-    
-
-
-
-    
-  
       const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
-    useEffect(() => {
-        if(currentTitle) {
-            setValue(currentTitle);
-        } else {
-            setValue("");
-        }
-    }, [currentTitle])
-      
-    useEffect(() => {
-        
-        changeSearchParams("title", value);
-        if(!value && !currentTitle) {
-            
-            deleteSearchParams("title");
-            setValue("");
-        }
-      },[value])
-      
+      const hasInitialized = useRef(false);
+
+      const debouncedValue = useDebounce(value, 200);
+
+      const pathname = usePathname();
+
+      useEffect(() => {
+        changeSearchParams("title", debouncedValue);
+      },[debouncedValue])
+
+
+      useEffect(() => {
+         setValue(currentTitle || "")
+         changeSearchParams("title", currentTitle || "");
+      }, [currentTitle])
+
+ 
 
 
     const onSearch = () => {
         changeLoading(true);
-        const {//@ts-ignore
-            thisCategory, ...filteredValues} = searchParams;
-            
         //@ts-ignore
-        const usedStart = filteredValues.periodBegin;
-
-        let usedEnd = null;
-        
+        const { thisCategory, ...filteredValues } = {
+            ...searchParams,
+            title: value, // <-- Inject up-to-date value here
+        };
     //@ts-ignore
-        if(filteredValues.periodEnd){
+        const usedStart = filteredValues.periodBegin;
         //@ts-ignore
-        usedEnd = filteredValues.periodEnd;
-        } else {
-            //@ts-ignore
-            if(filteredValues.periodBegin) {
-                //@ts-ignore
-                usedEnd = filteredValues.periodBegin;
-            }
-        }
-        
+        const usedEnd = filteredValues.periodEnd || usedStart || null;
+    
         const url = qs.stringifyUrl({
             url: process.env.NEXT_PUBLIC_BASE_URL,
             //@ts-ignore
             query: {
-                //@ts-ignore
                 category: thisCategory,
-                //@ts-ignore
-                periodBegin: usedStart ? usedStart : null,
-                //@ts-ignore
-                periodEnd: usedEnd ? usedEnd : null,
+                periodBegin: usedStart || null,
+                periodEnd: usedEnd || null,
                 //@ts-ignore
                 type: filteredValues.thisType,
-                ...filteredValues
+                ...filteredValues,
             },
-
-        }, { skipEmptyString: true, skipNull: true })
-        
-        
+        }, { skipEmptyString: true, skipNull: true });
+    
         router.push(url);
-    }
+    };
+    
 
     const { loading, changeLoading } = useLoadingState()
     
@@ -127,7 +98,7 @@ const SearchItem = () => {
             <div className="w-full relative group">
                 <div className="flex items-center w-full">
                     <div className="absolute left-3.5 text-indigo-400/80 z-10 pointer-events-none group-hover:text-indigo-300 transition-colors">
-                        <Search className="h-3.5 w-3.5 stroke-[2.2px]" />
+                        <Search className="h-3.5 w-3.5 stroke-[2.2px]" /> 
                     </div>
                     <Input
                         className="2xl:w-[280px] w-full pl-10 

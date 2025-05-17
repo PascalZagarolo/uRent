@@ -43,7 +43,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
     const onReset = () => {
         const url = process.env.NEXT_PUBLIC_BASE_URL
-        router.push(url)
+        router.push("/")
     }
 
     const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
@@ -64,6 +64,7 @@ const MainPageSideBar: React.FC<MainPageSideBarProps> = ({
 
     const deleteCategory = () => {
         deleteAttributes();
+       
         deleteSearchParams("thisCategory")
     }
 

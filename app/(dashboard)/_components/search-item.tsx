@@ -27,7 +27,7 @@ const SearchItem = () => {
     const currentTitle = usedSearchParams.get("title")
 
     const [value, setValue] = useState(currentTitle || "");
-    const [foundProfiles, setFoundProfiles] = useState([]);
+
     const [isLoading, setIsLoading] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -41,37 +41,20 @@ const SearchItem = () => {
     const debouncedValue = useDebounce(value, 250);
 
     
-    useEffect(() => {
-        const findUser = async () => {
-            if (debouncedValue) {
-                setIsLoading(true);
-                await axios.patch(`/api/search/user/${debouncedValue}`).then((res) => {
-                    
-                    setFoundProfiles(res.data)
-                }).then(() => {
-                    setIsLoading(false)
-                })
-
-            } else {
-                setFoundProfiles([])
-            }
-        }
-        findUser();
-    }, [debouncedValue])
 
 
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
+
+    
   
       const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
     useEffect(() => {
         if(currentTitle) {
-          changeSearchParams("title", currentTitle);
+            setValue(currentTitle);
+        } else {
+            setValue("");
         }
-
-        
-      }, [])
-
+    }, [searchParams, currentTitle])
       useEffect(() => {
         
         changeSearchParams("title", value);
@@ -80,8 +63,6 @@ const SearchItem = () => {
             deleteSearchParams("title");
             setValue("");
         }
-
-        
       },[value])
 
       
@@ -133,34 +114,7 @@ const SearchItem = () => {
     const { loading, changeLoading } = useLoadingState()
     
 
-    // const onUserSearch = (selectUser : typeof userTable.$inferSelect) => {
-        
-    //     setSelectedUser(selectUser);
-        
-        
-    //     const url = qs.stringifyUrl({
-    //         url: "/",
-    //         query: {
-    //             user : selectUser?.id || null,
-    //             ...params,
-    //         }
-    //     }, { skipEmptyString: true, skipNull: true });
-    //    setIsSearching(false);
-    //     setShowDropdown(false)
-    //    router.push(url)
-    // }
-
-    // const onUserDelete = () => {
-    //     setSelectedUser(null)
-    //     const url = qs.stringifyUrl({
-    //         url : "/",
-    //         query : {
-    //             user : null,
-    //             ...params
-    //         }
-    //     }, { skipEmptyString: true, skipNull: true })
-    //     router.push(url)
-    // }
+    
 
     const handleKeyDown = (e : any) => {
         if (e.key === "Enter") {

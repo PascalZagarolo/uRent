@@ -1,7 +1,6 @@
 import { Lucia } from "lucia"
 import adapter from "./adapter"
 import { cookies } from "next/headers"
-import { cache } from "react"
 
 
 
@@ -14,7 +13,7 @@ export const lucia = new Lucia(adapter, {
   },
 })
 
-export const validateRequest = cache(async () => {
+export const validateRequest = async () => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
 
   if (!sessionId)
@@ -48,7 +47,7 @@ export const validateRequest = cache(async () => {
     user,
     session,
   }
-})
+}
 
 // IMPORTANT!
 declare module "lucia" {

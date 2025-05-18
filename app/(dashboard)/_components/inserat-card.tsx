@@ -208,19 +208,22 @@ const InseratCard: React.FC<InseratCardProps> = ({
             <div className="flex w-full h-[200px]">
                 {/* Image Container - Takes full width on mobile, half on larger screens */}
                 <div className="sm:w-1/2 w-full h-full relative overflow-hidden">
-                    <div className="absolute inset-0 w-full h-full">
-                        <img
-                            src={thisInserat?.images[0]?.url}
-                            alt={thisInserat.title}
-                            className="h-full w-full object-cover hover:cursor-pointer transform transition-transform duration-700 hover:scale-[1.03]"
-                            style={{ 
-                                objectPosition: 'center',
-                                imageRendering: 'auto'
-                            }}
-                            onClick={onRedirect}
-                            loading="eager"
-                        />
-                    </div>
+                <div className="absolute inset-0 w-full h-full">
+    <Image
+        src={thisInserat?.images[0]?.url}
+        alt={thisInserat.title}
+        fill
+        className="object-cover hover:cursor-pointer transform transition-transform duration-700 hover:scale-[1.03]"
+        style={{
+            objectPosition: 'center',
+            imageRendering: 'auto'
+        }}
+        quality={80}
+        onClick={onRedirect}
+        priority // equivalent to loading="eager"
+        sizes="(max-width: 768px) 100vw, 50vw"
+    />
+</div>
 
                     {/* Subtle overlay for better text contrast */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-50 pointer-events-none"></div>

@@ -12,6 +12,20 @@ import { ImageIcon, CarFront, Truck } from "lucide-react";
 import { PiVanFill } from "react-icons/pi";
 import { RiCaravanLine } from "react-icons/ri";
 import { cn } from "@/lib/utils";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 const categories = [
   { label: "Pkw", value: "pkw", icon: CarFront },
@@ -220,18 +234,13 @@ export default function MietenPage() {
             </div>
             <div className="flex flex-col items-center gap-2">
               <span className="text-gray-400">Weitere Städte:</span>
-              <Select value={city && !top10Cities.some(c => c.name === city) ? city : ""} onValueChange={setCity}>
-                <SelectTrigger className="w-64 bg-[#1a1d28]/80 border-indigo-500/30 text-white">
-                  <SelectValue placeholder="Stadt auswählen" />
-                </SelectTrigger>
-                <SelectContent className="bg-[#1a1d28]/90 text-white max-h-60 overflow-y-auto">
-                  {otherCities.map((cityObj) => (
-                    <SelectItem key={cityObj.name} value={cityObj.name} className="hover:bg-indigo-500/20">
-                      {cityObj.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/* Combobox for other cities */}
+              <CityCombobox
+                city={city}
+                setCity={setCity}
+                otherCities={otherCities.sort((a, b) => a.name.localeCompare(b.name))}
+                displayGermanUmlauts={displayGermanUmlauts}
+              />
             </div>
           </motion.section>
 
@@ -255,5 +264,62 @@ export default function MietenPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function CityCombobox({ city, setCity, otherCities, displayGermanUmlauts }: {
+  city: string;
+  setCity: (city: string) => void;
+  otherCities: { name: string }[];
+  displayGermanUmlauts: (name: string) => string;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-64 justify-between bg-[#1a1d28]/80 border-indigo-500/30 text-white"
+        >
+          {city && !otherCities.some((c) => c.name === city)
+            ? displayGermanUmlauts(city)
+            : city
+            ? displayGermanUmlauts(city)
+            : "Stadt auswählen"}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 p-0 bg-[#1a1d28]/90 text-white">
+        <Command>
+          <CommandInput placeholder="Stadt suchen..." className="h-9" />
+          <CommandList>
+            <CommandEmpty>Keine Stadt gefunden.</CommandEmpty>
+            <CommandGroup>
+              {otherCities.map((cityObj) => (
+                <CommandItem
+                  key={cityObj.name}
+                  value={cityObj.name}
+                  onSelect={() => {
+                    setCity(cityObj.name);
+                    setOpen(false);
+                  }}
+                  className="hover:bg-indigo-500/20"
+                >
+                  {displayGermanUmlauts(cityObj.name)}
+                  <Check
+                    className={cn(
+                      "ml-auto h-4 w-4",
+                      city === cityObj.name ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }

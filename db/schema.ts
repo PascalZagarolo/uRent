@@ -346,6 +346,8 @@ export const conversationFolder = pgTable("conversationFolder", {
 
 })
 
+
+
 export const priceprofile = pgTable("priceprofile", {
     id: uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
     title : text("title"),
@@ -413,7 +415,19 @@ export const brandEnum = pgEnum("brand", [
 
 export const BrandEnumRender = z.enum(brandEnum.enumValues).Enum;
 
+export const carBrandsData = pgTable("carBrands", {
+    brand : brandEnum("brand").primaryKey(),
+})
 
+export const carModels = pgTable("carModels", {
+    id : uuid("id").default(sql`gen_random_uuid()`).primaryKey(),
+    category : text("category"),
+    modelName : text("modelName"),
+    brand : brandEnum("brand").
+                    references(() => carBrandsData.brand),
+    series : text("series"),
+    isLabel : boolean("isLabel").notNull().default(false),
+})
 
 export const transmissionEnum = pgEnum("transmission", [
     "MANUAL",

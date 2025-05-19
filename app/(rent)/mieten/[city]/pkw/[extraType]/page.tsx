@@ -11,6 +11,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import PaginationComponent from "@/app/(dashboard)/_components/pagination-component";
 import { convertVowel } from "@/actions/convertVowel/convertVowel";
+import { extraTypes } from "@/data/cities/getExtraTypes";
 
 interface MietenCityPkwExtraTypeProps {
   params: {
@@ -82,26 +83,10 @@ function parseBrandAndType(param: string) {
   return { carBrand, extraType };
 }
 
-
-
-//1. Split values by "-" => [value1] - [value2] => check for each value whether it is a brand, if not then it is a extraType
+// Use extraTypes from data/cities/getExtraTypes for PKW types
+const pkwTypes = extraTypes.filter(e => e.category === "pkw");
 
 // Add PKW type labels for SEO
-const pkwTypes: { value: string | null, label: string }[] = [
-  { value: null, label: "Beliebig" },
-  { value: "CABRIO", label: "Cabrio" },
-  { value: "COUPE", label: "Coupe" },
-  { value: "PICKUP", label: "Geländewagen/Pickup" },
-  { value: "KASTENWAGEN", label: "Kastenwagen" },
-  { value: "KLEINBUS", label: "Kleinbus" },
-  { value: "KLEIN", label: "Kleinwagen" },
-  { value: "KOMBI", label: "Kombi" },
-  { value: "LIMOUSINE", label: "Limousine" },
-  { value: "SPORT", label: "Sportwagen" },
-  { value: "SUPERSPORT", label: "Supersportwagen" },
-  { value: "SUV", label: "SUV" },
-  { value: "VAN", label: "Van" },
-];
 
 const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
   const { city, extraType: extraTypeParam } = params;
@@ -116,8 +101,8 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
   // Get human-readable label for extraType (PKW type)
   let extraTypeLabel = extraType;
   if (category === "pkw" && extraType) {
-    const found = pkwTypes.find(t => t.value === extraType);
-    if (found) extraTypeLabel = found.label;
+    const found = pkwTypes.find(t => t.name === extraType);
+    if (found) extraTypeLabel = found.name;
   }
 
   //Write a function that takes in a carBrand and returns a more readable version => Mercedes_Benz => Mercedes Benz
@@ -135,7 +120,7 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
             fill
             className="object-cover w-full h-[220px] sm:rounded-b-2xl opacity-80"
             style={{ zIndex: 1, minHeight: 220, maxHeight: 320 }}
-            priority
+            loading="lazy"
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-700/80 to-indigo-400/60 sm:rounded-b-2xl" style={{ zIndex: 1, minHeight: 220, maxHeight: 320 }} />
@@ -273,8 +258,8 @@ export async function generateMetadata({ params }: MietenCityPkwExtraTypeProps) 
   const { carBrand, extraType: parsedExtraType } = parseBrandAndType(extraType);
   let extraTypeLabel = parsedExtraType;
   if (category === "pkw" && parsedExtraType) {
-    const found = pkwTypes.find(t => t.value === parsedExtraType);
-    if (found) extraTypeLabel = found.label;
+    const found = pkwTypes.find(t => t.name === parsedExtraType);
+    if (found) extraTypeLabel = found.name;
   }
   const carBrandLabel = readableCarBrand(carBrand ?? "");
   const fullLabel = carBrandLabel ? `${carBrandLabel} ${extraTypeLabel}`.trim() : extraTypeLabel;

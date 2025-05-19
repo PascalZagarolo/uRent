@@ -12,6 +12,7 @@ import { ArrowLeft } from "lucide-react";
 import PaginationComponent from "@/app/(dashboard)/_components/pagination-component";
 import { convertVowel } from "@/actions/convertVowel/convertVowel";
 import { extraTypes } from "@/data/cities/getExtraTypes";
+import { useMemo } from "react";
 
 interface MietenCityPkwExtraTypeProps {
   params: {
@@ -61,23 +62,23 @@ function readableCarBrand(brand: string | undefined): string {
   return brand.replace(/_/g, ' ');
 }
 
-let carBrand;
-let extraType;
+
 function parseBrandAndType(param: string) {
   if (!param) return { carBrand: undefined, extraType: undefined };
   const parts = param.split("-").filter(Boolean);
-  
+  let carBrand;
+  let extraType;
+
   for (const part of parts) {
-    //@ts-ignore
-    if (Object.values(BrandEnumRender).includes(part)) {
+    if (Object.values(BrandEnumRender).includes(part as any)) {
       carBrand = part;
-      //@ts-ignore
-    } else if (Object.values(CarTypeEnumRender).includes(part)) {
+    } else if (Object.values(CarTypeEnumRender).includes(part as any)) {
       extraType = part;
     }
   }
   return { carBrand, extraType };
 }
+
 
 // Use extraTypes from data/cities/getExtraTypes for PKW types
 const pkwTypes = extraTypes.filter(e => e.category === "pkw");
@@ -95,12 +96,13 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
   const Icon = categoryIcons[category];
 
   // Get human-readable label for extraType (PKW type)
-  let extraTypeLabel = extraType;
-  if (category === "pkw" && extraType) {
-    const found = pkwTypes.find(t => t.name === extraType);
-    if (found) extraTypeLabel = found.name;
-  }
-
+  const extraTypeLabel = useMemo(() => {
+    if (category === "pkw" && extraType) {
+      const found = pkwTypes.find(t => t.name === extraType);
+      return found ? found.name : extraType;
+    }
+    return extraType;
+  }, [category, extraType]);
   // If city is not found or category is invalid, show not found page
   if (!cityObj || !categoryLabel || !categoryEnumValue || !isAllowedCategory(categoryEnumValue)) return notFound();
 

@@ -44,8 +44,6 @@ function isAllowedCategory(val: string): val is AllowedCategory {
   return (allowedCategories as readonly string[]).includes(val);
 }
 
-
-
 // Slugify for German cities (handles umlauts, ß, spaces, etc.)
 function slugifyCity(str: string) {
   return str
@@ -64,7 +62,7 @@ function readableCarBrand(brand: string | undefined): string {
 }
 
 let carBrand;
-let extraType
+let extraType;
 function parseBrandAndType(param: string) {
   if (!param) return { carBrand: undefined, extraType: undefined };
   const parts = param.split("-").filter(Boolean);
@@ -103,8 +101,7 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
     if (found) extraTypeLabel = found.name;
   }
 
-  //Write a function that takes in a carBrand and returns a more readable version => Mercedes_Benz => Mercedes Benz
-
+  // If city is not found or category is invalid, show not found page
   if (!cityObj || !categoryLabel || !categoryEnumValue || !isAllowedCategory(categoryEnumValue)) return notFound();
 
   return (
@@ -126,13 +123,16 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
           <div className="bg-black/60 rounded-2xl px-6 py-6 flex flex-col items-center max-w-2xl w-full">
             <h1 className="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg mb-2">
-             {readableCarBrand(carBrand ?? "")} {extraTypeLabel?.slice(0,1)?.toUpperCase() + extraTypeLabel?.slice(1)?.toLowerCase()} mieten in 
+              {readableCarBrand(carBrand ?? "")} 
+              {extraTypeLabel && String(extraTypeLabel ?? "") != "" ? " " + extraTypeLabel.charAt(0).toUpperCase() + extraTypeLabel.slice(1).toLowerCase() : ""} mieten in 
             </h1>
             <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-indigo-600 drop-shadow-lg">
               {convertVowel(cityObj.name)} 
             </span>
             <p className="text-gray-200 text-lg mt-3 max-w-xl text-center">
-              Entdecke die besten Angebote für {readableCarBrand(carBrand ?? "")} {extraTypeLabel?.slice(0,1)?.toUpperCase() + extraTypeLabel?.slice(1)?.toLowerCase()} in {convertVowel(cityObj.name)}.
+              Entdecke die besten Angebote für {readableCarBrand(carBrand ?? "") + " "} 
+              {extraTypeLabel && String(extraTypeLabel ?? "") != "" ? extraTypeLabel.charAt(0).toUpperCase() + extraTypeLabel.slice(1).toLowerCase() + " " : ""} 
+              in {" " + convertVowel(cityObj.name)}.
             </p>
           </div>
         </div>
@@ -259,8 +259,11 @@ export async function generateMetadata({ params }: MietenCityPkwExtraTypeProps) 
     const found = pkwTypes.find(t => t.name === parsedExtraType);
     if (found) extraTypeLabel = found.name;
   }
+
   const carBrandLabel = readableCarBrand(carBrand ?? "");
-  const fullLabel = carBrandLabel ? `${carBrandLabel} ${extraTypeLabel && (extraTypeLabel?.trim()?.slice(0,1) ?? "" + extraTypeLabel?.slice(1)?.toLowerCase() ?? "")}` : extraTypeLabel;
+  const fullLabel = carBrandLabel 
+    ? `${carBrandLabel} ${extraTypeLabel && String(extraTypeLabel ?? "") != "" ? extraTypeLabel.charAt(0).toUpperCase() + extraTypeLabel.slice(1).toLowerCase() : ""}` 
+    : extraTypeLabel && String(extraTypeLabel != "") != "" ? extraTypeLabel.charAt(0).toUpperCase() + extraTypeLabel.slice(1).toLowerCase() : "";
 
   // SEO title and description
   const title = `${fullLabel} mieten in ${cityName}`;

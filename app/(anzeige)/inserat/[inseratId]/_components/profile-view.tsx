@@ -135,22 +135,22 @@ const ProfileView: React.FC<ProfileViewProps> = ({
                     </h3>
                     
                     <div className="space-y-2">
-                        <div className="flex items-center justify-between bg-[#1f2235]/30 p-2.5 rounded-lg border border-gray-800/10">
+                        <div className="flex flex-col items-start justify-between bg-[#1f2235]/30 p-2.5 rounded-lg border border-gray-800/10">
                             <div className="flex items-center text-gray-400">
                                 <Globe className="w-3.5 h-3.5 mr-1.5 text-indigo-400" />
                                 <span className="text-xs">Website</span>
                             </div>
-                            <div className="text-xs text-gray-300 font-medium">
+                            <div className="text-xs text-gray-300 font-medium mt-1">
                                 {thisBusiness?.website ? thisBusiness?.website : "—"}
                             </div>
                         </div>
                         
-                        <div className="flex items-center justify-between bg-[#1f2235]/30 p-2.5 rounded-lg border border-gray-800/10">
+                        <div className="flex flex-col items-start justify-between bg-[#1f2235]/30 p-2.5 rounded-lg border border-gray-800/10">
                             <div className="flex items-center text-gray-400">
                                 <Mail className="w-3.5 h-3.5 mr-1.5 text-green-400" />
                                 <span className="text-xs">Email</span>
                             </div>
-                            <div className="text-xs text-gray-300 font-medium">
+                            <div className="text-xs text-gray-300 font-medium mt-1">
                                 {thisBusiness?.email ? thisBusiness?.email : "—"}
                             </div>
                         </div>

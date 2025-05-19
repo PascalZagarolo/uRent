@@ -12,10 +12,11 @@ import { ArrowLeft } from "lucide-react";
 import PaginationComponent from "@/app/(dashboard)/_components/pagination-component";
 import { convertVowel } from "@/actions/convertVowel/convertVowel";
 
-interface MietenCityCategoryPageProps {
+interface MietenCityCategoryExtraTypeProps {
   params: {
     city: string;
     category: string;
+    extraType: string;
   };
 }
 
@@ -58,13 +59,37 @@ function slugifyCity(str: string) {
     .replace(/ /g, "-");
 }
 
-const MietenCityCategoryPage = ({ params }: MietenCityCategoryPageProps) => {
-  const { city, category } = params;
+// Add PKW type labels for SEO
+const pkwTypes: { value: string | null, label: string }[] = [
+  { value: null, label: "Beliebig" },
+  { value: "CABRIO", label: "Cabrio" },
+  { value: "COUPE", label: "Coupe" },
+  { value: "PICKUP", label: "Geländewagen/Pickup" },
+  { value: "KASTENWAGEN", label: "Kastenwagen" },
+  { value: "KLEINBUS", label: "Kleinbus" },
+  { value: "KLEIN", label: "Kleinwagen" },
+  { value: "KOMBI", label: "Kombi" },
+  { value: "LIMOUSINE", label: "Limousine" },
+  { value: "SPORT", label: "Sportwagen" },
+  { value: "SUPERSPORT", label: "Supersportwagen" },
+  { value: "SUV", label: "SUV" },
+  { value: "VAN", label: "Van" },
+];
+
+const MietenCityCategoryExtraType = ({ params }: MietenCityCategoryExtraTypeProps) => {
+  const { city, category, extraType } = params;
   const cityObj = cities.find(c => slugifyCity(c.name) === city.toLowerCase());
   const categoryLabel = categoryLabels[category] || category;
   const categoryEnumValue = categoryEnumMap[category];
   const allowedCategoryEnumValue = categoryEnumValue as AllowedCategory;
   const Icon = categoryIcons[category];
+
+  // Get human-readable label for extraType (PKW type)
+  let extraTypeLabel = extraType;
+  if (category === "pkw") {
+    const found = pkwTypes.find(t => t.value === extraType);
+    if (found) extraTypeLabel = found.label;
+  }
 
   if (!cityObj || !categoryLabel || !categoryEnumValue || !isAllowedCategory(categoryEnumValue)) return notFound();
 
@@ -87,13 +112,13 @@ const MietenCityCategoryPage = ({ params }: MietenCityCategoryPageProps) => {
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
           <div className="bg-black/60 rounded-2xl px-6 py-6 flex flex-col items-center max-w-2xl w-full">
             <h1 className="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg mb-2">
-              {categoryLabel} mieten in
+              {extraTypeLabel} mieten in
             </h1>
             <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-indigo-600 drop-shadow-lg">
               {convertVowel(cityObj.name)}
             </span>
             <p className="text-gray-200 text-lg mt-3 max-w-xl text-center">
-              Entdecke die besten Angebote für {capitalizeFirst(categoryLabel.toLowerCase())} in {convertVowel(cityObj.name)}.
+              Entdecke die besten Angebote für {extraTypeLabel.toLowerCase()} in {convertVowel(cityObj.name)}.
             </p>
           </div>
         </div>
@@ -156,7 +181,7 @@ const MietenCityCategoryPage = ({ params }: MietenCityCategoryPageProps) => {
             seatsMax={undefined}
             fuel={undefined}
             transmission={undefined}
-            thisType={undefined}
+            thisType={extraType as any}
             freeMiles={undefined}
             extraCost={undefined}
             ahk={undefined}
@@ -190,18 +215,18 @@ const MietenCityCategoryPage = ({ params }: MietenCityCategoryPageProps) => {
       {/* Pagination */}
       <div className="flex justify-center w-full mt-8 ">
         <div className="w-full sm:w-[1044px]">
-          <PaginationComponent category={category} city={cityObj.name} radius={1} />
+          <PaginationComponent category={category} city={cityObj.name} extraType={extraTypeLabel} radius={1} />
         </div>
       </div>
     </div>
   );
 };
 
-export default MietenCityCategoryPage;
+export default MietenCityCategoryExtraType;
 
-export async function generateMetadata({ params }: MietenCityCategoryPageProps) {
+export async function generateMetadata({ params }: MietenCityCategoryExtraTypeProps) {
   // Find city and category label
-  const { city, category } = params;
+  const { city, category, extraType } = params;
   // Find city object from cities data
   const cityObj = cities.find(c => slugifyCity(c.name) === city.toLowerCase());
   // Get readable category label
@@ -209,21 +234,25 @@ export async function generateMetadata({ params }: MietenCityCategoryPageProps) 
   // Fallbacks
   const cityNameRaw = cityObj?.name || city;
   const cityName = convertVowel(cityNameRaw);
-  const categoryName = categoryLabel || category;
+
+  // Try to get a human-readable label for extraType (PKW type)
+  let extraTypeLabel = extraType;
+  if (category === "pkw") {
+    const found = pkwTypes.find(t => t.value === extraType);
+    if (found) extraTypeLabel = found.label;
+  }
 
   // SEO title and description
-  const title = `${categoryName} mieten in ${cityName}`;
-  const description = `Jetzt ${categoryName.toLowerCase()} in ${cityName} günstig mieten. Vergleiche Angebote für ${categoryName.toLowerCase()} in ${cityName} – flexibel, schnell & sicher. Auto, Transporter, LKW, Anhänger und mehr auf uRent.`;
+  const title = `${extraTypeLabel} mieten in ${cityName} `;
+  const description = `Jetzt ${extraTypeLabel.toLowerCase()} in ${cityName} günstig mieten. Vergleiche Angebote für ${extraTypeLabel.toLowerCase()} in ${cityName} – flexibel, schnell & sicher. Cabrio, Sportwagen, SUV, Limousine und mehr auf uRent.`;
 
   // SEO keywords (optional, not used by all search engines but good for completeness)
   const keywords = [
-    `${categoryName} mieten ${cityName}`,
-    `${categoryName} leihen ${cityName}`,
+    `${extraTypeLabel} mieten ${cityName}`,
+    `${extraTypeLabel} leihen ${cityName}`,
+    `${extraTypeLabel} buchen ${cityName}`,
     `Auto mieten ${cityName}`,
     `Mietwagen ${cityName}`,
-    `Transporter mieten ${cityName}`,
-    `LKW mieten ${cityName}`,
-    `Anhänger mieten ${cityName}`,
     `uRent ${cityName}`,
     `Fahrzeugvermietung ${cityName}`,
     `Günstig mieten ${cityName}`

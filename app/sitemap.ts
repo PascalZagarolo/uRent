@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { blog, inserat } from "@/db/schema";
+import { blog, inserat, BrandEnumRender } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { MetadataRoute } from "next";
 import { cities } from "@/data/cities/getCitites";
@@ -49,6 +49,14 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
 
     const mietenCityCategoryRoutes = [];
     const mietenCityCategoryExtraTypeRoutes = [];
+    const mietenCityPkwBrandRoutes = [];
+    const mietenCityPkwBrandExtraTypeRoutes = [];
+    const mietenCityPkwExtraTypeRoutes = [];
+
+    // Get all PKW brands, excluding 'Sonstige'
+    const pkwBrands = Object.values(BrandEnumRender).filter(b => b !== "Sonstige");
+    // Get all PKW extra types
+    const pkwExtraTypes = extraTypes.filter(e => e.category === "pkw").map(e => e.name);
 
     for (const city of cities) {
         for (const category of categorySlugs) {
@@ -64,6 +72,21 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
                     });
                 }
             }
+        }
+        for (const brand of pkwBrands) {
+            mietenCityPkwBrandRoutes.push({
+                url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/pkw/${brand}`
+            });
+            for (const extra of pkwExtraTypes) {
+                mietenCityPkwBrandExtraTypeRoutes.push({
+                    url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/pkw/${brand}-${extra}`
+                });
+            }
+        }
+        for (const extra of pkwExtraTypes) {
+            mietenCityPkwExtraTypeRoutes.push({
+                url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/pkw/${extra}`
+            });
         }
     }
 
@@ -104,6 +127,9 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         ...mietenRoutes,
         ...mietenCityCategoryRoutes,
         ...mietenCityCategoryExtraTypeRoutes,
+        ...mietenCityPkwBrandRoutes,
+        ...mietenCityPkwBrandExtraTypeRoutes,
+        ...mietenCityPkwExtraTypeRoutes,
         ...inseratSites,
         ...blogSites
     ]

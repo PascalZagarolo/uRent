@@ -26,6 +26,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { BrandEnumRender } from "@/db/schema";
 
 const categories = [
   { label: "Pkw", value: "pkw", icon: CarFront },
@@ -70,6 +71,7 @@ export default function MietenPage() {
   const [city, setCity] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [pkwType, setPkwType] = useState<string>("");
+  const [pkwBrand, setPkwBrand] = useState<string>("BELIEBIG");
   const router = useRouter();
 
   // Slugify for German cities (handles umlauts, ß, spaces, etc.)
@@ -87,8 +89,11 @@ export default function MietenPage() {
     if (!category || !city) return;
     setLoading(true);
     let url = `/mieten/${slugifyCity(city)}/${category}`;
-    if (category === "pkw" && pkwType) {
-      url += `/${encodeURIComponent(pkwType)}`;
+    if (category === "pkw") {
+      const brandPart = pkwBrand && pkwBrand !== "BELIEBIG" ? pkwBrand : "";
+      const typePart = pkwType ? pkwType : "";
+      let combined = [brandPart, typePart].filter(Boolean).join("-");
+      if (combined) url += `/${combined}`;
     }
     router.push(url);
   };
@@ -157,6 +162,7 @@ export default function MietenPage() {
             </div>
             {/* PKW Type Dropdown */}
             {category === "pkw" && (
+              <>
               <div className="flex justify-center mt-4">
                 <Select value={pkwType} onValueChange={setPkwType}>
                   <SelectTrigger className="w-56 bg-[#1a1d28]/80 border-indigo-500/30 text-white">
@@ -171,6 +177,24 @@ export default function MietenPage() {
                   </SelectContent>
                 </Select>
               </div>
+              <div className="flex justify-center mt-4">
+                <Select value={pkwBrand} onValueChange={setPkwBrand}>
+                  <SelectTrigger className="w-56 bg-[#1a1d28]/80 border-indigo-500/30 text-white">
+                    <SelectValue placeholder="Marke auswählen" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#1a1d28]/90 text-white max-h-60 overflow-y-auto">
+                    <SelectItem value="BELIEBIG">Beliebig</SelectItem>
+                    {Object.values(BrandEnumRender)
+                      .filter((brand) => brand && brand !== "Sonstige")
+                      .map((brand) => (
+                        <SelectItem key={brand} value={brand}>
+                          {brand.replace(/_/g, " ")}
+                        </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              </>
             )}
           </motion.section>
 

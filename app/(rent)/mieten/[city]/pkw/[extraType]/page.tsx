@@ -128,13 +128,13 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
           <div className="bg-black/60 rounded-2xl px-6 py-6 flex flex-col items-center max-w-2xl w-full">
             <h1 className="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg mb-2">
-             {readableCarBrand(carBrand ?? "")} {extraTypeLabel} mieten in 
+             {readableCarBrand(carBrand ?? "")} {extraTypeLabel.slice(0,1).toUpperCase() + extraTypeLabel.slice(1).toLowerCase()} mieten in 
             </h1>
             <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-indigo-600 drop-shadow-lg">
               {convertVowel(cityObj.name)} 
             </span>
             <p className="text-gray-200 text-lg mt-3 max-w-xl text-center">
-              Entdecke die besten Angebote für {readableCarBrand(carBrand ?? "")} {extraTypeLabel} in {convertVowel(cityObj.name)}.
+              Entdecke die besten Angebote für {readableCarBrand(carBrand ?? "")} {extraTypeLabel.slice(0,1).toUpperCase() + extraTypeLabel.slice(1).toLowerCase()} in {convertVowel(cityObj.name)}.
             </p>
           </div>
         </div>
@@ -223,7 +223,7 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
             loading_l={undefined}
             loading_b={undefined}
             loading_h={undefined}
-            radius={1}
+            radius={50}
             userId={undefined}
             caution={undefined}
           />
@@ -262,7 +262,7 @@ export async function generateMetadata({ params }: MietenCityPkwExtraTypeProps) 
     if (found) extraTypeLabel = found.name;
   }
   const carBrandLabel = readableCarBrand(carBrand ?? "");
-  const fullLabel = carBrandLabel ? `${carBrandLabel} ${extraTypeLabel}`.trim() : extraTypeLabel;
+  const fullLabel = carBrandLabel ? `${carBrandLabel} ${extraTypeLabel.trim().slice(0,1) + extraTypeLabel.slice(1).toLowerCase()}` : extraTypeLabel;
 
   // SEO title and description
   const title = `${fullLabel} mieten in ${cityName}`;

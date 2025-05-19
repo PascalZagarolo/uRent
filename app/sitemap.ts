@@ -73,6 +73,7 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
                 }
             }
         }
+       /*
         for (const brand of pkwBrands) {
             mietenCityPkwBrandRoutes.push({
                 url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/pkw/${brand}`
@@ -83,6 +84,7 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
                 });
             }
         }
+       */
         for (const extra of pkwExtraTypes) {
             mietenCityPkwExtraTypeRoutes.push({
                 url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/pkw/${extra}`

@@ -12,7 +12,6 @@ interface GoToDashboardProps {
 
 const GoToDashboard: React.FC<GoToDashboardProps> = ({
     userId,
-    inseratId
 }) => {
     
     const router = useRouter();

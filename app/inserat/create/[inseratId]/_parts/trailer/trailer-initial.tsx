@@ -34,7 +34,7 @@ const TrailerInitialForm: React.FC<TransportInitialFormProps> = ({
         label: number;
       }
       
-      const startYear = 2024;
+      const startYear = 2025;
     const endYear = 1900;
 
       const years: YearObject[] = [];

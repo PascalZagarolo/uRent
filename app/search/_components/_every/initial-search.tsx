@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
@@ -21,14 +21,14 @@ const InitialSearch = () => {
     const [value, setValue] = useState("");
     const [valueEnd, setValueEnd] = useState("");
 
-    const startYear = 2024;
+    const startYear = 2025;
     const endYear = 1960;
 
     const pSearchparams = useSearchParams();
     const existingYear = pSearchparams.get("initial");
     const existingYearEnd = pSearchparams.get("initialMax");
     
-    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    const { changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
     useEffect(() => {
         if(currentYear) {

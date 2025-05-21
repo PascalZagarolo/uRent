@@ -32,16 +32,16 @@ const SetInitialSearch = () => {
     const [value, setValue] = useState("")
     const [valueEnd, setValueEnd] = useState("")
 
-    const startYear = 2024;
+    const startYear = 2025;
     const endYear = 1960;
 
     const pSearchparams = useSearchParams();
     const existingYear = pSearchparams.get("initial")
     const existingYearEnd = pSearchparams.get("initialMax")
 
-    const currentObject = useSavedSearchParams((state) => state.searchParams)
+    
   
-    const { searchParams, changeSearchParams, deleteSearchParams } = useSavedSearchParams();
+    const { changeSearchParams, deleteSearchParams } = useSavedSearchParams();
 
     useEffect(() => {
         if(currentYear) {

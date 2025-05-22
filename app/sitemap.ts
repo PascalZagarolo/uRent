@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { MetadataRoute } from "next";
 import { cities } from "@/data/cities/getCitites";
 import { extraTypes } from "@/data/cities/getExtraTypes";
+import { weightClassesLkw } from "@/data/lkw/getlkwAttributes";
 
 
 export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
@@ -52,6 +53,7 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
     const mietenCityPkwBrandRoutes = [];
     const mietenCityPkwBrandExtraTypeRoutes = [];
     const mietenCityPkwExtraTypeRoutes = [];
+    const mietenCityLkwWeightClassRoutes = [];
 
     // Get all PKW brands, excluding 'Sonstige'
     const pkwBrands = Object.values(BrandEnumRender).filter(b => b !== "Sonstige");
@@ -69,6 +71,14 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
                 for (const extra of extraTypes) {
                     mietenCityCategoryExtraTypeRoutes.push({
                         url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/pkw/${extra.name}`
+                    });
+                }
+            }
+            // For LKW, add weight class routes
+            if (category === "lkw") {
+                for (const weight of weightClassesLkw) {
+                    mietenCityLkwWeightClassRoutes.push({
+                        url: `${process.env.NEXT_PUBLIC_BASE_URL}/mieten/${slugifyCity(city.name)}/lkw/${weight.value}`
                     });
                 }
             }
@@ -129,6 +139,7 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         ...mietenRoutes,
         ...mietenCityCategoryRoutes,
         ...mietenCityCategoryExtraTypeRoutes,
+        ...mietenCityLkwWeightClassRoutes,
         ...mietenCityPkwBrandRoutes,
         ...mietenCityPkwBrandExtraTypeRoutes,
         ...mietenCityPkwExtraTypeRoutes,

@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { BrandEnumRender } from "@/db/schema";
+import { weightClassesLkw } from "@/data/lkw/getlkwAttributes";
 
 const categories = [
   { label: "Pkw", value: "pkw", icon: CarFront },
@@ -72,6 +73,7 @@ export default function MietenPage() {
   const [loading, setLoading] = useState(false);
   const [pkwType, setPkwType] = useState<string>("");
   const [pkwBrand, setPkwBrand] = useState<string>("BELIEBIG");
+  const [lkwWeightClass, setLkwWeightClass] = useState<string>("");
   const router = useRouter();
 
   // Slugify for German cities (handles umlauts, ß, spaces, etc.)
@@ -94,6 +96,9 @@ export default function MietenPage() {
       const typePart = pkwType ? pkwType : "";
       let combined = [brandPart, typePart].filter(Boolean).join("-");
       if (combined) url += `/${combined}`;
+    }
+    if (category === "lkw" && lkwWeightClass) {
+      url += `/${lkwWeightClass}`;
     }
     router.push(url);
   };
@@ -195,6 +200,24 @@ export default function MietenPage() {
                 </Select>
               </div>
               </>
+            )}
+            {/* LKW Weight Class Dropdown */}
+            {category === "lkw" && (
+              <div className="flex justify-center mt-4">
+                <Select value={lkwWeightClass} onValueChange={setLkwWeightClass}>
+                  <SelectTrigger className="w-56 bg-[#1a1d28]/80 border-indigo-500/30 text-white">
+                    <SelectValue placeholder="Gewichtsklasse auswählen" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#1a1d28]/90 text-white max-h-60 overflow-y-auto">
+                    <SelectItem value={null}>Beliebig</SelectItem>
+                    {weightClassesLkw.map((weight) => (
+                      <SelectItem key={weight.value} value={weight.value} className="hover:bg-indigo-500/20">
+                        {weight.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             )}
           </motion.section>
 

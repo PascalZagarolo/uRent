@@ -11,11 +11,12 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import PaginationComponent from "@/app/(dashboard)/_components/pagination-component";
 import { convertVowel } from "@/actions/convertVowel/convertVowel";
+import { weightClassesLkw } from "@/data/lkw/getlkwAttributes";
 
 interface MietenCityCategoryExtraTypeProps {
   params: {
     city: string;
-    category: string;
+    
     extraType: string;
   };
 }
@@ -40,9 +41,7 @@ const categoryEnumMap: Record<string, AllowedCategory> = {
   transporter: "TRANSPORT",
   anhaenger: "TRAILER",
 };
-function isAllowedCategory(val: string): val is AllowedCategory {
-  return (allowedCategories as readonly string[]).includes(val);
-}
+
 
 function capitalizeFirst(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -60,38 +59,35 @@ function slugifyCity(str: string) {
 }
 
 // Add PKW type labels for SEO
-const pkwTypes: { value: string | null, label: string }[] = [
-  { value: null, label: "Beliebig" },
-  { value: "CABRIO", label: "Cabrio" },
-  { value: "COUPE", label: "Coupe" },
-  { value: "PICKUP", label: "Geländewagen/Pickup" },
-  { value: "KASTENWAGEN", label: "Kastenwagen" },
-  { value: "KLEINBUS", label: "Kleinbus" },
-  { value: "KLEIN", label: "Kleinwagen" },
-  { value: "KOMBI", label: "Kombi" },
-  { value: "LIMOUSINE", label: "Limousine" },
-  { value: "SPORT", label: "Sportwagen" },
-  { value: "SUPERSPORT", label: "Supersportwagen" },
-  { value: "SUV", label: "SUV" },
-  { value: "VAN", label: "Van" },
-];
+
+
+function parseWeightClass(param: string) {
+  if (!param) return { weightClass: undefined };
+  const found = weightClassesLkw.find(w => w.value === param);
+  return { weightClass: found ? found.value : param };
+}
 
 const MietenCityCategoryExtraType = ({ params }: MietenCityCategoryExtraTypeProps) => {
-  const { city, category, extraType } = params;
+  const { city,  extraType: extraTypeParam } = params;
+  const category = "lkw";
+  const { weightClass } = parseWeightClass(extraTypeParam);
   const cityObj = cities.find(c => slugifyCity(c.name) === city.toLowerCase());
   const categoryLabel = categoryLabels[category] || category;
   const categoryEnumValue = categoryEnumMap[category];
   const allowedCategoryEnumValue = categoryEnumValue as AllowedCategory;
   const Icon = categoryIcons[category];
 
-  // Get human-readable label for extraType (PKW type)
-  let extraTypeLabel = extraType;
-  if (category === "pkw") {
-    const found = pkwTypes.find(t => t.value === extraType);
-    if (found) extraTypeLabel = found.label;
+  // Get human-readable label for extraType (LKW weight class)
+  let extraTypeLabel = weightClass
+    ? (weightClassesLkw.find(w => w.value === weightClass)?.label || weightClass)
+    : undefined;
+
+  // If the label matches a weight class, convert '7,5 t' => '7,5 Tonner'
+  if (extraTypeLabel && /t$/.test(extraTypeLabel)) {
+    extraTypeLabel = extraTypeLabel.replace(/ t$/, ' Tonner');
   }
 
-  if (!cityObj || !categoryLabel || !categoryEnumValue || !isAllowedCategory(categoryEnumValue)) return notFound();
+  if (!cityObj || !categoryLabel) return notFound();
 
   return (
     <div className="bg-gradient-to-b from-[#14151b] to-[#1a1c25] min-h-screen">
@@ -112,13 +108,13 @@ const MietenCityCategoryExtraType = ({ params }: MietenCityCategoryExtraTypeProp
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
           <div className="bg-black/60 rounded-2xl px-6 py-6 flex flex-col items-center max-w-2xl w-full">
             <h1 className="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg mb-2">
-              {extraTypeLabel} mieten in
+              {extraTypeLabel ? `${extraTypeLabel} ` : "LKW"} mieten in
             </h1>
             <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-indigo-600 drop-shadow-lg">
               {convertVowel(cityObj.name)}
             </span>
             <p className="text-gray-200 text-lg mt-3 max-w-xl text-center">
-              Entdecke die besten Angebote für {extraTypeLabel.toLowerCase()} in {convertVowel(cityObj.name)}.
+              Entdecke die besten Angebote für {extraTypeLabel ? extraTypeLabel.toLowerCase() + " " : "LKW "}in {convertVowel(cityObj.name)}.
             </p>
           </div>
         </div>
@@ -181,11 +177,11 @@ const MietenCityCategoryExtraType = ({ params }: MietenCityCategoryExtraTypeProp
             seatsMax={undefined}
             fuel={undefined}
             transmission={undefined}
-            thisType={extraType as any}
+            thisType={undefined}
             freeMiles={undefined}
             extraCost={undefined}
             ahk={undefined}
-            weightClass={undefined}
+            weightClass={weightClass}
             weightClassMax={undefined}
             payload={undefined}
             payloadMax={undefined}
@@ -226,7 +222,8 @@ export default MietenCityCategoryExtraType;
 
 export async function generateMetadata({ params }: MietenCityCategoryExtraTypeProps) {
   // Find city and category label
-  const { city, category, extraType } = params;
+  const { city, extraType } = params;
+  const category = "lkw";
   // Find city object from cities data
   const cityObj = cities.find(c => slugifyCity(c.name) === city.toLowerCase());
   // Get readable category label
@@ -235,27 +232,28 @@ export async function generateMetadata({ params }: MietenCityCategoryExtraTypePr
   const cityNameRaw = cityObj?.name || city;
   const cityName = convertVowel(cityNameRaw);
 
-  // Try to get a human-readable label for extraType (PKW type)
+  // Try to get a human-readable label for extraType (LKW weight class)
   let extraTypeLabel = extraType;
-  if (category === "pkw") {
-    const found = pkwTypes.find(t => t.value === extraType);
-    if (found) extraTypeLabel = found.label;
+  const found = weightClassesLkw.find(w => w.value === extraType);
+  if (found) extraTypeLabel = found.label;
+  if (extraTypeLabel && /t$/.test(extraTypeLabel)) {
+    extraTypeLabel = extraTypeLabel.replace(/ t$/, ' Tonner');
   }
 
   // SEO title and description
-  const title = `${extraTypeLabel} mieten in ${cityName} `;
-  const description = `Jetzt ${extraTypeLabel.toLowerCase()} in ${cityName} günstig mieten. Vergleiche Angebote für ${extraTypeLabel.toLowerCase()} in ${cityName} – flexibel, schnell & sicher. Cabrio, Sportwagen, SUV, Limousine und mehr auf uRent.`;
+  const title = `${extraTypeLabel} Lkw mieten in ${cityName}`;
+  const description = `Jetzt ${extraTypeLabel.toLowerCase()} LKW in ${cityName} günstig mieten. Vergleiche Angebote für ${extraTypeLabel.toLowerCase()} LKW in ${cityName} – flexibel, schnell & sicher. LKW, Transporter und mehr auf uRent.`;
 
   // SEO keywords (optional, not used by all search engines but good for completeness)
   const keywords = [
-    `${extraTypeLabel} mieten ${cityName}`,
-    `${extraTypeLabel} leihen ${cityName}`,
-    `${extraTypeLabel} buchen ${cityName}`,
-    `Auto mieten ${cityName}`,
-    `Mietwagen ${cityName}`,
+    `${extraTypeLabel} Lkw mieten ${cityName}`,
+    `${extraTypeLabel} Lkw leihen ${cityName}`,
+    `${extraTypeLabel} Lkw buchen ${cityName}`,
+    `LKW mieten ${cityName}`,
+    `Miet-LKW ${cityName}`,
     `uRent ${cityName}`,
     `Fahrzeugvermietung ${cityName}`,
-    `Günstig mieten ${cityName}`
+    `Günstig LKW mieten ${cityName}`
   ];
 
   return {

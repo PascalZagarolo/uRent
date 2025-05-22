@@ -1,5 +1,5 @@
 import db from "@/db/drizzle";
-import { blog, inserat, BrandEnumRender } from "@/db/schema";
+import { blog, inserat, BrandEnumRender, userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { MetadataRoute } from "next";
 import { cities } from "@/data/cities/getCitites";
@@ -16,6 +16,9 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
     const foundBlogs : typeof blog.$inferSelect[] = await db.query.blog.findMany({
         where : eq(blog.isPublic, true)
     })
+    
+    // Fetch all users for profile paths
+    const foundUsers : typeof userTable.$inferSelect[] = await db.query.userTable.findMany();
 
     console.log(foundInserate)
 
@@ -30,6 +33,12 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
             
             url : `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${pBlog.id}`,
             lastModified : new Date(pBlog.createdAt)
+    }))
+    
+    // Create profile URLs for each user
+    const profileSites = foundUsers.map((user) => ({
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/profile/${user.id}`,
+        lastModified: user.updatedAt ? new Date(user.updatedAt) : new Date()
     }))
 
     const categorySlugs = ["pkw", "lkw", "transporter", "anhaenger"];
@@ -144,7 +153,8 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         ...mietenCityPkwBrandExtraTypeRoutes,
         ...mietenCityPkwExtraTypeRoutes,
         ...inseratSites,
-        ...blogSites
+        ...blogSites,
+        ...profileSites
     ]
 
 }

@@ -26,6 +26,7 @@ import PaymentMethods from "./_components/payment-methods";
 import AdsComponent from "@/components/ad-component";
 import BusinessRender from "./_components/business-render/business-render";
 import ProfileRender from "./_components/profile-render/profile-render";
+import Script from "next/script";
 
 
 
@@ -47,37 +48,118 @@ export async function generateMetadata({ params }: Props,
                         businessAddresses: true,
                     }
                 },
+                inserat: {
+                    take: 3,
+                    with: {
+                        images: {
+                            take: 1
+                        }
+                    }
+                }
             }
+        });
 
-        })
-
-        let usedDescription;
-
-        let addedAddress = "";
-
-        if (res?.business?.businessAddresses[0]?.postalCode && res?.business?.businessAddresses[0]?.city) {
-            addedAddress = res?.business?.businessAddresses[0]?.postalCode + ", " + res?.business?.businessAddresses[0]?.city;
+        if (!res) {
+            return {
+                title: "Profil nicht gefunden",
+                description: "Dieses Profil existiert nicht auf uRent, der Plattform für Fahrzeugvermietung.",
+                robots: {
+                    index: false,
+                    follow: false,
+                }
+            };
         }
 
-        if (res?.business?.description || res?.description) {
-            usedDescription = res?.business?.description ? addedAddress + res?.business?.description : addedAddress + res?.description
+        // Format address properly
+        let addressStr = "";
+        if (res?.business?.businessAddresses[0]) {
+            const address = res.business.businessAddresses[0];
+            const addressParts = [
+                address.postalCode,
+                address.city
+            ].filter(Boolean);
+            
+            if (addressParts.length > 0) {
+                addressStr = addressParts.join(", ") + " | ";
+            }
+        }
+
+        // Create a descriptive title
+        const isBusiness = res.isBusiness;
+        const siteTitle = res.name;
+        
+        // Create a rich description focused on vehicle rentals
+        let description = "";
+        if (isBusiness) {
+            description = `Fahrzeuge mieten bei ${res.name} in ${res?.business?.businessAddresses[0]?.city || ''}. `;
+            if (res.business?.description) {
+                description += res.business.description;
+            } else {
+                description += `PKW, LKW, Transporter und Anhänger zu günstigen Preisen mieten. Jetzt auf uRent vergleichen und buchen!`;
+            }
         } else {
-            usedDescription = res?.name
+            if (res.description) {
+                description = `Fahrzeuge von ${res.name} mieten: ${res.description}`;
+            } else {
+                description = `Fahrzeuge von ${res.name} auf uRent mieten - Günstige Preise und flexible Mietdauer. Direkt von privat ohne Umwege!`;
+            }
         }
 
+        // Limit description length for SEO best practices
+        const trimmedDescription = description.length > 160 
+            ? description.substring(0, 157) + "..." 
+            : description;
 
+        // Get profile image if available
+        let images = [];
+        if (res.image) {
+            images.push(res.image);
+        } else if (res.inserat && res.inserat.length > 0 && res.inserat[0].images && res.inserat[0].images.length > 0) {
+            images.push(res.inserat[0].images[0].url);
+        }
+
+        // Determine user type for keywords
+        const userType = isBusiness ? "Autovermietung, Mietwagen, Fahrzeugverleih" : "Privatvermieter, Fahrzeugvermietung";
+        const vehicleTypes = "PKW, LKW, Transporter, Anhänger, Mietwagen";
+        const keywords = `${res.name}, ${userType}, ${vehicleTypes}, ${isBusiness && res.business?.businessAddresses[0]?.city ? res.business.businessAddresses[0].city : ""}, uRent`;
 
         return {
-            title: res.name,
+            title: siteTitle,
+            description: trimmedDescription,
+            keywords: keywords,
             openGraph: {
-                description: usedDescription,
+                title: siteTitle,
+                description: trimmedDescription,
+                type: isBusiness ? "website" : "profile",
+                url: `${process.env.NEXT_PUBLIC_BASE_URL}/profile/${params.profileId}`,
+                images: images.length > 0 ? images : undefined,
             },
-        }
+            twitter: {
+                card: "summary_large_image",
+                title: siteTitle,
+                description: trimmedDescription,
+                images: images.length > 0 ? images : undefined,
+            },
+            alternates: {
+                canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/profile/${params.profileId}`,
+            },
+            robots: {
+                index: true,
+                follow: true,
+            },
+            other: {
+                'application-name': 'uRent',
+            }
+        };
     } catch (error) {
         return {
-            title: "Mieten auf uRent",
-            description: "Mieten auf uRent"
-        }
+            title: "uRent",
+            description: "Mieten Sie Fahrzeuge oder vermieten Sie Ihre eigenen auf uRent - der Plattform für private und gewerbliche Fahrzeugvermietung.",
+            robots: {
+                index: false,
+                follow: true,
+            }
+        };
     }
 }
 
@@ -132,6 +214,67 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
 
     
 
+
+
+    // Generate structured data for SEO
+    const structuredData = thisUser ? {
+        '@context': 'https://schema.org',
+        '@type': thisUser.isBusiness ? 'AutoRental' : 'Person',
+        name: thisUser.name,
+        description: thisUser.isBusiness 
+            ? `Fahrzeuge mieten bei ${thisUser.name} in ${thisUser.business?.businessAddresses[0]?.city || ''}. ${thisUser.business?.description || 'PKW, LKW, Transporter und Anhänger zu günstigen Preisen mieten.'}` 
+            : `Fahrzeuge von ${thisUser.name} auf uRent mieten - ${thisUser.description || 'Günstige Preise und flexible Mietdauer. Direkt von privat ohne Umwege!'}`,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/profile/${params.profileId}`,
+        ...(thisUser.image && { image: thisUser.image }),
+        ...(thisUser.isBusiness && thisUser.business?.businessAddresses[0] && {
+            address: {
+                '@type': 'PostalAddress',
+                streetAddress: thisUser.business.businessAddresses[0].street,
+                postalCode: thisUser.business.businessAddresses[0].postalCode,
+                addressLocality: thisUser.business.businessAddresses[0].city,
+                addressCountry: 'DE'
+            },
+            geo: {
+                '@type': 'GeoCoordinates',
+                latitude: thisUser.business.businessAddresses[0].latitude,
+                longitude: thisUser.business.businessAddresses[0].longitude
+            }
+        }),
+        ...(thisUser.isBusiness && { 
+            priceRange: '€€',
+            // Add business category
+            '@id': `${process.env.NEXT_PUBLIC_BASE_URL}/profile/${params.profileId}`,
+            areaServed: thisUser.business?.businessAddresses[0]?.city || 'Deutschland',
+            // Add business hours if available
+            ...(thisUser.business?.openingTimes && thisUser.business.openingTimes.length > 0 && {
+                openingHoursSpecification: thisUser.business.openingTimes.map(time => ({
+                    '@type': 'OpeningHoursSpecification',
+                    dayOfWeek: time.day,
+                    opens: time.openTime,
+                    closes: time.closeTime
+                }))
+            }),
+            // Add vehicle offerings based on inserate
+            ...(thisUser.inserat && thisUser.inserat.length > 0 && {
+                makesOffer: thisUser.inserat.map(item => ({
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Vehicle',
+                        name: item.title,
+                        description: item.description,
+                        vehicleConfiguration: item.category || 'Fahrzeug',
+                    },
+                    ...(item.images && item.images.length > 0 && { image: item.images[0].url })
+                }))
+            })
+        }),
+        ...(thisUser.contactOptions && thisUser.contactOptions[0]?.phoneNumber && { 
+            telephone: thisUser.contactOptions[0].phoneNumber 
+        }),
+        ...(thisUser.contactOptions && thisUser.contactOptions[0]?.email && { 
+            email: thisUser.contactOptions[0].email 
+        })
+    } : null;
 
 
     return (
@@ -191,6 +334,13 @@ const ProfilePage = async ({ params }: { params: { profileId: string } }) => {
             <div className="mt-8 border-t border-indigo-800/20">
                 <Footer />
             </div>
+
+            {/* Add structured data JSON-LD */}
+            {structuredData && (
+                <Script id="structured-data" type="application/ld+json" strategy="afterInteractive">
+                    {JSON.stringify(structuredData)}
+                </Script>
+            )}
         </div>
         </>
 

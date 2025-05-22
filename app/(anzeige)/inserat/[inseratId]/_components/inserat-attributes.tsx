@@ -54,15 +54,17 @@ const InseratAttributes: React.FC<InseratAttributesProps> = ({
     };
 
     return (
-        <div className="mt-4 pb-6">
-            <h3 className="flex items-center text-base font-medium mb-3 text-gray-200">
-                <span className={`w-7 h-7 rounded-full bg-gradient-to-br ${categoryIcons[usedCategory]?.color || 'from-gray-500/10 to-gray-700/5'} flex items-center justify-center mr-2 border ${categoryIcons[usedCategory]?.border || 'border-gray-700/10'}`}>
-                    {categoryIcons[usedCategory]?.icon || <CarFrontIcon className="h-4 w-4 text-gray-400" />}
-                </span>
-                Fahrzeugattribute
-            </h3>
-            <div className="bg-gradient-to-br from-[#151823] to-[#1B1F2E] rounded-xl border border-gray-800/10 p-4 pb-2 shadow-sm">
-            {renderAttributes()}
+        <div>
+            <div className="bg-gradient-to-br from-[#151823] to-[#1B1F2E] rounded-xl border border-gray-800/30 shadow-lg overflow-hidden">
+                <div className="p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                        <span className={`w-8 h-8 rounded-full bg-gradient-to-br ${categoryIcons[usedCategory]?.color || 'from-gray-500/10 to-gray-700/5'} flex items-center justify-center border ${categoryIcons[usedCategory]?.border || 'border-gray-700/10'}`}>
+                            {categoryIcons[usedCategory]?.icon || <CarFrontIcon className="h-4 w-4 text-gray-400" />}
+                        </span>
+                        <h3 className="text-base font-semibold text-gray-200">Fahrzeugattribute</h3>
+                    </div>
+                    {renderAttributes()}
+                </div>
             </div>
         </div>
     );

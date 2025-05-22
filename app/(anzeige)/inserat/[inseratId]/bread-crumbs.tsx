@@ -6,16 +6,19 @@ import { Slash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { MdArrowRight } from "react-icons/md";
+import { useEffect } from "react";
 
 interface BreadCrumbsProps {
     thisCategory : string;
     thisTitle : string;
+    inseratId?: string;
 }
 
 
 const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
     thisCategory,
-    thisTitle
+    thisTitle,
+    inseratId
 }) => {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -30,6 +33,21 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
 
         router.push(url);
     }
+
+    // Track last 10 visited inserate in localStorage
+    useEffect(() => {
+        const id = inseratId || thisTitle;
+        if (!id) return;
+        const key = "visitedInserate";
+        let visited: string[] = [];
+        try {
+            visited = JSON.parse(localStorage.getItem(key) || "[]");
+        } catch {}
+        visited = visited.filter((v) => v !== id);
+        visited.unshift(id);
+        if (visited.length > 10) visited = visited.slice(0, 10);
+        localStorage.setItem(key, JSON.stringify(visited));
+    }, [inseratId, thisTitle]);
 
     return ( 
         <Breadcrumb className="dark:text-gray-200 ml-2">

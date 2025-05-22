@@ -24,6 +24,7 @@ import { BsHandIndexThumb } from "react-icons/bs";
 import LetterRestriction from "@/components/letter-restriction";
 import ManageAvailability from "./manage-availability";
 import { cn } from "@/lib/utils";
+import PaymentModal from "./_payment/payment-modal";
 
 interface InseratOptionsProps {
     thisUser: typeof userTable.$inferSelect;
@@ -184,6 +185,12 @@ const InseratOptions: React.FC<InseratOptionsProps> = ({
                     </div>
                 ) : (
                     <div className="space-y-3">
+                        {ownUser?.isAdmin && (
+                            <div className="mb-6">
+                            <PaymentModal />
+                            <div className="my-4 border-b-2 border-indigo-500/40 w-full" />
+                        </div>
+                        )}
                         <Dialog>
                             <DialogTrigger asChild>
                                 <Button

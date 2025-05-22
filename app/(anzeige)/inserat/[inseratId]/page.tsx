@@ -238,7 +238,7 @@ const InseratAnzeige = async ({
                             {/* Inserat side right */}
                             <div className='md:w-4/12 w-full flex flex-col '>
                                 <div className='mt-10'>
-                                    <InseratOptions
+                                <InseratOptions
                                         inseratArray={inseratArray}
                                         thisUser={thisInserat.user}
                                         bookings={inseratBookings}

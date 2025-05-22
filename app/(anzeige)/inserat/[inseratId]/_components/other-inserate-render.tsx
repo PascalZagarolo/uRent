@@ -22,13 +22,13 @@ const OtherInserateRender: React.FC<OtherInserateRenderProps> = ({
         >
             <div className="flex space-x-3">
                 {/* Image */}
-                <div className="h-16 w-16 rounded-md overflow-hidden flex-shrink-0 relative">
+                <div className="h-16 w-16 rounded-md overflow-hidden flex-shrink-0 relative" style={{ overflowClipMargin: 'unset' }}>
                     {thisInserat?.images?.[0]?.url ? (
-                        <Image
+                        <img
                             src={thisInserat?.images?.[0]?.url} 
                             alt={thisInserat.title || "Inserat"}
-                            fill
-                            className="object-cover"
+                            className="object-cover h-full w-full"
+                            style={{ overflowClipMargin: 'unset' }}
                         />
                     ) : (
                         <div className="w-full h-full bg-[#151823] flex items-center justify-center">

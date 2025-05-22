@@ -6,6 +6,13 @@ import { ChevronRight, ChevronLeft, SparklesIcon } from "lucide-react";
 import OtherInserateRender from "./other-inserate-render";
 import { getRecommendedInserate } from "@/actions/inserat/getRecommendedInserate";
 
+// Add CSS for WebKit scrollbar hiding
+const scrollbarHiddenStyle = `
+  #inserate-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 // UUID validation regex
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -136,6 +143,9 @@ const RecommendedInserate: React.FC<RecommendedInserateProps> = ({
 
   return (
     <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#151823] via-[#1B1F2E] to-[#151823] shadow-lg border border-gray-800/30">
+      {/* Add style tag for WebKit scrollbar hiding */}
+      <style jsx>{scrollbarHiddenStyle}</style>
+      
       {/* Glowing accent */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -186,13 +196,21 @@ const RecommendedInserate: React.FC<RecommendedInserateProps> = ({
         <div 
           ref={scrollContainerRef}
           id="inserate-scroll-container"
-          className="flex overflow-x-auto gap-4 pb-2 scrollbar-none"
-          style={{ msOverflowStyle: 'none' }}
+          className="flex overflow-x-auto gap-4 pb-2 scrollbar-none object-cover"
+          style={{ 
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+            overflowClipMargin: 'unset'
+          }}
         >
           {recentlyViewed
             .filter(inserat => inserat.id !== currentInseratId)
             .map((inserat) => (
-              <div key={inserat.id} className="min-w-[280px] w-[280px] flex-shrink-0 transform transition-transform duration-300 hover:scale-[1.02] hover:-translate-y-1">
+              <div 
+                key={inserat.id} 
+                className="min-w-[280px] w-[280px] flex-shrink-0 transform transition-transform duration-300 hover:scale-[1.02] hover:-translate-y-1 object-cover"
+                style={{ overflowClipMargin: 'unset' }}
+              >
                 <OtherInserateRender thisInserat={inserat} />
               </div>
             ))}

@@ -207,8 +207,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
             {/* Main Content Area */}
             <div className="flex w-full h-[200px]">
                 {/* Image Container - Takes full width on mobile, half on larger screens */}
-                <div className="sm:w-1/2 w-full h-full relative overflow-hidden">
-                <div className="absolute inset-0 w-full h-full">
+                <div className="sm:w-1/2 w-full h-full relative overflow-hidden" style={{ overflowClipMargin: 'unset' }}>
+                <div className="absolute inset-0 w-full h-full" style={{ overflowClipMargin: 'unset' }}>
     <Image
         src={thisInserat?.images[0]?.url}
         alt={thisInserat.title}
@@ -216,7 +216,8 @@ const InseratCard: React.FC<InseratCardProps> = ({
         className="object-cover hover:cursor-pointer transform transition-transform duration-700 hover:scale-[1.03]"
         style={{
             objectPosition: 'center',
-            imageRendering: 'auto'
+            imageRendering: 'auto',
+            overflowClipMargin: 'unset'
         }}
         quality={80}
         onClick={onRedirect}

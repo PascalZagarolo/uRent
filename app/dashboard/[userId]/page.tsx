@@ -1,6 +1,3 @@
-
-
-
 import TabSwitcher from "./_tabs/tab-switcher";
 import getCurrentUserDashboard from "@/actions/dashboard/getCurrentUserDashboard";
 import { stripe } from "@/lib/stripe";
@@ -17,7 +14,6 @@ const DashboardPage = async ({
 
     const currentUser = await getCurrentUserDashboard();
 
-
     let views = 0;
     
     for(const inserat of currentUser.inserat) {
@@ -33,8 +29,6 @@ const DashboardPage = async ({
             customer: currentUser?.subscription?.stripe_customer_id
         }) : null
         
-        
-    
         existingPayments = currentUser?.subscription?.stripe_customer_id ? await stripe.paymentIntents.list({
             customer: currentUser?.subscription?.stripe_customer_id ?? ""
         }) : null
@@ -50,20 +44,15 @@ const DashboardPage = async ({
         
     }
 
-
     return (
-        <div className="flex justify-center sm:py-8 sm:px-4">
-            <div className="sm:w-[1044px] w-full dark:bg-[#1c1c1c] rounded-md bg-white">
-                <div className="min-h-screen">
-                    <div>
-                    <TabSwitcher
-                            currentUser={currentUser as any}
-                            existingInvoices = {JSON?.parse(JSON?.stringify(existingInvoices))}
-                            retrievedSubscription = {JSON?.parse(JSON?.stringify(retrievedSubscription ? retrievedSubscription : null))}
-                            existingPayments = {JSON?.parse(JSON?.stringify(existingPayments))}
-                        />
-                    </div>
-                </div>
+        <div className="w-full min-h-screen">
+            <div className="w-full bg-white/50 dark:bg-[#1c1c1c]/50 backdrop-blur-sm">
+                <TabSwitcher
+                    currentUser={currentUser as any}
+                    existingInvoices={JSON?.parse(JSON?.stringify(existingInvoices))}
+                    retrievedSubscription={JSON?.parse(JSON?.stringify(retrievedSubscription ? retrievedSubscription : null))}
+                    existingPayments={JSON?.parse(JSON?.stringify(existingPayments))}
+                />
             </div>
         </div>
     );

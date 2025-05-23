@@ -17,8 +17,8 @@ import {
 } from "@/components/ui/popover"
 
 
-import { BookOpenCheck, CalendarClockIcon, CalendarIcon, PlusSquare } from "lucide-react"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { BookOpenCheck, CalendarClockIcon, CalendarIcon, Check, Clock as ClockIcon, ClipboardList, CreditCard, PlusCircle, PlusSquare } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -28,7 +28,7 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { booking, inserat } from "@/db/schema";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { vehicle } from '../../../../../../db/schema';
 import { Input } from "@/components/ui/input";
@@ -41,6 +41,8 @@ import { checkAvailability } from "@/actions/check-availability";
 
 import ConflictDialog from "./conflict-dialog.tsx/conflict-dialog";
 import LetterRestriction from "@/components/letter-restriction";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 
 
@@ -282,56 +284,65 @@ const AddBooking: React.FC<AddBookingProps> = ({
         <Dialog open={isOpen} onOpenChange={(e) => {
             setIsOpen(e);
             if (e === false) {
-              
                 onClose();
             }
-
         }}>
+            <DialogTrigger className="w-full" asChild>
+                <Button variant="default" className="w-full flex items-center gap-2 text-sm">
+                    <PlusCircle className="h-4 w-4" /> 
+                    Neue Buchung erstellen
+                </Button>
+            </DialogTrigger>
 
-            <div className="dark:bg-[#0F0F0F] bg-gray-200  w-full">
-                <DialogTrigger asChild className="w-full">
-                    <Button className=" text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-[#141414] rounded-none" variant="ghost">
-                        <PlusSquare className="mr-2 h-4 w-4" /> Buchungen hinzufügen
-                    </Button>
-                </DialogTrigger>
-            </div>
+            <DialogContent className="sm:max-w-[600px] dark:bg-[#161616] border-none max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                    <DialogTitle className="flex items-center text-xl gap-2 dark:text-white">
+                        <ClipboardList className="h-5 w-5 text-primary" /> 
+                        Neue Buchung anlegen
+                    </DialogTitle>
+                </DialogHeader>
 
-            <DialogContent className="dark:bg-[#0F0F0F] dark:border-gray-100 dark:border-none overflow-y-auto max-h-[80vh] sm:max-h-[100vh] no-scrollbar">
-                <div className="flex flex-col  w-full">
-                    <div>
-                        <h3 className="font-bold flex mb-8">
-                            <CalendarClockIcon className="mr-2" /> Buchungen hinzufügen
-                        </h3>
-                    </div>
-                    <div className="sm:py-4 mb-4 sm:mb-0">
-                        <Label className="">
-                            Zugehöriges Inserat*
+                <Separator className="my-2" />
+
+                <div className="grid gap-5 py-3">
+                    {/* Inserat Selector */}
+                    <div className="grid gap-2">
+                        <Label htmlFor="inserat" className="text-sm font-medium flex items-center gap-1">
+                            <CreditCard className="h-3.5 w-3.5 text-muted-foreground" />
+                            Inserat auswählen
+                            <span className="text-red-500">*</span>
                         </Label>
                         <Select
                             onValueChange={(selectedValue) => {
                                 setCurrentInserat(selectedValue);
                                 setCurrentVehicle(null);
                             }}
-                            value={currentInserat || ''} // Ensures a falsy value like null doesn't break the component
+                            value={currentInserat || ''} 
                         >
-                            <SelectTrigger className={cn("dark:border-none dark:bg-[#222222] shadow-lg w-full", !currentInserat && "text-gray-200/80")}>
+                            <SelectTrigger className="dark:bg-[#222222] border-none shadow-sm h-9">
                                 <SelectValue placeholder="Bitte wähle dein Inserat" />
                             </SelectTrigger>
 
-                            <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-                                {foundInserate.map((thisInserat) => (
-                                    <SelectItem value={thisInserat.id} key={thisInserat.id}>
-                                        {thisInserat.title}
-                                        
-                                    </SelectItem>
-                                ))}
+                            <SelectContent className="dark:bg-[#111111] border-none">
+                                <SelectGroup>
+                                    <SelectLabel className="text-xs text-muted-foreground">Verfügbare Inserate</SelectLabel>
+                                    {foundInserate.map((thisInserat) => (
+                                        <SelectItem value={thisInserat.id} key={thisInserat.id} className="text-sm">
+                                            {thisInserat.title}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
                             </SelectContent>
                         </Select>
                     </div>
+
+                    {/* Vehicle Selector (if inserat is multi) */}
                     {currentInseratObject && currentInseratObject.multi && (
-                        <div className="pb-8 ">
-                            <Label className="">
-                                Fahrzeug
+                        <div className="grid gap-2">
+                            <Label htmlFor="vehicle" className="text-sm font-medium flex items-center gap-1">
+                                <ClockIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                                Fahrzeug auswählen
+                                <span className="text-red-500">*</span>
                             </Label>
                             <Select
                                 onValueChange={(selectedValue) => {
@@ -339,235 +350,237 @@ const AddBooking: React.FC<AddBookingProps> = ({
                                 }}
                                 disabled={affectAll}
                                 value={currentVehicle || ''}
-
                             >
-                                <SelectTrigger className={cn("dark:border-none dark:bg-[#222222] shadow-lg", !currentVehicle && "text-gray-200/80")}
-                                    disabled={//@ts-ignore
-                                        !currentInserat || currentInseratObject?.vehicles?.length <= 0}
+                                <SelectTrigger 
+                                    className="dark:bg-[#222222] border-none shadow-sm h-9"
+                                    disabled={affectAll || !currentInserat}
                                 >
                                     <SelectValue placeholder={affectAll ? "Buchung wird auf alle Fahrzeuge angewandt.." : "Bitte wähle dein Fahrzeug"} />
-
-                                    <SelectContent className="dark:bg-[#0a0a0a] dark:border-none">
-
-                                        {//@ts-ignore
-                                            currentInseratObject?.vehicles?.length > 0 ? (
-                                                //@ts-ignore
-                                                currentInseratObject?.vehicles?.map((thisVehicle: typeof vehicle.$inferSelect) => (
-                                                    <SelectItem value={thisVehicle.id} key={thisVehicle.id} onSelect={() => { setAffectAll(false) }}>
-                                                        {thisVehicle.title}
-                                                    </SelectItem>
-                                                ))
-
-                                            ) : (
-                                                <SelectItem value={null}>
-                                                    Keine Fahrzeuge verfügbar
-                                                </SelectItem>
-                                            )}
-                                    </SelectContent>
                                 </SelectTrigger>
+
+                                <SelectContent className="dark:bg-[#111111] border-none">
+                                    <SelectGroup>
+                                        <SelectLabel className="text-xs text-muted-foreground">Verfügbare Fahrzeuge</SelectLabel>
+                                        {(currentInseratObject as any)?.vehicles?.length > 0 ? (
+                                            (currentInseratObject as any).vehicles.map((thisVehicle: typeof vehicle.$inferSelect) => (
+                                                <SelectItem value={thisVehicle.id} key={thisVehicle.id} className="text-sm">
+                                                    {thisVehicle.title}
+                                                </SelectItem>
+                                            ))
+                                        ) : (
+                                            <SelectItem value="none" disabled>
+                                                Keine Fahrzeuge verfügbar
+                                            </SelectItem>
+                                        )}
+                                    </SelectGroup>
+                                </SelectContent>
                             </Select>
-                            <div className="space-x-2 mt-2">
+                            
+                            <div className="flex items-center gap-2 mt-1">
                                 <Checkbox
+                                    id="affectAll"
                                     checked={affectAll}
                                     onCheckedChange={(e) => {
                                         setAffectAll(Boolean(e));
                                         if (Boolean(e)) {
-
                                             setCurrentVehicle(undefined);
                                         }
-                                    }} />
-
-                                <Label className="hover:cursor-pointer" onClick={() => {
-                                    setAffectAll(!affectAll);
-                                    if (affectAll) {
-                                        setCurrentVehicle(undefined);
-                                    }
-                                }}>
+                                    }} 
+                                />
+                                <Label 
+                                    htmlFor="affectAll" 
+                                    className="text-sm text-muted-foreground cursor-pointer"
+                                >
                                     Buchung auf alle Fahrzeuge anwenden
                                 </Label>
                             </div>
                         </div>
                     )}
-                    <div className="flex-col">
 
-                    <div className="flex flex-row gap-x-8  w-full">
-                            <div className='w-1/2'>
-                                <Label>Anfangsdatum*</Label>
-                                <Popover modal={true}>
-                                    <PopoverTrigger asChild>
-
-                                        <div className='w-full'>
-                                        <Button
-                                            variant={"outline"}
-                                            className={cn(
-                                                "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg sm:flex ",
-                                                !currentStart && "text-muted-foreground"
-                                            )}
-                                        >
-                                            {currentStart ? (
-                                                format(currentStart, "PPP", { locale: de })
-                                            ) : (
-                                                <span>Wähle ein Datum</span>
-                                            )}
-                                            {!currentStart && (
-                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                            )}
-                                        </Button>
-
-                                        </div>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
-                                        <Calendar
-                                            mode="single"
-                                            locale={de}
-                                            selected={currentStart}
-                                            className="dark:bg-[#0a0a0a] dark:border-none"
-                                            onSelect={(date) => {
-
-                                                setCurrentStart(date);
-
-                                            }}
-                                            disabled={(date) =>
-                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
-                                            }
-                                            initialFocus
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
-
-
-
-                            <div className='w-1/2'>
-                                <Label>Enddatum*</Label>
-                                <Popover modal={true}>
-                                    <PopoverTrigger asChild>
-                                    <div className='w-full'>
-                                        <Button
-                                            variant={"outline"}
-                                            className={cn(
-                                                "w-full text-left font-normal dark:border-none bg-[#222222] shadow-lg",
-                                                !currentEnd && "text-muted-foreground"
-                                            )}
-                                        >
-                                            {currentEnd ? (
-                                                format(currentEnd, "PPP", { locale: de })
-                                            ) : (
-                                                <span>Wähle ein Datum</span>
-                                            )}
-                                            {!currentEnd && (
-                                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                            )}
-                                        </Button>
-</div>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0 dark:border-none rounded-md" align="start">
-                                        <Calendar
-                                            mode="single"
-                                            selected={currentEnd}
-                                            className="dark:bg-[#0a0a0a]"
-                                            locale={de}
-                                            onSelect={(date) => {
-
-                                                setCurrentEnd(date);
-                                            }}
-                                            disabled={(date) =>
-                                                isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
-                                            }
-                                            initialFocus
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
-
-
-
-                        </div>
-
-                        <div className="mt-4">
-                            <SelectTimeRange
-                                isSameDay={isSameDay(currentStart, currentEnd)}
-                                setStartTimeParent={setCurrentStartTime}
-                                setEndTimeParent={setCurrentEndTime}
-                                prefilledStartTime={usedStartTime}
-                                prefilledEndTime={usedEndTime}
-                            />
-                        </div>
-                        <div>
-
-                            <Label className="flex items-center sm:mt-8 mt-4">
-                                Name*</Label>
-                            <Input
-                                maxLength={160}
-                                value={currentName}
-                                className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                dark:bg-[#222222] shadow-lg"
-                                onChange={(e) => { setCurrentName(e.target.value) }}
-                            />
-                            <div className="flex justify-end">
-                                <LetterRestriction
-                                    limit={160}
-                                    currentLength={currentName?.length ?? 0}
-                                />
-                            </div>
-
-                        </div>
-
-                        <div className="sm:mt-2">
-                            <Label className="font-semibold text-sm flex items-center">
-                                Interne Buchungsnr.
+                    {/* Date Range Selector */}
+                    <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid gap-2">
+                            <Label className="text-sm font-medium flex items-center gap-1">
+                                <CalendarIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                                Anfangsdatum
+                                <span className="text-red-500">*</span>
                             </Label>
-                            <div className="">
-                                <Input
-                                    value={currentInternal}
-                                    className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none
-                                                    dark:bg-[#222222] shadow-lg"
-                                    onChange={(e) => { setCurrentInternal(e.target.value) }}
-                                    maxLength={160}
-                                />
-                                <div className="flex justify-end">
-                                    <LetterRestriction
-                                        limit={160}
-                                        currentLength={currentInternal?.length ?? 0}
+                            <Popover modal={true}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        className={cn(
+                                            "justify-start text-left font-normal h-9 dark:bg-[#222222] border-none shadow-sm",
+                                            !currentStart && "text-muted-foreground"
+                                        )}
+                                    >
+                                        {currentStart ? (
+                                            format(currentStart, "dd. MMM yyyy", { locale: de })
+                                        ) : (
+                                            <span>Anfangsdatum wählen</span>
+                                        )}
+                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0 dark:bg-[#111111] border-none shadow-lg" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        locale={de}
+                                        selected={currentStart}
+                                        onSelect={(date) => setCurrentStart(date)}
+                                        disabled={(date) =>
+                                            isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
+                                        }
+                                        initialFocus
+                                        className="dark:bg-[#111111]"
                                     />
-                                </div>
-                            </div>
+                                </PopoverContent>
+                            </Popover>
                         </div>
-                        <div>
-                            <span className="font-semibold text-sm  flex">
-                                 Anmerkungen:
-                            </span>
 
-
-                            <Textarea
-                                className="focus:ring-0 focus:outline-none focus:border-0 dark:border-none sm:h-40 h-8
-                            dark:bg-[#222222] shadow-lg"
-                                value={currentContent}
-                                maxLength={2000}
-                                onChange={handleTextChange}
-                            />
-                            <div className='flex justify-end'>
-                                <LetterRestriction
-                                    limit={2000}
-                                    currentLength={currentContent?.length ?? 0}
-                                />
-                            </div>
-
-                        </div> 
-                        <Button
-                            className="border border-gray-300  shadow-lg text-gray-200
-                                        bg-indigo-800 hover:bg-indigo-900 dark:border-none w-full"
-                            disabled={((!currentName || currentName.trim() === ""))
-                                || isLoading || !currentInserat || !currentStart || !currentEnd
-                                || !currentStartTime || !currentEndTime ||
-                                (currentInseratObject?.multi && !(currentVehicle || affectAll))
-                            }
-                            onClick={onSubmit}
-                        >
-                            Buchung hinzufügen</Button>
-
-
+                        <div className="grid gap-2">
+                            <Label className="text-sm font-medium flex items-center gap-1">
+                                <CalendarIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                                Enddatum
+                                <span className="text-red-500">*</span>
+                            </Label>
+                            <Popover modal={true}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        className={cn(
+                                            "justify-start text-left font-normal h-9 dark:bg-[#222222] border-none shadow-sm",
+                                            !currentEnd && "text-muted-foreground"
+                                        )}
+                                    >
+                                        {currentEnd ? (
+                                            format(currentEnd, "dd. MMM yyyy", { locale: de })
+                                        ) : (
+                                            <span>Enddatum wählen</span>
+                                        )}
+                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0 dark:bg-[#111111] border-none shadow-lg" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={currentEnd}
+                                        locale={de}
+                                        onSelect={(date) => setCurrentEnd(date)}
+                                        disabled={(date) =>
+                                            isBefore(date, new Date().setHours(0, 0, 0, 0)) || date < new Date("1900-01-01")
+                                        }
+                                        initialFocus
+                                        className="dark:bg-[#111111]"
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                        </div>
                     </div>
+
+                    {/* Time Range */}
+                    <div className="grid gap-2">
+                        <Label className="text-sm font-medium flex items-center gap-1">
+                            <ClockIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                            Zeitraum
+                            <span className="text-red-500">*</span>
+                        </Label>
+                        <SelectTimeRange
+                            isSameDay={isSameDay(currentStart, currentEnd)}
+                            setStartTimeParent={setCurrentStartTime}
+                            setEndTimeParent={setCurrentEndTime}
+                            prefilledStartTime={usedStartTime}
+                            prefilledEndTime={usedEndTime}
+                        />
+                    </div>
+
+                    <Separator />
+
+                    {/* Booking Name */}
+                    <div className="grid gap-2">
+                        <Label className="text-sm font-medium flex items-center gap-1">
+                            <MdOutlinePersonPin className="h-3.5 w-3.5 text-muted-foreground" />
+                            Name der Buchung
+                            <span className="text-red-500">*</span>
+                        </Label>
+                        <Input
+                            maxLength={160}
+                            value={currentName || ''}
+                            className="dark:bg-[#222222] border-none shadow-sm h-9"
+                            onChange={(e) => setCurrentName(e.target.value)}
+                            placeholder="Name oder Beschreibung der Buchung eingeben"
+                        />
+                        <div className="flex justify-end">
+                            <LetterRestriction
+                                limit={160}
+                                currentLength={currentName?.length ?? 0}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Internal Booking ID */}
+                    <div className="grid gap-2">
+                        <Label className="text-sm font-medium flex items-center gap-1">
+                            <TbListNumbers className="h-3.5 w-3.5 text-muted-foreground" />
+                            Interne Buchungsnummer
+                        </Label>
+                        <Input
+                            value={currentInternal || ''}
+                            className="dark:bg-[#222222] border-none shadow-sm h-9"
+                            onChange={(e) => setCurrentInternal(e.target.value)}
+                            placeholder="Optionale interne Referenznummer"
+                            maxLength={160}
+                        />
+                        <div className="flex justify-end">
+                            <LetterRestriction
+                                limit={160}
+                                currentLength={currentInternal?.length ?? 0}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Notes/Comments */}
+                    <div className="grid gap-2">
+                        <Label className="text-sm font-medium flex items-center gap-1">
+                            <BookOpenCheck className="h-3.5 w-3.5 text-muted-foreground" />
+                            Anmerkungen
+                        </Label>
+                        <Textarea
+                            className="dark:bg-[#222222] border-none shadow-sm resize-none min-h-[100px]"
+                            value={currentContent || ''}
+                            maxLength={2000}
+                            onChange={handleTextChange}
+                            placeholder="Optionale Anmerkungen zur Buchung"
+                        />
+                        <div className="flex justify-end">
+                            <LetterRestriction
+                                limit={2000}
+                                currentLength={currentContent?.length ?? 0}
+                            />
+                        </div>
+                    </div>
+
+                    <Button
+                        disabled={((!currentName || currentName.trim() === ""))
+                            || isLoading || !currentInserat || !currentStart || !currentEnd
+                            || !currentStartTime || !currentEndTime ||
+                            (currentInseratObject?.multi && !(currentVehicle || affectAll))
+                        }
+                        onClick={onSubmit}
+                        className="w-full mt-2"
+                    >
+                        {isLoading ? (
+                            <span className="flex items-center gap-2">
+                                <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                                Wird erstellt...
+                            </span>
+                        ) : (
+                            <span className="flex items-center gap-2">
+                                <Check className="h-4 w-4" />
+                                Buchung hinzufügen
+                            </span>
+                        )}
+                    </Button>
                 </div>
             </DialogContent>
         </Dialog>

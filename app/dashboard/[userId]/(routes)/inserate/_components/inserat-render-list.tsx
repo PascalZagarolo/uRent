@@ -1,305 +1,136 @@
 'use client';
 
 import InserateDashboardRender from "./inserate-dashboard-render";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { inserat } from "@/db/schema";
-import { Input } from "@/components/ui/input";
-import { SearchIcon, X } from "lucide-react";
-import { useDebounce } from "@/components/multiple-selector";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { user } from "@/drizzle/schema";
-import { set } from "lodash";
-import { Checkbox } from "@/components/ui/checkbox";
-import { MdOutlineUnfoldLess } from "react-icons/md";
+import { ChevronDown, ChevronUp, TruckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface InserateRenderListProps {
     inserateArray: typeof inserat.$inferSelect[];
     currentUser: typeof user.$inferSelect;
-
 }
 
 const InserateRenderList: React.FC<InserateRenderListProps> = ({
     inserateArray,
     currentUser
-
 }) => {
-
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+    const [expandedItems, setExpandedItems] = useState(5);
 
     const canPublishMore = () => {
-        const hightlightedLength = inserateArray.filter((inserat) => inserat.isHighlighted).length;
+        const highlightedLength = inserateArray.filter((inserat) => inserat.isHighlighted).length;
 
         //@ts-ignore
         if (currentUser?.subscription?.subscriptionType === "PREMIUM") {
-            return hightlightedLength < 1;
+            return highlightedLength < 1;
             //@ts-ignore
         } else if (currentUser?.subscription?.subscriptionType === "ENTERPRISE") {
-            return hightlightedLength < 2;
+            return highlightedLength < 2;
         } else {
             return false;
         }
     }
 
-    //use RenderAmount to render only 5 Inserate, if pressed "Mehr Anzeigen" => increase amount by 5 and so on...
-    const [renderAmount, setRenderAmount] = useState(5);
-    const [renderedInserate, setRenderedInserate] = useState<any>(inserateArray);
-    const [selectedSort, setSelectedSort] = useState(null as any);
-    const [selectedVisibility, setSelectedVisibility] = useState<"PRIVATE" | "PUBLIC" | null>(null as any);
-    const [title, setTitle] = useState("");
-
-    const debouncedValue = useDebounce(title, 500);
-
-    useEffect(() => {
-
-        let returnedInserate = inserateArray;
-
-        if (title) {
-            //@ts-ignore
-            returnedInserate = inserateArray.filter((inserat) => {
-                return inserat.title.toLowerCase().includes(title.toLowerCase())
-
-            })
-
-        }
-
-        if (selectedVisibility) {
-            if (selectedVisibility === "PUBLIC") {
-                //@ts-ignore
-                const filtered = returnedInserate.filter((inserat) => {
-                    return inserat.isPublished
-                })
-                returnedInserate = filtered;
-                setRenderedInserate(returnedInserate);
-            } else if (selectedVisibility === "PRIVATE") {
-                //@ts-ignore
-                const filtered = returnedInserate.filter((inserat) => {
-                    return !inserat.isPublished
-                })
-                returnedInserate = filtered;
-                setRenderedInserate(returnedInserate);
-            }
-        }
-
-
-
-    }, [inserateArray, selectedVisibility, title])
-
-    useMemo(() => {
-        if (!title) {
-            setRenderedInserate(inserateArray)
-        } else {
-            //@ts-ignore
-            const filteredInserate = inserateArray.filter((inserat) => {
-                return inserat.title.toLowerCase().includes(title.toLowerCase())
-
-            })
-            setRenderedInserate(filteredInserate)
-        }
-    }, [debouncedValue])
-
-    useEffect(() => {
-        console.log("...")
-        if (!selectedSort) {
-            setRenderedInserate(inserateArray)
-        } else if (selectedSort === "date_asc") {
-
-
-            const sortedInserate = [...renderedInserate].sort((a, b) => {
-                return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-            })
-            setRenderedInserate(sortedInserate)
-        } else if (selectedSort === "date_desc") {
-            const sortedInserate = [...renderedInserate].sort((a, b) => {
-                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-            })
-            setRenderedInserate(sortedInserate)
-        }
-    }, [selectedSort])
-
-    useEffect(() => {
-
-        let fInserate: any = inserateArray;
-
-        if (title) {
-            //@ts-ignore
-            const filteredInserate = inserateArray.filter((inserat) => {
-                return inserat.title.toLowerCase().includes(title.toLowerCase())
-
-            })
-            fInserate = filteredInserate;
-        }
-
-        if (!selectedSort) {
-
-        } else if (selectedSort === "date_asc") {
-            const sortedInserate = [...fInserate].sort((a, b) => {
-                return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-            })
-            fInserate = sortedInserate;
-        } else if (selectedSort === "date_desc") {
-            const sortedInserate = [...fInserate].sort((a, b) => {
-                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-            })
-            fInserate = sortedInserate;
-        }
-
-
-        if (!selectedVisibility) {
-            setRenderedInserate(fInserate)
-        } else if (selectedVisibility === "PUBLIC") {
-            //@ts-ignore
-            const filtered = fInserate.filter((inserat) => {
-                return inserat.isPublished
-            })
-            setRenderedInserate(filtered)
-        } else if (selectedVisibility === "PRIVATE") {
-            //@ts-ignore
-            const filtered = fInserate.filter((inserat) => {
-                return !inserat.isPublished
-            })
-            setRenderedInserate(filtered)
-        }
-    }, [selectedVisibility])
-
-    const onDelete = async (inseratId) => {
+    const onDelete = async (inseratId: string) => {
         try {
             if (isLoading) return;
-            console.log(inseratId)
             setIsLoading(true);
-            setRenderedInserate((prevInserate) =>
-                prevInserate.filter(item => item.id !== inseratId)
-            );
-            await axios.delete(`/api/inserat/${inseratId}/delete`)
-
+            
+            await axios.delete(`/api/inserat/${inseratId}/delete`);
             toast.success("Inserat erfolgreich gelöscht");
-        } catch {
+            router.refresh();
+        } catch (error) {
             toast.error("Fehler beim Löschen des Inserats");
-            setRenderedInserate(inserateArray)
         } finally {
             setIsLoading(false);
-            router.refresh();
         }
     }
 
-    const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+    const handleShowMore = () => {
+        setExpandedItems(prev => 
+            inserateArray.length > prev + 5 ? prev + 5 : inserateArray.length
+        );
+    }
+
+    const handleShowLess = () => {
+        setExpandedItems(5);
+    }
 
     return (
-        <div>
-            <div className="sm:flex items-center w-full">
-                <div className="flex items-center w-full">
-                    <Input
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="dark:border-none dark:bg-[#141414] sm:w-1/3 rounded-r-none"
-                        value={title}
-                        placeholder="Suche nach Inseraten..."
-                    />
-                    <div className="dark:bg-[#141414] p-3 rounded-r-md dark:hover:bg-[#191919] hover:cursor-pointer"
-
-                    >
-                        <SearchIcon className="w-4 h-4 " />
-                    </div>
-                </div>
-                <div className="ml-auto sm:mt-0 mt-2">
-                    <Select onValueChange={(e) => { setSelectedSort(e) }} value={selectedSort}>
-                        <SelectTrigger className="sm:w-[320px] dark:border-none dark:bg-[#141414]">
-                            <SelectValue placeholder="Sortieren nach.." />
-                        </SelectTrigger>
-                        <SelectContent className="dark:border-none dark:bg-[#141414]">
-                            <SelectGroup>
-                                <SelectLabel>Sortierfilter</SelectLabel>
-                                <SelectItem value={null}>Beliebig</SelectItem>
-                                <SelectItem value="date_desc">Erstelldatum: absteigend</SelectItem>
-                                <SelectItem value="date_asc">Erstelldatum: aufsteigend</SelectItem>
-
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
+        <div className="space-y-3">
+            <div className="flex justify-between items-center mb-4">
+                <Badge variant="outline" className="px-2 py-1 bg-gray-50 dark:bg-gray-900/30 text-xs font-normal">
+                    {inserateArray.length} {inserateArray.length === 1 ? "Inserat" : "Inserate"}
+                </Badge>
             </div>
-            <div className="sm:ml-auto w-full flex sm:justify-end justify-between  mt-2">
-                <div className="gap-x-2 flex items-center mr-4 mb-2 sm:mb-0">
-                    <div className="flex items-center">
-                        <Checkbox
-                            checked={!selectedVisibility}
-                            onCheckedChange={(e) => { setSelectedVisibility(null) }}
-                        />
-                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => { setSelectedVisibility(null) }}>
-                            Alle
-                        </Label>
-                    </div>
-                    <div className="flex items-center">
-                        <Checkbox
-                            checked={selectedVisibility === "PUBLIC"}
-                            onCheckedChange={(e) => { setSelectedVisibility("PUBLIC") }}
-                        />
-                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => { setSelectedVisibility("PUBLIC") }}>
-                            Öffentlich
-                        </Label>
-                    </div>
-                    <div className="flex items-center">
-                        <Checkbox
-                            checked={selectedVisibility === "PRIVATE"}
-                            onCheckedChange={(e) => { setSelectedVisibility("PRIVATE") }}
-                        />
-                        <Label className="text-xs ml-2 hover:cursor-pointer" onClick={() => { setSelectedVisibility("PRIVATE") }}>
-                            Privat
-                        </Label>
-                    </div>
-                </div>
-                <Label className="dark:text-gray-200/60 text-xs hover:underline hover:cursor-pointer flex items-center"
-                    onClick={() => {
-                        setTitle("");
-                        setSelectedSort(null);
-                        setSelectedVisibility(null);
-                    }}>
-                    <X className="w-4 h-4 mr-2" />  Filter löschen
-                </Label>
-            </div>
-            <div className="text-xs mt-2 dark:text-gray-200/60">
-                {renderedInserate.length} {renderedInserate.length === 1 ? "Inserat" : "Inserate"} gefunden..
-            </div>
-            <div>
-                {renderedInserate.slice(0, renderAmount).map((inserat: any) => (
-
-
-                    <InserateDashboardRender
-                        thisInserat={inserat}
-                        isLoading={isLoading}
-                        currentUser={currentUser}
-                        deleteInserat={onDelete}
-                        canPublishMore={canPublishMore()}
-                        key={inserat?.id}
-                    />
-
-
-
-
-                ))}
-                {renderedInserate.length === 0 && (
-                    <div className="mt-8 text-sm dark:text-gray-200/60 w-full flex justify-center">
-                        Keine passenden Inserate vorhanden..
+            
+            <div className="space-y-3">
+                <AnimatePresence initial={false}>
+                    {inserateArray.slice(0, expandedItems).map((inserat, index) => (
+                        <motion.div
+                            key={inserat.id}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, height: 0, marginBottom: 0, overflow: 'hidden' }}
+                            transition={{ 
+                                duration: 0.2, 
+                                delay: index * 0.03,
+                                exit: { duration: 0.15 }
+                            }}
+                        >
+                            <InserateDashboardRender
+                                thisInserat={inserat}
+                                isLoading={isLoading}
+                                currentUser={currentUser}
+                                deleteInserat={onDelete}
+                                canPublishMore={canPublishMore()}
+                            />
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+                
+                {inserateArray.length === 0 && (
+                    <div className="flex flex-col items-center justify-center py-10 text-center bg-white dark:bg-[#1a1a1a] rounded-lg border border-gray-100 dark:border-gray-800 shadow-sm">
+                        <TruckIcon className="h-12 w-12 text-gray-300 dark:text-gray-700 mb-3" />
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">
+                            Keine Inserate vorhanden
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 max-w-sm">
+                            Erstelle dein erstes Inserat und erreiche tausende potenzielle Kunden.
+                        </p>
                     </div>
                 )}
-                {(renderedInserate.length > 5 && inserateArray.length > renderAmount) && (
-                    <p className="mt-2 text-xs  underline hover:cursor-pointer" onClick={() => {
-                        const renderedAddition = Number(inserateArray.length) - renderAmount >= 5 ? 5 : inserateArray.length - renderAmount;
-                        setRenderAmount(renderAmount + renderedAddition)
-                    }}>
-                        Mehr anzeigen...
-                    </p>
-                )}
-
-                {(inserateArray.length == renderAmount) && (
-                    <p className="mt-2 text-xs  underline hover:cursor-pointer flex items-center" onClick={() => {
-                        const renderedAddition = Number(inserateArray.length) - renderAmount >= 5 ? 5 : inserateArray.length - renderAmount;
-                        setRenderAmount(5)
-                    }}>
-                        Weniger anzeigen <MdOutlineUnfoldLess className="w-4 h-4 ml-2" />
-                    </p>
+                
+                {inserateArray.length > 5 && (
+                    <div className="flex justify-center pt-3">
+                        {expandedItems < inserateArray.length ? (
+                            <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                onClick={handleShowMore}
+                                className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 px-4 flex items-center gap-1"
+                            >
+                                Mehr anzeigen <ChevronDown className="h-3 w-3 ml-1" />
+                            </Button>
+                        ) : (
+                            <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                onClick={handleShowLess}
+                                className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 px-4 flex items-center gap-1"
+                            >
+                                Weniger anzeigen <ChevronUp className="h-3 w-3 ml-1" />
+                            </Button>
+                        )}
+                    </div>
                 )}
             </div>
         </div>

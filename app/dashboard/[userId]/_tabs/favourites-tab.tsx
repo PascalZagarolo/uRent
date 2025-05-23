@@ -259,7 +259,7 @@ const FavouritesTab = ({ currentUser }: FavouritesTabProps) => {
                                 <Search className="h-12 w-12 text-gray-300 dark:text-gray-700 mb-3" />
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">Keine Ergebnisse gefunden</h3>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mb-6">
-                                    Keine Favoriten gefunden für "{searchQuery}". Versuche einen anderen Suchbegriff.
+                                    Keine Favoriten gefunden für {`"`}{searchQuery}{`"`}. Versuche einen anderen Suchbegriff.
                                 </p>
                                 <Button 
                                     variant="outline"

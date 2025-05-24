@@ -41,7 +41,7 @@ const Nachname: React.FC<UsernameProps> = ({
     return ( 
         <div>
             <div>
-                <div className="sm:w-1/2 w-full">
+                <div className="w-full">
                     <Label className="text-sm font-semibold p-2">
                         Nachname
                     </Label>

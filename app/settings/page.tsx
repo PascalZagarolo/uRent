@@ -17,15 +17,10 @@ import ChangeEmail from "./_components/change-email";
 import { redirect } from "next/navigation";
 import Footer from "../(dashboard)/_components/footer";
 
-
-
 import { getCurrentUserWithNotificationsContactProfiles } from "@/actions/getCurrentUserWithNotifications";
 import TabSwitcher from "./(tabs)/tab-switcher";
 
-
-
 const SettingsPage = async () => {
-
     const currentUser = await getCurrentUserWithNotificationsContactProfiles();
 
     if (!currentUser) {
@@ -33,27 +28,32 @@ const SettingsPage = async () => {
     }
 
     return (
-        <div className="bg-[#ECECEC] dark:bg-[#121212]">
-            <div className="relative top-0 w-full z-50">
+        <div className="bg-[#ECECEC] dark:bg-[#121212] min-h-screen">
+            <div className="relative top-0 w-full z-50 shadow-sm">
                 <HeaderLogo
                     currentUser={currentUser}
                     foundNotifications={currentUser?.notifications}
                 />
+                <div className="sm:hidden">
+                    <MobileHeader
+                        currentUser={currentUser}
+                        foundNotifications={currentUser?.notifications}
+                    />
+                </div>
             </div>
-            <div className="sm:hidden">
-                <MobileHeader
-                    currentUser={currentUser}
-                    foundNotifications={currentUser?.notifications}
-                />
+            
+            <div className="container mx-auto px-4 py-8">
+                <div className="max-w-[1044px] mx-auto">
+                    <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 hidden sm:block">
+                        Settings
+                    </h1>
+                    <TabSwitcher 
+                        currentUser={currentUser}
+                    />
+                </div>
             </div>
-            <div className="flex justify-center sm:py-8 sm:px-4">
-            <TabSwitcher 
-                currentUser={currentUser}
-                />
-            </div>
-            <div>
-                <Footer />
-            </div>
+            
+            <Footer />
         </div>
     );
 }

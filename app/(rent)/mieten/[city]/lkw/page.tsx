@@ -11,6 +11,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import PaginationComponent from "@/app/(dashboard)/_components/pagination-component";
 import { convertVowel } from "@/actions/convertVowel/convertVowel";
+import Script from "next/script";
 
 interface MietenCityLkwProps {
   params: {
@@ -68,8 +69,33 @@ const MietenCityLkwPage = ({ params }: MietenCityLkwProps) => {
 
   if (!cityObj || !categoryLabel || !categoryEnumValue || !isAllowedCategory(categoryEnumValue)) return notFound();
 
+  // Structured data for SEO (JSON-LD)
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CarRental",
+    "name": `${categoryLabel} mieten in ${convertVowel(cityObj.name)}`,
+    "description": `Jetzt ${categoryLabel.toLowerCase()} in ${convertVowel(cityObj.name)} günstig mieten. Vergleiche Angebote für ${categoryLabel.toLowerCase()} in ${convertVowel(cityObj.name)} – flexibel, schnell & sicher. Auto, Transporter, LKW, Anhänger und mehr auf uRent.`,
+    "areaServed": {
+      "@type": "City",
+      "name": convertVowel(cityObj.name),
+      "addressCountry": "DE"
+    },
+    "image": cityObj.imageUrl || undefined,
+    "url": typeof window !== 'undefined' ? window.location.href : undefined,
+    "provider": {
+      "@type": "Organization",
+      "name": "uRent"
+    },
+    "category": categoryLabel,
+    "inLanguage": "de"
+  };
+
   return (
     <div className="bg-gradient-to-b from-[#14151b] to-[#1a1c25] min-h-screen">
+      {/* Structured Data for SEO */}
+      <Script id="structured-data-lkw" type="application/ld+json" strategy="afterInteractive">
+        {JSON.stringify(structuredData)}
+      </Script>
       {/* Hero Section */}
       <div className="relative w-full flex justify-center items-center" style={{ minHeight: 220 }}>
         {cityObj.imageUrl ? (

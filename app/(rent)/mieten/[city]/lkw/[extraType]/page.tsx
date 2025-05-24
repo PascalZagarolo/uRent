@@ -12,6 +12,7 @@ import { ArrowLeft } from "lucide-react";
 import PaginationComponent from "@/app/(dashboard)/_components/pagination-component";
 import { convertVowel } from "@/actions/convertVowel/convertVowel";
 import { weightClassesLkw } from "@/data/lkw/getlkwAttributes";
+import Script from "next/script";
 
 interface MietenCityCategoryExtraTypeProps {
   params: {
@@ -87,10 +88,35 @@ const MietenCityCategoryExtraType = ({ params }: MietenCityCategoryExtraTypeProp
     extraTypeLabel = extraTypeLabel.replace(/ t$/, ' Tonner');
   }
 
+  // Structured data for SEO (JSON-LD)
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CarRental",
+    "name": `${extraTypeLabel ? extraTypeLabel + ' ' : ''}LKW mieten in ${convertVowel(cityObj?.name ?? city)}`,
+    "description": `Jetzt ${extraTypeLabel ? extraTypeLabel.toLowerCase() + ' ' : ''}LKW in ${convertVowel(cityObj?.name ?? city)} günstig mieten. Vergleiche Angebote für ${extraTypeLabel ? extraTypeLabel.toLowerCase() + ' ' : ''}LKW in ${convertVowel(cityObj?.name ?? city)} – flexibel, schnell & sicher. LKW, Transporter und mehr auf uRent.`,
+    "areaServed": {
+      "@type": "City",
+      "name": convertVowel(cityObj?.name ?? city),
+      "addressCountry": "DE"
+    },
+    "image": cityObj?.imageUrl || undefined,
+    "url": typeof window !== 'undefined' ? window.location.href : undefined,
+    "provider": {
+      "@type": "Organization",
+      "name": "uRent"
+    },
+    "category": categoryLabel,
+    "inLanguage": "de"
+  };
+
   if (!cityObj || !categoryLabel) return notFound();
 
   return (
     <div className="bg-gradient-to-b from-[#14151b] to-[#1a1c25] min-h-screen">
+      {/* Structured Data for SEO */}
+      <Script id="structured-data-lkw-extra" type="application/ld+json" strategy="afterInteractive">
+        {JSON.stringify(structuredData)}
+      </Script>
       {/* Hero Section */}
       <div className="relative w-full flex justify-center items-center" style={{ minHeight: 220 }}>
         {cityObj.imageUrl ? (

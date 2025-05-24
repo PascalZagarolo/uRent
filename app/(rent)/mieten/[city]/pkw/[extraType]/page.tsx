@@ -13,6 +13,7 @@ import PaginationComponent from "@/app/(dashboard)/_components/pagination-compon
 import { convertVowel } from "@/actions/convertVowel/convertVowel";
 import { extraTypes } from "@/data/cities/getExtraTypes";
 import { useMemo } from "react";
+import Script from "next/script";
 
 interface MietenCityPkwExtraTypeProps {
   params: {
@@ -103,11 +104,41 @@ const MietenCityPkwExtraType = ({ params }: MietenCityPkwExtraTypeProps) => {
     }
     return extraType;
   }, [category, extraType]);
+
+  // Structured data for SEO (JSON-LD)
+  const fullLabel = readableCarBrand(carBrand ?? "")
+    ? `${readableCarBrand(carBrand ?? "")} ${extraTypeLabel && String(extraTypeLabel ?? "") != "" ? extraTypeLabel.charAt(0).toUpperCase() + extraTypeLabel.slice(1).toLowerCase() : ""}`
+    : extraTypeLabel && String(extraTypeLabel ?? "") != "" ? extraTypeLabel.charAt(0).toUpperCase() + extraTypeLabel.slice(1).toLowerCase() : "";
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CarRental",
+    "name": `${fullLabel} mieten in ${convertVowel(cityObj?.name ?? city)}`,
+    "description": `Jetzt ${fullLabel.toLowerCase()} in ${convertVowel(cityObj?.name ?? city)} günstig mieten. Vergleiche Angebote für ${fullLabel.toLowerCase()} in ${convertVowel(cityObj?.name ?? city)} – flexibel, schnell & sicher. Cabrio, Sportwagen, SUV, Limousine und mehr auf uRent.`,
+    "areaServed": {
+      "@type": "City",
+      "name": convertVowel(cityObj?.name ?? city),
+      "addressCountry": "DE"
+    },
+    "image": cityObj?.imageUrl || undefined,
+    "url": typeof window !== 'undefined' ? window.location.href : undefined,
+    "provider": {
+      "@type": "Organization",
+      "name": "uRent"
+    },
+    "category": categoryLabel,
+    "inLanguage": "de"
+  };
+
   // If city is not found or category is invalid, show not found page
   if (!cityObj || !categoryLabel || !categoryEnumValue || !isAllowedCategory(categoryEnumValue)) return notFound();
 
   return (
     <div className="bg-gradient-to-b from-[#14151b] to-[#1a1c25] min-h-screen">
+      {/* Structured Data for SEO */}
+      <Script id="structured-data-pkw-extra" type="application/ld+json" strategy="afterInteractive">
+        {JSON.stringify(structuredData)}
+      </Script>
       {/* Hero Section */}
       <div className="relative w-full flex justify-center items-center" style={{ minHeight: 220 }}>
         {cityObj.imageUrl ? (

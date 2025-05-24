@@ -269,7 +269,7 @@ export default function CategoryCityPage({ params }: { params: { city: string; c
           {/* How It Works Section */}
           <div className="mb-24">
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">So funktioniert's</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">So funktioniert{`'`}s</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">In nur wenigen Schritten zu deiner ersten Vermietung in {
                 convertVowel(city)?.slice(0,1)?.toUpperCase() + convertVowel(city)?.slice(1)
                 }</p>

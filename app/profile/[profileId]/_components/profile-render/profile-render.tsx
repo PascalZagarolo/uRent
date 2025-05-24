@@ -32,9 +32,11 @@ const ProfileRender = ({ thisUser, ownProfile, currentUser } : ProfileRenderProp
                         ownProfile={ownProfile}
                     />
                 </div>
-                <div className="md:w-1/2 w-full mr-8 px-4 md:px-0">
-                <RegisterBusiness />
-                </div>
+                {ownProfile && (
+                    <div className="md:w-1/2 w-full mr-8 px-4 md:px-0">
+                    <RegisterBusiness />
+                    </div>
+                )}
             </div>
             <div>
                <ProfileDescription 

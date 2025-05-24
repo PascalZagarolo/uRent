@@ -33,13 +33,20 @@ const Footer = () => {
           <a className="hover:underline" href="/faqs">FAQs & Hilfe</a>
           <a className="hover:underline" href="/blog">Blogs & News</a>
         </div>
-        {/* Right: Jetzt mieten Button */}
-        <div className="w-full md:w-auto flex justify-center md:justify-end">
+        {/* Right: Jetzt mieten & Jetzt vermieten Buttons */}
+        <div className="w-full md:w-auto flex justify-center md:justify-end gap-3">
           <Button
             asChild
             className="bg-indigo-600 text-white px-6 py-2 text-sm font-medium rounded-full shadow hover:bg-indigo-700 transition"
           >
             <a href="/mieten">Jetzt mieten</a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="border-2 border-indigo-400 text-indigo-400 bg-transparent px-6 py-2 text-sm font-medium rounded-full shadow-none hover:bg-indigo-50/10 hover:text-indigo-500 hover:border-indigo-500 transition"
+          >
+            <a href="/vermieten">Jetzt vermieten</a>
           </Button>
         </div>
       </div>

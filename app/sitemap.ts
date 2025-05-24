@@ -111,6 +111,15 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         }
     }
 
+    const vermietenCityCategoryRoutes = [];
+    for (const city of cities) {
+        for (const category of categorySlugs) {
+            vermietenCityCategoryRoutes.push({
+                url: `${process.env.NEXT_PUBLIC_BASE_URL}/vermieten/${slugifyCity(city.name)}/${category}`
+            });
+        }
+    }
+
     return [
         {
             url : `${process.env.NEXT_PUBLIC_BASE_URL}`,
@@ -152,6 +161,7 @@ export default async function sitemap() : Promise<MetadataRoute.Sitemap> {
         ...mietenCityPkwBrandRoutes,
         ...mietenCityPkwBrandExtraTypeRoutes,
         ...mietenCityPkwExtraTypeRoutes,
+        ...vermietenCityCategoryRoutes,
         ...inseratSites,
         ...blogSites,
         ...profileSites
